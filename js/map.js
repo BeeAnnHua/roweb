@@ -569,7 +569,7 @@ function updateMapUI() {
       renderedGroup = group;
       const groupTitle = document.createElement("div");
       groupTitle.className = "map-warp-group-title " + (dest.favorite ? "is-favorite-group" : "is-normal-group");
-      groupTitle.textContent = dest.favorite ? "★ 我的最愛" : "全部地圖";
+      groupTitle.textContent = dest.favorite ? "🌟 我的最愛" : "全部地圖";
       warpPanel.appendChild(groupTitle);
     }
 
@@ -608,7 +608,7 @@ function updateMapUI() {
     const favoriteButton = document.createElement("button");
     favoriteButton.type = "button";
     favoriteButton.className = "map-favorite-toggle" + (dest.favorite ? " is-active" : "");
-    favoriteButton.textContent = dest.favorite ? "★" : "☆";
+    favoriteButton.textContent = dest.favorite ? "🌟" : "⭐";
     favoriteButton.title = dest.favorite ? `從我的最愛移除 ${dest.name}` : `將 ${dest.name} 加入我的最愛`;
     favoriteButton.setAttribute("aria-label", favoriteButton.title);
     favoriteButton.setAttribute("aria-pressed", dest.favorite ? "true" : "false");

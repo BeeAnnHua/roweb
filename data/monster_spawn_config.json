@@ -1,6 +1,6 @@
 {
   "schema": "ro_web_region_monster_streaming_v1",
-  "version": "0.9.82FQ",
+  "version": "0.9.82FS",
   "source": {
     "mobDb": "rAthena Renewal db/re/mob_db.yml",
     "spawnScripts": "rAthena Renewal npc/re/mobs/fields/*.txt",
@@ -3228,6 +3228,328 @@
       "recommendedLevelMin": 70,
       "recommendedLevelMax": 130,
       "selectionRule": "rAthena Renewal Thanatos Tower tha_t01～tha_t12 classic spawn aggregation; four Thanatos emotions are unique rare species and Thanatos Phantom is a unique MVP timer."
+    },
+    "ant_cave_normal_3x3_region_camera": {
+      "name": "螞蟻洞窟",
+      "sourceSpawnFiles": [
+        "npc/re/mobs/dungeons/anthell.txt"
+      ],
+      "sourceReference": [
+        "anthell01",
+        "anthell02",
+        "使用者提供台服怪物分布截圖"
+      ],
+      "targetNormalCountAt100": 60,
+      "pool": [
+        {
+          "monsterId": 1160,
+          "weight": 65,
+          "category": "normal",
+          "raSpawnCount": 65,
+          "sourceMaps": [
+            "anthell01",
+            "anthell02"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1105,
+          "weight": 55,
+          "category": "normal",
+          "raSpawnCount": 55,
+          "sourceMaps": [
+            "anthell01",
+            "anthell02"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1005,
+          "weight": 40,
+          "category": "normal",
+          "raSpawnCount": 40,
+          "sourceMaps": [
+            "anthell01",
+            "anthell02"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1095,
+          "weight": 65,
+          "category": "normal",
+          "raSpawnCount": 65,
+          "sourceMaps": [
+            "anthell01",
+            "anthell02"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1176,
+          "weight": 40,
+          "category": "normal",
+          "raSpawnCount": 40,
+          "sourceMaps": [
+            "anthell01",
+            "anthell02"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1121,
+          "weight": 4,
+          "category": "normal",
+          "raSpawnCount": 4,
+          "sourceMaps": [
+            "anthell01",
+            "anthell02"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1097,
+          "weight": 16,
+          "category": "normal",
+          "raSpawnCount": 16,
+          "sourceMaps": [
+            "anthell01",
+            "anthell02"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 2857,
+          "weight": 3,
+          "category": "normal",
+          "raSpawnCount": 3,
+          "sourceMaps": [
+            "anthell01"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 2902,
+          "weight": 2,
+          "category": "normal",
+          "raSpawnCount": 2,
+          "sourceMaps": [
+            "anthell02"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1147,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "anthell02"
+          ],
+          "baseRespawnMs": 7200000,
+          "respawnVarianceMs": 600000,
+          "countRateEligible": false,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "maxAlive": 1
+        }
+      ],
+      "recommendedLevelMin": 24,
+      "recommendedLevelMax": 55,
+      "selectionRule": "一般一、二樓怪物合併成單一 RO_WEB 地區；數量比例依使用者截圖，能力/AI/掉落依 rAthena Renewal。"
+    },
+    "ant_cave_illusion_3x3_region_camera": {
+      "name": "幻影螞蟻洞窟",
+      "sourceSpawnFiles": [
+        "npc/re/mobs/dungeons/anthell.txt"
+      ],
+      "sourceReference": [
+        "ant_d02_i",
+        "使用者提供台服怪物分布截圖"
+      ],
+      "targetNormalCountAt100": 60,
+      "pool": [
+        {
+          "monsterId": 21386,
+          "weight": 30,
+          "category": "normal",
+          "raSpawnCount": 30,
+          "sourceMaps": [
+            "ant_d02_i"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 21389,
+          "weight": 30,
+          "category": "normal",
+          "raSpawnCount": 30,
+          "sourceMaps": [
+            "ant_d02_i"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 21390,
+          "weight": 30,
+          "category": "normal",
+          "raSpawnCount": 30,
+          "sourceMaps": [
+            "ant_d02_i"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 21393,
+          "weight": 25,
+          "category": "normal",
+          "raSpawnCount": 25,
+          "sourceMaps": [
+            "ant_d02_i"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 21388,
+          "weight": 20,
+          "category": "normal",
+          "raSpawnCount": 20,
+          "sourceMaps": [
+            "ant_d02_i"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 21391,
+          "weight": 20,
+          "category": "normal",
+          "raSpawnCount": 20,
+          "sourceMaps": [
+            "ant_d02_i"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 21392,
+          "weight": 15,
+          "category": "normal",
+          "raSpawnCount": 15,
+          "sourceMaps": [
+            "ant_d02_i"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 21387,
+          "weight": 15,
+          "category": "normal",
+          "raSpawnCount": 15,
+          "sourceMaps": [
+            "ant_d02_i"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 21394,
+          "weight": 15,
+          "category": "normal",
+          "raSpawnCount": 15,
+          "sourceMaps": [
+            "ant_d02_i"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 21395,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "ant_d02_i"
+          ],
+          "baseRespawnMs": 7200000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": false,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "maxAlive": 1
+        }
+      ],
+      "recommendedLevelMin": 164,
+      "recommendedLevelMax": 175,
+      "selectionRule": "幻影螞蟻地獄 ant_d02_i；一般怪按官方數量比例，寂靜的蟻后為獨立單隻 MVP。"
     }
   }
 }

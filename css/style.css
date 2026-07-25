@@ -19687,3 +19687,142 @@ h2 { font-size:20px; margin:0 0 8px; text-align:center; letter-spacing:2px; colo
   }
   #auto-combat-panel .auto-monster-filter-summary { max-width: 132px !important; }
 }
+
+
+/* ============================================================
+   RO_WEB 0.9.82FS — cute emoji map favorites
+   ============================================================ */
+#map-window .map-favorite-toggle {
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif !important;
+  font-size: 19px !important;
+  line-height: 1 !important;
+  filter: grayscale(.88) saturate(.55) brightness(.84) !important;
+  opacity: .78 !important;
+  transform: translateZ(0) !important;
+  transition: filter .16s ease, opacity .16s ease, transform .16s ease, box-shadow .16s ease !important;
+}
+#map-window .map-favorite-toggle:hover,
+#map-window .map-favorite-toggle:focus-visible {
+  filter: grayscale(.25) saturate(1.15) brightness(1.12) !important;
+  opacity: 1 !important;
+  transform: scale(1.08) !important;
+}
+#map-window .map-favorite-toggle.is-active {
+  filter: none !important;
+  opacity: 1 !important;
+  transform: scale(1.06) !important;
+  animation: roFavoriteStarPulse 1.8s ease-in-out infinite !important;
+}
+@keyframes roFavoriteStarPulse {
+  0%,100% { text-shadow: 0 0 4px rgba(255,205,60,.55); }
+  50% { text-shadow: 0 0 10px rgba(255,224,95,.95), 0 0 16px rgba(255,160,35,.38); }
+}
+@media (prefers-reduced-motion: reduce) {
+  #map-window .map-favorite-toggle.is-active { animation: none !important; }
+}
+
+
+/* ============================================================
+   RO_WEB 0.9.82FS — compact arcane-energy quick挂机 button
+   Fixed 34px layout: rotating edge energy + inner sweep + rune spark.
+   ============================================================ */
+#quick-buttons .auto-battle-quick-toggle {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 2px !important;
+  padding: 3px 2px !important;
+  isolation: isolate !important;
+  transform: translateZ(0) !important;
+}
+#quick-buttons .auto-battle-quick-toggle .auto-battle-energy-icon,
+#quick-buttons .auto-battle-quick-toggle .auto-battle-label {
+  position: relative !important;
+  z-index: 6 !important;
+  pointer-events: none !important;
+}
+#quick-buttons .auto-battle-quick-toggle .auto-battle-energy-icon {
+  flex: 0 0 auto !important;
+  width: 9px !important;
+  font-size: 9px !important;
+  line-height: 1 !important;
+  color: #b79357 !important;
+  opacity: .62 !important;
+  text-shadow: 0 0 2px rgba(255,214,111,.25) !important;
+  transition: color .18s ease, opacity .18s ease, text-shadow .18s ease !important;
+}
+#quick-buttons .auto-battle-quick-toggle .auto-battle-label {
+  min-width: 0 !important;
+  font-size: 11px !important;
+  letter-spacing: -.25px !important;
+  white-space: nowrap !important;
+}
+#quick-buttons .auto-battle-quick-toggle::after {
+  content: "" !important;
+  display: block !important;
+  position: absolute !important;
+  inset: 3px !important;
+  z-index: 1 !important;
+  border-radius: inherit !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  overflow: hidden !important;
+  background:
+    linear-gradient(104deg,
+      transparent 0% 34%,
+      rgba(255,247,191,0) 40%,
+      rgba(255,244,174,.86) 49%,
+      rgba(255,172,37,.42) 55%,
+      transparent 64% 100%) !important;
+  background-size: 230% 100% !important;
+  background-position: 130% 0 !important;
+  mix-blend-mode: screen !important;
+}
+#quick-buttons .auto-battle-quick-toggle.is-active {
+  background:
+    radial-gradient(circle at 50% 12%, rgba(255,232,132,.35), transparent 45%),
+    radial-gradient(circle at 50% 100%, rgba(184,74,4,.24), transparent 58%),
+    linear-gradient(180deg,#70501e 0%,#382008 55%,#160c05 100%) !important;
+  animation: ro-web-auto-battle-fs-core 1.55s ease-in-out infinite !important;
+}
+#quick-buttons .auto-battle-quick-toggle.is-active::before {
+  opacity: 1 !important;
+  animation: ro-web-auto-battle-fs-ring 1.05s linear infinite !important;
+}
+#quick-buttons .auto-battle-quick-toggle.is-active::after {
+  opacity: .84 !important;
+  animation: ro-web-auto-battle-fs-sweep 1.75s cubic-bezier(.45,0,.25,1) infinite !important;
+}
+#quick-buttons .auto-battle-quick-toggle.is-active .auto-battle-energy-icon {
+  color: #fff0a1 !important;
+  opacity: 1 !important;
+  text-shadow: 0 0 3px #fff7ca, 0 0 7px #ffba2d, 0 0 10px rgba(255,116,16,.72) !important;
+  animation: ro-web-auto-battle-fs-rune 1.2s ease-in-out infinite !important;
+}
+#quick-buttons .auto-battle-quick-toggle.is-active .auto-battle-label {
+  color: #fff8ce !important;
+  text-shadow: 0 0 3px #fff4b0, 0 0 7px rgba(255,174,35,.92) !important;
+}
+@keyframes ro-web-auto-battle-fs-ring { to { transform: rotate(360deg); } }
+@keyframes ro-web-auto-battle-fs-sweep {
+  0%,18% { background-position: 145% 0; opacity: 0; }
+  34% { opacity: .92; }
+  68% { background-position: -125% 0; opacity: .72; }
+  100% { background-position: -125% 0; opacity: 0; }
+}
+@keyframes ro-web-auto-battle-fs-core {
+  0%,100% { box-shadow: 0 0 3px rgba(255,174,31,.38), inset 0 0 4px rgba(255,221,118,.18); }
+  50% { box-shadow: 0 0 7px rgba(255,193,46,.72), inset 0 0 9px rgba(255,226,123,.34); }
+}
+@keyframes ro-web-auto-battle-fs-rune {
+  0%,100% { transform: rotate(0deg) scale(.92); }
+  50% { transform: rotate(180deg) scale(1.12); }
+}
+@media (prefers-reduced-motion: reduce) {
+  #quick-buttons .auto-battle-quick-toggle.is-active,
+  #quick-buttons .auto-battle-quick-toggle.is-active::before,
+  #quick-buttons .auto-battle-quick-toggle.is-active::after,
+  #quick-buttons .auto-battle-quick-toggle.is-active .auto-battle-energy-icon {
+    animation: none !important;
+  }
+}

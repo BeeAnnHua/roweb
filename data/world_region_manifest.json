@@ -1,14 +1,14 @@
 {
   "schema": "ro_web_world_region_manifest_v1",
-  "version": "0.9.82FQ",
-  "source": "使用者提供世界地圖素材、達納托斯塔_091-099.zip、初學者修練場.zip（100-108）",
-  "rule": "十二個地區各自使用 9 張 512×512 圖片組成獨立 3×3 World Camera 地圖；地區之間不做邊界拼接，只能透過地圖 UI 切換。城鎮只由獨立城鎮按鈕進入。",
+  "version": "0.9.82FS",
+  "source": "使用者提供世界地圖素材、達納托斯塔、初學者修練場、螞蟻洞窟 109-117",
+  "rule": "十四個邏輯地圖使用十三套實體 3×3 圖塊；一般與幻影螞蟻洞窟共用同一 tileSetId，怪物 Runtime/收藏/篩選/存檔各自獨立。",
   "deploymentExcludes": [
     "RO_世界地圖.png",
     "RO世界地圖切割前原圖.zip",
     "所有切割前地區原圖"
   ],
-  "regionCount": 12,
+  "regionCount": 14,
   "regions": [
     {
       "order": 1,
@@ -369,13 +369,77 @@
       "worldScale": 3,
       "monstersDeferred": false,
       "monsterSpecies": 21
+    },
+    {
+      "order": 13,
+      "id": "ant_cave_normal_3x3_region_camera",
+      "name": "螞蟻洞窟",
+      "sourceChunkRange": "109-117 (shared)",
+      "tileSetId": "ant_cave_109_117_shared",
+      "mapVariant": "normal",
+      "runtimeTileNames": [
+        "001.webp",
+        "002.webp",
+        "003.webp",
+        "004.webp",
+        "005.webp",
+        "006.webp",
+        "007.webp",
+        "008.webp",
+        "009.webp"
+      ],
+      "background": "images/maps/world/ant_cave_shared_3x3/ant_cave_shared_3x3_region_bg_0_9_82FS.webp",
+      "thumb": "images/maps/world/ant_cave_shared_3x3/ant_cave_shared_3x3_region_small_0_9_82FS.webp",
+      "worldSize": [
+        4608,
+        4608
+      ],
+      "cameraSize": [
+        1280,
+        720
+      ],
+      "worldScale": 3,
+      "monstersDeferred": false,
+      "monsterSpecies": 10
+    },
+    {
+      "order": 14,
+      "id": "ant_cave_illusion_3x3_region_camera",
+      "name": "幻影螞蟻洞窟",
+      "sourceChunkRange": "109-117 (shared)",
+      "tileSetId": "ant_cave_109_117_shared",
+      "mapVariant": "illusion",
+      "runtimeTileNames": [
+        "001.webp",
+        "002.webp",
+        "003.webp",
+        "004.webp",
+        "005.webp",
+        "006.webp",
+        "007.webp",
+        "008.webp",
+        "009.webp"
+      ],
+      "background": "images/maps/world/ant_cave_shared_3x3/ant_cave_shared_3x3_region_bg_0_9_82FS.webp",
+      "thumb": "images/maps/world/ant_cave_shared_3x3/ant_cave_shared_3x3_region_small_0_9_82FS.webp",
+      "worldSize": [
+        4608,
+        4608
+      ],
+      "cameraSize": [
+        1280,
+        720
+      ],
+      "worldScale": 3,
+      "monstersDeferred": false,
+      "monsterSpecies": 10
     }
   ],
   "namingDecision": {
     "source": "斐揚+艾爾貝塔地區",
     "runtime": "斐揚地區"
   },
-  "monsterPolicy": "RA Renewal 地區怪物池已啟用；初學者修練場採波利、土波利、瘋兔、綠棉蟲、禿鷹、蒼蠅、樹精、蜂兵等傳統基礎怪物；達納托斯塔稀有與 MVP 保持單隻上限。",
+  "monsterPolicy": "怪物能力/AI/屬性/掉落取 rAthena Renewal；螞蟻洞窟樓層數量比例參考使用者提供台服分布，普通與幻影使用獨立邏輯地圖。",
   "displayParity": {
     "reference": "原妙勒尼 World Camera",
     "pcMobileSameWorldScale": true,
@@ -388,5 +452,32 @@
       "width": 240,
       "height": 320
     }
-  }
+  },
+  "tileSets": {
+    "ant_cave_109_117_shared": {
+      "sourceChunkRange": "109-117",
+      "runtimeTileNames": [
+        "001.webp",
+        "002.webp",
+        "003.webp",
+        "004.webp",
+        "005.webp",
+        "006.webp",
+        "007.webp",
+        "008.webp",
+        "009.webp"
+      ],
+      "background": "images/maps/world/ant_cave_shared_3x3/ant_cave_shared_3x3_region_bg_0_9_82FS.webp",
+      "thumb": "images/maps/world/ant_cave_shared_3x3/ant_cave_shared_3x3_region_small_0_9_82FS.webp",
+      "worldSize": [
+        4608,
+        4608
+      ],
+      "logicalMapIds": [
+        "ant_cave_normal_3x3_region_camera",
+        "ant_cave_illusion_3x3_region_camera"
+      ]
+    }
+  },
+  "physicalTileSetCount": 13
 }

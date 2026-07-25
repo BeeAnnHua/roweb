@@ -219,7 +219,9 @@ function updateAutoBattleQuickToggleState() {
   button.classList.toggle("is-active", active);
   button.setAttribute("aria-pressed", active ? "true" : "false");
   button.title = active ? "停止自動掛機" : "開始自動掛機";
-  button.textContent = active ? "掛機中" : "掛機";
+  const label = button.querySelector(".auto-battle-label");
+  if (label) label.textContent = active ? "掛機中" : "掛機";
+  else button.textContent = active ? "掛機中" : "掛機";
   return active;
 }
 

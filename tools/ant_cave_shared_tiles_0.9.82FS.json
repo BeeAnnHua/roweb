@@ -1,0 +1,68 @@
+{
+  "version": "0.9.82FS",
+  "status": "PASS",
+  "logicalMaps": [
+    "ant_cave_normal_3x3_region_camera",
+    "ant_cave_illusion_3x3_region_camera"
+  ],
+  "logicalMapNames": [
+    "螞蟻洞窟",
+    "幻影螞蟻洞窟"
+  ],
+  "tileSetId": "ant_cave_109_117_shared",
+  "physicalTileCount": 9,
+  "sharedBackground": "images/maps/world/ant_cave_shared_3x3/ant_cave_shared_3x3_region_bg_0_9_82FS.webp",
+  "sharedThumbnail": "images/maps/world/ant_cave_shared_3x3/ant_cave_shared_3x3_region_small_0_9_82FS.webp",
+  "tileSha256": {
+    "images/maps/world/ant_cave_shared_3x3/tiles/001.webp": "2888286d238a62d918d7051615dc2d0ae2fc8f1b44d23fc0f6a67c278e7aac99",
+    "images/maps/world/ant_cave_shared_3x3/tiles/002.webp": "cb8ca5e5bd7c0c4557a94ad06eea97151e225e0d8e00ac287955e0adf1d254f5",
+    "images/maps/world/ant_cave_shared_3x3/tiles/003.webp": "4fd5e75253dfd8078252ff1d465e87edd57cacb82540584df6c5a17a93989bda",
+    "images/maps/world/ant_cave_shared_3x3/tiles/004.webp": "b379bb6b4cb824fb13a35a7f6c3f63b7232df053a55b9a265748d672b0d7b0a5",
+    "images/maps/world/ant_cave_shared_3x3/tiles/005.webp": "d4c8476b6f59e66b63e127239a2f6f3a26764124d8db374f021b5d9898d6dfdf",
+    "images/maps/world/ant_cave_shared_3x3/tiles/006.webp": "76bebfd9aecb7ca192824ee6e1bf107cf2c2f2b5b7624436b5e314427392c25a",
+    "images/maps/world/ant_cave_shared_3x3/tiles/007.webp": "1f242d4f2ac330d46eaea69ce171ad1c7fac653774df3509349d9d81881c162e",
+    "images/maps/world/ant_cave_shared_3x3/tiles/008.webp": "63210ad6db5f1f6012381f58605bfb86f7f8311241831b6d9e5abba9f29b2ed2",
+    "images/maps/world/ant_cave_shared_3x3/tiles/009.webp": "27e6de457a2b0aca1fba9de814132fa2c14051da8d2d1b557e55f57a81eab68c"
+  },
+  "normalMonsterIds": [
+    1160,
+    1105,
+    1005,
+    1095,
+    1176,
+    1121,
+    1097,
+    2857,
+    2902,
+    1147
+  ],
+  "illusionMonsterIds": [
+    21386,
+    21389,
+    21390,
+    21393,
+    21388,
+    21391,
+    21392,
+    21387,
+    21394,
+    21395
+  ],
+  "favoriteSymbols": {
+    "inactive": "⭐ (grayscale)",
+    "active": "🌟"
+  },
+  "quickAutoBattleEffect": [
+    "fixed 34px size",
+    "rotating gold edge",
+    "inner energy sweep",
+    "rune sparkle",
+    "reduced-motion fallback"
+  ],
+  "validation": {
+    "jsFiles": 698,
+    "jsonFiles": 1793,
+    "deepHealthErrors": 0,
+    "deepHealthWarnings": 0
+  }
+}
