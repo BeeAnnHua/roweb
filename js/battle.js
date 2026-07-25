@@ -343,6 +343,9 @@ function startAutoBattle() {
   if (typeof resetAutoBattleController === "function") resetAutoBattleController({ running: true, keepTarget: true, reason: "start" });
   player.state = "Searching";
   addBattleLog("開始自動戰鬥。");
+  if (typeof canAutoBattleSearchForConfiguredTargets === "function" && !canAutoBattleSearchForConfiguredTargets()) {
+    addBattleLog("目前設定為只攻擊勾選怪物，但尚未勾選任何目標；角色會原地等待。");
+  }
 
   spawnMonsterFromCurrentMap();
   if (typeof acquireAutoBattleTarget === "function") acquireAutoBattleTarget({ reason: "start", announce: false });
@@ -405,13 +408,25 @@ function spawnMonsterFromCurrentMap() {
     return;
   }
 
+  const eligibleMonsterIds = currentMap.monsters.filter(id => {
+    if (typeof isAutoBattleMonsterAllowed !== "function") return true;
+    const source = monsters.find(monster => Number(monster.id) === Number(id)) || { id };
+    return isAutoBattleMonsterAllowed(source);
+  });
+  if (!eligibleMonsterIds.length) {
+    if (player) player.state = "Searching";
+    return;
+  }
+
   let monsterId;
   if (Array.isArray(currentMap.monsterTestSequence) && currentMap.monsterTestSequence.length) {
+    const sequence = currentMap.monsterTestSequence.filter(id => eligibleMonsterIds.some(value => Number(value) === Number(id)));
+    if (!sequence.length) return;
     currentMap._monsterTestCursor = Number(currentMap._monsterTestCursor || 0);
-    monsterId = currentMap.monsterTestSequence[currentMap._monsterTestCursor % currentMap.monsterTestSequence.length];
+    monsterId = sequence[currentMap._monsterTestCursor % sequence.length];
     currentMap._monsterTestCursor += 1;
   } else {
-    monsterId = getRandomFromArray(currentMap.monsters);
+    monsterId = getRandomFromArray(eligibleMonsterIds);
   }
   const monsterData = monsters.find(monster => monster.id === monsterId);
 
@@ -475,10 +490,15 @@ function autoAttackMonster(options = {}) {
   const intendedRange = autoAction && autoAction.action === "attackSkill"
     ? (typeof getSkillRangePx === "function" ? getSkillRangePx(autoAction.skill, autoAction.level) : null)
     : (typeof getPlayerNormalAttackRange === "function" ? getPlayerNormalAttackRange() : null);
+  // 0.9.82FM：自動近戰追逐移動怪物時給予一小段命中容差，避免雙方每幀同向移動而永遠差一點打不到。
+  // 手動點擊與遠距離技能仍嚴格使用原始 RA 射程。
+  const effectiveRange = !options.manual && typeof getAutoBattleEffectiveAttackRange === "function"
+    ? getAutoBattleEffectiveAttackRange(currentMonster, intendedRange)
+    : intendedRange;
 
-  if (typeof canAttackMonsterByRange === "function" && !canAttackMonsterByRange(currentMonster, intendedRange)) {
+  if (typeof canAttackMonsterByRange === "function" && !canAttackMonsterByRange(currentMonster, effectiveRange)) {
     if (!options.manual && typeof setAutoBattleControllerState === "function") setAutoBattleControllerState(AUTO_BATTLE_STATES.APPROACHING, { action: autoAction?.action || "normal", reason: "out_of_range" });
-    if (typeof movePlayerTowardMonster === "function") movePlayerTowardMonster(currentMonster, intendedRange);
+    if (typeof movePlayerTowardMonster === "function") movePlayerTowardMonster(currentMonster, effectiveRange);
     updateMonsterUI();
     return;
   }
@@ -514,8 +534,8 @@ function autoAttackMonster(options = {}) {
 
   if (!canPlayerAttackNow()) return;
 
-  if (typeof canAttackMonsterByRange === "function" && !canAttackMonsterByRange(currentMonster, intendedRange)) {
-    if (typeof movePlayerTowardMonster === "function") movePlayerTowardMonster(currentMonster, intendedRange);
+  if (typeof canAttackMonsterByRange === "function" && !canAttackMonsterByRange(currentMonster, effectiveRange)) {
+    if (typeof movePlayerTowardMonster === "function") movePlayerTowardMonster(currentMonster, effectiveRange);
     return;
   }
 
@@ -566,19 +586,13 @@ function autoAttackMonster(options = {}) {
   playPlayerAttackAnimation();
   updateMonsterUI();
   playMonsterHitAnimation(currentMonster);
-  showDamageNumber(primaryDamage, {
+  // 0.9.82FM：六合拳／二刀連擊等普通攻擊多段傷害以同一個總傷害逐段累加顯示。
+  showDamageNumber(playerDamage, {
     target: currentMonster,
     critical: normalAttackResult?.critical === true || normalAttackResult?.critical?.critical === true,
-    hitCount: 1,
-    combo: false,
-    offsetX: additionalDamage > 0 ? -18 : 0
+    hitCount: Math.max(1, Number(normalAttackResult?.visualHits || 1)),
+    combo: Number(normalAttackResult?.visualHits || 1) > 1
   });
-  if (additionalDamage > 0 && typeof showAdditionalDamageNumber === "function") {
-    showAdditionalDamageNumber(additionalDamage, currentMonster, {
-      hitCount: Math.max(1, Number(normalAttackResult?.additionalHitCount || 1)),
-      offsetX: 10
-    });
-  }
   showSlashEffect();
 
   if (currentMonster.currentHp <= 0) {
@@ -1241,7 +1255,7 @@ function playMonsterDeathAnimation(monsterSnapshot = currentMonster) {
 }
 
 // 傷害數字浮起
-const RO_WEB_DAMAGE_NUMBER_BATCH = { queue: [], scheduled: false, maxPerFrame: 18 };
+const RO_WEB_DAMAGE_NUMBER_BATCH = { queue: [], scheduled: false, maxPerFrame: 24, sequence: 0 };
 
 function captureDamageNumberAnchor(target) {
   if (!target) return null;
@@ -1267,21 +1281,26 @@ function createDamageNumberElement(entry) {
   const source = String(options.source || "player");
   const critical = options.critical === true || options.isCritical === true || options.criticalResult?.critical === true;
   const hitCount = Math.max(1, Number(options.hitCount || options.visualHits || options.damageHitCount || 1));
-  const combo = options.combo === true || options.isCombo === true || options.multiHit === true || hitCount > 1;
+  const combo = options.combo === true || options.isCombo === true || options.multiHit === true || hitCount > 1 || options.cumulative === true;
   const classes = ["damage-number"];
   if (source === "summon") classes.push("summon-damage-number");
   if (source === "additional") classes.push("additional-damage-number", "combo-damage-number");
   if (combo && source !== "summon" && source !== "additional") classes.push("combo-damage-number");
   if (critical && source !== "additional") classes.push("critical-damage-number");
+  if (options.cumulative === true) classes.push("cumulative-damage-number");
+  if (options.cumulativeFinal === true) classes.push("cumulative-damage-final");
   number.className = classes.join(" ");
   const numericDamage = Math.max(0, Math.floor(Number(entry.damage || 0)));
-  // Avoid locale formatter construction in the render frame for every hit.
   number.textContent = String(numericDamage).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  const randomX = randomInt(-12, 18), randomY = randomInt(-8, 8);
+  const isCumulative = options.cumulative === true;
+  const randomX = isCumulative ? 0 : randomInt(-12, 18);
+  const randomY = isCumulative ? 0 : randomInt(-8, 8);
   const laneOffsetX = source === "summon" ? -46 : (source === "additional" ? 46 : 0);
   const laneOffsetY = source === "summon" ? 18 : (source === "additional" ? 2 : 0);
   const explicitOffsetX = Number(options.offsetX || 0);
-  const explicitOffsetY = Number(options.offsetY || 0);
+  const cumulativeStep = Math.max(0, Number(options.cumulativeStep || 0));
+  const cumulativeLift = isCumulative ? Math.min(44, cumulativeStep * 4) : 0;
+  const explicitOffsetY = Number(options.offsetY || 0) - cumulativeLift;
   const anchor = options._anchorSnapshot || captureDamageNumberAnchor(options.target);
   if (anchor) {
     number.style.left = `${Math.round(Number(anchor.x || 0) + laneOffsetX + explicitOffsetX + randomX)}px`;
@@ -1290,6 +1309,7 @@ function createDamageNumberElement(entry) {
     number.style.left = `${760 + laneOffsetX + explicitOffsetX + randomX}px`;
     number.style.top = `${300 + laneOffsetY + explicitOffsetY + randomY}px`;
   }
+  if (options.sequenceId) number.dataset.damageSequenceId = String(options.sequenceId);
   return number;
 }
 function flushDamageNumberBatch() {
@@ -1303,7 +1323,8 @@ function flushDamageNumberBatch() {
   for (const entry of batch) {
     const number = createDamageNumberElement(entry);
     if (fragment) fragment.appendChild(number); else battleField.appendChild(number);
-    setTimeout(() => number.remove(), 850);
+    const life = entry.options?.cumulativeFinal === true ? 900 : (entry.options?.cumulative === true ? 620 : 850);
+    setTimeout(() => number.remove(), life);
   }
   if (fragment) battleField.appendChild(fragment);
   if (RO_WEB_DAMAGE_NUMBER_BATCH.queue.length) scheduleDamageNumberBatch();
@@ -1314,13 +1335,52 @@ function scheduleDamageNumberBatch() {
   const schedule = typeof requestAnimationFrame === "function" ? requestAnimationFrame : callback => setTimeout(callback, 0);
   schedule(flushDamageNumberBatch);
 }
-// Capture target and screen position at enqueue time. The target can die and be
-// removed before the next animation frame; the number must still rise above it.
+function enqueueDamageNumber(damage, options = {}) {
+  RO_WEB_DAMAGE_NUMBER_BATCH.queue.push({ damage:Number(damage || 0), options });
+  scheduleDamageNumberBatch();
+}
+
+// 0.9.82FM：多段傷害不再只顯示一次總傷害；依命中段數快速顯示累積值，最後一跳精確等於實際總傷。
+// 為避免高段數技能建立過多 DOM，視覺節點最多 30 個，但計算總傷與最後結果完全不變。
+function buildCumulativeDamageSteps(totalDamage, hitCount, maxVisualSteps = 30) {
+  const total = Math.max(0, Math.floor(Number(totalDamage || 0)));
+  const hits = Math.max(1, Math.floor(Number(hitCount || 1)));
+  const visualSteps = Math.max(1, Math.min(hits, Math.max(1, Number(maxVisualSteps || 30))));
+  const values = [];
+  for (let step = 1; step <= visualSteps; step += 1) {
+    const representedHit = Math.max(1, Math.ceil(step * hits / visualSteps));
+    const value = step === visualSteps ? total : Math.max(1, Math.floor(total * representedHit / hits));
+    if (!values.length || value > values[values.length - 1]) values.push(value);
+  }
+  if (!values.length || values[values.length - 1] !== total) values.push(total);
+  return values;
+}
 function showDamageNumber(damage, options = {}) {
   const target = options.target || currentMonster || null;
-  const queuedOptions = { ...options, target, _anchorSnapshot:captureDamageNumberAnchor(target) };
-  RO_WEB_DAMAGE_NUMBER_BATCH.queue.push({ damage:Number(damage || 0), options:queuedOptions });
-  scheduleDamageNumberBatch();
+  const total = Math.max(0, Math.floor(Number(damage || 0)));
+  const hitCount = Math.max(1, Math.floor(Number(options.hitCount || options.visualHits || options.damageHitCount || 1)));
+  const anchor = captureDamageNumberAnchor(target);
+  if (hitCount <= 1 || options.cumulative === false || total <= 0) {
+    enqueueDamageNumber(total, { ...options, target, _anchorSnapshot:anchor });
+    return;
+  }
+  const sequenceId = `damage_${Date.now()}_${++RO_WEB_DAMAGE_NUMBER_BATCH.sequence}`;
+  const values = buildCumulativeDamageSteps(total, hitCount, options.maxVisualSteps || 30);
+  const intervalMs = Math.max(34, Math.min(72, Number(options.hitIntervalMs || (values.length >= 12 ? 38 : 52))));
+  values.forEach((value, index) => {
+    const emit = () => enqueueDamageNumber(value, {
+      ...options,
+      target,
+      _anchorSnapshot:anchor,
+      hitCount:1,
+      combo:true,
+      cumulative:true,
+      cumulativeStep:index,
+      cumulativeFinal:index === values.length - 1,
+      sequenceId
+    });
+    if (index === 0) emit(); else setTimeout(emit, intervalMs * index);
+  });
 }
 function showAdditionalDamageNumber(damage, target = currentMonster, options = {}) {
   const amount = Math.max(0, Math.floor(Number(damage || 0)));
@@ -1334,6 +1394,8 @@ function showAdditionalDamageNumber(damage, target = currentMonster, options = {
   });
   return true;
 }
+window.buildCumulativeDamageSteps = buildCumulativeDamageSteps;
+window.showDamageNumber = showDamageNumber;
 window.showAdditionalDamageNumber = showAdditionalDamageNumber;
 window.flushDamageNumberBatch = flushDamageNumberBatch;
 

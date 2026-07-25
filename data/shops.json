@@ -2,7 +2,7 @@
   "tool_common": {
     "id": "tool_common",
     "name": "共用道具商店",
-    "description": "來源：rAthena npc/merchants/shops.txt / Tool Dealer#prt1；箭矢類已排除；RO_WEB 額外提供四屬性肯貝特。",
+    "description": "來源：rAthena Tool Dealer；RO_WEB 額外集中販售四屬性肯貝特、藍色藥水與糖漿／濃縮糖漿補品。",
     "sourceNpc": "Tool Dealer#prt1",
     "sourceMap": "prt_in",
     "items": [
@@ -65,6 +65,38 @@
       {
         "itemId": 12117,
         "price": 2
+      },
+      {
+        "itemId": 505,
+        "price": 5000
+      },
+      {
+        "itemId": 11621,
+        "price": 800
+      },
+      {
+        "itemId": 11622,
+        "price": 1200
+      },
+      {
+        "itemId": 11623,
+        "price": 1500
+      },
+      {
+        "itemId": 11624,
+        "price": 7000
+      },
+      {
+        "itemId": 1100003,
+        "price": 10
+      },
+      {
+        "itemId": 1100004,
+        "price": 10
+      },
+      {
+        "itemId": 1100005,
+        "price": 10
       }
     ]
   },

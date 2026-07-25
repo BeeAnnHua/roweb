@@ -1,14 +1,14 @@
 {
   "schema": "ro_web_world_region_manifest_v1",
-  "version": "0.9.82FE",
-  "source": "使用者提供 世界地圖90張.zip",
-  "rule": "十個地區各自使用 9 張 512×512 圖片組成獨立 3×3 World Camera 地圖；地區之間不做邊界拼接或傳送點，只能透過地圖／傳送 UI 切換。",
+  "version": "0.9.82FM",
+  "source": "使用者提供 世界地圖90張.zip，加上達納托斯塔_091-099.zip",
+  "rule": "十一個地區各自使用 9 張 512×512 圖片組成獨立 3×3 World Camera 地圖；地區之間不做邊界拼接或傳送點，只能透過地圖／傳送 UI 切換。",
   "deploymentExcludes": [
     "RO_世界地圖.png",
     "RO世界地圖切割前原圖.zip",
     "所有切割前地區原圖"
   ],
-  "regionCount": 10,
+  "regionCount": 11,
   "regions": [
     {
       "order": 1,
@@ -309,13 +309,43 @@
       "worldScale": 3,
       "monstersDeferred": false,
       "monsterSpecies": 11
+    },
+    {
+      "order": 11,
+      "id": "thanatos_tower_3x3_region_camera",
+      "name": "達納托斯塔",
+      "sourceChunkRange": "091-099",
+      "runtimeTileNames": [
+        "001.webp",
+        "002.webp",
+        "003.webp",
+        "004.webp",
+        "005.webp",
+        "006.webp",
+        "007.webp",
+        "008.webp",
+        "009.webp"
+      ],
+      "background": "images/maps/world/thanatos_tower_3x3/thanatos_tower_3x3_region_bg_0_9_82FM.webp",
+      "thumb": "images/maps/world/thanatos_tower_3x3/thanatos_tower_3x3_region_small_0_9_82FM.webp",
+      "worldSize": [
+        4608,
+        4608
+      ],
+      "cameraSize": [
+        1280,
+        720
+      ],
+      "worldScale": 3,
+      "monstersDeferred": false,
+      "monsterSpecies": 21
     }
   ],
   "namingDecision": {
     "source": "斐揚+艾爾貝塔地區",
     "runtime": "斐揚地區"
   },
-  "monsterPolicy": "RA Renewal 地區怪物池已啟用：普通群體怪物調整為原基準三分之一，玩家中心 1024×1024 約維持 20 隻；進場先建立 8 隻再分批補齊。植物/稀有/Boss/MVP 使用獨立規則。",
+  "monsterPolicy": "RA Renewal 地區怪物池已啟用；達納托斯塔 091～099 使用 tha_t01～tha_t12 聚合池，四種情緒與 MVP 保持單隻上限。",
   "displayParity": {
     "reference": "原妙勒尼 World Camera",
     "pcMobileSameWorldScale": true,

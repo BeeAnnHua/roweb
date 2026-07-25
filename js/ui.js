@@ -117,6 +117,7 @@ function toggleWindow(id) {
   win.classList.toggle("hidden-window");
   if (id === "map-window" && win.classList.contains("hidden-window") && typeof hideMapMonsterDistributionTooltip === "function") hideMapMonsterDistributionTooltip();
   if (!win.classList.contains("hidden-window")) {
+    if (id === "auto-combat-panel" && typeof updateAutoCombatUI === "function") updateAutoCombatUI();
     centerWindowForMobile(win);
     window.requestAnimationFrame(() => {
       recoverWindowToViewport(win, { centerIfLost: true, persist: true });

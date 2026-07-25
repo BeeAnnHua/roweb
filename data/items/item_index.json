@@ -51,8 +51,10 @@
     "category": "recovery",
     "subCategory": "sp_potion",
     "icon": "images/items/505.webp",
-    "buyPrice": 20,
-    "sellPrice": 10
+    "buyPrice": 5000,
+    "sellPrice": 2500,
+    "requiredLevel": 0,
+    "reuseDelayMs": 0
   },
   "506": {
     "id": 506,
@@ -1435,5 +1437,96 @@
     "icon": "images/items/12213.webp",
     "buyPrice": 25000,
     "sellPrice": 12500
+  },
+  "11621": {
+    "id": 11621,
+    "officialId": 11621,
+    "name": "紅色糖漿",
+    "type": "consume",
+    "category": "recovery",
+    "subCategory": "hp_potion",
+    "icon": "images/items/11621.webp",
+    "buyPrice": 800,
+    "sellPrice": 400,
+    "requiredLevel": 60,
+    "reuseDelayMs": 1000
+  },
+  "11622": {
+    "id": 11622,
+    "officialId": 11622,
+    "name": "黃色糖漿",
+    "type": "consume",
+    "category": "recovery",
+    "subCategory": "hp_potion",
+    "icon": "images/items/11622.webp",
+    "buyPrice": 1200,
+    "sellPrice": 600,
+    "requiredLevel": 60,
+    "reuseDelayMs": 1000
+  },
+  "11623": {
+    "id": 11623,
+    "officialId": 11623,
+    "name": "白色糖漿",
+    "type": "consume",
+    "category": "recovery",
+    "subCategory": "hp_potion",
+    "icon": "images/items/11623.webp",
+    "buyPrice": 1500,
+    "sellPrice": 750,
+    "requiredLevel": 60,
+    "reuseDelayMs": 1000
+  },
+  "11624": {
+    "id": 11624,
+    "officialId": 11624,
+    "name": "藍色糖漿",
+    "type": "consume",
+    "category": "recovery",
+    "subCategory": "sp_potion",
+    "icon": "images/items/11624.webp",
+    "buyPrice": 7000,
+    "sellPrice": 3500,
+    "requiredLevel": 60,
+    "reuseDelayMs": 10000
+  },
+  "1100003": {
+    "id": 1100003,
+    "officialId": 1100003,
+    "name": "濃縮紅色糖漿藥水",
+    "type": "consume",
+    "category": "recovery",
+    "subCategory": "hp_potion",
+    "icon": "images/items/1100003.webp",
+    "buyPrice": 10,
+    "sellPrice": 5,
+    "requiredLevel": 120,
+    "reuseDelayMs": 0
+  },
+  "1100004": {
+    "id": 1100004,
+    "officialId": 1100004,
+    "name": "濃縮藍色糖漿藥水",
+    "type": "consume",
+    "category": "recovery",
+    "subCategory": "sp_potion",
+    "icon": "images/items/1100004.webp",
+    "buyPrice": 10,
+    "sellPrice": 5,
+    "requiredLevel": 120,
+    "reuseDelayMs": 0
+  },
+  "1100005": {
+    "id": 1100005,
+    "officialId": 1100005,
+    "name": "濃縮金色糖漿藥水",
+    "type": "consume",
+    "category": "recovery",
+    "subCategory": "hp_potion",
+    "icon": "images/items/1100005.webp",
+    "buyPrice": 10,
+    "sellPrice": 5,
+    "requiredLevel": 180,
+    "reuseDelayMs": 0
   }
 }

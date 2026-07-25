@@ -18988,3 +18988,173 @@ h2 { font-size:20px; margin:0 0 8px; text-align:center; letter-spacing:2px; colo
   border-right-width: 4px !important;
   border-top-width: 2px !important;
 }
+
+
+/* ============================================================
+   RO_WEB 0.9.82FL — 自動戰鬥當前地圖怪物指定／排除
+   ============================================================ */
+#auto-combat-panel {
+  width: 420px !important;
+}
+#auto-combat-panel .auto-combat-body {
+  max-height: min(620px, calc(100vh - 120px)) !important;
+}
+.auto-monster-filter-box {
+  display: grid;
+  gap: 6px;
+  padding: 8px;
+  border: 1px solid rgba(181, 135, 57, .76);
+  border-radius: 9px;
+  background: rgba(10, 7, 4, .54);
+}
+.auto-monster-filter-summary {
+  color: #ffe9aa;
+  font-weight: 900;
+  line-height: 1.45;
+}
+.auto-monster-filter-actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 5px;
+}
+#auto-combat-panel .auto-monster-filter-actions button {
+  min-width: 0;
+  margin: 0;
+  padding: 5px 4px;
+  font-size: 12px;
+}
+.auto-monster-filter-list {
+  display: grid;
+  gap: 3px;
+  max-height: 210px;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 4px;
+  border: 1px solid rgba(138, 102, 48, .58);
+  border-radius: 7px;
+  background: rgba(0, 0, 0, .22);
+  scrollbar-gutter: stable;
+}
+.auto-monster-filter-row {
+  display: grid !important;
+  grid-template-columns: 22px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 6px;
+  min-height: 34px;
+  padding: 4px 6px;
+  border-bottom: 1px solid rgba(138, 102, 48, .24);
+  cursor: pointer;
+}
+.auto-monster-filter-row:last-child {
+  border-bottom: 0;
+}
+.auto-monster-filter-row:hover {
+  background: rgba(171, 121, 38, .14);
+}
+.auto-monster-filter-row input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+}
+.auto-monster-filter-name {
+  min-width: 0;
+  overflow: hidden;
+  color: #fff0bd;
+  font-weight: 900;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.auto-monster-filter-meta {
+  color: #c9ad75;
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.auto-monster-filter-status {
+  color: #ffd779;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.45;
+}
+.auto-monster-filter-note,
+.auto-monster-filter-empty {
+  color: #bfa879;
+  font-size: 11px;
+  line-height: 1.45;
+}
+.auto-monster-filter-empty {
+  padding: 12px 6px;
+  text-align: center;
+}
+@media (max-width: 700px) {
+  #auto-combat-panel {
+    width: min(420px, calc(100vw - 16px)) !important;
+  }
+  #auto-combat-panel .auto-combat-body {
+    max-height: min(72vh, 620px) !important;
+  }
+  .auto-monster-filter-row {
+    grid-template-columns: 22px minmax(0, 1fr);
+  }
+  .auto-monster-filter-meta {
+    grid-column: 2;
+    white-space: normal;
+  }
+}
+
+
+/* ============================================================
+   RO_WEB 0.9.82FM — 多段累積傷害／自動戰鬥完整滾動區
+   ============================================================ */
+.damage-number.cumulative-damage-number {
+  z-index: 46;
+  transform-origin: center bottom;
+  animation: ro-web-cumulative-damage-pop 620ms cubic-bezier(.12,.78,.2,1) forwards !important;
+  text-shadow: 0 2px 0 #201400, 0 0 5px rgba(255,224,83,.88), 1px 0 #000, -1px 0 #000;
+  will-change: transform, opacity;
+}
+.damage-number.cumulative-damage-final {
+  z-index: 48;
+  font-size: 1.18em;
+  animation-duration: 900ms !important;
+  filter: brightness(1.16);
+}
+@keyframes ro-web-cumulative-damage-pop {
+  0% { opacity: 0; transform: translateY(8px) scale(.68); }
+  18% { opacity: 1; transform: translateY(-4px) scale(1.18); }
+  52% { opacity: 1; transform: translateY(-12px) scale(1); }
+  100% { opacity: 0; transform: translateY(-38px) scale(.92); }
+}
+#auto-combat-panel {
+  max-height: calc(100dvh - 12px) !important;
+  overflow: hidden !important;
+}
+#auto-combat-panel .auto-combat-body {
+  height: auto !important;
+  max-height: calc(100dvh - 58px) !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 88px !important;
+  align-content: start;
+}
+#autoCombatSaveSettings.auto-combat-save-settings {
+  position: sticky;
+  bottom: 0;
+  z-index: 12;
+  width: 100%;
+  min-height: 38px;
+  margin-top: 4px;
+  background: linear-gradient(rgba(105,72,27,.98), rgba(42,27,10,.98)) !important;
+  box-shadow: 0 -8px 14px rgba(12,7,2,.8), inset 0 0 0 1px rgba(255,221,137,.25);
+}
+@media (max-width: 700px) {
+  #auto-combat-panel { max-height: calc(100dvh - 8px) !important; }
+  #auto-combat-panel .auto-combat-body {
+    max-height: calc(100dvh - 54px) !important;
+    padding-bottom: 104px !important;
+  }
+}

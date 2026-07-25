@@ -270,19 +270,12 @@ function quickSlotNormalAttack() {
   playPlayerAttackAnimation();
   updateMonsterUI();
   playMonsterHitAnimation(currentMonster);
-  showDamageNumber(primaryDamage, {
+  showDamageNumber(playerDamage, {
     target: currentMonster,
     critical: normalAttackResult?.critical === true || normalAttackResult?.critical?.critical === true,
-    hitCount: 1,
-    combo: false,
-    offsetX: additionalDamage > 0 ? -18 : 0
+    hitCount: Math.max(1, Number(normalAttackResult?.visualHits || 1)),
+    combo: Number(normalAttackResult?.visualHits || 1) > 1
   });
-  if (additionalDamage > 0 && typeof showAdditionalDamageNumber === "function") {
-    showAdditionalDamageNumber(additionalDamage, currentMonster, {
-      hitCount: Math.max(1, Number(normalAttackResult?.additionalHitCount || 1)),
-      offsetX: 10
-    });
-  }
   showSlashEffect();
 
   if (currentMonster.currentHp <= 0) {

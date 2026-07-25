@@ -1442,7 +1442,7 @@ function tryFalconAutoAttackOnNormal(target = currentMonster) {
     if (!monster || Number(monster.currentHp || 0) <= 0) continue;
     const damage = calculateSkillAttackDamage(skill, level, monster, { skipHitCheck: true, autoFalcon: true });
     if (damage === null) continue;
-    const result = applyRuntimeCalculatedDamage(monster, Math.max(1, Number(damage || 1)), { triggeredByNormalAttack:true, skillId:129 });
+    const result = applyRuntimeCalculatedDamage(monster, Math.max(1, Number(damage || 1)), { triggeredByNormalAttack:true, skillId:129, hitCount:getRuntimeHitCount(skill, level) });
     total += result.calculatedDamage;
   }
   if (total > 0 && typeof addBattleLog === "function") addBattleLog(`獵鷹自動觸發 ${skill.name} Lv${level}，共造成 ${total} 點傷害。`);
@@ -3223,6 +3223,7 @@ function castTeleportSkill(skill, requestedLevel = null) {
     return reportPendingRuntime(skill, "Position Engine 尚未就緒");
   }
   paySkillCost(skill, check.level);
+  const previousTarget = currentMonster || null;
   const candidate = randomPositionInBattleField("player");
   if (typeof normalizePositionData === "function") normalizePositionData();
   const position = clampPositionToBounds(candidate, "player");
@@ -3231,7 +3232,9 @@ function castTeleportSkill(skill, requestedLevel = null) {
   player.position.y = position.y;
   player.position.targetX = null;
   player.position.targetY = null;
-  if (currentMonster) currentMonster.aiState = "IDLE";
+  if (previousTarget) previousTarget.aiState = "IDLE";
+  if (typeof onAutoBattleTeleportCompleted === "function") onAutoBattleTeleportCompleted(previousTarget, { source:"skill", skillId:skill.id });
+  else currentMonster = null;
   if (typeof renderPositionSprites === "function") renderPositionSprites();
   if (typeof updatePlayerUI === "function") updatePlayerUI();
   if (typeof saveGame === "function") saveGame();

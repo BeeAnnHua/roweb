@@ -612,6 +612,7 @@ function changeMap(mapId) {
   if (typeof clearWorldMonsterFieldTest === "function") clearWorldMonsterFieldTest();
   if (typeof ensureWorldMonsterFieldTest === "function") ensureWorldMonsterFieldTest();
   updateMonsterUI();
+  if (typeof updateAutoCombatMonsterFilterUI === "function") updateAutoCombatMonsterFilterUI({ force: true });
 
   saveGame();
   addBattleLog("移動到：" + currentMap.name);

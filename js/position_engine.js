@@ -1355,9 +1355,40 @@ function getMonsterMoveSpeedPx(monster = currentMonster) {
   return getMonsterMovePixelsPerSecond(monster);
 }
 
+// 0.9.82FM：自動近戰追逐移動怪物時使用短距離預判與命中容差。
+function isMonsterMovingForAutoChase(monster = currentMonster) {
+  const state = String(monster?.aiState || "").toUpperCase();
+  return ["WANDER", "CHASE", "RUSH", "MOVING"].includes(state) || !!monster?._wanderTarget;
+}
+function getAutoBattleEffectiveAttackRange(monster = currentMonster, baseRangePx = null) {
+  const range = Math.max(1, Number(baseRangePx ?? getPlayerNormalAttackRange()));
+  const autoRunning = typeof isAutoBattleRunning === "function" ? isAutoBattleRunning() : false;
+  if (!autoRunning || range > 72 || !isMonsterMovingForAutoChase(monster)) return range;
+  return range + 24;
+}
+function getPredictedMonsterChasePosition(monster = currentMonster) {
+  const pos = getMonsterPosition(monster);
+  if (!pos || !isMonsterMovingForAutoChase(monster)) return pos;
+  const state = String(monster?.aiState || "").toUpperCase();
+  const target = monster?._wanderTarget || (["CHASE", "RUSH"].includes(state) ? getPlayerPosition() : null);
+  if (!target) return pos;
+  const dx = Number(target.x || 0) - Number(pos.x || 0);
+  const dy = Number(target.y || 0) - Number(pos.y || 0);
+  const distance = Math.hypot(dx, dy);
+  if (distance < 1) return pos;
+  const speed = Math.max(20, Number(getMonsterMovePixelsPerSecond(monster) || 80));
+  const lead = Math.min(72, distance, speed * 0.28);
+  return { x:Number(pos.x || 0) + dx / distance * lead, y:Number(pos.y || 0) + dy / distance * lead };
+}
+window.isMonsterMovingForAutoChase = isMonsterMovingForAutoChase;
+window.getAutoBattleEffectiveAttackRange = getAutoBattleEffectiveAttackRange;
+window.getPredictedMonsterChasePosition = getPredictedMonsterChasePosition;
+
 function movePlayerTowardMonster(monster = currentMonster, desiredRange = null) {
   if (!monster || !player?.position) return false;
-  const monsterPos = getMonsterPosition(monster);
+  const baseMonsterPos = getMonsterPosition(monster);
+  const autoRunning = typeof isAutoBattleRunning === "function" ? isAutoBattleRunning() : false;
+  const monsterPos = autoRunning ? getPredictedMonsterChasePosition(monster) : baseMonsterPos;
   const playerPos = getPlayerPosition();
   const range = desiredRange ?? getPlayerNormalAttackRange();
   const dist = distanceBetween(playerPos, monsterPos);
@@ -1765,6 +1796,7 @@ function useFlyWing(options = {}) {
   }
 
   consumeInventoryItemCount(FLY_WING_ITEM_ID, 1);
+  const previousTarget = currentMonster || null;
   const pos = randomPositionInBattleField("player");
   normalizePositionData();
   const safePos = clampPositionToBounds(pos, "player");
@@ -1772,7 +1804,9 @@ function useFlyWing(options = {}) {
   player.position.y = safePos.y;
   player.position.targetX = null;
   player.position.targetY = null;
-  if (currentMonster) currentMonster.aiState = "IDLE";
+  if (previousTarget) previousTarget.aiState = "IDLE";
+  if (typeof onAutoBattleTeleportCompleted === "function") onAutoBattleTeleportCompleted(previousTarget, { source:"fly_wing" });
+  else currentMonster = null;
   renderPositionSprites();
   updateInventoryUI();
   saveGame();
@@ -1800,6 +1834,9 @@ function useButterflyWing(options = {}) {
   }
 
   consumeInventoryItemCount(BUTTERFLY_WING_ITEM_ID, 1);
+  const previousTarget = currentMonster || null;
+  if (typeof onAutoBattleTeleportCompleted === "function") onAutoBattleTeleportCompleted(previousTarget, { source:"butterfly_wing", ignoreMs:1500 });
+  else currentMonster = null;
   if (typeof updateInventoryUI === "function") updateInventoryUI();
   enterCity(city.id);
   if (!options.silent && typeof addBattleLog === "function") {
@@ -1812,6 +1849,12 @@ window.useButterflyWing = useButterflyWing;
 
 function maybeAutoTeleportWhenNoTarget() {
   if (!player?.autoCombat?.teleport?.enabled) return false;
+  // 0.9.82FL：只打指定怪物但尚未勾選任何目標時，停在原地等待，
+  // 不可每秒浪費蒼蠅翅膀。
+  if (typeof canAutoBattleSearchForConfiguredTargets === "function" && !canAutoBattleSearchForConfiguredTargets()) {
+    resetAutoNoTargetTimer();
+    return false;
+  }
   const validTarget = typeof isAutoBattleTargetValid === "function" ? isAutoBattleTargetValid(currentMonster) : !!currentMonster;
   if (validTarget) {
     resetAutoNoTargetTimer();

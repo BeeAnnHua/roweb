@@ -1,0 +1,34 @@
+const fs=require('fs'),path=require('path'),assert=require('assert');
+const root=path.resolve(__dirname,'..');
+const read=rel=>fs.readFileSync(path.join(root,rel),'utf8');
+const battle=read('js/battle.js');
+const atlas=read('js/player_atlas_runtime.js');
+const ui=read('js/ui.js');
+const css=read('css/style.css');
+const index=read('index.html');
+const game=read('js/game.js');
+
+assert(battle.includes('function getPlayerAttackVisualDurationMs()'),'ASPD visual duration helper missing');
+assert(battle.includes('getPlayerAttackDelayMs() || 360'),'Visual duration must derive from actual attack delay');
+assert(battle.includes('Math.round(attackDelay * 0.98)'),'Attack animation must finish immediately before next attack');
+assert(battle.includes('playROStudioPlayerMotion("attack", { duration, compressFrames: true })'),'Attack atlas frame compression missing');
+assert(atlas.includes('duration / frameWindow.count'),'Atlas runtime must distribute compressed duration across all frames');
+assert(battle.includes('attack-effect-instance play'),'Independent attack effect instance missing');
+assert(battle.includes('host.querySelectorAll(".slash-effect.attack-effect-instance")'),'Attack effect pool cap missing');
+assert(css.includes('var(--ro-player-attack-visual-ms, .34s)'),'Fallback animation duration variable missing');
+assert(css.includes('var(--ro-slash-duration, .20s)'),'ASPD slash duration variable missing');
+assert(css.includes('#battle-field.world-camera-mode #player-sprite .slash-effect.attack-effect-instance'),'World-camera attack effect visibility missing');
+assert(!/world-camera-mode[^}]*attack-effect-instance[^}]*display:\s*none/i.test(css),'World attack effect must not be hidden');
+
+assert(ui.includes('const baseFactor = getWindowBaseVisualScale(target);'),'Special-window base scale missing');
+assert(ui.includes('const effectiveFactor = Math.max(0.25, Math.min(1.2, baseFactor * factor));'),'Relative 100/75/50 scale calculation missing');
+assert(ui.includes('target.style.setProperty("zoom", String(effectiveFactor), "important")'),'Legacy important zoom override missing');
+assert(ui.includes('target.style.setProperty("zoom", "1", "important")'),'Safari transform fallback must neutralize legacy zoom');
+assert(ui.includes('target.dataset.uiSizeMode = "transform"'),'Transform fallback mode missing');
+assert(css.includes('#inventory-window.ui-size-enabled { --ro-ui-base-zoom: .92; }'),'Inventory desktop large baseline missing');
+assert(css.includes('#skill-window.true-skill-window.ui-size-enabled { --ro-ui-base-zoom: .92; }'),'Skill desktop large baseline missing');
+assert(css.includes('#inventory-window.ui-size-enabled { --ro-ui-base-zoom: .86; }'),'Inventory mobile baseline missing');
+assert(css.includes('#skill-window.true-skill-window.ui-size-enabled { --ro-ui-base-zoom: .82; }'),'Skill mobile baseline missing');
+assert(game.includes('const RO_WEB_VERSION = "0.9.82FL";'),'Runtime version must be FL');
+assert([...index.matchAll(/\?v=([^"']+)/g)].every(m=>m[1]==='0.9.82FL'),'All cache keys must be FJ');
+console.log(JSON.stringify({version:'0.9.82FL',status:'PASS',aspdVisual:true,worldAttackEffect:true,inventorySkillSizes:true},null,2));

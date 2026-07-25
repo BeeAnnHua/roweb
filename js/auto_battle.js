@@ -1,6 +1,6 @@
 //=======================================
-// AutoBattleController v1.2（0.9.82FC）
-// 精簡設定介面 / 自動異常解除 / 低血量飛走與蝴蝶翅膀回城 / 自訂數字步進器
+// AutoBattleController v1.4（0.9.82FM）
+// 精簡設定介面 / 自動異常解除 / 低血量逃生 / 自動肯貝特 / 當前地圖怪物篩選
 //=======================================
 
 const AUTO_ELEMENT_CONVERTER_ITEM_IDS = Object.freeze({
@@ -14,6 +14,19 @@ const AUTO_ELEMENT_CONVERTER_LABELS = Object.freeze({
   Water: "水",
   Earth: "地",
   Wind: "風"
+});
+
+const AUTO_MONSTER_FILTER_MODES = Object.freeze({
+  ALL: "all",
+  INCLUDE: "include",
+  EXCLUDE: "exclude"
+});
+const AUTO_MONSTER_CATEGORY_LABELS = Object.freeze({
+  normal: "普通",
+  plant: "植物",
+  rare: "稀有",
+  boss: "Boss",
+  mvp: "MVP"
 });
 
 
@@ -31,6 +44,7 @@ function createDefaultAutoCombat() {
     spPotion: { enabled: false, spPercent: 30, itemId: null },
     detox: { enabled: false },
     elementEndow: { enabled: false, element: "" },
+    monsterFilter: { version: "0.9.82FM", byMap: {} },
     heal: { enabled: false, skillId: null, hpPercent: 60, spPercent: 20, level: 1 },
     normalAttack: { enabled: true },
     attacks: Array.from({ length: 4 }, (_, index) => makeAttackSlot(index)),
@@ -47,6 +61,175 @@ function createDefaultAutoCombat() {
   };
 }
 
+
+function getAutoBattleCurrentMapId() {
+  const value = (typeof currentMap !== "undefined" && currentMap?.id)
+    || player?.map
+    || player?.lastFieldMap
+    || "unknown";
+  return String(value || "unknown");
+}
+
+function normalizeAutoMonsterId(value) {
+  const numeric = Number(value);
+  if (Number.isFinite(numeric) && numeric > 0) return String(Math.trunc(numeric));
+  const text = String(value || "").trim();
+  return text && text !== "0" ? text : "";
+}
+
+function normalizeAutoMonsterFilterMode(value) {
+  const mode = String(value || "").toLowerCase();
+  return Object.values(AUTO_MONSTER_FILTER_MODES).includes(mode) ? mode : AUTO_MONSTER_FILTER_MODES.ALL;
+}
+
+function normalizeAutoMonsterFilterEntry(value = {}) {
+  const source = value && typeof value === "object" ? value : {};
+  const ids = Array.isArray(source.selectedIds)
+    ? source.selectedIds
+    : (Array.isArray(source.selected) ? source.selected : []);
+  return {
+    mode: normalizeAutoMonsterFilterMode(source.mode),
+    selectedIds: [...new Set(ids.map(normalizeAutoMonsterId).filter(Boolean))]
+  };
+}
+
+function getAutoBattleMapMonsterFilter(mapId = getAutoBattleCurrentMapId(), options = {}) {
+  if (!player) return { mode: AUTO_MONSTER_FILTER_MODES.ALL, selectedIds: [] };
+  if (!player.autoCombat || typeof player.autoCombat !== "object") player.autoCombat = createDefaultAutoCombat();
+  if (!player.autoCombat.monsterFilter || typeof player.autoCombat.monsterFilter !== "object") {
+    player.autoCombat.monsterFilter = { version: "0.9.82FM", byMap: {} };
+  }
+  if (!player.autoCombat.monsterFilter.byMap || typeof player.autoCombat.monsterFilter.byMap !== "object") {
+    player.autoCombat.monsterFilter.byMap = {};
+  }
+  const key = String(mapId || "unknown");
+  const existing = player.autoCombat.monsterFilter.byMap[key];
+  if (!existing && options.create !== false) {
+    player.autoCombat.monsterFilter.byMap[key] = { mode: AUTO_MONSTER_FILTER_MODES.ALL, selectedIds: [] };
+  } else if (existing) {
+    const normalized = normalizeAutoMonsterFilterEntry(existing);
+    existing.mode = normalized.mode;
+    existing.selectedIds = normalized.selectedIds;
+  }
+  return player.autoCombat.monsterFilter.byMap[key]
+    || { mode: AUTO_MONSTER_FILTER_MODES.ALL, selectedIds: [] };
+}
+
+function getAutoBattleMonsterId(monster) {
+  return normalizeAutoMonsterId(monster?.id ?? monster?.monsterId ?? monster?.mobId ?? monster?.officialId);
+}
+
+function getAutoBattleMonsterCategory(monster, fallback = "normal") {
+  if (monster?.isMvp === true || monster?.isMVP === true || monster?.mvp === true) return "mvp";
+  if (monster?.isBoss === true || monster?.boss === true || String(monster?.class || monster?.Class || "").toLowerCase() === "boss") return "boss";
+  const raw = String(monster?._category || fallback || monster?.category || "normal").toLowerCase();
+  return AUTO_MONSTER_CATEGORY_LABELS[raw] ? raw : "normal";
+}
+
+function findAutoBattleMonsterSource(monsterId) {
+  const id = Number(monsterId || 0);
+  try {
+    if (typeof findWorldMonsterSource === "function") {
+      const found = findWorldMonsterSource(id);
+      if (found) return found;
+    }
+  } catch (_) {}
+  try {
+    const source = typeof monsters !== "undefined" && Array.isArray(monsters) ? monsters : [];
+    return source.find(monster => Number(monster?.id) === id) || null;
+  } catch (_) {
+    return null;
+  }
+}
+
+function getAutoBattleMonsterCatalog() {
+  const rows = new Map();
+  let order = 0;
+  const add = (rawId, details = {}) => {
+    const id = normalizeAutoMonsterId(rawId);
+    if (!id) return null;
+    const existing = rows.get(id) || {
+      id,
+      name: "",
+      category: "normal",
+      aliveCount: 0,
+      activeCount: 0,
+      order: order++
+    };
+    const source = details.source || findAutoBattleMonsterSource(id);
+    existing.name = details.name || existing.name || source?.name || source?.displayName || `怪物 ${id}`;
+    existing.category = getAutoBattleMonsterCategory(details.monster || source, details.category || existing.category);
+    existing.aliveCount += Math.max(0, Number(details.aliveCount || 0));
+    existing.activeCount += Math.max(0, Number(details.activeCount || 0));
+    rows.set(id, existing);
+    return existing;
+  };
+
+  let profile = null;
+  try {
+    profile = typeof getWorldMonsterProfile === "function" ? getWorldMonsterProfile(typeof currentMap !== "undefined" ? currentMap : null) : null;
+  } catch (_) {}
+  (Array.isArray(profile?.pool) ? profile.pool : []).forEach(entry => {
+    add(entry?.monsterId, { category: entry?.category || "normal" });
+  });
+
+  try {
+    const mapMonsterIds = typeof currentMap !== "undefined" && Array.isArray(currentMap?.monsters) ? currentMap.monsters : [];
+    mapMonsterIds.forEach(id => add(id));
+  } catch (_) {}
+
+  let live = [];
+  try {
+    if (typeof getWorldMonsterTestEntities === "function") {
+      live = getWorldMonsterTestEntities({ activeOnly: false, includeDead: false }) || [];
+    } else if (typeof collectLiveCombatEnemies === "function") {
+      live = collectLiveCombatEnemies({ activeOnly: false }) || [];
+    }
+  } catch (_) {}
+  const activeSet = new Set();
+  try {
+    const active = typeof collectLiveCombatEnemies === "function" ? (collectLiveCombatEnemies({ activeOnly: true }) || []) : [];
+    active.forEach(monster => activeSet.add(monster));
+  } catch (_) {}
+  [...new Set(live)].forEach(monster => {
+    if (!monster || Number(monster.currentHp ?? monster.hp ?? 0) <= 0 || monster._deathHandled) return;
+    add(getAutoBattleMonsterId(monster), {
+      monster,
+      name: monster.name || monster.displayName,
+      category: getAutoBattleMonsterCategory(monster),
+      aliveCount: 1,
+      activeCount: activeSet.has(monster) ? 1 : 0
+    });
+  });
+
+  return [...rows.values()].sort((a, b) => a.order - b.order || String(a.name).localeCompare(String(b.name), "zh-Hant"));
+}
+
+function isAutoBattleMonsterAllowed(monster, mapId = getAutoBattleCurrentMapId()) {
+  if (!monster) return false;
+  const filter = getAutoBattleMapMonsterFilter(mapId, { create: false });
+  const mode = normalizeAutoMonsterFilterMode(filter?.mode);
+  if (mode === AUTO_MONSTER_FILTER_MODES.ALL) return true;
+  const id = getAutoBattleMonsterId(monster);
+  const selected = new Set((filter?.selectedIds || []).map(normalizeAutoMonsterId).filter(Boolean));
+  if (mode === AUTO_MONSTER_FILTER_MODES.INCLUDE) return Boolean(id) && selected.has(id);
+  if (mode === AUTO_MONSTER_FILTER_MODES.EXCLUDE) return !id || !selected.has(id);
+  return true;
+}
+
+function canAutoBattleSearchForConfiguredTargets(mapId = getAutoBattleCurrentMapId()) {
+  const filter = getAutoBattleMapMonsterFilter(mapId, { create: false });
+  return normalizeAutoMonsterFilterMode(filter?.mode) !== AUTO_MONSTER_FILTER_MODES.INCLUDE
+    || (filter?.selectedIds || []).length > 0;
+}
+
+if (typeof window !== "undefined") {
+  window.getAutoBattleCurrentMapId = getAutoBattleCurrentMapId;
+  window.getAutoBattleMapMonsterFilter = getAutoBattleMapMonsterFilter;
+  window.getAutoBattleMonsterCatalog = getAutoBattleMonsterCatalog;
+  window.isAutoBattleMonsterAllowed = isAutoBattleMonsterAllowed;
+  window.canAutoBattleSearchForConfiguredTargets = canAutoBattleSearchForConfiguredTargets;
+}
 
 function normalizeAutoCombatSettings() {
   if (!player) return;
@@ -69,6 +252,25 @@ function normalizeAutoCombatSettings() {
   player.autoCombat.elementEndow.element = AUTO_ELEMENT_CONVERTER_ITEM_IDS[player.autoCombat.elementEndow.element]
     ? String(player.autoCombat.elementEndow.element)
     : "";
+
+  const sourceMonsterFilter = source.monsterFilter && typeof source.monsterFilter === "object" ? source.monsterFilter : {};
+  const rawFilterByMap = sourceMonsterFilter.byMap && typeof sourceMonsterFilter.byMap === "object"
+    ? sourceMonsterFilter.byMap
+    : {};
+  const normalizedFilterByMap = {};
+  Object.entries(rawFilterByMap).forEach(([mapId, value]) => {
+    normalizedFilterByMap[String(mapId)] = normalizeAutoMonsterFilterEntry(value);
+  });
+  // Early FL preview saves used one flat filter. Migrate it to the current field map once.
+  if ((sourceMonsterFilter.mode || sourceMonsterFilter.selectedIds || sourceMonsterFilter.selected) && !Object.keys(normalizedFilterByMap).length) {
+    normalizedFilterByMap[getAutoBattleCurrentMapId()] = normalizeAutoMonsterFilterEntry(sourceMonsterFilter);
+  }
+  player.autoCombat.monsterFilter = {
+    version: "0.9.82FM",
+    byMap: normalizedFilterByMap
+  };
+  getAutoBattleMapMonsterFilter(getAutoBattleCurrentMapId(), { create: true });
+
   player.autoCombat.heal = { ...defaults.heal, ...(source.heal || {}) };
   player.autoCombat.normalAttack = { ...defaults.normalAttack, ...(source.normalAttack || {}) };
 
@@ -469,7 +671,8 @@ function findBestRecoveryItem(kind) {
       const item = getItemData(inv.id);
       return { inv, item, value: getItemRecoveryValue(item, key) };
     })
-    .filter(row => row.item && !isAutoStatusCureItem(row.item) && Number(row.value || 0) > 0 && Number(row.inv.count || 0) > 0)
+    .filter(row => row.item && !isAutoStatusCureItem(row.item) && Number(row.value || 0) > 0 && Number(row.inv.count || 0) > 0
+      && (typeof canUseConsumableItem !== "function" || canUseConsumableItem(row.item, { silent:true }).ok))
     .sort((a, b) => {
       const av = Number(a.value || 0);
       const bv = Number(b.value || 0);
@@ -491,7 +694,8 @@ function useRecoveryItem(kind, preferredItemId = null) {
   if (preferredItemId) {
     inventoryItem = findInventoryItemById(preferredItemId);
     itemData = inventoryItem ? getItemData(inventoryItem.id) : null;
-    if (!itemData || isAutoStatusCureItem(itemData) || getItemRecoveryValue(itemData, key) <= 0) {
+    if (!itemData || isAutoStatusCureItem(itemData) || getItemRecoveryValue(itemData, key) <= 0
+      || (typeof canUseConsumableItem === "function" && !canUseConsumableItem(itemData, { silent:true }).ok)) {
       inventoryItem = null;
       itemData = null;
     }
@@ -504,6 +708,8 @@ function useRecoveryItem(kind, preferredItemId = null) {
     itemData = best.item;
   }
 
+  const usability = typeof canUseConsumableItem === "function" ? canUseConsumableItem(itemData, { silent:true }) : { ok:true };
+  if (!usability.ok) return false;
   const baseRecovery = getItemRecoveryValue(itemData, key, { roll: true });
   if (baseRecovery <= 0) return false;
   const recovery = typeof calculateItemRecoveryAmount === "function"
@@ -519,6 +725,7 @@ function useRecoveryItem(kind, preferredItemId = null) {
   const actualRecovery = Math.max(0, after - before);
 
   inventoryItem.count -= 1;
+  if (typeof markConsumableItemUsed === "function") markConsumableItemUsed(itemData);
   if (inventoryItem.count <= 0) {
     player.inventory = player.inventory.filter(item => String(item.id) !== String(inventoryItem.id));
   }
@@ -544,6 +751,8 @@ function syncAutoCombatSettingsFromUI(options = {}) {
   const detoxEnabled = document.getElementById("autoCombatDetoxEnabled");
   const elementEndowEnabled = document.getElementById("autoCombatElementEndowEnabled");
   const elementEndowSelect = document.getElementById("autoCombatElementEndowSelect");
+  const monsterFilterMode = document.getElementById("autoCombatMonsterFilterMode");
+  const monsterFilterList = document.getElementById("autoCombatMonsterFilterList");
   const healEnabled = document.getElementById("autoCombatHealEnabled");
   const healSkill = document.getElementById("autoCombatHealSkill");
   const healLevel = document.getElementById("autoCombatHealLevel");
@@ -572,6 +781,24 @@ function syncAutoCombatSettingsFromUI(options = {}) {
     player.autoCombat.elementEndow.element = AUTO_ELEMENT_CONVERTER_ITEM_IDS[elementEndowSelect.value]
       ? elementEndowSelect.value
       : "";
+  }
+
+  const currentFilterMapId = getAutoBattleCurrentMapId();
+  const listHasRenderedMap = Boolean(
+    monsterFilterList?.dataset.renderSignature
+    && monsterFilterList?.dataset.mapId
+    && String(monsterFilterList.dataset.mapId) === String(currentFilterMapId)
+  );
+  // The controller synchronizes ordinary settings on every combat tick. Do not
+  // let the still-unrendered HTML defaults erase a saved per-map monster list.
+  if (listHasRenderedMap) {
+    const monsterFilter = getAutoBattleMapMonsterFilter(currentFilterMapId, { create: true });
+    if (monsterFilterMode) monsterFilter.mode = normalizeAutoMonsterFilterMode(monsterFilterMode.value);
+    monsterFilter.selectedIds = [...monsterFilterList.querySelectorAll("[data-auto-monster-filter-id]")]
+      .filter(input => input.checked)
+      .map(input => normalizeAutoMonsterId(input.dataset.autoMonsterFilterId))
+      .filter(Boolean);
+    player.autoCombat.monsterFilter.byMap[currentFilterMapId] = normalizeAutoMonsterFilterEntry(monsterFilter);
   }
 
   if (healEnabled) player.autoCombat.heal.enabled = healEnabled.checked;
@@ -613,6 +840,13 @@ function syncAutoCombatSettingsFromUI(options = {}) {
       spPercent: Math.max(0, Math.min(100, Number(threshold?.value || 0)))
     };
   });
+
+  const autoRunning = typeof isAutoBattleRunning === "function" && isAutoBattleRunning();
+  if (autoRunning && typeof currentMonster !== "undefined" && currentMonster && !isAutoBattleMonsterAllowed(currentMonster)) {
+    if (typeof clearAutoBattleTarget === "function") clearAutoBattleTarget({ reason: "monster_filter_changed" });
+    else currentMonster = null;
+    if (typeof scheduleAutoBattleTick === "function") scheduleAutoBattleTick(8);
+  }
 
   if (options.save) saveGame();
   return true;
@@ -675,6 +909,119 @@ function updateAutoCombatReturnCityOptions(select, selectedId) {
   else if ([...select.options].some(option => option.value === "prontera")) select.value = "prontera";
 }
 
+function getAutoMonsterFilterModeDescription(mode, selectedCount) {
+  if (mode === AUTO_MONSTER_FILTER_MODES.INCLUDE) {
+    return selectedCount > 0 ? `只攻擊已勾選的 ${selectedCount} 種怪物。` : "尚未勾選目標；自動戰鬥會等待，不會亂打或重複飛走。";
+  }
+  if (mode === AUTO_MONSTER_FILTER_MODES.EXCLUDE) {
+    return selectedCount > 0 ? `不攻擊已勾選的 ${selectedCount} 種怪物，其餘照常攻擊。` : "排除名單目前為空，等同攻擊全部怪物。";
+  }
+  return "攻擊目前地圖中的全部怪物。";
+}
+
+function updateAutoCombatMonsterFilterSummary(catalog = getAutoBattleMonsterCatalog()) {
+  const mapId = getAutoBattleCurrentMapId();
+  const filter = getAutoBattleMapMonsterFilter(mapId, { create: true });
+  const selected = new Set((filter.selectedIds || []).map(normalizeAutoMonsterId));
+  const summary = document.getElementById("autoCombatMonsterFilterSummary");
+  const status = document.getElementById("autoCombatMonsterFilterStatus");
+  const mapName = (typeof currentMap !== "undefined" && (currentMap?.displayName || currentMap?.name)) || mapId;
+  const aliveTotal = catalog.reduce((sum, row) => sum + Number(row.aliveCount || 0), 0);
+  if (summary) summary.textContent = `當前地圖：${mapName}｜偵測 ${catalog.length} 種｜目前生成 ${aliveTotal} 隻`;
+  if (status) status.textContent = getAutoMonsterFilterModeDescription(normalizeAutoMonsterFilterMode(filter.mode), selected.size);
+  const mode = document.getElementById("autoCombatMonsterFilterMode");
+  if (mode) mode.value = normalizeAutoMonsterFilterMode(filter.mode);
+}
+
+function updateAutoCombatMonsterFilterUI(options = {}) {
+  if (!player || typeof document === "undefined") return;
+  normalizeAutoCombatSettings();
+  const list = document.getElementById("autoCombatMonsterFilterList");
+  if (!list) return;
+  const mapId = getAutoBattleCurrentMapId();
+  const filter = getAutoBattleMapMonsterFilter(mapId, { create: true });
+  const selected = new Set((filter.selectedIds || []).map(normalizeAutoMonsterId));
+  const catalog = getAutoBattleMonsterCatalog();
+  const signature = JSON.stringify({
+    mapId,
+    mode: normalizeAutoMonsterFilterMode(filter.mode),
+    selected: [...selected].sort(),
+    species: catalog.map(row => [row.id, row.name, row.category])
+  });
+  const scrollTop = Number(list.scrollTop || 0);
+  list.dataset.mapId = mapId;
+
+  if (options.force === true || list.dataset.renderSignature !== signature) {
+    list.innerHTML = "";
+    if (!catalog.length) {
+      const empty = document.createElement("div");
+      empty.className = "auto-monster-filter-empty";
+      empty.textContent = player.currentCity ? "目前位於城鎮，請前往練功地圖後重新偵測。" : "目前地圖尚未偵測到怪物資料。";
+      list.appendChild(empty);
+    } else {
+      catalog.forEach(row => {
+        const label = document.createElement("label");
+        label.className = "auto-monster-filter-row";
+        label.dataset.monsterFilterRowId = row.id;
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = selected.has(row.id);
+        checkbox.dataset.autoMonsterFilterId = row.id;
+        checkbox.addEventListener("change", () => {
+          syncAutoCombatSettingsFromUI({ save: false });
+          updateAutoCombatMonsterFilterSummary(getAutoBattleMonsterCatalog());
+        });
+
+        const text = document.createElement("span");
+        text.className = "auto-monster-filter-name";
+        text.textContent = row.name;
+
+        const meta = document.createElement("small");
+        meta.className = "auto-monster-filter-meta";
+        meta.dataset.monsterFilterCountId = row.id;
+        const category = AUTO_MONSTER_CATEGORY_LABELS[row.category] || AUTO_MONSTER_CATEGORY_LABELS.normal;
+        meta.textContent = `${category}｜ID ${row.id}｜目前 ${row.aliveCount} 隻`;
+
+        label.appendChild(checkbox);
+        label.appendChild(text);
+        label.appendChild(meta);
+        list.appendChild(label);
+      });
+    }
+    list.dataset.renderSignature = signature;
+    list.scrollTop = scrollTop;
+  } else {
+    catalog.forEach(row => {
+      const meta = list.querySelector(`[data-monster-filter-count-id="${row.id}"]`);
+      if (!meta) return;
+      const category = AUTO_MONSTER_CATEGORY_LABELS[row.category] || AUTO_MONSTER_CATEGORY_LABELS.normal;
+      meta.textContent = `${category}｜ID ${row.id}｜目前 ${row.aliveCount} 隻`;
+    });
+  }
+  updateAutoCombatMonsterFilterSummary(catalog);
+}
+
+function setAutoCombatMonsterFilterSelection(checked) {
+  const list = document.getElementById("autoCombatMonsterFilterList");
+  if (!list) return false;
+  list.querySelectorAll("[data-auto-monster-filter-id]").forEach(input => { input.checked = checked === true; });
+  syncAutoCombatSettingsFromUI({ save: false });
+  updateAutoCombatMonsterFilterUI({ force: true });
+  return true;
+}
+
+function refreshAutoCombatMonsterFilterUI() {
+  updateAutoCombatMonsterFilterUI({ force: true });
+  return true;
+}
+
+if (typeof window !== "undefined") {
+  window.updateAutoCombatMonsterFilterUI = updateAutoCombatMonsterFilterUI;
+  window.setAutoCombatMonsterFilterSelection = setAutoCombatMonsterFilterSelection;
+  window.refreshAutoCombatMonsterFilterUI = refreshAutoCombatMonsterFilterUI;
+}
+
 function enhanceAutoCombatNumberInputs() {
   const panel = document.getElementById("auto-combat-panel");
   if (!panel) return;
@@ -722,6 +1069,7 @@ function updateAutoCombatUI() {
   const detoxEnabled = document.getElementById("autoCombatDetoxEnabled");
   const elementEndowEnabled = document.getElementById("autoCombatElementEndowEnabled");
   const elementEndowSelect = document.getElementById("autoCombatElementEndowSelect");
+  const monsterFilterMode = document.getElementById("autoCombatMonsterFilterMode");
   const teleportEnabled = document.getElementById("autoCombatTeleportEnabled");
   const avoidBoss = document.getElementById("autoCombatAvoidBoss");
   const avoidMvp = document.getElementById("autoCombatAvoidMvp");
@@ -742,6 +1090,9 @@ function updateAutoCombatUI() {
     elementEndowSelect.value = cfg.elementEndow.element || "";
     elementEndowSelect.disabled = !cfg.elementEndow.enabled;
   }
+  const currentMonsterFilter = getAutoBattleMapMonsterFilter(getAutoBattleCurrentMapId(), { create: true });
+  if (monsterFilterMode) monsterFilterMode.value = normalizeAutoMonsterFilterMode(currentMonsterFilter.mode);
+  updateAutoCombatMonsterFilterUI();
   if (teleportEnabled) teleportEnabled.checked = !!cfg.teleport.enabled;
   if (avoidBoss) avoidBoss.checked = !!cfg.teleport.avoidBoss;
   if (avoidMvp) avoidMvp.checked = !!cfg.teleport.avoidMvp;
@@ -1023,7 +1374,10 @@ const AUTO_BATTLE_CONTROLLER = {
   lastAvoidTeleportAt: 0,
   lastLowHpTeleportAt: 0,
   lastButterflyAt: 0,
-  lastElementWarningAt: 0
+  lastElementWarningAt: 0,
+  ignoredTarget: null,
+  ignoredTargetUntil: 0,
+  reacquireSuppressedUntil: 0
 };
 
 function resetAutoBattleController(options = {}) {
@@ -1040,6 +1394,9 @@ function resetAutoBattleController(options = {}) {
   AUTO_BATTLE_CONTROLLER.lastLowHpTeleportAt = 0;
   AUTO_BATTLE_CONTROLLER.lastButterflyAt = 0;
   AUTO_BATTLE_CONTROLLER.lastElementWarningAt = 0;
+  AUTO_BATTLE_CONTROLLER.ignoredTarget = null;
+  AUTO_BATTLE_CONTROLLER.ignoredTargetUntil = 0;
+  AUTO_BATTLE_CONTROLLER.reacquireSuppressedUntil = 0;
   if (typeof resetAutoNoTargetTimer === "function") resetAutoNoTargetTimer();
   return AUTO_BATTLE_CONTROLLER;
 }
@@ -1059,8 +1416,10 @@ function setAutoBattleControllerState(state, details = {}) {
 
 function isAutoBattleTargetValid(monster) {
   if (!monster || monster._deathHandled || monster._defeatResolutionQueued) return false;
+  if (AUTO_BATTLE_CONTROLLER.ignoredTarget === monster && Date.now() < Number(AUTO_BATTLE_CONTROLLER.ignoredTargetUntil || 0)) return false;
   if (Number(monster.currentHp ?? monster.hp ?? 0) <= 0) return false;
   if (player?.currentCity) return false;
+  if (!isAutoBattleMonsterAllowed(monster)) return false;
   return true;
 }
 
@@ -1139,7 +1498,41 @@ function clearAutoBattleTarget(options = {}) {
   return true;
 }
 
+// 0.9.82FM：瞬移完成後清除舊鎖定，避免角色走回原位置追打上一隻怪物。
+function onAutoBattleTeleportCompleted(previousTarget = currentMonster, details = {}) {
+  const oldTarget = previousTarget || currentMonster || AUTO_BATTLE_CONTROLLER.target || null;
+  const now = Date.now();
+  if (oldTarget) {
+    AUTO_BATTLE_CONTROLLER.ignoredTarget = oldTarget;
+    AUTO_BATTLE_CONTROLLER.ignoredTargetUntil = now + Math.max(1200, Number(details.ignoreMs || 3000));
+    oldTarget._autoBattleIgnoreUntil = AUTO_BATTLE_CONTROLLER.ignoredTargetUntil;
+  }
+  AUTO_BATTLE_CONTROLLER.target = null;
+  AUTO_BATTLE_CONTROLLER.forcedTarget = null;
+  AUTO_BATTLE_CONTROLLER.targetLockedAt = 0;
+  AUTO_BATTLE_CONTROLLER.noTargetSince = now;
+  AUTO_BATTLE_CONTROLLER.lastTeleportAt = now;
+  AUTO_BATTLE_CONTROLLER.reacquireSuppressedUntil = now + Math.max(120, Number(details.suppressMs || 240));
+  currentMonster = null;
+  if (player?.position) {
+    player.position.targetX = null;
+    player.position.targetY = null;
+  }
+  if (typeof document !== "undefined") document.querySelectorAll?.(".world-monster-entity.is-selected").forEach(el => el.classList.remove("is-selected"));
+  if (typeof updateMonsterUI === "function") updateMonsterUI();
+  setAutoBattleControllerState(AUTO_BATTLE_STATES.TELEPORTING, { action:details.source || "teleport", reason:"teleport_target_reset" });
+  if (typeof resetAutoNoTargetTimer === "function") resetAutoNoTargetTimer();
+  return true;
+}
+window.onAutoBattleTeleportCompleted = onAutoBattleTeleportCompleted;
+
 function acquireAutoBattleTarget(options = {}) {
+  const now = Date.now();
+  if (now < Number(AUTO_BATTLE_CONTROLLER.reacquireSuppressedUntil || 0)) return null;
+  if (AUTO_BATTLE_CONTROLLER.ignoredTarget && now >= Number(AUTO_BATTLE_CONTROLLER.ignoredTargetUntil || 0)) {
+    AUTO_BATTLE_CONTROLLER.ignoredTarget = null;
+    AUTO_BATTLE_CONTROLLER.ignoredTargetUntil = 0;
+  }
   if (currentMonster && !isAutoBattleTargetValid(currentMonster)) currentMonster = null;
   if (isAutoBattleTargetValid(AUTO_BATTLE_CONTROLLER.forcedTarget)) {
     return applyAutoBattleTarget(AUTO_BATTLE_CONTROLLER.forcedTarget, { forced: true });
@@ -1149,7 +1542,6 @@ function acquireAutoBattleTarget(options = {}) {
   const current = isAutoBattleTargetValid(currentMonster)
     ? currentMonster
     : (isAutoBattleTargetValid(AUTO_BATTLE_CONTROLLER.target) ? AUTO_BATTLE_CONTROLLER.target : null);
-  const now = Date.now();
   const scanInterval = Math.max(40, Number(AUTO_BATTLE_CONTROLLER.threatScanIntervalMs || 100));
   if (current && now - Number(AUTO_BATTLE_CONTROLLER.lastThreatScanAt || 0) < scanInterval) {
     return applyAutoBattleTarget(current);

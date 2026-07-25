@@ -398,7 +398,7 @@ function resetGameSave() {
     const base = location.origin && location.origin !== "null"
       ? location.origin + location.pathname
       : location.pathname;
-    location.replace(base + "?v=0.9.82FK-reset-" + Date.now());
+    location.replace(base + "?v=0.9.82FM-reset-" + Date.now());
   };
 
   try {
@@ -1932,6 +1932,46 @@ function applyPhysicalElementEndowFromItem(itemData) {
 }
 window.applyPhysicalElementEndowFromItem = applyPhysicalElementEndowFromItem;
 
+// 0.9.82FM：手動使用與自動補品共用等級限制及重複使用冷卻。
+function getConsumableItemRequiredLevel(itemData) {
+  return Math.max(0, Number(itemData?.requiredLevel ?? itemData?.equipLevelMin ?? itemData?.EquipLevelMin ?? itemData?.levelRequired ?? 0));
+}
+function getConsumableItemReuseDelayMs(itemData) {
+  return Math.max(0, Number(itemData?.reuseDelayMs ?? itemData?.delayMs ?? itemData?.Delay?.Duration ?? itemData?.delay?.duration ?? 0));
+}
+function getConsumableItemReuseKey(itemData) {
+  return String(itemData?.reuseGroup || itemData?.delayGroup || itemData?.officialId || itemData?.id || "unknown");
+}
+function canUseConsumableItem(itemData, options = {}) {
+  if (!itemData || !player) return { ok:false, reason:"invalid" };
+  const requiredLevel = getConsumableItemRequiredLevel(itemData);
+  const baseLevel = Math.max(1, Number(player.baseLevel || player.level || 1));
+  if (baseLevel < requiredLevel) {
+    if (!options.silent && typeof addBattleLog === "function") addBattleLog(`${itemData.name} 需要 Base Lv.${requiredLevel} 才能使用。`);
+    return { ok:false, reason:"level", requiredLevel };
+  }
+  const key = getConsumableItemReuseKey(itemData);
+  const until = Number(player.itemReuseUntil?.[key] || 0);
+  if (until > Date.now()) {
+    const remainingMs = Math.max(1, until - Date.now());
+    if (!options.silent && typeof addBattleLog === "function") addBattleLog(`${itemData.name} 冷卻中，剩餘 ${(remainingMs / 1000).toFixed(1)} 秒。`);
+    return { ok:false, reason:"cooldown", remainingMs };
+  }
+  return { ok:true, requiredLevel, reuseDelayMs:getConsumableItemReuseDelayMs(itemData), key };
+}
+function markConsumableItemUsed(itemData) {
+  if (!player || !itemData) return false;
+  const delayMs = getConsumableItemReuseDelayMs(itemData);
+  if (delayMs <= 0) return true;
+  player.itemReuseUntil = player.itemReuseUntil && typeof player.itemReuseUntil === "object" ? player.itemReuseUntil : {};
+  player.itemReuseUntil[getConsumableItemReuseKey(itemData)] = Date.now() + delayMs;
+  return true;
+}
+window.getConsumableItemRequiredLevel = getConsumableItemRequiredLevel;
+window.getConsumableItemReuseDelayMs = getConsumableItemReuseDelayMs;
+window.canUseConsumableItem = canUseConsumableItem;
+window.markConsumableItemUsed = markConsumableItemUsed;
+
 //=======================================
 // 使用消耗品
 //=======================================
@@ -1947,6 +1987,8 @@ function consumeItem(itemData) {
     addBattleLog("背包裡沒有 " + itemData.name + "。");
     return;
   }
+  const usability = canUseConsumableItem(itemData);
+  if (!usability.ok) return;
 
   // 蒼蠅翅膀：交給 Position Engine 做真正座標瞬移與扣道具。
   if (String(itemData.id) === "601" && typeof useFlyWing === "function") {
@@ -2011,7 +2053,8 @@ function consumeItem(itemData) {
 
   if (!itemEffectLogged && !appliedPhysicalEndow) addBattleLog("使用了 " + itemData.name + "。");
 
-  // 背包扣掉 1 個
+  // 背包扣掉 1 個，並開始該道具的 RA 重複使用冷卻。
+  markConsumableItemUsed(itemData);
   inventoryItem.count -= 1;
 
   if (inventoryItem.count <= 0) {

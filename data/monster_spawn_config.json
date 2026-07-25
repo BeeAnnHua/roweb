@@ -1,6 +1,6 @@
 {
   "schema": "ro_web_region_monster_streaming_v1",
-  "version": "0.9.82FE",
+  "version": "0.9.82FM",
   "source": {
     "mobDb": "rAthena Renewal db/re/mob_db.yml",
     "spawnScripts": "rAthena Renewal npc/re/mobs/fields/*.txt",
@@ -2698,6 +2698,382 @@
       "recommendedLevelMin": 95,
       "recommendedLevelMax": 110,
       "selectionRule": "RA Renewal field spawns aggregated; top 10 ordinary species by official count + all rare/plants (up to 6)/Boss/MVP with available animation assets."
+    },
+    "thanatos_tower_3x3_region_camera": {
+      "name": "達納托斯塔",
+      "sourceSpawnFiles": [
+        "npc/re/tha_t.txt"
+      ],
+      "targetNormalCountAt100": 60,
+      "pool": [
+        {
+          "monsterId": 1191,
+          "weight": 80,
+          "category": "normal",
+          "raSpawnCount": 80,
+          "sourceMaps": [
+            "tha_t01",
+            "tha_t02",
+            "tha_t03",
+            "tha_t04"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1195,
+          "weight": 80,
+          "category": "normal",
+          "raSpawnCount": 80,
+          "sourceMaps": [
+            "tha_t01",
+            "tha_t02",
+            "tha_t03",
+            "tha_t04"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1275,
+          "weight": 15,
+          "category": "normal",
+          "raSpawnCount": 15,
+          "sourceMaps": [
+            "tha_t01",
+            "tha_t02"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1295,
+          "weight": 70,
+          "category": "normal",
+          "raSpawnCount": 70,
+          "sourceMaps": [
+            "tha_t04",
+            "tha_t05",
+            "tha_t06"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1320,
+          "weight": 130,
+          "category": "normal",
+          "raSpawnCount": 130,
+          "sourceMaps": [
+            "tha_t04",
+            "tha_t05",
+            "tha_t06"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1377,
+          "weight": 80,
+          "category": "normal",
+          "raSpawnCount": 80,
+          "sourceMaps": [
+            "tha_t02",
+            "tha_t03",
+            "tha_t04",
+            "tha_t05",
+            "tha_t06"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1694,
+          "weight": 45,
+          "category": "normal",
+          "raSpawnCount": 45,
+          "sourceMaps": [
+            "tha_t04",
+            "tha_t05",
+            "tha_t06",
+            "tha_t09"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1695,
+          "weight": 45,
+          "category": "normal",
+          "raSpawnCount": 45,
+          "sourceMaps": [
+            "tha_t01",
+            "tha_t05",
+            "tha_t06",
+            "tha_t11"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1696,
+          "weight": 40,
+          "category": "normal",
+          "raSpawnCount": 40,
+          "sourceMaps": [
+            "tha_t03",
+            "tha_t05",
+            "tha_t06"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1697,
+          "weight": 45,
+          "category": "normal",
+          "raSpawnCount": 45,
+          "sourceMaps": [
+            "tha_t02",
+            "tha_t05",
+            "tha_t06",
+            "tha_t10"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1698,
+          "weight": 210,
+          "category": "normal",
+          "raSpawnCount": 210,
+          "sourceMaps": [
+            "tha_t02",
+            "tha_t03",
+            "tha_t04",
+            "tha_t05",
+            "tha_t06",
+            "tha_t07",
+            "tha_t08"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1699,
+          "weight": 210,
+          "category": "normal",
+          "raSpawnCount": 210,
+          "sourceMaps": [
+            "tha_t02",
+            "tha_t03",
+            "tha_t04",
+            "tha_t05",
+            "tha_t06",
+            "tha_t07",
+            "tha_t08"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1700,
+          "weight": 44,
+          "category": "normal",
+          "raSpawnCount": 44,
+          "sourceMaps": [
+            "tha_t04",
+            "tha_t07",
+            "tha_t08",
+            "tha_t09",
+            "tha_t10",
+            "tha_t11",
+            "tha_t12"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1701,
+          "weight": 51,
+          "category": "normal",
+          "raSpawnCount": 51,
+          "sourceMaps": [
+            "tha_t03",
+            "tha_t07",
+            "tha_t08",
+            "tha_t09",
+            "tha_t10",
+            "tha_t11",
+            "tha_t12"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1702,
+          "weight": 74,
+          "category": "normal",
+          "raSpawnCount": 74,
+          "sourceMaps": [
+            "tha_t02",
+            "tha_t07",
+            "tha_t08",
+            "tha_t09",
+            "tha_t10",
+            "tha_t11",
+            "tha_t12"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1703,
+          "weight": 51,
+          "category": "normal",
+          "raSpawnCount": 51,
+          "sourceMaps": [
+            "tha_t01",
+            "tha_t07",
+            "tha_t08",
+            "tha_t09",
+            "tha_t10",
+            "tha_t11",
+            "tha_t12"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1704,
+          "weight": 2,
+          "category": "rare",
+          "raSpawnCount": 2,
+          "sourceMaps": [
+            "tha_t08"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": false,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "maxAlive": 1
+        },
+        {
+          "monsterId": 1705,
+          "weight": 3,
+          "category": "rare",
+          "raSpawnCount": 3,
+          "sourceMaps": [
+            "tha_t07",
+            "tha_t11"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": false,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "maxAlive": 1
+        },
+        {
+          "monsterId": 1706,
+          "weight": 3,
+          "category": "rare",
+          "raSpawnCount": 3,
+          "sourceMaps": [
+            "tha_t06",
+            "tha_t10"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": false,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "maxAlive": 1
+        },
+        {
+          "monsterId": 1707,
+          "weight": 3,
+          "category": "rare",
+          "raSpawnCount": 3,
+          "sourceMaps": [
+            "tha_t05",
+            "tha_t09"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": false,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "maxAlive": 1
+        },
+        {
+          "monsterId": 1708,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "tha_t12"
+          ],
+          "baseRespawnMs": 7200000,
+          "respawnVarianceMs": 600000,
+          "countRateEligible": false,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "maxAlive": 1
+        }
+      ],
+      "recommendedLevelMin": 70,
+      "recommendedLevelMax": 130,
+      "selectionRule": "rAthena Renewal Thanatos Tower tha_t01～tha_t12 classic spawn aggregation; four Thanatos emotions are unique rare species and Thanatos Phantom is a unique MVP timer."
     }
   }
 }
