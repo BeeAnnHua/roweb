@@ -1,0 +1,425 @@
+{
+  "version": "0.9.82DD",
+  "schema": "ro_web_virtual_summons_v1",
+  "mode": "assist_only",
+  "rules": {
+    "oneActivePartner": true,
+    "hasMapEntity": false,
+    "usesImageAssets": false,
+    "hasHpSpExp": false,
+    "canBeTargeted": false,
+    "targetPolicy": "assist_player_current_target",
+    "systemLogEnabled": true,
+    "damageNumberLane": "summon_left",
+    "supportedFamilies": [
+      "elemental",
+      "bionic",
+      "faw",
+      "abr",
+      "independent_plant",
+      "marine_sphere"
+    ],
+    "independentSummonsCanCoexist": true
+  },
+  "actionSkillId": 2461,
+  "summons": {
+    "Agni": {
+      "displayName": "阿格尼",
+      "element": "Fire",
+      "elementLabel": "火屬性",
+      "attackIntervalMsByGrade": [
+        4000,
+        3500,
+        3000
+      ]
+    },
+    "Aqua": {
+      "displayName": "阿庫亞",
+      "element": "Water",
+      "elementLabel": "水屬性",
+      "attackIntervalMsByGrade": [
+        4000,
+        3500,
+        3000
+      ]
+    },
+    "Ventus": {
+      "displayName": "梵圖斯",
+      "element": "Wind",
+      "elementLabel": "風屬性",
+      "attackIntervalMsByGrade": [
+        4000,
+        3500,
+        3000
+      ]
+    },
+    "Tera": {
+      "displayName": "泰拉",
+      "element": "Earth",
+      "elementLabel": "地屬性",
+      "attackIntervalMsByGrade": [
+        4000,
+        3500,
+        3000
+      ]
+    },
+    "Ardor": {
+      "displayName": "阿爾多雷",
+      "element": "Fire",
+      "elementLabel": "火屬性",
+      "attackIntervalMs": 3000
+    },
+    "Diluvio": {
+      "displayName": "迪盧比奧",
+      "element": "Water",
+      "elementLabel": "水屬性",
+      "attackIntervalMs": 3000
+    },
+    "Procella": {
+      "displayName": "普羅賽拉",
+      "element": "Wind",
+      "elementLabel": "風屬性",
+      "attackIntervalMs": 3000
+    },
+    "Terremotus": {
+      "displayName": "泰雷莫圖斯",
+      "element": "Earth",
+      "elementLabel": "地屬性",
+      "attackIntervalMs": 3000
+    },
+    "Serpens": {
+      "displayName": "塞爾彭斯",
+      "element": "Poison",
+      "elementLabel": "毒屬性",
+      "attackIntervalMs": 3000
+    },
+    "WoodenWarrior": {
+      "displayName": "神木戰士",
+      "family": "bionic",
+      "categoryLabel": "仿生召喚",
+      "roleLabel": "近距離物理",
+      "element": "Earth",
+      "elementLabel": "地屬性",
+      "damageType": "physical",
+      "attackRangeType": "short",
+      "attackIntervalMs": 3000,
+      "attackRatioByLevel": [
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "actionName": "神木重擊",
+      "masterySkillId": 5337,
+      "atkMinRate": 70,
+      "atkPerMastery": 600
+    },
+    "WoodenFairy": {
+      "displayName": "神木妖精",
+      "family": "bionic",
+      "categoryLabel": "仿生召喚",
+      "roleLabel": "遠距離物理",
+      "element": "Earth",
+      "elementLabel": "地屬性",
+      "damageType": "physical",
+      "attackRangeType": "long",
+      "attackIntervalMs": 3500,
+      "attackRatioByLevel": [
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "actionName": "妖精枝箭",
+      "masterySkillId": 5337,
+      "atkMinRate": 70,
+      "atkPerMastery": 600
+    },
+    "Creeper": {
+      "displayName": "爬行者",
+      "family": "bionic",
+      "categoryLabel": "仿生召喚",
+      "roleLabel": "快速遠距離物理",
+      "element": "Earth",
+      "elementLabel": "地屬性",
+      "damageType": "physical",
+      "attackRangeType": "long",
+      "attackIntervalMs": 2500,
+      "attackRatioByLevel": [
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "actionName": "蔓藤穿刺",
+      "masterySkillId": 5337,
+      "atkMinRate": 70,
+      "atkPerMastery": 600
+    },
+    "HellTree": {
+      "displayName": "地獄樹",
+      "family": "bionic",
+      "categoryLabel": "仿生召喚",
+      "roleLabel": "範圍物理",
+      "element": "Neutral",
+      "elementLabel": "無屬性",
+      "damageType": "physical",
+      "attackRangeType": "long",
+      "attackIntervalMs": 4000,
+      "attackRatioByLevel": [
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "radius": 2,
+      "actionName": "地獄樹衝擊",
+      "masterySkillId": 5337,
+      "atkMinRate": 70,
+      "atkPerMastery": 600,
+      "atkMinFlat": 1400,
+      "atkMaxFlat": 2000
+    },
+    "SilverSniper": {
+      "displayName": "FAW銀光狙擊手",
+      "family": "faw",
+      "categoryLabel": "FAW裝置",
+      "roleLabel": "遠距離物理",
+      "element": "Neutral",
+      "elementLabel": "無屬性",
+      "damageType": "physical",
+      "attackRangeType": "long",
+      "attackIntervalMs": 2000,
+      "baseAttackByLevel": [
+        590,
+        790,
+        990,
+        1190,
+        1390
+      ],
+      "atkMinRate": 85,
+      "attackRatioByLevel": [
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "actionName": "銀光射擊",
+      "officialMobId": 2042,
+      "sourceNote": "rAthena Silver Sniper mob base Attack 390 + status.cpp batk 200×skill level."
+    },
+    "MagicDecoy": {
+      "displayName": "FAW魔法傀儡",
+      "family": "faw",
+      "categoryLabel": "FAW裝置",
+      "roleLabel": "四屬性魔法",
+      "damageType": "magic",
+      "attackRangeType": "long",
+      "attackIntervalMs": 2500,
+      "baseAttackByLevel": [
+        300,
+        350,
+        400,
+        450,
+        500
+      ],
+      "atkMinRate": 100,
+      "attackRatioByLevel": [
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "elementOptions": [
+        "Fire",
+        "Water",
+        "Wind",
+        "Earth"
+      ],
+      "elementLabels": {
+        "Fire": "火屬性",
+        "Water": "水屬性",
+        "Wind": "風屬性",
+        "Earth": "地屬性"
+      },
+      "selectBestElement": true,
+      "actionName": "元素魔彈",
+      "officialMobIds": [
+        2043,
+        2044,
+        2046,
+        2045
+      ],
+      "sourceNote": "rAthena status.cpp sets FAW Magic Decoy MATK to 250 + 50×skill level; RO_WEB AI selects the best of the four official elements per target."
+    },
+    "AbrBattleWarrior": {
+      "displayName": "ABR－決戰勇士",
+      "family": "abr",
+      "categoryLabel": "ABR機器人",
+      "roleLabel": "近距離物理",
+      "element": "Neutral",
+      "elementLabel": "無屬性",
+      "damageType": "physical",
+      "attackRangeType": "short",
+      "attackIntervalMs": 3000,
+      "attackRatioByLevel": [
+        100,
+        100,
+        100,
+        100
+      ],
+      "actionName": "決戰爆裂",
+      "masterySkillId": 5301,
+      "casterStat": "atk",
+      "casterStatRate": 200,
+      "atkMinRate": 70,
+      "atkPerMastery": 600,
+      "atkMaxFlat": 200,
+      "atkMinFlat": 140,
+      "officialMobId": 20834,
+      "sourceNote": "RA ABR base formula uses 2×master BATK + 200 + 600×ABR Mastery; RO_WEB attack interval adapted for assist-only play."
+    },
+    "AbrDualCannon": {
+      "displayName": "ABR－雙子加農砲",
+      "family": "abr",
+      "categoryLabel": "ABR機器人",
+      "roleLabel": "遠距離物理",
+      "element": "Neutral",
+      "elementLabel": "無屬性",
+      "damageType": "physical",
+      "attackRangeType": "long",
+      "attackIntervalMs": 2500,
+      "attackRatioByLevel": [
+        100,
+        100,
+        100,
+        100
+      ],
+      "actionName": "雙子砲擊",
+      "masterySkillId": 5301,
+      "casterStat": "atk",
+      "casterStatRate": 200,
+      "atkMinRate": 70,
+      "atkPerMastery": 600,
+      "atkMaxFlat": 200,
+      "atkMinFlat": 140,
+      "officialMobId": 20835,
+      "sourceNote": "RA ABR base formula uses 2×master BATK + 200 + 600×ABR Mastery; ranged role follows official ABR Dual Cannon data."
+    },
+    "AbrMotherNet": {
+      "displayName": "ABR－天網聖母",
+      "family": "abr",
+      "categoryLabel": "ABR機器人",
+      "roleLabel": "恢復／防禦支援",
+      "supportAction": true,
+      "attackIntervalMs": 5000,
+      "actionName": "天網修復支援",
+      "masterySkillId": 5301,
+      "healHpRateByLevel": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "healSpRateByLevel": [
+        1,
+        1,
+        2,
+        2
+      ],
+      "supportBuffDurationMs": 6000,
+      "defFlatPerMastery": 20,
+      "mdefFlatPerMastery": 4,
+      "officialMobId": 20836,
+      "sourceNote": "Official ABR Mother Net repeatedly uses Net Repair and Net Support in a 12-cell area. Because virtual summons have no HP and RO_WEB is currently solo, repair/support are adapted to player HP/SP recovery plus short DEF/MDEF support."
+    },
+    "AbrInfinity": {
+      "displayName": "ABR－無限戰火",
+      "family": "abr",
+      "categoryLabel": "ABR機器人",
+      "roleLabel": "高階遠距離物理",
+      "element": "Neutral",
+      "elementLabel": "無屬性",
+      "damageType": "physical",
+      "attackRangeType": "long",
+      "attackIntervalMs": 2000,
+      "attackRatioByLevel": [
+        100,
+        100,
+        100,
+        100
+      ],
+      "actionName": "無限爆破",
+      "masterySkillId": 5301,
+      "casterStat": "atk",
+      "casterStatRate": 200,
+      "atkMinRate": 70,
+      "atkPerMastery": 600,
+      "atkMinFlat": 1540,
+      "atkMaxFlat": 2200,
+      "officialMobId": 20837,
+      "sourceNote": "RA Infinity adds 1400 minimum and 2000 maximum ATK above the shared ABR formula; +200/+140 shared base constants are included in RO_WEB flat values."
+    }
+  },
+  "uiText": {
+    "windowTitle": "召喚物控制",
+    "empty": "目前沒有主要召喚物。元素、高階元素、仿生、FAW 或 ABR 會顯示於此；地獄植物與氣泡蟲可獨立並存。",
+    "assistOn": "協助攻擊中",
+    "assistOff": "已停止攻擊",
+    "resume": "恢復協助",
+    "stop": "停止攻擊",
+    "manualAction": "立即命令攻擊",
+    "dismiss": "解除召喚",
+    "noTarget": "目前沒有可供召喚物攻擊的目標。",
+    "noSummon": "目前沒有可控制的召喚物。"
+  },
+  "masterySkillId": 5337,
+  "independentSummons": {
+    "HellPlant": {
+      "displayName": "地獄植物",
+      "family": "independent_plant",
+      "categoryLabel": "獨立植物",
+      "roleLabel": "週期範圍物理",
+      "damageType": "physical",
+      "elementSource": "weapon",
+      "attackRangeType": "long",
+      "attackIntervalMs": 2000,
+      "attackRatioByLevel": [
+        200,
+        300,
+        400,
+        500,
+        600
+      ],
+      "radius": 2,
+      "actionName": "地獄植物攻擊",
+      "sourceNote": "RA SC_HELLS_PLANT periodically triggers GN_HELLS_PLANT_ATK. RO_WEB uses player ATK, weapon element and a level-scaled assist ratio."
+    },
+    "MarineSphere": {
+      "displayName": "氣泡蟲",
+      "family": "marine_sphere",
+      "categoryLabel": "獨立自爆召喚",
+      "roleLabel": "5 秒延遲範圍自爆",
+      "damageType": "misc",
+      "element": "Fire",
+      "attackRangeType": "long",
+      "detonationDelayMs": 5000,
+      "fixedDamageByLevel": [
+        2400,
+        2800,
+        3200,
+        3600,
+        4000
+      ],
+      "radius": 2,
+      "actionName": "自爆",
+      "sourceNote": "RA NPC_SELFDESTRUCTION uses current HP; Marine Sphere max HP is represented as 2000 + 400×skill level."
+    }
+  }
+}

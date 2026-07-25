@@ -1,0 +1,1476 @@
+//=======================================
+// 戰鬥系統 battle.js
+//=======================================
+
+let currentMonster = null;
+try { Object.defineProperty(window, "currentMonster", { configurable: true, get: () => currentMonster, set: value => { currentMonster = value; } }); } catch (_) {}
+function collectLiveCombatEnemies(options = {}) {
+  const result = [], seen = new Set();
+  const includeDead = options.includeDead === true;
+  const append = monster => {
+    if (!monster || seen.has(monster)) return;
+    if (!includeDead && Number(monster.currentHp ?? monster.hp ?? 0) <= 0) return;
+    if (monster._deathHandled && !includeDead) return;
+    seen.add(monster); result.push(monster);
+  };
+  // Formal 3x3 world monsters are authoritative. When a skill supplies a
+  // bounding box, use the incremental spatial hash instead of scanning the
+  // whole streamed population. Legacy arrays remain developer-map fallbacks.
+  let formal = [];
+  if (options.bounds && typeof queryWorldMonsterEntitiesInBounds === "function") {
+    formal = queryWorldMonsterEntitiesInBounds(options.bounds, { includeDead, activeOnly:options.activeOnly !== false });
+  } else if (typeof getWorldMonsterTestEntities === "function") {
+    formal = getWorldMonsterTestEntities({ includeDead, activeOnly:options.activeOnly !== false }) || [];
+  }
+  formal.forEach(append);
+  if (Array.isArray(window.activeMonsters)) window.activeMonsters.forEach(append);
+  if (Array.isArray(window.mapMonsters)) window.mapMonsters.forEach(append);
+  append(currentMonster);
+  return result;
+}
+window.collectLiveCombatEnemies = collectLiveCombatEnemies;
+window.getCombatEnemyCandidates = collectLiveCombatEnemies;
+window.getCombatGroundCandidates = collectLiveCombatEnemies;
+window.getSkillTargetCandidates = collectLiveCombatEnemies;
+let autoBattleTimer = null;
+let autoBattleRunning = false;
+let manualAttackTimer = null;
+let manualAttackRunning = false;
+let manualAttackTarget = null;
+let spawnTimer = null;
+
+// 0.9.82FA: Auto Battle Controller v1.1 keeps the event-driven scheduler. The old fixed 250ms poll imposed an
+// accidental 4 actions/second ceiling. The scheduler now sleeps until the
+// latest still-blocking Renewal timing gate, with a small browser-safe timer floor.
+const AUTO_BATTLE_MIN_SCHEDULE_MS = 8;
+const AUTO_BATTLE_MAX_IDLE_MS = 250;
+const RESPAWN_DELAY = 1500;        // 僅供 legacy 單怪地圖；正式多怪地圖死亡後立即換目標
+let lastPlayerAttackAt = 0;
+
+// ===== 0.9.82EH：rAthena Renewal ASPD / action-lock 唯一公式 =====
+// RA internal values: amotion = 2000 - ASPD * 10, adelay = amotion * 2.
+// RO_WEB deliberately uses the approved global cap 193 for every implemented job.
+const RO_WEB_MAX_ASPD = 193;
+const RO_WEB_MIN_ATTACK_MOTION_MS = Math.max(1, 2000 - RO_WEB_MAX_ASPD * 10); // 70ms
+function getPlayerAspdValue() {
+  if (typeof recalculatePlayerStats === "function") recalculatePlayerStats();
+  return Math.max(1, Math.min(RO_WEB_MAX_ASPD, Number(player?.aspd || 150)));
+}
+function getPlayerAttackMotionMs() {
+  return Math.max(RO_WEB_MIN_ATTACK_MOTION_MS, Math.round(2000 - getPlayerAspdValue() * 10));
+}
+function getPlayerAttackDelayMs() {
+  return Math.max(RO_WEB_MIN_ATTACK_MOTION_MS * 2, getPlayerAttackMotionMs() * 2);
+}
+function getPlayerSkillActionLockMs() {
+  // unit_set_attackdelay(DELAY_EVENT_CASTBEGIN_*): amotion + minimum reachable amotion.
+  return Math.max(RO_WEB_MIN_ATTACK_MOTION_MS * 2, getPlayerAttackMotionMs() + RO_WEB_MIN_ATTACK_MOTION_MS);
+}
+window.RO_WEB_MAX_ASPD = RO_WEB_MAX_ASPD;
+window.getPlayerAspdValue = getPlayerAspdValue;
+window.getPlayerAttackMotionMs = getPlayerAttackMotionMs;
+window.getPlayerAttackDelayMs = getPlayerAttackDelayMs;
+window.getPlayerSkillActionLockMs = getPlayerSkillActionLockMs;
+
+function canPlayerAttackNow() {
+  const active = typeof getActiveBuffBonusTotals === "function" ? getActiveBuffBonusTotals() : {};
+  if (Number(active.blocksNormalAttack || 0) > 0) return false;
+  const actionLockUntil = Number(player?.skillTimingState?.actionLockUntil || 0);
+  if (actionLockUntil > Date.now()) return false;
+  return Date.now() - lastPlayerAttackAt >= getPlayerAttackDelayMs();
+}
+
+function getPlayerAttackRemainingMs() {
+  return Math.max(0, getPlayerAttackDelayMs() - (Date.now() - lastPlayerAttackAt));
+}
+
+function markPlayerAttackUsed() {
+  lastPlayerAttackAt = Date.now();
+}
+
+function clearBattleTimersAndMonster(options = {}) {
+  autoBattleRunning = false;
+  manualAttackRunning = false;
+  manualAttackTarget = null;
+  if (manualAttackTimer) {
+    clearTimeout(manualAttackTimer);
+    manualAttackTimer = null;
+  }
+  if (autoBattleTimer) {
+    clearTimeout(autoBattleTimer);
+    autoBattleTimer = null;
+  }
+  if (spawnTimer) {
+    clearTimeout(spawnTimer);
+    spawnTimer = null;
+  }
+  if (options.clearMonster !== false) {
+    currentMonster = null;
+  }
+  if (typeof resetAutoBattleController === "function") resetAutoBattleController({ running: false, keepTarget: options.clearMonster === false, reason: "clear_timers" });
+  if (player) player.state = "Idle";
+}
+
+
+function getAutoBattleTimingCandidates(now = Date.now()) {
+  const waits = [];
+  const castState = typeof getRuntimeSkillCastState === "function" ? getRuntimeSkillCastState() : null;
+  if (castState?.active !== false && Number(castState?.endsAt || 0) > now) waits.push(Number(castState.endsAt) - now);
+  const timingState = player?.skillTimingState;
+  if (Number(timingState?.globalDelayUntil || 0) > now) waits.push(Number(timingState.globalDelayUntil) - now);
+  if (Number(timingState?.actionLockUntil || 0) > now) waits.push(Number(timingState.actionLockUntil) - now);
+
+  const validTarget = typeof isAutoBattleTargetValid === "function" ? isAutoBattleTargetValid(currentMonster) : !!currentMonster;
+  const normalEnabled = player?.autoCombat?.normalAttack?.enabled !== false;
+  const attackChoice = validTarget && typeof getAutoAttackSkill === "function" ? getAutoAttackSkill(currentMonster) : null;
+
+  if (attackChoice?.blocked) {
+    const block = attackChoice.delayBlock;
+    if (Number(block?.remainingMs || 0) > 0 && (!normalEnabled || block.type !== "cooldown")) {
+      waits.push(Number(block.remainingMs));
+    }
+  }
+
+  const willUseNormal = normalEnabled && (!attackChoice || (attackChoice.blocked && attackChoice.delayBlock?.type === "cooldown"));
+  if (willUseNormal && typeof getPlayerAttackRemainingMs === "function") {
+    const remaining = Number(getPlayerAttackRemainingMs() || 0);
+    if (remaining > 0) waits.push(remaining);
+  }
+  return waits.filter(value => Number.isFinite(value) && value > 0);
+}
+
+
+function getAutoBattleNextDelayMs(now = Date.now()) {
+  if (!autoBattleRunning) return AUTO_BATTLE_MAX_IDLE_MS;
+  const waits = getAutoBattleTimingCandidates(now);
+  const validTarget = typeof isAutoBattleTargetValid === "function" ? isAutoBattleTargetValid(currentMonster) : !!currentMonster;
+  if (!validTarget) return Math.min(AUTO_BATTLE_MAX_IDLE_MS, Math.max(32, waits.length ? Math.min(...waits) : 80));
+  if (player?.state === "Approaching" || player?.state === "Moving" || player?.state === "Move") return 16;
+
+  if (!waits.length && typeof getAutoCombatAttackAction === "function") {
+    const action = getAutoCombatAttackAction(currentMonster);
+    if (action?.action === "utility") return 80;
+  }
+
+  const desired = waits.length ? Math.max(...waits) : AUTO_BATTLE_MIN_SCHEDULE_MS;
+  return Math.max(AUTO_BATTLE_MIN_SCHEDULE_MS, Math.min(AUTO_BATTLE_MAX_IDLE_MS, Math.ceil(desired)));
+}
+
+
+function runAutoBattleControllerTick() {
+  if (!autoBattleRunning || !player || player.currentCity || Number(player.hp || 0) <= 0) return false;
+
+  const utility = typeof runAutoCombatUtilityTick === "function" ? runAutoCombatUtilityTick() : { action: "none" };
+  if (utility?.action === "utility") {
+    if (typeof updatePlayerUI === "function") updatePlayerUI();
+    return true;
+  }
+
+  let target = typeof acquireAutoBattleTarget === "function"
+    ? acquireAutoBattleTarget({ reason: "controller_tick" })
+    : currentMonster;
+  if (!target) {
+    if (typeof setAutoBattleControllerState === "function") setAutoBattleControllerState(AUTO_BATTLE_STATES.SEARCHING, { reason: "no_target" });
+    const teleported = typeof maybeAutoTeleportWhenNoTarget === "function" ? maybeAutoTeleportWhenNoTarget() : false;
+    if (teleported && typeof acquireAutoBattleTarget === "function") target = acquireAutoBattleTarget({ reason: "post_teleport" });
+    if (!target) return true;
+  }
+
+  if (typeof maybeAutoEscapeFromTarget === "function" && maybeAutoEscapeFromTarget(target)) return true;
+
+  autoAttackMonster({ utilityHandled: true, controller: true });
+  return true;
+}
+
+function scheduleAutoBattleTick(delayMs = null) {
+  if (!autoBattleRunning) return false;
+  const delay = delayMs === null ? getAutoBattleNextDelayMs() : Math.max(AUTO_BATTLE_MIN_SCHEDULE_MS, Number(delayMs || 0));
+  if (autoBattleTimer) clearTimeout(autoBattleTimer);
+  autoBattleTimer = setTimeout(() => {
+    autoBattleTimer = null;
+    if (!autoBattleRunning) return;
+    runAutoBattleControllerTick();
+    scheduleAutoBattleTick(getAutoBattleNextDelayMs());
+  }, delay);
+  return true;
+}
+
+function isAutoBattleRunning() {
+  return autoBattleRunning === true;
+}
+window.getAutoBattleTimingCandidates = getAutoBattleTimingCandidates;
+window.getAutoBattleNextDelayMs = getAutoBattleNextDelayMs;
+window.scheduleAutoBattleTick = scheduleAutoBattleTick;
+window.runAutoBattleControllerTick = runAutoBattleControllerTick;
+window.isAutoBattleRunning = isAutoBattleRunning;
+
+// ===== 0.9.82EM：左鍵直接鎖定並連續普通攻擊 =====
+// 手動點怪與自動掛機分離：手動模式只使用普通攻擊，不會自動施放掛機技能。
+function getManualAttackTimingCandidates(now = Date.now()) {
+  const waits = [];
+  const castState = typeof getRuntimeSkillCastState === "function" ? getRuntimeSkillCastState() : null;
+  if (castState?.active !== false && Number(castState?.endsAt || 0) > now) waits.push(Number(castState.endsAt) - now);
+  const timingState = player?.skillTimingState;
+  if (Number(timingState?.globalDelayUntil || 0) > now) waits.push(Number(timingState.globalDelayUntil) - now);
+  if (Number(timingState?.actionLockUntil || 0) > now) waits.push(Number(timingState.actionLockUntil) - now);
+  if (typeof getPlayerAttackRemainingMs === "function") {
+    const remaining = Number(getPlayerAttackRemainingMs() || 0);
+    if (remaining > 0) waits.push(remaining);
+  }
+  return waits.filter(value => Number.isFinite(value) && value > 0);
+}
+
+function getManualAttackNextDelayMs(now = Date.now()) {
+  if (!manualAttackRunning) return AUTO_BATTLE_MAX_IDLE_MS;
+  if (!manualAttackTarget || currentMonster !== manualAttackTarget) return AUTO_BATTLE_MIN_SCHEDULE_MS;
+  if (["Approaching", "Moving", "Move"].includes(String(player?.state || ""))) return 16;
+  const waits = getManualAttackTimingCandidates(now);
+  return Math.max(AUTO_BATTLE_MIN_SCHEDULE_MS, Math.min(AUTO_BATTLE_MAX_IDLE_MS, Math.ceil(waits.length ? Math.max(...waits) : 16)));
+}
+
+function stopManualMonsterAttack(options = {}) {
+  const target = manualAttackTarget;
+  manualAttackRunning = false;
+  manualAttackTarget = null;
+  if (manualAttackTimer) {
+    clearTimeout(manualAttackTimer);
+    manualAttackTimer = null;
+  }
+  if (options.clearTarget && currentMonster === target) {
+    currentMonster = null;
+    document.querySelectorAll(".world-monster-entity.is-selected").forEach(el => el.classList.remove("is-selected"));
+    if (typeof updateMonsterUI === "function") updateMonsterUI();
+  }
+  if (player && !autoBattleRunning && ["Attacking", "Approaching"].includes(String(player.state || ""))) player.state = "Idle";
+  return true;
+}
+
+function scheduleManualMonsterAttack(delayMs = null) {
+  if (!manualAttackRunning || autoBattleRunning) return false;
+  const delay = delayMs === null ? getManualAttackNextDelayMs() : Math.max(AUTO_BATTLE_MIN_SCHEDULE_MS, Number(delayMs || 0));
+  if (manualAttackTimer) clearTimeout(manualAttackTimer);
+  manualAttackTimer = setTimeout(() => {
+    manualAttackTimer = null;
+    if (!manualAttackRunning || autoBattleRunning) return;
+    if (!manualAttackTarget || currentMonster !== manualAttackTarget || Number(manualAttackTarget.currentHp || 0) <= 0 || manualAttackTarget._deathHandled || player?.currentCity || Number(player?.hp || 0) <= 0) {
+      stopManualMonsterAttack({ clearTarget: false, silent: true });
+      return;
+    }
+    autoAttackMonster({ manual: true });
+    if (manualAttackRunning && currentMonster === manualAttackTarget && Number(manualAttackTarget.currentHp || 0) > 0) {
+      scheduleManualMonsterAttack(getManualAttackNextDelayMs());
+    } else {
+      stopManualMonsterAttack({ clearTarget: false, silent: true });
+    }
+  }, delay);
+  return true;
+}
+
+function startManualMonsterAttack(monster = currentMonster, options = {}) {
+  if (!monster || Number(monster.currentHp || monster.hp || 0) <= 0 || monster._deathHandled || player?.currentCity) return false;
+  if (autoBattleRunning) {
+    if (typeof forceAutoBattleTarget === "function") forceAutoBattleTarget(monster, { announce: false });
+    else {
+      currentMonster = monster;
+      if (player) player.state = "Attacking";
+      if (typeof updateMonsterUI === "function") updateMonsterUI();
+    }
+    scheduleAutoBattleTick(AUTO_BATTLE_MIN_SCHEDULE_MS);
+    return true;
+  }
+  manualAttackTarget = monster;
+  manualAttackRunning = true;
+  currentMonster = monster;
+  if (player) player.state = "Attacking";
+  if (typeof updateMonsterUI === "function") updateMonsterUI();
+  scheduleManualMonsterAttack(options.immediate === false ? 16 : AUTO_BATTLE_MIN_SCHEDULE_MS);
+  return true;
+}
+
+window.getManualAttackTimingCandidates = getManualAttackTimingCandidates;
+window.getManualAttackNextDelayMs = getManualAttackNextDelayMs;
+window.scheduleManualMonsterAttack = scheduleManualMonsterAttack;
+window.startManualMonsterAttack = startManualMonsterAttack;
+window.stopManualMonsterAttack = stopManualMonsterAttack;
+window.isManualMonsterAttackRunning = () => manualAttackRunning === true;
+
+// 開始自動戰鬥
+function startAutoBattle() {
+  stopManualMonsterAttack({ clearTarget: false, silent: true });
+  if (autoBattleRunning) {
+    addBattleLog("自動戰鬥已經在進行中。");
+    return;
+  }
+
+  if (player?.currentCity) {
+    addBattleLog("目前位於城鎮，請先前往練功地圖再開始戰鬥。");
+    return;
+  }
+
+  if (!currentMap) {
+    addBattleLog("目前沒有地圖資料，無法開始戰鬥。");
+    return;
+  }
+
+  if (player.hp <= 0) {
+    player.hp = player.maxHp;
+    updatePlayerUI();
+    saveGame();
+    addBattleLog("HP 已恢復。");
+  }
+
+  // 開始戰鬥前先同步一次 Auto Battle Controller v1 設定
+  if (typeof syncAutoCombatSettingsFromUI === "function") {
+    syncAutoCombatSettingsFromUI({
+      silent: true,
+      save: true
+    });
+  }
+
+  autoBattleRunning = true;
+  if (typeof resetAutoBattleController === "function") resetAutoBattleController({ running: true, keepTarget: true, reason: "start" });
+  player.state = "Searching";
+  addBattleLog("開始自動戰鬥。");
+
+  spawnMonsterFromCurrentMap();
+  if (typeof acquireAutoBattleTarget === "function") acquireAutoBattleTarget({ reason: "start", announce: false });
+  scheduleAutoBattleTick(AUTO_BATTLE_MIN_SCHEDULE_MS);
+}
+
+// 停止自動戰鬥
+function stopAutoBattle(options = {}) {
+  const wasRunning = Boolean(autoBattleRunning || autoBattleTimer || spawnTimer);
+  autoBattleRunning = false;
+
+  if (autoBattleTimer) {
+    clearTimeout(autoBattleTimer);
+    autoBattleTimer = null;
+  }
+
+  if (spawnTimer) {
+    clearTimeout(spawnTimer);
+    spawnTimer = null;
+  }
+
+  if (typeof resetAutoBattleController === "function") resetAutoBattleController({ running: false, keepTarget: true, reason: "stop" });
+  if (player) player.state = "Idle";
+
+  if (wasRunning && !options.silent) {
+    addBattleLog("已停止自動戰鬥。");
+  }
+}
+
+// 從目前地圖生成怪物
+function spawnMonsterFromCurrentMap() {
+  if (typeof isAutoBattleTargetValid === "function" ? isAutoBattleTargetValid(currentMonster) : currentMonster) return;
+
+  if (!currentMap) {
+    addBattleLog("目前沒有地圖資料，無法生怪。");
+    return;
+  }
+
+  if (!currentMap.monsters || currentMap.monsters.length === 0) {
+    addBattleLog("這張地圖沒有怪物。");
+    return;
+  }
+
+  // V0.9.82EM: RA 模式區域怪物串流；戰鬥鎖定玩家附近最近的存活實體。
+  if (currentMap.monsterVisualTest && typeof getNearestWorldMonsterTestTarget === "function") {
+    const target = typeof acquireAutoBattleTarget === "function"
+      ? acquireAutoBattleTarget({ reason: "spawn_scan" })
+      : getNearestWorldMonsterTestTarget();
+    if (!target) {
+      if (player) player.state = "Searching";
+      return;
+    }
+    if (typeof applyAutoBattleTarget !== "function") {
+      if (typeof selectWorldMonsterTestTarget === "function") selectWorldMonsterTestTarget(target, { announce: false });
+      else currentMonster = target;
+    }
+    if (typeof resetAutoNoTargetTimer === "function") resetAutoNoTargetTimer();
+    if (player) player.state = "Attacking";
+    updateMonsterUI();
+    return;
+  }
+
+  let monsterId;
+  if (Array.isArray(currentMap.monsterTestSequence) && currentMap.monsterTestSequence.length) {
+    currentMap._monsterTestCursor = Number(currentMap._monsterTestCursor || 0);
+    monsterId = currentMap.monsterTestSequence[currentMap._monsterTestCursor % currentMap.monsterTestSequence.length];
+    currentMap._monsterTestCursor += 1;
+  } else {
+    monsterId = getRandomFromArray(currentMap.monsters);
+  }
+  const monsterData = monsters.find(monster => monster.id === monsterId);
+
+  if (!monsterData) {
+    addBattleLog("找不到怪物資料：" + monsterId);
+    return;
+  }
+
+  currentMonster = {
+    ...monsterData,
+    currentHp: monsterData.maxHp || monsterData.hp
+  };
+
+  if (typeof assignMonsterSpawnPosition === "function") assignMonsterSpawnPosition(currentMonster);
+  autoNoTargetSince = null;
+
+  if (player) player.state = "Attacking";
+  updateMonsterUI();
+  if (typeof syncROStudioMonsterAtlas === "function") syncROStudioMonsterAtlas(currentMonster);
+  addBattleLog("出現了 " + currentMonster.name + "！");
+}
+
+// 玩家自動攻擊怪物
+function autoAttackMonster(options = {}) {
+  if (!options.manual) {
+    if (!options.utilityHandled && typeof runAutoCombatUtilityTick === "function") {
+      const utility = runAutoCombatUtilityTick();
+      if (utility?.action === "utility") {
+        if (typeof updatePlayerUI === "function") updatePlayerUI();
+        return;
+      }
+    }
+    if (typeof isAutoBattleTargetValid === "function" && !isAutoBattleTargetValid(currentMonster)) {
+      if (typeof acquireAutoBattleTarget === "function") acquireAutoBattleTarget({ reason: "attack_entry" });
+    }
+  }
+  if (!currentMonster) {
+    if (!options.manual && typeof setAutoBattleControllerState === "function") setAutoBattleControllerState(AUTO_BATTLE_STATES.SEARCHING, { reason: "attack_no_target" });
+    return;
+  }
+  if (typeof runVirtualSummonAssistTick === "function") {
+    const summonResult = runVirtualSummonAssistTick(currentMonster);
+    if (summonResult?.defeated) { defeatMonster(); return; }
+  }
+  if (typeof isRuntimeSkillCasting === "function" && isRuntimeSkillCasting()) return;
+
+  // v0.9.72：先決定本 tick 要用普攻還是攻擊技能，再用對應射程判定。
+  // 這樣投擲長矛 / 弓類技能不會被普攻 1 Cell 射程綁死。
+  const autoAction = options.manual
+    ? { action: "normal", source: "manual_click" }
+    : (typeof getAutoCombatAttackAction === "function"
+      ? getAutoCombatAttackAction(currentMonster)
+      : (typeof runAutoCombatTick === "function" ? runAutoCombatTick(currentMonster, { skipUtility: true }) : { action: "normal" }));
+
+  if (autoAction && autoAction.action === "utility") {
+    if (!options.manual && typeof setAutoBattleControllerState === "function") setAutoBattleControllerState(AUTO_BATTLE_STATES.UTILITY, { action: "wait", reason: autoAction.waitForSkill ? "wait_for_skill" : "utility" });
+    updatePlayerUI();
+    return;
+  }
+
+  const intendedRange = autoAction && autoAction.action === "attackSkill"
+    ? (typeof getSkillRangePx === "function" ? getSkillRangePx(autoAction.skill, autoAction.level) : null)
+    : (typeof getPlayerNormalAttackRange === "function" ? getPlayerNormalAttackRange() : null);
+
+  if (typeof canAttackMonsterByRange === "function" && !canAttackMonsterByRange(currentMonster, intendedRange)) {
+    if (!options.manual && typeof setAutoBattleControllerState === "function") setAutoBattleControllerState(AUTO_BATTLE_STATES.APPROACHING, { action: autoAction?.action || "normal", reason: "out_of_range" });
+    if (typeof movePlayerTowardMonster === "function") movePlayerTowardMonster(currentMonster, intendedRange);
+    updateMonsterUI();
+    return;
+  }
+
+  // V0.9.79E：進入攻擊距離後立刻停步，避免等 ASPD 期間仍播放走路動畫。
+  if (typeof stopPlayerCombatMovementForAttack === "function") stopPlayerCombatMovementForAttack(currentMonster);
+  if (!options.manual && typeof setAutoBattleControllerState === "function") setAutoBattleControllerState(AUTO_BATTLE_STATES.COMBAT, { action: autoAction?.action || "normal", reason: "in_range" });
+
+  if (autoAction && autoAction.action === "attackSkill") {
+    const recheck = typeof canCastSkill === "function" ? canCastSkill(autoAction.skill, autoAction.level) : { ok: true, level: autoAction.level };
+    if (!recheck.ok) return;
+    const autoCastTiming = typeof getRuntimeAdjustedCastTime === "function" ? getRuntimeAdjustedCastTime(autoAction.skill, autoAction.level) : { totalMs: 0 };
+    if (Number(autoCastTiming?.totalMs || 0) > 0 && typeof beginRuntimeSkillCast === "function" && typeof quickSlotCastSkill === "function") {
+      beginRuntimeSkillCast(autoAction.skill, autoAction.level, () => quickSlotCastSkill(autoAction.skill.id, { skipRuntimeCast: true, source: "auto_battle" }));
+      return;
+    }
+    const autoProfile=typeof getSkillRuntimeProfile==="function"?getSkillRuntimeProfile(autoAction.skill):null;
+    const used=autoProfile?.handler==="combo_sequence"
+      ? castComboSequenceSkill(autoAction.skill,autoAction.level,{source:"auto_battle"})
+      : castAttackSkill(autoAction.skill, autoAction.level, { source: "auto_battle" });
+
+    if (used) {
+      if (currentMonster.currentHp <= 0) {
+        defeatMonster();
+        return;
+      }
+
+      monsterAttackPlayer();
+      return;
+    }
+    return;
+  }
+
+  if (!canPlayerAttackNow()) return;
+
+  if (typeof canAttackMonsterByRange === "function" && !canAttackMonsterByRange(currentMonster, intendedRange)) {
+    if (typeof movePlayerTowardMonster === "function") movePlayerTowardMonster(currentMonster, intendedRange);
+    return;
+  }
+
+  if (typeof stopPlayerCombatMovementForAttack === "function") stopPlayerCombatMovementForAttack(currentMonster);
+
+  markPlayerAttackUsed();
+
+  const normalAttackResult = resolvePlayerNormalAttack();
+  if (normalAttackResult.miss) {
+    addBattleLog("你攻擊 " + currentMonster.name + "，但是 Miss！");
+    if (typeof breakCamouflageRuntime === "function" && breakCamouflageRuntime({silent:true})) addBattleLog("發動攻擊，偽裝戰術解除。");
+    playPlayerAttackAnimation();
+    updateMonsterUI();
+    monsterAttackPlayer();
+    return;
+  }
+
+  const playerDamage = Math.max(1, Number(normalAttackResult.damage || 1));
+
+  currentMonster.provoked = true;
+  currentMonster.currentHp -= playerDamage;
+  if (typeof consumeVigorHpOnAttack === "function") consumeVigorHpOnAttack();
+  if (typeof tryGankOnNormalAttack === "function") tryGankOnNormalAttack(currentMonster);
+  if (typeof tryGentleTouchEnergyGain === "function") tryGentleTouchEnergyGain("normal_attack");
+  if (typeof applyActiveAttackBuffStatuses === "function") applyActiveAttackBuffStatuses(currentMonster, playerDamage);
+  if (typeof trySpellFistOnNormalAttack === "function") trySpellFistOnNormalAttack(currentMonster);
+  if (typeof trySageAutoSpellOnNormalAttack === "function") trySageAutoSpellOnNormalAttack(currentMonster);
+  if (typeof tryAutoShadowSpellOnNormalAttack === "function") tryAutoShadowSpellOnNormalAttack(currentMonster);
+  if (typeof tryDupleLightOnNormalAttack === "function") tryDupleLightOnNormalAttack(currentMonster);
+  if (typeof tryServantWeaponOnNormalAttack === "function") tryServantWeaponOnNormalAttack(currentMonster);
+  if (typeof tryAbyssForceWeaponOnNormalAttack === "function") tryAbyssForceWeaponOnNormalAttack(currentMonster);
+  if (typeof tryFalconAutoAttackOnNormal === "function") tryFalconAutoAttackOnNormal(currentMonster);
+  if (typeof tryHawkRushAutoAttackOnNormal === "function") tryHawkRushAutoAttackOnNormal(currentMonster);
+  if (typeof tryWindSignApGainOnNormalAttack === "function") tryWindSignApGainOnNormalAttack(currentMonster);
+  if (typeof tryWargAutoStrikeOnNormal === "function") tryWargAutoStrikeOnNormal(currentMonster);
+  if (typeof breakCamouflageRuntime === "function" && breakCamouflageRuntime({silent:true})) addBattleLog("發動攻擊，偽裝戰術解除。");
+
+  if (currentMonster.currentHp < 0) {
+    currentMonster.currentHp = 0;
+  }
+
+  const normalAttackTriggerText = window.lastNormalAttackWasTriple ? "（六合拳）" : (window.lastNormalAttackWasDouble ? "（二刀連擊）" : "");
+  addBattleLog("你對 " + currentMonster.name + " 造成 " + playerDamage + " 點傷害。" + normalAttackTriggerText);
+
+  playPlayerAttackAnimation();
+  updateMonsterUI();
+  playMonsterHitAnimation(currentMonster);
+  showDamageNumber(playerDamage, {
+    target: currentMonster,
+    critical: normalAttackResult?.critical === true || normalAttackResult?.critical?.critical === true,
+    hitCount: Math.max(1, Number(normalAttackResult?.visualHits || 1)),
+    combo: Math.max(1, Number(normalAttackResult?.visualHits || 1)) > 1
+  });
+  showSlashEffect();
+
+  if (currentMonster.currentHp <= 0) {
+    defeatMonster();
+    return;
+  }
+
+  monsterAttackPlayer();
+}
+
+// 計算玩家傷害
+function resolvePlayerNormalAttack(options = {}) {
+  if (typeof recalculatePlayerStats === "function") recalculatePlayerStats();
+  window.lastNormalAttackWasDouble = false;
+  window.lastNormalAttackWasTriple = false;
+  if (!window.CombatDamagePipeline || !currentMonster) {
+    console.error("[Renewal Formula] CombatDamagePipeline 尚未載入，拒絕使用舊普通攻擊公式。");
+    return { damage: 0, miss: true, hit: false, formulaError: true };
+  }
+  // One authoritative Renewal roll only: Lucky Dodge -> Critical -> HIT/FLEE.
+  const result = window.CombatDamagePipeline.resolveNormalAttack(currentMonster, options);
+  window.lastNormalAttackWasTriple = result.proc?.key === "triple";
+  window.lastNormalAttackWasDouble = result.proc?.key === "double";
+  window.lastNormalAttackVisualHits = result.visualHits || 1;
+  return result;
+}
+
+window.resolvePlayerNormalAttack = resolvePlayerNormalAttack;
+
+function applyEnergyCoatToIncomingDamage(rawDamage = 0) {
+  let damage = Math.max(0, Number(rawDamage || 0));
+  if (!player || damage <= 0) return damage;
+  const entry = Object.entries(player.activeBuffs || {}).find(([, buff]) => Number(buff?.effects?.energyCoat || 0) > 0);
+  if (!entry) return damage;
+  const [buffId, buff] = entry;
+  const maxSp = Math.max(1, Number(player.maxSp || 1));
+  const currentSp = Math.max(0, Number(player.sp || 0));
+  const per = Math.max(0, Math.min(4, Math.trunc(((100 * currentSp / maxSp) - 1) / 20)));
+  const reductionRate = 6 * (1 + per);
+  const spCost = Math.max(1, Math.floor((10 + 5 * per) * maxSp / 1000));
+  if (currentSp >= spCost) player.sp = Math.max(0, currentSp - spCost);
+  else delete player.activeBuffs[buffId];
+  damage = Math.max(0, Math.floor(damage * (100 - reductionRate) / 100));
+  if (typeof addBattleLog === "function") addBattleLog(`${buff?.name || "防護效果"}減少 ${reductionRate}% 傷害，消耗 ${currentSp >= spCost ? spCost : 0} SP。`);
+  return damage;
+}
+
+function tryTriggerSightBlaster(monster) {
+  if (!player || !monster || Number(monster.currentHp || 0) <= 0) return false;
+  const entry = Object.entries(player.activeBuffs || {}).find(([, buff]) => Number(buff?.effects?.sightBlaster || 0) > 0);
+  if (!entry) return false;
+  const cell = Math.max(1, Number(window.RO_WEB_CELL_SIZE || 36));
+  const distance = typeof getCurrentDistanceToMonster === "function" ? Number(getCurrentDistanceToMonster(monster) || 0) : 0;
+  if (distance > cell * 1.05) return false;
+  const [buffId, buff] = entry;
+  const ratio = Math.max(1, Number(buff?.effects?.sightBlasterMatkRatio || 600));
+  const profile = { handler:"magic_damage", formula:"renewal_sight_blaster", elementSource:"skill", element:"Fire", defenseMode:"normal" };
+  const result = window.CombatDamagePipeline?.resolveMagicSkill(profile, Number(buff.level || 1), monster, { ratio, hits:1 });
+  const dealt = Math.min(Number(monster.currentHp || 0), Math.max(1, Number(result?.damage || 1)));
+  monster.currentHp = Math.max(0, Number(monster.currentHp || 0) - dealt);
+  const cells = Math.max(0, Number(buff?.effects?.sightBlasterKnockbackCells || 3));
+  if (cells > 0) window.MovementEffectResolver?.knockback(monster, player, cells);
+  delete player.activeBuffs[buffId];
+  if (typeof addBattleLog === "function") addBattleLog(`${buff?.name || "反擊效果"}發動，對 ${monster.name || "敵人"} 造成 ${dealt} 點傷害。`);
+  if (typeof playMonsterHitAnimation === "function") playMonsterHitAnimation(monster);
+  if (typeof showDamageNumber === "function") showDamageNumber(dealt);
+  if (typeof updateMonsterUI === "function") updateMonsterUI();
+  if (typeof updatePlayerUI === "function") updatePlayerUI();
+  if (typeof saveGame === "function") saveGame();
+  return true;
+}
+
+// 怪物攻擊玩家
+function applyGuardianShieldBarrier(incomingDamage) {
+  let damage = Math.max(0, Math.floor(Number(incomingDamage || 0)));
+  const guardianEntry = Object.entries(player?.activeBuffs || {}).find(([,buff]) => Number(buff?.effects?.shieldBarrierHp || 0) > 0);
+  const guardianId = guardianEntry?.[0], guardian = guardianEntry?.[1];
+  if (!guardian || damage <= 0) return { damage, absorbed: 0, remaining: Number(guardian?.effects?.shieldBarrierHp || 0) };
+  const absorbed = Math.min(damage, Number(guardian.effects.shieldBarrierHp || 0));
+  guardian.effects.shieldBarrierHp = Math.max(0, Number(guardian.effects.shieldBarrierHp || 0) - absorbed);
+  damage = Math.max(0, damage - absorbed);
+  if (typeof addBattleLog === "function") addBattleLog(`${guardian.name || "守護盾"}吸收 ${absorbed} 點傷害，剩餘護盾 ${guardian.effects.shieldBarrierHp}。`);
+  if (guardian.effects.shieldBarrierHp <= 0) delete player.activeBuffs[guardianId];
+  return { damage, absorbed, remaining: Math.max(0, Number(guardian.effects.shieldBarrierHp || 0)) };
+}
+window.applyGuardianShieldBarrier = applyGuardianShieldBarrier;
+
+function applyActivePhysicalReflect(monster, incomingDamage) {
+  if (!monster || Number(incomingDamage || 0) <= 0) return 0;
+  const active = typeof getActiveBuffBonusTotals === "function" ? getActiveBuffBonusTotals() : {};
+  const rate = Math.max(0, Number(active.physicalReflectRate || 0));
+  if (rate <= 0) return 0;
+  const reflected = Math.max(1, Math.floor(Number(incomingDamage || 0) * rate / 100));
+  monster.currentHp = Math.max(0, Number(monster.currentHp || 0) - reflected);
+  if (typeof addBattleLog === "function") addBattleLog(`反射效果對 ${monster.name || "敵人"} 造成 ${reflected} 點傷害。`);
+  if (typeof updateMonsterUI === "function") updateMonsterUI();
+  if (typeof showDamageNumber === "function") showDamageNumber(reflected);
+  return reflected;
+}
+window.applyActivePhysicalReflect = applyActivePhysicalReflect;
+
+function monsterAttackPlayer(options = {}) {
+  if (!currentMonster) return;
+  const aiBehavior = typeof getMonsterAiBehavior === "function" ? getMonsterAiBehavior(currentMonster) : null;
+  if (aiBehavior && aiBehavior.canAttack === false) { currentMonster.aiState = "IDLE"; return; }
+  if (options.respectCooldown) {
+    const now = Date.now();
+    if (now < Number(currentMonster._nextActiveAttackAt || 0)) return;
+    currentMonster._nextActiveAttackAt = now + Math.max(480, Number(currentMonster.AttackDelay || currentMonster.attackDelay || 1000));
+  }
+  const runtimeControl=typeof getMonsterRuntimeBonuses==="function"?getMonsterRuntimeBonuses(currentMonster):{};
+  if(Number(runtimeControl.blocksActions||0)>0){addBattleLog(`${currentMonster.name || "怪物"}目前無法行動。`);updateMonsterUI();return;}
+  if(Number(runtimeControl.blocksPlayerAttacks||0)>0){addBattleLog(`${currentMonster.name || "怪物"}受到魅惑，無法攻擊你。`);updateMonsterUI();return;}
+
+
+  if (typeof getCurrentDistanceToMonster === "function" && typeof getMonsterAttackRangePx === "function") {
+    if (getCurrentDistanceToMonster(currentMonster) > getMonsterAttackRangePx(currentMonster)) {
+      currentMonster.aiState = "CHASE";
+      return;
+    }
+  }
+
+  if (typeof playROStudioMonsterMotion === "function") playROStudioMonsterMotion("attack", { monster: currentMonster });
+
+  const preTargetBuffs = typeof getActiveBuffBonusTotals === "function" ? getActiveBuffBonusTotals() : {};
+  if (Number(preTargetBuffs.untargetableByNormalAttack || preTargetBuffs.trickDead || 0) > 0) {
+    addBattleLog(`${currentMonster.name} 沒有把你視為可攻擊目標。`);
+    currentMonster.aiState = "IDLE";
+    return;
+  }
+  const canDetectCamouflage = Boolean(currentMonster?.isBoss || currentMonster?.isMvp || currentMonster?.boss || currentMonster?.detector || currentMonster?.canDetectHidden || currentMonster?.detectHidden);
+  if (Number(preTargetBuffs.stealthField || 0) > 0 && !canDetectCamouflage) {
+    const stealthBuff = Object.values(player?.activeBuffs || {}).find(buff => Number(buff?.effects?.stealthField || 0) > 0);
+    addBattleLog(`${stealthBuff?.name || "偽裝狀態"}使你不會成為 ${currentMonster.name} 的攻擊目標。`);
+    updatePlayerUI(); saveGame(); return;
+  }
+
+  if (typeof tryTriggerSightBlaster === "function" && tryTriggerSightBlaster(currentMonster)) {
+    if (Number(currentMonster.currentHp || 0) <= 0 && typeof defeatMonster === "function") defeatMonster();
+    return;
+  }
+
+  if (!window.CombatDamagePipeline?.resolveMonsterAttack) {
+    console.error("[Renewal Formula] resolveMonsterAttack 尚未載入，拒絕使用舊怪物傷害公式。");
+    return;
+  }
+  const monsterAttackResult = window.CombatDamagePipeline.resolveMonsterAttack(currentMonster, player);
+  if (monsterAttackResult.perfectDodged) {
+    addBattleLog(currentMonster.name + " 攻擊你，但被完全迴避！");
+    updatePlayerUI();
+    return;
+  }
+  if (monsterAttackResult.miss) {
+    addBattleLog(currentMonster.name + " 攻擊你，但是 Miss！");
+    updatePlayerUI();
+    return;
+  }
+  const preDamageBuffs = typeof getActiveBuffBonusTotals === "function" ? getActiveBuffBonusTotals() : {};
+  const monsterAttackType=String(currentMonster?.attackType??currentMonster?.damageType??currentMonster?.attackDamageType??"physical").toLowerCase();
+  const monsterRangeCells = Number(currentMonster?.attackRange ?? currentMonster?.AttackRange ?? currentMonster?.attack_range ?? currentMonster?.range ?? 1);
+  const isHiddenDetector = Boolean(currentMonster?.isBoss || currentMonster?.isMvp || currentMonster?.boss || currentMonster?.detector || currentMonster?.canDetectHidden || currentMonster?.detectHidden);
+  if (Number(preDamageBuffs.stealthField || 0) > 0 && !isHiddenDetector) {
+    const stealthBuff = Object.values(player?.activeBuffs || {}).find(buff => Number(buff?.effects?.stealthField || 0) > 0);
+    addBattleLog(`${stealthBuff?.name || "偽裝狀態"}使你不會成為 ${currentMonster.name} 的攻擊目標。`);
+    updatePlayerUI(); saveGame(); return;
+  }
+  if (Number(preDamageBuffs.physicalDamageImmunity || 0) > 0 && !monsterAttackType.includes("magic")) {
+    const barrierBuff = Object.values(player?.activeBuffs || {}).find(buff => Number(buff?.effects?.physicalDamageImmunity || 0) > 0);
+    addBattleLog(`${barrierBuff?.name || "物理結界"}完全擋下 ${currentMonster.name} 的物理攻擊！`);
+    updatePlayerUI(); saveGame(); return;
+  }
+  if (Number(preDamageBuffs.longRangePhysicalImmunity || 0) > 0 && monsterRangeCells > 1 && !monsterAttackType.includes("magic")) {
+    const barrierBuff = Object.values(player?.activeBuffs || {}).find(buff => Number(buff?.effects?.longRangePhysicalImmunity || 0) > 0);
+    addBattleLog(`${barrierBuff?.name || "防護罩"}完全擋下 ${currentMonster.name} 的遠距離物理攻擊！`);
+    updatePlayerUI(); saveGame(); return;
+  }
+  if (monsterRangeCells > 1 && typeof tryLightningWalkBlock === "function" && tryLightningWalkBlock(currentMonster)) { updatePlayerUI(); saveGame(); return; }
+  if (monsterAttackType.includes("magic")) {
+    const magicEvasionRate = Math.max(0, Math.min(100, Number(preDamageBuffs.magicEvasionRate || 0)));
+    if (magicEvasionRate > 0 && Math.random() * 100 < magicEvasionRate) {
+      addBattleLog(`魔法迴避成功，完全避開 ${currentMonster.name} 的魔法攻擊！`);
+      updatePlayerUI(); saveGame(); return;
+    }
+  } else {
+    const hasShield = typeof hasEquippedShieldRuntime === "function" ? hasEquippedShieldRuntime() : !!player?.equipment?.shield;
+    const autoGuardRate = hasShield ? Math.max(0, Math.min(100, Number(preDamageBuffs.autoGuardBlockRate || 0))) : 0;
+    if (autoGuardRate > 0 && Math.random() * 100 < autoGuardRate) {
+      addBattleLog(`自動防禦成功，完全擋下 ${currentMonster.name} 的攻擊！`);
+      if (Number(preDamageBuffs.autoGuardKnockback || 0) > 0 && window.MovementEffectResolver?.knockback) {
+        window.MovementEffectResolver.knockback(currentMonster, player, 2);
+      }
+      updatePlayerUI(); saveGame(); return;
+    }
+    const weaponType = String(typeof getEquippedWeaponTypeRuntime === "function" ? getEquippedWeaponTypeRuntime() : "").toLowerCase();
+    const canParry = weaponType.includes("twohandsword") || weaponType.includes("2hsword") || weaponType.includes("two_hand_sword");
+    const parryRate = canParry ? Math.max(0, Math.min(100, Number(preDamageBuffs.parryBlockRate || 0))) : 0;
+    if (parryRate > 0 && Math.random() * 100 < parryRate) {
+      addBattleLog(`雙劍格擋成功，完全擋下 ${currentMonster.name} 的攻擊！`);
+      updatePlayerUI(); saveGame(); return;
+    }
+    const physicalBlockRate = Math.max(0, Math.min(100, Number(preDamageBuffs.physicalBlockRate || 0)));
+    if (physicalBlockRate > 0 && Math.random() * 100 < physicalBlockRate) {
+      addBattleLog(`武器格擋成功，完全擋下 ${currentMonster.name} 的攻擊！`);
+      updatePlayerUI(); saveGame(); return;
+    }
+  }
+
+  let monsterDamage = Math.max(0, Number(monsterAttackResult.damage || 0));
+  if(monsterAttackType.includes("magic")&&typeof resolveMagicRodIncomingDamage==="function"){
+    const rod=resolveMagicRodIncomingDamage(monsterDamage,Number(currentMonster?.skillSpCost??currentMonster?.spCost??0),currentMonster,{singleTarget:currentMonster?.isAreaMagic!==true});
+    if(rod.absorbed){updatePlayerUI();saveGame();return;}monsterDamage=rod.damage;
+  }
+  monsterDamage = applyEnergyCoatToIncomingDamage(monsterDamage);
+  const guardianResult = applyGuardianShieldBarrier(monsterDamage);
+  monsterDamage = guardianResult.damage;
+  const kyrieEntry = Object.entries(player?.activeBuffs || {}).find(([,buff]) => Number(buff?.effects?.kyrieBarrierHp || 0) > 0 && Number(buff?.effects?.kyrieBarrierHits || 0) > 0);
+  const kyrieId = kyrieEntry?.[0], kyrie = kyrieEntry?.[1];
+  if (kyrie) {
+    const absorbed = Math.min(monsterDamage, Number(kyrie.effects.kyrieBarrierHp || 0));
+    kyrie.effects.kyrieBarrierHp = Math.max(0, Number(kyrie.effects.kyrieBarrierHp || 0) - absorbed);
+    kyrie.effects.kyrieBarrierHits = Math.max(0, Number(kyrie.effects.kyrieBarrierHits || 0) - 1);
+    monsterDamage = Math.max(0, monsterDamage - absorbed);
+    addBattleLog(`${kyrie.name || "霸邪之陣"}吸收 ${absorbed} 點傷害，剩餘護盾 ${kyrie.effects.kyrieBarrierHp}，可承受 ${kyrie.effects.kyrieBarrierHits} 次攻擊。`);
+    if (kyrie.effects.kyrieBarrierHp <= 0 || kyrie.effects.kyrieBarrierHits <= 0) delete player.activeBuffs[kyrieId];
+  }
+  if (monsterDamage <= 0) { updatePlayerUI(); saveGame(); return; }
+
+  player.hp -= monsterDamage;
+  let crescentElbowResult = null;
+  if (player.hp > 0 && monsterRangeCells <= 1 && typeof tryCrescentElbowCounter === "function") {
+    crescentElbowResult = tryCrescentElbowCounter(currentMonster, monsterDamage);
+  }
+  if (typeof tryGentleTouchEnergyGain === "function") tryGentleTouchEnergyGain("being_attacked");
+  window.lastPlayerDamageAt = Date.now();
+
+  if (player.hp < 0) {
+    player.hp = 0;
+  }
+
+  addBattleLog(currentMonster.name + " 對你造成 " + monsterDamage + " 點傷害。");
+  if (!monsterAttackType.includes("magic")) applyActivePhysicalReflect(currentMonster, monsterDamage);
+  if (crescentElbowResult?.triggered && Number(currentMonster.currentHp || 0) <= 0) {
+    if (player.hp <= 0) { updatePlayerUI(); saveGame(); playerDead(); return; }
+    defeatMonster(); return;
+  }
+  if (typeof applyCounterReflect === "function") {
+    applyCounterReflect(currentMonster, monsterDamage);
+    if (currentMonster.currentHp <= 0) { defeatMonster(); return; }
+  }
+  const activeRuntimeBuffs = typeof getActiveBuffBonusTotals === "function" ? getActiveBuffBonusTotals() : {};
+  if (!Number(activeRuntimeBuffs.noHitStun || 0) && typeof playROStudioPlayerMotion === "function") {
+    playROStudioPlayerMotion("hurt", { duration: 360 });
+  }
+  if (Number(activeRuntimeBuffs.noHitStun || 0) && player.activeBuffs?.[8]) {
+    player.activeBuffs[8].remainingHits = Number(player.activeBuffs[8].remainingHits ?? 7) - 1;
+    if (player.activeBuffs[8].remainingHits <= 0) delete player.activeBuffs[8];
+  }
+
+  // 先判斷死亡，再允許自動喝水。避免 HP 歸零後靠藥水復活。
+  if (player.hp <= 0) {
+    updatePlayerUI();
+    saveGame();
+    playerDead();
+    return;
+  }
+
+  // 怪物打完玩家後，自動檢查是否需要喝水
+  if (typeof autoUsePotion === "function") {
+    autoUsePotion();
+  }
+
+  updatePlayerUI();
+  saveGame();
+}
+// 玩家死亡：先完整播放 Dead 四幀並停在最後一幀，再恢復 HP。
+function playerDead() {
+  if(typeof normalizeActiveBuffs==="function")normalizeActiveBuffs();
+  const reviveEntry=Object.entries(player?.activeBuffs||{}).find(([,buff])=>Number(buff?.effects?.valleyOfDeathAutoRevive||0)>0);
+  if(reviveEntry){
+    const [buffId,buff]=reviveEntry,spBefore=Math.max(0,Number(player?.sp||0)),lossRate=Math.max(0,Math.min(100,Number(buff?.effects?.valleyOfDeathSpLossRate||0)));
+    delete player.activeBuffs[buffId];
+    player.hp=Math.min(Math.max(1,Number(player.maxHp||1)),Math.max(1,spBefore));
+    player.sp=Math.max(0,Math.floor(spBefore*(100-lossRate)/100));
+    if(typeof recalculatePlayerStats==="function")recalculatePlayerStats();
+    if(typeof updatePlayerUI==="function")updatePlayerUI();if(typeof saveGame==="function")saveGame();
+    if(typeof addBattleLog==="function")addBattleLog(`${buff?.name||"復活效果"}發動：恢復 ${player.hp} HP，剩餘 ${player.sp} SP。`);
+    return true;
+  }
+  if (window.roWebPlayerDeathRecoveryTimer) return false;
+
+  const defeatedBy = currentMonster?.name || "怪物";
+  player.hp = 0;
+  if (typeof playROStudioPlayerMotion === "function") {
+    playROStudioPlayerMotion("dead", { duration: 900, holdLast: true });
+  }
+  addBattleLog(`你被 ${defeatedBy} 擊敗了。`);
+  stopAutoBattle();
+  currentMonster = null;
+  updateMonsterUI();
+  updatePlayerUI();
+  saveGame();
+
+  const deadDuration = Math.max(900, Number(typeof getROStudioMotionDuration === "function" ? getROStudioMotionDuration("dead") : 0));
+  window.roWebPlayerDeathRecoveryTimer = setTimeout(() => {
+    window.roWebPlayerDeathRecoveryTimer = null;
+    player.hp = Math.max(1, Number(player.maxHp || 1));
+    if (typeof clearROStudioPlayerMotionOverride === "function") clearROStudioPlayerMotionOverride();
+    updatePlayerUI();
+    saveGame();
+    addBattleLog("HP 已恢復，請重新開始自動戰鬥。");
+  }, deadDuration);
+  return true;
+}
+
+// ===== 0.9.82ES：怪物死亡結算拆離傷害影格 =====
+// 怪物死亡時只在當前影格完成「死亡狀態／動畫／解除鎖定」。
+// EXP、掉落、背包重建、戰鬥紀錄與存檔改在下一個 idle 時段批次處理，
+// 避免高傷害一擊擊殺時出現使用者感受到的約 0.1 秒停頓。
+const RO_WEB_DEFEAT_RESOLUTION_BATCH = { queue: [], scheduled: false, flushing: false };
+
+function scheduleDefeatResolutionBatch() {
+  if (RO_WEB_DEFEAT_RESOLUTION_BATCH.scheduled) return;
+  RO_WEB_DEFEAT_RESOLUTION_BATCH.scheduled = true;
+  const afterPaint = typeof requestAnimationFrame === "function"
+    ? requestAnimationFrame
+    : callback => setTimeout(callback, 0);
+  afterPaint(() => {
+    const run = deadline => flushDefeatResolutionBatch(deadline);
+    if (typeof requestIdleCallback === "function") requestIdleCallback(run, { timeout: 120 });
+    else setTimeout(() => run(null), 0);
+  });
+}
+
+function queueRewardBatchLog(text, type = null) {
+  window.RO_WEB_REWARD_BATCH_LOGS = window.RO_WEB_REWARD_BATCH_LOGS || [];
+  window.RO_WEB_REWARD_BATCH_LOGS.push({ text:String(text || ""), type });
+}
+window.queueRewardBatchLog = queueRewardBatchLog;
+
+function flushRewardBatchUi() {
+  if (window.RO_WEB_REWARD_PLAYER_UI_DIRTY && typeof updatePlayerUI === "function") updatePlayerUI();
+  if (window.RO_WEB_REWARD_JOB_UI_DIRTY) {
+    if (typeof updateJobUI === "function") updateJobUI();
+    if (typeof updateSkillUI === "function") updateSkillUI();
+  }
+  if (window.RO_WEB_REWARD_INVENTORY_UI_DIRTY) {
+    const inventoryWindow = document.getElementById("inventory-window");
+    const visible = inventoryWindow && !inventoryWindow.classList.contains("hidden-window") && inventoryWindow.offsetParent !== null;
+    if (visible && typeof updateInventoryUI === "function") updateInventoryUI();
+    else window.RO_WEB_INVENTORY_DIRTY = true;
+  }
+  const logs = Array.isArray(window.RO_WEB_REWARD_BATCH_LOGS) ? window.RO_WEB_REWARD_BATCH_LOGS.splice(0) : [];
+  if (logs.length) {
+    if (typeof addBattleLogBatch === "function") addBattleLogBatch(logs);
+    else logs.forEach(entry => addBattleLog(entry.text, entry.type));
+  }
+  if (window.RO_WEB_REWARD_SAVE_DIRTY) {
+    if (typeof requestGameSave === "function") requestGameSave(400);
+    else if (typeof saveGame === "function") setTimeout(saveGame, 0);
+  }
+  window.RO_WEB_REWARD_PLAYER_UI_DIRTY = false;
+  window.RO_WEB_REWARD_JOB_UI_DIRTY = false;
+  window.RO_WEB_REWARD_INVENTORY_UI_DIRTY = false;
+  window.RO_WEB_REWARD_SAVE_DIRTY = false;
+}
+
+function flushDefeatResolutionBatch(deadline = null) {
+  RO_WEB_DEFEAT_RESOLUTION_BATCH.scheduled = false;
+  if (RO_WEB_DEFEAT_RESOLUTION_BATCH.flushing || !RO_WEB_DEFEAT_RESOLUTION_BATCH.queue.length) return;
+  RO_WEB_DEFEAT_RESOLUTION_BATCH.flushing = true;
+  window.RO_WEB_REWARD_BATCH_ACTIVE = true;
+  let processed = 0;
+  try {
+    while (RO_WEB_DEFEAT_RESOLUTION_BATCH.queue.length) {
+      if (processed > 0 && deadline && typeof deadline.timeRemaining === "function" && deadline.timeRemaining() < 2) break;
+      const item = RO_WEB_DEFEAT_RESOLUTION_BATCH.queue.shift();
+      const monster = item?.monster;
+      if (!monster || monster._rewardsGranted) continue;
+      monster._rewardsGranted = true;
+      if (typeof recordMapMonsterDiscovery === "function") recordMapMonsterDiscovery(monster);
+      if (typeof grantMonsterRewards === "function") grantMonsterRewards(monster);
+      queueRewardBatchLog(`${monster.name || "怪物"} 被擊敗了！`, "death");
+      processed += 1;
+      // One reward package per idle slice is enough to keep mobile frames smooth.
+      if (!deadline && processed >= 1) break;
+      if (processed >= 4) break;
+    }
+  } finally {
+    window.RO_WEB_REWARD_BATCH_ACTIVE = false;
+    RO_WEB_DEFEAT_RESOLUTION_BATCH.flushing = false;
+    flushRewardBatchUi();
+  }
+  if (RO_WEB_DEFEAT_RESOLUTION_BATCH.queue.length) scheduleDefeatResolutionBatch();
+}
+window.flushDefeatResolutionBatch = flushDefeatResolutionBatch;
+
+function queueMonsterDefeatResolution(monster, options = {}) {
+  if (!monster || monster._defeatResolutionQueued || monster._rewardsGranted) return false;
+  monster._defeatResolutionQueued = true;
+  const isPrimary = options.primary === true || monster === currentMonster;
+
+  // Mark the streamed entity dead immediately so later hits cannot target it.
+  if (monster._worldTestEntity && typeof onWorldMonsterDefeated === "function") {
+    onWorldMonsterDefeated(monster);
+  } else if (typeof playMonsterDeathAnimation === "function") {
+    playMonsterDeathAnimation(monster);
+  }
+
+  RO_WEB_DEFEAT_RESOLUTION_BATCH.queue.push({ monster, primary:isPrimary, queuedAt:Date.now() });
+  scheduleDefeatResolutionBatch();
+
+  if (isPrimary) {
+    if (typeof noteAutoBattleTargetDefeated === "function") noteAutoBattleTargetDefeated(monster);
+    currentMonster = null;
+    if (typeof markAutoNoTargetNow === "function") markAutoNoTargetNow();
+    if (player) player.state = "Searching";
+    if (typeof updateMonsterUI === "function") setTimeout(updateMonsterUI, 0);
+    if (spawnTimer) { clearTimeout(spawnTimer); spawnTimer = null; }
+
+    const formalMultiMonsterMap = Boolean(currentMap?.monsterVisualTest && typeof getLivingWorldMonsterTestEntities === "function");
+    if (autoBattleRunning && formalMultiMonsterMap) {
+      // Formal world maps already contain many living entities. Reacquire on the
+      // next micro-task instead of waiting for a legacy 1.5-second respawn.
+      setTimeout(() => {
+        if (!autoBattleRunning) return;
+        if (typeof acquireAutoBattleTarget === "function") acquireAutoBattleTarget({ reason: "target_defeated" });
+        scheduleAutoBattleTick(AUTO_BATTLE_MIN_SCHEDULE_MS);
+      }, 0);
+    } else if (!formalMultiMonsterMap) {
+      spawnTimer = setTimeout(() => {
+        spawnTimer = null;
+        spawnMonsterFromCurrentMap();
+      }, RESPAWN_DELAY);
+    }
+  }
+  return true;
+}
+window.queueMonsterDefeatResolution = queueMonsterDefeatResolution;
+
+// 怪物死亡
+function defeatMonster() {
+  const defeatedMonster = currentMonster;
+  if (!defeatedMonster) return false;
+  return queueMonsterDefeatResolution(defeatedMonster, { primary:true });
+}
+
+// 掉寶判定
+// chance 採用萬分比：10000 = 100%，1000 = 10%，1 = 0.01%
+function checkDrops(monster) {
+  if (!monster.drops || monster.drops.length === 0) return;
+
+  monster.drops.forEach(drop => {
+    const roll = Math.floor(Math.random() * 10000) + 1;
+
+    if (roll <= drop.chance) {
+      const itemId = normalizeItemId(drop.itemId);
+      const itemData = getItemData(itemId);
+      const itemName = itemData?.name || drop.name || `Item ${itemId}`;
+
+      addItem({
+        id: itemId,
+        name: itemName
+      }, drop.qty || 1);
+    }
+  });
+}
+
+// 更新怪物 UI
+function updateMonsterUI() {
+  // Streamed world monsters own their visible name/HP UI. Avoid rebuilding the
+  // hidden legacy singleton panel on every hit; this removes redundant DOM work
+  // from the damage landing frame.
+  if (!player?.currentCity && currentMonster?._worldTestEntity && currentMap?.monsterVisualTest) {
+    if (typeof updateWorldMonsterFieldTestUi === "function") updateWorldMonsterFieldTestUi(currentMonster);
+    return;
+  }
+  const monsterSpriteEl = document.getElementById("monster-sprite");
+  const nameEl = document.getElementById("monsterName");
+  const levelEl = document.getElementById("monsterLevel");
+  const hpEl = document.getElementById("monsterHp");
+  const imageEl = document.getElementById("monsterImage");
+  const placeholderEl = document.querySelector(".monster-placeholder");
+  const hpBarEl = document.getElementById("monsterHpBar");
+
+  if (!nameEl || !levelEl || !hpEl) return;
+
+  const inTown = Boolean(player?.currentCity);
+  if (monsterSpriteEl) {
+    monsterSpriteEl.classList.toggle("town-mode", inTown);
+    monsterSpriteEl.classList.toggle("no-target", !inTown && !currentMonster);
+  }
+
+  if (inTown) {
+    nameEl.textContent = "城鎮中";
+    levelEl.textContent = "-";
+    hpEl.textContent = "";
+    if (imageEl) {
+      imageEl.hidden = true;
+      imageEl.removeAttribute("src");
+    }
+    if (placeholderEl) {
+      placeholderEl.style.display = "none";
+      placeholderEl.textContent = "?";
+    }
+    if (hpBarEl) hpBarEl.style.width = "0%";
+    return;
+  }
+
+  if (!currentMonster) {
+    // 0.9.82FG：多怪物世界已不再使用舊版單怪等待提示。
+    nameEl.textContent = "";
+    levelEl.textContent = "-";
+    hpEl.textContent = "";
+    if (imageEl) {
+      imageEl.hidden = true;
+      imageEl.removeAttribute("src");
+    }
+    if (placeholderEl) {
+      placeholderEl.textContent = "";
+      placeholderEl.style.display = "none";
+    }
+    if (hpBarEl) hpBarEl.style.width = "0%";
+    return;
+  }
+
+  const maxHp = currentMonster.maxHp || currentMonster.hp || 1;
+  const hpPercent = Math.max(0, Math.min(100, Math.round((currentMonster.currentHp / maxHp) * 100)));
+
+  nameEl.textContent = currentMonster.name;
+  levelEl.textContent = currentMonster.level || "-";
+  hpEl.textContent = `${currentMonster.currentHp} / ${maxHp}`;
+  if (hpBarEl) hpBarEl.style.width = `${hpPercent}%`;
+
+  if (currentMonster.useAnimatedAtlas && currentMap?.monsterVisualTest && currentMonster._worldTestEntity) {
+    if (typeof updateWorldMonsterFieldTestUi === "function") updateWorldMonsterFieldTestUi(currentMonster);
+    if (imageEl) imageEl.hidden = true;
+    if (placeholderEl) placeholderEl.style.display = "none";
+  } else if (currentMonster.useAnimatedAtlas && typeof syncROStudioMonsterAtlas === "function") {
+    syncROStudioMonsterAtlas(currentMonster);
+    if (imageEl) imageEl.hidden = true;
+    if (placeholderEl) placeholderEl.style.display = "none";
+  } else if (imageEl && currentMonster.image) {
+    imageEl.onerror = function () {
+      imageEl.hidden = true;
+      if (placeholderEl) placeholderEl.style.display = "grid";
+    };
+    imageEl.src = currentMonster.image;
+    imageEl.hidden = false;
+    if (placeholderEl) placeholderEl.style.display = "none";
+  } else {
+    if (imageEl) imageEl.hidden = true;
+    if (placeholderEl) {
+      placeholderEl.style.display = "grid";
+      placeholderEl.textContent = currentMonster.name || "MON";
+    }
+  }
+}
+
+
+// 玩家攻擊動畫
+function playPlayerAttackAnimation(options = {}) {
+  const duration = Math.max(80, Number(options.duration || 360));
+  if (typeof playROStudioPlayerMotion === "function" && playROStudioPlayerMotion("attack", { duration, compressFrames: true })) {
+    return;
+  }
+
+  const playerSprite = document.getElementById("player-sprite");
+  if (!playerSprite) return;
+
+  playerSprite.classList.remove("is-attacking");
+  void playerSprite.offsetWidth;
+  playerSprite.classList.add("is-attacking");
+
+  setTimeout(() => {
+    playerSprite.classList.remove("is-attacking");
+  }, duration);
+}
+
+// 怪物受擊視覺與 Assist 連動以單一 animation frame 批次處理。
+// 傷害與仇恨立即生效；DOM、動畫切換與同伴支援延後到下一幀，
+// 避免範圍技能命中多目標時重複同步 layout 與 N×M Assist 掃描。
+const RO_WEB_MONSTER_IMPACT_BATCH = { targets:new Set(), scheduled:false };
+function flushMonsterImpactBatch() {
+  RO_WEB_MONSTER_IMPACT_BATCH.scheduled = false;
+  if (!RO_WEB_MONSTER_IMPACT_BATCH.targets.size) return;
+  const targets = [...RO_WEB_MONSTER_IMPACT_BATCH.targets];
+  RO_WEB_MONSTER_IMPACT_BATCH.targets.clear();
+  if (typeof propagateWorldMonsterAssistBatch === "function") propagateWorldMonsterAssistBatch(targets);
+  for (const target of targets) {
+    if (!target || target._deathHandled) continue;
+    if (typeof playROStudioMonsterMotion === "function" && target.useAnimatedAtlas) {
+      playROStudioMonsterMotion("hit", { monster:target, skipAggro:true, deferUi:true });
+    }
+    if (typeof updateWorldMonsterFieldTestUi === "function") updateWorldMonsterFieldTestUi(target);
+  }
+}
+function queueMonsterImpact(monster) {
+  if (!monster?._worldTestEntity) return false;
+  if (typeof markWorldMonsterAttacked === "function") markWorldMonsterAttacked(monster, { reason:"damage", propagateAssist:false });
+  // HP width is a write-only update and can be reflected immediately without
+  // forcing the full monster UI/motion pipeline to run inside the damage loop.
+  if (typeof updateWorldMonsterHpBarFast === "function") updateWorldMonsterHpBarFast(monster);
+  RO_WEB_MONSTER_IMPACT_BATCH.targets.add(monster);
+  if (!RO_WEB_MONSTER_IMPACT_BATCH.scheduled) {
+    RO_WEB_MONSTER_IMPACT_BATCH.scheduled = true;
+    const schedule = typeof requestAnimationFrame === "function" ? requestAnimationFrame : callback => setTimeout(callback, 0);
+    schedule(flushMonsterImpactBatch);
+  }
+  return true;
+}
+window.flushMonsterImpactBatch = flushMonsterImpactBatch;
+
+// 怪物被打動畫：短暫切換 hit 圖
+function playMonsterHitAnimation(monsterSnapshot) {
+  if (monsterSnapshot?._worldTestEntity) {
+    queueMonsterImpact(monsterSnapshot);
+    return;
+  }
+  if (typeof playROStudioMonsterMotion === "function" && monsterSnapshot?.useAnimatedAtlas) {
+    playROStudioMonsterMotion("hit", { monster: monsterSnapshot });
+  }
+  const monsterSprite = document.getElementById("monster-sprite");
+  const imageEl = document.getElementById("monsterImage");
+  if (!monsterSprite || !monsterSnapshot) return;
+
+  monsterSprite.classList.remove("is-hit");
+  void monsterSprite.offsetWidth;
+  monsterSprite.classList.add("is-hit");
+
+  if (imageEl && monsterSnapshot.hitImage) {
+    imageEl.src = monsterSnapshot.hitImage;
+  }
+
+  setTimeout(() => {
+    monsterSprite.classList.remove("is-hit");
+    if (imageEl && currentMonster && currentMonster.image) {
+      imageEl.src = currentMonster.image;
+    }
+  }, 230);
+}
+
+// 怪物死亡動畫
+function playMonsterDeathAnimation(monsterSnapshot = currentMonster) {
+  if (typeof playROStudioMonsterMotion === "function" && monsterSnapshot?.useAnimatedAtlas) {
+    playROStudioMonsterMotion("dead", { monster: monsterSnapshot, holdLast: true });
+  }
+  const monsterSprite = document.getElementById("monster-sprite");
+  if (!monsterSprite) return;
+
+  monsterSprite.classList.remove("is-hit");
+  monsterSprite.classList.add("is-dying");
+
+  setTimeout(() => {
+    monsterSprite.classList.remove("is-dying");
+  }, 420);
+}
+
+// 傷害數字浮起
+const RO_WEB_DAMAGE_NUMBER_BATCH = { queue: [], scheduled: false, maxPerFrame: 18 };
+
+function captureDamageNumberAnchor(target) {
+  if (!target) return null;
+  // The world renderer keeps a no-layout-read screen anchor for every visible monster.
+  const cached = target._damageNumberAnchorScreen;
+  if (cached && Number.isFinite(Number(cached.x)) && Number.isFinite(Number(cached.y))) {
+    return { x:Number(cached.x), y:Number(cached.y), instanceId:target._instanceId || null };
+  }
+  if (target._worldTestEntity && target.position) {
+    const camera = typeof getMapCameraOffset === "function" ? getMapCameraOffset() : { x:0, y:0 };
+    return {
+      x:Number(target.position.x || 0) - Number(camera.x || 0),
+      y:Number(target.position.y || 0) - Number(camera.y || 0) - 76,
+      instanceId:target._instanceId || null
+    };
+  }
+  return null;
+}
+
+function createDamageNumberElement(entry) {
+  const options = entry.options || {};
+  const number = document.createElement("div");
+  const source = String(options.source || "player");
+  const critical = options.critical === true || options.isCritical === true || options.criticalResult?.critical === true;
+  const hitCount = Math.max(1, Number(options.hitCount || options.visualHits || options.damageHitCount || 1));
+  const combo = options.combo === true || options.isCombo === true || options.multiHit === true || hitCount > 1;
+  const classes = ["damage-number"];
+  if (source === "summon") classes.push("summon-damage-number");
+  if (combo && source !== "summon") classes.push("combo-damage-number");
+  if (critical) classes.push("critical-damage-number");
+  number.className = classes.join(" ");
+  const numericDamage = Math.max(0, Math.floor(Number(entry.damage || 0)));
+  // Avoid locale formatter construction in the render frame for every hit.
+  number.textContent = String(numericDamage).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  const randomX = randomInt(-12, 18), randomY = randomInt(-8, 8);
+  const laneOffsetX = source === "summon" ? -46 : 0, laneOffsetY = source === "summon" ? 18 : 0;
+  const anchor = options._anchorSnapshot || captureDamageNumberAnchor(options.target);
+  if (anchor) {
+    number.style.left = `${Math.round(Number(anchor.x || 0) + laneOffsetX + randomX)}px`;
+    number.style.top = `${Math.round(Number(anchor.y || 0) + laneOffsetY + randomY)}px`;
+  } else {
+    number.style.left = `${760 + laneOffsetX + randomX}px`;
+    number.style.top = `${300 + laneOffsetY + randomY}px`;
+  }
+  return number;
+}
+function flushDamageNumberBatch() {
+  RO_WEB_DAMAGE_NUMBER_BATCH.scheduled = false;
+  if (!RO_WEB_DAMAGE_NUMBER_BATCH.queue.length) return;
+  const battleField = document.getElementById("battle-field");
+  if (!battleField) { RO_WEB_DAMAGE_NUMBER_BATCH.queue.length = 0; return; }
+  const take = Math.min(RO_WEB_DAMAGE_NUMBER_BATCH.maxPerFrame, RO_WEB_DAMAGE_NUMBER_BATCH.queue.length);
+  const batch = RO_WEB_DAMAGE_NUMBER_BATCH.queue.splice(0, take);
+  const fragment = typeof document.createDocumentFragment === "function" ? document.createDocumentFragment() : null;
+  for (const entry of batch) {
+    const number = createDamageNumberElement(entry);
+    if (fragment) fragment.appendChild(number); else battleField.appendChild(number);
+    setTimeout(() => number.remove(), 850);
+  }
+  if (fragment) battleField.appendChild(fragment);
+  if (RO_WEB_DAMAGE_NUMBER_BATCH.queue.length) scheduleDamageNumberBatch();
+}
+function scheduleDamageNumberBatch() {
+  if (RO_WEB_DAMAGE_NUMBER_BATCH.scheduled) return;
+  RO_WEB_DAMAGE_NUMBER_BATCH.scheduled = true;
+  const schedule = typeof requestAnimationFrame === "function" ? requestAnimationFrame : callback => setTimeout(callback, 0);
+  schedule(flushDamageNumberBatch);
+}
+// Capture target and screen position at enqueue time. The target can die and be
+// removed before the next animation frame; the number must still rise above it.
+function showDamageNumber(damage, options = {}) {
+  const target = options.target || currentMonster || null;
+  const queuedOptions = { ...options, target, _anchorSnapshot:captureDamageNumberAnchor(target) };
+  RO_WEB_DAMAGE_NUMBER_BATCH.queue.push({ damage:Number(damage || 0), options:queuedOptions });
+  scheduleDamageNumberBatch();
+}
+window.flushDamageNumberBatch = flushDamageNumberBatch;
+
+// 斬擊特效
+function showSlashEffect() {
+  const slash = document.getElementById("slashEffect");
+  if (!slash) return;
+
+  slash.classList.remove("play");
+  void slash.offsetWidth;
+  slash.classList.add("play");
+
+  setTimeout(() => {
+    slash.classList.remove("play");
+  }, 320);
+}
+
+// 戰鬥紀錄，最多保留 100 行；玩家往上查看時暫停自動追蹤最新訊息
+const RO_WEB_MAX_BATTLE_LOG_LINES = 100;
+
+function isBattleLogAtBottom(logBox) {
+  if (!logBox) return true;
+  const threshold = 8;
+  return (logBox.scrollHeight - logBox.scrollTop - logBox.clientHeight) <= threshold;
+}
+
+function getBattleLogNotice() {
+  let notice = document.getElementById("battle-log-new-notice");
+  const panel = document.getElementById("battle-log");
+  if (!notice && panel) {
+    notice = document.createElement("button");
+    notice.id = "battle-log-new-notice";
+    notice.type = "button";
+    notice.textContent = "▼ 新訊息";
+    notice.onclick = () => {
+      const logBox = document.getElementById("battle-log-list");
+      if (!logBox) return;
+      logBox.dataset.autoScroll = "1";
+      logBox.scrollTop = logBox.scrollHeight;
+      notice.classList.remove("show");
+      notice.dataset.count = "0";
+      notice.textContent = "▼ 新訊息";
+    };
+    panel.appendChild(notice);
+  }
+  return notice;
+}
+
+function setupBattleLogScrollState(logBox) {
+  if (!logBox || logBox.dataset.scrollStateReady === "1") return;
+  logBox.dataset.scrollStateReady = "1";
+  logBox.dataset.autoScroll = "1";
+
+  logBox.addEventListener("scroll", () => {
+    const atBottom = isBattleLogAtBottom(logBox);
+    logBox.dataset.autoScroll = atBottom ? "1" : "0";
+    if (atBottom) {
+      const notice = getBattleLogNotice();
+      if (notice) {
+        notice.classList.remove("show");
+        notice.dataset.count = "0";
+        notice.textContent = "▼ 新訊息";
+      }
+    }
+  });
+}
+
+function getBattleLogType(text) {
+  const msg = String(text || "");
+  if (/需要使用坐騎才能使用該技能/.test(msg)) return "error";
+  if (/：使用 .*造成.*傷害/.test(msg)) return "summon-damage";
+  if (/死亡|陣亡|倒下|死/.test(msg)) return "death";
+  if (/稀有|★★★★|卡片|裝備掉落/.test(msg)) return "rare";
+  if (/獲得道具|獲得：|取得道具|掉落|x\s*\d+|×\s*\d+/.test(msg)) return "item";
+  if (/Zeny|zeny|金錢|金幣/.test(msg)) return "zeny";
+  if (/Base EXP|Base經驗|Base 經驗/.test(msg)) return "base-exp";
+  if (/Job EXP|Job經驗|Job 經驗/.test(msg)) return "job-exp";
+  if (/對你造成|攻擊你|受到.*傷害/.test(msg)) return "monster-damage";
+  if (/你對|造成\s*\d+\s*點傷害|造成.*傷害/.test(msg)) return "player-damage";
+  if (/技能|配點|施放|確認配點|初始化|重置/.test(msg)) return "skill";
+  return "system";
+}
+
+function addBattleLog(text, type = null) {
+  const logBox = document.getElementById("battle-log-list");
+
+  if (!logBox) {
+    console.log(text);
+    return;
+  }
+
+  setupBattleLogScrollState(logBox);
+
+  const shouldAutoScroll = logBox.dataset.autoScroll !== "0" || isBattleLogAtBottom(logBox);
+
+  const line = document.createElement("div");
+  const logType = type || getBattleLogType(text);
+  line.className = `log-line log-${logType}`;
+  const now = new Date();
+  const hh = String(now.getHours()).padStart(2, "0");
+  const mm = String(now.getMinutes()).padStart(2, "0");
+  const ss = String(now.getSeconds()).padStart(2, "0");
+
+  const time = document.createElement("span");
+  time.className = "log-time";
+  time.textContent = `[${hh}:${mm}:${ss}]`;
+
+  const body = document.createElement("span");
+  body.className = "log-text";
+  body.textContent = ` ${text}`;
+
+  line.appendChild(time);
+  line.appendChild(body);
+  logBox.appendChild(line);
+
+  while (logBox.children.length > RO_WEB_MAX_BATTLE_LOG_LINES) {
+    logBox.removeChild(logBox.firstChild);
+  }
+
+  if (shouldAutoScroll) {
+    logBox.dataset.autoScroll = "1";
+    requestAnimationFrame(() => {
+      logBox.scrollTop = logBox.scrollHeight;
+    });
+  } else {
+    const notice = getBattleLogNotice();
+    if (notice) {
+      const count = Number(notice.dataset.count || "0") + 1;
+      notice.dataset.count = String(count);
+      notice.textContent = `▼ 新訊息(${count})`;
+      notice.classList.add("show");
+    }
+  }
+}
+
+// Append several reward/death messages with one DOM mutation and one scroll read.
+function addBattleLogBatch(entries = []) {
+  const logBox = document.getElementById("battle-log-list");
+  if (!logBox || !Array.isArray(entries) || !entries.length) return;
+  setupBattleLogScrollState(logBox);
+  const shouldAutoScroll = logBox.dataset.autoScroll !== "0" || isBattleLogAtBottom(logBox);
+  const fragment = document.createDocumentFragment();
+  const now = new Date();
+  const stamp = `[${String(now.getHours()).padStart(2,"0")}:${String(now.getMinutes()).padStart(2,"0")}:${String(now.getSeconds()).padStart(2,"0")}]`;
+  for (const raw of entries) {
+    const entry = typeof raw === "string" ? { text:raw } : (raw || {});
+    const line = document.createElement("div");
+    line.className = `log-line log-${entry.type || getBattleLogType(entry.text)}`;
+    const time = document.createElement("span");
+    time.className = "log-time";
+    time.textContent = stamp;
+    const body = document.createElement("span");
+    body.className = "log-text";
+    body.textContent = ` ${String(entry.text || "")}`;
+    line.append(time, body);
+    fragment.appendChild(line);
+  }
+  logBox.appendChild(fragment);
+  while (logBox.children.length > RO_WEB_MAX_BATTLE_LOG_LINES) logBox.removeChild(logBox.firstChild);
+  if (shouldAutoScroll) {
+    logBox.dataset.autoScroll = "1";
+    requestAnimationFrame(() => { logBox.scrollTop = logBox.scrollHeight; });
+  } else {
+    const notice = getBattleLogNotice();
+    if (notice) {
+      const count = Number(notice.dataset.count || "0") + entries.length;
+      notice.dataset.count = String(count);
+      notice.textContent = `▼ 新訊息(${count})`;
+      notice.classList.add("show");
+    }
+  }
+}
+window.addBattleLogBatch = addBattleLogBatch;
+
+// 陣列隨機取一個
+function getRandomFromArray(array) {
+  return array[Math.floor(Math.random() * array.length)];
+}
+
+// 隨機整數
+function randomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}

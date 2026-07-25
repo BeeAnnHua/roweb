@@ -1,0 +1,140 @@
+{
+  "schema": "ro_web_region_monster_streaming_audit",
+  "version": "0.9.82EJ",
+  "global": {
+    "monsterCountRate": 100,
+    "normalSpawnDelayRate": 100,
+    "plantSpawnDelayRate": 100,
+    "bossSpawnDelayRate": 100,
+    "spawnVariance": true,
+    "baseMonstersPerSource512": 15,
+    "activeWindowSourceSize": 1024,
+    "retainWindowSourceSize": 1280,
+    "normalHardCap": 120,
+    "spawnBatchSize": 4,
+    "spawnMaintenanceMs": 500,
+    "renderPaddingWorldPx": 260,
+    "minimumSpawnDistanceWorldPx": 360,
+    "normalOutsideCombatGraceMs": 5000,
+    "rules": [
+      "100 = RA/RO_WEB base rate; count rate scales ordinary group monsters only.",
+      "Normal/plant/Boss respawn delay rates are independent. 50 = twice as fast, 200 = twice as slow.",
+      "Unique rare/Boss/MVP species remain maxAlive 1 and are never duplicated by monsterCountRate.",
+      "Each region keeps about 60 non-Boss monsters around the player at 100% (15 per 512x512 source area across a 1024x1024 active window)."
+    ]
+  },
+  "regions": {
+    "prontera_3x3_region_camera": {
+      "selectedSpecies": 20,
+      "normal": 10,
+      "rare": 3,
+      "plant": 6,
+      "boss": 1,
+      "mvp": 0,
+      "missingAssets": []
+    },
+    "geffen_3x3_region_camera": {
+      "selectedSpecies": 19,
+      "normal": 10,
+      "rare": 1,
+      "plant": 5,
+      "boss": 1,
+      "mvp": 2,
+      "missingAssets": []
+    },
+    "morocc_3x3_region_camera": {
+      "selectedSpecies": 16,
+      "normal": 10,
+      "rare": 0,
+      "plant": 4,
+      "boss": 1,
+      "mvp": 1,
+      "missingAssets": []
+    },
+    "mjolnir_3x3_region_camera": {
+      "selectedSpecies": 16,
+      "normal": 10,
+      "rare": 0,
+      "plant": 5,
+      "boss": 0,
+      "mvp": 1,
+      "missingAssets": []
+    },
+    "rachel_3x3_region_camera": {
+      "selectedSpecies": 14,
+      "normal": 10,
+      "rare": 1,
+      "plant": 2,
+      "boss": 0,
+      "mvp": 1,
+      "missingAssets": []
+    },
+    "payon_3x3_region_camera": {
+      "selectedSpecies": 19,
+      "normal": 10,
+      "rare": 0,
+      "plant": 4,
+      "boss": 4,
+      "mvp": 1,
+      "missingAssets": []
+    },
+    "juno_3x3_region_camera": {
+      "selectedSpecies": 16,
+      "normal": 7,
+      "rare": 0,
+      "plant": 5,
+      "boss": 4,
+      "mvp": 0,
+      "missingAssets": []
+    },
+    "umbala_3x3_region_camera": {
+      "selectedSpecies": 13,
+      "normal": 8,
+      "rare": 0,
+      "plant": 5,
+      "boss": 0,
+      "mvp": 0,
+      "missingAssets": []
+    },
+    "lighthouse_coast_3x3_region_camera": {
+      "selectedSpecies": 16,
+      "normal": 10,
+      "rare": 1,
+      "plant": 4,
+      "boss": 1,
+      "mvp": 0,
+      "missingAssets": []
+    },
+    "veins_3x3_region_camera": {
+      "selectedSpecies": 11,
+      "normal": 5,
+      "rare": 0,
+      "plant": 5,
+      "boss": 0,
+      "mvp": 1,
+      "missingAssets": []
+    }
+  },
+  "usedMonsterSpecies": 111,
+  "dropItemActivation": {
+    "newItemRecords": 451,
+    "path": "data/items/monster_drops_0_9_82EI.json",
+    "source": "itemInfo_UTF8.lub identified fields + rAthena Renewal item DB",
+    "icons": "images/items/{officialId}.webp",
+    "missingItems": 0,
+    "missingIcons": 0
+  },
+  "runtimeScope": {
+    "implemented": [
+      "weighted regional spawn",
+      "normal/plant/rare/Boss/MVP timers",
+      "movement and chase",
+      "normal attacks",
+      "hurt/death animation",
+      "EXP/Job EXP/Zeny/drop rewards"
+    ],
+    "deferred": [
+      "monster-specific skill AI"
+    ]
+  }
+}

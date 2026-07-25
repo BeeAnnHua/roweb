@@ -1,0 +1,90 @@
+{
+  "version": "0.9.82AL",
+  "result": "PASS",
+  "batch": "Meister Energy Combat Core Batch45",
+  "sourceFiles": [
+    "Project SkillInfoz skillinfolist.lub / skilldescript.lub",
+    "rAthena src/map/skills/merchant/sparkblaster.cpp",
+    "rAthena src/map/skills/merchant/triplelaser.cpp",
+    "rAthena src/map/skills/merchant/energycannonade.cpp",
+    "rAthena db/re/skill_db.yml"
+  ],
+  "officialAdded": [
+    6002,
+    6003,
+    6508
+  ],
+  "coverage": {
+    "before": 471,
+    "after": 474,
+    "target": 1139
+  },
+  "pending": {
+    "before": 668,
+    "after": 665
+  },
+  "behavior": {
+    "6002": {
+      "name": "閃光衝擊波",
+      "formula": "(600 + 1400 × Lv + 5 × POW) × BaseLv / 100",
+      "hits": 2,
+      "areaRadius": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "ignoreDefense": true
+    },
+    "6003": {
+      "name": "三連雷射",
+      "formula": "(650 + 1150 × Lv + 12 × POW) × BaseLv / 100",
+      "hits": 3,
+      "critical": "allowed",
+      "criticalDamageBonusRateMultiplier": 0.5
+    },
+    "6508": {
+      "name": "能量轟炸",
+      "formula": "(250 + 750 × Lv + 5 × POW) × BaseLv / 100",
+      "hits": 7,
+      "areaRadius": [
+        2,
+        2,
+        3,
+        3,
+        4
+      ],
+      "ignoreDefense": true
+    }
+  },
+  "runtimeAdaptation": [
+    "No Mado-state check until the future Mado JSON/PNG and riding system exists.",
+    "No material, fuel or ammunition cost was introduced.",
+    "SP/AP and trait-stat costs remain deferred until all job Runtime skills are completed."
+  ],
+  "validation": {
+    "jsonFilesParsed": 426,
+    "javascriptFilesSyntaxChecked": 51,
+    "regressionScriptsPassed": 27,
+    "runtimeGeneratedCatalogCounts": "474/474/474",
+    "pendingCount": 665,
+    "duplicateSkillIds": 0,
+    "duplicateSkillKeys": 0,
+    "dynamicChecks": {
+      "sparkBlasterLv10Pow20Base200PerHitRatio": 29400,
+      "sparkBlasterLv10Pow20Base200TotalRatio": 58800,
+      "tripleLaserLv5Pow20Base200PerHitRatio": 13280,
+      "tripleLaserLv5Pow20Base200TotalRatio": 39840,
+      "energyCannonadeLv5Pow20Base200PerHitRatio": 8200,
+      "energyCannonadeLv5Pow20Base200TotalRatio": 57400
+    },
+    "cacheVersion": "0.9.82AL",
+    "zipIntegrity": "PASS"
+  }
+}

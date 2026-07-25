@@ -1,0 +1,291 @@
+{
+  "version": "0.9.82DL",
+  "sourceArchive": "盜賊系列.zip",
+  "baseVersion": "0.9.82DK",
+  "family": "thief",
+  "actualCharacterSets": 14,
+  "totalActualCharacterSets": 48,
+  "manifestEntries": 56,
+  "appearanceGroups": [
+    "abyss_chaser",
+    "assassin",
+    "guillotine_cross",
+    "rogue",
+    "shadow_chaser",
+    "shadow_cross",
+    "thief"
+  ],
+  "jobMappings": {
+    "thief": "thief",
+    "thief_high": "thief",
+    "assassin": "assassin",
+    "assassin_cross": "assassin",
+    "guillotine_cross": "guillotine_cross",
+    "shadow_cross": "shadow_cross",
+    "rogue": "rogue",
+    "stalker": "rogue",
+    "shadow_chaser": "shadow_chaser",
+    "abyss_chaser": "abyss_chaser"
+  },
+  "sharedHurtDead": {
+    "hurtFrames": 3,
+    "deadFrames": 4,
+    "sameAtlas": true
+  },
+  "weaponRules": {
+    "assassinLine": [
+      "fist",
+      "dagger",
+      "sword",
+      "katar",
+      "dualDagger",
+      "dualSword"
+    ],
+    "rogueLine": [
+      "fist",
+      "dagger",
+      "sword",
+      "bow"
+    ],
+    "mixedSwordDaggerFallback": [
+      "dualDagger",
+      "dualSword"
+    ],
+    "basicAxeDeniedItemIds": [
+      1301,
+      1302
+    ]
+  },
+  "sourceSets": [
+    {
+      "source": "盜賊_男_動畫",
+      "group": "thief",
+      "gender": "male",
+      "attacks": [
+        "bow",
+        "dagger",
+        "fist",
+        "oneHandDagger",
+        "oneHandSword",
+        "sword"
+      ]
+    },
+    {
+      "source": "盜賊_女_動畫",
+      "group": "thief",
+      "gender": "female",
+      "attacks": [
+        "bow",
+        "dagger",
+        "fist",
+        "oneHandDagger",
+        "oneHandSword",
+        "sword"
+      ]
+    },
+    {
+      "source": "刺客_男_動畫",
+      "group": "assassin",
+      "gender": "male",
+      "attacks": [
+        "dagger",
+        "daggerSword",
+        "dagger_sword",
+        "dualDagger",
+        "dualSword",
+        "dual_dagger",
+        "dual_sword",
+        "fist",
+        "katar",
+        "oneHandDagger",
+        "oneHandSword",
+        "sword",
+        "swordDagger",
+        "sword_dagger"
+      ]
+    },
+    {
+      "source": "刺客_女_動畫",
+      "group": "assassin",
+      "gender": "female",
+      "attacks": [
+        "dagger",
+        "daggerSword",
+        "dagger_sword",
+        "dualDagger",
+        "dualSword",
+        "dual_dagger",
+        "dual_sword",
+        "fist",
+        "katar",
+        "oneHandDagger",
+        "oneHandSword",
+        "sword",
+        "swordDagger",
+        "sword_dagger"
+      ]
+    },
+    {
+      "source": "流氓_男_動畫",
+      "group": "rogue",
+      "gender": "male",
+      "attacks": [
+        "bow",
+        "dagger",
+        "fist",
+        "oneHandDagger",
+        "oneHandSword",
+        "sword"
+      ]
+    },
+    {
+      "source": "流氓_女_動畫",
+      "group": "rogue",
+      "gender": "female",
+      "attacks": [
+        "bow",
+        "dagger",
+        "fist",
+        "oneHandDagger",
+        "oneHandSword",
+        "sword"
+      ]
+    },
+    {
+      "source": "十字斬首者_男_動畫",
+      "group": "guillotine_cross",
+      "gender": "male",
+      "attacks": [
+        "dagger",
+        "daggerSword",
+        "dagger_sword",
+        "dualDagger",
+        "dualSword",
+        "dual_dagger",
+        "dual_sword",
+        "fist",
+        "katar",
+        "oneHandDagger",
+        "oneHandSword",
+        "sword",
+        "swordDagger",
+        "sword_dagger"
+      ]
+    },
+    {
+      "source": "十字斬首者_女_動畫",
+      "group": "guillotine_cross",
+      "gender": "female",
+      "attacks": [
+        "dagger",
+        "daggerSword",
+        "dagger_sword",
+        "dualDagger",
+        "dualSword",
+        "dual_dagger",
+        "dual_sword",
+        "fist",
+        "katar",
+        "oneHandDagger",
+        "oneHandSword",
+        "sword",
+        "swordDagger",
+        "sword_dagger"
+      ]
+    },
+    {
+      "source": "魅影追蹤者_男_動畫",
+      "group": "shadow_chaser",
+      "gender": "male",
+      "attacks": [
+        "bow",
+        "dagger",
+        "fist",
+        "oneHandDagger",
+        "oneHandSword",
+        "sword"
+      ]
+    },
+    {
+      "source": "魅影追蹤者_女_動畫",
+      "group": "shadow_chaser",
+      "gender": "female",
+      "attacks": [
+        "bow",
+        "dagger",
+        "fist",
+        "oneHandDagger",
+        "oneHandSword",
+        "sword"
+      ]
+    },
+    {
+      "source": "十字影武_男_動畫",
+      "group": "shadow_cross",
+      "gender": "male",
+      "attacks": [
+        "dagger",
+        "daggerSword",
+        "dagger_sword",
+        "dualDagger",
+        "dualSword",
+        "dual_dagger",
+        "dual_sword",
+        "fist",
+        "katar",
+        "oneHandDagger",
+        "oneHandSword",
+        "sword",
+        "swordDagger",
+        "sword_dagger"
+      ]
+    },
+    {
+      "source": "十字影武_女_動畫",
+      "group": "shadow_cross",
+      "gender": "female",
+      "attacks": [
+        "dagger",
+        "daggerSword",
+        "dagger_sword",
+        "dualDagger",
+        "dualSword",
+        "dual_dagger",
+        "dual_sword",
+        "fist",
+        "katar",
+        "oneHandDagger",
+        "oneHandSword",
+        "sword",
+        "swordDagger",
+        "sword_dagger"
+      ]
+    },
+    {
+      "source": "深淵追跡者_男_動畫",
+      "group": "abyss_chaser",
+      "gender": "male",
+      "attacks": [
+        "bow",
+        "dagger",
+        "fist",
+        "oneHandDagger",
+        "oneHandSword",
+        "sword"
+      ]
+    },
+    {
+      "source": "深淵追跡者_女_動畫",
+      "group": "abyss_chaser",
+      "gender": "female",
+      "attacks": [
+        "bow",
+        "dagger",
+        "fist",
+        "oneHandDagger",
+        "oneHandSword",
+        "sword"
+      ]
+    }
+  ]
+}

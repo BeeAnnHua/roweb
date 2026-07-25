@@ -1,0 +1,1015 @@
+{
+  "schema": "ro_web_packed_character_atlas",
+  "schema_version": "2.1",
+  "exporter": "RO_WEB Character Optimizer V2.0.3",
+  "export_mode": "selected_composite",
+  "name": "十字軍　【二轉】",
+  "gender": "女",
+  "layer": "body_hair",
+  "layers": [
+    "body",
+    "hair"
+  ],
+  "image": "body_hair_packed.png",
+  "anchor_preview": "body_hair_anchor_preview.png",
+  "cell": {
+    "width": 256,
+    "height": 256
+  },
+  "anchor": {
+    "x": 128,
+    "y": 140
+  },
+  "atlas": {
+    "width": 1024,
+    "height": 360,
+    "packed": true,
+    "padding": 1,
+    "unique_regions": 24,
+    "source_width": 2048,
+    "source_height": 6144,
+    "source_used_rows": 6
+  },
+  "directions": [
+    "南",
+    "西南",
+    "西",
+    "西北",
+    "北",
+    "東北",
+    "東",
+    "東南"
+  ],
+  "direction_ids": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "direction_engine_names": [
+    "front",
+    "front_left",
+    "left",
+    "back_left",
+    "back",
+    "back_right",
+    "right",
+    "front_right"
+  ],
+  "motions": [
+    {
+      "id": "cast",
+      "display_name": "施法",
+      "engine_motion_candidates": [
+        "cast"
+      ],
+      "row_start": 0,
+      "frame_count": 6,
+      "directions": [
+        "南",
+        "西南",
+        "西",
+        "西北",
+        "北",
+        "東北",
+        "東",
+        "東南"
+      ],
+      "direction_ids": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "direction_engine_names": [
+        "front",
+        "front_left",
+        "left",
+        "back_left",
+        "back",
+        "back_right",
+        "right",
+        "front_right"
+      ]
+    }
+  ],
+  "motion_aliases": {},
+  "replace_body": false,
+  "source_schema": "ro_web_layer_atlas",
+  "source_exporter": "RO Studio V66",
+  "frame_sets": {
+    "cast": {
+      "frameCount": 6,
+      "directions": {
+        "front": [
+          {
+            "region": {
+              "x": 347,
+              "y": 1,
+              "w": 86,
+              "h": 123
+            },
+            "offsetX": 85,
+            "offsetY": 66,
+            "targetOffsetX": 85,
+            "targetOffsetY": 66,
+            "flipX": false,
+            "sourceDirection": "front",
+            "sourceDirectionId": 0,
+            "sourceFrame": 0,
+            "aliasMode": "kept"
+          },
+          {
+            "region": {
+              "x": 261,
+              "y": 1,
+              "w": 85,
+              "h": 125
+            },
+            "offsetX": 85,
+            "offsetY": 65,
+            "targetOffsetX": 85,
+            "targetOffsetY": 65,
+            "flipX": false,
+            "sourceDirection": "front",
+            "sourceDirectionId": 0,
+            "sourceFrame": 1,
+            "aliasMode": "kept"
+          },
+          {
+            "region": {
+              "x": 88,
+              "y": 1,
+              "w": 86,
+              "h": 135
+            },
+            "offsetX": 85,
+            "offsetY": 60,
+            "targetOffsetX": 85,
+            "targetOffsetY": 60,
+            "flipX": false,
+            "sourceDirection": "front",
+            "sourceDirectionId": 0,
+            "sourceFrame": 2,
+            "aliasMode": "kept"
+          },
+          {
+            "region": {
+              "x": 507,
+              "y": 137,
+              "w": 97,
+              "h": 107
+            },
+            "offsetX": 79,
+            "offsetY": 74,
+            "targetOffsetX": 79,
+            "targetOffsetY": 74,
+            "flipX": false,
+            "sourceDirection": "front",
+            "sourceDirectionId": 0,
+            "sourceFrame": 3,
+            "aliasMode": "kept"
+          },
+          {
+            "region": {
+              "x": 891,
+              "y": 137,
+              "w": 92,
+              "h": 103
+            },
+            "offsetX": 82,
+            "offsetY": 76,
+            "targetOffsetX": 82,
+            "targetOffsetY": 76,
+            "flipX": false,
+            "sourceDirection": "front",
+            "sourceDirectionId": 0,
+            "sourceFrame": 4,
+            "aliasMode": "kept"
+          },
+          {
+            "region": {
+              "x": 703,
+              "y": 137,
+              "w": 93,
+              "h": 104
+            },
+            "offsetX": 81,
+            "offsetY": 76,
+            "targetOffsetX": 81,
+            "targetOffsetY": 76,
+            "flipX": false,
+            "sourceDirection": "front",
+            "sourceDirectionId": 0,
+            "sourceFrame": 5,
+            "aliasMode": "kept"
+          }
+        ],
+        "front_left": [
+          {
+            "region": {
+              "x": 434,
+              "y": 1,
+              "w": 86,
+              "h": 123
+            },
+            "offsetX": 85,
+            "offsetY": 66,
+            "targetOffsetX": 85,
+            "targetOffsetY": 66,
+            "flipX": false,
+            "sourceDirection": "front_left",
+            "sourceDirectionId": 1,
+            "sourceFrame": 0,
+            "aliasMode": "kept"
+          },
+          {
+            "region": {
+              "x": 175,
+              "y": 1,
+              "w": 85,
+              "h": 125
+            },
+            "offsetX": 85,
+            "offsetY": 65,
+            "targetOffsetX": 85,
+            "targetOffsetY": 65,
+            "flipX": false,
+            "sourceDirection": "front_left",
+            "sourceDirectionId": 1,
+            "sourceFrame": 1,
+            "aliasMode": "kept"
+          },
+          {
+            "region": {
+              "x": 1,
+              "y": 1,
+              "w": 86,
+              "h": 135
+            },
+            "offsetX": 85,
+            "offsetY": 60,
+            "targetOffsetX": 85,
+            "targetOffsetY": 60,
+            "flipX": false,
+            "sourceDirection": "front_left",
+            "sourceDirectionId": 1,
+            "sourceFrame": 2,
+            "aliasMode": "kept"
+          },
+          {
+            "region": {
+              "x": 605,
+              "y": 137,
+              "w": 97,
+              "h": 107
+            },
+            "offsetX": 79,
+            "offsetY": 74,
+            "targetOffsetX": 79,
+            "targetOffsetY": 74,
+            "flipX": false,
+            "sourceDirection": "front_left",
+            "sourceDirectionId": 1,
+            "sourceFrame": 3,
+            "aliasMode": "kept"
+          },
+          {
+            "region": {
+              "x": 1,
+              "y": 254,
+              "w": 92,
+              "h": 103
+            },
+            "offsetX": 82,
+            "offsetY": 76,
+            "targetOffsetX": 82,
+            "targetOffsetY": 76,
+            "flipX": false,
+            "sourceDirection": "front_left",
+            "sourceDirectionId": 1,
+            "sourceFrame": 4,
+            "aliasMode": "kept"
+          },
+          {
+            "region": {
+              "x": 797,
+              "y": 137,
+              "w": 93,
+              "h": 104
+            },
+            "offsetX": 81,
+            "offsetY": 76,
+            "targetOffsetX": 81,
+            "targetOffsetY": 76,
+            "flipX": false,
+            "sourceDirection": "front_left",
+            "sourceDirectionId": 1,
+            "sourceFrame": 5,
+            "aliasMode": "kept"
+          }
+        ],
+        "left": [
+          {
+            "region": {
+              "x": 434,
+              "y": 1,
+              "w": 86,
+              "h": 123
+            },
+            "offsetX": 85,
+            "offsetY": 66,
+            "targetOffsetX": 85,
+            "targetOffsetY": 66,
+            "flipX": false,
+            "sourceDirection": "left",
+            "sourceDirectionId": 2,
+            "sourceFrame": 0,
+            "aliasMode": "kept"
+          },
+          {
+            "region": {
+              "x": 175,
+              "y": 1,
+              "w": 85,
+              "h": 125
+            },
+            "offsetX": 85,
+            "offsetY": 65,
+            "targetOffsetX": 85,
+            "targetOffsetY": 65,
+            "flipX": false,
+            "sourceDirection": "left",
+            "sourceDirectionId": 2,
+            "sourceFrame": 1,
+            "aliasMode": "kept"
+          },
+          {
+            "region": {
+              "x": 1,
+              "y": 1,
+              "w": 86,
+              "h": 135
+            },
+            "offsetX": 85,
+            "offsetY": 60,
+            "targetOffsetX": 85,
+            "targetOffsetY": 60,
+            "flipX": false,
+            "sourceDirection": "left",
+            "sourceDirectionId": 2,
+            "sourceFrame": 2,
+            "aliasMode": "kept"
+          },
+          {
+            "region": {
+              "x": 605,
+              "y": 137,
+              "w": 97,
+              "h": 107
+            },
+            "offsetX": 79,
+            "offsetY": 74,
+            "targetOffsetX": 79,
+            "targetOffsetY": 74,
+            "flipX": false,
+            "sourceDirection": "left",
+            "sourceDirectionId": 2,
+            "sourceFrame": 3,
+            "aliasMode": "kept"
+          },
+          {
+            "region": {
+              "x": 1,
+              "y": 254,
+              "w": 92,
+              "h": 103
+            },
+            "offsetX": 82,
+            "offsetY": 76,
+            "targetOffsetX": 82,
+            "targetOffsetY": 76,
+            "flipX": false,
+            "sourceDirection": "left",
+            "sourceDirectionId": 2,
+            "sourceFrame": 4,
+            "aliasMode": "kept"
+          },
+          {
+            "region": {
+              "x": 797,
+              "y": 137,
+              "w": 93,
+              "h": 104
+            },
+            "offsetX": 81,
+            "offsetY": 76,
+            "targetOffsetX": 81,
+            "targetOffsetY": 76,
+            "flipX": false,
+            "sourceDirection": "left",
+            "sourceDirectionId": 2,
+            "sourceFrame": 5,
+            "aliasMode": "kept"
+          }
+        ],
+        "back_left": [
+          {
+            "region": {
+              "x": 933,
+              "y": 1,
+              "w": 77,
+              "h": 116
+            },
+            "offsetX": 89,
+            "offsetY": 70,
+            "targetOffsetX": 89,
+            "targetOffsetY": 70,
+            "flipX": false,
+            "sourceDirection": "back_left",
+            "sourceDirectionId": 3,
+            "sourceFrame": 0,
+            "aliasMode": "kept"
+          },
+          {
+            "region": {
+              "x": 77,
+              "y": 137,
+              "w": 75,
+              "h": 116
+            },
+            "offsetX": 90,
+            "offsetY": 70,
+            "targetOffsetX": 90,
+            "targetOffsetY": 70,
+            "flipX": false,
+            "sourceDirection": "back_left",
+            "sourceDirectionId": 3,
+            "sourceFrame": 1,
+            "aliasMode": "kept"
+          },
+          {
+            "region": {
+              "x": 521,
+              "y": 1,
+              "w": 75,
+              "h": 121
+            },
+            "offsetX": 90,
+            "offsetY": 67,
+            "targetOffsetX": 90,
+            "targetOffsetY": 67,
+            "flipX": false,
+            "sourceDirection": "back_left",
+            "sourceDirectionId": 3,
+            "sourceFrame": 2,
+            "aliasMode": "kept"
+          },
+          {
+            "region": {
+              "x": 329,
+              "y": 137,
+              "w": 88,
+              "h": 112
+            },
+            "offsetX": 84,
+            "offsetY": 72,
+            "targetOffsetX": 84,
+            "targetOffsetY": 72,
+            "flipX": false,
+            "sourceDirection": "back_left",
+            "sourceDirectionId": 3,
+            "sourceFrame": 3,
+            "aliasMode": "kept"
+          },
+          {
+            "region": {
+              "x": 153,
+              "y": 137,
+              "w": 87,
+              "h": 114
+            },
+            "offsetX": 84,
+            "offsetY": 71,
+            "targetOffsetX": 84,
+            "targetOffsetY": 71,
+            "flipX": false,
+            "sourceDirection": "back_left",
+            "sourceDirectionId": 3,
+            "sourceFrame": 4,
+            "aliasMode": "kept"
+          },
+          {
+            "region": {
+              "x": 673,
+              "y": 1,
+              "w": 90,
+              "h": 117
+            },
+            "offsetX": 83,
+            "offsetY": 69,
+            "targetOffsetX": 83,
+            "targetOffsetY": 69,
+            "flipX": false,
+            "sourceDirection": "back_left",
+            "sourceDirectionId": 3,
+            "sourceFrame": 5,
+            "aliasMode": "kept"
+          }
+        ],
+        "back": [
+          {
+            "region": {
+              "x": 933,
+              "y": 1,
+              "w": 77,
+              "h": 116
+            },
+            "offsetX": 89,
+            "offsetY": 70,
+            "targetOffsetX": 89,
+            "targetOffsetY": 70,
+            "flipX": false,
+            "sourceDirection": "back",
+            "sourceDirectionId": 4,
+            "sourceFrame": 0,
+            "aliasMode": "kept"
+          },
+          {
+            "region": {
+              "x": 77,
+              "y": 137,
+              "w": 75,
+              "h": 116
+            },
+            "offsetX": 90,
+            "offsetY": 70,
+            "targetOffsetX": 90,
+            "targetOffsetY": 70,
+            "flipX": false,
+            "sourceDirection": "back",
+            "sourceDirectionId": 4,
+            "sourceFrame": 1,
+            "aliasMode": "kept"
+          },
+          {
+            "region": {
+              "x": 521,
+              "y": 1,
+              "w": 75,
+              "h": 121
+            },
+            "offsetX": 90,
+            "offsetY": 67,
+            "targetOffsetX": 90,
+            "targetOffsetY": 67,
+            "flipX": false,
+            "sourceDirection": "back",
+            "sourceDirectionId": 4,
+            "sourceFrame": 2,
+            "aliasMode": "kept"
+          },
+          {
+            "region": {
+              "x": 329,
+              "y": 137,
+              "w": 88,
+              "h": 112
+            },
+            "offsetX": 84,
+            "offsetY": 72,
+            "targetOffsetX": 84,
+            "targetOffsetY": 72,
+            "flipX": false,
+            "sourceDirection": "back",
+            "sourceDirectionId": 4,
+            "sourceFrame": 3,
+            "aliasMode": "kept"
+          },
+          {
+            "region": {
+              "x": 153,
+              "y": 137,
+              "w": 87,
+              "h": 114
+            },
+            "offsetX": 84,
+            "offsetY": 71,
+            "targetOffsetX": 84,
+            "targetOffsetY": 71,
+            "flipX": false,
+            "sourceDirection": "back",
+            "sourceDirectionId": 4,
+            "sourceFrame": 4,
+            "aliasMode": "kept"
+          },
+          {
+            "region": {
+              "x": 673,
+              "y": 1,
+              "w": 90,
+              "h": 117
+            },
+            "offsetX": 83,
+            "offsetY": 69,
+            "targetOffsetX": 83,
+            "targetOffsetY": 69,
+            "flipX": false,
+            "sourceDirection": "back",
+            "sourceDirectionId": 4,
+            "sourceFrame": 5,
+            "aliasMode": "kept"
+          }
+        ],
+        "back_right": [
+          {
+            "region": {
+              "x": 855,
+              "y": 1,
+              "w": 77,
+              "h": 116
+            },
+            "offsetX": 89,
+            "offsetY": 70,
+            "targetOffsetX": 89,
+            "targetOffsetY": 70,
+            "flipX": false,
+            "sourceDirection": "back_right",
+            "sourceDirectionId": 5,
+            "sourceFrame": 0,
+            "aliasMode": "kept"
+          },
+          {
+            "region": {
+              "x": 1,
+              "y": 137,
+              "w": 75,
+              "h": 116
+            },
+            "offsetX": 90,
+            "offsetY": 70,
+            "targetOffsetX": 90,
+            "targetOffsetY": 70,
+            "flipX": false,
+            "sourceDirection": "back_right",
+            "sourceDirectionId": 5,
+            "sourceFrame": 1,
+            "aliasMode": "kept"
+          },
+          {
+            "region": {
+              "x": 597,
+              "y": 1,
+              "w": 75,
+              "h": 121
+            },
+            "offsetX": 90,
+            "offsetY": 67,
+            "targetOffsetX": 90,
+            "targetOffsetY": 67,
+            "flipX": false,
+            "sourceDirection": "back_right",
+            "sourceDirectionId": 5,
+            "sourceFrame": 2,
+            "aliasMode": "kept"
+          },
+          {
+            "region": {
+              "x": 418,
+              "y": 137,
+              "w": 88,
+              "h": 112
+            },
+            "offsetX": 84,
+            "offsetY": 72,
+            "targetOffsetX": 84,
+            "targetOffsetY": 72,
+            "flipX": false,
+            "sourceDirection": "back_right",
+            "sourceDirectionId": 5,
+            "sourceFrame": 3,
+            "aliasMode": "kept"
+          },
+          {
+            "region": {
+              "x": 241,
+              "y": 137,
+              "w": 87,
+              "h": 114
+            },
+            "offsetX": 84,
+            "offsetY": 71,
+            "targetOffsetX": 84,
+            "targetOffsetY": 71,
+            "flipX": false,
+            "sourceDirection": "back_right",
+            "sourceDirectionId": 5,
+            "sourceFrame": 4,
+            "aliasMode": "kept"
+          },
+          {
+            "region": {
+              "x": 764,
+              "y": 1,
+              "w": 90,
+              "h": 117
+            },
+            "offsetX": 83,
+            "offsetY": 69,
+            "targetOffsetX": 83,
+            "targetOffsetY": 69,
+            "flipX": false,
+            "sourceDirection": "back_right",
+            "sourceDirectionId": 5,
+            "sourceFrame": 5,
+            "aliasMode": "kept"
+          }
+        ],
+        "right": [
+          {
+            "region": {
+              "x": 855,
+              "y": 1,
+              "w": 77,
+              "h": 116
+            },
+            "offsetX": 89,
+            "offsetY": 70,
+            "targetOffsetX": 89,
+            "targetOffsetY": 70,
+            "flipX": false,
+            "sourceDirection": "right",
+            "sourceDirectionId": 6,
+            "sourceFrame": 0,
+            "aliasMode": "kept"
+          },
+          {
+            "region": {
+              "x": 1,
+              "y": 137,
+              "w": 75,
+              "h": 116
+            },
+            "offsetX": 90,
+            "offsetY": 70,
+            "targetOffsetX": 90,
+            "targetOffsetY": 70,
+            "flipX": false,
+            "sourceDirection": "right",
+            "sourceDirectionId": 6,
+            "sourceFrame": 1,
+            "aliasMode": "kept"
+          },
+          {
+            "region": {
+              "x": 597,
+              "y": 1,
+              "w": 75,
+              "h": 121
+            },
+            "offsetX": 90,
+            "offsetY": 67,
+            "targetOffsetX": 90,
+            "targetOffsetY": 67,
+            "flipX": false,
+            "sourceDirection": "right",
+            "sourceDirectionId": 6,
+            "sourceFrame": 2,
+            "aliasMode": "kept"
+          },
+          {
+            "region": {
+              "x": 418,
+              "y": 137,
+              "w": 88,
+              "h": 112
+            },
+            "offsetX": 84,
+            "offsetY": 72,
+            "targetOffsetX": 84,
+            "targetOffsetY": 72,
+            "flipX": false,
+            "sourceDirection": "right",
+            "sourceDirectionId": 6,
+            "sourceFrame": 3,
+            "aliasMode": "kept"
+          },
+          {
+            "region": {
+              "x": 241,
+              "y": 137,
+              "w": 87,
+              "h": 114
+            },
+            "offsetX": 84,
+            "offsetY": 71,
+            "targetOffsetX": 84,
+            "targetOffsetY": 71,
+            "flipX": false,
+            "sourceDirection": "right",
+            "sourceDirectionId": 6,
+            "sourceFrame": 4,
+            "aliasMode": "kept"
+          },
+          {
+            "region": {
+              "x": 764,
+              "y": 1,
+              "w": 90,
+              "h": 117
+            },
+            "offsetX": 83,
+            "offsetY": 69,
+            "targetOffsetX": 83,
+            "targetOffsetY": 69,
+            "flipX": false,
+            "sourceDirection": "right",
+            "sourceDirectionId": 6,
+            "sourceFrame": 5,
+            "aliasMode": "kept"
+          }
+        ],
+        "front_right": [
+          {
+            "region": {
+              "x": 347,
+              "y": 1,
+              "w": 86,
+              "h": 123
+            },
+            "offsetX": 85,
+            "offsetY": 66,
+            "targetOffsetX": 85,
+            "targetOffsetY": 66,
+            "flipX": false,
+            "sourceDirection": "front_right",
+            "sourceDirectionId": 7,
+            "sourceFrame": 0,
+            "aliasMode": "kept"
+          },
+          {
+            "region": {
+              "x": 261,
+              "y": 1,
+              "w": 85,
+              "h": 125
+            },
+            "offsetX": 85,
+            "offsetY": 65,
+            "targetOffsetX": 85,
+            "targetOffsetY": 65,
+            "flipX": false,
+            "sourceDirection": "front_right",
+            "sourceDirectionId": 7,
+            "sourceFrame": 1,
+            "aliasMode": "kept"
+          },
+          {
+            "region": {
+              "x": 88,
+              "y": 1,
+              "w": 86,
+              "h": 135
+            },
+            "offsetX": 85,
+            "offsetY": 60,
+            "targetOffsetX": 85,
+            "targetOffsetY": 60,
+            "flipX": false,
+            "sourceDirection": "front_right",
+            "sourceDirectionId": 7,
+            "sourceFrame": 2,
+            "aliasMode": "kept"
+          },
+          {
+            "region": {
+              "x": 507,
+              "y": 137,
+              "w": 97,
+              "h": 107
+            },
+            "offsetX": 79,
+            "offsetY": 74,
+            "targetOffsetX": 79,
+            "targetOffsetY": 74,
+            "flipX": false,
+            "sourceDirection": "front_right",
+            "sourceDirectionId": 7,
+            "sourceFrame": 3,
+            "aliasMode": "kept"
+          },
+          {
+            "region": {
+              "x": 891,
+              "y": 137,
+              "w": 92,
+              "h": 103
+            },
+            "offsetX": 82,
+            "offsetY": 76,
+            "targetOffsetX": 82,
+            "targetOffsetY": 76,
+            "flipX": false,
+            "sourceDirection": "front_right",
+            "sourceDirectionId": 7,
+            "sourceFrame": 4,
+            "aliasMode": "kept"
+          },
+          {
+            "region": {
+              "x": 703,
+              "y": 137,
+              "w": 93,
+              "h": 104
+            },
+            "offsetX": 81,
+            "offsetY": 76,
+            "targetOffsetX": 81,
+            "targetOffsetY": 76,
+            "flipX": false,
+            "sourceDirection": "front_right",
+            "sourceDirectionId": 7,
+            "sourceFrame": 5,
+            "aliasMode": "kept"
+          }
+        ]
+      },
+      "directionAliases": {
+        "front": {
+          "sourceDirection": "front",
+          "sourceDirectionId": 0,
+          "flipX": false,
+          "mode": "kept"
+        },
+        "front_left": {
+          "sourceDirection": "front_left",
+          "sourceDirectionId": 1,
+          "flipX": false,
+          "mode": "kept"
+        },
+        "left": {
+          "sourceDirection": "left",
+          "sourceDirectionId": 2,
+          "flipX": false,
+          "mode": "kept"
+        },
+        "back_left": {
+          "sourceDirection": "back_left",
+          "sourceDirectionId": 3,
+          "flipX": false,
+          "mode": "kept"
+        },
+        "back": {
+          "sourceDirection": "back",
+          "sourceDirectionId": 4,
+          "flipX": false,
+          "mode": "kept"
+        },
+        "back_right": {
+          "sourceDirection": "back_right",
+          "sourceDirectionId": 5,
+          "flipX": false,
+          "mode": "kept"
+        },
+        "right": {
+          "sourceDirection": "right",
+          "sourceDirectionId": 6,
+          "flipX": false,
+          "mode": "kept"
+        },
+        "front_right": {
+          "sourceDirection": "front_right",
+          "sourceDirectionId": 7,
+          "flipX": false,
+          "mode": "kept"
+        }
+      }
+    }
+  },
+  "optimization": {
+    "logicalCellPreserved": {
+      "width": 256,
+      "height": 256
+    },
+    "anchorPreserved": {
+      "x": 128,
+      "y": 140
+    },
+    "directionPolicy": "full-eight-fallback",
+    "idleFirstFrameOnly": false,
+    "exactRgbaDeduplication": true,
+    "perFrameAlphaCrop": true,
+    "runtimeFlipX": true,
+    "targetDirectionPlacementPreserved": true,
+    "autoFallbackToFullDirections": true,
+    "candidateTwoDirectionExact": false
+  }
+}

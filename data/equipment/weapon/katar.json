@@ -1,0 +1,185 @@
+{
+  "1250": {
+    "id": 1250,
+    "officialId": 1250,
+    "name": "拳刃",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "katar",
+    "buyPrice": 19500,
+    "sellPrice": 9750,
+    "description": [
+      "方便移動為訴求所製造的拳刃。",
+      "系列 : ^777777拳刃^000000  攻擊 : ^777777125^000000",
+      "武器等級 : ^7777772^000000",
+      "要求等級 : ^77777718^000000",
+      "裝備 : ^777777暗殺者^000000"
+    ],
+    "icon": "images/items/1250.webp",
+    "slot": "weapon",
+    "atk": 125,
+    "matk": 0,
+    "slots": 2,
+    "requiredLevel": 18,
+    "handed": 2,
+    "slotCount": 2,
+    "ClassNum": 16,
+    "weaponType": "katar",
+    "aegisName": "Jur",
+    "dbType": "Weapon",
+    "dbSubType": "Katar",
+    "range": 1,
+    "weaponLevel": 2,
+    "equipLevelMin": 18,
+    "equipJobs": {
+      "Assassin": true
+    },
+    "locations": {
+      "Both_Hand": true
+    },
+    "refineable": true,
+    "dataSource": "itemInfo_UTF8.lub + db/re/item_db_equip.yml",
+    "Id": 1250,
+    "Name": "拳刃",
+    "Buy": 19500,
+    "AegisName": "Jur",
+    "Type": "Weapon",
+    "SubType": "Katar",
+    "Attack": 125,
+    "MagicAttack": 0,
+    "Range": 1,
+    "Slots": 2,
+    "Jobs": {
+      "Assassin": true
+    },
+    "Locations": {
+      "Both_Hand": true
+    },
+    "WeaponLevel": 2,
+    "EquipLevelMin": 18,
+    "Refineable": true
+  },
+  "1252": {
+    "id": 1252,
+    "officialId": 1252,
+    "name": "卡塔勒拳刃",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "katar",
+    "buyPrice": 41000,
+    "sellPrice": 20500,
+    "description": [
+      "用古代秘術所製作出來的拳刃,刀刃會不斷的晃動,造成敵人混亂的兵器。",
+      "Dex+1。",
+      "系列 : ^777777拳刃^000000  攻擊 : ^777777148^000000",
+      "武器等級 : ^7777773^000000",
+      "要求等級 : ^77777733^000000",
+      "裝備 : ^777777暗殺者^000000"
+    ],
+    "icon": "images/items/1252.webp",
+    "slot": "weapon",
+    "atk": 148,
+    "matk": 0,
+    "slots": 1,
+    "requiredLevel": 33,
+    "handed": 2,
+    "slotCount": 1,
+    "ClassNum": 16,
+    "weaponType": "katar",
+    "aegisName": "Katar",
+    "dbType": "Weapon",
+    "dbSubType": "Katar",
+    "range": 1,
+    "weaponLevel": 3,
+    "equipLevelMin": 33,
+    "equipJobs": {
+      "Assassin": true
+    },
+    "locations": {
+      "Both_Hand": true
+    },
+    "refineable": true,
+    "scriptRaw": "bonus bDex,1;",
+    "dataSource": "itemInfo_UTF8.lub + db/re/item_db_equip.yml",
+    "Id": 1252,
+    "Name": "卡塔勒拳刃",
+    "Buy": 41000,
+    "AegisName": "Katar",
+    "Type": "Weapon",
+    "SubType": "Katar",
+    "Attack": 148,
+    "MagicAttack": 0,
+    "Range": 1,
+    "Slots": 1,
+    "Jobs": {
+      "Assassin": true
+    },
+    "Locations": {
+      "Both_Hand": true
+    },
+    "WeaponLevel": 3,
+    "EquipLevelMin": 33,
+    "Refineable": true,
+    "Script": "bonus bDex,1;"
+  },
+  "1254": {
+    "id": 1254,
+    "officialId": 1254,
+    "name": "秘刃 闇嘯",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "katar",
+    "buyPrice": 37200,
+    "sellPrice": 18600,
+    "description": [
+      "有很多的刀刃,攻擊力極度強化的兵器。",
+      "系列 : ^777777拳刃^000000  攻擊 : ^777777165^000000",
+      "武器等級 : ^7777773^000000",
+      "要求等級 : ^77777733^000000",
+      "裝備 : ^777777暗殺者^000000"
+    ],
+    "icon": "images/items/1254.webp",
+    "slot": "weapon",
+    "atk": 165,
+    "matk": 0,
+    "slots": 0,
+    "requiredLevel": 33,
+    "handed": 2,
+    "slotCount": 0,
+    "ClassNum": 16,
+    "weaponType": "katar",
+    "aegisName": "Jamadhar",
+    "dbType": "Weapon",
+    "dbSubType": "Katar",
+    "range": 1,
+    "weaponLevel": 3,
+    "equipLevelMin": 33,
+    "equipJobs": {
+      "Assassin": true
+    },
+    "locations": {
+      "Both_Hand": true
+    },
+    "refineable": true,
+    "dataSource": "itemInfo_UTF8.lub + db/re/item_db_equip.yml",
+    "Id": 1254,
+    "Name": "秘刃 闇嘯",
+    "Buy": 37200,
+    "AegisName": "Jamadhar",
+    "Type": "Weapon",
+    "SubType": "Katar",
+    "Attack": 165,
+    "MagicAttack": 0,
+    "Range": 1,
+    "Slots": 0,
+    "Jobs": {
+      "Assassin": true
+    },
+    "Locations": {
+      "Both_Hand": true
+    },
+    "WeaponLevel": 3,
+    "EquipLevelMin": 33,
+    "Refineable": true
+  }
+}

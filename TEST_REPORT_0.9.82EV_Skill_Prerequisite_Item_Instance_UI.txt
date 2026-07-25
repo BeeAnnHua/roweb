@@ -1,0 +1,58 @@
+RO_WEB 0.9.82EV — 0.9.82EU 功能延續回歸報告
+============================================================
+功能來源版本：0.9.82EU
+驗證主題：確認 EV 完整保留 EU 的前置技能、任務技能、裝備實例與卡片介面
+
+一、完整 Runtime
+- Current Runtime Integrity：68 / 68 PASS
+- JavaScript syntax：591 files / 0 errors
+- Deep Health：0 errors / 0 warnings
+- Data Bundle：1374 entries / 25,162,424 bytes
+- 入口快取：35 references，全部為 0.9.82EV；舊 ET references = 0
+
+二、技能配點
+- 多層前置鏈遞迴：PASS
+- 技能點不足時部分補點：PASS
+- 未完成前置時禁止提前加入目標技能：PASS
+- 待確認期間不扣除 player.skillPoints：PASS
+- 確認視窗列出所有技能與增加等級：PASS
+- 確認後一次消耗暫存點數：PASS
+- 戰鬥紀錄顯示尚缺前置／Job Level：PASS
+
+三、任務技能
+- 急救術 ID 142 初學者自動擁有：PASS
+- 轉生初學者重新自動擁有急救術：PASS
+- 適用職業樹的 0～2 轉任務技能自動擁有：PASS
+- 任務技能不消耗技能點：PASS
+- 技能初始化後由職業樹恢復：PASS
+- 自動技能清單：37 IDs
+
+四、裝備實例
+- 舊堆疊裝備拆成獨立 instanceId：PASS
+- 非裝備物品維持堆疊：PASS
+- refine / broken / cards[4] / enchants[] 保存：PASS
+- 舊 equipmentCards / socketedCards 遷移：PASS
+- 卸除再穿戴保留同一 instanceId：PASS
+- 裝備實例卡片正式進入 CombatFormulaRuntime：PASS（100 + 20% = 120）
+
+五、裝備名稱與詳細視窗
+- Hover 精簡格式：PASS
+- +9 兩倍海葵的 巨大雙手劍 [2]：PASS
+- 不同卡片依序顯示：PASS
+- 無洞裝備顯示 [0]：PASS
+- 最後洞數只取 itemInfo.slotCount：PASS
+- 左鍵物品詳細視窗：PASS
+- 原始洞數建立卡片槽：PASS
+- 卡片 Hover 只顯示卡片名稱：PASS
+- 左鍵卡片開啟能力介紹：PASS
+- 右上角 X 關閉：PASS
+- 背包雙擊穿戴／裝備欄雙擊卸除：靜態與實例流程 PASS
+
+六、客戶端資料
+- cardPrefixNames：1794
+- cardPostfix IDs：349
+- cardInfo：1830
+- 重複卡片文字：兩倍／三倍／四倍
+- 來源：itemInfo_UTF8.lub、carditemnametable、cardprefixnametable、cardpostfixnametable、msgstringtable、num2cardillustnametable
+
+結果：PASS，可作為下一階段戰鬥系統優化基準。

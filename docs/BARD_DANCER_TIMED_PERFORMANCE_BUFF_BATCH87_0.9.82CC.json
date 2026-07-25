@@ -1,0 +1,42 @@
+{
+  "version": "0.9.82CC",
+  "batch": 87,
+  "title": "吟遊詩人／舞孃限時演奏 Buff 核心",
+  "decision": {
+    "durationMsByLevel": [
+      30000,
+      60000,
+      90000,
+      120000,
+      150000,
+      180000,
+      210000,
+      240000,
+      270000,
+      300000
+    ],
+    "maxLevelDuration": "5 minutes",
+    "canUseOtherSkills": true,
+    "naturalSpRecoveryContinues": true,
+    "multiplePerformancesStack": true,
+    "upkeep": "independent per-song SP cost every 5 seconds",
+    "recast": "refresh duration",
+    "onInsufficientSp": "remove newest unaffordable performance",
+    "enemyAuraCleanup": "勿忘我在結束或SP不足時同步清除敵方減速"
+  },
+  "skills": [
+    319,
+    320,
+    321,
+    322,
+    327,
+    328,
+    329,
+    330
+  ],
+  "runtimeSummary": {
+    "official": 727,
+    "total": 1139,
+    "pending": 412
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "version": "0.9.80ZN",
+  "result": "PASS",
+  "policy": "Runtime Profile only",
+  "legacySkillsJsonRemoved": true,
+  "adventurerTrainingSplit": true,
+  "strippedLegacyFields": {
+    "skills_core_1.json": {
+      "healPower": 0,
+      "power": 0,
+      "effects": 7,
+      "passiveBonuses": 10
+    },
+    "skills_core_2.json": {
+      "healPower": 0,
+      "power": 0,
+      "effects": 0,
+      "passiveBonuses": 0
+    }
+  },
+  "runtimeProfiles": 17,
+  "pendingSkills": 1122,
+  "behavior": "Skills without Runtime Profile cannot execute and never fall back to legacy formulas."
+}

@@ -1,0 +1,33 @@
+{
+  "version": "0.9.82DJ",
+  "title": "Mjolnir Poring Wander Fix + Scorpion V76 flipX Runtime Test",
+  "changes": {
+    "mjolnirMonsterIds": [
+      1002,
+      1001
+    ],
+    "poring": {
+      "id": 1002,
+      "behavior": "passive intermittent wander",
+      "fix": "target persists until reached; pause begins only after arrival"
+    },
+    "scorpion": {
+      "id": 1001,
+      "behavior": "active test override",
+      "runtimeAi": "04",
+      "unchanged": true
+    },
+    "runtime": [
+      "frame.flipX unchanged",
+      "wander target lock fixed",
+      "edge-clamped near target retries after 350ms"
+    ]
+  },
+  "safety": {
+    "sourceVersion": "0.9.82DI",
+    "monsterDatabaseUnchanged": true,
+    "atlasAssetsUnchanged": true,
+    "positionAndRangeRemainInPositionEngine": true,
+    "sourceFilesOverwritten": false
+  }
+}

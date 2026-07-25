@@ -1,0 +1,2703 @@
+{
+  "schema": "ro_web_region_monster_streaming_v1",
+  "version": "0.9.82FE",
+  "source": {
+    "mobDb": "rAthena Renewal db/re/mob_db.yml",
+    "spawnScripts": "rAthena Renewal npc/re/mobs/fields/*.txt",
+    "monsterAssets": "RO Studio V78 PNG+JSON batches"
+  },
+  "global": {
+    "monsterCountRate": 33,
+    "normalSpawnDelayRate": 100,
+    "plantSpawnDelayRate": 100,
+    "bossSpawnDelayRate": 100,
+    "spawnVariance": true,
+    "baseMonstersPerSource512": 5,
+    "activeWindowSourceSize": 1024,
+    "retainWindowSourceSize": 1280,
+    "normalHardCap": 40,
+    "spawnBatchSize": 4,
+    "spawnMaintenanceMs": 500,
+    "renderPaddingWorldPx": 260,
+    "minimumSpawnDistanceWorldPx": 140,
+    "normalOutsideCombatGraceMs": 5000,
+    "rules": [
+      "100 = RA/RO_WEB base rate; count rate scales ordinary group monsters only.",
+      "Normal/plant/Boss respawn delay rates are independent. 50 = twice as fast, 200 = twice as slow.",
+      "Unique rare/Boss/MVP species remain maxAlive 1 and are never duplicated by monsterCountRate.",
+      "0.9.82FE: ordinary population is one third of the former baseline: about 20 non-Boss monsters around the player at 33%.",
+      "0.9.82FE: map entry creates only 8 ordinary monsters first, then fills the remaining target in maintenance batches to avoid a synchronous loading hitch.",
+      "0.9.82EN: ordinary spawn coordinates are strongly center-biased (78% within the preferred 760px radius) and may appear inside the viewport; only a 140px safety radius around the player is excluded.",
+      "0.9.82EN: damage retaliation uses at least 24 cells of chase allowance, Assist uses 11 cells, and active acquisition follows RA SkillRange."
+    ],
+    "raBattleKeys": {
+      "mob_count_rate": "monsterCountRate",
+      "mob_spawn_delay": "normalSpawnDelayRate",
+      "plant_spawn_delay": "plantSpawnDelayRate",
+      "boss_spawn_delay": "bossSpawnDelayRate",
+      "mob_spawn_variance": "spawnVariance"
+    },
+    "preferredSpawnRadiusWorldPx": 760,
+    "nearSpawnBias": 0.78,
+    "avoidViewportSpawnChance": 0.0,
+    "retaliationChaseMinCells": 24,
+    "retaliationLeashCells": 34,
+    "assistRangeCells": 11,
+    "aggroForgetMs": 12000,
+    "castSensorEnabled": true,
+    "spatialCellSizeWorldPx": 288,
+    "initialSpawnBatchSize": 8
+  },
+  "regions": {
+    "prontera_3x3_region_camera": {
+      "name": "普隆德拉地區",
+      "sourceSpawnFiles": [
+        "npc/re/mobs/fields/prontera.txt"
+      ],
+      "targetNormalCountAt100": 60,
+      "pool": [
+        {
+          "monsterId": 1063,
+          "weight": 295,
+          "category": "normal",
+          "raSpawnCount": 295,
+          "sourceMaps": [
+            "prt_fild01",
+            "prt_fild06",
+            "prt_fild08"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1007,
+          "weight": 268,
+          "category": "normal",
+          "raSpawnCount": 268,
+          "sourceMaps": [
+            "prt_fild01",
+            "prt_fild06",
+            "prt_fild08"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1138,
+          "weight": 212,
+          "category": "normal",
+          "raSpawnCount": 212,
+          "sourceMaps": [
+            "prt_fild09"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1052,
+          "weight": 203,
+          "category": "normal",
+          "raSpawnCount": 203,
+          "sourceMaps": [
+            "prt_fild07"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1004,
+          "weight": 199,
+          "category": "normal",
+          "raSpawnCount": 199,
+          "sourceMaps": [
+            "prt_fild05"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1012,
+          "weight": 196,
+          "category": "normal",
+          "raSpawnCount": 196,
+          "sourceMaps": [
+            "prt_fild00",
+            "prt_fild04"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1174,
+          "weight": 188,
+          "category": "normal",
+          "raSpawnCount": 188,
+          "sourceMaps": [
+            "prt_fild02"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1094,
+          "weight": 176,
+          "category": "normal",
+          "raSpawnCount": 176,
+          "sourceMaps": [
+            "prt_fild00",
+            "prt_fild04"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1002,
+          "weight": 161,
+          "category": "normal",
+          "raSpawnCount": 161,
+          "sourceMaps": [
+            "prt_fild01",
+            "prt_fild06",
+            "prt_fild08"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1033,
+          "weight": 157,
+          "category": "normal",
+          "raSpawnCount": 157,
+          "sourceMaps": [
+            "prt_fild10"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1088,
+          "weight": 2,
+          "category": "rare",
+          "raSpawnCount": 2,
+          "sourceMaps": [
+            "prt_fild04",
+            "prt_fild07"
+          ],
+          "baseRespawnMs": 1800000,
+          "respawnVarianceMs": 1200000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true
+        },
+        {
+          "monsterId": 1214,
+          "weight": 1,
+          "category": "rare",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "prt_fild03"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true
+        },
+        {
+          "monsterId": 1308,
+          "weight": 1,
+          "category": "rare",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "prt_fild11"
+          ],
+          "baseRespawnMs": 1800000,
+          "respawnVarianceMs": 1200000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true
+        },
+        {
+          "monsterId": 1080,
+          "weight": 54,
+          "category": "plant",
+          "raSpawnCount": 54,
+          "sourceMaps": [
+            "prt_fild00",
+            "prt_fild01",
+            "prt_fild03",
+            "prt_fild04",
+            "prt_fild05",
+            "prt_fild06"
+          ],
+          "baseRespawnMs": 180000,
+          "respawnVarianceMs": 90000,
+          "countRateEligible": false,
+          "maxAlive": 3,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1085,
+          "weight": 26,
+          "category": "plant",
+          "raSpawnCount": 26,
+          "sourceMaps": [
+            "prt_fild10",
+            "prt_fild11"
+          ],
+          "baseRespawnMs": 180000,
+          "respawnVarianceMs": 90000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1083,
+          "weight": 5,
+          "category": "plant",
+          "raSpawnCount": 5,
+          "sourceMaps": [
+            "prt_fild00",
+            "prt_fild02",
+            "prt_fild10"
+          ],
+          "baseRespawnMs": 1800000,
+          "respawnVarianceMs": 900000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1079,
+          "weight": 4,
+          "category": "plant",
+          "raSpawnCount": 4,
+          "sourceMaps": [
+            "prt_fild01",
+            "prt_fild03",
+            "prt_fild05"
+          ],
+          "baseRespawnMs": 900000,
+          "respawnVarianceMs": 450000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1081,
+          "weight": 3,
+          "category": "plant",
+          "raSpawnCount": 3,
+          "sourceMaps": [
+            "prt_fild09"
+          ],
+          "baseRespawnMs": 360000,
+          "respawnVarianceMs": 180000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1084,
+          "weight": 3,
+          "category": "plant",
+          "raSpawnCount": 3,
+          "sourceMaps": [
+            "prt_fild07"
+          ],
+          "baseRespawnMs": 360000,
+          "respawnVarianceMs": 180000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1093,
+          "weight": 1,
+          "category": "boss",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "prt_fild02"
+          ],
+          "baseRespawnMs": 1800000,
+          "respawnVarianceMs": 1200000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true
+        }
+      ],
+      "recommendedLevelMin": 1,
+      "recommendedLevelMax": 53,
+      "selectionRule": "RA Renewal field spawns aggregated; top 10 ordinary species by official count + all rare/plants (up to 6)/Boss/MVP with available animation assets."
+    },
+    "geffen_3x3_region_camera": {
+      "name": "吉芬地區",
+      "sourceSpawnFiles": [
+        "npc/re/mobs/fields/geffen.txt"
+      ],
+      "targetNormalCountAt100": 60,
+      "pool": [
+        {
+          "monsterId": 1104,
+          "weight": 270,
+          "category": "normal",
+          "raSpawnCount": 270,
+          "sourceMaps": [
+            "gef_fild02",
+            "gef_fild09"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1023,
+          "weight": 252,
+          "category": "normal",
+          "raSpawnCount": 252,
+          "sourceMaps": [
+            "gef_fild03",
+            "gef_fild10"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1273,
+          "weight": 215,
+          "category": "normal",
+          "raSpawnCount": 215,
+          "sourceMaps": [
+            "gef_fild03",
+            "gef_fild10"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1011,
+          "weight": 205,
+          "category": "normal",
+          "raSpawnCount": 205,
+          "sourceMaps": [
+            "gef_fild00",
+            "gef_fild04",
+            "gef_fild07"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1156,
+          "weight": 163,
+          "category": "normal",
+          "raSpawnCount": 163,
+          "sourceMaps": [
+            "gef_fild08"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1155,
+          "weight": 158,
+          "category": "normal",
+          "raSpawnCount": 158,
+          "sourceMaps": [
+            "gef_fild06"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1018,
+          "weight": 143,
+          "category": "normal",
+          "raSpawnCount": 143,
+          "sourceMaps": [
+            "gef_fild05"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1012,
+          "weight": 136,
+          "category": "normal",
+          "raSpawnCount": 136,
+          "sourceMaps": [
+            "gef_fild01",
+            "gef_fild09"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1008,
+          "weight": 134,
+          "category": "normal",
+          "raSpawnCount": 134,
+          "sourceMaps": [
+            "gef_fild07"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1020,
+          "weight": 125,
+          "category": "normal",
+          "raSpawnCount": 125,
+          "sourceMaps": [
+            "gef_fild04"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1299,
+          "weight": 1,
+          "category": "rare",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "gef_fild11"
+          ],
+          "baseRespawnMs": 1800000,
+          "respawnVarianceMs": 1200000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true
+        },
+        {
+          "monsterId": 1080,
+          "weight": 55,
+          "category": "plant",
+          "raSpawnCount": 55,
+          "sourceMaps": [
+            "gef_fild00",
+            "gef_fild01",
+            "gef_fild02",
+            "gef_fild03",
+            "gef_fild04",
+            "gef_fild07",
+            "gef_fild10"
+          ],
+          "baseRespawnMs": 180000,
+          "respawnVarianceMs": 90000,
+          "countRateEligible": false,
+          "maxAlive": 3,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1079,
+          "weight": 24,
+          "category": "plant",
+          "raSpawnCount": 24,
+          "sourceMaps": [
+            "gef_fild00",
+            "gef_fild02",
+            "gef_fild07",
+            "gef_fild08",
+            "gef_fild09",
+            "gef_fild10"
+          ],
+          "baseRespawnMs": 360000,
+          "respawnVarianceMs": 180000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1085,
+          "weight": 16,
+          "category": "plant",
+          "raSpawnCount": 16,
+          "sourceMaps": [
+            "gef_fild02",
+            "gef_fild09"
+          ],
+          "baseRespawnMs": 180000,
+          "respawnVarianceMs": 90000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1078,
+          "weight": 15,
+          "category": "plant",
+          "raSpawnCount": 15,
+          "sourceMaps": [
+            "gef_fild05"
+          ],
+          "baseRespawnMs": 180000,
+          "respawnVarianceMs": 90000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1083,
+          "weight": 6,
+          "category": "plant",
+          "raSpawnCount": 6,
+          "sourceMaps": [
+            "gef_fild02",
+            "gef_fild06",
+            "gef_fild07"
+          ],
+          "baseRespawnMs": 1800000,
+          "respawnVarianceMs": 900000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1087,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "gef_fild03"
+          ],
+          "baseRespawnMs": 3600000,
+          "respawnVarianceMs": 600000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true
+        },
+        {
+          "monsterId": 1190,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "gef_fild10"
+          ],
+          "baseRespawnMs": 7200000,
+          "respawnVarianceMs": 600000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true
+        },
+        {
+          "monsterId": 1089,
+          "weight": 1,
+          "category": "boss",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "gef_fild01"
+          ],
+          "baseRespawnMs": 3600000,
+          "respawnVarianceMs": 1800000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true
+        }
+      ],
+      "recommendedLevelMin": 4,
+      "recommendedLevelMax": 86,
+      "selectionRule": "RA Renewal field spawns aggregated; top 10 ordinary species by official count + all rare/plants (up to 6)/Boss/MVP with available animation assets."
+    },
+    "morocc_3x3_region_camera": {
+      "name": "夢羅克地區",
+      "sourceSpawnFiles": [
+        "npc/re/mobs/fields/morocc.txt"
+      ],
+      "targetNormalCountAt100": 60,
+      "pool": [
+        {
+          "monsterId": 1055,
+          "weight": 260,
+          "category": "normal",
+          "raSpawnCount": 260,
+          "sourceMaps": [
+            "moc_fild01",
+            "moc_fild02"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1113,
+          "weight": 253,
+          "category": "normal",
+          "raSpawnCount": 253,
+          "sourceMaps": [
+            "moc_fild07",
+            "moc_fild12"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1019,
+          "weight": 246,
+          "category": "normal",
+          "raSpawnCount": 246,
+          "sourceMaps": [
+            "moc_fild01",
+            "moc_fild02"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1009,
+          "weight": 210,
+          "category": "normal",
+          "raSpawnCount": 210,
+          "sourceMaps": [
+            "moc_fild11",
+            "moc_fild12",
+            "moc_fild18"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1001,
+          "weight": 201,
+          "category": "normal",
+          "raSpawnCount": 201,
+          "sourceMaps": [
+            "moc_fild11",
+            "moc_fild18"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1127,
+          "weight": 200,
+          "category": "normal",
+          "raSpawnCount": 200,
+          "sourceMaps": [
+            "moc_fild16",
+            "moc_fild17"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1013,
+          "weight": 179,
+          "category": "normal",
+          "raSpawnCount": 179,
+          "sourceMaps": [
+            "moc_fild03",
+            "moc_fild13"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1107,
+          "weight": 171,
+          "category": "normal",
+          "raSpawnCount": 171,
+          "sourceMaps": [
+            "moc_fild11",
+            "moc_fild18"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1165,
+          "weight": 169,
+          "category": "normal",
+          "raSpawnCount": 169,
+          "sourceMaps": [
+            "moc_fild16",
+            "moc_fild17"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1042,
+          "weight": 163,
+          "category": "normal",
+          "raSpawnCount": 163,
+          "sourceMaps": [
+            "moc_fild03",
+            "moc_fild13"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1081,
+          "weight": 61,
+          "category": "plant",
+          "raSpawnCount": 61,
+          "sourceMaps": [
+            "moc_fild01",
+            "moc_fild02",
+            "moc_fild07",
+            "moc_fild12",
+            "moc_fild13",
+            "moc_fild17",
+            "moc_fild18"
+          ],
+          "baseRespawnMs": 180000,
+          "respawnVarianceMs": 90000,
+          "countRateEligible": false,
+          "maxAlive": 3,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1080,
+          "weight": 21,
+          "category": "plant",
+          "raSpawnCount": 21,
+          "sourceMaps": [
+            "moc_fild02",
+            "moc_fild03"
+          ],
+          "baseRespawnMs": 180000,
+          "respawnVarianceMs": 90000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1085,
+          "weight": 13,
+          "category": "plant",
+          "raSpawnCount": 13,
+          "sourceMaps": [
+            "moc_fild13"
+          ],
+          "baseRespawnMs": 180000,
+          "respawnVarianceMs": 90000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1079,
+          "weight": 1,
+          "category": "plant",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "moc_fild17"
+          ],
+          "baseRespawnMs": 180000,
+          "respawnVarianceMs": 90000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1159,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "moc_fild17"
+          ],
+          "baseRespawnMs": 7200000,
+          "respawnVarianceMs": 600000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true
+        },
+        {
+          "monsterId": 1091,
+          "weight": 1,
+          "category": "boss",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "moc_fild18"
+          ],
+          "baseRespawnMs": 3600000,
+          "respawnVarianceMs": 1800000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true
+        }
+      ],
+      "recommendedLevelMin": 2,
+      "recommendedLevelMax": 63,
+      "selectionRule": "RA Renewal field spawns aggregated; top 10 ordinary species by official count + all rare/plants (up to 6)/Boss/MVP with available animation assets."
+    },
+    "mjolnir_3x3_region_camera": {
+      "name": "妙勒尼山脈",
+      "sourceSpawnFiles": [
+        "npc/re/mobs/fields/mjolnir.txt"
+      ],
+      "targetNormalCountAt100": 60,
+      "pool": [
+        {
+          "monsterId": 1099,
+          "weight": 336,
+          "category": "normal",
+          "raSpawnCount": 336,
+          "sourceMaps": [
+            "mjolnir_05",
+            "mjolnir_11"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1494,
+          "weight": 244,
+          "category": "normal",
+          "raSpawnCount": 244,
+          "sourceMaps": [
+            "mjolnir_07",
+            "mjolnir_08",
+            "mjolnir_10"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1380,
+          "weight": 243,
+          "category": "normal",
+          "raSpawnCount": 243,
+          "sourceMaps": [
+            "mjolnir_03",
+            "mjolnir_04",
+            "mjolnir_05"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1100,
+          "weight": 239,
+          "category": "normal",
+          "raSpawnCount": 239,
+          "sourceMaps": [
+            "mjolnir_10",
+            "mjolnir_11"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1166,
+          "weight": 197,
+          "category": "normal",
+          "raSpawnCount": 197,
+          "sourceMaps": [
+            "mjolnir_07",
+            "mjolnir_08"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1037,
+          "weight": 183,
+          "category": "normal",
+          "raSpawnCount": 183,
+          "sourceMaps": [
+            "mjolnir_03",
+            "mjolnir_04"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1103,
+          "weight": 167,
+          "category": "normal",
+          "raSpawnCount": 167,
+          "sourceMaps": [
+            "mjolnir_01"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1139,
+          "weight": 167,
+          "category": "normal",
+          "raSpawnCount": 167,
+          "sourceMaps": [
+            "mjolnir_03",
+            "mjolnir_04",
+            "mjolnir_05",
+            "mjolnir_12"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1114,
+          "weight": 162,
+          "category": "normal",
+          "raSpawnCount": 162,
+          "sourceMaps": [
+            "mjolnir_12"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1167,
+          "weight": 159,
+          "category": "normal",
+          "raSpawnCount": 159,
+          "sourceMaps": [
+            "mjolnir_09"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1080,
+          "weight": 97,
+          "category": "plant",
+          "raSpawnCount": 97,
+          "sourceMaps": [
+            "mjolnir_01",
+            "mjolnir_02",
+            "mjolnir_03",
+            "mjolnir_04",
+            "mjolnir_07",
+            "mjolnir_08",
+            "mjolnir_10",
+            "mjolnir_11"
+          ],
+          "baseRespawnMs": 180000,
+          "respawnVarianceMs": 90000,
+          "countRateEligible": false,
+          "maxAlive": 3,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1079,
+          "weight": 28,
+          "category": "plant",
+          "raSpawnCount": 28,
+          "sourceMaps": [
+            "mjolnir_01",
+            "mjolnir_02",
+            "mjolnir_05",
+            "mjolnir_06",
+            "mjolnir_07",
+            "mjolnir_08",
+            "mjolnir_11"
+          ],
+          "baseRespawnMs": 360000,
+          "respawnVarianceMs": 180000,
+          "countRateEligible": false,
+          "maxAlive": 2,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1085,
+          "weight": 21,
+          "category": "plant",
+          "raSpawnCount": 21,
+          "sourceMaps": [
+            "mjolnir_06",
+            "mjolnir_07",
+            "mjolnir_09"
+          ],
+          "baseRespawnMs": 180000,
+          "respawnVarianceMs": 90000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1078,
+          "weight": 16,
+          "category": "plant",
+          "raSpawnCount": 16,
+          "sourceMaps": [
+            "mjolnir_02",
+            "mjolnir_05"
+          ],
+          "baseRespawnMs": 180000,
+          "respawnVarianceMs": 90000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1083,
+          "weight": 9,
+          "category": "plant",
+          "raSpawnCount": 9,
+          "sourceMaps": [
+            "mjolnir_01",
+            "mjolnir_03",
+            "mjolnir_04",
+            "mjolnir_05",
+            "mjolnir_10"
+          ],
+          "baseRespawnMs": 1800000,
+          "respawnVarianceMs": 900000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1059,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "mjolnir_04"
+          ],
+          "baseRespawnMs": 7200000,
+          "respawnVarianceMs": 600000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true
+        }
+      ],
+      "recommendedLevelMin": 14,
+      "recommendedLevelMax": 75,
+      "selectionRule": "RA Renewal field spawns aggregated; top 10 ordinary species by official count + all rare/plants (up to 6)/Boss/MVP with available animation assets."
+    },
+    "rachel_3x3_region_camera": {
+      "name": "拉赫地區",
+      "sourceSpawnFiles": [
+        "npc/re/mobs/fields/rachel.txt"
+      ],
+      "targetNormalCountAt100": 60,
+      "pool": [
+        {
+          "monsterId": 1782,
+          "weight": 398,
+          "category": "normal",
+          "raSpawnCount": 398,
+          "sourceMaps": [
+            "ra_fild01",
+            "ra_fild03",
+            "ra_fild04",
+            "ra_fild08",
+            "ra_fild12"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1680,
+          "weight": 340,
+          "category": "normal",
+          "raSpawnCount": 340,
+          "sourceMaps": [
+            "ra_fild03",
+            "ra_fild04",
+            "ra_fild08"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1030,
+          "weight": 182,
+          "category": "normal",
+          "raSpawnCount": 182,
+          "sourceMaps": [
+            "ra_fild03",
+            "ra_fild08"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1106,
+          "weight": 168,
+          "category": "normal",
+          "raSpawnCount": 168,
+          "sourceMaps": [
+            "ra_fild01",
+            "ra_fild04"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1627,
+          "weight": 144,
+          "category": "normal",
+          "raSpawnCount": 144,
+          "sourceMaps": [
+            "ra_fild01",
+            "ra_fild03",
+            "ra_fild04",
+            "ra_fild05",
+            "ra_fild06",
+            "ra_fild08",
+            "ra_fild12"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1133,
+          "weight": 130,
+          "category": "normal",
+          "raSpawnCount": 130,
+          "sourceMaps": [
+            "ra_fild05",
+            "ra_fild06"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1134,
+          "weight": 130,
+          "category": "normal",
+          "raSpawnCount": 130,
+          "sourceMaps": [
+            "ra_fild05",
+            "ra_fild06"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1135,
+          "weight": 130,
+          "category": "normal",
+          "raSpawnCount": 130,
+          "sourceMaps": [
+            "ra_fild05",
+            "ra_fild06"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1282,
+          "weight": 87,
+          "category": "normal",
+          "raSpawnCount": 87,
+          "sourceMaps": [
+            "ra_fild06"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1107,
+          "weight": 61,
+          "category": "normal",
+          "raSpawnCount": 61,
+          "sourceMaps": [
+            "ra_fild01",
+            "ra_fild08",
+            "ra_fild12"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1296,
+          "weight": 1,
+          "category": "rare",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "ra_fild06"
+          ],
+          "baseRespawnMs": 1800000,
+          "respawnVarianceMs": 1200000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true
+        },
+        {
+          "monsterId": 1081,
+          "weight": 15,
+          "category": "plant",
+          "raSpawnCount": 15,
+          "sourceMaps": [
+            "ra_fild12"
+          ],
+          "baseRespawnMs": 10000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1078,
+          "weight": 5,
+          "category": "plant",
+          "raSpawnCount": 5,
+          "sourceMaps": [
+            "ra_fild12"
+          ],
+          "baseRespawnMs": 10000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1785,
+          "weight": 2,
+          "category": "mvp",
+          "raSpawnCount": 2,
+          "sourceMaps": [
+            "ra_fild03",
+            "ra_fild04"
+          ],
+          "baseRespawnMs": 10800000,
+          "respawnVarianceMs": 600000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true
+        }
+      ],
+      "recommendedLevelMin": 14,
+      "recommendedLevelMax": 108,
+      "selectionRule": "RA Renewal field spawns aggregated; top 10 ordinary species by official count + all rare/plants (up to 6)/Boss/MVP with available animation assets."
+    },
+    "payon_3x3_region_camera": {
+      "name": "斐揚地區",
+      "sourceSpawnFiles": [
+        "npc/re/mobs/fields/payon.txt"
+      ],
+      "targetNormalCountAt100": 60,
+      "pool": [
+        {
+          "monsterId": 1014,
+          "weight": 208,
+          "category": "normal",
+          "raSpawnCount": 208,
+          "sourceMaps": [
+            "pay_fild02",
+            "pay_fild06",
+            "pay_fild08"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1010,
+          "weight": 206,
+          "category": "normal",
+          "raSpawnCount": 206,
+          "sourceMaps": [
+            "pay_fild01",
+            "pay_fild03"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1025,
+          "weight": 203,
+          "category": "normal",
+          "raSpawnCount": 203,
+          "sourceMaps": [
+            "pay_fild02",
+            "pay_fild06",
+            "pay_fild08"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1024,
+          "weight": 201,
+          "category": "normal",
+          "raSpawnCount": 201,
+          "sourceMaps": [
+            "pay_fild02",
+            "pay_fild06",
+            "pay_fild08"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1128,
+          "weight": 181,
+          "category": "normal",
+          "raSpawnCount": 181,
+          "sourceMaps": [
+            "pay_fild09"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1060,
+          "weight": 174,
+          "category": "normal",
+          "raSpawnCount": 174,
+          "sourceMaps": [
+            "pay_fild07"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1007,
+          "weight": 168,
+          "category": "normal",
+          "raSpawnCount": 168,
+          "sourceMaps": [
+            "pay_fild01",
+            "pay_fild03"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1031,
+          "weight": 141,
+          "category": "normal",
+          "raSpawnCount": 141,
+          "sourceMaps": [
+            "pay_fild04"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1277,
+          "weight": 129,
+          "category": "normal",
+          "raSpawnCount": 129,
+          "sourceMaps": [
+            "pay_fild10"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1002,
+          "weight": 79,
+          "category": "normal",
+          "raSpawnCount": 79,
+          "sourceMaps": [
+            "pay_fild01",
+            "pay_fild03",
+            "pay_fild04"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1080,
+          "weight": 71,
+          "category": "plant",
+          "raSpawnCount": 71,
+          "sourceMaps": [
+            "pay_fild01",
+            "pay_fild02",
+            "pay_fild03",
+            "pay_fild04",
+            "pay_fild06",
+            "pay_fild07",
+            "pay_fild08",
+            "pay_fild09",
+            "pay_fild10"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 3,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1085,
+          "weight": 18,
+          "category": "plant",
+          "raSpawnCount": 18,
+          "sourceMaps": [
+            "pay_fild02",
+            "pay_fild03",
+            "pay_fild06"
+          ],
+          "baseRespawnMs": 180000,
+          "respawnVarianceMs": 90000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1083,
+          "weight": 4,
+          "category": "plant",
+          "raSpawnCount": 4,
+          "sourceMaps": [
+            "pay_fild04",
+            "pay_fild06",
+            "pay_fild08",
+            "pay_fild09"
+          ],
+          "baseRespawnMs": 1800000,
+          "respawnVarianceMs": 900000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1079,
+          "weight": 3,
+          "category": "plant",
+          "raSpawnCount": 3,
+          "sourceMaps": [
+            "pay_fild10"
+          ],
+          "baseRespawnMs": 360000,
+          "respawnVarianceMs": 180000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1115,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "pay_fild10"
+          ],
+          "baseRespawnMs": 7200000,
+          "respawnVarianceMs": 600000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true
+        },
+        {
+          "monsterId": 1090,
+          "weight": 1,
+          "category": "boss",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "pay_fild04"
+          ],
+          "baseRespawnMs": 3600000,
+          "respawnVarianceMs": 1800000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true
+        },
+        {
+          "monsterId": 1096,
+          "weight": 1,
+          "category": "boss",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "pay_fild04"
+          ],
+          "baseRespawnMs": 3600000,
+          "respawnVarianceMs": 1800000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true
+        },
+        {
+          "monsterId": 1120,
+          "weight": 1,
+          "category": "boss",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "pay_fild04"
+          ],
+          "baseRespawnMs": 3600000,
+          "respawnVarianceMs": 1800000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true
+        },
+        {
+          "monsterId": 1582,
+          "weight": 1,
+          "category": "boss",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "pay_fild04"
+          ],
+          "baseRespawnMs": 7200000,
+          "respawnVarianceMs": 3600000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true
+        }
+      ],
+      "recommendedLevelMin": 1,
+      "recommendedLevelMax": 55,
+      "selectionRule": "RA Renewal field spawns aggregated; top 10 ordinary species by official count + all rare/plants (up to 6)/Boss/MVP with available animation assets."
+    },
+    "juno_3x3_region_camera": {
+      "name": "朱諾地區",
+      "sourceSpawnFiles": [
+        "npc/re/mobs/fields/yuno.txt"
+      ],
+      "targetNormalCountAt100": 60,
+      "pool": [
+        {
+          "monsterId": 1369,
+          "weight": 419,
+          "category": "normal",
+          "raSpawnCount": 419,
+          "sourceMaps": [
+            "yuno_fild02",
+            "yuno_fild07",
+            "yuno_fild08",
+            "yuno_fild09"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1376,
+          "weight": 407,
+          "category": "normal",
+          "raSpawnCount": 407,
+          "sourceMaps": [
+            "yuno_fild02",
+            "yuno_fild03",
+            "yuno_fild04",
+            "yuno_fild07"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1386,
+          "weight": 390,
+          "category": "normal",
+          "raSpawnCount": 390,
+          "sourceMaps": [
+            "yuno_fild02",
+            "yuno_fild03",
+            "yuno_fild06",
+            "yuno_fild09"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1372,
+          "weight": 347,
+          "category": "normal",
+          "raSpawnCount": 347,
+          "sourceMaps": [
+            "yuno_fild03",
+            "yuno_fild04",
+            "yuno_fild07",
+            "yuno_fild08",
+            "yuno_fild11"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1368,
+          "weight": 341,
+          "category": "normal",
+          "raSpawnCount": 341,
+          "sourceMaps": [
+            "yuno_fild01",
+            "yuno_fild04",
+            "yuno_fild06",
+            "yuno_fild08",
+            "yuno_fild09",
+            "yuno_fild11",
+            "yuno_fild12"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1139,
+          "weight": 86,
+          "category": "normal",
+          "raSpawnCount": 86,
+          "sourceMaps": [
+            "yuno_fild01",
+            "yuno_fild12"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1114,
+          "weight": 52,
+          "category": "normal",
+          "raSpawnCount": 52,
+          "sourceMaps": [
+            "yuno_fild01"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1081,
+          "weight": 108,
+          "category": "plant",
+          "raSpawnCount": 108,
+          "sourceMaps": [
+            "yuno_fild01",
+            "yuno_fild02",
+            "yuno_fild03",
+            "yuno_fild04",
+            "yuno_fild06",
+            "yuno_fild07",
+            "yuno_fild08",
+            "yuno_fild09",
+            "yuno_fild11"
+          ],
+          "baseRespawnMs": 10000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": false,
+          "maxAlive": 3,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1080,
+          "weight": 105,
+          "category": "plant",
+          "raSpawnCount": 105,
+          "sourceMaps": [
+            "yuno_fild01",
+            "yuno_fild02",
+            "yuno_fild03",
+            "yuno_fild04",
+            "yuno_fild06",
+            "yuno_fild07",
+            "yuno_fild08",
+            "yuno_fild09",
+            "yuno_fild11"
+          ],
+          "baseRespawnMs": 10000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": false,
+          "maxAlive": 3,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1078,
+          "weight": 100,
+          "category": "plant",
+          "raSpawnCount": 100,
+          "sourceMaps": [
+            "yuno_fild01",
+            "yuno_fild02",
+            "yuno_fild03",
+            "yuno_fild04",
+            "yuno_fild06",
+            "yuno_fild07",
+            "yuno_fild08",
+            "yuno_fild09",
+            "yuno_fild11"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": false,
+          "maxAlive": 3,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1079,
+          "weight": 6,
+          "category": "plant",
+          "raSpawnCount": 6,
+          "sourceMaps": [
+            "yuno_fild01",
+            "yuno_fild03"
+          ],
+          "baseRespawnMs": 1800000,
+          "respawnVarianceMs": 900000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1083,
+          "weight": 4,
+          "category": "plant",
+          "raSpawnCount": 4,
+          "sourceMaps": [
+            "yuno_fild01",
+            "yuno_fild03"
+          ],
+          "baseRespawnMs": 1800000,
+          "respawnVarianceMs": 900000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1090,
+          "weight": 1,
+          "category": "boss",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "yuno_fild04"
+          ],
+          "baseRespawnMs": 3600000,
+          "respawnVarianceMs": 1800000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true
+        },
+        {
+          "monsterId": 1096,
+          "weight": 1,
+          "category": "boss",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "yuno_fild03"
+          ],
+          "baseRespawnMs": 3600000,
+          "respawnVarianceMs": 1800000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true
+        },
+        {
+          "monsterId": 1388,
+          "weight": 1,
+          "category": "boss",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "yuno_fild04"
+          ],
+          "baseRespawnMs": 3600000,
+          "respawnVarianceMs": 180000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true
+        },
+        {
+          "monsterId": 1582,
+          "weight": 1,
+          "category": "boss",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "yuno_fild03"
+          ],
+          "baseRespawnMs": 3600000,
+          "respawnVarianceMs": 1800000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true
+        }
+      ],
+      "recommendedLevelMin": 62,
+      "recommendedLevelMax": 83,
+      "selectionRule": "RA Renewal field spawns aggregated; top 10 ordinary species by official count + all rare/plants (up to 6)/Boss/MVP with available animation assets."
+    },
+    "umbala_3x3_region_camera": {
+      "name": "汶巴拉地區",
+      "sourceSpawnFiles": [
+        "npc/re/mobs/fields/umbala.txt"
+      ],
+      "targetNormalCountAt100": 60,
+      "pool": [
+        {
+          "monsterId": 1500,
+          "weight": 121,
+          "category": "normal",
+          "raSpawnCount": 121,
+          "sourceMaps": [
+            "um_fild03"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1495,
+          "weight": 114,
+          "category": "normal",
+          "raSpawnCount": 114,
+          "sourceMaps": [
+            "um_fild01",
+            "um_fild02",
+            "um_fild03",
+            "um_fild04"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1499,
+          "weight": 110,
+          "category": "normal",
+          "raSpawnCount": 110,
+          "sourceMaps": [
+            "um_fild01",
+            "um_fild02",
+            "um_fild03",
+            "um_fild04"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1493,
+          "weight": 97,
+          "category": "normal",
+          "raSpawnCount": 97,
+          "sourceMaps": [
+            "um_fild01"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1498,
+          "weight": 59,
+          "category": "normal",
+          "raSpawnCount": 59,
+          "sourceMaps": [
+            "um_fild01",
+            "um_fild02",
+            "um_fild03",
+            "um_fild04"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1261,
+          "weight": 38,
+          "category": "normal",
+          "raSpawnCount": 38,
+          "sourceMaps": [
+            "um_fild04"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1497,
+          "weight": 28,
+          "category": "normal",
+          "raSpawnCount": 28,
+          "sourceMaps": [
+            "um_fild01",
+            "um_fild04"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1214,
+          "weight": 10,
+          "category": "normal",
+          "raSpawnCount": 10,
+          "sourceMaps": [
+            "um_fild02",
+            "um_fild04"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1080,
+          "weight": 20,
+          "category": "plant",
+          "raSpawnCount": 20,
+          "sourceMaps": [
+            "um_fild01",
+            "um_fild03"
+          ],
+          "baseRespawnMs": 180000,
+          "respawnVarianceMs": 90000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1081,
+          "weight": 20,
+          "category": "plant",
+          "raSpawnCount": 20,
+          "sourceMaps": [
+            "um_fild01",
+            "um_fild02",
+            "um_fild04"
+          ],
+          "baseRespawnMs": 180000,
+          "respawnVarianceMs": 90000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1078,
+          "weight": 10,
+          "category": "plant",
+          "raSpawnCount": 10,
+          "sourceMaps": [
+            "um_fild02",
+            "um_fild04"
+          ],
+          "baseRespawnMs": 180000,
+          "respawnVarianceMs": 90000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1083,
+          "weight": 7,
+          "category": "plant",
+          "raSpawnCount": 7,
+          "sourceMaps": [
+            "um_fild01",
+            "um_fild03"
+          ],
+          "baseRespawnMs": 180000,
+          "respawnVarianceMs": 90000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1079,
+          "weight": 5,
+          "category": "plant",
+          "raSpawnCount": 5,
+          "sourceMaps": [
+            "um_fild03"
+          ],
+          "baseRespawnMs": 180000,
+          "respawnVarianceMs": 90000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": false
+        }
+      ],
+      "recommendedLevelMin": 48,
+      "recommendedLevelMax": 76,
+      "selectionRule": "RA Renewal field spawns aggregated; top 10 ordinary species by official count + all rare/plants (up to 6)/Boss/MVP with available animation assets."
+    },
+    "lighthouse_coast_3x3_region_camera": {
+      "name": "燈塔海邊地區",
+      "sourceSpawnFiles": [
+        "npc/re/mobs/fields/comodo.txt"
+      ],
+      "targetNormalCountAt100": 60,
+      "pool": [
+        {
+          "monsterId": 1058,
+          "weight": 210,
+          "category": "normal",
+          "raSpawnCount": 210,
+          "sourceMaps": [
+            "cmd_fild06",
+            "cmd_fild09"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1687,
+          "weight": 202,
+          "category": "normal",
+          "raSpawnCount": 202,
+          "sourceMaps": [
+            "cmd_fild01"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1271,
+          "weight": 194,
+          "category": "normal",
+          "raSpawnCount": 194,
+          "sourceMaps": [
+            "cmd_fild03"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1040,
+          "weight": 167,
+          "category": "normal",
+          "raSpawnCount": 167,
+          "sourceMaps": [
+            "cmd_fild06",
+            "cmd_fild08"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1317,
+          "weight": 162,
+          "category": "normal",
+          "raSpawnCount": 162,
+          "sourceMaps": [
+            "cmd_fild02"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1323,
+          "weight": 149,
+          "category": "normal",
+          "raSpawnCount": 149,
+          "sourceMaps": [
+            "cmd_fild04"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1118,
+          "weight": 131,
+          "category": "normal",
+          "raSpawnCount": 131,
+          "sourceMaps": [
+            "cmd_fild01",
+            "cmd_fild03"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1254,
+          "weight": 116,
+          "category": "normal",
+          "raSpawnCount": 116,
+          "sourceMaps": [
+            "cmd_fild07"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1073,
+          "weight": 85,
+          "category": "normal",
+          "raSpawnCount": 85,
+          "sourceMaps": [
+            "cmd_fild02",
+            "cmd_fild04",
+            "cmd_fild07"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1074,
+          "weight": 85,
+          "category": "normal",
+          "raSpawnCount": 85,
+          "sourceMaps": [
+            "cmd_fild02",
+            "cmd_fild04",
+            "cmd_fild07"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1313,
+          "weight": 1,
+          "category": "rare",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "cmd_fild02"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true
+        },
+        {
+          "monsterId": 1081,
+          "weight": 13,
+          "category": "plant",
+          "raSpawnCount": 13,
+          "sourceMaps": [
+            "cmd_fild06",
+            "cmd_fild08"
+          ],
+          "baseRespawnMs": 1800000,
+          "respawnVarianceMs": 900000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1079,
+          "weight": 6,
+          "category": "plant",
+          "raSpawnCount": 6,
+          "sourceMaps": [
+            "cmd_fild01"
+          ],
+          "baseRespawnMs": 1800000,
+          "respawnVarianceMs": 900000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1080,
+          "weight": 5,
+          "category": "plant",
+          "raSpawnCount": 5,
+          "sourceMaps": [
+            "cmd_fild01"
+          ],
+          "baseRespawnMs": 1800000,
+          "respawnVarianceMs": 900000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1083,
+          "weight": 4,
+          "category": "plant",
+          "raSpawnCount": 4,
+          "sourceMaps": [
+            "cmd_fild01",
+            "cmd_fild03"
+          ],
+          "baseRespawnMs": 1800000,
+          "respawnVarianceMs": 900000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1089,
+          "weight": 1,
+          "category": "boss",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "cmd_fild03"
+          ],
+          "baseRespawnMs": 3600000,
+          "respawnVarianceMs": 1800000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true
+        }
+      ],
+      "recommendedLevelMin": 43,
+      "recommendedLevelMax": 61,
+      "selectionRule": "RA Renewal field spawns aggregated; top 10 ordinary species by official count + all rare/plants (up to 6)/Boss/MVP with available animation assets."
+    },
+    "veins_3x3_region_camera": {
+      "name": "菲音斯地區",
+      "sourceSpawnFiles": [
+        "npc/re/mobs/fields/veins.txt"
+      ],
+      "targetNormalCountAt100": 60,
+      "pool": [
+        {
+          "monsterId": 1781,
+          "weight": 368,
+          "category": "normal",
+          "raSpawnCount": 368,
+          "sourceMaps": [
+            "ve_fild01",
+            "ve_fild02",
+            "ve_fild03",
+            "ve_fild04",
+            "ve_fild07"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1780,
+          "weight": 247,
+          "category": "normal",
+          "raSpawnCount": 247,
+          "sourceMaps": [
+            "ve_fild01",
+            "ve_fild02",
+            "ve_fild03",
+            "ve_fild04",
+            "ve_fild07"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1784,
+          "weight": 162,
+          "category": "normal",
+          "raSpawnCount": 162,
+          "sourceMaps": [
+            "ve_fild01",
+            "ve_fild07"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1836,
+          "weight": 141,
+          "category": "normal",
+          "raSpawnCount": 141,
+          "sourceMaps": [
+            "ve_fild03"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1783,
+          "weight": 95,
+          "category": "normal",
+          "raSpawnCount": 95,
+          "sourceMaps": [
+            "ve_fild01",
+            "ve_fild02",
+            "ve_fild04"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1081,
+          "weight": 40,
+          "category": "plant",
+          "raSpawnCount": 40,
+          "sourceMaps": [
+            "ve_fild01",
+            "ve_fild02",
+            "ve_fild03",
+            "ve_fild04"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": false,
+          "maxAlive": 2,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1078,
+          "weight": 30,
+          "category": "plant",
+          "raSpawnCount": 30,
+          "sourceMaps": [
+            "ve_fild01",
+            "ve_fild02",
+            "ve_fild03"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": false,
+          "maxAlive": 2,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1082,
+          "weight": 10,
+          "category": "plant",
+          "raSpawnCount": 10,
+          "sourceMaps": [
+            "ve_fild07"
+          ],
+          "baseRespawnMs": 600000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1079,
+          "weight": 7,
+          "category": "plant",
+          "raSpawnCount": 7,
+          "sourceMaps": [
+            "ve_fild01",
+            "ve_fild04"
+          ],
+          "baseRespawnMs": 660000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1083,
+          "weight": 1,
+          "category": "plant",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "ve_fild01"
+          ],
+          "baseRespawnMs": 960000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1785,
+          "weight": 2,
+          "category": "mvp",
+          "raSpawnCount": 2,
+          "sourceMaps": [
+            "ve_fild01",
+            "ve_fild02"
+          ],
+          "baseRespawnMs": 10800000,
+          "respawnVarianceMs": 600000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true
+        }
+      ],
+      "recommendedLevelMin": 95,
+      "recommendedLevelMax": 110,
+      "selectionRule": "RA Renewal field spawns aggregated; top 10 ordinary species by official count + all rare/plants (up to 6)/Boss/MVP with available animation assets."
+    }
+  }
+}

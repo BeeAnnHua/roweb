@@ -1,0 +1,56 @@
+{
+  "schema": "ro_web_character_motion_map",
+  "schema_version": "3.1",
+  "job": "abyss_chaser",
+  "display_name": "深淵追跡者",
+  "family": "盜賊系列",
+  "gender": "female",
+  "idle_image": "assets/characters/abyss_chaser/female/idle.png",
+  "variants": {
+    "on_foot": {
+      "attack": {
+        "bow": "assets/characters/abyss_chaser/female/on_foot/attack/bow/body_hair_weapon.json",
+        "dagger": "assets/characters/abyss_chaser/female/on_foot/attack/dagger/body_hair_weapon.json",
+        "fist": "assets/characters/abyss_chaser/female/on_foot/attack/fist/body_hair.json",
+        "sword": "assets/characters/abyss_chaser/female/on_foot/attack/sword/body_hair_weapon.json"
+      },
+      "idle": "assets/characters/abyss_chaser/female/on_foot/idle/body_hair.json",
+      "walk": "assets/characters/abyss_chaser/female/on_foot/walk/body_hair.json",
+      "cast": "assets/characters/abyss_chaser/female/on_foot/cast/body_hair.json",
+      "dead": "assets/characters/abyss_chaser/female/on_foot/dead/body_hair.json",
+      "hurt": "assets/characters/abyss_chaser/female/on_foot/dead/body_hair.json"
+    }
+  },
+  "weaponAliases": {
+    "oneHandSword": "sword",
+    "twoHandSword": "sword",
+    "oneHandSpear": "spear",
+    "twoHandSpear": "spear",
+    "oneHandAxe": "axe",
+    "twoHandAxe": "axe",
+    "oneHandStaff": "staff",
+    "twoHandStaff": "staff",
+    "hammer": "mace",
+    "book": "book",
+    "bow": "bow",
+    "katar": "katar",
+    "knuckle": "knuckle",
+    "instrument": "instrument",
+    "whip": "whip",
+    "dualSword": "dual_sword",
+    "dualDagger": "dual_dagger"
+  },
+  "rules": {
+    "profileAndTownAlwaysOnFootIdle": true,
+    "fieldVariantByMountState": false,
+    "hurtSharesDeadAtlas": true,
+    "anchor": {
+      "x": 128,
+      "y": 140
+    }
+  },
+  "warnings": [
+    "Cast 兩方向驗證未通過，已自動保留完整八方向。",
+    "Cast/Hurt/Dead 兩方向驗證未通過，Dead/Hurt 已自動保留完整八方向。"
+  ]
+}

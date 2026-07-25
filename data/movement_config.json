@@ -1,0 +1,31 @@
+{
+  "version": "0.9.72",
+  "source": "專案入口 RA開機檔案英文版20260608 / rathena-master/src/common/mmo.hpp",
+  "raWalkSpeed": {
+    "description": "RA WalkSpeed 數值越小越快；玩家普通速度 150，最快 20，最慢 1000。",
+    "default": 150,
+    "fastest": 20,
+    "slowest": 1000
+  },
+  "roWebConversion": {
+    "description": "RO_WEB 畫面移動速度轉換；保留 RA 數值作為唯一速度來源，再轉 px/sec。",
+    "defaultPixelsPerSecond": 115,
+    "minPixelsPerSecond": 18,
+    "maxPixelsPerSecond": 420
+  },
+  "supportedBonusKeys": {
+    "walkSpeedFlat": "直接調整 RA WalkSpeed；負數變快，正數變慢。例如 -25 代表 150 -> 125。",
+    "walkSpeedRate": "百分比調整 RA WalkSpeed；負數變快，正數變慢。例如 -20 代表 150 -> 120。"
+  },
+  "futureSources": [
+    "加速術",
+    "緩速術",
+    "坐騎",
+    "大嘴鳥",
+    "騎狼",
+    "手推車加速",
+    "月夜貓卡",
+    "速度類卡片",
+    "地板緩速"
+  ]
+}

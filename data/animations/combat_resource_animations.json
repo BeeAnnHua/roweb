@@ -1,0 +1,39 @@
+{
+  "version": "0.9.82K",
+  "note": "PNG placeholders are transparent until official animation frames are added.",
+  "profiles": {
+    "spirit_sphere": {
+      "png": "images/skill_effects/resources/spirit_sphere_placeholder.png",
+      "json": "data/animations/combat_resource_animations.json",
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": 1
+    },
+    "servant_weapon_idle": {
+      "png": "images/skill_effects/resources/servant_weapon_idle_placeholder.png",
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": 1
+    },
+    "servant_weapon_phantom": {
+      "png": "images/skill_effects/resources/servant_weapon_phantom_placeholder.png",
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": 1
+    },
+    "servant_weapon_demolition": {
+      "png": "images/skill_effects/resources/servant_weapon_demolition_placeholder.png",
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "frames": 1
+    }
+  }
+}

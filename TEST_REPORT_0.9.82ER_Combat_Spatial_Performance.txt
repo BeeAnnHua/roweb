@@ -1,0 +1,32 @@
+RO_WEB 0.9.82ER Combat Spatial / Impact Performance Report
+===========================================================
+Base: 0.9.82EQ
+
+Resolved symptom
+----------------
+Skill impact could briefly stall as the active monster population increased.
+
+Changes
+-------
+1. Incremental 288px world-monster spatial hash.
+2. Skill shape bounding-box queries instead of full regional entity scans.
+3. Combat evaluation context created after target selection and scoped to actual targets.
+4. Monster HP bar uses lightweight immediate update.
+5. Hurt motion, full monster UI and RA Assist propagation are batched into one animation frame.
+6. Removed duplicate Assist/DamageMotion propagation from the hit path.
+7. Damage-number DOM nodes are created during render frames, maximum 24 per frame.
+8. Ground effects, immediate traps, performance pulses and chain targeting use bounded candidates.
+
+120-monster regression
+----------------------
+Total entities: 120
+Local query results: 4
+Entities visited by local spatial query: 9
+Spatial buckets visited: 9
+
+Verification
+------------
+Current Runtime: 60 / 60 PASS
+JavaScript syntax: 536 files, 0 errors
+Deep Health: 0 errors / 0 warnings
+Cache key: 0.9.82ER only

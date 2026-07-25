@@ -1,0 +1,23 @@
+{
+  "schema": "ro_web_skill_effect_v1",
+  "skillId": 0,
+  "atlas": "images/skill_effects/{SkillID}.png",
+  "animations": {
+    "cast": null,
+    "projectile": null,
+    "hit": null,
+    "area": null,
+    "loop": null,
+    "end": null
+  },
+  "origin": {
+    "x": 0.5,
+    "y": 0.5
+  },
+  "notes": [
+    "No world X/Y is stored here.",
+    "Manual ground target uses mouse position; auto battle uses selected target/group position.",
+    "origin is only the normalized drawing pivot inside the image."
+  ],
+  "version": "0.9.80ZH"
+}

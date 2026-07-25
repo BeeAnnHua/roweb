@@ -1,0 +1,81 @@
+{
+  "version": "0.9.82AK",
+  "result": "PASS",
+  "batch": "Whitesmith Shattering & Merchant Economy Core Batch44",
+  "sourceFiles": [
+    "Project SkillInfoz skillinfolist.lub (WS_MELTDOWN / BS_UNFAIRLYTRICK)",
+    "local rAthena src/map/status.cpp SC_MELTDOWN",
+    "local rAthena src/map/skill.cpp equipment break and Zeny cost reduction"
+  ],
+  "officialAdded": [
+    384,
+    1012
+  ],
+  "coverage": {
+    "before": 469,
+    "after": 471,
+    "target": 1139
+  },
+  "pending": {
+    "before": 670,
+    "after": 668
+  },
+  "behavior": {
+    "384": {
+      "name": "野蠻凶砍",
+      "durationMs": [
+        15000,
+        20000,
+        25000,
+        30000,
+        35000,
+        40000,
+        45000,
+        50000,
+        55000,
+        60000
+      ],
+      "weaponBreakChancePercent": "1% per level",
+      "armorBreakChancePercent": "0.7% per level",
+      "monsterAdaptation": {
+        "weaponBreak": "ATK -25% for 5 seconds",
+        "armorBreak": "DEF -25% for 5 seconds"
+      }
+    },
+    "1012": {
+      "name": "詭計的商術",
+      "renewalZenyDiscountPercent": 20,
+      "affectedSkillIds": [
+        42,
+        485
+      ]
+    }
+  },
+  "deferred": [
+    "SP/AP and trait-stat costs",
+    "material/fuel/ammunition skills",
+    "monster equipment inventory/destruction persistence"
+  ],
+  "validation": {
+    "jsonFilesParsed": 425,
+    "javascriptFilesSyntaxChecked": 50,
+    "regressionScriptsPassed": 26,
+    "runtimeGeneratedCatalogCounts": "471/471/471",
+    "pendingCount": 668,
+    "duplicateSkillIds": 0,
+    "duplicateSkillKeys": 0,
+    "copyableExclusion": "PASS",
+    "dynamicChecks": {
+      "mammoniteLv10BaseZeny": 1000,
+      "mammoniteLv10DiscountedZeny": 800,
+      "cartTerminationLv10BaseZeny": 1500,
+      "cartTerminationLv10DiscountedZeny": 1200,
+      "meltdownLv10WeaponBreakChancePercent": 10,
+      "meltdownLv10ArmorBreakChancePercent": 7,
+      "monsterWeaponBreakAdaptation": "ATK -25% / 5000ms",
+      "monsterArmorBreakAdaptation": "DEF -25% / 5000ms"
+    },
+    "cacheVersion": "0.9.82AK",
+    "zipIntegrity": "PASS"
+  }
+}

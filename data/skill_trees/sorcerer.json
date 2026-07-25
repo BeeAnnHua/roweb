@@ -1,0 +1,339 @@
+{
+  "meta": {
+    "version": "0.9.82BQ",
+    "schema": "ro_web_skill_tree_v3",
+    "raJob": "Sorcerer",
+    "bodySource": "../skills/skills_core_1.json"
+  },
+  "job": "sorcerer",
+  "raJob": "Sorcerer",
+  "skills": [
+    {
+      "skillId": 2443,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 285,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 2444,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 287,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 2445,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 279,
+          "level": 4
+        }
+      ]
+    },
+    {
+      "skillId": 2446,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 90,
+          "level": 5
+        }
+      ]
+    },
+    {
+      "skillId": 2447,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 286,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "skillId": 2448,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 2450,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "skillId": 2449,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 289,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "skillId": 2450,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 91,
+          "level": 5
+        }
+      ]
+    },
+    {
+      "skillId": 2451,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 280,
+          "level": 1
+        },
+        {
+          "skillId": 281,
+          "level": 1
+        },
+        {
+          "skillId": 282,
+          "level": 1
+        },
+        {
+          "skillId": 283,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 2452,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 285,
+          "level": 1
+        },
+        {
+          "skillId": 287,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 2453,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 288,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "skillId": 2454,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 283,
+          "level": 1
+        },
+        {
+          "skillId": 287,
+          "level": 4
+        }
+      ]
+    },
+    {
+      "skillId": 2455,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 2452,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "skillId": 2456,
+      "maxLevel": 4,
+      "requires": [
+        {
+          "skillId": 2462,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 2457,
+      "maxLevel": 3,
+      "requires": [
+        {
+          "skillId": 2452,
+          "level": 3
+        },
+        {
+          "skillId": 2456,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 2458,
+      "maxLevel": 3,
+      "requires": [
+        {
+          "skillId": 2447,
+          "level": 3
+        },
+        {
+          "skillId": 2456,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 2459,
+      "maxLevel": 3,
+      "requires": [
+        {
+          "skillId": 2454,
+          "level": 3
+        },
+        {
+          "skillId": 2456,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 2460,
+      "maxLevel": 3,
+      "requires": [
+        {
+          "skillId": 2446,
+          "level": 3
+        },
+        {
+          "skillId": 2456,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 2461,
+      "maxLevel": 1,
+      "requires": [
+        {
+          "skillId": 2456,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "skillId": 2462,
+      "maxLevel": 2,
+      "requires": [
+        {
+          "skillId": 280,
+          "level": 1
+        },
+        {
+          "skillId": 281,
+          "level": 1
+        },
+        {
+          "skillId": 282,
+          "level": 1
+        },
+        {
+          "skillId": 283,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 2463,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 2456,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "skillId": 2464,
+      "maxLevel": 1,
+      "requires": [
+        {
+          "skillId": 2463,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 2465,
+      "maxLevel": 3,
+      "requires": [
+        {
+          "skillId": 2457,
+          "level": 3
+        }
+      ],
+      "name": "火之紋章"
+    },
+    {
+      "skillId": 2466,
+      "maxLevel": 3,
+      "requires": [
+        {
+          "skillId": 2458,
+          "level": 3
+        }
+      ],
+      "name": "水之紋章"
+    },
+    {
+      "skillId": 2467,
+      "maxLevel": 3,
+      "requires": [
+        {
+          "skillId": 2459,
+          "level": 3
+        }
+      ],
+      "name": "風之紋章"
+    },
+    {
+      "skillId": 2468,
+      "maxLevel": 3,
+      "requires": [
+        {
+          "skillId": 2460,
+          "level": 3
+        }
+      ],
+      "name": "地之紋章"
+    },
+    {
+      "skillId": 5008,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 2456,
+          "level": 3
+        }
+      ],
+      "name": "精靈結界"
+    },
+    {
+      "skillId": 5014,
+      "maxLevel": 5
+    }
+  ]
+}

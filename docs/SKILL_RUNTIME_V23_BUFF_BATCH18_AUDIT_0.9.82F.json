@@ -1,0 +1,83 @@
+{
+  "version": "0.9.82F",
+  "batch": "Runtime Self Buff Batch18",
+  "coverage": {
+    "before": 98,
+    "after": 107,
+    "target": 1139
+  },
+  "pending": {
+    "before": 1041,
+    "after": 1032
+  },
+  "addedSkills": [
+    {
+      "skillId": 66,
+      "skillKey": "PR_IMPOSITIO",
+      "name": "神威祈福"
+    },
+    {
+      "skillId": 67,
+      "skillKey": "PR_SUFFRAGIUM",
+      "name": "Suffragium"
+    },
+    {
+      "skillId": 68,
+      "skillKey": "PR_ASPERSIO",
+      "name": "撒水祈福"
+    },
+    {
+      "skillId": 74,
+      "skillKey": "PR_MAGNIFICAT",
+      "name": "聖母之頌歌"
+    },
+    {
+      "skillId": 75,
+      "skillKey": "PR_GLORIA",
+      "name": "幸運之頌歌"
+    },
+    {
+      "skillId": 111,
+      "skillKey": "BS_ADRENALINE",
+      "name": "Adrenaline Rush"
+    },
+    {
+      "skillId": 112,
+      "skillKey": "BS_WEAPONPERFECT",
+      "name": "Weapon Perfection"
+    },
+    {
+      "skillId": 113,
+      "skillKey": "BS_OVERTHRUST",
+      "name": "Power-Thrust"
+    },
+    {
+      "skillId": 114,
+      "skillKey": "BS_MAXIMIZE",
+      "name": "Maximize Power"
+    }
+  ],
+  "runtimeEnhancements": [
+    "Formal targetPolicy=self for beneficial buffs",
+    "Special buff values separated from numeric stat totals",
+    "Aspersio attack element override",
+    "Weapon Perfection size-penalty bypass",
+    "Maximize Power maximum weapon ATK roll",
+    "Magnificat SP recovery multiplier"
+  ],
+  "adaptations": [
+    "All beneficial party/support buffs in this batch are self-cast.",
+    "Aspersio does not consume Holy Water."
+  ],
+  "specialReview": [],
+  "checks": {
+    "runtime": true,
+    "formula": true,
+    "handler": true,
+    "json": true,
+    "js": true,
+    "bundle": true,
+    "cache": true,
+    "regression": true
+  }
+}

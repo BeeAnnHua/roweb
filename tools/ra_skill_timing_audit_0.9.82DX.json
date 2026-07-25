@@ -1,0 +1,64 @@
+{
+  "version": "0.9.82DX",
+  "renewalOnly": true,
+  "source": "/mnt/data/ra_extract/rathena-master/db/re/skill_db.yml",
+  "skillCount": 1139,
+  "matchedRaSkills": 1139,
+  "fieldPresentCounts": {
+    "castTime": 500,
+    "fixedCastTime": 506,
+    "afterCastActDelay": 582,
+    "afterCastWalkDelay": 4,
+    "cooldown": 528,
+    "castTimeFlags": 19,
+    "castDelayFlags": 9
+  },
+  "fieldDefaultZeroCounts": {
+    "castTime": 639,
+    "fixedCastTime": 633,
+    "afterCastActDelay": 557,
+    "afterCastWalkDelay": 1135,
+    "cooldown": 611,
+    "castTimeFlags": 1120,
+    "castDelayFlags": 1130
+  },
+  "flagSkillIds": {
+    "castTimeFlags": [
+      366,
+      370,
+      403,
+      410,
+      462,
+      482,
+      496,
+      497,
+      498,
+      512,
+      1014,
+      2032,
+      2234,
+      2268,
+      2271,
+      2281,
+      2282,
+      2313,
+      2462
+    ],
+    "castDelayFlags": [
+      136,
+      263,
+      272,
+      273,
+      371,
+      372,
+      394,
+      2022,
+      2593
+    ]
+  },
+  "errors": [],
+  "summary": {
+    "status": "PASS",
+    "errors": 0
+  }
+}

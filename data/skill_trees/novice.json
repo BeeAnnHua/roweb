@@ -1,0 +1,30 @@
+{
+  "meta": {
+    "version": "0.9.82DV",
+    "schema": "ro_web_skill_tree_v3",
+    "raJob": "Novice",
+    "bodySource": "../skills/skills_core_1.json"
+  },
+  "job": "novice",
+  "raJob": "Novice",
+  "skills": [
+    {
+      "skillId": 1,
+      "maxLevel": 9
+    },
+    {
+      "skillId": 142,
+      "maxLevel": 1
+    },
+    {
+      "skillId": 143,
+      "maxLevel": 1,
+      "exclude": true
+    },
+    {
+      "skillId": 410,
+      "maxLevel": 1,
+      "exclude": true
+    }
+  ]
+}

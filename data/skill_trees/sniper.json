@@ -1,0 +1,80 @@
+{
+  "meta": {
+    "version": "0.9.80ZH",
+    "schema": "ro_web_skill_tree_v3",
+    "raJob": "Sniper",
+    "bodySource": "../skills/skills_core_1.json"
+  },
+  "job": "sniper",
+  "raJob": "Sniper",
+  "skills": [
+    {
+      "skillId": 380,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 43,
+          "level": 10
+        },
+        {
+          "skillId": 44,
+          "level": 10
+        },
+        {
+          "skillId": 45,
+          "level": 10
+        },
+        {
+          "skillId": 127,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 381,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 128,
+          "level": 3
+        },
+        {
+          "skillId": 44,
+          "level": 5
+        },
+        {
+          "skillId": 129,
+          "level": 5
+        },
+        {
+          "skillId": 127,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 382,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 45,
+          "level": 10
+        },
+        {
+          "skillId": 46,
+          "level": 5
+        }
+      ]
+    },
+    {
+      "skillId": 383,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 45,
+          "level": 9
+        }
+      ]
+    }
+  ]
+}

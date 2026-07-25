@@ -1,0 +1,48 @@
+{
+  "version": "0.9.82V1",
+  "result": "PASS",
+  "batch": "Steel Body Active Skill Lock Fix",
+  "coverage": {
+    "officialRuntime": 333,
+    "target": 1139,
+    "changed": 0
+  },
+  "pending": 806,
+  "skill": {
+    "skillId": 268,
+    "skillKey": "MO_STEELBODY",
+    "name": "金剛不壞"
+  },
+  "runtimeRules": {
+    "blocksManualActiveSkills": true,
+    "blocksAutoBattleHealBuffAttackSkills": true,
+    "allowsNormalAttack": true,
+    "allowsNormalAttackPassiveProcs": [
+      "六合拳",
+      "二刀連擊"
+    ],
+    "allowsNormalAttackSecondaryProcs": [
+      "自動魅影念咒",
+      "深淵魔力球",
+      "武器觸發",
+      "卡片觸發"
+    ],
+    "itemUseBlocked": false
+  },
+  "dataFlags": {
+    "blocksActiveSkills": 1,
+    "allowsNormalAttackProcs": 1
+  },
+  "checks": {
+    "runtimeGeneratedCatalogCounts": "333/333/333",
+    "pendingCount": 806,
+    "duplicateSkillIds": 0,
+    "duplicateSkillKeys": 0,
+    "jsonParse": "PASS",
+    "javascriptSyntax": "PASS",
+    "skillLockVm": "PASS",
+    "normalAttackProcVm": "PASS",
+    "autoBattleNormalFallback": "PASS",
+    "zipIntegrity": "PASS"
+  }
+}

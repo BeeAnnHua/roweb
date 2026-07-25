@@ -1,0 +1,219 @@
+{
+  "meta": {
+    "version": "0.9.80ZH",
+    "schema": "ro_web_skill_tree_v3",
+    "raJob": "Gunslinger",
+    "bodySource": "../skills/skills_core_2.json",
+    "fallbackBodySource": "../skills/skills_core_1.json"
+  },
+  "job": "gunslinger",
+  "raJob": "Gunslinger",
+  "skills": [
+    {
+      "skillId": 500,
+      "maxLevel": 5
+    },
+    {
+      "skillId": 501,
+      "maxLevel": 1,
+      "requires": [
+        {
+          "skillId": 500,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 502,
+      "maxLevel": 1,
+      "requires": [
+        {
+          "skillId": 500,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 503,
+      "maxLevel": 1,
+      "requires": [
+        {
+          "skillId": 500,
+          "level": 5
+        }
+      ]
+    },
+    {
+      "skillId": 504,
+      "maxLevel": 1,
+      "requires": [
+        {
+          "skillId": 500,
+          "level": 4
+        }
+      ]
+    },
+    {
+      "skillId": 505,
+      "maxLevel": 1,
+      "requires": [
+        {
+          "skillId": 500,
+          "level": 4
+        }
+      ]
+    },
+    {
+      "skillId": 506,
+      "maxLevel": 1,
+      "requires": [
+        {
+          "skillId": 500,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "skillId": 507,
+      "maxLevel": 1,
+      "requires": [
+        {
+          "skillId": 500,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 508,
+      "maxLevel": 1,
+      "requires": [
+        {
+          "skillId": 500,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 509,
+      "maxLevel": 10
+    },
+    {
+      "skillId": 510,
+      "maxLevel": 10
+    },
+    {
+      "skillId": 511,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 509,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 512,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 509,
+          "level": 5
+        }
+      ]
+    },
+    {
+      "skillId": 513,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 512,
+          "level": 7
+        }
+      ]
+    },
+    {
+      "skillId": 514,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 512,
+          "level": 5
+        }
+      ]
+    },
+    {
+      "skillId": 515,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 511,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "skillId": 516,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 515,
+          "level": 5
+        }
+      ]
+    },
+    {
+      "skillId": 517,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 515,
+          "level": 7
+        },
+        {
+          "skillId": 516,
+          "level": 5
+        }
+      ]
+    },
+    {
+      "skillId": 518,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 509,
+          "level": 5
+        }
+      ]
+    },
+    {
+      "skillId": 519,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 518,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "skillId": 520,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 509,
+          "level": 5
+        }
+      ]
+    },
+    {
+      "skillId": 521,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 520,
+          "level": 7
+        }
+      ]
+    }
+  ]
+}

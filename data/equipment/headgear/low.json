@@ -1,0 +1,50 @@
+{
+  "2218": {
+    "id": 2218,
+    "officialId": 2218,
+    "name": "口罩",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "headLow",
+    "buyPrice": 300,
+    "sellPrice": 150,
+    "description": [
+      "當感冒或保暖時, 所戴的口罩。",
+      "對沉默的攻擊,可-10% 的傷害度。",
+      "系列 : ^777777頭具^000000  防禦 :  ^7777770^000000",
+      "位置 : ^777777頭下^000000",
+      "裝備 : ^777777全職業^000000"
+    ],
+    "icon": "images/items/2218.webp",
+    "slot": "headLow",
+    "def": 0,
+    "slots": 0,
+    "requiredLevel": 1,
+    "slotCount": 0,
+    "ClassNum": 8,
+    "aegisName": "Flu_Mask",
+    "dbType": "Armor",
+    "armorLevel": 1,
+    "viewId": 8,
+    "locations": {
+      "Head_Low": true
+    },
+    "scriptRaw": "bonus2 bResEff,Eff_Silence,1000;",
+    "dataSource": "itemInfo_UTF8.lub + db/re/item_db_equip.yml",
+    "Id": 2218,
+    "Name": "口罩",
+    "Buy": 300,
+    "AegisName": "Flu_Mask",
+    "Type": "Armor",
+    "Defense": 0,
+    "Slots": 0,
+    "Locations": {
+      "Head_Low": true
+    },
+    "ArmorLevel": 1,
+    "EquipLevelMin": 1,
+    "View": 8,
+    "Script": "bonus2 bResEff,Eff_Silence,1000;",
+    "equipLevelMin": 1
+  }
+}

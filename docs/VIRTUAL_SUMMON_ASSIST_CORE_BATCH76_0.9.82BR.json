@@ -1,0 +1,38 @@
+{
+  "version": "0.9.82BR",
+  "batch": 76,
+  "title": "輕量協助型虛擬召喚物核心",
+  "officialRuntime": 676,
+  "pending": 463,
+  "mageFamily": {
+    "official": 152,
+    "total": 153,
+    "pending": 1,
+    "remainingSkillIds": [
+      2464
+    ]
+  },
+  "completedSkillIds": [
+    2456
+  ],
+  "rules": {
+    "oneActivePartner": true,
+    "hasMapEntity": false,
+    "usesImageAssets": false,
+    "hasHpSpExp": false,
+    "canBeTargeted": false,
+    "targetPolicy": "assist_player_current_target",
+    "systemLogEnabled": true,
+    "damageNumberLane": "summon_left"
+  },
+  "features": [
+    "元素精靈自動協助攻擊玩家目前目標",
+    "沿用精靈激發 Renewal 攻擊表",
+    "召喚傷害獨立顏色與位置",
+    "召喚物系統對話訊息",
+    "召喚物控制 UI"
+  ],
+  "deferred": [
+    "2464 精靈治癒：召喚物不設 HP，因此需另行決定改造效果"
+  ]
+}

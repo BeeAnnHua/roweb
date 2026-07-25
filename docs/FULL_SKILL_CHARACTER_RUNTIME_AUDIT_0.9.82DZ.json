@@ -1,0 +1,3497 @@
+{
+  "version": "0.9.82DZ",
+  "scope": "Implemented skill Runtime + full deployed character animation JSON/runtime structural audit",
+  "skills": {
+    "total": 1139,
+    "implementedRuntime": 828,
+    "pendingRuntime": 311,
+    "handlerCount": 44,
+    "handlers": {
+      "buff": 205,
+      "chain_magic": 1,
+      "combo_sequence": 1,
+      "counter_stance": 2,
+      "debuff": 15,
+      "dispel": 1,
+      "falcon_detect": 1,
+      "falcon_spring_trap": 1,
+      "falcon_toggle": 2,
+      "follow_area": 1,
+      "ground_damage": 36,
+      "ground_debuff": 11,
+      "ground_protection": 1,
+      "heal": 8,
+      "heal_fixed": 1,
+      "homunculus_manager": 1,
+      "homunculus_rest": 1,
+      "independent_summon": 2,
+      "magic_damage": 73,
+      "misc_damage": 3,
+      "monster_debuff": 8,
+      "mount_unlock": 1,
+      "movement": 4,
+      "passive": 216,
+      "physical_attack": 35,
+      "physical_attack_formula": 130,
+      "physical_attack_size_hits": 1,
+      "physical_charge": 11,
+      "sanctuary_area": 1,
+      "skill_copy_selector": 2,
+      "soul_exchange": 1,
+      "spirit_absorb": 1,
+      "spirit_assimilate": 1,
+      "spirit_resource": 2,
+      "steal_item": 1,
+      "steal_zeny": 1,
+      "summon_control": 1,
+      "teleport": 1,
+      "timed_status": 29,
+      "trap_detonator": 1,
+      "virtual_summon": 10,
+      "virtual_summon_dismiss": 1,
+      "warg_sensitive_keen": 1,
+      "warg_toggle": 1
+    },
+    "treeNodes": 1362,
+    "icons": {
+      "24x24": 1139
+    },
+    "raTiming": {
+      "matched": 1139,
+      "total": 1139,
+      "fieldPresentCounts": {
+        "castTime": 500,
+        "fixedCastTime": 506,
+        "afterCastActDelay": 582,
+        "afterCastWalkDelay": 4,
+        "cooldown": 528,
+        "castTimeFlags": 19,
+        "castDelayFlags": 9
+      },
+      "fieldDefaultZeroCounts": {
+        "castTime": 639,
+        "fixedCastTime": 633,
+        "afterCastActDelay": 557,
+        "afterCastWalkDelay": 1135,
+        "cooldown": 611,
+        "castTimeFlags": 1120,
+        "castDelayFlags": 1130
+      },
+      "errors": 0
+    },
+    "actionRuntime": {
+      "pending": 311,
+      "implemented": 828,
+      "passive": 216,
+      "attack": 231,
+      "cast": 381,
+      "zeroDelayPhysical": 53,
+      "raDelayedPhysical": 178,
+      "timingLevels": 6323,
+      "instantActiveLevels": 1243,
+      "castedActiveLevels": 2207,
+      "castBeginLocks": 3450,
+      "commitHandoffs": 3450
+    },
+    "distanceRuntime": {
+      "cellSizePx": 36,
+      "skills": 1139,
+      "levels": 6323,
+      "raMatched": 1139,
+      "rangeErrors": 0,
+      "intentionalRangeExceptions": 2,
+      "groundTargetSkills": 119,
+      "aoeMetadataSkills": 432
+    },
+    "pendingScope": {
+      "version": "0.9.82DZ",
+      "totalPending": 311,
+      "expandedJobsDeferred": 310,
+      "intentionalSystemPending": 1,
+      "unexpectedPending": 0,
+      "policy": "Expanded job runtime remains deferred by the current project scope; all metadata, official IDs, timing and range are still audited. Current six families + Novice have no unexplained pending skills.",
+      "prefixCounts": {
+        "AM": 1,
+        "GS": 20,
+        "KG": 3,
+        "KO": 22,
+        "NJ": 22,
+        "NW": 17,
+        "OB": 3,
+        "RL": 20,
+        "SG": 18,
+        "SH": 18,
+        "SJ": 20,
+        "SKE": 16,
+        "SL": 24,
+        "SOA": 17,
+        "SP": 17,
+        "SS": 21,
+        "SU": 35,
+        "TK": 17
+      },
+      "intentionalSystemPendingSkills": [
+        {
+          "skillId": 247,
+          "skillKey": "AM_RESURRECTHOMUN",
+          "name": "復活生命體",
+          "core": "core1",
+          "suggestedHandler": "homunculus_resurrection",
+          "implementationMode": "pending_review",
+          "reason": "RO_WEB 輕量生命體沒有 HP、死亡或復活狀態；避免與生命體召喚／安息重複，依使用者決議維持 Pending。",
+          "futureRequirement": "homunculus_death_and_resurrection_state",
+          "decision": "RO_WEB lightweight homunculus has no HP/death state; resurrection remains intentionally unavailable."
+        }
+      ],
+      "unexpectedPendingSkills": [],
+      "expandedSkills": [
+        {
+          "skillId": 411,
+          "skillKey": "TK_RUN",
+          "name": "Running",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 412,
+          "skillKey": "TK_READYSTORM",
+          "name": "Tornado Stance",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 413,
+          "skillKey": "TK_STORMKICK",
+          "name": "Tornado Kick",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 414,
+          "skillKey": "TK_READYDOWN",
+          "name": "Heel Drop Stance",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 415,
+          "skillKey": "TK_DOWNKICK",
+          "name": "Heel Drop",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 416,
+          "skillKey": "TK_READYTURN",
+          "name": "Roundhouse Stance",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 417,
+          "skillKey": "TK_TURNKICK",
+          "name": "Roundhouse Kick",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 418,
+          "skillKey": "TK_READYCOUNTER",
+          "name": "Counter Kick Stance",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 419,
+          "skillKey": "TK_COUNTER",
+          "name": "Counter Kick",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 420,
+          "skillKey": "TK_DODGE",
+          "name": "Tumbling",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 421,
+          "skillKey": "TK_JUMPKICK",
+          "name": "Flying Kick",
+          "core": "core2",
+          "suggestedHandler": "utility",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "utility"
+        },
+        {
+          "skillId": 422,
+          "skillKey": "TK_HPTIME",
+          "name": "Peaceful Break",
+          "core": "core2",
+          "suggestedHandler": "special_review",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "special_review"
+        },
+        {
+          "skillId": 423,
+          "skillKey": "TK_SPTIME",
+          "name": "Happy Break",
+          "core": "core2",
+          "suggestedHandler": "special_review",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "special_review"
+        },
+        {
+          "skillId": 424,
+          "skillKey": "TK_POWER",
+          "name": "Kihop",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 425,
+          "skillKey": "TK_SEVENWIND",
+          "name": "Mild Wind",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 426,
+          "skillKey": "TK_HIGHJUMP",
+          "name": "Taekwon Jump",
+          "core": "core2",
+          "suggestedHandler": "utility",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "utility"
+        },
+        {
+          "skillId": 427,
+          "skillKey": "SG_FEEL",
+          "name": "Feeling the Sun Moon and Stars",
+          "core": "core2",
+          "suggestedHandler": "utility",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "utility"
+        },
+        {
+          "skillId": 428,
+          "skillKey": "SG_SUN_WARM",
+          "name": "Warmth of the Sun",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 429,
+          "skillKey": "SG_MOON_WARM",
+          "name": "Warmth of the Moon",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 430,
+          "skillKey": "SG_STAR_WARM",
+          "name": "Warmth of the Stars",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 431,
+          "skillKey": "SG_SUN_COMFORT",
+          "name": "Comfort of the Sun",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 432,
+          "skillKey": "SG_MOON_COMFORT",
+          "name": "Comfort of the Moon",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 433,
+          "skillKey": "SG_STAR_COMFORT",
+          "name": "Comfort of the Stars",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 434,
+          "skillKey": "SG_HATE",
+          "name": "Hatred of the Sun Moon and Stars",
+          "core": "core2",
+          "suggestedHandler": "utility",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "utility"
+        },
+        {
+          "skillId": 435,
+          "skillKey": "SG_SUN_ANGER",
+          "name": "Anger of the Sun",
+          "core": "core2",
+          "suggestedHandler": "passive",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "passive"
+        },
+        {
+          "skillId": 436,
+          "skillKey": "SG_MOON_ANGER",
+          "name": "Anger of the Moon",
+          "core": "core2",
+          "suggestedHandler": "passive",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "passive"
+        },
+        {
+          "skillId": 437,
+          "skillKey": "SG_STAR_ANGER",
+          "name": "Anger of the Stars",
+          "core": "core2",
+          "suggestedHandler": "passive",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "passive"
+        },
+        {
+          "skillId": 438,
+          "skillKey": "SG_SUN_BLESS",
+          "name": "Blessing of the Sun",
+          "core": "core2",
+          "suggestedHandler": "passive",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "passive"
+        },
+        {
+          "skillId": 439,
+          "skillKey": "SG_MOON_BLESS",
+          "name": "Blessing of the Moon",
+          "core": "core2",
+          "suggestedHandler": "passive",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "passive"
+        },
+        {
+          "skillId": 440,
+          "skillKey": "SG_STAR_BLESS",
+          "name": "Blessing of the Stars",
+          "core": "core2",
+          "suggestedHandler": "passive",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "passive"
+        },
+        {
+          "skillId": 441,
+          "skillKey": "SG_DEVIL",
+          "name": "Demon of the Sun Moon and Stars",
+          "core": "core2",
+          "suggestedHandler": "passive",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "passive"
+        },
+        {
+          "skillId": 442,
+          "skillKey": "SG_FRIEND",
+          "name": "Friend of the Sun Moon and Stars",
+          "core": "core2",
+          "suggestedHandler": "special_review",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "special_review"
+        },
+        {
+          "skillId": 443,
+          "skillKey": "SG_KNOWLEDGE",
+          "name": "Knowledge of the Sun Moon and Stars",
+          "core": "core2",
+          "suggestedHandler": "special_review",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "special_review"
+        },
+        {
+          "skillId": 444,
+          "skillKey": "SG_FUSION",
+          "name": "Union of the Sun Moon and Stars",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 445,
+          "skillKey": "SL_ALCHEMIST",
+          "name": "Spirit of the Alchemist",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 447,
+          "skillKey": "SL_MONK",
+          "name": "Spirit of the Monk",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 448,
+          "skillKey": "SL_STAR",
+          "name": "Spirit of the Star Gladiator",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 449,
+          "skillKey": "SL_SAGE",
+          "name": "Spirit of the Sage",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 450,
+          "skillKey": "SL_CRUSADER",
+          "name": "Spirit of the Crusader",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 451,
+          "skillKey": "SL_SUPERNOVICE",
+          "name": "Spirit of the Supernovice",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 452,
+          "skillKey": "SL_KNIGHT",
+          "name": "Spirit of the Knight",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 453,
+          "skillKey": "SL_WIZARD",
+          "name": "Spirit of the Wizard",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 454,
+          "skillKey": "SL_PRIEST",
+          "name": "Spirit of the Priest",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 455,
+          "skillKey": "SL_BARDDANCER",
+          "name": "Spirit of the Artist",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 456,
+          "skillKey": "SL_ROGUE",
+          "name": "Spirit of the Rogue",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 457,
+          "skillKey": "SL_ASSASIN",
+          "name": "Spirit of the Assasin",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 458,
+          "skillKey": "SL_BLACKSMITH",
+          "name": "Spirit of the Blacksmith",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 460,
+          "skillKey": "SL_HUNTER",
+          "name": "Spirit of the Hunter",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 461,
+          "skillKey": "SL_SOULLINKER",
+          "name": "Spirit of the Soul Linker",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 462,
+          "skillKey": "SL_KAIZEL",
+          "name": "Kaizel",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 463,
+          "skillKey": "SL_KAAHI",
+          "name": "Kaahi",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 464,
+          "skillKey": "SL_KAUPE",
+          "name": "Kaupe",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 465,
+          "skillKey": "SL_KAITE",
+          "name": "Kaite",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 466,
+          "skillKey": "SL_KAINA",
+          "name": "Kaina",
+          "core": "core2",
+          "suggestedHandler": "magic_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "magic_damage"
+        },
+        {
+          "skillId": 470,
+          "skillKey": "SL_SWOO",
+          "name": "Eswoo",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 471,
+          "skillKey": "SL_SKE",
+          "name": "Eske",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 472,
+          "skillKey": "SL_SKA",
+          "name": "Eska",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 493,
+          "skillKey": "TK_MISSION",
+          "name": "Taekwon Mission",
+          "core": "core2",
+          "suggestedHandler": "utility",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "utility"
+        },
+        {
+          "skillId": 494,
+          "skillKey": "SL_HIGH",
+          "name": "Spirit of Rebirth",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 500,
+          "skillKey": "GS_GLITTERING",
+          "name": "Flip the Coin",
+          "core": "core2",
+          "suggestedHandler": "utility",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "utility"
+        },
+        {
+          "skillId": 501,
+          "skillKey": "GS_FLING",
+          "name": "Fling",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 502,
+          "skillKey": "GS_TRIPLEACTION",
+          "name": "Triple Action",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 503,
+          "skillKey": "GS_BULLSEYE",
+          "name": "Bulls Eye",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 504,
+          "skillKey": "GS_MADNESSCANCEL",
+          "name": "Madness Canceller",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 505,
+          "skillKey": "GS_ADJUSTMENT",
+          "name": "Adjustment",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 506,
+          "skillKey": "GS_INCREASING",
+          "name": "Increasing Accuracy",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 507,
+          "skillKey": "GS_MAGICALBULLET",
+          "name": "Magical Bullet",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 508,
+          "skillKey": "GS_CRACKER",
+          "name": "Cracker",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 511,
+          "skillKey": "GS_CHAINACTION",
+          "name": "Chain Action",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 512,
+          "skillKey": "GS_TRACKING",
+          "name": "Tracking",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 513,
+          "skillKey": "GS_DISARM",
+          "name": "Disarm",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 514,
+          "skillKey": "GS_PIERCINGSHOT",
+          "name": "Piercing Shot",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 515,
+          "skillKey": "GS_RAPIDSHOWER",
+          "name": "Rapid Shower",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 516,
+          "skillKey": "GS_DESPERADO",
+          "name": "Desperado",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 517,
+          "skillKey": "GS_GATLINGFEVER",
+          "name": "Gatling Fever",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 518,
+          "skillKey": "GS_DUST",
+          "name": "Dust",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 519,
+          "skillKey": "GS_FULLBUSTER",
+          "name": "Full Buster",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 520,
+          "skillKey": "GS_SPREADATTACK",
+          "name": "Spread Attack",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 521,
+          "skillKey": "GS_GROUNDDRIFT",
+          "name": "Ground Drift",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 522,
+          "skillKey": "NJ_TOBIDOUGU",
+          "name": "Shuriken Training",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 524,
+          "skillKey": "NJ_KUNAI",
+          "name": "Throw Kunai",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 525,
+          "skillKey": "NJ_HUUMA",
+          "name": "Throw Huuma Shuriken",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 526,
+          "skillKey": "NJ_ZENYNAGE",
+          "name": "Throw Zeny",
+          "core": "core2",
+          "suggestedHandler": "utility",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "utility"
+        },
+        {
+          "skillId": 527,
+          "skillKey": "NJ_TATAMIGAESHI",
+          "name": "Improvised Defense",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 528,
+          "skillKey": "NJ_KASUMIKIRI",
+          "name": "Vanishing Slash",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 529,
+          "skillKey": "NJ_SHADOWJUMP",
+          "name": "Shadow Leap",
+          "core": "core2",
+          "suggestedHandler": "utility",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "utility"
+        },
+        {
+          "skillId": 530,
+          "skillKey": "NJ_KIRIKAGE",
+          "name": "Shadow Slash",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 531,
+          "skillKey": "NJ_UTSUSEMI",
+          "name": "Cicada Skin Sheeding",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 532,
+          "skillKey": "NJ_BUNSINJYUTSU",
+          "name": "Mirror Image",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 533,
+          "skillKey": "NJ_NINPOU",
+          "name": "Spirit of the Blade",
+          "core": "core2",
+          "suggestedHandler": "passive",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "passive"
+        },
+        {
+          "skillId": 534,
+          "skillKey": "NJ_KOUENKA",
+          "name": "Crimson Fire Petal",
+          "core": "core2",
+          "suggestedHandler": "magic_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "magic_damage"
+        },
+        {
+          "skillId": 535,
+          "skillKey": "NJ_KAENSIN",
+          "name": "Crimson Fire Formation",
+          "core": "core2",
+          "suggestedHandler": "magic_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "magic_damage"
+        },
+        {
+          "skillId": 536,
+          "skillKey": "NJ_BAKUENRYU",
+          "name": "Raging Fire Dragon",
+          "core": "core2",
+          "suggestedHandler": "magic_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "magic_damage"
+        },
+        {
+          "skillId": 537,
+          "skillKey": "NJ_HYOUSENSOU",
+          "name": "Spear of Ice",
+          "core": "core2",
+          "suggestedHandler": "magic_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "magic_damage"
+        },
+        {
+          "skillId": 538,
+          "skillKey": "NJ_SUITON",
+          "name": "Hidden Water",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 539,
+          "skillKey": "NJ_HYOUSYOURAKU",
+          "name": "Ice Meteor",
+          "core": "core2",
+          "suggestedHandler": "magic_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "magic_damage"
+        },
+        {
+          "skillId": 540,
+          "skillKey": "NJ_HUUJIN",
+          "name": "Wind Blade",
+          "core": "core2",
+          "suggestedHandler": "magic_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "magic_damage"
+        },
+        {
+          "skillId": 541,
+          "skillKey": "NJ_RAIGEKISAI",
+          "name": "Lightning Strike of Destruction",
+          "core": "core2",
+          "suggestedHandler": "magic_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "magic_damage"
+        },
+        {
+          "skillId": 542,
+          "skillKey": "NJ_KAMAITACHI",
+          "name": "Kamaitachi",
+          "core": "core2",
+          "suggestedHandler": "magic_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "magic_damage"
+        },
+        {
+          "skillId": 543,
+          "skillKey": "NJ_NEN",
+          "name": "Soul",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 544,
+          "skillKey": "NJ_ISSEN",
+          "name": "Final Strike",
+          "core": "core2",
+          "suggestedHandler": "utility",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "utility"
+        },
+        {
+          "skillId": 2552,
+          "skillKey": "RL_RICHS_COIN",
+          "name": "Rich's Coin",
+          "core": "core2",
+          "suggestedHandler": "utility",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "utility"
+        },
+        {
+          "skillId": 2553,
+          "skillKey": "RL_MASS_SPIRAL",
+          "name": "Mass Spiral",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 2554,
+          "skillKey": "RL_BANISHING_BUSTER",
+          "name": "Banishing Buster",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 2555,
+          "skillKey": "RL_B_TRAP",
+          "name": "Bind Trap",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 2556,
+          "skillKey": "RL_FLICKER",
+          "name": "Flicker",
+          "core": "core2",
+          "suggestedHandler": "utility",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "utility"
+        },
+        {
+          "skillId": 2557,
+          "skillKey": "RL_S_STORM",
+          "name": "Shatter Storm",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 2558,
+          "skillKey": "RL_E_CHAIN",
+          "name": "Eternal Chain",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 2559,
+          "skillKey": "RL_QD_SHOT",
+          "name": "Quick Draw Shot",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 2560,
+          "skillKey": "RL_C_MARKER",
+          "name": "Crimson Marker",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 2561,
+          "skillKey": "RL_FIREDANCE",
+          "name": "Fire Dance",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 2562,
+          "skillKey": "RL_H_MINE",
+          "name": "Howling Mine",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 2563,
+          "skillKey": "RL_P_ALTER",
+          "name": "Platinum Alter",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 2564,
+          "skillKey": "RL_FALLEN_ANGEL",
+          "name": "Fallen Angel",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 2565,
+          "skillKey": "RL_R_TRIP",
+          "name": "Round Trip",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 2566,
+          "skillKey": "RL_D_TAIL",
+          "name": "Dragon Tail",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 2567,
+          "skillKey": "RL_FIRE_RAIN",
+          "name": "Fire Rain",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 2568,
+          "skillKey": "RL_HEAT_BARREL",
+          "name": "Heat Barrel",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 2569,
+          "skillKey": "RL_AM_BLAST",
+          "name": "Anti-Material Blast",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 2570,
+          "skillKey": "RL_SLUGSHOT",
+          "name": "Slug Shot",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 2571,
+          "skillKey": "RL_HAMMER_OF_GOD",
+          "name": "Hammer of God",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 2574,
+          "skillKey": "SJ_LIGHTOFMOON",
+          "name": "Light of Moon",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 2575,
+          "skillKey": "SJ_LUNARSTANCE",
+          "name": "Lunar Stance",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 2576,
+          "skillKey": "SJ_FULLMOONKICK",
+          "name": "Full Moon Kick",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 2577,
+          "skillKey": "SJ_LIGHTOFSTAR",
+          "name": "Light of Star",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 2578,
+          "skillKey": "SJ_STARSTANCE",
+          "name": "Star Stance",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 2579,
+          "skillKey": "SJ_NEWMOONKICK",
+          "name": "New Moon Kick",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 2580,
+          "skillKey": "SJ_FLASHKICK",
+          "name": "Flash Kick",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 2581,
+          "skillKey": "SJ_STAREMPEROR",
+          "name": "Star Emperor Advent",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 2582,
+          "skillKey": "SJ_NOVAEXPLOSING",
+          "name": "Nova Explosion",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 2583,
+          "skillKey": "SJ_UNIVERSESTANCE",
+          "name": "Universe Stance",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 2584,
+          "skillKey": "SJ_FALLINGSTAR",
+          "name": "Falling Star",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 2585,
+          "skillKey": "SJ_GRAVITYCONTROL",
+          "name": "Gravity Control",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 2586,
+          "skillKey": "SJ_BOOKOFDIMENSION",
+          "name": "Book of Dimension",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 2587,
+          "skillKey": "SJ_BOOKOFCREATINGSTAR",
+          "name": "Book of Creating Star",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 2588,
+          "skillKey": "SJ_DOCUMENT",
+          "name": "Document of Sun Moon and Star",
+          "core": "core2",
+          "suggestedHandler": "utility",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "utility"
+        },
+        {
+          "skillId": 2589,
+          "skillKey": "SJ_PURIFY",
+          "name": "Purification of Sun Moon and Star",
+          "core": "core2",
+          "suggestedHandler": "passive",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "passive"
+        },
+        {
+          "skillId": 2590,
+          "skillKey": "SJ_LIGHTOFSUN",
+          "name": "Light of Sun",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 2591,
+          "skillKey": "SJ_SUNSTANCE",
+          "name": "Sun Stance",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 2592,
+          "skillKey": "SJ_SOLARBURST",
+          "name": "Solar Burst",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 2593,
+          "skillKey": "SJ_PROMINENCEKICK",
+          "name": "Prominence Kick",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 2596,
+          "skillKey": "SP_SOULGOLEM",
+          "name": "Golem's Soul",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 2597,
+          "skillKey": "SP_SOULSHADOW",
+          "name": "Shadow's Soul",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 2598,
+          "skillKey": "SP_SOULFALCON",
+          "name": "Falcon's Soul",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 2599,
+          "skillKey": "SP_SOULFAIRY",
+          "name": "Fairy's Soul",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 2600,
+          "skillKey": "SP_CURSEEXPLOSION",
+          "name": "Curse Explosion",
+          "core": "core2",
+          "suggestedHandler": "magic_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "magic_damage"
+        },
+        {
+          "skillId": 2601,
+          "skillKey": "SP_SOULCURSE",
+          "name": "Soul Curse",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 2602,
+          "skillKey": "SP_SPA",
+          "name": "Espa",
+          "core": "core2",
+          "suggestedHandler": "magic_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "magic_damage"
+        },
+        {
+          "skillId": 2603,
+          "skillKey": "SP_SHA",
+          "name": "Esha",
+          "core": "core2",
+          "suggestedHandler": "magic_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "magic_damage"
+        },
+        {
+          "skillId": 2604,
+          "skillKey": "SP_SWHOO",
+          "name": "Eswhoo",
+          "core": "core2",
+          "suggestedHandler": "magic_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "magic_damage"
+        },
+        {
+          "skillId": 2605,
+          "skillKey": "SP_SOULUNITY",
+          "name": "Soul Unity",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 2606,
+          "skillKey": "SP_SOULDIVISION",
+          "name": "Soul Division",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 2607,
+          "skillKey": "SP_SOULREAPER",
+          "name": "Soul Reaper",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 2608,
+          "skillKey": "SP_SOULREVOLVE",
+          "name": "Soul Revolution",
+          "core": "core2",
+          "suggestedHandler": "utility",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "utility"
+        },
+        {
+          "skillId": 2609,
+          "skillKey": "SP_SOULCOLLECT",
+          "name": "Soul Collect",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 2610,
+          "skillKey": "SP_SOULEXPLOSION",
+          "name": "Soul Explosion",
+          "core": "core2",
+          "suggestedHandler": "utility",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "utility"
+        },
+        {
+          "skillId": 2611,
+          "skillKey": "SP_SOULENERGY",
+          "name": "Soul Energy Research",
+          "core": "core2",
+          "suggestedHandler": "passive",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "passive"
+        },
+        {
+          "skillId": 2612,
+          "skillKey": "SP_KAUTE",
+          "name": "Kaute",
+          "core": "core2",
+          "suggestedHandler": "utility",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "utility"
+        },
+        {
+          "skillId": 3001,
+          "skillKey": "KO_YAMIKUMO",
+          "name": "Shadow Hiding",
+          "core": "core2",
+          "suggestedHandler": "special_review",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "special_review"
+        },
+        {
+          "skillId": 3002,
+          "skillKey": "KO_RIGHT",
+          "name": "Right Hand Mastery",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 3003,
+          "skillKey": "KO_LEFT",
+          "name": "Left Hand Mastery",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 3004,
+          "skillKey": "KO_JYUMONJIKIRI",
+          "name": "Cross Slash",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 3005,
+          "skillKey": "KO_SETSUDAN",
+          "name": "Soul Cutter",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 3006,
+          "skillKey": "KO_BAKURETSU",
+          "name": "Kunai Explosion",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 3007,
+          "skillKey": "KO_HAPPOKUNAI",
+          "name": "Kunai Splash",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 3008,
+          "skillKey": "KO_MUCHANAGE",
+          "name": "Rapid Throw",
+          "core": "core2",
+          "suggestedHandler": "utility",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "utility"
+        },
+        {
+          "skillId": 3009,
+          "skillKey": "KO_HUUMARANKA",
+          "name": "Swirling Petal",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 3010,
+          "skillKey": "KO_MAKIBISHI",
+          "name": "Makibishi",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 3011,
+          "skillKey": "KO_MEIKYOUSISUI",
+          "name": "Pure Soul",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 3012,
+          "skillKey": "KO_ZANZOU",
+          "name": "Illusion - Shadow",
+          "core": "core2",
+          "suggestedHandler": "utility",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "utility"
+        },
+        {
+          "skillId": 3013,
+          "skillKey": "KO_KYOUGAKU",
+          "name": "Illusion - Shock",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 3014,
+          "skillKey": "KO_JYUSATSU",
+          "name": "Illusion - Death",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 3015,
+          "skillKey": "KO_KAHU_ENTEN",
+          "name": "Fire Charm",
+          "core": "core2",
+          "suggestedHandler": "utility",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "utility"
+        },
+        {
+          "skillId": 3016,
+          "skillKey": "KO_HYOUHU_HUBUKI",
+          "name": "Ice Charm",
+          "core": "core2",
+          "suggestedHandler": "utility",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "utility"
+        },
+        {
+          "skillId": 3017,
+          "skillKey": "KO_KAZEHU_SEIRAN",
+          "name": "Wind Charm",
+          "core": "core2",
+          "suggestedHandler": "utility",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "utility"
+        },
+        {
+          "skillId": 3018,
+          "skillKey": "KO_DOHU_KOUKAI",
+          "name": "Earth Charm",
+          "core": "core2",
+          "suggestedHandler": "utility",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "utility"
+        },
+        {
+          "skillId": 3019,
+          "skillKey": "KO_KAIHOU",
+          "name": "Release Ninja Spell",
+          "core": "core2",
+          "suggestedHandler": "magic_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "magic_damage"
+        },
+        {
+          "skillId": 3020,
+          "skillKey": "KO_ZENKAI",
+          "name": "Cast Ninja Spell",
+          "core": "core2",
+          "suggestedHandler": "magic_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "magic_damage"
+        },
+        {
+          "skillId": 3021,
+          "skillKey": "KO_GENWAKU",
+          "name": "Illusion - Bewitch",
+          "core": "core2",
+          "suggestedHandler": "utility",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "utility"
+        },
+        {
+          "skillId": 3022,
+          "skillKey": "KO_IZAYOI",
+          "name": "16th Night",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 3023,
+          "skillKey": "KG_KAGEHUMI",
+          "name": "Shadow Trampling",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 3024,
+          "skillKey": "KG_KYOMU",
+          "name": "Empty Shadow",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 3025,
+          "skillKey": "KG_KAGEMUSYA",
+          "name": "Shadow Warrior",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 3026,
+          "skillKey": "OB_ZANGETSU",
+          "name": "Distorted Crescent",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 3027,
+          "skillKey": "OB_OBOROGENSOU",
+          "name": "Moonlight Fantasy",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 3029,
+          "skillKey": "OB_AKAITSUKI",
+          "name": "Ominous Moonlight",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 5018,
+          "skillKey": "SU_BASIC_SKILL",
+          "name": "New Basic Skill",
+          "core": "core2",
+          "suggestedHandler": "passive",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "passive"
+        },
+        {
+          "skillId": 5019,
+          "skillKey": "SU_BITE",
+          "name": "Bite",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5020,
+          "skillKey": "SU_HIDE",
+          "name": "Hide",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 5021,
+          "skillKey": "SU_SCRATCH",
+          "name": "Scratch",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5022,
+          "skillKey": "SU_STOOP",
+          "name": "Stoop",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 5023,
+          "skillKey": "SU_LOPE",
+          "name": "Lope",
+          "core": "core2",
+          "suggestedHandler": "utility",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "utility"
+        },
+        {
+          "skillId": 5024,
+          "skillKey": "SU_SPRITEMABLE",
+          "name": "Spirit Marble",
+          "core": "core2",
+          "suggestedHandler": "passive",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "passive"
+        },
+        {
+          "skillId": 5025,
+          "skillKey": "SU_POWEROFLAND",
+          "name": "Power of Land",
+          "core": "core2",
+          "suggestedHandler": "passive",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "passive"
+        },
+        {
+          "skillId": 5026,
+          "skillKey": "SU_SV_STEMSPEAR",
+          "name": "Silvervine Stem Spear",
+          "core": "core2",
+          "suggestedHandler": "magic_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "magic_damage"
+        },
+        {
+          "skillId": 5027,
+          "skillKey": "SU_CN_POWDERING",
+          "name": "Catnip Powdering",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 5028,
+          "skillKey": "SU_CN_METEOR",
+          "name": "Catnip Meteor",
+          "core": "core2",
+          "suggestedHandler": "magic_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "magic_damage"
+        },
+        {
+          "skillId": 5029,
+          "skillKey": "SU_SV_ROOTTWIST",
+          "name": "Silvervine Root Twist",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 5031,
+          "skillKey": "SU_POWEROFLIFE",
+          "name": "Power of Life",
+          "core": "core2",
+          "suggestedHandler": "passive",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "passive"
+        },
+        {
+          "skillId": 5032,
+          "skillKey": "SU_SCAROFTAROU",
+          "name": "Scar of Tarou",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5033,
+          "skillKey": "SU_PICKYPECK",
+          "name": "Picky Peck",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5035,
+          "skillKey": "SU_ARCLOUSEDASH",
+          "name": "Arclouse Dash",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 5036,
+          "skillKey": "SU_LUNATICCARROTBEAT",
+          "name": "Lunatic Carrot Beat",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5037,
+          "skillKey": "SU_POWEROFSEA",
+          "name": "Power of Sea",
+          "core": "core2",
+          "suggestedHandler": "passive",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "passive"
+        },
+        {
+          "skillId": 5038,
+          "skillKey": "SU_TUNABELLY",
+          "name": "Tuna Belly",
+          "core": "core2",
+          "suggestedHandler": "utility",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "utility"
+        },
+        {
+          "skillId": 5039,
+          "skillKey": "SU_TUNAPARTY",
+          "name": "Tuna Party",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 5040,
+          "skillKey": "SU_BUNCHOFSHRIMP",
+          "name": "Bunch of Shrimp",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 5041,
+          "skillKey": "SU_FRESHSHRIMP",
+          "name": "Fresh Shrimp",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 5044,
+          "skillKey": "SU_SOULATTACK",
+          "name": "Soul Attack",
+          "core": "core2",
+          "suggestedHandler": "special_review",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "special_review"
+        },
+        {
+          "skillId": 5045,
+          "skillKey": "SU_POWEROFFLOCK",
+          "name": "Power of Flock",
+          "core": "core2",
+          "suggestedHandler": "utility",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "utility"
+        },
+        {
+          "skillId": 5046,
+          "skillKey": "SU_SVG_SPIRIT",
+          "name": "Spirit of Savage",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5047,
+          "skillKey": "SU_HISS",
+          "name": "Hiss",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 5048,
+          "skillKey": "SU_NYANGGRASS",
+          "name": "Nyang Grass",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 5049,
+          "skillKey": "SU_GROOMING",
+          "name": "Grooming",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 5050,
+          "skillKey": "SU_PURRING",
+          "name": "Purring",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 5051,
+          "skillKey": "SU_SHRIMPARTY",
+          "name": "Tasty Shrimp Party",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 5052,
+          "skillKey": "SU_SPIRITOFLIFE",
+          "name": "Spirit of Life",
+          "core": "core2",
+          "suggestedHandler": "passive",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "passive"
+        },
+        {
+          "skillId": 5053,
+          "skillKey": "SU_MEOWMEOW",
+          "name": "Meow Meow",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 5054,
+          "skillKey": "SU_SPIRITOFLAND",
+          "name": "Spirit of Land",
+          "core": "core2",
+          "suggestedHandler": "special_review",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "special_review"
+        },
+        {
+          "skillId": 5055,
+          "skillKey": "SU_CHATTERING",
+          "name": "Chattering",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 5056,
+          "skillKey": "SU_SPIRITOFSEA",
+          "name": "Spirit of Sea",
+          "core": "core2",
+          "suggestedHandler": "passive",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "passive"
+        },
+        {
+          "skillId": 5401,
+          "skillKey": "NW_P_F_I",
+          "name": "P.F.I",
+          "core": "core2",
+          "suggestedHandler": "passive",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "passive"
+        },
+        {
+          "skillId": 5402,
+          "skillKey": "NW_GRENADE_MASTERY",
+          "name": "Grenade Mastery",
+          "core": "core2",
+          "suggestedHandler": "passive",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "passive"
+        },
+        {
+          "skillId": 5403,
+          "skillKey": "NW_INTENSIVE_AIM",
+          "name": "Intensive Aim",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 5404,
+          "skillKey": "NW_GRENADE_FRAGMENT",
+          "name": "Grenade Fragment",
+          "core": "core2",
+          "suggestedHandler": "utility",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "utility"
+        },
+        {
+          "skillId": 5405,
+          "skillKey": "NW_THE_VIGILANTE_AT_NIGHT",
+          "name": "The Vigilante at Night",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5406,
+          "skillKey": "NW_ONLY_ONE_BULLET",
+          "name": "Only One Bullet",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5407,
+          "skillKey": "NW_SPIRAL_SHOOTING",
+          "name": "Spiral Shooting",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5408,
+          "skillKey": "NW_MAGAZINE_FOR_ONE",
+          "name": "Magazine for One",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5409,
+          "skillKey": "NW_WILD_FIRE",
+          "name": "Wild Fire",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5410,
+          "skillKey": "NW_BASIC_GRENADE",
+          "name": "Basic Grenade",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5411,
+          "skillKey": "NW_HASTY_FIRE_IN_THE_HOLE",
+          "name": "Hasty Fire in the Hole",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5412,
+          "skillKey": "NW_GRENADES_DROPPING",
+          "name": "Grenades Dropping",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5413,
+          "skillKey": "NW_AUTO_FIRING_LAUNCHER",
+          "name": "Auto Firing Launcher",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 5414,
+          "skillKey": "NW_HIDDEN_CARD",
+          "name": "Hidden Card",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 5415,
+          "skillKey": "NW_MISSION_BOMBARD",
+          "name": "Mission Bombard",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5416,
+          "skillKey": "SOA_TALISMAN_MASTERY",
+          "name": "Talisman Mastery",
+          "core": "core2",
+          "suggestedHandler": "passive",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "passive"
+        },
+        {
+          "skillId": 5417,
+          "skillKey": "SOA_SOUL_MASTERY",
+          "name": "Soul Mastery",
+          "core": "core2",
+          "suggestedHandler": "passive",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "passive"
+        },
+        {
+          "skillId": 5418,
+          "skillKey": "SOA_TALISMAN_OF_PROTECTION",
+          "name": "Talisman Of Protection",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 5419,
+          "skillKey": "SOA_TALISMAN_OF_WARRIOR",
+          "name": "Talisman Of Warrior",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 5420,
+          "skillKey": "SOA_TALISMAN_OF_MAGICIAN",
+          "name": "Talisman Of Magician",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 5421,
+          "skillKey": "SOA_SOUL_GATHERING",
+          "name": "Soul Gathering",
+          "core": "core2",
+          "suggestedHandler": "utility",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "utility"
+        },
+        {
+          "skillId": 5422,
+          "skillKey": "SOA_TOTEM_OF_TUTELARY",
+          "name": "Totem Of Tutelary",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 5423,
+          "skillKey": "SOA_TALISMAN_OF_FIVE_ELEMENTS",
+          "name": "Talisman Of Five Elements",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 5424,
+          "skillKey": "SOA_TALISMAN_OF_SOUL_STEALING",
+          "name": "Talisman Of Soul Stealing",
+          "core": "core2",
+          "suggestedHandler": "magic_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "magic_damage"
+        },
+        {
+          "skillId": 5425,
+          "skillKey": "SOA_EXORCISM_OF_MALICIOUS_SOUL",
+          "name": "Exorcism Of Malicious Soul",
+          "core": "core2",
+          "suggestedHandler": "magic_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "magic_damage"
+        },
+        {
+          "skillId": 5426,
+          "skillKey": "SOA_TALISMAN_OF_BLUE_DRAGON",
+          "name": "Talisman Of Blue Dragon",
+          "core": "core2",
+          "suggestedHandler": "magic_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "magic_damage"
+        },
+        {
+          "skillId": 5427,
+          "skillKey": "SOA_TALISMAN_OF_WHITE_TIGER",
+          "name": "Talisman Of White Tiger",
+          "core": "core2",
+          "suggestedHandler": "magic_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "magic_damage"
+        },
+        {
+          "skillId": 5428,
+          "skillKey": "SOA_TALISMAN_OF_RED_PHOENIX",
+          "name": "Talisman Of Red Phoenix",
+          "core": "core2",
+          "suggestedHandler": "magic_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "magic_damage"
+        },
+        {
+          "skillId": 5429,
+          "skillKey": "SOA_TALISMAN_OF_BLACK_TORTOISE",
+          "name": "Talisman Of Black Tortoise",
+          "core": "core2",
+          "suggestedHandler": "magic_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "magic_damage"
+        },
+        {
+          "skillId": 5430,
+          "skillKey": "SOA_TALISMAN_OF_FOUR_BEARING_GOD",
+          "name": "Talisman Of Four Bearing God",
+          "core": "core2",
+          "suggestedHandler": "magic_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "magic_damage"
+        },
+        {
+          "skillId": 5431,
+          "skillKey": "SOA_CIRCLE_OF_DIRECTIONS_AND_ELEMENTALS",
+          "name": "Circle Of Directions And Elementals",
+          "core": "core2",
+          "suggestedHandler": "magic_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "magic_damage"
+        },
+        {
+          "skillId": 5432,
+          "skillKey": "SOA_SOUL_OF_HEAVEN_AND_EARTH",
+          "name": "Soul Of Heaven And Earth",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 5433,
+          "skillKey": "SH_MYSTICAL_CREATURE_MASTERY",
+          "name": "Mystical Creature Mastery",
+          "core": "core2",
+          "suggestedHandler": "passive",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "passive"
+        },
+        {
+          "skillId": 5434,
+          "skillKey": "SH_COMMUNE_WITH_CHUL_HO",
+          "name": "Commune with Chulho",
+          "core": "core2",
+          "suggestedHandler": "passive",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "passive"
+        },
+        {
+          "skillId": 5435,
+          "skillKey": "SH_CHUL_HO_SONIC_CLAW",
+          "name": "Chulho Sonic Claw",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5436,
+          "skillKey": "SH_HOWLING_OF_CHUL_HO",
+          "name": "Howling of Chulho",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5437,
+          "skillKey": "SH_HOGOGONG_STRIKE",
+          "name": "Hogogong Strike",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5438,
+          "skillKey": "SH_COMMUNE_WITH_KI_SUL",
+          "name": "Commune with Kisul",
+          "core": "core2",
+          "suggestedHandler": "passive",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "passive"
+        },
+        {
+          "skillId": 5439,
+          "skillKey": "SH_KI_SUL_WATER_SPRAYING",
+          "name": "Kisul Water Spraying",
+          "core": "core2",
+          "suggestedHandler": "utility",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "utility"
+        },
+        {
+          "skillId": 5440,
+          "skillKey": "SH_MARINE_FESTIVAL_OF_KI_SUL",
+          "name": "Marine Festival of Kisul",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 5441,
+          "skillKey": "SH_SANDY_FESTIVAL_OF_KI_SUL",
+          "name": "Sandy Festival of Kisul",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 5442,
+          "skillKey": "SH_KI_SUL_RAMPAGE",
+          "name": "Kisul Rampage",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 5443,
+          "skillKey": "SH_COMMUNE_WITH_HYUN_ROK",
+          "name": "Commune with Hyunrok",
+          "core": "core2",
+          "suggestedHandler": "passive",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "passive"
+        },
+        {
+          "skillId": 5444,
+          "skillKey": "SH_COLORS_OF_HYUN_ROK",
+          "name": "Colors of Hyunrok",
+          "core": "core2",
+          "suggestedHandler": "utility",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "utility"
+        },
+        {
+          "skillId": 5445,
+          "skillKey": "SH_HYUN_ROKS_BREEZE",
+          "name": "Hyunrok Breeze",
+          "core": "core2",
+          "suggestedHandler": "magic_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "magic_damage"
+        },
+        {
+          "skillId": 5446,
+          "skillKey": "SH_HYUN_ROK_CANNON",
+          "name": "Hyunrok Cannon",
+          "core": "core2",
+          "suggestedHandler": "magic_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "magic_damage"
+        },
+        {
+          "skillId": 5447,
+          "skillKey": "SH_TEMPORARY_COMMUNION",
+          "name": "Temporary Communion",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 5448,
+          "skillKey": "SH_BLESSING_OF_MYSTICAL_CREATURES",
+          "name": "Blessing of Mystical Creatures",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 5463,
+          "skillKey": "SKE_SKY_MASTERY",
+          "name": "Sky Mastery",
+          "core": "core2",
+          "suggestedHandler": "passive",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "passive"
+        },
+        {
+          "skillId": 5464,
+          "skillKey": "SKE_WAR_BOOK_MASTERY",
+          "name": "War Book Mastery",
+          "core": "core2",
+          "suggestedHandler": "passive",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "passive"
+        },
+        {
+          "skillId": 5465,
+          "skillKey": "SKE_RISING_SUN",
+          "name": "Rising Sun",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5466,
+          "skillKey": "SKE_NOON_BLAST",
+          "name": "Noon Blast",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5467,
+          "skillKey": "SKE_SUNSET_BLAST",
+          "name": "Sunset Blast",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5468,
+          "skillKey": "SKE_RISING_MOON",
+          "name": "Rising Moon",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5469,
+          "skillKey": "SKE_MIDNIGHT_KICK",
+          "name": "Midnight Kick",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5470,
+          "skillKey": "SKE_DAWN_BREAK",
+          "name": "Dawn Break",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5471,
+          "skillKey": "SKE_TWINKLING_GALAXY",
+          "name": "Twinkling Galaxy",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5472,
+          "skillKey": "SKE_STAR_BURST",
+          "name": "Star Burst",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5473,
+          "skillKey": "SKE_STAR_CANNON",
+          "name": "Star Cannon",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5474,
+          "skillKey": "SKE_ALL_IN_THE_SKY",
+          "name": "All in the Sky",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5475,
+          "skillKey": "SKE_ENCHANTING_SKY",
+          "name": "Enchanting Sky",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 5476,
+          "skillKey": "SS_TOKEDASU",
+          "name": "Melt Away",
+          "core": "core2",
+          "suggestedHandler": "magic_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "magic_damage"
+        },
+        {
+          "skillId": 5477,
+          "skillKey": "SS_SHIMIRU",
+          "name": "Infiltrate",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5478,
+          "skillKey": "SS_AKUMUKESU",
+          "name": "Nightmare Erasion",
+          "core": "core2",
+          "suggestedHandler": "utility",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "utility"
+        },
+        {
+          "skillId": 5479,
+          "skillKey": "SS_SHINKIROU",
+          "name": "Mirage",
+          "core": "core2",
+          "suggestedHandler": "timed_status",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "timed_status"
+        },
+        {
+          "skillId": 5480,
+          "skillKey": "SS_KAGEGARI",
+          "name": "Shadow Hunting",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5481,
+          "skillKey": "SS_KAGENOMAI",
+          "name": "Shadow Dance",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5482,
+          "skillKey": "SS_KAGEGISSEN",
+          "name": "Shadow Flash",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5483,
+          "skillKey": "SS_FUUMASHOUAKU",
+          "name": "Huuma Shuriken - Grasp",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5484,
+          "skillKey": "SS_FUUMAKOUCHIKU",
+          "name": "Huuma Shuriken - Construct",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5485,
+          "skillKey": "SS_KUNAIWAIKYOKU",
+          "name": "Kunai - Distortion",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5486,
+          "skillKey": "SS_KUNAIKAITEN",
+          "name": "Kunai - Rotation",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5487,
+          "skillKey": "SS_KUNAIKUSSETSU",
+          "name": "Kunai - Refraction",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5488,
+          "skillKey": "SS_SEKIENHOU",
+          "name": "Red Flame Cannon",
+          "core": "core2",
+          "suggestedHandler": "magic_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "magic_damage"
+        },
+        {
+          "skillId": 5489,
+          "skillKey": "SS_REIKETSUHOU",
+          "name": "Cold Blooded Cannon",
+          "core": "core2",
+          "suggestedHandler": "magic_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "magic_damage"
+        },
+        {
+          "skillId": 5490,
+          "skillKey": "SS_RAIDENPOU",
+          "name": "Thundering Cannon",
+          "core": "core2",
+          "suggestedHandler": "magic_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "magic_damage"
+        },
+        {
+          "skillId": 5491,
+          "skillKey": "SS_KINRYUUHOU",
+          "name": "Golden Dragon Cannon",
+          "core": "core2",
+          "suggestedHandler": "magic_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "magic_damage"
+        },
+        {
+          "skillId": 5492,
+          "skillKey": "SS_ANTENPOU",
+          "name": "Darkening Cannon",
+          "core": "core2",
+          "suggestedHandler": "magic_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "magic_damage"
+        },
+        {
+          "skillId": 5493,
+          "skillKey": "SS_KAGEAKUMU",
+          "name": "Shadow - Nightmare",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5494,
+          "skillKey": "SS_HITOUAKUMU",
+          "name": "Kunai - Nightmare",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5495,
+          "skillKey": "SS_ANKOKURYUUAKUMU",
+          "name": "Dark Dragon - Nightmare",
+          "core": "core2",
+          "suggestedHandler": "magic_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "magic_damage"
+        },
+        {
+          "skillId": 5499,
+          "skillKey": "SS_FOUR_CHARM",
+          "name": "Four Colors Charm",
+          "core": "core2",
+          "suggestedHandler": "utility",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "utility"
+        },
+        {
+          "skillId": 5500,
+          "skillKey": "NW_WILD_SHOT",
+          "name": "Wild Shot",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5501,
+          "skillKey": "NW_MIDNIGHT_FALLEN",
+          "name": "Midnight Fallen",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5502,
+          "skillKey": "SKE_SKY_SUN",
+          "name": "Sky Sun",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5503,
+          "skillKey": "SKE_SKY_MOON",
+          "name": "Sky Moon",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5504,
+          "skillKey": "SKE_STAR_LIGHT_KICK",
+          "name": "Star Light Kick",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5506,
+          "skillKey": "SH_CHUL_HO_BATTERING",
+          "name": "Chulho Battering",
+          "core": "core2",
+          "suggestedHandler": "physical_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "physical_damage"
+        },
+        {
+          "skillId": 5507,
+          "skillKey": "SH_HYUN_ROK_SPIRIT_POWER",
+          "name": "Hyunrok Spirit Power",
+          "core": "core2",
+          "suggestedHandler": "magic_damage",
+          "implementationMode": "pending_review",
+          "reason": "Formula or required RO_WEB system not yet verified",
+          "futureRequirement": "magic_damage"
+        }
+      ],
+      "summary": {
+        "status": "PASS"
+      }
+    },
+    "verifiedFixes": [
+      "ASPD cap 193, Renewal normal-attack interval and cast-begin physical skill action lock.",
+      "DEX/INT variable cast, fixed cast, independent cooldown, common after-cast delay, default walk delay and RA flags.",
+      "Equipment/card/enchant/buff timing fields share one resolver; fixed-cast percentage uses the strongest reduction only.",
+      "Physical skills use the current weapon Attack animation; magic/heal/buff/debuff/support use Cast.",
+      "Lucky Dodge -> critical -> HIT/FLEE, with Renewal 5%-100% HIT-FLEE rate and no duplicate pre-hit roll.",
+      "RES/MRES and hard/soft DEF/MDEF are separated and applied in Renewal order.",
+      "Normal attacks may use both hands; active physical skills default to right hand; Katar secondary hit uses TF_DOUBLE.",
+      "Weapon size, armor property, race, size, Boss/NonBoss, range and equipment/card stages share one formula runtime.",
+      "Normal critical uses full bCritAtkRate, critical skills use half; C.RATE is final and target critical defense follows.",
+      "Skill DB DamageFlags.Critical is connected to the common Critical Resolver, including Gale Storm conditional override.",
+      "Gloria Domini, Thorn Trap and Dragon Breath special bases re-enter the allowed Renewal common stages.",
+      "H.Plus, outgoing healing and received-healing modifiers share one resolver.",
+      "All 1,139 skill ranges and 6,323 skill-level distance profiles resolve through the shared 36px-per-cell layer.",
+      "Quick slots and auto battle use level-aware cast range before cost/cooldown; cast range and effect radius remain separate.",
+      "Trick Dead (NV_TRICKDEAD) is implemented as a toggle state; 310 expanded-job skills remain explicitly deferred and AM_RESURRECTHOMUN remains a system exception.",
+      "Death plays all 4 frames and holds the final frame before recovery.",
+      "All executable legacy HIT, ASPD, 32px-cell and alternate player/monster damage call paths are removed or fail closed.",
+      "South-gate test map, monster configuration, warp entry and image assets are removed; old saves migrate to the Mjolnir world map.",
+      "Travel clears classic monster, world monster, battle timers and auto-battle runtime before entering the destination."
+    ],
+    "combatAudit": {
+      "status": "PASS",
+      "sourceChecks": {
+        "hit_flee_zero_base": true,
+        "renewal_res_formula": true,
+        "grand_cross_hybrid": true,
+        "pressure_magic": true,
+        "thorn_trap_misc": true,
+        "dragon_breath_special": true,
+        "martyrs_max_hp": true
+      },
+      "critical": {
+        "flagged": 52,
+        "implementedFlagged": 38,
+        "implementedAttackFlagged": 35,
+        "pendingFlagged": 14,
+        "passiveFlagged": 1,
+        "genericFallback": 4,
+        "explicit": 31
+      },
+      "explicitExceptions": [
+        {
+          "formula": "renewal_grand_cross",
+          "skillIds": [
+            254
+          ],
+          "status": "explicit_hybrid_exception",
+          "note": "Renewal combines total ATK and MATK, applies a special hybrid DEF+MDEF path and double Holy property interaction. Kept explicit; not treated as a normal physical/magic card pipeline."
+        },
+        {
+          "formula": "renewal_martyrs_reckoning",
+          "skillIds": [
+            368
+          ],
+          "status": "project_runtime_adaptation",
+          "note": "RA is a status that modifies up to five subsequent attacks. RO_WEB currently resolves the five 9%-MaxHP strikes as one active execution. Formula is isolated so the adaptation is visible and does not masquerade as generic W.ATK."
+        },
+        {
+          "formula": "renewal_occult_impaction",
+          "status": "explicit_post_pipeline_component",
+          "note": "Normal weapon pipeline plus target-DEF-derived extra component."
+        },
+        {
+          "formula": "renewal_tiger_cannon",
+          "status": "explicit_post_pipeline_component",
+          "note": "Normal weapon pipeline plus HP/SP-derived fixed component."
+        },
+        {
+          "formula": "renewal_gate_of_hell",
+          "status": "explicit_post_pipeline_component",
+          "note": "Normal weapon pipeline plus missing-HP/SP-derived fixed component."
+        }
+      ],
+      "modifierSchema": "data/combat_runtime/renewal_modifier_schema.json"
+    },
+    "errors": 0,
+    "warnings": 0
+  },
+  "characters": {
+    "manifestCharacters": 90,
+    "motionMaps": 90,
+    "variants": 102,
+    "mountedVariants": 12,
+    "attackAtlases": 480,
+    "atlasJson": 888,
+    "png": 978,
+    "directionFrameRecords": 51024,
+    "motionCounts": {
+      "idle": 102,
+      "walk": 102,
+      "cast": 102,
+      "dead": 102,
+      "hurt": 102,
+      "attack": 480
+    },
+    "policyCounts": {
+      "attack:two-source": 480,
+      "cast:full-eight-fallback": 102,
+      "dead:full-eight-fallback": 102,
+      "hurt:full-eight-fallback": 102,
+      "idle:five-source": 102,
+      "walk:five-source": 102
+    },
+    "rulesVerified": [
+      "Idle/Walk direction aliases and flipX remain in packed JSON.",
+      "Every Attack weapon source is referenced by its motion map.",
+      "Hurt uses 3 frames; Dead uses 4 frames and holds the last frame.",
+      "Mounted/on-foot variants, weapon aliases and mixed dual-wield fallback resolve.",
+      "One/two-handed sword, axe and staff share visual atlases without changing equipment logic.",
+      "All packed regions and logical target offsets remain inside their atlas/cell bounds (covered by library/runtime tests)."
+    ],
+    "errors": [],
+    "warnings": []
+  },
+  "formulaCleanup": {
+    "version": "0.9.82DZ",
+    "ruleset": "rAthena Renewal",
+    "status": "PASS",
+    "formulaAuthority": {
+      "normalAttack": "CombatDamagePipeline.resolveNormalAttack",
+      "physicalSkill": "CombatDamagePipeline.resolvePhysicalSkill",
+      "magicSkill": "CombatDamagePipeline.resolveMagicSkill",
+      "miscSkill": "CombatDamagePipeline.resolveMiscSkill",
+      "monsterAttack": "CombatDamagePipeline.resolveMonsterAttack",
+      "modifiers": "CombatFormulaRuntime.applyDamage",
+      "hit": "HitResolver",
+      "critical": "CriticalResolver",
+      "defense": "DefenseResolver"
+    },
+    "legacyFormulaFindings": {
+      "legacyHitPlus80": 0,
+      "legacyAspdApproximation": 0,
+      "legacy32pxCellFallback": 0,
+      "playerHitsMonsterCalls": 0,
+      "monsterHitsPlayerCalls": 0,
+      "calculatePlayerDamageCalls": 0,
+      "calculateMonsterDamageCalls": 0
+    },
+    "mapCleanup": {
+      "fieldMapCount": 1,
+      "fieldMapIds": [
+        "mjolnir_3x3_region_camera"
+      ],
+      "defaultMap": "mjolnir_3x3_region_camera",
+      "defaultLastFieldMap": "mjolnir_3x3_region_camera",
+      "unexpectedSouthReferences": [],
+      "backgroundExists": false,
+      "thumbExists": false
+    },
+    "allowedMigrationReference": "js/player.js: RO_WEB_REMOVED_FIELD_MAP_IDS"
+  },
+  "openWorkItems": {
+    "version": "0.9.82DZ",
+    "title": "RO_WEB 已討論但尚未完成事項",
+    "excludedFromDefectCount": [
+      {
+        "item": "擴充職業 Pending 技能",
+        "count": 310,
+        "reason": "依專案決議暫緩"
+      },
+      {
+        "item": "AP 系統",
+        "reason": "依專案決議不實作"
+      }
+    ],
+    "openItems": [
+      {
+        "priority": "P0",
+        "key": "ground_spell_runtime",
+        "name": "地面／範圍魔法完整 Runtime",
+        "status": "距離與 AoE 已資料化；持續時間、波次、Tick、總命中、合法落點、重疊與狀態時序待驗證",
+        "benchmark": "暴風雪"
+      },
+      {
+        "priority": "P0",
+        "key": "live_browser_regression",
+        "name": "PC／手機實機瀏覽器回歸",
+        "status": "Node 與靜態 Runtime 通過；本環境無可靠 Chromium 畫面操作"
+      },
+      {
+        "priority": "P1",
+        "key": "equipment_card_effect_coverage",
+        "name": "裝備／卡片／附魔效果資料覆蓋",
+        "status": "通用修正層完成，官方效果資料尚未全量匯入"
+      },
+      {
+        "priority": "P1",
+        "key": "trait_stat_allocation",
+        "name": "四轉特性素質點數與 UI",
+        "status": "戰鬥公式層已支援，配置與成長流程待完成"
+      },
+      {
+        "priority": "P1",
+        "key": "mount_falcon_warg_npc",
+        "name": "坐騎／獵鷹／狼 NPC 流程",
+        "status": "動畫與部分 Runtime 已有，取得／解除流程待補"
+      },
+      {
+        "priority": "P2",
+        "key": "homunculus_death_revive",
+        "name": "生命體死亡／復活模型",
+        "status": "目前無 HP／死亡，因此 AM_RESURRECTHOMUN 保留 Pending"
+      },
+      {
+        "priority": "P2",
+        "key": "monster_atlas_deployment",
+        "name": "完整怪物動畫母庫部署",
+        "status": "目前僅部署測試怪物"
+      },
+      {
+        "priority": "P2",
+        "key": "world_map_expansion",
+        "name": "世界地圖 10×9 與洞穴副本",
+        "status": "目前為 3×3、9 Chunk"
+      },
+      {
+        "priority": "TBD",
+        "key": "hair_customization",
+        "name": "84 種髮型獨立切換",
+        "status": "容量與逐幀對位考量下暫緩，待人物部署最佳化後確認"
+      }
+    ],
+    "resolvedInThisVersion": [
+      "舊公式可執行回退路徑封鎖",
+      "Renewal 公式權威入口建立",
+      "南門地圖／怪物／傳送／資產移除",
+      "舊南門存檔自動遷移",
+      "地圖切換清除經典與世界怪物 Runtime"
+    ]
+  },
+  "knownLimitations": [
+    "311 Pending skills remain data-only: 310 deferred expanded-job skills and AM_RESURRECTHOMUN.",
+    "Automated Chromium visual playback is unavailable in the managed work environment; final in-browser visual acceptance remains a local-device check.",
+    "Ground-spell wave/tick/overlap/legal-cell behavior still requires the dedicated next-stage audit, beginning with Storm Gust.",
+    "Historical regression scripts that hard-code older timing assumptions are not authoritative for the DZ Renewal layer; dedicated 0.9.82DZ tests are authoritative.",
+    "Grand Cross and Martyr's Reckoning remain explicit special/project-adaptation formulas and are not represented as ordinary generic weapon or magic profiles."
+  ],
+  "summary": {
+    "status": "PASS",
+    "skillErrors": 0,
+    "characterErrors": 0,
+    "warnings": 0
+  }
+}

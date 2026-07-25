@@ -1,0 +1,50 @@
+{
+  "version": "0.9.82DK",
+  "sourceArchive": "RO動畫放置_受傷死亡合併版.zip",
+  "families": [
+    "novice",
+    "acolyte",
+    "archer"
+  ],
+  "actualCharacterSets": 34,
+  "manifestEntries": 42,
+  "actualAppearanceGroups": [
+    "acolyte",
+    "arch_bishop",
+    "archer",
+    "bard",
+    "cardinal",
+    "dancer",
+    "hunter",
+    "hyper_novice",
+    "inquisitor",
+    "minstrel",
+    "monk",
+    "novice",
+    "priest",
+    "ranger",
+    "super_novice",
+    "sura",
+    "troubadour",
+    "trouvere",
+    "wanderer",
+    "windhawk"
+  ],
+  "sharedHurtDead": {
+    "path": "assets/characters/{appearanceGroup}/{gender}/hurt_dead/body_hair.json",
+    "hurtFrames": 3,
+    "deadFrames": 4,
+    "deadHoldLast": true,
+    "separateHurtFilesRemoved": true,
+    "separateDeadFilesRemoved": true
+  },
+  "crossGenderAliases": {
+    "bard_female": "dancer_female assets",
+    "minstrel_female": "wanderer_female assets",
+    "troubadour_female": "trouvere_female assets",
+    "dancer_male": "bard_male assets",
+    "wanderer_male": "minstrel_male assets",
+    "trouvere_male": "troubadour_male assets"
+  },
+  "runtimeChange": "player_atlas_runtime selects motion definition by requested motion id instead of always motions[0]."
+}

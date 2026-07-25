@@ -1,0 +1,22 @@
+const fs=require('fs'),path=require('path'),vm=require('vm'),assert=require('assert');
+const root=path.resolve(__dirname,'..'),j=p=>JSON.parse(fs.readFileSync(path.join(root,p),'utf8'));
+const core=j('data/skills/skills_core_1.json').skills,runtime=j('data/skill_runtime/runtime_core_1_v1.json').skills;
+const generated=j('data/skill_runtime/runtime_generated_all.json'),pending=j('data/skill_runtime/runtime_pending_review.json');
+for(const id of [380,382,383]){assert(runtime[id]?.executionEnabled,`runtime ${id}`);assert.strictEqual(generated.skills[id].executionEnabled,true);assert(!pending.skills.some(x=>Number(x.skillId)===id));}
+assert.strictEqual(generated.summary.officialRuntime,717);assert.strictEqual(generated.summary.pending,422);
+assert.strictEqual(core['380'].name,'狙殺瞄準');assert.strictEqual(core['382'].name,'銳利射擊');assert.strictEqual(core['383'].name,'風之步');
+const logs=[];const ctx={window:null,console,Date,setTimeout:()=>0,clearTimeout:()=>{},setInterval:()=>0,clearInterval:()=>{},Math:Object.create(Math)};ctx.window=ctx;ctx.Math.random=()=>0;
+ctx.skillsData={runtimeProfiles:runtime,skillIndex:core};ctx.player={jobKey:'sniper',baseLevel:200,jobLevel:70,hp:10000,maxHp:10000,sp:10000,maxSp:10000,stats:{str:1,agi:100,vit:1,int:1,dex:120,luk:90},equipment:{weapon:1},learnedSkills:{380:10,381:5,382:5,383:10},activeBuffs:{},position:{x:0,y:0}};
+const m1={name:'A',currentHp:999999,maxHp:999999,element:'Neutral',race:'Formless',size:'Medium',position:{x:64,y:0},stats:{luk:0},hardDef:0,softDef:0};
+const m2={name:'B',currentHp:999999,maxHp:999999,element:'Neutral',race:'Formless',size:'Medium',position:{x:96,y:32},stats:{luk:0},hardDef:0,softDef:0};
+ctx.currentMonster=m1;ctx.activeMonsters=[m1,m2];ctx.getSkillLevel=id=>Number(ctx.player.learnedSkills[id]||0);ctx.getSkillDataById=id=>core[String(id)]||null;ctx.getCurrentJobSkills=()=>Object.values(core).filter(x=>[380,381,382,383].includes(Number(x.id)));ctx.getExtraSkillSkillList=()=>[];
+ctx.calculateDerivedPlayerStats=()=>({stats:{str:1,agi:100,vit:1,int:1,dex:120,luk:90},atk:500,hit:300,cri:10,walkSpeed:100});ctx.getTrainingBonusTotals=()=>({});ctx.getPassiveTargetDamageBonus=()=>0;ctx.getPassiveSkillBonusTotals=()=>({});ctx.applyROCombatDamageModifiers=d=>d;
+ctx.getItemData=()=>({weaponType:'bow',atk:200});ctx.getEquippedWeaponTypeRuntime=()=> 'bow';ctx.RO_WEB_CELL_SIZE=32;ctx.getCombatGroundCandidates=()=>ctx.activeMonsters;ctx.canAttackMonsterByRange=()=>true;ctx.getSkillRangePx=()=>9999;
+ctx.addBattleLog=s=>logs.push(s);ctx.showDamageNumber=()=>{};ctx.playMonsterHitAnimation=()=>{};ctx.updateMonsterUI=()=>{};ctx.updatePlayerUI=()=>{};ctx.saveGame=()=>{};ctx.recalculatePlayerStats=()=>{};ctx.defeatMonster=()=>{};
+for(const file of ['js/combat_mechanics_runtime.js','js/ra_renewal_damage_pipeline.js','js/combat_damage_pipeline.js','js/skill_engine.js'])vm.runInNewContext(fs.readFileSync(path.join(root,file),'utf8'),ctx,{filename:file});
+assert(ctx.castBuffSkill(core['380'],10));let b=ctx.getActiveBuffBonusTotals();assert.strictEqual(b.strFlat,5);assert.strictEqual(b.atkRate,20);assert.strictEqual(b.hitFlat,30);assert.strictEqual(b.criFlat,10);
+assert(ctx.castBuffSkill(core['383'],10));b=ctx.getActiveBuffBonusTotals();assert.strictEqual(b.fleeFlat,5);assert.strictEqual(b.walkSpeedRate,-20);
+const ratioExpected=Math.floor((300+300*5)*200/100);const dmg=ctx.calculateSkillAttackDamage(core['382'],5,m1,{criticalResult:{critical:false,multiplier:1}});assert.strictEqual(ctx.lastRADamageTrace.ratio,ratioExpected);assert(dmg>0);
+const targets=ctx.resolveRuntimeSkillTargets(runtime['382'].runtimeProfile,m1,5);assert(targets.includes(m1)&&targets.includes(m2));
+const critChance=ctx.CriticalResolver.chance(ctx.player,m1,{criticalMode:'normal',criticalRateBonus:30});assert.strictEqual(critChance,40);
+console.log(JSON.stringify({result:'PASS',ratio:ratioExpected,damage:dmg,targets:targets.length,sight:b,official:717,pending:422},null,2));

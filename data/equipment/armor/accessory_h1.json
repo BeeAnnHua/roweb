@@ -1,0 +1,198 @@
+{
+  "2201": {
+    "id": 2201,
+    "officialId": 2201,
+    "name": "太陽眼鏡",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "accessory",
+    "slot": "accessory1",
+    "atk": 0,
+    "def": 0,
+    "slots": 0,
+    "cards": [],
+    "requiredLevel": 1,
+    "sellPrice": 2500,
+    "description": [
+      "黑色的眼鏡,可用來阻擋太陽用或當做時髦的裝飾品用。",
+      "對黑暗的攻擊,可-5% 的傷害度。",
+      "系列 : ^777777頭具^000000  防禦 :  ^7777770^000000",
+      "位置 : ^777777頭中^000000",
+      "裝備 : ^777777全職業^000000"
+    ],
+    "icon": "images/items/2201.webp",
+    "buyPrice": 5000,
+    "slotCount": 0,
+    "ClassNum": 12,
+    "aegisName": "Sunglasses",
+    "dbType": "Armor",
+    "armorLevel": 1,
+    "viewId": 12,
+    "locations": {
+      "Head_Mid": true
+    },
+    "scriptRaw": "bonus2 bResEff,Eff_Blind,500;",
+    "dataSource": "itemInfo_UTF8.lub + db/re/item_db_equip.yml",
+    "Id": 2201,
+    "Name": "太陽眼鏡",
+    "Buy": 5000,
+    "AegisName": "Sunglasses",
+    "Type": "Armor",
+    "Attack": 0,
+    "Defense": 0,
+    "Slots": 0,
+    "Locations": {
+      "Head_Mid": true
+    },
+    "ArmorLevel": 1,
+    "EquipLevelMin": 1,
+    "View": 12,
+    "Script": "bonus2 bResEff,Eff_Blind,500;",
+    "equipLevelMin": 1
+  },
+  "2607": {
+    "id": 2607,
+    "officialId": 2607,
+    "name": "髮夾",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "accessory",
+    "slot": "accessory1",
+    "atk": 0,
+    "def": 0,
+    "sp": 10,
+    "slots": 1,
+    "cards": [],
+    "requiredLevel": 1,
+    "sellPrice": 15000,
+    "description": [
+      "仔細看的話,可以插某種物品的裝飾品。",
+      "SP+10。",
+      "系列 : ^777777飾品^000000",
+      "防禦 :  ^7777770^000000",
+      "裝備 : ^777777全職業^000000"
+    ],
+    "icon": "images/items/2607.webp",
+    "slotCount": 1,
+    "ClassNum": 0,
+    "aegisName": "Clip",
+    "dbType": "Armor",
+    "buyPrice": 30000,
+    "armorLevel": 1,
+    "locations": {
+      "Both_Accessory": true
+    },
+    "scriptRaw": "bonus bMaxSP,10;",
+    "dataSource": "itemInfo_UTF8.lub + db/re/item_db_equip.yml",
+    "Id": 2607,
+    "Name": "髮夾",
+    "Buy": 30000,
+    "AegisName": "Clip",
+    "Type": "Armor",
+    "Attack": 0,
+    "Defense": 0,
+    "Slots": 1,
+    "Locations": {
+      "Both_Accessory": true
+    },
+    "ArmorLevel": 1,
+    "EquipLevelMin": 1,
+    "Script": "bonus bMaxSP,10;",
+    "equipLevelMin": 1
+  },
+  "2627": {
+    "id": 2627,
+    "officialId": 2627,
+    "name": "皮帶",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "accessory",
+    "buyPrice": 20000,
+    "sellPrice": 10000,
+    "description": [
+      "攜在腰上的皮帶",
+      "系列 : ^777777飾品^000000",
+      "防禦 :  ^7777770^000000",
+      "要求等級 : ^77777725^000000",
+      "裝備 : ^777777全職業^000000"
+    ],
+    "icon": "images/items/2627.webp",
+    "slot": "accessory1",
+    "def": 0,
+    "slots": 1,
+    "requiredLevel": 25,
+    "slotCount": 1,
+    "ClassNum": 0,
+    "aegisName": "Belt",
+    "dbType": "Armor",
+    "armorLevel": 1,
+    "equipLevelMin": 25,
+    "locations": {
+      "Both_Accessory": true
+    },
+    "dataSource": "itemInfo_UTF8.lub + db/re/item_db_equip.yml",
+    "Id": 2627,
+    "Name": "皮帶",
+    "Buy": 20000,
+    "AegisName": "Belt",
+    "Type": "Armor",
+    "Defense": 0,
+    "Slots": 1,
+    "Locations": {
+      "Both_Accessory": true
+    },
+    "ArmorLevel": 1,
+    "EquipLevelMin": 25
+  },
+  "2628": {
+    "id": 2628,
+    "officialId": 2628,
+    "name": "初學者手鐲",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "accessory",
+    "buyPrice": 400,
+    "sellPrice": 200,
+    "description": [
+      "初學者所裝備的手鐲",
+      "系列 : ^777777飾品^000000",
+      "防禦 :  ^7777770^000000",
+      "裝備 : ^777777初學者^000000"
+    ],
+    "icon": "images/items/2628.webp",
+    "slot": "accessory1",
+    "def": 0,
+    "slots": 1,
+    "requiredLevel": 1,
+    "slotCount": 1,
+    "ClassNum": 0,
+    "aegisName": "Novice_Armlet",
+    "dbType": "Armor",
+    "armorLevel": 1,
+    "equipJobs": {
+      "Novice": true,
+      "SuperNovice": true
+    },
+    "locations": {
+      "Both_Accessory": true
+    },
+    "dataSource": "itemInfo_UTF8.lub + db/re/item_db_equip.yml",
+    "Id": 2628,
+    "Name": "初學者手鐲",
+    "Buy": 400,
+    "AegisName": "Novice_Armlet",
+    "Type": "Armor",
+    "Defense": 0,
+    "Slots": 1,
+    "Jobs": {
+      "Novice": true,
+      "SuperNovice": true
+    },
+    "Locations": {
+      "Both_Accessory": true
+    },
+    "ArmorLevel": 1,
+    "EquipLevelMin": 1,
+    "equipLevelMin": 1
+  }
+}

@@ -1,0 +1,243 @@
+{
+  "meta": {
+    "version": "0.9.80ZH",
+    "schema": "ro_web_skill_tree_v3",
+    "raJob": "Kagerou",
+    "bodySource": "../skills/skills_core_2.json",
+    "fallbackBodySource": "../skills/skills_core_1.json"
+  },
+  "job": "kagerou",
+  "raJob": "Kagerou",
+  "skills": [
+    {
+      "skillId": 3001,
+      "maxLevel": 1,
+      "requires": [
+        {
+          "skillId": 530,
+          "level": 5
+        }
+      ]
+    },
+    {
+      "skillId": 3002,
+      "maxLevel": 5
+    },
+    {
+      "skillId": 3003,
+      "maxLevel": 5
+    },
+    {
+      "skillId": 3004,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 3001,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 3005,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 3004,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "skillId": 3006,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 524,
+          "level": 5
+        }
+      ]
+    },
+    {
+      "skillId": 3007,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 3006,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 3008,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 3010,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "skillId": 3009,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 525,
+          "level": 5
+        }
+      ]
+    },
+    {
+      "skillId": 3010,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 526,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 3011,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 533,
+          "level": 10
+        }
+      ]
+    },
+    {
+      "skillId": 3012,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 531,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 3013,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 3021,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "skillId": 3014,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 3013,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "skillId": 3015,
+      "maxLevel": 1
+    },
+    {
+      "skillId": 3016,
+      "maxLevel": 1
+    },
+    {
+      "skillId": 3017,
+      "maxLevel": 1
+    },
+    {
+      "skillId": 3018,
+      "maxLevel": 1
+    },
+    {
+      "skillId": 3019,
+      "maxLevel": 1,
+      "requires": [
+        {
+          "skillId": 3015,
+          "level": 1
+        },
+        {
+          "skillId": 3016,
+          "level": 1
+        },
+        {
+          "skillId": 3017,
+          "level": 1
+        },
+        {
+          "skillId": 3018,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 3020,
+      "maxLevel": 1,
+      "requires": [
+        {
+          "skillId": 3019,
+          "level": 1
+        },
+        {
+          "skillId": 3022,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 3021,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 531,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 3022,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 533,
+          "level": 5
+        }
+      ]
+    },
+    {
+      "skillId": 3023,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 3012,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 3024,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 3023,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "skillId": 3025,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 3024,
+          "level": 3
+        }
+      ]
+    }
+  ]
+}

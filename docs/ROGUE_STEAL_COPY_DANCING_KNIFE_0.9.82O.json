@@ -1,0 +1,70 @@
+{
+  "version": "0.9.82O",
+  "title": "Rogue Steal / Copy / Dancing Knife Runtime Update",
+  "baseline": "0.9.82N",
+  "coverageBefore": 239,
+  "coverageAfter": 257,
+  "pendingBefore": 900,
+  "pendingAfter": 882,
+  "newOfficialSkillIds": [
+    50,
+    124,
+    210,
+    211,
+    215,
+    216,
+    217,
+    218,
+    220,
+    221,
+    222,
+    223,
+    225,
+    389,
+    476,
+    2030,
+    2285,
+    5286
+  ],
+  "redesignedOfficialSkillIds": [
+    219
+  ],
+  "copyFlags": {
+    "plagiarismTotal": 76,
+    "plagiarismRuntimeReady": 44,
+    "reproduceTotal": 162,
+    "reproduceRuntimeReady": 58
+  },
+  "features": {
+    "stealItem": "RA chance + monster rated drop table + one success per monster",
+    "stealZeny": "RA chance + final rated Zeny × 5% per level",
+    "stripDebuffs": "grouped non-stacking -25% effects",
+    "dancingKnife": "player-following 5x5 AoE every 300ms for 120 seconds",
+    "otherSkillsTab": true,
+    "equipmentCardSourceTracking": true,
+    "copyOverwriteHook": true
+  },
+  "validation": {
+    "jsonParse": {
+      "passed": true,
+      "files": 324
+    },
+    "javascriptSyntax": {
+      "passed": true,
+      "files": 24
+    },
+    "runtimeCounts": {
+      "passed": true,
+      "official": 257,
+      "pending": 882,
+      "catalog": 1139
+    },
+    "duplicateSkillIds": 0,
+    "pendingIntersection": 0,
+    "dynamicExtraSkillOverwrite": true,
+    "dynamicStealItemAndZeny": true,
+    "dynamicFollowAreaMovement": true,
+    "dancingKnifeFormulaExample": "Lv5 / POW20 / Base200 = 2200% ATK",
+    "cacheKey": "0.9.82O"
+  }
+}

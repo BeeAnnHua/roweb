@@ -1,0 +1,39 @@
+{
+  "version": "0.9.81F",
+  "batch": "Runtime Passive Batch13",
+  "coverage": {
+    "before": 70,
+    "after": 73,
+    "target": 1139
+  },
+  "pending": {
+    "before": 1069,
+    "after": 1066
+  },
+  "addedSkills": [
+    {
+      "skillId": 23,
+      "skillKey": "AL_DEMONBANE",
+      "name": "天使之擊"
+    },
+    {
+      "skillId": 126,
+      "skillKey": "HT_BEASTBANE",
+      "name": "動物殺手"
+    },
+    {
+      "skillId": 265,
+      "skillKey": "MO_DODGE",
+      "name": "閃躲"
+    }
+  ],
+  "checks": {
+    "runtime": true,
+    "formula": true,
+    "json": true,
+    "js": true,
+    "bundle": true,
+    "cache": true,
+    "regression": true
+  }
+}

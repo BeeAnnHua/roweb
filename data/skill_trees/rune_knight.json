@@ -1,0 +1,142 @@
+{
+  "meta": {
+    "version": "0.9.80ZH",
+    "schema": "ro_web_skill_tree_v3",
+    "raJob": "Rune_Knight",
+    "bodySource": "../skills/skills_core_1.json"
+  },
+  "job": "rune_knight",
+  "raJob": "Rune_Knight",
+  "skills": [
+    {
+      "skillId": 2001,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 2010,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "skillId": 2002,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 2001,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "skillId": 2003,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 61,
+          "level": 1
+        },
+        {
+          "skillId": 2001,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "skillId": 2004,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 2020,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "skillId": 2005,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 2001,
+          "level": 5
+        }
+      ]
+    },
+    {
+      "skillId": 2006,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 2002,
+          "level": 2
+        },
+        {
+          "skillId": 2003,
+          "level": 5
+        },
+        {
+          "skillId": 2005,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "skillId": 2007,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 64,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 2008,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 2007,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "skillId": 2009,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 2007,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "skillId": 2010,
+      "maxLevel": 10
+    },
+    {
+      "skillId": 2020,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 57,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "skillId": 5004,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 2007,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "skillId": 5014,
+      "maxLevel": 5
+    }
+  ]
+}

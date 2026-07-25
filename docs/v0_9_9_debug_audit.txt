@@ -1,0 +1,14 @@
+RO_WEB v0.9.9 Debug Audit
+
+Checks performed:
+- JavaScript syntax check: OK
+- JSON parse check: OK
+- Image reference scan: 95 references, 0 missing
+- SAVE_KEY updated: ro_web_save_v0_9_9_inventory_character_equipment_polish
+- UI_POS_KEY updated: ro_web_ui_positions_v7_099
+
+Notes:
+- Inventory now renders as 40 UI slots instead of large item cards.
+- Equipment now supports equipment / costume / title views; costume and title are placeholders for future data.
+- Item 3101 uses images/items/placeholder.webp until official item art is supplied.
+- Skill 1/2/3 tab readability is intentionally left unchanged per user request.

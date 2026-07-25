@@ -1,0 +1,254 @@
+{
+  "meta": {
+    "version": "0.9.82BG",
+    "schema": "ro_web_skill_tree_v3",
+    "raJob": "Warlock",
+    "bodySource": "../skills/skills_core_1.json",
+    "displayName": "咒術士"
+  },
+  "job": "warlock",
+  "raJob": "Warlock",
+  "skills": [
+    {
+      "skillId": 2201,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 2202,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "skillId": 2202,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 2210,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 2203,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 2224,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 2204,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 2203,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "skillId": 2205,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 92,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 2206,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 2201,
+          "level": 1
+        },
+        {
+          "skillId": 2209,
+          "level": 1
+        },
+        {
+          "skillId": 2230,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "skillId": 2207,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 2229,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 2208,
+      "maxLevel": 3
+    },
+    {
+      "skillId": 2209,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 2210,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 2210,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 2208,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 2211,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 2222,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 2212,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 2211,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "skillId": 2213,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 2212,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "skillId": 2214,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 2223,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 2216,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 2207,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "skillId": 2217,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 2204,
+          "level": 5
+        },
+        {
+          "skillId": 2212,
+          "level": 5
+        },
+        {
+          "skillId": 2214,
+          "level": 5
+        },
+        {
+          "skillId": 2216,
+          "level": 5
+        }
+      ]
+    },
+    {
+      "skillId": 2222,
+      "maxLevel": 2,
+      "requires": [
+        {
+          "skillId": 83,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 2223,
+      "maxLevel": 2,
+      "requires": [
+        {
+          "skillId": 85,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 2224,
+      "maxLevel": 2,
+      "requires": [
+        {
+          "skillId": 89,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 2229,
+      "maxLevel": 2,
+      "requires": [
+        {
+          "skillId": 91,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 2230,
+      "maxLevel": 2
+    },
+    {
+      "skillId": 2231,
+      "maxLevel": 1
+    },
+    {
+      "skillId": 2232,
+      "maxLevel": 10
+    },
+    {
+      "skillId": 5012,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 2202,
+          "level": 5
+        }
+      ]
+    },
+    {
+      "skillId": 5014,
+      "maxLevel": 5
+    }
+  ],
+  "name": "咒術士"
+}

@@ -1,0 +1,75 @@
+{
+  "version": "0.9.82F",
+  "batch": "Runtime Magic Batch17",
+  "coverage": {
+    "before": 91,
+    "after": 98,
+    "target": 1139
+  },
+  "pending": {
+    "before": 1048,
+    "after": 1041
+  },
+  "addedSkills": [
+    {
+      "skillId": 156,
+      "skillKey": "AL_HOLYLIGHT",
+      "name": "Holy Light"
+    },
+    {
+      "skillId": 77,
+      "skillKey": "PR_TURNUNDEAD",
+      "name": "Turn Undead"
+    },
+    {
+      "skillId": 79,
+      "skillKey": "PR_MAGNUS",
+      "name": "Magnus Exorcismus"
+    },
+    {
+      "skillId": 400,
+      "skillKey": "HW_NAPALMVULCAN",
+      "name": "Napalm Vulcan"
+    },
+    {
+      "skillId": 467,
+      "skillKey": "SL_STIN",
+      "name": "Estin"
+    },
+    {
+      "skillId": 468,
+      "skillKey": "SL_STUN",
+      "name": "Estun"
+    },
+    {
+      "skillId": 469,
+      "skillKey": "SL_SMA",
+      "name": "Esma"
+    }
+  ],
+  "runtimeEnhancements": [
+    "Target race/element eligibility checks",
+    "Conditional target-size magic ratios",
+    "Dynamic Base-Level magic ratio",
+    "Turn Undead instant-death/failure branch",
+    "Size-restricted status application",
+    "Historical coverage reconciliation: restored SA_ADVANCEDBOOK official state and recalculated from executable profiles."
+  ],
+  "adaptations": [
+    "Magnus Exorcismus is direct target-area and does not consume Blue Gemstone.",
+    "Esma/Estin/Estun activation-chain prerequisites are ignored in RO_WEB."
+  ],
+  "specialReview": [
+    "Ninja charm-dependent bonus formulas remain pending for a later RO_WEB decision; no approximation was added."
+  ],
+  "checks": {
+    "runtime": true,
+    "formula": true,
+    "handler": true,
+    "json": true,
+    "js": true,
+    "bundle": true,
+    "cache": true,
+    "regression": true
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "version": "0.9.82DZ",
+  "ruleset": "rAthena Renewal",
+  "status": "PASS",
+  "formulaAuthority": {
+    "normalAttack": "CombatDamagePipeline.resolveNormalAttack",
+    "physicalSkill": "CombatDamagePipeline.resolvePhysicalSkill",
+    "magicSkill": "CombatDamagePipeline.resolveMagicSkill",
+    "miscSkill": "CombatDamagePipeline.resolveMiscSkill",
+    "monsterAttack": "CombatDamagePipeline.resolveMonsterAttack",
+    "modifiers": "CombatFormulaRuntime.applyDamage",
+    "hit": "HitResolver",
+    "critical": "CriticalResolver",
+    "defense": "DefenseResolver"
+  },
+  "legacyFormulaFindings": {
+    "legacyHitPlus80": 0,
+    "legacyAspdApproximation": 0,
+    "legacy32pxCellFallback": 0,
+    "playerHitsMonsterCalls": 0,
+    "monsterHitsPlayerCalls": 0,
+    "calculatePlayerDamageCalls": 0,
+    "calculateMonsterDamageCalls": 0
+  },
+  "mapCleanup": {
+    "fieldMapCount": 1,
+    "fieldMapIds": [
+      "mjolnir_3x3_region_camera"
+    ],
+    "defaultMap": "mjolnir_3x3_region_camera",
+    "defaultLastFieldMap": "mjolnir_3x3_region_camera",
+    "unexpectedSouthReferences": [],
+    "backgroundExists": false,
+    "thumbExists": false
+  },
+  "allowedMigrationReference": "js/player.js: RO_WEB_REMOVED_FIELD_MAP_IDS"
+}

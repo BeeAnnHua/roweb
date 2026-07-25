@@ -1,0 +1,59 @@
+RO_WEB 0.9.82DO Mage Family Character Integration Test Report
+================================================================
+Base: RO_WEB 0.9.82DN
+Source: 法師系列.zip
+
+Integrated character sets
+-------------------------
+- mage male/female
+- wizard male/female
+- sage male/female
+- warlock male/female
+- sorcerer male/female
+- arch_mage male/female
+- elemental_master male/female
+
+Counts
+------
+- New physical character sets: 14
+- Total physical character sets: 62
+- Character manifest entries: 64
+- New mage atlas JSON/PNG pairs: 104
+- New mage static idle images: 14
+- Validated mage animation frame entries (direction-expanded): 5,944
+
+Appearance sharing
+------------------
+- mage_high -> mage
+- high_wizard -> wizard
+- professor -> sage
+- third/fourth jobs use their own appearance groups
+
+Weapon animation rules
+----------------------
+- Mage/Wizard/Warlock/Arch Mage: fist, dagger, staff
+- Sage/Sorcerer/Elemental Master: fist, dagger, staff, book
+- oneHandStaff, twoHandStaff, twohandstaff and two_hand_staff all point to the same staff atlas
+- Two-hand staff equipment behavior remains handed=2/Both_Hand; only visual animation is shared
+
+Hurt/dead rules
+---------------
+- hurt and dead share hurt_dead/body_hair.json
+- hurt: 3 frames
+- dead: 4 frames and hold final frame
+
+Validation
+----------
+- All 14 source nested ZIPs parsed
+- All mage JSON files parsed
+- All source/target atlas paths found
+- All atlas images: 2048x6144
+- All static idle images: 256x256
+- All anchors: X128/Y140
+- All direction lists: 8 directions
+- Job appearance status/mappings: PASS
+- Thief family regression: PASS
+- Equipment/job/gender regression: PASS
+- Two-hand/converter regression: PASS
+- Deep Health: 0 errors / 0 warnings
+- JavaScript syntax: 353 files PASS

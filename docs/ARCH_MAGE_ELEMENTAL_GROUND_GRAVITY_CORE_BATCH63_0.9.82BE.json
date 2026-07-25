@@ -1,0 +1,99 @@
+{
+  "version": "0.9.82BE",
+  "result": "PASS",
+  "batch": "Arch Mage Elemental Ground / Gravity Core Batch63",
+  "sourceFiles": [
+    "仙境全書技能中文名稱",
+    "local rAthena db/re/skill_db.yml",
+    "local rAthena src/map/skills/mage/*.cpp"
+  ],
+  "officialAdded": [
+    484,
+    5216,
+    5217,
+    5221,
+    5227,
+    5229
+  ],
+  "coverage": {
+    "before": 595,
+    "after": 601,
+    "target": 1139
+  },
+  "pending": {
+    "before": 544,
+    "after": 538
+  },
+  "mageFamily": {
+    "before": 71,
+    "after": 77,
+    "total": 153,
+    "pendingAfter": 76
+  },
+  "skills": {
+    "484": {
+      "name": "重力原野",
+      "handler": "magic_damage",
+      "formula": "renewal_gravitation_field",
+      "description": "在指定敵人位置形成 5×5 重力原野，造成無屬性多段魔法傷害。每段倍率為（100×技能等級）×BaseLv÷100%；命中 2／4／6／8／10 次。依 Renewal 效果不附加移動限制或攻速降低。"
+    },
+    "5216": {
+      "name": "冰晶飛瀑",
+      "handler": "ground_damage",
+      "formula": "renewal_rain_of_crystal",
+      "description": "以施術者所在位置展開冰晶飛瀑，持續 4 秒，每 0.5 秒對範圍內敵人造成水屬性魔法傷害。每次倍率為（180 + 760×技能等級 + 5×SPL）×BaseLv÷100%；範圍為 9×9／9×9／11×11／11×11／13×13。"
+    },
+    "5217": {
+      "name": "神秘幻滅",
+      "handler": "ground_damage",
+      "formula": "renewal_mystery_illusion",
+      "description": "在指定敵人位置形成神秘幻滅區域，持續 4 秒，每 0.3 秒對範圍內敵人造成暗屬性魔法傷害。每次倍率為（950×技能等級 + 5×SPL）×BaseLv÷100%；範圍為 9×9／9×9／11×11／11×11／13×13。"
+    },
+    "5221": {
+      "name": "地層震動",
+      "handler": "ground_damage",
+      "formula": "renewal_strantum_tremor",
+      "description": "在指定敵人位置形成地層震動區域，持續 4 秒，每 0.4 秒對範圍內敵人造成地屬性魔法傷害。每次倍率為（100 + 730×技能等級 + 5×SPL）×BaseLv÷100%；範圍為 5×5／5×5／7×7／7×7／9×9。"
+    },
+    "5227": {
+      "name": "龍捲風暴",
+      "handler": "ground_damage",
+      "formula": "renewal_tornado_storm",
+      "description": "在指定敵人位置形成龍捲風暴，持續 3 秒，每 0.3 秒對範圍內敵人造成風屬性魔法傷害。每次倍率為（100 + 760×技能等級 + 5×SPL）×BaseLv÷100%；範圍為 5×5／5×5／7×7／7×7／9×9。"
+    },
+    "5229": {
+      "name": "焰火之徑",
+      "handler": "ground_damage",
+      "formula": "renewal_floral_flare_road",
+      "description": "在指定敵人位置形成焰火之徑，持續 5 秒，每 0.5 秒對範圍內敵人造成火屬性魔法傷害。每次倍率為（50 + 740×技能等級 + 5×SPL）×BaseLv÷100%；範圍為 3×3／5×5／7×7／9×9／11×11。"
+    }
+  },
+  "deferred": [
+    {
+      "skillId": 87,
+      "name": "冰刃之牆",
+      "reason": "需要可阻擋移動與尋路的地圖牆體／碰撞系統。"
+    },
+    {
+      "skillId": 483,
+      "name": "咖般塔音",
+      "reason": "需要正式的指定地面範圍清除、可清除技能分類與成功率整合。"
+    }
+  ],
+  "validation": {
+    "status": "PASS",
+    "formulaAndOriginTest": "PASS",
+    "mageRegressionTests": "PASS",
+    "merchantRegression": "PASS",
+    "raDamagePipeline": "PASS",
+    "deepHealth": {
+      "errors": 0,
+      "warnings": 36,
+      "status": "PASS"
+    },
+    "jsonFilesParsed": 449,
+    "javascriptFilesSyntaxChecked": 86,
+    "runtimeCounts": "601 official / 538 pending",
+    "dataBundleEntries": 449
+  }
+}

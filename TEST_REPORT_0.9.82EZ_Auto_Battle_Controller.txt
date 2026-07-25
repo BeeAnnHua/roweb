@@ -1,0 +1,22 @@
+RO_WEB 0.9.82EZ — Auto Battle Controller v1
+============================================================
+Scope
+- State machine: SEARCHING / APPROACHING / COMBAT / UTILITY / TARGET_DEFEATED / TELEPORTING
+- Smart target priority and stable lock
+- Immediate next-target acquisition on formal multi-monster maps
+- Utility actions independent from currentMonster
+- Normal-attack fallback during selected skill cooldown
+- Fly Wing stream refresh and immediate reacquisition
+- Manual click compatibility / forced target selection
+
+Dedicated Controller Test
+- 12 / 12 PASS
+
+Regression
+- Long cast action phase tests: PASS
+- 828 skill action contract: PASS
+- Packed character runtime: PASS
+- Renewal timing action audit: PASS
+- World runtime performance: PASS
+- Current Runtime Integrity: 12 / 12 PASS
+- Deep Health: PASS — 0 errors / 0 warnings

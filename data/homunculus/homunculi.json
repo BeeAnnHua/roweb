@@ -1,0 +1,1396 @@
+{
+  "version": "0.9.82DD",
+  "schema": "ro_web_homunculi_v1",
+  "source": [
+    "rAthena db/re/homunculus_db.yml (2026-06-08 package)",
+    "RO_WEB user decisions: evolved forms + Homunculus S only; level snapshots player BaseLv; no HP/SP/EXP/feeding/intimacy/death"
+  ],
+  "rules": {
+    "dedicatedSlot": "homunculusCompanion",
+    "coexistsWithVirtualSummon": true,
+    "coexistsWithIndependentSummons": true,
+    "hasMapEntity": false,
+    "hasHpSpExp": false,
+    "canBeTargeted": false,
+    "selectionGroups": [
+      "evolved",
+      "homunculus_s"
+    ],
+    "evolvedAvailableFromJobTier": 2,
+    "homunculusSFourthJobOnly": true,
+    "resurrectionSkillId": 247,
+    "resurrectionStatus": "pending_no_death_state",
+    "defaultActionIntervalMs": 3000,
+    "summonDamageMasterySkillId": 232,
+    "evolvedSkillRuntime": "enabled_batch111",
+    "homunculusSSkillRuntime": "enabled_batch112"
+  },
+  "definitions": {
+    "lif_evolved": {
+      "id": "lif_evolved",
+      "name": "進化麗芙",
+      "raClass": "Lif",
+      "raEvolutionClass": "Lif_H",
+      "category": "evolved",
+      "role": "治療與輔助",
+      "availability": {
+        "minimumJobTier": 2,
+        "fourthJobOnly": false,
+        "fourthJobKeys": [
+          "biolo"
+        ],
+        "fourthJobMarkerSkillIds": [
+          5337,
+          5344,
+          5345,
+          5346,
+          5348
+        ]
+      },
+      "race": "Demihuman",
+      "element": "Neutral",
+      "size": "Medium",
+      "levelRule": {
+        "mode": "snapshot_player_base_level_on_summon",
+        "minimum": 1,
+        "maximum": 275
+      },
+      "statFormula": {
+        "source": "rAthena db/re/homunculus_db.yml 2026-06-08",
+        "growthScale": 1000,
+        "rounding": "round_total_growth_once",
+        "formula": "base + round((level - 1) * growthPerLevelScaled / growthScale) + round(evolutionBonusScaled / growthScale)"
+      },
+      "baseStats": {
+        "str": 17,
+        "agi": 20,
+        "vit": 15,
+        "int": 35,
+        "dex": 24,
+        "luk": 12
+      },
+      "growthPerLevelScaled": {
+        "str": 1200,
+        "agi": 1200,
+        "vit": 1200,
+        "int": 1200,
+        "dex": 1300,
+        "luk": 1300
+      },
+      "evolutionBonusScaled": {
+        "str": 20000,
+        "agi": 20000,
+        "vit": 30000,
+        "int": 40000,
+        "dex": 35000,
+        "luk": 20000
+      },
+      "aiProfile": {
+        "profileId": "support_healer",
+        "actionIntervalMs": 3000,
+        "basicAttackEnabled": true,
+        "skillRuntimeEnabled": true,
+        "note": "Batch111 enables all usable evolved Homunculus skills. Unsupported HP/position/death-only skills remain catalogued but excluded."
+      },
+      "skills": [
+        {
+          "skillId": 8001,
+          "code": "HLIF_HEAL",
+          "name": "治癒之手",
+          "maxLevel": 5,
+          "requiredHomunculusLevel": 1,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_evolved_batch111",
+          "aiUsage": "heal_player"
+        },
+        {
+          "skillId": 8002,
+          "code": "HLIF_AVOID",
+          "name": "緊急迴避",
+          "maxLevel": 5,
+          "requiredHomunculusLevel": 1,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [
+            {
+              "skillId": 8001,
+              "code": "HLIF_HEAL",
+              "level": 3
+            }
+          ],
+          "aiRuntimeStatus": "enabled_evolved_batch111",
+          "aiUsage": "player_buff"
+        },
+        {
+          "skillId": 8003,
+          "code": "HLIF_BRAIN",
+          "name": "腦手術",
+          "maxLevel": 5,
+          "requiredHomunculusLevel": 1,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [
+            {
+              "skillId": 8001,
+              "code": "HLIF_HEAL",
+              "level": 5
+            }
+          ],
+          "aiRuntimeStatus": "enabled_partial_passive_batch111",
+          "aiUsage": "passive"
+        },
+        {
+          "skillId": 8004,
+          "code": "HLIF_CHANGE",
+          "name": "精神變換",
+          "maxLevel": 3,
+          "requiredHomunculusLevel": 1,
+          "officialRequiredIntimacy": 910,
+          "officialRequireEvolution": true,
+          "required": [],
+          "aiRuntimeStatus": "enabled_evolved_batch111",
+          "aiUsage": "internal_buff"
+        }
+      ]
+    },
+    "amistr_evolved": {
+      "id": "amistr_evolved",
+      "name": "進化艾咪斯可魯",
+      "raClass": "Amistr",
+      "raEvolutionClass": "Amistr_H",
+      "category": "evolved",
+      "role": "防禦支援",
+      "availability": {
+        "minimumJobTier": 2,
+        "fourthJobOnly": false,
+        "fourthJobKeys": [
+          "biolo"
+        ],
+        "fourthJobMarkerSkillIds": [
+          5337,
+          5344,
+          5345,
+          5346,
+          5348
+        ]
+      },
+      "race": "Brute",
+      "element": "Neutral",
+      "size": "Medium",
+      "levelRule": {
+        "mode": "snapshot_player_base_level_on_summon",
+        "minimum": 1,
+        "maximum": 275
+      },
+      "statFormula": {
+        "source": "rAthena db/re/homunculus_db.yml 2026-06-08",
+        "growthScale": 1000,
+        "rounding": "round_total_growth_once",
+        "formula": "base + round((level - 1) * growthPerLevelScaled / growthScale) + round(evolutionBonusScaled / growthScale)"
+      },
+      "baseStats": {
+        "str": 20,
+        "agi": 17,
+        "vit": 35,
+        "int": 11,
+        "dex": 24,
+        "luk": 12
+      },
+      "growthPerLevelScaled": {
+        "str": 1400,
+        "agi": 1200,
+        "vit": 1200,
+        "int": 550,
+        "dex": 1100,
+        "luk": 1100
+      },
+      "evolutionBonusScaled": {
+        "str": 35000,
+        "agi": 20000,
+        "vit": 35000,
+        "int": 35000,
+        "dex": 20000,
+        "luk": 20000
+      },
+      "aiProfile": {
+        "profileId": "defense_support",
+        "actionIntervalMs": 3000,
+        "basicAttackEnabled": true,
+        "skillRuntimeEnabled": true,
+        "note": "Batch111 enables all usable evolved Homunculus skills. Unsupported HP/position/death-only skills remain catalogued but excluded."
+      },
+      "skills": [
+        {
+          "skillId": 8005,
+          "code": "HAMI_CASTLE",
+          "name": "位置互換",
+          "maxLevel": 5,
+          "requiredHomunculusLevel": 1,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "excluded_no_position_system",
+          "aiUsage": "excluded"
+        },
+        {
+          "skillId": 8006,
+          "code": "HAMI_DEFENCE",
+          "name": "防禦力",
+          "maxLevel": 5,
+          "requiredHomunculusLevel": 1,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [
+            {
+              "skillId": 8005,
+              "code": "HAMI_CASTLE",
+              "level": 5
+            }
+          ],
+          "aiRuntimeStatus": "enabled_evolved_batch111",
+          "aiUsage": "player_buff"
+        },
+        {
+          "skillId": 8007,
+          "code": "HAMI_SKIN",
+          "name": "活命之膚",
+          "maxLevel": 5,
+          "requiredHomunculusLevel": 1,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [
+            {
+              "skillId": 8006,
+              "code": "HAMI_DEFENCE",
+              "level": 3
+            }
+          ],
+          "aiRuntimeStatus": "excluded_no_homunculus_hp_defense",
+          "aiUsage": "excluded"
+        },
+        {
+          "skillId": 8008,
+          "code": "HAMI_BLOODLUST",
+          "name": "血的貪求",
+          "maxLevel": 3,
+          "requiredHomunculusLevel": 1,
+          "officialRequiredIntimacy": 910,
+          "officialRequireEvolution": true,
+          "required": [],
+          "aiRuntimeStatus": "enabled_partial_buff_batch111",
+          "aiUsage": "internal_buff"
+        }
+      ]
+    },
+    "filir_evolved": {
+      "id": "filir_evolved",
+      "name": "進化飛里樂",
+      "raClass": "Filir",
+      "raEvolutionClass": "Filir_H",
+      "category": "evolved",
+      "role": "高速物理攻擊",
+      "availability": {
+        "minimumJobTier": 2,
+        "fourthJobOnly": false,
+        "fourthJobKeys": [
+          "biolo"
+        ],
+        "fourthJobMarkerSkillIds": [
+          5337,
+          5344,
+          5345,
+          5346,
+          5348
+        ]
+      },
+      "race": "Brute",
+      "element": "Neutral",
+      "size": "Medium",
+      "levelRule": {
+        "mode": "snapshot_player_base_level_on_summon",
+        "minimum": 1,
+        "maximum": 275
+      },
+      "statFormula": {
+        "source": "rAthena db/re/homunculus_db.yml 2026-06-08",
+        "growthScale": 1000,
+        "rounding": "round_total_growth_once",
+        "formula": "base + round((level - 1) * growthPerLevelScaled / growthScale) + round(evolutionBonusScaled / growthScale)"
+      },
+      "baseStats": {
+        "str": 29,
+        "agi": 35,
+        "vit": 9,
+        "int": 8,
+        "dex": 30,
+        "luk": 9
+      },
+      "growthPerLevelScaled": {
+        "str": 1200,
+        "agi": 1400,
+        "vit": 550,
+        "int": 1100,
+        "dex": 1200,
+        "luk": 1100
+      },
+      "evolutionBonusScaled": {
+        "str": 35000,
+        "agi": 20000,
+        "vit": 35000,
+        "int": 35000,
+        "dex": 20000,
+        "luk": 20000
+      },
+      "aiProfile": {
+        "profileId": "physical_attacker",
+        "actionIntervalMs": 3000,
+        "basicAttackEnabled": true,
+        "skillRuntimeEnabled": true,
+        "note": "Batch111 enables all usable evolved Homunculus skills. Unsupported HP/position/death-only skills remain catalogued but excluded."
+      },
+      "skills": [
+        {
+          "skillId": 8009,
+          "code": "HFLI_MOON",
+          "name": "月光",
+          "maxLevel": 5,
+          "requiredHomunculusLevel": 1,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_evolved_batch111",
+          "aiUsage": "physical_attack"
+        },
+        {
+          "skillId": 8010,
+          "code": "HFLI_FLEET",
+          "name": "加速飛行",
+          "maxLevel": 5,
+          "requiredHomunculusLevel": 1,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [
+            {
+              "skillId": 8009,
+              "code": "HFLI_MOON",
+              "level": 3
+            }
+          ],
+          "aiRuntimeStatus": "enabled_partial_buff_batch111",
+          "aiUsage": "internal_buff"
+        },
+        {
+          "skillId": 8011,
+          "code": "HFLI_SPEED",
+          "name": "高速飛行",
+          "maxLevel": 5,
+          "requiredHomunculusLevel": 1,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [
+            {
+              "skillId": 8010,
+              "code": "HFLI_FLEET",
+              "level": 3
+            }
+          ],
+          "aiRuntimeStatus": "excluded_no_homunculus_evasion",
+          "aiUsage": "excluded"
+        },
+        {
+          "skillId": 8012,
+          "code": "HFLI_SBR44",
+          "name": "S.B.R.44",
+          "maxLevel": 3,
+          "requiredHomunculusLevel": 1,
+          "officialRequiredIntimacy": 910,
+          "officialRequireEvolution": true,
+          "required": [],
+          "aiRuntimeStatus": "enabled_evolved_batch111",
+          "aiUsage": "physical_attack"
+        }
+      ]
+    },
+    "vanilmirth_evolved": {
+      "id": "vanilmirth_evolved",
+      "name": "進化巴尼米樂斯",
+      "raClass": "Vanilmirth",
+      "raEvolutionClass": "Vanilmirth_H",
+      "category": "evolved",
+      "role": "元素魔法攻擊",
+      "availability": {
+        "minimumJobTier": 2,
+        "fourthJobOnly": false,
+        "fourthJobKeys": [
+          "biolo"
+        ],
+        "fourthJobMarkerSkillIds": [
+          5337,
+          5344,
+          5345,
+          5346,
+          5348
+        ]
+      },
+      "race": "Formless",
+      "element": "Neutral",
+      "size": "Medium",
+      "levelRule": {
+        "mode": "snapshot_player_base_level_on_summon",
+        "minimum": 1,
+        "maximum": 275
+      },
+      "statFormula": {
+        "source": "rAthena db/re/homunculus_db.yml 2026-06-08",
+        "growthScale": 1000,
+        "rounding": "round_total_growth_once",
+        "formula": "base + round((level - 1) * growthPerLevelScaled / growthScale) + round(evolutionBonusScaled / growthScale)"
+      },
+      "baseStats": {
+        "str": 11,
+        "agi": 11,
+        "vit": 11,
+        "int": 11,
+        "dex": 11,
+        "luk": 11
+      },
+      "growthPerLevelScaled": {
+        "str": 1550,
+        "agi": 1550,
+        "vit": 1550,
+        "int": 1550,
+        "dex": 1550,
+        "luk": 1550
+      },
+      "evolutionBonusScaled": {
+        "str": 20000,
+        "agi": 20000,
+        "vit": 20000,
+        "int": 35000,
+        "dex": 30000,
+        "luk": 55000
+      },
+      "aiProfile": {
+        "profileId": "magic_attacker",
+        "actionIntervalMs": 3000,
+        "basicAttackEnabled": true,
+        "skillRuntimeEnabled": true,
+        "note": "Batch111 enables all usable evolved Homunculus skills. Unsupported HP/position/death-only skills remain catalogued but excluded."
+      },
+      "skills": [
+        {
+          "skillId": 8013,
+          "code": "HVAN_CAPRICE",
+          "name": "善變",
+          "maxLevel": 5,
+          "requiredHomunculusLevel": 1,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_evolved_batch111",
+          "aiUsage": "magic_attack"
+        },
+        {
+          "skillId": 8014,
+          "code": "HVAN_CHAOTIC",
+          "name": "混亂的祝福",
+          "maxLevel": 5,
+          "requiredHomunculusLevel": 1,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [
+            {
+              "skillId": 8013,
+              "code": "HVAN_CAPRICE",
+              "level": 3
+            }
+          ],
+          "aiRuntimeStatus": "enabled_adapted_batch111",
+          "aiUsage": "heal_player"
+        },
+        {
+          "skillId": 8015,
+          "code": "HVAN_INSTRUCT",
+          "name": "變更指示",
+          "maxLevel": 5,
+          "requiredHomunculusLevel": 1,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [
+            {
+              "skillId": 8013,
+              "code": "HVAN_CAPRICE",
+              "level": 5
+            }
+          ],
+          "aiRuntimeStatus": "enabled_evolved_batch111",
+          "aiUsage": "passive"
+        },
+        {
+          "skillId": 8016,
+          "code": "HVAN_EXPLOSION",
+          "name": "自爆",
+          "maxLevel": 3,
+          "requiredHomunculusLevel": 1,
+          "officialRequiredIntimacy": 910,
+          "officialRequireEvolution": true,
+          "required": [],
+          "aiRuntimeStatus": "excluded_requires_homunculus_death",
+          "aiUsage": "excluded"
+        }
+      ]
+    },
+    "eira": {
+      "id": "eira",
+      "name": "艾蘿",
+      "raClass": "Eira",
+      "raEvolutionClass": null,
+      "category": "homunculus_s",
+      "role": "風屬性魔法與支援",
+      "availability": {
+        "minimumJobTier": 2,
+        "fourthJobOnly": true,
+        "fourthJobKeys": [
+          "biolo"
+        ],
+        "fourthJobMarkerSkillIds": [
+          5337,
+          5344,
+          5345,
+          5346,
+          5348
+        ]
+      },
+      "race": "Angel",
+      "element": "Wind",
+      "size": "Medium",
+      "levelRule": {
+        "mode": "snapshot_player_base_level_on_summon",
+        "minimum": 1,
+        "maximum": 275
+      },
+      "statFormula": {
+        "source": "rAthena db/re/homunculus_db.yml 2026-06-08",
+        "growthScale": 1000,
+        "rounding": "round_total_growth_once",
+        "formula": "base + round((level - 1) * growthPerLevelScaled / growthScale) + round(evolutionBonusScaled / growthScale)"
+      },
+      "baseStats": {
+        "str": 17,
+        "agi": 20,
+        "vit": 15,
+        "int": 35,
+        "dex": 24,
+        "luk": 12
+      },
+      "growthPerLevelScaled": {
+        "str": 2600,
+        "agi": 3500,
+        "vit": 2000,
+        "int": 3100,
+        "dex": 2600,
+        "luk": 1350
+      },
+      "evolutionBonusScaled": {
+        "str": 0,
+        "agi": 0,
+        "vit": 0,
+        "int": 0,
+        "dex": 0,
+        "luk": 0
+      },
+      "aiProfile": {
+        "profileId": "magic_support",
+        "actionIntervalMs": 3000,
+        "basicAttackEnabled": true,
+        "skillRuntimeEnabled": true,
+        "note": "Batch112 enables all usable Homunculus S skills. Light of Regene remains excluded because the lightweight Homunculus has no death state."
+      },
+      "skills": [
+        {
+          "skillId": 8022,
+          "code": "MH_LIGHT_OF_REGENE",
+          "name": "再生之光",
+          "maxLevel": 5,
+          "requiredHomunculusLevel": 128,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "excluded_no_death_state",
+          "aiUsage": "excluded"
+        },
+        {
+          "skillId": 8023,
+          "code": "MH_OVERED_BOOST",
+          "name": "超負荷增幅",
+          "maxLevel": 5,
+          "requiredHomunculusLevel": 114,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_support_batch112",
+          "aiUsage": "player_buff"
+        },
+        {
+          "skillId": 8024,
+          "code": "MH_ERASER_CUTTER",
+          "name": "抹除切割",
+          "maxLevel": 10,
+          "requiredHomunculusLevel": 106,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_homunculus_s_batch112",
+          "aiUsage": "attack"
+        },
+        {
+          "skillId": 8025,
+          "code": "MH_XENO_SLASHER",
+          "name": "異界斬擊",
+          "maxLevel": 10,
+          "requiredHomunculusLevel": 121,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_homunculus_s_batch112",
+          "aiUsage": "attack"
+        },
+        {
+          "skillId": 8026,
+          "code": "MH_SILENT_BREEZE",
+          "name": "寂靜微風",
+          "maxLevel": 5,
+          "requiredHomunculusLevel": 137,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_support_batch112",
+          "aiUsage": "heal_and_cleanse"
+        },
+        {
+          "skillId": 8046,
+          "code": "MH_CLASSY_FLUTTER",
+          "name": "優雅振翅",
+          "maxLevel": 10,
+          "requiredHomunculusLevel": 210,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_passive_batch112",
+          "aiUsage": "passive"
+        },
+        {
+          "skillId": 8047,
+          "code": "MH_TWISTER_CUTTER",
+          "name": "旋風切割",
+          "maxLevel": 10,
+          "requiredHomunculusLevel": 215,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_homunculus_s_batch112",
+          "aiUsage": "attack"
+        },
+        {
+          "skillId": 8048,
+          "code": "MH_ABSOLUTE_ZEPHYR",
+          "name": "絕對和風",
+          "maxLevel": 10,
+          "requiredHomunculusLevel": 230,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_homunculus_s_batch112",
+          "aiUsage": "attack"
+        }
+      ]
+    },
+    "bayeri": {
+      "id": "bayeri",
+      "name": "巴耶黎",
+      "raClass": "Bayeri",
+      "raEvolutionClass": null,
+      "category": "homunculus_s",
+      "role": "聖屬性近戰",
+      "availability": {
+        "minimumJobTier": 2,
+        "fourthJobOnly": true,
+        "fourthJobKeys": [
+          "biolo"
+        ],
+        "fourthJobMarkerSkillIds": [
+          5337,
+          5344,
+          5345,
+          5346,
+          5348
+        ]
+      },
+      "race": "Brute",
+      "element": "Holy",
+      "size": "Medium",
+      "levelRule": {
+        "mode": "snapshot_player_base_level_on_summon",
+        "minimum": 1,
+        "maximum": 275
+      },
+      "statFormula": {
+        "source": "rAthena db/re/homunculus_db.yml 2026-06-08",
+        "growthScale": 1000,
+        "rounding": "round_total_growth_once",
+        "formula": "base + round((level - 1) * growthPerLevelScaled / growthScale) + round(evolutionBonusScaled / growthScale)"
+      },
+      "baseStats": {
+        "str": 20,
+        "agi": 17,
+        "vit": 35,
+        "int": 11,
+        "dex": 24,
+        "luk": 12
+      },
+      "growthPerLevelScaled": {
+        "str": 2700,
+        "agi": 2200,
+        "vit": 2400,
+        "int": 3300,
+        "dex": 1800,
+        "luk": 2800
+      },
+      "evolutionBonusScaled": {
+        "str": 0,
+        "agi": 0,
+        "vit": 0,
+        "int": 0,
+        "dex": 0,
+        "luk": 0
+      },
+      "aiProfile": {
+        "profileId": "physical_attacker",
+        "actionIntervalMs": 3000,
+        "basicAttackEnabled": true,
+        "skillRuntimeEnabled": true,
+        "note": "Batch112 enables all usable Homunculus S skills. Light of Regene remains excluded because the lightweight Homunculus has no death state."
+      },
+      "skills": [
+        {
+          "skillId": 8031,
+          "code": "MH_STAHL_HORN",
+          "name": "鋼鐵之角",
+          "maxLevel": 10,
+          "requiredHomunculusLevel": 105,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_homunculus_s_batch112",
+          "aiUsage": "attack"
+        },
+        {
+          "skillId": 8032,
+          "code": "MH_GOLDENE_FERSE",
+          "name": "黃金腳跟",
+          "maxLevel": 5,
+          "requiredHomunculusLevel": 112,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_support_batch112",
+          "aiUsage": "internal_buff"
+        },
+        {
+          "skillId": 8033,
+          "code": "MH_STEINWAND",
+          "name": "石壁",
+          "maxLevel": 5,
+          "requiredHomunculusLevel": 121,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_support_batch112",
+          "aiUsage": "player_buff"
+        },
+        {
+          "skillId": 8034,
+          "code": "MH_HEILIGE_STANGE",
+          "name": "神聖之杖",
+          "maxLevel": 10,
+          "requiredHomunculusLevel": 138,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_homunculus_s_batch112",
+          "aiUsage": "attack"
+        },
+        {
+          "skillId": 8035,
+          "code": "MH_ANGRIFFS_MODUS",
+          "name": "攻擊模式",
+          "maxLevel": 5,
+          "requiredHomunculusLevel": 130,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_support_batch112",
+          "aiUsage": "internal_buff"
+        },
+        {
+          "skillId": 8055,
+          "code": "MH_LICHT_GEHORN",
+          "name": "光之角",
+          "maxLevel": 10,
+          "requiredHomunculusLevel": 210,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_passive_batch112",
+          "aiUsage": "passive"
+        },
+        {
+          "skillId": 8056,
+          "code": "MH_GLANZEN_SPIES",
+          "name": "閃耀之矛",
+          "maxLevel": 10,
+          "requiredHomunculusLevel": 215,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_homunculus_s_batch112",
+          "aiUsage": "attack"
+        },
+        {
+          "skillId": 8057,
+          "code": "MH_HEILIGE_PFERD",
+          "name": "神聖駿馬",
+          "maxLevel": 10,
+          "requiredHomunculusLevel": 230,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_homunculus_s_batch112",
+          "aiUsage": "attack"
+        },
+        {
+          "skillId": 8058,
+          "code": "MH_GOLDENE_TONE",
+          "name": "黃金音律",
+          "maxLevel": 10,
+          "requiredHomunculusLevel": 230,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_support_batch112",
+          "aiUsage": "player_buff"
+        }
+      ]
+    },
+    "sera": {
+      "id": "sera",
+      "name": "賽拉",
+      "raClass": "Sera",
+      "raEvolutionClass": null,
+      "category": "homunculus_s",
+      "role": "毒屬性控制",
+      "availability": {
+        "minimumJobTier": 2,
+        "fourthJobOnly": true,
+        "fourthJobKeys": [
+          "biolo"
+        ],
+        "fourthJobMarkerSkillIds": [
+          5337,
+          5344,
+          5345,
+          5346,
+          5348
+        ]
+      },
+      "race": "Insect",
+      "element": "Earth",
+      "size": "Medium",
+      "levelRule": {
+        "mode": "snapshot_player_base_level_on_summon",
+        "minimum": 1,
+        "maximum": 275
+      },
+      "statFormula": {
+        "source": "rAthena db/re/homunculus_db.yml 2026-06-08",
+        "growthScale": 1000,
+        "rounding": "round_total_growth_once",
+        "formula": "base + round((level - 1) * growthPerLevelScaled / growthScale) + round(evolutionBonusScaled / growthScale)"
+      },
+      "baseStats": {
+        "str": 29,
+        "agi": 35,
+        "vit": 9,
+        "int": 8,
+        "dex": 30,
+        "luk": 9
+      },
+      "growthPerLevelScaled": {
+        "str": 1750,
+        "agi": 2400,
+        "vit": 1500,
+        "int": 2100,
+        "dex": 3400,
+        "luk": 3000
+      },
+      "evolutionBonusScaled": {
+        "str": 0,
+        "agi": 0,
+        "vit": 0,
+        "int": 0,
+        "dex": 0,
+        "luk": 0
+      },
+      "aiProfile": {
+        "profileId": "control_attacker",
+        "actionIntervalMs": 3000,
+        "basicAttackEnabled": true,
+        "skillRuntimeEnabled": true,
+        "note": "Batch112 enables all usable Homunculus S skills. Light of Regene remains excluded because the lightweight Homunculus has no death state."
+      },
+      "skills": [
+        {
+          "skillId": 8018,
+          "code": "MH_SUMMON_LEGION",
+          "name": "召喚軍團",
+          "maxLevel": 5,
+          "requiredHomunculusLevel": 132,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_support_batch112",
+          "aiUsage": "internal_buff"
+        },
+        {
+          "skillId": 8019,
+          "code": "MH_NEEDLE_OF_PARALYZE",
+          "name": "麻痺針",
+          "maxLevel": 10,
+          "requiredHomunculusLevel": 105,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_homunculus_s_batch112",
+          "aiUsage": "attack"
+        },
+        {
+          "skillId": 8020,
+          "code": "MH_POISON_MIST",
+          "name": "毒霧",
+          "maxLevel": 5,
+          "requiredHomunculusLevel": 116,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_ground_batch112",
+          "aiUsage": "ground_damage"
+        },
+        {
+          "skillId": 8021,
+          "code": "MH_PAIN_KILLER",
+          "name": "鎮痛劑",
+          "maxLevel": 10,
+          "requiredHomunculusLevel": 123,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_support_batch112",
+          "aiUsage": "player_buff"
+        },
+        {
+          "skillId": 8052,
+          "code": "MH_POLISHING_NEEDLE",
+          "name": "針刺磨光",
+          "maxLevel": 10,
+          "requiredHomunculusLevel": 210,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_passive_batch112",
+          "aiUsage": "passive"
+        },
+        {
+          "skillId": 8053,
+          "code": "MH_TOXIN_OF_MANDARA",
+          "name": "曼陀羅毒素",
+          "maxLevel": 10,
+          "requiredHomunculusLevel": 215,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_homunculus_s_batch112",
+          "aiUsage": "attack"
+        },
+        {
+          "skillId": 8054,
+          "code": "MH_NEEDLE_STINGER",
+          "name": "毒針刺擊",
+          "maxLevel": 10,
+          "requiredHomunculusLevel": 230,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_homunculus_s_batch112",
+          "aiUsage": "attack"
+        }
+      ]
+    },
+    "dieter": {
+      "id": "dieter",
+      "name": "迪爾特",
+      "raClass": "Dieter",
+      "raEvolutionClass": null,
+      "category": "homunculus_s",
+      "role": "火屬性範圍攻擊",
+      "availability": {
+        "minimumJobTier": 2,
+        "fourthJobOnly": true,
+        "fourthJobKeys": [
+          "biolo"
+        ],
+        "fourthJobMarkerSkillIds": [
+          5337,
+          5344,
+          5345,
+          5346,
+          5348
+        ]
+      },
+      "race": "Formless",
+      "element": "Fire",
+      "size": "Medium",
+      "levelRule": {
+        "mode": "snapshot_player_base_level_on_summon",
+        "minimum": 1,
+        "maximum": 275
+      },
+      "statFormula": {
+        "source": "rAthena db/re/homunculus_db.yml 2026-06-08",
+        "growthScale": 1000,
+        "rounding": "round_total_growth_once",
+        "formula": "base + round((level - 1) * growthPerLevelScaled / growthScale) + round(evolutionBonusScaled / growthScale)"
+      },
+      "baseStats": {
+        "str": 11,
+        "agi": 11,
+        "vit": 11,
+        "int": 11,
+        "dex": 11,
+        "luk": 11
+      },
+      "growthPerLevelScaled": {
+        "str": 3000,
+        "agi": 1950,
+        "vit": 2700,
+        "int": 2750,
+        "dex": 2400,
+        "luk": 1000
+      },
+      "evolutionBonusScaled": {
+        "str": 0,
+        "agi": 0,
+        "vit": 0,
+        "int": 0,
+        "dex": 0,
+        "luk": 0
+      },
+      "aiProfile": {
+        "profileId": "area_attacker",
+        "actionIntervalMs": 3000,
+        "basicAttackEnabled": true,
+        "skillRuntimeEnabled": true,
+        "note": "Batch112 enables all usable Homunculus S skills. Light of Regene remains excluded because the lightweight Homunculus has no death state."
+      },
+      "skills": [
+        {
+          "skillId": 8039,
+          "code": "MH_MAGMA_FLOW",
+          "name": "岩漿流動",
+          "maxLevel": 5,
+          "requiredHomunculusLevel": 122,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_support_batch112",
+          "aiUsage": "internal_buff"
+        },
+        {
+          "skillId": 8040,
+          "code": "MH_GRANITIC_ARMOR",
+          "name": "花崗岩鎧甲",
+          "maxLevel": 5,
+          "requiredHomunculusLevel": 116,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_support_batch112",
+          "aiUsage": "player_buff"
+        },
+        {
+          "skillId": 8041,
+          "code": "MH_LAVA_SLIDE",
+          "name": "熔岩滑動",
+          "maxLevel": 10,
+          "requiredHomunculusLevel": 109,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_ground_batch112",
+          "aiUsage": "ground_damage"
+        },
+        {
+          "skillId": 8042,
+          "code": "MH_PYROCLASTIC",
+          "name": "火山熱能",
+          "maxLevel": 10,
+          "requiredHomunculusLevel": 131,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_support_batch112",
+          "aiUsage": "player_buff"
+        },
+        {
+          "skillId": 8043,
+          "code": "MH_VOLCANIC_ASH",
+          "name": "火山灰",
+          "maxLevel": 5,
+          "requiredHomunculusLevel": 102,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_ground_batch112",
+          "aiUsage": "ground_debuff"
+        },
+        {
+          "skillId": 8044,
+          "code": "MH_BLAST_FORGE",
+          "name": "鍛造爆擊",
+          "maxLevel": 10,
+          "requiredHomunculusLevel": 215,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_ground_batch112",
+          "aiUsage": "ground_damage"
+        },
+        {
+          "skillId": 8045,
+          "code": "MH_TEMPERING",
+          "name": "淬鍊",
+          "maxLevel": 10,
+          "requiredHomunculusLevel": 230,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_support_batch112",
+          "aiUsage": "player_buff"
+        },
+        {
+          "skillId": 8059,
+          "code": "MH_BLAZING_LAVA",
+          "name": "熾熱熔岩",
+          "maxLevel": 10,
+          "requiredHomunculusLevel": 210,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_passive_batch112",
+          "aiUsage": "passive"
+        }
+      ]
+    },
+    "eleanor": {
+      "id": "eleanor",
+      "name": "伊琳諾雅",
+      "raClass": "Eleanor",
+      "raEvolutionClass": null,
+      "category": "homunculus_s",
+      "role": "高速連續技",
+      "availability": {
+        "minimumJobTier": 2,
+        "fourthJobOnly": true,
+        "fourthJobKeys": [
+          "biolo"
+        ],
+        "fourthJobMarkerSkillIds": [
+          5337,
+          5344,
+          5345,
+          5346,
+          5348
+        ]
+      },
+      "race": "Demihuman",
+      "element": "Poison",
+      "size": "Medium",
+      "levelRule": {
+        "mode": "snapshot_player_base_level_on_summon",
+        "minimum": 1,
+        "maximum": 275
+      },
+      "statFormula": {
+        "source": "rAthena db/re/homunculus_db.yml 2026-06-08",
+        "growthScale": 1000,
+        "rounding": "round_total_growth_once",
+        "formula": "base + round((level - 1) * growthPerLevelScaled / growthScale) + round(evolutionBonusScaled / growthScale)"
+      },
+      "baseStats": {
+        "str": 20,
+        "agi": 17,
+        "vit": 35,
+        "int": 11,
+        "dex": 24,
+        "luk": 12
+      },
+      "growthPerLevelScaled": {
+        "str": 3000,
+        "agi": 3000,
+        "vit": 3600,
+        "int": 1000,
+        "dex": 2400,
+        "luk": 600
+      },
+      "evolutionBonusScaled": {
+        "str": 0,
+        "agi": 0,
+        "vit": 0,
+        "int": 0,
+        "dex": 0,
+        "luk": 0
+      },
+      "aiProfile": {
+        "profileId": "combo_attacker",
+        "actionIntervalMs": 3000,
+        "basicAttackEnabled": true,
+        "skillRuntimeEnabled": true,
+        "note": "Batch112 enables all usable Homunculus S skills. Light of Regene remains excluded because the lightweight Homunculus has no death state."
+      },
+      "skills": [
+        {
+          "skillId": 8027,
+          "code": "MH_STYLE_CHANGE",
+          "name": "型態轉換",
+          "maxLevel": 1,
+          "requiredHomunculusLevel": 100,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_ai_state_batch112",
+          "aiUsage": "ai_state_control"
+        },
+        {
+          "skillId": 8028,
+          "code": "MH_SONIC_CRAW",
+          "name": "音速利爪",
+          "maxLevel": 5,
+          "requiredHomunculusLevel": 100,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_homunculus_s_batch112",
+          "aiUsage": "attack"
+        },
+        {
+          "skillId": 8029,
+          "code": "MH_SILVERVEIN_RUSH",
+          "name": "銀脈衝擊",
+          "maxLevel": 10,
+          "requiredHomunculusLevel": 114,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_homunculus_s_batch112",
+          "aiUsage": "attack"
+        },
+        {
+          "skillId": 8030,
+          "code": "MH_MIDNIGHT_FRENZY",
+          "name": "午夜狂暴",
+          "maxLevel": 10,
+          "requiredHomunculusLevel": 128,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_homunculus_s_batch112",
+          "aiUsage": "attack"
+        },
+        {
+          "skillId": 8036,
+          "code": "MH_TINDER_BREAKER",
+          "name": "火種破壞",
+          "maxLevel": 5,
+          "requiredHomunculusLevel": 100,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_homunculus_s_batch112",
+          "aiUsage": "attack"
+        },
+        {
+          "skillId": 8037,
+          "code": "MH_CBC",
+          "name": "連續破壞組合",
+          "maxLevel": 5,
+          "requiredHomunculusLevel": 112,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_homunculus_s_batch112",
+          "aiUsage": "attack"
+        },
+        {
+          "skillId": 8038,
+          "code": "MH_EQC",
+          "name": "永恆快速組合",
+          "maxLevel": 5,
+          "requiredHomunculusLevel": 133,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_homunculus_s_batch112",
+          "aiUsage": "attack"
+        },
+        {
+          "skillId": 8049,
+          "code": "MH_BRUSHUP_CLAW",
+          "name": "利爪磨礪",
+          "maxLevel": 10,
+          "requiredHomunculusLevel": 210,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_passive_batch112",
+          "aiUsage": "passive"
+        },
+        {
+          "skillId": 8050,
+          "code": "MH_BLAZING_AND_FURIOUS",
+          "name": "熾烈狂怒",
+          "maxLevel": 10,
+          "requiredHomunculusLevel": 215,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_homunculus_s_batch112",
+          "aiUsage": "attack"
+        },
+        {
+          "skillId": 8051,
+          "code": "MH_THE_ONE_FIGHTER_RISES",
+          "name": "唯一鬥士崛起",
+          "maxLevel": 10,
+          "requiredHomunculusLevel": 230,
+          "officialRequiredIntimacy": 0,
+          "officialRequireEvolution": false,
+          "required": [],
+          "aiRuntimeStatus": "enabled_homunculus_s_batch112",
+          "aiUsage": "attack"
+        }
+      ]
+    }
+  },
+  "batch": 112
+}

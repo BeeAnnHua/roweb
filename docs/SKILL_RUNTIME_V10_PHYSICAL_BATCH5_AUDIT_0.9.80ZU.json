@@ -1,0 +1,47 @@
+{
+  "version": "0.9.80ZU1",
+  "result": "PASS",
+  "runtimeProfiles": 57,
+  "addedProfiles": [
+    136,
+    148
+  ],
+  "addedSkills": [
+    {
+      "skillId": 136,
+      "key": "AS_SONICBLOW",
+      "name": "音速投擲",
+      "behavior": "拳刃武器限制；350%~800% 武器傷害；8 Hit 僅為視覺呈現，不重複計算總傷害"
+    },
+    {
+      "skillId": 148,
+      "key": "AC_CHARGEARROW",
+      "name": "衝鋒箭",
+      "behavior": "150% ranged weapon damage + 6-cell knockback; no arrow consumption"
+    }
+  ],
+  "newRuntimeCapabilities": [
+    "requiresRuntimeState",
+    "generic knockbackCells",
+    "visualHitCount separated from damage hitCount",
+    "ignoreAmmoRequirement policy"
+  ],
+  "verifiedSources": [
+    "RA Renewal SkillInfoz",
+    "rAthena skill ratio conventions / skill database"
+  ],
+  "legacyFallbacks": 0,
+  "pendingProfiles": 1082,
+  "pendingByDesign": [
+    {
+      "skillId": 137,
+      "key": "AS_GRIMTOOTH",
+      "reason": "Hiding Runtime is not executable yet; retained in pending review rather than claiming false coverage."
+    }
+  ],
+  "terminologyFix": {
+    "internalCanonical": "katar",
+    "playerFacingName": "拳刃",
+    "rule": "內部程式鍵值可保留 katar，但玩家顯示、文件與技能限制說明統一使用「拳刃」。"
+  }
+}

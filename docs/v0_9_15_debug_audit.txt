@@ -1,0 +1,18 @@
+RO_WEB V0.9.15 Debug Audit
+
+Checks:
+- JS syntax: OK
+- JSON format: OK
+- Runtime image references from index/css/js/data: 95 refs, 0 missing
+- Removed unused full-panel UI templates from images/ui/panels:
+  inventory_panel.png, equipment_panel.webp, costume_panel.webp, title_panel.webp,
+  skill_panel.png, character_panel.webp, map_panel.png
+- Kept active panel/icon assets:
+  status_panel.webp, top_currency_bar_empty.png, skillbar.png, dialog_panel.png,
+  images/ui/icons, images/ui/buttons, images/items, images/skills, images/maps
+- Removed startup .bat / README files because index.html can run directly.
+
+Notes:
+- Main interactive panels now use CSS black/gold layout instead of full image templates.
+- data_bundle.js regenerated for direct index.html launch.
+- SAVE_KEY / UI_POS_KEY updated to v0.9.15.

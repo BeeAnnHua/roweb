@@ -1,0 +1,355 @@
+{
+  "schema": "ro_web_equipment_job_map",
+  "version": "0.9.82DE",
+  "source": "rAthena DB_RE item_db_equip.yml Jobs / Classes keys",
+  "defaultSemantics": {
+    "Jobs": "missing means All=true; All:true with explicit false exclusions is supported",
+    "Classes": "missing means all class stages allowed"
+  },
+  "jobs": {
+    "novice": {
+      "jobKey": "Novice",
+      "classKey": "Normal"
+    },
+    "super_novice": {
+      "jobKey": "SuperNovice",
+      "classKey": "Normal"
+    },
+    "expanded_super_novice": {
+      "jobKey": "SuperNovice",
+      "classKey": "All_Third"
+    },
+    "hyper_novice": {
+      "jobKey": "SuperNovice",
+      "classKey": "Fourth"
+    },
+    "swordman": {
+      "jobKey": "Swordman",
+      "classKey": "Normal"
+    },
+    "knight": {
+      "jobKey": "Knight",
+      "classKey": "Normal"
+    },
+    "crusader": {
+      "jobKey": "Crusader",
+      "classKey": "Normal"
+    },
+    "ninja": {
+      "jobKey": "Ninja",
+      "classKey": "Normal"
+    },
+    "kagerou": {
+      "jobKey": "KagerouOboro",
+      "classKey": "All_Third"
+    },
+    "oboro": {
+      "jobKey": "KagerouOboro",
+      "classKey": "All_Third"
+    },
+    "shinkiro": {
+      "jobKey": "KagerouOboro",
+      "classKey": "Fourth"
+    },
+    "shiranui": {
+      "jobKey": "KagerouOboro",
+      "classKey": "Fourth"
+    },
+    "gunslinger": {
+      "jobKey": "Gunslinger",
+      "classKey": "Normal"
+    },
+    "rebellion": {
+      "jobKey": "Rebellion",
+      "classKey": "All_Third"
+    },
+    "night_watch": {
+      "jobKey": "Rebellion",
+      "classKey": "Fourth"
+    },
+    "taekwon": {
+      "jobKey": "Taekwon",
+      "classKey": "Normal"
+    },
+    "star_gladiator": {
+      "jobKey": "StarGladiator",
+      "classKey": "Normal"
+    },
+    "soul_linker": {
+      "jobKey": "SoulLinker",
+      "classKey": "Normal"
+    },
+    "star_emperor": {
+      "jobKey": "StarGladiator",
+      "classKey": "All_Third"
+    },
+    "soul_reaper": {
+      "jobKey": "SoulLinker",
+      "classKey": "All_Third"
+    },
+    "sky_emperor": {
+      "jobKey": "StarGladiator",
+      "classKey": "Fourth"
+    },
+    "soul_ascetic": {
+      "jobKey": "SoulLinker",
+      "classKey": "Fourth"
+    },
+    "summoner": {
+      "jobKey": "Summoner",
+      "classKey": "Normal"
+    },
+    "spirit_handler": {
+      "jobKey": "Summoner",
+      "classKey": "Fourth"
+    },
+    "high_novice": {
+      "jobKey": "Novice",
+      "classKey": "Upper"
+    },
+    "swordman_high": {
+      "jobKey": "Swordman",
+      "classKey": "Upper"
+    },
+    "lord_knight": {
+      "jobKey": "Knight",
+      "classKey": "Upper"
+    },
+    "rune_knight": {
+      "jobKey": "Knight",
+      "classKey": "All_Third"
+    },
+    "dragon_knight": {
+      "jobKey": "Knight",
+      "classKey": "Fourth"
+    },
+    "paladin": {
+      "jobKey": "Crusader",
+      "classKey": "Upper"
+    },
+    "royal_guard": {
+      "jobKey": "Crusader",
+      "classKey": "All_Third"
+    },
+    "imperial_guard": {
+      "jobKey": "Crusader",
+      "classKey": "Fourth"
+    },
+    "mage": {
+      "jobKey": "Mage",
+      "classKey": "Normal"
+    },
+    "mage_high": {
+      "jobKey": "Mage",
+      "classKey": "Upper"
+    },
+    "wizard": {
+      "jobKey": "Wizard",
+      "classKey": "Normal"
+    },
+    "high_wizard": {
+      "jobKey": "Wizard",
+      "classKey": "Upper"
+    },
+    "warlock": {
+      "jobKey": "Wizard",
+      "classKey": "All_Third"
+    },
+    "arch_mage": {
+      "jobKey": "Wizard",
+      "classKey": "Fourth"
+    },
+    "sage": {
+      "jobKey": "Sage",
+      "classKey": "Normal"
+    },
+    "professor": {
+      "jobKey": "Sage",
+      "classKey": "Upper"
+    },
+    "sorcerer": {
+      "jobKey": "Sage",
+      "classKey": "All_Third"
+    },
+    "elemental_master": {
+      "jobKey": "Sage",
+      "classKey": "Fourth"
+    },
+    "archer": {
+      "jobKey": "Archer",
+      "classKey": "Normal"
+    },
+    "archer_high": {
+      "jobKey": "Archer",
+      "classKey": "Upper"
+    },
+    "hunter": {
+      "jobKey": "Hunter",
+      "classKey": "Normal"
+    },
+    "sniper": {
+      "jobKey": "Hunter",
+      "classKey": "Upper"
+    },
+    "ranger": {
+      "jobKey": "Hunter",
+      "classKey": "All_Third"
+    },
+    "windhawk": {
+      "jobKey": "Hunter",
+      "classKey": "Fourth"
+    },
+    "bard": {
+      "jobKey": "BardDancer",
+      "classKey": "Normal"
+    },
+    "clown": {
+      "jobKey": "BardDancer",
+      "classKey": "Upper"
+    },
+    "minstrel": {
+      "jobKey": "BardDancer",
+      "classKey": "All_Third"
+    },
+    "troubadour": {
+      "jobKey": "BardDancer",
+      "classKey": "Fourth"
+    },
+    "dancer": {
+      "jobKey": "BardDancer",
+      "classKey": "Normal"
+    },
+    "gypsy": {
+      "jobKey": "BardDancer",
+      "classKey": "Upper"
+    },
+    "wanderer": {
+      "jobKey": "BardDancer",
+      "classKey": "All_Third"
+    },
+    "trouvere": {
+      "jobKey": "BardDancer",
+      "classKey": "Fourth"
+    },
+    "acolyte": {
+      "jobKey": "Acolyte",
+      "classKey": "Normal"
+    },
+    "acolyte_high": {
+      "jobKey": "Acolyte",
+      "classKey": "Upper"
+    },
+    "priest": {
+      "jobKey": "Priest",
+      "classKey": "Normal"
+    },
+    "high_priest": {
+      "jobKey": "Priest",
+      "classKey": "Upper"
+    },
+    "arch_bishop": {
+      "jobKey": "Priest",
+      "classKey": "All_Third"
+    },
+    "cardinal": {
+      "jobKey": "Priest",
+      "classKey": "Fourth"
+    },
+    "monk": {
+      "jobKey": "Monk",
+      "classKey": "Normal"
+    },
+    "champion": {
+      "jobKey": "Monk",
+      "classKey": "Upper"
+    },
+    "sura": {
+      "jobKey": "Monk",
+      "classKey": "All_Third"
+    },
+    "inquisitor": {
+      "jobKey": "Monk",
+      "classKey": "Fourth"
+    },
+    "merchant": {
+      "jobKey": "Merchant",
+      "classKey": "Normal"
+    },
+    "merchant_high": {
+      "jobKey": "Merchant",
+      "classKey": "Upper"
+    },
+    "blacksmith": {
+      "jobKey": "Blacksmith",
+      "classKey": "Normal"
+    },
+    "whitesmith": {
+      "jobKey": "Blacksmith",
+      "classKey": "Upper"
+    },
+    "mechanic": {
+      "jobKey": "Blacksmith",
+      "classKey": "All_Third"
+    },
+    "meister": {
+      "jobKey": "Blacksmith",
+      "classKey": "Fourth"
+    },
+    "alchemist": {
+      "jobKey": "Alchemist",
+      "classKey": "Normal"
+    },
+    "creator": {
+      "jobKey": "Alchemist",
+      "classKey": "Upper"
+    },
+    "genetic": {
+      "jobKey": "Alchemist",
+      "classKey": "All_Third"
+    },
+    "biolo": {
+      "jobKey": "Alchemist",
+      "classKey": "Fourth"
+    },
+    "thief": {
+      "jobKey": "Thief",
+      "classKey": "Normal"
+    },
+    "thief_high": {
+      "jobKey": "Thief",
+      "classKey": "Upper"
+    },
+    "assassin": {
+      "jobKey": "Assassin",
+      "classKey": "Normal"
+    },
+    "assassin_cross": {
+      "jobKey": "Assassin",
+      "classKey": "Upper"
+    },
+    "guillotine_cross": {
+      "jobKey": "Assassin",
+      "classKey": "All_Third"
+    },
+    "shadow_cross": {
+      "jobKey": "Assassin",
+      "classKey": "Fourth"
+    },
+    "rogue": {
+      "jobKey": "Rogue",
+      "classKey": "Normal"
+    },
+    "stalker": {
+      "jobKey": "Rogue",
+      "classKey": "Upper"
+    },
+    "shadow_chaser": {
+      "jobKey": "Rogue",
+      "classKey": "All_Third"
+    },
+    "abyss_chaser": {
+      "jobKey": "Rogue",
+      "classKey": "Fourth"
+    }
+  }
+}

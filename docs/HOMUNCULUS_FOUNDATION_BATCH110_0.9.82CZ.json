@@ -1,0 +1,31 @@
+{
+  "version": "0.9.82CZ",
+  "batch": 110,
+  "title": "人工生命體底層與管理 UI",
+  "implementedSkillIds": [
+    243,
+    244
+  ],
+  "pendingSkillIds": [
+    247
+  ],
+  "homunculusDefinitions": 9,
+  "homunculusSkillCatalog": 58,
+  "levelRule": "召喚時同步玩家 BaseLv 快照；重新召喚時重算",
+  "statRule": "RA 基礎值 + round((Lv-1)×平均成長) + round(進化平均加成)",
+  "runtimeScope": "本批只啟用 RA 基礎普通攻擊；生命體技能 AI 後續逐批實裝",
+  "noSystems": [
+    "HP",
+    "SP",
+    "EXP",
+    "餵食",
+    "親密度",
+    "受擊",
+    "死亡",
+    "復活",
+    "指令快捷鍵",
+    "技能圖示需求"
+  ],
+  "officialRuntime": 827,
+  "pending": 312
+}

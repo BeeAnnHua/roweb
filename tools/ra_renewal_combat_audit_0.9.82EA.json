@@ -1,0 +1,184 @@
+{
+  "version": "0.9.82EA",
+  "renewalOnly": true,
+  "rathenaRoot": "/mnt/data/ra_extract/rathena-master",
+  "sources": [
+    "db/re/skill_db.yml",
+    "db/re/job_aspd.yml",
+    "db/re/size_fix.yml",
+    "db/re/attr_fix.yml",
+    "src/map/battle.cpp",
+    "src/map/status.cpp",
+    "src/map/skill.cpp",
+    "src/map/unit.cpp",
+    "conf/battle/battle.conf",
+    "conf/battle/skill.conf"
+  ],
+  "runtime": {
+    "skills": 1139,
+    "implemented": 828,
+    "pending": 311,
+    "handlers": {
+      "": 311,
+      "buff": 205,
+      "chain_magic": 1,
+      "combo_sequence": 1,
+      "counter_stance": 2,
+      "debuff": 15,
+      "dispel": 1,
+      "falcon_detect": 1,
+      "falcon_spring_trap": 1,
+      "falcon_toggle": 2,
+      "ground_debuff": 11,
+      "ground_protection": 1,
+      "heal": 8,
+      "heal_fixed": 1,
+      "homunculus_manager": 1,
+      "homunculus_rest": 1,
+      "independent_summon": 2,
+      "magic_damage": 92,
+      "misc_damage": 10,
+      "monster_debuff": 8,
+      "mount_unlock": 1,
+      "movement": 4,
+      "passive": 216,
+      "physical_attack": 36,
+      "physical_attack_formula": 141,
+      "physical_attack_size_hits": 1,
+      "physical_charge": 10,
+      "sanctuary_area": 1,
+      "skill_copy_selector": 2,
+      "soul_exchange": 1,
+      "spirit_absorb": 1,
+      "spirit_assimilate": 1,
+      "spirit_resource": 2,
+      "steal_item": 1,
+      "steal_zeny": 1,
+      "summon_control": 1,
+      "teleport": 1,
+      "timed_status": 29,
+      "trap_detonator": 1,
+      "virtual_summon": 10,
+      "virtual_summon_dismiss": 1,
+      "warg_sensitive_keen": 1,
+      "warg_toggle": 1
+    },
+    "physicalAttackProfiles": 189,
+    "magicAttackProfiles": 92,
+    "miscDamageProfiles": 10,
+    "passiveProfiles": 216,
+    "formulaCount": 243
+  },
+  "critical": {
+    "skillDbCriticalFlags": 52,
+    "implementedFlagged": 38,
+    "implementedAttackFlagged": 35,
+    "pendingFlagged": 14,
+    "passiveFlagged": 1,
+    "genericFallbackProfiles": 4,
+    "audit": "tools/ra_renewal_skill_critical_flags_audit_0.9.82EA.json"
+  },
+  "commonFormulaCoverage": [
+    "Renewal ASPD cap 193, amotion and skill action lock",
+    "DEX/INT variable cast, fixed cast, AfterCastActDelay, Cooldown, AfterCastWalkDelay and flags",
+    "Lucky Dodge -> critical -> HIT/FLEE",
+    "right/left hand normal attacks, right-hand-only skills by default and Katar secondary hit",
+    "StatusATK/W.ATK/refine/equipment/mastery/P.ATK/S.MATK",
+    "RES/MRES before hard/soft DEF/MDEF",
+    "weapon size, attack/armor element, race, size, Boss/NonBoss and short/long range",
+    "bCritAtkRate full normal / half critical skills, C.RATE final multiplier and target critical defense",
+    "generic equipment/card/enchant/buff modifiers",
+    "H.Plus and healing modifiers"
+  ],
+  "correctedSpecialSkills": [
+    {
+      "formula": "renewal_pressure",
+      "skillIds": [
+        367
+      ],
+      "status": "corrected_to_magic_pipeline",
+      "note": "Renewal Holy magic ratio (500+150×Lv)×BaseLv/100; MDEF, S.MATK, property and equipment/card stages now apply."
+    },
+    {
+      "formula": "renewal_thorn_trap",
+      "skillIds": [
+        2479
+      ],
+      "status": "corrected_to_misc_pipeline",
+      "note": "100+200×Lv+INT; ignores DEF but still receives Renewal misc HIT/card/property stages."
+    },
+    {
+      "formula": "renewal_dragon_breath",
+      "skillIds": [
+        2008,
+        5004
+      ],
+      "status": "corrected_to_special_physical_pipeline",
+      "note": "HP/SP/BaseLv/Dragon Training base remains special; common element/card/range/simple-defense/target-reduction stages now apply."
+    }
+  ],
+  "explicitExceptions": [
+    {
+      "formula": "renewal_grand_cross",
+      "skillIds": [
+        254
+      ],
+      "status": "explicit_hybrid_exception",
+      "note": "Renewal combines total ATK and MATK, applies a special hybrid DEF+MDEF path and double Holy property interaction. Kept explicit; not treated as a normal physical/magic card pipeline."
+    },
+    {
+      "formula": "renewal_martyrs_reckoning",
+      "skillIds": [
+        368
+      ],
+      "status": "project_runtime_adaptation",
+      "note": "RA is a status that modifies up to five subsequent attacks. RO_WEB currently resolves the five 9%-MaxHP strikes as one active execution. Formula is isolated so the adaptation is visible and does not masquerade as generic W.ATK."
+    },
+    {
+      "formula": "renewal_occult_impaction",
+      "status": "explicit_post_pipeline_component",
+      "note": "Normal weapon pipeline plus target-DEF-derived extra component."
+    },
+    {
+      "formula": "renewal_tiger_cannon",
+      "status": "explicit_post_pipeline_component",
+      "note": "Normal weapon pipeline plus HP/SP-derived fixed component."
+    },
+    {
+      "formula": "renewal_gate_of_hell",
+      "status": "explicit_post_pipeline_component",
+      "note": "Normal weapon pipeline plus missing-HP/SP-derived fixed component."
+    }
+  ],
+  "sourceChecks": {
+    "hit_flee_zero_base": true,
+    "renewal_res_formula": true,
+    "grand_cross_hybrid": true,
+    "pressure_magic": true,
+    "thorn_trap_misc": true,
+    "dragon_breath_special": true,
+    "martyrs_max_hp": true
+  },
+  "modifierSchema": "data/combat_runtime/renewal_modifier_schema.json",
+  "tests": [
+    "tools/test_ra_renewal_timing_combat_0.9.82EA.js",
+    "tools/test_ra_renewal_status_formulas_0.9.82EA.js",
+    "tools/test_ra_renewal_damage_order_0.9.82EA.js",
+    "tools/test_ra_renewal_combat_modifier_matrix_0.9.82EA.js",
+    "tools/test_ra_renewal_magic_formula_0.9.82EA.js",
+    "tools/test_ra_renewal_skill_critical_flags_0.9.82EA.js",
+    "tools/test_ra_renewal_special_skill_pipeline_0.9.82EA.js",
+    "tools/test_all_skill_timing_actions_0.9.82EA.js"
+  ],
+  "limits": [
+    "311 Pending skills remain Pending: 310 deferred expanded-job skills and AM_RESURRECTHOMUN.",
+    "rAthena has skill-specific C++ branches; generic common stages are covered, while verified exceptions remain explicit Runtime Profiles.",
+    "RO_WEB project rules intentionally omit AP, ammunition and material costs where previously decided.",
+    "The known stale-monster visual after town teleport is not part of DX."
+  ],
+  "summary": {
+    "status": "PASS",
+    "sourceChecksPassed": 7,
+    "sourceChecksTotal": 7
+  }
+}

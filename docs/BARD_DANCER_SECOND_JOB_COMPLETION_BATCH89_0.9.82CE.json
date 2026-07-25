@@ -1,0 +1,330 @@
+{
+  "version": "0.9.82CK",
+  "batch": 89,
+  "title": "吟遊詩人／舞孃二轉技能完成核心",
+  "officialRuntime": 741,
+  "pending": 398,
+  "bardProgress": "19/19",
+  "dancerProgress": "19/19",
+  "archerFamilyProgress": "74/129",
+  "skills": [
+    {
+      "skillId": 306,
+      "skillKey": "BD_LULLABY",
+      "name": "搖籃曲",
+      "handler": "buff",
+      "executionEnabled": true,
+      "implementationMode": "official",
+      "runtimeProfile": {
+        "handler": "buff",
+        "targetPolicy": "self",
+        "duration": [
+          300000
+        ],
+        "weaponTypes": [
+          "instrument",
+          "whip"
+        ],
+        "spCost": [
+          40
+        ],
+        "sustainedPerformance": true,
+        "sustainedSpCostPer5s": [
+          8
+        ],
+        "timedPerformanceBuff": true,
+        "performancePulseFormula": "renewal_lullaby",
+        "performancePulseIntervalMs": 5000,
+        "performancePulseRadius": 4,
+        "performancePulseStatusDurationMs": 10000,
+        "performancePulseChancePercent": 100,
+        "performancePulseAffectsBoss": false,
+        "performanceAuraStatus": "sleep",
+        "source": [
+          "rAthena db/re/skill_db.yml BD_LULLABY",
+          "rAthena src/map/skills/archer/lullaby.cpp",
+          "RO_WEB single-player sustained performance rule"
+        ],
+        "runtimeAdaptation": "改為可獨立維持 5 分鐘的敵方範圍合奏；每 5 秒對半徑 4 格內一般怪物進行睡眠判定，睡眠 10 秒並阻止行動。Boss／MVP 免疫；每 5 秒消耗 8 SP，自然回魔不停止。"
+      }
+    },
+    {
+      "skillId": 311,
+      "skillKey": "BD_ROKISWEIL",
+      "name": "洛奇的悲鳴",
+      "handler": "buff",
+      "executionEnabled": true,
+      "implementationMode": "official",
+      "runtimeProfile": {
+        "handler": "buff",
+        "targetPolicy": "self",
+        "duration": [
+          300000
+        ],
+        "weaponTypes": [
+          "instrument",
+          "whip"
+        ],
+        "spCost": [
+          180
+        ],
+        "sustainedPerformance": true,
+        "sustainedSpCostPer5s": [
+          10
+        ],
+        "timedPerformanceBuff": true,
+        "performancePulseFormula": "renewal_classical_pluck",
+        "performancePulseIntervalMs": 3000,
+        "performancePulseRadius": 4,
+        "performancePulseStatusDurationMs": 5000,
+        "performancePulseChancePercent": 100,
+        "performancePulseAffectsBoss": false,
+        "performanceAuraStatus": "classical_pluck",
+        "source": [
+          "rAthena db/re/skill_db.yml BD_ROKISWEIL",
+          "rAthena src/map/skills/archer/classicalpluck.cpp",
+          "RO_WEB single-player ensemble rule"
+        ],
+        "runtimeAdaptation": "改為可獨立維持 5 分鐘的敵方範圍合奏；每 3 秒刷新半徑 4 格內一般怪物的技能封鎖狀態 5 秒。普通攻擊仍可使用，Boss／MVP 免疫；每 5 秒消耗 10 SP。"
+      }
+    },
+    {
+      "skillId": 312,
+      "skillKey": "BD_INTOABYSS",
+      "name": "進入深淵",
+      "handler": "buff",
+      "executionEnabled": true,
+      "implementationMode": "official",
+      "runtimeProfile": {
+        "handler": "buff",
+        "targetPolicy": "self",
+        "duration": [
+          300000
+        ],
+        "effects": {
+          "spCostReductionRate": [
+            10
+          ]
+        },
+        "weaponTypes": [
+          "instrument",
+          "whip"
+        ],
+        "spCost": [
+          70
+        ],
+        "sustainedPerformance": true,
+        "sustainedSpCostPer5s": [
+          8
+        ],
+        "timedPerformanceBuff": true,
+        "source": [
+          "rAthena db/re/skill_db.yml BD_INTOABYSS",
+          "rAthena src/map/skills/archer/powerchord.cpp",
+          "RO_WEB no-material-consumption constitution"
+        ],
+        "runtimeAdaptation": "官方效果為免除技能觸媒消耗；因 RO_WEB 已全域取消箭矢、陷阱與特殊材料消耗，改為維持 5 分鐘的自身合奏 Buff，使主動技能 SP 消耗降低 10%。每 5 秒消耗 8 SP。"
+      }
+    },
+    {
+      "skillId": 317,
+      "skillKey": "BA_DISSONANCE",
+      "name": "不諧和音",
+      "handler": "buff",
+      "executionEnabled": true,
+      "implementationMode": "official",
+      "runtimeProfile": {
+        "handler": "buff",
+        "targetPolicy": "self",
+        "duration": [
+          60000,
+          120000,
+          180000,
+          240000,
+          300000
+        ],
+        "weaponTypes": [
+          "instrument"
+        ],
+        "spCost": [
+          35,
+          38,
+          41,
+          44,
+          47
+        ],
+        "sustainedPerformance": true,
+        "sustainedSpCostPer5s": [
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "timedPerformanceBuff": true,
+        "performancePulseFormula": "renewal_dissonance",
+        "performancePulseIntervalMs": 3000,
+        "performancePulseRadius": 4,
+        "source": [
+          "rAthena db/re/skill_db.yml BA_DISSONANCE",
+          "rAthena src/map/skills/archer/unchainedserenade.cpp",
+          "RO_WEB timed performance rule"
+        ],
+        "runtimeAdaptation": "改為可與其他歌曲並存的限時攻擊演奏；每 3 秒對半徑 4 格內敵人造成武器屬性物理傷害。倍率＝(110＋50×Lv)×JobLv÷10%。每級持續 1 分鐘，Lv5 為 5 分鐘。"
+      }
+    },
+    {
+      "skillId": 325,
+      "skillKey": "DC_UGLYDANCE",
+      "name": "醜陋之舞",
+      "handler": "buff",
+      "executionEnabled": true,
+      "implementationMode": "official",
+      "runtimeProfile": {
+        "handler": "buff",
+        "targetPolicy": "self",
+        "duration": [
+          60000,
+          120000,
+          180000,
+          240000,
+          300000
+        ],
+        "weaponTypes": [
+          "whip"
+        ],
+        "spCost": [
+          23,
+          26,
+          29,
+          32,
+          35
+        ],
+        "sustainedPerformance": true,
+        "sustainedSpCostPer5s": [
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "timedPerformanceBuff": true,
+        "performancePulseFormula": "renewal_ugly_dance",
+        "performancePulseIntervalMs": 3000,
+        "performancePulseRadius": 4,
+        "performancePulseValue": [
+          12,
+          14,
+          16,
+          18,
+          20
+        ],
+        "source": [
+          "rAthena db/re/skill_db.yml DC_UGLYDANCE",
+          "rAthena src/map/skills/archer/hipshaker.cpp",
+          "RO_WEB monster-without-SP adaptation"
+        ],
+        "runtimeAdaptation": "改為可與其他舞蹈並存的限時敵方演奏；官方 Renewal 每 3 秒削減 10＋2×Lv SP。RO_WEB 怪物沒有 SP，故對一般怪物轉為等量非致命固定傷害；若未來目標具有 SP，優先削減 SP。"
+      }
+    },
+    {
+      "skillId": 1010,
+      "skillKey": "BA_PANGVOICE",
+      "name": "嘲諷之聲",
+      "handler": "timed_status",
+      "executionEnabled": true,
+      "implementationMode": "official",
+      "runtimeProfile": {
+        "handler": "timed_status",
+        "targeting": {
+          "origin": "target",
+          "shape": "circle",
+          "radius": 0,
+          "maxTargets": 1
+        },
+        "status": "confusion",
+        "statusChancePercent": [
+          100
+        ],
+        "statusDuration": [
+          10000
+        ],
+        "statusEffects": {
+          "hitRate": [
+            -20
+          ],
+          "walkSpeedRate": [
+            20
+          ]
+        },
+        "statusAffectsBoss": false,
+        "additionalStatuses": [
+          {
+            "status": "bleeding",
+            "chancePercent": 100,
+            "durationMs": 10000,
+            "effects": {
+              "periodicDamageMaxHpPercent": 1,
+              "periodicDamageIntervalMs": 2000,
+              "periodicDamageNonLethal": true
+            }
+          }
+        ],
+        "spCost": [
+          40
+        ],
+        "source": [
+          "rAthena db/re/skill_db.yml BA_PANGVOICE",
+          "rAthena src/map/skills/archer/pangvoice.cpp"
+        ],
+        "runtimeAdaptation": "對單一一般怪物 100% 基礎機率附加混亂與出血 10 秒；混亂使 HIT 降低 20%、移動速度降低，出血每 2 秒造成最大 HP 1% 的非致命傷害。Boss／MVP 免疫。"
+      }
+    },
+    {
+      "skillId": 1011,
+      "skillKey": "DC_WINKCHARM",
+      "name": "魅惑之眼",
+      "handler": "timed_status",
+      "executionEnabled": true,
+      "implementationMode": "official",
+      "runtimeProfile": {
+        "handler": "timed_status",
+        "targeting": {
+          "origin": "target",
+          "shape": "circle",
+          "radius": 0,
+          "maxTargets": 1
+        },
+        "status": "wink_charm",
+        "statusChanceFormula": "renewal_wink_charm_monster",
+        "statusChancePercent": [
+          40
+        ],
+        "statusDuration": [
+          10000
+        ],
+        "statusEffects": {
+          "blocksActions": [
+            1
+          ],
+          "rooted": [
+            1
+          ]
+        },
+        "statusAffectsBoss": false,
+        "spCost": [
+          40
+        ],
+        "source": [
+          "rAthena db/re/skill_db.yml DC_WINKCHARM",
+          "rAthena src/map/skills/archer/winkofcharm.cpp"
+        ],
+        "runtimeAdaptation": "對單一一般怪物施加 10 秒魅惑；成功率＝40＋施法者 BaseLv－目標 Lv%，再受異常抗性修正。成功後怪物暫停攻擊與移動；Boss／MVP 免疫。"
+      }
+    }
+  ],
+  "rules": {
+    "timedPerformance": "歌舞可同時維持，Lv滿 5 分鐘，自然回魔不停止，維持 SP 獨立累加。",
+    "singlePlayerEnsemble": "雙人合奏改為單人可維持 Buff／Debuff。"
+  }
+}

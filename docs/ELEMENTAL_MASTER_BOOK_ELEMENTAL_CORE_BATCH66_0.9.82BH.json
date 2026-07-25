@@ -1,0 +1,79 @@
+{
+  "version": "0.9.82BH",
+  "batch": 66,
+  "title": "元素支配者魔法書／五大元素核心",
+  "officialRuntimeBefore": 610,
+  "officialRuntimeAfter": 617,
+  "pendingBefore": 529,
+  "pendingAfter": 522,
+  "mageFamilyBefore": 86,
+  "mageFamilyAfter": 93,
+  "magePendingBefore": 67,
+  "magePendingAfter": 60,
+  "skills": [
+    {
+      "skillId": 5365,
+      "skillKey": "EM_MAGIC_BOOK_M",
+      "name": "魔法書精熟",
+      "handler": "passive",
+      "formula": null,
+      "status": null
+    },
+    {
+      "skillId": 5366,
+      "skillKey": "EM_SPELL_ENCHANTING",
+      "name": "咒力賦予",
+      "handler": "buff",
+      "formula": null,
+      "status": null
+    },
+    {
+      "skillId": 5369,
+      "skillKey": "EM_DIAMOND_STORM",
+      "name": "鑽石風暴",
+      "handler": "magic_damage",
+      "formula": "renewal_em_diamond_storm",
+      "status": "frostbite"
+    },
+    {
+      "skillId": 5370,
+      "skillKey": "EM_LIGHTNING_LAND",
+      "name": "雷霆陣地",
+      "handler": "ground_damage",
+      "formula": "renewal_em_elemental_field",
+      "status": "lightning_strike"
+    },
+    {
+      "skillId": 5371,
+      "skillKey": "EM_VENOM_SWAMP",
+      "name": "毒液沼澤",
+      "handler": "ground_damage",
+      "formula": "renewal_em_elemental_field",
+      "status": "deadly_poison"
+    },
+    {
+      "skillId": 5372,
+      "skillKey": "EM_CONFLAGRATION",
+      "name": "灼熱岩漿",
+      "handler": "ground_damage",
+      "formula": "renewal_em_elemental_field",
+      "status": "conflagration"
+    },
+    {
+      "skillId": 5373,
+      "skillKey": "EM_TERRA_DRIVE",
+      "name": "大地驅動",
+      "handler": "magic_damage",
+      "formula": "renewal_em_terra_drive",
+      "status": "crystallization"
+    }
+  ],
+  "deferred": [
+    "鑽石風暴：召喚 Diluvio 時的額外倍率",
+    "雷霆陣地：召喚 Procella 時的額外倍率",
+    "毒液沼澤：召喚 Serpens 時的額外倍率",
+    "灼熱岩漿：召喚 Ardor 時的額外倍率",
+    "大地驅動：召喚 Terremotus 時的額外倍率"
+  ],
+  "decision": "技能本體均正式啟用；僅高階精靈條件分支等待精靈召喚系統。"
+}

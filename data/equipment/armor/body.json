@@ -1,0 +1,738 @@
+{
+  "2301": {
+    "id": 2301,
+    "officialId": 2301,
+    "name": "棉襯衫",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "body",
+    "sellPrice": 5,
+    "description": [
+      "純棉製成的衣服,穿著時非常舒服的衣物。",
+      "系列 : ^777777鎧甲^000000  防禦 :  ^77777710^000000",
+      "裝備 : ^777777全職業^000000"
+    ],
+    "icon": "images/items/2301.webp",
+    "slot": "armor",
+    "def": 10,
+    "buyPrice": 10,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "aegisName": "Cotton_Shirt",
+    "dbType": "Armor",
+    "armorLevel": 1,
+    "locations": {
+      "Armor": true
+    },
+    "refineable": true,
+    "dataSource": "itemInfo_UTF8.lub + db/re/item_db_equip.yml",
+    "Id": 2301,
+    "Name": "棉襯衫",
+    "Buy": 10,
+    "AegisName": "Cotton_Shirt",
+    "Type": "Armor",
+    "Defense": 10,
+    "Slots": 0,
+    "Locations": {
+      "Armor": true
+    },
+    "ArmorLevel": 1,
+    "Refineable": true
+  },
+  "2303": {
+    "id": 2303,
+    "officialId": 2303,
+    "name": "皮製外套",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "body",
+    "buyPrice": 200,
+    "sellPrice": 100,
+    "description": [
+      "價格低廉的皮製外套,穿久了會有特別的皮革風采。",
+      "系列 : ^777777鎧甲^000000  防禦 :  ^77777715^000000",
+      "裝備 : ^777777全職業^000000"
+    ],
+    "icon": "images/items/2303.webp",
+    "slot": "armor",
+    "def": 15,
+    "slots": 0,
+    "requiredLevel": 1,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "aegisName": "Leather_Jacket",
+    "dbType": "Armor",
+    "armorLevel": 1,
+    "locations": {
+      "Armor": true
+    },
+    "refineable": true,
+    "dataSource": "itemInfo_UTF8.lub + db/re/item_db_equip.yml",
+    "Id": 2303,
+    "Name": "皮製外套",
+    "Buy": 200,
+    "AegisName": "Leather_Jacket",
+    "Type": "Armor",
+    "Defense": 15,
+    "Slots": 0,
+    "Locations": {
+      "Armor": true
+    },
+    "ArmorLevel": 1,
+    "EquipLevelMin": 1,
+    "Refineable": true,
+    "equipLevelMin": 1
+  },
+  "2305": {
+    "id": 2305,
+    "officialId": 2305,
+    "name": "冒險衣",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "body",
+    "buyPrice": 1000,
+    "sellPrice": 500,
+    "description": [
+      "專為冒險者製作的衣服。",
+      "系列 : ^777777鎧甲^000000  防禦 :  ^77777720^000000",
+      "裝備 : ^777777全職業^000000"
+    ],
+    "icon": "images/items/2305.webp",
+    "slot": "armor",
+    "def": 20,
+    "slots": 0,
+    "requiredLevel": 1,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "aegisName": "Adventure_Suit",
+    "dbType": "Armor",
+    "armorLevel": 1,
+    "locations": {
+      "Armor": true
+    },
+    "refineable": true,
+    "dataSource": "itemInfo_UTF8.lub + db/re/item_db_equip.yml",
+    "Id": 2305,
+    "Name": "冒險衣",
+    "Buy": 1000,
+    "AegisName": "Adventure_Suit",
+    "Type": "Armor",
+    "Defense": 20,
+    "Slots": 0,
+    "Locations": {
+      "Armor": true
+    },
+    "ArmorLevel": 1,
+    "EquipLevelMin": 1,
+    "Refineable": true,
+    "equipLevelMin": 1
+  },
+  "2307": {
+    "id": 2307,
+    "officialId": 2307,
+    "name": "大衣",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "body",
+    "buyPrice": 10000,
+    "sellPrice": 5000,
+    "description": [
+      "沒有腰身的長大衣。",
+      "系列 : ^777777鎧甲^000000  防禦 :  ^77777737^000000",
+      "裝備 : ^777777初學者以外的全職業^000000"
+    ],
+    "icon": "images/items/2307.webp",
+    "slot": "armor",
+    "def": 37,
+    "slots": 0,
+    "requiredLevel": 1,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "aegisName": "Mantle",
+    "dbType": "Armor",
+    "armorLevel": 1,
+    "equipJobs": {
+      "All": true,
+      "Novice": false,
+      "SuperNovice": false
+    },
+    "locations": {
+      "Armor": true
+    },
+    "refineable": true,
+    "dataSource": "itemInfo_UTF8.lub + db/re/item_db_equip.yml",
+    "Id": 2307,
+    "Name": "大衣",
+    "Buy": 10000,
+    "AegisName": "Mantle",
+    "Type": "Armor",
+    "Defense": 37,
+    "Slots": 0,
+    "Jobs": {
+      "All": true,
+      "Novice": false,
+      "SuperNovice": false
+    },
+    "Locations": {
+      "Armor": true
+    },
+    "ArmorLevel": 1,
+    "EquipLevelMin": 1,
+    "Refineable": true,
+    "equipLevelMin": 1
+  },
+  "2309": {
+    "id": 2309,
+    "officialId": 2309,
+    "name": "長大衣",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "body",
+    "buyPrice": 22000,
+    "sellPrice": 11000,
+    "description": [
+      "長度到膝蓋的大衣,有防寒效果。不過夏天穿起來會很熱喔。",
+      "系列 : ^777777鎧甲^000000  防禦 :  ^77777742^000000",
+      "裝備 : ^777777初學者以外的全職業^000000"
+    ],
+    "icon": "images/items/2309.webp",
+    "slot": "armor",
+    "def": 42,
+    "slots": 0,
+    "requiredLevel": 1,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "aegisName": "Coat",
+    "dbType": "Armor",
+    "armorLevel": 1,
+    "equipJobs": {
+      "All": true,
+      "Novice": false,
+      "SuperNovice": false
+    },
+    "locations": {
+      "Armor": true
+    },
+    "refineable": true,
+    "dataSource": "itemInfo_UTF8.lub + db/re/item_db_equip.yml",
+    "Id": 2309,
+    "Name": "長大衣",
+    "Buy": 22000,
+    "AegisName": "Coat",
+    "Type": "Armor",
+    "Defense": 42,
+    "Slots": 0,
+    "Jobs": {
+      "All": true,
+      "Novice": false,
+      "SuperNovice": false
+    },
+    "Locations": {
+      "Armor": true
+    },
+    "ArmorLevel": 1,
+    "EquipLevelMin": 1,
+    "Refineable": true,
+    "equipLevelMin": 1
+  },
+  "2312": {
+    "id": 2312,
+    "officialId": 2312,
+    "name": "鐵製鎧甲",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "body",
+    "buyPrice": 48000,
+    "sellPrice": 24000,
+    "description": [
+      "用堅硬的金屬做成的鎧甲。",
+      "系列 : ^777777鎧甲^000000  防禦 :  ^77777735^000000",
+      "裝備 : ^777777劍士系列/商人系列/盜賊系列^000000"
+    ],
+    "icon": "images/items/2312.webp",
+    "slot": "armor",
+    "def": 35,
+    "slots": 0,
+    "requiredLevel": 1,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "aegisName": "Padded_Armor",
+    "dbType": "Armor",
+    "armorLevel": 1,
+    "equipJobs": {
+      "Alchemist": true,
+      "Assassin": true,
+      "Blacksmith": true,
+      "Crusader": true,
+      "Knight": true,
+      "Merchant": true,
+      "Rogue": true,
+      "Swordman": true,
+      "Thief": true
+    },
+    "locations": {
+      "Armor": true
+    },
+    "refineable": true,
+    "dataSource": "itemInfo_UTF8.lub + db/re/item_db_equip.yml",
+    "Id": 2312,
+    "Name": "鐵製鎧甲",
+    "Buy": 48000,
+    "AegisName": "Padded_Armor",
+    "Type": "Armor",
+    "Defense": 35,
+    "Slots": 0,
+    "Jobs": {
+      "Alchemist": true,
+      "Assassin": true,
+      "Blacksmith": true,
+      "Crusader": true,
+      "Knight": true,
+      "Merchant": true,
+      "Rogue": true,
+      "Swordman": true,
+      "Thief": true
+    },
+    "Locations": {
+      "Armor": true
+    },
+    "ArmorLevel": 1,
+    "EquipLevelMin": 1,
+    "Refineable": true,
+    "equipLevelMin": 1
+  },
+  "2314": {
+    "id": 2314,
+    "officialId": 2314,
+    "name": "鋼鐵鎖子甲",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "body",
+    "buyPrice": 65000,
+    "sellPrice": 32500,
+    "description": [
+      "堅硬的金屬編成的鎧甲。",
+      "系列 : ^777777鎧甲^000000  防禦 :  ^77777755^000000",
+      "裝備 : ^777777劍士系列/商人系列/盜賊系列^000000"
+    ],
+    "icon": "images/items/2314.webp",
+    "slot": "armor",
+    "def": 55,
+    "slots": 0,
+    "requiredLevel": 1,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "aegisName": "Chain_Mail",
+    "dbType": "Armor",
+    "armorLevel": 1,
+    "equipJobs": {
+      "Alchemist": true,
+      "Assassin": true,
+      "Blacksmith": true,
+      "Crusader": true,
+      "Knight": true,
+      "Merchant": true,
+      "Rogue": true,
+      "Swordman": true,
+      "Thief": true
+    },
+    "locations": {
+      "Armor": true
+    },
+    "refineable": true,
+    "dataSource": "itemInfo_UTF8.lub + db/re/item_db_equip.yml",
+    "Id": 2314,
+    "Name": "鋼鐵鎖子甲",
+    "Buy": 65000,
+    "AegisName": "Chain_Mail",
+    "Type": "Armor",
+    "Defense": 55,
+    "Slots": 0,
+    "Jobs": {
+      "Alchemist": true,
+      "Assassin": true,
+      "Blacksmith": true,
+      "Crusader": true,
+      "Knight": true,
+      "Merchant": true,
+      "Rogue": true,
+      "Swordman": true,
+      "Thief": true
+    },
+    "Locations": {
+      "Armor": true
+    },
+    "ArmorLevel": 1,
+    "EquipLevelMin": 1,
+    "Refineable": true,
+    "equipLevelMin": 1
+  },
+  "2316": {
+    "id": 2316,
+    "officialId": 2316,
+    "name": "鋼鐵鎧甲",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "body",
+    "buyPrice": 80000,
+    "sellPrice": 40000,
+    "description": [
+      "用金屬整體打造的鎧甲,特點為有優秀的防禦力。",
+      "系列 : ^777777鎧甲^000000  防禦 :  ^77777770^000000",
+      "要求等級 : ^77777740^000000",
+      "裝備 : ^777777劍士系列^000000"
+    ],
+    "icon": "images/items/2316.webp",
+    "slot": "armor",
+    "def": 70,
+    "slots": 0,
+    "requiredLevel": 40,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "aegisName": "Plate_Armor",
+    "dbType": "Armor",
+    "armorLevel": 1,
+    "equipLevelMin": 40,
+    "equipJobs": {
+      "Crusader": true,
+      "Knight": true,
+      "Swordman": true
+    },
+    "locations": {
+      "Armor": true
+    },
+    "refineable": true,
+    "dataSource": "itemInfo_UTF8.lub + db/re/item_db_equip.yml",
+    "Id": 2316,
+    "Name": "鋼鐵鎧甲",
+    "Buy": 80000,
+    "AegisName": "Plate_Armor",
+    "Type": "Armor",
+    "Defense": 70,
+    "Slots": 0,
+    "Jobs": {
+      "Crusader": true,
+      "Knight": true,
+      "Swordman": true
+    },
+    "Locations": {
+      "Armor": true
+    },
+    "ArmorLevel": 1,
+    "EquipLevelMin": 40,
+    "Refineable": true
+  },
+  "2321": {
+    "id": 2321,
+    "officialId": 2321,
+    "name": "絲質外袍",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "body",
+    "buyPrice": 8000,
+    "sellPrice": 4000,
+    "description": [
+      "用高級的布料製成的衣服,具有卓越的魔法防禦。",
+      "MDEF+10。",
+      "系列 : ^777777鎧甲^000000  防禦 :  ^77777720^000000",
+      "裝備 : ^777777劍士系列/魔法師系列/服事系列/商人系列/悟靈士^000000"
+    ],
+    "icon": "images/items/2321.webp",
+    "slot": "armor",
+    "def": 20,
+    "slots": 0,
+    "requiredLevel": 1,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "aegisName": "Silk_Robe",
+    "dbType": "Armor",
+    "armorLevel": 1,
+    "equipJobs": {
+      "Acolyte": true,
+      "Alchemist": true,
+      "Blacksmith": true,
+      "Crusader": true,
+      "Knight": true,
+      "Mage": true,
+      "Merchant": true,
+      "Monk": true,
+      "Priest": true,
+      "Sage": true,
+      "SoulLinker": true,
+      "Swordman": true,
+      "Wizard": true
+    },
+    "locations": {
+      "Armor": true
+    },
+    "refineable": true,
+    "scriptRaw": "bonus bMdef,10;",
+    "dataSource": "itemInfo_UTF8.lub + db/re/item_db_equip.yml",
+    "Id": 2321,
+    "Name": "絲質外袍",
+    "Buy": 8000,
+    "AegisName": "Silk_Robe",
+    "Type": "Armor",
+    "Defense": 20,
+    "Slots": 0,
+    "Jobs": {
+      "Acolyte": true,
+      "Alchemist": true,
+      "Blacksmith": true,
+      "Crusader": true,
+      "Knight": true,
+      "Mage": true,
+      "Merchant": true,
+      "Monk": true,
+      "Priest": true,
+      "Sage": true,
+      "SoulLinker": true,
+      "Swordman": true,
+      "Wizard": true
+    },
+    "Locations": {
+      "Armor": true
+    },
+    "ArmorLevel": 1,
+    "EquipLevelMin": 1,
+    "Refineable": true,
+    "Script": "bonus bMdef,10;",
+    "equipLevelMin": 1
+  },
+  "2328": {
+    "id": 2328,
+    "officialId": 2328,
+    "name": "木製鎧甲",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "body",
+    "buyPrice": 5500,
+    "sellPrice": 2750,
+    "description": [
+      "木製成的鎧甲。",
+      "系列 : ^777777鎧甲^000000  防禦 :  ^77777725^000000",
+      "裝備 : ^777777劍士系列/商人系列^000000"
+    ],
+    "icon": "images/items/2328.webp",
+    "slot": "armor",
+    "def": 25,
+    "slots": 0,
+    "requiredLevel": 1,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "aegisName": "Wooden_Mail",
+    "dbType": "Armor",
+    "armorLevel": 1,
+    "equipJobs": {
+      "Alchemist": true,
+      "Blacksmith": true,
+      "Crusader": true,
+      "Knight": true,
+      "Merchant": true,
+      "Swordman": true
+    },
+    "locations": {
+      "Armor": true
+    },
+    "refineable": true,
+    "dataSource": "itemInfo_UTF8.lub + db/re/item_db_equip.yml",
+    "Id": 2328,
+    "Name": "木製鎧甲",
+    "Buy": 5500,
+    "AegisName": "Wooden_Mail",
+    "Type": "Armor",
+    "Defense": 25,
+    "Slots": 0,
+    "Jobs": {
+      "Alchemist": true,
+      "Blacksmith": true,
+      "Crusader": true,
+      "Knight": true,
+      "Merchant": true,
+      "Swordman": true
+    },
+    "Locations": {
+      "Armor": true
+    },
+    "ArmorLevel": 1,
+    "EquipLevelMin": 1,
+    "Refineable": true,
+    "equipLevelMin": 1
+  },
+  "2332": {
+    "id": 2332,
+    "officialId": 2332,
+    "name": "秘銀之衣",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "body",
+    "buyPrice": 7000,
+    "sellPrice": 3500,
+    "description": [
+      "以價值不斐的銀絲所編製成的衣服。",
+      "系列 : ^777777鎧甲^000000  防禦 :  ^77777723^000000",
+      "裝備 : ^777777魔法師系列/悟靈士^000000"
+    ],
+    "icon": "images/items/2332.webp",
+    "slot": "armor",
+    "def": 23,
+    "slots": 0,
+    "requiredLevel": 1,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "aegisName": "Silver_Robe",
+    "dbType": "Armor",
+    "armorLevel": 1,
+    "equipJobs": {
+      "Mage": true,
+      "Sage": true,
+      "SoulLinker": true,
+      "Wizard": true
+    },
+    "locations": {
+      "Armor": true
+    },
+    "refineable": true,
+    "dataSource": "itemInfo_UTF8.lub + db/re/item_db_equip.yml",
+    "Id": 2332,
+    "Name": "秘銀之衣",
+    "Buy": 7000,
+    "AegisName": "Silver_Robe",
+    "Type": "Armor",
+    "Defense": 23,
+    "Slots": 0,
+    "Jobs": {
+      "Mage": true,
+      "Sage": true,
+      "SoulLinker": true,
+      "Wizard": true
+    },
+    "Locations": {
+      "Armor": true
+    },
+    "ArmorLevel": 1,
+    "EquipLevelMin": 1,
+    "Refineable": true,
+    "equipLevelMin": 1
+  },
+  "2335": {
+    "id": 2335,
+    "officialId": 2335,
+    "name": "盜賊之衣",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "body",
+    "buyPrice": 74000,
+    "sellPrice": 37000,
+    "description": [
+      "相當輕便的衣服。",
+      "AGI+1。",
+      "系列 : ^777777鎧甲^000000  防禦 :  ^77777740^000000",
+      "裝備 : ^777777盜賊系列/忍者^000000"
+    ],
+    "icon": "images/items/2335.webp",
+    "slot": "armor",
+    "def": 40,
+    "slots": 0,
+    "requiredLevel": 1,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "aegisName": "Thief_Clothes",
+    "dbType": "Armor",
+    "armorLevel": 1,
+    "equipJobs": {
+      "Assassin": true,
+      "KagerouOboro": true,
+      "Ninja": true,
+      "Rogue": true,
+      "Thief": true
+    },
+    "locations": {
+      "Armor": true
+    },
+    "refineable": true,
+    "scriptRaw": "bonus bAgi,1;",
+    "dataSource": "itemInfo_UTF8.lub + db/re/item_db_equip.yml",
+    "Id": 2335,
+    "Name": "盜賊之衣",
+    "Buy": 74000,
+    "AegisName": "Thief_Clothes",
+    "Type": "Armor",
+    "Defense": 40,
+    "Slots": 0,
+    "Jobs": {
+      "Assassin": true,
+      "KagerouOboro": true,
+      "Ninja": true,
+      "Rogue": true,
+      "Thief": true
+    },
+    "Locations": {
+      "Armor": true
+    },
+    "ArmorLevel": 1,
+    "EquipLevelMin": 1,
+    "Refineable": true,
+    "Script": "bonus bAgi,1;",
+    "equipLevelMin": 1
+  },
+  "2330": {
+    "id": 2330,
+    "officialId": 2330,
+    "name": "緊身便衣",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "body",
+    "buyPrice": 71000,
+    "sellPrice": 35500,
+    "description": [
+      "緊緊伏貼在身上令行動更為方便的衣服。",
+      "DEX+1。",
+      "系列 : ^777777鎧甲^000000  防禦 :  ^77777727^000000",
+      "要求等級 : ^77777745^000000",
+      "裝備 : ^777777弓箭手系列^000000"
+    ],
+    "icon": "images/items/2330.webp",
+    "slot": "body",
+    "def": 27,
+    "slots": 0,
+    "requiredLevel": 45,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "aegisName": "Tights",
+    "dbType": "Armor",
+    "armorLevel": 1,
+    "equipLevelMin": 45,
+    "equipJobs": {
+      "Archer": true,
+      "BardDancer": true,
+      "Hunter": true
+    },
+    "locations": {
+      "Armor": true
+    },
+    "refineable": true,
+    "scriptRaw": "bonus bDex,1;",
+    "dataSource": "itemInfo_UTF8.lub + db/re/item_db_equip.yml",
+    "Id": 2330,
+    "Name": "緊身便衣",
+    "Buy": 71000,
+    "AegisName": "Tights",
+    "Type": "Armor",
+    "Defense": 27,
+    "Slots": 0,
+    "Jobs": {
+      "Archer": true,
+      "BardDancer": true,
+      "Hunter": true
+    },
+    "Locations": {
+      "Armor": true
+    },
+    "ArmorLevel": 1,
+    "EquipLevelMin": 45,
+    "Refineable": true,
+    "Script": "bonus bDex,1;"
+  }
+}

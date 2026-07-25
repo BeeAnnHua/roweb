@@ -1,0 +1,134 @@
+{
+  "name": "初心者",
+  "job": "初心者",
+  "baseLevel": 1,
+  "baseExp": 0,
+  "baseExpToNext": 548,
+  "jobLevel": 1,
+  "jobExp": 0,
+  "jobExpToNext": 10,
+  "zeny": 0,
+  "hp": 100,
+  "maxHp": 100,
+  "sp": 30,
+  "maxSp": 30,
+  "atk": 5,
+  "def": 1,
+  "equipment": {
+    "weapon": null,
+    "shield": null,
+    "headTop": null,
+    "headMid": null,
+    "headLow": null,
+    "armor": null,
+    "garment": null,
+    "shoes": null,
+    "accessory1": null,
+    "accessory2": null
+  },
+  "pet": null,
+  "inventory": [
+    {
+      "id": 1101,
+      "count": 1
+    },
+    {
+      "id": 501,
+      "count": 30
+    },
+    {
+      "id": 601,
+      "count": 100
+    }
+  ],
+  "autoBattle": {
+    "useHpPotion": true,
+    "hpPotionId": 501,
+    "hpPercent": 50,
+    "useSpPotion": false,
+    "spPotionId": null,
+    "spPercent": 30,
+    "useAspdPotion": false,
+    "aspdPotionId": null,
+    "useBuffSkills": false,
+    "buffSkillIds": [],
+    "useActiveSkills": false,
+    "activeSkillIds": []
+  },
+  "map": null,
+  "jobKey": "novice",
+  "baseMaxHp": 40,
+  "baseMaxSp": 11,
+  "baseAtk": 0,
+  "baseDef": 0,
+  "skillPoints": 0,
+  "learnedSkills": {},
+  "completedAdventurerTraining": [],
+  "discoveredMaps": {},
+  "monsterBook": {},
+  "mapExploration": {},
+  "lastFieldMap": "prontera_3x3_region_camera",
+  "currentCity": "prontera",
+  "stats": {
+    "str": 1,
+    "agi": 1,
+    "vit": 1,
+    "int": 1,
+    "dex": 1,
+    "luk": 1
+  },
+  "usedStatusPoints": 0,
+  "statusPointBaseOffset": 23,
+  "statusPoints": 25,
+  "position": {
+    "x": 650,
+    "y": 350,
+    "targetX": null,
+    "targetY": null,
+    "moveSpeed": 115
+  },
+  "autoCombat": {
+    "teleport": {
+      "enabled": false,
+      "noTargetSeconds": 3
+    }
+  },
+  "positionEngineStarterFlyWingGranted": true,
+  "gender": "male",
+  "characterAtlas": "novice_male",
+  "mountState": {
+    "mounted": false,
+    "type": null,
+    "assetKey": null,
+    "rental": false
+  },
+  "homunculus": {
+    "selectedId": "",
+    "active": false,
+    "levelSnapshot": 1,
+    "summonedAt": 0,
+    "lastActionAt": 0,
+    "assistEnabled": true
+  },
+  "traits": {
+    "pow": 0,
+    "sta": 0,
+    "wis": 0,
+    "spl": 0,
+    "con": 0,
+    "crt": 0
+  },
+  "traitStats": {
+    "pow": 0,
+    "sta": 0,
+    "wis": 0,
+    "spl": 0,
+    "con": 0,
+    "crt": 0
+  },
+  "usedTraitPoints": 0,
+  "availableTraitPoints": 0,
+  "traitPoints": 0,
+  "statusTraitsExpanded": false,
+  "state": "Town"
+}

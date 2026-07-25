@@ -1,0 +1,261 @@
+{
+  "meta": {
+    "version": "0.9.80ZH",
+    "schema": "ro_web_skill_tree_v3",
+    "raJob": "Ninja",
+    "bodySource": "../skills/skills_core_2.json",
+    "fallbackBodySource": "../skills/skills_core_1.json"
+  },
+  "job": "ninja",
+  "raJob": "Ninja",
+  "skills": [
+    {
+      "skillId": 522,
+      "maxLevel": 10
+    },
+    {
+      "skillId": 523,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 522,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 524,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 523,
+          "level": 5
+        }
+      ]
+    },
+    {
+      "skillId": 525,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 522,
+          "level": 5
+        },
+        {
+          "skillId": 524,
+          "level": 5
+        }
+      ]
+    },
+    {
+      "skillId": 526,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 522,
+          "level": 10
+        },
+        {
+          "skillId": 525,
+          "level": 5
+        }
+      ]
+    },
+    {
+      "skillId": 527,
+      "maxLevel": 5
+    },
+    {
+      "skillId": 528,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 529,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 529,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 527,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 530,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 528,
+          "level": 5
+        }
+      ]
+    },
+    {
+      "skillId": 531,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 529,
+          "level": 5
+        }
+      ]
+    },
+    {
+      "skillId": 532,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 531,
+          "level": 4
+        },
+        {
+          "skillId": 530,
+          "level": 3
+        },
+        {
+          "skillId": 543,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 533,
+      "maxLevel": 10
+    },
+    {
+      "skillId": 534,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 533,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 535,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 534,
+          "level": 5
+        }
+      ]
+    },
+    {
+      "skillId": 536,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 533,
+          "level": 10
+        },
+        {
+          "skillId": 535,
+          "level": 7
+        }
+      ]
+    },
+    {
+      "skillId": 537,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 533,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 538,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 537,
+          "level": 5
+        }
+      ]
+    },
+    {
+      "skillId": 539,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 533,
+          "level": 10
+        },
+        {
+          "skillId": 538,
+          "level": 7
+        }
+      ]
+    },
+    {
+      "skillId": 540,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 533,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 541,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 540,
+          "level": 5
+        }
+      ]
+    },
+    {
+      "skillId": 542,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 533,
+          "level": 10
+        },
+        {
+          "skillId": 541,
+          "level": 5
+        }
+      ]
+    },
+    {
+      "skillId": 543,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 533,
+          "level": 5
+        }
+      ]
+    },
+    {
+      "skillId": 544,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 522,
+          "level": 7
+        },
+        {
+          "skillId": 530,
+          "level": 5
+        },
+        {
+          "skillId": 543,
+          "level": 1
+        }
+      ]
+    }
+  ]
+}

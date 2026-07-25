@@ -1,0 +1,19 @@
+{
+  "version": "0.9.82EA",
+  "cellSizePx": 36,
+  "renewal": {
+    "skillRangeFromWeapon": false,
+    "serverBaseRangeCapCells": 14,
+    "screenWideRadiusCells": 999
+  },
+  "source": [
+    "rAthena Renewal conf/battle/skill.conf skillrange_from_weapon: 0",
+    "rAthena Renewal src/map/skill.cpp skill_get_range2",
+    "RO_WEB Position Engine: 1 cell = 36px"
+  ],
+  "notes": [
+    "Negative RA Range values are converted to absolute values because skillrange_from_weapon is disabled.",
+    "The server-side base skill range is capped at 14 cells before AlterRange bonuses are applied.",
+    "Cast range and effect radius are independent values."
+  ]
+}

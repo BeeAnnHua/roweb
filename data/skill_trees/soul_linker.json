@@ -1,0 +1,261 @@
+{
+  "meta": {
+    "version": "0.9.80ZH",
+    "schema": "ro_web_skill_tree_v3",
+    "raJob": "Soul_Linker",
+    "bodySource": "../skills/skills_core_2.json",
+    "fallbackBodySource": "../skills/skills_core_1.json"
+  },
+  "job": "soul_linker",
+  "raJob": "Soul_Linker",
+  "skills": [
+    {
+      "skillId": 445,
+      "maxLevel": 5
+    },
+    {
+      "skillId": 447,
+      "maxLevel": 5
+    },
+    {
+      "skillId": 448,
+      "maxLevel": 5
+    },
+    {
+      "skillId": 449,
+      "maxLevel": 5
+    },
+    {
+      "skillId": 450,
+      "maxLevel": 5
+    },
+    {
+      "skillId": 451,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 448,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 452,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 450,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 453,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 449,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 454,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 447,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 455,
+      "maxLevel": 5
+    },
+    {
+      "skillId": 456,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 457,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 457,
+      "maxLevel": 5
+    },
+    {
+      "skillId": 458,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 445,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 460,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 455,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 461,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 448,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 462,
+      "maxLevel": 7,
+      "requires": [
+        {
+          "skillId": 454,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 463,
+      "maxLevel": 7,
+      "requires": [
+        {
+          "skillId": 454,
+          "level": 1
+        },
+        {
+          "skillId": 450,
+          "level": 1
+        },
+        {
+          "skillId": 447,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 464,
+      "maxLevel": 3,
+      "requires": [
+        {
+          "skillId": 456,
+          "level": 1
+        },
+        {
+          "skillId": 457,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 465,
+      "maxLevel": 7,
+      "requires": [
+        {
+          "skillId": 453,
+          "level": 1
+        },
+        {
+          "skillId": 449,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 466,
+      "maxLevel": 7,
+      "requires": [
+        {
+          "skillId": 423,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 467,
+      "maxLevel": 7,
+      "requires": [
+        {
+          "skillId": 453,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 468,
+      "maxLevel": 7,
+      "requires": [
+        {
+          "skillId": 453,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 469,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 467,
+          "level": 7
+        },
+        {
+          "skillId": 468,
+          "level": 7
+        }
+      ]
+    },
+    {
+      "skillId": 470,
+      "maxLevel": 7,
+      "requires": [
+        {
+          "skillId": 454,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 471,
+      "maxLevel": 3,
+      "requires": [
+        {
+          "skillId": 452,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 472,
+      "maxLevel": 3,
+      "requires": [
+        {
+          "skillId": 447,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 494,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 451,
+          "level": 5
+        }
+      ]
+    }
+  ]
+}
