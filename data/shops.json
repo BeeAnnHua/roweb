@@ -2,7 +2,7 @@
   "tool_common": {
     "id": "tool_common",
     "name": "共用道具商店",
-    "description": "來源：rAthena npc/merchants/shops.txt / Tool Dealer#prt1；箭矢類已排除。",
+    "description": "來源：rAthena npc/merchants/shops.txt / Tool Dealer#prt1；箭矢類已排除；RO_WEB 額外提供四屬性肯貝特。",
     "sourceNpc": "Tool Dealer#prt1",
     "sourceMap": "prt_in",
     "items": [
@@ -49,6 +49,22 @@
       {
         "itemId": 1065,
         "price": 50
+      },
+      {
+        "itemId": 12114,
+        "price": 2
+      },
+      {
+        "itemId": 12115,
+        "price": 2
+      },
+      {
+        "itemId": 12116,
+        "price": 2
+      },
+      {
+        "itemId": 12117,
+        "price": 2
       }
     ]
   },

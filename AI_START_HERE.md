@@ -1,3 +1,12 @@
+# 0.9.82FK CURRENT RUNTIME
+目前正式版本：**0.9.82FK**。
+
+本版以 0.9.82FJ 為基準，修正超級初學者系列 Skill Core 樹鍵值對應：RO_WEB `super_novice` 對應 RA tree `supernovice`，`expanded_super_novice` 對應 `super_novice_e`，`hyper_novice` 維持原鍵。三階段技能分頁必須分別顯示 51／49／15 招，不得再顯示「尚未開放技能資料」。
+
+城鎮共用道具商店販售 12114～12117 四屬性肯貝特。自動戰鬥 `elementEndow` 設定可指定 Fire／Water／Earth／Wind；相同屬性 Buff 尚未到期時禁止重複消耗，效果到期或玩家改選屬性後才使用對應肯貝特。魔法傷害仍不受肯貝特影響。
+
+地圖／傳送 UI 使用穩定 render signature：自動戰鬥擊殺造成的探索紀錄刷新不得重建相同地點的傳送清單；當地點或清單資料真的改變而必須重建時，必須保存並恢復 `.map-warp-panel`、`#map-list` 與 `.map-template-body` 的 `scrollTop`，避免玩家查看下方城鎮時回彈。
+
 # 0.9.82FJ CURRENT RUNTIME
 目前正式版本：**0.9.82FJ**。
 

@@ -422,6 +422,21 @@ function uniqueSkillsByOfficialId(lists = []) {
   return result;
 }
 
+// Skill Core V3 follows the original RA tree names for these two jobs, while
+// RO_WEB player/job data uses canonical route keys. Resolve both names here so
+// Super Novice, Expanded Super Novice and Hyper Novice can all read their trees.
+const JOB_SKILL_TREE_KEY_ALIASES = Object.freeze({
+  super_novice: ["super_novice", "supernovice"],
+  expanded_super_novice: ["expanded_super_novice", "super_novice_e"],
+  hyper_novice: ["hyper_novice"]
+});
+
+function getLoadedJobSkillTree(jobKey) {
+  if (!skillsData?.jobs || !jobKey) return [];
+  const aliases = JOB_SKILL_TREE_KEY_ALIASES[String(jobKey)] || [String(jobKey)];
+  return uniqueSkillsByOfficialId(aliases.map(key => skillsData.jobs[key] || []));
+}
+
 function getJobSkillTreeKeys(jobKey = player?.jobKey) {
   const job = getJobData(jobKey);
   if (Array.isArray(job?.skillTreeChain)) return job.skillTreeChain;
@@ -433,9 +448,9 @@ function getCurrentJobSkills() {
   if (isSuperNoviceFamilyJob(player.jobKey)) {
     const keys = player.jobKey === "hyper_novice" ? ["novice","super_novice","expanded_super_novice","hyper_novice"]
       : player.jobKey === "expanded_super_novice" ? ["novice","super_novice","expanded_super_novice"] : ["novice","super_novice"];
-    return uniqueSkillsByOfficialId(keys.map(key => skillsData.jobs[key] || []));
+    return uniqueSkillsByOfficialId(keys.map(key => getLoadedJobSkillTree(key)));
   }
-  return uniqueSkillsByOfficialId(getJobSkillTreeKeys().map(key => skillsData.jobs[key] || []));
+  return uniqueSkillsByOfficialId(getJobSkillTreeKeys().map(key => getLoadedJobSkillTree(key)));
 }
 
 function getSkillPrimaryId(skillOrId) {
@@ -1165,9 +1180,9 @@ function getSkillTierList(tier) {
   // V0.9.80ZH：超初系列不得再套用劍士技能樹。
   // 一般超初顯示超初技能；界限解放與終初只在後續分頁顯示新增技能，避免重複。
   if (isSuperNoviceFamilyJob(jobKey)) {
-    const superSkills = skillsData.jobs.super_novice || [];
-    const expandedSkills = skillsData.jobs.expanded_super_novice || [];
-    const hyperSkills = skillsData.jobs.hyper_novice || [];
+    const superSkills = getLoadedJobSkillTree("super_novice");
+    const expandedSkills = getLoadedJobSkillTree("expanded_super_novice");
+    const hyperSkills = getLoadedJobSkillTree("hyper_novice");
     if (tier === "first") return superSkills;
     if (tier === "second") {
       return ["expanded_super_novice", "hyper_novice"].includes(jobKey)

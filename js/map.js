@@ -400,6 +400,57 @@ window.visualViewport?.addEventListener?.("scroll", positionMapMonsterDistributi
 window.showMapMonsterDistributionTooltip = showMapMonsterDistributionTooltip;
 window.hideMapMonsterDistributionTooltip = hideMapMonsterDistributionTooltip;
 
+// 0.9.82FK: auto battle records monster discoveries after every kill.  The old
+// updateMapUI() rebuilt the entire destination list each time, replacing the
+// actively-scrolled panel and snapping it back to the first destination.
+// Keep a stable render signature and preserve all relevant scroll containers
+// whenever a real location/data change requires a rebuild.
+const RO_MAP_UI_VIEW_STATE = {
+  restoreFrame: 0
+};
+
+function buildMapUIRenderSignature(currentCityData) {
+  const location = currentCityData
+    ? ["city", currentCityData.id, currentCityData.name, currentCityData.thumb, currentCityData.hoverDescription || currentCityData.description || currentCityData.role || ""]
+    : ["field", currentMap?.id, currentMap?.name, currentMap?.thumb];
+  const fieldDestinations = (maps || []).map(map => [map.id, map.displayName || map.name]);
+  const cityDestinations = (cities || []).map(city => [
+    city.id,
+    city.displayName || city.name,
+    city.hoverDescription || city.description || city.role || "城鎮據點"
+  ]);
+  return JSON.stringify([location, fieldDestinations, cityDestinations]);
+}
+
+function captureMapUIScrollState(mapListEl) {
+  const body = mapListEl?.closest?.(".map-template-body") || document.querySelector?.("#map-window .map-template-body");
+  const warp = mapListEl?.querySelector?.(".map-warp-panel");
+  return {
+    bodyScrollTop: Math.max(0, Number(body?.scrollTop || 0)),
+    listScrollTop: Math.max(0, Number(mapListEl?.scrollTop || 0)),
+    warpScrollTop: Math.max(0, Number(warp?.scrollTop || 0))
+  };
+}
+
+function restoreMapUIScrollState(mapListEl, snapshot) {
+  if (!mapListEl || !snapshot) return;
+  const apply = () => {
+    const body = mapListEl.closest?.(".map-template-body") || document.querySelector?.("#map-window .map-template-body");
+    const warp = mapListEl.querySelector?.(".map-warp-panel");
+    if (body) body.scrollTop = snapshot.bodyScrollTop;
+    mapListEl.scrollTop = snapshot.listScrollTop;
+    if (warp) warp.scrollTop = snapshot.warpScrollTop;
+  };
+  apply();
+  if (typeof window.requestAnimationFrame === "function") {
+    if (RO_MAP_UI_VIEW_STATE.restoreFrame) window.cancelAnimationFrame?.(RO_MAP_UI_VIEW_STATE.restoreFrame);
+    RO_MAP_UI_VIEW_STATE.restoreFrame = window.requestAnimationFrame(() => {
+      RO_MAP_UI_VIEW_STATE.restoreFrame = 0;
+      apply();
+    });
+  }
+}
+
 function updateMapUI() {
   const currentMapNameEl = document.getElementById("current-map-name");
   const mapListEl = document.getElementById("map-list");
@@ -415,6 +466,15 @@ function updateMapUI() {
   }
 
   if (!mapListEl) return;
+
+  const scrollSnapshot = captureMapUIScrollState(mapListEl);
+  const renderSignature = buildMapUIRenderSignature(currentCityData);
+  // Monster kills and auto-battle status refreshes do not change this layout.
+  // Avoid replacing live buttons/scrollbars while the player is reading it.
+  if (mapListEl.dataset.renderSignature === renderSignature && mapListEl.childElementCount > 0) {
+    return;
+  }
+
   mapListEl.innerHTML = "";
 
   const info = document.createElement("div");
@@ -503,6 +563,8 @@ function updateMapUI() {
 
   mapListEl.appendChild(info);
   mapListEl.appendChild(warpPanel);
+  mapListEl.dataset.renderSignature = renderSignature;
+  restoreMapUIScrollState(mapListEl, scrollSnapshot);
 }
 
 function clearFieldCombatRuntimeForTravel() {

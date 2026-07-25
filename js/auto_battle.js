@@ -3,6 +3,19 @@
 // 精簡設定介面 / 自動異常解除 / 低血量飛走與蝴蝶翅膀回城 / 自訂數字步進器
 //=======================================
 
+const AUTO_ELEMENT_CONVERTER_ITEM_IDS = Object.freeze({
+  Fire: 12114,
+  Water: 12115,
+  Earth: 12116,
+  Wind: 12117
+});
+const AUTO_ELEMENT_CONVERTER_LABELS = Object.freeze({
+  Fire: "火",
+  Water: "水",
+  Earth: "地",
+  Wind: "風"
+});
+
 
 function createDefaultAutoCombat() {
   const makeAttackSlot = (index = 0) => ({
@@ -17,6 +30,7 @@ function createDefaultAutoCombat() {
     hpPotion: { enabled: true, hpPercent: 50, itemId: null },
     spPotion: { enabled: false, spPercent: 30, itemId: null },
     detox: { enabled: false },
+    elementEndow: { enabled: false, element: "" },
     heal: { enabled: false, skillId: null, hpPercent: 60, spPercent: 20, level: 1 },
     normalAttack: { enabled: true },
     attacks: Array.from({ length: 4 }, (_, index) => makeAttackSlot(index)),
@@ -47,6 +61,14 @@ function normalizeAutoCombatSettings() {
   player.autoCombat.hpPotion = { ...defaults.hpPotion, ...(source.hpPotion || {}) };
   player.autoCombat.spPotion = { ...defaults.spPotion, ...(source.spPotion || {}) };
   player.autoCombat.detox = { ...defaults.detox, ...(source.detox || {}) };
+  const sourceElementEndow = source.elementEndow && typeof source.elementEndow === "object"
+    ? source.elementEndow
+    : { enabled: Boolean(source.elementEndow), element: typeof source.elementEndow === "string" ? source.elementEndow : "" };
+  player.autoCombat.elementEndow = { ...defaults.elementEndow, ...sourceElementEndow };
+  player.autoCombat.elementEndow.enabled = player.autoCombat.elementEndow.enabled === true;
+  player.autoCombat.elementEndow.element = AUTO_ELEMENT_CONVERTER_ITEM_IDS[player.autoCombat.elementEndow.element]
+    ? String(player.autoCombat.elementEndow.element)
+    : "";
   player.autoCombat.heal = { ...defaults.heal, ...(source.heal || {}) };
   player.autoCombat.normalAttack = { ...defaults.normalAttack, ...(source.normalAttack || {}) };
 
@@ -520,6 +542,8 @@ function syncAutoCombatSettingsFromUI(options = {}) {
   const spPercent = document.getElementById("autoCombatSpPotionPercent");
   const spItem = document.getElementById("autoCombatSpPotionSelect");
   const detoxEnabled = document.getElementById("autoCombatDetoxEnabled");
+  const elementEndowEnabled = document.getElementById("autoCombatElementEndowEnabled");
+  const elementEndowSelect = document.getElementById("autoCombatElementEndowSelect");
   const healEnabled = document.getElementById("autoCombatHealEnabled");
   const healSkill = document.getElementById("autoCombatHealSkill");
   const healLevel = document.getElementById("autoCombatHealLevel");
@@ -543,6 +567,12 @@ function syncAutoCombatSettingsFromUI(options = {}) {
   if (spPercent) player.autoCombat.spPotion.spPercent = Number(spPercent.value) || 30;
   if (spItem) player.autoCombat.spPotion.itemId = normalizeItemId(spItem.value) || null;
   if (detoxEnabled) player.autoCombat.detox.enabled = detoxEnabled.checked;
+  if (elementEndowEnabled) player.autoCombat.elementEndow.enabled = elementEndowEnabled.checked;
+  if (elementEndowSelect) {
+    player.autoCombat.elementEndow.element = AUTO_ELEMENT_CONVERTER_ITEM_IDS[elementEndowSelect.value]
+      ? elementEndowSelect.value
+      : "";
+  }
 
   if (healEnabled) player.autoCombat.heal.enabled = healEnabled.checked;
   if (healSkill) player.autoCombat.heal.skillId = healSkill.value || null;
@@ -690,6 +720,8 @@ function updateAutoCombatUI() {
   const spPercent = document.getElementById("autoCombatSpPotionPercent");
   const spItem = document.getElementById("autoCombatSpPotionSelect");
   const detoxEnabled = document.getElementById("autoCombatDetoxEnabled");
+  const elementEndowEnabled = document.getElementById("autoCombatElementEndowEnabled");
+  const elementEndowSelect = document.getElementById("autoCombatElementEndowSelect");
   const teleportEnabled = document.getElementById("autoCombatTeleportEnabled");
   const avoidBoss = document.getElementById("autoCombatAvoidBoss");
   const avoidMvp = document.getElementById("autoCombatAvoidMvp");
@@ -705,6 +737,11 @@ function updateAutoCombatUI() {
   if (spEnabled) spEnabled.checked = !!cfg.spPotion.enabled;
   if (spPercent) spPercent.value = cfg.spPotion.spPercent;
   if (detoxEnabled) detoxEnabled.checked = !!cfg.detox.enabled;
+  if (elementEndowEnabled) elementEndowEnabled.checked = !!cfg.elementEndow.enabled;
+  if (elementEndowSelect) {
+    elementEndowSelect.value = cfg.elementEndow.element || "";
+    elementEndowSelect.disabled = !cfg.elementEndow.enabled;
+  }
   if (teleportEnabled) teleportEnabled.checked = !!cfg.teleport.enabled;
   if (avoidBoss) avoidBoss.checked = !!cfg.teleport.avoidBoss;
   if (avoidMvp) avoidMvp.checked = !!cfg.teleport.avoidMvp;
@@ -879,6 +916,38 @@ function autoUsePotion() {
   return used;
 }
 
+function tryAutoElementEndow() {
+  const cfg = player?.autoCombat?.elementEndow;
+  if (!cfg?.enabled) return false;
+
+  const element = String(cfg.element || "");
+  const itemId = AUTO_ELEMENT_CONVERTER_ITEM_IDS[element];
+  if (!itemId) return false;
+
+  const active = player?.activeBuffs?.item_physical_element_endow;
+  const activeElement = String(active?.effects?.attackElementOverride || "");
+  const remainingMs = Number(active?.expiresAt || 0) - Date.now();
+  // Do not waste another converter while the selected element is still active.
+  if (activeElement === element && remainingMs > 0) return false;
+
+  const inventoryItem = (player?.inventory || []).find(item => String(item.id) === String(itemId) && Number(item.count || 0) > 0);
+  if (!inventoryItem) {
+    const now = Date.now();
+    if (now - Number(AUTO_BATTLE_CONTROLLER.lastElementWarningAt || 0) >= 30000) {
+      AUTO_BATTLE_CONTROLLER.lastElementWarningAt = now;
+      addBattleLog(`自動肯貝特：背包沒有${AUTO_ELEMENT_CONVERTER_LABELS[element] || element}肯貝特。`);
+    }
+    return false;
+  }
+
+  const itemData = getItemData(itemId);
+  if (!itemData || typeof consumeItem !== "function") return false;
+  const before = Number(inventoryItem.count || 0);
+  consumeItem(itemData);
+  const afterItem = (player?.inventory || []).find(item => String(item.id) === String(itemId));
+  return Number(afterItem?.count || 0) < before;
+}
+
 function shouldCastBySp(minPercent) {
   return getPercent(player.sp, player.maxSp) >= Number(minPercent || 0);
 }
@@ -953,7 +1022,8 @@ const AUTO_BATTLE_CONTROLLER = {
   lastTeleportAt: 0,
   lastAvoidTeleportAt: 0,
   lastLowHpTeleportAt: 0,
-  lastButterflyAt: 0
+  lastButterflyAt: 0,
+  lastElementWarningAt: 0
 };
 
 function resetAutoBattleController(options = {}) {
@@ -969,6 +1039,7 @@ function resetAutoBattleController(options = {}) {
   AUTO_BATTLE_CONTROLLER.lastAvoidTeleportAt = 0;
   AUTO_BATTLE_CONTROLLER.lastLowHpTeleportAt = 0;
   AUTO_BATTLE_CONTROLLER.lastButterflyAt = 0;
+  AUTO_BATTLE_CONTROLLER.lastElementWarningAt = 0;
   if (typeof resetAutoNoTargetTimer === "function") resetAutoNoTargetTimer();
   return AUTO_BATTLE_CONTROLLER;
 }
@@ -1129,6 +1200,10 @@ function runAutoCombatUtilityTick() {
   if (tryAutoStatusCure()) {
     setAutoBattleControllerState(AUTO_BATTLE_STATES.UTILITY, { action: "status_cure", reason: "auto_status_cure" });
     return { action: "utility", utility: "status_cure" };
+  }
+  if (tryAutoElementEndow()) {
+    setAutoBattleControllerState(AUTO_BATTLE_STATES.UTILITY, { action: "element_endow", reason: "auto_element_converter" });
+    return { action: "utility", utility: "element_endow" };
   }
   if (typeof isRuntimeSkillCasting === "function" && isRuntimeSkillCasting()) {
     setAutoBattleControllerState(AUTO_BATTLE_STATES.UTILITY, { action: "casting", reason: "runtime_cast" });
@@ -1359,6 +1434,8 @@ window.getAutoStatusLabelList = getAutoStatusLabelList;
 window.findAutoStatusCureItem = findAutoStatusCureItem;
 window.getSkillStatusCureProfile = getSkillStatusCureProfile;
 window.tryAutoStatusCure = tryAutoStatusCure;
+window.tryAutoElementEndow = tryAutoElementEndow;
+window.AUTO_ELEMENT_CONVERTER_ITEM_IDS = AUTO_ELEMENT_CONVERTER_ITEM_IDS;
 window.hasPlayerPoisonStatus = hasPlayerPoisonStatus;
 window.tryAutoDetox = tryAutoDetox;
 window.tryAutoEmergencyEscape = tryAutoEmergencyEscape;

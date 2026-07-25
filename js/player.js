@@ -398,7 +398,7 @@ function resetGameSave() {
     const base = location.origin && location.origin !== "null"
       ? location.origin + location.pathname
       : location.pathname;
-    location.replace(base + "?v=0.9.82FJ-reset-" + Date.now());
+    location.replace(base + "?v=0.9.82FK-reset-" + Date.now());
   };
 
   try {
