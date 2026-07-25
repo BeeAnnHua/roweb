@@ -1,0 +1,231 @@
+{
+  "version": "0.9.82AT",
+  "batch": 53,
+  "title": "Genetic Thorn / Spore Control Core",
+  "status": "runtime_ready",
+  "implementedSkills": [
+    {
+      "skillId": 2479,
+      "skillKey": "GN_THORNS_TRAP",
+      "name": "荊棘陷阱",
+      "handler": "ground_damage",
+      "executionEnabled": true,
+      "runtimeProfile": {
+        "handler": "ground_damage",
+        "damageHandler": "misc_damage",
+        "formula": "renewal_thorn_trap",
+        "attackRangeType": "long",
+        "elementSource": "fixed",
+        "element": "Neutral",
+        "damageHitCount": 1,
+        "visualHitCount": 1,
+        "targeting": {
+          "origin": "target",
+          "shape": "circle",
+          "radius": 0,
+          "maxTargets": 1
+        },
+        "duration": [
+          10000,
+          12000,
+          14000,
+          16000,
+          18000
+        ],
+        "tickIntervalMs": 1000,
+        "statusSequence": [
+          {
+            "status": "thorn_trap",
+            "chancePercent": 100,
+            "durationMs": 1100,
+            "effects": {
+              "movementLocked": 1
+            },
+            "stopOnSuccess": true
+          }
+        ],
+        "spCost": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "runtimeAdaptation": "依使用者決議直接對單體敵人施放，不建立可踩踏地格；保留 Renewal 固定傷害與定身效果，不消耗荊棘植物種子。SP 消耗延後統一處理。",
+        "source": [
+          "rAthena db/re/skill_db.yml GN_THORNS_TRAP",
+          "rAthena src/map/battle.cpp Renewal thorn trap formula",
+          "RO_WEB user decision 2026-07-13"
+        ],
+        "followTarget": true
+      }
+    },
+    {
+      "skillId": 2481,
+      "skillKey": "GN_SPORE_EXPLOSION",
+      "name": "爆炸孢子",
+      "handler": "ground_damage",
+      "executionEnabled": true,
+      "runtimeProfile": {
+        "handler": "ground_damage",
+        "damageHandler": "physical_attack_formula",
+        "formula": "renewal_spore_explosion",
+        "attackRangeType": "long",
+        "elementSource": "weapon",
+        "damageHitCount": 2,
+        "visualHitCount": 2,
+        "targeting": {
+          "origin": "target",
+          "shape": "circle",
+          "radius": [
+            1,
+            1,
+            2,
+            2,
+            3,
+            3,
+            4,
+            4,
+            5,
+            5
+          ],
+          "maxTargets": 999
+        },
+        "initialDelayMs": 5000,
+        "duration": 100,
+        "tickIntervalMs": 5000,
+        "logMode": "delayed_explosion",
+        "spCost": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "runtimeAdaptation": "依使用者決議直接附著於敵人，5 秒後對目標與周圍爆炸；保留 Renewal 2 段物理傷害與等級範圍，不消耗爆炸蘑菇孢子。SP 消耗延後統一處理。",
+        "source": [
+          "rAthena db/re/skill_db.yml GN_SPORE_EXPLOSION",
+          "rAthena Renewal merchant skill source",
+          "RO_WEB user decision 2026-07-13"
+        ],
+        "followTarget": true
+      }
+    },
+    {
+      "skillId": 2482,
+      "skillKey": "GN_WALLOFTHORN",
+      "name": "荊棘之壁",
+      "handler": "ground_damage",
+      "executionEnabled": true,
+      "runtimeProfile": {
+        "handler": "ground_damage",
+        "damageHandler": "physical_attack_formula",
+        "formula": "renewal_wall_of_thorns",
+        "attackRangeType": "long",
+        "elementSource": "weapon",
+        "damageHitCount": 1,
+        "visualHitCount": 1,
+        "targeting": {
+          "origin": "target",
+          "shape": "circle",
+          "radius": 0,
+          "maxTargets": 1
+        },
+        "duration": [
+          10000,
+          11000,
+          12000,
+          13000,
+          14000
+        ],
+        "tickIntervalMs": 300,
+        "knockbackCells": 0,
+        "spCost": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "runtimeAdaptation": "依使用者決議直接作用於單體敵人，不建立可碰撞牆體、不擊退 2 格；保留 Renewal 持續物理傷害，不消耗荊棘植物種子。SP 消耗延後統一處理。",
+        "source": [
+          "rAthena db/re/skill_db.yml GN_WALLOFTHORN",
+          "rAthena Renewal merchant skill source",
+          "RO_WEB user decision 2026-07-13"
+        ],
+        "followTarget": true
+      }
+    },
+    {
+      "skillId": 2483,
+      "skillKey": "GN_CRAZYWEED",
+      "name": "瘋狂野草",
+      "handler": "physical_attack_formula",
+      "executionEnabled": true,
+      "runtimeProfile": {
+        "handler": "physical_attack_formula",
+        "formula": "renewal_crazy_weed",
+        "attackRangeType": "long",
+        "elementSource": "weapon",
+        "damageHitCount": 2,
+        "visualHitCount": 2,
+        "targeting": {
+          "origin": "target",
+          "shape": "circle",
+          "radius": 4,
+          "maxTargets": 999
+        },
+        "clearGroundEffectsAtTarget": true,
+        "clearGroundEffectsShape": "circle",
+        "clearGroundEffectsRadius": 4,
+        "raImpactCount": [
+          3,
+          4,
+          4,
+          5,
+          5,
+          6,
+          6,
+          7,
+          7,
+          8
+        ],
+        "spCost": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "runtimeAdaptation": "RA 原本於 9×9 範圍產生 3～8 次隨機衝擊；RO_WEB 依使用者決議改為直接對敵人及周圍 9×9 造成 2 段物理傷害，並清除範圍內地面效果，不消耗荊棘植物種子。SP 消耗延後統一處理。",
+        "source": [
+          "rAthena db/re/skill_db.yml GN_CRAZYWEED",
+          "rAthena Renewal merchant skill source",
+          "RO_WEB user decision 2026-07-13"
+        ]
+      }
+    }
+  ],
+  "decisions": [
+    "荊棘陷阱直接施放於單體敵人，不消耗種子。",
+    "爆炸孢子附著敵人並於 5 秒後對周圍爆炸，不消耗孢子。",
+    "荊棘之壁直接作用於單體，不建立牆體且不擊退。",
+    "瘋狂野草直接作用於目標中心 9×9，並清除範圍內地面效果。",
+    "SP/AP/特性素質與統一成本延後至全職業 Runtime 補完後處理。"
+  ],
+  "coverage": {
+    "totalPlayerSkills": 1139,
+    "officialRuntime": 542,
+    "pending": 597
+  }
+}

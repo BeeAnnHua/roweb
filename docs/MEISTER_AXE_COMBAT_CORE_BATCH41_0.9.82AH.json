@@ -1,0 +1,52 @@
+{
+  "version": "0.9.82AH",
+  "result": "PASS",
+  "batch": "Meister Axe Combat Core Batch41",
+  "sources": [
+    "rAthena db/re/skill_db.yml",
+    "rAthena src/map/skills/merchant/axestomp.cpp",
+    "rushquake.cpp",
+    "mightysmash.cpp",
+    "rushstrike.cpp",
+    "powerfulswing.cpp",
+    "rAthena src/map/status.cpp MT_TWOAXEDEF"
+  ],
+  "coverage": {
+    "before": 456,
+    "after": 462,
+    "target": 1139
+  },
+  "pending": {
+    "before": 683,
+    "after": 677
+  },
+  "implementedSkillIds": [
+    5295,
+    5296,
+    5300,
+    6004,
+    6506,
+    6507
+  ],
+  "formulas": {
+    "5295": "(450 + 1150×Lv + 5×POW) × BaseLv / 100",
+    "5296": "(3600×Lv + 10×POW + raceBonus) × BaseLv / 100; Formless/Insect raceBonus=150×Lv",
+    "6004": "(80 + 240×Lv + 5×POW + AxeStomp(20+5×POW)) × BaseLv / 100",
+    "6506": "(3500×Lv + 5×POW) × BaseLv / 100",
+    "6507": "(300 + 850×Lv + 5×POW + AxeStomp(100+100×Lv)) × BaseLv / 100"
+  },
+  "deferred": [
+    "Machine manufacture and machine summons",
+    "ABR skills",
+    "Fuel/ammunition/material dependent skills",
+    "Trait stats and SP cost balancing"
+  ],
+  "validation": {
+    "jsonParsed": 422,
+    "javascriptSyntaxPassed": 47,
+    "regressionTestsPassed": 23,
+    "regressionTestsFailed": 0,
+    "duplicateSkillIds": 0,
+    "zipIntegrity": "PASS"
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "meta": {
+    "version": "0.9.80ZH",
+    "schema": "ro_web_skill_tree_v3",
+    "raJob": "High_Priest",
+    "bodySource": "../skills/skills_core_1.json"
+  },
+  "job": "high_priest",
+  "raJob": "High_Priest",
+  "skills": [
+    {
+      "skillId": 71,
+      "maxLevel": 4
+    },
+    {
+      "skillId": 361,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 33,
+          "level": 1
+        },
+        {
+          "skillId": 9,
+          "level": 3
+        },
+        {
+          "skillId": 66,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "skillId": 362,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 75,
+          "level": 2
+        },
+        {
+          "skillId": 9,
+          "level": 1
+        },
+        {
+          "skillId": 73,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "skillId": 363,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 68,
+          "level": 3
+        },
+        {
+          "skillId": 9,
+          "level": 5
+        },
+        {
+          "skillId": 76,
+          "level": 5
+        }
+      ]
+    },
+    {
+      "skillId": 481,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 65,
+          "level": 10
+        },
+        {
+          "skillId": 23,
+          "level": 10
+        }
+      ]
+    }
+  ]
+}

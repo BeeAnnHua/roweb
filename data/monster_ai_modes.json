@@ -1,0 +1,402 @@
+{
+  "schema": "ro_web_ra_monster_ai_modes_v1",
+  "version": "0.9.82EW",
+  "source": [
+    "rAthena Renewal src/map/mob.hpp e_aegis_monstertype",
+    "rAthena src/common/mmo.hpp e_mode",
+    "rAthena db/re/mob_db.yml Ai / Modes",
+    "rAthena conf/battle/monster.conf monster_ai, view_range_rate, chase_range_rate, assist_range"
+  ],
+  "cellSizePx": 36,
+  "aegisAiTypes": {
+    "01": {
+      "bitmask": 129,
+      "hex": "0x81",
+      "flags": [
+        "CanMove",
+        "CanAttack"
+      ]
+    },
+    "02": {
+      "bitmask": 131,
+      "hex": "0x83",
+      "flags": [
+        "CanMove",
+        "Looter",
+        "CanAttack"
+      ]
+    },
+    "03": {
+      "bitmask": 4233,
+      "hex": "0x1089",
+      "flags": [
+        "CanMove",
+        "Assist",
+        "CanAttack",
+        "ChangeTargetMelee"
+      ]
+    },
+    "04": {
+      "bitmask": 14469,
+      "hex": "0x3885",
+      "flags": [
+        "CanMove",
+        "Aggressive",
+        "CanAttack",
+        "Angry",
+        "ChangeTargetMelee",
+        "ChangeTargetChase"
+      ]
+    },
+    "05": {
+      "bitmask": 8325,
+      "hex": "0x2085",
+      "flags": [
+        "CanMove",
+        "Aggressive",
+        "CanAttack",
+        "ChangeTargetChase"
+      ]
+    },
+    "06": {
+      "bitmask": 0,
+      "hex": "0x0",
+      "flags": []
+    },
+    "07": {
+      "bitmask": 4235,
+      "hex": "0x108b",
+      "flags": [
+        "CanMove",
+        "Looter",
+        "Assist",
+        "CanAttack",
+        "ChangeTargetMelee"
+      ]
+    },
+    "08": {
+      "bitmask": 28805,
+      "hex": "0x7085",
+      "flags": [
+        "CanMove",
+        "Aggressive",
+        "CanAttack",
+        "ChangeTargetMelee",
+        "ChangeTargetChase",
+        "TargetWeak"
+      ]
+    },
+    "09": {
+      "bitmask": 12437,
+      "hex": "0x3095",
+      "flags": [
+        "CanMove",
+        "Aggressive",
+        "CastSensorIdle",
+        "CanAttack",
+        "ChangeTargetMelee",
+        "ChangeTargetChase"
+      ]
+    },
+    "10": {
+      "bitmask": 132,
+      "hex": "0x84",
+      "flags": [
+        "Aggressive",
+        "CanAttack"
+      ]
+    },
+    "11": {
+      "bitmask": 132,
+      "hex": "0x84",
+      "flags": [
+        "Aggressive",
+        "CanAttack"
+      ]
+    },
+    "12": {
+      "bitmask": 8325,
+      "hex": "0x2085",
+      "flags": [
+        "CanMove",
+        "Aggressive",
+        "CanAttack",
+        "ChangeTargetChase"
+      ]
+    },
+    "13": {
+      "bitmask": 12429,
+      "hex": "0x308d",
+      "flags": [
+        "CanMove",
+        "Aggressive",
+        "Assist",
+        "CanAttack",
+        "ChangeTargetMelee",
+        "ChangeTargetChase"
+      ]
+    },
+    "17": {
+      "bitmask": 145,
+      "hex": "0x91",
+      "flags": [
+        "CanMove",
+        "CastSensorIdle",
+        "CanAttack"
+      ]
+    },
+    "19": {
+      "bitmask": 12437,
+      "hex": "0x3095",
+      "flags": [
+        "CanMove",
+        "Aggressive",
+        "CastSensorIdle",
+        "CanAttack",
+        "ChangeTargetMelee",
+        "ChangeTargetChase"
+      ]
+    },
+    "20": {
+      "bitmask": 12949,
+      "hex": "0x3295",
+      "flags": [
+        "CanMove",
+        "Aggressive",
+        "CastSensorIdle",
+        "CanAttack",
+        "CastSensorChase",
+        "ChangeTargetMelee",
+        "ChangeTargetChase"
+      ]
+    },
+    "21": {
+      "bitmask": 13973,
+      "hex": "0x3695",
+      "flags": [
+        "CanMove",
+        "Aggressive",
+        "CastSensorIdle",
+        "CanAttack",
+        "CastSensorChase",
+        "ChangeChase",
+        "ChangeTargetMelee",
+        "ChangeTargetChase"
+      ]
+    },
+    "24": {
+      "bitmask": 161,
+      "hex": "0xa1",
+      "flags": [
+        "CanMove",
+        "NoRandomWalk",
+        "CanAttack"
+      ]
+    },
+    "25": {
+      "bitmask": 1,
+      "hex": "0x1",
+      "flags": [
+        "CanMove"
+      ]
+    },
+    "26": {
+      "bitmask": 46741,
+      "hex": "0xb695",
+      "flags": [
+        "CanMove",
+        "Aggressive",
+        "CastSensorIdle",
+        "CanAttack",
+        "CastSensorChase",
+        "ChangeChase",
+        "ChangeTargetMelee",
+        "ChangeTargetChase",
+        "RandomTarget"
+      ]
+    },
+    "27": {
+      "bitmask": 32900,
+      "hex": "0x8084",
+      "flags": [
+        "Aggressive",
+        "CanAttack",
+        "RandomTarget"
+      ]
+    }
+  },
+  "modeBits": {
+    "CanMove": {
+      "bit": 1,
+      "hex": "0x1",
+      "runtimeKey": "canMove",
+      "description": "可移動"
+    },
+    "Looter": {
+      "bit": 2,
+      "hex": "0x2",
+      "runtimeKey": "looter",
+      "description": "會撿取地面物品"
+    },
+    "Aggressive": {
+      "bit": 4,
+      "hex": "0x4",
+      "runtimeKey": "aggressive",
+      "description": "主動偵測敵人"
+    },
+    "Assist": {
+      "bit": 8,
+      "hex": "0x8",
+      "runtimeKey": "assist",
+      "description": "附近同伴受擊時加入戰鬥"
+    },
+    "CastSensorIdle": {
+      "bit": 16,
+      "hex": "0x10",
+      "runtimeKey": "castSensorIdle",
+      "description": "待機時感應玩家詠唱"
+    },
+    "NoRandomWalk": {
+      "bit": 32,
+      "hex": "0x20",
+      "runtimeKey": "noRandomWalk",
+      "description": "不隨機巡走"
+    },
+    "NoCast": {
+      "bit": 64,
+      "hex": "0x40",
+      "runtimeKey": "noCast",
+      "description": "禁止施放技能"
+    },
+    "CanAttack": {
+      "bit": 128,
+      "hex": "0x80",
+      "runtimeKey": "canAttack",
+      "description": "可普通攻擊"
+    },
+    "CastSensorChase": {
+      "bit": 512,
+      "hex": "0x200",
+      "runtimeKey": "castSensorChase",
+      "description": "追擊時感應詠唱"
+    },
+    "ChangeChase": {
+      "bit": 1024,
+      "hex": "0x400",
+      "runtimeKey": "changeChase",
+      "description": "追擊中可重新選擇目標"
+    },
+    "Angry": {
+      "bit": 2048,
+      "hex": "0x800",
+      "runtimeKey": "angry",
+      "description": "受刺激後保持憤怒狀態"
+    },
+    "ChangeTargetMelee": {
+      "bit": 4096,
+      "hex": "0x1000",
+      "runtimeKey": "changeTargetMelee",
+      "description": "近戰受擊時可換目標"
+    },
+    "ChangeTargetChase": {
+      "bit": 8192,
+      "hex": "0x2000",
+      "runtimeKey": "changeTargetChase",
+      "description": "追擊受擊時可換目標"
+    },
+    "TargetWeak": {
+      "bit": 16384,
+      "hex": "0x4000",
+      "runtimeKey": "targetWeak",
+      "description": "優先較弱目標"
+    },
+    "RandomTarget": {
+      "bit": 32768,
+      "hex": "0x8000",
+      "runtimeKey": "randomTarget",
+      "description": "隨機選擇目標"
+    },
+    "IgnoreMelee": {
+      "bit": 65536,
+      "hex": "0x10000",
+      "runtimeKey": "ignoreMelee",
+      "description": "免疫近戰"
+    },
+    "IgnoreMagic": {
+      "bit": 131072,
+      "hex": "0x20000",
+      "runtimeKey": "ignoreMagic",
+      "description": "免疫魔法"
+    },
+    "IgnoreRanged": {
+      "bit": 262144,
+      "hex": "0x40000",
+      "runtimeKey": "ignoreRanged",
+      "description": "免疫遠距"
+    },
+    "Mvp": {
+      "bit": 524288,
+      "hex": "0x80000",
+      "runtimeKey": "mvpMode",
+      "description": "MVP 模式"
+    },
+    "IgnoreMisc": {
+      "bit": 1048576,
+      "hex": "0x100000",
+      "runtimeKey": "ignoreMisc",
+      "description": "免疫其他類傷害"
+    },
+    "KnockBackImmune": {
+      "bit": 2097152,
+      "hex": "0x200000",
+      "runtimeKey": "knockbackImmune",
+      "description": "擊退免疫"
+    },
+    "TeleportBlock": {
+      "bit": 4194304,
+      "hex": "0x400000",
+      "runtimeKey": "teleportBlock",
+      "description": "禁止傳送"
+    },
+    "FixedItemDrop": {
+      "bit": 16777216,
+      "hex": "0x1000000",
+      "runtimeKey": "fixedItemDrop",
+      "description": "固定掉落"
+    },
+    "Detector": {
+      "bit": 33554432,
+      "hex": "0x2000000",
+      "runtimeKey": "detector",
+      "description": "可偵測隱匿"
+    },
+    "StatusImmune": {
+      "bit": 67108864,
+      "hex": "0x4000000",
+      "runtimeKey": "statusImmune",
+      "description": "狀態免疫"
+    },
+    "SkillImmune": {
+      "bit": 134217728,
+      "hex": "0x8000000",
+      "runtimeKey": "skillImmune",
+      "description": "技能免疫"
+    }
+  },
+  "runtimePolicy": {
+    "retaliation": "任何由玩家、生命體或玩家召喚物造成的有效傷害，都把可攻擊怪物切換到 RA MSS_RUSH/ANGRY 對應的追擊狀態。",
+    "assist": "Assist 模式怪物會在 11 格內支援受擊同伴；RO_WEB 單人模式下支援目標統一為玩家。",
+    "aggressive": "Aggressive 只在 SkillRange/視野範圍內主動鎖定，不再於整個串流範圍內無條件追擊。",
+    "castSensor": "CastSensorIdle/Chase 在玩家有有效詠唱狀態時觸發仇恨。",
+    "singlePlayerNoOp": [
+      "ChangeTargetMelee",
+      "ChangeTargetChase",
+      "TargetWeak",
+      "RandomTarget 暫僅保留資料；單人模式沒有第二個玩家目標。"
+    ],
+    "future": [
+      "Looter 等地面掉落實體完成後再啟用撿取行為",
+      "怪物技能表加入後 NoCast 與各種 CastSensor 技能反應可再深化"
+    ]
+  }
+}

@@ -1,0 +1,170 @@
+{
+  "meta": {
+    "version": "0.9.82BG",
+    "schema": "ro_web_skill_tree_v3",
+    "raJob": "Wizard",
+    "bodySource": "../skills/skills_core_1.json",
+    "displayName": "巫師"
+  },
+  "job": "wizard",
+  "raJob": "Wizard",
+  "skills": [
+    {
+      "skillId": 80,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 18,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 81,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 20,
+          "level": 1
+        },
+        {
+          "skillId": 10,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 83,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 81,
+          "level": 2
+        },
+        {
+          "skillId": 21,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 84,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 11,
+          "level": 1
+        },
+        {
+          "skillId": 20,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 85,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 21,
+          "level": 1
+        },
+        {
+          "skillId": 84,
+          "level": 5
+        }
+      ]
+    },
+    {
+      "skillId": 86,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 14,
+          "level": 1
+        },
+        {
+          "skillId": 20,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 87,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 16,
+          "level": 1
+        },
+        {
+          "skillId": 15,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 88,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 87,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 89,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 15,
+          "level": 1
+        },
+        {
+          "skillId": 84,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "skillId": 90,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 16,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 91,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 90,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "skillId": 92,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 91,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 93,
+      "maxLevel": 1
+    },
+    {
+      "skillId": 1006,
+      "maxLevel": 1
+    }
+  ],
+  "name": "巫師"
+}

@@ -1,0 +1,64 @@
+{
+  "version": "0.9.82H",
+  "batch": "Runtime Support/Passive Batch20",
+  "coverage": {
+    "before": 111,
+    "after": 116,
+    "target": 1139
+  },
+  "pending": {
+    "before": 1028,
+    "after": 1023
+  },
+  "addedSkills": [
+    {
+      "skillId": 53,
+      "skillKey": "TF_DETOXIFY",
+      "name": "解毒"
+    },
+    {
+      "skillId": 72,
+      "skillKey": "PR_STRECOVERY",
+      "name": "痊癒術"
+    },
+    {
+      "skillId": 109,
+      "skillKey": "BS_SKINTEMPER",
+      "name": "Skin Tempering"
+    },
+    {
+      "skillId": 110,
+      "skillKey": "BS_HAMMERFALL",
+      "name": "Hammer Fall"
+    },
+    {
+      "skillId": 145,
+      "skillKey": "SM_FATALBLOW",
+      "name": "攻擊弱點"
+    }
+  ],
+  "runtimeEnhancements": [
+    "Instant self-cleanse profiles",
+    "Passive elemental resistance maps",
+    "Enemy-target area stun profile",
+    "Bash Fatal Blow passive metadata hook"
+  ],
+  "adaptations": [
+    "Beneficial support skills self-cast.",
+    "Hammer Fall directly targets enemy area instead of legal ground placement."
+  ],
+  "specialReview": [
+    "Enchant Poison remains pending until poison-element endow and on-hit poison proc are both connected through the common attack pipeline.",
+    "Energy Coat remains pending until RA SP-tier damage reduction and SP consumption-on-hit are implemented."
+  ],
+  "checks": {
+    "runtime": true,
+    "formula": true,
+    "handler": true,
+    "json": true,
+    "js": true,
+    "bundle": true,
+    "cache": true,
+    "regression": true
+  }
+}

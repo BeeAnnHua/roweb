@@ -1,0 +1,537 @@
+{
+  "version": "2.3",
+  "source": "RO_WEB 決定版 + 專案入口_RA開機檔案英文版20260608(DB_re): db/re/job_exp.yml + npc/custom/jobmaster.txt",
+  "policy": {
+    "constitutionIsHighestRule": true,
+    "noCoreChangeForNewJobs": true,
+    "allJobChangesUseConstitution": true,
+    "singleEntryPoint": "changeJob() -> validateJobConstitution()",
+    "doNotAddDirectNonRebirthThirdRoute": true,
+    "note": "RO_WEB 一般職業不採用 RA jobmaster 內未轉生直升三轉路線，也不採一般二轉 Job40；一般/進階二轉固定 Job50。其餘等級與 Job 上限依專案入口 RA DB_re。",
+    "normalSecondJob50Required": true,
+    "normalTransSecondJob50Required": true,
+    "raSecondJob40ExcludedForNormalClass": true
+  },
+  "commonRequirements": {
+    "requireAllSkillPointsSpent": true,
+    "skillPointRule": "所有職業、所有階段、一般/轉生/擴充職業，只要剩餘技能點數 > 0 或有暫存技能點未確認，就不可轉職。",
+    "statusPointRule": "一般轉職不檢查剩餘素質點；轉生固定重置，不繼承舊剩餘點。",
+    "requiredUnequippedSystems": [
+      {
+        "id": "cart",
+        "label": "手推車",
+        "playerFields": [
+          "cartEquipped",
+          "hasCart",
+          "cartActive"
+        ],
+        "message": "請先卸除手推車，才能轉職。"
+      },
+      {
+        "id": "falcon",
+        "label": "獵鷹",
+        "playerFields": [
+          "falconEquipped",
+          "hasFalcon",
+          "falconActive"
+        ],
+        "message": "請先解除獵鷹，才能轉職。"
+      },
+      {
+        "id": "warg",
+        "label": "狼",
+        "playerFields": [
+          "hasWarg",
+          "wargActive",
+          "wargRiding"
+        ],
+        "message": "請先解除狼協助與騎乘狀態，才能轉職。"
+      },
+      {
+        "id": "homunculus",
+        "label": "生命體",
+        "playerFields": [
+          "homunculus.active"
+        ],
+        "message": "請先讓生命體安息，才能轉職。"
+      },
+      {
+        "id": "mount",
+        "label": "坐騎",
+        "playerFields": [
+          "mountState.mounted"
+        ],
+        "message": "請先解除坐騎狀態，才能轉職。"
+      }
+    ],
+    "futureUnequippedSystems": [
+      {
+        "id": "mount",
+        "label": "坐騎"
+      },
+      {
+        "id": "warg",
+        "label": "狼"
+      },
+      {
+        "id": "dragon",
+        "label": "龍"
+      },
+      {
+        "id": "mado",
+        "label": "魔導機甲"
+      },
+      {
+        "id": "mercenary",
+        "label": "傭兵"
+      },
+      {
+        "id": "summon",
+        "label": "召喚物"
+      }
+    ]
+  },
+  "normalJobRoutes": {
+    "source": "RO_WEB 決定版；一般職二轉/進階二轉固定 Job50；上限與三/四轉條件參照 RA DB_re；排除未轉生直升三轉。",
+    "enforceRebirthBeforeThird": true,
+    "excludedRoutes": [
+      {
+        "id": "normal_second_to_third_without_rebirth",
+        "source": "rAthena jobmaster .Req_Third 99/50",
+        "reason": "RO_WEB 不加入；一般職業必須轉生後，經進階二轉才可三轉。"
+      }
+    ],
+    "transitions": [
+      {
+        "id": "novice_to_first",
+        "fromGroup": "novice",
+        "toGroup": "first",
+        "baseLevel": 1,
+        "jobLevel": 10,
+        "requiredSkills": [
+          {
+            "id": 1,
+            "level": 9,
+            "name": "基本技能"
+          }
+        ]
+      },
+      {
+        "id": "first_to_second",
+        "fromGroup": "first",
+        "toGroup": "second",
+        "baseLevel": 1,
+        "jobLevel": 50,
+        "note": "RO_WEB 決定版：一般一轉 → 二轉必須 Job50，不採 RA jobmaster .Req_Second 1/40。",
+        "webOverride": true,
+        "raJobmasterDefault": {
+          "baseLevel": 1,
+          "jobLevel": 40
+        }
+      },
+      {
+        "id": "second_to_rebirth",
+        "type": "rebirth",
+        "fromGroup": "second",
+        "toGroup": "high_novice",
+        "baseLevel": 99,
+        "jobLevel": 50
+      },
+      {
+        "id": "high_novice_to_high_first",
+        "fromGroup": "high_novice",
+        "toGroup": "high_first",
+        "baseLevel": 1,
+        "jobLevel": 10,
+        "requiredSkills": [
+          {
+            "id": 1,
+            "level": 9,
+            "name": "基本技能"
+          }
+        ]
+      },
+      {
+        "id": "high_first_to_trans_second",
+        "fromGroup": "high_first",
+        "toGroup": "trans_second",
+        "baseLevel": 1,
+        "jobLevel": 50,
+        "webOverride": true,
+        "raJobmasterDefault": {
+          "baseLevel": 1,
+          "jobLevel": 40
+        },
+        "note": "RO_WEB 決定版：高級一轉 → 進階二轉必須 Job50，不採 RA jobmaster .Req_Second 1/40。"
+      },
+      {
+        "id": "trans_second_to_third",
+        "fromGroup": "trans_second",
+        "toGroup": "third",
+        "baseLevel": 99,
+        "jobLevel": 70,
+        "baseCapAfter": 200,
+        "jobCapAfter": 70,
+        "source": "RO_WEB 決定版：必須進階二轉後才可三轉；RA db/re/job_exp.yml 三轉 MaxBaseLevel 200 / MaxJobLevel 70"
+      },
+      {
+        "id": "third_to_fourth",
+        "fromGroup": "third",
+        "toGroup": "fourth",
+        "baseLevel": 200,
+        "jobLevel": 70,
+        "baseCapAfter": 275,
+        "jobCapAfter": 60,
+        "source": "RA jobmaster .Req_Fourth 200/70; RA db/re/job_exp.yml 四轉 MaxBaseLevel 275 / MaxJobLevel 60"
+      }
+    ]
+  },
+  "rebirth": {
+    "baseLevel": 99,
+    "jobLevel": 50,
+    "toJob": "high_novice",
+    "resetStatsTo": 1,
+    "keepRemainingStatusPoints": false,
+    "fixedStartingStatusPoints": 125,
+    "statusPointPolicy": "fixed_reset_not_carry",
+    "status": "enabled"
+  },
+  "extendedJobRoutes": {
+    "source": "RA DB_re npc/custom/jobmaster.txt + db/re/job_exp.yml 20260608",
+    "principle": "擴充職業不套用一般職業的 Job50 二轉規則；每條擴充職路線依 RA DB_re / jobmaster 條件寫入，但仍必須通過共通憲法（技能點=0、特殊狀態解除等）。",
+    "transitions": [
+      {
+        "id": "novice_to_super_novice",
+        "family": "extended",
+        "fromJob": "novice",
+        "toJob": "super_novice",
+        "baseLevel": 10,
+        "jobLevel": 10,
+        "requiredSkills": [
+          {
+            "id": 1,
+            "level": 9,
+            "name": "基本技能"
+          }
+        ],
+        "source": "RO_WEB 決定版：Base 10 / Job 10 / 基本技能 Lv9；技能點與暫存配點皆須為 0。",
+        "note": "RA 20260608 jobmaster 原預設 .SNovice=45；本專案覆寫為 Base 10。"
+      },
+      {
+        "id": "super_novice_to_expanded_super_novice",
+        "family": "extended",
+        "fromJob": "super_novice",
+        "toJob": "expanded_super_novice",
+        "baseLevel": 99,
+        "jobLevel": 99,
+        "baseCapAfter": 200,
+        "jobCapAfter": 70,
+        "source": "jobmaster .Req_Exp_SNOVI 99/99; job_exp Super_Novice_E MaxJobLevel 70",
+        "displayName": "超級初學者界限解放",
+        "assetPolicy": "share:super_novice"
+      },
+      {
+        "id": "expanded_super_novice_to_hyper_novice",
+        "family": "extended",
+        "fromJob": "expanded_super_novice",
+        "toJob": "hyper_novice",
+        "baseLevel": 200,
+        "jobLevel": 70,
+        "baseCapAfter": 275,
+        "jobCapAfter": 60,
+        "source": "jobmaster .Req_Fourth 200/70; job_exp Hyper_Novice MaxJobLevel 60"
+      },
+      {
+        "id": "novice_to_ninja",
+        "family": "extended",
+        "fromJob": "novice",
+        "toJob": "ninja",
+        "baseLevel": 1,
+        "jobLevel": 10,
+        "requiredSkills": [
+          {
+            "id": 1,
+            "level": 9,
+            "name": "基本技能"
+          }
+        ],
+        "jobCapAfter": 70,
+        "source": "jobmaster first options; job_exp Ninja MaxJobLevel 70"
+      },
+      {
+        "id": "ninja_to_kagerou",
+        "family": "extended",
+        "fromJob": "ninja",
+        "toJob": "kagerou",
+        "baseLevel": 99,
+        "jobLevel": 70,
+        "baseCapAfter": 200,
+        "jobCapAfter": 70,
+        "source": "jobmaster .Req_Exp_NJ_GS 99/70; job_exp Kagerou MaxJobLevel 70"
+      },
+      {
+        "id": "ninja_to_oboro",
+        "family": "extended",
+        "fromJob": "ninja",
+        "toJob": "oboro",
+        "baseLevel": 99,
+        "jobLevel": 70,
+        "baseCapAfter": 200,
+        "jobCapAfter": 70,
+        "source": "jobmaster .Req_Exp_NJ_GS 99/70; job_exp Oboro MaxJobLevel 70"
+      },
+      {
+        "id": "kagerou_to_shinkiro",
+        "family": "extended",
+        "fromJob": "kagerou",
+        "toJob": "shinkiro",
+        "baseLevel": 200,
+        "jobLevel": 70,
+        "baseCapAfter": 275,
+        "jobCapAfter": 60,
+        "source": "jobmaster .Req_Fourth 200/70; job_exp Shinkiro MaxJobLevel 60"
+      },
+      {
+        "id": "oboro_to_shiranui",
+        "family": "extended",
+        "fromJob": "oboro",
+        "toJob": "shiranui",
+        "baseLevel": 200,
+        "jobLevel": 70,
+        "baseCapAfter": 275,
+        "jobCapAfter": 60,
+        "source": "jobmaster .Req_Fourth 200/70; job_exp Shiranui MaxJobLevel 60"
+      },
+      {
+        "id": "novice_to_gunslinger",
+        "family": "extended",
+        "fromJob": "novice",
+        "toJob": "gunslinger",
+        "baseLevel": 1,
+        "jobLevel": 10,
+        "requiredSkills": [
+          {
+            "id": 1,
+            "level": 9,
+            "name": "基本技能"
+          }
+        ],
+        "jobCapAfter": 70,
+        "source": "jobmaster first options; job_exp Gunslinger MaxJobLevel 70"
+      },
+      {
+        "id": "gunslinger_to_rebellion",
+        "family": "extended",
+        "fromJob": "gunslinger",
+        "toJob": "rebellion",
+        "baseLevel": 99,
+        "jobLevel": 70,
+        "baseCapAfter": 200,
+        "jobCapAfter": 70,
+        "source": "jobmaster .Req_Exp_NJ_GS 99/70; job_exp Rebellion MaxJobLevel 70"
+      },
+      {
+        "id": "rebellion_to_night_watch",
+        "family": "extended",
+        "fromJob": "rebellion",
+        "toJob": "night_watch",
+        "baseLevel": 200,
+        "jobLevel": 70,
+        "baseCapAfter": 275,
+        "jobCapAfter": 60,
+        "source": "jobmaster .Req_Fourth 200/70; job_exp Night_Watch MaxJobLevel 60"
+      },
+      {
+        "id": "novice_to_taekwon",
+        "family": "extended",
+        "fromJob": "novice",
+        "toJob": "taekwon",
+        "baseLevel": 1,
+        "jobLevel": 10,
+        "requiredSkills": [
+          {
+            "id": 1,
+            "level": 9,
+            "name": "基本技能"
+          }
+        ],
+        "jobCapAfter": 50,
+        "source": "jobmaster first options; job_exp Taekwon MaxJobLevel 50"
+      },
+      {
+        "id": "taekwon_to_star_gladiator",
+        "family": "extended",
+        "fromJob": "taekwon",
+        "toJob": "star_gladiator",
+        "baseLevel": 1,
+        "jobLevel": 40,
+        "jobCapAfter": 50,
+        "source": "jobmaster .Req_Second 1/40; job_exp Star_Gladiator MaxJobLevel 50"
+      },
+      {
+        "id": "taekwon_to_soul_linker",
+        "family": "extended",
+        "fromJob": "taekwon",
+        "toJob": "soul_linker",
+        "baseLevel": 1,
+        "jobLevel": 40,
+        "jobCapAfter": 50,
+        "source": "jobmaster .Req_Second 1/40; job_exp Soul_Linker MaxJobLevel 50"
+      },
+      {
+        "id": "star_gladiator_to_star_emperor",
+        "family": "extended",
+        "fromJob": "star_gladiator",
+        "toJob": "star_emperor",
+        "baseLevel": 99,
+        "jobLevel": 50,
+        "baseCapAfter": 200,
+        "jobCapAfter": 70,
+        "source": "jobmaster .Req_Third 99/50; job_exp Star_Emperor MaxJobLevel 70"
+      },
+      {
+        "id": "soul_linker_to_soul_reaper",
+        "family": "extended",
+        "fromJob": "soul_linker",
+        "toJob": "soul_reaper",
+        "baseLevel": 99,
+        "jobLevel": 50,
+        "baseCapAfter": 200,
+        "jobCapAfter": 70,
+        "source": "jobmaster .Req_Third 99/50; job_exp Soul_Reaper MaxJobLevel 70"
+      },
+      {
+        "id": "star_emperor_to_sky_emperor",
+        "family": "extended",
+        "fromJob": "star_emperor",
+        "toJob": "sky_emperor",
+        "baseLevel": 200,
+        "jobLevel": 70,
+        "baseCapAfter": 275,
+        "jobCapAfter": 60,
+        "source": "jobmaster .Req_Fourth 200/70; job_exp Sky_Emperor MaxJobLevel 60"
+      },
+      {
+        "id": "soul_reaper_to_soul_ascetic",
+        "family": "extended",
+        "fromJob": "soul_reaper",
+        "toJob": "soul_ascetic",
+        "baseLevel": 200,
+        "jobLevel": 70,
+        "baseCapAfter": 275,
+        "jobCapAfter": 60,
+        "source": "jobmaster .Req_Fourth 200/70; job_exp Soul_Ascetic MaxJobLevel 60"
+      },
+      {
+        "id": "summoner_to_spirit_handler",
+        "family": "extended",
+        "fromJob": "summoner",
+        "toJob": "spirit_handler",
+        "baseLevel": 200,
+        "jobLevel": 60,
+        "baseCapAfter": 275,
+        "jobCapAfter": 60,
+        "source": "jobmaster .Req_SHandler 200/60; job_exp Spirit_Handler MaxJobLevel 60"
+      }
+    ]
+  },
+  "levelCapsByRoute": {
+    "source": "RA DB_re db/re/job_exp.yml 20260608",
+    "normal": {
+      "novice": {
+        "baseMaxLevel": 99,
+        "jobMaxLevel": 10
+      },
+      "first": {
+        "baseMaxLevel": 99,
+        "jobMaxLevel": 50
+      },
+      "second": {
+        "baseMaxLevel": 99,
+        "jobMaxLevel": 50
+      },
+      "high_novice": {
+        "baseMaxLevel": 99,
+        "jobMaxLevel": 10
+      },
+      "high_first": {
+        "baseMaxLevel": 99,
+        "jobMaxLevel": 50
+      },
+      "trans_second": {
+        "baseMaxLevel": 99,
+        "jobMaxLevel": 70
+      },
+      "third": {
+        "baseMaxLevel": 200,
+        "jobMaxLevel": 70
+      },
+      "fourth": {
+        "baseMaxLevel": 275,
+        "jobMaxLevel": 60
+      }
+    },
+    "extended": {
+      "super_novice": {
+        "baseMaxLevel": 99,
+        "jobMaxLevel": 99
+      },
+      "expanded_super_novice": {
+        "baseMaxLevel": 200,
+        "jobMaxLevel": 70
+      },
+      "hyper_novice": {
+        "baseMaxLevel": 275,
+        "jobMaxLevel": 60
+      },
+      "ninja": {
+        "baseMaxLevel": 99,
+        "jobMaxLevel": 70
+      },
+      "kagerou_oboro": {
+        "baseMaxLevel": 200,
+        "jobMaxLevel": 70
+      },
+      "shinkiro_shiranui": {
+        "baseMaxLevel": 275,
+        "jobMaxLevel": 60
+      },
+      "gunslinger": {
+        "baseMaxLevel": 99,
+        "jobMaxLevel": 70
+      },
+      "rebellion": {
+        "baseMaxLevel": 200,
+        "jobMaxLevel": 70
+      },
+      "night_watch": {
+        "baseMaxLevel": 275,
+        "jobMaxLevel": 60
+      },
+      "taekwon": {
+        "baseMaxLevel": 99,
+        "jobMaxLevel": 50
+      },
+      "star_gladiator_soul_linker": {
+        "baseMaxLevel": 99,
+        "jobMaxLevel": 50
+      },
+      "star_emperor_soul_reaper": {
+        "baseMaxLevel": 200,
+        "jobMaxLevel": 70
+      },
+      "sky_emperor_soul_ascetic": {
+        "baseMaxLevel": 275,
+        "jobMaxLevel": 60
+      },
+      "summoner": {
+        "baseMaxLevel": 200,
+        "jobMaxLevel": 60
+      },
+      "spirit_handler": {
+        "baseMaxLevel": 275,
+        "jobMaxLevel": 60
+      }
+    }
+  }
+}

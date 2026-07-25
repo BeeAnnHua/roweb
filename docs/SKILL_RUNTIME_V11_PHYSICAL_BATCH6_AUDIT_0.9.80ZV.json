@@ -1,0 +1,48 @@
+{
+  "version": "0.9.80ZV",
+  "result": "PASS",
+  "runtimeProfiles": 60,
+  "addedProfiles": [
+    316,
+    324,
+    523
+  ],
+  "addedSkills": [
+    {
+      "skillId": 316,
+      "key": "BA_MUSICALSTRIKE",
+      "name": "樂器攻擊",
+      "behavior": "樂器限制；150%~310% 總傷害；2 Hit 視覺；不扣箭矢"
+    },
+    {
+      "skillId": 324,
+      "key": "DC_THROWARROW",
+      "name": "纏箭投擲",
+      "behavior": "鞭子限制；150%~310% 總傷害；2 Hit 視覺；不扣箭矢"
+    },
+    {
+      "skillId": 523,
+      "key": "NJ_SYURIKEN",
+      "name": "投擲飛鏢",
+      "behavior": "105%~150% 武器傷害；不檢查、不扣除飛鏢"
+    }
+  ],
+  "weaponFamilyAudit": {
+    "required": [
+      "instrument",
+      "whip"
+    ],
+    "existing": [
+      "instrument",
+      "whip"
+    ],
+    "createdThisVersion": [],
+    "result": "PASS"
+  },
+  "formulaAudit": {
+    "visualHitsSeparatedFromDamageHits": true,
+    "ammoConsumptionRemoved": true
+  },
+  "pendingProfiles": 1079,
+  "legacyFallbacks": 0
+}

@@ -1,0 +1,18 @@
+{
+  "version": "0.9.80W",
+  "recordsChecked": 103,
+  "jsonFilesChecked": 48,
+  "issues": [],
+  "result": "PASS",
+  "rules": {
+    "nameSource": "itemInfo_UTF8.lub",
+    "equipmentSource": "DB_RE item_db_equip.yml",
+    "price": "Sell if official else floor(Buy/2); missing Buy defaults 20",
+    "excluded": [
+      "Weight",
+      "Gender",
+      "Unidentified data"
+    ],
+    "compatibility": "canonical official fields + runtime aliases"
+  }
+}

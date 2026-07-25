@@ -1,0 +1,87 @@
+{
+  "version": "0.9.82AM",
+  "result": "PASS",
+  "batch": "Mechanic Mado Mobility Core Batch46",
+  "sourceFiles": [
+    "Project SkillInfoz skillinfolist.lub / skilldescript.lub",
+    "rAthena db/re/skill_db.yml",
+    "rAthena src/map/status.cpp",
+    "rAthena src/map/skills/merchant/frontsideslide.cpp",
+    "rAthena src/map/skills/merchant/backsideslide.cpp"
+  ],
+  "officialAdded": [
+    2262,
+    2263,
+    2264,
+    2265
+  ],
+  "coverage": {
+    "before": 474,
+    "after": 478,
+    "target": 1139
+  },
+  "pending": {
+    "before": 665,
+    "after": 661
+  },
+  "madoScaffold": {
+    "manifest": "data/mounts/mount_manifest.json",
+    "definition": "data/mounts/mado_gear.json",
+    "transparentPlaceholder": "images/mounts/mado_gear.png",
+    "anchor": {
+      "x": 128,
+      "y": 140
+    },
+    "frameSize": "256x256",
+    "runtimeHooks": [
+      "rentPlayerMount(\"mado\")",
+      "returnPlayerMount(\"mado\")",
+      "window.onROWebMountStateChanged"
+    ]
+  },
+  "behavior": {
+    "2262": {
+      "name": "魔導機甲加速",
+      "durationMs": [
+        60000,
+        90000,
+        120000
+      ],
+      "walkSpeedRate": -25
+    },
+    "2263": {
+      "name": "懸停",
+      "durationMs": 90000,
+      "groundEffectImmune": true
+    },
+    "2264": {
+      "name": "大步前進",
+      "movementCells": 7,
+      "direction": "toward current target/movement target"
+    },
+    "2265": {
+      "name": "大步後退",
+      "movementCells": 7,
+      "direction": "away from current target/movement target"
+    }
+  },
+  "deferred": [
+    "Magic Gear Fuel consumption",
+    "Mado equipment checks",
+    "NPC rental button",
+    "final male/female Mado animation atlas",
+    "SP/AP and trait-stat costs"
+  ],
+  "validation": {
+    "jsonFilesParsed": 429,
+    "javascriptFilesSyntaxChecked": 52,
+    "regressionScriptsPassed": 28,
+    "runtimeGeneratedCatalogCounts": "478/478/478",
+    "pendingCount": 661,
+    "duplicateSkillIds": 0,
+    "duplicateSkillKeys": 0,
+    "cacheVersion": "0.9.82AM",
+    "zipIntegrity": "PASS",
+    "copyableExclusion": "PASS"
+  }
+}

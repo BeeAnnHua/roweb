@@ -1,0 +1,68 @@
+{
+  "version": "0.9.82AD",
+  "result": "PASS",
+  "batch": "Merchant / Blacksmith Passive Conversion Batch37",
+  "userApprovedRules": {
+    "MC_IDENTIFY": "MHP/MSP +5% permanent",
+    "BS_GREED": "MHP/MSP +5% permanent",
+    "MC_VENDING": "ATK +2% per level",
+    "ALL_BUYING_STORE": "ATK +2%",
+    "BS_IRON_to_BS_ORIDEOCON": "MHP/MSP +2% per level",
+    "BS_DAGGER_to_BS_SPEAR": "ATK +2% per level",
+    "MC_CHANGECART_and_MC_CARTDECORATE": "ATK +3% each",
+    "MC_PUSHCART": "ATK +1% per level; future cart rental/JSON/PNG hooks retained",
+    "cartDamage": "Cart Revolution and Cart Termination always use full-load damage"
+  },
+  "newOfficialSkillIds": [
+    40,
+    41,
+    94,
+    95,
+    96,
+    97,
+    98,
+    99,
+    100,
+    101,
+    102,
+    103,
+    104,
+    154,
+    1013,
+    2535,
+    2544
+  ],
+  "correctedOfficialSkillIds": [
+    39,
+    153,
+    485
+  ],
+  "coverage": {
+    "before": 424,
+    "after": 441,
+    "target": 1139
+  },
+  "pending": {
+    "before": 715,
+    "after": 698
+  },
+  "deferred": {
+    "traitStats": "after all job Runtime profiles",
+    "spConsumption": "after all job Runtime profiles",
+    "sharedCosts": "after all job Runtime profiles"
+  },
+  "validation": {
+    "jsonParse": "PASS (418 JSON files)",
+    "javascriptSyntax": "PASS (43 JS files)",
+    "runtimeDynamicTest": "PASS",
+    "regressionScripts": "PASS (19/19)",
+    "runtimeGeneratedCatalogCounts": "441/441/441",
+    "pendingCount": 698,
+    "duplicateSkillIds": 0,
+    "duplicateSkillKeys": 0,
+    "cacheVersion": "0.9.82AD",
+    "dataBundle": "PASS (418 keys)",
+    "cartFormulaWithoutWeight": "PASS (Cart Revolution 250%, Cart Termination Lv10 1333%)",
+    "passiveAggregateTest": "PASS (ATK +80%, MHP/MSP +50% in full conversion fixture)"
+  }
+}

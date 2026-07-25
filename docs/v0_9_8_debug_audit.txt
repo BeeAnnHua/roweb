@@ -1,0 +1,17 @@
+RO_WEB v0.9.8 Debug / Audit Report
+==================================
+
+Static checks:
+- JS syntax: OK (node --check js/*.js)
+- JSON format: OK (data/*.json)
+- Image references: 107 checked, missing 0
+  Missing images: 0
+- Duplicate function declarations: 0
+
+Included cleanup fixes:
+- SAVE_KEY updated to ro_web_save_v0_9_8_panel_template_cleanup.
+- UI_POS_KEY updated to ro_web_ui_positions_v6_098 to reset old panel positions.
+- Added 技能 placeholder（已於 v0.9.64c 退休） fallback after old skill image cleanup.
+- Hunting stats panel is now draggable and hidden by default.
+- Job / training is no longer a standalone top-right button; it opens from Novice Basic Skill.
+- Character, skill, and equipment panels use template-positioned UI overrides.

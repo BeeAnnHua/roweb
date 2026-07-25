@@ -1,0 +1,41 @@
+{
+  "version": "0.9.80ZN",
+  "result": "PASS",
+  "runtimeProfiles": 35,
+  "addedProfiles": [
+    4,
+    6,
+    8,
+    57,
+    61,
+    63,
+    64,
+    1001
+  ],
+  "newHandlers": [
+    "monster_debuff",
+    "counter_stance",
+    "mount_unlock",
+    "physical_attack_formula",
+    "physical_charge"
+  ],
+  "roWebNativeSystems": [
+    "runtimeState",
+    "mountState",
+    "monster.runtimeState"
+  ],
+  "verifiedSources": [
+    "rAthena skill_db.yml",
+    "rAthena provoke.cpp",
+    "rAthena counterattack.cpp",
+    "rAthena brandishspear.cpp",
+    "rAthena chargeattack.cpp",
+    "rAthena status.cpp"
+  ],
+  "mountAssetStatus": "state/runtime ready; Character Atlas hook reserved through window.onROWebMountStateChanged",
+  "legacyFallbacks": 0,
+  "notes": [
+    "Skill result follows RA; implementation follows RO_WEB.",
+    "No SPR/ACT fields or loaders were introduced."
+  ]
+}

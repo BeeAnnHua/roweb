@@ -1,0 +1,31 @@
+RO_WEB 0.9.82DK Character Integration Test Report
+=================================================
+
+Scope
+-----
+- Integrated Novice, Acolyte and Archer family character animation assets.
+- 34 physical character sets.
+- 42 data-driven manifest entries including shared/reuse aliases.
+- Hurt and Dead use one shared hurt_dead PNG/JSON per physical set.
+- Hurt selects 3 frames; Dead selects 4 frames and holds the last frame.
+- Preserved Mjolnir Poring/Scorpion test and V76 monster flipX Runtime from 0.9.82DJ.
+
+Validation
+----------
+PASS - Character manifest/path test: 42 entries, 34 physical sets.
+PASS - All actual character sets have merged hurt_dead/body_hair.png + JSON.
+PASS - No legacy separate hurt/ or dead/ folders remain in managed sets.
+PASS - 392 referenced animation JSON files parse and reference existing PNG files.
+PASS - Referenced PNG dimensions match their JSON atlas metadata.
+PASS - Runtime motion selection: Hurt=3 frames; Dead=4 frames; hold-last=true.
+PASS - Archer family jobs are marked appearanceAssetStatus=ready.
+PASS - Deep Health: 0 errors, 0 warnings.
+PASS - JSON bundle: 797 JSON files / 797 bundled entries.
+PASS - JavaScript syntax: 351 files checked.
+
+Notes
+-----
+- RO_WEB removes Bard/Dancer gender restrictions. Missing official opposite-gender costumes use same-gender counterpart route aliases:
+  female Bard route -> female Dancer-line visuals;
+  male Dancer route -> male Bard-line visuals.
+- Gameplay job, equipment and combat calculations are unchanged by visual aliases.

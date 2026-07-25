@@ -1,0 +1,1372 @@
+//=======================================
+// AutoBattleController v1.2（0.9.82FC）
+// 精簡設定介面 / 自動異常解除 / 低血量飛走與蝴蝶翅膀回城 / 自訂數字步進器
+//=======================================
+
+
+function createDefaultAutoCombat() {
+  const makeAttackSlot = (index = 0) => ({
+    enabled: index === 0,
+    skillId: null,
+    spPercent: 50,
+    level: 1,
+    minMonsters: 1,
+    fallbackNormal: true
+  });
+  return {
+    hpPotion: { enabled: true, hpPercent: 50, itemId: null },
+    spPotion: { enabled: false, spPercent: 30, itemId: null },
+    detox: { enabled: false },
+    heal: { enabled: false, skillId: null, hpPercent: 60, spPercent: 20, level: 1 },
+    normalAttack: { enabled: true },
+    attacks: Array.from({ length: 4 }, (_, index) => makeAttackSlot(index)),
+    buffs: {},
+    teleport: {
+      enabled: false,
+      noTargetSeconds: 1,
+      avoidBoss: false,
+      avoidMvp: false,
+      lowHpEnabled: false,
+      lowHpPercent: 30,
+      returnHome: { enabled: false, hpPercent: 10, cityId: "prontera" }
+    }
+  };
+}
+
+
+function normalizeAutoCombatSettings() {
+  if (!player) return;
+  const defaults = createDefaultAutoCombat();
+  const source = player.autoCombat || {};
+  const legacyAttack = source.attack && typeof source.attack === "object" ? source.attack : null;
+
+  player.autoCombat = {
+    ...defaults,
+    ...source
+  };
+  player.autoCombat.hpPotion = { ...defaults.hpPotion, ...(source.hpPotion || {}) };
+  player.autoCombat.spPotion = { ...defaults.spPotion, ...(source.spPotion || {}) };
+  player.autoCombat.detox = { ...defaults.detox, ...(source.detox || {}) };
+  player.autoCombat.heal = { ...defaults.heal, ...(source.heal || {}) };
+  player.autoCombat.normalAttack = { ...defaults.normalAttack, ...(source.normalAttack || {}) };
+
+  const sourceAttacks = Array.isArray(source.attacks) ? source.attacks.slice(0, 4) : [];
+  if (!sourceAttacks.length && legacyAttack) sourceAttacks.push(legacyAttack);
+  player.autoCombat.attacks = defaults.attacks.map((fallback, index) => ({
+    ...fallback,
+    ...(sourceAttacks[index] || {})
+  }));
+  player.autoCombat.attacks.forEach(slot => {
+    slot.enabled = slot.enabled !== false;
+    slot.skillId = slot.skillId ? String(slot.skillId) : null;
+    slot.spPercent = Math.max(0, Math.min(100, Number(slot.spPercent ?? 50)));
+    slot.level = Math.max(1, Number(slot.level || 1));
+    slot.minMonsters = Math.max(1, Math.min(99, Number(slot.minMonsters || 1)));
+    slot.fallbackNormal = slot.fallbackNormal !== false;
+  });
+
+  // Keep the old field as a live alias for older save / scheduler code.
+  player.autoCombat.attack = player.autoCombat.attacks[0];
+
+  const rawBuffs = source.buffs && typeof source.buffs === "object" ? source.buffs : {};
+  player.autoCombat.buffs = {};
+  Object.entries(rawBuffs).forEach(([key, value]) => {
+    if (value && typeof value === "object") {
+      player.autoCombat.buffs[key] = {
+        enabled: value.enabled !== false,
+        spPercent: Math.max(0, Math.min(100, Number(value.spPercent || 0)))
+      };
+    } else {
+      player.autoCombat.buffs[key] = {
+        enabled: Boolean(value),
+        spPercent: 0
+      };
+    }
+  });
+
+  const sourceTeleport = source.teleport || {};
+  player.autoCombat.teleport = {
+    ...defaults.teleport,
+    ...sourceTeleport,
+    noTargetSeconds: 1,
+    lowHpEnabled: sourceTeleport.lowHpEnabled === true,
+    lowHpPercent: Math.max(1, Math.min(99, Number(sourceTeleport.lowHpPercent ?? defaults.teleport.lowHpPercent))),
+    returnHome: {
+      ...defaults.teleport.returnHome,
+      ...(sourceTeleport.returnHome || {}),
+      enabled: sourceTeleport.returnHome?.enabled === true,
+      hpPercent: Math.max(1, Math.min(99, Number(sourceTeleport.returnHome?.hpPercent ?? defaults.teleport.returnHome.hpPercent))),
+      cityId: String(sourceTeleport.returnHome?.cityId || defaults.teleport.returnHome.cityId)
+    }
+  };
+
+  // 兼容 v0.5 autoPotion：只在舊存檔尚未建立新版欄位時遷移一次。
+  if (player.autoPotion) {
+    if (!source.hpPotion) {
+      player.autoCombat.hpPotion.enabled = player.autoPotion.hpEnabled ?? player.autoCombat.hpPotion.enabled;
+      player.autoCombat.hpPotion.hpPercent = player.autoPotion.hpPercent ?? player.autoCombat.hpPotion.hpPercent;
+      player.autoCombat.hpPotion.itemId = normalizeItemId(player.autoPotion.hpItemId) || player.autoCombat.hpPotion.itemId;
+    }
+    if (!source.spPotion) {
+      player.autoCombat.spPotion.enabled = player.autoPotion.spEnabled ?? player.autoCombat.spPotion.enabled;
+      player.autoCombat.spPotion.spPercent = player.autoPotion.spPercent ?? player.autoCombat.spPotion.spPercent;
+      player.autoCombat.spPotion.itemId = normalizeItemId(player.autoPotion.spItemId) || player.autoCombat.spPotion.itemId;
+    }
+  }
+}
+
+function getPercent(current, max) {
+  if (!max || max <= 0) return 0;
+  return Math.floor(Number(current || 0) * 100 / Number(max));
+}
+
+
+function splitAutoRecoveryArguments(raw = "") {
+  const args = [];
+  let current = "";
+  let depth = 0;
+  for (const char of String(raw)) {
+    if (char === "(") depth += 1;
+    if (char === ")") depth = Math.max(0, depth - 1);
+    if (char === "," && depth === 0) {
+      args.push(current.trim());
+      current = "";
+      continue;
+    }
+    current += char;
+  }
+  if (current.trim() || args.length) args.push(current.trim());
+  return args;
+}
+
+function evaluateAutoRecoveryExpression(expression, options = {}) {
+  const raw = String(expression || "").trim();
+  if (!raw) return 0;
+  const randomMatch = raw.match(/^rand\s*\(\s*(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)\s*\)$/i);
+  if (randomMatch) {
+    const min = Number(randomMatch[1]);
+    const max = Number(randomMatch[2]);
+    if (!Number.isFinite(min) || !Number.isFinite(max)) return 0;
+    if (options.roll) return Math.round(Math.min(min, max) + Math.random() * Math.abs(max - min));
+    return Math.round((min + max) / 2);
+  }
+  const numeric = Number(raw);
+  return Number.isFinite(numeric) ? Math.max(0, Math.round(numeric)) : 0;
+}
+
+function getItemRecoveryProfile(item, options = {}) {
+  if (!item) return { hp: 0, sp: 0 };
+  let hp = Math.max(0, Number(item.hp ?? item.HP ?? item.recoveryHp ?? item.recoverHp ?? 0));
+  let sp = Math.max(0, Number(item.sp ?? item.SP ?? item.recoverySp ?? item.recoverSp ?? 0));
+
+  if (hp <= 0 || sp <= 0) {
+    const script = String(item.scriptRaw || item.Script || item.script || "");
+    const marker = script.toLowerCase().indexOf("itemheal");
+    if (marker >= 0) {
+      const start = marker + "itemheal".length;
+      const end = script.indexOf(";", start);
+      const args = splitAutoRecoveryArguments(script.slice(start, end >= 0 ? end : undefined));
+      if (hp <= 0) hp = evaluateAutoRecoveryExpression(args[0], options);
+      if (sp <= 0) sp = evaluateAutoRecoveryExpression(args[1], options);
+    }
+  }
+  return { hp: Math.max(0, Math.round(hp)), sp: Math.max(0, Math.round(sp)) };
+}
+
+function getItemRecoveryValue(item, kind, options = {}) {
+  const profile = getItemRecoveryProfile(item, options);
+  return kind === "sp" ? profile.sp : profile.hp;
+}
+
+
+const AUTO_STATUS_LABELS = Object.freeze({
+  poison: "中毒", deadlypoison: "致命毒", slowpoison: "緩毒", magicpoison: "魔力中毒",
+  silence: "沉默", blind: "黑暗", confusion: "混亂", curse: "詛咒", hallucination: "幻覺",
+  stun: "暈眩", freeze: "冰凍", freezing: "冷凍", stone: "石化", sleep: "睡眠", deepsleep: "深度睡眠",
+  bleeding: "出血", burning: "燃燒", fear: "恐懼", paralysis: "麻痺", mandragora: "精神衝擊",
+  crystalize: "結晶", crystallize: "結晶", pyrexia: "高熱", deathhurt: "重傷", ash: "灰燼"
+});
+
+const AUTO_STATUS_ALIASES = Object.freeze({
+  hallu: "hallucination", hallucination: "hallucination",
+  stonecurse: "stone", petrification: "stone", petrify: "stone",
+  deepsleepstatus: "deepsleep",
+  darkness: "blind", dark: "blind", confuse: "confusion",
+  crystallization: "crystallize", crystalization: "crystalize"
+});
+
+function normalizeAutoStatusKey(value) {
+  let key = String(value || "").trim().replace(/^SC_/i, "").toLowerCase().replace(/[ _-]/g, "");
+  return AUTO_STATUS_ALIASES[key] || key;
+}
+
+function getPlayerActiveStatusKeys() {
+  if (!player?.runtimeState) return [];
+  if (window.StatusManager?.clearExpired) window.StatusManager.clearExpired(player);
+  const statuses = player.runtimeState.statuses || {};
+  const now = Date.now();
+  return [...new Set(Object.entries(statuses)
+    .filter(([, state]) => !state?.expiresAt || Number(state.expiresAt) > now)
+    .map(([key]) => normalizeAutoStatusKey(key))
+    .filter(Boolean))];
+}
+
+function getItemStatusCureProfile(item) {
+  if (!item) return { statuses: [], clearAll: false };
+  const statuses = new Set();
+  const script = String(item.scriptRaw || item.Script || item.script || "");
+  for (const match of script.matchAll(/\bsc_end\s+SC_([A-Za-z0-9_]+)/gi)) {
+    const key = normalizeAutoStatusKey(match[1]);
+    if (key) statuses.add(key);
+  }
+
+  // itemInfo-only fallback. Script sc_end remains the primary and future-proof source.
+  const id = Number(item.officialId ?? item.id ?? item.Id ?? 0);
+  const fallbackById = {
+    506: ["poison", "silence", "blind", "confusion", "hallucination"],
+    511: ["poison", "deadlypoison", "slowpoison", "magicpoison"],
+    525: ["poison", "silence", "blind", "confusion", "curse", "hallucination"],
+    526: ["poison", "silence", "blind", "confusion", "curse"]
+  };
+  (fallbackById[id] || []).forEach(status => statuses.add(status));
+
+  const text = [item.name, item.Name, ...(Array.isArray(item.description) ? item.description : [item.description])]
+    .filter(Boolean).join(" ").replace(/\^[0-9a-f]{6}/gi, "");
+  const descriptionRules = [
+    [/致命毒/g, "deadlypoison"], [/緩毒/g, "slowpoison"], [/中毒|毒性|解毒/g, "poison"],
+    [/沉默/g, "silence"], [/暗黑|黑暗/g, "blind"], [/混亂/g, "confusion"], [/詛咒/g, "curse"],
+    [/幻覺/g, "hallucination"], [/暈眩/g, "stun"], [/冰凍/g, "freeze"], [/冷凍/g, "freezing"],
+    [/石化/g, "stone"], [/睡眠/g, "sleep"], [/出血/g, "bleeding"], [/燃燒/g, "burning"],
+    [/恐懼/g, "fear"], [/麻痺/g, "paralysis"]
+  ];
+  descriptionRules.forEach(([pattern, key]) => { if (pattern.test(text)) statuses.add(key); });
+  const clearAll = statuses.size === 0 && /恢復所有狀態|所有異常狀態|解除所有異常/.test(text);
+  return { statuses: [...statuses], clearAll };
+}
+
+function isAutoStatusCureItem(item) {
+  const profile = getItemStatusCureProfile(item);
+  return profile.clearAll || profile.statuses.length > 0;
+}
+
+function getMatchedStatusCureKeys(profile, activeKeys = getPlayerActiveStatusKeys()) {
+  const active = [...new Set((activeKeys || []).map(normalizeAutoStatusKey).filter(Boolean))];
+  if (profile?.clearAll) return active;
+  const cureSet = new Set((profile?.statuses || []).map(normalizeAutoStatusKey));
+  return active.filter(key => cureSet.has(key));
+}
+
+function clearPlayerStatuses(statusKeys) {
+  if (!player?.runtimeState) return [];
+  const wanted = new Set((statusKeys || []).map(normalizeAutoStatusKey).filter(Boolean));
+  if (!wanted.size) return [];
+  const statuses = player.runtimeState.statuses || {};
+  const removed = [];
+  Object.keys(statuses).forEach(rawKey => {
+    const key = normalizeAutoStatusKey(rawKey);
+    if (!wanted.has(key)) return;
+    delete statuses[rawKey];
+    removed.push(key);
+  });
+  wanted.forEach(key => {
+    if (Object.prototype.hasOwnProperty.call(player.runtimeState, key)) {
+      delete player.runtimeState[key];
+      if (!removed.includes(key)) removed.push(key);
+    }
+  });
+  return [...new Set(removed)];
+}
+
+function getAutoStatusLabelList(statusKeys) {
+  return (statusKeys || []).map(key => AUTO_STATUS_LABELS[normalizeAutoStatusKey(key)] || String(key)).join("、");
+}
+
+function getAutoStatusCureItemCost(item) {
+  const value = Number(item?.buyPrice ?? item?.Buy ?? (Number(item?.sellPrice ?? item?.Sell ?? 0) * 2));
+  return Number.isFinite(value) && value > 0 ? value : 999999;
+}
+
+function findAutoStatusCureItem(activeKeys = getPlayerActiveStatusKeys()) {
+  if (!player?.inventory || !activeKeys.length) return null;
+  return player.inventory
+    .map(inv => {
+      const item = getItemData(inv.id);
+      const profile = getItemStatusCureProfile(item);
+      const matched = getMatchedStatusCureKeys(profile, activeKeys);
+      const recovery = getItemRecoveryProfile(item);
+      return { inv, item, profile, matched, recovery };
+    })
+    .filter(row => row.item && Number(row.inv.count || 0) > 0 && row.matched.length > 0)
+    .sort((a, b) => {
+      if (a.matched.length !== b.matched.length) return b.matched.length - a.matched.length;
+      const costDiff = getAutoStatusCureItemCost(a.item) - getAutoStatusCureItemCost(b.item);
+      if (costDiff) return costDiff;
+      const aBreadth = a.profile.clearAll ? 999 : a.profile.statuses.length;
+      const bBreadth = b.profile.clearAll ? 999 : b.profile.statuses.length;
+      if (aBreadth !== bBreadth) return aBreadth - bBreadth;
+      const recoveryDiff = Number(a.recovery.hp || 0) + Number(a.recovery.sp || 0) - Number(b.recovery.hp || 0) - Number(b.recovery.sp || 0);
+      if (recoveryDiff) return recoveryDiff;
+      return Number(a.item.id || 0) - Number(b.item.id || 0);
+    })[0] || null;
+}
+
+function applyAutoStatusCureItemRecovery(item) {
+  const profile = getItemRecoveryProfile(item, { roll: true });
+  let hp = 0;
+  let sp = 0;
+  if (Number(profile.hp || 0) > 0) {
+    const amount = typeof calculateItemRecoveryAmount === "function" ? calculateItemRecoveryAmount(profile.hp, "hp") : Number(profile.hp || 0);
+    const before = Number(player.hp || 0);
+    player.hp = Math.min(Number(player.maxHp || before), before + amount);
+    hp = Math.max(0, player.hp - before);
+  }
+  if (Number(profile.sp || 0) > 0) {
+    const amount = typeof calculateItemRecoveryAmount === "function" ? calculateItemRecoveryAmount(profile.sp, "sp") : Number(profile.sp || 0);
+    const before = Number(player.sp || 0);
+    player.sp = Math.min(Number(player.maxSp || before), before + amount);
+    sp = Math.max(0, player.sp - before);
+  }
+  return { hp, sp };
+}
+
+function useAutoStatusCureItem(activeKeys = getPlayerActiveStatusKeys()) {
+  const row = findAutoStatusCureItem(activeKeys);
+  if (!row) return false;
+  const removed = clearPlayerStatuses(row.matched);
+  if (!removed.length) return false;
+  const recovery = applyAutoStatusCureItemRecovery(row.item);
+  row.inv.count = Number(row.inv.count || 0) - 1;
+  if (row.inv.count <= 0) player.inventory = player.inventory.filter(item => String(item.id) !== String(row.inv.id));
+  if (typeof addBattleLog === "function") {
+    const recoveryText = [recovery.hp > 0 ? `HP +${recovery.hp}` : "", recovery.sp > 0 ? `SP +${recovery.sp}` : ""].filter(Boolean).join("、");
+    addBattleLog(`自動使用 ${row.item.name}，解除${getAutoStatusLabelList(removed)}${recoveryText ? `；${recoveryText}` : ""}。`);
+  }
+  if (typeof updatePlayerUI === "function") updatePlayerUI();
+  if (typeof updateInventoryUI === "function") updateInventoryUI();
+  if (typeof saveGame === "function") saveGame();
+  return true;
+}
+
+function resolveAutoStatusLevelValue(value, level, fallback = 0) {
+  if (Array.isArray(value)) return Number(value[Math.max(0, Number(level || 1) - 1)] ?? value[value.length - 1] ?? fallback);
+  if (value && typeof value === "object") return Number(value[level] ?? value[String(level)] ?? value.default ?? fallback);
+  const numeric = Number(value);
+  return Number.isFinite(numeric) ? numeric : fallback;
+}
+
+function getSkillStatusCureProfile(skill, level = 1) {
+  const profile = typeof getSkillRuntimeProfile === "function" ? (getSkillRuntimeProfile(skill) || {}) : (skill?.runtimeProfile || {});
+  const statuses = new Set();
+  [profile.clearStatuses, profile.clearStatusesOnlyWhenPresent, profile.effects?.clearStatuses].forEach(list => {
+    (Array.isArray(list) ? list : []).forEach(status => statuses.add(normalizeAutoStatusKey(status)));
+  });
+  const effectKeys = Object.keys(profile.effects || {}).filter(key => key !== "clearStatuses");
+  const chance = Math.max(0, Math.min(100, resolveAutoStatusLevelValue(profile.clearStatusesChancePercent, level, 100)));
+  return {
+    statuses: [...statuses].filter(Boolean),
+    clearAll: profile.clearAllStatuses === true || profile.effects?.clearAllStatuses === true,
+    chance,
+    pureCure: profile.skipBuffWhenStatusPresent === true || (Number(profile.duration || 0) <= 1500 && effectKeys.length === 0 && !profile.formula),
+    profile
+  };
+}
+
+function getLearnedAutoStatusCureSkills(activeKeys = getPlayerActiveStatusKeys()) {
+  const learned = [];
+  for (const type of ["buff", "heal"]) {
+    const rows = typeof getLearnedSkillsByType === "function" ? (getLearnedSkillsByType(type) || []) : [];
+    rows.forEach(skill => learned.push(skill));
+  }
+  const seen = new Set();
+  return learned
+    .filter(skill => {
+      const key = String(skill?.officialId ?? skill?.id ?? "");
+      if (!key || seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    })
+    .map(skill => {
+      const learnedLevel = Math.max(1, Number(typeof getSkillLevel === "function" ? getSkillLevel(skill.id) || 0 : 0));
+      const cure = getSkillStatusCureProfile(skill, learnedLevel);
+      return { skill, learnedLevel, cure, matched: getMatchedStatusCureKeys(cure, activeKeys) };
+    })
+    .filter(row => row.matched.length > 0)
+    .sort((a, b) => {
+      if (a.cure.pureCure !== b.cure.pureCure) return a.cure.pureCure ? -1 : 1;
+      if (a.matched.length !== b.matched.length) return b.matched.length - a.matched.length;
+      if (a.cure.chance !== b.cure.chance) return b.cure.chance - a.cure.chance;
+      return Number(a.skill.id || 0) - Number(b.skill.id || 0);
+    });
+}
+
+function tryAutoStatusCureSkill(activeKeys = getPlayerActiveStatusKeys()) {
+  if (typeof isRuntimeSkillCasting === "function" && isRuntimeSkillCasting()) return false;
+  for (const row of getLearnedAutoStatusCureSkills(activeKeys)) {
+    const type = typeof getRuntimeSkillUiType === "function" ? getRuntimeSkillUiType(row.skill) : (row.cure.profile.handler || row.skill.skillType || "buff");
+    const allowedType = type === "heal" ? "heal" : "buff";
+    const check = typeof canCastSkill === "function" ? canCastSkill(row.skill, row.learnedLevel, [allowedType]) : { ok: true, level: row.learnedLevel };
+    if (!check?.ok) continue;
+    const level = Math.max(1, Number(check.level || row.learnedLevel || 1));
+    const cast = () => {
+      if (allowedType === "heal" && typeof castHealSkill === "function") return castHealSkill(row.skill, level);
+      if (typeof castBuffSkill === "function") return castBuffSkill(row.skill, level, { silent: false });
+      return false;
+    };
+    const timing = typeof getRuntimeAdjustedCastTime === "function" ? getRuntimeAdjustedCastTime(row.skill, level) : { totalMs: 0 };
+    if (Number(timing?.totalMs || 0) > 0 && typeof beginRuntimeSkillCast === "function") {
+      if (beginRuntimeSkillCast(row.skill, level, cast)) return true;
+      continue;
+    }
+    if (cast()) return true;
+  }
+  return false;
+}
+
+function tryAutoStatusCure() {
+  const cfg = player?.autoCombat?.detox;
+  if (!cfg?.enabled) return false;
+  if (typeof isRuntimeSkillCasting === "function" && isRuntimeSkillCasting()) return false;
+  const activeKeys = getPlayerActiveStatusKeys();
+  if (!activeKeys.length) return false;
+  if (tryAutoStatusCureSkill(activeKeys)) return true;
+  return useAutoStatusCureItem(activeKeys);
+}
+
+// Backward-compatible names kept for older tests/save helpers.
+const isAutoDetoxItem = isAutoStatusCureItem;
+const hasPlayerPoisonStatus = () => getPlayerActiveStatusKeys().some(key => ["poison", "deadlypoison", "slowpoison", "magicpoison"].includes(key));
+const tryAutoDetox = tryAutoStatusCure;
+
+function findBestRecoveryItem(kind) {
+  if (!player?.inventory) return null;
+  const key = kind === "sp" ? "sp" : "hp";
+  const missing = key === "hp" ? (player.maxHp - player.hp) : (player.maxSp - player.sp);
+
+  const candidates = player.inventory
+    .map(inv => {
+      const item = getItemData(inv.id);
+      return { inv, item, value: getItemRecoveryValue(item, key) };
+    })
+    .filter(row => row.item && !isAutoStatusCureItem(row.item) && Number(row.value || 0) > 0 && Number(row.inv.count || 0) > 0)
+    .sort((a, b) => {
+      const av = Number(a.value || 0);
+      const bv = Number(b.value || 0);
+      const aWaste = Math.max(0, av - missing);
+      const bWaste = Math.max(0, bv - missing);
+      if (aWaste !== bWaste) return aWaste - bWaste;
+      return av - bv;
+    });
+
+  return candidates[0] || null;
+}
+
+
+function useRecoveryItem(kind, preferredItemId = null) {
+  const key = kind === "sp" ? "sp" : "hp";
+  let inventoryItem = null;
+  let itemData = null;
+
+  if (preferredItemId) {
+    inventoryItem = findInventoryItemById(preferredItemId);
+    itemData = inventoryItem ? getItemData(inventoryItem.id) : null;
+    if (!itemData || isAutoStatusCureItem(itemData) || getItemRecoveryValue(itemData, key) <= 0) {
+      inventoryItem = null;
+      itemData = null;
+    }
+  }
+
+  if (!inventoryItem || !itemData) {
+    const best = findBestRecoveryItem(kind);
+    if (!best) return false;
+    inventoryItem = best.inv;
+    itemData = best.item;
+  }
+
+  const baseRecovery = getItemRecoveryValue(itemData, key, { roll: true });
+  if (baseRecovery <= 0) return false;
+  const recovery = typeof calculateItemRecoveryAmount === "function"
+    ? calculateItemRecoveryAmount(baseRecovery, key)
+    : baseRecovery;
+  const before = key === "hp" ? Number(player.hp || 0) : Number(player.sp || 0);
+  if (key === "hp") {
+    player.hp = Math.min(Number(player.maxHp || before), before + recovery);
+  } else {
+    player.sp = Math.min(Number(player.maxSp || before), before + recovery);
+  }
+  const after = key === "hp" ? Number(player.hp || 0) : Number(player.sp || 0);
+  const actualRecovery = Math.max(0, after - before);
+
+  inventoryItem.count -= 1;
+  if (inventoryItem.count <= 0) {
+    player.inventory = player.inventory.filter(item => String(item.id) !== String(inventoryItem.id));
+  }
+
+  addBattleLog(`自動使用 ${itemData.name}，${key.toUpperCase()} 恢復 ${actualRecovery}。`);
+  updatePlayerUI();
+  updateInventoryUI();
+  saveGame();
+  return true;
+}
+
+
+function syncAutoCombatSettingsFromUI(options = {}) {
+  if (!player) return false;
+  normalizeAutoCombatSettings();
+
+  const hpEnabled = document.getElementById("autoCombatHpPotionEnabled");
+  const hpPercent = document.getElementById("autoCombatHpPotionPercent");
+  const hpItem = document.getElementById("autoCombatHpPotionSelect");
+  const spEnabled = document.getElementById("autoCombatSpPotionEnabled");
+  const spPercent = document.getElementById("autoCombatSpPotionPercent");
+  const spItem = document.getElementById("autoCombatSpPotionSelect");
+  const detoxEnabled = document.getElementById("autoCombatDetoxEnabled");
+  const healEnabled = document.getElementById("autoCombatHealEnabled");
+  const healSkill = document.getElementById("autoCombatHealSkill");
+  const healLevel = document.getElementById("autoCombatHealLevel");
+  const healHpPercent = document.getElementById("autoCombatHealHpPercent");
+  const healSpPercent = document.getElementById("autoCombatHealSpPercent");
+  const normalAttackEnabled = document.getElementById("autoCombatNormalAttackEnabled");
+  const teleportEnabled = document.getElementById("autoCombatTeleportEnabled");
+  const avoidBoss = document.getElementById("autoCombatAvoidBoss");
+  const avoidMvp = document.getElementById("autoCombatAvoidMvp");
+  const lowHpFlyEnabled = document.getElementById("autoCombatLowHpFlyEnabled");
+  const lowHpFlyPercent = document.getElementById("autoCombatLowHpFlyPercent");
+  const butterflyEnabled = document.getElementById("autoCombatButterflyEnabled");
+  const butterflyPercent = document.getElementById("autoCombatButterflyPercent");
+  const returnCity = document.getElementById("autoCombatReturnCity");
+
+  if (hpEnabled) player.autoCombat.hpPotion.enabled = hpEnabled.checked;
+  if (hpPercent) player.autoCombat.hpPotion.hpPercent = Number(hpPercent.value) || 50;
+  if (hpItem) player.autoCombat.hpPotion.itemId = normalizeItemId(hpItem.value) || null;
+
+  if (spEnabled) player.autoCombat.spPotion.enabled = spEnabled.checked;
+  if (spPercent) player.autoCombat.spPotion.spPercent = Number(spPercent.value) || 30;
+  if (spItem) player.autoCombat.spPotion.itemId = normalizeItemId(spItem.value) || null;
+  if (detoxEnabled) player.autoCombat.detox.enabled = detoxEnabled.checked;
+
+  if (healEnabled) player.autoCombat.heal.enabled = healEnabled.checked;
+  if (healSkill) player.autoCombat.heal.skillId = healSkill.value || null;
+  if (healLevel) player.autoCombat.heal.level = Number(healLevel.value) || 1;
+  if (healHpPercent) player.autoCombat.heal.hpPercent = Number(healHpPercent.value) || 60;
+  if (healSpPercent) player.autoCombat.heal.spPercent = Number(healSpPercent.value) || 20;
+
+  if (normalAttackEnabled) player.autoCombat.normalAttack.enabled = normalAttackEnabled.checked;
+  if (teleportEnabled) player.autoCombat.teleport.enabled = teleportEnabled.checked;
+  if (avoidBoss) player.autoCombat.teleport.avoidBoss = avoidBoss.checked;
+  if (avoidMvp) player.autoCombat.teleport.avoidMvp = avoidMvp.checked;
+  if (lowHpFlyEnabled) player.autoCombat.teleport.lowHpEnabled = lowHpFlyEnabled.checked;
+  if (lowHpFlyPercent) player.autoCombat.teleport.lowHpPercent = Math.max(1, Math.min(99, Number(lowHpFlyPercent.value) || 30));
+  if (butterflyEnabled) player.autoCombat.teleport.returnHome.enabled = butterflyEnabled.checked;
+  if (butterflyPercent) player.autoCombat.teleport.returnHome.hpPercent = Math.max(1, Math.min(99, Number(butterflyPercent.value) || 10));
+  if (returnCity) player.autoCombat.teleport.returnHome.cityId = returnCity.value || "prontera";
+  player.autoCombat.teleport.noTargetSeconds = 1;
+
+  player.autoCombat.attacks.forEach((slot, index) => {
+    const enabled = document.getElementById(`autoCombatAttackEnabled${index + 1}`);
+    const skill = document.getElementById(`autoCombatAttackSkill${index + 1}`);
+    const level = document.getElementById(`autoCombatAttackLevel${index + 1}`);
+    const sp = document.getElementById(`autoCombatAttackSpPercent${index + 1}`);
+    const minimum = document.getElementById(`autoCombatAttackMinMonsters${index + 1}`);
+    if (enabled) slot.enabled = enabled.checked;
+    if (skill) slot.skillId = skill.value || null;
+    if (level) slot.level = Math.max(1, Number(level.value) || 1);
+    if (sp) slot.spPercent = Math.max(0, Math.min(100, Number(sp.value) || 0));
+    if (minimum) slot.minMonsters = Math.max(1, Math.min(99, Number(minimum.value) || 1));
+  });
+  player.autoCombat.attack = player.autoCombat.attacks[0];
+
+  document.querySelectorAll("[data-auto-buff-enabled]").forEach(input => {
+    const key = input.dataset.autoBuffEnabled;
+    const threshold = [...document.querySelectorAll("[data-auto-buff-sp]")].find(node => node.dataset.autoBuffSp === key);
+    player.autoCombat.buffs[key] = {
+      enabled: input.checked,
+      spPercent: Math.max(0, Math.min(100, Number(threshold?.value || 0)))
+    };
+  });
+
+  if (options.save) saveGame();
+  return true;
+}
+
+function updatePotionSelectOptions(select, kind, selectedId) {
+  if (!select) return;
+  const resource = kind === "sp" ? "SP" : "HP";
+  select.innerHTML = `<option value="">自動選擇背包中的 ${resource} 補品</option>`;
+
+  const options = (player?.inventory || [])
+    .map(inv => {
+      const item = getItemData(inv.id);
+      return { inv, item, value: getItemRecoveryValue(item, kind) };
+    })
+    .filter(row => row.item && !isAutoStatusCureItem(row.item) && row.value > 0 && Number(row.inv.count || 0) > 0)
+    .sort((a, b) => a.value - b.value || String(a.item.name || "").localeCompare(String(b.item.name || ""), "zh-Hant"));
+
+  options.forEach(row => {
+    const option = document.createElement("option");
+    option.value = row.item.id;
+    option.textContent = `${row.item.name} x${row.inv.count}（${resource}+${row.value}）`;
+    select.appendChild(option);
+  });
+
+  if (selectedId) select.value = selectedId;
+}
+
+function fillSkillLevelSelect(select, skill, selectedLevel) {
+  if (!select) return;
+  select.innerHTML = "";
+  if (!skill) {
+    select.innerHTML = '<option value="1">Lv 1</option>';
+    return;
+  }
+  const learned = Math.max(1, getSkillLevel(skill.id));
+  for (let lv = 1; lv <= learned; lv++) {
+    const option = document.createElement("option");
+    option.value = String(lv);
+    option.textContent = `Lv ${lv}`;
+    select.appendChild(option);
+  }
+  select.value = String(Math.min(Number(selectedLevel || learned), learned));
+}
+
+
+function updateAutoCombatReturnCityOptions(select, selectedId) {
+  if (!select) return;
+  const rows = Array.isArray(window.cities) ? window.cities : (typeof cities !== "undefined" && Array.isArray(cities) ? cities : []);
+  select.innerHTML = "";
+  const source = rows.length ? rows : [{ id: "prontera", name: "普隆德拉" }];
+  source.forEach(city => {
+    const option = document.createElement("option");
+    option.value = String(city.id);
+    option.textContent = city.displayName || city.name || city.id;
+    select.appendChild(option);
+  });
+  const desired = String(selectedId || "prontera");
+  if ([...select.options].some(option => option.value === desired)) select.value = desired;
+  else if ([...select.options].some(option => option.value === "prontera")) select.value = "prontera";
+}
+
+function enhanceAutoCombatNumberInputs() {
+  const panel = document.getElementById("auto-combat-panel");
+  if (!panel) return;
+  panel.querySelectorAll('input[type="number"]').forEach(input => {
+    if (input.closest(".auto-number-control")) return;
+    const wrapper = document.createElement("span");
+    wrapper.className = "auto-number-control";
+    input.parentNode.insertBefore(wrapper, input);
+    wrapper.appendChild(input);
+    const stepper = document.createElement("span");
+    stepper.className = "auto-number-stepper";
+    [["▲", 1, "增加"], ["▼", -1, "減少"]].forEach(([text, direction, label]) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.textContent = text;
+      button.tabIndex = -1;
+      button.setAttribute("aria-label", label);
+      button.addEventListener("click", event => {
+        event.preventDefault();
+        event.stopPropagation();
+        direction > 0 ? input.stepUp() : input.stepDown();
+        const min = input.min === "" ? -Infinity : Number(input.min);
+        const max = input.max === "" ? Infinity : Number(input.max);
+        input.value = String(Math.max(min, Math.min(max, Number(input.value || 0))));
+        input.dispatchEvent(new Event("input", { bubbles: true }));
+        input.dispatchEvent(new Event("change", { bubbles: true }));
+      });
+      stepper.appendChild(button);
+    });
+    wrapper.appendChild(stepper);
+  });
+}
+
+function updateAutoCombatUI() {
+  if (!player) return;
+  normalizeAutoCombatSettings();
+
+  const cfg = player.autoCombat;
+  const hpEnabled = document.getElementById("autoCombatHpPotionEnabled");
+  const hpPercent = document.getElementById("autoCombatHpPotionPercent");
+  const hpItem = document.getElementById("autoCombatHpPotionSelect");
+  const spEnabled = document.getElementById("autoCombatSpPotionEnabled");
+  const spPercent = document.getElementById("autoCombatSpPotionPercent");
+  const spItem = document.getElementById("autoCombatSpPotionSelect");
+  const detoxEnabled = document.getElementById("autoCombatDetoxEnabled");
+  const teleportEnabled = document.getElementById("autoCombatTeleportEnabled");
+  const avoidBoss = document.getElementById("autoCombatAvoidBoss");
+  const avoidMvp = document.getElementById("autoCombatAvoidMvp");
+  const lowHpFlyEnabled = document.getElementById("autoCombatLowHpFlyEnabled");
+  const lowHpFlyPercent = document.getElementById("autoCombatLowHpFlyPercent");
+  const butterflyEnabled = document.getElementById("autoCombatButterflyEnabled");
+  const butterflyPercent = document.getElementById("autoCombatButterflyPercent");
+  const returnCity = document.getElementById("autoCombatReturnCity");
+  const normalAttackEnabled = document.getElementById("autoCombatNormalAttackEnabled");
+
+  if (hpEnabled) hpEnabled.checked = !!cfg.hpPotion.enabled;
+  if (hpPercent) hpPercent.value = cfg.hpPotion.hpPercent;
+  if (spEnabled) spEnabled.checked = !!cfg.spPotion.enabled;
+  if (spPercent) spPercent.value = cfg.spPotion.spPercent;
+  if (detoxEnabled) detoxEnabled.checked = !!cfg.detox.enabled;
+  if (teleportEnabled) teleportEnabled.checked = !!cfg.teleport.enabled;
+  if (avoidBoss) avoidBoss.checked = !!cfg.teleport.avoidBoss;
+  if (avoidMvp) avoidMvp.checked = !!cfg.teleport.avoidMvp;
+  if (lowHpFlyEnabled) lowHpFlyEnabled.checked = !!cfg.teleport.lowHpEnabled;
+  if (lowHpFlyPercent) lowHpFlyPercent.value = cfg.teleport.lowHpPercent;
+  if (butterflyEnabled) butterflyEnabled.checked = !!cfg.teleport.returnHome.enabled;
+  if (butterflyPercent) butterflyPercent.value = cfg.teleport.returnHome.hpPercent;
+  updateAutoCombatReturnCityOptions(returnCity, cfg.teleport.returnHome.cityId);
+  if (normalAttackEnabled) normalAttackEnabled.checked = cfg.normalAttack.enabled !== false;
+  updatePotionSelectOptions(hpItem, "hp", cfg.hpPotion.itemId);
+  updatePotionSelectOptions(spItem, "sp", cfg.spPotion.itemId);
+
+  const healSkills = getLearnedSkillsByType("heal");
+  const attackSkills = getLearnedSkillsByType("attack");
+  const buffSkills = getLearnedSkillsByType("buff");
+
+  if (cfg.heal.skillId && !healSkills.some(skill => String(typeof getSkillStorageKey === "function" ? getSkillStorageKey(skill) : skill.id) === String(cfg.heal.skillId))) cfg.heal.skillId = null;
+
+  const healEnabled = document.getElementById("autoCombatHealEnabled");
+  const healSkill = document.getElementById("autoCombatHealSkill");
+  const healLevel = document.getElementById("autoCombatHealLevel");
+  const healHpPercent = document.getElementById("autoCombatHealHpPercent");
+  const healSpPercent = document.getElementById("autoCombatHealSpPercent");
+
+  if (healEnabled) healEnabled.checked = !!cfg.heal.enabled;
+  if (healHpPercent) healHpPercent.value = cfg.heal.hpPercent;
+  if (healSpPercent) healSpPercent.value = cfg.heal.spPercent;
+  if (healSkill) {
+    healSkill.innerHTML = healSkills.length ? "" : '<option value="">尚未學會治癒技能</option>';
+    healSkills.forEach(skill => {
+      const option = document.createElement("option");
+      option.value = typeof getSkillStorageKey === "function" ? getSkillStorageKey(skill) : String(skill.id);
+      option.textContent = skill.name;
+      healSkill.appendChild(option);
+    });
+    if (cfg.heal.skillId) healSkill.value = cfg.heal.skillId;
+  }
+  const selectedHeal = getSkillDataById(healSkill?.value || cfg.heal.skillId);
+  fillSkillLevelSelect(healLevel, selectedHeal, cfg.heal.level);
+
+  cfg.attacks.forEach((slot, index) => {
+    const number = index + 1;
+    const enabled = document.getElementById(`autoCombatAttackEnabled${number}`);
+    const skillSelect = document.getElementById(`autoCombatAttackSkill${number}`);
+    const levelSelect = document.getElementById(`autoCombatAttackLevel${number}`);
+    const spInput = document.getElementById(`autoCombatAttackSpPercent${number}`);
+    const minimumInput = document.getElementById(`autoCombatAttackMinMonsters${number}`);
+    const valid = slot.skillId && attackSkills.some(skill => String(typeof getSkillStorageKey === "function" ? getSkillStorageKey(skill) : skill.id) === String(slot.skillId));
+    if (slot.skillId && !valid) slot.skillId = null;
+
+    if (enabled) enabled.checked = slot.enabled !== false;
+    if (spInput) spInput.value = slot.spPercent;
+    if (minimumInput) minimumInput.value = slot.minMonsters;
+    if (skillSelect) {
+      skillSelect.innerHTML = '<option value="">不使用此技能欄</option>';
+      attackSkills.forEach(skill => {
+        const option = document.createElement("option");
+        option.value = typeof getSkillStorageKey === "function" ? getSkillStorageKey(skill) : String(skill.id);
+        option.textContent = skill.name;
+        skillSelect.appendChild(option);
+      });
+      if (slot.skillId) skillSelect.value = slot.skillId;
+    }
+    const selectedSkill = getSkillDataById(skillSelect?.value || slot.skillId);
+    fillSkillLevelSelect(levelSelect, selectedSkill, slot.level);
+  });
+  cfg.attack = cfg.attacks[0];
+
+  const buffBox = document.getElementById("autoCombatBuffList");
+  if (buffBox) {
+    buffBox.innerHTML = "";
+    if (!buffSkills.length) {
+      buffBox.innerHTML = '<div class="auto-empty">尚未學會 Buff 技能</div>';
+    } else {
+      buffSkills.forEach(skill => {
+        const key = typeof getSkillStorageKey === "function" ? getSkillStorageKey(skill) : String(skill.id);
+        if (!cfg.buffs[key]) {
+          cfg.buffs[key] = {
+            enabled: !!skill.ai?.defaultMaintain,
+            spPercent: 0
+          };
+        }
+        const setting = cfg.buffs[key];
+
+        const row = document.createElement("div");
+        row.className = "auto-buff-row";
+
+        const label = document.createElement("label");
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.dataset.autoBuffEnabled = key;
+        checkbox.checked = setting.enabled !== false;
+        label.appendChild(checkbox);
+        label.appendChild(document.createTextNode(` ${skill.name} Lv${getSkillLevel(skill.id)}`));
+
+        const threshold = document.createElement("div");
+        threshold.className = "auto-buff-threshold";
+        threshold.appendChild(document.createTextNode("SP 高於 "));
+        const input = document.createElement("input");
+        input.type = "number";
+        input.min = "0";
+        input.max = "100";
+        input.value = String(setting.spPercent || 0);
+        input.dataset.autoBuffSp = key;
+        threshold.appendChild(input);
+        threshold.appendChild(document.createTextNode(" %"));
+
+        row.appendChild(label);
+        row.appendChild(threshold);
+        buffBox.appendChild(row);
+      });
+    }
+  }
+  enhanceAutoCombatNumberInputs();
+}
+
+function saveAutoCombatSettings() {
+  syncAutoCombatSettingsFromUI({ save: true });
+  updateAutoCombatUI();
+  addBattleLog("自動戰鬥設定已更新。");
+}
+
+function performAutoFlyWingEscape(reason = "low_hp") {
+  const now = Date.now();
+  if (now - Number(AUTO_BATTLE_CONTROLLER.lastLowHpTeleportAt || 0) < 1000) return false;
+  AUTO_BATTLE_CONTROLLER.lastLowHpTeleportAt = now;
+  setAutoBattleControllerState(AUTO_BATTLE_STATES.TELEPORTING, { action: "fly_wing", reason });
+  const used = typeof useFlyWing === "function" ? useFlyWing({ silent: false }) : false;
+  if (!used) return false;
+  clearAutoBattleTarget({ reason });
+  AUTO_BATTLE_CONTROLLER.lastTeleportAt = Date.now();
+  if (typeof maintainWorldMonsterPopulation === "function") maintainWorldMonsterPopulation(Date.now(), { initial: false });
+  if (typeof acquireAutoBattleTarget === "function") acquireAutoBattleTarget({ reason: `${reason}_reacquire` });
+  if (typeof scheduleAutoBattleTick === "function" && typeof isAutoBattleRunning === "function" && isAutoBattleRunning()) scheduleAutoBattleTick(8);
+  return true;
+}
+
+function tryAutoEmergencyEscape() {
+  if (!player || player.currentCity) return null;
+  normalizeAutoCombatSettings();
+  const hpPercent = getPercent(player.hp, player.maxHp);
+  const teleport = player.autoCombat.teleport || {};
+  const returnHome = teleport.returnHome || {};
+
+  if (returnHome.enabled === true && hpPercent <= Number(returnHome.hpPercent || 10)) {
+    const now = Date.now();
+    if (now - Number(AUTO_BATTLE_CONTROLLER.lastButterflyAt || 0) >= 3000) {
+      AUTO_BATTLE_CONTROLLER.lastButterflyAt = now;
+      setAutoBattleControllerState(AUTO_BATTLE_STATES.TELEPORTING, { action: "butterfly_wing", reason: "critical_hp" });
+      if (typeof useButterflyWing === "function" && useButterflyWing({ cityId: returnHome.cityId || "prontera", silent: false })) return "butterfly";
+    }
+  }
+  if (teleport.lowHpEnabled === true && hpPercent <= Number(teleport.lowHpPercent || 30)) {
+    if (performAutoFlyWingEscape("low_hp")) return "fly";
+  }
+  return null;
+}
+
+function autoUsePotion() {
+  syncAutoCombatSettingsFromUI({ save: false });
+  normalizeAutoCombatSettings();
+  const cfg = player.autoCombat;
+  let used = false;
+
+  if (cfg.hpPotion.enabled && getPercent(player.hp, player.maxHp) <= Number(cfg.hpPotion.hpPercent || 50)) {
+    used = useRecoveryItem("hp", cfg.hpPotion.itemId) || used;
+  }
+
+  if (cfg.spPotion.enabled && getPercent(player.sp, player.maxSp) <= Number(cfg.spPotion.spPercent || 30)) {
+    used = useRecoveryItem("sp", cfg.spPotion.itemId) || used;
+  }
+  return used;
+}
+
+function shouldCastBySp(minPercent) {
+  return getPercent(player.sp, player.maxSp) >= Number(minPercent || 0);
+}
+
+function tryAutoHeal() {
+  const cfg = player.autoCombat?.heal;
+  if (!cfg?.enabled || !cfg.skillId) return false;
+  if (getPercent(player.hp, player.maxHp) > Number(cfg.hpPercent || 60)) return false;
+  if (!shouldCastBySp(cfg.spPercent || 20)) return false;
+
+  const skill = getSkillDataById(cfg.skillId);
+  if (!skill || (typeof getRuntimeSkillUiType === "function" ? getRuntimeSkillUiType(skill) !== "heal" : skill.skillType !== "heal")) return false;
+  const level = Number(cfg.level || getSkillLevel(skill.id) || 1);
+  const timing = typeof getRuntimeAdjustedCastTime === "function" ? getRuntimeAdjustedCastTime(skill, level) : { totalMs: 0 };
+  if (Number(timing?.totalMs || 0) > 0 && typeof beginRuntimeSkillCast === "function") {
+    return beginRuntimeSkillCast(skill, level, () => castHealSkill(skill, level));
+  }
+  return castHealSkill(skill, level);
+}
+
+
+function tryAutoBuffs() {
+  const cfg = player.autoCombat?.buffs || {};
+  normalizeActiveBuffs();
+
+  for (const skill of getLearnedSkillsByType("buff")) {
+    const profile = typeof getSkillRuntimeProfile === "function" ? (getSkillRuntimeProfile(skill) || {}) : {};
+    if (profile.performanceAction) continue;
+    const key = typeof getSkillStorageKey === "function" ? getSkillStorageKey(skill) : String(skill.officialId ?? skill.id);
+    const rawSetting = cfg[key] ?? cfg[skill.id];
+    const setting = rawSetting && typeof rawSetting === "object"
+      ? rawSetting
+      : { enabled: Boolean(rawSetting), spPercent: 0 };
+    if (!setting.enabled) continue;
+    if (!shouldCastBySp(setting.spPercent || 0)) continue;
+
+    const current = player.activeBuffs?.[key] || player.activeBuffs?.[skill.id];
+    const remaining = current ? Number(current.expiresAt || 0) - Date.now() : 0;
+    if (remaining > 3000) continue;
+    const level = Number(getSkillLevel(skill.id) || 1);
+    const timing = typeof getRuntimeAdjustedCastTime === "function" ? getRuntimeAdjustedCastTime(skill, level) : { totalMs: 0 };
+    if (Number(timing?.totalMs || 0) > 0 && typeof beginRuntimeSkillCast === "function") {
+      return beginRuntimeSkillCast(skill, level, () => castBuffSkill(skill, level, { silent: false }));
+    }
+    if (castBuffSkill(skill, level, { silent: false })) return true;
+  }
+
+  return false;
+}
+
+const AUTO_BATTLE_STATES = Object.freeze({
+  IDLE: "IDLE",
+  SEARCHING: "SEARCHING",
+  APPROACHING: "APPROACHING",
+  COMBAT: "COMBAT",
+  UTILITY: "UTILITY",
+  TARGET_DEFEATED: "TARGET_DEFEATED",
+  TELEPORTING: "TELEPORTING"
+});
+
+const AUTO_BATTLE_CONTROLLER = {
+  state: AUTO_BATTLE_STATES.IDLE,
+  target: null,
+  forcedTarget: null,
+  targetLockedAt: 0,
+  noTargetSince: 0,
+  lastTargetChangeAt: 0,
+  lastThreatScanAt: 0,
+  threatScanIntervalMs: 100,
+  lastAction: null,
+  lastReason: null,
+  lastTeleportAt: 0,
+  lastAvoidTeleportAt: 0,
+  lastLowHpTeleportAt: 0,
+  lastButterflyAt: 0
+};
+
+function resetAutoBattleController(options = {}) {
+  AUTO_BATTLE_CONTROLLER.state = options.running ? AUTO_BATTLE_STATES.SEARCHING : AUTO_BATTLE_STATES.IDLE;
+  AUTO_BATTLE_CONTROLLER.target = options.keepTarget && isAutoBattleTargetValid(currentMonster) ? currentMonster : null;
+  AUTO_BATTLE_CONTROLLER.forcedTarget = null;
+  AUTO_BATTLE_CONTROLLER.targetLockedAt = AUTO_BATTLE_CONTROLLER.target ? Date.now() : 0;
+  AUTO_BATTLE_CONTROLLER.noTargetSince = 0;
+  AUTO_BATTLE_CONTROLLER.lastTargetChangeAt = 0;
+  AUTO_BATTLE_CONTROLLER.lastThreatScanAt = 0;
+  AUTO_BATTLE_CONTROLLER.lastAction = null;
+  AUTO_BATTLE_CONTROLLER.lastReason = options.reason || null;
+  AUTO_BATTLE_CONTROLLER.lastAvoidTeleportAt = 0;
+  AUTO_BATTLE_CONTROLLER.lastLowHpTeleportAt = 0;
+  AUTO_BATTLE_CONTROLLER.lastButterflyAt = 0;
+  if (typeof resetAutoNoTargetTimer === "function") resetAutoNoTargetTimer();
+  return AUTO_BATTLE_CONTROLLER;
+}
+
+function setAutoBattleControllerState(state, details = {}) {
+  const next = Object.values(AUTO_BATTLE_STATES).includes(state) ? state : AUTO_BATTLE_STATES.IDLE;
+  AUTO_BATTLE_CONTROLLER.state = next;
+  AUTO_BATTLE_CONTROLLER.lastAction = details.action || AUTO_BATTLE_CONTROLLER.lastAction;
+  AUTO_BATTLE_CONTROLLER.lastReason = details.reason || null;
+  if (player && details.syncPlayerState !== false) {
+    if (next === AUTO_BATTLE_STATES.SEARCHING) player.state = "Searching";
+    else if (next === AUTO_BATTLE_STATES.APPROACHING) player.state = "Approaching";
+    else if (next === AUTO_BATTLE_STATES.COMBAT) player.state = "Attacking";
+  }
+  return next;
+}
+
+function isAutoBattleTargetValid(monster) {
+  if (!monster || monster._deathHandled || monster._defeatResolutionQueued) return false;
+  if (Number(monster.currentHp ?? monster.hp ?? 0) <= 0) return false;
+  if (player?.currentCity) return false;
+  return true;
+}
+
+function getAutoBattleTargetDistance(monster) {
+  if (!monster) return Number.POSITIVE_INFINITY;
+  if (typeof getCurrentDistanceToMonster === "function") {
+    const value = Number(getCurrentDistanceToMonster(monster));
+    if (Number.isFinite(value)) return value;
+  }
+  const playerPos = player?.position || { x: 0, y: 0 };
+  const monsterPos = monster.position || { x: monster.worldX || 0, y: monster.worldY || 0 };
+  return Math.hypot(Number(monsterPos.x || 0) - Number(playerPos.x || 0), Number(monsterPos.y || 0) - Number(playerPos.y || 0));
+}
+
+function isMonsterActivelyAttackingPlayer(monster) {
+  if (!isAutoBattleTargetValid(monster)) return false;
+  return String(monster.aiState || "").toUpperCase() === "ATTACK";
+}
+
+function isMonsterThreateningPlayer(monster) {
+  if (!isAutoBattleTargetValid(monster)) return false;
+  const state = String(monster.aiState || "").toUpperCase();
+  if (["ATTACK", "CHASE", "RUSH", "ANGRY"].includes(state)) return true;
+  if (monster.provoked === true || monster._aggroReason) return true;
+  return false;
+}
+
+function collectAutoBattleTargets() {
+  const candidates = typeof collectLiveCombatEnemies === "function"
+    ? collectLiveCombatEnemies({ activeOnly: true })
+    : (typeof getLivingWorldMonsterTestEntities === "function" ? getLivingWorldMonsterTestEntities({ activeOnly: true }) : []);
+  return [...new Set((candidates || []).filter(isAutoBattleTargetValid))];
+}
+
+function applyAutoBattleTarget(monster, options = {}) {
+  if (!isAutoBattleTargetValid(monster)) return null;
+  const changed = currentMonster !== monster;
+  if (monster._worldTestEntity && typeof selectWorldMonsterTestTarget === "function") {
+    selectWorldMonsterTestTarget(monster, { announce: false, attacking: true });
+  } else {
+    currentMonster = monster;
+    if (player) player.state = "Attacking";
+    if (typeof updateMonsterUI === "function") updateMonsterUI();
+  }
+  AUTO_BATTLE_CONTROLLER.target = monster;
+  AUTO_BATTLE_CONTROLLER.targetLockedAt = changed ? Date.now() : Number(AUTO_BATTLE_CONTROLLER.targetLockedAt || Date.now());
+  AUTO_BATTLE_CONTROLLER.lastTargetChangeAt = changed ? Date.now() : AUTO_BATTLE_CONTROLLER.lastTargetChangeAt;
+  AUTO_BATTLE_CONTROLLER.noTargetSince = 0;
+  if (typeof resetAutoNoTargetTimer === "function") resetAutoNoTargetTimer();
+  if (options.forced) AUTO_BATTLE_CONTROLLER.forcedTarget = monster;
+  if (changed && options.announce && typeof addBattleLog === "function") addBattleLog(`鎖定目標：${monster.name || "怪物"}。`);
+  return monster;
+}
+
+function forceAutoBattleTarget(monster, options = {}) {
+  if (!isAutoBattleTargetValid(monster)) return false;
+  AUTO_BATTLE_CONTROLLER.forcedTarget = monster;
+  applyAutoBattleTarget(monster, { forced: true, announce: options.announce === true });
+  setAutoBattleControllerState(AUTO_BATTLE_STATES.COMBAT, { reason: "manual_force_target" });
+  return true;
+}
+
+function clearAutoBattleTarget(options = {}) {
+  const previous = currentMonster || AUTO_BATTLE_CONTROLLER.target;
+  if (options.onlyIf && previous !== options.onlyIf) return false;
+  if (AUTO_BATTLE_CONTROLLER.forcedTarget === previous || !isAutoBattleTargetValid(AUTO_BATTLE_CONTROLLER.forcedTarget)) {
+    AUTO_BATTLE_CONTROLLER.forcedTarget = null;
+  }
+  AUTO_BATTLE_CONTROLLER.target = null;
+  if (options.clearCurrent !== false) currentMonster = null;
+  if (typeof document !== "undefined") {
+    document.querySelectorAll?.(".world-monster-entity.is-selected").forEach(el => el.classList.remove("is-selected"));
+  }
+  if (typeof updateMonsterUI === "function" && options.updateUi !== false) updateMonsterUI();
+  setAutoBattleControllerState(AUTO_BATTLE_STATES.SEARCHING, { reason: options.reason || "target_cleared" });
+  return true;
+}
+
+function acquireAutoBattleTarget(options = {}) {
+  if (currentMonster && !isAutoBattleTargetValid(currentMonster)) currentMonster = null;
+  if (isAutoBattleTargetValid(AUTO_BATTLE_CONTROLLER.forcedTarget)) {
+    return applyAutoBattleTarget(AUTO_BATTLE_CONTROLLER.forcedTarget, { forced: true });
+  }
+  AUTO_BATTLE_CONTROLLER.forcedTarget = null;
+
+  const current = isAutoBattleTargetValid(currentMonster)
+    ? currentMonster
+    : (isAutoBattleTargetValid(AUTO_BATTLE_CONTROLLER.target) ? AUTO_BATTLE_CONTROLLER.target : null);
+  const now = Date.now();
+  const scanInterval = Math.max(40, Number(AUTO_BATTLE_CONTROLLER.threatScanIntervalMs || 100));
+  if (current && now - Number(AUTO_BATTLE_CONTROLLER.lastThreatScanAt || 0) < scanInterval) {
+    return applyAutoBattleTarget(current);
+  }
+  const candidates = collectAutoBattleTargets();
+  AUTO_BATTLE_CONTROLLER.lastThreatScanAt = now;
+
+  // Priority: a manually forced target, a monster actively landing attacks on
+  // the player, the still-valid current lock, then another aggro threat / nearest.
+  // This keeps locks stable without ignoring a monster already hitting the player.
+  if (current && isMonsterActivelyAttackingPlayer(current)) return applyAutoBattleTarget(current);
+  const activeAttackers = candidates.filter(isMonsterActivelyAttackingPlayer).sort((a, b) => getAutoBattleTargetDistance(a) - getAutoBattleTargetDistance(b));
+  if (activeAttackers.length) return applyAutoBattleTarget(activeAttackers[0]);
+  if (current) return applyAutoBattleTarget(current);
+  const threats = candidates.filter(isMonsterThreateningPlayer).sort((a, b) => getAutoBattleTargetDistance(a) - getAutoBattleTargetDistance(b));
+  if (threats.length) return applyAutoBattleTarget(threats[0]);
+
+  const nearest = candidates.sort((a, b) => getAutoBattleTargetDistance(a) - getAutoBattleTargetDistance(b))[0] || null;
+  if (nearest) return applyAutoBattleTarget(nearest, { announce: options.announce === true });
+
+  AUTO_BATTLE_CONTROLLER.target = null;
+  if (!AUTO_BATTLE_CONTROLLER.noTargetSince) AUTO_BATTLE_CONTROLLER.noTargetSince = Date.now();
+  setAutoBattleControllerState(AUTO_BATTLE_STATES.SEARCHING, { reason: options.reason || "no_target" });
+  return null;
+}
+
+function noteAutoBattleTargetDefeated(monster) {
+  if (AUTO_BATTLE_CONTROLLER.forcedTarget === monster) AUTO_BATTLE_CONTROLLER.forcedTarget = null;
+  if (AUTO_BATTLE_CONTROLLER.target === monster) AUTO_BATTLE_CONTROLLER.target = null;
+  AUTO_BATTLE_CONTROLLER.noTargetSince = Date.now();
+  setAutoBattleControllerState(AUTO_BATTLE_STATES.TARGET_DEFEATED, { reason: "target_defeated" });
+  return true;
+}
+
+function runAutoCombatUtilityTick() {
+  if (!player) return { action: "none" };
+  syncAutoCombatSettingsFromUI({ save: false });
+  normalizeAutoCombatSettings();
+
+  const emergencyEscape = tryAutoEmergencyEscape();
+  if (emergencyEscape) {
+    if (emergencyEscape === "fly") autoUsePotion();
+    setAutoBattleControllerState(AUTO_BATTLE_STATES.UTILITY, { action: emergencyEscape, reason: "low_hp_escape" });
+    return { action: "utility", utility: emergencyEscape };
+  }
+
+  autoUsePotion();
+  if (tryAutoStatusCure()) {
+    setAutoBattleControllerState(AUTO_BATTLE_STATES.UTILITY, { action: "status_cure", reason: "auto_status_cure" });
+    return { action: "utility", utility: "status_cure" };
+  }
+  if (typeof isRuntimeSkillCasting === "function" && isRuntimeSkillCasting()) {
+    setAutoBattleControllerState(AUTO_BATTLE_STATES.UTILITY, { action: "casting", reason: "runtime_cast" });
+    return { action: "utility", casting: true };
+  }
+
+  const active = typeof getActiveBuffBonusTotals === "function" ? getActiveBuffBonusTotals() : {};
+  if (Number(active.blocksNormalAttack || 0) > 0) {
+    setAutoBattleControllerState(AUTO_BATTLE_STATES.UTILITY, { action: "status_wait", reason: "blocks_normal_attack" });
+  }
+  if (typeof isPlayerActiveSkillLocked === "function" && isPlayerActiveSkillLocked()) {
+    return { action: "none", activeSkillLocked: true };
+  }
+  if (tryAutoHeal()) {
+    setAutoBattleControllerState(AUTO_BATTLE_STATES.UTILITY, { action: "heal", reason: "auto_heal" });
+    return { action: "utility", utility: "heal" };
+  }
+  if (tryAutoBuffs()) {
+    setAutoBattleControllerState(AUTO_BATTLE_STATES.UTILITY, { action: "buff", reason: "auto_buff" });
+    return { action: "utility", utility: "buff" };
+  }
+  return { action: "none" };
+}
+
+
+function resolveAutoBattleLevelValue(value, level, fallback = 0) {
+  if (Array.isArray(value)) return Number(value[Math.max(0, Number(level || 1) - 1)] ?? value[value.length - 1] ?? fallback);
+  if (value && typeof value === "object") return Number(value[level] ?? value[String(level)] ?? value.default ?? fallback);
+  const numeric = Number(value);
+  return Number.isFinite(numeric) ? numeric : fallback;
+}
+
+function getAutoBattleSkillTargetCount(skill, level, primaryTarget = currentMonster) {
+  if (!skill || !isAutoBattleTargetValid(primaryTarget)) return 0;
+  const profile = typeof getSkillRuntimeProfile === "function" ? (getSkillRuntimeProfile(skill) || {}) : {};
+
+  if (typeof resolveRuntimeSkillTargets === "function") {
+    try {
+      const targets = resolveRuntimeSkillTargets(profile, primaryTarget, level) || [];
+      return [...new Set(targets.filter(isAutoBattleTargetValid))].length;
+    } catch (_) {}
+  }
+
+  const targeting = profile.targeting || profile.area || {};
+  const radiusCells = Math.max(0, resolveAutoBattleLevelValue(
+    targeting.radius ?? targeting.rangeCells ?? profile.splashRange ?? skill.splashArea,
+    level,
+    0
+  ));
+  if (radiusCells <= 0) return 1;
+
+  const origin = String(targeting.origin || "").toLowerCase() === "self" ? player : primaryTarget;
+  const candidates = collectAutoBattleTargets();
+  if (window.AreaShapeResolver?.inRange) {
+    return candidates.filter(monster => window.AreaShapeResolver.inRange(
+      origin,
+      monster,
+      targeting.shape || "circle",
+      radiusCells,
+      {
+        widthCells: Number(targeting.widthCells || 1),
+        halfAngleRadians: Number(targeting.halfAngleRadians || Math.PI / 4),
+        directionTarget: primaryTarget
+      }
+    )).length;
+  }
+
+  const cell = Math.max(1, Number(window.RO_WEB_CELL_SIZE || 36));
+  const ox = Number(origin?.position?.x ?? origin?.worldX ?? origin?.x ?? 0);
+  const oy = Number(origin?.position?.y ?? origin?.worldY ?? origin?.y ?? 0);
+  const radiusPx = radiusCells * cell;
+  return candidates.filter(monster => {
+    const mx = Number(monster?.position?.x ?? monster?.worldX ?? monster?.x ?? 0);
+    const my = Number(monster?.position?.y ?? monster?.worldY ?? monster?.y ?? 0);
+    return Math.hypot(mx - ox, my - oy) <= radiusPx;
+  }).length;
+}
+
+function getAutoBattleMonsterClass(monster) {
+  const category = String(monster?._category || monster?.category || "").toLowerCase();
+  if (category === "mvp" || monster?.isMvp === true || monster?.isMVP === true || monster?.mvp === true) return "mvp";
+  if (category === "boss" || monster?.isBoss === true || monster?.boss === true || String(monster?.class || monster?.Class || "").toLowerCase() === "boss") return "boss";
+  return "normal";
+}
+
+function maybeAutoEscapeFromTarget(monster) {
+  if (!player || !isAutoBattleTargetValid(monster)) return false;
+  normalizeAutoCombatSettings();
+  const monsterClass = getAutoBattleMonsterClass(monster);
+  const teleport = player.autoCombat.teleport || {};
+  const shouldEscape = monsterClass === "mvp" ? teleport.avoidMvp === true : monsterClass === "boss" && teleport.avoidBoss === true;
+  if (!shouldEscape) return false;
+
+  const now = Date.now();
+  if (now - Number(AUTO_BATTLE_CONTROLLER.lastAvoidTeleportAt || 0) < 1000) return false;
+  AUTO_BATTLE_CONTROLLER.lastAvoidTeleportAt = now;
+  setAutoBattleControllerState(AUTO_BATTLE_STATES.TELEPORTING, {
+    action: "avoid_boss",
+    reason: monsterClass === "mvp" ? "avoid_mvp" : "avoid_boss"
+  });
+
+  const used = typeof useFlyWing === "function" ? useFlyWing({ silent: false }) : false;
+  if (!used) return false;
+
+  clearAutoBattleTarget({ reason: monsterClass === "mvp" ? "escaped_mvp" : "escaped_boss" });
+  AUTO_BATTLE_CONTROLLER.lastTeleportAt = Date.now();
+  if (typeof maintainWorldMonsterPopulation === "function") maintainWorldMonsterPopulation(Date.now(), { initial: false });
+  if (typeof acquireAutoBattleTarget === "function") acquireAutoBattleTarget({ reason: "boss_escape_reacquire" });
+  if (typeof scheduleAutoBattleTick === "function" && typeof isAutoBattleRunning === "function" && isAutoBattleRunning()) {
+    scheduleAutoBattleTick(8);
+  }
+  return true;
+}
+
+
+function getAutoAttackSkill(monster = currentMonster) {
+  normalizeAutoCombatSettings();
+  const slots = player.autoCombat?.attacks || [];
+  let earliestCooldown = null;
+
+  for (let index = 0; index < slots.length; index += 1) {
+    const cfg = slots[index];
+    if (!cfg?.enabled || !cfg.skillId) continue;
+    if (!shouldCastBySp(cfg.spPercent || 0)) continue;
+
+    const skill = getSkillDataById(cfg.skillId);
+    if (!skill || (typeof getRuntimeSkillUiType === "function" ? getRuntimeSkillUiType(skill) !== "attack" : skill.skillType !== "attack")) continue;
+
+    const level = Number(cfg.level || getSkillLevel(skill.id) || 1);
+    const targetCount = getAutoBattleSkillTargetCount(skill, level, monster);
+    const minMonsters = Math.max(1, Number(cfg.minMonsters || 1));
+    if (targetCount < minMonsters) continue;
+
+    const check = canCastSkill(skill, level);
+    if (check.ok) {
+      return {
+        skill,
+        level: check.level,
+        blocked: false,
+        fallbackNormal: player.autoCombat.normalAttack?.enabled !== false && cfg.fallbackNormal !== false,
+        slotIndex: index,
+        targetCount,
+        minMonsters
+      };
+    }
+
+    if (!check.delayBlock) continue;
+    const blockedChoice = {
+      skill,
+      level,
+      blocked: true,
+      delayBlock: check.delayBlock,
+      fallbackNormal: player.autoCombat.normalAttack?.enabled !== false && cfg.fallbackNormal !== false,
+      slotIndex: index,
+      targetCount,
+      minMonsters
+    };
+
+    // Independent cooldown on a higher-priority slot may fall through to
+    // the next configured skill. Global / after-cast / action locks may not.
+    if (check.delayBlock.type === "cooldown") {
+      if (!earliestCooldown || Number(check.delayBlock.remainingMs || Infinity) < Number(earliestCooldown.delayBlock?.remainingMs || Infinity)) {
+        earliestCooldown = blockedChoice;
+      }
+      continue;
+    }
+    return blockedChoice;
+  }
+
+  return earliestCooldown;
+}
+
+
+function getAutoCombatAttackAction(monster) {
+  if (!player || !isAutoBattleTargetValid(monster)) return { action: "search" };
+  const active = typeof getActiveBuffBonusTotals === "function" ? getActiveBuffBonusTotals() : {};
+  if (Number(active.blocksNormalAttack || 0) > 0) return { action: "utility", blockedByStatus: true };
+
+  normalizeAutoCombatSettings();
+  const normalEnabled = player.autoCombat.normalAttack?.enabled !== false;
+  const attack = getAutoAttackSkill(monster);
+
+  if (attack?.blocked) {
+    const independentCooldown = attack.delayBlock?.type === "cooldown";
+    if (normalEnabled && attack.fallbackNormal && independentCooldown) {
+      return { action: "normal", fallbackFromSkill: true, skill: attack.skill, level: attack.level, delayBlock: attack.delayBlock };
+    }
+    return { action: "utility", waitForSkill: true, skill: attack.skill, level: attack.level, delayBlock: attack.delayBlock };
+  }
+  if (attack) return { action: "attackSkill", ...attack };
+  if (normalEnabled) return { action: "normal" };
+  return { action: "utility", waitForConfiguredAction: true };
+}
+
+function runAutoCombatTick(monster, options = {}) {
+  if (!player) return { action: "normal" };
+  if (options.skipUtility !== true) {
+    const utility = runAutoCombatUtilityTick();
+    if (utility.action === "utility") return utility;
+  }
+  return getAutoCombatAttackAction(monster);
+}
+
+window.AUTO_BATTLE_STATES = AUTO_BATTLE_STATES;
+window.AUTO_BATTLE_CONTROLLER = AUTO_BATTLE_CONTROLLER;
+window.resetAutoBattleController = resetAutoBattleController;
+window.setAutoBattleControllerState = setAutoBattleControllerState;
+window.isAutoBattleTargetValid = isAutoBattleTargetValid;
+window.isMonsterActivelyAttackingPlayer = isMonsterActivelyAttackingPlayer;
+window.isMonsterThreateningPlayer = isMonsterThreateningPlayer;
+window.collectAutoBattleTargets = collectAutoBattleTargets;
+window.applyAutoBattleTarget = applyAutoBattleTarget;
+window.forceAutoBattleTarget = forceAutoBattleTarget;
+window.clearAutoBattleTarget = clearAutoBattleTarget;
+window.acquireAutoBattleTarget = acquireAutoBattleTarget;
+window.noteAutoBattleTargetDefeated = noteAutoBattleTargetDefeated;
+window.runAutoCombatUtilityTick = runAutoCombatUtilityTick;
+window.getItemRecoveryProfile = getItemRecoveryProfile;
+window.getItemRecoveryValue = getItemRecoveryValue;
+window.normalizeAutoStatusKey = normalizeAutoStatusKey;
+window.getPlayerActiveStatusKeys = getPlayerActiveStatusKeys;
+window.getItemStatusCureProfile = getItemStatusCureProfile;
+window.getMatchedStatusCureKeys = getMatchedStatusCureKeys;
+window.isAutoStatusCureItem = isAutoStatusCureItem;
+window.isAutoDetoxItem = isAutoDetoxItem;
+window.clearPlayerStatuses = clearPlayerStatuses;
+window.getAutoStatusLabelList = getAutoStatusLabelList;
+window.findAutoStatusCureItem = findAutoStatusCureItem;
+window.getSkillStatusCureProfile = getSkillStatusCureProfile;
+window.tryAutoStatusCure = tryAutoStatusCure;
+window.hasPlayerPoisonStatus = hasPlayerPoisonStatus;
+window.tryAutoDetox = tryAutoDetox;
+window.tryAutoEmergencyEscape = tryAutoEmergencyEscape;
+window.enhanceAutoCombatNumberInputs = enhanceAutoCombatNumberInputs;
+window.getAutoBattleSkillTargetCount = getAutoBattleSkillTargetCount;
+window.getAutoBattleMonsterClass = getAutoBattleMonsterClass;
+window.maybeAutoEscapeFromTarget = maybeAutoEscapeFromTarget;
+window.getAutoAttackSkill = getAutoAttackSkill;
+window.getAutoCombatAttackAction = getAutoCombatAttackAction;
+window.getAutoBattleControllerSnapshot = () => ({ ...AUTO_BATTLE_CONTROLLER });
+

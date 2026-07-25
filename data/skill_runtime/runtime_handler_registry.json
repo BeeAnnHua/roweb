@@ -1,0 +1,208 @@
+{
+  "title": {
+    "name": "RO_WEB Runtime Handler Registry",
+    "version": "0.9.82DG",
+    "purpose": "Shared handler taxonomy for all player skills. Formula data lives in Runtime Profiles; handlers are reusable."
+  },
+  "handlers": {
+    "physical_damage": {
+      "executionStatus": "available",
+      "description": "Weapon/physical damage, hit count, knockback and status chance."
+    },
+    "magic_damage": {
+      "executionStatus": "available",
+      "description": "RA Renewal MATK-based single/multi-hit, elemental, splash and status magic."
+    },
+    "heal": {
+      "executionStatus": "available",
+      "description": "HP/SP restoration formulas."
+    },
+    "passive": {
+      "executionStatus": "available",
+      "description": "Recalculated passive stats and conditional bonuses."
+    },
+    "timed_status": {
+      "executionStatus": "available",
+      "description": "Buff/debuff/status with duration and level values.",
+      "executor": "castTimedStatusSkill"
+    },
+    "ground_area": {
+      "executionStatus": "available_partial",
+      "description": "Persistent or instant ground-targeted area effects; ground damage and ground debuff executors are available."
+    },
+    "projectile": {
+      "executionStatus": "planned",
+      "description": "Traveling projectile and target impact."
+    },
+    "reaction": {
+      "executionStatus": "available_partial",
+      "description": "OnHit/OnDamage/OnBlock/Counter/Reflect hooks."
+    },
+    "toggle": {
+      "executionStatus": "available_partial",
+      "description": "Toggle state with activation/cancellation; Camouflage is executed through castBuffSkill toggleBuff."
+    },
+    "mount": {
+      "executionStatus": "available_partial",
+      "description": "RO_WEB mount state and future atlas swap hook."
+    },
+    "utility": {
+      "executionStatus": "available_partial",
+      "description": "Non-damage skill action."
+    },
+    "special_review": {
+      "executionStatus": "manual_review",
+      "description": "Skill requires custom flow or unsupported systems."
+    },
+    "debuff": {
+      "status": "implemented",
+      "executor": "castDebuffSkill",
+      "description": "Enemy-target status/debuff handler."
+    },
+    "physical_attack": {
+      "executionStatus": "available",
+      "executor": "castAttackSkill",
+      "description": "RA Renewal weapon damage through the common physical pipeline."
+    },
+    "physical_attack_formula": {
+      "executionStatus": "available",
+      "executor": "castAttackSkill",
+      "description": "RA Renewal physical skill with a named shared formula branch."
+    },
+    "misc_damage": {
+      "executionStatus": "available",
+      "executor": "castAttackSkill",
+      "description": "BF_MISC/fixed or special-source damage through the common pipeline."
+    },
+    "buff": {
+      "executionStatus": "available",
+      "executor": "castBuffSkill",
+      "description": "Self-target timed or immediate beneficial status."
+    },
+    "ground_debuff": {
+      "executionStatus": "available",
+      "executor": "castGroundDebuffSkill",
+      "description": "Enemy-position persistent or one-shot status field; supports delayed trigger, knockback and Runtime status effects."
+    },
+    "movement": {
+      "executionStatus": "available",
+      "executor": "castMovementSkill",
+      "description": "Player movement skill; map bounds apply, wall collision is intentionally omitted."
+    },
+    "steal_item": {
+      "executionStatus": "available",
+      "executor": "castStealItemSkill",
+      "description": "Steal one eligible item from the current monster drop table."
+    },
+    "steal_zeny": {
+      "executionStatus": "available",
+      "executor": "castStealZenySkill",
+      "description": "Steal a percentage of the current monster final rated Zeny reward."
+    },
+    "skill_copy_selector": {
+      "executionStatus": "available",
+      "executor": "castSkillCopySelector",
+      "description": "Open the RA CopyFlags-filtered copy selection UI and write to an extra-skill slot."
+    },
+    "follow_area": {
+      "executionStatus": "available",
+      "executor": "castFollowAreaSkill",
+      "description": "Periodic area effect centered on and following the player."
+    },
+    "monster_debuff": {
+      "executionStatus": "available",
+      "executor": "castMonsterDebuffSkill",
+      "description": "Apply grouped non-stacking debuff components to the current monster."
+    },
+    "ground_damage": {
+      "executionStatus": "available",
+      "executor": "castGroundDamageSkill",
+      "description": "Enemy-position persistent or one-shot damage field using the shared physical/magic/misc damage pipeline."
+    },
+    "inspect_monster": {
+      "executionStatus": "available",
+      "executor": "castInspectMonsterSkill",
+      "description": "Read current monster level, HP, race, element, size, ATK, DEF and MDEF without damage."
+    },
+    "chain_magic": {
+      "executionStatus": "available",
+      "executor": "castChainMagicSkill",
+      "description": "Renewal magic that repeatedly hits and bounces between nearby enemy targets."
+    },
+    "dispel": {
+      "executionStatus": "available",
+      "executor": "castDispelSkill",
+      "description": "Remove dispellable Runtime statuses and grouped effects from the current enemy target."
+    },
+    "ground_protection": {
+      "executionStatus": "available",
+      "executor": "castGroundProtectionSkill",
+      "description": "Create a persistent area that removes and blocks eligible ground magic effects."
+    },
+    "soul_exchange": {
+      "executionStatus": "available",
+      "executor": "castSoulExchangeSkill",
+      "description": "Renewal monster-target Soul Exhale branch: once per monster, restore a percentage of player MaxSP."
+    },
+    "summon_control": {
+      "executionStatus": "available",
+      "executor": "castSummonControlSkill",
+      "description": "Open the shared assist-only virtual summon control UI."
+    },
+    "falcon_toggle": {
+      "executionStatus": "available",
+      "executor": "castFalconToggleSkill",
+      "description": "Equip or release the assist-only falcon state."
+    },
+    "falcon_detect": {
+      "executionStatus": "available",
+      "executor": "castFalconDetectSkill",
+      "description": "Reveal hidden monsters and hunter traps around the current target position."
+    },
+    "falcon_spring_trap": {
+      "executionStatus": "available",
+      "executor": "castFalconSpringTrapSkill",
+      "description": "Spring one eligible hunter trap near the current target position."
+    },
+    "warg_toggle": {
+      "executionStatus": "available",
+      "executor": "castWargToggleSkill",
+      "description": "Equip or release the assist-only warg state."
+    },
+    "warg_sensitive_keen": {
+      "executionStatus": "available",
+      "executor": "castWargSensitiveKeenSkill",
+      "description": "Reveal and damage hidden monsters and remove hunter traps around the player."
+    },
+    "trap_detonator": {
+      "executionStatus": "available",
+      "executor": "castTrapDetonatorSkill",
+      "description": "Detonates Hunter/Ranger GroundEffectManager traps around the selected target position."
+    },
+    "virtual_summon": {
+      "executionStatus": "available",
+      "executor": "castVirtualSummonSkill",
+      "description": "召喚或替換 assist-only 虛擬戰鬥夥伴；支援元素、仿生、FAW 與 ABR。可執行攻擊或恢復／防禦支援，無地圖實體、HP、SP、EXP 與受擊判定。"
+    },
+    "virtual_summon_dismiss": {
+      "executionStatus": "available",
+      "executor": "castVirtualSummonDismissSkill",
+      "description": "解除指定家族的 assist-only 虛擬召喚物；目前用於 FAW解體。"
+    },
+    "independent_summon": {
+      "executionStatus": "available",
+      "executor": "castIndependentSummonSkill",
+      "description": "不占主要虛擬召喚夥伴欄位的計時召喚物／裝置；支援地獄植物週期攻擊與氣泡蟲延遲自爆。"
+    },
+    "homunculus_manager": {
+      "executionStatus": "available",
+      "executor": "castHomunculusManagerSkill",
+      "description": "開啟人工生命體選擇／管理 UI；確認選擇時建立 BaseLv 快照並召喚至專用生命體欄位。"
+    },
+    "homunculus_rest": {
+      "executionStatus": "available",
+      "executor": "castHomunculusRestSkill",
+      "description": "使專用生命體欄位中的活動生命體進入安息，保留選擇資料。"
+    }
+  }
+}

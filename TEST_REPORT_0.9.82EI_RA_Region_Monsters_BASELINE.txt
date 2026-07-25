@@ -1,0 +1,64 @@
+RO_WEB 0.9.82EI — RA Renewal Regional Monster Streaming Test Report
+===================================================================
+Base build
+- RO_WEB 0.9.82EH independent 10-region World Camera build
+
+Authoritative sources
+- rAthena Renewal db/re/mob_db.yml
+- rAthena Renewal npc/re/mobs/fields/{prontera,geffen,morocc,mjolnir,rachel,payon,yuno,umbala,comodo,veins}.txt
+- npcidentity.lub + jobname.lub monster sprite mapping
+- RO Studio V78 monster PNG + JSON exports
+- itemInfo_UTF8.lub + rAthena Renewal item DB for active drop items
+
+Activated regions / species
+- Prontera: 20
+- Geffen: 19
+- Morocc: 16
+- Mjolnir: 16
+- Rachel: 14
+- Payon: 19
+- Juno: 16
+- Umbala: 13
+- Lighthouse Coast: 16
+- Veins: 11
+- Unique monster species total: 111
+- Missing animation assets: 0
+
+Streaming policy
+- Base density: 15 ordinary monsters per source 512x512 area
+- Active window: source 1024x1024 => about 60 ordinary/plant monsters at 100%
+- Retain/despawn window: source 1280x1280
+- Ordinary hard cap: 120
+- Ordinary species use RA spawn counts as weights; no even distribution
+- Plant, rare, Boss and MVP use separate caps/timers
+
+RA-style global valves (data/server_config.json)
+- mob_count_rate = 100
+- mob_spawn_delay = 100
+- plant_spawn_delay = 100
+- boss_spawn_delay = 100
+- mob_spawn_variance = true
+
+Boss persistence
+- Unique rare/Boss/MVP maxAlive is 1 per species
+- Each species has independent nextSpawnAt
+- Region travel and off-screen unloading do not reset the timer
+- Payon supports Mastering, Angeling, Ghostring and Deviling concurrently, plus Eddga
+
+Cleanup / compatibility
+- Old forced Mjolnir Scorpion and Poring test placement removed
+- DOM image loader used; no global Image constructor dependency
+- Multi-page monster atlases supported
+- 451 missing active-drop item records and 451 icons/fallback icons activated
+- Item orphan count: 0
+
+Validation
+- Static regional monster audit: PASS
+- Dynamic Node VM monster streaming/runtime test: PASS
+- JavaScript syntax check: PASS (455 files)
+- Full current runtime integrity: PASS (46/46)
+- Deep Health: PASS (0 errors / 0 warnings)
+
+Known deferred scope
+- Monster-specific skill casting/skill AI is not implemented in this batch.
+- Current monsters use RA-derived movement/aggression and normal attacks.

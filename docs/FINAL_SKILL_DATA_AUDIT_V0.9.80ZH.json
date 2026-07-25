@@ -1,0 +1,96 @@
+{
+  "version": "0.9.80ZH",
+  "core1Count": 823,
+  "core2Count": 316,
+  "totalUniqueSkills": 1139,
+  "duplicateSkillIds": [],
+  "skillTreeFiles": 100,
+  "skillTreeReferences": 1362,
+  "orphanTreeReferences": [],
+  "invalidPrerequisites": [],
+  "missingIcons": [],
+  "invalidIcons": [],
+  "specialIconsConfirmed": [
+    "2284.png",
+    "5068.png"
+  ],
+  "sprActFieldsFound": [],
+  "visualPolicyViolations": [],
+  "mcInccarry": {
+    "id": 36,
+    "officialId": 36,
+    "key": "MC_INCCARRY",
+    "name": "負重量提升",
+    "officialDescription": "Enlarge Weight Limit",
+    "maxLevel": 10,
+    "type": "passive",
+    "targetType": "self",
+    "visual": {
+      "effectAsset": null
+    },
+    "effectAssetConvention": "data/skill_effects/36.json + images/skill_effects/36.png",
+    "effectRuntime": {
+      "status": "implemented_custom",
+      "formulaSource": [
+        "rAthena src/map/skill.cpp",
+        "rAthena src/map/status.cpp",
+        "rAthena src/map/battle.cpp"
+      ],
+      "note": "RA 可結構化參數已匯入；實際傷害/治療/Buff 特殊公式需逐招移植至 RO_WEB runtime。"
+    },
+    "source": {
+      "skillDb": "rAthena db/re/skill_db.yml",
+      "skillInfoz": "name/description source when available"
+    },
+    "description": "RO_WEB 專屬調整：每級增加最大 HP 2%，Lv10 共增加 20%。",
+    "effects": {
+      "maxHpRate": [
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        14,
+        16,
+        18,
+        20
+      ]
+    },
+    "passiveBonuses": {
+      "maxHpRate": [
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        14,
+        16,
+        18,
+        20
+      ]
+    },
+    "customRule": {
+      "valuePerLevel": 2,
+      "maxValue": 20,
+      "source": "RO_WEB project decision"
+    },
+    "implementationStatus": "implemented_custom",
+    "skillType": "passive",
+    "spCost": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "jsonParseErrors": [],
+  "runtimeNote": "本版只做資料結構與缺漏稽核；未將 metadata_ready_formula_pending 誤標為 Runtime 已完成。"
+}

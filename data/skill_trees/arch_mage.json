@@ -1,0 +1,222 @@
+{
+  "meta": {
+    "version": "0.9.82BG",
+    "schema": "ro_web_skill_tree_v3",
+    "raJob": "Arch_Mage",
+    "bodySource": "../skills/skills_core_1.json",
+    "displayName": "禁咒魔導士"
+  },
+  "job": "arch_mage",
+  "raJob": "Arch_Mage",
+  "skills": [
+    {
+      "skillId": 5214,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 5217,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "skillId": 5215,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 5227,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "skillId": 5216,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 2203,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "skillId": 5217,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 5220,
+          "level": 3
+        },
+        {
+          "skillId": 2212,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "skillId": 5218,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 5221,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "skillId": 5220,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 5228,
+          "level": 3
+        },
+        {
+          "skillId": 2202,
+          "level": 5
+        }
+      ]
+    },
+    {
+      "skillId": 5221,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 2207,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "skillId": 5222,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 5229,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "skillId": 5225,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 5216,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "skillId": 5227,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 2214,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "skillId": 5228,
+      "maxLevel": 10
+    },
+    {
+      "skillId": 5229,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 2211,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "skillId": 5230,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 5214,
+          "level": 3
+        },
+        {
+          "skillId": 5217,
+          "level": 3
+        },
+        {
+          "skillId": 2213,
+          "level": 5
+        }
+      ]
+    },
+    {
+      "skillId": 5232,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 5228,
+          "level": 3
+        },
+        {
+          "skillId": 2217,
+          "level": 5
+        }
+      ]
+    },
+    {
+      "skillId": 5233,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 5221,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 5234,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 5227,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 5235,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 5229,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 5237,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 5216,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 6516,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 2206,
+          "level": 2
+        },
+        {
+          "skillId": 5232,
+          "level": 1
+        }
+      ]
+    }
+  ],
+  "name": "禁咒魔導士"
+}

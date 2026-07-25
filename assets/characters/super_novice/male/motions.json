@@ -1,0 +1,58 @@
+{
+  "schema": "ro_web_character_motion_map",
+  "schema_version": "3.1",
+  "job": "super_novice",
+  "display_name": "超初",
+  "family": "初學者系列",
+  "gender": "male",
+  "idle_image": "assets/characters/super_novice/male/idle.png",
+  "variants": {
+    "on_foot": {
+      "attack": {
+        "axe": "assets/characters/super_novice/male/on_foot/attack/axe/body_hair_weapon.json",
+        "dagger": "assets/characters/super_novice/male/on_foot/attack/dagger/body_hair_weapon.json",
+        "fist": "assets/characters/super_novice/male/on_foot/attack/fist/body_hair.json",
+        "mace": "assets/characters/super_novice/male/on_foot/attack/mace/body_hair_weapon.json",
+        "staff": "assets/characters/super_novice/male/on_foot/attack/staff/body_hair_weapon.json",
+        "sword": "assets/characters/super_novice/male/on_foot/attack/sword/body_hair_weapon.json"
+      },
+      "idle": "assets/characters/super_novice/male/on_foot/idle/body_hair.json",
+      "walk": "assets/characters/super_novice/male/on_foot/walk/body_hair.json",
+      "cast": "assets/characters/super_novice/male/on_foot/cast/body_hair.json",
+      "dead": "assets/characters/super_novice/male/on_foot/dead/body_hair.json",
+      "hurt": "assets/characters/super_novice/male/on_foot/dead/body_hair.json"
+    }
+  },
+  "weaponAliases": {
+    "oneHandSword": "sword",
+    "twoHandSword": "sword",
+    "oneHandSpear": "spear",
+    "twoHandSpear": "spear",
+    "oneHandAxe": "axe",
+    "twoHandAxe": "axe",
+    "oneHandStaff": "staff",
+    "twoHandStaff": "staff",
+    "hammer": "mace",
+    "book": "book",
+    "bow": "bow",
+    "katar": "katar",
+    "knuckle": "knuckle",
+    "instrument": "instrument",
+    "whip": "whip",
+    "dualSword": "dual_sword",
+    "dualDagger": "dual_dagger"
+  },
+  "rules": {
+    "profileAndTownAlwaysOnFootIdle": true,
+    "fieldVariantByMountState": false,
+    "hurtSharesDeadAtlas": true,
+    "anchor": {
+      "x": 128,
+      "y": 140
+    }
+  },
+  "warnings": [
+    "Cast 兩方向驗證未通過，已自動保留完整八方向。",
+    "Cast/Hurt/Dead 兩方向驗證未通過，Dead/Hurt 已自動保留完整八方向。"
+  ]
+}

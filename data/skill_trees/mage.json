@@ -1,0 +1,114 @@
+{
+  "meta": {
+    "version": "0.9.82BG",
+    "schema": "ro_web_skill_tree_v3",
+    "raJob": "Mage",
+    "bodySource": "../skills/skills_core_1.json",
+    "displayName": "魔法師"
+  },
+  "job": "mage",
+  "raJob": "Mage",
+  "skills": [
+    {
+      "skillId": 9,
+      "maxLevel": 10
+    },
+    {
+      "skillId": 10,
+      "maxLevel": 1
+    },
+    {
+      "skillId": 11,
+      "maxLevel": 10
+    },
+    {
+      "skillId": 12,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 11,
+          "level": 7
+        },
+        {
+          "skillId": 13,
+          "level": 5
+        }
+      ]
+    },
+    {
+      "skillId": 13,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 11,
+          "level": 4
+        }
+      ]
+    },
+    {
+      "skillId": 14,
+      "maxLevel": 10
+    },
+    {
+      "skillId": 15,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 14,
+          "level": 5
+        }
+      ]
+    },
+    {
+      "skillId": 16,
+      "maxLevel": 10
+    },
+    {
+      "skillId": 17,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 19,
+          "level": 4
+        }
+      ]
+    },
+    {
+      "skillId": 18,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 17,
+          "level": 5
+        },
+        {
+          "skillId": 10,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 19,
+      "maxLevel": 10
+    },
+    {
+      "skillId": 20,
+      "maxLevel": 10
+    },
+    {
+      "skillId": 21,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 20,
+          "level": 4
+        }
+      ]
+    },
+    {
+      "skillId": 157,
+      "maxLevel": 1
+    }
+  ],
+  "name": "魔法師"
+}

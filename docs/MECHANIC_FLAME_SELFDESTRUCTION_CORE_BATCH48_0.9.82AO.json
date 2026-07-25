@@ -1,0 +1,72 @@
+{
+  "version": "0.9.82AO",
+  "result": "PASS",
+  "batch": "Mechanic Flame & Self-Destruction Core Batch48",
+  "sourceFiles": [
+    "Project SkillInfoz skillinfolist.lub / skilldescript.lub",
+    "rAthena db/re/skill_db.yml",
+    "rAthena src/map/skills/merchant/flamelauncher.cpp",
+    "rAthena src/map/skills/merchant/selfdestruction.cpp",
+    "rAthena src/map/battle.cpp"
+  ],
+  "officialAdded": [
+    2259,
+    2267
+  ],
+  "coverage": {
+    "before": 482,
+    "after": 484,
+    "target": 1139
+  },
+  "pending": {
+    "before": 657,
+    "after": 655
+  },
+  "behavior": {
+    "2259": {
+      "name": "火焰噴射器",
+      "ratioFormula": "(300 + 300 × Lv) × BaseLv / 150",
+      "area": "3x3 around target",
+      "element": "Fire",
+      "burningChancePercent": [
+        30,
+        40,
+        50
+      ],
+      "burningDurationMs": [
+        7000,
+        14000,
+        21000
+      ]
+    },
+    "2267": {
+      "name": "自我摧毀",
+      "fixedDamageFormula": "((Lv + 1) × (MainframeLv + 8) × (CurrentSP + VIT)) × BaseLv/100 when BaseLv>100 + CurrentHP",
+      "area": [
+        "5x5",
+        "7x7",
+        "9x9"
+      ],
+      "knockbackCells": 5,
+      "alwaysHit": true,
+      "ignoreDefense": true,
+      "returnsMadoMount": true
+    }
+  },
+  "runtimeAdaptation": [
+    "Flame Launcher directional path is currently represented by a 3x3 target-centered area.",
+    "Self Destruction uses pre-cast HP/SP for damage but does not deplete SP during the deferred shared cost-system phase.",
+    "Mado state, dedicated equipment and fuel checks remain deferred; an active Mado rental is returned after Self Destruction."
+  ],
+  "validation": {
+    "jsonFilesParsed": 431,
+    "javascriptFilesSyntaxChecked": 54,
+    "regressionScriptsPassed": 30,
+    "runtimeGeneratedCatalogCounts": "484/484/484",
+    "pendingCount": 655,
+    "duplicateSkillIds": 0,
+    "duplicateSkillKeys": 0,
+    "cacheVersion": "0.9.82AO",
+    "zipIntegrity": "PENDING"
+  }
+}

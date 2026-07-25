@@ -1,0 +1,92 @@
+{
+  "version": "0.9.82AC",
+  "result": "PASS",
+  "batch": "Merchant / Blacksmith / Whitesmith Combat Foundation Batch36",
+  "sourceFiles": [
+    "Project SkillInfoz skilldescript.lub",
+    "rAthena db/re/skill_db.yml",
+    "rAthena cartrevolution.cpp",
+    "rAthena carttermination.cpp",
+    "rAthena advancedadrenalinerush.cpp",
+    "rAthena status.cpp"
+  ],
+  "coverage": {
+    "before": 418,
+    "after": 424,
+    "target": 1139
+  },
+  "pending": {
+    "before": 721,
+    "after": 715
+  },
+  "newOfficialSkillIds": [
+    39,
+    153,
+    387,
+    459,
+    485,
+    486
+  ],
+  "correctedOfficialSkillIds": [
+    155
+  ],
+  "implemented": {
+    "MC_PUSHCART": "Enables cart combat; full-cart coefficient bridge while cart inventory/weight UI is absent.",
+    "MC_CARTREVOLUTION": "150% + cart load up to 250%; target-centered 3x3 AoE; knockback 2.",
+    "BS_ADRENALINE2": "Self-only 150 seconds; ASPD +30%.",
+    "WS_CARTBOOST": "Self-only 60 seconds; movement speed +20%; clears known slow states.",
+    "WS_CARTTERMINATION": "Full-cart RA ratio Lv1-10 533%-1333%; Stun 5%-50% for 4.5 seconds.",
+    "WS_OVERTHRUSTMAX": "Self-only 180 seconds; physical damage +20%-100%.",
+    "MC_LOUD": "Corrected to STR +4 and ATK +30 for 5 minutes, self-only."
+  },
+  "costPolicy": {
+    "spAndTraitSystem": "Deferred until all job Runtime profiles are completed.",
+    "zeny": "Metadata retained; consistent shared deduction pass remains later.",
+    "ordinaryItemsAndMaterials": "Skills requiring ordinary item/material consumption stay pending."
+  },
+  "deferredExamples": [
+    {
+      "skillId": 40,
+      "key": "MC_IDENTIFY",
+      "reason": "No unidentified-item/appraisal system."
+    },
+    {
+      "skillId": 41,
+      "key": "MC_VENDING",
+      "reason": "Player vending system not implemented."
+    },
+    {
+      "skillId": 154,
+      "key": "MC_CHANGECART",
+      "reason": "Cart visual selector not implemented."
+    },
+    {
+      "skillId": 1013,
+      "key": "BS_GREED",
+      "reason": "Drops are granted directly; no ground-item pickup layer."
+    },
+    {
+      "skillId": 477,
+      "key": "WS_WEAPONREFINE",
+      "reason": "Consumes refine materials; excluded by project rule."
+    },
+    {
+      "skillId": 2535,
+      "key": "ALL_BUYING_STORE",
+      "reason": "Consumes buying-store permit item and needs player shop system."
+    }
+  ],
+  "validation": {
+    "jsonParse": "PASS (417 JSON files)",
+    "javascriptSyntax": "PASS (42 JS files)",
+    "runtimeDynamicTest": "PASS",
+    "regressionScripts": "PASS (18/18)",
+    "runtimeGeneratedCatalogCounts": "424/424/424",
+    "pendingCount": 715,
+    "duplicateSkillIds": 0,
+    "duplicateSkillKeys": 0,
+    "cacheVersion": "0.9.82AC",
+    "dataBundle": "PASS (417 keys)",
+    "zipIntegrity": "PASS"
+  }
+}

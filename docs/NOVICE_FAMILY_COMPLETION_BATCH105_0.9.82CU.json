@@ -1,0 +1,36 @@
+{
+  "version": "0.9.82CU",
+  "batch": 105,
+  "title": "初學者系列全技能完成",
+  "skillIds": [
+    410
+  ],
+  "officialRuntime": 828,
+  "pending": 311,
+  "noviceFamilyProgress": "118/118",
+  "skills": [
+    {
+      "id": 410,
+      "key": "WE_CALLBABY",
+      "name": "呼喚寶寶",
+      "handler": "passive",
+      "maxLevel": 1,
+      "officialBehavior": "召喚自己的寶寶角色到身邊。",
+      "roWebAdaptation": "永久 MaxHP／MaxSP 各 +5%；不需要婚姻、家庭或寶寶角色在線。",
+      "passiveBonuses": {
+        "maxHpRate": 5,
+        "maxSpRate": 5
+      }
+    }
+  ],
+  "completion": {
+    "noviceFamily": "118/118",
+    "status": "COMPLETE",
+    "note": "初學者、超級初學者與終極初學者系列已全部具備 Official Runtime。"
+  },
+  "sources": [
+    "rAthena db/re/skill_db.yml WE_CALLBABY",
+    "rAthena src/map/skills/other/callbaby.cpp",
+    "RO_WEB single-player adaptation decision 2026-07-17"
+  ]
+}

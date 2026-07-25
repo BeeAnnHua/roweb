@@ -1,0 +1,76 @@
+{
+  "version": "0.9.82BK",
+  "batch": 69,
+  "title": "賢者自動念咒／元素領域核心",
+  "officialRuntimeBefore": 632,
+  "officialRuntimeAfter": 639,
+  "pendingBefore": 507,
+  "pendingAfter": 500,
+  "mageFamilyBefore": 108,
+  "mageFamilyAfter": 115,
+  "magePendingBefore": 45,
+  "magePendingAfter": 38,
+  "skills": [
+    {
+      "skillId": 279,
+      "skillKey": "SA_AUTOSPELL",
+      "name": "自動念咒",
+      "handler": "buff",
+      "formula": null,
+      "status": null
+    },
+    {
+      "skillId": 285,
+      "skillKey": "SA_VOLCANO",
+      "name": "火元素領域",
+      "handler": "buff",
+      "formula": null,
+      "status": null
+    },
+    {
+      "skillId": 286,
+      "skillKey": "SA_DELUGE",
+      "name": "水元素領域",
+      "handler": "buff",
+      "formula": null,
+      "status": null
+    },
+    {
+      "skillId": 287,
+      "skillKey": "SA_VIOLENTGALE",
+      "name": "風元素領域",
+      "handler": "buff",
+      "formula": null,
+      "status": null
+    },
+    {
+      "skillId": 289,
+      "skillKey": "SA_DISPELL",
+      "name": "魔法效果解除",
+      "handler": "dispel",
+      "formula": null,
+      "status": null
+    },
+    {
+      "skillId": 403,
+      "skillKey": "PF_MEMORIZE",
+      "name": "速讀術",
+      "handler": "buff",
+      "formula": null,
+      "status": null
+    },
+    {
+      "skillId": 404,
+      "skillKey": "PF_FOGWALL",
+      "name": "薄霧牆",
+      "handler": "timed_status",
+      "formula": null,
+      "status": "fog_wall"
+    }
+  ],
+  "deferred": [
+    "373 HP 轉換：依使用者決定稍後處理",
+    "402 精神撼動：依使用者決定稍後處理"
+  ],
+  "decision": "本批 7 招正式啟用；三元素領域依單人規則改為互斥 Self Only Buff。"
+}

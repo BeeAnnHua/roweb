@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "version": "0.9.80ZH",
+    "schema": "ro_web_skill_tree_v3",
+    "raJob": "Champion",
+    "bodySource": "../skills/skills_core_1.json"
+  },
+  "job": "champion",
+  "raJob": "Champion",
+  "skills": [
+    {
+      "skillId": 370,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 259,
+          "level": 7
+        },
+        {
+          "skillId": 261,
+          "level": 5
+        }
+      ]
+    },
+    {
+      "skillId": 371,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 259,
+          "level": 5
+        },
+        {
+          "skillId": 263,
+          "level": 5
+        },
+        {
+          "skillId": 273,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "skillId": 372,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 259,
+          "level": 5
+        },
+        {
+          "skillId": 261,
+          "level": 5
+        },
+        {
+          "skillId": 371,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "skillId": 401,
+      "maxLevel": 1,
+      "requires": [
+        {
+          "skillId": 270,
+          "level": 5
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "version": "0.9.82W",
+  "batch": "Monk/Sura Core Combat Batch31",
+  "sourceFiles": [
+    "RA開機檔案英文版20260608.zip",
+    "RO_WEB專案資料.zip/skillinfoz/skillinfoz*.zip",
+    "local rAthena db/re/skill_db.yml",
+    "local rAthena src/map/skills/acolyte/*.cpp"
+  ],
+  "officialAdded": [
+    271,
+    1016,
+    2326,
+    2327,
+    2328,
+    2329,
+    2330,
+    2332,
+    2336,
+    2337,
+    2338,
+    2340,
+    2517,
+    2518,
+    5009
+  ],
+  "coverage": {
+    "before": 333,
+    "after": 348,
+    "target": 1139
+  },
+  "pending": {
+    "before": 806,
+    "after": 791
+  },
+  "copyable": {
+    "plagiarismTotal": 76,
+    "plagiarismRuntimeReady": 46,
+    "reproduceTotal": 162,
+    "reproduceRuntimeReady": 69,
+    "officialRuntime": 348,
+    "version": "0.9.82W"
+  },
+  "deliberatelyPending": [
+    "MO_BLADESTOP",
+    "MO_KITRANSLATION",
+    "SR_POWERVELOCITY",
+    "SR_CRESCENTELBOW",
+    "SR_CURSEDCIRCLE",
+    "SR_LIGHTNINGWALK",
+    "SR_GATEOFHELL",
+    "SR_GENTLETOUCH_*"
+  ],
+  "notes": [
+    "Activation prerequisites such as Fury/combo order are removed; sphere costs and combat effects remain.",
+    "Flash Combo resolves three official stages immediately instead of 0/750/1250ms timers to keep current auto-battle deterministic.",
+    "No persistent spirit-sphere UI was added.",
+    "Flash Combo component stages use the player’s learned Dragon Combo/Fallen Empire/Tiger Cannon levels, matching rAthena timer execution."
+  ],
+  "validation": {
+    "jsonFilesParsed": 359,
+    "javascriptFilesSyntaxChecked": 24,
+    "runtimeRegressionTests": [
+      "RA damage pipeline",
+      "Thief/Assassin Batch21-22",
+      "Rogue/Abyss Batch24",
+      "Dragon Knight completion",
+      "Acolyte/Priest Batch28",
+      "Acolyte utility redesign",
+      "Monk spirit Batch30",
+      "Monk/Sura Batch31"
+    ],
+    "dynamicChecks": {
+      "raisingDragonLv10Spheres": 15,
+      "asuraLv5Sp1000With15SpheresDamageProbe": 21600,
+      "tigerComboDamageProbe": 12150,
+      "tigerNormalDamageProbe": 7975,
+      "rampageEarthShakerProbe": 7083,
+      "rampageNormalProbe": 3666,
+      "flashComboThreeStages": true
+    },
+    "result": "PASS"
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "meta": {
+    "version": "0.9.80ZH",
+    "schema": "ro_web_skill_tree_v3",
+    "raJob": "Lord_Knight",
+    "bodySource": "../skills/skills_core_1.json"
+  },
+  "job": "lord_knight",
+  "raJob": "Lord_Knight",
+  "skills": [
+    {
+      "skillId": 355,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 7,
+          "level": 5
+        },
+        {
+          "skillId": 3,
+          "level": 5
+        }
+      ]
+    },
+    {
+      "skillId": 356,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 3,
+          "level": 10
+        },
+        {
+          "skillId": 6,
+          "level": 5
+        },
+        {
+          "skillId": 60,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "skillId": 357,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 4,
+          "level": 5
+        },
+        {
+          "skillId": 55,
+          "level": 5
+        },
+        {
+          "skillId": 63,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 358,
+      "maxLevel": 1,
+      "requires": [
+        {
+          "skillId": 4,
+          "level": 10
+        },
+        {
+          "skillId": 6,
+          "level": 5
+        },
+        {
+          "skillId": 8,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "skillId": 359,
+      "maxLevel": 1
+    },
+    {
+      "skillId": 397,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 55,
+          "level": 5
+        },
+        {
+          "skillId": 56,
+          "level": 5
+        },
+        {
+          "skillId": 58,
+          "level": 5
+        },
+        {
+          "skillId": 63,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 398,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 55,
+          "level": 9
+        },
+        {
+          "skillId": 63,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 399,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 64,
+          "level": 3
+        },
+        {
+          "skillId": 398,
+          "level": 3
+        }
+      ]
+    }
+  ]
+}

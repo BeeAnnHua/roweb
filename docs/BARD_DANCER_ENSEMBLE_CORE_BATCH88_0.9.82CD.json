@@ -1,0 +1,317 @@
+{
+  "version": "0.9.82CD",
+  "batch": 88,
+  "title": "吟遊詩人／舞孃合奏與演奏管理核心",
+  "officialRuntime": 734,
+  "pending": 405,
+  "skills": [
+    {
+      "id": 304,
+      "name": "臨機應變",
+      "handler": "buff",
+      "runtimeProfile": {
+        "handler": "buff",
+        "targetPolicy": "self",
+        "performanceAction": "cancel_latest",
+        "spCost": [
+          10
+        ],
+        "source": [
+          "rAthena db/re/skill_db.yml BD_ADAPTATION",
+          "RO_WEB multi-performance management rule"
+        ],
+        "runtimeAdaptation": "立即解除最後啟用的一首持續演奏／舞蹈；沒有可解除的演奏時不消耗 SP。"
+      }
+    },
+    {
+      "id": 305,
+      "name": "安可",
+      "handler": "buff",
+      "runtimeProfile": {
+        "handler": "buff",
+        "targetPolicy": "self",
+        "performanceAction": "encore",
+        "spCost": [
+          1
+        ],
+        "weaponTypes": [
+          "instrument",
+          "whip"
+        ],
+        "source": [
+          "rAthena db/re/skill_db.yml BD_ENCORE",
+          "RO_WEB timed performance refresh rule"
+        ],
+        "runtimeAdaptation": "以 1 SP 重新施放最後使用的演奏／舞蹈並刷新剩餘時間；不再支付原歌曲的初始 SP，但仍須符合武器與目標條件。"
+      }
+    },
+    {
+      "id": 307,
+      "name": "經驗值倍增",
+      "handler": "buff",
+      "runtimeProfile": {
+        "handler": "buff",
+        "targetPolicy": "self",
+        "duration": [
+          60000,
+          120000,
+          180000,
+          240000,
+          300000
+        ],
+        "effects": {
+          "baseExpRate": [
+            20,
+            30,
+            40,
+            50,
+            60
+          ],
+          "jobExpRate": [
+            20,
+            30,
+            40,
+            50,
+            60
+          ]
+        },
+        "weaponTypes": [
+          "instrument",
+          "whip"
+        ],
+        "spCost": [
+          62,
+          68,
+          74,
+          80,
+          86
+        ],
+        "sustainedPerformance": true,
+        "sustainedSpCostPer5s": [
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "timedPerformanceBuff": true,
+        "source": [
+          "rAthena db/re/skill_db.yml BD_RICHMANKIM",
+          "rAthena src/map/status.cpp SC_RICHMANKIM",
+          "RO_WEB single-player performance rule"
+        ],
+        "runtimeAdaptation": "改為可獨立維持的限時自身合奏 Buff；每級持續 1 分鐘，Lv5 為 5 分鐘。Base／Job EXP 增加 20%～60%，每 5 秒獨立消耗 4～8 SP，自然回魔不停止。"
+      }
+    },
+    {
+      "id": 308,
+      "name": "永遠的混沌",
+      "handler": "timed_status",
+      "runtimeProfile": {
+        "handler": "timed_status",
+        "targeting": {
+          "origin": "self",
+          "shape": "circle",
+          "radius": 4,
+          "forcePrimaryTarget": false
+        },
+        "status": "eternal_chaos",
+        "statusChancePercent": [
+          100
+        ],
+        "statusDuration": [
+          300000
+        ],
+        "statusEffects": {
+          "defRate": [
+            -100
+          ]
+        },
+        "statusAffectsBoss": false,
+        "weaponTypes": [
+          "instrument",
+          "whip"
+        ],
+        "spCost": [
+          120
+        ],
+        "sustainedPerformance": true,
+        "sustainedSpCostPer5s": [
+          8
+        ],
+        "timedPerformanceBuff": true,
+        "source": [
+          "rAthena db/re/skill_db.yml BD_ETERNALCHAOS",
+          "rAthena src/map/status.cpp SC_ETERNALCHAOS",
+          "RO_WEB single-player performance rule"
+        ],
+        "runtimeAdaptation": "改為可獨立維持 5 分鐘的敵方合奏 Debuff；半徑 4 格內一般怪物 DEF 降為 0，Boss／MVP 免疫。每 5 秒消耗 8 SP。"
+      }
+    },
+    {
+      "id": 309,
+      "name": "戰鼓震天",
+      "handler": "buff",
+      "runtimeProfile": {
+        "handler": "buff",
+        "targetPolicy": "self",
+        "duration": [
+          60000,
+          120000,
+          180000,
+          240000,
+          300000
+        ],
+        "effects": {
+          "atkRate": [
+            20,
+            25,
+            30,
+            35,
+            40
+          ],
+          "defFlat": [
+            15,
+            30,
+            45,
+            60,
+            75
+          ]
+        },
+        "weaponTypes": [
+          "instrument",
+          "whip"
+        ],
+        "spCost": [
+          50,
+          54,
+          58,
+          62,
+          66
+        ],
+        "sustainedPerformance": true,
+        "sustainedSpCostPer5s": [
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "timedPerformanceBuff": true,
+        "source": [
+          "rAthena db/re/skill_db.yml BD_DRUMBATTLEFIELD",
+          "rAthena src/map/status.cpp SC_DRUMBATTLE",
+          "RO_WEB Self Only rule"
+        ],
+        "runtimeAdaptation": "官方合奏效果依單人規則改為自身限時 Buff；每級持續 1 分鐘，Lv5 為 5 分鐘。ATK +20%～40%、DEF +15～75，每 5 秒消耗 4～8 SP。"
+      }
+    },
+    {
+      "id": 310,
+      "name": "尼貝龍根之戒",
+      "handler": "buff",
+      "runtimeProfile": {
+        "handler": "buff",
+        "targetPolicy": "self",
+        "duration": [
+          60000,
+          120000,
+          180000,
+          240000,
+          300000
+        ],
+        "dynamicEffectFormula": "renewal_nibelungen_random",
+        "weaponTypes": [
+          "instrument",
+          "whip"
+        ],
+        "spCost": [
+          64,
+          60,
+          56,
+          52,
+          48
+        ],
+        "sustainedPerformance": true,
+        "sustainedSpCostPer5s": [
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "timedPerformanceBuff": true,
+        "source": [
+          "rAthena db/re/skill_db.yml BD_RINGNIBELUNGEN",
+          "rAthena src/map/status.cpp SC_NIBELUNGEN",
+          "RO_WEB Self Only rule"
+        ],
+        "runtimeAdaptation": "官方合奏效果依單人規則改為自身限時 Buff；施放時從 Renewal 十一種增益中隨機選擇一種，持續時間每級 1 分鐘、Lv5 為 5 分鐘，每 5 秒消耗 4～8 SP。"
+      }
+    },
+    {
+      "id": 313,
+      "name": "不死神齊格弗里德",
+      "handler": "buff",
+      "runtimeProfile": {
+        "handler": "buff",
+        "targetPolicy": "self",
+        "duration": [
+          60000,
+          120000,
+          180000,
+          240000,
+          300000
+        ],
+        "effects": {
+          "elementResistAll": [
+            3,
+            6,
+            9,
+            12,
+            15
+          ],
+          "statusResistanceRate": [
+            5,
+            10,
+            15,
+            20,
+            25
+          ]
+        },
+        "weaponTypes": [
+          "instrument",
+          "whip"
+        ],
+        "spCost": [
+          40,
+          44,
+          48,
+          52,
+          56
+        ],
+        "sustainedPerformance": true,
+        "sustainedSpCostPer5s": [
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "timedPerformanceBuff": true,
+        "source": [
+          "rAthena db/re/skill_db.yml BD_SIEGFRIED",
+          "rAthena src/map/status.cpp SC_SIEGFRIED",
+          "RO_WEB Self Only rule"
+        ],
+        "runtimeAdaptation": "官方合奏效果依單人規則改為自身限時 Buff；全屬性抗性 +3%～15%、異常狀態抗性 +5%～25%，每級持續 1 分鐘、Lv5 為 5 分鐘，每 5 秒消耗 4～8 SP。"
+      }
+    }
+  ],
+  "rules": {
+    "singlePlayerEnsemble": true,
+    "naturalSpRecoveryContinues": true,
+    "sustainedSpStacks": true,
+    "maxDurationMs": 300000
+  }
+}

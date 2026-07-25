@@ -1,0 +1,53 @@
+{
+  "version": "0.9.80ZY",
+  "batch": "Runtime Physical Batch9",
+  "coverage": {
+    "before": 62,
+    "after": 64,
+    "target": 1139
+  },
+  "pending": {
+    "before": 1077,
+    "after": 1075
+  },
+  "skills": [
+    {
+      "skillId": 315,
+      "skillKey": "BA_MUSICALLESSON",
+      "name": "樂器練習",
+      "handler": "passive",
+      "weaponTypes": [
+        "instrument"
+      ],
+      "formula": "Mastery ATK +3 per level",
+      "maxBonus": 30
+    },
+    {
+      "skillId": 323,
+      "skillKey": "DC_DANCINGLESSON",
+      "name": "舞蹈練習",
+      "handler": "passive",
+      "weaponTypes": [
+        "whip"
+      ],
+      "formula": "Mastery ATK +3 per level",
+      "maxBonus": 30
+    }
+  ],
+  "weaponFamilyAudit": {
+    "instrument": "existing",
+    "whip": "existing",
+    "newWeaponJsonRequired": false
+  },
+  "checks": {
+    "runtime": true,
+    "formula": true,
+    "handler": true,
+    "json": true,
+    "js": true,
+    "bundle": true,
+    "cache": true,
+    "regression": true,
+    "weaponFamily": true
+  }
+}

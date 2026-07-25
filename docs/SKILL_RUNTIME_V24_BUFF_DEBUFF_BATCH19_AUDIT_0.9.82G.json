@@ -1,0 +1,66 @@
+{
+  "version": "0.9.82G",
+  "batch": "Runtime Buff/Debuff Batch19",
+  "coverage": {
+    "before": 107,
+    "after": 111,
+    "target": 1139
+  },
+  "pending": {
+    "before": 1032,
+    "after": 1028
+  },
+  "addedSkills": [
+    {
+      "skillId": 29,
+      "skillKey": "AL_INCAGI",
+      "name": "加速術"
+    },
+    {
+      "skillId": 34,
+      "skillKey": "AL_BLESSING",
+      "name": "天使之賜福"
+    },
+    {
+      "skillId": 35,
+      "skillKey": "AL_CURE",
+      "name": "治療術"
+    },
+    {
+      "skillId": 30,
+      "skillKey": "AL_DECAGI",
+      "name": "緩速術"
+    },
+    {
+      "skillId": 76,
+      "skillKey": "PR_LEXDIVINA",
+      "name": "Lex Divina"
+    },
+    {
+      "skillId": 78,
+      "skillKey": "PR_LEXAETERNA",
+      "name": "Lex Aeterna"
+    }
+  ],
+  "runtimeEnhancements": [
+    "Self Buff stat integration",
+    "Enemy Debuff common cast path",
+    "Cure status removal",
+    "Lex Aeterna one-shot double damage and consume"
+  ],
+  "adaptations": [
+    "All beneficial support skills self-cast.",
+    "Enemy debuffs remain enemy-targeted."
+  ],
+  "specialReview": [],
+  "checks": {
+    "runtime": true,
+    "formula": true,
+    "handler": true,
+    "json": true,
+    "js": true,
+    "bundle": true,
+    "cache": true,
+    "regression": true
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "version": "0.9.82I1",
+  "changes": [
+    "Duplicate skill records deduplicated by official Skill ID, latest entry retained",
+    "KN_AUTOCOUNTER changed to persistent reflect-shield behavior",
+    "RK_RUNEMASTERY implemented as passive ATK +2% per level",
+    "Rune stone checks and consumption disabled by policy"
+  ],
+  "coverage": {
+    "before": 133,
+    "after": 134,
+    "target": 1139
+  },
+  "pending": {
+    "before": 1006,
+    "after": 1005
+  }
+}

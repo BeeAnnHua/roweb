@@ -1,0 +1,488 @@
+{
+  "version": "0.9.82EA",
+  "renewalOnly": true,
+  "counts": {
+    "flagged": 52,
+    "implementedFlagged": 38,
+    "implementedAttackFlagged": 35,
+    "pendingFlagged": 14,
+    "passiveFlagged": 1,
+    "genericFallback": 4,
+    "explicit": 31
+  },
+  "errors": [],
+  "rows": [
+    {
+      "id": 48,
+      "name": "二刀連擊",
+      "handler": "passive",
+      "criticalMode": "never",
+      "explicitMode": null,
+      "pending": false,
+      "passive": true
+    },
+    {
+      "id": 61,
+      "name": "反擊",
+      "handler": "counter_stance",
+      "criticalMode": "never",
+      "explicitMode": null,
+      "pending": false,
+      "passive": false
+    },
+    {
+      "id": 379,
+      "name": "Soul Destroyer",
+      "handler": "physical_attack_formula",
+      "criticalMode": "normal",
+      "explicitMode": "normal",
+      "pending": false,
+      "passive": false
+    },
+    {
+      "id": 382,
+      "name": "銳利射擊",
+      "handler": "physical_attack_formula",
+      "criticalMode": "normal",
+      "explicitMode": "normal",
+      "pending": false,
+      "passive": false
+    },
+    {
+      "id": 511,
+      "name": "Chain Action",
+      "handler": "pending",
+      "criticalMode": "never",
+      "explicitMode": null,
+      "pending": true,
+      "passive": false
+    },
+    {
+      "id": 530,
+      "name": "Shadow Slash",
+      "handler": "pending",
+      "criticalMode": "never",
+      "explicitMode": null,
+      "pending": true,
+      "passive": false
+    },
+    {
+      "id": 2002,
+      "name": "Sonic Wave",
+      "handler": "physical_attack",
+      "criticalMode": "normal",
+      "explicitMode": null,
+      "pending": false,
+      "passive": false
+    },
+    {
+      "id": 2006,
+      "name": "Ignition Break",
+      "handler": "physical_attack",
+      "criticalMode": "normal",
+      "explicitMode": null,
+      "pending": false,
+      "passive": false
+    },
+    {
+      "id": 2022,
+      "name": "十字衝擊",
+      "handler": "physical_charge",
+      "criticalMode": "normal",
+      "explicitMode": "normal",
+      "pending": false,
+      "passive": false
+    },
+    {
+      "id": 2234,
+      "name": "微風恐懼",
+      "handler": "buff",
+      "criticalMode": "never",
+      "explicitMode": null,
+      "pending": false,
+      "passive": false
+    },
+    {
+      "id": 2307,
+      "name": "Cannon Spear",
+      "handler": "physical_attack_formula",
+      "criticalMode": "normal",
+      "explicitMode": null,
+      "pending": false,
+      "passive": false
+    },
+    {
+      "id": 2312,
+      "name": "Pinpoint Attack",
+      "handler": "physical_attack_formula",
+      "criticalMode": "always",
+      "explicitMode": "always",
+      "pending": false,
+      "passive": false
+    },
+    {
+      "id": 5204,
+      "name": "Servant Weapon Phantom",
+      "handler": "physical_attack",
+      "criticalMode": "normal",
+      "explicitMode": "normal",
+      "pending": false,
+      "passive": false
+    },
+    {
+      "id": 5205,
+      "name": "Servant Weapon Demolition",
+      "handler": "physical_attack",
+      "criticalMode": "normal",
+      "explicitMode": "normal",
+      "pending": false,
+      "passive": false
+    },
+    {
+      "id": 5208,
+      "name": "斬擊連殺",
+      "handler": "physical_attack_formula",
+      "criticalMode": "normal",
+      "explicitMode": "normal",
+      "pending": false,
+      "passive": false
+    },
+    {
+      "id": 5213,
+      "name": "風暴斬擊",
+      "handler": "physical_attack_formula",
+      "criticalMode": "normal",
+      "explicitMode": "normal",
+      "pending": false,
+      "passive": false
+    },
+    {
+      "id": 5241,
+      "name": "聖油洗禮",
+      "handler": "physical_attack_formula",
+      "criticalMode": "normal",
+      "explicitMode": "allowed",
+      "pending": false,
+      "passive": false
+    },
+    {
+      "id": 5243,
+      "name": "大範圍烈焰爆破",
+      "handler": "physical_attack_formula",
+      "criticalMode": "normal",
+      "explicitMode": "allowed",
+      "pending": false,
+      "passive": false
+    },
+    {
+      "id": 5244,
+      "name": "爆炸衝擊",
+      "handler": "physical_attack_formula",
+      "criticalMode": "normal",
+      "explicitMode": "allowed",
+      "pending": false,
+      "passive": false
+    },
+    {
+      "id": 5245,
+      "name": "第一烙印",
+      "handler": "physical_attack_formula",
+      "criticalMode": "normal",
+      "explicitMode": "allowed",
+      "pending": false,
+      "passive": false
+    },
+    {
+      "id": 5249,
+      "name": "第二信仰",
+      "handler": "physical_attack_formula",
+      "criticalMode": "normal",
+      "explicitMode": "allowed",
+      "pending": false,
+      "passive": false
+    },
+    {
+      "id": 5251,
+      "name": "第三懲戒",
+      "handler": "physical_attack_formula",
+      "criticalMode": "normal",
+      "explicitMode": "allowed",
+      "pending": false,
+      "passive": false
+    },
+    {
+      "id": 5283,
+      "name": "神聖請願",
+      "handler": "physical_attack_formula",
+      "criticalMode": "normal",
+      "explicitMode": "allowed",
+      "pending": false,
+      "passive": false
+    },
+    {
+      "id": 5287,
+      "name": "兇殘衝擊",
+      "handler": "physical_charge",
+      "criticalMode": "normal",
+      "explicitMode": "normal",
+      "pending": false,
+      "passive": false
+    },
+    {
+      "id": 5289,
+      "name": "永恆斬擊",
+      "handler": "physical_attack_formula",
+      "criticalMode": "normal",
+      "explicitMode": "normal",
+      "pending": false,
+      "passive": false
+    },
+    {
+      "id": 5292,
+      "name": "衝擊爆裂",
+      "handler": "physical_attack_formula",
+      "criticalMode": "normal",
+      "explicitMode": "normal",
+      "pending": false,
+      "passive": false
+    },
+    {
+      "id": 5322,
+      "name": "狂暴射擊",
+      "handler": "physical_attack_formula",
+      "criticalMode": "normal",
+      "explicitMode": "normal",
+      "pending": false,
+      "passive": false
+    },
+    {
+      "id": 5326,
+      "name": "獵鷹奇襲",
+      "handler": "physical_attack_formula",
+      "criticalMode": "normal",
+      "explicitMode": "normal",
+      "pending": false,
+      "passive": false
+    },
+    {
+      "id": 5329,
+      "name": "獵鷹狙擊",
+      "handler": "physical_attack_formula",
+      "criticalMode": "normal",
+      "explicitMode": "normal",
+      "pending": false,
+      "passive": false
+    },
+    {
+      "id": 5330,
+      "name": "毀滅風暴",
+      "handler": "physical_attack_formula",
+      "criticalMode": "never",
+      "explicitMode": "never",
+      "pending": false,
+      "passive": false
+    },
+    {
+      "id": 5334,
+      "name": "漸進狙擊",
+      "handler": "physical_attack_formula",
+      "criticalMode": "normal",
+      "explicitMode": "normal",
+      "pending": false,
+      "passive": false
+    },
+    {
+      "id": 5406,
+      "name": "Only One Bullet",
+      "handler": "pending",
+      "criticalMode": "never",
+      "explicitMode": null,
+      "pending": true,
+      "passive": false
+    },
+    {
+      "id": 5407,
+      "name": "Spiral Shooting",
+      "handler": "pending",
+      "criticalMode": "never",
+      "explicitMode": null,
+      "pending": true,
+      "passive": false
+    },
+    {
+      "id": 5408,
+      "name": "Magazine for One",
+      "handler": "pending",
+      "criticalMode": "never",
+      "explicitMode": null,
+      "pending": true,
+      "passive": false
+    },
+    {
+      "id": 5435,
+      "name": "Chulho Sonic Claw",
+      "handler": "pending",
+      "criticalMode": "never",
+      "explicitMode": null,
+      "pending": true,
+      "passive": false
+    },
+    {
+      "id": 5437,
+      "name": "Hogogong Strike",
+      "handler": "pending",
+      "criticalMode": "never",
+      "explicitMode": null,
+      "pending": true,
+      "passive": false
+    },
+    {
+      "id": 5452,
+      "name": "巨型音速投擲",
+      "handler": "physical_attack_formula",
+      "criticalMode": "normal",
+      "explicitMode": "normal",
+      "pending": false,
+      "passive": false
+    },
+    {
+      "id": 5466,
+      "name": "Noon Blast",
+      "handler": "pending",
+      "criticalMode": "never",
+      "explicitMode": null,
+      "pending": true,
+      "passive": false
+    },
+    {
+      "id": 5467,
+      "name": "Sunset Blast",
+      "handler": "pending",
+      "criticalMode": "never",
+      "explicitMode": null,
+      "pending": true,
+      "passive": false
+    },
+    {
+      "id": 5474,
+      "name": "All in the Sky",
+      "handler": "pending",
+      "criticalMode": "never",
+      "explicitMode": null,
+      "pending": true,
+      "passive": false
+    },
+    {
+      "id": 5482,
+      "name": "Shadow Flash",
+      "handler": "pending",
+      "criticalMode": "never",
+      "explicitMode": null,
+      "pending": true,
+      "passive": false
+    },
+    {
+      "id": 5500,
+      "name": "Wild Shot",
+      "handler": "pending",
+      "criticalMode": "never",
+      "explicitMode": null,
+      "pending": true,
+      "passive": false
+    },
+    {
+      "id": 5502,
+      "name": "Sky Sun",
+      "handler": "pending",
+      "criticalMode": "never",
+      "explicitMode": null,
+      "pending": true,
+      "passive": false
+    },
+    {
+      "id": 5506,
+      "name": "Chulho Battering",
+      "handler": "pending",
+      "criticalMode": "never",
+      "explicitMode": null,
+      "pending": true,
+      "passive": false
+    },
+    {
+      "id": 6003,
+      "name": "三連雷射",
+      "handler": "physical_attack_formula",
+      "criticalMode": "normal",
+      "explicitMode": "allowed",
+      "pending": false,
+      "passive": false
+    },
+    {
+      "id": 6006,
+      "name": "混亂的荊棘",
+      "handler": "physical_attack_formula",
+      "criticalMode": "normal",
+      "explicitMode": "normal",
+      "pending": false,
+      "passive": false
+    },
+    {
+      "id": 6502,
+      "name": "龍之穿刺",
+      "handler": "physical_attack_formula",
+      "criticalMode": "normal",
+      "explicitMode": "normal",
+      "pending": false,
+      "passive": false
+    },
+    {
+      "id": 6503,
+      "name": "Radiant Spear",
+      "handler": "physical_attack_formula",
+      "criticalMode": "normal",
+      "explicitMode": null,
+      "pending": false,
+      "passive": false
+    },
+    {
+      "id": 6511,
+      "name": "十字交叉斬",
+      "handler": "physical_attack_formula",
+      "criticalMode": "normal",
+      "explicitMode": "normal",
+      "pending": false,
+      "passive": false
+    },
+    {
+      "id": 6514,
+      "name": "追擊射擊",
+      "handler": "physical_attack_formula",
+      "criticalMode": "normal",
+      "explicitMode": "normal",
+      "pending": false,
+      "passive": false
+    },
+    {
+      "id": 6519,
+      "name": "熾烈火焰爆破",
+      "handler": "physical_attack_formula",
+      "criticalMode": "normal",
+      "explicitMode": "allowed",
+      "pending": false,
+      "passive": false
+    },
+    {
+      "id": 6520,
+      "name": "野性漫步",
+      "handler": "physical_attack_formula",
+      "criticalMode": "normal",
+      "explicitMode": "normal",
+      "pending": false,
+      "passive": false
+    }
+  ],
+  "summary": {
+    "status": "PASS",
+    "errors": 0
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "version": "0.9.81D1",
+  "type": "Runtime correction",
+  "skillId": 263,
+  "skillKey": "MO_TRIPLEATTACK",
+  "name": "六合拳",
+  "correction": {
+    "before": "active physical_attack skill",
+    "after": "passive normal-attack proc"
+  },
+  "raBehavior": {
+    "trigger": "successful normal attack",
+    "chancePercentByLevel": [
+      30,
+      29,
+      28,
+      27,
+      26,
+      25,
+      24,
+      23,
+      22,
+      21
+    ],
+    "damageRatioPercentByLevel": [
+      120,
+      140,
+      160,
+      180,
+      200,
+      220,
+      240,
+      260,
+      280,
+      300
+    ],
+    "visualHits": 3
+  },
+  "roWebBehavior": {
+    "comboPrerequisiteIgnored": true,
+    "activeCastingDisabled": true,
+    "spCost": 0,
+    "procPriority": "checked before Double Attack"
+  },
+  "coverage": {
+    "officialRuntime": 70,
+    "pending": 1069,
+    "changed": false
+  },
+  "checks": {
+    "json": true,
+    "js": true,
+    "bundle": true,
+    "cache": true,
+    "regression": true
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "version": "0.9.82DR",
+  "schema": "ro_web_mount_manifest_v2",
+  "defaultState": {
+    "mounted": false,
+    "type": null
+  },
+  "resolvers": {
+    "swordman": {
+      "resolverType": "jobMap",
+      "fallbackMountType": "peco",
+      "jobMountMap": {
+        "knight": "peco",
+        "lord_knight": "peco",
+        "crusader": "peco",
+        "paladin": "peco",
+        "rune_knight": "dragon",
+        "dragon_knight": "dragon",
+        "royal_guard": "griffon",
+        "imperial_guard": "griffon"
+      },
+      "note": "KN_RIDING 依目前劍士家族職業解析坐騎種類；人物 Atlas 於劍士坐騎素材加入後由同一 mountState 切換。"
+    }
+  },
+  "mounts": {
+    "peco": {
+      "mountType": "peco",
+      "displayName": "大嘴鳥坐騎",
+      "requiredSkillId": 63,
+      "allowedJobs": [
+        "knight",
+        "lord_knight",
+        "crusader",
+        "paladin"
+      ],
+      "carryingCapacityBonus": 0,
+      "rentalEnabled": false,
+      "assetStatus": "pending_swordman_mount_assets",
+      "note": "RO_WEB 不實作負重量；騎乘只影響技能條件、騎乘戰鬥效果與未來人物 Atlas。"
+    },
+    "dragon": {
+      "mountType": "dragon",
+      "displayName": "龍坐騎",
+      "requiredSkillId": 2007,
+      "toggleSkillId": 63,
+      "allowedJobs": [
+        "rune_knight",
+        "dragon_knight"
+      ],
+      "carryingCapacityBonus": 0,
+      "rentalEnabled": false,
+      "assetStatus": "pending_swordman_mount_assets",
+      "note": "需學會龍駕馭；龍息、龍之咆哮與龍威氣息要求騎龍。RO_WEB 不增加負重量。"
+    },
+    "griffon": {
+      "mountType": "griffon",
+      "displayName": "獅鷲坐騎",
+      "requiredSkillId": 63,
+      "allowedJobs": [
+        "royal_guard",
+        "imperial_guard"
+      ],
+      "carryingCapacityBonus": 0,
+      "rentalEnabled": false,
+      "assetStatus": "pending_swordman_mount_assets",
+      "note": "皇家禁衛隊與帝國聖衛軍使用；RO_WEB 不增加負重量。"
+    },
+    "mado": {
+      "mountType": "mado",
+      "displayName": "魔導機甲",
+      "requiredSkillId": 2255,
+      "definitionPath": "data/mounts/mado_gear.json",
+      "rentalEnabled": true,
+      "rentalHook": "rentPlayerMount(\"mado\")",
+      "returnHook": "returnPlayerMount(\"mado\")",
+      "note": "保留魔導機甲資料定義供未來擴充；目前所有已實裝機甲技能不檢查機甲狀態，人物動畫沿用機械工匠／機甲神匠原職業素材。"
+    }
+  },
+  "uiText": {
+    "skillRequiresMount": "需要使用坐騎才能使用該技能。"
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "version": "0.9.82Y",
+  "batch": "Sura Crescent Elbow RA Counter Completion",
+  "sourceFiles": [
+    "local rAthena db/re/skill_db.yml SR_CRESCENTELBOW and SR_CRESCENTELBOW_AUTOSPELL",
+    "local rAthena src/map/status.cpp SC_CRESCENTELBOW",
+    "local rAthena src/map/battle.cpp Crescent Elbow reaction"
+  ],
+  "officialAdded": [
+    2333
+  ],
+  "coverage": {
+    "before": 359,
+    "after": 360,
+    "target": 1139
+  },
+  "pending": {
+    "before": 780,
+    "after": 779
+  },
+  "behavior": {
+    "durationMs": [
+      3000,
+      4000,
+      5000,
+      6000,
+      7000
+    ],
+    "spCost": 80,
+    "spiritSphereCost": 2,
+    "triggerChance": "JobLv/2 + 50 + 5*Lv",
+    "ratioCapPercent": 5000,
+    "recoilPercent": 10,
+    "knockbackCells": 0,
+    "officialKnockbackOmitted": 7
+  },
+  "remainingMonkSuraPending": [],
+  "validation": {
+    "result": "PASS",
+    "jsonFilesParsed": 373,
+    "javascriptFilesSyntaxChecked": 37,
+    "regressionScriptsPassed": 13,
+    "runtimeGeneratedCatalogCounts": "360/360/360",
+    "pendingCount": 779,
+    "duplicateSkillIds": 0,
+    "duplicateSkillKeys": 0,
+    "dynamicChecks": {
+      "job70Lv5TriggerChance": 100,
+      "ratioCapPercent": 5000,
+      "probeCounterDamage": 25200,
+      "probeSelfRecoil": 2520,
+      "oneShotBuffConsumed": true,
+      "duplicateCastBlockedWithoutCost": true,
+      "knockbackCalls": 0
+    }
+  }
+}

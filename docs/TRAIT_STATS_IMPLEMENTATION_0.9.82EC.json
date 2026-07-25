@@ -1,0 +1,98 @@
+{
+  "version": "0.9.82EC",
+  "title": "rAthena Renewal 四轉特性素質與展開式 UI 完整實裝",
+  "sourcePackage": "RA開機檔案英文版20260608.zip",
+  "rAthenaSources": [
+    "db/re/statpoint.yml",
+    "db/re/job_stats.yml",
+    "src/map/status.cpp / Renewal trait-stat formulas",
+    "src/map/battle.cpp / RES, MRES and critical ordering",
+    "conf/battle/player.conf / trait_points_job_change: 7",
+    "src/map/pc.cpp / grant points when changing to a trait job"
+  ],
+  "rules": {
+    "normalStatusPoints": "Base Lv.200 起固定累積 4099，不再增加",
+    "traitPointStartLevel": 201,
+    "traitPointMaxLevel": 275,
+    "traitPointMultiplier": 2,
+    "ordinaryLevelGain": 6,
+    "fifthLevelGain": 14,
+    "totalAt275": 570,
+    "playerAllocationCapPerTrait": 110,
+    "jobTraitBonusMultiplier": 1,
+    "apSystem": "disabled",
+    "traitAllocationStart": "Base Lv.200 immediately after fourth-job change",
+    "jobChangeBonus": 7,
+    "totalAt275IncludingJobChange": 577
+  },
+  "representativeTraitPoints": {
+    "201": 6,
+    "205": 38,
+    "220": 152,
+    "250": 380,
+    "275": 570
+  },
+  "formulas": {
+    "POW": "Status ATK += POW*5; P.ATK += floor(POW/3)",
+    "SPL": "MATK += SPL*5; S.MATK += floor(SPL/3)",
+    "CON": "HIT += CON*2; FLEE += CON*2; P.ATK/S.MATK += floor(CON/5)",
+    "STA": "RES = STA + floor(STA/3)*5",
+    "WIS": "MRES = WIS + floor(WIS/3)*5",
+    "CRT": "H.Plus += CRT; C.RATE += floor(CRT/3)",
+    "RESReduction": "RES/(RES+400)*80% before DEF",
+    "MRESReduction": "MRES/(MRES+400)*80% before MDEF",
+    "criticalMultiplier": "1.40 + C.RATE*0.01"
+  },
+  "ui": {
+    "location": "目前角色屬性視窗底部",
+    "visibility": "所有職業皆可展開查看",
+    "allocationUnlock": "Base Lv.200 轉為四轉職業或 Hyper Novice 後立即可配點（轉職贈送 7 點）",
+    "collapsedControl": "向下箭頭展開",
+    "expandedControl": "向上箭頭收合",
+    "shows": [
+      "POW/STA/WIS/SPL/CON/CRT",
+      "玩家配點 + Job/裝備/技能加成",
+      "P.ATK/S.MATK/RES/MRES/H.Plus/C.RATE",
+      "RES/MRES 實際減傷率",
+      "剩餘與累積 Trait Points"
+    ],
+    "testingReset": "免費重置玩家自行分配的特性點數"
+  },
+  "saveCompatibility": {
+    "canonicalField": "player.traits",
+    "legacyAlias": "player.traitStats",
+    "remainingFields": [
+      "player.usedTraitPoints",
+      "player.availableTraitPoints",
+      "player.traitPoints"
+    ],
+    "illegalSaveRepair": "玩家配點超過該 Base Level 已取得總額時，自動裁回合法點數；Job、裝備與 Buff 加成不受玩家 110 上限影響"
+  },
+  "dataFiles": [
+    "data/trait_statpoints.json",
+    "data/job_stat_bonuses.json",
+    "data/player_default.json",
+    "js/data_bundle.js"
+  ],
+  "runtimeFiles": [
+    "js/status_system.js",
+    "js/player.js",
+    "js/combat_formula_runtime.js",
+    "js/combat_mechanics_runtime.js",
+    "css/style.css"
+  ],
+  "tests": {
+    "traitTest": "tools/test_trait_stats_0.9.82EC.js",
+    "runtimeIntegrity": "tools/test_current_runtime_integrity_0.9.82EC.py",
+    "deepHealth": "tools/deep_health_report_0.9.82EC.json",
+    "status": "PASS"
+  },
+  "jobChangeBonus": {
+    "source": "rAthena conf/battle/player.conf trait_points_job_change",
+    "points": 7,
+    "availableAt": "Base Lv.200 immediately after changing to a trait/fourth job",
+    "multipliedInRoWeb": false
+  },
+  "levelPointMultiplier": 2,
+  "maxFreeAllocationAt275": 577
+}

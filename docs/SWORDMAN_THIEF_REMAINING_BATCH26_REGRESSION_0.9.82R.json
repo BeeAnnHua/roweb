@@ -1,0 +1,76 @@
+{
+  "version": "0.9.82R",
+  "result": "PASS",
+  "coverage": {
+    "before": 289,
+    "after": 298,
+    "target": 1139
+  },
+  "pending": {
+    "before": 850,
+    "after": 841
+  },
+  "newOfficialSkillIds": [
+    22,
+    151,
+    407,
+    2286,
+    2290,
+    5004,
+    5293,
+    5317,
+    5318
+  ],
+  "redesignedOfficialSkillIds": [
+    152,
+    2007
+  ],
+  "raFormulaChecks": {
+    "AL_DP": "round(((BaseLv/25)+3)*Lv) vs Undead/Demon",
+    "SC_AUTOSHADOWSPELL": "proc Lv1-9=30-2*Lv%, Lv10=15%; cast Lv=min(copyLv,floor((Lv+5)/2)); SP=2/3",
+    "SC_INVISIBILITY": "Ghost element, CRI +20*Lv, ASPD -50+10*Lv%, MaxSP drain 12-2*Lv%/sec",
+    "ABC_FROM_THE_ABYSS": "5 spheres; regen 3000/2500/2000/1500/1000ms; 25% proc; ratio=(150+650*Lv+5*SPL)*BaseLv/100; 5 hits",
+    "ABC_ABYSS_SLAYER": "PAtk/SMatk=10+2*Lv; HIT=100+20*Lv",
+    "RK_DRAGONBREATH_WATER": "same HP/SP/BaseLevel formula as fire Dragon Breath; Water element; 15% Freezing; Dragon Training damage bonus"
+  },
+  "traitStatImplementation": {
+    "runtimeFields": [
+      "POW",
+      "STA",
+      "WIS",
+      "SPL",
+      "CON",
+      "CRT"
+    ],
+    "formulaBridge": true,
+    "pointEarning": false,
+    "allocationUI": false,
+    "defaultValue": 0
+  },
+  "resourceUi": "Deferred; abyssSphere runs through CombatResourceManager without persistent UI.",
+  "animationPlaceholders": [
+    "data/skill_effects/5317.json",
+    "images/skill_effects/5317.png",
+    "data/skill_effects/5383.json",
+    "images/skill_effects/5383.png"
+  ],
+  "dynamicTests": {
+    "passiveAllFlatFromThreeSkills": 15,
+    "dragonBreathLv10WithDragonTrainingLv5": 10500,
+    "divineProtectionBase200Lv10": 110,
+    "abyssSlayerLv10PAtk": 30,
+    "abyssSlayerLv10SMatk": 30,
+    "autoShadowSpellTwoThirdSpCost": 20,
+    "abyssSphereRemainingAfterProc": 4,
+    "invisibilityLv5MaxSpDrainFrom1000": 20,
+    "enchantingShadowPhysicalDamageTest": "40 -> 44"
+  },
+  "checks": {
+    "jsonParse": "PASS",
+    "javascriptSyntax": "PASS",
+    "runtimeGeneratedCatalogCounts": "298/298/298",
+    "pendingCount": 841,
+    "duplicateSkillIds": 0,
+    "duplicateSkillKeys": 0
+  }
+}

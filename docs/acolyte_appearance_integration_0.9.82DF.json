@@ -1,0 +1,178 @@
+{
+  "version": "0.9.82DF",
+  "sourceArchive": "服事系列(1).zip",
+  "formalPathLanguage": "English",
+  "appearanceGroups": [
+    "acolyte",
+    "arch_bishop",
+    "cardinal",
+    "inquisitor",
+    "monk",
+    "priest",
+    "sura"
+  ],
+  "characters": [
+    {
+      "group": "sura",
+      "gender": "female",
+      "englishName": "Sura",
+      "attacks": [
+        "fist",
+        "knuckle",
+        "mace",
+        "staff"
+      ]
+    },
+    {
+      "group": "sura",
+      "gender": "male",
+      "englishName": "Sura",
+      "attacks": [
+        "fist",
+        "knuckle",
+        "mace",
+        "staff"
+      ]
+    },
+    {
+      "group": "arch_bishop",
+      "gender": "female",
+      "englishName": "Arch Bishop",
+      "attacks": [
+        "book",
+        "fist",
+        "mace",
+        "staff"
+      ]
+    },
+    {
+      "group": "arch_bishop",
+      "gender": "male",
+      "englishName": "Arch Bishop",
+      "attacks": [
+        "book",
+        "fist",
+        "mace",
+        "staff"
+      ]
+    },
+    {
+      "group": "acolyte",
+      "gender": "female",
+      "englishName": "Acolyte / High Acolyte",
+      "attacks": [
+        "fist",
+        "mace",
+        "staff"
+      ]
+    },
+    {
+      "group": "acolyte",
+      "gender": "male",
+      "englishName": "Acolyte / High Acolyte",
+      "attacks": [
+        "fist",
+        "mace",
+        "staff"
+      ]
+    },
+    {
+      "group": "cardinal",
+      "gender": "female",
+      "englishName": "Cardinal",
+      "attacks": [
+        "book",
+        "fist",
+        "mace",
+        "staff"
+      ]
+    },
+    {
+      "group": "cardinal",
+      "gender": "male",
+      "englishName": "Cardinal",
+      "attacks": [
+        "book",
+        "fist",
+        "mace",
+        "staff"
+      ]
+    },
+    {
+      "group": "monk",
+      "gender": "female",
+      "englishName": "Monk / Champion",
+      "attacks": [
+        "fist",
+        "knuckle",
+        "mace",
+        "staff"
+      ]
+    },
+    {
+      "group": "monk",
+      "gender": "male",
+      "englishName": "Monk / Champion",
+      "attacks": [
+        "fist",
+        "knuckle",
+        "mace",
+        "staff"
+      ]
+    },
+    {
+      "group": "priest",
+      "gender": "female",
+      "englishName": "Priest / High Priest",
+      "attacks": [
+        "book",
+        "fist",
+        "mace",
+        "staff"
+      ]
+    },
+    {
+      "group": "priest",
+      "gender": "male",
+      "englishName": "Priest / High Priest",
+      "attacks": [
+        "book",
+        "fist",
+        "mace",
+        "staff"
+      ]
+    },
+    {
+      "group": "inquisitor",
+      "gender": "female",
+      "englishName": "Inquisitor",
+      "attacks": [
+        "fist",
+        "knuckle",
+        "mace",
+        "staff"
+      ]
+    },
+    {
+      "group": "inquisitor",
+      "gender": "male",
+      "englishName": "Inquisitor",
+      "attacks": [
+        "fist",
+        "knuckle",
+        "mace",
+        "staff"
+      ]
+    }
+  ],
+  "sharedRules": {
+    "novice": [
+      "novice",
+      "high_novice"
+    ],
+    "first": "first + high_first",
+    "second": "second + trans_second",
+    "third": "unique",
+    "fourth": "unique"
+  }
+}

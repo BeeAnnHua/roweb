@@ -1,0 +1,170 @@
+{
+  "2501": {
+    "id": 2501,
+    "officialId": 2501,
+    "name": "連帽披肩",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "garment",
+    "buyPrice": 1000,
+    "sellPrice": 500,
+    "description": [
+      "保護肩膀和頭部的連帽披肩。",
+      "系列 : ^777777披肩^000000  防禦 :  ^7777774^000000",
+      "裝備 : ^777777全職業^000000"
+    ],
+    "icon": "images/items/2501.webp",
+    "slot": "garment",
+    "def": 4,
+    "slots": 0,
+    "requiredLevel": 1,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "aegisName": "Hood",
+    "dbType": "Armor",
+    "armorLevel": 1,
+    "locations": {
+      "Garment": true
+    },
+    "refineable": true,
+    "dataSource": "itemInfo_UTF8.lub + db/re/item_db_equip.yml",
+    "Id": 2501,
+    "Name": "連帽披肩",
+    "Buy": 1000,
+    "AegisName": "Hood",
+    "Type": "Armor",
+    "Defense": 4,
+    "Slots": 0,
+    "Locations": {
+      "Garment": true
+    },
+    "ArmorLevel": 1,
+    "EquipLevelMin": 1,
+    "Refineable": true,
+    "equipLevelMin": 1
+  },
+  "2503": {
+    "id": 2503,
+    "officialId": 2503,
+    "name": "披肩",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "garment",
+    "buyPrice": 5000,
+    "sellPrice": 2500,
+    "description": [
+      "圍巾式的斗篷。",
+      "系列 : ^777777披肩^000000  防禦 :  ^7777778^000000",
+      "裝備 : ^777777初學者以外的全職業^000000"
+    ],
+    "icon": "images/items/2503.webp",
+    "slot": "garment",
+    "def": 8,
+    "slots": 0,
+    "requiredLevel": 1,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "aegisName": "Muffler",
+    "dbType": "Armor",
+    "armorLevel": 1,
+    "equipJobs": {
+      "All": true,
+      "Novice": false,
+      "SuperNovice": false
+    },
+    "locations": {
+      "Garment": true
+    },
+    "refineable": true,
+    "dataSource": "itemInfo_UTF8.lub + db/re/item_db_equip.yml",
+    "Id": 2503,
+    "Name": "披肩",
+    "Buy": 5000,
+    "AegisName": "Muffler",
+    "Type": "Armor",
+    "Defense": 8,
+    "Slots": 0,
+    "Jobs": {
+      "All": true,
+      "Novice": false,
+      "SuperNovice": false
+    },
+    "Locations": {
+      "Garment": true
+    },
+    "ArmorLevel": 1,
+    "EquipLevelMin": 1,
+    "Refineable": true,
+    "equipLevelMin": 1
+  },
+  "2505": {
+    "id": 2505,
+    "officialId": 2505,
+    "name": "斗篷",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "garment",
+    "buyPrice": 32000,
+    "sellPrice": 16000,
+    "description": [
+      "用堅硬的布料做成,遮住脖子、肩膀和背部,有防禦力的斗篷。",
+      "系列 : ^777777披肩^000000  防禦 :  ^77777713^000000",
+      "裝備 : ^777777劍士系列/商人系列/盜賊系列/跆拳/拳聖^000000"
+    ],
+    "icon": "images/items/2505.webp",
+    "slot": "garment",
+    "def": 13,
+    "slots": 0,
+    "requiredLevel": 1,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "aegisName": "Manteau",
+    "dbType": "Armor",
+    "armorLevel": 1,
+    "equipJobs": {
+      "Alchemist": true,
+      "Assassin": true,
+      "Blacksmith": true,
+      "Crusader": true,
+      "Knight": true,
+      "Merchant": true,
+      "Rogue": true,
+      "StarGladiator": true,
+      "Swordman": true,
+      "Taekwon": true,
+      "Thief": true
+    },
+    "locations": {
+      "Garment": true
+    },
+    "refineable": true,
+    "dataSource": "itemInfo_UTF8.lub + db/re/item_db_equip.yml",
+    "Id": 2505,
+    "Name": "斗篷",
+    "Buy": 32000,
+    "AegisName": "Manteau",
+    "Type": "Armor",
+    "Defense": 13,
+    "Slots": 0,
+    "Jobs": {
+      "Alchemist": true,
+      "Assassin": true,
+      "Blacksmith": true,
+      "Crusader": true,
+      "Knight": true,
+      "Merchant": true,
+      "Rogue": true,
+      "StarGladiator": true,
+      "Swordman": true,
+      "Taekwon": true,
+      "Thief": true
+    },
+    "Locations": {
+      "Garment": true
+    },
+    "ArmorLevel": 1,
+    "EquipLevelMin": 1,
+    "Refineable": true,
+    "equipLevelMin": 1
+  }
+}

@@ -1,0 +1,10 @@
+RO_WEB 0.9.82EL UI / World Layer Priority
+=========================================
+World background: 0
+World monsters: 1000..8999 (bounded by map-height ratio)
+World effects / damage numbers: 9000
+Fixed HUD: 12000
+Draggable UI windows: 20000+
+Dialogs / tooltips: 30000
+
+Expected result: player and all monsters remain beneath every open UI window on PC and mobile.

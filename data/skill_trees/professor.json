@@ -1,0 +1,124 @@
+{
+  "meta": {
+    "version": "0.9.82BQ",
+    "schema": "ro_web_skill_tree_v3",
+    "raJob": "Professor",
+    "bodySource": "../skills/skills_core_1.json"
+  },
+  "job": "professor",
+  "raJob": "Professor",
+  "skills": [
+    {
+      "skillId": 373,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 9,
+          "level": 1
+        },
+        {
+          "skillId": 276,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 374,
+      "maxLevel": 1,
+      "requires": [
+        {
+          "skillId": 276,
+          "level": 3
+        },
+        {
+          "skillId": 277,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "skillId": 375,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 275,
+          "level": 5
+        },
+        {
+          "skillId": 276,
+          "level": 3
+        },
+        {
+          "skillId": 289,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "skillId": 402,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 9,
+          "level": 3
+        },
+        {
+          "skillId": 375,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "skillId": 403,
+      "maxLevel": 1,
+      "requires": [
+        {
+          "skillId": 274,
+          "level": 5
+        },
+        {
+          "skillId": 278,
+          "level": 5
+        },
+        {
+          "skillId": 279,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 404,
+      "maxLevel": 1,
+      "requires": [
+        {
+          "skillId": 286,
+          "level": 2
+        },
+        {
+          "skillId": 287,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "skillId": 405,
+      "maxLevel": 1,
+      "requires": [
+        {
+          "skillId": 284,
+          "level": 4
+        }
+      ]
+    },
+    {
+      "skillId": 482,
+      "maxLevel": 5,
+      "requires": [
+        {
+          "skillId": 279,
+          "level": 1
+        }
+      ]
+    }
+  ]
+}

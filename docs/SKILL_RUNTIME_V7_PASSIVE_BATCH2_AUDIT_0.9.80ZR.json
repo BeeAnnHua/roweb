@@ -1,0 +1,49 @@
+{
+  "version": "0.9.80ZR",
+  "result": "PASS",
+  "runtimeProfiles": 47,
+  "fixedProfiles": [
+    65
+  ],
+  "addedProfiles": [
+    9,
+    44,
+    107
+  ],
+  "addedSkills": [
+    {
+      "skillId": 9,
+      "key": "MG_SRECOVERY",
+      "name": "禪心",
+      "behavior": "自然 SP 恢復：Lv×3 + Lv×MaxSP/500"
+    },
+    {
+      "skillId": 44,
+      "key": "AC_VULTURE",
+      "name": "蒼鷹之眼",
+      "behavior": "裝備弓時普攻射程每級 +1 格"
+    },
+    {
+      "skillId": 107,
+      "key": "BS_WEAPONRESEARCH",
+      "name": "武器研究",
+      "behavior": "Renewal 武器傷害每級 +2"
+    }
+  ],
+  "unitFix": {
+    "skillId": 65,
+    "key": "PR_MACEMASTERY",
+    "old": "CRI +10 per level (incorrect internal precision)",
+    "new": "panel CRI +1 per level"
+  },
+  "newRuntimeCapabilities": [
+    "SP natural recovery passive",
+    "normal attack range passive"
+  ],
+  "verifiedSources": [
+    "rAthena status.cpp",
+    "rAthena battle.cpp"
+  ],
+  "legacyFallbacks": 0,
+  "pendingProfiles": 1092
+}

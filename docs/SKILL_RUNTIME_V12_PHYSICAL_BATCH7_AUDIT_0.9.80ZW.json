@@ -1,0 +1,38 @@
+{
+  "version": "0.9.80ZW",
+  "result": "PASS",
+  "runtimeProfiles": 61,
+  "addedProfiles": [
+    259
+  ],
+  "addedSkills": [
+    {
+      "skillId": 259,
+      "key": "MO_IRONHAND",
+      "name": "鐵沙掌",
+      "behavior": "空手或拳套限制；Mastery ATK 每級 +3，Lv10 +30"
+    }
+  ],
+  "weaponFamilyAudit": {
+    "required": [
+      "fist",
+      "knuckle"
+    ],
+    "existing": [
+      "fist",
+      "knuckle"
+    ],
+    "createdThisVersion": [],
+    "result": "PASS"
+  },
+  "formulaAudit": {
+    "raRenewalVerified": true,
+    "weaponConditionalPassive": true,
+    "resourceConsumptionRemoved": false
+  },
+  "pendingProfiles": 1078,
+  "legacyFallbacks": 0,
+  "notes": [
+    "未將雙持、連擊、種族條件或表演加成不完整的技能灌入 Coverage。"
+  ]
+}

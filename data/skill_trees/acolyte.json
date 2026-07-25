@@ -1,0 +1,132 @@
+{
+  "meta": {
+    "version": "0.9.82V",
+    "schema": "ro_web_skill_tree_v3",
+    "raJob": "Acolyte",
+    "bodySource": "../skills/skills_core_1.json"
+  },
+  "job": "acolyte",
+  "raJob": "Acolyte",
+  "skills": [
+    {
+      "skillId": 22,
+      "maxLevel": 10
+    },
+    {
+      "skillId": 23,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 22,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "skillId": 24,
+      "maxLevel": 1
+    },
+    {
+      "skillId": 25,
+      "maxLevel": 1,
+      "requires": [
+        {
+          "skillId": 27,
+          "level": 4
+        }
+      ]
+    },
+    {
+      "skillId": 26,
+      "maxLevel": 1,
+      "requires": [
+        {
+          "skillId": 24,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 27,
+      "maxLevel": 4,
+      "requires": [
+        {
+          "skillId": 26,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 28,
+      "maxLevel": 10
+    },
+    {
+      "skillId": 29,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 28,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "skillId": 30,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 29,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "skillId": 31,
+      "maxLevel": 1
+    },
+    {
+      "skillId": 32,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 23,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "skillId": 33,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 22,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "skillId": 34,
+      "maxLevel": 10,
+      "requires": [
+        {
+          "skillId": 22,
+          "level": 5
+        }
+      ]
+    },
+    {
+      "skillId": 35,
+      "maxLevel": 1,
+      "requires": [
+        {
+          "skillId": 28,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "skillId": 156,
+      "maxLevel": 1
+    }
+  ]
+}

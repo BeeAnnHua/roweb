@@ -1,0 +1,62 @@
+{
+  "version": "0.9.82BZ",
+  "batch": 84,
+  "title": "遊俠屬性陷阱完成與偽裝戰術改造",
+  "camouflage": {
+    "skillId": 2247,
+    "longPhysicalDamageRatePerLevel": 2,
+    "maxRate": 10,
+    "removed": [
+      "camouflageStack",
+      "atkFlat stack",
+      "criFlat stack",
+      "defRate stack"
+    ]
+  },
+  "enabledSkills": [
+    {
+      "skillId": 2249,
+      "key": "RA_MAGENTATRAP",
+      "name": "紫紅陷阱",
+      "handler": "ground_debuff"
+    },
+    {
+      "skillId": 2250,
+      "key": "RA_COBALTTRAP",
+      "name": "深藍陷阱",
+      "handler": "ground_debuff"
+    },
+    {
+      "skillId": 2251,
+      "key": "RA_MAIZETRAP",
+      "name": "淺黃陷阱",
+      "handler": "ground_debuff"
+    },
+    {
+      "skillId": 2252,
+      "key": "RA_VERDURETRAP",
+      "name": "青翠陷阱",
+      "handler": "ground_debuff"
+    },
+    {
+      "skillId": 2253,
+      "key": "RA_FIRINGTRAP",
+      "name": "燃燒陷阱",
+      "handler": "ground_damage"
+    },
+    {
+      "skillId": 2254,
+      "key": "RA_ICEBOUNDTRAP",
+      "name": "冰封陷阱",
+      "handler": "ground_damage"
+    }
+  ],
+  "progress": {
+    "officialRuntime": 717,
+    "total": 1139,
+    "pending": 422,
+    "ranger": "24/24",
+    "archerFamily": "54/129",
+    "mageFamily": "153/153"
+  }
+}

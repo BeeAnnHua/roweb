@@ -1,0 +1,147 @@
+{
+  "version": "0.9.82BB",
+  "result": "PASS",
+  "batch": "Warlock Prison / Chain / Telekinesis Core Batch60",
+  "sourceFiles": [
+    "Project SkillInfoz skilldescript.lub (CP950)",
+    "local rAthena db/re/skill_db.yml",
+    "local rAthena src/map/skill.cpp",
+    "local rAthena src/map/skills/mage/chainlightning.cpp",
+    "local rAthena src/map/status.cpp",
+    "local rAthena src/map/battle.cpp"
+  ],
+  "officialAdded": [
+    2201,
+    2207,
+    2214,
+    5012
+  ],
+  "coverage": {
+    "before": 568,
+    "after": 572,
+    "target": 1139
+  },
+  "pending": {
+    "before": 571,
+    "after": 567
+  },
+  "skills": {
+    "2201": {
+      "name": "白色監獄",
+      "handler": "timed_status",
+      "formula": null,
+      "description": "對單體敵人施加白色監獄 18 秒。成功率為 40 + 10×技能等級 + floor(JobLv÷4)%，並受目標狀態抗性影響。期間目標不能移動或攻擊，除念屬性外的傷害全部無效；受到念屬性傷害立即解除。自然解除時造成 400×技能等級固定傷害。RO_WEB 現階段不提供對自身施放。"
+    },
+    "2207": {
+      "name": "石化詛咒",
+      "handler": "timed_status",
+      "formula": null,
+      "description": "以主要目標為中心施加範圍石化。主要判定成功率為 45 + 5×技能等級 + floor(JobLv÷4)%；成功後影響 3×3／5×5／5×5／7×7／7×7 範圍，經 0.1 秒等待後石化 7／9／11／13／15 秒。紅色魔力礦石消耗移除。"
+    },
+    "2214": {
+      "name": "連鎖閃電",
+      "handler": "chain_magic",
+      "formula": "renewal_chain_lightning",
+      "description": "施放風屬性連鎖閃電，最多命中 5／6／7／8／9 次。每段倍率為 floor((400 + 100×技能等級)×BaseLv÷100) + 100×剩餘強化段數%；每次命中後搜尋目前目標 3 格內其他敵人彈跳。沒有其他敵人時前 4 段可重複命中同一目標，之後終止。"
+    },
+    "5012": {
+      "name": "念力強化",
+      "handler": "buff",
+      "formula": null,
+      "description": "強化自身念力 60 秒，使變動詠唱縮短 10%／20%／30%／40%／50%，念屬性魔法傷害增加 40%／80%／120%／160%／200%。官方 SP 消耗降低效果等待統一成本系統處理。"
+    }
+  },
+  "pendingDecision": {
+    "2209": {
+      "name": "停滯",
+      "reason": "官方效果會同時封鎖施法者與範圍內目標的魔法技能；目前怪物主動施法系統不足，直接實裝會主要只懲罰玩家。"
+    },
+    "2217": {
+      "name": "四元素漩渦",
+      "reason": "必須消耗四顆召喚元素球並依球種決定四段屬性與最終異常狀態，需先決定元素球資源系統。"
+    },
+    "2222/2223/2224/2229/2230/2231/2232": {
+      "name": "元素球／釋放／魔法書系統",
+      "reason": "牽涉召喚球庫存、技能儲存槽、閱讀與釋放流程，需整套資源／UI 決策。"
+    }
+  },
+  "deferred": [
+    "SP/AP costs",
+    "trait-stat allocation and costs",
+    "Intense Telekinesis SP-consumption reduction",
+    "self-target White Imprison"
+  ],
+  "validation": {
+    "whiteImprison": {
+      "lv5Job60BaseChancePercent": 105,
+      "cappedChanceBeforeTargetResistancePercent": 100,
+      "nonGhostDamageBlocked": true,
+      "ghostDamageBreaksStatus": true,
+      "naturalExpireDamageLv5": 2000
+    },
+    "siennaExecrate": {
+      "lv5Job60PrimaryGateChancePercent": 85,
+      "radiusCellsLv5": 3,
+      "areaSizeLv5": "7x7",
+      "stoneDurationMsLv5": 15000,
+      "delayMs": 100
+    },
+    "chainLightning": {
+      "lv5MaximumHits": 9,
+      "multiTargetTotalRatioPercent": 11700,
+      "singleTargetMaximumHits": 4,
+      "singleTargetTotalRatioPercent": 6200,
+      "searchRadiusCells": 3
+    },
+    "intenseTelekinesis": {
+      "durationMs": 60000,
+      "lv5VariableCastReductionPercent": 50,
+      "lv5GhostMagicDamageBonusPercent": 200
+    },
+    "runtimeCounts": {
+      "official": 572,
+      "pending": 567,
+      "target": 1139
+    },
+    "regressionTests": [
+      "test_warlock_prison_chain_telekinesis_0.9.82BB.js",
+      "test_warlock_spell_power_elemental_regression_0.9.82BB.js",
+      "test_warlock_offensive_control_regression_0.9.82BB.js",
+      "test_mage_passive_conversion_regression_0.9.82BB.js",
+      "test_mage_high_wizard_foundation_regression_0.9.82BB.js",
+      "test_deep_repair_regression_0.9.82BB.js",
+      "test_ra_damage_pipeline.js",
+      "test_dragon_knight_completion_0.9.82S.js",
+      "test_rogue_abyss_batch24.js",
+      "test_acolyte_family_completion_0.9.82AB.js",
+      "test_merchant_completion_regression_0.9.82BB.js"
+    ],
+    "regressionScriptsPassed": 11,
+    "healthCheck": {
+      "errors": 0,
+      "knownWarnings": 36,
+      "status": "PASS"
+    },
+    "dataBundleConsistency": "PASS",
+    "cacheVersion": "0.9.82BB",
+    "zipIntegrity": "PASS"
+  },
+  "mageFamilyProgress": {
+    "treeFiles": [
+      "mage",
+      "mage_high",
+      "wizard",
+      "high_wizard",
+      "sage",
+      "professor",
+      "warlock",
+      "sorcerer",
+      "arch_mage",
+      "elemental_master"
+    ],
+    "totalUniqueSkills": 153,
+    "officialRuntime": 48,
+    "pending": 105,
+    "completionRatePercent": 31.37
+  }
+}

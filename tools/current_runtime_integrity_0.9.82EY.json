@@ -1,0 +1,73 @@
+{
+  "version": "0.9.82EY",
+  "status": "PASS",
+  "testCount": 11,
+  "tests": [
+    {
+      "command": "node tools/check_all_js_syntax.js",
+      "status": "PASS",
+      "returnCode": 0,
+      "tail": "{\"checked\":642,\"errors\":[]}"
+    },
+    {
+      "command": "node tools/test_skill_action_motion_contract_0.9.82EY.js",
+      "status": "PASS",
+      "returnCode": 0,
+      "tail": "{\n  \"version\": \"0.9.82EY\",\n  \"status\": \"PASS\",\n  \"checked\": 828,\n  \"attacks\": 291,\n  \"casts\": 321,\n  \"passives\": 216,\n  \"castAtlases\": 102,\n  \"attackAtlases\": 480,\n  \"examples\": {\n    \"buffWeapon\": \"cast\",\n    \"magicDamage\": \"attack\",\n    \"physicalDamage\": \"attack\"\n  }\n}"
+    },
+    {
+      "command": "node tools/test_all_skill_timing_actions_0.9.82EA.js",
+      "status": "PASS",
+      "returnCode": 0,
+      "tail": "{\n  \"version\": \"0.9.82EA\",\n  \"renewalOnly\": true,\n  \"runtimeSkills\": 1139,\n  \"counts\": {\n    \"pending\": 311,\n    \"implemented\": 828,\n    \"passive\": 216,\n    \"attack\": 291,\n    \"cast\": 321,\n    \"zeroDelayPhysical\": 27,\n    \"raDelayedPhysical\": 161,\n    \"timingLevels\": 6323,\n    \"instantActiveLevels\": 1243,\n    \"castedActiveLevels\": 2207,\n    \"castBeginLocks\": 3450,\n    \"commitHandoffs\": 3450\n  },\n  \"errors\": [],\n  \"summary\": {\n    \"status\": \"PASS\",\n    \"errors\": 0\n  }\n}"
+    },
+    {
+      "command": "node tools/test_runtime_cast_animation_0.9.82EY.js",
+      "status": "PASS",
+      "returnCode": 0,
+      "tail": "{\n  \"version\": \"0.9.82EY\",\n  \"status\": \"PASS\",\n  \"magicDamageMotion\": \"attack\",\n  \"logs\": 0,\n  \"buffCast\": {\n    \"motion\": \"cast\",\n    \"releaseSegment\": true\n  },\n  \"physicalCast\": {\n    \"motion\": \"attack\",\n    \"prepareMs\": 1000,\n    \"releaseSegment\": true,\n    \"walkDelayMs\": 800,\n    \"cooldownMs\": 1000\n  }\n}"
+    },
+    {
+      "command": "node tools/test_skill_ui_runtime_classification_0.9.82EA.js",
+      "status": "PASS",
+      "returnCode": 0,
+      "tail": "{\n  \"version\": \"0.9.82EA\",\n  \"status\": \"PASS\",\n  \"counts\": {\n    \"pending\": 311,\n    \"passive\": 216,\n    \"attack\": 291,\n    \"buff\": 205,\n    \"heal\": 9,\n    \"support\": 107\n  },\n  \"activeQuickSlotEligible\": 612,\n  \"legacyTypeDrift\": 177\n}"
+    },
+    {
+      "command": "node tools/test_storm_gust_live_runtime_0.9.82EA.js",
+      "status": "PASS",
+      "returnCode": 0,
+      "tail": "{\n  \"version\": \"0.9.82EA\",\n  \"castRangeCells\": 9,\n  \"cellSizePx\": 36,\n  \"area\": \"9x9\",\n  \"tickMs\": 450,\n  \"waves\": 10,\n  \"damagePerWave\": 570,\n  \"totalDamage\": 5700,\n  \"spSpent\": 78,\n  \"freezeApplied\": true,\n  \"status\": \"PASS\"\n}"
+    },
+    {
+      "command": "node tools/test_map_quest_cast_buff_0.9.82EY.js",
+      "status": "PASS",
+      "returnCode": 0,
+      "tail": "{\n  \"version\": \"0.9.82EY\",\n  \"status\": \"PASS\",\n  \"cities\": 6,\n  \"firstAidAfterRebirth\": 1,\n  \"autoQuestSkills\": [\n    144,\n    1001\n  ]\n}"
+    },
+    {
+      "command": "node tools/test_packed_character_runtime_0.9.82EY.js",
+      "status": "PASS",
+      "returnCode": 0,
+      "tail": "RO_WEB 0.9.82EY Packed Character Runtime Test\n================================================\nManifest characters : 90\nMounted switch      : PASS\nWeapon aliases      : PASS\nMixed dual fallback : PASS\nPacked flip render  : PASS\nHurt/Dead frames    : PASS\nCast phase segments : PASS\nDirection mapping   : PASS\nSTATUS              : PASS"
+    },
+    {
+      "command": "python tools/test_atlas_geometry_integrity_0.9.82EW.py",
+      "status": "PASS",
+      "returnCode": 0,
+      "tail": "{\n  \"version\": \"0.9.82EW\",\n  \"status\": \"PASS\",\n  \"characterAtlases\": 888,\n  \"characterFrames\": 51024,\n  \"monsterAtlases\": 111,\n  \"monsterFrames\": 28968,\n  \"mapTiles\": 90,\n  \"errors\": []\n}"
+    },
+    {
+      "command": "python tools/test_binary_asset_integrity_0.9.82EW.py",
+      "status": "PASS",
+      "returnCode": 0,
+      "tail": "{\n  \"version\": \"0.9.82EW\",\n  \"status\": \"PASS\",\n  \"counts\": {\n    \"png\": 2340,\n    \"webp\": 713\n  },\n  \"bytes\": 93514466,\n  \"errors\": []\n}"
+    },
+    {
+      "command": "python tools/deep_health_check.py .",
+      "status": "PASS",
+      "returnCode": 0,
+      "tail": "amage\": 73,\n      \"timed_status\": 29,\n      \"teleport\": 1,\n      \"heal\": 8,\n      \"debuff\": 15,\n      \"steal_item\": 1,\n      \"physical_attack_size_hits\": 1,\n      \"physical_attack_formula\": 130,\n      \"counter_stance\": 2,\n      \"mount_unlock\": 1,\n      \"sanctuary_area\": 1,\n      \"ground_debuff\": 11,\n      \"ground_damage\": 36,\n      \"falcon_toggle\": 2,\n      \"misc_damage\": 3,\n      \"falcon_detect\": 1,\n      \"falcon_spring_trap\": 1,\n      \"heal_fixed\": 1,\n      \"movement\": 4,\n      \"steal_zeny\": 1,\n      \"physical_charge\": 11,\n      \"skill_copy_selector\": 2,\n      \"independent_summon\": 2,\n      \"homunculus_manager\": 1,\n      \"homunculus_rest\": 1,\n      \"spirit_resource\": 2,\n      \"spirit_absorb\": 1,\n      \"ground_protection\": 1,\n      \"dispel\": 1,\n      \"soul_exchange\": 1,\n      \"chain_magic\": 1,\n      \"trap_detonator\": 1,\n      \"warg_toggle\": 1,\n      \"warg_sensitive_keen\": 1,\n      \"virtual_summon\": 10,\n      \"virtual_summon_dismiss\": 1,\n      \"spirit_assimilate\": 1,\n      \"summon_control\": 1,\n      \"combo_sequence\": 1,\n      \"follow_area\": 1\n    },\n    \"implementedSkillDescriptions\": 828,\n    \"bundleEntries\": 1374,\n    \"jsSyntaxChecked\": 642\n  },\n  \"errors\": [],\n  \"warnings\": []\n}"
+    }
+  ]
+}
