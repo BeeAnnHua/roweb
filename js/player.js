@@ -400,7 +400,7 @@ function resetGameSave() {
     const base = location.origin && location.origin !== "null"
       ? location.origin + location.pathname
       : location.pathname;
-    location.replace(base + "?v=0.9.82FO-reset-" + Date.now());
+    location.replace(base + "?v=0.9.82FP-reset-" + Date.now());
   };
 
   try {
@@ -1663,6 +1663,9 @@ function moveEquipmentSlotToInventory(slot, options = {}) {
   const itemId = player.equipment[slot];
   if (!itemId) return null;
   const itemData = getItemData(itemId);
+  if (slot === "weapon" && typeof clearPhysicalElementEndow === "function") {
+    clearPhysicalElementEndow(options.silent ? "weapon_change" : "weapon_unequip", { silent: options.silent === true });
+  }
   player.equipment[slot] = null;
   if (itemData) {
     const inventoryItem = findInventoryItemById(itemId);
@@ -1980,6 +1983,22 @@ function getPhysicalElementEndowLabel(element) {
   const labels = { Fire: "火", Water: "水", Earth: "地", Wind: "風", Holy: "聖", Dark: "暗", Ghost: "念", Poison: "毒", Neutral: "無" };
   return labels[String(element || "")] || String(element || "無");
 }
+
+function clearPhysicalElementEndow(reason = "weapon_change", options = {}) {
+  if (!player) return false;
+  player.activeBuffs = getPlainPlayerObject(player.activeBuffs);
+  const active = player.activeBuffs?.[ITEM_PHYSICAL_ELEMENT_ENDOW_BUFF_ID];
+  const legacyElement = String(player.attackElement || "");
+  const hadLegacyConverter = ["Fire","Water","Earth","Wind"].includes(legacyElement);
+  if (!active && !hadLegacyConverter) return false;
+  if (active) delete player.activeBuffs[ITEM_PHYSICAL_ELEMENT_ENDOW_BUFF_ID];
+  if (hadLegacyConverter) player.attackElement = null;
+  if (!options.silent && typeof addBattleLog === "function") {
+    addBattleLog(reason === "weapon_unequip" ? "卸下武器，肯貝特的武器屬性已解除。" : "更換武器，原本的肯貝特屬性已解除。");
+  }
+  return true;
+}
+window.clearPhysicalElementEndow = clearPhysicalElementEndow;
 
 function applyPhysicalElementEndowFromItem(itemData) {
   const effect = itemData?.useEffect || {};

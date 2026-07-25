@@ -19373,3 +19373,32 @@ h2 { font-size:20px; margin:0 0 8px; text-align:center; letter-spacing:2px; colo
     max-height: calc(100dvh - 72px) !important;
   }
 }
+
+
+/* ============================================================
+   RO_WEB 0.9.82FP — quick auto battle border / world MISS
+   ============================================================ */
+#quick-buttons .auto-battle-quick-toggle::before {
+  inset: -1px !important;
+  border: 1px solid rgba(255, 211, 104, .88) !important;
+  background: none !important;
+  transform: none !important;
+  animation: ro-web-auto-battle-border-breathe 1.8s ease-in-out infinite !important;
+}
+#quick-buttons .auto-battle-quick-toggle.is-active {
+  filter: brightness(1.08) saturate(1.05) !important;
+  box-shadow: 0 0 4px rgba(255, 202, 77, .48), inset 0 0 5px rgba(255, 224, 132, .20) !important;
+}
+@keyframes ro-web-auto-battle-border-breathe {
+  0%, 100% { opacity: .42; box-shadow: 0 0 2px rgba(255, 190, 54, .30); }
+  50% { opacity: 1; box-shadow: 0 0 6px rgba(255, 211, 96, .70); }
+}
+.damage-number.miss-damage-number {
+  min-width: 88px !important;
+  color: #f7f7f7 !important;
+  font-size: 34px !important;
+  letter-spacing: 1px !important;
+  -webkit-text-stroke: 2px #2a2a2a !important;
+  text-shadow: 0 2px 0 #000, 0 0 5px rgba(255,255,255,.65) !important;
+  animation: damageFloat .78s ease-out forwards !important;
+}

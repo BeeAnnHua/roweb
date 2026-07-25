@@ -1385,13 +1385,23 @@ function renderWorldMonsterFieldTest(timestamp = performance.now()) {
     renderWorldMonsterTestFrame(entity, timestamp);
     const localAnchor = entity._damageNumberAnchorLocal;
     if (localAnchor) {
+      const anchorX = left + Number(localAnchor.x || 0);
+      const anchorY = top + Number(localAnchor.y || 0);
       entity._damageNumberAnchorScreen = {
-        x:left + Number(localAnchor.x || 0),
-        y:top + Number(localAnchor.y || 0),
+        x:anchorX,
+        y:anchorY,
+        updatedAt:Number(timestamp || 0)
+      };
+      entity._damageNumberAnchorWorld = {
+        x:anchorX + Number(camera.x || 0),
+        y:anchorY + Number(camera.y || 0),
         updatedAt:Number(timestamp || 0)
       };
     }
   });
+  if (typeof window.refreshWorldAnchoredDamageNumbers === "function") {
+    window.refreshWorldAnchoredDamageNumbers(camera);
+  }
 }
 window.renderWorldMonsterFieldTest = renderWorldMonsterFieldTest;
 

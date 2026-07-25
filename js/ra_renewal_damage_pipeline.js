@@ -51,6 +51,16 @@ function physicalAttackElement(w=weapon()){
  if(window.player?.attackElement) return window.player.attackElement;
  return w?.element||w?.attackElement||'Neutral';
 }
+function getElementRateAgainstTarget(element,target){
+ const runtime=window.CombatFormulaRuntime;
+ if(!runtime?.getTargetProfile||!runtime?.getElementMultiplier)return 100;
+ const profile=runtime.getTargetProfile(target);
+ return Number(runtime.getElementMultiplier(element,profile.element,profile.elementLevel));
+}
+function isElementImmuneAgainstTarget(element,target,flags={}){
+ if(flags?.ignoreElement)return false;
+ return getElementRateAgainstTarget(element,target)<=0;
+}
 function refineAtk(w){
  const refine=Math.max(0,Number(w?.refine??w?.Refine??0));
  const wlv=Math.max(1,Number(w?.weaponLevel??w?.WeaponLevel??1));
@@ -286,7 +296,9 @@ function resolveNormalAttack(target,opt={}){
  const subElementDamage=activeSubElementDamage(comp.right+comp.left,target,{},parts.right.weaponType,parts.rangeType);
  const damage=rightDamage+leftDamage+katarOffhandDamage+subElementDamage;
  const raw=rightRaw+leftRaw;
- const result={damage,raw,parts,handDamage:comp,handFinalDamage:{right:rightDamage,left:leftDamage,katar:katarOffhandDamage},critical:!!crit.critical,critAtkRate,nonCritAtkRate,proc,visualHits:Math.max(proc?.hits||1,katarOffhandDamage>0?2:1),element:rightElement,leftElement,subElementDamage,rangeType:parts.rangeType};window.lastRADamageTrace={type:'normal',...result};return result;
+ const rightElementRate=getElementRateAgainstTarget(rightElement,target),leftElementRate=parts.left?getElementRateAgainstTarget(leftElement,target):rightElementRate;
+ const elementImmune=rightElementRate<=0&&(!parts.left||leftElementRate<=0)&&subElementDamage<=0;
+ const result={damage,raw,parts,handDamage:comp,handFinalDamage:{right:rightDamage,left:leftDamage,katar:katarOffhandDamage},critical:!!crit.critical,critAtkRate,nonCritAtkRate,proc,visualHits:Math.max(proc?.hits||1,katarOffhandDamage>0?2:1),element:rightElement,leftElement,rightElementRate,leftElementRate,elementImmune,subElementDamage,rangeType:parts.rangeType};window.lastRADamageTrace={type:'normal',...result};return result;
 }
 function resolvePhysicalSkill(profile,level,target,opt={}){
  const flags=normalizeFlags(profile),crit=opt.criticalResult||{critical:false,multiplier:1};
@@ -319,7 +331,8 @@ function resolvePhysicalSkill(profile,level,target,opt={}){
  raw=applyActiveElementDamageRate(raw,element,active);
  let damage=finalModifiers(raw,target,{...def,element,weaponType:parts.right.weaponType,attackRangeType:parts.rangeType,applyWeaponSize:false,critical:damageCritical,hitCount:hits});
  const baseComp=applyComponentRatio(parts,100,flags);const subElementDamage=activeSubElementDamage(baseComp.right+baseComp.left,target,profile,parts.right.weaponType,parts.rangeType);damage+=subElementDamage;
- const result={damage,raw,parts,handDamage:comp,ratio,flat,hits,critical:!!crit.critical,sharpshootingCritical,damageCritical,critAtkRate,nonCritAtkRate,element,subElementDamage,defenseMode:profile.defenseMode||'normal',flags,rangeType:parts.rangeType};window.lastRADamageTrace={type:'physical_skill',...result};return result;
+ const elementRate=getElementRateAgainstTarget(element,target),elementImmune=isElementImmuneAgainstTarget(element,target,flags)&&damage<=0&&subElementDamage<=0;
+ const result={damage,raw,parts,handDamage:comp,ratio,flat,hits,critical:!!crit.critical,sharpshootingCritical,damageCritical,critAtkRate,nonCritAtkRate,element,elementRate,elementImmune,subElementDamage,defenseMode:profile.defenseMode||'normal',flags,rangeType:parts.rangeType};window.lastRADamageTrace={type:'physical_skill',...result};return result;
 }
 function resolveSpecialPhysical(profile,level,target,opt={}){
  const flags=normalizeFlags(profile),active=activeTotals(),passive=passiveTotals();
@@ -335,7 +348,8 @@ function resolveSpecialPhysical(profile,level,target,opt={}){
  raw=applyActiveElementDamageRate(raw,element,active);
  const def=defenseOptions(profile,'physical');
  const damage=finalModifiers(raw,target,{...def,element,weaponType:normType(weapon()),attackRangeType:rangeType,applyWeaponSize:false,critical:false});
- const result={damage,raw,element,rangeType,flags,defenseMode:profile.defenseMode||'normal',specialPhysical:true};window.lastRADamageTrace={type:'special_physical',...result};return result;
+ const elementRate=getElementRateAgainstTarget(element,target),elementImmune=isElementImmuneAgainstTarget(element,target,flags)&&damage<=0;
+ const result={damage,raw,element,elementRate,elementImmune,rangeType,flags,defenseMode:profile.defenseMode||'normal',specialPhysical:true};window.lastRADamageTrace={type:'special_physical',...result};return result;
 }
 function resolveMagicSkill(profile,level,target,opt={}){
  const {d}=stats(),flags=normalizeFlags(profile);const min=Math.max(1,Number(d.matkMin??d.matk??window.player?.matk??1)),max=Math.max(min,Number(d.matkMax??d.matk??window.player?.matk??min));
@@ -353,7 +367,8 @@ function resolveMagicSkill(profile,level,target,opt={}){
  raw=applyActiveElementDamageRate(raw,element,active);
  const def=defenseOptions(profile,'magic');
  const damage=finalModifiers(raw,target,{...def,element,applyWeaponSize:false,hitCount:hits});
- const result={damage,raw,matk,matkMin:min,matkMax:max,recognizedSpell:recognized,smatk,ratio,hits,element,flags,defenseMode:profile.defenseMode||'normal'};window.lastRADamageTrace={type:'magic_skill',...result};return result;
+ const elementRate=getElementRateAgainstTarget(element,target),elementImmune=isElementImmuneAgainstTarget(element,target,flags)&&damage<=0;
+ const result={damage,raw,matk,matkMin:min,matkMax:max,recognizedSpell:recognized,smatk,ratio,hits,element,elementRate,elementImmune,flags,defenseMode:profile.defenseMode||'normal'};window.lastRADamageTrace={type:'magic_skill',...result};return result;
 }
 function resolveMiscSkill(profile,level,target,opt={}){
  const flags=normalizeFlags(profile),src=window.player||{},inputs=window.ResourceFormulaResolver?.inputs(src,target)||{};
@@ -368,7 +383,8 @@ function resolveMiscSkill(profile,level,target,opt={}){
  const element=attackElement(profile),def=defenseOptions(profile,'misc');if(flags.fixedDamage)def.applyDefense=false;
  const hits=Math.max(1,Number(opt.hits??profile.hits??profile.hitCount??1)||1);
  const damage=finalModifiers(raw,target,{...def,element,applyWeaponSize:false,minimumDamage:profile.minimumDamage??0,hitCount:hits});
- const result={damage,raw,element,flags,formulaMode:mode,hits};window.lastRADamageTrace={type:'misc_skill',...result};return result;
+ const elementRate=getElementRateAgainstTarget(element,target),elementImmune=isElementImmuneAgainstTarget(element,target,flags)&&damage<=0;
+ const result={damage,raw,element,elementRate,elementImmune,flags,formulaMode:mode,hits};window.lastRADamageTrace={type:'misc_skill',...result};return result;
 }
 function resolveReflection(result,target,profile={}){
  if(!result||result.damage<=0)return {reflected:0};const type=result.damageType||profile.damageType||'physical';
@@ -376,5 +392,5 @@ function resolveReflection(result,target,profile={}){
  const rate=Number(type==='magic'?(Number(runtime.magicReflectionDisabled||0)>0?0:(target?.magicReflectRate||0)):(target?.physicalReflectRate||target?.reflectRate||0));
  const flat=Number(target?.reflectFlatDamage||0);return {reflected:Math.max(0,floor(result.damage*rate/100)+flat)};
 }
-window.RARenewalDamagePipeline={buildPhysicalParts,buildHandParts,resolveNormalAttack,resolvePhysicalSkill,resolveSpecialPhysical,resolveMagicSkill,resolveMiscSkill,resolveReflection,resolveAttackElement:attackElement,resolvePhysicalAttackElement:physicalAttackElement,resolveAttackRangeType:attackRangeType,normalizeFlags,finalModifiers,fearBreezeProc};
+window.RARenewalDamagePipeline={buildPhysicalParts,buildHandParts,resolveNormalAttack,resolvePhysicalSkill,resolveSpecialPhysical,resolveMagicSkill,resolveMiscSkill,resolveReflection,resolveAttackElement:attackElement,resolvePhysicalAttackElement:physicalAttackElement,resolveAttackRangeType:attackRangeType,getElementRateAgainstTarget,isElementImmuneAgainstTarget,normalizeFlags,finalModifiers,fearBreezeProc};
 })();

@@ -574,6 +574,7 @@ function autoAttackMonster(options = {}) {
   const normalAttackResult = resolvePlayerNormalAttack();
   if (normalAttackResult.miss) {
     addBattleLog("你攻擊 " + currentMonster.name + "，但是 Miss！");
+    if (typeof showMissNumber === "function") showMissNumber(currentMonster);
     if (typeof breakCamouflageRuntime === "function" && breakCamouflageRuntime({silent:true})) addBattleLog("發動攻擊，偽裝戰術解除。");
     playPlayerAttackAnimation();
     updateMonsterUI();
@@ -679,6 +680,12 @@ function tryTriggerSightBlaster(monster) {
   const ratio = Math.max(1, Number(buff?.effects?.sightBlasterMatkRatio || 600));
   const profile = { handler:"magic_damage", formula:"renewal_sight_blaster", elementSource:"skill", element:"Fire", defenseMode:"normal" };
   const result = window.CombatDamagePipeline?.resolveMagicSkill(profile, Number(buff.level || 1), monster, { ratio, hits:1 });
+  if (result?.elementImmune === true) {
+    delete player.activeBuffs[buffId];
+    if (typeof addBattleLog === "function") addBattleLog(`${buff?.name || "反擊效果"}發動，但屬性完全無效。`);
+    if (typeof showMissNumber === "function") showMissNumber(monster);
+    return true;
+  }
   const dealt = Math.min(Number(monster.currentHp || 0), Math.max(1, Number(result?.damage || 1)));
   monster.currentHp = Math.max(0, Number(monster.currentHp || 0) - dealt);
   const cells = Math.max(0, Number(buff?.effects?.sightBlasterKnockbackCells || 3));
@@ -1293,22 +1300,35 @@ const RO_WEB_DAMAGE_NUMBER_BATCH = {
 
 function captureDamageNumberAnchor(target) {
   if (!target) return null;
+  const camera = typeof getMapCameraOffset === "function" ? getMapCameraOffset() : { x:0, y:0 };
+  const world = target._damageNumberAnchorWorld;
+  if (world && Number.isFinite(Number(world.x)) && Number.isFinite(Number(world.y))) {
+    return {
+      x:Number(world.x) - Number(camera.x || 0),
+      y:Number(world.y) - Number(camera.y || 0),
+      worldX:Number(world.x),
+      worldY:Number(world.y),
+      instanceId:target._instanceId || null
+    };
+  }
   // The world renderer keeps a no-layout-read screen anchor for every visible monster.
   const cached = target._damageNumberAnchorScreen;
   if (cached && Number.isFinite(Number(cached.x)) && Number.isFinite(Number(cached.y))) {
     return { x:Number(cached.x), y:Number(cached.y), instanceId:target._instanceId || null };
   }
   if (target._worldTestEntity && target.position) {
-    const camera = typeof getMapCameraOffset === "function" ? getMapCameraOffset() : { x:0, y:0 };
+    const worldX = Number(target.position.x || 0);
+    const worldY = Number(target.position.y || 0) - 76;
     return {
-      x:Number(target.position.x || 0) - Number(camera.x || 0),
-      y:Number(target.position.y || 0) - Number(camera.y || 0) - 76,
+      x:worldX - Number(camera.x || 0),
+      y:worldY - Number(camera.y || 0),
+      worldX,
+      worldY,
       instanceId:target._instanceId || null
     };
   }
   return null;
 }
-
 function createDamageNumberElement(entry) {
   const options = entry.options || {};
   const number = document.createElement("div");
@@ -1323,9 +1343,12 @@ function createDamageNumberElement(entry) {
   if (critical && source !== "additional") classes.push("critical-damage-number");
   if (options.cumulative === true) classes.push("cumulative-damage-number");
   if (options.cumulativeFinal === true) classes.push("cumulative-damage-final");
+  if (options.miss === true || options.textOverride === "MISS") classes.push("miss-damage-number");
   number.className = classes.join(" ");
   const numericDamage = Math.max(0, Math.floor(Number(entry.damage || 0)));
-  number.textContent = String(numericDamage).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  number.textContent = options.textOverride !== undefined
+    ? String(options.textOverride)
+    : String(numericDamage).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   const isCumulative = options.cumulative === true;
   const randomX = isCumulative ? 0 : randomInt(-12, 18);
   const randomY = isCumulative ? 0 : randomInt(-8, 8);
@@ -1335,8 +1358,20 @@ function createDamageNumberElement(entry) {
   const explicitOffsetY = Number(options.offsetY || 0);
   const anchor = options._anchorSnapshot || captureDamageNumberAnchor(options.target);
   if (anchor) {
-    number.style.left = `${Math.round(Number(anchor.x || 0) + laneOffsetX + explicitOffsetX + randomX)}px`;
-    number.style.top = `${Math.round(Number(anchor.y || 0) + laneOffsetY + explicitOffsetY + randomY)}px`;
+    const offsetX = laneOffsetX + explicitOffsetX + randomX;
+    const offsetY = laneOffsetY + explicitOffsetY + randomY;
+    if (Number.isFinite(Number(anchor.worldX)) && Number.isFinite(Number(anchor.worldY))) {
+      const camera = typeof getMapCameraOffset === "function" ? getMapCameraOffset() : { x:0, y:0 };
+      const worldX = Number(anchor.worldX) + offsetX;
+      const worldY = Number(anchor.worldY) + offsetY;
+      number.dataset.worldAnchorX = String(worldX);
+      number.dataset.worldAnchorY = String(worldY);
+      number.style.left = `${Math.round(worldX - Number(camera.x || 0))}px`;
+      number.style.top = `${Math.round(worldY - Number(camera.y || 0))}px`;
+    } else {
+      number.style.left = `${Math.round(Number(anchor.x || 0) + offsetX)}px`;
+      number.style.top = `${Math.round(Number(anchor.y || 0) + offsetY)}px`;
+    }
   } else {
     number.style.left = `${760 + laneOffsetX + explicitOffsetX + randomX}px`;
     number.style.top = `${300 + laneOffsetY + explicitOffsetY + randomY}px`;
@@ -1375,6 +1410,13 @@ function renderCumulativeDamageEntry(entry, battleField, fragment = null) {
     number.textContent = fresh.textContent;
     number.style.left = fresh.style.left;
     number.style.top = fresh.style.top;
+    if (fresh.dataset.worldAnchorX && fresh.dataset.worldAnchorY) {
+      number.dataset.worldAnchorX = fresh.dataset.worldAnchorX;
+      number.dataset.worldAnchorY = fresh.dataset.worldAnchorY;
+    } else {
+      delete number.dataset.worldAnchorX;
+      delete number.dataset.worldAnchorY;
+    }
     number.dataset.damageSequenceId = sequenceId;
     // CSS animation 使用 !important，因此以移除／重加 class 的方式可靠重啟每一跳。
     number.className = targetClassName
@@ -1423,6 +1465,37 @@ function enqueueDamageNumber(damage, options = {}) {
   RO_WEB_DAMAGE_NUMBER_BATCH.queue.push({ damage:Number(damage || 0), options });
   scheduleDamageNumberBatch();
 }
+
+// 0.9.82FP：傷害數字保存世界座標。玩家移動導致 Camera 改變時，
+// 數字會跟地圖一起移動並停留在命中位置，不再黏著畫面中央的玩家。
+function refreshWorldAnchoredDamageNumbers(camera = null) {
+  const resolvedCamera = camera || (typeof getMapCameraOffset === "function" ? getMapCameraOffset() : { x:0, y:0 });
+  const cameraX = Number(resolvedCamera?.x || 0);
+  const cameraY = Number(resolvedCamera?.y || 0);
+  document.querySelectorAll?.("#battle-field .damage-number[data-world-anchor-x][data-world-anchor-y]").forEach(number => {
+    const worldX = Number(number.dataset.worldAnchorX);
+    const worldY = Number(number.dataset.worldAnchorY);
+    if (!Number.isFinite(worldX) || !Number.isFinite(worldY)) return;
+    number.style.left = `${Math.round(worldX - cameraX)}px`;
+    number.style.top = `${Math.round(worldY - cameraY)}px`;
+  });
+}
+function showMissNumber(target = currentMonster, options = {}) {
+  const anchor = captureDamageNumberAnchor(target);
+  enqueueDamageNumber(0, {
+    ...options,
+    target,
+    _anchorSnapshot:anchor,
+    textOverride:"MISS",
+    miss:true,
+    cumulative:false,
+    combo:false,
+    critical:false
+  });
+  return true;
+}
+window.refreshWorldAnchoredDamageNumbers = refreshWorldAnchoredDamageNumbers;
+window.showMissNumber = showMissNumber;
 
 // 0.9.82FN：多段傷害在同一座標逐段更新累積值；中間節奏放慢，最後總傷放大並停留 3 秒。
 // 最後一跳仍精確等於實際總傷。

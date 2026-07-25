@@ -2068,6 +2068,10 @@ function tickSustainedPerformancePulse(skillId, buff, now = Date.now()) {
       if (formula === "renewal_dissonance") {
         const ratio = Math.max(1, Math.floor((110 + 50 * Number(buff.level || 1)) * Number(player.jobLevel || 1) / 10));
         const result = window.CombatDamagePipeline?.resolvePhysicalSkill({ handler:"physical_attack", elementSource:"weapon", attackRangeType:"long", ignoreFlee:true }, Number(buff.level || 1), target, { ratio, skipHitCheck:true, allowNormalProc:false });
+        if (result?.elementImmune === true) {
+          if (typeof showMissNumber === "function") showMissNumber(target);
+          continue;
+        }
         const damage = Math.max(1, Number(result?.damage || 1));
         applyRuntimeCalculatedDamage(target,damage,{skillId:Number(skillId||0)});
         affected += 1;
@@ -2536,6 +2540,10 @@ function trySpellFistOnNormalAttack(target = currentMonster) {
   const ratio=Math.max(1,Number(buff.effects?.spellFistRatio||20*level+100*boltLevel));
   const result=window.CombatDamagePipeline?.resolveMagicSkill({handler:"magic_damage",elementSource:"skill",element,attackRangeType:"short"},level,target,{ratio,hits:1,skipHitCheck:true});
   if(!result)return false;
+  if (result.elementImmune === true) {
+    if (typeof showMissNumber === "function") showMissNumber(target);
+    return false;
+  }
   const calculatedDamage=Math.max(1,Number(result.damage||1));
   const applied=applyRuntimeCalculatedDamage(target,calculatedDamage,{triggeredByNormalAttack:true,skillId:Number(buff.id||0)});
   if(typeof addBattleLog==="function")addBattleLog(`${buff.name||"魔力拳"}追加 ${element} 屬性魔法傷害 ${calculatedDamage}。`);
@@ -2559,7 +2567,14 @@ function createPropertyWalkTrailAt(position = null) {
   const duration=Math.max(1000,Number(effects.propertyWalkCellDurationMs||12000)),ratio=Math.max(1,Math.floor(Number(effects.propertyWalkRatioPerLevel||60)*level*Number(player.baseLevel||1)/100));
   const created=window.GroundEffectManager.create({id:`property_walk_${skillId}_${Date.now()}_${placed}`,x:trailX,y:trailY,shape:"square",rangeCells:0.5,tickMs:1000,durationMs:duration,maxTicks:Math.ceil(duration/1000),isGroundMagic:true,sourceSkillId:skillId,noOverlapKey:`property_walk_${skillId}`,onTick(targets){
     withRuntimeCombatEvaluationContext(() => {
-      for(const target of targets||[]){if(!target||Number(target.currentHp||0)<=0)continue;const result=window.CombatDamagePipeline?.resolveMagicSkill({handler:"magic_damage",elementSource:"skill",element},level,target,{ratio,hits:1,skipHitCheck:true});if(!result)continue;const calculatedDamage=Math.max(1,Number(result.damage||1));applyRuntimeCalculatedDamage(target,calculatedDamage,{skillId});}
+      for(const target of targets||[]){
+        if(!target||Number(target.currentHp||0)<=0)continue;
+        const result=window.CombatDamagePipeline?.resolveMagicSkill({handler:"magic_damage",elementSource:"skill",element},level,target,{ratio,hits:1,skipHitCheck:true});
+        if(!result)continue;
+        if(result.elementImmune===true){if(typeof showMissNumber==="function")showMissNumber(target);continue;}
+        const calculatedDamage=Math.max(1,Number(result.damage||1));
+        applyRuntimeCalculatedDamage(target,calculatedDamage,{skillId});
+      }
     });
     if(currentMonster&&Number(currentMonster.currentHp||0)<=0&&typeof defeatMonster==="function")defeatMonster();else if(typeof updateMonsterUI==="function")updateMonsterUI();
   }});
@@ -2629,6 +2644,10 @@ function tryAutoShadowSpellOnNormalAttack(target = currentMonster) {
   const damage = calculateSkillAttackDamage(copied, autoLevel, target, { skipHitCheck:true, autoCast:true });
   if (damage === null) return false;
   player.sp = Math.max(0, Number(player.sp || 0) - spCost);
+  if (Number(damage || 0) <= 0) {
+    if (typeof showMissNumber === "function") showMissNumber(target);
+    return false;
+  }
   const calculatedDamage=Math.max(1,Number(damage||1));
   applyRuntimeCalculatedDamage(target,calculatedDamage,{triggeredByNormalAttack:true,skillId:Number(copied?.officialId??copied?.id)});
   if (typeof addBattleLog === "function") addBattleLog(`自動魅影念咒發動 ${copied.name} Lv${autoLevel}，造成 ${calculatedDamage} 點傷害。`);
@@ -2646,12 +2665,14 @@ function tryDupleLightOnNormalAttack(target=currentMonster){
   if(Math.random()*100<chance){
     const ratio=150+15*level;
     const result=window.CombatDamagePipeline?.resolvePhysicalSkill({handler:"physical_attack",elementSource:"weapon",attackRangeType:"short"},level,target,{ratio,skipHitCheck:true,allowNormalProc:false});
-    const calculatedDamage=Math.max(1,Number(result?.damage||1));applyRuntimeCalculatedDamage(target,calculatedDamage,{triggeredByNormalAttack:true,skillId:2054});total+=calculatedDamage;parts.push(`物理 ${calculatedDamage}`);
+    if(result?.elementImmune===true){if(typeof showMissNumber==="function")showMissNumber(target);}
+    else {const calculatedDamage=Math.max(1,Number(result?.damage||1));applyRuntimeCalculatedDamage(target,calculatedDamage,{triggeredByNormalAttack:true,skillId:2054});total+=calculatedDamage;parts.push(`物理 ${calculatedDamage}`);}
   }
   if(Number(target.currentHp||0)>0&&Math.random()*100<chance){
     const ratio=400+40*level;
     const result=window.CombatDamagePipeline?.resolveMagicSkill({handler:"magic_damage",elementSource:"skill",element:"Holy"},level,target,{ratio,hits:1,skipHitCheck:true});
-    const calculatedDamage=Math.max(1,Number(result?.damage||1));applyRuntimeCalculatedDamage(target,calculatedDamage,{triggeredByNormalAttack:true,skillId:2054});total+=calculatedDamage;parts.push(`魔法 ${calculatedDamage}`);
+    if(result?.elementImmune===true){if(typeof showMissNumber==="function")showMissNumber(target);}
+    else {const calculatedDamage=Math.max(1,Number(result?.damage||1));applyRuntimeCalculatedDamage(target,calculatedDamage,{triggeredByNormalAttack:true,skillId:2054});total+=calculatedDamage;parts.push(`魔法 ${calculatedDamage}`);}
   }
   if(total>0){if(typeof addBattleLog==="function")addBattleLog(`二道聖光發動（${parts.join("、")}）。`);if(typeof playMonsterHitAnimation==="function")playMonsterHitAnimation(target);return true;}return false;
 }
@@ -2678,6 +2699,10 @@ function tryServantWeaponOnNormalAttack(target = currentMonster) {
     const result = window.CombatDamagePipeline?.resolvePhysicalSkill({
       handler:"physical_attack_formula", elementSource:"weapon", attackRangeType:"short", criticalMode:"normal"
     }, level, enemy, { ratio:ratioPerHit * 3, skipHitCheck:true, criticalResult:crit });
+    if (result?.elementImmune === true) {
+      if (typeof showMissNumber === "function") showMissNumber(enemy);
+      continue;
+    }
     const damage = Math.max(1, Number(result?.damage || 1));
     applyRuntimeCalculatedDamage(enemy,damage,{triggeredByNormalAttack:true,skillId:Number(buff.id||0)});
     totalDealt += damage;
@@ -2707,6 +2732,10 @@ function tryAbyssForceWeaponOnNormalAttack(target = currentMonster) {
   for (const enemy of (targets?.length ? targets : [target])) {
     if (!enemy || Number(enemy.currentHp || 0) <= 0) continue;
     const result = window.CombatDamagePipeline?.resolveMagicSkill({handler:"magic_damage",element:"Neutral",elementSource:"skill"},level,enemy,{ratio,hits:5,skipHitCheck:true});
+    if (result?.elementImmune === true) {
+      if (typeof showMissNumber === "function") showMissNumber(enemy);
+      continue;
+    }
     const damage = Math.max(1, Number(result?.damage || 1));
     applyRuntimeCalculatedDamage(enemy,damage,{triggeredByNormalAttack:true,skillId:Number(buff.id||0)});
     totalDealt += damage;
@@ -3718,12 +3747,12 @@ function calculateSkillAttackDamage(skill, requestedLevel = null, target = curre
     if (profile.formula === "renewal_blitz_beat") {
       const raw = getFalconDamageBaseRuntime(level) * Math.max(1, hitCount);
       const result = window.CombatDamagePipeline?.resolveMiscSkill(profile, level, target, { rawDamage: raw, skipHitCheck: true });
-      return result ? Math.max(1, Number(result.damage || 0)) : Math.max(1, raw);
+      return result ? (result.elementImmune === true ? 0 : Math.max(1, Number(result.damage || 0))) : Math.max(1, raw);
     }
     if (profile.formula === "renewal_falcon_assault") {
       const raw = Math.floor(getFalconDamageBaseRuntime(level) * 5 * (150 + 70 * level) / 100);
       const result = window.CombatDamagePipeline?.resolveMiscSkill(profile, level, target, { rawDamage: raw, skipHitCheck: true });
-      return result ? Math.max(1, Number(result.damage || 0)) : Math.max(1, raw);
+      return result ? (result.elementImmune === true ? 0 : Math.max(1, Number(result.damage || 0))) : Math.max(1, raw);
     }
     if (profile.formula === "renewal_thorn_trap") {
       const intStat = Number(derived?.stats?.int || player?.stats?.int || 1);
@@ -3731,7 +3760,7 @@ function calculateSkillAttackDamage(skill, requestedLevel = null, target = curre
       // Renewal Misc damage skips DEF, but still passes through HIT, card/race/
       // class/range and property stages. HIT is resolved by castAttackSkill.
       const result = window.CombatDamagePipeline?.resolveMiscSkill({...profile,ignoreDefense:true}, level, target, { rawDamage:raw, skipHitCheck:true });
-      return result ? Math.max(1, Number(result.damage || 0)) : raw;
+      return result ? (result.elementImmune === true ? 0 : Math.max(1, Number(result.damage || 0))) : raw;
     }
     if (profile.formula === "renewal_cluster_bomb") {
       const dex = Number(derived?.stats?.dex || player?.stats?.dex || 1);
@@ -3743,7 +3772,9 @@ function calculateSkillAttackDamage(skill, requestedLevel = null, target = curre
       const miscResult = window.CombatDamagePipeline?.resolveMiscSkill(profile, level, target, { rawDamage:miscRaw, skipHitCheck:true });
       const weaponProfile = { ...profile, handler:"physical_attack_formula", damageHandler:"physical_attack_formula", formula:null, elementSource:"weapon", attackRangeType:"long", ratio:200 + 100 * level, ignoreFlee:true };
       const weaponResult = window.CombatDamagePipeline?.resolvePhysicalSkill(weaponProfile, level, target, { ratio:200 + 100 * level, hits:1, skipHitCheck:true });
-      return Math.max(1, Number(miscResult?.damage || 0) + Number(weaponResult?.damage || 0));
+      const combinedDamage=Number(miscResult?.damage||0)+Number(weaponResult?.damage||0);
+      if(combinedDamage<=0&&(miscResult?.elementImmune===true||weaponResult?.elementImmune===true))return 0;
+      return Math.max(1,combinedDamage);
     }
     if (profile.formula === "renewal_ranger_damage_trap") {
       const dex = Number(derived?.stats?.dex || player?.stats?.dex || 1);
@@ -3756,7 +3787,9 @@ function calculateSkillAttackDamage(skill, requestedLevel = null, target = curre
       const miscResult = window.CombatDamagePipeline?.resolveMiscSkill(miscProfile, level, target, { rawDamage:miscRaw, skipHitCheck:true });
       const weaponProfile = { ...profile, handler:"physical_attack_formula", damageHandler:"physical_attack_formula", formula:null, elementSource:"fixed", element:profile.element || "Neutral", attackRangeType:"long", ratio:100, ignoreFlee:true, ignoreDefense:false, noCardFix:false };
       const weaponResult = window.CombatDamagePipeline?.resolvePhysicalSkill(weaponProfile, level, target, { ratio:100, hits:1, skipHitCheck:true });
-      return Math.max(1, Number(miscResult?.damage || 0) + Number(weaponResult?.damage || 0));
+      const combinedDamage=Number(miscResult?.damage||0)+Number(weaponResult?.damage||0);
+      if(combinedDamage<=0&&(miscResult?.elementImmune===true||weaponResult?.elementImmune===true))return 0;
+      return Math.max(1,combinedDamage);
     }
     if (profile.formula === "renewal_hunter_damage_trap") {
       const dex = Number(derived?.stats?.dex || player?.stats?.dex || 1);
@@ -3768,7 +3801,7 @@ function calculateSkillAttackDamage(skill, requestedLevel = null, target = curre
       raw += researchLv * 40;
       if (profile.splitDamageByTargets) raw = Math.floor(raw / Math.max(1, Number(combatOptions.targetCount || 1)));
       const result = window.CombatDamagePipeline?.resolveMiscSkill(profile, level, target, { rawDamage:raw, skipHitCheck:true });
-      return result ? Math.max(1, Number(result.damage || 0)) : Math.max(1, raw);
+      return result ? (result.elementImmune === true ? 0 : Math.max(1, Number(result.damage || 0))) : Math.max(1, raw);
     }
     if (profile.formula === "renewal_stone_fling") return 50;
     if (profile.formula === "renewal_martyrs_reckoning") return Math.max(1, Math.floor(Number(player?.maxHp || 1) * 0.09) * Math.max(1, hitCount));
@@ -3952,7 +3985,9 @@ function calculateSkillAttackDamage(skill, requestedLevel = null, target = curre
     }
     const magicProfile = runtimeMagicElementOverride ? { ...profile, element: runtimeMagicElementOverride, elementSource: "fixed" } : profile;
     const result = window.CombatDamagePipeline?.resolveMagicSkill(magicProfile, level, target, { ratio: Number(magicRatio || 100), hits: hitCount, skipHitCheck: true, criticalResult: combatOptions.criticalResult });
-    return result ? Math.max(1, result.damage) : null;
+    if (!result) return null;
+    if (result.elementImmune === true) return 0;
+    return Math.max(1, result.damage);
   }
   let ratio = profile.ratio === undefined ? null : Math.max(1, getLevelValue(profile.ratio, level, 100));
   if (profile.formula === "renewal_great_echo") {
@@ -4469,7 +4504,7 @@ function calculateSkillAttackDamage(skill, requestedLevel = null, target = curre
     const totalRate = 100 + trainingRate + auraLv * 10 + (auraLearned ? pow / 5 : 0);
     const raw = Math.max(1, Math.floor(specialDamage * totalRate / 100));
     const result = window.RARenewalDamagePipeline?.resolveSpecialPhysical(profile, level, target, {rawDamage:raw});
-    return result ? Math.max(1, Number(result.damage || 0)) : raw;
+    return result ? (result.elementImmune === true ? 0 : Math.max(1, Number(result.damage || 0))) : raw;
   }
   if (ratio === null) return null;
   if (isChargingPierceMaxForSkill(skill)) ratio *= 2;
@@ -4490,6 +4525,7 @@ function calculateSkillAttackDamage(skill, requestedLevel = null, target = curre
   }
   const result = window.CombatDamagePipeline?.resolvePhysicalSkill(profile, level, target, { ratio: totalRatio, flatAddition, skipHitCheck: true, criticalResult: combatOptions.criticalResult });
   if (!result) return null;
+  if (result.elementImmune === true) return 0;
   if (profile.formula === "renewal_occult_impaction") {
     const targetDef = Math.max(0, Number(target?.hardDef ?? target?.def ?? 0));
     return Math.max(1, Number(result.damage || 0) + Math.floor(targetDef * Number(ratio || 0) / 200));
@@ -4838,6 +4874,17 @@ function castAttackSkill(skill, requestedLevel = null, options = {}) {
     } else damage = calculateSkillAttackDamage(skill, level, target, { criticalResult: crit, consumedResource: options.consumedResource, preCastHp:options.preCastHp, preCastMaxHp:options.preCastMaxHp, preCastSp:options.preCastSp, preCastMaxSp:options.preCastMaxSp, preCastResource:options.preCastResource, fromFlashCombo:options.fromFlashCombo, elementalActionSpec });
     if (damage === null) return reportPendingRuntime(skill, "攻擊公式尚未實作");
     const calculatedDamage = Math.max(0, Number(damage || 0));
+    if (calculatedDamage <= 0) {
+      const attackElement = isMagic
+        ? window.RARenewalDamagePipeline?.resolveAttackElement?.(profile)
+        : window.RARenewalDamagePipeline?.resolvePhysicalAttackElement?.();
+      const propertyMiss = window.RARenewalDamagePipeline?.isElementImmuneAgainstTarget?.(attackElement, target, window.RARenewalDamagePipeline?.normalizeFlags?.(profile));
+      if (propertyMiss) {
+        missedTargets++;
+        if (typeof showMissNumber === "function") showMissNumber(target);
+        continue;
+      }
+    }
     const parts = window.MultiHitResolver ? window.MultiHitResolver.split(calculatedDamage,hitMeta.damageHitCount) : [calculatedDamage];
     let dealt = 0;
     for (let i=0;i<parts.length;i++) {

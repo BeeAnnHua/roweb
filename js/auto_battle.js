@@ -1277,6 +1277,8 @@ function autoUsePotion() {
 function tryAutoElementEndow() {
   const cfg = player?.autoCombat?.elementEndow;
   if (!cfg?.enabled) return false;
+  // 肯貝特是武器附魔；空手時不消耗，卸下主武器也會解除現有效果。
+  if (!player?.equipment?.weapon) return false;
 
   const element = String(cfg.element || "");
   const itemId = AUTO_ELEMENT_CONVERTER_ITEM_IDS[element];

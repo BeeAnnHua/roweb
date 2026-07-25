@@ -1209,6 +1209,66 @@
     "Script": "pet;\n",
     "scriptRaw": "pet;\n"
   },
+  "637": {
+    "id": 637,
+    "officialId": 637,
+    "name": "魔物掃把",
+    "type": "consume",
+    "category": "consumable",
+    "subCategory": "usable",
+    "sellPrice": 175,
+    "description": [
+      "舊掃把, 怪物土人非常喜歡此項物品。",
+      "^ff0000活動怪、小兵怪則無法認養。^000000",
+      "種類 : ^777777認養寵物道具^000000"
+    ],
+    "icon": "images/items/637.webp",
+    "buyPrice": 350,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 637,
+    "Name": "魔物掃把",
+    "Buy": 350,
+    "Sell": 175,
+    "Slots": 0,
+    "AegisName": "Old_Broom",
+    "aegisName": "Old_Broom",
+    "Type": "Usable",
+    "dbType": "Usable",
+    "Script": "pet;\n",
+    "scriptRaw": "pet;\n"
+  },
+  "644": {
+    "id": 644,
+    "officialId": 644,
+    "name": "禮物箱",
+    "type": "consume",
+    "category": "consumable",
+    "subCategory": "usable",
+    "sellPrice": 500,
+    "description": [
+      "裡頭裝滿了禮物的箱子。在沒打開之前不會知道裡頭到底裝了什麼樣的禮物。"
+    ],
+    "icon": "images/items/644.webp",
+    "buyPrice": 1000,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 644,
+    "Name": "禮物箱",
+    "Buy": 1000,
+    "Sell": 500,
+    "Slots": 0,
+    "AegisName": "Gift_Box",
+    "aegisName": "Gift_Box",
+    "Type": "Usable",
+    "dbType": "Usable",
+    "Script": "getgroupitem(IG_GiftBox);\n",
+    "scriptRaw": "getgroupitem(IG_GiftBox);\n"
+  },
   "662": {
     "id": 662,
     "officialId": 662,
@@ -1324,6 +1384,35 @@
     "dbType": "DelayConsume",
     "Script": "itemskill \"MG_LIGHTNINGBOLT\",3;\n",
     "scriptRaw": "itemskill \"MG_LIGHTNINGBOLT\",3;\n"
+  },
+  "693": {
+    "id": 693,
+    "officialId": 693,
+    "name": "雷擊術等級5",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "material",
+    "sellPrice": 1000,
+    "description": [
+      "以古代魔道學精髓而製成,並有著魔法師咒文的紙張,有著風屬性的魔法,可使用等級5的^000088雷擊術^000000。"
+    ],
+    "icon": "images/items/693.webp",
+    "buyPrice": 2000,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 693,
+    "Name": "雷擊術等級5",
+    "Buy": 2000,
+    "Sell": 1000,
+    "Slots": 0,
+    "AegisName": "Wind_Scroll_1_5",
+    "aegisName": "Wind_Scroll_1_5",
+    "Type": "DelayConsume",
+    "dbType": "DelayConsume",
+    "Script": "itemskill \"MG_LIGHTNINGBOLT\",5;\n",
+    "scriptRaw": "itemskill \"MG_LIGHTNINGBOLT\",5;\n"
   },
   "694": {
     "id": 694,
@@ -1735,6 +1824,33 @@
     "Type": "Etc",
     "dbType": "Etc"
   },
+  "718": {
+    "id": 718,
+    "officialId": 718,
+    "name": "深紅寶石",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "material",
+    "sellPrice": 3000,
+    "description": [
+      "呈現出黑紅色光芒的寶石。"
+    ],
+    "icon": "images/items/718.webp",
+    "buyPrice": 6000,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 718,
+    "Name": "深紅寶石",
+    "Buy": 6000,
+    "Sell": 3000,
+    "Slots": 0,
+    "AegisName": "Dark_Red_Jewel",
+    "aegisName": "Dark_Red_Jewel",
+    "Type": "Etc",
+    "dbType": "Etc"
+  },
   "719": {
     "id": 719,
     "officialId": 719,
@@ -1813,6 +1929,60 @@
     "Slots": 0,
     "AegisName": "Scarlet_Jewel",
     "aegisName": "Scarlet_Jewel",
+    "Type": "Etc",
+    "dbType": "Etc"
+  },
+  "723": {
+    "id": 723,
+    "officialId": 723,
+    "name": "紅寶石",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "material",
+    "sellPrice": 2250,
+    "description": [
+      "呈現出深紅色光芒的寶石。"
+    ],
+    "icon": "images/items/723.webp",
+    "buyPrice": 4500,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 723,
+    "Name": "紅寶石",
+    "Buy": 4500,
+    "Sell": 2250,
+    "Slots": 0,
+    "AegisName": "Cardinal_Jewel",
+    "aegisName": "Cardinal_Jewel",
+    "Type": "Etc",
+    "dbType": "Etc"
+  },
+  "724": {
+    "id": 724,
+    "officialId": 724,
+    "name": "詛咒紅寶石",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "material",
+    "sellPrice": 300,
+    "description": [
+      "呈現出深紅色光芒的寶石,有著超凡無比的神秘力量。"
+    ],
+    "icon": "images/items/724.webp",
+    "buyPrice": 600,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 724,
+    "Name": "詛咒紅寶石",
+    "Buy": 600,
+    "Sell": 300,
+    "Slots": 0,
+    "AegisName": "Cardinal_Jewel_",
+    "aegisName": "Cardinal_Jewel_",
     "Type": "Etc",
     "dbType": "Etc"
   },
@@ -1897,6 +2067,33 @@
     "Type": "Etc",
     "dbType": "Etc"
   },
+  "728": {
+    "id": 728,
+    "officialId": 728,
+    "name": "黃寶石",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "material",
+    "sellPrice": 2250,
+    "description": [
+      "呈現出黃色光芒的寶石。"
+    ],
+    "icon": "images/items/728.webp",
+    "buyPrice": 4500,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 728,
+    "Name": "黃寶石",
+    "Buy": 4500,
+    "Sell": 2250,
+    "Slots": 0,
+    "AegisName": "Golden_Jewel",
+    "aegisName": "Golden_Jewel",
+    "Type": "Etc",
+    "dbType": "Etc"
+  },
   "729": {
     "id": 729,
     "officialId": 729,
@@ -1921,6 +2118,60 @@
     "Slots": 0,
     "AegisName": "Bluish_Green_Jewel",
     "aegisName": "Bluish_Green_Jewel",
+    "Type": "Etc",
+    "dbType": "Etc"
+  },
+  "731": {
+    "id": 731,
+    "officialId": 731,
+    "name": "2克拉鑽石",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "material",
+    "sellPrice": 12500,
+    "description": [
+      "透明且晶瑩剔透的寶石。"
+    ],
+    "icon": "images/items/731.webp",
+    "buyPrice": 25000,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 731,
+    "Name": "2克拉鑽石",
+    "Buy": 25000,
+    "Sell": 12500,
+    "Slots": 0,
+    "AegisName": "Crystal_Jewel_",
+    "aegisName": "Crystal_Jewel_",
+    "Type": "Etc",
+    "dbType": "Etc"
+  },
+  "732": {
+    "id": 732,
+    "officialId": 732,
+    "name": "3克拉鑽石",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "material",
+    "sellPrice": 27500,
+    "description": [
+      "透明且晶瑩剔透的寶石。"
+    ],
+    "icon": "images/items/732.webp",
+    "buyPrice": 55000,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 732,
+    "Name": "3克拉鑽石",
+    "Buy": 55000,
+    "Sell": 27500,
+    "Slots": 0,
+    "AegisName": "Crystal_Jewel__",
+    "aegisName": "Crystal_Jewel__",
     "Type": "Etc",
     "dbType": "Etc"
   },
@@ -2029,6 +2280,33 @@
     "Slots": 0,
     "AegisName": "Glass_Bead",
     "aegisName": "Glass_Bead",
+    "Type": "Etc",
+    "dbType": "Etc"
+  },
+  "747": {
+    "id": 747,
+    "officialId": 747,
+    "name": "水晶鏡子",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "material",
+    "sellPrice": 7500,
+    "description": [
+      "用水晶製成的鏡子,是女性用來裝扮的必需用品,這比用玻璃做成的鏡子更為高級。"
+    ],
+    "icon": "images/items/747.webp",
+    "buyPrice": 15000,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 747,
+    "Name": "水晶鏡子",
+    "Buy": 15000,
+    "Sell": 7500,
+    "Slots": 0,
+    "AegisName": "Crystal_Mirror",
+    "aegisName": "Crystal_Mirror",
     "Type": "Etc",
     "dbType": "Etc"
   },
@@ -3412,6 +3690,33 @@
     "Type": "Etc",
     "dbType": "Etc"
   },
+  "1006": {
+    "id": 1006,
+    "officialId": 1006,
+    "name": "古魔法書",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "material",
+    "sellPrice": 1,
+    "description": [
+      "老舊的魔法書,裡面記載了相當多古代強力的魔法。"
+    ],
+    "icon": "images/items/1006.webp",
+    "buyPrice": 2,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 1006,
+    "Name": "古魔法書",
+    "Buy": 2,
+    "Sell": 1,
+    "Slots": 0,
+    "AegisName": "Old_Magic_Book",
+    "aegisName": "Old_Magic_Book",
+    "Type": "Etc",
+    "dbType": "Etc"
+  },
   "1008": {
     "id": 1008,
     "officialId": 1008,
@@ -4192,6 +4497,33 @@
     "Slots": 0,
     "AegisName": "Tree_Of_Archer_3",
     "aegisName": "Tree_Of_Archer_3",
+    "Type": "Etc",
+    "dbType": "Etc"
+  },
+  "1097": {
+    "id": 1097,
+    "officialId": 1097,
+    "name": "破舊書頁",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "material",
+    "sellPrice": 474,
+    "description": [
+      "破舊的書的內頁。雖然字體已經模糊不清,但仍舊可以隱約看到上面寫著某些文字。可向收集商人購買。"
+    ],
+    "icon": "images/items/1097.webp",
+    "buyPrice": 948,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 1097,
+    "Name": "破舊書頁",
+    "Buy": 948,
+    "Sell": 474,
+    "Slots": 0,
+    "AegisName": "Worn_Out_Page",
+    "aegisName": "Worn_Out_Page",
     "Type": "Etc",
     "dbType": "Etc"
   },
@@ -6556,6 +6888,150 @@
     "weaponType": "spear",
     "handed": 2
   },
+  "1472": {
+    "id": 1472,
+    "officialId": 1472,
+    "name": "靈魂之杖",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "staff",
+    "sellPrice": 10,
+    "description": [
+      "雖然使用上要用到雙手的缺點,不過可使魔力增加強力效果的優秀杖。",
+      "INT+5。",
+      "AGI+2。",
+      "MATK+200",
+      "系列 : ^777777雙手杖^000000  攻擊 : ^77777725^000000",
+      "武器等級 : ^7777773^000000",
+      "要求等級 : ^77777773^000000",
+      "裝備 : ^777777魔法師系列/悟靈士^000000"
+    ],
+    "icon": "images/items/1472.webp",
+    "buyPrice": 20,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 96,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 1472,
+    "Name": "靈魂之杖",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 0,
+    "AegisName": "Staff_Of_Soul",
+    "aegisName": "Staff_Of_Soul",
+    "Type": "Weapon",
+    "dbType": "Weapon",
+    "SubType": "2hStaff",
+    "dbSubType": "2hStaff",
+    "Attack": 25,
+    "atk": 25,
+    "MagicAttack": 200,
+    "matk": 200,
+    "Range": 1,
+    "range": 1,
+    "WeaponLevel": 3,
+    "weaponLevel": 3,
+    "EquipLevelMin": 73,
+    "equipLevelMin": 73,
+    "Jobs": {
+      "Mage": true,
+      "Sage": true,
+      "SoulLinker": true,
+      "Wizard": true
+    },
+    "equipJobs": {
+      "Mage": true,
+      "Sage": true,
+      "SoulLinker": true,
+      "Wizard": true
+    },
+    "Locations": {
+      "Both_Hand": true
+    },
+    "locations": {
+      "Both_Hand": true
+    },
+    "Refineable": true,
+    "refineable": true,
+    "Script": "bonus bInt,5;\nbonus bAgi,2;\n",
+    "scriptRaw": "bonus bInt,5;\nbonus bAgi,2;\n",
+    "slot": "weapon",
+    "requiredLevel": 73,
+    "weaponType": "staff",
+    "handed": 2
+  },
+  "1473": {
+    "id": 1473,
+    "officialId": 1473,
+    "name": "大巫師之杖",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "staff",
+    "sellPrice": 10,
+    "description": [
+      "據說是一位偉大的魔法師製作而成的杖,所持有的能力,近似於神的力量",
+      "INT+6。",
+      "DEX+2。",
+      "MATK+200",
+      "系列 : ^777777雙手杖^000000  攻擊 : ^777777120^000000",
+      "武器等級 : ^7777774^000000",
+      "要求等級 : ^77777790^000000",
+      "裝備 : ^777777魔法師系列/悟靈士^000000"
+    ],
+    "icon": "images/items/1473.webp",
+    "buyPrice": 20,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 97,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 1473,
+    "Name": "大巫師之杖",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 0,
+    "AegisName": "Wizardy_Staff",
+    "aegisName": "Wizardy_Staff",
+    "Type": "Weapon",
+    "dbType": "Weapon",
+    "SubType": "2hStaff",
+    "dbSubType": "2hStaff",
+    "Attack": 120,
+    "atk": 120,
+    "MagicAttack": 200,
+    "matk": 200,
+    "Range": 1,
+    "range": 1,
+    "WeaponLevel": 4,
+    "weaponLevel": 4,
+    "EquipLevelMin": 90,
+    "equipLevelMin": 90,
+    "Jobs": {
+      "Mage": true,
+      "Sage": true,
+      "SoulLinker": true,
+      "Wizard": true
+    },
+    "equipJobs": {
+      "Mage": true,
+      "Sage": true,
+      "SoulLinker": true,
+      "Wizard": true
+    },
+    "Locations": {
+      "Both_Hand": true
+    },
+    "locations": {
+      "Both_Hand": true
+    },
+    "Refineable": true,
+    "refineable": true,
+    "Script": "bonus bInt,6;\nbonus bDex,2;\n",
+    "scriptRaw": "bonus bInt,6;\nbonus bDex,2;\n",
+    "slot": "weapon",
+    "requiredLevel": 90,
+    "weaponType": "staff",
+    "handed": 2
+  },
   "1498": {
     "id": 1498,
     "officialId": 1498,
@@ -6781,6 +7257,335 @@
     "weaponType": "mace",
     "handed": 1
   },
+  "1553": {
+    "id": 1553,
+    "officialId": 1553,
+    "name": "水靈之書",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "book",
+    "sellPrice": 17500,
+    "description": [
+      "夾帶波浪的海之書。",
+      "系列 : ^777777書^000000        攻擊力 :^77777790^000000",
+      "武器等級 : ^7777773^000000",
+      "要求等級 : ^77777727^000000",
+      "裝備 :^777777祭司/賢者/拳聖^000000"
+    ],
+    "icon": "images/items/1553.webp",
+    "buyPrice": 35000,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 90,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 1553,
+    "Name": "水靈之書",
+    "Buy": 35000,
+    "Sell": 17500,
+    "Slots": 0,
+    "AegisName": "Book_Of_Billows",
+    "aegisName": "Book_Of_Billows",
+    "Type": "Weapon",
+    "dbType": "Weapon",
+    "SubType": "Book",
+    "dbSubType": "Book",
+    "Attack": 90,
+    "atk": 90,
+    "Range": 1,
+    "range": 1,
+    "WeaponLevel": 3,
+    "weaponLevel": 3,
+    "EquipLevelMin": 27,
+    "equipLevelMin": 27,
+    "Jobs": {
+      "Priest": true,
+      "Sage": true,
+      "StarGladiator": true
+    },
+    "equipJobs": {
+      "Priest": true,
+      "Sage": true,
+      "StarGladiator": true
+    },
+    "Locations": {
+      "Right_Hand": true
+    },
+    "locations": {
+      "Right_Hand": true
+    },
+    "Refineable": true,
+    "refineable": true,
+    "Script": "bonus bAtkEle,Ele_Water;\n",
+    "scriptRaw": "bonus bAtkEle,Ele_Water;\n",
+    "slot": "weapon",
+    "requiredLevel": 27,
+    "weaponType": "book",
+    "handed": 1
+  },
+  "1554": {
+    "id": 1554,
+    "officialId": 1554,
+    "name": "地靈之書",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "book",
+    "sellPrice": 17500,
+    "description": [
+      "燃燒太陽的熱氣之書。",
+      "系列 : ^777777書^000000 攻擊力: ^77777790^000000",
+      "武器等級 : ^7777773^000000",
+      "要求等級 : ^77777727^000000",
+      "裝備 : ^777777祭司/賢者/拳聖^000000"
+    ],
+    "icon": "images/items/1554.webp",
+    "buyPrice": 35000,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 91,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 1554,
+    "Name": "地靈之書",
+    "Buy": 35000,
+    "Sell": 17500,
+    "Slots": 0,
+    "AegisName": "Book_Of_Mother_Earth",
+    "aegisName": "Book_Of_Mother_Earth",
+    "Type": "Weapon",
+    "dbType": "Weapon",
+    "SubType": "Book",
+    "dbSubType": "Book",
+    "Attack": 90,
+    "atk": 90,
+    "Range": 1,
+    "range": 1,
+    "WeaponLevel": 3,
+    "weaponLevel": 3,
+    "EquipLevelMin": 27,
+    "equipLevelMin": 27,
+    "Jobs": {
+      "Priest": true,
+      "Sage": true,
+      "StarGladiator": true
+    },
+    "equipJobs": {
+      "Priest": true,
+      "Sage": true,
+      "StarGladiator": true
+    },
+    "Locations": {
+      "Right_Hand": true
+    },
+    "locations": {
+      "Right_Hand": true
+    },
+    "Refineable": true,
+    "refineable": true,
+    "Script": "bonus bAtkEle,Ele_Earth;\n",
+    "scriptRaw": "bonus bAtkEle,Ele_Earth;\n",
+    "slot": "weapon",
+    "requiredLevel": 27,
+    "weaponType": "book",
+    "handed": 1
+  },
+  "1555": {
+    "id": 1555,
+    "officialId": 1555,
+    "name": "火靈之書",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "book",
+    "sellPrice": 17500,
+    "description": [
+      "燃燒的太陽之書。",
+      "系列 : ^777777書^000000 攻擊力: ^77777790^000000",
+      "武器等級 : ^7777773^000000",
+      "要求等級 : ^77777727^000000",
+      "裝備 : ^777777祭司/賢者/拳聖^000000"
+    ],
+    "icon": "images/items/1555.webp",
+    "buyPrice": 35000,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 92,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 1555,
+    "Name": "火靈之書",
+    "Buy": 35000,
+    "Sell": 17500,
+    "Slots": 0,
+    "AegisName": "Book_Of_Blazing_Sun",
+    "aegisName": "Book_Of_Blazing_Sun",
+    "Type": "Weapon",
+    "dbType": "Weapon",
+    "SubType": "Book",
+    "dbSubType": "Book",
+    "Attack": 90,
+    "atk": 90,
+    "Range": 1,
+    "range": 1,
+    "WeaponLevel": 3,
+    "weaponLevel": 3,
+    "EquipLevelMin": 27,
+    "equipLevelMin": 27,
+    "Jobs": {
+      "Priest": true,
+      "Sage": true,
+      "StarGladiator": true
+    },
+    "equipJobs": {
+      "Priest": true,
+      "Sage": true,
+      "StarGladiator": true
+    },
+    "Locations": {
+      "Right_Hand": true
+    },
+    "locations": {
+      "Right_Hand": true
+    },
+    "Refineable": true,
+    "refineable": true,
+    "Script": "bonus bAtkEle,Ele_Fire;\n",
+    "scriptRaw": "bonus bAtkEle,Ele_Fire;\n",
+    "slot": "weapon",
+    "requiredLevel": 27,
+    "weaponType": "book",
+    "handed": 1
+  },
+  "1556": {
+    "id": 1556,
+    "officialId": 1556,
+    "name": "風靈之書",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "book",
+    "sellPrice": 17500,
+    "description": [
+      "貧瘠的風之書。",
+      "系列 : ^777777書^000000 攻擊力: ^77777790^000000",
+      "武器等級 : ^7777773^000000",
+      "要求等級 : ^77777727^000000",
+      "裝備 : ^777777祭司/賢者/拳聖^000000"
+    ],
+    "icon": "images/items/1556.webp",
+    "buyPrice": 35000,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 93,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 1556,
+    "Name": "風靈之書",
+    "Buy": 35000,
+    "Sell": 17500,
+    "Slots": 0,
+    "AegisName": "Book_Of_Gust_Of_Wind",
+    "aegisName": "Book_Of_Gust_Of_Wind",
+    "Type": "Weapon",
+    "dbType": "Weapon",
+    "SubType": "Book",
+    "dbSubType": "Book",
+    "Attack": 90,
+    "atk": 90,
+    "Range": 1,
+    "range": 1,
+    "WeaponLevel": 3,
+    "weaponLevel": 3,
+    "EquipLevelMin": 27,
+    "equipLevelMin": 27,
+    "Jobs": {
+      "Priest": true,
+      "Sage": true,
+      "StarGladiator": true
+    },
+    "equipJobs": {
+      "Priest": true,
+      "Sage": true,
+      "StarGladiator": true
+    },
+    "Locations": {
+      "Right_Hand": true
+    },
+    "locations": {
+      "Right_Hand": true
+    },
+    "Refineable": true,
+    "refineable": true,
+    "Script": "bonus bAtkEle,Ele_Wind;\n",
+    "scriptRaw": "bonus bAtkEle,Ele_Wind;\n",
+    "slot": "weapon",
+    "requiredLevel": 27,
+    "weaponType": "book",
+    "handed": 1
+  },
+  "1564": {
+    "id": 1564,
+    "officialId": 1564,
+    "name": "大百科全書",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "book",
+    "sellPrice": 10,
+    "description": [
+      "因書邊很硬而有名的普隆德拉某出版社的大百科全書。被這個書邊捅到的人 誤以為是被3克拉鑽石捅到的感覺是非常堅硬的",
+      "MATK+100, INT+3,DEX+2,CRI+20",
+      "基本屬性以Luk數值的不同 CRI額外的增加",
+      "系列 : ^777777書^000000    攻擊 : ^777777110^000000",
+      "武器等級 : ^7777773^000000",
+      "要求等級 : ^77777770^000000",
+      "裝備 : ^777777祭司/賢者/拳聖^000000"
+    ],
+    "icon": "images/items/1564.webp",
+    "buyPrice": 20,
+    "slots": 2,
+    "slotCount": 2,
+    "ClassNum": 15,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 1564,
+    "Name": "大百科全書",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 2,
+    "AegisName": "Encyclopedia",
+    "aegisName": "Encyclopedia",
+    "Type": "Weapon",
+    "dbType": "Weapon",
+    "SubType": "Book",
+    "dbSubType": "Book",
+    "Attack": 110,
+    "atk": 110,
+    "MagicAttack": 100,
+    "matk": 100,
+    "Range": 1,
+    "range": 1,
+    "WeaponLevel": 3,
+    "weaponLevel": 3,
+    "EquipLevelMin": 70,
+    "equipLevelMin": 70,
+    "Jobs": {
+      "Priest": true,
+      "Sage": true,
+      "StarGladiator": true
+    },
+    "equipJobs": {
+      "Priest": true,
+      "Sage": true,
+      "StarGladiator": true
+    },
+    "Locations": {
+      "Right_Hand": true
+    },
+    "locations": {
+      "Right_Hand": true
+    },
+    "Refineable": true,
+    "refineable": true,
+    "Script": "bonus bInt,3;\nbonus bDex,2;\nbonus bCritical,20+(readparam(bLuk)/5);\n",
+    "scriptRaw": "bonus bInt,3;\nbonus bDex,2;\nbonus bCritical,20+(readparam(bLuk)/5);\n",
+    "slot": "weapon",
+    "requiredLevel": 70,
+    "weaponType": "book",
+    "handed": 1
+  },
   "1602": {
     "id": 1602,
     "officialId": 1602,
@@ -6998,6 +7803,83 @@
     "scriptRaw": "bonus bInt,1;\n",
     "slot": "weapon",
     "requiredLevel": 30,
+    "weaponType": "staff",
+    "handed": 1
+  },
+  "1629": {
+    "id": 1629,
+    "officialId": 1629,
+    "name": "紳士的權杖",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "staff",
+    "sellPrice": 10,
+    "description": [
+      "某國紳士所愛用的手杖, 在某些手杖的內側藏有細劍",
+      "MATK+125, DEX+1。",
+      "與魔術師帽一起裝備時, DEX+2, INT+2, SP恢復速度增加 5%, 依精煉的程度, 魔法傷害會增加",
+      "系列 : ^777777單手杖^000000  攻擊 : ^77777740^000000",
+      "武器等級 : ^7777774^000000",
+      "要求等級 : ^77777750^000000",
+      "裝備 : ^777777魔法師, 服事系列, 悟靈士 ^000000"
+    ],
+    "icon": "images/items/1629.webp",
+    "buyPrice": 20,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 10,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 1629,
+    "Name": "紳士的權杖",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 1,
+    "AegisName": "Walking_Stick",
+    "aegisName": "Walking_Stick",
+    "Type": "Weapon",
+    "dbType": "Weapon",
+    "SubType": "Staff",
+    "dbSubType": "Staff",
+    "Attack": 40,
+    "atk": 40,
+    "MagicAttack": 125,
+    "matk": 125,
+    "Range": 1,
+    "range": 1,
+    "WeaponLevel": 4,
+    "weaponLevel": 4,
+    "EquipLevelMin": 50,
+    "equipLevelMin": 50,
+    "Jobs": {
+      "Acolyte": true,
+      "Mage": true,
+      "Monk": true,
+      "Priest": true,
+      "Sage": true,
+      "SoulLinker": true,
+      "Wizard": true
+    },
+    "equipJobs": {
+      "Acolyte": true,
+      "Mage": true,
+      "Monk": true,
+      "Priest": true,
+      "Sage": true,
+      "SoulLinker": true,
+      "Wizard": true
+    },
+    "Locations": {
+      "Right_Hand": true
+    },
+    "locations": {
+      "Right_Hand": true
+    },
+    "Refineable": true,
+    "refineable": true,
+    "Script": "bonus bDex,1;\n",
+    "scriptRaw": "bonus bDex,1;\n",
+    "slot": "weapon",
+    "requiredLevel": 50,
     "weaponType": "staff",
     "handed": 1
   },
@@ -7583,6 +8465,68 @@
     "weaponType": "knuckle",
     "handed": 1
   },
+  "1910": {
+    "id": 1910,
+    "officialId": 1910,
+    "name": "豎琴",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "instrument",
+    "sellPrice": 31000,
+    "description": [
+      "撥拉纏繞在樹木上的絃彈奏的絃樂器。",
+      "INT+2。",
+      "系列 : ^777777樂器^000000  攻擊 : ^777777114^000000",
+      "武器等級 : ^7777773^000000",
+      "要求等級 : ^77777727^000000",
+      "裝備 : ^777777吟遊詩人^000000"
+    ],
+    "icon": "images/items/1910.webp",
+    "buyPrice": 62000,
+    "slots": 2,
+    "slotCount": 2,
+    "ClassNum": 13,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 1910,
+    "Name": "豎琴",
+    "Buy": 62000,
+    "Sell": 31000,
+    "Slots": 2,
+    "AegisName": "Harp_",
+    "aegisName": "Harp_",
+    "Type": "Weapon",
+    "dbType": "Weapon",
+    "SubType": "Musical",
+    "dbSubType": "Musical",
+    "Attack": 114,
+    "atk": 114,
+    "Range": 1,
+    "range": 1,
+    "WeaponLevel": 3,
+    "weaponLevel": 3,
+    "EquipLevelMin": 27,
+    "equipLevelMin": 27,
+    "Jobs": {
+      "BardDancer": true
+    },
+    "equipJobs": {
+      "BardDancer": true
+    },
+    "Locations": {
+      "Right_Hand": true
+    },
+    "locations": {
+      "Right_Hand": true
+    },
+    "Refineable": true,
+    "refineable": true,
+    "Script": "bonus bInt,2;\n",
+    "scriptRaw": "bonus bInt,2;\n",
+    "slot": "weapon",
+    "requiredLevel": 27,
+    "weaponType": "instrument",
+    "handed": 1
+  },
   "1914": {
     "id": 1914,
     "officialId": 1914,
@@ -7763,6 +8707,69 @@
     "scriptRaw": "bonus bAtkEle,Ele_Wind;\n",
     "slot": "weapon",
     "requiredLevel": 27,
+    "weaponType": "instrument",
+    "handed": 1
+  },
+  "1939": {
+    "id": 1939,
+    "officialId": 1939,
+    "name": "緋紅色小提琴",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "instrument",
+    "sellPrice": 10,
+    "description": [
+      "散發著紅光的小提琴。",
+      "ATK增加至(精煉值*精煉值) (精煉上限為+15)",
+      "角色等級70以上: BaseLv每上升10時ATK+5。",
+      "系列 : ^777777樂器^000000 攻擊 : ^77777780^000000",
+      "武器等級 : ^7777773^000000",
+      "要求等級 : ^77777770^000000",
+      "裝備 : ^777777吟遊詩人系列^000000"
+    ],
+    "icon": "images/items/1939.webp",
+    "buyPrice": 20,
+    "slots": 2,
+    "slotCount": 2,
+    "ClassNum": 13,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 1939,
+    "Name": "緋紅色小提琴",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 2,
+    "AegisName": "Scarlet_Viollin",
+    "aegisName": "Scarlet_Viollin",
+    "Type": "Weapon",
+    "dbType": "Weapon",
+    "SubType": "Musical",
+    "dbSubType": "Musical",
+    "Attack": 80,
+    "atk": 80,
+    "Range": 2,
+    "range": 2,
+    "WeaponLevel": 3,
+    "weaponLevel": 3,
+    "EquipLevelMin": 70,
+    "equipLevelMin": 70,
+    "Jobs": {
+      "BardDancer": true
+    },
+    "equipJobs": {
+      "BardDancer": true
+    },
+    "Locations": {
+      "Right_Hand": true
+    },
+    "locations": {
+      "Right_Hand": true
+    },
+    "Refineable": true,
+    "refineable": true,
+    "Script": ".@r = getrefine();\nbonus bBaseAtk,(((BaseLevel-70)/10)*5)+(.@r<=15?pow(.@r,2):225);\n",
+    "scriptRaw": ".@r = getrefine();\nbonus bBaseAtk,(((BaseLevel-70)/10)*5)+(.@r<=15?pow(.@r,2):225);\n",
+    "slot": "weapon",
+    "requiredLevel": 70,
     "weaponType": "instrument",
     "handed": 1
   },
@@ -8011,6 +9018,79 @@
     "requiredLevel": 30,
     "weaponType": "whip",
     "handed": 1
+  },
+  "2025": {
+    "id": 2025,
+    "officialId": 2025,
+    "name": "緋紅色魔杖",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "staff",
+    "sellPrice": 10,
+    "description": [
+      "散發著紅光的雙手杖。",
+      "INT+5, MATK+150.",
+      "MATK增加至(精煉值*精煉值)(精煉上限為+15)",
+      "角色等級70以上: BaseLv每上升10時MATK+5。",
+      "不可破壞。",
+      "系列 : ^777777雙手杖^000000 攻擊 : ^777777100^000000",
+      "武器等級 : ^7777773^000000",
+      "要求等級 : ^77777770^000000",
+      "裝備 : ^777777魔法師系列/悟靈士^000000"
+    ],
+    "icon": "images/items/2025.webp",
+    "buyPrice": 20,
+    "slots": 2,
+    "slotCount": 2,
+    "ClassNum": 23,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 2025,
+    "Name": "緋紅色魔杖",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 2,
+    "AegisName": "Scarlet_Staff",
+    "aegisName": "Scarlet_Staff",
+    "Type": "Weapon",
+    "dbType": "Weapon",
+    "SubType": "2hStaff",
+    "dbSubType": "2hStaff",
+    "Attack": 100,
+    "atk": 100,
+    "MagicAttack": 150,
+    "matk": 150,
+    "Range": 1,
+    "range": 1,
+    "WeaponLevel": 3,
+    "weaponLevel": 3,
+    "EquipLevelMin": 70,
+    "equipLevelMin": 70,
+    "Jobs": {
+      "Mage": true,
+      "Sage": true,
+      "SoulLinker": true,
+      "Wizard": true
+    },
+    "equipJobs": {
+      "Mage": true,
+      "Sage": true,
+      "SoulLinker": true,
+      "Wizard": true
+    },
+    "Locations": {
+      "Both_Hand": true
+    },
+    "locations": {
+      "Both_Hand": true
+    },
+    "Refineable": true,
+    "refineable": true,
+    "Script": ".@r = getrefine();\nbonus bInt,5;\nbonus bMatk,(((BaseLevel-70)/10)*5)+(.@r<=15?pow(.@r,2):225);\n",
+    "scriptRaw": ".@r = getrefine();\nbonus bInt,5;\nbonus bMatk,(((BaseLevel-70)/10)*5)+(.@r<=15?pow(.@r,2):225);\n",
+    "slot": "weapon",
+    "requiredLevel": 70,
+    "weaponType": "staff",
+    "handed": 2
   },
   "2106": {
     "id": 2106,
@@ -8271,6 +9351,70 @@
     "slot": "shield",
     "requiredLevel": 22
   },
+  "2148": {
+    "id": 2148,
+    "officialId": 2148,
+    "name": "薔薇鋼盾",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "other",
+    "sellPrice": 28000,
+    "description": [
+      "使用異界的金屬加工而成的盾牌, 外觀猶如開花的玫瑰。",
+      "系列 : ^777777盾牌^000000 防禦 :  ^777777130^000000",
+      "要求等級 : ^777777100^000000",
+      "裝備 : ^7777773轉劍士系列^000000"
+    ],
+    "icon": "images/items/2148.webp",
+    "buyPrice": 56000,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 3,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 2148,
+    "Name": "薔薇鋼盾",
+    "Buy": 56000,
+    "Sell": 28000,
+    "Slots": 1,
+    "AegisName": "Rotha_Shield",
+    "aegisName": "Rotha_Shield",
+    "Type": "Armor",
+    "dbType": "Armor",
+    "Defense": 130,
+    "def": 130,
+    "ArmorLevel": 1,
+    "armorLevel": 1,
+    "EquipLevelMin": 100,
+    "equipLevelMin": 100,
+    "Jobs": {
+      "Crusader": true,
+      "Knight": true
+    },
+    "equipJobs": {
+      "Crusader": true,
+      "Knight": true
+    },
+    "Classes": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "equipClasses": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "Locations": {
+      "Left_Hand": true
+    },
+    "locations": {
+      "Left_Hand": true
+    },
+    "Refineable": true,
+    "refineable": true,
+    "View": 3,
+    "viewId": 3,
+    "slot": "shield",
+    "requiredLevel": 100
+  },
   "2206": {
     "id": 2206,
     "officialId": 2206,
@@ -8359,6 +9503,49 @@
     "viewId": 4,
     "Script": "bonus2 bSubRace,RC_Plant,10;\n",
     "scriptRaw": "bonus2 bSubRace,RC_Plant,10;\n",
+    "slot": "headTop"
+  },
+  "2210": {
+    "id": 2210,
+    "officialId": 2210,
+    "name": "髮箍",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "other",
+    "sellPrice": 250,
+    "description": [
+      "為了長髮族群固定頭髮時, 所使用的髮圈。",
+      "系列 : ^777777頭具^000000  防禦 :  ^7777771^000000",
+      "位置 : ^777777頭上^000000  重量 : ^77777710^000000",
+      "裝備 : ^777777全職業^000000"
+    ],
+    "icon": "images/items/2210.webp",
+    "buyPrice": 500,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 9,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 2210,
+    "Name": "髮箍",
+    "Buy": 500,
+    "Sell": 250,
+    "Slots": 0,
+    "AegisName": "Hair_Band",
+    "aegisName": "Hair_Band",
+    "Type": "Armor",
+    "dbType": "Armor",
+    "Defense": 2,
+    "def": 2,
+    "ArmorLevel": 1,
+    "armorLevel": 1,
+    "Locations": {
+      "Head_Top": true
+    },
+    "locations": {
+      "Head_Top": true
+    },
+    "View": 9,
+    "viewId": 9,
     "slot": "headTop"
   },
   "2225": {
@@ -10073,6 +11260,117 @@
     "scriptRaw": "bonus bMdef,15;\n",
     "slot": "armor"
   },
+  "2342": {
+    "id": 2342,
+    "officialId": 2342,
+    "name": "秘銀金屬鎧甲",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "other",
+    "sellPrice": 51250,
+    "description": [
+      "包紮全身型態的鎧甲,想找一個縫隙用刺的都很難攻擊的鎧甲",
+      "系列 : ^777777鎧甲 ^000000 防禦 :  ^77777779^000000",
+      "要求等級 : ^77777770^000000",
+      "裝備 : ^777777十字軍^000000"
+    ],
+    "icon": "images/items/2342.webp",
+    "buyPrice": 102500,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 2342,
+    "Name": "秘銀金屬鎧甲",
+    "Buy": 102500,
+    "Sell": 51250,
+    "Slots": 1,
+    "AegisName": "Full_Plate_Armor_",
+    "aegisName": "Full_Plate_Armor_",
+    "Type": "Armor",
+    "dbType": "Armor",
+    "Defense": 79,
+    "def": 79,
+    "ArmorLevel": 1,
+    "armorLevel": 1,
+    "EquipLevelMin": 70,
+    "equipLevelMin": 70,
+    "Jobs": {
+      "Crusader": true
+    },
+    "equipJobs": {
+      "Crusader": true
+    },
+    "Locations": {
+      "Armor": true
+    },
+    "locations": {
+      "Armor": true
+    },
+    "Refineable": true,
+    "refineable": true,
+    "slot": "armor",
+    "requiredLevel": 70
+  },
+  "2354": {
+    "id": 2354,
+    "officialId": 2354,
+    "name": "哥夫內的鎧甲",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "other",
+    "sellPrice": 25000,
+    "description": [
+      "打鐵匠人哥夫內在工作時喝的不老不死的麥酒, 不小心掉在鎧甲上所擁有特別能力的鎧甲",
+      "VIT+2 MHP+10%。",
+      "系列 : ^777777鎧甲^000000 防禦 :  ^77777758^000000",
+      "要求等級 : ^77777754^000000",
+      "裝備 : ^777777初學者以外的全職業^000000"
+    ],
+    "icon": "images/items/2354.webp",
+    "buyPrice": 50000,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 2354,
+    "Name": "哥夫內的鎧甲",
+    "Buy": 50000,
+    "Sell": 25000,
+    "Slots": 0,
+    "AegisName": "Goibne's_Armor",
+    "aegisName": "Goibne's_Armor",
+    "Type": "Armor",
+    "dbType": "Armor",
+    "Defense": 58,
+    "def": 58,
+    "ArmorLevel": 1,
+    "armorLevel": 1,
+    "EquipLevelMin": 54,
+    "equipLevelMin": 54,
+    "Jobs": {
+      "All": true,
+      "Novice": false,
+      "SuperNovice": false
+    },
+    "equipJobs": {
+      "All": true,
+      "Novice": false,
+      "SuperNovice": false
+    },
+    "Locations": {
+      "Armor": true
+    },
+    "locations": {
+      "Armor": true
+    },
+    "Refineable": true,
+    "refineable": true,
+    "Script": "bonus bVit,2;\nbonus bMaxHPrate,10;\n",
+    "scriptRaw": "bonus bVit,2;\nbonus bMaxHPrate,10;\n",
+    "slot": "armor",
+    "requiredLevel": 54
+  },
   "2355": {
     "id": 2355,
     "officialId": 2355,
@@ -10174,6 +11472,58 @@
     "refineable": true,
     "slot": "shoes"
   },
+  "2404": {
+    "id": 2404,
+    "officialId": 2404,
+    "name": "長靴",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "other",
+    "sellPrice": 1750,
+    "description": [
+      "保護到腳腕的長靴。",
+      "系列 : ^777777靴子^000000  防禦 :  ^77777710^000000",
+      "裝備 : ^777777初學者以外的全職業^000000"
+    ],
+    "icon": "images/items/2404.webp",
+    "buyPrice": 3500,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 2404,
+    "Name": "長靴",
+    "Buy": 3500,
+    "Sell": 1750,
+    "Slots": 1,
+    "AegisName": "Shoes_",
+    "aegisName": "Shoes_",
+    "Type": "Armor",
+    "dbType": "Armor",
+    "Defense": 10,
+    "def": 10,
+    "ArmorLevel": 1,
+    "armorLevel": 1,
+    "Jobs": {
+      "All": true,
+      "Novice": false,
+      "SuperNovice": false
+    },
+    "equipJobs": {
+      "All": true,
+      "Novice": false,
+      "SuperNovice": false
+    },
+    "Locations": {
+      "Shoes": true
+    },
+    "locations": {
+      "Shoes": true
+    },
+    "Refineable": true,
+    "refineable": true,
+    "slot": "shoes"
+  },
   "2406": {
     "id": 2406,
     "officialId": 2406,
@@ -10251,6 +11601,294 @@
     "Refineable": true,
     "refineable": true,
     "slot": "shoes"
+  },
+  "2407": {
+    "id": 2407,
+    "officialId": 2407,
+    "name": "玻璃鞋",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "other",
+    "sellPrice": 10,
+    "description": [
+      "用玻璃製作的玻璃鞋,不考慮實用性,只考慮美觀性的鞋子。",
+      "LUK+5 , MDEF+10。",
+      "系列 : ^777777靴子^000000  防禦 :  ^7777775^000000",
+      "裝備 : ^777777初學者以外的全職業^000000"
+    ],
+    "icon": "images/items/2407.webp",
+    "buyPrice": 20,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 2407,
+    "Name": "玻璃鞋",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 0,
+    "AegisName": "Chrystal_Pumps",
+    "aegisName": "Chrystal_Pumps",
+    "Type": "Armor",
+    "dbType": "Armor",
+    "Defense": 5,
+    "def": 5,
+    "ArmorLevel": 1,
+    "armorLevel": 1,
+    "Jobs": {
+      "All": true,
+      "Novice": false,
+      "SuperNovice": false
+    },
+    "equipJobs": {
+      "All": true,
+      "Novice": false,
+      "SuperNovice": false
+    },
+    "Locations": {
+      "Shoes": true
+    },
+    "locations": {
+      "Shoes": true
+    },
+    "Refineable": true,
+    "refineable": true,
+    "Script": "bonus bMdef,10;\nbonus bLuk,5;\n",
+    "scriptRaw": "bonus bMdef,10;\nbonus bLuk,5;\n",
+    "slot": "shoes"
+  },
+  "2412": {
+    "id": 2412,
+    "officialId": 2412,
+    "name": "重靴",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "other",
+    "sellPrice": 27000,
+    "description": [
+      "用鋼鐵製作而成,不考慮使用性和舒適感,先考慮到防禦力所製作成的靴子",
+      "系列 : ^777777靴子^000000 防禦 :  ^77777727^000000",
+      "要求等級 : ^77777765^000000",
+      "裝備 : ^777777騎士/十字軍^000000"
+    ],
+    "icon": "images/items/2412.webp",
+    "buyPrice": 54000,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 2412,
+    "Name": "重靴",
+    "Buy": 54000,
+    "Sell": 27000,
+    "Slots": 1,
+    "AegisName": "Grave_",
+    "aegisName": "Grave_",
+    "Type": "Armor",
+    "dbType": "Armor",
+    "Defense": 27,
+    "def": 27,
+    "ArmorLevel": 1,
+    "armorLevel": 1,
+    "EquipLevelMin": 65,
+    "equipLevelMin": 65,
+    "Jobs": {
+      "Crusader": true,
+      "Knight": true
+    },
+    "equipJobs": {
+      "Crusader": true,
+      "Knight": true
+    },
+    "Locations": {
+      "Shoes": true
+    },
+    "locations": {
+      "Shoes": true
+    },
+    "Refineable": true,
+    "refineable": true,
+    "slot": "shoes",
+    "requiredLevel": 65
+  },
+  "2417": {
+    "id": 2417,
+    "officialId": 2417,
+    "name": "傅里哥長靴",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "other",
+    "sellPrice": 15000,
+    "description": [
+      "妙勒德的兒子菲依, 對大地賦予祝福的靴子,菲依的祝福好像可以讓痛苦解放似的",
+      "紅、赤、黃、白色藥水效能+20%(除外纖細藥水類）, Agi+2。",
+      "和奧丁的祝福、獵鷹披肩一起裝備時Agi+3, MHP , MSP+5%.",
+      "系列 : ^777777靴子^000000 防禦 :  ^77777712^000000",
+      "要求等級 : ^77777765^000000",
+      "裝備 : ^777777除了初學者之外,全職業^000000"
+    ],
+    "icon": "images/items/2417.webp",
+    "buyPrice": 30000,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 2417,
+    "Name": "傅里哥長靴",
+    "Buy": 30000,
+    "Sell": 15000,
+    "Slots": 0,
+    "AegisName": "Fricco_Shoes",
+    "aegisName": "Fricco_Shoes",
+    "Type": "Armor",
+    "dbType": "Armor",
+    "Defense": 12,
+    "def": 12,
+    "ArmorLevel": 1,
+    "armorLevel": 1,
+    "EquipLevelMin": 65,
+    "equipLevelMin": 65,
+    "Jobs": {
+      "All": true,
+      "Novice": false,
+      "SuperNovice": false
+    },
+    "equipJobs": {
+      "All": true,
+      "Novice": false,
+      "SuperNovice": false
+    },
+    "Locations": {
+      "Shoes": true
+    },
+    "locations": {
+      "Shoes": true
+    },
+    "Refineable": true,
+    "refineable": true,
+    "Script": "bonus bAgi,2;\nbonus2 bAddItemGroupHealRate,IG_Potion,20;\n",
+    "scriptRaw": "bonus bAgi,2;\nbonus2 bAddItemGroupHealRate,IG_Potion,20;\n",
+    "slot": "shoes",
+    "requiredLevel": 65
+  },
+  "2418": {
+    "id": 2418,
+    "officialId": 2418,
+    "name": "迪塔樂長靴",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "other",
+    "sellPrice": 15000,
+    "description": [
+      "奧丁的兒子迪塔樂,把狼菲力勒殺死時所穿的靴子,裡面有菲力勒能承受的強烈的體力和精神力.",
+      "MHP, MSP+9%。",
+      "和奧丁的祝福、貝利的斗篷一起裝備時Vit+5, HP,SP恢復速度+10%。",
+      "系列 : ^777777靴子^000000 防禦 :  ^77777713^000000",
+      "要求等級 : ^77777765^000000",
+      "裝備 : ^777777除了初學者之外,全職業^000000"
+    ],
+    "icon": "images/items/2418.webp",
+    "buyPrice": 30000,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 2418,
+    "Name": "迪塔樂長靴",
+    "Buy": 30000,
+    "Sell": 15000,
+    "Slots": 0,
+    "AegisName": "Vidar's_Boots",
+    "aegisName": "Vidar's_Boots",
+    "Type": "Armor",
+    "dbType": "Armor",
+    "Defense": 13,
+    "def": 13,
+    "ArmorLevel": 1,
+    "armorLevel": 1,
+    "EquipLevelMin": 65,
+    "equipLevelMin": 65,
+    "Jobs": {
+      "All": true,
+      "Novice": false,
+      "SuperNovice": false
+    },
+    "equipJobs": {
+      "All": true,
+      "Novice": false,
+      "SuperNovice": false
+    },
+    "Locations": {
+      "Shoes": true
+    },
+    "locations": {
+      "Shoes": true
+    },
+    "Refineable": true,
+    "refineable": true,
+    "Script": "bonus bMaxHPrate,9;\nbonus bMaxSPrate,9;\n",
+    "scriptRaw": "bonus bMaxHPrate,9;\nbonus bMaxSPrate,9;\n",
+    "slot": "shoes",
+    "requiredLevel": 65
+  },
+  "2419": {
+    "id": 2419,
+    "officialId": 2419,
+    "name": "哥夫內軍靴",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "other",
+    "sellPrice": 15000,
+    "description": [
+      "哥夫內為了和死對手多芙下賭注,所製作出來的靴子",
+      "MHP+5%, MSP+5%。",
+      "系列 : ^777777靴子^000000 防禦 :  ^77777713^000000",
+      "要求等級 : ^77777754^000000",
+      "裝備 : ^777777初學者以外的全職業^000000"
+    ],
+    "icon": "images/items/2419.webp",
+    "buyPrice": 30000,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 2419,
+    "Name": "哥夫內軍靴",
+    "Buy": 30000,
+    "Sell": 15000,
+    "Slots": 0,
+    "AegisName": "Goibne's_Combat_Boots",
+    "aegisName": "Goibne's_Combat_Boots",
+    "Type": "Armor",
+    "dbType": "Armor",
+    "Defense": 13,
+    "def": 13,
+    "ArmorLevel": 1,
+    "armorLevel": 1,
+    "EquipLevelMin": 54,
+    "equipLevelMin": 54,
+    "Jobs": {
+      "All": true,
+      "Novice": false,
+      "SuperNovice": false
+    },
+    "equipJobs": {
+      "All": true,
+      "Novice": false,
+      "SuperNovice": false
+    },
+    "Locations": {
+      "Shoes": true
+    },
+    "locations": {
+      "Shoes": true
+    },
+    "Refineable": true,
+    "refineable": true,
+    "Script": "bonus bMdef,3;\nbonus bMaxHPrate,5;\nbonus bMaxSPrate,5;\n",
+    "scriptRaw": "bonus bMdef,3;\nbonus bMaxHPrate,5;\nbonus bMaxSPrate,5;\n",
+    "slot": "shoes",
+    "requiredLevel": 54
   },
   "2420": {
     "id": 2420,
@@ -10350,6 +11988,251 @@
     "Refineable": true,
     "refineable": true,
     "slot": "garment"
+  },
+  "2506": {
+    "id": 2506,
+    "officialId": 2506,
+    "name": "斗篷",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "other",
+    "sellPrice": 16000,
+    "description": [
+      "披在肩上輕便的外衣。",
+      "系列 : ^777777披肩^000000  防禦 :  ^77777713^000000",
+      "裝備 : ^777777劍士系列/商人系列/盜賊系列/跆拳/拳聖^000000"
+    ],
+    "icon": "images/items/2506.webp",
+    "buyPrice": 32000,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 2506,
+    "Name": "斗篷",
+    "Buy": 32000,
+    "Sell": 16000,
+    "Slots": 1,
+    "AegisName": "Manteau_",
+    "aegisName": "Manteau_",
+    "Type": "Armor",
+    "dbType": "Armor",
+    "Defense": 13,
+    "def": 13,
+    "ArmorLevel": 1,
+    "armorLevel": 1,
+    "Jobs": {
+      "Alchemist": true,
+      "Assassin": true,
+      "Blacksmith": true,
+      "Crusader": true,
+      "Knight": true,
+      "Merchant": true,
+      "Rogue": true,
+      "StarGladiator": true,
+      "Swordman": true,
+      "Taekwon": true,
+      "Thief": true
+    },
+    "equipJobs": {
+      "Alchemist": true,
+      "Assassin": true,
+      "Blacksmith": true,
+      "Crusader": true,
+      "Knight": true,
+      "Merchant": true,
+      "Rogue": true,
+      "StarGladiator": true,
+      "Swordman": true,
+      "Taekwon": true,
+      "Thief": true
+    },
+    "Locations": {
+      "Garment": true
+    },
+    "locations": {
+      "Garment": true
+    },
+    "Refineable": true,
+    "refineable": true,
+    "slot": "garment"
+  },
+  "2515": {
+    "id": 2515,
+    "officialId": 2515,
+    "name": "老鷹之翅膀",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "other",
+    "sellPrice": 10000,
+    "description": [
+      "可以從主神奧丁死亡的威脅中,逃跑時立大功的斗篷。",
+      "和羽翼之杖一起裝備時, 移動速度增加。",
+      "系列 : ^777777披肩^000000 防禦 :  ^77777712^000000",
+      "要求等級 : ^77777785^000000",
+      "裝備 : ^777777魔法師系列/悟靈士^000000"
+    ],
+    "icon": "images/items/2515.webp",
+    "buyPrice": 20000,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 2515,
+    "Name": "老鷹之翅膀",
+    "Buy": 20000,
+    "Sell": 10000,
+    "Slots": 1,
+    "AegisName": "Wing_Of_Eagle",
+    "aegisName": "Wing_Of_Eagle",
+    "Type": "Armor",
+    "dbType": "Armor",
+    "Defense": 12,
+    "def": 12,
+    "ArmorLevel": 1,
+    "armorLevel": 1,
+    "EquipLevelMin": 85,
+    "equipLevelMin": 85,
+    "Jobs": {
+      "Mage": true,
+      "Sage": true,
+      "SoulLinker": true,
+      "Wizard": true
+    },
+    "equipJobs": {
+      "Mage": true,
+      "Sage": true,
+      "SoulLinker": true,
+      "Wizard": true
+    },
+    "Locations": {
+      "Garment": true
+    },
+    "locations": {
+      "Garment": true
+    },
+    "Refineable": true,
+    "refineable": true,
+    "slot": "garment",
+    "requiredLevel": 85
+  },
+  "2519": {
+    "id": 2519,
+    "officialId": 2519,
+    "name": "茉莉雅娜斗篷",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "other",
+    "sellPrice": 15000,
+    "description": [
+      "有著灰色光芒烏鴉化身的茉莉雅娜權能, 用烏鴉羽毛所做的灰色斗篷。",
+      "完全迴避+8。",
+      "系列 : ^777777披肩^000000 防禦 :  ^7777779^000000",
+      "要求等級 : ^77777761^000000",
+      "裝備 : ^777777初學者以外的全職業^000000"
+    ],
+    "icon": "images/items/2519.webp",
+    "buyPrice": 30000,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 2519,
+    "Name": "茉莉雅娜斗篷",
+    "Buy": 30000,
+    "Sell": 15000,
+    "Slots": 0,
+    "AegisName": "Morrigane's_Manteau",
+    "aegisName": "Morrigane's_Manteau",
+    "Type": "Armor",
+    "dbType": "Armor",
+    "Defense": 9,
+    "def": 9,
+    "ArmorLevel": 1,
+    "armorLevel": 1,
+    "EquipLevelMin": 61,
+    "equipLevelMin": 61,
+    "Jobs": {
+      "All": true,
+      "Novice": false,
+      "SuperNovice": false
+    },
+    "equipJobs": {
+      "All": true,
+      "Novice": false,
+      "SuperNovice": false
+    },
+    "Locations": {
+      "Garment": true
+    },
+    "locations": {
+      "Garment": true
+    },
+    "Refineable": true,
+    "refineable": true,
+    "Script": "bonus bLuk,2;\nbonus bFlee2,8;\n",
+    "scriptRaw": "bonus bLuk,2;\nbonus bFlee2,8;\n",
+    "slot": "garment",
+    "requiredLevel": 61
+  },
+  "2520": {
+    "id": 2520,
+    "officialId": 2520,
+    "name": "哥夫內肩飾",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "other",
+    "sellPrice": 15000,
+    "description": [
+      "哥夫內第一次做的防具, 據說他非常珍惜這肩飾",
+      "遠距離物理攻擊減少傷害10%, MDEF+2。",
+      "系列 : ^777777披肩^000000 防禦 :  ^77777711^000000",
+      "要求等級 : ^77777754^000000",
+      "裝備 : ^777777初學者以外的全職業^000000"
+    ],
+    "icon": "images/items/2520.webp",
+    "buyPrice": 30000,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 2520,
+    "Name": "哥夫內肩飾",
+    "Buy": 30000,
+    "Sell": 15000,
+    "Slots": 0,
+    "AegisName": "Goibne's_Shoulder_Arms",
+    "aegisName": "Goibne's_Shoulder_Arms",
+    "Type": "Armor",
+    "dbType": "Armor",
+    "Defense": 11,
+    "def": 11,
+    "ArmorLevel": 1,
+    "armorLevel": 1,
+    "EquipLevelMin": 54,
+    "equipLevelMin": 54,
+    "Jobs": {
+      "All": true,
+      "Novice": false,
+      "SuperNovice": false
+    },
+    "equipJobs": {
+      "All": true,
+      "Novice": false,
+      "SuperNovice": false
+    },
+    "Locations": {
+      "Garment": true
+    },
+    "locations": {
+      "Garment": true
+    },
+    "Refineable": true,
+    "refineable": true,
+    "Script": "bonus bLongAtkDef,10;\nbonus bMdef,2;\nbonus bVit,1;\n",
+    "scriptRaw": "bonus bLongAtkDef,10;\nbonus bMdef,2;\nbonus bVit,1;\n",
+    "slot": "garment",
+    "requiredLevel": 54
   },
   "2531": {
     "id": 2531,
@@ -10488,6 +12371,44 @@
     "scriptRaw": "bonus bInt,2;\n",
     "requiredLevel": 20
   },
+  "2610": {
+    "id": 2610,
+    "officialId": 2610,
+    "name": "金戒指",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "other",
+    "sellPrice": 15000,
+    "description": [
+      "金製的戒指。",
+      "系列 : ^777777飾品^000000",
+      "防禦 :  ^7777770^000000  重量 : ^77777710^000000",
+      "裝備 : ^777777全職業^000000"
+    ],
+    "icon": "images/items/2610.webp",
+    "buyPrice": 30000,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 2610,
+    "Name": "金戒指",
+    "Buy": 30000,
+    "Sell": 15000,
+    "Slots": 0,
+    "AegisName": "Gold_Ring",
+    "aegisName": "Gold_Ring",
+    "Type": "Armor",
+    "dbType": "Armor",
+    "ArmorLevel": 1,
+    "armorLevel": 1,
+    "Locations": {
+      "Both_Accessory": true
+    },
+    "locations": {
+      "Both_Accessory": true
+    }
+  },
   "2621": {
     "id": 2621,
     "officialId": 2621,
@@ -10542,6 +12463,110 @@
     "Script": "bonus bStr,1;\n",
     "scriptRaw": "bonus bStr,1;\n",
     "requiredLevel": 90
+  },
+  "2626": {
+    "id": 2626,
+    "officialId": 2626,
+    "name": "幸運珠鏈",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "other",
+    "sellPrice": 7500,
+    "description": [
+      "古代的念珠",
+      "LUK+1 , MDEF+3。",
+      "系列 : ^777777飾品^000000",
+      "防禦 :  ^7777770^000000      重量 : ^77777720^000000",
+      "要求等級 : ^77777790^000000",
+      "裝備 : ^777777初學者以外的全職業^000000"
+    ],
+    "icon": "images/items/2626.webp",
+    "buyPrice": 15000,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 2626,
+    "Name": "幸運珠鏈",
+    "Buy": 15000,
+    "Sell": 7500,
+    "Slots": 1,
+    "AegisName": "Rosary_",
+    "aegisName": "Rosary_",
+    "Type": "Armor",
+    "dbType": "Armor",
+    "ArmorLevel": 1,
+    "armorLevel": 1,
+    "EquipLevelMin": 90,
+    "equipLevelMin": 90,
+    "Jobs": {
+      "All": true,
+      "Novice": false,
+      "SuperNovice": false
+    },
+    "equipJobs": {
+      "All": true,
+      "Novice": false,
+      "SuperNovice": false
+    },
+    "Locations": {
+      "Both_Accessory": true
+    },
+    "locations": {
+      "Both_Accessory": true
+    },
+    "Script": "bonus bMdef,3;\nbonus bLuk,1;\n",
+    "scriptRaw": "bonus bMdef,3;\nbonus bLuk,1;\n",
+    "requiredLevel": 90
+  },
+  "2655": {
+    "id": 2655,
+    "officialId": 2655,
+    "name": "血跡鐵球",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "other",
+    "sellPrice": 25000,
+    "description": [
+      "古時候對兇惡的罪人以控制他的行動,所做的腳鐐鐵球,不過那些罪人據說把那些鐵球當做自己的武器使用。",
+      "和腳鍊一起裝備時ATK+50, 對腐屍戰俘卡片、邪骸戰俘卡片-20%的傷害。",
+      "系列 : ^777777飾品^000000",
+      "防禦 :  ^7777770^000000      重量 : ^777777400^000000",
+      "裝備 : ^777777除了初學者之外,全職業^000000"
+    ],
+    "icon": "images/items/2655.webp",
+    "buyPrice": 50000,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 2655,
+    "Name": "血跡鐵球",
+    "Buy": 50000,
+    "Sell": 25000,
+    "Slots": 0,
+    "AegisName": "Bloody_Iron_Ball",
+    "aegisName": "Bloody_Iron_Ball",
+    "Type": "Armor",
+    "dbType": "Armor",
+    "ArmorLevel": 1,
+    "armorLevel": 1,
+    "Jobs": {
+      "All": true,
+      "Novice": false,
+      "SuperNovice": false
+    },
+    "equipJobs": {
+      "All": true,
+      "Novice": false,
+      "SuperNovice": false
+    },
+    "Locations": {
+      "Both_Accessory": true
+    },
+    "locations": {
+      "Both_Accessory": true
+    }
   },
   "2859": {
     "id": 2859,
@@ -13063,6 +15088,49 @@
     "unEquipScriptRaw": "heal 0,-5;\n",
     "cardTarget": []
   },
+  "4185": {
+    "id": 4185,
+    "officialId": 4185,
+    "name": "飛行魔書卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "sellPrice": 10,
+    "description": [
+      "INT+1,服事系列角色裝備時,INT+1,MDEF+1。",
+      "系列 : ^777777卡片^000000",
+      "裝備 : ^777777頭具^000000"
+    ],
+    "icon": "images/items/4185.webp",
+    "buyPrice": 20,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 4185,
+    "Name": "飛行魔書卡片",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 0,
+    "AegisName": "Rideword_Card",
+    "aegisName": "Rideword_Card",
+    "Type": "Card",
+    "dbType": "Card",
+    "Locations": {
+      "Head_Low": true,
+      "Head_Mid": true,
+      "Head_Top": true
+    },
+    "locations": {
+      "Head_Low": true,
+      "Head_Mid": true,
+      "Head_Top": true
+    },
+    "Script": "bonus bInt,1;\nif (BaseClass == Job_Acolyte) {\n   bonus bInt,1;\n   bonus bMdef,1;\n}\n",
+    "scriptRaw": "bonus bInt,1;\nif (BaseClass == Job_Acolyte) {\n   bonus bInt,1;\n   bonus bMdef,1;\n}\n",
+    "slot": "headTop",
+    "cardTarget": []
+  },
   "4186": {
     "id": 4186,
     "officialId": 4186,
@@ -13139,6 +15207,44 @@
     "Script": "bonus bLuk,1;\n",
     "scriptRaw": "bonus bLuk,1;\n",
     "slot": "garment",
+    "cardTarget": []
+  },
+  "4205": {
+    "id": 4205,
+    "officialId": 4205,
+    "name": "邪惡箱卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "sellPrice": 10,
+    "description": [
+      "每次擊殺怪物時,有機率會掉落神秘箱子。",
+      "系列 : ^777777卡片^000000",
+      "裝備 : ^777777飾品^000000"
+    ],
+    "icon": "images/items/4205.webp",
+    "buyPrice": 20,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 4205,
+    "Name": "邪惡箱卡片",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 0,
+    "AegisName": "Mimic_Card",
+    "aegisName": "Mimic_Card",
+    "Type": "Card",
+    "dbType": "Card",
+    "Locations": {
+      "Both_Accessory": true
+    },
+    "locations": {
+      "Both_Accessory": true
+    },
+    "Script": "bonus2 bAddMonsterDropItem,603,10;\n",
+    "scriptRaw": "bonus2 bAddMonsterDropItem,603,10;\n",
     "cardTarget": []
   },
   "4211": {
@@ -13257,6 +15363,83 @@
     "scriptRaw": "bonus3 bAddMonsterDropItem,12031,RC_Fish,100;\n",
     "cardTarget": []
   },
+  "4237": {
+    "id": 4237,
+    "officialId": 4237,
+    "name": "鴞裊首領卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "sellPrice": 10,
+    "description": [
+      "物理攻擊時,自動念咒有機率會對自己施展,神威祈福3技能。",
+      "鴞裊男爵卡片一起裝備時,物理攻擊時有機率自動念咒、雷擊術5技能。",
+      "系列 : ^777777卡片^000000",
+      "裝備 : ^777777飾品^000000"
+    ],
+    "icon": "images/items/4237.webp",
+    "buyPrice": 20,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 4237,
+    "Name": "鴞裊首領卡片",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 0,
+    "AegisName": "Owl_Duke_Card",
+    "aegisName": "Owl_Duke_Card",
+    "Type": "Card",
+    "dbType": "Card",
+    "Locations": {
+      "Both_Accessory": true
+    },
+    "locations": {
+      "Both_Accessory": true
+    },
+    "Script": "bonus3 bAutoSpell,\"PR_IMPOSITIO\",3,3;\n",
+    "scriptRaw": "bonus3 bAutoSpell,\"PR_IMPOSITIO\",3,3;\n",
+    "cardTarget": []
+  },
+  "4238": {
+    "id": 4238,
+    "officialId": 4238,
+    "name": "鴞裊男爵卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "sellPrice": 10,
+    "description": [
+      "物理攻擊時,自動念咒有機率,對敵人施展天使之怒1技能。",
+      "系列 : ^777777卡片^000000",
+      "裝備 : ^777777飾品^000000"
+    ],
+    "icon": "images/items/4238.webp",
+    "buyPrice": 20,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 4238,
+    "Name": "鴞裊男爵卡片",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 0,
+    "AegisName": "Owl_Baron_Card",
+    "aegisName": "Owl_Baron_Card",
+    "Type": "Card",
+    "dbType": "Card",
+    "Locations": {
+      "Both_Accessory": true
+    },
+    "locations": {
+      "Both_Accessory": true
+    },
+    "Script": "bonus3 bAutoSpell,\"PR_LEXAETERNA\",1,30;\n",
+    "scriptRaw": "bonus3 bAutoSpell,\"PR_LEXAETERNA\",1,30;\n",
+    "cardTarget": []
+  },
   "4241": {
     "id": 4241,
     "officialId": 4241,
@@ -13301,6 +15484,44 @@
     "slot": "headTop",
     "cardTarget": []
   },
+  "4251": {
+    "id": 4251,
+    "officialId": 4251,
+    "name": "邪靈魔導士卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "sellPrice": 10,
+    "description": [
+      "攻城時,給予監護人的傷害+40%。",
+      "系列 : ^777777卡片^000000",
+      "裝備 : ^777777武器^000000"
+    ],
+    "icon": "images/items/4251.webp",
+    "buyPrice": 20,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 4251,
+    "Name": "邪靈魔導士卡片",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 0,
+    "AegisName": "Elder_Card",
+    "aegisName": "Elder_Card",
+    "Type": "Card",
+    "dbType": "Card",
+    "Locations": {
+      "Right_Hand": true
+    },
+    "locations": {
+      "Right_Hand": true
+    },
+    "Script": "bonus2 bAddDamageClass,1285,40;\nbonus2 bAddDamageClass,1286,40;\nbonus2 bAddDamageClass,1287,40;\nbonus2 bAddDamageClass,1899,40;\nbonus2 bAddDamageClass,1900,40;\n",
+    "scriptRaw": "bonus2 bAddDamageClass,1285,40;\nbonus2 bAddDamageClass,1286,40;\nbonus2 bAddDamageClass,1287,40;\nbonus2 bAddDamageClass,1899,40;\nbonus2 bAddDamageClass,1900,40;\n",
+    "cardTarget": []
+  },
   "4252": {
     "id": 4252,
     "officialId": 4252,
@@ -13337,6 +15558,46 @@
     },
     "Script": "bonus bLongAtkDef,5;\n",
     "scriptRaw": "bonus bLongAtkDef,5;\n",
+    "cardTarget": []
+  },
+  "4253": {
+    "id": 4253,
+    "officialId": 4253,
+    "name": "愛麗絲女僕卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "sellPrice": 10,
+    "description": [
+      "受到首領階級的物理傷害-40%。",
+      "受到一般階級的物理傷害+40%。",
+      "系列 : ^777777卡片^000000",
+      "裝備 : ^777777盾牌^000000"
+    ],
+    "icon": "images/items/4253.webp",
+    "buyPrice": 20,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 4253,
+    "Name": "愛麗絲女僕卡片",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 0,
+    "AegisName": "Alice_Card",
+    "aegisName": "Alice_Card",
+    "Type": "Card",
+    "dbType": "Card",
+    "Locations": {
+      "Left_Hand": true
+    },
+    "locations": {
+      "Left_Hand": true
+    },
+    "Script": "bonus2 bSubClass,Class_Boss,40;\nbonus2 bSubClass,Class_Normal,-40;\n",
+    "scriptRaw": "bonus2 bSubClass,Class_Boss,40;\nbonus2 bSubClass,Class_Normal,-40;\n",
+    "slot": "shield",
     "cardTarget": []
   },
   "4255": {
@@ -14252,6 +16513,472 @@
     "scriptRaw": "bonus3 bAddMonsterDropItem,12063,RC_Formless,50;\n",
     "cardTarget": []
   },
+  "4387": {
+    "id": 4387,
+    "officialId": 4387,
+    "name": "狂暴邪惡箱卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "sellPrice": 10,
+    "description": [
+      "基本屬性LUK每18時,AGI+1。",
+      "系列 : ^777777卡片^000000",
+      "裝備 : ^777777鎧甲^000000"
+    ],
+    "icon": "images/items/4387.webp",
+    "buyPrice": 20,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 4387,
+    "Name": "狂暴邪惡箱卡片",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 0,
+    "AegisName": "Ancient_Mimic_Card",
+    "aegisName": "Ancient_Mimic_Card",
+    "Type": "Card",
+    "dbType": "Card",
+    "Locations": {
+      "Armor": true
+    },
+    "locations": {
+      "Armor": true
+    },
+    "Script": "bonus bAgi,readparam(bLuk)/18;\n",
+    "scriptRaw": "bonus bAgi,readparam(bLuk)/18;\n",
+    "slot": "armor",
+    "cardTarget": []
+  },
+  "4388": {
+    "id": 4388,
+    "officialId": 4388,
+    "name": "死亡魔書卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "sellPrice": 10,
+    "description": [
+      "心靈爆破、聖靈召喚、念力連擊傷害+5%,卸除裝備時,SP-50",
+      "系列 : ^777777卡片^000000",
+      "裝備 : ^777777武器^000000"
+    ],
+    "icon": "images/items/4388.webp",
+    "buyPrice": 20,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 4388,
+    "Name": "死亡魔書卡片",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 0,
+    "AegisName": "Deathword_Card",
+    "aegisName": "Deathword_Card",
+    "Type": "Card",
+    "dbType": "Card",
+    "Locations": {
+      "Right_Hand": true
+    },
+    "locations": {
+      "Right_Hand": true
+    },
+    "Script": "bonus2 bSkillAtk,\"MG_NAPALMBEAT\",5;\nbonus2 bSkillAtk,\"MG_SOULSTRIKE\",5;\nbonus2 bSkillAtk,\"HW_NAPALMVULCAN\",5;\n",
+    "scriptRaw": "bonus2 bSkillAtk,\"MG_NAPALMBEAT\",5;\nbonus2 bSkillAtk,\"MG_SOULSTRIKE\",5;\nbonus2 bSkillAtk,\"HW_NAPALMVULCAN\",5;\n",
+    "UnEquipScript": "heal 0,-50;\n",
+    "unEquipScriptRaw": "heal 0,-50;\n",
+    "cardTarget": []
+  },
+  "4389": {
+    "id": 4389,
+    "officialId": 4389,
+    "name": "黃色等離子體卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "sellPrice": 10,
+    "description": [
+      "怪物死亡時有機率掉落屬性抵抗藥水",
+      "系列 : ^777777卡片^000000",
+      "裝備 : ^777777飾品^000000"
+    ],
+    "icon": "images/items/4389.webp",
+    "buyPrice": 20,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 4389,
+    "Name": "黃色等離子體卡片",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 0,
+    "AegisName": "Plasma_Card",
+    "aegisName": "Plasma_Card",
+    "Type": "Card",
+    "dbType": "Card",
+    "Locations": {
+      "Both_Accessory": true
+    },
+    "locations": {
+      "Both_Accessory": true
+    },
+    "Script": "bonus2 bAddMonsterDropItem,12118,50;\nbonus2 bAddMonsterDropItem,12119,50;\nbonus2 bAddMonsterDropItem,12120,50;\nbonus2 bAddMonsterDropItem,12121,50;\n",
+    "scriptRaw": "bonus2 bAddMonsterDropItem,12118,50;\nbonus2 bAddMonsterDropItem,12119,50;\nbonus2 bAddMonsterDropItem,12120,50;\nbonus2 bAddMonsterDropItem,12121,50;\n",
+    "cardTarget": []
+  },
+  "4391": {
+    "id": 4391,
+    "officialId": 4391,
+    "name": "代行刑者卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "sellPrice": 10,
+    "description": [
+      "抓到天使型怪時,有機率掉落麻糖",
+      "系列 : ^777777卡片^000000",
+      "裝備 : ^777777飾品^000000"
+    ],
+    "icon": "images/items/4391.webp",
+    "buyPrice": 20,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 4391,
+    "Name": "代行刑者卡片",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 0,
+    "AegisName": "Retribution_Card",
+    "aegisName": "Retribution_Card",
+    "Type": "Card",
+    "dbType": "Card",
+    "Locations": {
+      "Both_Accessory": true
+    },
+    "locations": {
+      "Both_Accessory": true
+    },
+    "Script": "bonus3 bAddMonsterDropItem,12068,RC_Angel,50;\n",
+    "scriptRaw": "bonus3 bAddMonsterDropItem,12068,RC_Angel,50;\n",
+    "cardTarget": []
+  },
+  "4392": {
+    "id": 4392,
+    "officialId": 4392,
+    "name": "監視者卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "sellPrice": 10,
+    "description": [
+      "基本屬性VIT每18時,DEX+1。",
+      "系列 : ^777777卡片^000000",
+      "裝備 : ^777777鎧甲^000000"
+    ],
+    "icon": "images/items/4392.webp",
+    "buyPrice": 20,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 4392,
+    "Name": "監視者卡片",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 0,
+    "AegisName": "Observation_Card",
+    "aegisName": "Observation_Card",
+    "Type": "Card",
+    "dbType": "Card",
+    "Locations": {
+      "Armor": true
+    },
+    "locations": {
+      "Armor": true
+    },
+    "Script": "bonus bDex,readparam(bVit)/18;\n",
+    "scriptRaw": "bonus bDex,readparam(bVit)/18;\n",
+    "slot": "armor",
+    "cardTarget": []
+  },
+  "4393": {
+    "id": 4393,
+    "officialId": 4393,
+    "name": "安息者卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "sellPrice": 10,
+    "description": [
+      "基本屬性STR每18時,INT+1。",
+      "系列 : ^777777卡片^000000",
+      "裝備 : ^777777鎧甲^000000"
+    ],
+    "icon": "images/items/4393.webp",
+    "buyPrice": 20,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 4393,
+    "Name": "安息者卡片",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 0,
+    "AegisName": "Shelter_Card",
+    "aegisName": "Shelter_Card",
+    "Type": "Card",
+    "dbType": "Card",
+    "Locations": {
+      "Armor": true
+    },
+    "locations": {
+      "Armor": true
+    },
+    "Script": "bonus bInt,readparam(bStr)/18;\n",
+    "scriptRaw": "bonus bInt,readparam(bStr)/18;\n",
+    "slot": "armor",
+    "cardTarget": []
+  },
+  "4394": {
+    "id": 4394,
+    "officialId": 4394,
+    "name": "慰勞者卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "sellPrice": 10,
+    "description": [
+      "祭司裝備時,當物理攻擊時有機率觸發自動念咒、聖十字審判5技能",
+      "系列 : ^777777卡片^000000",
+      "裝備 : ^777777武器^000000"
+    ],
+    "icon": "images/items/4394.webp",
+    "buyPrice": 20,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 4394,
+    "Name": "慰勞者卡片",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 0,
+    "AegisName": "Solace_Card",
+    "aegisName": "Solace_Card",
+    "Type": "Card",
+    "dbType": "Card",
+    "Locations": {
+      "Right_Hand": true
+    },
+    "locations": {
+      "Right_Hand": true
+    },
+    "Script": "if (BaseJob == Job_Priest)\n   bonus3 bAutoSpell,\"CR_GRANDCROSS\",5,20;\n",
+    "scriptRaw": "if (BaseJob == Job_Priest)\n   bonus3 bAutoSpell,\"CR_GRANDCROSS\",5,20;\n",
+    "cardTarget": []
+  },
+  "4395": {
+    "id": 4395,
+    "officialId": 4395,
+    "name": "達納托斯的悲哀卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "sellPrice": 10,
+    "description": [
+      "ATK+5。",
+      "物理攻擊時,有機率施展自動念咒、緩速術Lv.3",
+      "系列 : ^777777卡片^000000",
+      "裝備 : ^777777武器^000000"
+    ],
+    "icon": "images/items/4395.webp",
+    "buyPrice": 20,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 4395,
+    "Name": "達納托斯的悲哀卡片",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 0,
+    "AegisName": "Tha_Maero_Card",
+    "aegisName": "Tha_Maero_Card",
+    "Type": "Card",
+    "dbType": "Card",
+    "Locations": {
+      "Right_Hand": true
+    },
+    "locations": {
+      "Right_Hand": true
+    },
+    "Script": "bonus bBaseAtk,5;\nbonus3 bAutoSpell,\"AL_DECAGI\",3,50;\n",
+    "scriptRaw": "bonus bBaseAtk,5;\nbonus3 bAutoSpell,\"AL_DECAGI\",3,50;\n",
+    "cardTarget": []
+  },
+  "4396": {
+    "id": 4396,
+    "officialId": 4396,
+    "name": "達納托斯的憎恨卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "sellPrice": 10,
+    "description": [
+      "AGI-5, 依據精煉值的不同AGI會增加",
+      "系列 : ^777777卡片^000000",
+      "裝備 : ^777777靴子^000000"
+    ],
+    "icon": "images/items/4396.webp",
+    "buyPrice": 20,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 4396,
+    "Name": "達納托斯的憎恨卡片",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 0,
+    "AegisName": "Tha_Odium_Card",
+    "aegisName": "Tha_Odium_Card",
+    "Type": "Card",
+    "dbType": "Card",
+    "Locations": {
+      "Shoes": true
+    },
+    "locations": {
+      "Shoes": true
+    },
+    "Script": "bonus bAgi,getrefine()-5;\n",
+    "scriptRaw": "bonus bAgi,getrefine()-5;\n",
+    "slot": "shoes",
+    "cardTarget": []
+  },
+  "4397": {
+    "id": 4397,
+    "officialId": 4397,
+    "name": "達納托斯的絕望卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "sellPrice": 10,
+    "description": [
+      "INT-6, 依據精煉值的不同INT會增加",
+      "系列 : ^777777卡片^000000",
+      "裝備 : ^777777盾牌^000000"
+    ],
+    "icon": "images/items/4397.webp",
+    "buyPrice": 20,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 4397,
+    "Name": "達納托斯的絕望卡片",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 0,
+    "AegisName": "Tha_Despero_Card",
+    "aegisName": "Tha_Despero_Card",
+    "Type": "Card",
+    "dbType": "Card",
+    "Locations": {
+      "Left_Hand": true
+    },
+    "locations": {
+      "Left_Hand": true
+    },
+    "Script": "bonus bInt,getrefine()-6;\n",
+    "scriptRaw": "bonus bInt,getrefine()-6;\n",
+    "slot": "shield",
+    "cardTarget": []
+  },
+  "4398": {
+    "id": 4398,
+    "officialId": 4398,
+    "name": "達納托斯的苦惱卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "sellPrice": 10,
+    "description": [
+      "魔法攻擊時,對於天使型的敵人+10% 的魔法傷害。",
+      "系列 : ^777777卡片^000000",
+      "裝備 : ^777777武器^000000"
+    ],
+    "icon": "images/items/4398.webp",
+    "buyPrice": 20,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 4398,
+    "Name": "達納托斯的苦惱卡片",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 0,
+    "AegisName": "Tha_Dolor_Card",
+    "aegisName": "Tha_Dolor_Card",
+    "Type": "Card",
+    "dbType": "Card",
+    "Locations": {
+      "Right_Hand": true
+    },
+    "locations": {
+      "Right_Hand": true
+    },
+    "Script": "bonus2 bMagicAddRace,RC_Angel,10;\n",
+    "scriptRaw": "bonus2 bMagicAddRace,RC_Angel,10;\n",
+    "cardTarget": []
+  },
+  "4399": {
+    "id": 4399,
+    "officialId": 4399,
+    "name": "魔劍士 達納托斯的記憶卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "sellPrice": 10,
+    "description": [
+      "在武器上賦予浸透勁效果。",
+      "每次攻擊時,SP消耗 1。",
+      "DEF-30、FLEE-30。",
+      "系列 : ^777777卡片^000000",
+      "裝備 : ^777777武器^000000"
+    ],
+    "icon": "images/items/4399.webp",
+    "buyPrice": 20,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 4399,
+    "Name": "魔劍士 達納托斯的記憶卡片",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 0,
+    "AegisName": "Thanatos_Card",
+    "aegisName": "Thanatos_Card",
+    "Type": "Card",
+    "dbType": "Card",
+    "Locations": {
+      "Right_Hand": true
+    },
+    "locations": {
+      "Right_Hand": true
+    },
+    "Script": "bonus bDefRatioAtkClass,Class_All;\nbonus bSPDrainValue,-1;\nbonus bDef,-30;\nbonus bFlee,-30;\n",
+    "scriptRaw": "bonus bDefRatioAtkClass,Class_All;\nbonus bSPDrainValue,-1;\nbonus bDef,-30;\nbonus bFlee,-30;\n",
+    "cardTarget": []
+  },
   "4420": {
     "id": 4420,
     "officialId": 4420,
@@ -14633,6 +17360,123 @@
     "slot": "headTop",
     "requiredLevel": 5
   },
+  "5045": {
+    "id": 5045,
+    "officialId": 5045,
+    "name": "魔術師帽",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "other",
+    "sellPrice": 10,
+    "description": [
+      "把手放進去可能會繃出一隻小白兔的魔術師帽子, 質地夠堅固不易破損。",
+      "DEX+1 , AGI+1 , SP+50",
+      "系列 : ^777777頭具^000000 防禦 :  ^7777776^000000",
+      "位置 : ^777777頭上^000000 重量 : ^77777750^000000",
+      "要求等級 : ^77777750^000000",
+      "裝備 : ^777777魔法師系列/服事系列/悟靈士^000000"
+    ],
+    "icon": "images/items/5045.webp",
+    "buyPrice": 20,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 130,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 5045,
+    "Name": "魔術師帽",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 0,
+    "AegisName": "Magician_Hat",
+    "aegisName": "Magician_Hat",
+    "Type": "Armor",
+    "dbType": "Armor",
+    "Defense": 6,
+    "def": 6,
+    "ArmorLevel": 1,
+    "armorLevel": 1,
+    "EquipLevelMin": 50,
+    "equipLevelMin": 50,
+    "Jobs": {
+      "Acolyte": true,
+      "Mage": true,
+      "Monk": true,
+      "Priest": true,
+      "Sage": true,
+      "SoulLinker": true,
+      "Wizard": true
+    },
+    "equipJobs": {
+      "Acolyte": true,
+      "Mage": true,
+      "Monk": true,
+      "Priest": true,
+      "Sage": true,
+      "SoulLinker": true,
+      "Wizard": true
+    },
+    "Locations": {
+      "Head_Top": true
+    },
+    "locations": {
+      "Head_Top": true
+    },
+    "Refineable": true,
+    "refineable": true,
+    "View": 130,
+    "viewId": 130,
+    "Script": "bonus bDex,1;\nbonus bAgi,1;\nbonus bMaxSP,50;\n",
+    "scriptRaw": "bonus bDex,1;\nbonus bAgi,1;\nbonus bMaxSP,50;\n",
+    "slot": "headTop",
+    "requiredLevel": 50
+  },
+  "5085": {
+    "id": 5085,
+    "officialId": 5085,
+    "name": "紅色小髮帶",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "other",
+    "sellPrice": 10,
+    "description": [
+      "以紅色為重點的一對小髮帶,可以讓女孩子裝扮的更可愛。",
+      "系列 : ^777777頭具^000000 防禦 :  ^7777772^000000",
+      "位置 : ^777777頭中^000000 重量 : ^77777710^000000",
+      "要求等級 : ^77777745^000000",
+      "裝備 : ^777777所有職業(女性專用)^000000"
+    ],
+    "icon": "images/items/5085.webp",
+    "buyPrice": 20,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 169,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 5085,
+    "Name": "紅色小髮帶",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 0,
+    "AegisName": "Pair_Of_Red_Ribbon",
+    "aegisName": "Pair_Of_Red_Ribbon",
+    "Type": "Armor",
+    "dbType": "Armor",
+    "Defense": 2,
+    "def": 2,
+    "ArmorLevel": 1,
+    "armorLevel": 1,
+    "EquipLevelMin": 45,
+    "equipLevelMin": 45,
+    "Locations": {
+      "Head_Mid": true
+    },
+    "locations": {
+      "Head_Mid": true
+    },
+    "View": 169,
+    "viewId": 169,
+    "slot": "headMid",
+    "requiredLevel": 45
+  },
   "5090": {
     "id": 5090,
     "officialId": 5090,
@@ -14939,6 +17783,69 @@
     "slot": "headTop",
     "requiredLevel": 50
   },
+  "5128": {
+    "id": 5128,
+    "officialId": 5128,
+    "name": "哥夫內的頭具",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "other",
+    "sellPrice": 15000,
+    "description": [
+      "這是主要做武器的哥夫內,沒幾個防具中的其中之一個,神們對哥夫內的防具給予比武器更好的評價",
+      "VIT+3,MDEF+3。",
+      "把哥夫內的套裝全部裝備時, VIT+5,MHP+15%, MSP+5%, DEF+5,MDEF+15, 對水、風、地、火屬性-10%。",
+      "系列 : ^777777頭具^000000 防禦 :  ^77777710^000000",
+      "位置 : ^777777頭上^000000 重量 : ^77777750^000000",
+      "要求等級 : ^77777754^000000",
+      "裝備 : ^777777初學者以外的全職業^000000"
+    ],
+    "icon": "images/items/5128.webp",
+    "buyPrice": 30000,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 258,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 5128,
+    "Name": "哥夫內的頭具",
+    "Buy": 30000,
+    "Sell": 15000,
+    "Slots": 0,
+    "AegisName": "Goibne's_Helmet",
+    "aegisName": "Goibne's_Helmet",
+    "Type": "Armor",
+    "dbType": "Armor",
+    "Defense": 10,
+    "def": 10,
+    "ArmorLevel": 1,
+    "armorLevel": 1,
+    "EquipLevelMin": 54,
+    "equipLevelMin": 54,
+    "Jobs": {
+      "All": true,
+      "Novice": false,
+      "SuperNovice": false
+    },
+    "equipJobs": {
+      "All": true,
+      "Novice": false,
+      "SuperNovice": false
+    },
+    "Locations": {
+      "Head_Top": true
+    },
+    "locations": {
+      "Head_Top": true
+    },
+    "Refineable": true,
+    "refineable": true,
+    "View": 258,
+    "viewId": 258,
+    "Script": "bonus bVit,3;\nbonus bMdef,3;\n",
+    "scriptRaw": "bonus bVit,3;\nbonus bMdef,3;\n",
+    "slot": "headTop",
+    "requiredLevel": 54
+  },
   "6217": {
     "id": 6217,
     "officialId": 6217,
@@ -15182,6 +18089,33 @@
     "Type": "Etc",
     "dbType": "Etc"
   },
+  "7005": {
+    "id": 7005,
+    "officialId": 7005,
+    "name": "骷髏頭",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "material",
+    "sellPrice": 522,
+    "description": [
+      "死人的骷髏頭。可向收集商人購買。"
+    ],
+    "icon": "images/items/7005.webp",
+    "buyPrice": 1044,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 7005,
+    "Name": "骷髏頭",
+    "Buy": 1044,
+    "Sell": 522,
+    "Slots": 0,
+    "AegisName": "Skull",
+    "aegisName": "Skull",
+    "Type": "Etc",
+    "dbType": "Etc"
+  },
   "7011": {
     "id": 7011,
     "officialId": 7011,
@@ -15206,6 +18140,33 @@
     "Slots": 0,
     "AegisName": "Claw_Of_Monkey",
     "aegisName": "Claw_Of_Monkey",
+    "Type": "Etc",
+    "dbType": "Etc"
+  },
+  "7015": {
+    "id": 7015,
+    "officialId": 7015,
+    "name": "回憶書籤",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "material",
+    "sellPrice": 1500,
+    "description": [
+      "以落葉製成的書籤。裡頭似乎充滿了它的主人的許多回憶…"
+    ],
+    "icon": "images/items/7015.webp",
+    "buyPrice": 3000,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 7015,
+    "Name": "回憶書籤",
+    "Buy": 3000,
+    "Sell": 1500,
+    "Slots": 0,
+    "AegisName": "Bookclip_In_Memory",
+    "aegisName": "Bookclip_In_Memory",
     "Type": "Etc",
     "dbType": "Etc"
   },
@@ -15287,6 +18248,33 @@
     "Slots": 0,
     "AegisName": "Blade_Lost_In_Darkness",
     "aegisName": "Blade_Lost_In_Darkness",
+    "Type": "Etc",
+    "dbType": "Etc"
+  },
+  "7027": {
+    "id": 7027,
+    "officialId": 7027,
+    "name": "鐘塔鑰匙",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "material",
+    "sellPrice": 50,
+    "description": [
+      "可開啟鐘塔的門的鑰匙。"
+    ],
+    "icon": "images/items/7027.webp",
+    "buyPrice": 100,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 7027,
+    "Name": "鐘塔鑰匙",
+    "Buy": 100,
+    "Sell": 50,
+    "Slots": 0,
+    "AegisName": "Underground_Key",
+    "aegisName": "Underground_Key",
     "Type": "Etc",
     "dbType": "Etc"
   },
@@ -15425,6 +18413,33 @@
     "Type": "Etc",
     "dbType": "Etc"
   },
+  "7047": {
+    "id": 7047,
+    "officialId": 7047,
+    "name": "愛麗絲的圍裙",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "material",
+    "sellPrice": 1212,
+    "description": [
+      "愛麗斯的圍裙,可賣給蒐集品商人"
+    ],
+    "icon": "images/items/7047.webp",
+    "buyPrice": 2424,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 7047,
+    "Name": "愛麗絲的圍裙",
+    "Buy": 2424,
+    "Sell": 1212,
+    "Slots": 0,
+    "AegisName": "Alice's_Apron",
+    "aegisName": "Alice's_Apron",
+    "Type": "Etc",
+    "dbType": "Etc"
+  },
   "7049": {
     "id": 7049,
     "officialId": 7049,
@@ -15506,6 +18521,33 @@
     "Type": "Etc",
     "dbType": "Etc"
   },
+  "7063": {
+    "id": 7063,
+    "officialId": 7063,
+    "name": "柔軟的羽毛",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "material",
+    "sellPrice": 140,
+    "description": [
+      "在凌晨不想起床的時候,類似溫暖的被窩圍繞在自己身邊, 有著誘惑魔力的羽毛"
+    ],
+    "icon": "images/items/7063.webp",
+    "buyPrice": 280,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 7063,
+    "Name": "柔軟的羽毛",
+    "Buy": 280,
+    "Sell": 140,
+    "Slots": 0,
+    "AegisName": "Soft_Feather",
+    "aegisName": "Soft_Feather",
+    "Type": "Etc",
+    "dbType": "Etc"
+  },
   "7065": {
     "id": 7065,
     "officialId": 7065,
@@ -15533,6 +18575,33 @@
     "Type": "Etc",
     "dbType": "Etc"
   },
+  "7071": {
+    "id": 7071,
+    "officialId": 7071,
+    "name": "破爛爛的衣服",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "material",
+    "sellPrice": 640,
+    "description": [
+      "都已經是破爛爛的衣服了,不知道誰會來購買,不過賣的還不錯。"
+    ],
+    "icon": "images/items/7071.webp",
+    "buyPrice": 1280,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 7071,
+    "Name": "破爛爛的衣服",
+    "Buy": 1280,
+    "Sell": 640,
+    "Slots": 0,
+    "AegisName": "Tatters_Clothes",
+    "aegisName": "Tatters_Clothes",
+    "Type": "Etc",
+    "dbType": "Etc"
+  },
   "7097": {
     "id": 7097,
     "officialId": 7097,
@@ -15557,6 +18626,33 @@
     "Slots": 0,
     "AegisName": "Burning_Heart",
     "aegisName": "Burning_Heart",
+    "Type": "Etc",
+    "dbType": "Etc"
+  },
+  "7099": {
+    "id": 7099,
+    "officialId": 7099,
+    "name": "老舊魔法圖",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "material",
+    "sellPrice": 386,
+    "description": [
+      "太破舊了無法得知以什麼目的所做成的魔法圖, 據說在魔法學會裡願意以高價買進。"
+    ],
+    "icon": "images/items/7099.webp",
+    "buyPrice": 773,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 7099,
+    "Name": "老舊魔法圖",
+    "Buy": 773,
+    "Sell": 386,
+    "Slots": 0,
+    "AegisName": "Old_Magic_Circle",
+    "aegisName": "Old_Magic_Circle",
     "Type": "Etc",
     "dbType": "Etc"
   },
@@ -15719,6 +18815,33 @@
     "Slots": 0,
     "AegisName": "Harpy's_Claw",
     "aegisName": "Harpy's_Claw",
+    "Type": "Etc",
+    "dbType": "Etc"
+  },
+  "7117": {
+    "id": 7117,
+    "officialId": 7117,
+    "name": "撕裂的魔法書",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "material",
+    "sellPrice": 571,
+    "description": [
+      "算是魔法師生命的魔法書,已經被撕掉的書,不知道主人是誰,書本裡面的內容已經毀損的很厲害"
+    ],
+    "icon": "images/items/7117.webp",
+    "buyPrice": 1142,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 7117,
+    "Name": "撕裂的魔法書",
+    "Buy": 1142,
+    "Sell": 571,
+    "Slots": 0,
+    "AegisName": "Rent_Spell_Book",
+    "aegisName": "Rent_Spell_Book",
     "Type": "Etc",
     "dbType": "Etc"
   },
@@ -16294,6 +19417,276 @@
     "Type": "Etc",
     "dbType": "Etc"
   },
+  "7435": {
+    "id": 7435,
+    "officialId": 7435,
+    "name": "金色手環",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "material",
+    "sellPrice": 953,
+    "description": [
+      "金光閃閃優美的裝飾具,高級又時尚的紋路,似乎不是由人類所製成的."
+    ],
+    "icon": "images/items/7435.webp",
+    "buyPrice": 1907,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 7435,
+    "Name": "金色手環",
+    "Buy": 1907,
+    "Sell": 953,
+    "Slots": 0,
+    "AegisName": "Golden_Bracelet",
+    "aegisName": "Golden_Bracelet",
+    "Type": "Etc",
+    "dbType": "Etc"
+  },
+  "7436": {
+    "id": 7436,
+    "officialId": 7436,
+    "name": "苦惱的碎片",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "material",
+    "sellPrice": 753,
+    "description": [
+      "由強烈的(邪)思念體所形成的物品,感覺到'苦惱的心情'"
+    ],
+    "icon": "images/items/7436.webp",
+    "buyPrice": 1506,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 7436,
+    "Name": "苦惱的碎片",
+    "Buy": 1506,
+    "Sell": 753,
+    "Slots": 0,
+    "AegisName": "Piece_Of_Memory_Green",
+    "aegisName": "Piece_Of_Memory_Green",
+    "Type": "Etc",
+    "dbType": "Etc"
+  },
+  "7437": {
+    "id": 7437,
+    "officialId": 7437,
+    "name": "悲哀的碎片",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "material",
+    "sellPrice": 753,
+    "description": [
+      "由強烈的(邪)思念體所形成的物品,感覺到'悲哀的心情'"
+    ],
+    "icon": "images/items/7437.webp",
+    "buyPrice": 1506,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 7437,
+    "Name": "悲哀的碎片",
+    "Buy": 1506,
+    "Sell": 753,
+    "Slots": 0,
+    "AegisName": "Piece_Of_Memory_Purple",
+    "aegisName": "Piece_Of_Memory_Purple",
+    "Type": "Etc",
+    "dbType": "Etc"
+  },
+  "7438": {
+    "id": 7438,
+    "officialId": 7438,
+    "name": "憎恨的碎片",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "material",
+    "sellPrice": 753,
+    "description": [
+      "由強烈的(邪)思念體所形成的物品,感覺到'憎恨的心情'"
+    ],
+    "icon": "images/items/7438.webp",
+    "buyPrice": 1506,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 7438,
+    "Name": "憎恨的碎片",
+    "Buy": 1506,
+    "Sell": 753,
+    "Slots": 0,
+    "AegisName": "Piece_Of_Memory_Blue",
+    "aegisName": "Piece_Of_Memory_Blue",
+    "Type": "Etc",
+    "dbType": "Etc"
+  },
+  "7439": {
+    "id": 7439,
+    "officialId": 7439,
+    "name": "絕望的碎片",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "material",
+    "sellPrice": 753,
+    "description": [
+      "由強烈的(邪)思念體所形成的物品,感覺到'絕望的心情'"
+    ],
+    "icon": "images/items/7439.webp",
+    "buyPrice": 1506,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 7439,
+    "Name": "絕望的碎片",
+    "Buy": 1506,
+    "Sell": 753,
+    "Slots": 0,
+    "AegisName": "Piece_Of_Memory_Red",
+    "aegisName": "Piece_Of_Memory_Red",
+    "Type": "Etc",
+    "dbType": "Etc"
+  },
+  "7440": {
+    "id": 7440,
+    "officialId": 7440,
+    "name": "紅色羽毛",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "material",
+    "sellPrice": 667,
+    "description": [
+      "紅光閃閃,屬於大型的白翼羽毛,輕盈又柔軟."
+    ],
+    "icon": "images/items/7440.webp",
+    "buyPrice": 1335,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 7440,
+    "Name": "紅色羽毛",
+    "Buy": 1335,
+    "Sell": 667,
+    "Slots": 0,
+    "AegisName": "Red_Feather",
+    "aegisName": "Red_Feather",
+    "Type": "Etc",
+    "dbType": "Etc"
+  },
+  "7441": {
+    "id": 7441,
+    "officialId": 7441,
+    "name": "藍色羽毛",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "material",
+    "sellPrice": 704,
+    "description": [
+      "藍光閃閃,屬於大型的白翼羽毛,輕盈又柔軟."
+    ],
+    "icon": "images/items/7441.webp",
+    "buyPrice": 1408,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 7441,
+    "Name": "藍色羽毛",
+    "Buy": 1408,
+    "Sell": 704,
+    "Slots": 0,
+    "AegisName": "Blue_Feather",
+    "aegisName": "Blue_Feather",
+    "Type": "Etc",
+    "dbType": "Etc"
+  },
+  "7442": {
+    "id": 7442,
+    "officialId": 7442,
+    "name": "受詛咒的印",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "material",
+    "sellPrice": 666,
+    "description": [
+      "暗黑色的心臟上畫有赤色血液的印記."
+    ],
+    "icon": "images/items/7442.webp",
+    "buyPrice": 1332,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 7442,
+    "Name": "受詛咒的印",
+    "Buy": 1332,
+    "Sell": 666,
+    "Slots": 0,
+    "AegisName": "Cursed_Seal",
+    "aegisName": "Cursed_Seal",
+    "Type": "Etc",
+    "dbType": "Etc"
+  },
+  "7449": {
+    "id": 7449,
+    "officialId": 7449,
+    "name": "血跡書頁",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "material",
+    "sellPrice": 340,
+    "description": [
+      "黏著古老又乾涸血跡的斑黑之破舊書頁."
+    ],
+    "icon": "images/items/7449.webp",
+    "buyPrice": 681,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 7449,
+    "Name": "血跡書頁",
+    "Buy": 681,
+    "Sell": 340,
+    "Slots": 0,
+    "AegisName": "Bloody_Page",
+    "aegisName": "Bloody_Page",
+    "Type": "Etc",
+    "dbType": "Etc"
+  },
+  "7450": {
+    "id": 7450,
+    "officialId": 7450,
+    "name": "骷髏鎧甲的一角",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "material",
+    "sellPrice": 1025,
+    "description": [
+      "是魔劍士堅固的鎧甲之碎片."
+    ],
+    "icon": "images/items/7450.webp",
+    "buyPrice": 2050,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 7450,
+    "Name": "骷髏鎧甲的一角",
+    "Buy": 2050,
+    "Sell": 1025,
+    "Slots": 0,
+    "AegisName": "Piece_Of_Bone_Armor",
+    "aegisName": "Piece_Of_Bone_Armor",
+    "Type": "Etc",
+    "dbType": "Etc"
+  },
   "7477": {
     "id": 7477,
     "officialId": 7477,
@@ -16319,6 +19712,62 @@
     "Slots": 0,
     "AegisName": "Cookbook06",
     "aegisName": "Cookbook06",
+    "Type": "Etc",
+    "dbType": "Etc"
+  },
+  "7479": {
+    "id": 7479,
+    "officialId": 7479,
+    "name": "8等料理書",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "material",
+    "sellPrice": 500,
+    "description": [
+      "封面寫著\"\"目前有一位流浪於盧恩--米德加茲王國的廚師..!!-感人肺腑的料理傳授敘述詩 -\"\" 的字句, 是本令人印象深刻的書.",
+      "紀載著所有8等料理的收據."
+    ],
+    "icon": "images/items/7479.webp",
+    "buyPrice": 1000,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 7479,
+    "Name": "8等料理書",
+    "Buy": 1000,
+    "Sell": 500,
+    "Slots": 0,
+    "AegisName": "Cookbook08",
+    "aegisName": "Cookbook08",
+    "Type": "Etc",
+    "dbType": "Etc"
+  },
+  "7480": {
+    "id": 7480,
+    "officialId": 7480,
+    "name": "9等料理書",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "material",
+    "sellPrice": 500,
+    "description": [
+      "封面寫著\"\"為了嘗試烹調被禁止之傳說料理, 造成自己和弟弟都失去味覺之廚師悽涼的旅程\"\" 的字句, 是本令人印象深刻的書.",
+      "紀載著所有9等料理的收據."
+    ],
+    "icon": "images/items/7480.webp",
+    "buyPrice": 1000,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 7480,
+    "Name": "9等料理書",
+    "Buy": 1000,
+    "Sell": 500,
+    "Slots": 0,
+    "AegisName": "Cookbook09",
+    "aegisName": "Cookbook09",
     "Type": "Etc",
     "dbType": "Etc"
   },
@@ -16679,6 +20128,33 @@
     "Type": "Petarmor",
     "dbType": "Petarmor"
   },
+  "11003": {
+    "id": 11003,
+    "officialId": 11003,
+    "name": "世紀末卡普拉傳說1集",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "material",
+    "sellPrice": 4000,
+    "description": [
+      "在RO月刊裡非常暢銷連載的小偷用儒生的最新作, 依據卡普拉服務為背景展開另外服務業的世界"
+    ],
+    "icon": "images/items/11003.webp",
+    "buyPrice": 8000,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 11003,
+    "Name": "世紀末卡普拉傳說1集",
+    "Buy": 8000,
+    "Sell": 4000,
+    "Slots": 0,
+    "AegisName": "Legend_Of_Kafra01",
+    "aegisName": "Legend_Of_Kafra01",
+    "Type": "Etc",
+    "dbType": "Etc"
+  },
   "12002": {
     "id": 12002,
     "officialId": 12002,
@@ -16768,6 +20244,35 @@
     "Script": "getitem 1762,500;\n",
     "scriptRaw": "getitem 1762,500;\n"
   },
+  "12040": {
+    "id": 12040,
+    "officialId": 12040,
+    "name": "賢者之石",
+    "type": "consume",
+    "category": "consumable",
+    "subCategory": "usable",
+    "sellPrice": 50000,
+    "description": [
+      "把非金屬可以轉換成黃金等,隱藏著神秘力量的幻想之石,有著紅色又溫暖又溫柔的樣子  （次後開放）"
+    ],
+    "icon": "images/items/12040.webp",
+    "buyPrice": 100000,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 12040,
+    "Name": "賢者之石",
+    "Buy": 100000,
+    "Sell": 50000,
+    "Slots": 0,
+    "AegisName": "Stone_Of_Intelligence_",
+    "aegisName": "Stone_Of_Intelligence_",
+    "Type": "Usable",
+    "dbType": "Usable",
+    "Script": "homevolution;\n",
+    "scriptRaw": "homevolution;\n"
+  },
   "12127": {
     "id": 12127,
     "officialId": 12127,
@@ -16796,6 +20301,35 @@
     "dbType": "Usable",
     "Script": "cooking 13;\n",
     "scriptRaw": "cooking 13;\n"
+  },
+  "12128": {
+    "id": 12128,
+    "officialId": 12128,
+    "name": "宮廷料理器具",
+    "type": "consume",
+    "category": "consumable",
+    "subCategory": "usable",
+    "sellPrice": 2500,
+    "description": [
+      "把宮中御廚所愛用的料理器具蒐集起來的,應該能烹飪出高檔的料理來似的."
+    ],
+    "icon": "images/items/12128.webp",
+    "buyPrice": 5000,
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 12128,
+    "Name": "宮廷料理器具",
+    "Buy": 5000,
+    "Sell": 2500,
+    "Slots": 0,
+    "AegisName": "Imperial_Cooking_Kits",
+    "aegisName": "Imperial_Cooking_Kits",
+    "Type": "Usable",
+    "dbType": "Usable",
+    "Script": "cooking 14;\n",
+    "scriptRaw": "cooking 14;\n"
   },
   "12359": {
     "id": 12359,
@@ -17613,6 +21147,77 @@
     "weaponType": "mace",
     "handed": 1
   },
+  "18130": {
+    "id": 18130,
+    "officialId": 18130,
+    "name": "緋紅色天弓",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "bow",
+    "sellPrice": 10,
+    "description": [
+      "散發著紅光的弓。",
+      "ATK增加至(精煉值*精煉值) (精煉上限為+15)",
+      "角色等級70以上: BaseLv每上升10時ATK+5。",
+      "系列 : ^777777弓^000000 攻擊 : ^777777120^000000",
+      "武器等級 : ^7777773^000000",
+      "要求等級 : ^77777770^000000",
+      "裝備 : ^777777弓箭手系列/盜賊/流氓系列^000000"
+    ],
+    "icon": "images/items/18130.webp",
+    "buyPrice": 20,
+    "slots": 2,
+    "slotCount": 2,
+    "ClassNum": 11,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 18130,
+    "Name": "緋紅色天弓",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 2,
+    "AegisName": "Scarlet_Bow",
+    "aegisName": "Scarlet_Bow",
+    "Type": "Weapon",
+    "dbType": "Weapon",
+    "SubType": "Bow",
+    "dbSubType": "Bow",
+    "Attack": 120,
+    "atk": 120,
+    "Range": 5,
+    "range": 5,
+    "WeaponLevel": 3,
+    "weaponLevel": 3,
+    "EquipLevelMin": 70,
+    "equipLevelMin": 70,
+    "Jobs": {
+      "Archer": true,
+      "BardDancer": true,
+      "Hunter": true,
+      "Rogue": true,
+      "Thief": true
+    },
+    "equipJobs": {
+      "Archer": true,
+      "BardDancer": true,
+      "Hunter": true,
+      "Rogue": true,
+      "Thief": true
+    },
+    "Locations": {
+      "Both_Hand": true
+    },
+    "locations": {
+      "Both_Hand": true
+    },
+    "Refineable": true,
+    "refineable": true,
+    "Script": ".@r = getrefine();\nbonus bBaseAtk,(((BaseLevel-70)/10)*5)+(.@r<=15?pow(.@r,2):225);\n",
+    "scriptRaw": ".@r = getrefine();\nbonus bBaseAtk,(((BaseLevel-70)/10)*5)+(.@r<=15?pow(.@r,2):225);\n",
+    "slot": "weapon",
+    "requiredLevel": 70,
+    "weaponType": "bow",
+    "handed": 2
+  },
   "20788": {
     "id": 20788,
     "officialId": 20788,
@@ -17670,6 +21275,74 @@
     "scriptRaw": "bonus bFlee,5;\nbonus2 bSubEle,Ele_Neutral,2;\nbonus bFlee2,getrefine()/3;\n",
     "slot": "garment",
     "requiredLevel": 100
+  },
+  "21015": {
+    "id": 21015,
+    "officialId": 21015,
+    "name": "緋紅色雙手巨劍",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "twoHandSword",
+    "sellPrice": 10,
+    "description": [
+      "劍身上散發著紅光的雙手劍",
+      "ATK增加至(精煉值*精煉值) (精煉上限為+15)",
+      "MATK增加至(精煉值*精煉值)/2 (精煉上限為+15)",
+      "角色等級70以上: BaseLv每上升10時ATK+5。",
+      "系列 : ^777777雙手劍^000000 攻擊 : ^777777170^000000",
+      "武器等級 : ^7777773^000000",
+      "要求等級 : ^77777770^000000",
+      "裝備 : ^777777劍士系列^000000"
+    ],
+    "icon": "images/items/21015.webp",
+    "buyPrice": 20,
+    "slots": 2,
+    "slotCount": 2,
+    "ClassNum": 49,
+    "dataSource": "itemInfo_UTF8.lub identified fields + rAthena Renewal db/re item DB; activated for 0.9.82EI regional monster drops",
+    "Id": 21015,
+    "Name": "緋紅色雙手巨劍",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 2,
+    "AegisName": "Scarlet_Twohand_Sword",
+    "aegisName": "Scarlet_Twohand_Sword",
+    "Type": "Weapon",
+    "dbType": "Weapon",
+    "SubType": "2hSword",
+    "dbSubType": "2hSword",
+    "Attack": 170,
+    "atk": 170,
+    "Range": 1,
+    "range": 1,
+    "WeaponLevel": 3,
+    "weaponLevel": 3,
+    "EquipLevelMin": 70,
+    "equipLevelMin": 70,
+    "Jobs": {
+      "Crusader": true,
+      "Knight": true,
+      "Swordman": true
+    },
+    "equipJobs": {
+      "Crusader": true,
+      "Knight": true,
+      "Swordman": true
+    },
+    "Locations": {
+      "Both_Hand": true
+    },
+    "locations": {
+      "Both_Hand": true
+    },
+    "Refineable": true,
+    "refineable": true,
+    "Script": ".@r = getrefine();\nbonus bBaseAtk,(((BaseLevel-70)/10)*5)+(.@r<=15?pow(.@r,2):225);\nbonus bMatk,(.@r<=15?(pow(.@r,2)/2):225);\n",
+    "scriptRaw": ".@r = getrefine();\nbonus bBaseAtk,(((BaseLevel-70)/10)*5)+(.@r<=15?pow(.@r,2):225);\nbonus bMatk,(.@r<=15?(pow(.@r,2)/2):225);\n",
+    "slot": "weapon",
+    "requiredLevel": 70,
+    "weaponType": "twoHandSword",
+    "handed": 2
   },
   "22083": {
     "id": 22083,

@@ -265,6 +265,7 @@ function quickSlotNormalAttack() {
   const normalAttackResult = resolvePlayerNormalAttack();
   if (normalAttackResult.miss) {
     addBattleLog("你攻擊 " + currentMonster.name + "，但是 Miss！");
+    if (typeof showMissNumber === "function") showMissNumber(currentMonster);
     playPlayerAttackAnimation();
     updateMonsterUI();
     monsterAttackPlayer();
