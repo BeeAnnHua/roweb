@@ -19402,3 +19402,288 @@ h2 { font-size:20px; margin:0 0 8px; text-align:center; letter-spacing:2px; colo
   text-shadow: 0 2px 0 #000, 0 0 5px rgba(255,255,255,.65) !important;
   animation: damageFloat .78s ease-out forwards !important;
 }
+
+
+/* ============================================================
+   RO_WEB 0.9.82FQ — map favorites / field-only travel / quick buttons
+   ============================================================ */
+#quick-buttons {
+  display: grid !important;
+  grid-template-columns: repeat(5, minmax(54px, 1fr)) !important;
+  grid-auto-rows: minmax(30px, auto) !important;
+  width: 306px !important;
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+  align-items: stretch !important;
+  justify-content: stretch !important;
+  gap: 6px !important;
+}
+#quick-buttons > button,
+#quick-buttons .ui-toggle[data-target="auto-combat-panel"],
+#quick-buttons .auto-battle-quick-toggle {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1;
+  min-width: 0 !important;
+  width: 100% !important;
+  margin: 0 !important;
+}
+#quick-buttons .auto-battle-quick-toggle.is-active { opacity: 1 !important; }
+
+#map-window .map-warp-panel { padding: 4px 3px 10px !important; }
+#map-window .map-warp-group-title {
+  margin: 6px 2px 4px !important;
+  padding: 3px 5px !important;
+  border-bottom: 1px solid rgba(196,145,60,.46) !important;
+  color: #d8bd83 !important;
+  font-size: 10px !important;
+  font-weight: 900 !important;
+  letter-spacing: .4px !important;
+}
+#map-window .map-warp-group-title.is-favorite-group {
+  color: #ffe28a !important;
+  text-shadow: 0 0 5px rgba(255,195,60,.36) !important;
+}
+#map-window .map-warp-entry {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) 34px !important;
+  align-items: stretch !important;
+  gap: 5px !important;
+  margin-bottom: 5px !important;
+}
+#map-window .map-warp-entry .map-warp-button {
+  min-width: 0 !important;
+  width: 100% !important;
+  min-height: 32px !important;
+  margin: 0 !important;
+}
+#map-window .map-favorite-toggle {
+  width: 34px !important;
+  min-width: 34px !important;
+  min-height: 32px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 1px solid rgba(173,127,49,.82) !important;
+  border-radius: 6px !important;
+  background: linear-gradient(#3a2815,#171009) !important;
+  color: #bda36e !important;
+  font-size: 20px !important;
+  line-height: 30px !important;
+  text-align: center !important;
+  cursor: pointer !important;
+}
+#map-window .map-favorite-toggle:hover,
+#map-window .map-favorite-toggle:focus-visible { filter: brightness(1.23) !important; }
+#map-window .map-favorite-toggle.is-active {
+  color: #ffe17c !important;
+  border-color: #e6b74e !important;
+  background: radial-gradient(circle at 50% 25%, #7b541d, #241507 70%) !important;
+  text-shadow: 0 0 6px rgba(255,207,79,.78) !important;
+  box-shadow: inset 0 0 5px rgba(255,218,118,.24) !important;
+}
+
+@media (max-width: 900px), (pointer: coarse) {
+  #quick-buttons {
+    width: 205px !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 5px !important;
+  }
+}
+@media (orientation: portrait) and (max-width: 520px) {
+  #quick-buttons {
+    width: 150px !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+
+/* ============================================================
+   RO_WEB 0.9.82FR — auto battle panel scroll restoration / fixed quick glow
+   FQ accidentally shipped the FO styles without the matching scroll/footer
+   wrappers. These final overrides intentionally win over all legacy blocks.
+   ============================================================ */
+#auto-combat-panel {
+  width: min(420px, calc(100vw - 16px)) !important;
+  height: min(650px, calc(100dvh - 96px)) !important;
+  max-height: calc(100dvh - 96px) !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+  contain: layout paint;
+}
+#auto-combat-panel.hidden-window { display: none !important; }
+#auto-combat-panel .window-title {
+  flex: 0 0 36px !important;
+  height: 36px !important;
+  min-height: 36px !important;
+  line-height: 34px !important;
+}
+#auto-combat-panel .auto-combat-body {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  height: auto !important;
+  max-height: none !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0 !important;
+  touch-action: auto !important;
+}
+#auto-combat-panel .auto-combat-scroll {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  height: 0 !important;
+  overflow-y: scroll !important;
+  overflow-x: hidden !important;
+  overscroll-behavior: contain !important;
+  touch-action: pan-y !important;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-gutter: stable both-edges;
+  scrollbar-width: auto;
+  scrollbar-color: #d6a74e rgba(0,0,0,.34);
+  padding: 10px 10px 18px !important;
+  display: grid !important;
+  align-content: start !important;
+  gap: 7px !important;
+}
+#auto-combat-panel .auto-combat-scroll::-webkit-scrollbar { width: 10px !important; }
+#auto-combat-panel .auto-combat-scroll::-webkit-scrollbar-track {
+  background: rgba(0,0,0,.34) !important;
+  border: 1px solid rgba(146,101,36,.34) !important;
+  border-radius: 10px !important;
+}
+#auto-combat-panel .auto-combat-scroll::-webkit-scrollbar-thumb {
+  min-height: 42px !important;
+  background: linear-gradient(180deg,#f0c66f 0%,#b47728 52%,#704318 100%) !important;
+  border: 1px solid rgba(255,235,171,.52) !important;
+  border-radius: 10px !important;
+  box-shadow: inset 0 0 4px rgba(255,241,190,.34) !important;
+}
+#auto-combat-panel .auto-combat-footer {
+  flex: 0 0 auto !important;
+  position: relative !important;
+  z-index: 40 !important;
+  padding: 8px 10px calc(8px + env(safe-area-inset-bottom, 0px)) !important;
+  border-top: 1px solid rgba(229,177,79,.72) !important;
+  background: linear-gradient(180deg, rgba(55,35,13,.99), rgba(15,9,5,.995)) !important;
+  box-shadow: 0 -8px 18px rgba(0,0,0,.76), inset 0 1px rgba(255,231,157,.12) !important;
+}
+#autoCombatSaveSettings.auto-combat-save-settings {
+  position: static !important;
+  inset: auto !important;
+  display: block !important;
+  width: 100% !important;
+  min-height: 40px !important;
+  margin: 0 !important;
+}
+#auto-combat-panel .auto-monster-filter-box {
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+#auto-combat-panel .auto-monster-filter-content {
+  display: grid !important;
+  gap: 7px !important;
+  padding: 9px !important;
+}
+#auto-combat-panel .auto-monster-filter-list {
+  max-height: 210px !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  overscroll-behavior: contain !important;
+  touch-action: pan-y !important;
+  scrollbar-gutter: stable;
+}
+
+/* Keep all ten right-top buttons exactly the same size. "掛機中" must never
+   wrap and enlarge the second row. */
+#quick-buttons {
+  grid-auto-rows: 34px !important;
+  align-items: stretch !important;
+}
+#quick-buttons > button,
+#quick-buttons .ui-toggle[data-target="auto-combat-panel"],
+#quick-buttons .auto-battle-quick-toggle {
+  box-sizing: border-box !important;
+  height: 34px !important;
+  min-height: 34px !important;
+  max-height: 34px !important;
+  padding: 3px 3px !important;
+  line-height: 26px !important;
+  font-size: 12px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: clip !important;
+  vertical-align: middle !important;
+}
+
+/* A brighter RO-style rotating gold trace, clipped entirely inside the fixed
+   button border so it cannot change layout or create a giant halo. */
+#quick-buttons .auto-battle-quick-toggle {
+  position: relative !important;
+  isolation: isolate !important;
+  border-color: #9e773b !important;
+  transition: color .18s ease, background .18s ease, text-shadow .18s ease !important;
+}
+#quick-buttons .auto-battle-quick-toggle::after {
+  content: none !important;
+  display: none !important;
+}
+#quick-buttons .auto-battle-quick-toggle::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 3 !important;
+  padding: 2px !important;
+  border: 0 !important;
+  border-radius: inherit !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  background: conic-gradient(from 0deg,
+    transparent 0deg 34deg,
+    rgba(255,246,184,.98) 56deg,
+    #ffd15a 82deg,
+    #f08a18 108deg,
+    transparent 136deg 360deg) !important;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0) !important;
+  -webkit-mask-composite: xor !important;
+  mask-composite: exclude !important;
+  transform-origin: 50% 50% !important;
+  animation: ro-web-auto-battle-fr-ring 1.35s linear infinite !important;
+}
+#quick-buttons .auto-battle-quick-toggle.is-active {
+  color: #fff8c9 !important;
+  border-color: transparent !important;
+  background:
+    radial-gradient(circle at 50% 18%, rgba(255,210,94,.30), transparent 62%),
+    linear-gradient(180deg,#6e4618 0%,#351d08 58%,#1b1008 100%) !important;
+  text-shadow: 0 0 4px #fff1a2, 0 0 9px rgba(255,176,38,.80) !important;
+  filter: none !important;
+  animation: ro-web-auto-battle-fr-pulse 1.45s ease-in-out infinite !important;
+}
+#quick-buttons .auto-battle-quick-toggle.is-active::before { opacity: 1 !important; }
+@keyframes ro-web-auto-battle-fr-ring { to { transform: rotate(360deg); } }
+@keyframes ro-web-auto-battle-fr-pulse {
+  0%,100% { box-shadow: 0 0 3px rgba(255,184,38,.42), inset 0 0 4px rgba(255,224,121,.18); }
+  50% { box-shadow: 0 0 8px rgba(255,198,55,.82), inset 0 0 9px rgba(255,230,142,.42); }
+}
+
+@media (max-width: 900px) {
+  #auto-combat-panel {
+    width: min(420px, calc(100vw - 10px)) !important;
+    height: min(640px, calc(100dvh - 70px)) !important;
+    max-height: calc(100dvh - 70px) !important;
+  }
+  #auto-combat-panel .auto-combat-scroll { padding: 9px 8px 16px !important; }
+}
+@media (orientation: portrait) and (max-width: 520px) {
+  #auto-combat-panel {
+    width: calc(100vw - 8px) !important;
+    height: calc(100dvh - 70px) !important;
+    max-height: calc(100dvh - 70px) !important;
+  }
+  #auto-combat-panel .auto-monster-filter-summary { max-width: 132px !important; }
+}

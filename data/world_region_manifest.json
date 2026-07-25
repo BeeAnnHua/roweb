@@ -1,17 +1,47 @@
 {
   "schema": "ro_web_world_region_manifest_v1",
-  "version": "0.9.82FM",
-  "source": "使用者提供 世界地圖90張.zip，加上達納托斯塔_091-099.zip",
-  "rule": "十一個地區各自使用 9 張 512×512 圖片組成獨立 3×3 World Camera 地圖；地區之間不做邊界拼接或傳送點，只能透過地圖／傳送 UI 切換。",
+  "version": "0.9.82FQ",
+  "source": "使用者提供世界地圖素材、達納托斯塔_091-099.zip、初學者修練場.zip（100-108）",
+  "rule": "十二個地區各自使用 9 張 512×512 圖片組成獨立 3×3 World Camera 地圖；地區之間不做邊界拼接，只能透過地圖 UI 切換。城鎮只由獨立城鎮按鈕進入。",
   "deploymentExcludes": [
     "RO_世界地圖.png",
     "RO世界地圖切割前原圖.zip",
     "所有切割前地區原圖"
   ],
-  "regionCount": 11,
+  "regionCount": 12,
   "regions": [
     {
       "order": 1,
+      "id": "novice_training_3x3_region_camera",
+      "name": "初學者修練場",
+      "sourceChunkRange": "100-108",
+      "runtimeTileNames": [
+        "001.webp",
+        "002.webp",
+        "003.webp",
+        "004.webp",
+        "005.webp",
+        "006.webp",
+        "007.webp",
+        "008.webp",
+        "009.webp"
+      ],
+      "background": "images/maps/world/novice_training_3x3/novice_training_3x3_region_bg_0_9_82FQ.webp",
+      "thumb": "images/maps/world/novice_training_3x3/novice_training_3x3_region_small_0_9_82FQ.webp",
+      "worldSize": [
+        4608,
+        4608
+      ],
+      "cameraSize": [
+        1280,
+        720
+      ],
+      "worldScale": 3,
+      "monstersDeferred": false,
+      "monsterSpecies": 8
+    },
+    {
+      "order": 2,
       "id": "prontera_3x3_region_camera",
       "name": "普隆德拉地區",
       "sourceChunkRange": "001-009",
@@ -41,7 +71,7 @@
       "monsterSpecies": 20
     },
     {
-      "order": 2,
+      "order": 3,
       "id": "geffen_3x3_region_camera",
       "name": "吉芬地區",
       "sourceChunkRange": "010-018",
@@ -71,7 +101,7 @@
       "monsterSpecies": 19
     },
     {
-      "order": 3,
+      "order": 4,
       "id": "morocc_3x3_region_camera",
       "name": "夢羅克地區",
       "sourceChunkRange": "019-027",
@@ -101,7 +131,7 @@
       "monsterSpecies": 16
     },
     {
-      "order": 4,
+      "order": 5,
       "id": "mjolnir_3x3_region_camera",
       "name": "妙勒尼山脈",
       "sourceChunkRange": "028-036",
@@ -131,7 +161,7 @@
       "monsterSpecies": 16
     },
     {
-      "order": 5,
+      "order": 6,
       "id": "rachel_3x3_region_camera",
       "name": "拉赫地區",
       "sourceChunkRange": "037-045",
@@ -161,7 +191,7 @@
       "monsterSpecies": 14
     },
     {
-      "order": 6,
+      "order": 7,
       "id": "payon_3x3_region_camera",
       "name": "斐揚地區",
       "sourceChunkRange": "046-054",
@@ -191,7 +221,7 @@
       "monsterSpecies": 19
     },
     {
-      "order": 7,
+      "order": 8,
       "id": "juno_3x3_region_camera",
       "name": "朱諾地區",
       "sourceChunkRange": "055-063",
@@ -221,7 +251,7 @@
       "monsterSpecies": 16
     },
     {
-      "order": 8,
+      "order": 9,
       "id": "umbala_3x3_region_camera",
       "name": "汶巴拉地區",
       "sourceChunkRange": "064-072",
@@ -251,7 +281,7 @@
       "monsterSpecies": 13
     },
     {
-      "order": 9,
+      "order": 10,
       "id": "lighthouse_coast_3x3_region_camera",
       "name": "燈塔海邊地區",
       "sourceChunkRange": "073-081",
@@ -281,7 +311,7 @@
       "monsterSpecies": 16
     },
     {
-      "order": 10,
+      "order": 11,
       "id": "veins_3x3_region_camera",
       "name": "菲音斯地區",
       "sourceChunkRange": "082-090",
@@ -311,7 +341,7 @@
       "monsterSpecies": 11
     },
     {
-      "order": 11,
+      "order": 12,
       "id": "thanatos_tower_3x3_region_camera",
       "name": "達納托斯塔",
       "sourceChunkRange": "091-099",
@@ -345,7 +375,7 @@
     "source": "斐揚+艾爾貝塔地區",
     "runtime": "斐揚地區"
   },
-  "monsterPolicy": "RA Renewal 地區怪物池已啟用；達納托斯塔 091～099 使用 tha_t01～tha_t12 聚合池，四種情緒與 MVP 保持單隻上限。",
+  "monsterPolicy": "RA Renewal 地區怪物池已啟用；初學者修練場採波利、土波利、瘋兔、綠棉蟲、禿鷹、蒼蠅、樹精、蜂兵等傳統基礎怪物；達納托斯塔稀有與 MVP 保持單隻上限。",
   "displayParity": {
     "reference": "原妙勒尼 World Camera",
     "pcMobileSameWorldScale": true,

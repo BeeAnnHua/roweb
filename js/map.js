@@ -409,17 +409,69 @@ const RO_MAP_UI_VIEW_STATE = {
   restoreFrame: 0
 };
 
+
+// 0.9.82FQ：地圖收藏使用玩家存檔保存。收藏地圖置頂；其餘依 regionOrder 排序。
+function getFavoriteMapIds() {
+  if (!player) return [];
+  const validIds = new Set((maps || []).map(map => String(map.id)));
+  const source = Array.isArray(player.favoriteMaps) ? player.favoriteMaps : [];
+  const normalized = Array.from(new Set(source.map(String).filter(id => validIds.has(id))));
+  player.favoriteMaps = normalized;
+  return normalized;
+}
+
+function isFavoriteMap(mapId) {
+  return getFavoriteMapIds().includes(String(mapId));
+}
+
+function getMapNormalOrder(map) {
+  const order = Number(map?.regionOrder ?? map?.order ?? 9999);
+  return Number.isFinite(order) ? order : 9999;
+}
+
+function getSortedFieldMapDestinations() {
+  const favoriteIds = new Set(getFavoriteMapIds());
+  return (maps || [])
+    .map(map => ({
+      kind: "field",
+      id: String(map.id),
+      name: map.displayName || map.name,
+      note: map.description || map.note || "",
+      data: map,
+      favorite: favoriteIds.has(String(map.id))
+    }))
+    .sort((a, b) => {
+      if (a.favorite !== b.favorite) return a.favorite ? -1 : 1;
+      const orderDiff = getMapNormalOrder(a.data) - getMapNormalOrder(b.data);
+      if (orderDiff) return orderDiff;
+      return String(a.name).localeCompare(String(b.name), "zh-Hant");
+    });
+}
+
+function toggleFavoriteMap(mapId) {
+  if (!player) return false;
+  const id = String(mapId || "");
+  if (!(maps || []).some(map => String(map.id) === id)) return false;
+  const favorites = new Set(getFavoriteMapIds());
+  if (favorites.has(id)) favorites.delete(id);
+  else favorites.add(id);
+  player.favoriteMaps = Array.from(favorites);
+  const list = document.getElementById("map-list");
+  if (list) delete list.dataset.renderSignature;
+  if (typeof saveGame === "function") saveGame();
+  updateMapUI();
+  return favorites.has(id);
+}
+window.getFavoriteMapIds = getFavoriteMapIds;
+window.isFavoriteMap = isFavoriteMap;
+window.toggleFavoriteMap = toggleFavoriteMap;
+
 function buildMapUIRenderSignature(currentCityData) {
   const location = currentCityData
     ? ["city", currentCityData.id, currentCityData.name, currentCityData.thumb, currentCityData.hoverDescription || currentCityData.description || currentCityData.role || ""]
     : ["field", currentMap?.id, currentMap?.name, currentMap?.thumb];
-  const fieldDestinations = (maps || []).map(map => [map.id, map.displayName || map.name]);
-  const cityDestinations = (cities || []).map(city => [
-    city.id,
-    city.displayName || city.name,
-    city.hoverDescription || city.description || city.role || "城鎮據點"
-  ]);
-  return JSON.stringify([location, fieldDestinations, cityDestinations]);
+  const fieldDestinations = (maps || []).map(map => [map.id, map.displayName || map.name, getMapNormalOrder(map)]);
+  return JSON.stringify([location, fieldDestinations, getFavoriteMapIds()]);
 }
 
 function captureMapUIScrollState(mapListEl) {
@@ -508,41 +560,36 @@ function updateMapUI() {
   warpTitle.textContent = "傳送點";
   warpPanel.appendChild(warpTitle);
 
-  const destinations = [];
-  (maps || []).forEach(map => destinations.push({ kind: "field", id: map.id, name: map.displayName || map.name, note: "", data: map }));
-  (cities || []).forEach(city => destinations.push({
-    kind: "city",
-    id: city.id,
-    name: city.displayName || city.name,
-    note: city.hoverDescription || city.description || city.role || "城鎮據點",
-    data: city
-  }));
+  const destinations = getSortedFieldMapDestinations();
+  let renderedGroup = null;
 
   destinations.forEach(dest => {
+    const group = dest.favorite ? "favorite" : "normal";
+    if (group !== renderedGroup) {
+      renderedGroup = group;
+      const groupTitle = document.createElement("div");
+      groupTitle.className = "map-warp-group-title " + (dest.favorite ? "is-favorite-group" : "is-normal-group");
+      groupTitle.textContent = dest.favorite ? "★ 我的最愛" : "全部地圖";
+      warpPanel.appendChild(groupTitle);
+    }
+
+    const row = document.createElement("div");
+    row.className = "map-warp-entry" + (dest.favorite ? " is-favorite" : "");
+
     const btn = document.createElement("button");
     btn.type = "button";
-    const isCurrent = dest.kind === "field"
-      ? Boolean(!currentCityData && currentMap && currentMap.id === dest.id)
-      : Boolean(currentCityData && currentCityData.id === dest.id);
-    btn.className = "map-warp-button" + (dest.kind === "city" ? " map-city-warp-button" : " map-region-warp-button") + (isCurrent ? " is-current" : "");
-    btn.disabled = Boolean(isCurrent && dest.kind === "city");
+    const isCurrent = Boolean(!currentCityData && currentMap && currentMap.id === dest.id);
+    btn.className = "map-warp-button map-region-warp-button" + (isCurrent ? " is-current" : "");
     if (isCurrent) btn.setAttribute("aria-disabled", "true");
-    btn.innerHTML = dest.kind === "city"
-      ? `<b>${dest.name}</b><small class="map-city-hover-tip">${dest.note}</small>`
-      : `<b>${dest.name}</b>`;
-    if (dest.kind === "city") {
-      btn.title = dest.note;
-      btn.setAttribute("aria-label", `${dest.name}：${dest.note}`);
-    } else {
-      btn.setAttribute("aria-label", `${dest.name}：查看怪物分布`);
-      btn.addEventListener("pointerenter", () => showMapMonsterDistributionTooltip(dest.data, btn));
-      btn.addEventListener("pointerleave", scheduleHideMapMonsterDistributionTooltip);
-      btn.addEventListener("focus", () => showMapMonsterDistributionTooltip(dest.data, btn));
-      btn.addEventListener("blur", scheduleHideMapMonsterDistributionTooltip);
-    }
+    btn.innerHTML = `<b>${dest.name}</b>`;
+    btn.setAttribute("aria-label", `${dest.name}：查看怪物分布`);
+    btn.addEventListener("pointerenter", () => showMapMonsterDistributionTooltip(dest.data, btn));
+    btn.addEventListener("pointerleave", scheduleHideMapMonsterDistributionTooltip);
+    btn.addEventListener("focus", () => showMapMonsterDistributionTooltip(dest.data, btn));
+    btn.addEventListener("blur", scheduleHideMapMonsterDistributionTooltip);
     btn.onclick = function () {
       const coarsePointer = Boolean(window.matchMedia?.("(max-width: 700px), (pointer: coarse)")?.matches);
-      if (dest.kind === "field" && coarsePointer) {
+      if (coarsePointer) {
         document.querySelectorAll("#map-window .map-region-warp-button[data-preview-armed='1']").forEach(other => {
           if (other !== btn) delete other.dataset.previewArmed;
         });
@@ -555,10 +602,26 @@ function updateMapUI() {
       }
       hideMapMonsterDistributionTooltip();
       if (isCurrent) return;
-      if (dest.kind === "field") changeMap(dest.id);
-      else if (typeof enterCity === "function") enterCity(dest.id);
+      changeMap(dest.id);
     };
-    warpPanel.appendChild(btn);
+
+    const favoriteButton = document.createElement("button");
+    favoriteButton.type = "button";
+    favoriteButton.className = "map-favorite-toggle" + (dest.favorite ? " is-active" : "");
+    favoriteButton.textContent = dest.favorite ? "★" : "☆";
+    favoriteButton.title = dest.favorite ? `從我的最愛移除 ${dest.name}` : `將 ${dest.name} 加入我的最愛`;
+    favoriteButton.setAttribute("aria-label", favoriteButton.title);
+    favoriteButton.setAttribute("aria-pressed", dest.favorite ? "true" : "false");
+    favoriteButton.onclick = function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      hideMapMonsterDistributionTooltip();
+      toggleFavoriteMap(dest.id);
+    };
+
+    row.appendChild(btn);
+    row.appendChild(favoriteButton);
+    warpPanel.appendChild(row);
   });
 
   mapListEl.appendChild(info);

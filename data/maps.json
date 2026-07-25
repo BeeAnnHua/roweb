@@ -1,5 +1,70 @@
 [
   {
+    "id": "novice_training_3x3_region_camera",
+    "name": "初學者修練場",
+    "displayName": "初學者修練場",
+    "recommendedLevel": "1-15",
+    "environment": "初學者修練場",
+    "background": "images/maps/world/novice_training_3x3/novice_training_3x3_region_bg_0_9_82FQ.webp",
+    "thumb": "images/maps/world/novice_training_3x3/novice_training_3x3_region_small_0_9_82FQ.webp",
+    "worldWidth": 4608,
+    "worldHeight": 4608,
+    "spawnPoint": {
+      "x": 2304,
+      "y": 2304
+    },
+    "monsters": [
+      1002,
+      1113,
+      1063,
+      1007,
+      1009,
+      1011,
+      1010,
+      1004
+    ],
+    "locked": false,
+    "note": "0.9.82FQ：使用傳統初學者修練場基礎怪物池；怪物能力、AI 與掉落沿用 rAthena Renewal 資料。",
+    "description": "給新手熟悉移動、普通攻擊、技能與基礎掉落的練功地圖。",
+    "noMonster": false,
+    "worldCamera": true,
+    "worldScale": 3,
+    "chunkSize": 512,
+    "chunkGrid": {
+      "cols": 3,
+      "rows": 3,
+      "tileSize": 512,
+      "sourceTiles": [
+        "images/maps/world/novice_training_3x3/tiles/001.webp",
+        "images/maps/world/novice_training_3x3/tiles/002.webp",
+        "images/maps/world/novice_training_3x3/tiles/003.webp",
+        "images/maps/world/novice_training_3x3/tiles/004.webp",
+        "images/maps/world/novice_training_3x3/tiles/005.webp",
+        "images/maps/world/novice_training_3x3/tiles/006.webp",
+        "images/maps/world/novice_training_3x3/tiles/007.webp",
+        "images/maps/world/novice_training_3x3/tiles/008.webp",
+        "images/maps/world/novice_training_3x3/tiles/009.webp"
+      ],
+      "displayScale": 3,
+      "displayTileSize": 1536,
+      "worldWidth": 4608,
+      "worldHeight": 4608
+    },
+    "playerWorldHeight": 320,
+    "cameraWidth": 1280,
+    "cameraHeight": 720,
+    "playerWorldWidth": 240,
+    "cameraZoom": 1,
+    "displayChunkSize": 1536,
+    "monsterTestSequence": [],
+    "monsterVisualTest": true,
+    "monsterGlobalScale": 1.0,
+    "regionOrder": 1,
+    "sourceChunkRange": "100-108",
+    "monsterStreaming": true,
+    "monsterSpawnProfile": "novice_training_3x3_region_camera"
+  },
+  {
     "id": "prontera_3x3_region_camera",
     "name": "普隆德拉地區",
     "displayName": "普隆德拉地區",
@@ -71,7 +136,7 @@
     "monsterTestSequence": [],
     "monsterVisualTest": true,
     "monsterGlobalScale": 1.0,
-    "regionOrder": 1,
+    "regionOrder": 2,
     "sourceChunkRange": "001-009",
     "monsterStreaming": true,
     "monsterSpawnProfile": "prontera_3x3_region_camera"
@@ -147,7 +212,7 @@
     "monsterTestSequence": [],
     "monsterVisualTest": true,
     "monsterGlobalScale": 1.0,
-    "regionOrder": 2,
+    "regionOrder": 3,
     "sourceChunkRange": "010-018",
     "monsterStreaming": true,
     "monsterSpawnProfile": "geffen_3x3_region_camera"
@@ -220,7 +285,7 @@
     "monsterTestSequence": [],
     "monsterVisualTest": true,
     "monsterGlobalScale": 1.0,
-    "regionOrder": 3,
+    "regionOrder": 4,
     "sourceChunkRange": "019-027",
     "monsterStreaming": true,
     "monsterSpawnProfile": "morocc_3x3_region_camera"
@@ -293,7 +358,7 @@
     "monsterTestSequence": [],
     "monsterVisualTest": true,
     "monsterGlobalScale": 1.0,
-    "regionOrder": 4,
+    "regionOrder": 5,
     "sourceChunkRange": "028-036",
     "monsterStreaming": true,
     "monsterSpawnProfile": "mjolnir_3x3_region_camera"
@@ -364,7 +429,7 @@
     "monsterTestSequence": [],
     "monsterVisualTest": true,
     "monsterGlobalScale": 1.0,
-    "regionOrder": 5,
+    "regionOrder": 6,
     "sourceChunkRange": "037-045",
     "monsterStreaming": true,
     "monsterSpawnProfile": "rachel_3x3_region_camera"
@@ -440,7 +505,7 @@
     "monsterTestSequence": [],
     "monsterVisualTest": true,
     "monsterGlobalScale": 1.0,
-    "regionOrder": 6,
+    "regionOrder": 7,
     "sourceChunkRange": "046-054",
     "monsterStreaming": true,
     "monsterSpawnProfile": "payon_3x3_region_camera"
@@ -513,7 +578,7 @@
     "monsterTestSequence": [],
     "monsterVisualTest": true,
     "monsterGlobalScale": 1.0,
-    "regionOrder": 7,
+    "regionOrder": 8,
     "sourceChunkRange": "055-063",
     "monsterStreaming": true,
     "monsterSpawnProfile": "juno_3x3_region_camera"
@@ -583,7 +648,7 @@
     "monsterTestSequence": [],
     "monsterVisualTest": true,
     "monsterGlobalScale": 1.0,
-    "regionOrder": 8,
+    "regionOrder": 9,
     "sourceChunkRange": "064-072",
     "monsterStreaming": true,
     "monsterSpawnProfile": "umbala_3x3_region_camera"
@@ -656,7 +721,7 @@
     "monsterTestSequence": [],
     "monsterVisualTest": true,
     "monsterGlobalScale": 1.0,
-    "regionOrder": 9,
+    "regionOrder": 10,
     "sourceChunkRange": "073-081",
     "monsterStreaming": true,
     "monsterSpawnProfile": "lighthouse_coast_3x3_region_camera"
@@ -724,7 +789,7 @@
     "monsterTestSequence": [],
     "monsterVisualTest": true,
     "monsterGlobalScale": 1.0,
-    "regionOrder": 10,
+    "regionOrder": 11,
     "sourceChunkRange": "082-090",
     "monsterStreaming": true,
     "monsterSpawnProfile": "veins_3x3_region_camera"
@@ -802,7 +867,7 @@
     "monsterTestSequence": [],
     "monsterVisualTest": true,
     "monsterGlobalScale": 1.0,
-    "regionOrder": 11,
+    "regionOrder": 12,
     "sourceChunkRange": "091-099",
     "monsterStreaming": true,
     "monsterSpawnProfile": "thanatos_tower_3x3_region_camera"

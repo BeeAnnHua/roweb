@@ -1,6 +1,6 @@
 {
   "schema": "ro_web_region_monster_streaming_v1",
-  "version": "0.9.82FM",
+  "version": "0.9.82FQ",
   "source": {
     "mobDb": "rAthena Renewal db/re/mob_db.yml",
     "spawnScripts": "rAthena Renewal npc/re/mobs/fields/*.txt",
@@ -49,6 +49,160 @@
     "initialSpawnBatchSize": 8
   },
   "regions": {
+    "novice_training_3x3_region_camera": {
+      "name": "初學者修練場",
+      "sourceSpawnFiles": [
+        "npc/re/mobs/academy.txt"
+      ],
+      "sourceNote": "現行 RA academy.txt 只保留部分 Renewal 配置；RO_WEB 依使用者確認採傳統 new_1-3～new_5-3 基礎怪物群，個別能力、AI、元素與掉落仍取 RA Renewal mob_db。",
+      "targetNormalCountAt100": 60,
+      "pool": [
+        {
+          "monsterId": 1002,
+          "weight": 36,
+          "category": "normal",
+          "raSpawnCount": 36,
+          "sourceMaps": [
+            "new_1-3",
+            "new_2-3",
+            "new_3-3",
+            "new_4-3",
+            "new_5-3"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1113,
+          "weight": 24,
+          "category": "normal",
+          "raSpawnCount": 24,
+          "sourceMaps": [
+            "new_1-3",
+            "new_2-3",
+            "new_3-3",
+            "new_4-3",
+            "new_5-3"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1063,
+          "weight": 32,
+          "category": "normal",
+          "raSpawnCount": 32,
+          "sourceMaps": [
+            "new_1-3",
+            "new_2-3",
+            "new_3-3",
+            "new_4-3",
+            "new_5-3"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1007,
+          "weight": 28,
+          "category": "normal",
+          "raSpawnCount": 28,
+          "sourceMaps": [
+            "new_1-3",
+            "new_2-3",
+            "new_3-3",
+            "new_4-3",
+            "new_5-3"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1009,
+          "weight": 16,
+          "category": "normal",
+          "raSpawnCount": 16,
+          "sourceMaps": [
+            "new_1-3",
+            "new_2-3",
+            "new_3-3",
+            "new_4-3",
+            "new_5-3"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1011,
+          "weight": 18,
+          "category": "normal",
+          "raSpawnCount": 18,
+          "sourceMaps": [
+            "new_1-3",
+            "new_2-3",
+            "new_3-3",
+            "new_4-3",
+            "new_5-3"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1010,
+          "weight": 18,
+          "category": "normal",
+          "raSpawnCount": 18,
+          "sourceMaps": [
+            "new_1-3",
+            "new_2-3",
+            "new_3-3",
+            "new_4-3",
+            "new_5-3"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1004,
+          "weight": 12,
+          "category": "normal",
+          "raSpawnCount": 12,
+          "sourceMaps": [
+            "new_1-3",
+            "new_2-3",
+            "new_3-3",
+            "new_4-3",
+            "new_5-3"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        }
+      ]
+    },
     "prontera_3x3_region_camera": {
       "name": "普隆德拉地區",
       "sourceSpawnFiles": [
