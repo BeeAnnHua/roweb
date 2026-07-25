@@ -13,7 +13,7 @@ let expTables = null;
 let clientItemDisplayData = null;
 let currentMap = null;
 
-const RO_WEB_VERSION = "0.9.82FE";
+const RO_WEB_VERSION = "0.9.82FF";
 
 function normalizeDataPath(path) {
   return String(path || "")
@@ -376,11 +376,11 @@ function setInitialMap() {
     return;
   }
 
-  let savedFieldMapId = player?.map || player?.lastFieldMap || window.RO_WEB_DEFAULT_FIELD_MAP_ID || "mjolnir_3x3_region_camera";
+  let savedFieldMapId = player?.map || player?.lastFieldMap || window.RO_WEB_DEFAULT_FIELD_MAP_ID || "prontera_3x3_region_camera";
   // v0.9.78b：舊 Camera/單格 MVP 存檔會強制導到單格3倍64px測試圖。
   const wasOldMapMvp = ["mjolnir_chunk_mvp", "mjolnir_camera_3x3", "mjolnir_mountains", "mjolnir_camera_scale3_single", "mjolnir_camera_zoom05_single512"].includes(savedFieldMapId);
   if (wasOldMapMvp) savedFieldMapId = "mjolnir_3x3_region_camera";
-  currentMap = maps.find(map => map.id === savedFieldMapId) || maps.find(map => map.id === (window.RO_WEB_DEFAULT_FIELD_MAP_ID || "mjolnir_3x3_region_camera")) || maps[0];
+  currentMap = maps.find(map => map.id === savedFieldMapId) || maps.find(map => map.id === (window.RO_WEB_DEFAULT_FIELD_MAP_ID || "prontera_3x3_region_camera")) || maps[0];
 
   if (player && currentMap) {
     // 0.9.82EH：即使人在城鎮，也只保留仍存在的野外地圖；南門舊存檔已遷移。

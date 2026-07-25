@@ -55,7 +55,7 @@
     "useActiveSkills": false,
     "activeSkillIds": []
   },
-  "map": "mjolnir_3x3_region_camera",
+  "map": null,
   "jobKey": "novice",
   "baseMaxHp": 40,
   "baseMaxSp": 11,
@@ -67,8 +67,8 @@
   "discoveredMaps": {},
   "monsterBook": {},
   "mapExploration": {},
-  "lastFieldMap": "mjolnir_3x3_region_camera",
-  "currentCity": null,
+  "lastFieldMap": "prontera_3x3_region_camera",
+  "currentCity": "prontera",
   "stats": {
     "str": 1,
     "agi": 1,
@@ -81,8 +81,8 @@
   "statusPointBaseOffset": 23,
   "statusPoints": 25,
   "position": {
-    "x": 2304,
-    "y": 2304,
+    "x": 650,
+    "y": 350,
     "targetX": null,
     "targetY": null,
     "moveSpeed": 115
@@ -129,5 +129,6 @@
   "usedTraitPoints": 0,
   "availableTraitPoints": 0,
   "traitPoints": 0,
-  "statusTraitsExpanded": false
+  "statusTraitsExpanded": false,
+  "state": "Town"
 }

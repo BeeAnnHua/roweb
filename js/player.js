@@ -6,7 +6,7 @@ let player = null;
 const SAVE_KEY = "ro_web_save_v0_9_19_ui_scroll_quickbar"; // v0.9.12 UI 定位微調版存檔，避免舊版面板位置/背包狀態殘留
 
 // 0.9.82EH：加入 rAthena Renewal 四轉特性素質；南門測試地圖維持退役。
-const RO_WEB_DEFAULT_FIELD_MAP_ID = "mjolnir_3x3_region_camera";
+const RO_WEB_DEFAULT_FIELD_MAP_ID = "prontera_3x3_region_camera";
 const RO_WEB_REMOVED_FIELD_MAP_IDS = new Set(["prontera_south"]);
 window.RO_WEB_DEFAULT_FIELD_MAP_ID = RO_WEB_DEFAULT_FIELD_MAP_ID;
 window.RO_WEB_REMOVED_FIELD_MAP_IDS = RO_WEB_REMOVED_FIELD_MAP_IDS;
@@ -392,7 +392,7 @@ function resetGameSave() {
     const base = location.origin && location.origin !== "null"
       ? location.origin + location.pathname
       : location.pathname;
-    location.replace(base + "?v=0.9.82BQ-reset-" + Date.now());
+    location.replace(base + "?v=0.9.82FF-reset-" + Date.now());
   };
 
   try {

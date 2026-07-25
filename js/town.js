@@ -12,7 +12,7 @@ let currentPurchaseItem = null;
 function normalizeTownData() {
   if (!player) return;
   player.currentCity = player.currentCity || null;
-  player.lastFieldMap = player.lastFieldMap || player.map || window.RO_WEB_DEFAULT_FIELD_MAP_ID || "mjolnir_3x3_region_camera";
+  player.lastFieldMap = player.lastFieldMap || player.map || window.RO_WEB_DEFAULT_FIELD_MAP_ID || "prontera_3x3_region_camera";
   if (typeof migrateRemovedFieldMapReferences === "function") migrateRemovedFieldMapReferences();
 }
 
@@ -106,7 +106,7 @@ function enterCity(cityId) {
 }
 
 function leaveTownToLastField() {
-  const targetMapId = player?.lastFieldMap || window.RO_WEB_DEFAULT_FIELD_MAP_ID || "mjolnir_3x3_region_camera";
+  const targetMapId = player?.lastFieldMap || window.RO_WEB_DEFAULT_FIELD_MAP_ID || "prontera_3x3_region_camera";
   changeMap(targetMapId);
 }
 
