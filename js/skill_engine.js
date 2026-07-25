@@ -384,6 +384,60 @@ function getEquippedWeaponTypeRuntime() {
   return String(item?.dbSubType || item?.SubType || item?.subType || item?.weaponType || "other");
 }
 
+// 0.9.82FO: rAthena uses 1hSword / 2hSword while the RO_WEB runtime
+// profiles also contain oneHandSword / twoHandSword.  Compare canonical
+// weapon identities instead of relying on raw substring matching.
+function normalizeRuntimeWeaponType(value) {
+  const raw = String(value || "other").trim().toLowerCase();
+  const compact = raw.replace(/[^a-z0-9]/g, "");
+  const aliases = {
+    fist: "fist", barehand: "fist", unarmed: "fist",
+    dagger: "dagger",
+    sword: "sword", onehandsword: "onehandsword", "1hsword": "onehandsword",
+    twohandsword: "twohandsword", "2hsword": "twohandsword", twohandedsword: "twohandsword",
+    axe: "axe", onehandaxe: "onehandaxe", "1haxe": "onehandaxe",
+    twohandaxe: "twohandaxe", "2haxe": "twohandaxe", twohandedaxe: "twohandaxe",
+    mace: "mace", onehandmace: "onehandmace", "1hmace": "onehandmace",
+    twohandmace: "twohandmace", "2hmace": "twohandmace", twohandedmace: "twohandmace",
+    spear: "spear", onehandspear: "onehandspear", "1hspear": "onehandspear",
+    twohandspear: "twohandspear", "2hspear": "twohandspear", twohandedspear: "twohandspear",
+    staff: "staff", onehandstaff: "onehandstaff", "1hstaff": "onehandstaff",
+    twohandstaff: "twohandstaff", "2hstaff": "twohandstaff", twohandedstaff: "twohandstaff",
+    bow: "bow", katar: "katar", book: "book", knuckle: "knuckle",
+    instrument: "instrument", musical: "instrument", whip: "whip",
+    gun: "gun", revolver: "revolver", rifle: "rifle", shotgun: "shotgun",
+    gatling: "gatling", grenade: "grenade", huuma: "huuma", shuriken: "shuriken"
+  };
+  return aliases[compact] || compact || "other";
+}
+
+function getRuntimeWeaponFamily(value) {
+  const type = normalizeRuntimeWeaponType(value);
+  if (["sword", "onehandsword", "twohandsword"].includes(type)) return "sword";
+  if (["axe", "onehandaxe", "twohandaxe"].includes(type)) return "axe";
+  if (["mace", "onehandmace", "twohandmace"].includes(type)) return "mace";
+  if (["spear", "onehandspear", "twohandspear"].includes(type)) return "spear";
+  if (["staff", "onehandstaff", "twohandstaff"].includes(type)) return "staff";
+  if (["gun", "revolver", "rifle", "shotgun", "gatling", "grenade"].includes(type)) return "gun";
+  return type;
+}
+
+function matchesRuntimeWeaponType(actualType, requiredType) {
+  const actual = normalizeRuntimeWeaponType(actualType);
+  const required = normalizeRuntimeWeaponType(requiredType);
+  if (actual === required) return true;
+  const genericFamilies = new Set(["sword", "axe", "mace", "spear", "staff", "gun"]);
+  if (genericFamilies.has(required)) return getRuntimeWeaponFamily(actual) === required;
+  return false;
+}
+
+function matchesAnyRuntimeWeaponType(actualType, requiredTypes = []) {
+  return (requiredTypes || []).some(required => matchesRuntimeWeaponType(actualType, required));
+}
+window.normalizeRuntimeWeaponType = normalizeRuntimeWeaponType;
+window.matchesRuntimeWeaponType = matchesRuntimeWeaponType;
+window.matchesAnyRuntimeWeaponType = matchesAnyRuntimeWeaponType;
+
 function hasEquippedShieldRuntime() {
   return !!player?.equipment?.shield;
 }
@@ -1324,9 +1378,8 @@ function canCastSkill(skill, requestedLevel = null, expectedHandlers = null, opt
   }
   // RO_WEB: ignore Hiding/combo/stance activation prerequisites; preserve combat result only.
   if (Array.isArray(profile.weaponTypes) && profile.weaponTypes.length > 0) {
-    const wt = getEquippedWeaponTypeRuntime().toLowerCase();
-    const allowed = profile.weaponTypes.map(v => String(v).toLowerCase());
-    if (!allowed.some(v => wt.includes(v) || v.includes(wt))) return { ok: false, reason: "目前武器類型不符合技能需求" };
+    const wt = getEquippedWeaponTypeRuntime();
+    if (!matchesAnyRuntimeWeaponType(wt, profile.weaponTypes)) return { ok: false, reason: "目前武器類型不符合技能需求" };
   }
   const spCost = getRuntimeSkillSpCost(skill, level);
   const hpCost = Math.max(0, Number(getLevelValue(profile.hpCost, level, 0)));
@@ -1808,9 +1861,8 @@ function getPassiveSkillBonusTotals() {
     if (profile.requiresMounted === true && !isPlayerMounted()) return;
     if (profile.requiresShield === true && !hasEquippedShieldRuntime()) return;
     if (Array.isArray(profile.weaponTypes) && profile.weaponTypes.length) {
-      const currentWeaponType = String(typeof getEquippedWeaponTypeRuntime === "function" ? getEquippedWeaponTypeRuntime() : (player?.weaponType || "fist")).toLowerCase();
-      const allowedWeaponTypes = profile.weaponTypes.map(value => String(value).toLowerCase());
-      if (!allowedWeaponTypes.some(value => currentWeaponType.includes(value) || value.includes(currentWeaponType))) return;
+      const currentWeaponType = typeof getEquippedWeaponTypeRuntime === "function" ? getEquippedWeaponTypeRuntime() : (player?.weaponType || "fist");
+      if (!matchesAnyRuntimeWeaponType(currentWeaponType, profile.weaponTypes)) return;
     }
     const bonuses = profile.passiveBonuses || {};
     if (profile.cartAtkRatePerLevel) totals.atkRate = Number(totals.atkRate || 0) + Math.min(10, Number(profile.cartAtkRatePerLevel) * level);
@@ -1826,10 +1878,9 @@ function getPassiveSkillBonusTotals() {
       }
     }
     if (Array.isArray(profile.conditionalWeaponBonuses)) {
-      const currentWeaponType = String(typeof getEquippedWeaponTypeRuntime === "function" ? getEquippedWeaponTypeRuntime() : (player?.weaponType || "fist")).toLowerCase();
+      const currentWeaponType = typeof getEquippedWeaponTypeRuntime === "function" ? getEquippedWeaponTypeRuntime() : (player?.weaponType || "fist");
       profile.conditionalWeaponBonuses.forEach(rule => {
-        const allowed = (rule.weaponTypes || []).map(v => String(v).toLowerCase());
-        if (!allowed.some(v => currentWeaponType.includes(v) || v.includes(currentWeaponType))) return;
+        if (!matchesAnyRuntimeWeaponType(currentWeaponType, rule.weaponTypes || [])) return;
         Object.entries(rule.bonuses || {}).forEach(([key,value]) => { totals[key] = Number(totals[key] || 0) + getLevelValue(value, level, 0); });
       });
     }
@@ -1927,9 +1978,8 @@ function getPassiveCombatModifierTotals() {
     if (profile?.requiresMounted === true && !isPlayerMounted()) return;
     if (profile?.requiresShield === true && !hasEquippedShieldRuntime()) return;
     if (Array.isArray(profile?.weaponTypes) && profile.weaponTypes.length) {
-      const currentWeaponType = String(getEquippedWeaponTypeRuntime()).toLowerCase();
-      const allowed = profile.weaponTypes.map(value => String(value).toLowerCase());
-      if (!allowed.some(value => currentWeaponType.includes(value) || value.includes(currentWeaponType))) return;
+      const currentWeaponType = getEquippedWeaponTypeRuntime();
+      if (!matchesAnyRuntimeWeaponType(currentWeaponType, profile.weaponTypes)) return;
     }
     const maps = profile?.passiveCombatModifiers || {};
     Object.keys(maps).forEach(group => {

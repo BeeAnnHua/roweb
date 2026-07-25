@@ -102,6 +102,7 @@ function markPlayerAttackUsed() {
 
 function clearBattleTimersAndMonster(options = {}) {
   autoBattleRunning = false;
+  updateAutoBattleQuickToggleState();
   manualAttackRunning = false;
   manualAttackTarget = null;
   if (manualAttackTimer) {
@@ -210,6 +211,31 @@ function scheduleAutoBattleTick(delayMs = null) {
 function isAutoBattleRunning() {
   return autoBattleRunning === true;
 }
+
+function updateAutoBattleQuickToggleState() {
+  const button = document.getElementById("autoBattleQuickToggle");
+  if (!button) return false;
+  const active = autoBattleRunning === true;
+  button.classList.toggle("is-active", active);
+  button.setAttribute("aria-pressed", active ? "true" : "false");
+  button.title = active ? "停止自動掛機" : "開始自動掛機";
+  button.textContent = active ? "掛機中" : "掛機";
+  return active;
+}
+
+function toggleAutoBattleQuick() {
+  if (autoBattleRunning) stopAutoBattle();
+  else startAutoBattle();
+  updateAutoBattleQuickToggleState();
+  return autoBattleRunning === true;
+}
+window.updateAutoBattleQuickToggleState = updateAutoBattleQuickToggleState;
+window.toggleAutoBattleQuick = toggleAutoBattleQuick;
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", updateAutoBattleQuickToggleState, { once: true });
+} else {
+  updateAutoBattleQuickToggleState();
+}
 window.getAutoBattleTimingCandidates = getAutoBattleTimingCandidates;
 window.getAutoBattleNextDelayMs = getAutoBattleNextDelayMs;
 window.scheduleAutoBattleTick = scheduleAutoBattleTick;
@@ -281,7 +307,7 @@ function scheduleManualMonsterAttack(delayMs = null) {
 function startManualMonsterAttack(monster = currentMonster, options = {}) {
   if (!monster || Number(monster.currentHp || monster.hp || 0) <= 0 || monster._deathHandled || player?.currentCity) return false;
   if (autoBattleRunning) {
-    if (typeof forceAutoBattleTarget === "function") forceAutoBattleTarget(monster, { announce: false });
+    if (typeof forceAutoBattleTarget === "function") forceAutoBattleTarget(monster, { announce: false, manual: true, priorityMs: 12000 });
     else {
       currentMonster = monster;
       if (player) player.state = "Attacking";
@@ -340,6 +366,7 @@ function startAutoBattle() {
   }
 
   autoBattleRunning = true;
+  updateAutoBattleQuickToggleState();
   if (typeof resetAutoBattleController === "function") resetAutoBattleController({ running: true, keepTarget: true, reason: "start" });
   player.state = "Searching";
   addBattleLog("開始自動戰鬥。");
@@ -356,6 +383,7 @@ function startAutoBattle() {
 function stopAutoBattle(options = {}) {
   const wasRunning = Boolean(autoBattleRunning || autoBattleTimer || spawnTimer);
   autoBattleRunning = false;
+  updateAutoBattleQuickToggleState();
 
   if (autoBattleTimer) {
     clearTimeout(autoBattleTimer);

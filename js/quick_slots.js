@@ -220,8 +220,32 @@ function quickSlotEnsureFieldMonster() {
     addBattleLog("目前沒有練功地圖。");
     return false;
   }
-  if (!currentMonster && typeof spawnMonsterFromCurrentMap === "function") spawnMonsterFromCurrentMap();
-  return Boolean(currentMonster);
+  const valid = monster => {
+    if (!monster || monster._deathHandled || Number(monster.currentHp ?? monster.hp ?? 0) <= 0) return false;
+    if (typeof isAutoBattleTargetValid === "function") return isAutoBattleTargetValid(monster);
+    return true;
+  };
+  if (currentMonster && !valid(currentMonster)) currentMonster = null;
+
+  if (!currentMonster) {
+    const controller = window.AUTO_BATTLE_CONTROLLER || null;
+    if (Date.now() < Number(controller?.reacquireSuppressedUntil || 0)) {
+      addBattleLog("目前沒有有效鎖定目標。");
+      return false;
+    }
+    const autoRunning = typeof isAutoBattleRunning === "function" && isAutoBattleRunning();
+    if (autoRunning && typeof acquireAutoBattleTarget === "function") {
+      acquireAutoBattleTarget({ reason: "quick_slot_target" });
+    } else if (typeof spawnMonsterFromCurrentMap === "function") {
+      spawnMonsterFromCurrentMap();
+    }
+  }
+  if (!valid(currentMonster)) {
+    currentMonster = null;
+    addBattleLog("目前沒有有效鎖定目標。");
+    return false;
+  }
+  return true;
 }
 
 function quickSlotNormalAttack() {

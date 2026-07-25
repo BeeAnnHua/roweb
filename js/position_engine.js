@@ -915,9 +915,13 @@ function bindBattleFieldMovement() {
     event.stopImmediatePropagation?.();
     event.stopPropagation?.();
 
-    // 0.9.82EM：點擊地面代表中止左鍵連續攻擊，回到一般移動。
+    // 0.9.82FO：點擊地面是玩家的手動指令。中止手動連擊，也短暫
+    // 解除自動追擊目標，避免掛機路線立刻把角色拉回上一隻怪物。
     if (typeof stopManualMonsterAttack === "function") {
       stopManualMonsterAttack({ clearTarget: true, silent: true });
+    }
+    if (typeof isAutoBattleRunning === "function" && isAutoBattleRunning() && typeof clearAutoBattleTarget === "function") {
+      clearAutoBattleTarget({ reason: "manual_ground_move", suppressMs: 650, updateUi: true });
     }
 
     // V0.9.78W：world-only。所有平台都只更新 player.position.target，交給 camera-follow render。

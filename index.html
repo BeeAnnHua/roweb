@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RO_WEB V0.9.82FN</title>
+  <title>RO_WEB V0.9.82FO</title>
   <meta name="description" content="&#8203;">
   <meta property="og:type" content="website">
   <meta property="og:title" content="RO_WEB">
@@ -13,8 +13,8 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="RO_WEB">
   <meta name="twitter:description" content="&#8203;">
-  <link rel="icon" type="image/png" href="images/ui/icons/icon_gold_64.png?v=0.9.82FN">
-  <link rel="stylesheet" href="css/style.css?v=0.9.82FN">
+  <link rel="icon" type="image/png" href="images/ui/icons/icon_gold_64.png?v=0.9.82FO">
+  <link rel="stylesheet" href="css/style.css?v=0.9.82FO">
 </head>
 
 <body>
@@ -36,12 +36,13 @@
         <button class="ui-toggle" data-target="auto-combat-panel">戰鬥</button>
         <button class="ui-toggle" data-target="virtual-summon-window">召喚</button>
         <button class="ui-toggle" data-target="hunting-stats-panel">統計</button>
+        <button id="autoBattleQuickToggle" class="auto-battle-quick-toggle" type="button" onclick="toggleAutoBattleQuick()" aria-pressed="false" title="開始自動掛機">掛機</button>
       </div>
 
       <section id="player-info" class="fixed-panel character-card">
         <h2>角色資訊</h2>
         <div class="profile-row">
-          <div class="portrait-placeholder"><img id="playerPortrait" src="assets/characters/novice/male/idle.png?v=0.9.82FN" alt="角色頭像"></div>
+          <div class="portrait-placeholder"><img id="playerPortrait" src="assets/characters/novice/male/idle.png?v=0.9.82FO" alt="角色頭像"></div>
           <div>
             <div class="name-line"><span id="playerName">載入中</span></div>
             <div class="level-line"><span id="playerJob" hidden>載入中</span>Base Lv.<span id="baseLevel">0</span> / Job Lv.<span id="jobLevel">0</span></div>
@@ -55,7 +56,7 @@
 
       <div id="player-sprite" class="battle-sprite player-sprite">
         <div class="sprite-label">LV.<span id="battlePlayerLevel">0</span> <span id="battlePlayerName">冒險者</span></div>
-        <img id="playerImage" src="assets/characters/novice/male/idle.png?v=0.9.82FN" alt="player">
+        <img id="playerImage" src="assets/characters/novice/male/idle.png?v=0.9.82FO" alt="player">
         <div class="slash-effect" id="slashEffect"></div>
       </div>
 
@@ -254,14 +255,19 @@
       <section id="auto-combat-panel" class="game-window draggable-window hidden-window" data-default-x="430" data-default-y="80">
         <div class="window-title drag-handle">戰鬥設定 <button class="window-close" data-target="auto-combat-panel">×</button></div>
         <div class="window-body auto-combat-body">
+          <div class="auto-combat-scroll" id="autoCombatSettingsScroll">
           <div id="auto-battle-area" class="battle-setting-controls">
             <button id="autoBattleStart" onclick="startAutoBattle()">開始戰鬥</button>
             <button id="autoBattleStop" onclick="stopAutoBattle()">停止戰鬥</button>
           </div>
 
           <div class="auto-section-title">搜尋與迴避</div>
-          <div class="auto-monster-filter-box">
-            <div id="autoCombatMonsterFilterSummary" class="auto-monster-filter-summary">當前地圖怪物偵測中...</div>
+          <details id="autoCombatMonsterFilterDetails" class="auto-monster-filter-box">
+            <summary class="auto-monster-filter-toggle">
+              <span class="auto-monster-filter-toggle-title">當前地圖怪物篩選</span>
+              <span id="autoCombatMonsterFilterSummary" class="auto-monster-filter-summary">當前地圖怪物偵測中...</span>
+            </summary>
+            <div class="auto-monster-filter-content">
             <select id="autoCombatMonsterFilterMode" onchange="syncAutoCombatSettingsFromUI(); updateAutoCombatMonsterFilterUI({ force: true })">
               <option value="all">攻擊全部怪物</option>
               <option value="include">只攻擊勾選怪物</option>
@@ -275,7 +281,8 @@
             <div id="autoCombatMonsterFilterList" class="auto-monster-filter-list" data-map-id=""></div>
             <div id="autoCombatMonsterFilterStatus" class="auto-monster-filter-status">攻擊目前地圖中的全部怪物。</div>
             <div class="auto-monster-filter-note">每張地圖分開保存。怪物勾選只影響自動戰鬥；停止自動戰鬥後仍可手動點怪。</div>
-          </div>
+            </div>
+          </details>
           <label><input type="checkbox" id="autoCombatTeleportEnabled"> 找不到可鎖定怪物時自動使用蒼蠅翅膀</label>
           <label><input type="checkbox" id="autoCombatAvoidBoss"> 遇到 Boss 時自動飛走</label>
           <label><input type="checkbox" id="autoCombatAvoidMvp"> 遇到 MVP 時自動飛走</label>
@@ -350,7 +357,10 @@
           <div class="auto-section-title">Buff 技能</div>
           <div id="autoCombatBuffList" class="auto-buff-list"><div class="auto-empty">尚未學會 Buff 技能</div></div>
 
-          <button id="autoCombatSaveSettings" class="auto-combat-save-settings" onclick="saveAutoCombatSettings()">套用戰鬥設定</button>
+          </div>
+          <div class="auto-combat-footer">
+            <button id="autoCombatSaveSettings" class="auto-combat-save-settings" onclick="saveAutoCombatSettings()">套用戰鬥設定</button>
+          </div>
         </div>
       </section>
 
@@ -418,37 +428,37 @@
     </div>
   </section>
 
-  <script src="./js/data_bundle.js?v=0.9.82FN"></script>
-  <script src="./js/equipment_job_map_bundle.js?v=0.9.82FN"></script>
-  <script src="./js/player.js?v=0.9.82FN"></script>
-  <script src="./js/item_instance_ui.js?v=0.9.82FN"></script>
-  <script src="./js/position_engine.js?v=0.9.82FN"></script>
-  <script src="./js/job_constitution.js?v=0.9.82FN"></script>
-  <script src="./js/job.js?v=0.9.82FN"></script>
-  <script src="./js/extra_skill_runtime.js?v=0.9.82FN"></script>
-  <script src="./js/combat_mechanics_runtime.js?v=0.9.82FN"></script>
-  <script src="./js/combat_formula_runtime.js?v=0.9.82FN"></script>
-  <script src="./js/ra_renewal_damage_pipeline.js?v=0.9.82FN"></script>
-  <script src="./js/combat_damage_pipeline.js?v=0.9.82FN"></script>
-  <script src="./js/combat_resource_manager.js?v=0.9.82FN"></script>
-  <script src="./js/skill_engine.js?v=0.9.82FN"></script>
-  <script src="./js/status_system.js?v=0.9.82FN"></script>
-  <script src="./js/stats.js?v=0.9.82FN"></script>
-  <script src="./js/loot.js?v=0.9.82FN"></script>
-  <script src="./js/auto_battle.js?v=0.9.82FN"></script>
-  <script src="./js/player_atlas_runtime.js?v=0.9.82FN"></script>
-  <script src="./js/battle.js?v=0.9.82FN"></script>
-  <script src="./js/monster_atlas_runtime.js?v=0.9.82FN"></script>
-  <script src="./js/world_monster_test_runtime.js?v=0.9.82FN"></script>
-  <script src="./js/virtual_summon.js?v=0.9.82FN"></script>
-  <script src="./js/homunculus.js?v=0.9.82FN"></script>
-  <script src="./js/homunculus_skill_runtime.js?v=0.9.82FN"></script>
-  <script src="./js/homunculus_s_skill_runtime.js?v=0.9.82FN"></script>
-  <script src="./js/map.js?v=0.9.82FN"></script>
-  <script src="./js/town.js?v=0.9.82FN"></script>
-  <script src="./js/ui.js?v=0.9.82FN"></script>
-  <script src="./js/quick_slots.js?v=0.9.82FN"></script>
-  <script src="./js/game.js?v=0.9.82FN"></script>
+  <script src="./js/data_bundle.js?v=0.9.82FO"></script>
+  <script src="./js/equipment_job_map_bundle.js?v=0.9.82FO"></script>
+  <script src="./js/player.js?v=0.9.82FO"></script>
+  <script src="./js/item_instance_ui.js?v=0.9.82FO"></script>
+  <script src="./js/position_engine.js?v=0.9.82FO"></script>
+  <script src="./js/job_constitution.js?v=0.9.82FO"></script>
+  <script src="./js/job.js?v=0.9.82FO"></script>
+  <script src="./js/extra_skill_runtime.js?v=0.9.82FO"></script>
+  <script src="./js/combat_mechanics_runtime.js?v=0.9.82FO"></script>
+  <script src="./js/combat_formula_runtime.js?v=0.9.82FO"></script>
+  <script src="./js/ra_renewal_damage_pipeline.js?v=0.9.82FO"></script>
+  <script src="./js/combat_damage_pipeline.js?v=0.9.82FO"></script>
+  <script src="./js/combat_resource_manager.js?v=0.9.82FO"></script>
+  <script src="./js/skill_engine.js?v=0.9.82FO"></script>
+  <script src="./js/status_system.js?v=0.9.82FO"></script>
+  <script src="./js/stats.js?v=0.9.82FO"></script>
+  <script src="./js/loot.js?v=0.9.82FO"></script>
+  <script src="./js/auto_battle.js?v=0.9.82FO"></script>
+  <script src="./js/player_atlas_runtime.js?v=0.9.82FO"></script>
+  <script src="./js/battle.js?v=0.9.82FO"></script>
+  <script src="./js/monster_atlas_runtime.js?v=0.9.82FO"></script>
+  <script src="./js/world_monster_test_runtime.js?v=0.9.82FO"></script>
+  <script src="./js/virtual_summon.js?v=0.9.82FO"></script>
+  <script src="./js/homunculus.js?v=0.9.82FO"></script>
+  <script src="./js/homunculus_skill_runtime.js?v=0.9.82FO"></script>
+  <script src="./js/homunculus_s_skill_runtime.js?v=0.9.82FO"></script>
+  <script src="./js/map.js?v=0.9.82FO"></script>
+  <script src="./js/town.js?v=0.9.82FO"></script>
+  <script src="./js/ui.js?v=0.9.82FO"></script>
+  <script src="./js/quick_slots.js?v=0.9.82FO"></script>
+  <script src="./js/game.js?v=0.9.82FO"></script>
 </body>
 
 </html>

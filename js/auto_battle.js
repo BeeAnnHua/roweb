@@ -1,5 +1,5 @@
 //=======================================
-// AutoBattleController v1.4（0.9.82FM）
+// AutoBattleController v1.5（0.9.82FO）
 // 精簡設定介面 / 自動異常解除 / 低血量逃生 / 自動肯貝特 / 當前地圖怪物篩選
 //=======================================
 
@@ -1210,8 +1210,15 @@ function updateAutoCombatUI() {
 }
 
 function saveAutoCombatSettings() {
+  const scroll = document.getElementById("autoCombatSettingsScroll");
+  const previousScrollTop = Number(scroll?.scrollTop || 0);
   syncAutoCombatSettingsFromUI({ save: true });
   updateAutoCombatUI();
+  if (scroll) {
+    const restore = () => { scroll.scrollTop = Math.min(previousScrollTop, Math.max(0, scroll.scrollHeight - scroll.clientHeight)); };
+    if (typeof requestAnimationFrame === "function") requestAnimationFrame(restore);
+    else restore();
+  }
   addBattleLog("自動戰鬥設定已更新。");
 }
 
@@ -1377,7 +1384,9 @@ const AUTO_BATTLE_CONTROLLER = {
   lastElementWarningAt: 0,
   ignoredTarget: null,
   ignoredTargetUntil: 0,
-  reacquireSuppressedUntil: 0
+  reacquireSuppressedUntil: 0,
+  teleportGeneration: 0,
+  manualOverrideUntil: 0
 };
 
 function resetAutoBattleController(options = {}) {
@@ -1397,6 +1406,10 @@ function resetAutoBattleController(options = {}) {
   AUTO_BATTLE_CONTROLLER.ignoredTarget = null;
   AUTO_BATTLE_CONTROLLER.ignoredTargetUntil = 0;
   AUTO_BATTLE_CONTROLLER.reacquireSuppressedUntil = 0;
+  AUTO_BATTLE_CONTROLLER.manualOverrideUntil = 0;
+  // teleportGeneration intentionally survives ordinary start/stop resets.
+  // It identifies the monster instance invalidated by the latest teleport.
+  AUTO_BATTLE_CONTROLLER.teleportGeneration = Math.max(0, Number(AUTO_BATTLE_CONTROLLER.teleportGeneration || 0));
   if (typeof resetAutoNoTargetTimer === "function") resetAutoNoTargetTimer();
   return AUTO_BATTLE_CONTROLLER;
 }
@@ -1416,7 +1429,12 @@ function setAutoBattleControllerState(state, details = {}) {
 
 function isAutoBattleTargetValid(monster) {
   if (!monster || monster._deathHandled || monster._defeatResolutionQueued) return false;
-  if (AUTO_BATTLE_CONTROLLER.ignoredTarget === monster && Date.now() < Number(AUTO_BATTLE_CONTROLLER.ignoredTargetUntil || 0)) return false;
+  const now = Date.now();
+  if (now < Number(monster._autoBattleIgnoreUntil || 0)) return false;
+  if (AUTO_BATTLE_CONTROLLER.ignoredTarget === monster && now < Number(AUTO_BATTLE_CONTROLLER.ignoredTargetUntil || 0)) return false;
+  // The monster locked before the latest teleport may still exist in the streamed
+  // entity array.  Reject that exact instance until the player explicitly clicks it.
+  if (Number(monster._autoBattleBlockedTeleportGeneration || -1) === Number(AUTO_BATTLE_CONTROLLER.teleportGeneration || 0)) return false;
   if (Number(monster.currentHp ?? monster.hp ?? 0) <= 0) return false;
   if (player?.currentCity) return false;
   if (!isAutoBattleMonsterAllowed(monster)) return false;
@@ -1475,20 +1493,37 @@ function applyAutoBattleTarget(monster, options = {}) {
 }
 
 function forceAutoBattleTarget(monster, options = {}) {
+  if (!monster || Number(monster.currentHp ?? monster.hp ?? 0) <= 0 || monster._deathHandled) return false;
+  if (options.manual === true) {
+    // A deliberate click is authoritative and may re-select a monster that was
+    // automatically invalidated by teleport.
+    monster._autoBattleBlockedTeleportGeneration = -1;
+    monster._autoBattleIgnoreUntil = 0;
+    AUTO_BATTLE_CONTROLLER.ignoredTarget = AUTO_BATTLE_CONTROLLER.ignoredTarget === monster ? null : AUTO_BATTLE_CONTROLLER.ignoredTarget;
+    if (!AUTO_BATTLE_CONTROLLER.ignoredTarget) AUTO_BATTLE_CONTROLLER.ignoredTargetUntil = 0;
+    AUTO_BATTLE_CONTROLLER.manualOverrideUntil = Date.now() + Math.max(1500, Number(options.priorityMs || 12000));
+  }
   if (!isAutoBattleTargetValid(monster)) return false;
   AUTO_BATTLE_CONTROLLER.forcedTarget = monster;
   applyAutoBattleTarget(monster, { forced: true, announce: options.announce === true });
-  setAutoBattleControllerState(AUTO_BATTLE_STATES.COMBAT, { reason: "manual_force_target" });
+  setAutoBattleControllerState(AUTO_BATTLE_STATES.COMBAT, { reason: options.manual === true ? "manual_force_target" : "forced_target" });
   return true;
 }
 
 function clearAutoBattleTarget(options = {}) {
   const previous = currentMonster || AUTO_BATTLE_CONTROLLER.target;
   if (options.onlyIf && previous !== options.onlyIf) return false;
-  if (AUTO_BATTLE_CONTROLLER.forcedTarget === previous || !isAutoBattleTargetValid(AUTO_BATTLE_CONTROLLER.forcedTarget)) {
-    AUTO_BATTLE_CONTROLLER.forcedTarget = null;
-  }
+  if (options.keepForced !== true) AUTO_BATTLE_CONTROLLER.forcedTarget = null;
   AUTO_BATTLE_CONTROLLER.target = null;
+  AUTO_BATTLE_CONTROLLER.targetLockedAt = 0;
+  AUTO_BATTLE_CONTROLLER.lastTargetChangeAt = Date.now();
+  AUTO_BATTLE_CONTROLLER.noTargetSince = Date.now();
+  if (Number(options.suppressMs || 0) > 0) {
+    AUTO_BATTLE_CONTROLLER.reacquireSuppressedUntil = Math.max(
+      Number(AUTO_BATTLE_CONTROLLER.reacquireSuppressedUntil || 0),
+      Date.now() + Number(options.suppressMs || 0)
+    );
+  }
   if (options.clearCurrent !== false) currentMonster = null;
   if (typeof document !== "undefined") {
     document.querySelectorAll?.(".world-monster-entity.is-selected").forEach(el => el.classList.remove("is-selected"));
@@ -1502,18 +1537,23 @@ function clearAutoBattleTarget(options = {}) {
 function onAutoBattleTeleportCompleted(previousTarget = currentMonster, details = {}) {
   const oldTarget = previousTarget || currentMonster || AUTO_BATTLE_CONTROLLER.target || null;
   const now = Date.now();
+  AUTO_BATTLE_CONTROLLER.teleportGeneration = Number(AUTO_BATTLE_CONTROLLER.teleportGeneration || 0) + 1;
   if (oldTarget) {
     AUTO_BATTLE_CONTROLLER.ignoredTarget = oldTarget;
-    AUTO_BATTLE_CONTROLLER.ignoredTargetUntil = now + Math.max(1200, Number(details.ignoreMs || 3000));
+    AUTO_BATTLE_CONTROLLER.ignoredTargetUntil = now + Math.max(5000, Number(details.ignoreMs || 15000));
     oldTarget._autoBattleIgnoreUntil = AUTO_BATTLE_CONTROLLER.ignoredTargetUntil;
+    oldTarget._autoBattleBlockedTeleportGeneration = AUTO_BATTLE_CONTROLLER.teleportGeneration;
   }
   AUTO_BATTLE_CONTROLLER.target = null;
   AUTO_BATTLE_CONTROLLER.forcedTarget = null;
   AUTO_BATTLE_CONTROLLER.targetLockedAt = 0;
   AUTO_BATTLE_CONTROLLER.noTargetSince = now;
   AUTO_BATTLE_CONTROLLER.lastTeleportAt = now;
-  AUTO_BATTLE_CONTROLLER.reacquireSuppressedUntil = now + Math.max(120, Number(details.suppressMs || 240));
+  AUTO_BATTLE_CONTROLLER.manualOverrideUntil = 0;
+  AUTO_BATTLE_CONTROLLER.reacquireSuppressedUntil = now + Math.max(280, Number(details.suppressMs || 420));
   currentMonster = null;
+  if (typeof stopManualMonsterAttack === "function") stopManualMonsterAttack({ clearTarget: false, silent: true });
+  if (typeof clearRuntimeSkillCast === "function") clearRuntimeSkillCast("teleport");
   if (player?.position) {
     player.position.targetX = null;
     player.position.targetY = null;
@@ -1549,13 +1589,12 @@ function acquireAutoBattleTarget(options = {}) {
   const candidates = collectAutoBattleTargets();
   AUTO_BATTLE_CONTROLLER.lastThreatScanAt = now;
 
-  // Priority: a manually forced target, a monster actively landing attacks on
-  // the player, the still-valid current lock, then another aggro threat / nearest.
-  // This keeps locks stable without ignoring a monster already hitting the player.
-  if (current && isMonsterActivelyAttackingPlayer(current)) return applyAutoBattleTarget(current);
+  // FO target authority: manual target > still-valid current lock > attacker >
+  // another threat > nearest.  A valid current target must never be replaced just
+  // because another monster became slightly closer or started attacking.
+  if (current) return applyAutoBattleTarget(current);
   const activeAttackers = candidates.filter(isMonsterActivelyAttackingPlayer).sort((a, b) => getAutoBattleTargetDistance(a) - getAutoBattleTargetDistance(b));
   if (activeAttackers.length) return applyAutoBattleTarget(activeAttackers[0]);
-  if (current) return applyAutoBattleTarget(current);
   const threats = candidates.filter(isMonsterThreateningPlayer).sort((a, b) => getAutoBattleTargetDistance(a) - getAutoBattleTargetDistance(b));
   if (threats.length) return applyAutoBattleTarget(threats[0]);
 
