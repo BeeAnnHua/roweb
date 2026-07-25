@@ -19104,26 +19104,34 @@ h2 { font-size:20px; margin:0 0 8px; text-align:center; letter-spacing:2px; colo
 
 
 /* ============================================================
-   RO_WEB 0.9.82FM — 多段累積傷害／自動戰鬥完整滾動區
+   RO_WEB 0.9.82FN — RO 式多段累積跳字
    ============================================================ */
 .damage-number.cumulative-damage-number {
   z-index: 46;
-  transform-origin: center bottom;
-  animation: ro-web-cumulative-damage-pop 620ms cubic-bezier(.12,.78,.2,1) forwards !important;
-  text-shadow: 0 2px 0 #201400, 0 0 5px rgba(255,224,83,.88), 1px 0 #000, -1px 0 #000;
+  min-width: 92px;
+  transform-origin: center center;
+  animation: ro-web-cumulative-damage-step 360ms cubic-bezier(.12,.78,.2,1) both !important;
+  text-shadow: 0 3px 0 #201400, 0 0 7px rgba(255,224,83,.96), 1px 0 #000, -1px 0 #000;
   will-change: transform, opacity;
 }
 .damage-number.cumulative-damage-final {
-  z-index: 48;
-  font-size: 1.18em;
-  animation-duration: 900ms !important;
-  filter: brightness(1.16);
+  z-index: 49;
+  min-width: 130px;
+  font-size: 58px !important;
+  letter-spacing: .7px;
+  filter: brightness(1.18);
+  animation: ro-web-cumulative-damage-final 3000ms cubic-bezier(.12,.78,.2,1) both !important;
 }
-@keyframes ro-web-cumulative-damage-pop {
-  0% { opacity: 0; transform: translateY(8px) scale(.68); }
-  18% { opacity: 1; transform: translateY(-4px) scale(1.18); }
-  52% { opacity: 1; transform: translateY(-12px) scale(1); }
-  100% { opacity: 0; transform: translateY(-38px) scale(.92); }
+@keyframes ro-web-cumulative-damage-step {
+  0% { opacity: .45; transform: scale(.72); }
+  35% { opacity: 1; transform: scale(1.16); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes ro-web-cumulative-damage-final {
+  0% { opacity: .5; transform: scale(.76); }
+  7% { opacity: 1; transform: scale(1.22); }
+  14%, 88% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: translateY(-10px) scale(.96); }
 }
 #auto-combat-panel {
   max-height: calc(100dvh - 12px) !important;

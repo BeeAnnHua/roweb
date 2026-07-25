@@ -1255,7 +1255,13 @@ function playMonsterDeathAnimation(monsterSnapshot = currentMonster) {
 }
 
 // 傷害數字浮起
-const RO_WEB_DAMAGE_NUMBER_BATCH = { queue: [], scheduled: false, maxPerFrame: 24, sequence: 0 };
+const RO_WEB_DAMAGE_NUMBER_BATCH = {
+  queue: [],
+  scheduled: false,
+  maxPerFrame: 24,
+  sequence: 0,
+  activeSequences: new Map()
+};
 
 function captureDamageNumberAnchor(target) {
   if (!target) return null;
@@ -1298,9 +1304,7 @@ function createDamageNumberElement(entry) {
   const laneOffsetX = source === "summon" ? -46 : (source === "additional" ? 46 : 0);
   const laneOffsetY = source === "summon" ? 18 : (source === "additional" ? 2 : 0);
   const explicitOffsetX = Number(options.offsetX || 0);
-  const cumulativeStep = Math.max(0, Number(options.cumulativeStep || 0));
-  const cumulativeLift = isCumulative ? Math.min(44, cumulativeStep * 4) : 0;
-  const explicitOffsetY = Number(options.offsetY || 0) - cumulativeLift;
+  const explicitOffsetY = Number(options.offsetY || 0);
   const anchor = options._anchorSnapshot || captureDamageNumberAnchor(options.target);
   if (anchor) {
     number.style.left = `${Math.round(Number(anchor.x || 0) + laneOffsetX + explicitOffsetX + randomX)}px`;
@@ -1312,6 +1316,55 @@ function createDamageNumberElement(entry) {
   if (options.sequenceId) number.dataset.damageSequenceId = String(options.sequenceId);
   return number;
 }
+function removeCumulativeDamageSequence(sequenceId, expectedElement = null) {
+  const key = String(sequenceId || "");
+  const active = RO_WEB_DAMAGE_NUMBER_BATCH.activeSequences.get(key);
+  if (!active || (expectedElement && active.element !== expectedElement)) return;
+  if (active.removeTimer) clearTimeout(active.removeTimer);
+  active.element?.remove();
+  RO_WEB_DAMAGE_NUMBER_BATCH.activeSequences.delete(key);
+}
+
+// 0.9.82FN：同一段多段攻擊只維持一個 DOM，數字在完全相同位置逐段更新。
+// 這能做出 RO 式「答、答、答」累積跳字，也避免高段數技能大量建立節點。
+function renderCumulativeDamageEntry(entry, battleField, fragment = null) {
+  const options = entry.options || {};
+  const sequenceId = String(options.sequenceId || "");
+  if (!sequenceId) return null;
+
+  let active = RO_WEB_DAMAGE_NUMBER_BATCH.activeSequences.get(sequenceId);
+  const fresh = createDamageNumberElement(entry);
+  let number = active?.element || null;
+
+  const targetClassName = fresh.className;
+  const isNewElement = !number || !number.isConnected;
+  if (isNewElement) {
+    number = fresh;
+    active = { element:number, removeTimer:null };
+    RO_WEB_DAMAGE_NUMBER_BATCH.activeSequences.set(sequenceId, active);
+    if (fragment) fragment.appendChild(number); else battleField.appendChild(number);
+  } else {
+    number.textContent = fresh.textContent;
+    number.style.left = fresh.style.left;
+    number.style.top = fresh.style.top;
+    number.dataset.damageSequenceId = sequenceId;
+    // CSS animation 使用 !important，因此以移除／重加 class 的方式可靠重啟每一跳。
+    number.className = targetClassName
+      .split(/\s+/)
+      .filter(name => name !== "cumulative-damage-number" && name !== "cumulative-damage-final")
+      .join(" ");
+    void number.offsetWidth;
+    number.className = targetClassName;
+  }
+
+  if (active.removeTimer) clearTimeout(active.removeTimer);
+
+  const isFinal = options.cumulativeFinal === true;
+  const life = isFinal ? 3050 : Math.max(900, Number(options.hitIntervalMs || 100) * 4);
+  active.removeTimer = setTimeout(() => removeCumulativeDamageSequence(sequenceId, number), life);
+  return number;
+}
+
 function flushDamageNumberBatch() {
   RO_WEB_DAMAGE_NUMBER_BATCH.scheduled = false;
   if (!RO_WEB_DAMAGE_NUMBER_BATCH.queue.length) return;
@@ -1321,10 +1374,13 @@ function flushDamageNumberBatch() {
   const batch = RO_WEB_DAMAGE_NUMBER_BATCH.queue.splice(0, take);
   const fragment = typeof document.createDocumentFragment === "function" ? document.createDocumentFragment() : null;
   for (const entry of batch) {
+    if (entry.options?.cumulative === true && entry.options?.sequenceId) {
+      renderCumulativeDamageEntry(entry, battleField, fragment);
+      continue;
+    }
     const number = createDamageNumberElement(entry);
     if (fragment) fragment.appendChild(number); else battleField.appendChild(number);
-    const life = entry.options?.cumulativeFinal === true ? 900 : (entry.options?.cumulative === true ? 620 : 850);
-    setTimeout(() => number.remove(), life);
+    setTimeout(() => number.remove(), 850);
   }
   if (fragment) battleField.appendChild(fragment);
   if (RO_WEB_DAMAGE_NUMBER_BATCH.queue.length) scheduleDamageNumberBatch();
@@ -1340,7 +1396,8 @@ function enqueueDamageNumber(damage, options = {}) {
   scheduleDamageNumberBatch();
 }
 
-// 0.9.82FM：多段傷害不再只顯示一次總傷害；依命中段數快速顯示累積值，最後一跳精確等於實際總傷。
+// 0.9.82FN：多段傷害在同一座標逐段更新累積值；中間節奏放慢，最後總傷放大並停留 3 秒。
+// 最後一跳仍精確等於實際總傷。
 // 為避免高段數技能建立過多 DOM，視覺節點最多 30 個，但計算總傷與最後結果完全不變。
 function buildCumulativeDamageSteps(totalDamage, hitCount, maxVisualSteps = 30) {
   const total = Math.max(0, Math.floor(Number(totalDamage || 0)));
@@ -1366,7 +1423,7 @@ function showDamageNumber(damage, options = {}) {
   }
   const sequenceId = `damage_${Date.now()}_${++RO_WEB_DAMAGE_NUMBER_BATCH.sequence}`;
   const values = buildCumulativeDamageSteps(total, hitCount, options.maxVisualSteps || 30);
-  const intervalMs = Math.max(34, Math.min(72, Number(options.hitIntervalMs || (values.length >= 12 ? 38 : 52))));
+  const intervalMs = Math.max(80, Math.min(150, Number(options.hitIntervalMs || (values.length >= 15 ? 85 : (values.length >= 8 ? 100 : 115)))));
   values.forEach((value, index) => {
     const emit = () => enqueueDamageNumber(value, {
       ...options,
@@ -1377,6 +1434,7 @@ function showDamageNumber(damage, options = {}) {
       cumulative:true,
       cumulativeStep:index,
       cumulativeFinal:index === values.length - 1,
+      hitIntervalMs:intervalMs,
       sequenceId
     });
     if (index === 0) emit(); else setTimeout(emit, intervalMs * index);
