@@ -1,3 +1,13 @@
+# 0.9.82FI CURRENT RUNTIME
+
+目前正式版本：**0.9.82FI**。
+
+裝備槽位以 rAthena `Locations` 為權威，`Both_Accessory` 必須支援飾品 1／2 並優先空欄。系統對話欄的工具列、訊息捲動區、所在地／座標必須分層，不得遮擋捲軸。
+
+大／中／小尺寸在桌機與手機都必須可用；Safari 無 CSS zoom 時使用 transform fallback。視窗開啟、尺寸切換、pageshow、resize、orientationchange 後必須自動限制回 viewport，舊存檔的畫面外座標不可讓視窗永久遺失。
+
+二刀連擊／六合拳及所有由普通攻擊觸發的額外傷害，以黃色 additional lane 顯示於主傷害旁；總傷害公式不重算。玩家移動像素速度在 Renewal walkSpeed 結果上乘 1.5，怪物不套用此倍率。
+
 # 0.9.82FH CURRENT RUNTIME
 
 目前正式版本：**0.9.82FH**。

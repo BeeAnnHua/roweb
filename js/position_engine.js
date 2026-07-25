@@ -73,7 +73,8 @@ const RA_WALK_SPEED = {
 const ROWEB_MOVEMENT = {
   defaultPixelsPerSecond: 115,
   minPixelsPerSecond: 18,
-  maxPixelsPerSecond: 420
+  maxPixelsPerSecond: 420,
+  playerBaseMultiplier: 1.5
 };
 
 function clampRaWalkSpeed(value) {
@@ -94,7 +95,13 @@ function getPlayerEffectiveWalkSpeed() {
 }
 
 function getPlayerMovePixelsPerSecond() {
-  return raWalkSpeedToPixelsPerSecond(getPlayerEffectiveWalkSpeed());
+  // RO_WEB 0.9.82FI：玩家基礎移動速度提高 1.5 倍；所有技能、裝備與
+  // Buff 仍先依 Renewal walkSpeed 計算，再乘上玩家專屬基礎倍率。
+  const base = raWalkSpeedToPixelsPerSecond(getPlayerEffectiveWalkSpeed());
+  return Math.max(
+    ROWEB_MOVEMENT.minPixelsPerSecond,
+    Math.min(ROWEB_MOVEMENT.maxPixelsPerSecond * ROWEB_MOVEMENT.playerBaseMultiplier, base * ROWEB_MOVEMENT.playerBaseMultiplier)
+  );
 }
 
 function getMonsterEffectiveWalkSpeed(monster = currentMonster) {

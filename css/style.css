@@ -18576,7 +18576,7 @@ h2 { font-size:20px; margin:0 0 8px; text-align:center; letter-spacing:2px; colo
    ============================================================ */
 
 /* ============================================================
-   RO_WEB 0.9.82FH — three-step UI size / compact interaction UI
+   RO_WEB 0.9.82FI — three-step UI size / compact interaction UI
    ============================================================ */
 .game-window.ui-size-enabled,
 .ui-size-target.ui-size-enabled {
@@ -18800,7 +18800,7 @@ h2 { font-size:20px; margin:0 0 8px; text-align:center; letter-spacing:2px; colo
   }
 }
 
-/* 0.9.82FH final title-control alignment: keep legacy centered titles intact. */
+/* 0.9.82FI final title-control alignment: keep legacy centered titles intact. */
 .game-window .window-title .window-size-cycle {
   position: absolute !important;
   right: 35px !important;
@@ -18824,4 +18824,121 @@ h2 { font-size:20px; margin:0 0 8px; text-align:center; letter-spacing:2px; colo
 .skill-copy-header {
   display: flex !important;
   align-items: center !important;
+}
+
+/* ============================================================
+   RO_WEB 0.9.82FI — battle log controls / coordinate footer safety
+   Save controls and location are outside the scrollable message viewport.
+   ============================================================ */
+#battle-log.chat-panel {
+  display: grid !important;
+  grid-template-rows: 27px minmax(0, 1fr) 38px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+#battle-log .battle-log-toolbar {
+  position: relative !important;
+  inset: auto !important;
+  grid-row: 1 !important;
+  min-height: 0 !important;
+  height: 27px !important;
+  padding: 3px 18px 1px 10px !important;
+  box-sizing: border-box !important;
+  pointer-events: auto !important;
+  background: linear-gradient(180deg, rgba(70,40,15,.62), rgba(28,15,7,.18)) !important;
+  border-bottom: 1px solid rgba(211,163,74,.25) !important;
+}
+#battle-log .battle-log-save-actions {
+  margin-right: 0 !important;
+  pointer-events: auto !important;
+}
+#battle-log-list {
+  position: relative !important;
+  inset: auto !important;
+  grid-row: 2 !important;
+  width: auto !important;
+  height: auto !important;
+  min-height: 0 !important;
+  padding: 3px 7px 4px 10px !important;
+  margin: 0 !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+#battle-log #position-coordinate-ui {
+  position: relative !important;
+  inset: auto !important;
+  grid-row: 3 !important;
+  justify-self: end !important;
+  align-self: center !important;
+  display: grid !important;
+  width: auto !important;
+  max-width: calc(100% - 24px) !important;
+  min-height: 32px !important;
+  height: 32px !important;
+  margin: 2px 18px 4px 8px !important;
+  padding: 1px 8px !important;
+  box-sizing: border-box !important;
+  grid-template-columns: auto auto !important;
+  grid-template-areas: "location location" "label value" !important;
+  line-height: 14px !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+}
+#battle-log #position-coordinate-ui .location-name,
+#battle-log #position-coordinate-ui .coord-value {
+  max-width: 100% !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+#battle-log-new-notice {
+  right: 18px !important;
+  bottom: 39px !important;
+}
+
+@media (max-width: 900px), (pointer: coarse) {
+  #battle-log.chat-panel {
+    grid-template-rows: 24px minmax(0, 1fr) 34px !important;
+  }
+  #battle-log .battle-log-toolbar {
+    height: 24px !important;
+    padding: 2px 17px 1px 8px !important;
+  }
+  #battle-log .battle-log-toolbar > b { font-size: 9px !important; }
+  #battle-log .battle-log-save-actions button {
+    min-width: 35px !important;
+    height: 20px !important;
+    padding: 0 4px !important;
+    font-size: 9px !important;
+  }
+  #battle-log-list {
+    padding: 2px 6px 3px 8px !important;
+  }
+  #battle-log #position-coordinate-ui {
+    width: auto !important;
+    max-width: calc(100% - 22px) !important;
+    min-height: 29px !important;
+    height: 29px !important;
+    margin: 1px 17px 3px 6px !important;
+    padding: 0 6px !important;
+    font-size: 9px !important;
+    line-height: 12px !important;
+  }
+  #battle-log-new-notice { bottom: 35px !important; }
+}
+
+/* Mobile size button must win over title drag gestures. */
+.window-size-cycle {
+  touch-action: manipulation !important;
+  -webkit-user-select: none !important;
+  user-select: none !important;
+  pointer-events: auto !important;
+}
+
+/* Separate chained/normal-trigger damage from the orange primary strike. */
+.damage-number.additional-damage-number {
+  color:#ffe14f !important;
+  font-size:34px !important;
+  -webkit-text-stroke:3px #4a3300 !important;
+  text-shadow:0 3px 0 #171000,0 0 11px rgba(255,225,79,.96) !important;
 }

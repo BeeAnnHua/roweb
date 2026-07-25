@@ -311,7 +311,7 @@ function saveGame() {
   if (window.RO_WEB_RESETTING_SAVE) return;
   if (!player) return;
 
-  // 0.9.82FH：城鎮與野外狀態互斥。城鎮存檔不可被仍在記憶中的
+  // 0.9.82FI：城鎮與野外狀態互斥。城鎮存檔不可被仍在記憶中的
   // last field map 覆寫，否則重新開頁會在城鎮背景生成野外怪物。
   if (player.currentCity) {
     player.map = null;
@@ -398,7 +398,7 @@ function resetGameSave() {
     const base = location.origin && location.origin !== "null"
       ? location.origin + location.pathname
       : location.pathname;
-    location.replace(base + "?v=0.9.82FH-reset-" + Date.now());
+    location.replace(base + "?v=0.9.82FI-reset-" + Date.now());
   };
 
   try {
@@ -1511,24 +1511,71 @@ function canEquipItem(itemData) {
   return { ok: true };
 }
 
+function getItemEquipmentSlotCandidates(itemData) {
+  if (!itemData) return [];
+  const locations = itemData.Locations && typeof itemData.Locations === "object" ? itemData.Locations : {};
+  const out = [];
+  const add = slot => { if (slot && !out.includes(slot)) out.push(slot); };
+
+  // rAthena Locations is authoritative when present. This also fixes items whose
+  // broad database category says accessory while the actual location is Head_Mid.
+  if (locations.Head_Top) add("headTop");
+  if (locations.Head_Mid) add("headMid");
+  if (locations.Head_Low) add("headLow");
+  if (locations.Armor) add("armor");
+  if (locations.Garment) add("garment");
+  if (locations.Shoes) add("shoes");
+  if (locations.Right_Hand || locations.Both_Hand) add("weapon");
+  if (locations.Left_Hand) add("shield");
+  if (locations.Both_Accessory) { add("accessory1"); add("accessory2"); }
+
+  const declared = String(itemData.slot || "").trim();
+  if (!out.length) {
+    if (declared === "accessory" || declared === "accessory1" || declared === "accessory2") {
+      if (declared === "accessory2") { add("accessory2"); add("accessory1"); }
+      else { add("accessory1"); add("accessory2"); }
+    } else {
+      add(declared || null);
+    }
+  }
+  return out;
+}
+window.getItemEquipmentSlotCandidates = getItemEquipmentSlotCandidates;
+
 function resolveEquipmentTargetSlot(itemData) {
-  if (!itemData || itemData.slot !== "weapon") return itemData?.slot || null;
-  if (!isAssassinOffhandJob() || !isAssassinOffhandWeaponItem(itemData)) return "weapon";
-  const mainWeapon = player?.equipment?.weapon ? getItemData(player.equipment.weapon) : null;
-  if (mainWeapon && isAssassinOffhandWeaponItem(mainWeapon)) return "shield";
-  return "weapon";
+  if (!itemData) return null;
+  const candidates = getItemEquipmentSlotCandidates(itemData);
+  if (!candidates.length) return null;
+
+  if (candidates.includes("weapon")) {
+    if (!isAssassinOffhandJob() || !isAssassinOffhandWeaponItem(itemData)) return "weapon";
+    const mainWeapon = player?.equipment?.weapon ? getItemData(player.equipment.weapon) : null;
+    if (mainWeapon && isAssassinOffhandWeaponItem(mainWeapon)) return "shield";
+    return "weapon";
+  }
+
+  // Both_Accessory automatically uses the empty side first. If both are occupied,
+  // replace the item's preferred side (normally accessory1) deterministically.
+  if (candidates.includes("accessory1") || candidates.includes("accessory2")) {
+    const accessoryCandidates = candidates.filter(slot => slot === "accessory1" || slot === "accessory2");
+    const empty = accessoryCandidates.find(slot => !player?.equipment?.[slot]);
+    return empty || accessoryCandidates[0] || "accessory1";
+  }
+
+  return candidates[0];
 }
 
 function isItemValidInEquipmentSlot(slot, itemData) {
   if (!itemData) return false;
   const equipCheck = canEquipItem(itemData);
   if (!equipCheck.ok) return false;
-  if (slot === "weapon") return itemData.slot === "weapon";
+  const candidates = getItemEquipmentSlotCandidates(itemData);
+  if (slot === "weapon") return candidates.includes("weapon");
   if (slot === "shield") {
-    if (itemData.slot === "shield") return true;
+    if (candidates.includes("shield")) return true;
     return isAssassinOffhandJob() && isAssassinOffhandWeaponItem(itemData);
   }
-  return itemData.slot === slot;
+  return candidates.includes(slot);
 }
 
 function moveEquipmentSlotToInventory(slot, options = {}) {
@@ -1600,7 +1647,8 @@ function equipItem(itemData) {
     addBattleLog(`${itemData.name}：${equipCheck.reason}`);
     return;
   }
-  if (!itemData.slot) {
+  const slotCandidates = getItemEquipmentSlotCandidates(itemData);
+  if (!slotCandidates.length) {
     addBattleLog(itemData.name + " 沒有設定裝備位置。");
     return;
   }

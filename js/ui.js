@@ -14,18 +14,20 @@ document.addEventListener("DOMContentLoaded", () => {
   initCurrencyDetailPopup();
 });
 
-window.addEventListener("resize", () => {
-  if (!isMobileViewport()) return;
-  if (window.RO_WEB_UI_DRAG_ACTIVE) return;
-  document.querySelectorAll(".draggable-window:not(.hidden-window)").forEach(centerWindowForMobile);
-});
-window.addEventListener("orientationchange", () => {
-  setTimeout(() => {
-    if (!isMobileViewport()) return;
+let roUiViewportRecoverTimer = null;
+function scheduleRecoverOpenWindows(delay = 80) {
+  clearTimeout(roUiViewportRecoverTimer);
+  roUiViewportRecoverTimer = setTimeout(() => {
     if (window.RO_WEB_UI_DRAG_ACTIVE) return;
-    document.querySelectorAll(".draggable-window:not(.hidden-window)").forEach(centerWindowForMobile);
-  }, 250);
-});
+    document.querySelectorAll(".draggable-window:not(.hidden-window)").forEach(win => {
+      if (isMobileViewport() && !win.classList.contains("is-user-positioned")) centerWindowForMobile(win);
+      recoverWindowToViewport(win, { centerIfLost: true, persist: true });
+    });
+  }, Math.max(0, Number(delay || 0)));
+}
+window.addEventListener("resize", () => scheduleRecoverOpenWindows(80));
+window.addEventListener("orientationchange", () => scheduleRecoverOpenWindows(280));
+window.addEventListener("pageshow", () => scheduleRecoverOpenWindows(120));
 
 
 function initToggleButtons() {
@@ -102,7 +104,7 @@ function centerWindowForMobile(win) {
   win.style.setProperty("top", `${pos.y}px`, "important");
   win.style.setProperty("right", "auto", "important");
   win.style.setProperty("bottom", "auto", "important");
-  win.style.setProperty("transform", "none", "important");
+  applyStoredWindowVisualScale(win);
 }
 
 function toggleWindow(id) {
@@ -111,7 +113,13 @@ function toggleWindow(id) {
   if (!win) return;
   win.classList.toggle("hidden-window");
   if (id === "map-window" && win.classList.contains("hidden-window") && typeof hideMapMonsterDistributionTooltip === "function") hideMapMonsterDistributionTooltip();
-  if (!win.classList.contains("hidden-window")) centerWindowForMobile(win);
+  if (!win.classList.contains("hidden-window")) {
+    centerWindowForMobile(win);
+    window.requestAnimationFrame(() => {
+      recoverWindowToViewport(win, { centerIfLost: true, persist: true });
+      window.setTimeout(() => recoverWindowToViewport(win, { centerIfLost: true, persist: true }), 90);
+    });
+  }
   bringWindowToFront(win);
 }
 
@@ -124,6 +132,7 @@ function initDraggableWindows() {
     win.style.left = `${pos.x}px`;
     win.style.top = `${pos.y}px`;
     if (isMobileViewport()) centerWindowForMobile(win);
+    window.requestAnimationFrame(() => recoverWindowToViewport(win, { centerIfLost: true, persist: true }));
     if (win.id === "basic-skill-info-window") {
       win.style.setProperty("--basic-info-left", `${pos.x}px`);
       win.style.setProperty("--basic-info-top", `${pos.y}px`);
@@ -181,8 +190,7 @@ function startDrag(event, win) {
     win.style.setProperty("top", `${Math.round(y)}px`, "important");
     win.style.setProperty("right", "auto", "important");
     win.style.setProperty("bottom", "auto", "important");
-    win.style.setProperty("transform", "none", "important");
-    win.style.setProperty("transform-origin", "top left", "important");
+    applyStoredWindowVisualScale(win);
     if (win.id === "basic-skill-info-window") {
       win.style.setProperty("--basic-info-left", `${Math.round(x)}px`);
       win.style.setProperty("--basic-info-top", `${Math.round(y)}px`);
@@ -192,8 +200,7 @@ function startDrag(event, win) {
   // 只鎖定 transform，不在 pointerdown 當下改變 left/top，避免起手跳動。
   win.style.setProperty("right", "auto", "important");
   win.style.setProperty("bottom", "auto", "important");
-  win.style.setProperty("transform", "none", "important");
-  win.style.setProperty("transform-origin", "top left", "important");
+  applyStoredWindowVisualScale(win);
 
   if (event.pointerId !== undefined && handle.setPointerCapture) {
     try { handle.setPointerCapture(event.pointerId); } catch (error) {}
@@ -244,7 +251,10 @@ function startDrag(event, win) {
     document.removeEventListener("pointermove", onMove, true);
     document.removeEventListener("pointerup", onUp, true);
     document.removeEventListener("pointercancel", onUp, true);
-    saveWindowPosition(win);
+    window.requestAnimationFrame(() => {
+      recoverWindowToViewport(win, { centerIfLost: false, persist: true });
+      saveWindowPosition(win);
+    });
     setTimeout(() => { if (!window.RO_WEB_UI_DRAG_ACTIVE) document.documentElement.classList.remove("ui-drag-active"); }, 0);
   }
 
@@ -439,11 +449,11 @@ function initCurrencyDetailPopup() {
 
 
 //=======================================
-// RO_WEB 0.9.82FH：全視窗大／中／小循環尺寸
+// RO_WEB 0.9.82FI：全視窗大／中／小循環尺寸
 // 目前既有尺寸視為「大」100%，中／小分別為 75%／50%。
 // 不使用自由拉伸，避免手機瀏覽器手勢衝突。
 //=======================================
-const RO_UI_SIZE_KEY = "ro_web_ui_window_sizes_v0_9_82fh";
+const RO_UI_SIZE_KEY = "ro_web_ui_window_sizes_v0_9_82fi";
 const RO_UI_SIZE_ORDER = ["large", "medium", "small"];
 const RO_UI_SIZE_LABELS = { large: "大", medium: "中", small: "小" };
 
@@ -473,41 +483,128 @@ function normalizeWindowSize(size) {
   return RO_UI_SIZE_ORDER.includes(size) ? size : "large";
 }
 
+function applyStoredWindowVisualScale(target) {
+  if (!target) return;
+  const factor = Math.max(0.5, Math.min(1, Number(target.dataset?.uiSizeFactor || 1)));
+  const usingZoom = String(target.style?.zoom || "").trim() !== "";
+  target.style.setProperty("transform", usingZoom || factor === 1 ? "none" : `scale(${factor})`, "important");
+  target.style.setProperty("transform-origin", "top left", "important");
+}
+
 function getWindowSizeHeader(target) {
   return target?.querySelector?.(".window-title, .ui-size-header, .item-detail-header, .skill-detail-header, .job-change-confirm-header, .homunculus-modal-header, .skill-copy-header") || null;
 }
 
-function clampSizedWindowToViewport(target) {
-  if (!target?.classList?.contains("game-window") || target.classList.contains("hidden-window")) return;
-  const rect = target.getBoundingClientRect();
-  const vp = getViewportSizeForUI();
-  const margin = 8;
-  let left = parseFloat(target.style.left);
-  let top = parseFloat(target.style.top);
-  if (!Number.isFinite(left)) left = target.offsetLeft || margin;
-  if (!Number.isFinite(top)) top = target.offsetTop || margin;
-  if (rect.right < 38) left += (38 - rect.right);
-  if (rect.left > vp.width - 38) left -= (rect.left - (vp.width - 38));
-  if (rect.bottom < 34) top += (34 - rect.bottom);
-  if (rect.top > vp.height - 34) top -= (rect.top - (vp.height - 34));
-  target.style.setProperty("left", `${Math.round(left)}px`, "important");
-  target.style.setProperty("top", `${Math.round(top)}px`, "important");
-  target.style.setProperty("right", "auto", "important");
-  target.style.setProperty("bottom", "auto", "important");
+function getRenderedWindowScale(target, rect = null) {
+  const visual = rect || target?.getBoundingClientRect?.() || { width: 0, height: 0 };
+  const layoutWidth = Math.max(1, Number(target?.offsetWidth || visual.width || 1));
+  const layoutHeight = Math.max(1, Number(target?.offsetHeight || visual.height || 1));
+  return {
+    x: Math.max(0.2, Math.min(2, Number(visual.width || layoutWidth) / layoutWidth)),
+    y: Math.max(0.2, Math.min(2, Number(visual.height || layoutHeight) / layoutHeight))
+  };
 }
+
+function recoverWindowToViewport(target, options = {}) {
+  if (!target?.matches?.(".game-window, .ui-size-target")) return false;
+  if (target.classList.contains("hidden-window")) return false;
+  applyStoredWindowVisualScale(target);
+  const rect = target.getBoundingClientRect();
+  if (!Number.isFinite(rect.width) || !Number.isFinite(rect.height) || rect.width < 2 || rect.height < 2) return false;
+
+  const vp = getViewportSizeForUI();
+  const margin = isMobileViewport() ? 6 : 8;
+  const titleVisible = 42;
+  const scale = getRenderedWindowScale(target, rect);
+  let layoutLeft = parseFloat(target.style.left);
+  let layoutTop = parseFloat(target.style.top);
+  if (!Number.isFinite(layoutLeft)) layoutLeft = Number(target.offsetLeft || margin);
+  if (!Number.isFinite(layoutTop)) layoutTop = Number(target.offsetTop || margin);
+
+  const completelyLost = rect.right < titleVisible || rect.left > vp.width - titleVisible || rect.bottom < titleVisible || rect.top > vp.height - titleVisible;
+  let desiredLeft = rect.left;
+  let desiredTop = rect.top;
+
+  if (completelyLost && options.centerIfLost !== false) {
+    desiredLeft = Math.max(margin, Math.round((vp.width - Math.min(rect.width, vp.width - margin * 2)) / 2));
+    desiredTop = Math.max(58, Math.round((vp.height - Math.min(rect.height, vp.height - 70)) / 2));
+  } else {
+    if (rect.width <= vp.width - margin * 2) desiredLeft = Math.max(margin, Math.min(rect.left, vp.width - margin - rect.width));
+    else desiredLeft = Math.max(-(rect.width - titleVisible), Math.min(rect.left, vp.width - titleVisible));
+    if (rect.height <= vp.height - margin * 2) desiredTop = Math.max(margin, Math.min(rect.top, vp.height - margin - rect.height));
+    else desiredTop = Math.max(-(rect.height - titleVisible), Math.min(rect.top, vp.height - titleVisible));
+  }
+
+  const nextLeft = layoutLeft + (desiredLeft - rect.left) / scale.x;
+  const nextTop = layoutTop + (desiredTop - rect.top) / scale.y;
+  if (!Number.isFinite(nextLeft) || !Number.isFinite(nextTop)) return false;
+  const changed = Math.abs(nextLeft - layoutLeft) > 0.5 || Math.abs(nextTop - layoutTop) > 0.5;
+  if (changed) {
+    target.style.setProperty("left", `${Math.round(nextLeft)}px`, "important");
+    target.style.setProperty("top", `${Math.round(nextTop)}px`, "important");
+    target.style.setProperty("right", "auto", "important");
+    target.style.setProperty("bottom", "auto", "important");
+    applyStoredWindowVisualScale(target);
+    if (target.id === "basic-skill-info-window") {
+      target.style.setProperty("--basic-info-left", `${Math.round(nextLeft)}px`);
+      target.style.setProperty("--basic-info-top", `${Math.round(nextTop)}px`);
+    }
+    if (options.persist === true) saveWindowPosition(target);
+  }
+  return changed;
+}
+
+function clampSizedWindowToViewport(target) {
+  return recoverWindowToViewport(target, { centerIfLost: true, persist: true });
+}
+
+function resetAllUIWindowPositions() {
+  try { localStorage.removeItem(UI_POS_KEY); } catch (error) {}
+  document.querySelectorAll(".draggable-window").forEach(win => {
+    const x = Number(win.dataset.defaultX || 40);
+    const y = Number(win.dataset.defaultY || 40);
+    win.classList.remove("is-user-positioned");
+    win.style.setProperty("left", `${x}px`, "important");
+    win.style.setProperty("top", `${y}px`, "important");
+    win.style.setProperty("right", "auto", "important");
+    win.style.setProperty("bottom", "auto", "important");
+    applyStoredWindowVisualScale(win);
+    if (isMobileViewport()) centerWindowForMobile(win);
+    recoverWindowToViewport(win, { centerIfLost: true, persist: true });
+  });
+  return true;
+}
+window.resetAllUIWindowPositions = resetAllUIWindowPositions;
 
 function applyWindowSize(target, requestedSize, options = {}) {
   if (!target) return;
   const size = normalizeWindowSize(requestedSize);
   target.dataset.uiSize = size;
-  target.style.zoom = size === "medium" ? "0.75" : (size === "small" ? "0.5" : "1");
+  const factor = size === "medium" ? 0.75 : (size === "small" ? 0.5 : 1);
+  target.dataset.uiSizeFactor = String(factor);
+  const supportsZoom = typeof CSS !== "undefined" && typeof CSS.supports === "function" && CSS.supports("zoom", "0.75");
+  if (supportsZoom) {
+    target.style.zoom = String(factor);
+    target.style.removeProperty("scale");
+    target.style.setProperty("transform", "none", "important");
+  } else {
+    // iOS/Safari versions without CSS zoom use the universally supported
+    // transform fallback. Position recovery below understands this scale.
+    target.style.removeProperty("zoom");
+    target.style.removeProperty("scale");
+    target.style.setProperty("transform", factor === 1 ? "none" : `scale(${factor})`, "important");
+    target.style.setProperty("transform-origin", "top left", "important");
+  }
   const button = target.querySelector(":scope > .window-title .window-size-cycle, :scope > .ui-size-header .window-size-cycle, .window-size-cycle");
   if (button) {
     button.textContent = RO_UI_SIZE_LABELS[size];
     button.title = `視窗大小：${RO_UI_SIZE_LABELS[size]}（點擊切換）`;
     button.setAttribute("aria-label", `視窗大小 ${RO_UI_SIZE_LABELS[size]}，點擊切換`);
   }
-  if (!options.skipClamp) window.requestAnimationFrame(() => clampSizedWindowToViewport(target));
+  if (!options.skipClamp) window.requestAnimationFrame(() => {
+    clampSizedWindowToViewport(target);
+    window.setTimeout(() => clampSizedWindowToViewport(target), 90);
+  });
 }
 
 function saveWindowSize(target, size) {
@@ -536,12 +633,24 @@ function ensureWindowSizeControl(target) {
   button.type = "button";
   button.className = "window-size-cycle";
   button.dataset.noDrag = "1";
-  button.addEventListener("pointerdown", event => event.stopPropagation());
-  button.addEventListener("click", event => {
-    event.preventDefault();
-    event.stopPropagation();
+  let lastSizeActivationAt = 0;
+  const activateSizeCycle = event => {
+    const now = Date.now();
+    event?.preventDefault?.();
+    event?.stopPropagation?.();
+    event?.stopImmediatePropagation?.();
+    if (now - lastSizeActivationAt < 320) return;
+    lastSizeActivationAt = now;
     cycleWindowSize(target);
-  });
+  };
+  button.addEventListener("pointerdown", event => {
+    event.stopPropagation();
+    if (event.pointerType === "touch" && event.cancelable) event.preventDefault();
+  }, { passive: false });
+  button.addEventListener("pointerup", activateSizeCycle, { passive: false });
+  button.addEventListener("touchstart", event => event.stopPropagation(), { passive: true });
+  button.addEventListener("touchend", activateSizeCycle, { passive: false });
+  button.addEventListener("click", activateSizeCycle);
   const headerHidden = typeof getComputedStyle === "function" && getComputedStyle(header).display === "none";
   if (headerHidden) {
     button.classList.add("is-floating-size-control");
@@ -580,5 +689,7 @@ Object.assign(window, {
   initWindowSizeSystem,
   ensureWindowSizeControl,
   applyWindowSize,
-  cycleWindowSize
+  cycleWindowSize,
+  recoverWindowToViewport,
+  resetAllUIWindowPositions
 });

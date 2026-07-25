@@ -1,5 +1,5 @@
 //=======================================
-// QuickSlotManager v0.9.82FH
+// QuickSlotManager v0.9.82FI
 // PC 可拖曳；PC / Mobile 均可點選技能或消耗品後配置到 1~0。
 //=======================================
 
@@ -248,6 +248,8 @@ function quickSlotNormalAttack() {
   }
 
   const playerDamage = Math.max(1, Number(normalAttackResult.damage || 1));
+  const primaryDamage = Math.max(1, Math.min(playerDamage, Number(normalAttackResult.primaryDamage || playerDamage)));
+  const additionalDamage = Math.max(0, Math.min(playerDamage - primaryDamage, Number(normalAttackResult.additionalDamage || 0)));
   currentMonster.currentHp = Math.max(0, Number(currentMonster.currentHp || 0) - playerDamage);
   if(playerDamage>0&&window.StatusManager?.onDamage)window.StatusManager.onDamage(currentMonster,playerDamage,{source:player,normalAttack:true});
   if (typeof tryGankOnNormalAttack === "function") tryGankOnNormalAttack(currentMonster);
@@ -262,16 +264,25 @@ function quickSlotNormalAttack() {
   if (typeof tryFalconAutoAttackOnNormal === "function") tryFalconAutoAttackOnNormal(currentMonster);
   if (typeof tryHawkRushAutoAttackOnNormal === "function") tryHawkRushAutoAttackOnNormal(currentMonster);
   if (typeof tryWargAutoStrikeOnNormal === "function") tryWargAutoStrikeOnNormal(currentMonster);
-  addBattleLog("你對 " + currentMonster.name + " 造成 " + playerDamage + " 點傷害。");
+  const additionalName = window.lastNormalAttackWasTriple ? "六合拳" : (window.lastNormalAttackWasDouble ? "二刀連擊" : "追加攻擊");
+  addBattleLog("你對 " + currentMonster.name + " 造成 " + primaryDamage + " 點普通攻擊傷害。");
+  if (additionalDamage > 0) addBattleLog(additionalName + "追加造成 " + additionalDamage + " 點傷害。");
   playPlayerAttackAnimation();
   updateMonsterUI();
   playMonsterHitAnimation(currentMonster);
-  showDamageNumber(playerDamage, {
+  showDamageNumber(primaryDamage, {
     target: currentMonster,
     critical: normalAttackResult?.critical === true || normalAttackResult?.critical?.critical === true,
-    hitCount: Math.max(1, Number(normalAttackResult?.visualHits || 1)),
-    combo: Math.max(1, Number(normalAttackResult?.visualHits || 1)) > 1
+    hitCount: 1,
+    combo: false,
+    offsetX: additionalDamage > 0 ? -18 : 0
   });
+  if (additionalDamage > 0 && typeof showAdditionalDamageNumber === "function") {
+    showAdditionalDamageNumber(additionalDamage, currentMonster, {
+      hitCount: Math.max(1, Number(normalAttackResult?.additionalHitCount || 1)),
+      offsetX: 10
+    });
+  }
   showSlashEffect();
 
   if (currentMonster.currentHp <= 0) {

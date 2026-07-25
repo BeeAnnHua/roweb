@@ -117,7 +117,26 @@ function resolve(kind,profile,level,target,options={}){
  if(kind==='normal') PassiveProcRegistry.run(ctx);
  ElementModifierRegistry.run(ctx);RaceModifierRegistry.run(ctx);SizeModifierRegistry.run(ctx);DefenseModifierRegistry.run(ctx);StatusModifierRegistry.run(ctx);
  const result=calculate(ctx);
- return {...ctx,...result,miss:false,secondaryProcs:ctx.secondaryProcs||[]};
+ const output={...ctx,...result,miss:false,secondaryProcs:ctx.secondaryProcs||[]};
+ // Normal-attack procs keep the same total Renewal damage, but expose the base
+ // strike and the chained/additional portion separately for UI/log rendering.
+ if(kind==='normal'){
+  const total=Math.max(0,Math.floor(num(output.damage,0)));
+  const totalRatio=Math.max(100,num(ctx.ratio,100));
+  if(ctx.proc&&total>0&&totalRatio>100){
+   const primary=Math.max(1,Math.min(total,Math.floor(total*100/totalRatio)));
+   output.primaryDamage=primary;
+   output.additionalDamage=Math.max(0,total-primary);
+   output.additionalHitCount=Math.max(1,num(ctx.proc.hits,2)-1);
+   output.additionalProcKey=String(ctx.proc.key||'additional');
+  }else{
+   output.primaryDamage=total;
+   output.additionalDamage=0;
+   output.additionalHitCount=0;
+   output.additionalProcKey='';
+  }
+ }
+ return output;
 }
 const API={
  resolveNormalAttack:(target,options={})=>resolve('normal',{elementSource:'weapon'},1,target,options),

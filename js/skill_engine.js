@@ -1442,7 +1442,7 @@ function tryFalconAutoAttackOnNormal(target = currentMonster) {
     if (!monster || Number(monster.currentHp || 0) <= 0) continue;
     const damage = calculateSkillAttackDamage(skill, level, monster, { skipHitCheck: true, autoFalcon: true });
     if (damage === null) continue;
-    const result = applyRuntimeCalculatedDamage(monster, Math.max(1, Number(damage || 1)), { skillId:129 });
+    const result = applyRuntimeCalculatedDamage(monster, Math.max(1, Number(damage || 1)), { triggeredByNormalAttack:true, skillId:129 });
     total += result.calculatedDamage;
   }
   if (total > 0 && typeof addBattleLog === "function") addBattleLog(`獵鷹自動觸發 ${skill.name} Lv${level}，共造成 ${total} 點傷害。`);
@@ -1468,7 +1468,7 @@ function tryHawkRushAutoAttackOnNormal(target = currentMonster) {
   const damage = calculateSkillAttackDamage(skill, level, target, { skipHitCheck:true, autoHawk:true });
   if (damage === null) return false;
   const calculatedDamage=Math.max(1,Number(damage||1));
-  applyRuntimeCalculatedDamage(target,calculatedDamage,{skillId:Number(skill?.officialId??skill?.id)});
+  applyRuntimeCalculatedDamage(target,calculatedDamage,{triggeredByNormalAttack:true,skillId:Number(skill?.officialId??skill?.id)});
   if (typeof addBattleLog === "function") addBattleLog(`${skill.name}自動發動，造成 ${calculatedDamage} 點傷害。`);
   if (typeof updateMonsterUI === "function") updateMonsterUI();
   return true;
@@ -1686,7 +1686,7 @@ function tryWargAutoStrikeOnNormal(target = currentMonster) {
   const damage = calculateSkillAttackDamage(skill, level, target, { skipHitCheck:true, autoWarg:true });
   if (damage === null) return false;
   const calculatedDamage=Math.max(1,Number(damage||1));
-  applyRuntimeCalculatedDamage(target,calculatedDamage,{skillId:Number(skill?.officialId??skill?.id)});
+  applyRuntimeCalculatedDamage(target,calculatedDamage,{triggeredByNormalAttack:true,skillId:Number(skill?.officialId??skill?.id)});
   if (typeof addBattleLog === "function") addBattleLog(`${skill.name}自動發動，造成 ${calculatedDamage} 點傷害。`);
   if (typeof updateMonsterUI === "function") updateMonsterUI();
   return true;
@@ -2487,7 +2487,7 @@ function trySpellFistOnNormalAttack(target = currentMonster) {
   const result=window.CombatDamagePipeline?.resolveMagicSkill({handler:"magic_damage",elementSource:"skill",element,attackRangeType:"short"},level,target,{ratio,hits:1,skipHitCheck:true});
   if(!result)return false;
   const calculatedDamage=Math.max(1,Number(result.damage||1));
-  const applied=applyRuntimeCalculatedDamage(target,calculatedDamage,{skillId:Number(buff.id||0)});
+  const applied=applyRuntimeCalculatedDamage(target,calculatedDamage,{triggeredByNormalAttack:true,skillId:Number(buff.id||0)});
   if(typeof addBattleLog==="function")addBattleLog(`${buff.name||"魔力拳"}追加 ${element} 屬性魔法傷害 ${calculatedDamage}。`);
   return true;
 }
@@ -2552,7 +2552,7 @@ function trySageAutoSpellOnNormalAttack(target = currentMonster) {
   const damage = calculateSkillAttackDamage(selected.skill, autoLevel, target, { skipHitCheck:true, autoCast:true, sageAutoSpell:true });
   if (damage === null) return false;
   const calculatedDamage=Math.max(1,Number(damage||1));
-  applyRuntimeCalculatedDamage(target,calculatedDamage,{skillId:Number(selected.skill?.officialId??selected.skill?.id)});
+  applyRuntimeCalculatedDamage(target,calculatedDamage,{triggeredByNormalAttack:true,skillId:Number(selected.skill?.officialId??selected.skill?.id)});
   if (typeof addBattleLog === "function") addBattleLog(`自動念咒發動 ${selected.skill.name} Lv${autoLevel}，造成 ${calculatedDamage} 點傷害。`);
   return true;
 }
@@ -2580,7 +2580,7 @@ function tryAutoShadowSpellOnNormalAttack(target = currentMonster) {
   if (damage === null) return false;
   player.sp = Math.max(0, Number(player.sp || 0) - spCost);
   const calculatedDamage=Math.max(1,Number(damage||1));
-  applyRuntimeCalculatedDamage(target,calculatedDamage,{skillId:Number(copied?.officialId??copied?.id)});
+  applyRuntimeCalculatedDamage(target,calculatedDamage,{triggeredByNormalAttack:true,skillId:Number(copied?.officialId??copied?.id)});
   if (typeof addBattleLog === "function") addBattleLog(`自動魅影念咒發動 ${copied.name} Lv${autoLevel}，造成 ${calculatedDamage} 點傷害。`);
   return true;
 }
@@ -2596,12 +2596,12 @@ function tryDupleLightOnNormalAttack(target=currentMonster){
   if(Math.random()*100<chance){
     const ratio=150+15*level;
     const result=window.CombatDamagePipeline?.resolvePhysicalSkill({handler:"physical_attack",elementSource:"weapon",attackRangeType:"short"},level,target,{ratio,skipHitCheck:true,allowNormalProc:false});
-    const calculatedDamage=Math.max(1,Number(result?.damage||1));applyRuntimeCalculatedDamage(target,calculatedDamage,{skillId:2054});total+=calculatedDamage;parts.push(`物理 ${calculatedDamage}`);
+    const calculatedDamage=Math.max(1,Number(result?.damage||1));applyRuntimeCalculatedDamage(target,calculatedDamage,{triggeredByNormalAttack:true,skillId:2054});total+=calculatedDamage;parts.push(`物理 ${calculatedDamage}`);
   }
   if(Number(target.currentHp||0)>0&&Math.random()*100<chance){
     const ratio=400+40*level;
     const result=window.CombatDamagePipeline?.resolveMagicSkill({handler:"magic_damage",elementSource:"skill",element:"Holy"},level,target,{ratio,hits:1,skipHitCheck:true});
-    const calculatedDamage=Math.max(1,Number(result?.damage||1));applyRuntimeCalculatedDamage(target,calculatedDamage,{skillId:2054});total+=calculatedDamage;parts.push(`魔法 ${calculatedDamage}`);
+    const calculatedDamage=Math.max(1,Number(result?.damage||1));applyRuntimeCalculatedDamage(target,calculatedDamage,{triggeredByNormalAttack:true,skillId:2054});total+=calculatedDamage;parts.push(`魔法 ${calculatedDamage}`);
   }
   if(total>0){if(typeof addBattleLog==="function")addBattleLog(`二道聖光發動（${parts.join("、")}）。`);if(typeof playMonsterHitAnimation==="function")playMonsterHitAnimation(target);return true;}return false;
 }
@@ -2629,7 +2629,7 @@ function tryServantWeaponOnNormalAttack(target = currentMonster) {
       handler:"physical_attack_formula", elementSource:"weapon", attackRangeType:"short", criticalMode:"normal"
     }, level, enemy, { ratio:ratioPerHit * 3, skipHitCheck:true, criticalResult:crit });
     const damage = Math.max(1, Number(result?.damage || 1));
-    applyRuntimeCalculatedDamage(enemy,damage,{skillId:Number(buff.id||0)});
+    applyRuntimeCalculatedDamage(enemy,damage,{triggeredByNormalAttack:true,skillId:Number(buff.id||0)});
     totalDealt += damage;
   }
   if (typeof addBattleLog === "function") {
@@ -2658,7 +2658,7 @@ function tryAbyssForceWeaponOnNormalAttack(target = currentMonster) {
     if (!enemy || Number(enemy.currentHp || 0) <= 0) continue;
     const result = window.CombatDamagePipeline?.resolveMagicSkill({handler:"magic_damage",element:"Neutral",elementSource:"skill"},level,enemy,{ratio,hits:5,skipHitCheck:true});
     const damage = Math.max(1, Number(result?.damage || 1));
-    applyRuntimeCalculatedDamage(enemy,damage,{skillId:Number(buff.id||0)});
+    applyRuntimeCalculatedDamage(enemy,damage,{triggeredByNormalAttack:true,skillId:Number(buff.id||0)});
     totalDealt += damage;
   }
   if (typeof addBattleLog === "function") addBattleLog(`深淵魔力球發動 5 Hit 範圍攻擊，合計造成 ${totalDealt} 點傷害（剩餘 ${used.remaining}/5）。`);
@@ -4492,10 +4492,12 @@ function applyRuntimeCalculatedDamage(target, calculatedDamage, options = {}) {
   }
   if (calculated > 0 && options.showNumber !== false && typeof showDamageNumber === "function") showDamageNumber(calculated, {
     target,
-    source:options.damageSource || "player",
-    critical:options.critical === true || options.criticalResult?.critical === true,
+    source:options.additional === true || options.triggeredByNormalAttack === true ? "additional" : (options.damageSource || "player"),
+    critical:options.additional === true || options.triggeredByNormalAttack === true ? false : (options.critical === true || options.criticalResult?.critical === true),
     hitCount:Math.max(1, Number(options.hitCount || 1), Number(options.visualHitCount || 1), Number(options.damageHitCount || 1)),
-    combo:options.combo === true || options.multiHit === true || Math.max(1, Number(options.hitCount || 1), Number(options.visualHitCount || 1), Number(options.damageHitCount || 1)) > 1
+    combo:options.additional === true || options.triggeredByNormalAttack === true || options.combo === true || options.multiHit === true || Math.max(1, Number(options.hitCount || 1), Number(options.visualHitCount || 1), Number(options.damageHitCount || 1)) > 1,
+    offsetX:Number(options.damageNumberOffsetX || 0),
+    offsetY:Number(options.damageNumberOffsetY || 0)
   });
   if (dealt > 0 && options.playHit !== false && typeof playMonsterHitAnimation === "function") playMonsterHitAnimation(target);
   return { calculatedDamage:calculated, dealt, killed:before > 0 && Number(target[hpKey] || 0) <= 0 };

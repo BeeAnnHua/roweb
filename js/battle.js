@@ -522,6 +522,8 @@ function autoAttackMonster(options = {}) {
   }
 
   const playerDamage = Math.max(1, Number(normalAttackResult.damage || 1));
+  const primaryDamage = Math.max(1, Math.min(playerDamage, Number(normalAttackResult.primaryDamage || playerDamage)));
+  const additionalDamage = Math.max(0, Math.min(playerDamage - primaryDamage, Number(normalAttackResult.additionalDamage || 0)));
 
   currentMonster.provoked = true;
   currentMonster.currentHp -= playerDamage;
@@ -545,18 +547,26 @@ function autoAttackMonster(options = {}) {
     currentMonster.currentHp = 0;
   }
 
-  const normalAttackTriggerText = window.lastNormalAttackWasTriple ? "（六合拳）" : (window.lastNormalAttackWasDouble ? "（二刀連擊）" : "");
-  addBattleLog("你對 " + currentMonster.name + " 造成 " + playerDamage + " 點傷害。" + normalAttackTriggerText);
+  const additionalName = window.lastNormalAttackWasTriple ? "六合拳" : (window.lastNormalAttackWasDouble ? "二刀連擊" : "追加攻擊");
+  addBattleLog("你對 " + currentMonster.name + " 造成 " + primaryDamage + " 點普通攻擊傷害。");
+  if (additionalDamage > 0) addBattleLog(additionalName + "追加造成 " + additionalDamage + " 點傷害。");
 
   playPlayerAttackAnimation();
   updateMonsterUI();
   playMonsterHitAnimation(currentMonster);
-  showDamageNumber(playerDamage, {
+  showDamageNumber(primaryDamage, {
     target: currentMonster,
     critical: normalAttackResult?.critical === true || normalAttackResult?.critical?.critical === true,
-    hitCount: Math.max(1, Number(normalAttackResult?.visualHits || 1)),
-    combo: Math.max(1, Number(normalAttackResult?.visualHits || 1)) > 1
+    hitCount: 1,
+    combo: false,
+    offsetX: additionalDamage > 0 ? -18 : 0
   });
+  if (additionalDamage > 0 && typeof showAdditionalDamageNumber === "function") {
+    showAdditionalDamageNumber(additionalDamage, currentMonster, {
+      hitCount: Math.max(1, Number(normalAttackResult?.additionalHitCount || 1)),
+      offsetX: 10
+    });
+  }
   showSlashEffect();
 
   if (currentMonster.currentHp <= 0) {
@@ -1244,21 +1254,25 @@ function createDamageNumberElement(entry) {
   const combo = options.combo === true || options.isCombo === true || options.multiHit === true || hitCount > 1;
   const classes = ["damage-number"];
   if (source === "summon") classes.push("summon-damage-number");
-  if (combo && source !== "summon") classes.push("combo-damage-number");
-  if (critical) classes.push("critical-damage-number");
+  if (source === "additional") classes.push("additional-damage-number", "combo-damage-number");
+  if (combo && source !== "summon" && source !== "additional") classes.push("combo-damage-number");
+  if (critical && source !== "additional") classes.push("critical-damage-number");
   number.className = classes.join(" ");
   const numericDamage = Math.max(0, Math.floor(Number(entry.damage || 0)));
   // Avoid locale formatter construction in the render frame for every hit.
   number.textContent = String(numericDamage).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   const randomX = randomInt(-12, 18), randomY = randomInt(-8, 8);
-  const laneOffsetX = source === "summon" ? -46 : 0, laneOffsetY = source === "summon" ? 18 : 0;
+  const laneOffsetX = source === "summon" ? -46 : (source === "additional" ? 46 : 0);
+  const laneOffsetY = source === "summon" ? 18 : (source === "additional" ? 2 : 0);
+  const explicitOffsetX = Number(options.offsetX || 0);
+  const explicitOffsetY = Number(options.offsetY || 0);
   const anchor = options._anchorSnapshot || captureDamageNumberAnchor(options.target);
   if (anchor) {
-    number.style.left = `${Math.round(Number(anchor.x || 0) + laneOffsetX + randomX)}px`;
-    number.style.top = `${Math.round(Number(anchor.y || 0) + laneOffsetY + randomY)}px`;
+    number.style.left = `${Math.round(Number(anchor.x || 0) + laneOffsetX + explicitOffsetX + randomX)}px`;
+    number.style.top = `${Math.round(Number(anchor.y || 0) + laneOffsetY + explicitOffsetY + randomY)}px`;
   } else {
-    number.style.left = `${760 + laneOffsetX + randomX}px`;
-    number.style.top = `${300 + laneOffsetY + randomY}px`;
+    number.style.left = `${760 + laneOffsetX + explicitOffsetX + randomX}px`;
+    number.style.top = `${300 + laneOffsetY + explicitOffsetY + randomY}px`;
   }
   return number;
 }
@@ -1292,6 +1306,19 @@ function showDamageNumber(damage, options = {}) {
   RO_WEB_DAMAGE_NUMBER_BATCH.queue.push({ damage:Number(damage || 0), options:queuedOptions });
   scheduleDamageNumberBatch();
 }
+function showAdditionalDamageNumber(damage, target = currentMonster, options = {}) {
+  const amount = Math.max(0, Math.floor(Number(damage || 0)));
+  if (amount <= 0) return false;
+  showDamageNumber(amount, {
+    ...options,
+    target: target || currentMonster || null,
+    source: "additional",
+    combo: true,
+    critical: false
+  });
+  return true;
+}
+window.showAdditionalDamageNumber = showAdditionalDamageNumber;
 window.flushDamageNumberBatch = flushDamageNumberBatch;
 
 // 斬擊特效
