@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initToggleButtons();
   initDraggableWindows();
   initCloseButtons();
+  initWindowSizeSystem();
   initGameTooltips();
   initCurrencyDetailPopup();
 });
@@ -46,6 +47,7 @@ function initCloseButtons() {
       const targetId = button.dataset.target;
       const target = document.getElementById(targetId);
       if (target) target.classList.add("hidden-window");
+      if (targetId === "map-window" && typeof hideMapMonsterDistributionTooltip === "function") hideMapMonsterDistributionTooltip();
       if (targetId === "skill-window" && typeof clearPendingSkillAdds === "function") {
         clearPendingSkillAdds();
         if (typeof updateSkillUI === "function") updateSkillUI();
@@ -69,8 +71,9 @@ function getViewportSizeForUI() {
 
 function getMobileWindowStartPosition(win) {
   const vp = getViewportSizeForUI();
-  const w = Math.min(win.offsetWidth || 320, Math.max(280, vp.width - 24));
-  const h = Math.min(win.offsetHeight || 360, Math.max(220, vp.height - 72));
+  const rect = win?.getBoundingClientRect?.() || {};
+  const w = Math.min(rect.width || win.offsetWidth || 320, Math.max(140, vp.width - 24));
+  const h = Math.min(rect.height || win.offsetHeight || 360, Math.max(110, vp.height - 72));
   const safeTop = 64;
   const bottomSafe = 64;
   const id = win?.id || "";
@@ -107,6 +110,7 @@ function toggleWindow(id) {
   const win = document.getElementById(id);
   if (!win) return;
   win.classList.toggle("hidden-window");
+  if (id === "map-window" && win.classList.contains("hidden-window") && typeof hideMapMonsterDistributionTooltip === "function") hideMapMonsterDistributionTooltip();
   if (!win.classList.contains("hidden-window")) centerWindowForMobile(win);
   bringWindowToFront(win);
 }
@@ -432,3 +436,149 @@ function initCurrencyDetailPopup() {
     if (event.key === "Enter" || event.key === " ") show(event);
   });
 }
+
+
+//=======================================
+// RO_WEB 0.9.82FH：全視窗大／中／小循環尺寸
+// 目前既有尺寸視為「大」100%，中／小分別為 75%／50%。
+// 不使用自由拉伸，避免手機瀏覽器手勢衝突。
+//=======================================
+const RO_UI_SIZE_KEY = "ro_web_ui_window_sizes_v0_9_82fh";
+const RO_UI_SIZE_ORDER = ["large", "medium", "small"];
+const RO_UI_SIZE_LABELS = { large: "大", medium: "中", small: "小" };
+
+function getWindowSizeTargetId(target) {
+  return String(target?.dataset?.uiSizeId || target?.id || "").trim();
+}
+
+function getSavedWindowSizes() {
+  let saved = {};
+  try { saved = JSON.parse(localStorage.getItem(RO_UI_SIZE_KEY)) || {}; } catch (error) {}
+  if (typeof player !== "undefined" && player?.uiWindowSizes && typeof player.uiWindowSizes === "object") {
+    saved = { ...saved, ...player.uiWindowSizes };
+  }
+  return saved;
+}
+
+function persistWindowSizes(saved) {
+  try { localStorage.setItem(RO_UI_SIZE_KEY, JSON.stringify(saved || {})); } catch (error) {}
+  if (typeof player !== "undefined" && player) {
+    player.uiWindowSizes = { ...(player.uiWindowSizes || {}), ...(saved || {}) };
+    if (typeof requestGameSave === "function") requestGameSave(250);
+    else if (typeof saveGame === "function") window.setTimeout(() => saveGame(), 0);
+  }
+}
+
+function normalizeWindowSize(size) {
+  return RO_UI_SIZE_ORDER.includes(size) ? size : "large";
+}
+
+function getWindowSizeHeader(target) {
+  return target?.querySelector?.(".window-title, .ui-size-header, .item-detail-header, .skill-detail-header, .job-change-confirm-header, .homunculus-modal-header, .skill-copy-header") || null;
+}
+
+function clampSizedWindowToViewport(target) {
+  if (!target?.classList?.contains("game-window") || target.classList.contains("hidden-window")) return;
+  const rect = target.getBoundingClientRect();
+  const vp = getViewportSizeForUI();
+  const margin = 8;
+  let left = parseFloat(target.style.left);
+  let top = parseFloat(target.style.top);
+  if (!Number.isFinite(left)) left = target.offsetLeft || margin;
+  if (!Number.isFinite(top)) top = target.offsetTop || margin;
+  if (rect.right < 38) left += (38 - rect.right);
+  if (rect.left > vp.width - 38) left -= (rect.left - (vp.width - 38));
+  if (rect.bottom < 34) top += (34 - rect.bottom);
+  if (rect.top > vp.height - 34) top -= (rect.top - (vp.height - 34));
+  target.style.setProperty("left", `${Math.round(left)}px`, "important");
+  target.style.setProperty("top", `${Math.round(top)}px`, "important");
+  target.style.setProperty("right", "auto", "important");
+  target.style.setProperty("bottom", "auto", "important");
+}
+
+function applyWindowSize(target, requestedSize, options = {}) {
+  if (!target) return;
+  const size = normalizeWindowSize(requestedSize);
+  target.dataset.uiSize = size;
+  target.style.zoom = size === "medium" ? "0.75" : (size === "small" ? "0.5" : "1");
+  const button = target.querySelector(":scope > .window-title .window-size-cycle, :scope > .ui-size-header .window-size-cycle, .window-size-cycle");
+  if (button) {
+    button.textContent = RO_UI_SIZE_LABELS[size];
+    button.title = `視窗大小：${RO_UI_SIZE_LABELS[size]}（點擊切換）`;
+    button.setAttribute("aria-label", `視窗大小 ${RO_UI_SIZE_LABELS[size]}，點擊切換`);
+  }
+  if (!options.skipClamp) window.requestAnimationFrame(() => clampSizedWindowToViewport(target));
+}
+
+function saveWindowSize(target, size) {
+  const id = getWindowSizeTargetId(target);
+  if (!id) return;
+  const saved = getSavedWindowSizes();
+  saved[id] = normalizeWindowSize(size);
+  persistWindowSizes(saved);
+}
+
+function cycleWindowSize(target) {
+  const current = normalizeWindowSize(target?.dataset?.uiSize);
+  const next = RO_UI_SIZE_ORDER[(RO_UI_SIZE_ORDER.indexOf(current) + 1) % RO_UI_SIZE_ORDER.length];
+  applyWindowSize(target, next);
+  saveWindowSize(target, next);
+}
+
+function ensureWindowSizeControl(target) {
+  if (!target || target.dataset.uiSizeReady === "1") return;
+  const id = getWindowSizeTargetId(target);
+  const header = getWindowSizeHeader(target);
+  if (!id || !header) return;
+  target.dataset.uiSizeReady = "1";
+  target.classList.add("ui-size-enabled");
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "window-size-cycle";
+  button.dataset.noDrag = "1";
+  button.addEventListener("pointerdown", event => event.stopPropagation());
+  button.addEventListener("click", event => {
+    event.preventDefault();
+    event.stopPropagation();
+    cycleWindowSize(target);
+  });
+  const headerHidden = typeof getComputedStyle === "function" && getComputedStyle(header).display === "none";
+  if (headerHidden) {
+    button.classList.add("is-floating-size-control");
+    target.appendChild(button);
+  } else {
+    const close = header.querySelector(".window-close, [aria-label='關閉'], button:last-child");
+    if (close) header.insertBefore(button, close);
+    else header.appendChild(button);
+  }
+  const saved = getSavedWindowSizes();
+  applyWindowSize(target, saved[id] || "large", { skipClamp: true });
+}
+
+function initWindowSizeSystem() {
+  document.querySelectorAll(".game-window, .ui-size-target").forEach(ensureWindowSizeControl);
+  const observer = new MutationObserver(records => {
+    records.forEach(record => record.addedNodes.forEach(node => {
+      if (!(node instanceof Element)) return;
+      if (node.matches(".game-window, .ui-size-target")) ensureWindowSizeControl(node);
+      node.querySelectorAll?.(".game-window, .ui-size-target").forEach(ensureWindowSizeControl);
+    }));
+  });
+  observer.observe(document.body, { childList: true, subtree: true });
+  window.RO_WEB_UI_SIZE_OBSERVER = observer;
+}
+
+window.addEventListener("ro-web-ready", () => {
+  const saved = getSavedWindowSizes();
+  document.querySelectorAll(".game-window, .ui-size-target").forEach(target => {
+    const id = getWindowSizeTargetId(target);
+    if (id) applyWindowSize(target, saved[id] || target.dataset.uiSize || "large", { skipClamp: true });
+  });
+});
+
+Object.assign(window, {
+  initWindowSizeSystem,
+  ensureWindowSizeControl,
+  applyWindowSize,
+  cycleWindowSize
+});

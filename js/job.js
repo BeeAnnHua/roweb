@@ -1385,12 +1385,15 @@ function renderNoviceSkillRow() {
   const basicAttack = document.createElement("button");
   basicAttack.type = "button";
   basicAttack.className = "novice-skill-chip draggable-skill-chip";
-  basicAttack.draggable = true;
-  basicAttack.dataset.tooltip = "普通攻擊：可拖曳到快捷欄。";
+  basicAttack.draggable = !((typeof isMobileViewport === "function" && isMobileViewport()) || Boolean(window.matchMedia?.("(pointer: coarse)")?.matches));
+  basicAttack.dataset.tooltip = "普通攻擊：點擊可放入快捷欄。";
   basicAttack.innerHTML = `<span class="novice-skill-chip-icon">⚔</span><span>普通攻擊</span>`;
-  basicAttack.addEventListener("dragstart", event => {
+  if (basicAttack.draggable) basicAttack.addEventListener("dragstart", event => {
     event.dataTransfer.setData("application/json", makeBasicAttackDragPayload());
     event.dataTransfer.effectAllowed = "copy";
+  });
+  basicAttack.addEventListener("click", () => {
+    if (typeof openBasicAttackQuickSlotDialog === "function") openBasicAttackQuickSlotDialog();
   });
   row.appendChild(basicAttack);
 
@@ -1404,10 +1407,15 @@ function renderNoviceSkillRow() {
     chip.className = "novice-skill-chip" + (canDrag ? " draggable-skill-chip" : "") + (level > 0 ? " learned" : "") + (check.ok ? " learnable" : " locked") + (maxed ? " maxed" : "");
     chip.dataset.tooltip = buildSkillTooltipText(skill, level, check, maxed);
     if (canDrag) {
-      chip.draggable = true;
-      chip.addEventListener("dragstart", event => {
+      chip.draggable = !((typeof isMobileViewport === "function" && isMobileViewport()) || Boolean(window.matchMedia?.("(pointer: coarse)")?.matches));
+      if (chip.draggable) chip.addEventListener("dragstart", event => {
         event.dataTransfer.setData("application/json", makeSkillDragPayload(skill));
         event.dataTransfer.effectAllowed = "copy";
+      });
+    }
+    if (!isSkillBasic(skill)) {
+      chip.addEventListener("click", () => {
+        if (typeof openSkillQuickSlotDialog === "function") openSkillQuickSlotDialog(skill);
       });
     }
     if (isSkillBasic(skill)) {
@@ -1501,9 +1509,9 @@ function updateSkillUI() {
     iconBox.className = "skill-grid-icon";
     iconBox.dataset.tooltip = tooltip;
     if (canSkillUseQuickSlotForJob(skill) && currentLevel > 0) {
-      iconBox.draggable = true;
-      iconBox.title = `${skill.name}：可拖曳到快捷欄`;
-      iconBox.addEventListener("dragstart", event => {
+      iconBox.draggable = !((typeof isMobileViewport === "function" && isMobileViewport()) || Boolean(window.matchMedia?.("(pointer: coarse)")?.matches));
+      iconBox.title = `${skill.name}：點擊可放入快捷欄`;
+      if (iconBox.draggable) iconBox.addEventListener("dragstart", event => {
         event.dataTransfer.setData("application/json", makeSkillDragPayload(skill));
         event.dataTransfer.effectAllowed = "copy";
       });
@@ -1511,6 +1519,11 @@ function updateSkillUI() {
     if (isSkillBasic(skill)) {
       iconBox.title = "查看初心者基本技能 / 修練";
       iconBox.onclick = openJobTrainingFromBasicSkill;
+    } else {
+      iconBox.onclick = event => {
+        event.stopPropagation();
+        if (typeof openSkillQuickSlotDialog === "function") openSkillQuickSlotDialog(skill);
+      };
     }
 
     if (skill.icon) {

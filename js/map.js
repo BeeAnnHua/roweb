@@ -269,7 +269,6 @@ function createMapMonsterDistributionSection(title, icon, entries, options = {})
   const rows = entries.map(entry => {
     const monster = getMapMonsterById(entry.monsterId);
     const name = monster?.name || `怪物 ${entry.monsterId}`;
-    const count = formatMapMonsterCount(entry, options.countPlan);
     let stateHtml = "";
     if (options.liveState) {
       const state = getMapUniqueMonsterAvailability(RO_MAP_MONSTER_TOOLTIP_STATE.mapId, entry.monsterId);
@@ -277,11 +276,7 @@ function createMapMonsterDistributionSection(title, icon, entries, options = {})
         ? `<em class="map-monster-state is-respawning">重生倒數 ${formatMapMonsterRespawnDuration(state.remainingSeconds)}</em>`
         : `<em class="map-monster-state is-alive">存在中</em>`;
     }
-    const category = String(entry?.category || "normal").toLowerCase();
-    const categoryBadge = options.showCategory && category !== "normal"
-      ? `<small class="map-monster-category-badge category-${category}">${category === "plant" ? "植物" : "稀有"}</small>`
-      : "";
-    return `<div class="map-monster-distribution-row"><span>${name}${categoryBadge}</span><b>× ${count}</b>${stateHtml}</div>`;
+    return `<div class="map-monster-distribution-row"><span>${name}</span>${stateHtml}</div>`;
   }).join("");
   return `<section class="map-monster-distribution-section"><h4><span aria-hidden="true">${icon}</span>${title}</h4>${rows}</section>`;
 }
@@ -289,15 +284,14 @@ function createMapMonsterDistributionSection(title, icon, entries, options = {})
 function buildMapMonsterDistributionHtml(mapData) {
   const profile = getMapMonsterSpawnProfile(mapData);
   const pool = Array.isArray(profile?.pool) ? profile.pool : [];
-  const countPlan = getMapMonsterDisplayCountPlan(mapData, profile);
   const ordinary = pool.filter(entry => ["normal", "plant", "rare"].includes(String(entry?.category || "normal").toLowerCase()));
   const bosses = pool.filter(entry => String(entry?.category || "").toLowerCase() === "boss");
   const mvps = pool.filter(entry => String(entry?.category || "").toLowerCase() === "mvp");
   const recommended = mapData?.recommendedLevel ? `<small class="map-monster-level">建議等級 ${mapData.recommendedLevel}</small>` : "";
   const sections = [
-    createMapMonsterDistributionSection("一般怪物", "🐾", ordinary, { showCategory: true, countPlan }),
-    createMapMonsterDistributionSection("Boss 怪物", "👑", bosses, { liveState: true, countPlan }),
-    createMapMonsterDistributionSection("MVP", "🏆", mvps, { liveState: true, countPlan })
+    createMapMonsterDistributionSection("一般怪物", "🐾", ordinary),
+    createMapMonsterDistributionSection("Boss 怪物", "👑", bosses, { liveState: true }),
+    createMapMonsterDistributionSection("MVP", "🏆", mvps, { liveState: true })
   ].filter(Boolean).join("");
   return `<div class="map-monster-distribution-header"><b>${mapData?.displayName || mapData?.name || "怪物地區"}</b>${recommended}</div>${sections || '<div class="map-monster-distribution-empty">此地區尚無怪物資料</div>'}`;
 }
@@ -323,6 +317,7 @@ function positionMapMonsterDistributionTooltip() {
   const tooltip = document.getElementById("map-monster-distribution-tooltip");
   const anchor = RO_MAP_MONSTER_TOOLTIP_STATE.anchor;
   if (!tooltip || tooltip.hidden || !anchor?.isConnected) return;
+  if (tooltip.classList.contains("is-embedded")) return;
   const rect = anchor.getBoundingClientRect();
   const viewportWidth = Math.max(1, window.visualViewport?.width || window.innerWidth || document.documentElement.clientWidth || 1280);
   const viewportHeight = Math.max(1, window.visualViewport?.height || window.innerHeight || document.documentElement.clientHeight || 720);
@@ -363,6 +358,19 @@ function showMapMonsterDistributionTooltip(mapData, anchor) {
   RO_MAP_MONSTER_TOOLTIP_STATE.mapId = mapData.id;
   RO_MAP_MONSTER_TOOLTIP_STATE.anchor = anchor;
   const tooltip = getMapMonsterDistributionTooltip();
+  const embedded = Boolean(window.matchMedia?.("(max-width: 700px), (pointer: coarse)")?.matches);
+  if (embedded) {
+    const currentCard = document.querySelector("#map-window .map-current-card");
+    if (currentCard && tooltip.parentElement !== currentCard) currentCard.appendChild(tooltip);
+    currentCard?.classList.add("has-monster-info");
+    tooltip.classList.add("is-embedded");
+    tooltip.style.left = "";
+    tooltip.style.top = "";
+  } else {
+    tooltip.closest?.(".map-current-card")?.classList.remove("has-monster-info");
+    if (tooltip.parentElement !== document.body) document.body.appendChild(tooltip);
+    tooltip.classList.remove("is-embedded");
+  }
   tooltip.hidden = false;
   tooltip.innerHTML = buildMapMonsterDistributionHtml(mapData);
   positionMapMonsterDistributionTooltip();
@@ -382,6 +390,7 @@ function hideMapMonsterDistributionTooltip() {
   RO_MAP_MONSTER_TOOLTIP_STATE.mapId = null;
   RO_MAP_MONSTER_TOOLTIP_STATE.anchor = null;
   const tooltip = document.getElementById("map-monster-distribution-tooltip");
+  tooltip?.closest?.(".map-current-card")?.classList.remove("has-monster-info");
   if (tooltip) tooltip.hidden = true;
 }
 
@@ -472,6 +481,18 @@ function updateMapUI() {
       btn.addEventListener("blur", scheduleHideMapMonsterDistributionTooltip);
     }
     btn.onclick = function () {
+      const coarsePointer = Boolean(window.matchMedia?.("(max-width: 700px), (pointer: coarse)")?.matches);
+      if (dest.kind === "field" && coarsePointer) {
+        document.querySelectorAll("#map-window .map-region-warp-button[data-preview-armed='1']").forEach(other => {
+          if (other !== btn) delete other.dataset.previewArmed;
+        });
+        if (isCurrent || btn.dataset.previewArmed !== "1") {
+          btn.dataset.previewArmed = "1";
+          showMapMonsterDistributionTooltip(dest.data, btn);
+          return;
+        }
+        delete btn.dataset.previewArmed;
+      }
       hideMapMonsterDistributionTooltip();
       if (isCurrent) return;
       if (dest.kind === "field") changeMap(dest.id);

@@ -18574,3 +18574,254 @@ h2 { font-size:20px; margin:0 0 8px; text-align:center; letter-spacing:2px; colo
 /* ============================================================
    RO_WEB 0.9.82FG — town restore / compact live monster tooltip
    ============================================================ */
+
+/* ============================================================
+   RO_WEB 0.9.82FH — three-step UI size / compact interaction UI
+   ============================================================ */
+.game-window.ui-size-enabled,
+.ui-size-target.ui-size-enabled {
+  --ro-ui-window-zoom: 1;
+  zoom: var(--ro-ui-window-zoom);
+}
+.game-window.ui-size-enabled[data-ui-size="medium"],
+.ui-size-target.ui-size-enabled[data-ui-size="medium"] { --ro-ui-window-zoom: .75; }
+.game-window.ui-size-enabled[data-ui-size="small"],
+.ui-size-target.ui-size-enabled[data-ui-size="small"] { --ro-ui-window-zoom: .5; }
+
+.window-title,
+.ui-size-header,
+.item-detail-header,
+.skill-detail-header,
+.job-change-confirm-header,
+.homunculus-modal-header,
+.skill-copy-header {
+  display: flex;
+  align-items: center;
+}
+.window-size-cycle {
+  flex: 0 0 auto;
+  min-width: 26px;
+  height: 22px;
+  margin-left: auto;
+  margin-right: 4px;
+  padding: 0 6px;
+  border: 1px solid rgba(221, 175, 83, .88);
+  border-radius: 5px;
+  background: linear-gradient(#4b3218, #211307);
+  color: #ffe6a0;
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 20px;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.window-size-cycle:hover { filter: brightness(1.18); }
+.window-size-cycle:active { transform: translateY(1px); }
+.window-title .window-close,
+.ui-size-header > [aria-label="關閉"] { margin-left: 0 !important; }
+
+/* System log toolbar: save controls no longer overlap the 1~0 bar. */
+#battle-log.chat-panel { overflow: hidden !important; }
+.battle-log-toolbar {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  top: 5px;
+  z-index: 48;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 24px;
+  pointer-events: none;
+}
+.battle-log-toolbar > b {
+  color: #f3ce7c;
+  font-size: 12px;
+  text-shadow: 0 1px 2px #000;
+}
+.battle-log-save-actions {
+  display: flex;
+  gap: 4px;
+  pointer-events: auto;
+}
+.battle-log-save-actions button {
+  min-width: 42px;
+  height: 23px;
+  padding: 0 7px;
+  border: 1px solid #9e773b;
+  border-radius: 5px;
+  background: linear-gradient(#45311a,#1a120b);
+  color: #f6e6be;
+  font-size: 10px;
+  font-weight: 800;
+}
+#battle-log-list { padding-top: 31px !important; padding-bottom: 38px !important; }
+
+/* Location is shown above coordinates in the chat panel. */
+#battle-log #position-coordinate-ui {
+  display: grid !important;
+  grid-template-columns: auto auto !important;
+  grid-template-areas: "location location" "label value" !important;
+  align-items: center !important;
+  row-gap: 0 !important;
+  height: auto !important;
+  min-height: 38px !important;
+  line-height: 18px !important;
+  padding: 3px 8px !important;
+}
+#position-coordinate-ui .location-name {
+  grid-area: location;
+  color: #f3ce7c;
+  font-weight: 900;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#position-coordinate-ui .coord-label { grid-area: label; }
+#position-coordinate-ui .coord-value { grid-area: value; }
+
+/* Skill / item click-to-assign dialog. */
+.skill-detail-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 30060;
+  display: grid;
+  place-items: center;
+  padding: 12px;
+  background: rgba(0,0,0,.52);
+}
+.skill-detail-modal.hidden-window { display: none !important; }
+.skill-detail-card {
+  width: min(410px, calc(100vw - 24px));
+  max-height: min(620px, calc(100vh - 24px));
+  overflow: hidden;
+  border: 2px solid #c99742;
+  border-radius: 10px;
+  background: linear-gradient(#37230e,#120b05);
+  color: #f4e3b5;
+  box-shadow: 0 16px 42px rgba(0,0,0,.75);
+}
+.skill-detail-header {
+  min-height: 34px;
+  padding: 0 8px 0 11px;
+  border-bottom: 1px solid rgba(211,163,74,.5);
+  color: #ffe6a4;
+}
+.skill-detail-header > b { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.skill-detail-header > [aria-label="關閉"] {
+  width: 26px; height: 24px; padding: 0; border: 0; background: transparent; color: #ffe6a4; font-size: 20px;
+}
+.skill-detail-body { max-height: 360px; overflow: auto; padding: 10px 12px; }
+.skill-detail-top { display: grid; grid-template-columns: 54px 1fr; gap: 10px; align-items: center; }
+.skill-detail-top img { width: 52px; height: 52px; object-fit: contain; image-rendering: pixelated; }
+.skill-detail-name { color: #ffe2a0; font-weight: 900; font-size: 15px; }
+.skill-detail-meta { color: #cdb989; font-size: 11px; }
+.skill-detail-description { margin-top: 8px; white-space: pre-wrap; color: #ead9ad; font-size: 12px; line-height: 1.5; }
+.quick-slot-picker-inline {
+  padding: 8px 10px 10px;
+  border-top: 1px solid rgba(211,163,74,.4);
+}
+.quick-slot-picker-title { margin-bottom: 6px; color: #f3ce7c; font-size: 11px; font-weight: 900; }
+.quick-slot-picker-grid { display: grid; grid-template-columns: repeat(10, minmax(25px, 1fr)); gap: 4px; }
+.quick-slot-picker-button {
+  min-width: 0;
+  height: 31px;
+  padding: 0;
+  border: 1px solid #9b7133;
+  border-radius: 5px;
+  background: linear-gradient(#3e2a16,#171008);
+  color: #ffe3a0;
+  font-size: 11px;
+  font-weight: 900;
+  touch-action: manipulation;
+}
+.quick-slot-picker-button.is-occupied { border-color: #d2a44e; box-shadow: inset 0 0 0 1px rgba(255,225,151,.15); }
+.quick-slot-picker-note { color: #bda97a; font-size: 10px; }
+
+/* Item detail actions: equip/unequip below the close button area, consumables can be assigned. */
+.item-detail-card { position: relative; }
+.item-detail-actions { padding: 0 10px 10px; }
+.item-detail-primary-action {
+  position: absolute;
+  top: 39px;
+  right: 9px;
+  z-index: 3;
+  min-width: 58px;
+  height: 27px;
+  padding: 0 9px;
+  border: 1px solid #d0a049;
+  border-radius: 6px;
+  background: linear-gradient(#50351a,#211306);
+  color: #ffe8a9;
+  font-size: 11px;
+  font-weight: 900;
+}
+.item-detail-primary-action:disabled { opacity: .48; filter: grayscale(.4); }
+.item-detail-actions .quick-slot-picker-inline { padding-left: 0; padding-right: 0; padding-bottom: 0; }
+
+.quick-slot.item.is-unavailable { filter: grayscale(1); opacity: .48; }
+.quick-slot.item.is-unavailable::after { content: "0"; position: absolute; right: 3px; bottom: 1px; color: #ffb0a0; font-size: 9px; font-weight: 900; }
+
+/* Compact embedded map monster list on touch devices. */
+.map-monster-distribution-tooltip.is-embedded {
+  position: relative !important;
+  inset: auto !important;
+  width: 100% !important;
+  max-height: 160px !important;
+  margin: 5px 0 7px !important;
+  border-width: 1px !important;
+  border-radius: 7px !important;
+  box-shadow: inset 0 0 0 1px rgba(255,224,151,.12) !important;
+  flex: 0 0 auto;
+}
+.map-monster-distribution-row { grid-template-columns: minmax(0, 1fr) auto !important; }
+.map-monster-distribution-row > b { display: none !important; }
+
+@media (max-width: 900px), (pointer: coarse) {
+  .window-size-cycle { min-width: 30px; height: 25px; font-size: 12px; }
+  .quick-slot-picker-grid { grid-template-columns: repeat(5, minmax(36px, 1fr)); gap: 6px; }
+  .quick-slot-picker-button { height: 36px; font-size: 13px; }
+  .skill-detail-card { width: min(360px, calc(100vw - 16px)); }
+  #battle-log #position-coordinate-ui { right: 22px !important; bottom: 5px !important; min-height: 34px !important; font-size: 10px !important; }
+  .battle-log-toolbar { top: 3px; }
+  .battle-log-toolbar > b { font-size: 10px; }
+  .battle-log-save-actions button { min-width: 38px; height: 21px; padding: 0 5px; font-size: 9px; }
+}
+@media (max-width: 900px), (pointer: coarse) {
+  #map-window .map-current-card.has-monster-info .map-current-thumb,
+  #map-window .map-current-card.has-monster-info .map-current-desc,
+  #map-window .map-current-card.has-monster-info .map-current-progress { display: none !important; }
+  #map-window .map-current-card.has-monster-info { padding: 6px !important; overflow: hidden !important; }
+  #map-window .map-current-card.has-monster-info .map-current-title { margin-bottom: 4px !important; }
+  #map-window .map-current-card .map-monster-distribution-tooltip.is-embedded {
+    max-height: 164px !important;
+    margin: 0 !important;
+  }
+}
+
+/* 0.9.82FH final title-control alignment: keep legacy centered titles intact. */
+.game-window .window-title .window-size-cycle {
+  position: absolute !important;
+  right: 35px !important;
+  top: 50% !important;
+  margin: 0 !important;
+  transform: translateY(-50%) !important;
+  z-index: 132 !important;
+}
+.game-window > .window-size-cycle.is-floating-size-control {
+  position: absolute !important;
+  right: 36px !important;
+  top: 7px !important;
+  margin: 0 !important;
+  z-index: 180 !important;
+}
+.ui-size-header,
+.item-detail-header,
+.skill-detail-header,
+.job-change-confirm-header,
+.homunculus-modal-header,
+.skill-copy-header {
+  display: flex !important;
+  align-items: center !important;
+}

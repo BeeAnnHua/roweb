@@ -262,6 +262,7 @@ function normalizePlayerData() {
   player.discoveredMaps = getPlainPlayerObject(player.discoveredMaps);
   player.monsterBook = getPlainPlayerObject(player.monsterBook);
   player.mapExploration = getPlainPlayerObject(player.mapExploration);
+  player.uiWindowSizes = getPlainPlayerObject(player.uiWindowSizes);
   if (typeof normalizeMapExplorationData === "function") {
     normalizeMapExplorationData();
   }
@@ -310,7 +311,7 @@ function saveGame() {
   if (window.RO_WEB_RESETTING_SAVE) return;
   if (!player) return;
 
-  // 0.9.82FG：城鎮與野外狀態互斥。城鎮存檔不可被仍在記憶中的
+  // 0.9.82FH：城鎮與野外狀態互斥。城鎮存檔不可被仍在記憶中的
   // last field map 覆寫，否則重新開頁會在城鎮背景生成野外怪物。
   if (player.currentCity) {
     player.map = null;
@@ -397,7 +398,7 @@ function resetGameSave() {
     const base = location.origin && location.origin !== "null"
       ? location.origin + location.pathname
       : location.pathname;
-    location.replace(base + "?v=0.9.82FG-reset-" + Date.now());
+    location.replace(base + "?v=0.9.82FH-reset-" + Date.now());
   };
 
   try {
@@ -1287,9 +1288,10 @@ function updateInventoryUI() {
       slot.dataset.tooltip = buildItemTooltip(item, itemData);
       slot.setAttribute("aria-label", `${typeof buildCompactItemName === "function" ? buildCompactItemName(item, itemData) : itemData.name} x ${item.count}`);
       if (itemData.type === "consume") {
-        slot.draggable = true;
-        slot.title = `${itemData.name}：可拖曳到快捷欄`;
-        slot.addEventListener("dragstart", event => {
+        const mobileUi = (typeof isMobileViewport === "function" && isMobileViewport()) || Boolean(window.matchMedia?.("(pointer: coarse)")?.matches);
+        slot.draggable = !mobileUi;
+        slot.title = `${itemData.name}：點擊查看與設定快捷欄`;
+        if (slot.draggable) slot.addEventListener("dragstart", event => {
           event.dataTransfer.setData("application/json", JSON.stringify({ type: "item", id: itemData.id }));
           event.dataTransfer.effectAllowed = "copy";
         });

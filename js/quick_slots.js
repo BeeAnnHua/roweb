@@ -1,6 +1,6 @@
 //=======================================
-// QuickSlotManager v0.9.35
-// 玩家手動拖曳制：技能 / 補品 / 普通攻擊都由玩家放到 1~0。
+// QuickSlotManager v0.9.82FH
+// PC 可拖曳；PC / Mobile 均可點選技能或消耗品後配置到 1~0。
 //=======================================
 
 const QUICK_SLOT_LABELS = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
@@ -43,16 +43,16 @@ function sanitizeQuickSlot(slot) {
   if (slot.type === "item") {
     const item = typeof getItemData === "function" ? getItemData(slot.id) : null;
     const inv = typeof findInventoryItemById === "function" ? findInventoryItemById(slot.id) : null;
-    if (!item || !inv || Number(inv.count || 0) <= 0) return { type: "empty" };
-    if (item.type !== "consume") return { type: "empty" };
+    if (!item || item.type !== "consume") return { type: "empty" };
+    const count = Math.max(0, Number(inv?.count || 0));
     return {
       type: "item",
       id: item.id,
       name: item.name,
       icon: item.icon || `images/items/${item.officialId || item.id}.webp`,
-      count: Number(inv.count || 0),
-      className: "potion",
-      hint: `${item.name} x${Number(inv.count || 0)}`
+      count,
+      className: `potion${count <= 0 ? " is-unavailable" : ""}`,
+      hint: count > 0 ? `${item.name} x${count}` : `${item.name}（背包數量 0）`
     };
   }
 
@@ -71,9 +71,14 @@ function parseQuickDragData(event) {
   try { return JSON.parse(raw); } catch { return null; }
 }
 
-function setQuickSlotFromDrag(index, data) {
+function assignQuickSlot(index, data, options = {}) {
   normalizeQuickSlotData();
-  if (!data) return;
+  if (!data || index < 0 || index >= QUICK_SLOT_MAX) return false;
+  const current = player.quickSlots[index] || { type: "empty" };
+  if (options.confirmReplace !== false && current.type && current.type !== "empty") {
+    const currentName = sanitizeQuickSlot(current)?.name || "目前內容";
+    if (!window.confirm(`快捷欄 ${QUICK_SLOT_LABELS[index]} 已有「${currentName}」，是否取代？`)) return false;
+  }
 
   if (data.type === "basic") {
     player.quickSlots[index] = { type: "basic" };
@@ -81,24 +86,32 @@ function setQuickSlotFromDrag(index, data) {
     const skill = typeof getSkillDataById === "function" ? getSkillDataById(data.id) : null;
     if (!skill || typeof getSkillLevel !== "function" || getSkillLevel(skill.id) <= 0) {
       addBattleLog("尚未學會此技能，不能放入快捷欄。");
-      return;
+      return false;
     }
     if (typeof isRuntimeSkillQuickSlotEligible === "function" ? !isRuntimeSkillQuickSlotEligible(skill) : !["attack", "buff", "heal", "support"].includes(skill.skillType)) {
-      addBattleLog("被動技能不能拖曳到快捷欄。 ");
-      return;
+      addBattleLog("被動技能不能放入快捷欄。");
+      return false;
     }
     player.quickSlots[index] = { type: "skill", id: skill.id };
   } else if (data.type === "item") {
     const item = typeof getItemData === "function" ? getItemData(data.id) : null;
     if (!item || item.type !== "consume") {
       addBattleLog("目前只有消耗品可以放入快捷欄。");
-      return;
+      return false;
     }
     player.quickSlots[index] = { type: "item", id: item.id };
+  } else {
+    return false;
   }
 
   updateQuickSlotUI();
   saveGame();
+  addBattleLog(`已放入快捷欄 ${QUICK_SLOT_LABELS[index]}。`);
+  return true;
+}
+
+function setQuickSlotFromDrag(index, data) {
+  return assignQuickSlot(index, data, { confirmReplace: true });
 }
 
 function clearQuickSlot(index) {
@@ -119,7 +132,7 @@ function updateQuickSlotUI() {
     const slotEl = document.createElement("button");
     slotEl.type = "button";
     slotEl.className = `quick-slot ${slot.type || "empty"} ${slot.className || ""}`.trim();
-    slotEl.title = slot.hint || slot.name || "拖曳技能或補品到這裡";
+    slotEl.title = slot.hint || slot.name || "快捷欄空格";
     slotEl.dataset.slotIndex = String(index);
 
     slotEl.addEventListener("dragover", event => {
@@ -184,6 +197,10 @@ function useQuickSlot(slot) {
   }
 
   if (slot.type === "item") {
+    if (Number(slot.count || 0) <= 0) {
+      addBattleLog(`${slot.name || "物品"}目前不在背包中。`);
+      return;
+    }
     if (typeof useItem === "function") {
       useItem(slot.id);
       updateQuickSlotUI();
@@ -421,6 +438,120 @@ function quickSlotCastSkill(skillId, options = {}) {
   }
   addBattleLog(skill.name + " 目前不能放在快捷欄使用。 ");
 }
+
+
+function renderQuickSlotPicker(container, data, options = {}) {
+  if (!container) return;
+  normalizeQuickSlotData();
+  container.innerHTML = "";
+  if (options.messageOnly) {
+    const note = document.createElement("div");
+    note.className = "quick-slot-picker-note";
+    note.textContent = options.messageOnly;
+    container.appendChild(note);
+    return;
+  }
+  const title = document.createElement("div");
+  title.className = "quick-slot-picker-title";
+  title.textContent = "放入快捷欄";
+  container.appendChild(title);
+  const grid = document.createElement("div");
+  grid.className = "quick-slot-picker-grid";
+  getManualQuickSlots().forEach((slot, index) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = `quick-slot-picker-button${slot.type !== "empty" ? " is-occupied" : ""}`;
+    button.textContent = QUICK_SLOT_LABELS[index];
+    button.title = slot.type === "empty" ? `放入 ${QUICK_SLOT_LABELS[index]}` : `${QUICK_SLOT_LABELS[index]}：${slot.name || "已使用"}`;
+    button.addEventListener("click", () => {
+      if (assignQuickSlot(index, data, { confirmReplace: true })) {
+        if (typeof options.onAssigned === "function") options.onAssigned(index);
+      }
+    });
+    grid.appendChild(button);
+  });
+  container.appendChild(grid);
+}
+
+function getSkillDetailDescription(skill) {
+  const level = typeof getSkillLevel === "function" ? getSkillLevel(skill?.id) : 0;
+  const lines = [];
+  const raw = skill?.description || skill?.desc || skill?.descriptionLines || skill?.effectDescription;
+  if (Array.isArray(raw)) lines.push(...raw);
+  else if (raw) lines.push(String(raw));
+  if (!lines.length && typeof buildSkillTooltipText === "function") {
+    try { lines.push(buildSkillTooltipText(skill, level, { ok: false, reason: "" }, level >= Number(skill?.maxLevel || 0))); } catch (error) {}
+  }
+  return lines.filter(Boolean).join("\n") || "目前沒有技能說明。";
+}
+
+function openSkillQuickSlotDialog(skillOrId, options = {}) {
+  const skill = typeof skillOrId === "object" ? skillOrId : (typeof getSkillDataById === "function" ? getSkillDataById(skillOrId) : null);
+  if (!skill) return false;
+  const modal = document.getElementById("skill-detail-modal");
+  const title = document.getElementById("skill-detail-title");
+  const body = document.getElementById("skill-detail-body");
+  const picker = document.getElementById("skill-detail-quick-picker");
+  if (!modal || !title || !body || !picker) return false;
+  const level = typeof getSkillLevel === "function" ? Math.max(0, Number(getSkillLevel(skill.id) || 0)) : 0;
+  const uiType = typeof getRuntimeSkillUiType === "function" ? getRuntimeSkillUiType(skill) : String(skill.skillType || "pending");
+  const eligible = level > 0 && (typeof isRuntimeSkillQuickSlotEligible === "function" ? isRuntimeSkillQuickSlotEligible(skill) : ["attack", "buff", "heal", "support"].includes(uiType));
+  title.textContent = skill.name || "技能資料";
+  body.innerHTML = "";
+  const top = document.createElement("div");
+  top.className = "skill-detail-top";
+  const icon = document.createElement("img");
+  icon.src = skill.icon || (skill.officialId ? `images/skills/${skill.officialId}.png` : "");
+  icon.alt = skill.name || "技能";
+  icon.onerror = () => { icon.style.display = "none"; };
+  const summary = document.createElement("div");
+  summary.innerHTML = `<div class="skill-detail-name"></div><div class="skill-detail-meta"></div>`;
+  summary.querySelector(".skill-detail-name").textContent = `${skill.name || "技能"} Lv${level}`;
+  summary.querySelector(".skill-detail-meta").textContent = uiType === "passive" ? "被動技能" : (level > 0 ? "已學會" : "尚未學會");
+  top.append(icon, summary);
+  body.appendChild(top);
+  const desc = document.createElement("div");
+  desc.className = "skill-detail-description";
+  desc.textContent = getSkillDetailDescription(skill);
+  body.appendChild(desc);
+  if (eligible) renderQuickSlotPicker(picker, { type: "skill", id: skill.id }, { onAssigned: () => modal.classList.add("hidden-window") });
+  else renderQuickSlotPicker(picker, null, { messageOnly: uiType === "passive" ? "被動技能不能放入快捷欄。" : "學會此技能後才能放入快捷欄。" });
+  modal.classList.remove("hidden-window");
+  if (typeof ensureWindowSizeControl === "function") ensureWindowSizeControl(modal.querySelector(".ui-size-target"));
+  return true;
+}
+
+function openBasicAttackQuickSlotDialog() {
+  const modal = document.getElementById("skill-detail-modal");
+  const title = document.getElementById("skill-detail-title");
+  const body = document.getElementById("skill-detail-body");
+  const picker = document.getElementById("skill-detail-quick-picker");
+  if (!modal || !title || !body || !picker) return false;
+  title.textContent = "普通攻擊";
+  body.innerHTML = `<div class="skill-detail-top"><img src="${getQuickSlotIconForBasicAttack()}" alt="普通攻擊"><div><div class="skill-detail-name">普通攻擊</div><div class="skill-detail-meta">依目前武器進行一般攻擊</div></div></div>`;
+  renderQuickSlotPicker(picker, { type: "basic" }, { onAssigned: () => modal.classList.add("hidden-window") });
+  modal.classList.remove("hidden-window");
+  return true;
+}
+
+function closeSkillQuickSlotDialog() {
+  document.getElementById("skill-detail-modal")?.classList.add("hidden-window");
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("skill-detail-close")?.addEventListener("click", closeSkillQuickSlotDialog);
+  document.getElementById("skill-detail-modal")?.addEventListener("click", event => {
+    if (event.target?.id === "skill-detail-modal") closeSkillQuickSlotDialog();
+  });
+});
+
+Object.assign(window, {
+  assignQuickSlot,
+  renderQuickSlotPicker,
+  openSkillQuickSlotDialog,
+  openBasicAttackQuickSlotDialog,
+  closeSkillQuickSlotDialog
+});
 
 document.addEventListener("keydown", event => {
   if (["INPUT", "SELECT", "TEXTAREA"].includes(document.activeElement?.tagName)) return;

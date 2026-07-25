@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RO_WEB V0.9.82FG</title>
+  <title>RO_WEB V0.9.82FH</title>
   <meta name="description" content="&#8203;">
   <meta property="og:type" content="website">
   <meta property="og:title" content="RO_WEB">
@@ -13,8 +13,8 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="RO_WEB">
   <meta name="twitter:description" content="&#8203;">
-  <link rel="icon" type="image/png" href="images/ui/icons/icon_gold_64.png?v=0.9.82FG">
-  <link rel="stylesheet" href="css/style.css?v=0.9.82FG">
+  <link rel="icon" type="image/png" href="images/ui/icons/icon_gold_64.png?v=0.9.82FH">
+  <link rel="stylesheet" href="css/style.css?v=0.9.82FH">
 </head>
 
 <body>
@@ -41,7 +41,7 @@
       <section id="player-info" class="fixed-panel character-card">
         <h2>角色資訊</h2>
         <div class="profile-row">
-          <div class="portrait-placeholder"><img id="playerPortrait" src="assets/characters/novice/male/idle.png?v=0.9.82FG" alt="角色頭像"></div>
+          <div class="portrait-placeholder"><img id="playerPortrait" src="assets/characters/novice/male/idle.png?v=0.9.82FH" alt="角色頭像"></div>
           <div>
             <div class="name-line"><span id="playerName">載入中</span></div>
             <div class="level-line"><span id="playerJob" hidden>載入中</span>Base Lv.<span id="baseLevel">0</span> / Job Lv.<span id="jobLevel">0</span></div>
@@ -55,7 +55,7 @@
 
       <div id="player-sprite" class="battle-sprite player-sprite">
         <div class="sprite-label">LV.<span id="battlePlayerLevel">0</span> <span id="battlePlayerName">冒險者</span></div>
-        <img id="playerImage" src="assets/characters/novice/male/idle.png?v=0.9.82FG" alt="player">
+        <img id="playerImage" src="assets/characters/novice/male/idle.png?v=0.9.82FH" alt="player">
         <div class="slash-effect" id="slashEffect"></div>
       </div>
 
@@ -71,6 +71,13 @@
 
 
       <section id="battle-log" class="fixed-panel chat-panel" aria-label="系統對話欄">
+        <div class="battle-log-toolbar">
+          <b>系統訊息</b>
+          <div class="battle-log-save-actions">
+            <button type="button" onclick="saveGame()">存檔</button>
+            <button type="button" onclick="resetGameSave()">清存檔</button>
+          </div>
+        </div>
         <div id="battle-log-list"></div>
       </section>
 
@@ -323,10 +330,6 @@
         </div>
       </section>
 
-      <div class="dev-buttons">
-        <button onclick="saveGame()">存檔</button>
-        <button onclick="resetGameSave()">清存檔</button>
-      </div>
     </div>
   </div>
 
@@ -336,18 +339,33 @@
 
 
   <section id="item-detail-modal" class="item-detail-modal hidden-window" role="dialog" aria-modal="true" aria-labelledby="item-detail-title">
-    <div class="item-detail-card">
-      <div class="item-detail-header">
+    <div class="item-detail-card ui-size-target" data-ui-size-id="item-detail-modal">
+      <div class="item-detail-header ui-size-header">
         <b id="item-detail-title">物品資料</b>
         <button type="button" id="item-detail-close" aria-label="關閉">×</button>
       </div>
       <div id="item-detail-body" class="item-detail-body"></div>
+      <div id="item-detail-actions" class="item-detail-actions" hidden>
+        <button type="button" id="item-detail-primary-action" class="item-detail-primary-action" hidden></button>
+        <div id="item-detail-quick-picker" class="quick-slot-picker-inline" hidden></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skill-detail-modal" class="skill-detail-modal hidden-window" role="dialog" aria-modal="true" aria-labelledby="skill-detail-title">
+    <div class="skill-detail-card ui-size-target" data-ui-size-id="skill-detail-modal">
+      <div class="skill-detail-header ui-size-header">
+        <b id="skill-detail-title">技能資料</b>
+        <button type="button" id="skill-detail-close" aria-label="關閉">×</button>
+      </div>
+      <div id="skill-detail-body" class="skill-detail-body"></div>
+      <div id="skill-detail-quick-picker" class="quick-slot-picker-inline"></div>
     </div>
   </section>
 
   <section id="job-change-confirm-modal" class="job-change-confirm-modal hidden-window" role="dialog" aria-modal="true" aria-labelledby="job-change-confirm-title">
-    <div class="job-change-confirm-card">
-      <div class="job-change-confirm-header">
+    <div class="job-change-confirm-card ui-size-target" data-ui-size-id="job-change-confirm-modal">
+      <div class="job-change-confirm-header ui-size-header">
         <b id="job-change-confirm-title">轉職確認</b>
         <button type="button" id="job-change-confirm-close" aria-label="關閉">×</button>
       </div>
@@ -360,15 +378,15 @@
   </section>
 
   <section id="homunculus-modal" class="homunculus-modal hidden-window" role="dialog" aria-modal="true" aria-label="人工生命體管理">
-    <div class="homunculus-modal-card">
-      <div class="homunculus-modal-header"><b>人工生命體管理</b><button type="button" onclick="closeHomunculusWindow()">×</button></div>
+    <div class="homunculus-modal-card ui-size-target" data-ui-size-id="homunculus-modal">
+      <div class="homunculus-modal-header ui-size-header"><b>人工生命體管理</b><button type="button" onclick="closeHomunculusWindow()">×</button></div>
       <div id="homunculus-modal-body" class="homunculus-modal-body"><div class="homunculus-loading">生命體資料載入中...</div></div>
     </div>
   </section>
 
   <section id="skill-copy-modal" class="skill-copy-modal hidden-window" role="dialog" aria-modal="true" aria-label="技能複製選擇">
-    <div class="skill-copy-card">
-      <div class="skill-copy-header"><b class="skill-copy-title">抄襲技能選擇</b><button type="button" class="skill-copy-close">×</button></div>
+    <div class="skill-copy-card ui-size-target" data-ui-size-id="skill-copy-modal">
+      <div class="skill-copy-header ui-size-header"><b class="skill-copy-title">抄襲技能選擇</b><button type="button" class="skill-copy-close">×</button></div>
       <input id="skill-copy-search" type="search" placeholder="搜尋技能名稱、代碼或 ID">
       <div class="skill-copy-summary"></div>
       <div class="skill-copy-list"></div>
@@ -376,37 +394,37 @@
     </div>
   </section>
 
-  <script src="./js/data_bundle.js?v=0.9.82FG"></script>
-  <script src="./js/equipment_job_map_bundle.js?v=0.9.82FG"></script>
-  <script src="./js/player.js?v=0.9.82FG"></script>
-  <script src="./js/item_instance_ui.js?v=0.9.82FG"></script>
-  <script src="./js/position_engine.js?v=0.9.82FG"></script>
-  <script src="./js/job_constitution.js?v=0.9.82FG"></script>
-  <script src="./js/job.js?v=0.9.82FG"></script>
-  <script src="./js/extra_skill_runtime.js?v=0.9.82FG"></script>
-  <script src="./js/combat_mechanics_runtime.js?v=0.9.82FG"></script>
-  <script src="./js/combat_formula_runtime.js?v=0.9.82FG"></script>
-  <script src="./js/ra_renewal_damage_pipeline.js?v=0.9.82FG"></script>
-  <script src="./js/combat_damage_pipeline.js?v=0.9.82FG"></script>
-  <script src="./js/combat_resource_manager.js?v=0.9.82FG"></script>
-  <script src="./js/skill_engine.js?v=0.9.82FG"></script>
-  <script src="./js/status_system.js?v=0.9.82FG"></script>
-  <script src="./js/stats.js?v=0.9.82FG"></script>
-  <script src="./js/loot.js?v=0.9.82FG"></script>
-  <script src="./js/auto_battle.js?v=0.9.82FG"></script>
-  <script src="./js/player_atlas_runtime.js?v=0.9.82FG"></script>
-  <script src="./js/battle.js?v=0.9.82FG"></script>
-  <script src="./js/monster_atlas_runtime.js?v=0.9.82FG"></script>
-  <script src="./js/world_monster_test_runtime.js?v=0.9.82FG"></script>
-  <script src="./js/virtual_summon.js?v=0.9.82FG"></script>
-  <script src="./js/homunculus.js?v=0.9.82FG"></script>
-  <script src="./js/homunculus_skill_runtime.js?v=0.9.82FG"></script>
-  <script src="./js/homunculus_s_skill_runtime.js?v=0.9.82FG"></script>
-  <script src="./js/map.js?v=0.9.82FG"></script>
-  <script src="./js/town.js?v=0.9.82FG"></script>
-  <script src="./js/ui.js?v=0.9.82FG"></script>
-  <script src="./js/quick_slots.js?v=0.9.82FG"></script>
-  <script src="./js/game.js?v=0.9.82FG"></script>
+  <script src="./js/data_bundle.js?v=0.9.82FH"></script>
+  <script src="./js/equipment_job_map_bundle.js?v=0.9.82FH"></script>
+  <script src="./js/player.js?v=0.9.82FH"></script>
+  <script src="./js/item_instance_ui.js?v=0.9.82FH"></script>
+  <script src="./js/position_engine.js?v=0.9.82FH"></script>
+  <script src="./js/job_constitution.js?v=0.9.82FH"></script>
+  <script src="./js/job.js?v=0.9.82FH"></script>
+  <script src="./js/extra_skill_runtime.js?v=0.9.82FH"></script>
+  <script src="./js/combat_mechanics_runtime.js?v=0.9.82FH"></script>
+  <script src="./js/combat_formula_runtime.js?v=0.9.82FH"></script>
+  <script src="./js/ra_renewal_damage_pipeline.js?v=0.9.82FH"></script>
+  <script src="./js/combat_damage_pipeline.js?v=0.9.82FH"></script>
+  <script src="./js/combat_resource_manager.js?v=0.9.82FH"></script>
+  <script src="./js/skill_engine.js?v=0.9.82FH"></script>
+  <script src="./js/status_system.js?v=0.9.82FH"></script>
+  <script src="./js/stats.js?v=0.9.82FH"></script>
+  <script src="./js/loot.js?v=0.9.82FH"></script>
+  <script src="./js/auto_battle.js?v=0.9.82FH"></script>
+  <script src="./js/player_atlas_runtime.js?v=0.9.82FH"></script>
+  <script src="./js/battle.js?v=0.9.82FH"></script>
+  <script src="./js/monster_atlas_runtime.js?v=0.9.82FH"></script>
+  <script src="./js/world_monster_test_runtime.js?v=0.9.82FH"></script>
+  <script src="./js/virtual_summon.js?v=0.9.82FH"></script>
+  <script src="./js/homunculus.js?v=0.9.82FH"></script>
+  <script src="./js/homunculus_skill_runtime.js?v=0.9.82FH"></script>
+  <script src="./js/homunculus_s_skill_runtime.js?v=0.9.82FH"></script>
+  <script src="./js/map.js?v=0.9.82FH"></script>
+  <script src="./js/town.js?v=0.9.82FH"></script>
+  <script src="./js/ui.js?v=0.9.82FH"></script>
+  <script src="./js/quick_slots.js?v=0.9.82FH"></script>
+  <script src="./js/game.js?v=0.9.82FH"></script>
 </body>
 
 </html>

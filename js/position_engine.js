@@ -756,7 +756,7 @@ function ensurePositionCoordinateUi() {
     el = document.createElement("div");
     el.id = "position-coordinate-ui";
     el.className = "position-coordinate-ui";
-    el.innerHTML = `<span class="coord-label">座標</span><span class="coord-value">0, 0</span>`;
+    el.innerHTML = `<span class="location-name">目前位置</span><span class="coord-label">座標</span><span class="coord-value">0, 0</span>`;
   }
   if (el.parentElement !== host) {
     host.appendChild(el);
@@ -772,6 +772,11 @@ function updatePositionCoordinateUi() {
   const y = Math.round(Number(p.y || 0));
   const tx = (p.targetX !== null && p.targetX !== undefined) ? Math.round(Number(p.targetX)) : null;
   const ty = (p.targetY !== null && p.targetY !== undefined) ? Math.round(Number(p.targetY)) : null;
+  const location = el.querySelector(".location-name");
+  if (location) {
+    const city = player?.currentCity && typeof getCityData === "function" ? getCityData(player.currentCity) : null;
+    location.textContent = city?.displayName || city?.name || currentMap?.displayName || currentMap?.name || "未知地區";
+  }
   const value = el.querySelector(".coord-value");
   if (value) {
     value.textContent = (tx !== null && ty !== null && (Math.abs(tx - x) > 2 || Math.abs(ty - y) > 2))

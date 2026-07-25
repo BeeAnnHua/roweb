@@ -284,7 +284,64 @@
     document.getElementById('item-detail-modal')?.classList.add('hidden-window');
   }
 
+  function resetItemDetailActions() {
+    const actions = document.getElementById('item-detail-actions');
+    const primary = document.getElementById('item-detail-primary-action');
+    const picker = document.getElementById('item-detail-quick-picker');
+    if (actions) actions.hidden = true;
+    if (primary) { primary.hidden = true; primary.disabled = false; primary.onclick = null; primary.title = ''; }
+    if (picker) { picker.hidden = true; picker.innerHTML = ''; }
+  }
+
+  function renderItemDetailActions(data, instance, context = {}) {
+    resetItemDetailActions();
+    const actions = document.getElementById('item-detail-actions');
+    const primary = document.getElementById('item-detail-primary-action');
+    const picker = document.getElementById('item-detail-quick-picker');
+    if (!actions || !primary || !picker || !data) return;
+
+    if (isEquipmentData(data)) {
+      actions.hidden = false;
+      primary.hidden = false;
+      if (context.source === 'equipment' && context.slot) {
+        primary.textContent = '卸下';
+        primary.onclick = () => {
+          unequipItem(context.slot);
+          closeItemDetailModal();
+        };
+      } else {
+        const check = canEquipItem(data);
+        primary.textContent = '穿戴';
+        primary.disabled = !check.ok;
+        primary.title = check.ok ? '穿戴此裝備' : String(check.reason || '目前無法穿戴');
+        primary.onclick = () => {
+          if (primary.disabled) return;
+          equipItem(data, instance);
+          closeItemDetailModal();
+        };
+      }
+      return;
+    }
+
+    if (String(data.type) === 'consume') {
+      actions.hidden = false;
+      primary.hidden = false;
+      primary.textContent = '使用';
+      primary.onclick = () => {
+        original.useItem?.(data.id);
+        closeItemDetailModal();
+      };
+      picker.hidden = false;
+      if (typeof window.renderQuickSlotPicker === 'function') {
+        window.renderQuickSlotPicker(picker, { type: 'item', id: data.id }, { onAssigned: () => closeItemDetailModal() });
+      } else {
+        picker.textContent = '快捷欄系統載入中。';
+      }
+    }
+  }
+
   function renderCardDetail(cardId) {
+    resetItemDetailActions();
     const card = getCardInfo(cardId);
     const modal = document.getElementById('item-detail-modal');
     const title = document.getElementById('item-detail-title');
@@ -408,7 +465,9 @@
         body.appendChild(enchantSection);
       }
     }
+    renderItemDetailActions(data, instance, context);
     modal.classList.remove('hidden-window');
+    if (typeof window.ensureWindowSizeControl === 'function') window.ensureWindowSizeControl(modal.querySelector('.ui-size-target'));
   }
 
   showItemInfo = function (itemOrId, context = {}) {
@@ -445,7 +504,7 @@
     }
     if (isEquipmentData(itemData)) { scheduleInventoryEquipmentAction(item, itemData); return; }
     if (String(itemData.type) === 'card') { showItemDetail(item, { source: 'inventory' }); return; }
-    if (String(itemData.type) === 'consume') { original.useItem?.(item.id); return; }
+    if (String(itemData.type) === 'consume') { showItemDetail(item, { source: 'inventory' }); return; }
     showItemDetail(item, { source: 'inventory' });
   };
 
