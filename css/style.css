@@ -19826,3 +19826,237 @@ h2 { font-size:20px; margin:0 0 8px; text-align:center; letter-spacing:2px; colo
     animation: none !important;
   }
 }
+
+
+/* ============================================================
+   RO_WEB 0.9.82FT — independent挂机 button + collapsible right HUD
+   Final overrides intentionally supersede all legacy top-bar/quick-button CSS.
+   ============================================================ */
+#right-hud-shell {
+  position: absolute !important;
+  top: 8px !important;
+  right: 18px !important;
+  z-index: calc(var(--ro-z-hud, 10000) + 30) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-end !important;
+  gap: 6px !important;
+  width: auto !important;
+  max-width: calc(100vw - 12px) !important;
+  pointer-events: none !important;
+}
+#right-hud-shell > * { pointer-events: auto !important; }
+#rightHudCollapsible {
+  display: grid !important;
+  grid-template-rows: auto auto !important;
+  gap: 6px !important;
+  width: 306px !important;
+  transform-origin: top right !important;
+  transition: opacity .18s ease, transform .18s ease, max-height .22s ease !important;
+}
+#right-hud-shell.is-collapsed #rightHudCollapsible {
+  opacity: 0 !important;
+  transform: scale(.94) translateY(-4px) !important;
+  max-height: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  margin: 0 !important;
+}
+#right-hud-shell #top-bar,
+#right-hud-shell #quick-buttons {
+  position: static !important;
+  inset: auto !important;
+  top: auto !important;
+  right: auto !important;
+  left: auto !important;
+  bottom: auto !important;
+  margin: 0 !important;
+  transform: none !important;
+}
+#right-hud-shell #top-bar {
+  box-sizing: border-box !important;
+  width: 306px !important;
+  min-width: 0 !important;
+  height: 40px !important;
+  display: grid !important;
+  grid-template-columns: 1.45fr 1fr 1fr !important;
+  align-items: center !important;
+  gap: 5px !important;
+  padding: 3px 5px !important;
+}
+#right-hud-shell #top-bar .currency-item {
+  box-sizing: border-box !important;
+  min-width: 0 !important;
+  width: 100% !important;
+  height: 32px !important;
+  padding: 2px 6px 2px 3px !important;
+  gap: 4px !important;
+  overflow: hidden !important;
+  border-radius: 16px !important;
+}
+#right-hud-shell #top-bar .currency-item img { width: 25px !important; height: 25px !important; flex: 0 0 25px !important; }
+#right-hud-shell #top-bar .currency-item span { min-width: 0 !important; overflow: hidden !important; text-overflow: ellipsis !important; white-space: nowrap !important; }
+#right-hud-shell #quick-buttons {
+  box-sizing: border-box !important;
+  width: 306px !important;
+  display: grid !important;
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  grid-auto-rows: 34px !important;
+  gap: 6px !important;
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+#right-hud-shell #quick-buttons > button {
+  box-sizing: border-box !important;
+  display: block !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  height: 34px !important;
+  min-height: 34px !important;
+  max-height: 34px !important;
+  margin: 0 !important;
+  padding: 3px 3px !important;
+  line-height: 26px !important;
+  font-size: 12px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+}
+#rightHudCollapseToggle {
+  box-sizing: border-box !important;
+  width: 38px !important;
+  min-width: 38px !important;
+  height: 28px !important;
+  min-height: 28px !important;
+  padding: 0 !important;
+  border: 1px solid #b68a41 !important;
+  border-radius: 15px !important;
+  color: #ffe9a5 !important;
+  background: radial-gradient(circle at 50% 24%, #6b4a1c, #1c1108 72%) !important;
+  box-shadow: inset 0 0 5px rgba(255,224,133,.18), 0 1px 4px rgba(0,0,0,.65) !important;
+  font-size: 16px !important;
+  line-height: 20px !important;
+  letter-spacing: 1px !important;
+  cursor: pointer !important;
+  transition: filter .16s ease, transform .16s ease, box-shadow .16s ease !important;
+}
+#rightHudCollapseToggle:hover,
+#rightHudCollapseToggle:focus-visible { filter: brightness(1.22) !important; box-shadow: 0 0 7px rgba(255,196,66,.52), inset 0 0 6px rgba(255,229,149,.26) !important; }
+#right-hud-shell.is-collapsed #rightHudCollapseToggle { transform: rotate(90deg) !important; }
+
+#autoBattleQuickToggle.auto-battle-standalone {
+  box-sizing: border-box !important;
+  position: relative !important;
+  isolation: isolate !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 124px !important;
+  min-width: 124px !important;
+  height: 46px !important;
+  min-height: 46px !important;
+  margin: 0 !important;
+  padding: 4px 12px !important;
+  overflow: hidden !important;
+  border: 1px solid #aa7d35 !important;
+  border-radius: 23px !important;
+  color: #e8d6aa !important;
+  background: linear-gradient(180deg, rgba(66,43,19,.96), rgba(19,11,6,.98)) !important;
+  box-shadow: inset 0 1px rgba(255,239,183,.18), 0 2px 7px rgba(0,0,0,.72) !important;
+  cursor: pointer !important;
+  text-align: center !important;
+  transition: color .18s ease, filter .18s ease, box-shadow .18s ease, transform .12s ease !important;
+}
+#autoBattleQuickToggle.auto-battle-standalone:active { transform: scale(.97) !important; }
+#autoBattleQuickToggle .auto-battle-label {
+  position: relative !important;
+  z-index: 5 !important;
+  width: 100% !important;
+  text-align: center !important;
+  font-size: 15px !important;
+  font-weight: 900 !important;
+  line-height: 1 !important;
+  letter-spacing: .8px !important;
+  white-space: nowrap !important;
+  pointer-events: none !important;
+}
+#autoBattleQuickToggle .auto-battle-energy-icon {
+  position: absolute !important;
+  left: 13px !important;
+  top: 50% !important;
+  z-index: 5 !important;
+  transform: translateY(-50%) !important;
+  color: #b99658 !important;
+  font-size: 12px !important;
+  pointer-events: none !important;
+}
+#autoBattleQuickToggle::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 3 !important;
+  padding: 2px !important;
+  border-radius: inherit !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  background: conic-gradient(from 0deg, transparent 0 34deg, #fff4ba 55deg, #ffd056 79deg, #ef7d14 104deg, transparent 132deg 360deg) !important;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0) !important;
+  -webkit-mask-composite: xor !important;
+  mask-composite: exclude !important;
+}
+#autoBattleQuickToggle::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 4px !important;
+  z-index: 1 !important;
+  border-radius: inherit !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  background: linear-gradient(105deg, transparent 0 34%, rgba(255,247,193,0) 41%, rgba(255,239,145,.88) 49%, rgba(255,132,18,.38) 56%, transparent 66% 100%) !important;
+  background-size: 230% 100% !important;
+  mix-blend-mode: screen !important;
+}
+#autoBattleQuickToggle.is-active {
+  color: #fff8cf !important;
+  border-color: transparent !important;
+  background: radial-gradient(circle at 50% 12%, rgba(255,228,121,.34), transparent 48%), linear-gradient(180deg,#70491a 0%,#351c07 57%,#150b04 100%) !important;
+  text-shadow: 0 0 4px #fff0a2, 0 0 9px rgba(255,164,25,.86) !important;
+  animation: ro-ft-auto-core 1.45s ease-in-out infinite !important;
+}
+#autoBattleQuickToggle.is-active::before { opacity: 1 !important; animation: ro-ft-auto-ring 1.05s linear infinite !important; }
+#autoBattleQuickToggle.is-active::after { opacity: .86 !important; animation: ro-ft-auto-sweep 1.75s ease-in-out infinite !important; }
+#autoBattleQuickToggle.is-active .auto-battle-energy-icon { color:#fff0a0 !important; text-shadow:0 0 4px #fff6c4,0 0 9px #ff9e19 !important; animation:ro-ft-auto-rune 1.2s ease-in-out infinite !important; }
+@keyframes ro-ft-auto-ring { to { transform: rotate(360deg); } }
+@keyframes ro-ft-auto-core { 0%,100%{box-shadow:0 0 4px rgba(255,170,27,.42),inset 0 0 5px rgba(255,222,119,.18)} 50%{box-shadow:0 0 11px rgba(255,195,52,.82),inset 0 0 12px rgba(255,229,137,.39)} }
+@keyframes ro-ft-auto-sweep { 0%,16%{background-position:145% 0;opacity:0} 34%{opacity:.9} 68%{background-position:-125% 0;opacity:.72} 100%{background-position:-125% 0;opacity:0} }
+@keyframes ro-ft-auto-rune { 0%,100%{transform:translateY(-50%) rotate(0deg) scale(.94)} 50%{transform:translateY(-50%) rotate(180deg) scale(1.17)} }
+
+@media (max-width: 900px), (pointer: coarse) {
+  #right-hud-shell { right: 8px !important; top: 7px !important; }
+  #rightHudCollapsible,
+  #right-hud-shell #top-bar,
+  #right-hud-shell #quick-buttons { width: 210px !important; }
+  #right-hud-shell #quick-buttons { grid-template-columns: repeat(3, minmax(0,1fr)) !important; gap: 5px !important; }
+  #right-hud-shell #top-bar { grid-template-columns: 1.35fr 1fr 1fr !important; gap: 3px !important; padding: 3px !important; }
+  #right-hud-shell #top-bar .currency-item { padding-right: 3px !important; font-size: 10px !important; }
+  #autoBattleQuickToggle.auto-battle-standalone { width: 112px !important; min-width:112px !important; height:44px !important; min-height:44px !important; }
+}
+@media (orientation: portrait) and (max-width: 520px) {
+  #rightHudCollapsible,
+  #right-hud-shell #top-bar,
+  #right-hud-shell #quick-buttons { width: 184px !important; }
+  #right-hud-shell #quick-buttons { grid-template-columns: repeat(3,minmax(0,1fr)) !important; }
+  #right-hud-shell #quick-buttons > button { font-size: 11px !important; }
+  #right-hud-shell #top-bar .currency-item img { width: 21px !important; height:21px !important; flex-basis:21px !important; }
+  #right-hud-shell #top-bar .currency-item { height:29px !important; }
+  #right-hud-shell #top-bar { height:35px !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #rightHudCollapsible,
+  #autoBattleQuickToggle.is-active,
+  #autoBattleQuickToggle.is-active::before,
+  #autoBattleQuickToggle.is-active::after,
+  #autoBattleQuickToggle.is-active .auto-battle-energy-icon { animation:none !important; transition:none !important; }
+}

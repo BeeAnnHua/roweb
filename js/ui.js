@@ -709,3 +709,41 @@ Object.assign(window, {
   recoverWindowToViewport,
   resetAllUIWindowPositions
 });
+
+
+// ============================================================
+// RO_WEB 0.9.82FT — collapsible right HUD for small screens.
+// The currency bar + nine feature buttons may collapse; the independent
+// auto-battle status button always stays visible.
+// ============================================================
+const RO_WEB_RIGHT_HUD_STORAGE_KEY = "ro_web_right_hud_collapsed_v1";
+function setRightHudCollapsed(collapsed, options = {}) {
+  const shell = document.getElementById("right-hud-shell");
+  const toggle = document.getElementById("rightHudCollapseToggle");
+  if (!shell || !toggle) return false;
+  const value = collapsed === true;
+  shell.classList.toggle("is-collapsed", value);
+  toggle.setAttribute("aria-expanded", value ? "false" : "true");
+  toggle.title = value ? "展開右上功能列" : "收合右上功能列";
+  if (options.save !== false) {
+    try { localStorage.setItem(RO_WEB_RIGHT_HUD_STORAGE_KEY, value ? "1" : "0"); } catch (_) {}
+  }
+  return value;
+}
+function toggleRightHudCollapse(forceState) {
+  const shell = document.getElementById("right-hud-shell");
+  if (!shell) return false;
+  const next = typeof forceState === "boolean" ? forceState : !shell.classList.contains("is-collapsed");
+  return setRightHudCollapsed(next, { save: true });
+}
+function initRightHudCollapse() {
+  let stored = null;
+  try { stored = localStorage.getItem(RO_WEB_RIGHT_HUD_STORAGE_KEY); } catch (_) {}
+  const narrowFirstLoad = window.matchMedia?.("(max-width: 520px)")?.matches === true;
+  setRightHudCollapsed(stored === null ? narrowFirstLoad : stored === "1", { save: false });
+}
+window.setRightHudCollapsed = setRightHudCollapsed;
+window.toggleRightHudCollapse = toggleRightHudCollapse;
+window.initRightHudCollapse = initRightHudCollapse;
+if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initRightHudCollapse, { once: true });
+else initRightHudCollapse();

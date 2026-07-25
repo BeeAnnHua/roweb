@@ -1,6 +1,6 @@
 {
   "schema": "ro_web_region_monster_streaming_v1",
-  "version": "0.9.82FS",
+  "version": "0.9.82FT",
   "source": {
     "mobDb": "rAthena Renewal db/re/mob_db.yml",
     "spawnScripts": "rAthena Renewal npc/re/mobs/fields/*.txt",
@@ -3550,6 +3550,478 @@
       "recommendedLevelMin": 164,
       "recommendedLevelMax": 175,
       "selectionRule": "幻影螞蟻地獄 ant_d02_i；一般怪按官方數量比例，寂靜的蟻后為獨立單隻 MVP。"
+    },
+    "einbech_mine_normal_3x3_region_camera": {
+      "name": "艾音貝赫礦山 1～2樓",
+      "sourceSpawnFiles": [
+        "npc/re/mobs/dungeons/ein_dun.txt"
+      ],
+      "sourceReference": [
+        "ein_dun01",
+        "ein_dun02"
+      ],
+      "targetNormalCountAt100": 65,
+      "pool": [
+        {
+          "monsterId": 1616,
+          "weight": 70,
+          "category": "normal",
+          "raSpawnCount": 70,
+          "sourceMaps": [
+            "ein_dun01"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1620,
+          "weight": 30,
+          "category": "normal",
+          "raSpawnCount": 30,
+          "sourceMaps": [
+            "ein_dun01"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1619,
+          "weight": 30,
+          "category": "normal",
+          "raSpawnCount": 30,
+          "sourceMaps": [
+            "ein_dun01"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1621,
+          "weight": 10,
+          "category": "normal",
+          "raSpawnCount": 10,
+          "sourceMaps": [
+            "ein_dun01"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1617,
+          "weight": 31,
+          "category": "normal",
+          "raSpawnCount": 31,
+          "sourceMaps": [
+            "ein_dun01",
+            "ein_dun02"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1618,
+          "weight": 1,
+          "category": "rare",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "ein_dun01"
+          ],
+          "baseRespawnMs": 3600000,
+          "respawnVarianceMs": 3000000,
+          "countRateEligible": false,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "maxAlive": 1
+        },
+        {
+          "monsterId": 1614,
+          "weight": 50,
+          "category": "normal",
+          "raSpawnCount": 50,
+          "sourceMaps": [
+            "ein_dun02"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1615,
+          "weight": 40,
+          "category": "normal",
+          "raSpawnCount": 40,
+          "sourceMaps": [
+            "ein_dun02"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1622,
+          "weight": 30,
+          "category": "normal",
+          "raSpawnCount": 30,
+          "sourceMaps": [
+            "ein_dun02"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 1623,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "ein_dun02"
+          ],
+          "baseRespawnMs": 7500000,
+          "respawnVarianceMs": 600000,
+          "countRateEligible": false,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "maxAlive": 1
+        }
+      ],
+      "recommendedLevelMin": 85,
+      "recommendedLevelMax": 100,
+      "selectionRule": "rAthena Renewal ein_dun01 + ein_dun02 合併成單一 RO_WEB 邏輯地圖；普通怪依官方數量比例，溫古力安特為稀有，RSX-0806 為單隻 MVP。"
+    },
+    "illusion_teddy_bear_3x3_region_camera": {
+      "name": "幻影泰迪熊礦山",
+      "sourceSpawnFiles": [
+        "npc/re/mobs/dungeons/ein_dun.txt"
+      ],
+      "sourceReference": [
+        "ein_d02_i"
+      ],
+      "targetNormalCountAt100": 60,
+      "pool": [
+        {
+          "monsterId": 20255,
+          "weight": 25,
+          "category": "normal",
+          "raSpawnCount": 25,
+          "sourceMaps": [
+            "ein_d02_i"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 20256,
+          "weight": 25,
+          "category": "normal",
+          "raSpawnCount": 25,
+          "sourceMaps": [
+            "ein_d02_i"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 20257,
+          "weight": 25,
+          "category": "normal",
+          "raSpawnCount": 25,
+          "sourceMaps": [
+            "ein_d02_i"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 20258,
+          "weight": 20,
+          "category": "normal",
+          "raSpawnCount": 20,
+          "sourceMaps": [
+            "ein_d02_i"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 20259,
+          "weight": 20,
+          "category": "normal",
+          "raSpawnCount": 20,
+          "sourceMaps": [
+            "ein_d02_i"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 20261,
+          "weight": 20,
+          "category": "normal",
+          "raSpawnCount": 20,
+          "sourceMaps": [
+            "ein_d02_i"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 20262,
+          "weight": 15,
+          "category": "normal",
+          "raSpawnCount": 15,
+          "sourceMaps": [
+            "ein_d02_i"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 20263,
+          "weight": 15,
+          "category": "normal",
+          "raSpawnCount": 15,
+          "sourceMaps": [
+            "ein_d02_i"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 20260,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "ein_d02_i"
+          ],
+          "baseRespawnMs": 7200000,
+          "respawnVarianceMs": 600000,
+          "countRateEligible": false,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "maxAlive": 1
+        }
+      ],
+      "recommendedLevelMin": 157,
+      "recommendedLevelMax": 161,
+      "selectionRule": "rAthena Renewal Illusion of Teddy Bear ein_d02_i；光芒泰迪熊的擊殺累積召喚機制在 RO_WEB 簡化為獨立單隻 MVP 計時。"
+    },
+    "abyss_einbech_mine_3x3_region_camera": {
+      "name": "深淵－艾音貝赫礦山 3樓",
+      "sourceSpawnFiles": [
+        "npc/re/mobs/dungeons/ein_dun.txt"
+      ],
+      "sourceReference": [
+        "ein_dun03"
+      ],
+      "targetNormalCountAt100": 70,
+      "pool": [
+        {
+          "monsterId": 20592,
+          "weight": 35,
+          "category": "normal",
+          "raSpawnCount": 35,
+          "sourceMaps": [
+            "ein_dun03"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 20593,
+          "weight": 35,
+          "category": "normal",
+          "raSpawnCount": 35,
+          "sourceMaps": [
+            "ein_dun03"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 20594,
+          "weight": 40,
+          "category": "normal",
+          "raSpawnCount": 40,
+          "sourceMaps": [
+            "ein_dun03"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 20595,
+          "weight": 40,
+          "category": "normal",
+          "raSpawnCount": 40,
+          "sourceMaps": [
+            "ein_dun03"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 20596,
+          "weight": 40,
+          "category": "normal",
+          "raSpawnCount": 40,
+          "sourceMaps": [
+            "ein_dun03"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 20597,
+          "weight": 40,
+          "category": "normal",
+          "raSpawnCount": 40,
+          "sourceMaps": [
+            "ein_dun03"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 20603,
+          "weight": 20,
+          "category": "normal",
+          "raSpawnCount": 20,
+          "sourceMaps": [
+            "ein_dun03"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 20602,
+          "weight": 22,
+          "category": "normal",
+          "raSpawnCount": 22,
+          "sourceMaps": [
+            "ein_dun03"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 20598,
+          "weight": 20,
+          "category": "normal",
+          "raSpawnCount": 20,
+          "sourceMaps": [
+            "ein_dun03"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 0,
+          "countRateEligible": true,
+          "minAlive": 1,
+          "persistentTimer": false
+        },
+        {
+          "monsterId": 20600,
+          "weight": 3,
+          "category": "rare",
+          "raSpawnCount": 3,
+          "sourceMaps": [
+            "ein_dun03"
+          ],
+          "baseRespawnMs": 600000,
+          "respawnVarianceMs": 120000,
+          "countRateEligible": false,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "maxAlive": 1
+        },
+        {
+          "monsterId": 20601,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "ein_dun03"
+          ],
+          "baseRespawnMs": 7200000,
+          "respawnVarianceMs": 600000,
+          "countRateEligible": false,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "maxAlive": 1
+        }
+      ],
+      "recommendedLevelMin": 188,
+      "recommendedLevelMax": 197,
+      "selectionRule": "rAthena Renewal ein_dun03；四色礦石魔與深淵怪物依官方數量比例，珠寶大盜為稀有，珠寶溫古力安特為單隻 MVP。"
     }
   }
 }

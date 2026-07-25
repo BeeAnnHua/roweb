@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RO_WEB V0.9.82FS</title>
+  <title>RO_WEB V0.9.82FT</title>
   <meta name="description" content="&#8203;">
   <meta property="og:type" content="website">
   <meta property="og:title" content="RO_WEB">
@@ -13,36 +13,42 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="RO_WEB">
   <meta name="twitter:description" content="&#8203;">
-  <link rel="icon" type="image/png" href="images/ui/icons/icon_gold_64.png?v=0.9.82FS">
-  <link rel="stylesheet" href="css/style.css?v=0.9.82FS">
+  <link rel="icon" type="image/png" href="images/ui/icons/icon_gold_64.png?v=0.9.82FT">
+  <link rel="stylesheet" href="css/style.css?v=0.9.82FT">
 </head>
 
 <body>
   <div id="game-root">
     <div id="battle-field">
-      <div id="top-bar">
-        <div class="currency-item"><img src="images/ui/icons/icon_gold_64.png" alt="Zeny"><span id="zeny">0</span></div>
-        <div class="currency-item gem-blue"><img src="images/ui/icons/icon_blue_gem_64.png" alt="Blue Gem"><span id="blueGem">0</span></div>
-        <div class="currency-item gem-red"><img src="images/ui/icons/icon_red_gem_64.png" alt="Red Gem"><span id="redGem">0</span></div>
-      </div>
-
-      <div id="quick-buttons">
-        <button class="ui-toggle" data-target="inventory-window">背包</button>
-        <button class="ui-toggle" data-target="skill-window">技能</button>
-        <button class="ui-toggle" data-target="map-window">地圖</button>
-        <button class="ui-toggle" data-target="town-window">城鎮</button>
-        <button class="ui-toggle" data-target="status-window">素質</button>
-        <button class="ui-toggle" data-target="equipment-window">裝備</button>
-        <button class="ui-toggle" data-target="auto-combat-panel">戰鬥</button>
-        <button id="autoBattleQuickToggle" class="auto-battle-quick-toggle" type="button" onclick="toggleAutoBattleQuick()" aria-pressed="false" title="開始自動掛機"><span class="auto-battle-energy-icon" aria-hidden="true">✦</span><span class="auto-battle-label">掛機</span></button>
-        <button class="ui-toggle" data-target="virtual-summon-window">召喚</button>
-        <button class="ui-toggle" data-target="hunting-stats-panel">統計</button>
+      <div id="right-hud-shell" class="right-hud-shell">
+        <button id="rightHudCollapseToggle" class="right-hud-collapse-toggle" type="button" aria-expanded="true" title="收合右上功能列" onclick="toggleRightHudCollapse()"><span aria-hidden="true">•••</span></button>
+        <div id="rightHudCollapsible" class="right-hud-collapsible">
+          <div id="top-bar">
+            <div class="currency-item"><img src="images/ui/icons/icon_gold_64.png" alt="Zeny"><span id="zeny">0</span></div>
+            <div class="currency-item gem-blue"><img src="images/ui/icons/icon_blue_gem_64.png" alt="Blue Gem"><span id="blueGem">0</span></div>
+            <div class="currency-item gem-red"><img src="images/ui/icons/icon_red_gem_64.png" alt="Red Gem"><span id="redGem">0</span></div>
+          </div>
+          <div id="quick-buttons">
+            <button class="ui-toggle" data-target="inventory-window">背包</button>
+            <button class="ui-toggle" data-target="skill-window">技能</button>
+            <button class="ui-toggle" data-target="map-window">地圖</button>
+            <button class="ui-toggle" data-target="town-window">城鎮</button>
+            <button class="ui-toggle" data-target="status-window">素質</button>
+            <button class="ui-toggle" data-target="equipment-window">裝備</button>
+            <button class="ui-toggle" data-target="auto-combat-panel">戰鬥</button>
+            <button class="ui-toggle" data-target="virtual-summon-window">召喚</button>
+            <button class="ui-toggle" data-target="hunting-stats-panel">統計</button>
+          </div>
+        </div>
+        <button id="autoBattleQuickToggle" class="auto-battle-quick-toggle auto-battle-standalone" type="button" onclick="toggleAutoBattleQuick()" aria-pressed="false" title="開始自動掛機">
+          <span class="auto-battle-energy-icon" aria-hidden="true">✦</span><span class="auto-battle-label">掛機</span>
+        </button>
       </div>
 
       <section id="player-info" class="fixed-panel character-card">
         <h2>角色資訊</h2>
         <div class="profile-row">
-          <div class="portrait-placeholder"><img id="playerPortrait" src="assets/characters/novice/male/idle.png?v=0.9.82FS" alt="角色頭像"></div>
+          <div class="portrait-placeholder"><img id="playerPortrait" src="assets/characters/novice/male/idle.png?v=0.9.82FT" alt="角色頭像"></div>
           <div>
             <div class="name-line"><span id="playerName">載入中</span></div>
             <div class="level-line"><span id="playerJob" hidden>載入中</span>Base Lv.<span id="baseLevel">0</span> / Job Lv.<span id="jobLevel">0</span></div>
@@ -56,7 +62,7 @@
 
       <div id="player-sprite" class="battle-sprite player-sprite">
         <div class="sprite-label">LV.<span id="battlePlayerLevel">0</span> <span id="battlePlayerName">冒險者</span></div>
-        <img id="playerImage" src="assets/characters/novice/male/idle.png?v=0.9.82FS" alt="player">
+        <img id="playerImage" src="assets/characters/novice/male/idle.png?v=0.9.82FT" alt="player">
         <div class="slash-effect" id="slashEffect"></div>
       </div>
 
@@ -255,7 +261,7 @@
       <section id="auto-combat-panel" class="game-window draggable-window hidden-window" data-default-x="430" data-default-y="80">
         <div class="window-title drag-handle">戰鬥設定 <button class="window-close" data-target="auto-combat-panel">×</button></div>
         <div class="window-body auto-combat-body">
-          <div id="autoCombatSettingsScroll" class="auto-combat-scroll">
+          <div class="auto-combat-scroll">
           <div id="auto-battle-area" class="battle-setting-controls">
             <button id="autoBattleStart" onclick="startAutoBattle()">開始戰鬥</button>
             <button id="autoBattleStop" onclick="stopAutoBattle()">停止戰鬥</button>
@@ -428,37 +434,37 @@
     </div>
   </section>
 
-  <script src="./js/data_bundle.js?v=0.9.82FS"></script>
-  <script src="./js/equipment_job_map_bundle.js?v=0.9.82FS"></script>
-  <script src="./js/player.js?v=0.9.82FS"></script>
-  <script src="./js/item_instance_ui.js?v=0.9.82FS"></script>
-  <script src="./js/position_engine.js?v=0.9.82FS"></script>
-  <script src="./js/job_constitution.js?v=0.9.82FS"></script>
-  <script src="./js/job.js?v=0.9.82FS"></script>
-  <script src="./js/extra_skill_runtime.js?v=0.9.82FS"></script>
-  <script src="./js/combat_mechanics_runtime.js?v=0.9.82FS"></script>
-  <script src="./js/combat_formula_runtime.js?v=0.9.82FS"></script>
-  <script src="./js/ra_renewal_damage_pipeline.js?v=0.9.82FS"></script>
-  <script src="./js/combat_damage_pipeline.js?v=0.9.82FS"></script>
-  <script src="./js/combat_resource_manager.js?v=0.9.82FS"></script>
-  <script src="./js/skill_engine.js?v=0.9.82FS"></script>
-  <script src="./js/status_system.js?v=0.9.82FS"></script>
-  <script src="./js/stats.js?v=0.9.82FS"></script>
-  <script src="./js/loot.js?v=0.9.82FS"></script>
-  <script src="./js/auto_battle.js?v=0.9.82FS"></script>
-  <script src="./js/player_atlas_runtime.js?v=0.9.82FS"></script>
-  <script src="./js/battle.js?v=0.9.82FS"></script>
-  <script src="./js/monster_atlas_runtime.js?v=0.9.82FS"></script>
-  <script src="./js/world_monster_test_runtime.js?v=0.9.82FS"></script>
-  <script src="./js/virtual_summon.js?v=0.9.82FS"></script>
-  <script src="./js/homunculus.js?v=0.9.82FS"></script>
-  <script src="./js/homunculus_skill_runtime.js?v=0.9.82FS"></script>
-  <script src="./js/homunculus_s_skill_runtime.js?v=0.9.82FS"></script>
-  <script src="./js/map.js?v=0.9.82FS"></script>
-  <script src="./js/town.js?v=0.9.82FS"></script>
-  <script src="./js/ui.js?v=0.9.82FS"></script>
-  <script src="./js/quick_slots.js?v=0.9.82FS"></script>
-  <script src="./js/game.js?v=0.9.82FS"></script>
+  <script src="./js/data_bundle.js?v=0.9.82FT"></script>
+  <script src="./js/equipment_job_map_bundle.js?v=0.9.82FT"></script>
+  <script src="./js/player.js?v=0.9.82FT"></script>
+  <script src="./js/item_instance_ui.js?v=0.9.82FT"></script>
+  <script src="./js/position_engine.js?v=0.9.82FT"></script>
+  <script src="./js/job_constitution.js?v=0.9.82FT"></script>
+  <script src="./js/job.js?v=0.9.82FT"></script>
+  <script src="./js/extra_skill_runtime.js?v=0.9.82FT"></script>
+  <script src="./js/combat_mechanics_runtime.js?v=0.9.82FT"></script>
+  <script src="./js/combat_formula_runtime.js?v=0.9.82FT"></script>
+  <script src="./js/ra_renewal_damage_pipeline.js?v=0.9.82FT"></script>
+  <script src="./js/combat_damage_pipeline.js?v=0.9.82FT"></script>
+  <script src="./js/combat_resource_manager.js?v=0.9.82FT"></script>
+  <script src="./js/skill_engine.js?v=0.9.82FT"></script>
+  <script src="./js/status_system.js?v=0.9.82FT"></script>
+  <script src="./js/stats.js?v=0.9.82FT"></script>
+  <script src="./js/loot.js?v=0.9.82FT"></script>
+  <script src="./js/auto_battle.js?v=0.9.82FT"></script>
+  <script src="./js/player_atlas_runtime.js?v=0.9.82FT"></script>
+  <script src="./js/battle.js?v=0.9.82FT"></script>
+  <script src="./js/monster_atlas_runtime.js?v=0.9.82FT"></script>
+  <script src="./js/world_monster_test_runtime.js?v=0.9.82FT"></script>
+  <script src="./js/virtual_summon.js?v=0.9.82FT"></script>
+  <script src="./js/homunculus.js?v=0.9.82FT"></script>
+  <script src="./js/homunculus_skill_runtime.js?v=0.9.82FT"></script>
+  <script src="./js/homunculus_s_skill_runtime.js?v=0.9.82FT"></script>
+  <script src="./js/map.js?v=0.9.82FT"></script>
+  <script src="./js/town.js?v=0.9.82FT"></script>
+  <script src="./js/ui.js?v=0.9.82FT"></script>
+  <script src="./js/quick_slots.js?v=0.9.82FT"></script>
+  <script src="./js/game.js?v=0.9.82FT"></script>
 </body>
 
 </html>

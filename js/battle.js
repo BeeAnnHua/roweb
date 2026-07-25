@@ -215,7 +215,7 @@ function isAutoBattleRunning() {
 function updateAutoBattleQuickToggleState() {
   const button = document.getElementById("autoBattleQuickToggle");
   if (!button) return false;
-  const active = autoBattleRunning === true;
+  const active = autoBattleRunning === true || window.RO_WEB_AUTO_BATTLE_RESUME_PENDING === true;
   button.classList.toggle("is-active", active);
   button.setAttribute("aria-pressed", active ? "true" : "false");
   button.title = active ? "停止自動掛機" : "開始自動掛機";
@@ -226,10 +226,14 @@ function updateAutoBattleQuickToggleState() {
 }
 
 function toggleAutoBattleQuick() {
-  if (autoBattleRunning) stopAutoBattle();
+  if (window.RO_WEB_AUTO_BATTLE_RESUME_PENDING === true) {
+    window.RO_WEB_AUTO_BATTLE_RESUME_PENDING = false;
+    stopAutoBattle({ silent: true });
+    if (typeof addBattleLog === "function") addBattleLog("已取消復活後繼續掛機。");
+  } else if (autoBattleRunning) stopAutoBattle();
   else startAutoBattle();
   updateAutoBattleQuickToggleState();
-  return autoBattleRunning === true;
+  return autoBattleRunning === true || window.RO_WEB_AUTO_BATTLE_RESUME_PENDING === true;
 }
 window.updateAutoBattleQuickToggleState = updateAutoBattleQuickToggleState;
 window.toggleAutoBattleQuick = toggleAutoBattleQuick;
@@ -336,6 +340,7 @@ window.isManualMonsterAttackRunning = () => manualAttackRunning === true;
 
 // 開始自動戰鬥
 function startAutoBattle() {
+  window.RO_WEB_AUTO_BATTLE_RESUME_PENDING = false;
   stopManualMonsterAttack({ clearTarget: false, silent: true });
   if (autoBattleRunning) {
     addBattleLog("自動戰鬥已經在進行中。");
@@ -383,6 +388,7 @@ function startAutoBattle() {
 
 // 停止自動戰鬥
 function stopAutoBattle(options = {}) {
+  if (options.keepResumePending !== true) window.RO_WEB_AUTO_BATTLE_RESUME_PENDING = false;
   const wasRunning = Boolean(autoBattleRunning || autoBattleTimer || spawnTimer);
   autoBattleRunning = false;
   updateAutoBattleQuickToggleState();
@@ -926,7 +932,10 @@ function playerDead() {
     playROStudioPlayerMotion("dead", { duration: 900, holdLast: true });
   }
   addBattleLog(`你被 ${defeatedBy} 擊敗了。`);
-  stopAutoBattle();
+  const shouldResumeAutoBattle = autoBattleRunning === true || window.RO_WEB_AUTO_BATTLE_RESUME_PENDING === true;
+  window.RO_WEB_AUTO_BATTLE_RESUME_PENDING = shouldResumeAutoBattle;
+  stopAutoBattle({ silent: true, keepResumePending: true });
+  updateAutoBattleQuickToggleState();
   currentMonster = null;
   updateMonsterUI();
   updatePlayerUI();
@@ -939,7 +948,18 @@ function playerDead() {
     if (typeof clearROStudioPlayerMotionOverride === "function") clearROStudioPlayerMotionOverride();
     updatePlayerUI();
     saveGame();
-    addBattleLog("HP 已恢復，請重新開始自動戰鬥。");
+    const resumeAutoBattle = window.RO_WEB_AUTO_BATTLE_RESUME_PENDING === true;
+    window.RO_WEB_AUTO_BATTLE_RESUME_PENDING = false;
+    if (resumeAutoBattle && !player.currentCity && currentMap) {
+      if (typeof resetAutoBattleController === "function") resetAutoBattleController({ running: false, keepTarget: false, reason: "death_recovery" });
+      currentMonster = null;
+      if (typeof updateMonsterUI === "function") updateMonsterUI();
+      addBattleLog("HP 已恢復，自動掛機繼續運作。");
+      setTimeout(() => startAutoBattle(), 80);
+    } else {
+      updateAutoBattleQuickToggleState();
+      addBattleLog("HP 已恢復。");
+    }
   }, deadDuration);
   return true;
 }

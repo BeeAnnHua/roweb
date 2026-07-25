@@ -1,14 +1,14 @@
 {
   "schema": "ro_web_world_region_manifest_v1",
-  "version": "0.9.82FS",
-  "source": "使用者提供世界地圖素材、達納托斯塔、初學者修練場、螞蟻洞窟 109-117",
-  "rule": "十四個邏輯地圖使用十三套實體 3×3 圖塊；一般與幻影螞蟻洞窟共用同一 tileSetId，怪物 Runtime/收藏/篩選/存檔各自獨立。",
+  "version": "0.9.82FT",
+  "source": "使用者提供世界地圖素材、達納托斯塔、初學者修練場、螞蟻洞窟 109-117、艾音貝赫礦山 118-126",
+  "rule": "十七個邏輯地圖使用十四套實體 3×3 圖塊；螞蟻洞窟兩版共用一套，艾音貝赫普通／幻影／深淵三版再共用一套。",
   "deploymentExcludes": [
     "RO_世界地圖.png",
     "RO世界地圖切割前原圖.zip",
     "所有切割前地區原圖"
   ],
-  "regionCount": 14,
+  "regionCount": 17,
   "regions": [
     {
       "order": 1,
@@ -433,13 +433,109 @@
       "worldScale": 3,
       "monstersDeferred": false,
       "monsterSpecies": 10
+    },
+    {
+      "order": 15,
+      "id": "einbech_mine_normal_3x3_region_camera",
+      "name": "艾音貝赫礦山 1～2樓",
+      "sourceChunkRange": "118-126 (shared)",
+      "tileSetId": "einbech_mine_118_126_shared",
+      "mapVariant": "normal",
+      "runtimeTileNames": [
+        "001.webp",
+        "002.webp",
+        "003.webp",
+        "004.webp",
+        "005.webp",
+        "006.webp",
+        "007.webp",
+        "008.webp",
+        "009.webp"
+      ],
+      "background": "images/maps/world/einbech_mine_shared_3x3/einbech_mine_shared_3x3_region_bg_0_9_82FT.webp",
+      "thumb": "images/maps/world/einbech_mine_shared_3x3/einbech_mine_shared_3x3_region_small_0_9_82FT.webp",
+      "worldSize": [
+        4608,
+        4608
+      ],
+      "cameraSize": [
+        1280,
+        720
+      ],
+      "worldScale": 3,
+      "monstersDeferred": false,
+      "monsterSpecies": 10
+    },
+    {
+      "order": 16,
+      "id": "illusion_teddy_bear_3x3_region_camera",
+      "name": "幻影泰迪熊礦山",
+      "sourceChunkRange": "118-126 (shared)",
+      "tileSetId": "einbech_mine_118_126_shared",
+      "mapVariant": "illusion",
+      "runtimeTileNames": [
+        "001.webp",
+        "002.webp",
+        "003.webp",
+        "004.webp",
+        "005.webp",
+        "006.webp",
+        "007.webp",
+        "008.webp",
+        "009.webp"
+      ],
+      "background": "images/maps/world/einbech_mine_shared_3x3/einbech_mine_shared_3x3_region_bg_0_9_82FT.webp",
+      "thumb": "images/maps/world/einbech_mine_shared_3x3/einbech_mine_shared_3x3_region_small_0_9_82FT.webp",
+      "worldSize": [
+        4608,
+        4608
+      ],
+      "cameraSize": [
+        1280,
+        720
+      ],
+      "worldScale": 3,
+      "monstersDeferred": false,
+      "monsterSpecies": 9
+    },
+    {
+      "order": 17,
+      "id": "abyss_einbech_mine_3x3_region_camera",
+      "name": "深淵－艾音貝赫礦山 3樓",
+      "sourceChunkRange": "118-126 (shared)",
+      "tileSetId": "einbech_mine_118_126_shared",
+      "mapVariant": "abyss",
+      "runtimeTileNames": [
+        "001.webp",
+        "002.webp",
+        "003.webp",
+        "004.webp",
+        "005.webp",
+        "006.webp",
+        "007.webp",
+        "008.webp",
+        "009.webp"
+      ],
+      "background": "images/maps/world/einbech_mine_shared_3x3/einbech_mine_shared_3x3_region_bg_0_9_82FT.webp",
+      "thumb": "images/maps/world/einbech_mine_shared_3x3/einbech_mine_shared_3x3_region_small_0_9_82FT.webp",
+      "worldSize": [
+        4608,
+        4608
+      ],
+      "cameraSize": [
+        1280,
+        720
+      ],
+      "worldScale": 3,
+      "monstersDeferred": false,
+      "monsterSpecies": 11
     }
   ],
   "namingDecision": {
     "source": "斐揚+艾爾貝塔地區",
     "runtime": "斐揚地區"
   },
-  "monsterPolicy": "怪物能力/AI/屬性/掉落取 rAthena Renewal；螞蟻洞窟樓層數量比例參考使用者提供台服分布，普通與幻影使用獨立邏輯地圖。",
+  "monsterPolicy": "怪物能力、AI、屬性、經驗與掉落取 rAthena Renewal；艾音貝赫三張邏輯地圖依 ein_dun01/02、ein_d02_i、ein_dun03 分開載入。",
   "displayParity": {
     "reference": "原妙勒尼 World Camera",
     "pcMobileSameWorldScale": true,
@@ -477,7 +573,32 @@
         "ant_cave_normal_3x3_region_camera",
         "ant_cave_illusion_3x3_region_camera"
       ]
+    },
+    "einbech_mine_118_126_shared": {
+      "sourceChunkRange": "118-126",
+      "runtimeTileNames": [
+        "001.webp",
+        "002.webp",
+        "003.webp",
+        "004.webp",
+        "005.webp",
+        "006.webp",
+        "007.webp",
+        "008.webp",
+        "009.webp"
+      ],
+      "background": "images/maps/world/einbech_mine_shared_3x3/einbech_mine_shared_3x3_region_bg_0_9_82FT.webp",
+      "thumb": "images/maps/world/einbech_mine_shared_3x3/einbech_mine_shared_3x3_region_small_0_9_82FT.webp",
+      "worldSize": [
+        4608,
+        4608
+      ],
+      "logicalMapIds": [
+        "einbech_mine_normal_3x3_region_camera",
+        "illusion_teddy_bear_3x3_region_camera",
+        "abyss_einbech_mine_3x3_region_camera"
+      ]
     }
   },
-  "physicalTileSetCount": 13
+  "physicalTileSetCount": 14
 }
