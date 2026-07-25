@@ -1,8 +1,0 @@
-RO_WEB V0.9.20 Debug Audit
-
-已檢查：
-1. index.html 版本與 CSS/JS cache 參數更新為 0.9.20。
-2. INVENTORY_PAGE_SIZE 由 40 改為 25，頁數計算仍使用原函式。
-3. 背包/裝備欄 window-title 解除舊 CSS display:none，維持可拖曳。
-4. 背包改用最後覆蓋 CSS，清除舊 nth-child 絕對座標影響。
-5. 對話欄與快捷欄使用相同 CSS 變數寬度並置中。
