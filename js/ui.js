@@ -724,7 +724,10 @@ function setRightHudCollapsed(collapsed, options = {}) {
   const value = collapsed === true;
   shell.classList.toggle("is-collapsed", value);
   toggle.setAttribute("aria-expanded", value ? "false" : "true");
+  toggle.setAttribute("aria-label", value ? "展開右上功能列" : "收合右上功能列");
   toggle.title = value ? "展開右上功能列" : "收合右上功能列";
+  const icon = toggle.querySelector(".right-hud-toggle-icon");
+  if (icon) icon.textContent = value ? "🔽" : "🔼";
   if (options.save !== false) {
     try { localStorage.setItem(RO_WEB_RIGHT_HUD_STORAGE_KEY, value ? "1" : "0"); } catch (_) {}
   }

@@ -20060,3 +20060,70 @@ h2 { font-size:20px; margin:0 0 8px; text-align:center; letter-spacing:2px; colo
   #autoBattleQuickToggle.is-active::after,
   #autoBattleQuickToggle.is-active .auto-battle-energy-icon { animation:none !important; transition:none !important; }
 }
+
+
+/* ============================================================
+   RO_WEB 0.9.82FU — compact HUD control row + friendly fold icon
+   The fold control sits immediately left of the independent挂机 button.
+   ============================================================ */
+#right-hud-shell .right-hud-action-row {
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 7px !important;
+  width: auto !important;
+  min-height: 46px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  pointer-events: auto !important;
+}
+#rightHudCollapseToggle {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex: 0 0 40px !important;
+  width: 40px !important;
+  min-width: 40px !important;
+  max-width: 40px !important;
+  height: 40px !important;
+  min-height: 40px !important;
+  max-height: 40px !important;
+  padding: 0 !important;
+  border-radius: 50% !important;
+  letter-spacing: 0 !important;
+  line-height: 1 !important;
+  transform: none !important;
+  overflow: hidden !important;
+}
+#rightHudCollapseToggle .right-hud-toggle-icon {
+  display: block !important;
+  width: 100% !important;
+  text-align: center !important;
+  font-size: 18px !important;
+  line-height: 1 !important;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,.9)) !important;
+  transform: translateY(-1px) !important;
+  pointer-events: none !important;
+}
+#right-hud-shell.is-collapsed #rightHudCollapseToggle {
+  transform: none !important;
+}
+#rightHudCollapseToggle:hover .right-hud-toggle-icon,
+#rightHudCollapseToggle:focus-visible .right-hud-toggle-icon {
+  filter: drop-shadow(0 0 5px rgba(255,215,89,.95)) !important;
+}
+@media (max-width: 900px), (pointer: coarse) {
+  #right-hud-shell .right-hud-action-row { min-height: 44px !important; gap: 6px !important; }
+  #rightHudCollapseToggle {
+    flex-basis: 38px !important;
+    width: 38px !important;
+    min-width: 38px !important;
+    max-width: 38px !important;
+    height: 38px !important;
+    min-height: 38px !important;
+    max-height: 38px !important;
+  }
+  #rightHudCollapseToggle .right-hud-toggle-icon { font-size: 17px !important; }
+}
