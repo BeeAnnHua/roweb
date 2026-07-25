@@ -69,12 +69,12 @@ h2 { font-size:20px; margin:0 0 8px; text-align:center; letter-spacing:2px; colo
 .portrait-placeholder img { width:100%; height:100%; object-fit:cover; object-position:center 12%; transform:scale(1.35); filter:drop-shadow(0 3px 4px rgba(0,0,0,.75)); }
 .player-sprite { left:430px; top:230px; width:220px; height:250px; }
 .player-sprite #playerImage { position:absolute; left:0; top:16px; width:220px; height:220px; object-fit:contain; filter:drop-shadow(0 8px 8px rgba(0,0,0,.6)); animation:playerIdle 1.35s ease-in-out infinite; transform-origin:50% 84%; }
-.player-sprite.is-attacking #playerImage { animation:playerAttack .34s ease-out 1; }
+.player-sprite.is-attacking #playerImage { animation:playerAttack var(--ro-player-attack-visual-ms, .34s) ease-out 1; }
 @keyframes playerIdle { 0%,100%{ transform:translateY(0) scale(1); } 50%{ transform:translateY(-4px) scale(1.01); } }
 @keyframes playerAttack { 0%{ transform:translateX(0) rotate(0deg) scale(1); } 45%{ transform:translateX(34px) rotate(-4deg) scale(1.04); } 100%{ transform:translateX(0) rotate(0deg) scale(1); } }
 .slash-effect { position:absolute; left:165px; top:72px; width:116px; height:116px; pointer-events:none; opacity:0; z-index:4; }
 .slash-effect::before { content:""; position:absolute; inset:16px; border-radius:50%; border-right:8px solid rgba(255,238,158,.95); border-top:5px solid rgba(255,185,70,.75); transform:rotate(-28deg); filter:drop-shadow(0 0 8px rgba(255,210,90,.9)); }
-.slash-effect.play { animation:slashPlay .28s ease-out 1; }
+.slash-effect.play { animation:slashPlay var(--ro-slash-duration, .28s) ease-out 1; }
 @keyframes slashPlay { 0%{ opacity:0; transform:translateX(-20px) scale(.6) rotate(-8deg); } 35%{ opacity:1; } 100%{ opacity:0; transform:translateX(20px) scale(1.15) rotate(10deg); } }
 .monster-sprite { transition:transform .16s ease, opacity .25s ease; }
 .monster-sprite.is-hit { transform:translateX(8px) scale(.96); filter:brightness(1.25); }
@@ -18941,4 +18941,50 @@ h2 { font-size:20px; margin:0 0 8px; text-align:center; letter-spacing:2px; colo
   font-size:34px !important;
   -webkit-text-stroke:3px #4a3300 !important;
   text-shadow:0 3px 0 #171000,0 0 11px rgba(255,225,79,.96) !important;
+}
+
+
+/* ============================================================
+   RO_WEB 0.9.82FJ — ASPD-synchronised attack visuals / special window sizes
+   ============================================================ */
+/* Preserve the old large-size appearance of the two legacy windows, then
+   apply the shared 100% / 75% / 50% cycle relative to this base. */
+.game-window.ui-size-enabled,
+.ui-size-target.ui-size-enabled { --ro-ui-base-zoom: 1; }
+#inventory-window.ui-size-enabled { --ro-ui-base-zoom: .92; }
+#skill-window.true-skill-window.ui-size-enabled { --ro-ui-base-zoom: .92; }
+@media (max-width: 900px), (pointer: coarse) {
+  #inventory-window.ui-size-enabled { --ro-ui-base-zoom: .86; }
+  #skill-window.true-skill-window.ui-size-enabled { --ro-ui-base-zoom: .82; }
+}
+@media (orientation: portrait) and (max-width: 480px) {
+  #inventory-window.ui-size-enabled { --ro-ui-base-zoom: .80; }
+  #skill-window.true-skill-window.ui-size-enabled { --ro-ui-base-zoom: .76; }
+}
+
+/* Each hit owns its own effect node. It remains visible in world-camera mode
+   and its lifetime is supplied by the actual ASPD attack cycle. */
+.slash-effect.attack-effect-instance {
+  display: block !important;
+  opacity: 0;
+  pointer-events: none !important;
+  will-change: opacity, transform;
+}
+.slash-effect.attack-effect-instance.play {
+  animation: slashPlay var(--ro-slash-duration, .20s) ease-out 1 !important;
+}
+#battle-field.world-camera-mode #player-sprite .slash-effect.attack-effect-instance,
+#battle-field[data-world-camera="true"] #player-sprite .slash-effect.attack-effect-instance {
+  display: block !important;
+  left: 48% !important;
+  top: 19% !important;
+  width: 54% !important;
+  height: 54% !important;
+  z-index: 42 !important;
+}
+#battle-field.world-camera-mode #player-sprite .slash-effect.attack-effect-instance::before,
+#battle-field[data-world-camera="true"] #player-sprite .slash-effect.attack-effect-instance::before {
+  inset: 10% !important;
+  border-right-width: 4px !important;
+  border-top-width: 2px !important;
 }

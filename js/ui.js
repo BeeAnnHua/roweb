@@ -19,6 +19,9 @@ function scheduleRecoverOpenWindows(delay = 80) {
   clearTimeout(roUiViewportRecoverTimer);
   roUiViewportRecoverTimer = setTimeout(() => {
     if (window.RO_WEB_UI_DRAG_ACTIVE) return;
+    document.querySelectorAll(".game-window, .ui-size-target").forEach(target => {
+      applyWindowSize(target, target.dataset.uiSize || "large", { skipClamp: true });
+    });
     document.querySelectorAll(".draggable-window:not(.hidden-window)").forEach(win => {
       if (isMobileViewport() && !win.classList.contains("is-user-positioned")) centerWindowForMobile(win);
       recoverWindowToViewport(win, { centerIfLost: true, persist: true });
@@ -449,7 +452,7 @@ function initCurrencyDetailPopup() {
 
 
 //=======================================
-// RO_WEB 0.9.82FI：全視窗大／中／小循環尺寸
+// RO_WEB 0.9.82FJ：全視窗大／中／小循環尺寸
 // 目前既有尺寸視為「大」100%，中／小分別為 75%／50%。
 // 不使用自由拉伸，避免手機瀏覽器手勢衝突。
 //=======================================
@@ -483,10 +486,16 @@ function normalizeWindowSize(size) {
   return RO_UI_SIZE_ORDER.includes(size) ? size : "large";
 }
 
+function getWindowBaseVisualScale(target) {
+  if (!target || typeof getComputedStyle !== "function") return 1;
+  const value = parseFloat(getComputedStyle(target).getPropertyValue("--ro-ui-base-zoom"));
+  return Number.isFinite(value) && value > 0 ? value : 1;
+}
+
 function applyStoredWindowVisualScale(target) {
   if (!target) return;
-  const factor = Math.max(0.5, Math.min(1, Number(target.dataset?.uiSizeFactor || 1)));
-  const usingZoom = String(target.style?.zoom || "").trim() !== "";
+  const factor = Math.max(0.25, Math.min(1.2, Number(target.dataset?.uiSizeFactor || 1)));
+  const usingZoom = target.dataset?.uiSizeMode === "zoom";
   target.style.setProperty("transform", usingZoom || factor === 1 ? "none" : `scale(${factor})`, "important");
   target.style.setProperty("transform-origin", "top left", "important");
 }
@@ -581,18 +590,24 @@ function applyWindowSize(target, requestedSize, options = {}) {
   const size = normalizeWindowSize(requestedSize);
   target.dataset.uiSize = size;
   const factor = size === "medium" ? 0.75 : (size === "small" ? 0.5 : 1);
-  target.dataset.uiSizeFactor = String(factor);
+  // 背包／技能欄原本已有桌機與手機專用基準 zoom；大尺寸必須維持目前視覺，
+  // 中／小再以該基準乘上 75%／50%，而不是被舊 CSS !important 鎖死。
+  const baseFactor = getWindowBaseVisualScale(target);
+  const effectiveFactor = Math.max(0.25, Math.min(1.2, baseFactor * factor));
+  target.dataset.uiSizeFactor = String(effectiveFactor);
   const supportsZoom = typeof CSS !== "undefined" && typeof CSS.supports === "function" && CSS.supports("zoom", "0.75");
   if (supportsZoom) {
-    target.style.zoom = String(factor);
+    target.dataset.uiSizeMode = "zoom";
+    target.style.setProperty("zoom", String(effectiveFactor), "important");
     target.style.removeProperty("scale");
     target.style.setProperty("transform", "none", "important");
   } else {
-    // iOS/Safari versions without CSS zoom use the universally supported
-    // transform fallback. Position recovery below understands this scale.
-    target.style.removeProperty("zoom");
+    // iOS/Safari versions without CSS zoom use transform. Inline !important
+    // also neutralizes old inventory/skill zoom rules so all three sizes work.
+    target.dataset.uiSizeMode = "transform";
+    target.style.setProperty("zoom", "1", "important");
     target.style.removeProperty("scale");
-    target.style.setProperty("transform", factor === 1 ? "none" : `scale(${factor})`, "important");
+    target.style.setProperty("transform", effectiveFactor === 1 ? "none" : `scale(${effectiveFactor})`, "important");
     target.style.setProperty("transform-origin", "top left", "important");
   }
   const button = target.querySelector(":scope > .window-title .window-size-cycle, :scope > .ui-size-header .window-size-cycle, .window-size-cycle");

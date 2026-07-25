@@ -311,7 +311,7 @@ function saveGame() {
   if (window.RO_WEB_RESETTING_SAVE) return;
   if (!player) return;
 
-  // 0.9.82FI：城鎮與野外狀態互斥。城鎮存檔不可被仍在記憶中的
+  // 0.9.82FJ：城鎮與野外狀態互斥。城鎮存檔不可被仍在記憶中的
   // last field map 覆寫，否則重新開頁會在城鎮背景生成野外怪物。
   if (player.currentCity) {
     player.map = null;
@@ -398,7 +398,7 @@ function resetGameSave() {
     const base = location.origin && location.origin !== "null"
       ? location.origin + location.pathname
       : location.pathname;
-    location.replace(base + "?v=0.9.82FI-reset-" + Date.now());
+    location.replace(base + "?v=0.9.82FJ-reset-" + Date.now());
   };
 
   try {

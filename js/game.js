@@ -13,7 +13,7 @@ let expTables = null;
 let clientItemDisplayData = null;
 let currentMap = null;
 
-const RO_WEB_VERSION = "0.9.82FI";
+const RO_WEB_VERSION = "0.9.82FJ";
 
 function normalizeDataPath(path) {
   return String(path || "")
@@ -376,7 +376,7 @@ function setInitialMap() {
     return;
   }
 
-  // 0.9.82FI：重新開啟網頁時，城鎮存檔必須恢復為純城鎮場景。
+  // 0.9.82FJ：重新開啟網頁時，城鎮存檔必須恢復為純城鎮場景。
   // lastFieldMap 只作為離開城鎮後的目的地，不可在啟動階段重新掛成 currentMap，
   // 否則世界怪物 Runtime 會在城鎮背景下建立野外怪物。
   const savedCity = player?.currentCity && typeof getCityData === "function"

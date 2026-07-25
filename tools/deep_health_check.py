@@ -3,7 +3,7 @@ from __future__ import annotations
 import argparse, collections, json, pathlib, re, shutil, struct, subprocess, sys, zlib
 from html.parser import HTMLParser
 
-EXPECTED_VERSION = "0.9.82FI"
+EXPECTED_VERSION = "0.9.82FJ"
 KNOWN_MISSING_ITEM_ICONS = set()
 DYNAMIC_DOM_IDS = {"autoHpPotionSelect","autoSpPotionSelect","autoHpEnabled","autoHpPercent","autoSpEnabled","autoSpPercent","world-camera-layer","playerAtlasCanvas","position-debug-overlay","position-debug-cross","position-coordinate-ui","basic-skill-info-window","battle-log-new-notice","battle-area","game-tooltip","runtime-skill-cast-bar","monster-position-debug-cross","monsterAtlasCanvas","map-monster-distribution-tooltip"}
 

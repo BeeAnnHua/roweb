@@ -62,6 +62,16 @@ function getPlayerAttackMotionMs() {
 function getPlayerAttackDelayMs() {
   return Math.max(RO_WEB_MIN_ATTACK_MOTION_MS * 2, getPlayerAttackMotionMs() * 2);
 }
+// 0.9.82FJ：普通攻擊視覺必須在下一次 ASPD 攻擊前完整播完。
+// 慢速角色保留原本完整動作手感；高 ASPD 時將全部 Attack Atlas 幀壓縮到實際攻擊週期內，
+// 避免每次新攻擊都把動畫重設回第 1 幀。
+function getPlayerAttackVisualDurationMs() {
+  const attackDelay = Math.max(RO_WEB_MIN_ATTACK_MOTION_MS * 2, Number(getPlayerAttackDelayMs() || 360));
+  return Math.max(136, Math.min(720, Math.round(attackDelay * 0.98)));
+}
+function getPlayerAttackEffectDurationMs() {
+  return Math.max(82, Math.min(280, Math.round(getPlayerAttackVisualDurationMs() * 0.78)));
+}
 function getPlayerSkillActionLockMs() {
   // unit_set_attackdelay(DELAY_EVENT_CASTBEGIN_*): amotion + minimum reachable amotion.
   return Math.max(RO_WEB_MIN_ATTACK_MOTION_MS * 2, getPlayerAttackMotionMs() + RO_WEB_MIN_ATTACK_MOTION_MS);
@@ -70,6 +80,8 @@ window.RO_WEB_MAX_ASPD = RO_WEB_MAX_ASPD;
 window.getPlayerAspdValue = getPlayerAspdValue;
 window.getPlayerAttackMotionMs = getPlayerAttackMotionMs;
 window.getPlayerAttackDelayMs = getPlayerAttackDelayMs;
+window.getPlayerAttackVisualDurationMs = getPlayerAttackVisualDurationMs;
+window.getPlayerAttackEffectDurationMs = getPlayerAttackEffectDurationMs;
 window.getPlayerSkillActionLockMs = getPlayerSkillActionLockMs;
 
 function canPlayerAttackNow() {
@@ -1128,7 +1140,8 @@ function updateMonsterUI() {
 
 // 玩家攻擊動畫
 function playPlayerAttackAnimation(options = {}) {
-  const duration = Math.max(80, Number(options.duration || 360));
+  const requested = Number(options.duration || 0);
+  const duration = Math.max(80, requested > 0 ? requested : getPlayerAttackVisualDurationMs());
   if (typeof playROStudioPlayerMotion === "function" && playROStudioPlayerMotion("attack", { duration, compressFrames: true })) {
     return;
   }
@@ -1136,12 +1149,15 @@ function playPlayerAttackAnimation(options = {}) {
   const playerSprite = document.getElementById("player-sprite");
   if (!playerSprite) return;
 
+  playerSprite.style.setProperty("--ro-player-attack-visual-ms", `${Math.round(duration)}ms`);
+  if (playerSprite._roAttackVisualTimer) clearTimeout(playerSprite._roAttackVisualTimer);
   playerSprite.classList.remove("is-attacking");
   void playerSprite.offsetWidth;
   playerSprite.classList.add("is-attacking");
 
-  setTimeout(() => {
+  playerSprite._roAttackVisualTimer = setTimeout(() => {
     playerSprite.classList.remove("is-attacking");
+    playerSprite._roAttackVisualTimer = null;
   }, duration);
 }
 
@@ -1322,17 +1338,29 @@ window.showAdditionalDamageNumber = showAdditionalDamageNumber;
 window.flushDamageNumberBatch = flushDamageNumberBatch;
 
 // 斬擊特效
-function showSlashEffect() {
-  const slash = document.getElementById("slashEffect");
-  if (!slash) return;
+// 0.9.82FJ：每次攻擊建立獨立短生命週期特效，不再重設同一個 DOM。
+// 高 ASPD 時各次特效能依攻擊週期完成，也不會被下一擊截斷。
+function showSlashEffect(options = {}) {
+  const template = document.getElementById("slashEffect");
+  const playerSprite = document.getElementById("player-sprite");
+  const host = template?.parentElement || playerSprite;
+  if (!host) return false;
 
-  slash.classList.remove("play");
-  void slash.offsetWidth;
-  slash.classList.add("play");
+  const requested = Number(options.duration || 0);
+  const duration = Math.max(70, requested > 0 ? requested : getPlayerAttackEffectDurationMs());
+  const effect = document.createElement("div");
+  effect.className = "slash-effect attack-effect-instance play";
+  effect.setAttribute("aria-hidden", "true");
+  effect.style.setProperty("--ro-slash-duration", `${Math.round(duration)}ms`);
+  host.appendChild(effect);
 
-  setTimeout(() => {
-    slash.classList.remove("play");
-  }, 320);
+  // 極端連發時只保留最近幾個特效，避免 DOM 無限制累積。
+  const active = host.querySelectorAll(".slash-effect.attack-effect-instance");
+  if (active.length > 5) {
+    for (let index = 0; index < active.length - 5; index += 1) active[index]?.remove?.();
+  }
+  setTimeout(() => effect.remove(), duration + 48);
+  return true;
 }
 
 // 戰鬥紀錄，最多保留 100 行；玩家往上查看時暫停自動追蹤最新訊息
