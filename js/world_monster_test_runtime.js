@@ -353,10 +353,31 @@ function loadWorldMonsterImage(src) {
 
 async function loadWorldMonsterTestAsset(monster) {
   const id = Number(monster?.id || 0);
-  if (!id || !monster?.animationJson) return null;
+  if (!id) return null;
   if (RO_WORLD_MONSTER_TEST.assetCache.has(id)) return RO_WORLD_MONSTER_TEST.assetCache.get(id);
 
   const promise = (async () => {
+    if (!monster?.animationJson) {
+      const rawSrc = monster?.staticImage || monster?.image;
+      if (!rawSrc) return null;
+      const src = String(rawSrc).replace(/^\.\//, "");
+      const image = await loadWorldMonsterImage(src);
+      const width = Math.max(1, Number(image.naturalWidth || image.width || 1));
+      const height = Math.max(1, Number(image.naturalHeight || image.height || 1));
+      const frame = { id:0, atlas:0, x:0, y:0, width, height, pivotX:width / 2, pivotY:height, durationMs:1000 };
+      const directionFrames = { south_west:{frames:[0]}, north_west:{frames:[0]}, north_east:{frames:[0]}, south_east:{frames:[0]} };
+      const animations = {};
+      ["idle","walk","attack","hurt","hit","dead"].forEach(motion => { animations[motion] = { directions:directionFrames }; });
+      const data = { frames:[frame], animations, staticFallback:true };
+      return {
+        data,
+        images:new Map([[0,image]]),
+        image,
+        frameById:new Map([[0,frame]]),
+        bounds:getWorldMonsterAssetBounds(data),
+        staticFallback:true
+      };
+    }
     const jsonPath = String(monster.animationJson).replace(/^\.\//, "");
     const data = await loadJson(`./${jsonPath}`, null);
     if (!data) throw new Error(`Monster animation JSON missing: ${monster.animationJson}`);
@@ -481,7 +502,10 @@ function createWorldMonsterEntity(monsterData, spawnEntry, options = {}) {
   const storedPos = persistent?.position && Number.isFinite(Number(persistent.position.x)) && Number.isFinite(Number(persistent.position.y))
     ? clampWorldMonsterPosition(persistent.position)
     : null;
-  const position = storedPos || chooseWorldMonsterSpawnPosition({ avoidViewport: options.avoidViewport !== false });
+  const configuredPos = spawnEntry?.spawnPosition && Number.isFinite(Number(spawnEntry.spawnPosition.x)) && Number.isFinite(Number(spawnEntry.spawnPosition.y))
+    ? clampWorldMonsterPosition(spawnEntry.spawnPosition)
+    : null;
+  const position = storedPos || configuredPos || chooseWorldMonsterSpawnPosition({ avoidViewport: options.avoidViewport !== false });
   const maxHp = Math.max(1, Number(monsterData.maxHp || monsterData.hp || 1));
   const storedHp = Number(persistent?.currentHp || 0);
   const currentHp = persistent?.alive !== false && storedHp > 0 ? Math.min(maxHp, storedHp) : maxHp;

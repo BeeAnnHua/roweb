@@ -37,6 +37,7 @@ function grantMonsterRewards(monster) {
   emitLootRewardLog(`獲得 Zeny ${zeny}`, "zeny");
 
   rollMonsterDrops(monster);
+  window.MvpGachaRuntime?.rollMapExclusiveDrop?.(monster);
   rollPassiveSkillExtraDrops(monster);
   const lootState=getMonsterLootRuntime(monster);
   if(!lootState.cardRuntimeRewardsApplied){

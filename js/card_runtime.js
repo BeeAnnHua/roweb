@@ -118,12 +118,12 @@
       }
       const item = window.getItemData?.(itemId);
       const instance = window.getEquipmentInstance?.(slot) || player.equipmentInstances?.[slot] || null;
-      rows.push({ slot, itemId: Number(itemId), item, instance, refine: n(instance?.refine) });
+      rows.push({ slot, itemId: Number(itemId), item, instance, refine: n(instance?.refine), grade: n(instance?.enchantGrade ?? instance?.grade) });
     }
     return rows;
   }
   function signature() {
-    const equipment = equipmentRows().map(row => [row.slot, row.itemId, row.refine, ...(row.instance?.cards || [])]);
+    const equipment = equipmentRows().map(row => [row.slot, row.itemId, row.refine, row.grade, ...(row.instance?.cards || [])]);
     const p = window.player || {};
     const temp = Object.entries(p.cardRuntimeTempBonuses || {}).filter(([,x]) => n(x?.expiresAt) > Date.now()).map(([k,x]) => [k,x.expiresAt]);
     return JSON.stringify([equipment, p.baseLevel, p.jobLevel, p.job, p.jobId, p.gender, p.stats, p.traitStats, p.learnedSkills, temp]);
@@ -158,7 +158,7 @@
     "bAddEle","bAddItemGroupHealRate","bAddItemHealRate","bAddItemSPHealRate","bAddMonsterDropItem","bAddMonsterDropItemGroup",
     "bAddRace","bAddRace2","bAddSize","bAddSkillBlow","bAgi","bAllStats","bAspd","bAspdRate","bAtkEle","bAtkRate",
     "bAutoSpell","bAutoSpellOnSkill","bAutoSpellWhenHit","bBaseAtk","bBreakArmorRate","bBreakWeaponRate","bCRate","bClassChange",
-    "bComaClass","bComaRace","bCon","bCritAtkRate","bCritical","bCriticalAddRace","bCriticalLong","bCrt","bDef","bDefEle",
+    "bComaClass","bComaRace","bCon","bCritAtkRate","bCritical","bCriticalAddRace","bCriticalLong","bCriticalRate","bCrt","bDef","bDefEle",
     "bDefRate","bDefRatioAtkClass","bDelayrate","bDex","bExpAddRace","bFixedCast","bFixedCastrate","bFlee","bFlee2","bGetZenyNum",
     "bHPDrainRate","bHPGainValue","bHPLossRate","bHPRegenRate","bHPrecovRate","bHealPower","bHealPower2","bHit",
     "bIgnoreDefClass","bIgnoreDefClassRate","bIgnoreDefRace","bIgnoreDefRaceRate","bIgnoreMResRaceRate","bIgnoreMdefClassRate",
@@ -166,7 +166,7 @@
     "bMagicAddSize","bMagicAtkEle","bMagicDamageReturn","bMagicHPGainValue","bMagicSubSize","bMatk","bMatkRate","bMaxHP","bMaxHPrate",
     "bMaxSP","bMaxSPrate","bMdef","bMdefRate","bNearAtkDef","bNoCastCancel","bNoGemStone","bNoKnockback","bNoMadoFuel",
     "bNoMagicDamage","bNoRegen","bNoSizeFix","bNoWalkDelay","bPAtk","bPerfectHitAddRate","bPow","bReduceDamageReturn",
-    "bRegenPercentHP","bResEff","bRestartFullRecover","bSMatk","bSPDrainRate","bSPDrainValue","bSPGainRace","bSPGainValue",
+    "bRegenPercentHP","bRes","bMRes","bResEff","bRestartFullRecover","bSMatk","bSPDrainRate","bSPDrainValue","bSPGainRace","bSPGainValue",
     "bSPLossRate","bSPRegenRate","bSPVanishRate","bSPrecovRate","bShortAtkRate","bShortWeaponDamageReturn","bSkillAtk",
     "bSkillCooldown","bSkillFixedCast","bSkillUseSP","bSkillUseSPrate","bSkillVariableCast","bSpeedRate","bSpl","bSplashRange",
     "bSta","bStr","bSubClass","bSubDefEle","bSubEle","bSubRace","bSubSize","bSubSkill","bUnbreakableArmor","bUnbreakableShield",
@@ -185,11 +185,11 @@
       bPow:"powFlat", bSta:"staFlat", bWis:"wisFlat", bSpl:"splFlat", bCon:"conFlat", bCrt:"crtFlat",
       bBaseAtk:"atkFlat", bAtkRate:"atkRate", bWeaponAtkRate:"weaponAtkRate",
       bMatk:"matkFlat", bMatkRate:"matkRate", bDef:"defFlat", bDefRate:"defRate", bMdef:"mdefFlat", bMdefRate:"mdefRate",
-      bHit:"hitFlat", bFlee:"fleeFlat", bCritical:"criFlat", bFlee2:"perfectDodgeFlat", bPerfectHitAddRate:"perfectHitRate",
+      bHit:"hitFlat", bFlee:"fleeFlat", bCritical:"criFlat", bCriticalRate:"criRate", bFlee2:"perfectDodgeFlat", bPerfectHitAddRate:"perfectHitRate",
       bAspd:"aspdFlat", bAspdRate:"aspdRate", bMaxHP:"maxHpFlat", bMaxHPrate:"maxHpRate", bMaxSP:"maxSpFlat", bMaxSPrate:"maxSpRate",
       bHPrecovRate:"hpRecoveryRate", bSPrecovRate:"spRecoveryRate",
       bLongAtkRate:"longDamageRate", bShortAtkRate:"shortDamageRate", bCritAtkRate:"critAtkRate", bCriticalLong:"longRangeCriticalChanceFlat",
-      bHealPower:"healPowerRate", bHealPower2:"healingReceivedRate", bPAtk:"pAtk", bSMatk:"sMatk", bCRate:"crateFlat",
+      bHealPower:"healPowerRate", bHealPower2:"healingReceivedRate", bPAtk:"pAtk", bSMatk:"sMatk", bRes:"resFlat", bMRes:"mresFlat", bCRate:"crateFlat",
       bSpeedRate:"moveSpeedRate", bNearAtkDef:"shortDamageReduction", bLongAtkDef:"longDamageReduction",
       bReduceDamageReturn:"reflectDamageReductionRate", bMagicDamageReturn:"magicReflectRate", bShortWeaponDamageReturn:"shortPhysicalReflectRate",
       bHPGainValue:"killHpFlat", bSPGainValue:"killSpFlat", bMagicHPGainValue:"magicKillHpFlat", bSPDrainValue:"spOnAttackFlat",
@@ -394,6 +394,7 @@
       specialeffect2: effect => push(out,"visualEffects",normalizeConstant(effect)),
       active_transform:(id,duration,status,...values)=>push(out,"transforms",{id,durationMs:n(duration),status:status?normalizeConstant(status):null,values}),
       getrefine: () => n(context.hostRow?.refine ?? context.maxRefine),
+      getenchantgrade: token => n((token === undefined || token === null) ? (context.hostRow?.grade ?? context.hostRow?.instance?.enchantGrade ?? context.maxGrade) : (getSlotRow(token,context)?.grade ?? getSlotRow(token,context)?.instance?.enchantGrade)),
       getequiprefinerycnt: token => n(getSlotRow(token,context)?.refine),
       getequipid: token => n(getSlotRow(token,context)?.itemId),
       getequipweaponlv: token => n(getSlotRow(token,context)?.item?.weaponLevel || getSlotRow(token,context)?.item?.WeaponLevel),
@@ -403,6 +404,7 @@
       min:Math.min, max:Math.max, pow:Math.pow,
       BaseLevel:n(window.player?.baseLevel,1), JobLevel:n(window.player?.jobLevel,1), BaseJob:currentJobToken(), BaseClass:currentJobToken(), Class:currentJobToken(), Sex:String(window.player?.gender||""),
       EAJL_THIRD:4, EAJL_FOURTH:8,
+      ENCHANTGRADE_NONE:0, ENCHANTGRADE_D:1, ENCHANTGRADE_C:2, ENCHANTGRADE_B:3, ENCHANTGRADE_A:4,
       ...BATTLE_FLAGS,
       ...ATTACK_STATUS_FLAGS
     };

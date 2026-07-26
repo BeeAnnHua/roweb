@@ -1,6 +1,6 @@
 {
   "schema": "ro_web_region_monster_streaming_v1",
-  "version": "0.9.82FT",
+  "version": "0.9.82FZ",
   "source": {
     "mobDb": "rAthena Renewal db/re/mob_db.yml",
     "spawnScripts": "rAthena Renewal npc/re/mobs/fields/*.txt",
@@ -4022,6 +4022,987 @@
       "recommendedLevelMin": 188,
       "recommendedLevelMax": 197,
       "selectionRule": "rAthena Renewal ein_dun03；四色礦石魔與深淵怪物依官方數量比例，珠寶大盜為稀有，珠寶溫古力安特為單隻 MVP。"
+    },
+    "geffenia_mvp_arena_3x3_region_camera": {
+      "name": "葛坡尼亞 MVP 試煉場",
+      "sourceSpawnFiles": [
+        "RO_WEB custom test arena; monster stats/drops from RA Renewal"
+      ],
+      "targetNormalCountAt100": 0,
+      "pool": [
+        {
+          "monsterId": 1038,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 360,
+            "y": 360
+          }
+        },
+        {
+          "monsterId": 1039,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 915,
+            "y": 360
+          }
+        },
+        {
+          "monsterId": 1046,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 1471,
+            "y": 360
+          }
+        },
+        {
+          "monsterId": 1059,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 2026,
+            "y": 360
+          }
+        },
+        {
+          "monsterId": 1086,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 2582,
+            "y": 360
+          }
+        },
+        {
+          "monsterId": 1087,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 3137,
+            "y": 360
+          }
+        },
+        {
+          "monsterId": 1112,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 3693,
+            "y": 360
+          }
+        },
+        {
+          "monsterId": 1115,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 4248,
+            "y": 360
+          }
+        },
+        {
+          "monsterId": 1147,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 360,
+            "y": 1008
+          }
+        },
+        {
+          "monsterId": 1150,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 915,
+            "y": 1008
+          }
+        },
+        {
+          "monsterId": 1157,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 1471,
+            "y": 1008
+          }
+        },
+        {
+          "monsterId": 1159,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 2026,
+            "y": 1008
+          }
+        },
+        {
+          "monsterId": 1190,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 2582,
+            "y": 1008
+          }
+        },
+        {
+          "monsterId": 1251,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 3137,
+            "y": 1008
+          }
+        },
+        {
+          "monsterId": 1252,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 3693,
+            "y": 1008
+          }
+        },
+        {
+          "monsterId": 1272,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 4248,
+            "y": 1008
+          }
+        },
+        {
+          "monsterId": 1312,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 360,
+            "y": 1656
+          }
+        },
+        {
+          "monsterId": 1389,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 915,
+            "y": 1656
+          }
+        },
+        {
+          "monsterId": 1418,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 1471,
+            "y": 1656
+          }
+        },
+        {
+          "monsterId": 1511,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 2026,
+            "y": 1656
+          }
+        },
+        {
+          "monsterId": 1518,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 2582,
+            "y": 1656
+          }
+        },
+        {
+          "monsterId": 1583,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 3137,
+            "y": 1656
+          }
+        },
+        {
+          "monsterId": 1623,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 3693,
+            "y": 1656
+          }
+        },
+        {
+          "monsterId": 1685,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 4248,
+            "y": 1656
+          }
+        },
+        {
+          "monsterId": 1688,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 360,
+            "y": 2304
+          }
+        },
+        {
+          "monsterId": 1708,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 915,
+            "y": 2304
+          }
+        },
+        {
+          "monsterId": 1719,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 1471,
+            "y": 2304
+          }
+        },
+        {
+          "monsterId": 1734,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 2026,
+            "y": 2304
+          }
+        },
+        {
+          "monsterId": 1751,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 2582,
+            "y": 2304
+          }
+        },
+        {
+          "monsterId": 1768,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 3137,
+            "y": 2304
+          }
+        },
+        {
+          "monsterId": 1779,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 3693,
+            "y": 2304
+          }
+        },
+        {
+          "monsterId": 1785,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 4248,
+            "y": 2304
+          }
+        },
+        {
+          "monsterId": 1832,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 360,
+            "y": 2952
+          }
+        },
+        {
+          "monsterId": 1871,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 915,
+            "y": 2952
+          }
+        },
+        {
+          "monsterId": 1874,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 1471,
+            "y": 2952
+          }
+        },
+        {
+          "monsterId": 1885,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 2026,
+            "y": 2952
+          }
+        },
+        {
+          "monsterId": 1956,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 2582,
+            "y": 2952
+          }
+        },
+        {
+          "monsterId": 2022,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 3137,
+            "y": 2952
+          }
+        },
+        {
+          "monsterId": 2068,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 3693,
+            "y": 2952
+          }
+        },
+        {
+          "monsterId": 2131,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 4248,
+            "y": 2952
+          }
+        },
+        {
+          "monsterId": 2189,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 360,
+            "y": 3600
+          }
+        },
+        {
+          "monsterId": 2202,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 915,
+            "y": 3600
+          }
+        },
+        {
+          "monsterId": 2249,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 1471,
+            "y": 3600
+          }
+        },
+        {
+          "monsterId": 2251,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 2026,
+            "y": 3600
+          }
+        },
+        {
+          "monsterId": 2253,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 2582,
+            "y": 3600
+          }
+        },
+        {
+          "monsterId": 2255,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 3137,
+            "y": 3600
+          }
+        },
+        {
+          "monsterId": 2319,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 3693,
+            "y": 3600
+          }
+        },
+        {
+          "monsterId": 2529,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 4248,
+            "y": 3600
+          }
+        },
+        {
+          "monsterId": 2564,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 360,
+            "y": 4248
+          }
+        },
+        {
+          "monsterId": 2996,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 915,
+            "y": 4248
+          }
+        },
+        {
+          "monsterId": 3254,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "RO_WEB_GEFFENIA_MVP_ARENA"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 0,
+          "persistentTimer": true,
+          "spawnPosition": {
+            "x": 1471,
+            "y": 4248
+          }
+        }
+      ],
+      "recommendedLevelMin": 50,
+      "recommendedLevelMax": 275,
+      "selectionRule": "使用者指定 MVP 測試場；每種 MVP 1 隻、固定分散位置、60±30秒重生；暫不加入 9 隻人形／夢羅克王。轉蛋掉落由地圖專屬 Runtime 額外判定。"
     }
   }
 }

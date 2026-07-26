@@ -73,6 +73,7 @@
       instanceId: String(source.instanceId || source.uid || makeInstanceId(id)),
       identified: source.identified !== false,
       refine: Math.max(0, Math.min(20, Math.floor(Number(source.refine ?? source.refineLevel ?? 0) || 0))),
+      enchantGrade: Math.max(0, Math.min(4, Math.floor(Number(source.enchantGrade ?? source.grade ?? source.enchantGradeLevel ?? 0) || 0))),
       broken: Boolean(source.broken || source.isBroken),
       cards: normalizeCardIds(source.cards ?? source.cardIds ?? source.socketedCards),
       enchants: normalizeEnchantRows(source.enchants ?? source.randomOptions ?? source.options),

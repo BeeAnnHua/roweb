@@ -1,0 +1,105 @@
+{
+  "version": "0.9.82FZ",
+  "summary": {
+    "checks": 19,
+    "passed": 19,
+    "failed": 0
+  },
+  "checks": [
+    {
+      "ok": true,
+      "name": "Runtime version",
+      "detail": "0.9.82FZ"
+    },
+    {
+      "ok": true,
+      "name": "Single mother pool totals exactly 100%",
+      "detail": "121+9879"
+    },
+    {
+      "ok": true,
+      "name": "Rare tier probabilities and colors",
+      "detail": "PASS"
+    },
+    {
+      "ok": true,
+      "name": "Ordinary reward source weights preserved",
+      "detail": "16"
+    },
+    {
+      "ok": true,
+      "name": "0.01% gold reward branch",
+      "detail": "{\"category\":{\"id\":\"kiel_card\",\"chanceBasisPoints\":1,\"tier\":\"gold\",\"bannerLabel\":\"0.01% 金色大獎\",\"rewards\":[{\"itemId\":4403,\"quantity\":1,\"weight\":1}]},\"row\":{\"itemId\":4403,\"quantity\":1,\"weight\":1},\"roll\":1,\"rare\":true}"
+    },
+    {
+      "ok": true,
+      "name": "0.1% anniversary branch awards hat or balloon separately",
+      "detail": "{\"itemId\":420186,\"quantity\":1,\"weight\":1}"
+    },
+    {
+      "ok": true,
+      "name": "1% red Temporal branch",
+      "detail": "temporal_transcendent"
+    },
+    {
+      "ok": true,
+      "name": "0.1% purple LT branch",
+      "detail": "temporal_lt"
+    },
+    {
+      "ok": true,
+      "name": "Ordinary branch starts after absolute rare range",
+      "detail": "{\"itemId\":14849,\"quantity\":10,\"weight\":13}"
+    },
+    {
+      "ok": true,
+      "name": "Same MVP outside arena never receives added gacha drop",
+      "detail": "false"
+    },
+    {
+      "ok": true,
+      "name": "Arena MVP exact 1% hook grants and records gacha",
+      "detail": "PASS"
+    },
+    {
+      "ok": true,
+      "name": "Per-death map drop guard prevents double roll",
+      "detail": "PASS"
+    },
+    {
+      "ok": true,
+      "name": "Non-MVP never receives arena gacha drop",
+      "detail": "PASS"
+    },
+    {
+      "ok": true,
+      "name": "Opening consumes exactly one gacha",
+      "detail": "1"
+    },
+    {
+      "ok": true,
+      "name": "Gold card reward enters inventory",
+      "detail": "[{\"id\":14848,\"name\":\"MVP幸運轉蛋\",\"count\":1},{\"id\":4403,\"name\":\"基爾-D-01卡片\",\"count\":1}]"
+    },
+    {
+      "ok": true,
+      "name": "Gacha equipment creates independent equipment instance",
+      "detail": "PASS"
+    },
+    {
+      "ok": true,
+      "name": "Cash food applies a live 30-minute stat buff",
+      "detail": "{\"mvp_gacha_cash_food:14849:main:1785064021748\":{\"id\":\"mvp_gacha_cash_food:14849:main:1785064021748\",\"name\":\"體力料理[轉蛋專用]\",\"sourceType\":\"mvp_gacha_cash_food\",\"sourceItemId\":14849,\"startedAt\":1785064021748,\"expiresAt\":1785065821748,\"effects\":{\"vitFlat\":10}}}"
+    },
+    {
+      "ok": true,
+      "name": "Biscuit stick rolls and applies additional HIT",
+      "detail": "{\"dexBuff\":{\"id\":\"mvp_gacha_cash_food:23221:main:1785064021749\",\"name\":\"靈巧棒棒條[轉蛋專用]\",\"sourceType\":\"mvp_gacha_cash_food\",\"sourceItemId\":23221,\"startedAt\":1785064021749,\"expiresAt\":1785065821749,\"effects\":{\"dexFlat\":15}},\"hitBuff\":{\"id\":\"mvp_gacha_cash_food:23221:extra:1785064021749\",\"name\":\"靈巧棒棒條[轉蛋專用]\",\"sourceType\":\"mvp_gacha_cash_food\",\"sourceItemId\":23221,\"startedAt\":1785064021749,\"expiresAt\":1785065821749,\"effects\":{\"hitFlat\":11}}}"
+    },
+    {
+      "ok": true,
+      "name": "Snow Flower restores 10% MaxHP and MaxSP",
+      "detail": "200/40"
+    }
+  ]
+}

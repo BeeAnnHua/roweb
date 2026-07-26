@@ -1,6 +1,6 @@
 {
-  "version": "0.9.82FX",
-  "note": "RO_WEB Item Database：0.9.82FX 卡片／裝備／Combo 統一效果 Runtime；新增裝備或卡片 Script 自動進入素質、戰鬥、恢復、事件與時序管線，並以效果覆蓋稽核防止漏接。",
+  "version": "0.9.82FZ",
+  "note": "0.9.82FZ：MVP 地圖限定轉蛋、商城料理、20週年與時光超越者／LT 裝備；裝備 Script 與純裝備 Combo 進入 FX 統一效果 Runtime。",
   "legacyCompatibility": "data/items.json retired. Runtime item data is loaded from split JSON through ItemManager/getItemById().",
   "itemPaths": {
     "consumables": "data/items/consumables.json",
@@ -97,20 +97,20 @@
     "data/items/pets.json",
     "data/items/quest.json",
     "data/items/stones.json",
-    "data/items/monster_drops_0_9_82EI.json"
+    "data/items/monster_drops_0_9_82EI.json",
+    "data/items/mvp_arena_original_drops_0_9_82FZ.json"
   ],
   "monsterDropActivation": {
-    "version": "0.9.82FT",
-    "recordCount": 662,
-    "newRecordCount": 74,
-    "source": "all active regional monsters including three Einbech Mine variants",
-    "note": "Missing item records and icons are activated from itemInfo + rAthena Renewal."
+    "version": "0.9.82FZ",
+    "recordCount": 125,
+    "source": "51 MVP original rAthena Renewal drop tables",
+    "note": "Only item IDs referenced by the active MVP arena monster pools and missing from the existing split Item DB are added here."
   },
   "cardSystem": {
-    "version": "0.9.82FX",
+    "version": "0.9.82FZ",
     "cardCount": 910,
     "monsterDropSourceCount": 1422,
-    "comboCount": 784,
+    "comboCount": 797,
     "scriptCompileErrors": 0,
     "scriptRuntimeErrors": 0,
     "unknownCommands": 0,
@@ -122,17 +122,17 @@
       6717,
       6718
     ],
-    "runtimeFixVersion": "0.9.82FX",
-    "equipmentScriptCount": 141,
+    "runtimeFixVersion": "0.9.82FZ",
+    "equipmentScriptCount": 152,
     "equipmentScriptRuntimeErrors": 0,
     "equipmentUnhandledBonuses": 0,
     "statusPanelUsesDerivedStats": true,
     "recoveryRuntimeConnected": true,
     "fourthJobBaseHpSpJobs": 14,
     "effectRuntimeUnified": true,
-    "supportedRAthenaBonusTypes": 142,
-    "effectMatrixEvaluations": 29360,
-    "canonicalEffectKeys": 142,
+    "supportedRAthenaBonusTypes": 145,
+    "effectMatrixEvaluations": 29744,
+    "canonicalEffectKeys": 143,
     "effectCoverageMissing": 0,
     "runtimeDiagnosticsBlocking": true,
     "dynamicScriptFallback": true,
@@ -141,9 +141,9 @@
     "exactTransformAtlases": 7,
     "visibleTransformFallbacks": 13
   },
-  "runtimeFixVersion": "0.9.82FX",
+  "runtimeFixVersion": "0.9.82FZ",
   "effectRuntime": {
-    "version": "0.9.82FX",
+    "version": "0.9.82FZ",
     "sourceOrder": [
       "equipment base data",
       "equipment script",
@@ -165,7 +165,7 @@
       "kill/EXP/drop rewards",
       "movement/visibility/visual transform"
     ],
-    "supportedRAthenaBonusTypes": 142,
+    "supportedRAthenaBonusTypes": 145,
     "unknownCommandPolicy": "BLOCK_AND_REPORT",
     "futureDataPolicy": "A new item/card with scriptRaw or compiledScript is evaluated dynamically when it uses the supported vocabulary; a new unsupported command fails the release audit and is never silently ignored.",
     "projectPolicyNoOps": {
@@ -199,5 +199,40 @@
         3246
       ]
     }
+  },
+  "mvpGacha": {
+    "gachaItemId": 14848,
+    "equipmentIds": [
+      400368,
+      420186,
+      450175,
+      480076,
+      22202,
+      490030,
+      490097,
+      450299,
+      480312,
+      470183,
+      490404
+    ],
+    "consumableIds": [
+      14848,
+      14849,
+      14850,
+      14851,
+      14852,
+      14853,
+      14854,
+      14841,
+      14886,
+      12739,
+      23221,
+      23222,
+      23223,
+      23224,
+      23225,
+      23226
+    ],
+    "setComboAdded": 13
   }
 }

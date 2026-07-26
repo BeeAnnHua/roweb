@@ -1,0 +1,195 @@
+{
+  "schema": "ro_web_mvp_gacha_v1",
+  "version": "0.9.82FZ",
+  "mapId": "geffenia_mvp_arena_3x3_region_camera",
+  "gachaItemId": 14848,
+  "mapExclusiveDropChanceBasisPoints": 100,
+  "dropRatePolicy": "fixed_exact_1_percent_not_scaled_by_global_drop_rate",
+  "rareCategories": [
+    {
+      "id": "kiel_card",
+      "chanceBasisPoints": 1,
+      "tier": "gold",
+      "bannerLabel": "0.01% 金色大獎",
+      "rewards": [
+        {
+          "itemId": 4403,
+          "quantity": 1,
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "id": "anniversary_20th",
+      "chanceBasisPoints": 10,
+      "tier": "purple",
+      "bannerLabel": "0.1% 紫色大獎",
+      "rewards": [
+        {
+          "itemId": 400368,
+          "quantity": 1,
+          "weight": 1
+        },
+        {
+          "itemId": 420186,
+          "quantity": 1,
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "id": "temporal_transcendent",
+      "chanceBasisPoints": 100,
+      "tier": "red",
+      "bannerLabel": "1% 紅色大獎",
+      "rewards": [
+        {
+          "itemId": 450175,
+          "quantity": 1,
+          "weight": 1
+        },
+        {
+          "itemId": 480076,
+          "quantity": 1,
+          "weight": 1
+        },
+        {
+          "itemId": 22202,
+          "quantity": 1,
+          "weight": 1
+        },
+        {
+          "itemId": 490030,
+          "quantity": 1,
+          "weight": 1
+        },
+        {
+          "itemId": 490097,
+          "quantity": 1,
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "id": "temporal_lt",
+      "chanceBasisPoints": 10,
+      "tier": "purple",
+      "bannerLabel": "0.1% 紫色大獎",
+      "rewards": [
+        {
+          "itemId": 450299,
+          "quantity": 1,
+          "weight": 1
+        },
+        {
+          "itemId": 480312,
+          "quantity": 1,
+          "weight": 1
+        },
+        {
+          "itemId": 470183,
+          "quantity": 1,
+          "weight": 1
+        },
+        {
+          "itemId": 490404,
+          "quantity": 1,
+          "weight": 1
+        }
+      ]
+    }
+  ],
+  "ordinaryFillBasisPoints": 9879,
+  "ordinaryRewards": [
+    {
+      "itemId": 14849,
+      "quantity": 10,
+      "weight": 13
+    },
+    {
+      "itemId": 14850,
+      "quantity": 10,
+      "weight": 13
+    },
+    {
+      "itemId": 14851,
+      "quantity": 10,
+      "weight": 13
+    },
+    {
+      "itemId": 14852,
+      "quantity": 10,
+      "weight": 13
+    },
+    {
+      "itemId": 14853,
+      "quantity": 10,
+      "weight": 13
+    },
+    {
+      "itemId": 14854,
+      "quantity": 10,
+      "weight": 13
+    },
+    {
+      "itemId": 14841,
+      "quantity": 50,
+      "weight": 17
+    },
+    {
+      "itemId": 14886,
+      "quantity": 2,
+      "weight": 5
+    },
+    {
+      "itemId": 12739,
+      "quantity": 100,
+      "weight": 17
+    },
+    {
+      "itemId": 14886,
+      "quantity": 20,
+      "weight": 5
+    },
+    {
+      "itemId": 23221,
+      "quantity": 10,
+      "weight": 13
+    },
+    {
+      "itemId": 23222,
+      "quantity": 10,
+      "weight": 13
+    },
+    {
+      "itemId": 23223,
+      "quantity": 10,
+      "weight": 13
+    },
+    {
+      "itemId": 23224,
+      "quantity": 10,
+      "weight": 13
+    },
+    {
+      "itemId": 23225,
+      "quantity": 10,
+      "weight": 13
+    },
+    {
+      "itemId": 23226,
+      "quantity": 10,
+      "weight": 13
+    }
+  ],
+  "bannerColors": {
+    "red": "1%",
+    "purple": "0.1%",
+    "gold": "0.01%"
+  },
+  "notes": [
+    "20週年帽與氣球共享 0.1% 類別，抽中後再等權選一件；兩件同時裝備啟用 RA Combo。",
+    "時光超越者系列 1% 類別與 LT 0.1% 類別均在類別內等權選一件。",
+    "普通物品依使用者表格權重合併成單一母池，等比例填滿稀有獎以外的 98.79%。"
+  ]
+}

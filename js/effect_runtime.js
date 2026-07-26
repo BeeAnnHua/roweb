@@ -1,5 +1,5 @@
 //=======================================
-// RO_WEB EffectRuntime v0.9.82FX
+// RO_WEB EffectRuntime v0.9.82FZ
 // Unified equipment/card/combo effect source and coverage registry.
 // New item/card scripts are evaluated by CardRuntime and automatically flow
 // through the same status, combat, timing, recovery and event-hook consumers.
@@ -131,8 +131,8 @@
     allStatsFlat:"status", strFlat:"status", agiFlat:"status", vitFlat:"status", intFlat:"status", dexFlat:"status", lukFlat:"status",
     powFlat:"status", staFlat:"status", wisFlat:"status", splFlat:"status", conFlat:"status", crtFlat:"status",
     atkFlat:"status", atkRate:"status", matkFlat:"status", matkRate:"status", defFlat:"status", defRate:"status", mdefFlat:"status", mdefRate:"status",
-    hitFlat:"status", fleeFlat:"status", criFlat:"status", perfectDodgeFlat:"status", aspdFlat:"status", aspdRate:"status",
-    maxHpFlat:"status", maxHpRate:"status", maxSpFlat:"status", maxSpRate:"status", pAtk:"status", sMatk:"status", crateFlat:"status", moveSpeedRate:"status",
+    hitFlat:"status", fleeFlat:"status", criFlat:"status", criRate:"status", perfectDodgeFlat:"status", aspdFlat:"status", aspdRate:"status",
+    maxHpFlat:"status", maxHpRate:"status", maxSpFlat:"status", maxSpRate:"status", resFlat:"status", mresFlat:"status", pAtk:"status", sMatk:"status", crateFlat:"status", moveSpeedRate:"status",
     hpRecoveryRate:"natural_recovery", spRecoveryRate:"natural_recovery", noHpRegen:"natural_recovery", noSpRegen:"natural_recovery",
     armorElement:"combat_profile", weaponElement:"combat_profile",
 

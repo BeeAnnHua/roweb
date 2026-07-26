@@ -2,13 +2,13 @@
   "version": "0.9.82FX",
   "counts": {
     "cards": 910,
-    "equipmentScripts": 141,
-    "combos": 784,
+    "equipmentScripts": 152,
+    "combos": 797,
     "dropSources": 1422,
-    "bonusVocabulary": 142,
-    "matrixEvaluations": 29360,
-    "canonicalKeys": 142,
-    "coverageRegistryKeys": 151
+    "bonusVocabulary": 145,
+    "matrixEvaluations": 29744,
+    "canonicalKeys": 143,
+    "coverageRegistryKeys": 154
   },
   "matrix": {
     "runtimeErrors": 0,
@@ -33,6 +33,7 @@
       "conFlat",
       "crateFlat",
       "criFlat",
+      "criRate",
       "critAtkRate",
       "criticalChanceByRace",
       "crtFlat",
@@ -161,14 +162,14 @@
   },
   "summary": {
     "checks": 44,
-    "passed": 44,
-    "failed": 0
+    "passed": 42,
+    "failed": 2
   },
   "checks": [
     {
-      "ok": true,
+      "ok": false,
       "name": "Static rAthena bonus vocabulary count",
-      "detail": "142"
+      "detail": "145"
     },
     {
       "ok": true,
@@ -181,9 +182,9 @@
       "detail": "[]"
     },
     {
-      "ok": true,
+      "ok": false,
       "name": "Full effect matrix evaluation count",
-      "detail": "29360"
+      "detail": "29744"
     },
     {
       "ok": true,
@@ -238,7 +239,7 @@
     {
       "ok": true,
       "name": "Autobonus otherScript status executes",
-      "detail": "[{\"unit\":{\"baseLevel\":275,\"jobLevel\":60,\"job\":\"dragon_knight\",\"jobKey\":\"dragon_knight\",\"gender\":\"male\",\"stats\":{\"str\":120,\"agi\":120,\"vit\":120,\"int\":120,\"dex\":120,\"luk\":120},\"traitStats\":{\"pow\":110,\"sta\":110,\"wis\":110,\"spl\":110,\"con\":110,\"crt\":110},\"learnedSkills\":{},\"equipment\":{\"weapon\":990778},\"equipmentInstances\":{\"weapon\":{\"id\":990778,\"instanceId\":\"fx-990778-weapon\",\"refine\":0,\"cards\":[null,null,null]}},\"inventory\":[],\"activeBuffs\":{},\"hp\":60,\"maxHp\":100,\"sp\":7,\"maxSp\":20,\"zeny\":0,\"cardRuntimeTempBonuses\":{\"temp_990778_1785052413319_0\":{\"expiresAt\":1785052416319,\"source\":{\"id\":\"temp_990778_1785052413319_0\",\"name\":\"Proc Item 自動效果\",\"sourceType\":\"cardTemp\",\"sourceId\":\"temp_990778_1785052413319_0\",\"agiFlat\":5}}}},\"status\":\"SPEEDUP1\",\"opt\":{\"chancePercent\":100,\"durationMs\":3000,\"level\":50,\"value\":50,\"extra\":[],\"allowBoss\":true,\"source\":\"item_script\"}}]"
+      "detail": "[{\"unit\":{\"baseLevel\":275,\"jobLevel\":60,\"job\":\"dragon_knight\",\"jobKey\":\"dragon_knight\",\"gender\":\"male\",\"stats\":{\"str\":120,\"agi\":120,\"vit\":120,\"int\":120,\"dex\":120,\"luk\":120},\"traitStats\":{\"pow\":110,\"sta\":110,\"wis\":110,\"spl\":110,\"con\":110,\"crt\":110},\"learnedSkills\":{},\"equipment\":{\"weapon\":990778},\"equipmentInstances\":{\"weapon\":{\"id\":990778,\"instanceId\":\"fx-990778-weapon\",\"refine\":0,\"cards\":[null,null,null]}},\"inventory\":[],\"activeBuffs\":{},\"hp\":60,\"maxHp\":100,\"sp\":7,\"maxSp\":20,\"zeny\":0,\"cardRuntimeTempBonuses\":{\"temp_990778_1785059408710_0\":{\"expiresAt\":1785059411711,\"source\":{\"id\":\"temp_990778_1785059408710_0\",\"name\":\"Proc Item 自動效果\",\"sourceType\":\"cardTemp\",\"sourceId\":\"temp_990778_1785059408710_0\",\"agiFlat\":5}}}},\"status\":\"SPEEDUP1\",\"opt\":{\"chancePercent\":100,\"durationMs\":3000,\"level\":50,\"value\":50,\"extra\":[],\"allowBoss\":true,\"source\":\"item_script\"}}]"
     },
     {
       "ok": true,

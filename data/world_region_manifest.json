@@ -1,14 +1,14 @@
 {
   "schema": "ro_web_world_region_manifest_v1",
-  "version": "0.9.82FT",
-  "source": "使用者提供世界地圖素材、達納托斯塔、初學者修練場、螞蟻洞窟 109-117、艾音貝赫礦山 118-126",
-  "rule": "十七個邏輯地圖使用十四套實體 3×3 圖塊；螞蟻洞窟兩版共用一套，艾音貝赫普通／幻影／深淵三版再共用一套。",
+  "version": "0.9.82FZ",
+  "source": "使用者提供世界地圖素材、達納托斯塔、初學者修練場、螞蟻洞窟 109-117、艾音貝赫礦山 118-126、使用者提供葛坡尼亞 127-135、使用者提供葛坡尼亞 127-135、使用者提供葛坡尼亞 127-135、使用者提供葛坡尼亞 127-135",
+  "rule": "十八個邏輯地圖；新增葛坡尼亞 127-135 獨立 3×3 MVP／轉蛋測試地圖。",
   "deploymentExcludes": [
     "RO_世界地圖.png",
     "RO世界地圖切割前原圖.zip",
     "所有切割前地區原圖"
   ],
-  "regionCount": 17,
+  "regionCount": 18,
   "regions": [
     {
       "order": 1,
@@ -529,6 +529,36 @@
       "worldScale": 3,
       "monstersDeferred": false,
       "monsterSpecies": 11
+    },
+    {
+      "order": 18,
+      "id": "geffenia_mvp_arena_3x3_region_camera",
+      "name": "葛坡尼亞 MVP 試煉場",
+      "sourceChunkRange": "127-135",
+      "runtimeTileNames": [
+        "001.webp",
+        "002.webp",
+        "003.webp",
+        "004.webp",
+        "005.webp",
+        "006.webp",
+        "007.webp",
+        "008.webp",
+        "009.webp"
+      ],
+      "background": "images/maps/world/geffenia_mvp_arena_3x3/geffenia_mvp_arena_3x3_region_bg_0_9_82FZ.webp",
+      "thumb": "images/maps/world/geffenia_mvp_arena_3x3/geffenia_mvp_arena_3x3_region_small_0_9_82FZ.webp",
+      "worldSize": [
+        4608,
+        4608
+      ],
+      "cameraSize": [
+        1280,
+        720
+      ],
+      "worldScale": 3,
+      "monstersDeferred": false,
+      "monsterSpecies": 51
     }
   ],
   "namingDecision": {

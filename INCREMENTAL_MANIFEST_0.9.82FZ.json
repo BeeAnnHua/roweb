@@ -1,0 +1,705 @@
+{
+  "version": "0.9.82FZ",
+  "base": "0.9.82FY",
+  "packageType": "incremental_overlay",
+  "addedFiles": 112,
+  "changedFiles": 27,
+  "deletedFiles": [],
+  "files": [
+    {
+      "path": "AI_START_HERE.md",
+      "bytes": 2018,
+      "sha256": "e49a58aa1ba1e1a4ffede46d39644728ed02210b221afb9a379e36772170fe92"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "bytes": 6686,
+      "sha256": "fb35243a9f5b7b07a4e3e2a2dc3230ea3843ea3700a0c68ffdf7ed86ccb85ba0"
+    },
+    {
+      "path": "DEPLOY_COPY_NOTICE_0.9.82FZ.txt",
+      "bytes": 362,
+      "sha256": "abbcededba333a1700db1765deec507a8b23c0cc6321ccc6ff480b637926bf98"
+    },
+    {
+      "path": "MVP_GACHA_BUILD_REPORT_0.9.82FZ.json",
+      "bytes": 1315,
+      "sha256": "6ae5715d810f0bc98135bc0b0a4b0e6b8df8cffaf5abaa88fa0f95ff416f7fad"
+    },
+    {
+      "path": "README.md",
+      "bytes": 1826,
+      "sha256": "a939f281b32592b16cee74cf2a654e3089f62b899e90bb3bf1f9a98e9e64a845"
+    },
+    {
+      "path": "TEST_REPORT_0.9.82FZ.txt",
+      "bytes": 3416,
+      "sha256": "3959afe159fd87c2d1bcf9e541b2c6947a1d0b95c5424285d6288f310bb44b7a"
+    },
+    {
+      "path": "assets/monsters/animations/1038/1038.json",
+      "bytes": 60493,
+      "sha256": "10df2b3037421cbb2b3903f8a18047c9f125a5a89b27b13056993fdb5705777b"
+    },
+    {
+      "path": "assets/monsters/animations/1038/1038.png",
+      "bytes": 127527,
+      "sha256": "aa2e6539bca378a4788c60420c1f8c341a18946fe5b8c1bdabef96cb5f1b4f32"
+    },
+    {
+      "path": "assets/monsters/animations/1039/1039.json",
+      "bytes": 48470,
+      "sha256": "0bef53cdbf1b4999aba79da0b63f8613fe24a5fdb75caf50ee7ab3b5de320535"
+    },
+    {
+      "path": "assets/monsters/animations/1039/1039.png",
+      "bytes": 235211,
+      "sha256": "744c872dd8ac503c740a62b9fa71b12f2d2169f0d7b2f9581a2a7a07c06684d2"
+    },
+    {
+      "path": "assets/monsters/animations/1046/1046.json",
+      "bytes": 35485,
+      "sha256": "bc08de5b046ef68619ef8a8ee040e5678da9fd15ec13f6be72650884344ff38d"
+    },
+    {
+      "path": "assets/monsters/animations/1046/1046.png",
+      "bytes": 106914,
+      "sha256": "9cf82c6236800718f8d525d53faaa8218d21ab4632b2d4fb70a79e934b4576ea"
+    },
+    {
+      "path": "assets/monsters/animations/1086/1086.json",
+      "bytes": 62453,
+      "sha256": "1ca2bca7f86a36dfbce38f4025058d9ba58a8327042f6fda3ac6b33d3b91a3e2"
+    },
+    {
+      "path": "assets/monsters/animations/1086/1086.png",
+      "bytes": 22397,
+      "sha256": "5297cde38c04774e736c8d5c12e966fbb0461b0af249807db70c462571b96d81"
+    },
+    {
+      "path": "assets/monsters/animations/1112/1112.json",
+      "bytes": 59306,
+      "sha256": "712b6e9fd64baca93ecf2e5b9b4a9c98a3b208de1e097573351b3a9f9977571a"
+    },
+    {
+      "path": "assets/monsters/animations/1112/1112.png",
+      "bytes": 321044,
+      "sha256": "8a08ec1a9e3f9ed41feb4dfcb10ebdcdc6c0dd552764d98ac8d53153c2097764"
+    },
+    {
+      "path": "assets/monsters/animations/1150/1150.json",
+      "bytes": 68610,
+      "sha256": "57450475331adc06d435ead8eced8d680df1b0fefa3267e4d5838706a5d1f94c"
+    },
+    {
+      "path": "assets/monsters/animations/1150/1150.png",
+      "bytes": 233742,
+      "sha256": "742be5840ac9b93f8e5a0a7e3a4261d8449eee33a69dc67b42d6f7f681a2e78a"
+    },
+    {
+      "path": "assets/monsters/animations/1157/1157.json",
+      "bytes": 150795,
+      "sha256": "ea48a6c3f427c78d4e3673ed005db8e931a137ab61738cfff74ebec2a0229fc3"
+    },
+    {
+      "path": "assets/monsters/animations/1157/1157.png",
+      "bytes": 768494,
+      "sha256": "82c3cebd769b4c5215cd1c24050382e1773508c6b2237818230e09e97029e85e"
+    },
+    {
+      "path": "assets/monsters/animations/1251/1251.json",
+      "bytes": 97150,
+      "sha256": "29cf62e65c2687b44d60a85157639599fa4a231f09baf388a3682fd3ff0d0546"
+    },
+    {
+      "path": "assets/monsters/animations/1251/1251.png",
+      "bytes": 377056,
+      "sha256": "5ae571e8dafaa93ae2cc8ac17a32e11f5fa75b59f8ee7b0e199615b867cdb828"
+    },
+    {
+      "path": "assets/monsters/animations/1252/1252.json",
+      "bytes": 114910,
+      "sha256": "4d4054a1b87df764b53b37a3f810f72eb2ec6eaed209478767dbe2ed75462072"
+    },
+    {
+      "path": "assets/monsters/animations/1252/1252.png",
+      "bytes": 1873359,
+      "sha256": "0673551f7ea4a6566149351e77e512bc1d7533d5eb4a5b908eaa5dd5ceef5b84"
+    },
+    {
+      "path": "assets/monsters/animations/1272/1272.json",
+      "bytes": 110077,
+      "sha256": "1230dd3b25018831da43e8f60ced7442b6eff7c1563fa79c3638447a75979f2d"
+    },
+    {
+      "path": "assets/monsters/animations/1272/1272.png",
+      "bytes": 505813,
+      "sha256": "2ad4037aee4bf54d0f0e7895d43ab7b8103dbd07c46e1d568bf2a57f8e9ca353"
+    },
+    {
+      "path": "assets/monsters/animations/1312/1312.json",
+      "bytes": 116719,
+      "sha256": "ef63b489fd8fc791b190875996063ae5bd918b9e67614b9b5349e64d44ae9a4a"
+    },
+    {
+      "path": "assets/monsters/animations/1312/1312.png",
+      "bytes": 685301,
+      "sha256": "a66e193831c1ed9997243055d56c12d2bbfc354ff2127aa352df9ea7fdc7fc2d"
+    },
+    {
+      "path": "assets/monsters/animations/1389/1389.json",
+      "bytes": 90807,
+      "sha256": "ce69c1a4dcbd4501f113b80fe95375817ed2c2811ccb7ab1d737ba5759f98be9"
+    },
+    {
+      "path": "assets/monsters/animations/1389/1389.png",
+      "bytes": 429461,
+      "sha256": "a00c03e83a47d6cc4471cb175984ce4d1f0caf02835205cd9eea80674228533c"
+    },
+    {
+      "path": "assets/monsters/animations/1418/1418.json",
+      "bytes": 122887,
+      "sha256": "35d8f5d65e0234824d2deade366326c08da8eb15353389fb8e4119e079d794c0"
+    },
+    {
+      "path": "assets/monsters/animations/1418/1418.png",
+      "bytes": 1014778,
+      "sha256": "474fcabb152c0a08afa5f2eb0d32fded2b43a3c1358abb601444946a9ba6512c"
+    },
+    {
+      "path": "assets/monsters/animations/1511/1511.json",
+      "bytes": 97124,
+      "sha256": "c02e77bda46359948bf99bc98ed2033af4d6e553efeba5ffaba0774c7de12d16"
+    },
+    {
+      "path": "assets/monsters/animations/1511/1511.png",
+      "bytes": 1213413,
+      "sha256": "e8cd09469a5cb86445909933004e6712e1916febe9f691fd9a3f5fcc01954a3e"
+    },
+    {
+      "path": "assets/monsters/animations/1518/1518.json",
+      "bytes": 61310,
+      "sha256": "06e6dc36d71137c689979b698c3d0621ddbfc4ee2078e781479e78249df829e5"
+    },
+    {
+      "path": "assets/monsters/animations/1518/1518.png",
+      "bytes": 321687,
+      "sha256": "499cf99cdc047c3d698af4f84c400364055abac2f2f6bd1675e2430a72b4013d"
+    },
+    {
+      "path": "assets/monsters/animations/1583/1583.json",
+      "bytes": 80871,
+      "sha256": "5141e5e8431cbd1cd5ac56d5918558b020e4c3c17d296f170a3835af95c32eb8"
+    },
+    {
+      "path": "assets/monsters/animations/1583/1583.png",
+      "bytes": 675132,
+      "sha256": "402749fb44055e149e168ae53cf56e414dfbdbeb3672d034d2d058b655b72313"
+    },
+    {
+      "path": "assets/monsters/animations/1685/1685.json",
+      "bytes": 94141,
+      "sha256": "612f86cea927751803cd8d645b1c48283e7edeb3100655a47ed330176a93b834"
+    },
+    {
+      "path": "assets/monsters/animations/1685/1685.png",
+      "bytes": 1443924,
+      "sha256": "c1f59c1d98e4243a693cbffb8d55339c2f1aba8a7475adba1962023f9bf9aed5"
+    },
+    {
+      "path": "assets/monsters/animations/1688/1688.json",
+      "bytes": 53967,
+      "sha256": "ce17e6858d66368a56bc4d4fcbb0f05ea65261c80ee1826c277530cdd716dfa1"
+    },
+    {
+      "path": "assets/monsters/animations/1688/1688.png",
+      "bytes": 462697,
+      "sha256": "c4dab11ee91280044466ef6848761df091a93f14bb75438a55952048c608acca"
+    },
+    {
+      "path": "assets/monsters/animations/1719/1719.json",
+      "bytes": 51369,
+      "sha256": "9dcd3e13244a008354f5430ad0cd548d59b681da4c1804f7d0f812be38f1c5e0"
+    },
+    {
+      "path": "assets/monsters/animations/1719/1719.png",
+      "bytes": 880405,
+      "sha256": "e8212b25fb6eea950619eeb1084d09df313618c33983eb45a06dc05debca1be7"
+    },
+    {
+      "path": "assets/monsters/animations/1734/1734.json",
+      "bytes": 76608,
+      "sha256": "b1983b55f206909f7351eb737e373256101e3860efb9826e5255c087197b50e8"
+    },
+    {
+      "path": "assets/monsters/animations/1734/1734.png",
+      "bytes": 645707,
+      "sha256": "93d9d849aa46fe07599e3a39fd52971c99eb5697458367bb2c8de925332c8f38"
+    },
+    {
+      "path": "assets/monsters/animations/1751/1751.json",
+      "bytes": 53634,
+      "sha256": "d0a3b35328e796f1f995ae865742728575d83f7e9fe5d21906cd1a61f38f3c58"
+    },
+    {
+      "path": "assets/monsters/animations/1751/1751.png",
+      "bytes": 471873,
+      "sha256": "e7461b529642c6ceb5e0b864c6420ab05048ba715e794b849622727b906eefaa"
+    },
+    {
+      "path": "assets/monsters/animations/1768/1768.json",
+      "bytes": 120247,
+      "sha256": "e80588633d5270f745b0a05087891f7173cdb87de7ade0dcf5d7338770fa10f5"
+    },
+    {
+      "path": "assets/monsters/animations/1768/1768.png",
+      "bytes": 1196540,
+      "sha256": "5971e94dd6adbe4c8e22399a5ca68ae70ed476f5ce215763ca3205c66d086b01"
+    },
+    {
+      "path": "assets/monsters/animations/1779/1779.json",
+      "bytes": 57836,
+      "sha256": "3cc808efff507eed58b0b4e721aab3a305799c7645500849fd6e5377c82d954f"
+    },
+    {
+      "path": "assets/monsters/animations/1779/1779.png",
+      "bytes": 1107490,
+      "sha256": "de14226f57f3d54b4ee67c35cd7f1e643ee0402ec8473928716dd9bed6dd57df"
+    },
+    {
+      "path": "assets/monsters/animations/1832/1832.json",
+      "bytes": 48828,
+      "sha256": "539e54429c9320ba7f8ea60ab2f979975d386fc26df7e844930ba8cf53854cf8"
+    },
+    {
+      "path": "assets/monsters/animations/1832/1832.png",
+      "bytes": 309691,
+      "sha256": "6b63aa078663c22f1c79a36879c30b01f7852e0c3227cef717157e32c048ffc9"
+    },
+    {
+      "path": "assets/monsters/animations/1871/1871.json",
+      "bytes": 61675,
+      "sha256": "8c318d668f8d2d7a2061e4742f89053f066058e70121ed95cd9aa3af33d948ac"
+    },
+    {
+      "path": "assets/monsters/animations/1871/1871.png",
+      "bytes": 669811,
+      "sha256": "4322cdfd45aa84954f85a3f7ba1c3199861bf45e57efd54d551a322e8b948186"
+    },
+    {
+      "path": "assets/monsters/animations/1874/1874.json",
+      "bytes": 63261,
+      "sha256": "6a07880926d112e16ad43e8e6f0ae5b86851c56cc92819692140b3af91c33581"
+    },
+    {
+      "path": "assets/monsters/animations/1874/1874.png",
+      "bytes": 2268411,
+      "sha256": "50576e48dd4e66be63c23205f3c5b59adbc9355d503d4e76058005fdba72d8a9"
+    },
+    {
+      "path": "assets/monsters/animations/1885/1885.json",
+      "bytes": 89679,
+      "sha256": "406537e8a1ac941287f1f37407184364145ed605356cc6a1024ed2f990ae4ca8"
+    },
+    {
+      "path": "assets/monsters/animations/1885/1885.png",
+      "bytes": 2270683,
+      "sha256": "69d58526a573987196083109b4a3fd20f3914c08cb3f91b6de156ae4ab5d1bc5"
+    },
+    {
+      "path": "assets/monsters/animations/1956/1956.json",
+      "bytes": 69767,
+      "sha256": "caca5a31d153e9262921eb6b1fd11810003325dee9492246e023472ba6659d6a"
+    },
+    {
+      "path": "assets/monsters/animations/1956/1956.png",
+      "bytes": 1495395,
+      "sha256": "1db1d8fd7e378c630b50aa7d9571a444e7d6e94ea17841c6fb9bc0173dd91cc8"
+    },
+    {
+      "path": "assets/monsters/animations/2022/2022.json",
+      "bytes": 57819,
+      "sha256": "8c414161bfb21619de03c24179b658b3ef605c731d53c8f0fa75406caf9fdec7"
+    },
+    {
+      "path": "assets/monsters/animations/2022/2022.png",
+      "bytes": 2146522,
+      "sha256": "cbb01d929fab1a24ca36b9653e9889df5b7f93a022bf8d02a7c94412dd79b11a"
+    },
+    {
+      "path": "assets/monsters/animations/2068/2068.json",
+      "bytes": 59474,
+      "sha256": "bd349f8e30332935c59ae2f81f84ca5fcbe4ef8008bd4a3cde5eee5b48145d75"
+    },
+    {
+      "path": "assets/monsters/animations/2068/2068.png",
+      "bytes": 1232309,
+      "sha256": "22c3ef778dfe7905f75522c0c17f30f5b534271c27965a22681ee47d19798663"
+    },
+    {
+      "path": "assets/monsters/animations/2131/2131.json",
+      "bytes": 57722,
+      "sha256": "3a4cca27c85ec6e804794d48888fcb136acccdfb2ddc5579f6b7df435af4d098"
+    },
+    {
+      "path": "assets/monsters/animations/2131/2131.png",
+      "bytes": 2181416,
+      "sha256": "71a6c8661bb746c48da006f5bcb93f18b7f4457131517731e64a5ab3577c17d6"
+    },
+    {
+      "path": "assets/monsters/animations/2189/2189.json",
+      "bytes": 95520,
+      "sha256": "b1fb8b9ed3d4622909f66f3372fdcb3a09c2f24c806a50ad467344013e27b55b"
+    },
+    {
+      "path": "assets/monsters/animations/2189/2189.png",
+      "bytes": 1914540,
+      "sha256": "fd14fbc3ab6e276c69282a488be3eef9458cace90221c5eed60ba9918abab625"
+    },
+    {
+      "path": "assets/monsters/animations/2202/2202.json",
+      "bytes": 70406,
+      "sha256": "a4cd3a686362df919be692625a57fe4f91ff533785735aa4448eab43f56f87b5"
+    },
+    {
+      "path": "assets/monsters/animations/2202/2202.png",
+      "bytes": 538409,
+      "sha256": "2bcd03828699403fa85756a37d71aa2232285930b5531aab59d5ebbbfe05b538"
+    },
+    {
+      "path": "assets/monsters/animations/2249/2249.json",
+      "bytes": 91530,
+      "sha256": "892245e93a126f5f33ae1b8d81c69ae41d5517a1a924c33a07fe5b8e5c257a03"
+    },
+    {
+      "path": "assets/monsters/animations/2249/2249.png",
+      "bytes": 1546655,
+      "sha256": "f996f4668a74021aac0a505b1188acc8feb86e187583947fe06f1c9dab855f7f"
+    },
+    {
+      "path": "assets/monsters/animations/2251/2251.json",
+      "bytes": 102648,
+      "sha256": "23d86c7598c6634e552cac91db7e4c248550c6864c3e1e0c1faf82c6cceaf1f2"
+    },
+    {
+      "path": "assets/monsters/animations/2251/2251.png",
+      "bytes": 2057803,
+      "sha256": "f07e4537f648854ffe82021340b49afff27c4e7df72598879766aa12f101d088"
+    },
+    {
+      "path": "assets/monsters/animations/2253/2253.json",
+      "bytes": 67467,
+      "sha256": "ca2da98cca3d113e41a1298e4026b34cb222a7f5b6c3e00a987cb702d8578fd4"
+    },
+    {
+      "path": "assets/monsters/animations/2253/2253.png",
+      "bytes": 802080,
+      "sha256": "7dfd4f0102bf6cb9e1fe34cec70a98297a706bce407a825d0de936cae366f13d"
+    },
+    {
+      "path": "assets/monsters/animations/2255/2255.json",
+      "bytes": 65160,
+      "sha256": "2b012cf6a0da9b0db3f445a622156fd97421ba66a4eb2cdaf118b5eb116ed00c"
+    },
+    {
+      "path": "assets/monsters/animations/2255/2255.png",
+      "bytes": 762036,
+      "sha256": "83f8cdde719e3a80c9d9ccf568f30f3933be3df3b054f4a5b3cb19df34301aef"
+    },
+    {
+      "path": "assets/monsters/animations/2319/2319.json",
+      "bytes": 55904,
+      "sha256": "a2a87b9093fa16ad42431475fc75c0f394125b0e08b1d7c9a6b34fdaea1c53c9"
+    },
+    {
+      "path": "assets/monsters/animations/2319/2319.png",
+      "bytes": 282210,
+      "sha256": "c85240cefd9d6d7d20a7f15386251cdf508a329e0153f82f022c3faf148edfc3"
+    },
+    {
+      "path": "assets/monsters/animations/2529/2529.json",
+      "bytes": 70663,
+      "sha256": "c008169afae816cf1239eed00b394f6d357b551880b63df1bce4a055a6a33047"
+    },
+    {
+      "path": "assets/monsters/animations/2529/2529.png",
+      "bytes": 951549,
+      "sha256": "86783693b14d98686879c58dead87cd5ae85f5a5d59a643cb3175c5ee22fa2d6"
+    },
+    {
+      "path": "assets/monsters/animations/2564/2564.json",
+      "bytes": 65026,
+      "sha256": "637dd506c0bd0079111b5b4935a6d8c14ca147836b4298cf3b119be6abef9bd2"
+    },
+    {
+      "path": "assets/monsters/animations/2564/2564.png",
+      "bytes": 254478,
+      "sha256": "207e1aec5073ac1b2cc2720e7e37c78c5dca41becf3609e224d14fd1afb62b5a"
+    },
+    {
+      "path": "assets/monsters/animations/3254/3254.json",
+      "bytes": 72555,
+      "sha256": "4a788245f52f4149bd3ba7543369fd21a6a955451a6f6f2580af27f238bae3f8"
+    },
+    {
+      "path": "assets/monsters/animations/3254/3254.png",
+      "bytes": 746214,
+      "sha256": "c118851a7c7abfb9a53328bc57579a1ed2e122bbcb89c25a07916e688bd3df7c"
+    },
+    {
+      "path": "data/card_runtime/card_combos.json",
+      "bytes": 435897,
+      "sha256": "f63fabc269dd1cfe462711d61287d5a50dfa6106ab99431a59b5ce894e753a4a"
+    },
+    {
+      "path": "data/card_runtime/equipment_effects.json",
+      "bytes": 65187,
+      "sha256": "1050d5a8f20089b4ce59d59661ecab515db82839578e156d9ba3702b75ac936a"
+    },
+    {
+      "path": "data/equipment/armor/accessory_h1.json",
+      "bytes": 10518,
+      "sha256": "8c9437ef9c1d4c283d3884bf8d8cc5b74310bec854868c962dfd5d5dc034375b"
+    },
+    {
+      "path": "data/equipment/armor/body.json",
+      "bytes": 27044,
+      "sha256": "ee5a54138cab27027bd946f1d3b05939295043cec44fbdd9aeb6ce59ba3eefab"
+    },
+    {
+      "path": "data/equipment/armor/garment.json",
+      "bytes": 13664,
+      "sha256": "88ca9fa4a58241d8af34da7b96c6f11f04a3f3f99101d22870b7464563471a97"
+    },
+    {
+      "path": "data/equipment/armor/shoes.json",
+      "bytes": 13885,
+      "sha256": "b9d18b4538f97b149e6d3e233daffebd293065d4acbe06f0f85b5863e8a52f2e"
+    },
+    {
+      "path": "data/equipment/headgear/low.json",
+      "bytes": 2774,
+      "sha256": "bba2a1d4f8404ac88bdfb3d638d3b3c400ecc84df3ea5516243fb2b810ed49e7"
+    },
+    {
+      "path": "data/equipment/headgear/top.json",
+      "bytes": 11591,
+      "sha256": "3465a496073cc9166493826ef77c728945db954a7f87c79205949861b272c30f"
+    },
+    {
+      "path": "data/items/cash.json",
+      "bytes": 17935,
+      "sha256": "4f65be0352267f5042b084f24c2dafa217d0f0f4e9db4a77a8600a9cf4eb6869"
+    },
+    {
+      "path": "data/items/database_manifest.json",
+      "bytes": 7450,
+      "sha256": "f688d6a06cd9dd30fc70e1efb90e42f413f4a97be3b2f3a2db2ff2a6f6246665"
+    },
+    {
+      "path": "data/items/item_index.json",
+      "bytes": 648344,
+      "sha256": "22342c1f5c50c2348e6860a7aa058d584a8fb2d58771cc34edbba03c3f984360"
+    },
+    {
+      "path": "data/items/mvp_arena_original_drops_0_9_82FZ.json",
+      "bytes": 224402,
+      "sha256": "cb91542887e9dfa4a26cfb9c38b554db34c0f73cd8016303e9914d1c5618620c"
+    },
+    {
+      "path": "data/maps.json",
+      "bytes": 40357,
+      "sha256": "064ad1df7063e5e0e89da9e8b4acf62d2c37ddc333530f2b417637b6b27b663f"
+    },
+    {
+      "path": "data/monster_spawn_config.json",
+      "bytes": 133507,
+      "sha256": "ff95a8590581b79f4da42083f14ee6fd68969ccae83524bb67284217d3a35ce4"
+    },
+    {
+      "path": "data/monsters.json",
+      "bytes": 851204,
+      "sha256": "ab1e9b6824dbfce4079020450c377eca364acc41da591f06dac38a99b64dbfd7"
+    },
+    {
+      "path": "data/mvp_gacha.json",
+      "bytes": 3801,
+      "sha256": "9282c50da3b708df496e594c3677889e2aaa885d1c62b84fb05e05a97d3e87c9"
+    },
+    {
+      "path": "data/world_region_manifest.json",
+      "bytes": 16705,
+      "sha256": "235cc5a9d707b72e47e1a3b2af7092f26c1880c773530b961762cb82a02f6121"
+    },
+    {
+      "path": "images/maps/world/geffenia_mvp_arena_3x3/geffenia_mvp_arena_3x3_region_bg_0_9_82FZ.webp",
+      "bytes": 472450,
+      "sha256": "f7a4822a4e0e5cb2863542aa6484fb55e801363570936f691dcdbe857d047db5"
+    },
+    {
+      "path": "images/maps/world/geffenia_mvp_arena_3x3/geffenia_mvp_arena_3x3_region_small_0_9_82FZ.webp",
+      "bytes": 25676,
+      "sha256": "372475b231bfc7885705ba08f9bd095c41d6c0f566d4fbed8ff11b7629e718d3"
+    },
+    {
+      "path": "images/maps/world/geffenia_mvp_arena_3x3/tiles/001.webp",
+      "bytes": 47540,
+      "sha256": "d70b4665a8934f2ebc13f71b470d974f187c1c1c26fdf22c5a4844f14253fbd7"
+    },
+    {
+      "path": "images/maps/world/geffenia_mvp_arena_3x3/tiles/002.webp",
+      "bytes": 51428,
+      "sha256": "8babac05fa611b7a7e299b2e9e91f486a5b56e39a9755e331f5608d758dc452d"
+    },
+    {
+      "path": "images/maps/world/geffenia_mvp_arena_3x3/tiles/003.webp",
+      "bytes": 50958,
+      "sha256": "2c4a44499ad90908f341482866d205c183c7f1d88f2d5781aaa52f19658f0e64"
+    },
+    {
+      "path": "images/maps/world/geffenia_mvp_arena_3x3/tiles/004.webp",
+      "bytes": 53088,
+      "sha256": "06981bbc8eba0b4fd895680451e8fb7503e3ed61bc78ed7d68edcd78bc5a7691"
+    },
+    {
+      "path": "images/maps/world/geffenia_mvp_arena_3x3/tiles/005.webp",
+      "bytes": 54378,
+      "sha256": "e5ae2975e5b2dec9a8e795d613413a267b02a331450f6b709217ddd9f6c3b75c"
+    },
+    {
+      "path": "images/maps/world/geffenia_mvp_arena_3x3/tiles/006.webp",
+      "bytes": 50378,
+      "sha256": "58ce3dca4c1f0cf511b77efe2bb031c9d3b94b062a36663c19e98290191178c7"
+    },
+    {
+      "path": "images/maps/world/geffenia_mvp_arena_3x3/tiles/007.webp",
+      "bytes": 50002,
+      "sha256": "af3f22c5364b8d350f9bc0bd3d4a9396ede0df1e51f56734731f1fa02200adce"
+    },
+    {
+      "path": "images/maps/world/geffenia_mvp_arena_3x3/tiles/008.webp",
+      "bytes": 50482,
+      "sha256": "b7dcf4af0c2323b1da6ac2607cc6886d8c203ab78b2b6f89d60d7f681bd601e1"
+    },
+    {
+      "path": "images/maps/world/geffenia_mvp_arena_3x3/tiles/009.webp",
+      "bytes": 47456,
+      "sha256": "ea8732001fc542d57847b4ad56883b423b0f41faf69b67a6a5d1dca0db657f32"
+    },
+    {
+      "path": "index.html",
+      "bytes": 30883,
+      "sha256": "5857d4cbb86bcc636d04540e5d9166cdb88461ee0a4bf8b53fd91cc3c6edfbc0"
+    },
+    {
+      "path": "js/card_runtime.js",
+      "bytes": 62923,
+      "sha256": "2ba7d4518d6adbf6a652b22947ddbbe92e1cc7a020ad667cbf531b1c0b2217f2"
+    },
+    {
+      "path": "js/data_bundle.js",
+      "bytes": 33776873,
+      "sha256": "3f419ccacf01fd4edcf908ca33f5d6b93b8435a82d060ca090e15c44259dea3f"
+    },
+    {
+      "path": "js/effect_runtime.js",
+      "bytes": 13213,
+      "sha256": "ad433c7c232ee3ce1f9f6cc1343ad173e859f79a0539c896c27565e367179806"
+    },
+    {
+      "path": "js/game.js",
+      "bytes": 16751,
+      "sha256": "a47f7bcdb3a6f56f506f2e8e7bb259c9da17fc2bf9e0829acd7a65b0bcf8b5e4"
+    },
+    {
+      "path": "js/item_instance_ui.js",
+      "bytes": 32760,
+      "sha256": "59f384547bf887c25c865b6f4b66284c20fbb6628c6691aefff0ad274875efb0"
+    },
+    {
+      "path": "js/loot.js",
+      "bytes": 9729,
+      "sha256": "66f30d4c4858718578ac898ee74b6321afaa5d3b9a0197b6b077d057f41379c6"
+    },
+    {
+      "path": "js/mvp_gacha_runtime.js",
+      "bytes": 14045,
+      "sha256": "237c6262439703614e6a807d04f611efd1e32fabb642f37f8e81b393c6057c82"
+    },
+    {
+      "path": "js/world_monster_test_runtime.js",
+      "bytes": 66717,
+      "sha256": "8c858f9621f1f7a1c6aceac995b2d27ab87cdd77cfc267ec5e4d44a3ee79c00e"
+    },
+    {
+      "path": "tools/build_data_bundle_0.9.82FZ.py",
+      "bytes": 804,
+      "sha256": "abf14b161de3e339fcff82a723fa8d001c2f638dcf02d3ccc7560d8f49c71e61"
+    },
+    {
+      "path": "tools/build_mvp_arena_drop_items_0.9.82FZ.py",
+      "bytes": 10261,
+      "sha256": "3630e8901525a67238685b747d5f9aa0fe6dafb043f56907f4d635c2bb8095e3"
+    },
+    {
+      "path": "tools/build_mvp_gacha_map_0.9.82FZ.py",
+      "bytes": 27637,
+      "sha256": "df16ad0038bf5f27f1cdb45919a402175e725da905a9431dd4a8ceeb1f79a948"
+    },
+    {
+      "path": "tools/deep_health_check_0.9.82FZ.py",
+      "bytes": 21283,
+      "sha256": "204d28ee59b8e9604cedf6aa855e980b200faf3ed2795df1e77b11abf6cc3676"
+    },
+    {
+      "path": "tools/deep_health_report_0.9.82FZ.json",
+      "bytes": 2045,
+      "sha256": "e8132d4758848501f5b85640bf982018e64e6acda0192b447fe17064b60bcf82"
+    },
+    {
+      "path": "tools/finish_mvp_gacha_runtime_0.9.82FZ.py",
+      "bytes": 19113,
+      "sha256": "e8b52f588dac7fc0c4cc2a969e3f672282943ebe497caccc38f4cb3037e11d29"
+    },
+    {
+      "path": "tools/mvp_arena_drop_item_audit_0.9.82FZ.json",
+      "bytes": 172,
+      "sha256": "73bf27f19133fddaf4b259cd8ae4f86525e86e2f72c7911542c61ba3344d0ab6"
+    },
+    {
+      "path": "tools/test_0.9.82FZ.py",
+      "bytes": 8476,
+      "sha256": "b4464dacc6093c881580be3c2e92fee3b436dcc9ad3bd167aa51365f25beab58"
+    },
+    {
+      "path": "tools/test_effect_runtime_0.9.82FZ.js",
+      "bytes": 22823,
+      "sha256": "27cdbabafc8bad2ee7a5b140ca3f55a3ac4c95347a63495493873694a2137498"
+    },
+    {
+      "path": "tools/test_effect_runtime_report_0.9.82FX.json",
+      "bytes": 12117,
+      "sha256": "1e48666b8673fc5094813b1b49a3669f5bc1b18f7b21d0e40b27401dd8c7ea32"
+    },
+    {
+      "path": "tools/test_effect_runtime_report_0.9.82FZ.json",
+      "bytes": 12451,
+      "sha256": "847cc0cddbdfc5f4bcf5b0b057dd5695231861a8e42e150ffb475c1d83c491a6"
+    },
+    {
+      "path": "tools/test_mvp_gacha_runtime_0.9.82FZ.js",
+      "bytes": 7441,
+      "sha256": "89c3858e63b5936252ff353f94722c690d1b96c44955216ba7dfefac7e53b27a"
+    },
+    {
+      "path": "tools/test_mvp_gacha_runtime_report_0.9.82FZ.json",
+      "bytes": 3510,
+      "sha256": "08e61b0714ce0d255bf1a5e1a0dea8f0f5deadd5d44b928c2f60bfb0b002e0be"
+    },
+    {
+      "path": "tools/test_report_0.9.82FZ.json",
+      "bytes": 5994,
+      "sha256": "e93c390a7a6f273d56c84f16ddbd92ef732f87030d96c6982273aaa0e9a8557c"
+    }
+  ]
+}
