@@ -52,6 +52,7 @@ function initCloseButtons() {
       const targetId = button.dataset.target;
       const target = document.getElementById(targetId);
       if (target) target.classList.add("hidden-window");
+      if (targetId === "status-window" && typeof handleStatusWindowVisibilityChange === "function") handleStatusWindowVisibilityChange(false);
       if (targetId === "map-window" && typeof hideMapMonsterDistributionTooltip === "function") hideMapMonsterDistributionTooltip();
       if (targetId === "skill-window" && typeof clearPendingSkillAdds === "function") {
         clearPendingSkillAdds();
@@ -110,6 +111,21 @@ function centerWindowForMobile(win) {
   applyStoredWindowVisualScale(win);
 }
 
+function refreshWindowContentOnOpen(id) {
+  if (id === "status-window") {
+    if (typeof handleStatusWindowVisibilityChange === "function") handleStatusWindowVisibilityChange(true);
+    else if (typeof updateStatusUI === "function") updateStatusUI({ force: true });
+  } else if (id === "skill-window" && typeof updateSkillUI === "function") {
+    updateSkillUI();
+  } else if (id === "job-window" && typeof updateJobUI === "function") {
+    updateJobUI();
+  } else if (id === "inventory-window" && typeof updateInventoryUI === "function") {
+    updateInventoryUI();
+  } else if (id === "equipment-window" && typeof updateEquipmentUI === "function") {
+    updateEquipmentUI();
+  }
+}
+
 function toggleWindow(id) {
   if (typeof hideGameTooltip === "function") hideGameTooltip();
   const win = document.getElementById(id);
@@ -117,12 +133,15 @@ function toggleWindow(id) {
   win.classList.toggle("hidden-window");
   if (id === "map-window" && win.classList.contains("hidden-window") && typeof hideMapMonsterDistributionTooltip === "function") hideMapMonsterDistributionTooltip();
   if (!win.classList.contains("hidden-window")) {
+    refreshWindowContentOnOpen(id);
     if (id === "auto-combat-panel" && typeof updateAutoCombatUI === "function") updateAutoCombatUI();
     centerWindowForMobile(win);
     window.requestAnimationFrame(() => {
       recoverWindowToViewport(win, { centerIfLost: true, persist: true });
       window.setTimeout(() => recoverWindowToViewport(win, { centerIfLost: true, persist: true }), 90);
     });
+  } else if (id === "status-window" && typeof handleStatusWindowVisibilityChange === "function") {
+    handleStatusWindowVisibilityChange(false);
   }
   bringWindowToFront(win);
 }

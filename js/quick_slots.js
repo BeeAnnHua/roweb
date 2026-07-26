@@ -121,11 +121,22 @@ function clearQuickSlot(index) {
   saveGame();
 }
 
-function updateQuickSlotUI() {
+let roQuickSlotUiSignature = "";
+function buildQuickSlotUiSignature(slots) {
+  return JSON.stringify((slots || []).map(slot => [
+    slot?.type || "empty", String(slot?.id || ""), Number(slot?.level || 0), Number(slot?.count || 0),
+    String(slot?.icon || ""), String(slot?.name || ""), String(slot?.className || ""), String(slot?.hint || "")
+  ]));
+}
+
+function updateQuickSlotUI(options = {}) {
   const bar = document.getElementById("quick-slot-bar");
   if (!bar || !player) return;
 
   const slots = getManualQuickSlots();
+  const signature = buildQuickSlotUiSignature(slots);
+  if (options.force !== true && options.skipIfUnchanged !== false && signature === roQuickSlotUiSignature && bar.childElementCount === slots.length) return;
+  roQuickSlotUiSignature = signature;
   bar.innerHTML = "";
 
   slots.forEach((slot, index) => {

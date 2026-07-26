@@ -419,6 +419,68 @@ function resetGameSave() {
 //=======================================
 // 更新玩家資訊畫面
 //=======================================
+let roStatusUiRenderSignature = "";
+let roJobUiRenderSignature = "";
+let roSkillUiRenderSignature = "";
+
+function isPlayerUiWindowVisible(id) {
+  const win = document.getElementById(id);
+  return Boolean(win && !win.classList.contains("hidden-window"));
+}
+
+function buildCompactActiveBuffSignature() {
+  return Object.entries(player?.activeBuffs || {}).sort(([a], [b]) => String(a).localeCompare(String(b))).map(([id, buff]) => [
+    id,
+    Number(buff?.level || 0),
+    Number(buff?.stacks || buff?.stack || 0),
+    Number(buff?.expiresAt || buff?.endAt || 0),
+    buff?.effects || null,
+    buff?.bonuses || null,
+    buff?.combatModifiers || null,
+    buff?.timingModifiers || null
+  ]);
+}
+
+function buildEquippedInstanceSignature() {
+  return Object.entries(player?.equipmentInstances || {}).sort(([a], [b]) => String(a).localeCompare(String(b))).map(([slot, instance]) => [
+    slot,
+    String(instance?.instanceId || ""),
+    String(instance?.id || ""),
+    Number(instance?.refine || instance?.refineLevel || 0),
+    (instance?.cards || instance?.cardIds || []).map(card => typeof card === "object" ? String(card.id || card.cardId || "") : String(card || ""))
+  ]);
+}
+
+function buildStatusUiRenderSignature() {
+  return JSON.stringify([
+    player?.jobKey,
+    Number(player?.baseLevel || 0), Number(player?.jobLevel || 0),
+    player?.stats || {}, player?.traits || {},
+    Number(player?.usedStatusPoints || 0), Number(player?.usedTraitPoints || 0),
+    Number(player?.atk || 0), Number(player?.matk || 0), Number(player?.def || 0), Number(player?.mdef || 0),
+    Number(player?.hit || 0), Number(player?.flee || 0), Number(player?.cri || 0), Number(player?.aspd || 0),
+    Number(player?.pAtk || 0), Number(player?.sMatk || 0), Number(player?.res || 0), Number(player?.mres || 0),
+    Number(player?.maxHp || 0), Number(player?.maxSp || 0), Number(player?.walkSpeed || 0),
+    player?.equipment || {}, buildEquippedInstanceSignature(), buildCompactActiveBuffSignature(),
+    player?.runtimeStatusModifiers || null, player?.runtimeCombatModifiers || null, player?.runtimeTimingModifiers || null,
+    Boolean(player?.statusTraitsExpanded), Boolean(player?.statusAdvancedExpanded), String(player?.statusAdvancedTab || "")
+  ]);
+}
+
+function buildJobUiRenderSignature() {
+  return JSON.stringify([
+    player?.jobKey, player?.job, Number(player?.baseLevel || 0), Number(player?.jobLevel || 0),
+    Number(player?.skillPoints || 0), player?.completedAdventurerTraining || []
+  ]);
+}
+
+function buildSkillUiRenderSignature() {
+  return JSON.stringify([
+    player?.jobKey, Number(player?.skillPoints || 0), player?.skills || {}, player?.extraSkills || {},
+    player?.copiedSkills || {}, player?.plagiarizedSkills || {}
+  ]);
+}
+
 function updatePlayerUI() {
   if (!player) return;
 
@@ -447,10 +509,17 @@ function updatePlayerUI() {
   setOptionalText("flee", player.flee);
   setOptionalText("cri", player.cri);
   setOptionalText("aspd", player.aspd);
-  if (typeof updateStatusUI === "function") updateStatusUI();
+  if (isPlayerUiWindowVisible("status-window")) {
+    const signature = buildStatusUiRenderSignature();
+    if (signature !== roStatusUiRenderSignature) {
+      roStatusUiRenderSignature = signature;
+      if (typeof requestStatusUIUpdate === "function") requestStatusUIUpdate();
+      else if (typeof updateStatusUI === "function") updateStatusUI();
+    }
+  }
 
-  document.getElementById("baseExp").textContent = formatExpText("base");
-  document.getElementById("jobExp").textContent = formatExpText("job");
+  setOptionalText("baseExp", formatExpText("base"));
+  setOptionalText("jobExp", formatExpText("job"));
 
   setOptionalText("zeny", formatResourceNumber(player.zeny));
   setOptionalText("blueGem", formatResourceNumber(player.blueGem));
@@ -461,15 +530,29 @@ function updatePlayerUI() {
   if (battlePlayerName) battlePlayerName.textContent = currentJobName;
   if (battlePlayerLevel) battlePlayerLevel.textContent = player.baseLevel;
 
-  if (typeof updateJobUI === "function") updateJobUI();
-  if (typeof updateSkillUI === "function") updateSkillUI();
-  if (typeof updateQuickSlotUI === "function") updateQuickSlotUI();
+  if (isPlayerUiWindowVisible("job-window") && typeof updateJobUI === "function") {
+    const signature = buildJobUiRenderSignature();
+    if (signature !== roJobUiRenderSignature) {
+      roJobUiRenderSignature = signature;
+      updateJobUI();
+    }
+  }
+  if (isPlayerUiWindowVisible("skill-window") && typeof updateSkillUI === "function") {
+    const signature = buildSkillUiRenderSignature();
+    if (signature !== roSkillUiRenderSignature) {
+      roSkillUiRenderSignature = signature;
+      updateSkillUI();
+    }
+  }
+  if (typeof updateQuickSlotUI === "function") updateQuickSlotUI({ skipIfUnchanged: true });
 }
 
 
 function setOptionalText(elementId, value) {
   const el = document.getElementById(elementId);
-  if (el) el.textContent = String(value ?? "");
+  if (!el) return;
+  const next = String(value ?? "");
+  if (el.textContent !== next) el.textContent = next;
 }
 
 function clampPercent(value) {
@@ -488,7 +571,8 @@ function updateStatusBarFill(textElementId, current, max) {
   const textEl = document.getElementById(textElementId);
   const line = textEl ? textEl.closest(".status-line") : null;
   if (!line) return;
-  line.style.setProperty("--fill", `${getRatioPercent(current, max)}%`);
+  const nextFill = `${getRatioPercent(current, max).toFixed(2)}%`;
+  if (line.style.getPropertyValue("--fill") !== nextFill) line.style.setProperty("--fill", nextFill);
 }
 
 function formatResourceNumber(value) {

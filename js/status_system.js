@@ -1,5 +1,5 @@
 //=======================================
-// StatusSystem v0.9.82FX
+// StatusSystem v0.9.82FY
 // 一般素質 + rAthena Renewal 四轉特性素質 + 全域 +10 配點模式 + 響應式進階戰鬥資訊
 //=======================================
 let statPointData = { points: {} };
@@ -8,6 +8,75 @@ let jobStatBonuses = {};
 let jobBasePoints = {};
 let renewalJobAspd = { jobs: {} };
 const INITIAL_STATUS_POINTS = 25;
+
+// 0.9.82FY：素質視窗效能排程。
+// 戰鬥中的 HP／SP／EXP 更新不可反覆重建整個進階屬性 DOM；
+// 視窗關閉時完全停更，使用者滾動進階內容時延後重繪，避免滾輪卡頓。
+const STATUS_UI_REFRESH_MIN_MS = 120;
+const STATUS_ADVANCED_SCROLL_IDLE_MS = 650;
+let statusUiRefreshTimer = null;
+let statusUiLastRenderAt = 0;
+let statusAdvancedInteractionUntil = 0;
+
+function isStatusWindowVisible() {
+  const win = document.getElementById("status-window");
+  return Boolean(win && !win.classList.contains("hidden-window"));
+}
+
+function cancelScheduledStatusUIUpdate() {
+  if (statusUiRefreshTimer !== null) {
+    clearTimeout(statusUiRefreshTimer);
+    statusUiRefreshTimer = null;
+  }
+}
+
+function markStatusAdvancedInteraction() {
+  const now = typeof performance !== "undefined" && performance.now ? performance.now() : Date.now();
+  statusAdvancedInteractionUntil = Math.max(statusAdvancedInteractionUntil, now + STATUS_ADVANCED_SCROLL_IDLE_MS);
+  if (statusUiRefreshTimer !== null) {
+    cancelScheduledStatusUIUpdate();
+    requestStatusUIUpdate();
+  }
+}
+
+function requestStatusUIUpdate(options = {}) {
+  if (!player || !isStatusWindowVisible()) {
+    cancelScheduledStatusUIUpdate();
+    return false;
+  }
+  if (options.force === true) {
+    cancelScheduledStatusUIUpdate();
+    updateStatusUI({ force: true });
+    return true;
+  }
+
+  const now = typeof performance !== "undefined" && performance.now ? performance.now() : Date.now();
+  const renderAfter = Math.max(
+    statusUiLastRenderAt + STATUS_UI_REFRESH_MIN_MS,
+    player.statusAdvancedExpanded ? statusAdvancedInteractionUntil : 0
+  );
+  const delay = Math.max(0, Math.ceil(renderAfter - now));
+  if (statusUiRefreshTimer !== null) return true;
+  statusUiRefreshTimer = setTimeout(() => {
+    statusUiRefreshTimer = null;
+    if (!isStatusWindowVisible()) return;
+    const current = typeof performance !== "undefined" && performance.now ? performance.now() : Date.now();
+    if (player?.statusAdvancedExpanded && current < statusAdvancedInteractionUntil) {
+      requestStatusUIUpdate();
+      return;
+    }
+    updateStatusUI({ scheduled: true });
+  }, delay);
+  return true;
+}
+
+function handleStatusWindowVisibilityChange(isOpen) {
+  if (!isOpen) {
+    cancelScheduledStatusUIUpdate();
+    return false;
+  }
+  return requestStatusUIUpdate({ force: true });
+}
 
 async function loadStatusData() {
   try {
@@ -1111,7 +1180,35 @@ function ensureStatusAdvancedResponsiveBinding() {
   }, { passive: true });
 }
 
-function renderStatusAdvancedPanel(derived) {
+function captureStatusAdvancedViewState() {
+  const panel = document.getElementById("status-advanced-panel");
+  if (!panel) return null;
+  const content = panel.querySelector(".status-advanced-content");
+  return {
+    scrollTop: Number(content?.scrollTop || 0),
+    openDetails: [...panel.querySelectorAll("details")].map(node => Boolean(node.open))
+  };
+}
+
+function restoreStatusAdvancedViewState(panel, state) {
+  if (!panel || !state) return;
+  [...panel.querySelectorAll("details")].forEach((node, index) => {
+    node.open = Boolean(state.openDetails?.[index]);
+  });
+  const content = panel.querySelector(".status-advanced-content");
+  if (content) content.scrollTop = Math.max(0, Number(state.scrollTop || 0));
+}
+
+function bindStatusAdvancedInteraction(panel) {
+  const content = panel?.querySelector?.(".status-advanced-content");
+  if (!content || content.dataset.performanceBound === "1") return;
+  content.dataset.performanceBound = "1";
+  content.addEventListener("scroll", markStatusAdvancedInteraction, { passive: true });
+  content.addEventListener("wheel", markStatusAdvancedInteraction, { passive: true });
+  content.addEventListener("touchmove", markStatusAdvancedInteraction, { passive: true });
+}
+
+function renderStatusAdvancedPanel(derived, viewState = null) {
   const statusWindow = document.getElementById("status-window");
   const statusPanel = document.getElementById("status-panel");
   if (!statusWindow || !statusPanel) return;
@@ -1159,10 +1256,14 @@ function renderStatusAdvancedPanel(derived) {
 
   if (inlineMode) {
     statusPanel.appendChild(advanced);
+    bindStatusAdvancedInteraction(advanced);
+    restoreStatusAdvancedViewState(advanced, viewState);
     return;
   }
 
   statusWindow.appendChild(advanced);
+  bindStatusAdvancedInteraction(advanced);
+  restoreStatusAdvancedViewState(advanced, viewState);
   requestAnimationFrame(() => {
     const rect = statusWindow.getBoundingClientRect();
     const width = advanced.getBoundingClientRect().width;
@@ -1197,9 +1298,10 @@ function appendStatusBattleRow(container, rowData, className = "status-css-battl
   container.appendChild(row);
 }
 
-function updateStatusUI() {
+function updateStatusUI(options = {}) {
   const panel = document.getElementById("status-panel");
-  if (!panel || !player) return;
+  if (!panel || !player) return false;
+  statusUiLastRenderAt = typeof performance !== "undefined" && performance.now ? performance.now() : Date.now();
   normalizeStatusData();
   const derived = calculateDerivedPlayerStats();
   const jobBonus = derived?.jobBonus || getJobStatBonus();
@@ -1208,6 +1310,7 @@ function updateStatusUI() {
   const traitUnlocked = isTraitAllocationJob() && getTotalTraitPointsForLevel(player.baseLevel) > 0;
 
   ensureStatusAdvancedResponsiveBinding();
+  const advancedViewState = captureStatusAdvancedViewState();
   panel.innerHTML = "";
   document.getElementById("status-window")?.querySelector("#status-advanced-panel")?.remove();
   const advancedInline = Boolean(player.statusAdvancedExpanded && isStatusAdvancedInlineMode());
@@ -1215,7 +1318,7 @@ function updateStatusUI() {
   panel.classList.toggle("advanced-expanded", Boolean(player.statusAdvancedExpanded));
   panel.classList.toggle("advanced-inline-mode", advancedInline);
   if (advancedInline) {
-    renderStatusAdvancedPanel(derived);
+    renderStatusAdvancedPanel(derived, advancedViewState);
     return;
   }
 
@@ -1310,7 +1413,7 @@ function updateStatusUI() {
   toggle.onclick = event => { event.stopPropagation(); toggleTraitStatusPanel(); };
   panel.appendChild(toggle);
 
-  if (!player.statusTraitsExpanded) { renderStatusAdvancedPanel(derived); return; }
+  if (!player.statusTraitsExpanded) { renderStatusAdvancedPanel(derived, advancedViewState); return; }
 
   const traitPanel = document.createElement("div");
   traitPanel.className = "status-trait-panel";
@@ -1374,9 +1477,13 @@ function updateStatusUI() {
   traitPanel.appendChild(traitLeft);
   traitPanel.appendChild(traitRight);
   panel.appendChild(traitPanel);
-  renderStatusAdvancedPanel(derived);
+  renderStatusAdvancedPanel(derived, advancedViewState);
 }
 
+window.isStatusWindowVisible = isStatusWindowVisible;
+window.requestStatusUIUpdate = requestStatusUIUpdate;
+window.cancelScheduledStatusUIUpdate = cancelScheduledStatusUIUpdate;
+window.handleStatusWindowVisibilityChange = handleStatusWindowVisibilityChange;
 window.getTraitLevelPointsForLevel = getTraitLevelPointsForLevel;
 window.getTraitJobChangeBonus = getTraitJobChangeBonus;
 window.getTotalTraitPointsForLevel = getTotalTraitPointsForLevel;

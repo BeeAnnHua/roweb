@@ -20132,3 +20132,26 @@ h2 { font-size:20px; margin:0 0 8px; text-align:center; letter-spacing:2px; colo
 .card-socket-picker{display:flex;flex-direction:column;gap:6px;max-height:220px;overflow:auto;width:100%;}
 .item-detail-socket-candidate{width:100%;text-align:left;padding:8px 10px;border:1px solid rgba(255,255,255,.22);border-radius:6px;background:rgba(18,24,35,.92);color:#f5f5f5;cursor:pointer;}
 .item-detail-socket-candidate:hover{background:rgba(48,62,85,.96);}
+
+/* =========================================================
+   RO_WEB V0.9.82FY - Runtime UI / Advanced Status Performance
+   - 進階屬性面板不再對持續動畫的世界畫面做即時背景模糊。
+   - 將面板與捲動內容隔離為獨立 layout/paint 範圍，降低滾動重繪。
+   - 觸控／手機環境停用固定 UI 的 backdrop blur，降低 GPU 發熱。
+   ========================================================= */
+#status-window.true-status-window .status-advanced-panel,
+#status-window.true-status-window .status-advanced-panel.status-advanced-inline {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  contain: layout paint style !important;
+}
+#status-window.true-status-window .status-advanced-content {
+  contain: layout paint !important;
+}
+@media (max-width: 900px), (pointer: coarse) {
+  .fixed-panel,
+  .game-window {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+}
