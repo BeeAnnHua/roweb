@@ -567,7 +567,7 @@ function getUnifiedSummonUiModel() {
       title: mount.definition?.displayName || "坐騎",
       active: mount.active,
       meta: `類型：騎乘／${mount.active ? "目前騎乘中" : "目前未騎乘"}`,
-      note: isDragon ? "盧恩騎士與盧恩龍爵由「龍駕馭」解鎖；三轉後不再透過二轉騎乘術切換。" : "坐騎狀態會同步人物動畫與需要騎乘的技能條件。",
+      note: isDragon ? "「龍駕馭」維持被動並解鎖龍坐騎；使用「騎乘術」可正常上下龍，本視窗也可作為第二個切換入口。" : "坐騎狀態會同步人物動畫與需要騎乘的技能條件。",
       actions: `<button type="button" onclick="toggleSummonUiMount('${escapeVirtualSummonHtml(mount.type)}')">${mount.active ? "解除騎乘" : "開始騎乘"}</button>`
     });
   }

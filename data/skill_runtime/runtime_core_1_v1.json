@@ -1,5 +1,5 @@
 {
-  "version": "0.9.82GB",
+  "version": "0.9.82GB1",
   "scope": "CORE1 official Runtime：保留既有 Batch1～105，新增 Batch106 生命締造者仿生召喚核心。",
   "sources": [
     "rAthena db/re/skill_db.yml",
@@ -1656,18 +1656,18 @@
     },
     "63": {
       "handler": "mount_unlock",
-      "mountType": "peco",
-      "source": "rAthena KN_RIDING; RO_WEB mount runtime controls asset switching later",
+      "mountType": "swordman",
+      "source": "rAthena KN_RIDING; RO_WEB resolves Peco/Dragon/Griffon from current job. Dragon requires passive RK_DRAGONTRAINING.",
       "runtimeProfile": {
         "handler": "mount_unlock",
         "mountType": "swordman",
-        "source": "rAthena KN_RIDING; RO_WEB resolves Peco/Dragon/Griffon from current job through mount_manifest v2."
+        "source": "rAthena KN_RIDING; RO_WEB resolves Peco/Dragon/Griffon from current job. Dragon requires passive RK_DRAGONTRAINING."
       },
       "suggestedHandler": "mount_unlock",
       "formula": {
         "handler": "mount_unlock",
         "mountType": "swordman",
-        "source": "rAthena KN_RIDING; RO_WEB resolves Peco/Dragon/Griffon from current job through mount_manifest v2."
+        "source": "rAthena KN_RIDING; RO_WEB resolves Peco/Dragon/Griffon from current job. Dragon requires passive RK_DRAGONTRAINING."
       }
     },
     "64": {
@@ -10002,7 +10002,7 @@
           50
         ]
       },
-      "source": "RO_WEB adaptation of rAthena RK_DRAGONTRAINING: only Dragon Breath damage bonus is retained; weight and mounted ASPD effects are removed.",
+      "source": "RO_WEB adaptation of rAthena RK_DRAGONTRAINING: remains passive, unlocks Dragon for KN_RIDING, retains Dragon Breath damage bonus, removes carrying capacity and dragon ASPD effects.",
       "runtimeProfile": {
         "handler": "passive",
         "passiveBonuses": {
@@ -10014,7 +10014,7 @@
             50
           ]
         },
-        "source": "RO_WEB adaptation of rAthena RK_DRAGONTRAINING: unlocks dragon mount through summon control UI, retains Dragon Breath damage bonus, removes carrying capacity and dragon ASPD effects.",
+        "source": "RO_WEB adaptation of rAthena RK_DRAGONTRAINING: remains passive, unlocks Dragon for KN_RIDING, retains Dragon Breath damage bonus, removes carrying capacity and dragon ASPD effects.",
         "mountUnlockType": "dragon",
         "toggleSkillId": 63
       },

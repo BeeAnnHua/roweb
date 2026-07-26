@@ -1,0 +1,24 @@
+{
+  "version": "0.9.82GB1",
+  "baseVersion": "0.9.82GB",
+  "hotfix": "Dragon Training remains passive; Riding toggles Dragon for Rune Knight/Dragon Knight",
+  "rules": {
+    "dragonTrainingHandler": "passive",
+    "ridingHandler": "mount_unlock",
+    "runeKnightMount": "dragon",
+    "dragonKnightMount": "dragon",
+    "dragonRequiredSkillIds": [
+      63,
+      2007
+    ],
+    "dragonToggleSkillId": 63,
+    "summonControlSecondaryToggle": true,
+    "jobChangeDismountRequirementPreserved": true
+  },
+  "tests": {
+    "staticAndData": 24,
+    "javascriptSyntaxChecked": 720,
+    "javascriptSyntaxErrors": 0
+  },
+  "createdAt": "2026-07-27"
+}

@@ -2225,13 +2225,13 @@
       "implementationMode": "official",
       "runtimeProfile": {
         "handler": "mount_unlock",
-        "mountType": "peco",
-        "source": "rAthena KN_RIDING; RO_WEB mount runtime controls asset switching later"
+        "mountType": "swordman",
+        "source": "rAthena KN_RIDING; RO_WEB resolves Peco/Dragon/Griffon from current job. Dragon requires passive RK_DRAGONTRAINING."
       },
       "reviewReason": null,
       "humanReviewRequired": false,
       "executionEnabled": true,
-      "runtimeAdaptation": "Active support toggle. The mount type is resolved from current Swordman-family job: Peco, Dragon, or Griffon."
+      "runtimeAdaptation": "Active support toggle. Current Swordman-family job resolves the mount as Peco, Dragon, or Griffon. Dragon also requires passive RK_DRAGONTRAINING."
     },
     {
       "skillId": 64,
@@ -14816,12 +14816,14 @@
             50
           ]
         },
-        "source": "RO_WEB adaptation of rAthena RK_DRAGONTRAINING: only Dragon Breath damage bonus is retained; weight and mounted ASPD effects are removed."
+        "source": "RO_WEB adaptation of rAthena RK_DRAGONTRAINING: remains passive, unlocks Dragon for KN_RIDING, retains Dragon Breath damage bonus, removes carrying capacity and dragon ASPD effects.",
+        "mountUnlockType": "dragon",
+        "toggleSkillId": 63
       },
       "reviewReason": null,
       "humanReviewRequired": false,
       "executionEnabled": true,
-      "runtimeAdaptation": "Unlocks Dragon mount through KN_RIDING and retains Dragon Breath damage bonus. Carrying capacity and dragon ASPD effects are not implemented."
+      "runtimeAdaptation": "Passive Dragon unlock for KN_RIDING plus Dragon Breath damage bonus. Carrying capacity and dragon ASPD effects are not implemented."
     },
     {
       "skillId": 2008,
@@ -39143,5 +39145,5 @@
       "handler": "magic_damage"
     }
   ],
-  "version": "0.9.82GB"
+  "version": "0.9.82GB1"
 }

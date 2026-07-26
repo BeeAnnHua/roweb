@@ -3803,7 +3803,7 @@
       "formula": {
         "handler": "mount_unlock",
         "mountType": "swordman",
-        "source": "rAthena KN_RIDING; RO_WEB resolves Peco/Dragon/Griffon from current job through mount_manifest v2."
+        "source": "rAthena KN_RIDING; RO_WEB resolves Peco/Dragon/Griffon from current job. Dragon requires passive RK_DRAGONTRAINING."
       },
       "source": {
         "metadata": "Skill Core generated from rAthena skill_db.yml / skill_tree.yml",
@@ -3812,7 +3812,7 @@
       "runtimeProfile": {
         "handler": "mount_unlock",
         "mountType": "swordman",
-        "source": "rAthena KN_RIDING; RO_WEB resolves Peco/Dragon/Griffon from current job through mount_manifest v2."
+        "source": "rAthena KN_RIDING; RO_WEB resolves Peco/Dragon/Griffon from current job. Dragon requires passive RK_DRAGONTRAINING."
       },
       "reviewReason": null,
       "humanReviewRequired": false
@@ -21816,7 +21816,7 @@
             50
           ]
         },
-        "source": "RO_WEB adaptation of rAthena RK_DRAGONTRAINING: unlocks dragon mount through summon control UI, retains Dragon Breath damage bonus, removes carrying capacity and dragon ASPD effects.",
+        "source": "RO_WEB adaptation of rAthena RK_DRAGONTRAINING: remains passive, unlocks Dragon for KN_RIDING, retains Dragon Breath damage bonus, removes carrying capacity and dragon ASPD effects.",
         "mountUnlockType": "dragon",
         "toggleSkillId": 63
       },
@@ -56865,5 +56865,5 @@
       "humanReviewRequired": false
     }
   },
-  "version": "0.9.82GB"
+  "version": "0.9.82GB1"
 }

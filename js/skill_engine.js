@@ -205,9 +205,12 @@ function isMountAllowedForCurrentJob(definition) {
 function canPlayerUseMount(mountType = "peco") {
   const definition = getMountRuntimeDefinition(mountType);
   if (!definition || !isMountAllowedForCurrentJob(definition)) return false;
-  const requiredSkillId = Number(definition?.requiredSkillId || 0);
-  if (requiredSkillId <= 0) return true;
-  return Number(typeof getSkillLevel === "function" ? getSkillLevel(requiredSkillId) : 0) > 0;
+  const requiredSkillIds = Array.isArray(definition?.requiredSkillIds)
+    ? definition.requiredSkillIds.map(Number).filter(id => id > 0)
+    : [Number(definition?.requiredSkillId || 0)].filter(id => id > 0);
+  if (!requiredSkillIds.length) return true;
+  if (typeof getSkillLevel !== "function") return false;
+  return requiredSkillIds.every(skillId => Number(getSkillLevel(skillId) || 0) > 0);
 }
 
 function normalizePlayerMountCompatibility() {

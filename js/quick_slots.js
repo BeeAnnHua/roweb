@@ -483,14 +483,12 @@ function quickSlotCastSkill(skillId, options = {}) {
     return;
   }
   if (runtimeHandler === "mount_unlock") {
+    // 騎乘術是劍士家族共用的主動上下坐騎按鈕。
+    // 目前職業會解析成大嘴鳥／龍／獅鷲；龍駕馭本身維持被動，
+    // 只負責解鎖龍坐騎與龍息加成，不會被當成主動切換技能。
     const resolvedMount = typeof resolvePlayerMountType === "function"
       ? resolvePlayerMountType(runtimeProfile.mountType || "peco")
       : String(runtimeProfile.mountType || "peco");
-    if (resolvedMount === "dragon") {
-      addBattleLog("盧恩騎士／盧恩龍爵三轉後不再使用二轉騎乘術；請從「召喚物控制」以龍駕馭切換龍坐騎。", "error");
-      if (typeof openVirtualSummonWindow === "function") openVirtualSummonWindow();
-      return;
-    }
     togglePlayerMount(resolvedMount);
     return;
   }

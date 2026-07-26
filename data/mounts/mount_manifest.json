@@ -1,5 +1,5 @@
 {
-  "version": "0.9.82GB",
+  "version": "0.9.82GB1",
   "schema": "ro_web_mount_manifest_v2",
   "defaultState": {
     "mounted": false,
@@ -19,7 +19,7 @@
         "royal_guard": "griffon",
         "imperial_guard": "griffon"
       },
-      "note": "KN_RIDING 僅供二轉大嘴鳥／獅鷲切換；盧恩騎士與盧恩龍爵由龍駕馭解鎖，並於召喚物控制切換龍坐騎。"
+      "note": "KN_RIDING 為劍士家族共用的主動上下坐騎技能，依目前職業解析為大嘴鳥／龍／獅鷲；龍駕馭維持被動並解鎖龍坐騎。"
     }
   },
   "mounts": {
@@ -42,7 +42,7 @@
       "mountType": "dragon",
       "displayName": "龍坐騎",
       "requiredSkillId": 2007,
-      "toggleSkillId": null,
+      "toggleSkillId": 63,
       "allowedJobs": [
         "rune_knight",
         "dragon_knight"
@@ -50,8 +50,12 @@
       "carryingCapacityBonus": 0,
       "rentalEnabled": false,
       "assetStatus": "pending_swordman_mount_assets",
-      "note": "需學會龍駕馭；三轉後不使用二轉騎乘術，於召喚物控制切換龍坐騎。龍息系技能要求騎龍；不增加負重量。",
-      "control": "virtual_summon_window"
+      "note": "需學會騎乘術與龍駕馭。龍駕馭維持被動；騎乘術依職業解析為龍坐騎並負責上下龍，召喚物控制亦可作為第二切換入口。龍息系技能要求騎龍；不增加負重量。",
+      "control": "riding_skill_and_virtual_summon_window",
+      "requiredSkillIds": [
+        63,
+        2007
+      ]
     },
     "griffon": {
       "mountType": "griffon",

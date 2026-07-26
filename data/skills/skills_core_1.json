@@ -6107,7 +6107,7 @@
       "officialId": 63,
       "key": "KN_RIDING",
       "name": "騎乘術",
-      "officialDescription": "切換二轉騎士／十字軍的大嘴鳥，或皇家禁衛隊／帝國聖衛軍的獅鷲。盧恩騎士與盧恩龍爵三轉後不再使用騎乘術，龍坐騎由龍駕馭解鎖並於召喚物控制切換。坐騎不增加負重量。",
+      "officialDescription": "切換劍士家族目前職業對應的坐騎：騎士／騎士領主／十字軍／聖殿十字軍使用大嘴鳥，盧恩騎士／盧恩龍爵使用龍，皇家禁衛隊／帝國聖衛軍使用獅鷲。騎龍時必須先學會被動技能「龍駕馭」。坐騎不增加負重量。",
       "maxLevel": 1,
       "type": "Weapon",
       "visual": {
@@ -6128,7 +6128,7 @@
         "skillInfoz": "name/description source when available",
         "timing": "rAthena db/re/skill_db.yml (2026-06-08 package)"
       },
-      "description": "切換二轉騎士／十字軍的大嘴鳥，或皇家禁衛隊／帝國聖衛軍的獅鷲。盧恩騎士與盧恩龍爵三轉後不再使用騎乘術，龍坐騎由龍駕馭解鎖並於召喚物控制切換。坐騎不增加負重量。",
+      "description": "切換劍士家族目前職業對應的坐騎：騎士／騎士領主／十字軍／聖殿十字軍使用大嘴鳥，盧恩騎士／盧恩龍爵使用龍，皇家禁衛隊／帝國聖衛軍使用獅鷲。騎龍時必須先學會被動技能「龍駕馭」。坐騎不增加負重量。",
       "skillType": "support",
       "spCost": [
         0
@@ -6140,7 +6140,7 @@
       "runtimeProfile": {
         "handler": "mount_unlock",
         "mountType": "swordman",
-        "source": "rAthena KN_RIDING; RO_WEB resolves Peco/Dragon/Griffon from current job through mount_manifest v2."
+        "source": "rAthena KN_RIDING; RO_WEB resolves Peco/Dragon/Griffon from current job. Dragon requires passive RK_DRAGONTRAINING."
       }
     },
     "64": {
@@ -30421,7 +30421,7 @@
       "officialId": 2007,
       "key": "RK_DRAGONTRAINING",
       "name": "龍駕馭",
-      "officialDescription": "精通龍族騎乘與龍息戰鬥。學會後可於召喚物控制切換龍坐騎；三轉後不再使用二轉騎乘術。每級使龍之氣息與水屬性龍之氣息傷害增加 10%，Lv5 共增加 50%。不增加負重量，也不套用額外騎龍 ASPD 懲罰。",
+      "officialDescription": "精通龍族騎乘與龍息戰鬥。此技能維持被動；學會後可使用「騎乘術」正常上下龍，也可從召喚物控制切換。每級使龍之氣息與水屬性龍之氣息傷害增加 10%，Lv5 共增加 50%。不增加負重量，也不套用額外騎龍 ASPD 懲罰。",
       "maxLevel": 5,
       "type": "passive",
       "visual": {
@@ -30433,7 +30433,7 @@
         "formulaSource": [
           "RO_WEB adaptation of rAthena RK_DRAGONTRAINING: dragon mount unlock + Dragon Breath damage bonus; no carrying capacity."
         ],
-        "note": "龍坐騎由龍駕馭解鎖並於召喚物控制切換；三轉後不使用騎乘術。龍息系技能要求騎龍。RO_WEB 不實作負重量。"
+        "note": "龍駕馭維持被動並解鎖龍坐騎；使用騎乘術上下龍。龍息系技能要求騎龍。RO_WEB 不實作負重量。"
       },
       "source": {
         "skillDb": "rAthena db/re/skill_db.yml",
@@ -30453,12 +30453,12 @@
             50
           ]
         },
-        "source": "RO_WEB adaptation of rAthena RK_DRAGONTRAINING: unlocks dragon mount through summon control UI, retains Dragon Breath damage bonus, removes carrying capacity and dragon ASPD effects.",
+        "source": "RO_WEB adaptation of rAthena RK_DRAGONTRAINING: remains passive, unlocks Dragon for KN_RIDING, retains Dragon Breath damage bonus, removes carrying capacity and dragon ASPD effects.",
         "mountUnlockType": "dragon",
         "toggleSkillId": 63
       },
       "skillType": "passive",
-      "description": "精通龍族騎乘與龍息戰鬥。學會後可於召喚物控制切換龍坐騎；三轉後不再使用二轉騎乘術。每級使龍之氣息與水屬性龍之氣息傷害增加 10%，Lv5 共增加 50%。不增加負重量，也不套用額外騎龍 ASPD 懲罰。",
+      "description": "精通龍族騎乘與龍息戰鬥。此技能維持被動；學會後可使用「騎乘術」正常上下龍，也可從召喚物控制切換。每級使龍之氣息與水屬性龍之氣息傷害增加 10%，Lv5 共增加 50%。不增加負重量，也不套用額外騎龍 ASPD 懲罰。",
       "runtimeStatus": "official",
       "runtimeProfileId": 2007
     },
@@ -82324,7 +82324,7 @@
       "fixedCastTime": 1000
     }
   },
-  "version": "0.9.82GB",
+  "version": "0.9.82GB1",
   "notes": [
     "Batch86：建立多首歌曲同時維持系統；319/320/327/328 改持續耗SP，新增321/322/329/330四首演奏Buff。",
     "Batch87：演奏／舞蹈技能改為每級30秒、Lv10五分鐘的限時Buff；可多首並存、持續耗SP、自然回魔不停止，且演奏期間可正常使用其他技能。",
