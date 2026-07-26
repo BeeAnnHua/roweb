@@ -2854,10 +2854,6 @@ function castBuffSkill(skill, requestedLevel = null, options = {}) {
   const { level, profile } = check;
   player.activeBuffs = player.activeBuffs || {};
   normalizeActiveBuffs();
-  if (Number(skill?.officialId ?? skill?.id) === 5002 && Number(getActiveBuffBonusTotals().calamityGale || 0) > 0) {
-    if (!options.silent && typeof addBattleLog === "function") addBattleLog(`${skill.name}無法與憤怒暴風同時存在。`);
-    return false;
-  }
 
   if (profile.performanceAction === "cancel_latest") {
     const activePerformances = Object.entries(player.activeBuffs || {})
@@ -4657,11 +4653,85 @@ function getRuntimeTargetingBounds(origin, options = {}) {
   return { minX:x-rangePx-pad, maxX:x+rangePx+pad, minY:y-rangePx-pad, maxY:y+rangePx+pad };
 }
 
-function resolveRuntimeSkillTargets(profile, primaryTarget, skillLevel = 1) {
-  const targeting = profile?.targeting || profile?.area || null;
+function getRuntimeSplashAreaValue(value, skillLevel = 1, fallback = 0) {
+  if (Array.isArray(value) && value.length && value.some(row => row && typeof row === "object")) {
+    const level = Math.max(1, Number(skillLevel || 1));
+    const rows = value.filter(row => row && typeof row === "object")
+      .map(row => ({ level:Number(row.Level ?? row.level ?? 1), area:Number(row.Area ?? row.area ?? row.Value ?? row.value ?? fallback) }))
+      .filter(row => Number.isFinite(row.area))
+      .sort((a,b) => a.level - b.level);
+    const matched = rows.filter(row => row.level <= level).pop() || rows[0];
+    return Number(matched?.area ?? fallback);
+  }
+  return Number(getLevelValue(value, skillLevel, fallback));
+}
+
+function getRuntimeEffectiveTargeting(skill, profile = {}, skillLevel = 1) {
+  const explicit = profile?.targeting && typeof profile.targeting === "object"
+    ? profile.targeting
+    : (profile?.area && typeof profile.area === "object" ? profile.area : null);
+  const splash = Math.max(0, getRuntimeSplashAreaValue(skill?.splashArea ?? profile?.splashRange, skillLevel, 0) || 0);
+  if (explicit && Object.keys(explicit).length) {
+    const resolved = { ...explicit };
+    const shape = String(resolved.shape || "circle").trim().toLowerCase();
+    // Official skill_db SplashArea is the authoritative radius for circular or
+    // square AoE. Several older hand-written profiles used smaller placeholder
+    // radii, which made Crusader/Blacksmith/Assassin area skills feel single-target.
+    // Preserve line/cone geometry because SplashArea there can describe width,
+    // not travel length.
+    if (splash > 0 && ["circle", "square"].includes(shape)) {
+      const explicitRadius = Math.max(0, Number(getLevelValue(resolved.radius ?? resolved.rangeCells, skillLevel, 0)) || 0);
+      if (splash > explicitRadius) {
+        resolved.radius = splash;
+        resolved.officialSplashAreaExpanded = true;
+      }
+    }
+    return resolved;
+  }
+  if (splash <= 0) return null;
+  const targetType = String(skill?.targetType || skill?.target || "").trim().toLowerCase();
+  const selfOrigin = targetType === "self" || profile?.affectsSelf === true || String(profile?.targetPolicy || "").toLowerCase() === "self";
+  return {
+    origin: selfOrigin ? "self" : "target",
+    shape: "circle",
+    radius: splash,
+    maxTargets: 999,
+    forcePrimaryTarget: selfOrigin ? false : true,
+    derivedFromOfficialSplashArea: true
+  };
+}
+
+function runtimeSkillRequiresPrimaryTarget(skill, profile = {}, skillLevel = 1) {
+  if (profile?.requiresPrimaryTarget === true) return true;
+  if (profile?.requiresPrimaryTarget === false) return false;
+  const targeting = getRuntimeEffectiveTargeting(skill, profile, skillLevel);
+  const targetType = String(skill?.targetType || skill?.target || "").trim().toLowerCase();
+  if (!targeting) return !["self", "passive"].includes(targetType);
+  const origin = String(targeting.origin || "target").toLowerCase();
+  if (origin !== "self") return true;
+  const shape = String(targeting.shape || "circle").toLowerCase();
+  return ["directed_line", "line", "cone", "sector"].includes(shape) || targeting.directionTargetRequired === true;
+}
+
+function runtimeSkillRequiresPrimaryTargetRange(skill, profile = {}, skillLevel = 1) {
+  if (profile?.skipPrimaryRangeCheck === true) return false;
+  if (profile?.requiresPrimaryTargetRange === true) return true;
+  if (profile?.requiresPrimaryTargetRange === false) return false;
+  const targeting = getRuntimeEffectiveTargeting(skill, profile, skillLevel);
+  const targetType = String(skill?.targetType || skill?.target || "").trim().toLowerCase();
+  if (!targeting) return !["self", "passive"].includes(targetType);
+  if (targeting.rangeToPrimaryTarget === true) return true;
+  return String(targeting.origin || "target").toLowerCase() !== "self";
+}
+
+function resolveRuntimeSkillTargets(profile, primaryTarget, skillLevel = 1, explicitSkill = null) {
+  const skillId = Number(explicitSkill?.officialId ?? explicitSkill?.id ?? profile?.officialId ?? profile?.skillId ?? profile?.id ?? 0);
+  const skill = explicitSkill || (skillId && typeof getSkillDataById === "function" ? getSkillDataById(skillId) : null);
+  const targeting = getRuntimeEffectiveTargeting(skill, profile, skillLevel);
   if (!targeting || !window.TargetingResolver) return primaryTarget ? [primaryTarget] : [];
-  const origin = (targeting.origin === "self") ? player : primaryTarget;
-  let resolvedRangeCells = Number(getLevelValue(targeting.radius ?? targeting.rangeCells ?? profile.splashRange ?? 1, skillLevel, 1));
+  const origin = (String(targeting.origin || "target").toLowerCase() === "self") ? player : primaryTarget;
+  if (!origin) return [];
+  let resolvedRangeCells = Number(getLevelValue(targeting.radius ?? targeting.rangeCells ?? profile?.splashRange ?? 1, skillLevel, 1));
   if (targeting.rangeToPrimaryTarget === true && origin && primaryTarget) {
     const cell = Math.max(1, Number(window.RO_WEB_CELL_SIZE || 36));
     const ox = Number(origin?.position?.x ?? origin?.worldX ?? origin?.x ?? 0);
@@ -4670,8 +4740,11 @@ function resolveRuntimeSkillTargets(profile, primaryTarget, skillLevel = 1) {
     const ty = Number(primaryTarget?.position?.y ?? primaryTarget?.worldY ?? primaryTarget?.y ?? 0);
     resolvedRangeCells = Math.max(resolvedRangeCells, Math.ceil(Math.hypot(tx - ox, ty - oy) / cell));
   }
+  const rawShape = String(targeting.shape || "circle").toLowerCase();
+  const normalizedShape = rawShape === "line" && String(targeting.origin || "target").toLowerCase() === "self" && primaryTarget
+    ? "directed_line" : rawShape;
   const options = {
-    shape: targeting.shape || "circle",
+    shape: normalizedShape,
     rangeCells: resolvedRangeCells,
     maxTargets: Number(targeting.maxTargets || 999),
     widthCells: Number(targeting.widthCells || 1),
@@ -4681,10 +4754,16 @@ function resolveRuntimeSkillTargets(profile, primaryTarget, skillLevel = 1) {
   const bounds = getRuntimeTargetingBounds(origin, options);
   const candidates = getRuntimeCombatCandidates({ bounds, activeOnly:true, ignoreContext:true });
   const targets = window.TargetingResolver.collect(origin, candidates, options);
-  if (primaryTarget && targeting.forcePrimaryTarget !== false && !targets.includes(primaryTarget)) targets.unshift(primaryTarget);
+  const originMode = String(targeting.origin || "target").toLowerCase();
+  const forcePrimary = targeting.forcePrimaryTarget === true || (targeting.forcePrimaryTarget !== false && originMode !== "self");
+  if (primaryTarget && forcePrimary && !targets.includes(primaryTarget)) targets.unshift(primaryTarget);
   const maxTargets = Math.max(1, Number(options.maxTargets || 999));
   return targets.slice(0, maxTargets);
 }
+window.getRuntimeSplashAreaValue = getRuntimeSplashAreaValue;
+window.getRuntimeEffectiveTargeting = getRuntimeEffectiveTargeting;
+window.runtimeSkillRequiresPrimaryTarget = runtimeSkillRequiresPrimaryTarget;
+window.runtimeSkillRequiresPrimaryTargetRange = runtimeSkillRequiresPrimaryTargetRange;
 window.resolveRuntimeSkillTargets = resolveRuntimeSkillTargets;
 window.getRuntimeCombatCandidates = getRuntimeCombatCandidates;
 
@@ -4840,13 +4919,15 @@ window.finalizeSecondaryRuntimeSkillDefeat = finalizeSecondaryRuntimeSkillDefeat
 function castAttackSkill(skill, requestedLevel = null, options = {}) {
   const check = canCastSkill(skill, requestedLevel, ["physical_attack", "physical_attack_size_hits", "physical_attack_formula", "physical_charge", "magic_multihit", "magic_damage", "misc_damage"], options);
   if (!check.ok) return reportPendingRuntime(skill, check.reason);
-  if (!currentMonster) return false;
-  const skillRange = typeof getSkillRangePx === "function" ? getSkillRangePx(skill, check.level) : null;
-  if (check.profile?.skipPrimaryRangeCheck !== true && typeof canAttackMonsterByRange === "function" && !canAttackMonsterByRange(currentMonster, skillRange)) {
+  const level = check.level, profile = check.profile;
+  const requiresPrimaryTarget = runtimeSkillRequiresPrimaryTarget(skill, profile, level);
+  const requiresPrimaryRange = runtimeSkillRequiresPrimaryTargetRange(skill, profile, level);
+  if (!currentMonster && requiresPrimaryTarget) return false;
+  const skillRange = typeof getSkillRangePx === "function" ? getSkillRangePx(skill, level) : null;
+  if (requiresPrimaryRange && currentMonster && typeof canAttackMonsterByRange === "function" && !canAttackMonsterByRange(currentMonster, skillRange)) {
     if (typeof movePlayerTowardMonster === "function") movePlayerTowardMonster(currentMonster, skillRange);
     addBattleLog(`${skill.name} 距離不足，正在靠近目標。`); return false;
   }
-  const level = check.level, profile = check.profile;
   if(Array.isArray(profile.requiresActiveBuffEffectAny)&&profile.requiresActiveBuffEffectAny.length){
     const active=typeof getActiveBuffBonusTotals==="function"?getActiveBuffBonusTotals():{};
     if(!profile.requiresActiveBuffEffectAny.some(key=>Number(active[key]||0)>0)){if(typeof addBattleLog==="function")addBattleLog(profile.requiredBuffMessage || `${skill.name}需要先召喚高階元素。`);return false;}
@@ -4879,7 +4960,7 @@ function castAttackSkill(skill, requestedLevel = null, options = {}) {
   const targetProfile = elementalActionSpec ? { ...profile, targeting: Number(elementalActionSpec.radius || 0) > 0 ? { origin:"target", shape:"circle", radius:Number(elementalActionSpec.radius), forcePrimaryTarget:true } : null } : profile;
   // Select spatially-near targets first, then cache combat stats for exactly
   // those targets. This removes the full-population scan from every cast.
-  const targets = resolveRuntimeSkillTargets(targetProfile, currentMonster, level);
+  const targets = resolveRuntimeSkillTargets(targetProfile, currentMonster, level, skill);
   if (!targets.length) return false;
   const evalContext = createRuntimeCombatEvaluationContext({ candidates:targets });
   window.RO_WEB_COMBAT_EVAL_CONTEXT = evalContext;

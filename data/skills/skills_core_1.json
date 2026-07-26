@@ -23784,7 +23784,9 @@
       },
       "implementationStatus": "runtime_official",
       "skillType": "attack",
-      "description": "對單一敵人造成物理傷害。命中段數 5 Hit。"
+      "description": "對單一敵人造成物理傷害。命中段數 5 Hit。",
+      "requiresPrimaryTarget": true,
+      "requiresPrimaryTargetRange": true
     },
     "369": {
       "id": 369,
@@ -65478,7 +65480,7 @@
       "officialId": 5265,
       "key": "IG_SHIELD_SHOOTING",
       "name": "Shield Shooting",
-      "officialDescription": "裝備盾牌時，對單一敵人造成無屬性遠距離物理傷害，傷害依盾牌射擊專用公式計算。",
+      "officialDescription": "裝備盾牌時，向目標投擲盾牌造成無屬性遠距離物理傷害；Lv1～3影響目標周圍5×5，Lv4～5影響目標周圍7×7。",
       "maxLevel": 5,
       "type": "attack",
       "targetType": "Attack",
@@ -65562,7 +65564,7 @@
       },
       "implementationStatus": "runtime_official",
       "skillType": "attack",
-      "description": "裝備盾牌時，對單一敵人造成無屬性遠距離物理傷害，傷害依盾牌射擊專用公式計算。",
+      "description": "裝備盾牌時，向目標投擲盾牌造成無屬性遠距離物理傷害；Lv1～3影響目標周圍5×5，Lv4～5影響目標周圍7×7。",
       "fixedCastTime": 500
     },
     "5266": {
@@ -70877,7 +70879,7 @@
       "officialId": 5328,
       "key": "WH_CALAMITYGALE",
       "name": "憤怒暴風",
-      "officialDescription": "持續 180 秒，使遠距離物理傷害 +250%，並與菁英狙擊互斥。期間毀滅風暴可暴擊；漸進狙擊額外傷害 +20%；兩招對動物族與魚貝族再 +50%。不消耗 AP。",
+      "officialDescription": "持續 180 秒，使遠距離物理傷害 +250%，可與菁英狙擊同時存在。期間毀滅風暴可暴擊；漸進狙擊額外傷害 +20%；兩招對動物族與魚貝族再 +50%。不消耗 AP。",
       "maxLevel": 1,
       "targetType": "Self",
       "damageFlags": {
@@ -70913,7 +70915,7 @@
         "skillInfoz": "name/description source when available",
         "timing": "rAthena db/re/skill_db.yml (2026-06-08 package)"
       },
-      "description": "持續 180 秒，使遠距離物理傷害 +250%，並與菁英狙擊互斥。期間毀滅風暴可暴擊；漸進狙擊額外傷害 +20%；兩招對動物族與魚貝族再 +50%。不消耗 AP。",
+      "description": "持續 180 秒，使遠距離物理傷害 +250%，可與菁英狙擊同時存在。期間毀滅風暴可暴擊；漸進狙擊額外傷害 +20%；兩招對動物族與魚貝族再 +50%。不消耗 AP。",
       "skillType": "timed_status",
       "implementationMode": "official_runtime",
       "implementationStatus": "runtime_ready",
@@ -70934,15 +70936,12 @@
         "spCost": 300,
         "apCostMetadata": 125,
         "cooldownMetadata": 60000,
-        "mutuallyExclusiveBuffIds": [
-          5002
-        ],
         "source": [
           "rAthena db/re/skill_db.yml WH_CALAMITYGALE",
           "rAthena SC_CALAMITYGALE / SC_UNLIMIT",
           "Windhawk public skill description"
         ],
-        "runtimeAdaptation": "持續 180 秒，使遠距離物理傷害 +250%，並與菁英狙擊互斥。期間毀滅風暴可暴擊；漸進狙擊額外傷害 +20%；兩招對動物族與魚貝族再 +50%。不消耗 AP。"
+        "runtimeAdaptation": "持續 180 秒，使遠距離物理傷害 +250%，可與菁英狙擊同時存在。期間毀滅風暴可暴擊；漸進狙擊額外傷害 +20%；兩招對動物族與魚貝族再 +50%。不消耗 AP。"
       },
       "runtimeVersion": "0.9.82CN",
       "fixedCastTime": 1000

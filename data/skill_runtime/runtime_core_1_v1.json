@@ -23106,15 +23106,12 @@
         "spCost": 300,
         "apCostMetadata": 125,
         "cooldownMetadata": 60000,
-        "mutuallyExclusiveBuffIds": [
-          5002
-        ],
         "source": [
           "rAthena db/re/skill_db.yml WH_CALAMITYGALE",
           "rAthena SC_CALAMITYGALE / SC_UNLIMIT",
           "Windhawk public skill description"
         ],
-        "runtimeAdaptation": "持續 180 秒，使遠距離物理傷害 +250%，並與菁英狙擊互斥。期間毀滅風暴可暴擊；漸進狙擊額外傷害 +20%；兩招對動物族與魚貝族再 +50%。不消耗 AP。"
+        "runtimeAdaptation": "持續 180 秒，使遠距離物理傷害 +250%，可與菁英狙擊同時存在。期間毀滅風暴可暴擊；漸進狙擊額外傷害 +20%；兩招對動物族與魚貝族再 +50%。不消耗 AP。"
       }
     },
     "5329": {

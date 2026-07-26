@@ -550,6 +550,9 @@
     if (!id) return null;
     const data = getBaseItemData(id);
     const instance = getEquipmentInstance(slot) || normalizeEquipmentInstance(id, data);
+    if (slot === "weapon" && typeof clearPhysicalElementEndow === "function") {
+      clearPhysicalElementEndow(options.silent ? "weapon_change" : "weapon_unequip", { silent: options.silent === true });
+    }
     player.equipment[slot] = null;
     if (player.equipmentInstances) delete player.equipmentInstances[slot];
     window.invalidateCardRuntime?.();

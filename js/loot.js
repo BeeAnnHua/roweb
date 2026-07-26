@@ -151,6 +151,27 @@ function rollPassiveSkillExtraDrops(monster) {
 }
 
 // chance 採用萬分比：10000 = 100%，1000 = 10%，1 = 0.01%
+// server.rates.drop is the global master valve. Optional cardDrop and
+// mapExclusiveDrop values are relative category multipliers (100 = 1x).
+function getFinalDropChanceBasisPoints(rawChance, category = "normal", options = {}) {
+  const raw = Math.max(0, Number(rawChance || 0));
+  const masterRated = typeof applyRate === "function" ? applyRate(raw, "drop") : raw;
+  const normalized = String(category || "normal").toLowerCase();
+  const categoryKey = normalized === "card" ? "cardDrop" : (["mapexclusive","map_exclusive","gacha"].includes(normalized) ? "mapExclusiveDrop" : null);
+  let rated = masterRated;
+  if (categoryKey && typeof getRate === "function") rated = Math.floor(rated * getRate(categoryKey));
+  if (options.training !== false && typeof applyTrainingRewardBonus === "function") rated = applyTrainingRewardBonus(rated, "drop");
+  return Math.max(0, Math.min(10000, Math.floor(Number(rated || 0))));
+}
+
+function isCardDropItem(itemData, drop = null) {
+  const values = [itemData?.type, itemData?.category, itemData?.subCategory, drop?.type, drop?.category]
+    .map(value => String(value || "").toLowerCase());
+  return values.some(value => value === "card" || value.includes("card"));
+}
+window.getFinalDropChanceBasisPoints = getFinalDropChanceBasisPoints;
+window.isCardDropItem = isCardDropItem;
+
 function rollMonsterDrops(monster) {
   if (!monster.drops || monster.drops.length === 0) return;
 
@@ -158,13 +179,13 @@ function rollMonsterDrops(monster) {
     const rawChance = Number(drop.chance || 0);
     if (rawChance <= 0) return;
 
-    const ratedChance = applyTrainingRewardBonus(applyRate(rawChance, "drop"), "drop");
-    const chance = Math.min(10000, ratedChance);
+    const itemId = normalizeItemId(drop.itemId);
+    const itemData = getItemData(itemId);
+    const category = isCardDropItem(itemData, drop) ? "card" : "normal";
+    const chance = getFinalDropChanceBasisPoints(rawChance, category);
     const roll = Math.floor(Math.random() * 10000) + 1;
 
     if (roll <= chance) {
-      const itemId = normalizeItemId(drop.itemId);
-      const itemData = getItemData(itemId);
       const qty = rollDropQuantity(drop);
       const itemName = itemData?.name || drop.name || `Item ${itemId}`;
 

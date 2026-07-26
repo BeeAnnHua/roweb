@@ -41,7 +41,7 @@ function attackElement(profile={},w=weapon()){
  return profile.element||w?.element||w?.attackElement||'Neutral';
 }
 function physicalAttackElement(w=weapon()){
- // 道具肯貝特具有最高優先權，且一張同時作用主手、副手與所有 physical 技能。
+ // 肯貝特只覆蓋普通攻擊與明確採用武器屬性的技能。
  const itemBuff=window.player?.activeBuffs?.item_physical_element_endow;
  if(itemBuff&&Number(itemBuff.expiresAt||0)>Date.now()&&itemBuff.effects?.attackElementOverride){
   return itemBuff.effects.attackElementOverride;
@@ -52,6 +52,16 @@ function physicalAttackElement(w=weapon()){
  if(equipmentElement) return equipmentElement;
  if(window.player?.attackElement) return window.player.attackElement;
  return w?.element||w?.attackElement||'Neutral';
+}
+function physicalSkillElement(profile={},w=weapon()){
+ const mode=String(profile?.elementSource||'').toLowerCase();
+ if(mode==='weapon'||mode==='physical_weapon'||mode==='attack')return physicalAttackElement(w);
+ if(mode==='neutral')return 'Neutral';
+ if(mode==='fixed'||mode==='forced'||mode==='skill')return profile.element||'Neutral';
+ // A skill's explicit property is authoritative unless its profile explicitly
+ // declares that the weapon supplies the property.
+ if(profile?.element)return profile.element;
+ return physicalAttackElement(w);
 }
 function getElementRateAgainstTarget(element,target){
  const runtime=window.CombatFormulaRuntime;
@@ -331,7 +341,7 @@ function resolvePhysicalSkill(profile,level,target,opt={}){
  // Renewal applies bCritAtkRate at half effectiveness to critical skills.
  if(!sharpshootingCritical&&crit.critical&&critAtkRate)raw=floor(raw*(100+critAtkRate/2)/100);
  else if(!crit.critical&&nonCritAtkRate)raw=floor(raw*(100+nonCritAtkRate)/100);
- const element=physicalAttackElement(parts.right.weapon),def=defenseOptions(profile,'physical');
+ const element=physicalSkillElement(profile,parts.right.weapon),def=defenseOptions(profile,'physical');
  if(sharpshootingCritical)def.ignoreDefense=true;
  raw=applyActiveElementDamageRate(raw,element,active);
  let damage=finalModifiers(raw,target,{...def,element,weaponType:parts.right.weaponType,attackRangeType:parts.rangeType,applyWeaponSize:false,critical:damageCritical,hitCount:hits,skill:profile,skillId:profile.officialId??profile.id,skillKey:profile.key??profile.skillKey??profile.aegisName});
@@ -399,5 +409,5 @@ function resolveReflection(result,target,profile={}){
  const reduced=window.EffectRuntime?.applyReflectionReduction?.(reflected,window.player)||{damage:reflected,rate:0};
  return {reflected:reduced.damage,reductionRate:reduced.rate};
 }
-window.RARenewalDamagePipeline={buildPhysicalParts,buildHandParts,resolveNormalAttack,resolvePhysicalSkill,resolveSpecialPhysical,resolveMagicSkill,resolveMiscSkill,resolveReflection,resolveAttackElement:attackElement,resolvePhysicalAttackElement:physicalAttackElement,resolveAttackRangeType:attackRangeType,getElementRateAgainstTarget,isElementImmuneAgainstTarget,normalizeFlags,finalModifiers,fearBreezeProc};
+window.RARenewalDamagePipeline={buildPhysicalParts,buildHandParts,resolveNormalAttack,resolvePhysicalSkill,resolveSpecialPhysical,resolveMagicSkill,resolveMiscSkill,resolveReflection,resolveAttackElement:attackElement,resolvePhysicalAttackElement:physicalAttackElement,resolvePhysicalSkillElement:physicalSkillElement,resolveAttackRangeType:attackRangeType,getElementRateAgainstTarget,isElementImmuneAgainstTarget,normalizeFlags,finalModifiers,fearBreezeProc};
 })();

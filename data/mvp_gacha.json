@@ -1,10 +1,10 @@
 {
   "schema": "ro_web_mvp_gacha_v1",
-  "version": "0.9.82FZ",
+  "version": "0.9.82GA",
   "mapId": "geffenia_mvp_arena_3x3_region_camera",
   "gachaItemId": 14848,
   "mapExclusiveDropChanceBasisPoints": 100,
-  "dropRatePolicy": "fixed_exact_1_percent_not_scaled_by_global_drop_rate",
+  "dropRatePolicy": "global_drop_master_with_mapExclusiveDrop_relative_multiplier",
   "rareCategories": [
     {
       "id": "kiel_card",
@@ -191,5 +191,6 @@
     "20週年帽與氣球共享 0.1% 類別，抽中後再等權選一件；兩件同時裝備啟用 RA Combo。",
     "時光超越者系列 1% 類別與 LT 0.1% 類別均在類別內等權選一件。",
     "普通物品依使用者表格權重合併成單一母池，等比例填滿稀有獎以外的 98.79%。"
-  ]
+  ],
+  "dropRateCategory": "mapExclusive"
 }

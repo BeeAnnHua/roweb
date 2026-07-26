@@ -330,9 +330,14 @@ const RO_WEB_TARGETED_SKILL_HANDLERS = new Set([
   "dispel","debuff","monster_debuff","soul_exchange"
 ]);
 
-function quickSlotSkillNeedsFieldTarget(skill, runtimeProfile = null) {
+function quickSlotSkillNeedsFieldTarget(skill, runtimeProfile = null, level = null) {
   const profile = runtimeProfile || (typeof getSkillRuntimeProfile === "function" ? getSkillRuntimeProfile(skill) : null) || {};
+  const learnedLevel = Math.max(1, Number(level || (typeof getSkillLevel === "function" ? getSkillLevel(skill?.id) : 1) || 1));
   const handler = String(profile.handler || "");
+  if (["physical_attack","physical_attack_size_hits","physical_attack_formula","physical_charge","magic_multihit","magic_damage","misc_damage"].includes(handler)
+      && typeof runtimeSkillRequiresPrimaryTarget === "function") {
+    return runtimeSkillRequiresPrimaryTarget(skill, profile, learnedLevel);
+  }
   const targetType = String(skill?.targetType || skill?.target || "").trim().toLowerCase();
   if (profile.affectsSelf === true || profile.targetPolicy === "self" || targetType === "self" || targetType === "passive") return false;
   if (targetType === "attack" || targetType === "ground" || targetType === "trap") return true;
@@ -340,8 +345,13 @@ function quickSlotSkillNeedsFieldTarget(skill, runtimeProfile = null) {
 }
 
 function quickSlotEnsureSkillTargetRange(skill, level, runtimeProfile = null) {
-  if (!quickSlotSkillNeedsFieldTarget(skill, runtimeProfile)) return true;
-  if (!quickSlotEnsureFieldMonster()) return false;
+  const needsTarget = quickSlotSkillNeedsFieldTarget(skill, runtimeProfile, level);
+  if (needsTarget && !quickSlotEnsureFieldMonster()) return false;
+  const profile = runtimeProfile || (typeof getSkillRuntimeProfile === "function" ? getSkillRuntimeProfile(skill) : null) || {};
+  const needsRange = typeof runtimeSkillRequiresPrimaryTargetRange === "function"
+    ? runtimeSkillRequiresPrimaryTargetRange(skill, profile, level)
+    : needsTarget;
+  if (!needsRange) return true;
   const rangePx = typeof getSkillRangePx === "function" ? Number(getSkillRangePx(skill, level)) : null;
   if (!Number.isFinite(rangePx) || typeof canAttackMonsterByRange !== "function" || canAttackMonsterByRange(currentMonster, rangePx)) return true;
   if (typeof movePlayerTowardMonster === "function") movePlayerTowardMonster(currentMonster, rangePx);
@@ -385,7 +395,7 @@ function quickSlotCastSkill(skillId, options = {}) {
   if (!quickSlotEnsureSkillTargetRange(skill, learnedLevel, runtimeProfile)) return false;
 
   if (["physical_attack", "physical_attack_size_hits", "physical_attack_formula", "physical_charge", "magic_multihit", "magic_damage", "misc_damage"].includes(runtimeHandler)) {
-    if (!quickSlotEnsureFieldMonster()) return;
+    if (quickSlotSkillNeedsFieldTarget(skill, runtimeProfile, learnedLevel) && !quickSlotEnsureFieldMonster()) return false;
     // 技能自身的 RA Cooldown / After Cast Delay / 零延遲物理技能 ASPD 間隔，
     // 統一由 canCastSkill() 與 paySkillCost() 管理，不再預先占用普通攻擊計時器。
     const used = castAttackSkill(skill, getSkillLevel(skill.id));

@@ -8,7 +8,9 @@
       "baseExp": 20000,
       "jobExp": 20000,
       "drop": 20000,
-      "zeny": 20000
+      "zeny": 20000,
+      "cardDrop": 100,
+      "mapExclusiveDrop": 100
     },
     "monsters": {
       "mob_count_rate": 33,
@@ -39,6 +41,7 @@
     "官方 DB 數值不直接修改，遊戲實際獎勵由 server_config.json 套用倍率。",
     "v0.9.16 測試期：Base EXP / Job EXP / 掉寶率 / Zeny 掉落皆暫時調整為 200 倍，方便測試商店購買、背包與成長流程。",
     "重生倍率採時間倍率：normal/plant/boss SpawnDelayRate 50 = 等待時間減半；200 = 等待時間加倍。",
-    "怪物倍率採 100 制：目前 mob_count_rate 33，普通群體怪物約為原本三分之一；單隻稀有怪、Mini Boss、MVP 不會被縮減。"
+    "怪物倍率採 100 制：目前 mob_count_rate 33，普通群體怪物約為原本三分之一；單隻稀有怪、Mini Boss、MVP 不會被縮減。",
+    "0.9.82GA：drop 為全部怪物掉落總閥；cardDrop、mapExclusiveDrop 為卡片與地圖限定掉落的相對倍率（100=1倍），因此調整 drop 會同步影響一般掉落、王卡與葛坡尼亞轉蛋。"
   ]
 }

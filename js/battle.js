@@ -523,8 +523,13 @@ function autoAttackMonster(options = {}) {
     return;
   }
 
+  const autoSkillProfile = autoAction && autoAction.action === "attackSkill" && typeof getSkillRuntimeProfile === "function"
+    ? (getSkillRuntimeProfile(autoAction.skill) || {}) : null;
+  const autoSkillNeedsPrimaryRange = autoAction && autoAction.action === "attackSkill" && typeof runtimeSkillRequiresPrimaryTargetRange === "function"
+    ? runtimeSkillRequiresPrimaryTargetRange(autoAction.skill, autoSkillProfile || {}, autoAction.level)
+    : true;
   const intendedRange = autoAction && autoAction.action === "attackSkill"
-    ? (typeof getSkillRangePx === "function" ? getSkillRangePx(autoAction.skill, autoAction.level) : null)
+    ? (autoSkillNeedsPrimaryRange && typeof getSkillRangePx === "function" ? getSkillRangePx(autoAction.skill, autoAction.level) : Number.POSITIVE_INFINITY)
     : (typeof getPlayerNormalAttackRange === "function" ? getPlayerNormalAttackRange() : null);
   // 0.9.82FM：自動近戰追逐移動怪物時給予一小段命中容差，避免雙方每幀同向移動而永遠差一點打不到。
   // 手動點擊與遠距離技能仍嚴格使用原始 RA 射程。
@@ -532,7 +537,7 @@ function autoAttackMonster(options = {}) {
     ? getAutoBattleEffectiveAttackRange(currentMonster, intendedRange)
     : intendedRange;
 
-  if (typeof canAttackMonsterByRange === "function" && !canAttackMonsterByRange(currentMonster, effectiveRange)) {
+  if ((!autoAction || autoAction.action !== "attackSkill" || autoSkillNeedsPrimaryRange) && typeof canAttackMonsterByRange === "function" && !canAttackMonsterByRange(currentMonster, effectiveRange)) {
     if (!options.manual && typeof setAutoBattleControllerState === "function") setAutoBattleControllerState(AUTO_BATTLE_STATES.APPROACHING, { action: autoAction?.action || "normal", reason: "out_of_range" });
     if (typeof movePlayerTowardMonster === "function") movePlayerTowardMonster(currentMonster, effectiveRange);
     updateMonsterUI();
@@ -553,7 +558,11 @@ function autoAttackMonster(options = {}) {
     if (autoAction.action === "attackSkill") {
       const autoCastTiming = typeof getRuntimeAdjustedCastTime === "function" ? getRuntimeAdjustedCastTime(autoAction.skill, autoAction.level) : { totalMs: 0 };
       if (Number(autoCastTiming?.totalMs || 0) > 0 && typeof beginRuntimeSkillCast === "function" && typeof quickSlotCastSkill === "function") {
-        beginRuntimeSkillCast(autoAction.skill, autoAction.level, () => quickSlotCastSkill(autoAction.skill.id, { skipRuntimeCast: true, source: "auto_battle" }));
+        beginRuntimeSkillCast(autoAction.skill, autoAction.level, () => {
+          const result = quickSlotCastSkill(autoAction.skill.id, { skipRuntimeCast: true, source: "auto_battle" });
+          if (typeof commitAutoAttackSkillRotation === "function") commitAutoAttackSkillRotation(autoAction.slotIndex);
+          return result;
+        });
         return;
       }
       const autoProfile=typeof getSkillRuntimeProfile==="function"?getSkillRuntimeProfile(autoAction.skill):null;
@@ -561,6 +570,7 @@ function autoAttackMonster(options = {}) {
         ? castComboSequenceSkill(autoAction.skill,autoAction.level,{source:"auto_battle"})
         : castAttackSkill(autoAction.skill, autoAction.level, { source: "auto_battle" });
       if (used) {
+        if (typeof commitAutoAttackSkillRotation === "function") commitAutoAttackSkillRotation(autoAction.slotIndex);
         if (currentMonster.currentHp <= 0) { defeatMonster(); return; }
         monsterAttackPlayer(); return;
       }
@@ -570,7 +580,7 @@ function autoAttackMonster(options = {}) {
 
   if (!canPlayerAttackNow()) return;
 
-  if (typeof canAttackMonsterByRange === "function" && !canAttackMonsterByRange(currentMonster, effectiveRange)) {
+  if ((!autoAction || autoAction.action !== "attackSkill" || autoSkillNeedsPrimaryRange) && typeof canAttackMonsterByRange === "function" && !canAttackMonsterByRange(currentMonster, effectiveRange)) {
     if (typeof movePlayerTowardMonster === "function") movePlayerTowardMonster(currentMonster, effectiveRange);
     return;
   }

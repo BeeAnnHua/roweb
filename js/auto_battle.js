@@ -1278,7 +1278,12 @@ function tryAutoElementEndow() {
   const cfg = player?.autoCombat?.elementEndow;
   if (!cfg?.enabled) return false;
   // 肯貝特是武器附魔；空手時不消耗，卸下主武器也會解除現有效果。
-  if (!player?.equipment?.weapon) return false;
+  if (!player?.equipment?.weapon) {
+    if (player?.activeBuffs?.item_physical_element_endow && typeof clearPhysicalElementEndow === "function") {
+      clearPhysicalElementEndow("weapon_unequip", { silent:true });
+    }
+    return false;
+  }
 
   const element = String(cfg.element || "");
   const itemId = AUTO_ELEMENT_CONVERTER_ITEM_IDS[element];
@@ -1420,7 +1425,8 @@ const AUTO_BATTLE_CONTROLLER = {
   ignoredTargetUntil: 0,
   reacquireSuppressedUntil: 0,
   teleportGeneration: 0,
-  manualOverrideUntil: 0
+  manualOverrideUntil: 0,
+  attackRotationCursor: 0
 };
 
 function resetAutoBattleController(options = {}) {
@@ -1441,6 +1447,7 @@ function resetAutoBattleController(options = {}) {
   AUTO_BATTLE_CONTROLLER.ignoredTargetUntil = 0;
   AUTO_BATTLE_CONTROLLER.reacquireSuppressedUntil = 0;
   AUTO_BATTLE_CONTROLLER.manualOverrideUntil = 0;
+  AUTO_BATTLE_CONTROLLER.attackRotationCursor = 0;
   // teleportGeneration intentionally survives ordinary start/stop resets.
   // It identifies the monster instance invalidated by the latest teleport.
   AUTO_BATTLE_CONTROLLER.teleportGeneration = Math.max(0, Number(AUTO_BATTLE_CONTROLLER.teleportGeneration || 0));
@@ -1707,12 +1714,14 @@ function getAutoBattleSkillTargetCount(skill, level, primaryTarget = currentMons
 
   if (typeof resolveRuntimeSkillTargets === "function") {
     try {
-      const targets = resolveRuntimeSkillTargets(profile, primaryTarget, level) || [];
+      const targets = resolveRuntimeSkillTargets(profile, primaryTarget, level, skill) || [];
       return [...new Set(targets.filter(isAutoBattleTargetValid))].length;
     } catch (_) {}
   }
 
-  const targeting = profile.targeting || profile.area || {};
+  const targeting = typeof getRuntimeEffectiveTargeting === "function"
+    ? (getRuntimeEffectiveTargeting(skill, profile, level) || {})
+    : (profile.targeting || profile.area || {});
   const radiusCells = Math.max(0, resolveAutoBattleLevelValue(
     targeting.radius ?? targeting.rangeCells ?? profile.splashRange ?? skill.splashArea,
     level,
@@ -1788,8 +1797,11 @@ function getAutoAttackSkill(monster = currentMonster) {
   normalizeAutoCombatSettings();
   const slots = player.autoCombat?.attacks || [];
   let earliestCooldown = null;
+  const slotCount = Math.max(1, slots.length);
+  const startIndex = ((Number(AUTO_BATTLE_CONTROLLER.attackRotationCursor || 0) % slotCount) + slotCount) % slotCount;
 
-  for (let index = 0; index < slots.length; index += 1) {
+  for (let offset = 0; offset < slots.length; offset += 1) {
+    const index = (startIndex + offset) % slots.length;
     const cfg = slots[index];
     if (!cfg?.enabled || !cfg.skillId) continue;
     if (!shouldCastBySp(cfg.spPercent || 0)) continue;
@@ -1841,6 +1853,14 @@ function getAutoAttackSkill(monster = currentMonster) {
   }
 
   return earliestCooldown;
+}
+
+function commitAutoAttackSkillRotation(slotIndex) {
+  const slots = player?.autoCombat?.attacks || [];
+  if (!slots.length) { AUTO_BATTLE_CONTROLLER.attackRotationCursor = 0; return 0; }
+  const index = Math.max(0, Number(slotIndex || 0));
+  AUTO_BATTLE_CONTROLLER.attackRotationCursor = (index + 1) % slots.length;
+  return AUTO_BATTLE_CONTROLLER.attackRotationCursor;
 }
 
 
@@ -1911,6 +1931,7 @@ window.getAutoBattleSkillTargetCount = getAutoBattleSkillTargetCount;
 window.getAutoBattleMonsterClass = getAutoBattleMonsterClass;
 window.maybeAutoEscapeFromTarget = maybeAutoEscapeFromTarget;
 window.getAutoAttackSkill = getAutoAttackSkill;
+window.commitAutoAttackSkillRotation = commitAutoAttackSkillRotation;
 window.getAutoCombatAttackAction = getAutoCombatAttackAction;
 window.getAutoBattleControllerSnapshot = () => ({ ...AUTO_BATTLE_CONTROLLER });
 
