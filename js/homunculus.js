@@ -201,6 +201,7 @@ function summonHomunculus(definitionId, options = {}) {
   if (typeof saveGame === "function") saveGame();
   if (typeof updatePlayerUI === "function") updatePlayerUI();
   updateHomunculusUI();
+  if (typeof updateVirtualSummonUI === "function") updateVirtualSummonUI(true);
   if (!options.silent && typeof addBattleLog === "function") {
     addBattleLog(`召喚 ${definition.name}，生命體等級同步為 BaseLv ${player.homunculus.levelSnapshot}。`, "summon");
   }
@@ -226,6 +227,7 @@ function restHomunculus(options = {}) {
   if (window.HomunculusSkillRuntime?.resetState) window.HomunculusSkillRuntime.resetState(player.homunculus);
   if (typeof saveGame === "function") saveGame();
   updateHomunculusUI();
+  if (typeof updateVirtualSummonUI === "function") updateVirtualSummonUI(true);
   if (!options.silent && typeof addBattleLog === "function") addBattleLog(`${active.definition.name}已進入安息狀態。`, "summon");
   return true;
 }
@@ -237,6 +239,7 @@ function setHomunculusAssistEnabled(enabled) {
   if (enabled) player.homunculus.lastActionAt = 0;
   if (typeof saveGame === "function") saveGame();
   updateHomunculusUI();
+  if (typeof updateVirtualSummonUI === "function") updateVirtualSummonUI(true);
   return true;
 }
 

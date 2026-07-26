@@ -1,0 +1,110 @@
+{
+  "version": "0.9.82GB",
+  "summary": {
+    "checks": 20,
+    "passed": 20,
+    "failed": 0
+  },
+  "checks": [
+    {
+      "ok": true,
+      "name": "Renewal equal HIT/FLEE gives 80% hit",
+      "detail": "80"
+    },
+    {
+      "ok": true,
+      "name": "Renewal 20 HIT deficit gives 60% hit",
+      "detail": "60"
+    },
+    {
+      "ok": true,
+      "name": "Renewal hit chance respects 100% cap",
+      "detail": "100"
+    },
+    {
+      "ok": true,
+      "name": "Renewal hit chance respects 5% floor",
+      "detail": "5"
+    },
+    {
+      "ok": true,
+      "name": "Explicit special-skill baseRate=0 remains supported",
+      "detail": "0"
+    },
+    {
+      "ok": true,
+      "name": "Time Transcendent armor+boots Combo is active",
+      "detail": "{\"id\":\"equipment_combo_fz_007\",\"atkFlat\":80,\"matkFlat\":80,\"mode\":\"item_id\"}"
+    },
+    {
+      "ok": true,
+      "name": "Time Transcendent armor+boots changes final ATK/MATK panel values",
+      "detail": "611/721;652/762"
+    },
+    {
+      "ok": true,
+      "name": "Time Transcendent ring+boots HP/SP Combo is active",
+      "detail": "{\"hp\":15,\"sp\":5,\"mode\":\"item_id\"}"
+    },
+    {
+      "ok": true,
+      "name": "Time Transcendent ring+boots changes final MaxHP/MaxSP panel values",
+      "detail": "118797/137219;7709/8130"
+    },
+    {
+      "ok": true,
+      "name": "LT four-piece equipment activates all applicable Combos",
+      "detail": "[\"equipment_combo_fz_009\",\"equipment_combo_fz_010\",\"equipment_combo_fz_011\",\"equipment_combo_fz_012\",\"equipment_combo_fz_013\"]"
+    },
+    {
+      "ok": true,
+      "name": "LT set changes final combat/status panel values",
+      "detail": "{\"base\":{\"atk\":611,\"matk\":652,\"hp\":118797,\"res\":177,\"mres\":168},\"lt\":{\"atk\":1726,\"matk\":1795,\"hp\":200439,\"res\":207,\"mres\":198}}"
+    },
+    {
+      "ok": true,
+      "name": "Time set Combo falls back to AegisName when item IDs differ",
+      "detail": "aegis_name"
+    },
+    {
+      "ok": true,
+      "name": "Free status reset returns normal and trait allocation",
+      "detail": "{\"stats\":{\"str\":1,\"agi\":1,\"vit\":1,\"int\":1,\"dex\":1,\"luk\":1},\"traits\":{\"pow\":0,\"sta\":0,\"wis\":0,\"spl\":0,\"con\":0,\"crt\":0}}"
+    },
+    {
+      "ok": true,
+      "name": "Status reset preserves equipped Time set and Combo Runtime",
+      "detail": "137219/65600"
+    },
+    {
+      "ok": true,
+      "name": "Status reset executes inside player-build mutation guard",
+      "detail": "[\"status_reset\"]"
+    },
+    {
+      "ok": true,
+      "name": "Free skill reset counts learned native skill levels",
+      "detail": "25"
+    },
+    {
+      "ok": true,
+      "name": "Free skill reset returns spent skill points",
+      "detail": "{\"ok\":true,\"skillPoints\":28,\"learned\":{}}"
+    },
+    {
+      "ok": true,
+      "name": "Skill reset clears only skill quick slots",
+      "detail": "[{\"type\":\"empty\"},{\"type\":\"item\",\"id\":501}]"
+    },
+    {
+      "ok": true,
+      "name": "Skill reset clears auto-battle skill references",
+      "detail": "{\"heal\":{\"enabled\":false,\"skillId\":null},\"normalAttack\":{\"enabled\":true},\"attacks\":[{\"enabled\":false,\"skillId\":null},{\"enabled\":false,\"skillId\":null},{\"enabled\":false,\"skillId\":null},{\"enabled\":false,\"skillId\":null}],\"attack\":{\"enabled\":false,\"skillId\":null},\"buffs\":{}}"
+    },
+    {
+      "ok": true,
+      "name": "Skill reset is mutation-safe and resets auto-battle controller",
+      "detail": "{\"mutations\":[\"skill_reset\"],\"controllerReset\":1}"
+    }
+  ]
+}

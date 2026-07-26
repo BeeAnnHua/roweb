@@ -483,7 +483,15 @@ function quickSlotCastSkill(skillId, options = {}) {
     return;
   }
   if (runtimeHandler === "mount_unlock") {
-    togglePlayerMount(runtimeProfile.mountType || "peco");
+    const resolvedMount = typeof resolvePlayerMountType === "function"
+      ? resolvePlayerMountType(runtimeProfile.mountType || "peco")
+      : String(runtimeProfile.mountType || "peco");
+    if (resolvedMount === "dragon") {
+      addBattleLog("盧恩騎士／盧恩龍爵三轉後不再使用二轉騎乘術；請從「召喚物控制」以龍駕馭切換龍坐騎。", "error");
+      if (typeof openVirtualSummonWindow === "function") openVirtualSummonWindow();
+      return;
+    }
+    togglePlayerMount(resolvedMount);
     return;
   }
   addBattleLog(skill.name + " 目前不能放在快捷欄使用。 ");

@@ -1,5 +1,5 @@
 //=======================================
-// StatusSystem v0.9.82FY
+// StatusSystem v0.9.82GB
 // 一般素質 + rAthena Renewal 四轉特性素質 + 全域 +10 配點模式 + 響應式進階戰鬥資訊
 //=======================================
 let statPointData = { points: {} };
@@ -585,25 +585,29 @@ function toggleStatusAllocationStep() {
 
 function allocateStatusPoints(statKey, requestedAmount = 1) {
   if (!player || !STATUS_KEYS.includes(statKey)) return 0;
-  normalizeStatusData();
-  const available = getAvailableStatusPoints();
-  if (available <= 0) {
-    addBattleLog("素質點不足。Base Lv 提升後會獲得更多素質點。");
-    updateStatusUI();
-    return 0;
-  }
+  const run = () => {
+    normalizeStatusData();
+    const available = getAvailableStatusPoints();
+    if (available <= 0) {
+      addBattleLog("素質點不足。Base Lv 提升後會獲得更多素質點。");
+      updateStatusUI();
+      return 0;
+    }
 
-  const requested = Math.max(1, Math.floor(Number(requestedAmount || 1)));
-  const amount = Math.min(requested, available);
-  player.stats[statKey] += amount;
-  player.usedStatusPoints += amount;
-  syncStatusPointCache();
-  recalculatePlayerStats();
-  updatePlayerUI();
-  updateStatusUI();
-  saveGame();
-  addBattleLog(`${STATUS_LABELS[statKey]} +${amount}，目前 ${player.stats[statKey]}。`);
-  return amount;
+    const requested = Math.max(1, Math.floor(Number(requestedAmount || 1)));
+    const amount = Math.min(requested, available);
+    player.stats[statKey] += amount;
+    player.usedStatusPoints += amount;
+    syncStatusPointCache();
+    window.invalidateCardRuntime?.();
+    recalculatePlayerStats();
+    updatePlayerUI();
+    updateStatusUI();
+    saveGame();
+    addBattleLog(`${STATUS_LABELS[statKey]} +${amount}，目前 ${player.stats[statKey]}。`);
+    return amount;
+  };
+  return typeof withPlayerBuildMutation === "function" ? withPlayerBuildMutation("status_allocate", run) : run();
 }
 
 function allocateStatusPoint(statKey) {
@@ -612,38 +616,83 @@ function allocateStatusPoint(statKey) {
 
 function allocateTraitPoints(traitKey, requestedAmount = 1) {
   if (!player || !TRAIT_KEYS.includes(traitKey)) return 0;
-  normalizeStatusData();
-  const lockReason = getTraitAllocationLockReason();
-  if (lockReason) {
-    if (typeof addBattleLog === "function") addBattleLog(lockReason);
-    updateStatusUI();
-    return 0;
-  }
-  const allocated = Math.max(0, Number(player.traits[traitKey] || 0));
-  const capRoom = Math.max(0, TRAIT_ALLOCATION_CAP - allocated);
-  const available = Math.max(0, getAvailableTraitPoints());
-  const requested = Math.max(1, Math.floor(Number(requestedAmount || 1)));
-  const amount = Math.min(requested, capRoom, available);
-  if (amount <= 0) {
-    if (capRoom <= 0 && typeof addBattleLog === "function") addBattleLog(`${TRAIT_LABELS[traitKey]} 玩家配點已達上限 ${TRAIT_ALLOCATION_CAP}。`);
-    else if (typeof addBattleLog === "function") addBattleLog("特性點數不足。");
-    updateStatusUI();
-    return 0;
-  }
+  const run = () => {
+    normalizeStatusData();
+    const lockReason = getTraitAllocationLockReason();
+    if (lockReason) {
+      if (typeof addBattleLog === "function") addBattleLog(lockReason);
+      updateStatusUI();
+      return 0;
+    }
+    const allocated = Math.max(0, Number(player.traits[traitKey] || 0));
+    const capRoom = Math.max(0, TRAIT_ALLOCATION_CAP - allocated);
+    const available = Math.max(0, getAvailableTraitPoints());
+    const requested = Math.max(1, Math.floor(Number(requestedAmount || 1)));
+    const amount = Math.min(requested, capRoom, available);
+    if (amount <= 0) {
+      if (capRoom <= 0 && typeof addBattleLog === "function") addBattleLog(`${TRAIT_LABELS[traitKey]} 玩家配點已達上限 ${TRAIT_ALLOCATION_CAP}。`);
+      else if (typeof addBattleLog === "function") addBattleLog("特性點數不足。");
+      updateStatusUI();
+      return 0;
+    }
 
-  player.traits[traitKey] += amount;
-  player.traitStats = player.traits;
-  syncTraitPointCache();
-  recalculatePlayerStats();
-  updatePlayerUI();
-  updateStatusUI();
-  saveGame();
-  if (typeof addBattleLog === "function") addBattleLog(`${TRAIT_LABELS[traitKey]} ${TRAIT_NAMES[traitKey]} +${amount}，目前玩家配點 ${player.traits[traitKey]}。`);
-  return amount;
+    player.traits[traitKey] += amount;
+    player.traitStats = player.traits;
+    syncTraitPointCache();
+    window.invalidateCardRuntime?.();
+    recalculatePlayerStats();
+    updatePlayerUI();
+    updateStatusUI();
+    saveGame();
+    if (typeof addBattleLog === "function") addBattleLog(`${TRAIT_LABELS[traitKey]} ${TRAIT_NAMES[traitKey]} +${amount}，目前玩家配點 ${player.traits[traitKey]}。`);
+    return amount;
+  };
+  return typeof withPlayerBuildMutation === "function" ? withPlayerBuildMutation("trait_allocate", run) : run();
 }
 
 function allocateTraitPoint(traitKey) {
   return allocateTraitPoints(traitKey, 1) > 0;
+}
+
+function resetAllPlayerStats(options = {}) {
+  if (!player) return false;
+  normalizeStatusData();
+  const usedStatus = Math.max(
+    Number(player.usedStatusPoints || 0),
+    STATUS_KEYS.reduce((sum, key) => sum + Math.max(0, Number(player.stats[key] || 1) - 1), 0)
+  );
+  const usedTrait = Math.max(
+    Number(player.usedTraitPoints || 0),
+    TRAIT_KEYS.reduce((sum, key) => sum + Math.max(0, Number(player.traits[key] || 0)), 0)
+  );
+  if (usedStatus <= 0 && usedTrait <= 0) {
+    if (typeof addBattleLog === "function") addBattleLog("目前沒有已分配的素質點數。");
+    return false;
+  }
+  const requireConfirm = options.confirm !== false;
+  const message = `確定免費重置全部素質嗎？
+一般素質返還：${usedStatus} 點
+特性素質返還：${usedTrait} 點
+裝備、卡片、Job Bonus 與永久效果不會被清除。`;
+  if (requireConfirm && typeof confirm === "function" && !confirm(message)) return false;
+  const run = () => {
+    STATUS_KEYS.forEach(key => { player.stats[key] = 1; });
+    TRAIT_KEYS.forEach(key => { player.traits[key] = 0; });
+    player.traitStats = player.traits;
+    player.usedStatusPoints = 0;
+    player.usedTraitPoints = 0;
+    syncStatusPointCache();
+    syncTraitPointCache();
+    window.invalidateCardRuntime?.();
+    recalculatePlayerStats();
+    updatePlayerUI();
+    updateStatusUI();
+    if (typeof updateAutoCombatUI === "function") updateAutoCombatUI();
+    saveGame();
+    if (typeof addBattleLog === "function") addBattleLog(`已免費重置全部素質，返還一般 ${usedStatus} 點、特性 ${usedTrait} 點。`);
+    return true;
+  };
+  return typeof withPlayerBuildMutation === "function" ? withPlayerBuildMutation("status_reset", run) : run();
 }
 
 function resetTraitStats(options = {}) {
@@ -1404,6 +1453,17 @@ function updateStatusUI(options = {}) {
   panel.appendChild(left);
   panel.appendChild(right);
 
+  const resetActions = document.createElement("div");
+  resetActions.className = "status-reset-actions";
+  const resetButton = document.createElement("button");
+  resetButton.type = "button";
+  resetButton.className = "status-free-reset-button";
+  resetButton.textContent = "免費重置素質";
+  resetButton.title = "重置一般與四轉特性配點；裝備、卡片與 Job Bonus 保留";
+  resetButton.onclick = event => { event.stopPropagation(); resetAllPlayerStats(); };
+  resetActions.appendChild(resetButton);
+  panel.appendChild(resetActions);
+
   const toggle = document.createElement("button");
   toggle.type = "button";
   toggle.className = "status-trait-toggle";
@@ -1497,6 +1557,7 @@ window.allocateStatusPoints = allocateStatusPoints;
 window.allocateTraitPoints = allocateTraitPoints;
 window.allocateTraitPoint = allocateTraitPoint;
 window.resetTraitStats = resetTraitStats;
+window.resetAllPlayerStats = resetAllPlayerStats;
 window.toggleTraitStatusPanel = toggleTraitStatusPanel;
 window.isStatusAdvancedInlineMode = isStatusAdvancedInlineMode;
 window.toggleStatusAdvancedPanel = toggleStatusAdvancedPanel;

@@ -1,5 +1,5 @@
 {
-  "version": "0.9.82EA",
+  "version": "0.9.82GB",
   "scope": "CORE1 official Runtime：保留既有 Batch1～105，新增 Batch106 生命締造者仿生召喚核心。",
   "sources": [
     "rAthena db/re/skill_db.yml",
@@ -4026,7 +4026,7 @@
     "145": {
       "skillId": 145,
       "skillKey": "",
-      "name": "",
+      "name": "攻擊弱點",
       "handler": "passive",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -10014,7 +10014,7 @@
             50
           ]
         },
-        "source": "RO_WEB adaptation of rAthena RK_DRAGONTRAINING: unlocks dragon mount through KN_RIDING, retains Dragon Breath damage bonus, removes carrying capacity and dragon ASPD effects.",
+        "source": "RO_WEB adaptation of rAthena RK_DRAGONTRAINING: unlocks dragon mount through summon control UI, retains Dragon Breath damage bonus, removes carrying capacity and dragon ASPD effects.",
         "mountUnlockType": "dragon",
         "toggleSkillId": 63
       },
@@ -12335,7 +12335,7 @@
           "rAthena db/re/skill_db.yml RA_WUGMASTERY",
           "rAthena src/map/skills/archer/wargmastery.cpp"
         ],
-        "runtimeAdaptation": "切換輕量狼協助狀態；不建立獨立 HP／SP／EXP，也不成為怪物攻擊目標。召狼時自動收回獵鷹。"
+        "runtimeAdaptation": "切換輕量狼協助狀態；可與獵鷹同時存在。不建立獨立 HP／SP／EXP，也不成為怪物攻擊目標。"
       }
     },
     "2241": {
@@ -19304,7 +19304,8 @@
         "allStatsRate": 20,
         "moveSpeedRate": 100
       },
-      "source": "RA Full Throttle retained: full HP, +20% stats, +100% move speed, periodic SP drain, 10s recovery penalty."
+      "source": "RA Full Throttle retained: full HP, +20% stats, +100% move speed, periodic SP drain, 10s recovery penalty.",
+      "name": "烈火戰車"
     },
     "5068": {
       "skillId": 5068,
@@ -19534,7 +19535,8 @@
         "regenAmount": 1
       },
       "animationProfile": "servant_weapon_idle",
-      "source": "RA DK_SERVANTWEAPON: starts with 5 servants and regenerates to max 5."
+      "source": "RA DK_SERVANTWEAPON: starts with 5 servants and regenerates to max 5.",
+      "name": "死侍武器"
     },
     "5203": {
       "skillId": 5203,
@@ -19575,7 +19577,8 @@
         "amount": 1,
         "mode": "fixed"
       },
-      "source": "RA DK_SERVANT_W_SIGN: consumes 1 servant and marks target."
+      "source": "RA DK_SERVANT_W_SIGN: consumes 1 servant and marks target.",
+      "name": "死侍武器-標記"
     },
     "5204": {
       "skillId": 5204,
@@ -19648,7 +19651,8 @@
       ],
       "statusDuration": 20000,
       "animationProfile": "servant_weapon_phantom",
-      "source": "RA Servant Weapon Phantom; usable with 0-5 servants, damage hits limited by consumed count, marked target required."
+      "source": "RA Servant Weapon Phantom; usable with 0-5 servants, damage hits limited by consumed count, marked target required.",
+      "name": "死侍武器-瞬幻"
     },
     "5205": {
       "skillId": 5205,
@@ -19701,7 +19705,8 @@
       "elementSource": "weapon",
       "criticalMode": "normal",
       "animationProfile": "servant_weapon_demolition",
-      "source": "RA Servant Weapon Demolition; consumes up to 5 servants, hits marked targets, restores one servant per damaged target (single-target WEB restores 1)."
+      "source": "RA Servant Weapon Demolition; consumes up to 5 servants, hits marked targets, restores one servant per damaged target (single-target WEB restores 1).",
+      "name": "死侍武器-破滅"
     },
     "5206": {
       "handler": "buff",
@@ -23082,7 +23087,7 @@
           "rAthena db/re/skill_db.yml WH_HAWK_M",
           "rAthena src/map/skills/archer/hawkmastery.cpp"
         ],
-        "runtimeAdaptation": "以RO_WEB輕量協助狀態召喚／收回四轉獵鷹；沿用既有獵鷹狀態，不建立獨立HP、SP、EXP或受擊系統，也不消耗獵鷹笛。與狼互斥。"
+        "runtimeAdaptation": "以 RO_WEB 輕量協助狀態召喚／收回四轉獵鷹；可與狼同時存在。不建立獨立 HP／SP／EXP 或受擊系統，也不消耗獵鷹笛。"
       }
     },
     "5328": {

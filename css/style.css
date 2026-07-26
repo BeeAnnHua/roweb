@@ -20155,3 +20155,55 @@ h2 { font-size:20px; margin:0 0 8px; text-align:center; letter-spacing:2px; colo
     backdrop-filter: none !important;
   }
 }
+
+
+/* 0.9.82GB - free stat/skill reset controls */
+#status-panel .status-reset-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 8px 4px 2px;
+  padding-top: 7px;
+  border-top: 1px solid rgba(222, 177, 82, .35);
+}
+#status-panel .status-free-reset-button {
+  min-width: 138px;
+  min-height: 29px;
+  padding: 4px 12px;
+  border-radius: 7px;
+  border: 1px solid rgba(225, 173, 76, .8);
+  background: linear-gradient(180deg, #7b4817, #281407);
+  color: #ffe5a3;
+  font-weight: 700;
+  text-shadow: 0 1px 2px #000;
+  cursor: pointer;
+}
+#status-panel .status-free-reset-button:hover { filter: brightness(1.12); }
+#skill-window.true-skill-window #skill-point-footer .skill-footer-actions button { min-width: 76px !important; }
+@media (max-width: 700px), (pointer: coarse) {
+  #status-panel .status-free-reset-button { min-height: 34px; }
+}
+
+
+/* 0.9.82GB unified summon control panel */
+.virtual-summon-window { width:390px; }
+.virtual-summon-panel { min-height:170px; max-height:min(560px,calc(100vh - 130px)); overflow:auto; }
+.virtual-summon-summary { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:0 2px 10px; color:#ffe29a; }
+.virtual-summon-summary span { color:#a9ecff; font-size:12px; }
+.virtual-summon-card { margin-bottom:9px; padding:10px; border:1px solid rgba(210,170,86,.30); background:rgba(0,0,0,.28); }
+.virtual-summon-card.is-active { border-color:rgba(91,206,245,.48); background:rgba(28,87,112,.16); }
+.virtual-summon-card.is-inactive { border-color:rgba(210,170,86,.34); }
+.virtual-summon-card-head { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+.virtual-summon-card-head strong { color:#ffe29a; font-size:16px; }
+.virtual-summon-card-head span { color:#91e3ff; font-size:11px; }
+.virtual-summon-card.is-inactive .virtual-summon-card-head span { color:#bdb39e; }
+.virtual-summon-card-meta { margin-top:6px; color:#a9ecff; font-size:12px; line-height:1.55; }
+.virtual-summon-card-note { margin-top:6px; color:#c9bea3; font-size:11px; line-height:1.5; }
+.virtual-summon-card-actions { display:flex; flex-wrap:wrap; gap:7px; margin-top:9px; }
+.virtual-summon-card-actions button { min-height:32px; flex:1 1 92px; }
+@media (max-width:900px), (pointer:coarse) {
+  .virtual-summon-window { width:min(390px,calc(100vw - 24px)); }
+  .virtual-summon-panel { max-height:min(520px,calc(100vh - 110px)); }
+  .virtual-summon-card-actions button { min-height:36px; }
+}

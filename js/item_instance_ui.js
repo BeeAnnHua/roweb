@@ -556,6 +556,7 @@
     player.equipment[slot] = null;
     if (player.equipmentInstances) delete player.equipmentInstances[slot];
     window.invalidateCardRuntime?.();
+    window.invalidatePlayerUiRenderCaches?.("status");
     if (data) {
       player.inventory.push({ ...instance, count: 1 });
       if (!options.silent) addBattleLog(`卸下了 ${buildEquipmentInstanceName(instance, data)}`);
@@ -602,6 +603,7 @@
     player.equipmentInstances = player.equipmentInstances || {};
     player.equipmentInstances[slot] = instance;
     window.invalidateCardRuntime?.();
+    window.invalidatePlayerUiRenderCaches?.("status");
     normalizeEquipmentHandConflicts();
     if (typeof syncEquipmentGrantedSkills === 'function') syncEquipmentGrantedSkills();
     recalculatePlayerStats();

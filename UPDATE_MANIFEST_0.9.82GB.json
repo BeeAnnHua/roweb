@@ -1,0 +1,319 @@
+{
+  "version": "0.9.82GB",
+  "baseVersion": "0.9.82GA",
+  "packageType": "incremental",
+  "baseArchive": "roweb(1).zip",
+  "requiresDeletion": false,
+  "deletions": [],
+  "payloadFileCount": 50,
+  "newFileCount": 19,
+  "modifiedFileCount": 31,
+  "payloadBytes": 45191442,
+  "files": [
+    {
+      "path": "AI_START_HERE.md",
+      "size": 4098,
+      "sha256": "905e6d6d248dbe32e92492109fc5f08395b0a3bb551914aab566474a74cdd9a8",
+      "status": "modified"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "size": 8559,
+      "sha256": "9d64c60f906674779424081d96ea9910af6a05831703994b7c82dc71817d3ff9",
+      "status": "modified"
+    },
+    {
+      "path": "DEPLOY_COPY_NOTICE_0.9.82GB.txt",
+      "size": 419,
+      "sha256": "ba385331c9a6ba71249088b7da4a2655ad24c7ee4888b74646aa46422b246687",
+      "status": "new"
+    },
+    {
+      "path": "GB_BUILD_REPORT_0.9.82GB.json",
+      "size": 2126,
+      "sha256": "c5b662a4684aa06a27a276b9577a876fe1fd33164e438a4d7171a953af7bd304",
+      "status": "new"
+    },
+    {
+      "path": "README.md",
+      "size": 2974,
+      "sha256": "685b9980c624803f460f3413ef28055062c2a45edb4f9a5b2453f58333f02ee3",
+      "status": "modified"
+    },
+    {
+      "path": "TEST_REPORT_0.9.82GB.txt",
+      "size": 2266,
+      "sha256": "577b130c278cf1b2bfa174d7628b71ac291785758633c0c3cbd0a4d8bbe28f3b",
+      "status": "new"
+    },
+    {
+      "path": "css/style.css",
+      "size": 642716,
+      "sha256": "6bde060bc6c25bdf5e3d000bc4ea1c079cbc51ca4a33e507119c2c9dd1d88adb",
+      "status": "modified"
+    },
+    {
+      "path": "data/card_runtime/card_effects.json",
+      "size": 1177266,
+      "sha256": "23628f37bcc1d1ee44908bb088c9c5f6d0ae9fc32f3301c86699aa6c91d514e9",
+      "status": "modified"
+    },
+    {
+      "path": "data/items/cards_1.json",
+      "size": 1030692,
+      "sha256": "a8633fadc78c4a9dff348362bbda589bf402ee22a954b2e50ae2693fea241bc8",
+      "status": "modified"
+    },
+    {
+      "path": "data/items/cards_2.json",
+      "size": 146577,
+      "sha256": "99cf1da50805008efa37e0c3bef18b42fc488edf30718d666c4a30fecef82eab",
+      "status": "modified"
+    },
+    {
+      "path": "data/items/item_index.json",
+      "size": 677794,
+      "sha256": "eac126bb03e55c3c952908f9beca24d3fa04bae752772091c57b48f8532bf5d1",
+      "status": "modified"
+    },
+    {
+      "path": "data/mounts/mount_manifest.json",
+      "size": 2686,
+      "sha256": "368d601f986765d6e645df96cc26c248b6d76d367469b0d32f2c62db53595060",
+      "status": "modified"
+    },
+    {
+      "path": "data/server_config.json",
+      "size": 2230,
+      "sha256": "6932112bb88d52c4e5f0cb4b258d3d49a03942c75a9a8d8baefa0cb0c0a375ae",
+      "status": "modified"
+    },
+    {
+      "path": "data/skill_runtime/runtime_copyable_skills.json",
+      "size": 48160,
+      "sha256": "ada27788ddae7e4a0515d4ab46ba4ce89dc21656910f1863bf274bc0937e1090",
+      "status": "modified"
+    },
+    {
+      "path": "data/skill_runtime/runtime_core_1_v1.json",
+      "size": 733110,
+      "sha256": "9c0a76faf35a8cf7904e6b291e5c4c00f5a60867fb56e094dc94d0fa3e86f1eb",
+      "status": "modified"
+    },
+    {
+      "path": "data/skill_runtime/runtime_formula_catalog.json",
+      "size": 1108238,
+      "sha256": "d16fe16faeea3765e8701ba9e474a7a5bf4a4139307c69d9778aab3365604a64",
+      "status": "modified"
+    },
+    {
+      "path": "data/skill_runtime/runtime_generated_all.json",
+      "size": 1658656,
+      "sha256": "9b23bc23f22ac241ad8eb501527cdcb12cf7c80cddcb46519c13e28e6b6f9b9a",
+      "status": "modified"
+    },
+    {
+      "path": "data/skills/skills_core_1.json",
+      "size": 2312271,
+      "sha256": "17be5623f61518582e97068125f0eac89ba054364f74a411866c1b3c7e7cb493",
+      "status": "modified"
+    },
+    {
+      "path": "data/skills/skills_core_2.json",
+      "size": 649284,
+      "sha256": "948d6bfe815d5bae998d2da8c6891c45fe14035d5b60270e663ebdec1edc4456",
+      "status": "modified"
+    },
+    {
+      "path": "images/items/4001.webp",
+      "size": 198,
+      "sha256": "f201e05254a3f439c1bb8d4cd45d74f5f30b4456994c336deef677ac6b661c42",
+      "status": "modified"
+    },
+    {
+      "path": "images/items/card_boss.webp",
+      "size": 182,
+      "sha256": "ad11f802a369f0fea55b777535389517b9517d02a4a4185f7a145b438cf5faf9",
+      "status": "new"
+    },
+    {
+      "path": "images/items/card_mvp.webp",
+      "size": 190,
+      "sha256": "ba704b01692b22581ae6694ed05400ec9b974e570f97dc75a9cb4928f4c0d4f4",
+      "status": "new"
+    },
+    {
+      "path": "images/items/card_normal.webp",
+      "size": 198,
+      "sha256": "f201e05254a3f439c1bb8d4cd45d74f5f30b4456994c336deef677ac6b661c42",
+      "status": "new"
+    },
+    {
+      "path": "index.html",
+      "size": 30882,
+      "sha256": "948e38055b45190d26e61a132b562213c70e0ae07306348c4797bbe299cf1d43",
+      "status": "modified"
+    },
+    {
+      "path": "js/battle.js",
+      "size": 87253,
+      "sha256": "d44d2f2b6886b9814d0cb4c96ebf7a0986f25d31404cfb5a9b6acbbcd4ca837f",
+      "status": "modified"
+    },
+    {
+      "path": "js/card_runtime.js",
+      "size": 63825,
+      "sha256": "114806c69eb5a981e6eb9185627474e665963d29ed87268a1cbf04ab54719382",
+      "status": "modified"
+    },
+    {
+      "path": "js/combat_mechanics_runtime.js",
+      "size": 35489,
+      "sha256": "0300c9041449691f6ce6d55b46c9708a116aa6939428715a58a7dfc313702c2b",
+      "status": "modified"
+    },
+    {
+      "path": "js/data_bundle.js",
+      "size": 33850779,
+      "sha256": "9feb3cff286d9a14267419ccb914b055436aa6a930d93c3f5f1b3bd331e9769d",
+      "status": "modified"
+    },
+    {
+      "path": "js/game.js",
+      "size": 16751,
+      "sha256": "44d8c75b7071a2779da509cad365b17a1a6cd57226298fa3259c791163cfc723",
+      "status": "modified"
+    },
+    {
+      "path": "js/homunculus.js",
+      "size": 19628,
+      "sha256": "079ae7fb8717631c4a08270c1caa1b5538135f2a00a3c6cf26535f782e4ca5a4",
+      "status": "modified"
+    },
+    {
+      "path": "js/item_instance_ui.js",
+      "size": 33079,
+      "sha256": "39b66b59bc19c31834104dd049b21c23cd2b17d3981b01a8a86e9fa15bce7afc",
+      "status": "modified"
+    },
+    {
+      "path": "js/job.js",
+      "size": 67895,
+      "sha256": "0500ba618b48e6955843b7940551604368d8762545a87dfcc49435960dd7b61d",
+      "status": "modified"
+    },
+    {
+      "path": "js/player.js",
+      "size": 98583,
+      "sha256": "ae84a25389bb19fc05e7a52eec37237906b0eef2003dda6113a962fcb82c60b4",
+      "status": "modified"
+    },
+    {
+      "path": "js/quick_slots.js",
+      "size": 30520,
+      "sha256": "4f56297cc9efb8f5d4b5f4a05037a5e25e12c498ba7dee43c0b147b40fc8b8c5",
+      "status": "modified"
+    },
+    {
+      "path": "js/skill_engine.js",
+      "size": 363649,
+      "sha256": "e0fac9a11bc31024bed22a6b0b4bda06389e03fcf833c8ea7deea30412148e7b",
+      "status": "modified"
+    },
+    {
+      "path": "js/status_system.js",
+      "size": 83471,
+      "sha256": "ab4fe2ab228a146d5e8f0ff07ff11b80a89abedf7279584f49784f2930cf1dc5",
+      "status": "modified"
+    },
+    {
+      "path": "js/virtual_summon.js",
+      "size": 40029,
+      "sha256": "df428e16925e13b14b9d2e8fc9d40d93c317861616a126ea06cf83803867f682",
+      "status": "modified"
+    },
+    {
+      "path": "tools/build_data_bundle_0.9.82GB.py",
+      "size": 804,
+      "sha256": "7444906db11d6018474907181e1e285a7423f83f39b4d8135aac39986ffc6523",
+      "status": "new"
+    },
+    {
+      "path": "tools/deep_health_check_0.9.82GB.py",
+      "size": 21283,
+      "sha256": "aec3ab99ffcaa72824d002f81f8e8edaaf89a43e2d3d9acd718e00cb7c68c60b",
+      "status": "new"
+    },
+    {
+      "path": "tools/deep_health_report_0.9.82GB.json",
+      "size": 2045,
+      "sha256": "368bc5e69f5b64bf7748087d4c48dbbd080b79b8467699e0ebb354e4a9e9f04d",
+      "status": "new"
+    },
+    {
+      "path": "tools/js_syntax_report_0.9.82GB.json",
+      "size": 27,
+      "sha256": "46d2d8a96dc28049f6f55f2ce3b2d4a88bcd0929ec245147afa78d1fc2011aa9",
+      "status": "new"
+    },
+    {
+      "path": "tools/melee_family_targeting_audit_0.9.82GB.json",
+      "size": 52475,
+      "sha256": "b16f0c3480a29a9d3b164ce0dcbf1c992669dc44e6ee7f23dc58f3103c346a0b",
+      "status": "new"
+    },
+    {
+      "path": "tools/test_0.9.82GB.py",
+      "size": 15096,
+      "sha256": "edc0b2df76430fd0b7c565f3ab63c4d77b80bdcdc27277bf6d1b5ab1541f3a01",
+      "status": "new"
+    },
+    {
+      "path": "tools/test_effect_runtime_0.9.82GB.js",
+      "size": 22829,
+      "sha256": "f167a62af56243decae3d8352e2c4de629a28e1e885cce67ee63447e9db2989f",
+      "status": "new"
+    },
+    {
+      "path": "tools/test_effect_runtime_report_0.9.82GB.json",
+      "size": 12457,
+      "sha256": "be685b4f61446412028a1b1e6065972e08996d529a65808a3938bc4d29e19512",
+      "status": "new"
+    },
+    {
+      "path": "tools/test_gb_runtime_0.9.82GB.js",
+      "size": 11815,
+      "sha256": "2f342312672ab1fd349806c6ee7695ef472cb75da051bdec3451eba00070aaa8",
+      "status": "new"
+    },
+    {
+      "path": "tools/test_gb_runtime_report_0.9.82GB.json",
+      "size": 3583,
+      "sha256": "2ceb93714af163db7fb3cee157d3b26a1bccbeb9ce5165811836ae5ca3680934",
+      "status": "new"
+    },
+    {
+      "path": "tools/test_gb_summon_ui_0.9.82GB.js",
+      "size": 5022,
+      "sha256": "7b3b7e4cc9e41a5325703aa2459df6650014cbc5a90a9f86d125411e44870abe",
+      "status": "new"
+    },
+    {
+      "path": "tools/test_gb_summon_ui_report_0.9.82GB.json",
+      "size": 2406,
+      "sha256": "fd21d15729895e6aa104026c5359022f023fedc5777eb9a6beb69caee54bd2e9",
+      "status": "new"
+    },
+    {
+      "path": "tools/test_report_0.9.82GB.json",
+      "size": 8877,
+      "sha256": "b668624446ed7ce6a286049b3b2bf747748b78e5b2eed21b89a95ffe15194894",
+      "status": "new"
+    }
+  ],
+  "notes": [
+    "將 ZIP 根目錄全部合併覆蓋到 GitHub roweb 根目錄。",
+    "本版不需要刪除舊檔。",
+    "GitHub Pages 更新後請 Ctrl+F5。"
+  ]
+}

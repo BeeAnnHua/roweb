@@ -7,6 +7,7 @@
 let virtualSummonData = null;
 let virtualSummonLastAttackAt = 0;
 let virtualSummonUiTimer = null;
+let virtualSummonUiSignature = "";
 const independentSummonLastActionAt = Object.create(null);
 
 async function loadVirtualSummonData() {
@@ -482,42 +483,184 @@ function dismissVirtualSummon() {
   updateVirtualSummonUI(); return true;
 }
 
-function getIndependentSummonUiHtml() {
-  const rows = getActiveIndependentSummons().map(summon => {
-    const detonateAt = Number(summon.buff?.effects?.detonateAt || 0);
-    const remaining = formatVirtualSummonRemainingTime(detonateAt > 0 ? detonateAt : summon.buff?.expiresAt);
-    const status = detonateAt > 0 ? `自爆倒數 ${remaining}` : `剩餘 ${remaining}`;
-    return `<div class="virtual-summon-note"><strong>${summon.definition.displayName}</strong>（獨立召喚）：${status}</div>`;
-  });
-  return rows.length ? rows.join("") : "";
+function escapeVirtualSummonHtml(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
 
-function updateVirtualSummonUI() {
+function isVirtualSummonWindowVisible() {
+  const node = typeof document !== "undefined" ? document.getElementById("virtual-summon-window") : null;
+  return !!(node && !node.classList.contains("hidden-window"));
+}
+
+function getSummonUiMountEntry() {
+  if (!player) return null;
+  const mounted = !!player?.mountState?.mounted;
+  const activeType = mounted ? String(player?.mountState?.type || player?.mountState?.assetKey || "") : "";
+  const candidates = [];
+  if (activeType) candidates.push(activeType);
+  if (typeof resolvePlayerMountType === "function") candidates.push(String(resolvePlayerMountType("swordman") || ""));
+  candidates.push("dragon", "griffon", "peco", "mado");
+  const seen = new Set();
+  for (const type of candidates) {
+    if (!type || seen.has(type)) continue;
+    seen.add(type);
+    const definition = typeof getMountRuntimeDefinition === "function" ? getMountRuntimeDefinition(type) : null;
+    const active = mounted && activeType === type;
+    const available = active || (typeof canPlayerUseMount === "function" && canPlayerUseMount(type));
+    if (!definition || !available) continue;
+    return { type, definition, active };
+  }
+  return null;
+}
+
+function toggleSummonUiMount(type) {
+  const requested = String(type || "peco");
+  const active = !!player?.mountState?.mounted && String(player?.mountState?.type || "") === requested;
+  const result = typeof setPlayerMounted === "function" ? setPlayerMounted(!active, requested) : false;
+  updateVirtualSummonUI(true);
+  return result;
+}
+
+function dismissFalconFromSummonUI() {
+  if (typeof setFalconActiveRuntime !== "function") return false;
+  const changed = setFalconActiveRuntime(false);
+  if (typeof addBattleLog === "function") addBattleLog("獵鷹已收回。", "summon");
+  updateVirtualSummonUI(true);
+  return changed;
+}
+
+function dismissWargFromSummonUI() {
+  if (typeof setWargActiveRuntime !== "function") return false;
+  const changed = setWargActiveRuntime(false);
+  if (typeof addBattleLog === "function") addBattleLog("狼協助狀態已解除。", "summon");
+  updateVirtualSummonUI(true);
+  return changed;
+}
+
+function openHomunculusManagerFromSummonUI() {
+  if (window.HomunculusManager?.open) return window.HomunculusManager.open();
+  if (typeof openHomunculusWindow === "function") return openHomunculusWindow();
+  return false;
+}
+
+function renderUnifiedSummonCard({ kind, title, meta = "", note = "", active = true, actions = "" }) {
+  return `<article class="virtual-summon-card${active ? " is-active" : " is-inactive"}" data-kind="${escapeVirtualSummonHtml(kind)}">
+    <div class="virtual-summon-card-head"><strong>${escapeVirtualSummonHtml(title)}</strong><span>${active ? "活動中" : "待命"}</span></div>
+    ${meta ? `<div class="virtual-summon-card-meta">${meta}</div>` : ""}
+    ${note ? `<div class="virtual-summon-card-note">${note}</div>` : ""}
+    ${actions ? `<div class="virtual-summon-card-actions">${actions}</div>` : ""}
+  </article>`;
+}
+
+function getUnifiedSummonUiModel() {
+  const rows = [];
+  const mount = getSummonUiMountEntry();
+  if (mount) {
+    const isDragon = mount.type === "dragon";
+    rows.push({
+      kind: "mount",
+      title: mount.definition?.displayName || "坐騎",
+      active: mount.active,
+      meta: `類型：騎乘／${mount.active ? "目前騎乘中" : "目前未騎乘"}`,
+      note: isDragon ? "盧恩騎士與盧恩龍爵由「龍駕馭」解鎖；三轉後不再透過二轉騎乘術切換。" : "坐騎狀態會同步人物動畫與需要騎乘的技能條件。",
+      actions: `<button type="button" onclick="toggleSummonUiMount('${escapeVirtualSummonHtml(mount.type)}')">${mount.active ? "解除騎乘" : "開始騎乘"}</button>`
+    });
+  }
+
+  const falconActive = typeof isFalconActiveRuntime === "function" && isFalconActiveRuntime();
+  if (falconActive) rows.push({
+    kind: "falcon", title: "獵鷹", active: true,
+    meta: "類型：遠距離協助召喚物",
+    note: "可與狼同時存在；不具有獨立 HP／SP／EXP，也不會被怪物攻擊。",
+    actions: '<button type="button" onclick="dismissFalconFromSummonUI()">收回獵鷹</button>'
+  });
+
+  const wargActive = typeof isWargActiveRuntime === "function" && isWargActiveRuntime();
+  if (wargActive) rows.push({
+    kind: "warg", title: "狼", active: true,
+    meta: "類型：遊俠協助召喚物",
+    note: "RO_WEB 將狼視為協助單位，可與獵鷹同時存在；騎狼術仍為永久移動速度被動。",
+    actions: '<button type="button" onclick="dismissWargFromSummonUI()">解除狼協助</button>'
+  });
+
+  const homunculus = window.HomunculusManager?.getActive?.() || (typeof getActiveHomunculus === "function" ? getActiveHomunculus() : null);
+  if (homunculus) {
+    const assist = homunculus.state?.assistEnabled !== false;
+    rows.push({
+      kind: "homunculus", title: homunculus.definition?.name || "生命體", active: true,
+      meta: `類型：生命體・同步 BaseLv ${Math.max(1, Number(homunculus.level || 1))}・${assist ? "自動協助中" : "已停止協助"}`,
+      note: "生命體使用專用欄位，可與狼、獵鷹、元素精靈及其他召喚物同時存在。",
+      actions: `<button type="button" onclick="setHomunculusAssistEnabled(${assist ? "false" : "true"});updateVirtualSummonUI(true)">${assist ? "停止協助" : "恢復協助"}</button><button type="button" onclick="commandHomunculusAction()">立即行動</button><button type="button" onclick="restHomunculus();updateVirtualSummonUI(true)">安息</button><button type="button" onclick="openHomunculusManagerFromSummonUI()">生命體管理</button>`
+    });
+  }
+
+  const summon = getActiveVirtualSummon();
+  if (summon) {
+    const settings = getVirtualSummonSettings();
+    const text = virtualSummonData?.uiText || {};
+    const activeText = summon.definition.supportAction === true ? "支援運作中" : (text.assistOn || "協助攻擊中");
+    const stoppedText = summon.definition.supportAction === true ? "已停止支援" : (text.assistOff || "已停止攻擊");
+    const gradeText = summon.configured ? `技能 Lv${summon.level}` : (summon.high ? "高階元素" : `Lv${summon.grade}`);
+    const typeText = [summon.definition.categoryLabel || summon.definition.elementLabel || summon.definition.element, summon.definition.roleLabel, gradeText].filter(Boolean).join("・");
+    rows.push({
+      kind: "virtual", title: summon.definition.displayName, active: true,
+      meta: `${escapeVirtualSummonHtml(typeText)}<br>狀態：${settings.assistEnabled ? activeText : stoppedText}<br>剩餘：${formatVirtualSummonRemainingTime(summon.buff?.expiresAt)}`,
+      note: summon.definition.supportAction === true ? "定期恢復並支援玩家。" : "協助攻擊玩家目前鎖定的怪物。",
+      actions: `<button type="button" onclick="setVirtualSummonAssistEnabled(${settings.assistEnabled ? "false" : "true"})">${settings.assistEnabled ? (text.stop || "停止攻擊") : (text.resume || "恢復協助")}</button><button type="button" onclick="commandVirtualSummonAction()">${text.manualAction || "立即使用技能"}</button><button type="button" onclick="dismissVirtualSummon()">${text.dismiss || "解除召喚"}</button>`
+    });
+  }
+
+  for (const independent of getActiveIndependentSummons()) {
+    const detonateAt = Number(independent.buff?.effects?.detonateAt || 0);
+    const remaining = formatVirtualSummonRemainingTime(detonateAt > 0 ? detonateAt : independent.buff?.expiresAt);
+    rows.push({
+      kind: `independent-${independent.type}`,
+      title: independent.definition?.displayName || independent.type,
+      active: true,
+      meta: `類型：獨立召喚物・${detonateAt > 0 ? `自爆倒數 ${remaining}` : `剩餘 ${remaining}`}`,
+      note: "依自身週期行動，不占用狼、獵鷹、生命體或主要召喚物欄位。",
+      actions: ""
+    });
+  }
+  return rows;
+}
+
+function updateVirtualSummonUI(force = false) {
   const panel = typeof document !== "undefined" ? document.getElementById("virtual-summon-panel") : null;
   if (!panel) return;
-  const summon = getActiveVirtualSummon(), text = virtualSummonData?.uiText || {}, independentHtml = getIndependentSummonUiHtml();
-  if (!summon) { panel.innerHTML = `<div class="virtual-summon-empty">${text.empty || "目前沒有召喚物。"}</div>${independentHtml}`; return; }
-  const settings = getVirtualSummonSettings();
-  const activeText = summon.definition.supportAction === true ? "支援運作中" : (text.assistOn || "協助攻擊中");
-  const stoppedText = summon.definition.supportAction === true ? "已停止支援" : (text.assistOff || "已停止攻擊");
-  const statusText = settings.assistEnabled ? activeText : stoppedText;
-  const gradeText = summon.configured ? `技能 Lv${summon.level}` : (summon.high ? "高階元素" : `Lv${summon.grade}`);
-  const typeText = [summon.definition.categoryLabel || summon.definition.elementLabel || summon.definition.element, summon.definition.roleLabel, gradeText].filter(Boolean).join("・");
-  panel.innerHTML = `
-    <div class="virtual-summon-name">${summon.definition.displayName}</div>
-    <div class="virtual-summon-meta">${typeText}<br>狀態：${statusText}<br>剩餘：${formatVirtualSummonRemainingTime(summon.buff?.expiresAt)}</div>
-    <div class="virtual-summon-note">${summon.definition.supportAction === true ? "定期恢復並支援玩家" : "只協助攻擊玩家目前鎖定的怪物"}；沒有地圖圖像、HP、SP、EXP，也不會被怪物攻擊。</div>
-    <div class="virtual-summon-actions">
-      <button type="button" onclick="setVirtualSummonAssistEnabled(${settings.assistEnabled ? "false" : "true"})">${settings.assistEnabled ? (text.stop || "停止攻擊") : (text.resume || "恢復協助")}</button>
-      <button type="button" onclick="commandVirtualSummonAction()">${text.manualAction || "立即使用技能"}</button>
-      <button type="button" onclick="dismissVirtualSummon()">${text.dismiss || "解除召喚"}</button>
-    </div>${independentHtml}`;
+  if (!force && !isVirtualSummonWindowVisible()) return;
+  const rows = getUnifiedSummonUiModel();
+  const signature = JSON.stringify(rows.map(row => ({ kind:row.kind,title:row.title,meta:row.meta,note:row.note,active:row.active,actions:row.actions })));
+  if (!force && signature === virtualSummonUiSignature) return;
+  virtualSummonUiSignature = signature;
+  const activeCount = rows.filter(row => row.active).length;
+  const cards = rows.map(renderUnifiedSummonCard).join("");
+  panel.innerHTML = `<div class="virtual-summon-summary"><strong>召喚／騎乘狀態</strong><span>${activeCount} 個活動中</span></div>${cards || '<div class="virtual-summon-empty">目前沒有活動中的坐騎、獵鷹、狼、生命體或其他召喚物。召喚後會立即顯示在這裡。</div>'}`;
 }
 
-function openVirtualSummonWindow() { const node=typeof document!=="undefined"?document.getElementById("virtual-summon-window"):null; if(node)node.classList.remove("hidden-window"); updateVirtualSummonUI(); }
-function castSummonControlSkill() { openVirtualSummonWindow(); if(!getActiveVirtualSummon()&&typeof addBattleLog==="function")addBattleLog(virtualSummonData?.uiText?.noSummon||"目前沒有可控制的召喚物。","summon"); return true; }
+function openVirtualSummonWindow() {
+  const node=typeof document!=="undefined"?document.getElementById("virtual-summon-window"):null;
+  if(node) node.classList.remove("hidden-window");
+  updateVirtualSummonUI(true);
+}
+function castSummonControlSkill() {
+  openVirtualSummonWindow();
+  const rows = getUnifiedSummonUiModel();
+  if (!rows.length && typeof addBattleLog === "function") addBattleLog(virtualSummonData?.uiText?.noSummon || "目前沒有可控制的召喚物。", "summon");
+  return true;
+}
 function notifyVirtualSummonStateChanged() { virtualSummonLastAttackAt=0; const summon=getActiveVirtualSummon(); if(summon&&typeof addBattleLog==="function")addBattleLog(`${summon.definition.displayName}：已加入戰鬥，${summon.definition.supportAction === true ? "將定期支援玩家" : "將協助攻擊你目前的目標"}。`,"summon"); updateVirtualSummonUI(); }
 function startVirtualSummonUiRefresh(){if(virtualSummonUiTimer)return;virtualSummonUiTimer=setInterval(()=>{const result=runIndependentSummonTick(currentMonster);if(result?.defeated&&typeof defeatMonster==="function")defeatMonster();updateVirtualSummonUI();},1000);}
 function stopVirtualSummonUiRefresh(){if(!virtualSummonUiTimer)return;clearInterval(virtualSummonUiTimer);virtualSummonUiTimer=null;}
 
-window.VirtualSummonManager={getActive:getActiveVirtualSummon,getIndependent:getActiveIndependentSummons,assistTick:runVirtualSummonAssistTick,independentTick:runIndependentSummonTick,cast:castVirtualSummonSkill,castIndependent:castIndependentSummonSkill,castDismiss:castVirtualSummonDismissSkill,setAssistEnabled:setVirtualSummonAssistEnabled,commandAction:commandVirtualSummonAction,dismiss:dismissVirtualSummon,open:openVirtualSummonWindow,getSummonDamageMasteryRate};
+window.toggleSummonUiMount = toggleSummonUiMount;
+window.dismissFalconFromSummonUI = dismissFalconFromSummonUI;
+window.dismissWargFromSummonUI = dismissWargFromSummonUI;
+window.openHomunculusManagerFromSummonUI = openHomunculusManagerFromSummonUI;
+window.updateVirtualSummonUI = updateVirtualSummonUI;
+window.VirtualSummonManager={getActive:getActiveVirtualSummon,getIndependent:getActiveIndependentSummons,getUiModel:getUnifiedSummonUiModel,assistTick:runVirtualSummonAssistTick,independentTick:runIndependentSummonTick,cast:castVirtualSummonSkill,castIndependent:castIndependentSummonSkill,castDismiss:castVirtualSummonDismissSkill,setAssistEnabled:setVirtualSummonAssistEnabled,commandAction:commandVirtualSummonAction,dismiss:dismissVirtualSummon,open:openVirtualSummonWindow,getSummonDamageMasteryRate};

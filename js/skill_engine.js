@@ -255,6 +255,7 @@ function setPlayerMounted(mounted, mountType = "peco") {
   if (typeof recalculatePlayerStats === "function") recalculatePlayerStats();
   if (typeof updatePlayerUI === "function") updatePlayerUI();
   if (typeof saveGame === "function") saveGame();
+  if (typeof updateVirtualSummonUI === "function") updateVirtualSummonUI(true);
   // 劍士坐騎圖加入後，由這個單一入口切換 Character Atlas / Body。
   if (typeof window.onROWebMountStateChanged === "function") window.onROWebMountStateChanged(player.mountState);
   if (typeof addBattleLog === "function") {
@@ -1469,6 +1470,7 @@ function setFalconActiveRuntime(active) {
   player.falconActive = enabled;
   if (typeof saveGame === "function") saveGame();
   if (typeof updatePlayerUI === "function") updatePlayerUI();
+  if (typeof updateVirtualSummonUI === "function") updateVirtualSummonUI(true);
   return enabled;
 }
 
@@ -1477,7 +1479,7 @@ function castFalconToggleSkill(skill, requestedLevel = null) {
   if (!check.ok) return reportPendingRuntime(skill, check.reason);
   const enabling = !isFalconActiveRuntime();
   paySkillCost(skill, check.level, { skipAnimation: !enabling, toggleOff: !enabling });
-  if (enabling && typeof setWargActiveRuntime === "function") setWargActiveRuntime(false);
+  // RO_WEB：狼與獵鷹皆為協助召喚物，可同時存在。
   const enabled = setFalconActiveRuntime(enabling);
   if (typeof addBattleLog === "function") addBattleLog(enabled ? `${skill.name}：獵鷹已加入協助。` : `${skill.name}：獵鷹已收回。`);
   return true;
@@ -1730,6 +1732,7 @@ function setWargActiveRuntime(active) {
   if (!enabled) setWargRidingRuntime(false);
   if (typeof saveGame === "function") saveGame();
   if (typeof updatePlayerUI === "function") updatePlayerUI();
+  if (typeof updateVirtualSummonUI === "function") updateVirtualSummonUI(true);
   return enabled;
 }
 
@@ -1738,7 +1741,7 @@ function castWargToggleSkill(skill, requestedLevel = null) {
   if (!check.ok) return reportPendingRuntime(skill, check.reason);
   const enabling = !isWargActiveRuntime();
   paySkillCost(skill, check.level, { skipAnimation: !enabling, toggleOff: !enabling });
-  if (enabling && typeof setFalconActiveRuntime === "function") setFalconActiveRuntime(false);
+  // RO_WEB：狼與獵鷹皆為協助召喚物，可同時存在。
   const enabled = setWargActiveRuntime(enabling);
   if (typeof addBattleLog === "function") addBattleLog(enabled ? `${skill.name}：協助狀態已啟用。` : `${skill.name}：協助狀態已解除。`);
   return true;

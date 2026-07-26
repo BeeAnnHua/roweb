@@ -172,6 +172,7 @@ function getAutoBattleNextDelayMs(now = Date.now()) {
 
 function runAutoBattleControllerTick() {
   if (!autoBattleRunning || !player || player.currentCity || Number(player.hp || 0) <= 0) return false;
+  if (window.RO_WEB_PLAYER_BUILD_MUTATION === true) return true;
 
   const utility = typeof runAutoCombatUtilityTick === "function" ? runAutoCombatUtilityTick() : { action: "none" };
   if (utility?.action === "utility") {
@@ -574,7 +575,11 @@ function autoAttackMonster(options = {}) {
         if (currentMonster.currentHp <= 0) { defeatMonster(); return; }
         monsterAttackPlayer(); return;
       }
-      return;
+      // 最後執行階段失敗時（姿態、瞬間目標變化或 Runtime 條件），
+      // 輪到下一格並回退普攻，避免近戰角色原地反覆重試同一招而看起來卡頓。
+      if (typeof commitAutoAttackSkillRotation === "function") commitAutoAttackSkillRotation(autoAction.slotIndex);
+      if (player?.autoCombat?.normalAttack?.enabled === false) return;
+      autoAction = { action:"normal", fallbackFromFailedSkill:true };
     }
   }
 

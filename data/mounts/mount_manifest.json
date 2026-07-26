@@ -1,5 +1,5 @@
 {
-  "version": "0.9.82DR",
+  "version": "0.9.82GB",
   "schema": "ro_web_mount_manifest_v2",
   "defaultState": {
     "mounted": false,
@@ -19,7 +19,7 @@
         "royal_guard": "griffon",
         "imperial_guard": "griffon"
       },
-      "note": "KN_RIDING 依目前劍士家族職業解析坐騎種類；人物 Atlas 於劍士坐騎素材加入後由同一 mountState 切換。"
+      "note": "KN_RIDING 僅供二轉大嘴鳥／獅鷲切換；盧恩騎士與盧恩龍爵由龍駕馭解鎖，並於召喚物控制切換龍坐騎。"
     }
   },
   "mounts": {
@@ -42,7 +42,7 @@
       "mountType": "dragon",
       "displayName": "龍坐騎",
       "requiredSkillId": 2007,
-      "toggleSkillId": 63,
+      "toggleSkillId": null,
       "allowedJobs": [
         "rune_knight",
         "dragon_knight"
@@ -50,7 +50,8 @@
       "carryingCapacityBonus": 0,
       "rentalEnabled": false,
       "assetStatus": "pending_swordman_mount_assets",
-      "note": "需學會龍駕馭；龍息、龍之咆哮與龍威氣息要求騎龍。RO_WEB 不增加負重量。"
+      "note": "需學會龍駕馭；三轉後不使用二轉騎乘術，於召喚物控制切換龍坐騎。龍息系技能要求騎龍；不增加負重量。",
+      "control": "virtual_summon_window"
     },
     "griffon": {
       "mountType": "griffon",

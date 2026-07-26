@@ -476,10 +476,22 @@
       }
     }
     const counts={}; equippedIds.forEach(id=>counts[String(id)]=n(counts[String(id)])+1);
+    const equippedAegisNames=rows.flatMap(row=>[
+      row.item?.aegisName,row.item?.AegisName,
+      ...(row.instance?.cards||[]).filter(Boolean).flatMap(cardId=>{
+        const card=window.getItemData?.(cardId)||DATA.effects[String(cardId)]||{};
+        return [card.aegisName,card.AegisName];
+      })
+    ]).filter(Boolean).map(String);
+    const nameCounts={}; equippedAegisNames.forEach(name=>nameCounts[name]=n(nameCounts[name])+1);
     for (const combo of DATA.combos) {
-      const need={}; combo.requiredItemIds.forEach(id=>need[String(id)]=n(need[String(id)])+1);
-      if (!Object.entries(need).every(([id,count])=>n(counts[id])>=count)) continue;
+      const need={}; (combo.requiredItemIds||[]).forEach(id=>need[String(id)]=n(need[String(id)])+1);
+      const idsOk=Object.keys(need).length>0&&Object.entries(need).every(([id,count])=>n(counts[id])>=count);
+      const needNames={}; (combo.requiredAegisNames||[]).filter(Boolean).forEach(name=>needNames[String(name)]=n(needNames[String(name)])+1);
+      const namesOk=Object.keys(needNames).length>0&&Object.entries(needNames).every(([name,count])=>n(nameCounts[name])>=count);
+      if (!idsOk && !namesOk) continue;
       const source=executeScript(combo,{sourceType:"combo",equippedIds,maxRefine:Math.max(0,...rows.map(x=>x.refine))});
+      source.comboMatchMode=idsOk?"item_id":"aegis_name";
       recordDiagnostic(source); sources.push(source);
     }
     sources.push(...tempSources());
@@ -491,7 +503,10 @@
     const merged={id:"card_runtime_total",name:"卡片與套裝總和",sourceType:"cardTotal"};
     getSources().forEach(source=>mergeSource(merged,source)); CACHE.all=merged; return merged;
   }
-  function invalidate() { CACHE.signature=""; CACHE.all=null; }
+  function invalidate() {
+    CACHE.signature=""; CACHE.all=null;
+    window.invalidatePlayerUiRenderCaches?.("status");
+  }
   function isCardCompatible(card, item, slot) {
     const targets=card?.cardTarget || DATA.effects?.[String(card?.id)]?.cardTarget || [];
     if (!Array.isArray(targets) || !targets.length) return false;
@@ -867,7 +882,7 @@
 
 
   window.CardRuntime = {
-    version:"0.9.82FX", init, invalidate, getSources, getMergedSource, getCardRecord:id=>(init(),DATA.effects[String(id)]||null),
+    version:"0.9.82GB", init, invalidate, getSources, getMergedSource, getCardRecord:id=>(init(),DATA.effects[String(id)]||null),
     getComboRecords:()=> (init(),DATA.combos), getSocketCandidates, socketCard, isCardCompatible, removeAllCardsFromEquipped,
     onNormalAttack,onPlayerDamaged,onSkillUsed,onMonsterDefeated,rollExtraDrops,getExpRate,getSkillDamageRate,getSkillSpCostModifier,getItemRecoveryRate,tickPeriodicEffects,
     getBuildCounts:()=>({cards:Object.keys(DATA.effects).length,equipmentScripts:Object.keys(DATA.equipment).length,combos:DATA.combos.length,dropSources:Object.values(DATA.drops).reduce((n,x)=>n+(x?.length||0),0)}),

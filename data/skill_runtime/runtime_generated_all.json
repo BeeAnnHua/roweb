@@ -206,7 +206,7 @@
     "3": {
       "skillId": 3,
       "skillKey": "SM_TWOHAND",
-      "name": "雙手劍修練",
+      "name": "雙手劍使用熟練度",
       "core": "core1",
       "handler": "passive",
       "suggestedHandler": "passive",
@@ -3354,7 +3354,7 @@
     "55": {
       "skillId": 55,
       "skillKey": "KN_SPEARMASTERY",
-      "name": "長矛修練",
+      "name": "長矛使用熟練度",
       "core": "core1",
       "handler": "passive",
       "suggestedHandler": "passive",
@@ -8757,7 +8757,7 @@
     "144": {
       "skillId": 144,
       "skillKey": "SM_MOVINGRECOVERY",
-      "name": "移動時恢復 HP",
+      "name": "移動時恢復HP",
       "core": "core1",
       "handler": "passive",
       "suggestedHandler": "passive",
@@ -14880,7 +14880,7 @@
     "355": {
       "skillId": 355,
       "skillKey": "LK_AURABLADE",
-      "name": "Aura Blade",
+      "name": "靈氣劍",
       "core": "core1",
       "handler": "buff",
       "suggestedHandler": "buff",
@@ -14927,7 +14927,7 @@
     "356": {
       "skillId": 356,
       "skillKey": "LK_PARRYING",
-      "name": "Parrying",
+      "name": "雙劍格擋",
       "core": "core1",
       "handler": "buff",
       "suggestedHandler": "buff",
@@ -14990,7 +14990,7 @@
     "357": {
       "skillId": 357,
       "skillKey": "LK_CONCENTRATION",
-      "name": "Concentration",
+      "name": "集中攻擊",
       "core": "core1",
       "handler": "buff",
       "suggestedHandler": "buff",
@@ -15065,7 +15065,7 @@
     "358": {
       "skillId": 358,
       "skillKey": "LK_TENSIONRELAX",
-      "name": "Relax",
+      "name": "極速回復",
       "core": "core1",
       "handler": "buff",
       "suggestedHandler": "buff",
@@ -15099,7 +15099,7 @@
     "359": {
       "skillId": 359,
       "skillKey": "LK_BERSERK",
-      "name": "Frenzy",
+      "name": "狂怒之槍",
       "core": "core1",
       "handler": "buff",
       "suggestedHandler": "buff",
@@ -16767,7 +16767,7 @@
     "397": {
       "skillId": 397,
       "skillKey": "LK_SPIRALPIERCE",
-      "name": "Spiral Pierce",
+      "name": "螺旋擊刺",
       "core": "core1",
       "handler": "physical_attack_formula",
       "suggestedHandler": "physical_attack_formula",
@@ -16803,7 +16803,7 @@
     "398": {
       "skillId": 398,
       "skillKey": "LK_HEADCRUSH",
-      "name": "Traumatic Blow",
+      "name": "傷害增壓",
       "core": "core1",
       "handler": "physical_attack",
       "suggestedHandler": "physical_attack",
@@ -16859,7 +16859,7 @@
     "399": {
       "skillId": 399,
       "skillKey": "LK_JOINTBEAT",
-      "name": "Vital Strike",
+      "name": "巧打",
       "core": "core1",
       "handler": "physical_attack",
       "suggestedHandler": "physical_attack",
@@ -21489,7 +21489,7 @@
     "2001": {
       "skillId": 2001,
       "skillKey": "RK_ENCHANTBLADE",
-      "name": "Enchant Blade",
+      "name": "魔力劍",
       "core": "core1",
       "handler": "buff",
       "suggestedHandler": "buff",
@@ -21524,7 +21524,7 @@
     "2002": {
       "skillId": 2002,
       "skillKey": "RK_SONICWAVE",
-      "name": "Sonic Wave",
+      "name": "音速衝擊波",
       "core": "core1",
       "handler": "physical_attack",
       "suggestedHandler": "physical_attack",
@@ -21576,7 +21576,7 @@
     "2003": {
       "skillId": 2003,
       "skillKey": "RK_DEATHBOUND",
-      "name": "Death Bound",
+      "name": "死亡反彈",
       "core": "core1",
       "handler": "counter_stance",
       "suggestedHandler": "counter_stance",
@@ -21628,7 +21628,7 @@
     "2004": {
       "skillId": 2004,
       "skillKey": "RK_HUNDREDSPEAR",
-      "name": "Hundred Spear",
+      "name": "百矛穿刺",
       "core": "core1",
       "handler": "physical_attack",
       "suggestedHandler": "physical_attack",
@@ -21686,7 +21686,7 @@
     "2005": {
       "skillId": 2005,
       "skillKey": "RK_WINDCUTTER",
-      "name": "Wind Cutter",
+      "name": "風壓飛刃",
       "core": "core1",
       "handler": "physical_attack",
       "suggestedHandler": "physical_attack",
@@ -21738,7 +21738,7 @@
     "2006": {
       "skillId": 2006,
       "skillKey": "RK_IGNITIONBREAK",
-      "name": "Ignition Break",
+      "name": "致命爆裂",
       "core": "core1",
       "handler": "physical_attack",
       "suggestedHandler": "physical_attack",
@@ -21816,7 +21816,7 @@
             50
           ]
         },
-        "source": "RO_WEB adaptation of rAthena RK_DRAGONTRAINING: unlocks dragon mount through KN_RIDING, retains Dragon Breath damage bonus, removes carrying capacity and dragon ASPD effects.",
+        "source": "RO_WEB adaptation of rAthena RK_DRAGONTRAINING: unlocks dragon mount through summon control UI, retains Dragon Breath damage bonus, removes carrying capacity and dragon ASPD effects.",
         "mountUnlockType": "dragon",
         "toggleSkillId": 63
       },
@@ -21826,7 +21826,7 @@
     "2008": {
       "skillId": 2008,
       "skillKey": "RK_DRAGONBREATH",
-      "name": "Dragon Breath",
+      "name": "龍之氣息",
       "core": "core1",
       "handler": "physical_attack_formula",
       "suggestedHandler": "physical_attack_formula",
@@ -21890,7 +21890,7 @@
     "2009": {
       "skillId": 2009,
       "skillKey": "RK_DRAGONHOWLING",
-      "name": "Dragon Howling",
+      "name": "龍之咆哮",
       "core": "core1",
       "handler": "debuff",
       "suggestedHandler": "debuff",
@@ -22016,7 +22016,7 @@
     "2020": {
       "skillId": 2020,
       "skillKey": "RK_PHANTOMTHRUST",
-      "name": "Phantom Thrust",
+      "name": "幻象突刺",
       "core": "core1",
       "handler": "physical_attack",
       "suggestedHandler": "physical_attack",
@@ -26164,7 +26164,7 @@
           "rAthena db/re/skill_db.yml RA_WUGMASTERY",
           "rAthena src/map/skills/archer/wargmastery.cpp"
         ],
-        "runtimeAdaptation": "切換輕量狼協助狀態；不建立獨立 HP／SP／EXP，也不成為怪物攻擊目標。召狼時自動收回獵鷹。"
+        "runtimeAdaptation": "切換輕量狼協助狀態；可與獵鷹同時存在。不建立獨立 HP／SP／EXP，也不成為怪物攻擊目標。"
       }
     },
     "2241": {
@@ -39423,7 +39423,7 @@
     "5004": {
       "skillId": 5004,
       "skillKey": "RK_DRAGONBREATH_WATER",
-      "name": "水屬性龍之氣息",
+      "name": "龍之氣息-水",
       "core": "core1",
       "handler": "physical_attack_formula",
       "suggestedHandler": "physical_attack_formula",
@@ -41045,7 +41045,7 @@
     "5201": {
       "skillId": 5201,
       "skillKey": "DK_SERVANTWEAPON",
-      "name": "Servant Weapon",
+      "name": "死侍武器",
       "core": "core1",
       "handler": "buff",
       "suggestedHandler": "buff",
@@ -41113,7 +41113,7 @@
     "5203": {
       "skillId": 5203,
       "skillKey": "DK_SERVANT_W_SIGN",
-      "name": "Servant Weapon Sign",
+      "name": "死侍武器-標記",
       "core": "core1",
       "handler": "debuff",
       "suggestedHandler": "debuff",
@@ -41167,7 +41167,7 @@
     "5204": {
       "skillId": 5204,
       "skillKey": "DK_SERVANT_W_PHANTOM",
-      "name": "Servant Weapon Phantom",
+      "name": "死侍武器-瞬幻",
       "core": "core1",
       "handler": "physical_attack",
       "suggestedHandler": "physical_attack",
@@ -41253,7 +41253,7 @@
     "5205": {
       "skillId": 5205,
       "skillKey": "DK_SERVANT_W_DEMOL",
-      "name": "Servant Weapon Demolition",
+      "name": "死侍武器-破滅",
       "core": "core1",
       "handler": "physical_attack",
       "suggestedHandler": "physical_attack",
@@ -41421,7 +41421,7 @@
     "5207": {
       "skillId": 5207,
       "skillKey": "DK_TWOHANDDEF",
-      "name": "雙手武器防禦",
+      "name": "雙向防禦",
       "core": "core1",
       "handler": "passive",
       "suggestedHandler": "passive",
@@ -41535,7 +41535,7 @@
     "5208": {
       "skillId": 5208,
       "skillKey": "DK_HACKANDSLASHER",
-      "name": "斬擊連殺",
+      "name": "橫揮斬",
       "core": "core1",
       "handler": "physical_attack_formula",
       "suggestedHandler": "physical_attack_formula",
@@ -41619,7 +41619,7 @@
     "5210": {
       "skillId": 5210,
       "skillKey": "DK_DRAGONIC_AURA",
-      "name": "龍之光環",
+      "name": "天龍光環",
       "core": "core1",
       "handler": "physical_attack_formula",
       "suggestedHandler": "physical_attack_formula",
@@ -41690,7 +41690,7 @@
     "5211": {
       "skillId": 5211,
       "skillKey": "DK_MADNESS_CRUSHER",
-      "name": "瘋狂粉碎",
+      "name": "狂暴粉碎",
       "core": "core1",
       "handler": "physical_attack_formula",
       "suggestedHandler": "physical_attack_formula",
@@ -41756,7 +41756,7 @@
     "5212": {
       "skillId": 5212,
       "skillKey": "DK_VIGOR",
-      "name": "活力",
+      "name": "活力之源",
       "core": "core1",
       "handler": "buff",
       "suggestedHandler": "buff",
@@ -48313,7 +48313,7 @@
           "rAthena db/re/skill_db.yml WH_HAWK_M",
           "rAthena src/map/skills/archer/hawkmastery.cpp"
         ],
-        "runtimeAdaptation": "以RO_WEB輕量協助狀態召喚／收回四轉獵鷹；沿用既有獵鷹狀態，不建立獨立HP、SP、EXP或受擊系統，也不消耗獵鷹笛。與狼互斥。"
+        "runtimeAdaptation": "以 RO_WEB 輕量協助狀態召喚／收回四轉獵鷹；可與狼同時存在。不建立獨立 HP／SP／EXP 或受擊系統，也不消耗獵鷹笛。"
       },
       "source": {
         "metadata": "Skill Core generated from rAthena skill_db.yml / skill_tree.yml",
@@ -48330,7 +48330,7 @@
           "rAthena db/re/skill_db.yml WH_HAWK_M",
           "rAthena src/map/skills/archer/hawkmastery.cpp"
         ],
-        "runtimeAdaptation": "以RO_WEB輕量協助狀態召喚／收回四轉獵鷹；沿用既有獵鷹狀態，不建立獨立HP、SP、EXP或受擊系統，也不消耗獵鷹笛。與狼互斥。"
+        "runtimeAdaptation": "以 RO_WEB 輕量協助狀態召喚／收回四轉獵鷹；可與狼同時存在。不建立獨立 HP／SP／EXP 或受擊系統，也不消耗獵鷹笛。"
       },
       "reviewReason": null,
       "humanReviewRequired": false
@@ -55300,7 +55300,7 @@
     "6001": {
       "skillId": 6001,
       "skillKey": "DK_DRAGONIC_BREATH",
-      "name": "龍威氣息",
+      "name": "天龍氣息",
       "core": "core1",
       "handler": "physical_attack_formula",
       "suggestedHandler": "physical_attack_formula",
@@ -55740,7 +55740,7 @@
     "6502": {
       "skillId": 6502,
       "skillKey": "DK_DRAGONIC_PIERCE",
-      "name": "龍之穿刺",
+      "name": "神龍貫刺",
       "core": "core1",
       "handler": "physical_attack_formula",
       "suggestedHandler": "physical_attack_formula",
@@ -56865,5 +56865,5 @@
       "humanReviewRequired": false
     }
   },
-  "version": "0.9.82EA"
+  "version": "0.9.82GB"
 }

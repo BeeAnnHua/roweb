@@ -832,7 +832,7 @@ function setSkillPointFooterText() {
     <span>剩餘點數：<b>${available}</b></span>
     <span class="skill-footer-actions">
       <button type="button" id="confirmSkillPointsBtn">確認配點</button>
-      <button type="button" id="resetSkillPointsBtn" title="需要：技能重置棒">初始化</button>
+      <button type="button" id="resetSkillPointsBtn" title="${getPendingSkillPointCost() > 0 ? "取消尚未確認的配點" : "免費重置全部已學技能"}">${getPendingSkillPointCost() > 0 ? "取消暫存" : "免費重置"}</button>
     </span>
   `;
   footer.querySelector("#confirmSkillPointsBtn")?.addEventListener("click", confirmPendingSkillPoints);
@@ -1023,48 +1023,109 @@ function confirmPendingSkillPoints() {
   });
   if (!confirm(`是否確認配點？\n${lines.join("\n")}\n將消耗 ${totalCost} 點技能點。`)) return;
 
-  player.learnedSkills = player.learnedSkills || {};
-  entries.forEach(([skillId, add]) => {
-    const skill = getSkillDataById(skillId);
-    const key = getSkillStorageKey(skill || skillId);
-    player.learnedSkills[key] = getSkillLevel(skill || skillId) + Number(add || 0);
-  });
-  player.skillPoints = Math.max(0, Number(player.skillPoints || 0) - totalCost);
-  clearPendingSkillAdds();
+  const run = () => {
+    player.learnedSkills = player.learnedSkills || {};
+    entries.forEach(([skillId, add]) => {
+      const skill = getSkillDataById(skillId);
+      const key = getSkillStorageKey(skill || skillId);
+      player.learnedSkills[key] = getSkillLevel(skill || skillId) + Number(add || 0);
+    });
+    player.skillPoints = Math.max(0, Number(player.skillPoints || 0) - totalCost);
+    clearPendingSkillAdds();
 
-  addBattleLog(`已確認技能配點，消耗 ${totalCost} 點。`);
-  recalculatePlayerStats();
-  updateSkillUI();
-  updateJobUI();
-  updatePlayerUI();
-  if (typeof updateAutoCombatUI === "function") updateAutoCombatUI();
-  if (typeof updateQuickSlotUI === "function") updateQuickSlotUI();
-  saveGame();
+    addBattleLog(`已確認技能配點，消耗 ${totalCost} 點。`);
+    window.invalidateCardRuntime?.();
+    recalculatePlayerStats();
+    updateSkillUI();
+    updateJobUI();
+    updatePlayerUI();
+    if (typeof updateAutoCombatUI === "function") updateAutoCombatUI();
+    if (typeof updateQuickSlotUI === "function") updateQuickSlotUI();
+    saveGame();
+  };
+  if (typeof withPlayerBuildMutation === "function") withPlayerBuildMutation("skill_allocate", run); else run();
+}
+
+function getSpentNativeSkillPoints() {
+  return Object.entries(player?.learnedSkills || {}).reduce((sum, [key, level]) => {
+    const skill = getSkillDataById(key);
+    if (skill?.autoUnlocked || isAutoGrantedJobQuestSkill(skill || key)) return sum;
+    return sum + Math.max(0, Math.floor(Number(level || 0)));
+  }, 0);
+}
+
+function clearResetSkillReferences() {
+  if (Array.isArray(player?.quickSlots)) {
+    player.quickSlots = player.quickSlots.map(slot => slot?.type === "skill" ? { type:"empty" } : slot);
+  }
+  if (player?.autoCombat) {
+    if (player.autoCombat.heal) {
+      player.autoCombat.heal.skillId = null;
+      player.autoCombat.heal.enabled = false;
+    }
+    if (Array.isArray(player.autoCombat.attacks)) {
+      player.autoCombat.attacks.forEach(slot => {
+        if (!slot) return;
+        slot.skillId = null;
+        slot.enabled = false;
+      });
+      player.autoCombat.attack = player.autoCombat.attacks[0] || null;
+    } else if (player.autoCombat.attack) {
+      player.autoCombat.attack.skillId = null;
+      player.autoCombat.attack.enabled = false;
+    }
+    player.autoCombat.buffs = {};
+  }
+  if (typeof resetAutoBattleController === "function") {
+    resetAutoBattleController({
+      running: typeof isAutoBattleRunning === "function" && isAutoBattleRunning(),
+      keepTarget: true,
+      reason: "skill_reset"
+    });
+  }
+}
+
+function resetAllSkillsFree(options = {}) {
+  if (!player) return false;
+  const spent = getSpentNativeSkillPoints();
+  const pending = getPendingSkillPointCost();
+  if (spent <= 0 && pending <= 0) {
+    addBattleLog("目前沒有已分配或暫存的技能點數。");
+    return false;
+  }
+  const requireConfirm = options.confirm !== false;
+  const message = `確定免費重置全部已學技能嗎？
+將返還 ${spent} 點技能點，並清除 ${pending} 點尚未確認配點。
+快捷欄與自動掛機中的技能設定也會清除，避免繼續嘗試未學技能。`;
+  if (requireConfirm && typeof confirm === "function" && !confirm(message)) return false;
+  const run = () => {
+    player.learnedSkills = {};
+    player.skillPoints = Math.max(0, Number(player.skillPoints || 0) + spent);
+    clearPendingSkillAdds();
+    clearResetSkillReferences();
+    if (typeof syncEquipmentGrantedSkills === "function") syncEquipmentGrantedSkills();
+    window.invalidateCardRuntime?.();
+    recalculatePlayerStats();
+    updateSkillUI();
+    updateJobUI();
+    updatePlayerUI();
+    if (typeof updateAutoCombatUI === "function") updateAutoCombatUI();
+    if (typeof updateQuickSlotUI === "function") updateQuickSlotUI();
+    saveGame();
+    addBattleLog(`已免費重置技能，返還 ${spent} 點技能點。`);
+    return true;
+  };
+  return typeof withPlayerBuildMutation === "function" ? withPlayerBuildMutation("skill_reset", run) : run();
 }
 
 function resetPendingSkillPoints() {
   if (getPendingSkillPointCost() > 0) {
     clearPendingSkillAdds();
     addBattleLog("已取消尚未確認的技能配點。");
-  } else {
-    const resetItemId = 12213;
-    const resetItem = (player.inventory || []).find(item => String(item.id) === String(resetItemId) && Number(item.count || 0) > 0);
-    if (!resetItem) {
-      addBattleLog("技能初始化需要：技能重置棒。");
-      return;
-    }
-    if (!confirm("是否使用技能重置棒，重置目前職業技能？")) return;
-    resetItem.count = Number(resetItem.count || 0) - 1;
-    if (resetItem.count <= 0) player.inventory = (player.inventory || []).filter(item => item !== resetItem);
-    player.learnedSkills = {};
-    player.skillPoints = Math.max(0, Number(player.jobLevel || 1) - 1);
-    clearPendingSkillAdds();
-    addBattleLog("已使用技能重置棒，技能點數已初始化。");
-    recalculatePlayerStats();
-    updatePlayerUI();
-    saveGame();
+    updateSkillUI();
+    return true;
   }
-  updateSkillUI();
+  return resetAllSkillsFree();
 }
 
 
@@ -1600,3 +1661,6 @@ function updateSkillUI() {
 
   if (typeof updateQuickSlotUI === "function") updateQuickSlotUI();
 }
+
+window.resetAllSkillsFree = resetAllSkillsFree;
+window.getSpentNativeSkillPoints = getSpentNativeSkillPoints;

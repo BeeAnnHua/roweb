@@ -422,6 +422,45 @@ function resetGameSave() {
 let roStatusUiRenderSignature = "";
 let roJobUiRenderSignature = "";
 let roSkillUiRenderSignature = "";
+let roPlayerBuildMutationDepth = 0;
+let roPlayerBuildMutationResumeAuto = false;
+
+function invalidatePlayerUiRenderCaches(scope = "all") {
+  const token = String(scope || "all");
+  if (token === "all" || token === "status") roStatusUiRenderSignature = "";
+  if (token === "all" || token === "job") roJobUiRenderSignature = "";
+  if (token === "all" || token === "skill") roSkillUiRenderSignature = "";
+}
+
+// 配點／重置會同時改變 Derived Stats、技能候選與自動掛機設定。
+// 以同步交易包住整次變更，避免 Auto Battle 在半套資料上執行後卡在舊狀態。
+function withPlayerBuildMutation(reason, callback) {
+  const outermost = roPlayerBuildMutationDepth === 0;
+  if (outermost) {
+    roPlayerBuildMutationResumeAuto = typeof isAutoBattleRunning === "function" && isAutoBattleRunning();
+    window.RO_WEB_PLAYER_BUILD_MUTATION = true;
+  }
+  roPlayerBuildMutationDepth += 1;
+  try {
+    return typeof callback === "function" ? callback() : undefined;
+  } finally {
+    roPlayerBuildMutationDepth = Math.max(0, roPlayerBuildMutationDepth - 1);
+    if (roPlayerBuildMutationDepth === 0) {
+      window.RO_WEB_PLAYER_BUILD_MUTATION = false;
+      invalidatePlayerUiRenderCaches("all");
+      if (roPlayerBuildMutationResumeAuto) {
+        if (typeof resetAutoBattleController === "function") {
+          resetAutoBattleController({ running:true, keepTarget:true, reason:`player_build_${String(reason || "change")}` });
+        }
+        if (player) player.state = (typeof currentMonster !== "undefined" && currentMonster) ? "Attacking" : "Searching";
+        if (typeof scheduleAutoBattleTick === "function") scheduleAutoBattleTick(16);
+      }
+      roPlayerBuildMutationResumeAuto = false;
+    }
+  }
+}
+window.invalidatePlayerUiRenderCaches = invalidatePlayerUiRenderCaches;
+window.withPlayerBuildMutation = withPlayerBuildMutation;
 
 function isPlayerUiWindowVisible(id) {
   const win = document.getElementById(id);

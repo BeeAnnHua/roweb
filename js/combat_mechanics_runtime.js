@@ -25,7 +25,10 @@ const HitResolver={
   const a=derived(attacker),d=derived(defender);
   const hit=Number(opt.hit??renewalUnitHit(attacker,a)), flee=Number(opt.flee??renewalUnitFlee(defender,d));
   // Renewal battle.cpp starts from 0: final hit rate is HIT - FLEE plus skill modifiers, then capped.
-  let chance=Number(opt.baseRate??0)+hit-flee+Number(opt.hitRateBonus||0);
+  // rAthena Renewal starts ordinary physical hit rate from 80, then adds HIT - FLEE.
+  // An explicit baseRate (including 0 for a special skill) still overrides this default.
+  const renewalBaseRate=(opt.baseRate===undefined||opt.baseRate===null)?80:Number(opt.baseRate);
+  let chance=renewalBaseRate+hit-flee+Number(opt.hitRateBonus||0);
   chance*=Number(opt.hitRateMultiplier||1);
   return clamp(chance,Number(opt.minimumRate??5),Number(opt.maximumRate??100));
  },

@@ -1,0 +1,65 @@
+{
+  "version": "0.9.82GB",
+  "summary": {
+    "checks": 11,
+    "passed": 11,
+    "failed": 0
+  },
+  "checks": [
+    {
+      "ok": true,
+      "name": "Unified summon model includes mount/falcon/warg/homunculus",
+      "detail": "[\"mount\",\"falcon\",\"warg\",\"homunculus\"]"
+    },
+    {
+      "ok": true,
+      "name": "Unified summon panel renders all active systems",
+      "detail": "<div class=\"virtual-summon-summary\"><strong>召喚／騎乘狀態</strong><span>4 個活動中</span></div><article class=\"virtual-summon-card is-active\" data-kind=\"mount\">\n    <div class=\"virtual-summon-card-head\"><strong>龍坐騎</strong><span>活動中</span></div>\n    <div class=\"virtual-summon-card-meta\">類型：騎乘／目前騎乘中</div>\n    <div class=\"virtual-summon-card-note\">盧恩騎士與盧恩龍爵由「龍駕馭」解鎖；三轉後不再透過二轉騎乘術切換。</div>\n    <div class=\"virtua"
+    },
+    {
+      "ok": true,
+      "name": "Falcon and Warg coexistence is visible in UI",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "Dismissing Falcon does not remove Warg",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "Warg can be dismissed independently",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "Falcon toggle no longer clears Warg",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "Warg toggle no longer clears Falcon",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "Third-job Riding redirects to summon control instead of toggling Dragon",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "Dragon mount is controlled by summon UI",
+      "detail": "{\"mountType\":\"dragon\",\"displayName\":\"龍坐騎\",\"requiredSkillId\":2007,\"toggleSkillId\":null,\"allowedJobs\":[\"rune_knight\",\"dragon_knight\"],\"carryingCapacityBonus\":0,\"rentalEnabled\":false,\"assetStatus\":\"pending_swordman_mount_assets\",\"note\":\"需學會龍駕馭；三轉後不使用二轉騎乘術，於召喚物控制切換龍坐騎。龍息系技能要求騎龍；不增加負重量。\",\"control\":\"virtual_summon_window\"}"
+    },
+    {
+      "ok": true,
+      "name": "Player-visible skill data removes Falcon/Warg exclusivity text",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "Unified summon panel CSS is installed",
+      "detail": ""
+    }
+  ]
+}
