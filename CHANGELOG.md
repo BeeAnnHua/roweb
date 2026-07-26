@@ -1,3 +1,16 @@
+# CHANGELOG — 0.9.82FX
+
+## 0.9.82FX
+- 新增 `EffectRuntime`，將卡片、裝備、Combo、被動技能與 Buff 統一為人物最終素質、戰鬥、恢復、技能時序與事件 Hook 的共用來源。
+- 現有 910 張卡片、141 件裝備 Script、784 組 Combo 使用的 142 種 rAthena bonus 指令全部完成解析與消費端覆蓋；29,360 組角色／精煉矩陣執行錯誤 0、未知指令 0、覆蓋缺口 0。
+- 新增 Dynamic Script Fallback：未預先寫入 generated effects 的新物品，只要主資料具有 `scriptRaw`／`Script`／`script`／`equipScript`／`compiledScript`，即可自動進入統一 Runtime。
+- 新增 Release Diagnostics Gate：任何未支援的新 bonus 指令或 Script 執行錯誤都會明確報錯並使發行稽核失敗，不再靜默忽略。
+- 完整串接能力值、MaxHP／MaxSP、自然與補品恢復、傷害／減傷、技能成本／詠唱／延遲／冷卻、異常狀態、自動施法、autobonus、吸血吸魔、反射、擊殺／EXP／Zeny／額外掉落等消費端。
+- 補齊 `BF_*` 與 `ATF_*` 旗標判斷；物理／魔法、近／遠、普通／技能、自身／目標觸發不再混用。
+- `bNoWalkDelay` 正式接入技能後移動鎖；`bIntravision` 週期揭露附近隱藏怪物。
+- 新增 `active_transform` 畫面 Runtime：20 個變身 ID 中 7 個使用精確本地怪物 Atlas；13 個缺少來源圖集者使用可見替代效果，避免靜默失效。
+- 保留 FW 的裝備／卡片最終素質與四轉 HP／SP 修正，以及 FV 的完整卡片系統和掛機資源不足 15 秒防卡死。
+
 # CHANGELOG — 0.9.82FW
 
 ## 0.9.82FW

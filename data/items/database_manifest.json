@@ -1,6 +1,6 @@
 {
-  "version": "0.9.82FW",
-  "note": "RO_WEB Item Database：0.9.82FW 裝備／卡片實際素質與恢復 Runtime、四轉 HP／SP 公式修正版；保留 910 張掉落卡與 784 組 Combo。",
+  "version": "0.9.82FX",
+  "note": "RO_WEB Item Database：0.9.82FX 卡片／裝備／Combo 統一效果 Runtime；新增裝備或卡片 Script 自動進入素質、戰鬥、恢復、事件與時序管線，並以效果覆蓋稽核防止漏接。",
   "legacyCompatibility": "data/items.json retired. Runtime item data is loaded from split JSON through ItemManager/getItemById().",
   "itemPaths": {
     "consumables": "data/items/consumables.json",
@@ -107,7 +107,7 @@
     "note": "Missing item records and icons are activated from itemInfo + rAthena Renewal."
   },
   "cardSystem": {
-    "version": "0.9.82FV",
+    "version": "0.9.82FX",
     "cardCount": 910,
     "monsterDropSourceCount": 1422,
     "comboCount": 784,
@@ -122,12 +122,82 @@
       6717,
       6718
     ],
-    "runtimeFixVersion": "0.9.82FW",
+    "runtimeFixVersion": "0.9.82FX",
     "equipmentScriptCount": 141,
     "equipmentScriptRuntimeErrors": 0,
     "equipmentUnhandledBonuses": 0,
     "statusPanelUsesDerivedStats": true,
     "recoveryRuntimeConnected": true,
-    "fourthJobBaseHpSpJobs": 14
+    "fourthJobBaseHpSpJobs": 14,
+    "effectRuntimeUnified": true,
+    "supportedRAthenaBonusTypes": 142,
+    "effectMatrixEvaluations": 29360,
+    "canonicalEffectKeys": 142,
+    "effectCoverageMissing": 0,
+    "runtimeDiagnosticsBlocking": true,
+    "dynamicScriptFallback": true,
+    "futureSupportedScriptsAutoConnected": true,
+    "activeTransformIds": 20,
+    "exactTransformAtlases": 7,
+    "visibleTransformFallbacks": 13
+  },
+  "runtimeFixVersion": "0.9.82FX",
+  "effectRuntime": {
+    "version": "0.9.82FX",
+    "sourceOrder": [
+      "equipment base data",
+      "equipment script",
+      "socketed card script",
+      "active combo script",
+      "temporary proc script",
+      "passive skill",
+      "active buff"
+    ],
+    "consumerDomains": [
+      "derived status",
+      "MaxHP/MaxSP",
+      "natural and item recovery",
+      "physical and magic damage",
+      "race/element/size/class modifiers",
+      "critical/hit/defense",
+      "skill cost/cast/cooldown",
+      "status/proc/reflect/drain",
+      "kill/EXP/drop rewards",
+      "movement/visibility/visual transform"
+    ],
+    "supportedRAthenaBonusTypes": 142,
+    "unknownCommandPolicy": "BLOCK_AND_REPORT",
+    "futureDataPolicy": "A new item/card with scriptRaw or compiledScript is evaluated dynamically when it uses the supported vocabulary; a new unsupported command fails the release audit and is never silently ignored.",
+    "projectPolicyNoOps": {
+      "bNoGemStone": "RO_WEB globally does not consume gemstone/material skill costs.",
+      "bNoMadoFuel": "RO_WEB currently has no Madogear fuel consumption.",
+      "bNoCastCancel": "RO_WEB currently has no incoming-hit cast interruption, so equipped casts are already non-cancellable."
+    },
+    "transformVisuals": {
+      "exactAtlasIds": [
+        1040,
+        2996,
+        3029,
+        3073,
+        3097,
+        3190,
+        3658
+      ],
+      "fallbackIds": [
+        3220,
+        3221,
+        3222,
+        3223,
+        3224,
+        3225,
+        3240,
+        3241,
+        3242,
+        3243,
+        3244,
+        3245,
+        3246
+      ]
+    }
   }
 }
