@@ -1,0 +1,42 @@
+{
+  "source": "/mnt/data/ra_extract/rathena-master/db/re/skill_db.yml",
+  "fields": {
+    "CastTime": "castTime",
+    "FixedCastTime": "fixedCastTime",
+    "AfterCastActDelay": "afterCastActDelay",
+    "AfterCastWalkDelay": "afterCastWalkDelay",
+    "Cooldown": "cooldown"
+  },
+  "cores": [
+    {
+      "path": "/mnt/data/work_dw/data/skills/skills_core_1.json",
+      "skills": 823,
+      "matched": 823,
+      "missing": 0
+    },
+    {
+      "path": "/mnt/data/work_dw/data/skills/skills_core_2.json",
+      "skills": 316,
+      "matched": 316,
+      "missing": 0
+    }
+  ],
+  "totalSkills": 1139,
+  "matchedRaSkills": 1139,
+  "missingRaSkills": [],
+  "fieldSetCounts": {
+    "castTime": 500,
+    "fixedCastTime": 506,
+    "afterCastActDelay": 582,
+    "afterCastWalkDelay": 4,
+    "cooldown": 528
+  },
+  "fieldRemovedCounts": {
+    "castTime": 0,
+    "fixedCastTime": 1,
+    "afterCastActDelay": 0,
+    "afterCastWalkDelay": 0,
+    "cooldown": 0
+  },
+  "status": "PASS"
+}

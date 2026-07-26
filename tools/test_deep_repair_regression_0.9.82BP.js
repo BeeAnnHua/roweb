@@ -1,0 +1,10 @@
+const fs=require('fs'),path=require('path'),assert=require('assert');
+const root=path.resolve(__dirname,'..'),read=p=>fs.readFileSync(path.join(root,p),'utf8');
+const index=read('index.html');assert(index.includes('<title>RO_WEB V0.9.82BP</title>'));assert(!index.match(/\?v=(?!0\.9\.82BP)[^"']+/));assert(fs.existsSync(path.join(root,'images/ui/icons/icon_gold_64.png')));
+const job=read('js/job.js');assert(job.includes('raRequirements'));assert(job.includes('normalizeSkillPrerequisites'));assert(job.includes('getSkillPrerequisites'));
+const pos=read('js/position_engine.js');assert.strictEqual((pos.match(/function\s+isInPlayerAttackRange\s*\(/g)||[]).length,1);assert(pos.includes('window.RO_WEB_CELL_SIZE = POSITION_CELL_SIZE_PX'));assert(pos.includes('function movePlayerAdjacentToMonster'));assert(pos.includes('monster.position.x = safe.x'));assert(pos.includes('function stopPositionEngine'));
+const player=read('js/player.js');assert(player.includes('player.jobKey'));assert(player.includes('stopPlayerRecoveryLoop'));assert(player.includes('function normalizePlayerData'));assert(player.includes('getFinitePlayerNumber'));assert(player.includes('getPlainPlayerObject'));
+const game=read('js/game.js');assert(game.includes('window.addEventListener("pagehide"'));assert(game.includes('window.addEventListener("pageshow"'));assert(game.includes('stopPositionEngine'));assert(game.includes('stopCombatResourceLoop'));
+const quick=read('js/quick_slots.js');assert(quick.includes('castSoulExchangeSkill'));assert(quick.includes('soul_exchange'));assert(quick.includes('castTimedStatusSkill'));
+const registry=JSON.parse(read('data/skill_runtime/runtime_handler_registry.json'));assert.strictEqual(registry.handlers.soul_exchange.executor,'castSoulExchangeSkill');assert.strictEqual(registry.handlers.timed_status.executor,'castTimedStatusSkill');
+console.log('Deep repair 0.9.82BP regression: PASS');

@@ -1,0 +1,114 @@
+{
+  "version": "0.9.82FX",
+  "summary": {
+    "checks": 15,
+    "passed": 15,
+    "failed": 0
+  },
+  "observed": {
+    "observationCardDexFlat": 7.222222222222222,
+    "sprintMail": {
+      "id": 2387,
+      "name": "急速衝刺鎧甲",
+      "sourceType": "equipment",
+      "sourceId": 2387,
+      "vitFlat": 1,
+      "hpRecoveryRate": 5,
+      "itemHpRecoveryRate": 3,
+      "healingReceivedRate": 3
+    },
+    "derivedStats": {
+      "str": 2,
+      "agi": 1,
+      "vit": 131,
+      "int": 1,
+      "dex": 8,
+      "luk": 1,
+      "pow": 1,
+      "sta": 0,
+      "wis": 0,
+      "spl": 0,
+      "con": 0,
+      "crt": 0
+    },
+    "maxHpWithoutArmor": 72904,
+    "maxHpWithArmor": 73222
+  },
+  "checks": [
+    {
+      "name": "Sprint Mail VIT +1",
+      "ok": true,
+      "detail": "{\"id\":2387,\"name\":\"急速衝刺鎧甲\",\"sourceType\":\"equipment\",\"sourceId\":2387,\"vitFlat\":1,\"hpRecoveryRate\":5,\"itemHpRecoveryRate\":3,\"healingReceivedRate\":3}"
+    },
+    {
+      "name": "Sprint Mail HP natural recovery +5%",
+      "ok": true,
+      "detail": "{\"id\":2387,\"name\":\"急速衝刺鎧甲\",\"sourceType\":\"equipment\",\"sourceId\":2387,\"vitFlat\":1,\"hpRecoveryRate\":5,\"itemHpRecoveryRate\":3,\"healingReceivedRate\":3}"
+    },
+    {
+      "name": "Sprint Mail item recovery +3%",
+      "ok": true,
+      "detail": "{\"id\":2387,\"name\":\"急速衝刺鎧甲\",\"sourceType\":\"equipment\",\"sourceId\":2387,\"vitFlat\":1,\"hpRecoveryRate\":5,\"itemHpRecoveryRate\":3,\"healingReceivedRate\":3}"
+    },
+    {
+      "name": "Sprint Mail healing received +3%",
+      "ok": true,
+      "detail": "{\"id\":2387,\"name\":\"急速衝刺鎧甲\",\"sourceType\":\"equipment\",\"sourceId\":2387,\"vitFlat\":1,\"hpRecoveryRate\":5,\"itemHpRecoveryRate\":3,\"healingReceivedRate\":3}"
+    },
+    {
+      "name": "Observation Card VIT/18 DEX evaluator",
+      "ok": true,
+      "detail": "7.222222222222222"
+    },
+    {
+      "name": "Derived VIT includes equipment script",
+      "ok": true,
+      "detail": "131"
+    },
+    {
+      "name": "Derived DEX includes Observation Card",
+      "ok": true,
+      "detail": "8"
+    },
+    {
+      "name": "Dragon Knight MaxHP exact FW formula",
+      "ok": true,
+      "detail": "73222 vs 73222"
+    },
+    {
+      "name": "VIT +1 armor increases MaxHP",
+      "ok": true,
+      "detail": "72904 -> 73222"
+    },
+    {
+      "name": "Fourth-job HP no novice fallback",
+      "ok": true,
+      "detail": "73222"
+    },
+    {
+      "name": "Active equipment script count",
+      "ok": true,
+      "detail": "141"
+    },
+    {
+      "name": "Equipment script runtime errors",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "Equipment unhandled bonus commands",
+      "ok": true,
+      "detail": "{}"
+    },
+    {
+      "name": "Fourth/Hyper job table count",
+      "ok": true,
+      "detail": "14"
+    },
+    {
+      "name": "Fourth/Hyper BaseHP BaseSP Lv1-275 coverage",
+      "ok": true,
+      "detail": "[]"
+    }
+  ]
+}

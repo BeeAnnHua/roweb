@@ -1,0 +1,19 @@
+{
+  "version": "0.9.82DX",
+  "status": "FAIL",
+  "testCount": 2,
+  "tests": [
+    {
+      "command": "node tools/check_all_js_syntax.js",
+      "status": "PASS",
+      "returnCode": 0,
+      "tail": "{\"checked\":380,\"errors\":[]}"
+    },
+    {
+      "command": "node tools/test_ra_renewal_timing_combat_0.9.82DX.js",
+      "status": "FAIL",
+      "returnCode": 1,
+      "tail": "                     ^\n\nError: instant magic has 100ms generic action lock\n    at assert (/mnt/data/work_dy/tools/test_ra_renewal_timing_combat_0.9.82DX.js:3:34)\n    at Object.<anonymous> (/mnt/data/work_dy/tools/test_ra_renewal_timing_combat_0.9.82DX.js:35:1)\n    at Module._compile (node:internal/modules/cjs/loader:1730:14)\n    at Object..js (node:internal/modules/cjs/loader:1895:10)\n    at Module.load (node:internal/modules/cjs/loader:1465:32)\n    at Function._load (node:internal/modules/cjs/loader:1282:12)\n    at TracingChannel.traceSync (node:diagnostics_channel:322:14)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\n    at node:internal/main/run_main_module:36:49\n\nNode.js v22.16.0"
+    }
+  ]
+}
