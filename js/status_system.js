@@ -1,5 +1,5 @@
 //=======================================
-// StatusSystem v0.9.82EH
+// StatusSystem v0.9.82FW
 // 一般素質 + rAthena Renewal 四轉特性素質 + 全域 +10 配點模式 + 響應式進階戰鬥資訊
 //=======================================
 let statPointData = { points: {} };
@@ -456,10 +456,22 @@ function calculateDerivedPlayerStats() {
 
   const baseHp = getJobBaseValue("baseHp", baseLevel);
   const baseSp = getJobBaseValue("baseSp", baseLevel);
-  let maxHp = Math.floor(baseHp * (1 + s.vit / 100)) + equip.maxHp;
-  let maxSp = Math.floor(baseSp * (1 + s.int / 100)) + equip.maxSp;
-  maxHp = Math.floor(maxHp * (100 + Number(bonuses.maxHpRate || 0)) / 100) + Number(bonuses.maxHpFlat || 0);
-  maxSp = Math.floor(maxSp * (100 + Number(bonuses.maxSpRate || 0)) / 100) + Number(bonuses.maxSpFlat || 0);
+  const currentJob = typeof getCurrentJobData === "function" ? getCurrentJobData() : null;
+  // rAthena status_calc_maxhp_pc/status_calc_maxsp_pc: transcendent lineage
+  // (JOBL_UPPER) and primary fourth jobs receive a 1.25 class multiplier after
+  // VIT/INT scaling and before fixed / percentage HP-SP bonuses.
+  const routeGroup = String(currentJob?.routeGroup || "");
+  const isUpperLineage = ["high_novice", "high_first", "trans_second", "third"].includes(routeGroup);
+  const isPrimaryFourth = Number(currentJob?.tier || 0) === 4 && String(currentJob?.classFamily || "normal") === "normal";
+  const hpSpClassMultiplier = isUpperLineage || isPrimaryFourth ? 1.25 : 1;
+  // rAthena adds equipment-script VIT/INT once more as a fixed +1 HP/SP per point.
+  const equipmentParamBonuses = getEquipmentBonusTotals();
+  let maxHp = baseHp * (1 + s.vit / 100) * hpSpClassMultiplier
+    + Number(equipmentParamBonuses.vitFlat || 0) + equip.maxHp + Number(bonuses.maxHpFlat || 0);
+  let maxSp = baseSp * (1 + s.int / 100) * hpSpClassMultiplier
+    + Number(equipmentParamBonuses.intFlat || 0) + equip.maxSp + Number(bonuses.maxSpFlat || 0);
+  maxHp = Math.floor(maxHp * (100 + Number(bonuses.maxHpRate || 0)) / 100);
+  maxSp = Math.floor(maxSp * (100 + Number(bonuses.maxSpRate || 0)) / 100);
 
 
   return {
@@ -1227,7 +1239,8 @@ function updateStatusUI() {
 
   STATUS_KEYS.forEach(key => {
     const base = Number(player.stats[key] || 1);
-    const bonus = Number(jobBonus[key] || 0);
+    const total = Number(derived?.stats?.[key] ?? base);
+    const bonus = Math.trunc(total - base);
     const label = STATUS_LABELS[key];
     const tooltip = `${label}：${STATUS_DESCRIPTIONS[key]}`;
     const row = document.createElement("div");
@@ -1240,7 +1253,7 @@ function updateStatusUI() {
     name.setAttribute("aria-label", tooltip);
     const value = document.createElement("div");
     value.className = "status-css-value";
-    value.textContent = bonus ? `${base}+${bonus}` : `${base}`;
+    value.textContent = bonus > 0 ? `${base}+${bonus}` : bonus < 0 ? `${base}${bonus}` : `${base}`;
     value.dataset.tooltip = tooltip;
     const plus = document.createElement("button");
     plus.className = "status-css-plus";

@@ -513,7 +513,8 @@ function getPlayerHpRecoveryAmount() {
     ? Math.floor(recoveryLevel * 5 + recoveryLevel * Number(player.maxHp || 1) / 500)
     : 0;
   const activeBuffs = typeof getActiveBuffBonusTotals === "function" ? getActiveBuffBonusTotals() : {};
-  const recoveryRate = Math.max(0, Number(activeBuffs.hpRecoveryRate || 0) + Number(passive.hpRecoveryRate || 0));
+  const equipmentAndCards = window.CardRuntime?.getMergedSource ? window.CardRuntime.getMergedSource() : {};
+  const recoveryRate = Math.max(0, Number(activeBuffs.hpRecoveryRate || 0) + Number(passive.hpRecoveryRate || 0) + Number(equipmentAndCards.hpRecoveryRate || 0));
   return Math.max(1, Math.floor((base + vit / 5 + skillRecovery) * (100 + recoveryRate) / 100));
 }
 
@@ -526,8 +527,9 @@ function getPlayerSpRecoveryAmount() {
     ? Math.floor(recoveryLevel * 3 + recoveryLevel * Number(player.maxSp || 1) / 500)
     : 0;
   const activeBuffs = typeof getActiveBuffBonusTotals === "function" ? getActiveBuffBonusTotals() : {};
-  const recoveryRate = Math.max(0, Number(activeBuffs.spRecoveryRate || 0) + Number(passive.spRecoveryRate || 0));
-  const recoveryFlat = Math.max(0, Number(activeBuffs.spRecoveryFlat || 0) + Number(passive.spRecoveryFlat || 0));
+  const equipmentAndCards = window.CardRuntime?.getMergedSource ? window.CardRuntime.getMergedSource() : {};
+  const recoveryRate = Math.max(0, Number(activeBuffs.spRecoveryRate || 0) + Number(passive.spRecoveryRate || 0) + Number(equipmentAndCards.spRecoveryRate || 0));
+  const recoveryFlat = Math.max(0, Number(activeBuffs.spRecoveryFlat || 0) + Number(passive.spRecoveryFlat || 0) + Number(equipmentAndCards.spRecoveryFlat || 0));
   return Math.max(1, Math.floor((base + intStat / 6 + skillRecovery + recoveryFlat) * (100 + recoveryRate) / 100));
 }
 
@@ -554,8 +556,9 @@ function runPlayerRecoveryTick() {
 
   let changed = false;
   const recoveryEffects = typeof getActiveBuffBonusTotals === "function" ? getActiveBuffBonusTotals() : {};
-  const hpRegenDisabled = Number(recoveryEffects.disableHpRegen || 0) > 0;
-  const spRegenDisabled = Number(recoveryEffects.disableSpRegen || 0) > 0;
+  const equipmentAndCards = window.CardRuntime?.getMergedSource ? window.CardRuntime.getMergedSource() : {};
+  const hpRegenDisabled = Number(recoveryEffects.disableHpRegen || 0) > 0 || Number(equipmentAndCards.noHpRegen || 0) > 0;
+  const spRegenDisabled = Number(recoveryEffects.disableSpRegen || 0) > 0 || Number(equipmentAndCards.noSpRegen || 0) > 0;
 
   if (!hpRegenDisabled && Number(player.hp || 0) < Number(player.maxHp || 0)) {
     player.hp = Math.min(Number(player.maxHp || 0), Number(player.hp || 0) + getPlayerHpRecoveryAmount());
@@ -2124,7 +2127,7 @@ function consumeItem(itemData) {
 
   // 補 HP，不超過最大 HP；知識藥水等被動由 Skill Runtime 統一加成。
   if (Number(recoveryProfile.hp || 0) > 0) {
-    const recovery = typeof calculateItemRecoveryAmount === "function" ? calculateItemRecoveryAmount(recoveryProfile.hp, "hp") : Number(recoveryProfile.hp || 0);
+    const recovery = typeof calculateItemRecoveryAmount === "function" ? calculateItemRecoveryAmount(recoveryProfile.hp, "hp", itemData) : Number(recoveryProfile.hp || 0);
     const before = Number(player.hp || 0);
     player.hp = Math.min(Number(player.maxHp || before), before + recovery);
     const actual = Math.max(0, player.hp - before);
@@ -2134,7 +2137,7 @@ function consumeItem(itemData) {
 
   // 補 SP，不超過最大 SP；與 HP 回復使用同一套 Runtime 加成。
   if (Number(recoveryProfile.sp || 0) > 0) {
-    const recovery = typeof calculateItemRecoveryAmount === "function" ? calculateItemRecoveryAmount(recoveryProfile.sp, "sp") : Number(recoveryProfile.sp || 0);
+    const recovery = typeof calculateItemRecoveryAmount === "function" ? calculateItemRecoveryAmount(recoveryProfile.sp, "sp", itemData) : Number(recoveryProfile.sp || 0);
     const before = Number(player.sp || 0);
     player.sp = Math.min(Number(player.maxSp || before), before + recovery);
     const actual = Math.max(0, player.sp - before);
@@ -2363,7 +2366,7 @@ function autoUseHpPotion() {
     return;
   }
 
-  const recovery = typeof calculateItemRecoveryAmount === "function" ? calculateItemRecoveryAmount(itemData.hp, "hp") : Number(itemData.hp || 0);
+  const recovery = typeof calculateItemRecoveryAmount === "function" ? calculateItemRecoveryAmount(itemData.hp, "hp", itemData) : Number(itemData.hp || 0);
   const before = Number(player.hp || 0);
   player.hp = Math.min(Number(player.maxHp || before), before + recovery);
   const actualRecovery = Math.max(0, Number(player.hp || 0) - before);
@@ -2411,7 +2414,7 @@ function autoUseSpPotion() {
     return;
   }
 
-  const recovery = typeof calculateItemRecoveryAmount === "function" ? calculateItemRecoveryAmount(itemData.sp, "sp") : Number(itemData.sp || 0);
+  const recovery = typeof calculateItemRecoveryAmount === "function" ? calculateItemRecoveryAmount(itemData.sp, "sp", itemData) : Number(itemData.sp || 0);
   const before = Number(player.sp || 0);
   player.sp = Math.min(Number(player.maxSp || before), before + recovery);
   const actualRecovery = Math.max(0, Number(player.sp || 0) - before);

@@ -539,13 +539,13 @@ function applyAutoStatusCureItemRecovery(item) {
   let hp = 0;
   let sp = 0;
   if (Number(profile.hp || 0) > 0) {
-    const amount = typeof calculateItemRecoveryAmount === "function" ? calculateItemRecoveryAmount(profile.hp, "hp") : Number(profile.hp || 0);
+    const amount = typeof calculateItemRecoveryAmount === "function" ? calculateItemRecoveryAmount(profile.hp, "hp", item) : Number(profile.hp || 0);
     const before = Number(player.hp || 0);
     player.hp = Math.min(Number(player.maxHp || before), before + amount);
     hp = Math.max(0, player.hp - before);
   }
   if (Number(profile.sp || 0) > 0) {
-    const amount = typeof calculateItemRecoveryAmount === "function" ? calculateItemRecoveryAmount(profile.sp, "sp") : Number(profile.sp || 0);
+    const amount = typeof calculateItemRecoveryAmount === "function" ? calculateItemRecoveryAmount(profile.sp, "sp", item) : Number(profile.sp || 0);
     const before = Number(player.sp || 0);
     player.sp = Math.min(Number(player.maxSp || before), before + amount);
     sp = Math.max(0, player.sp - before);
@@ -713,7 +713,7 @@ function useRecoveryItem(kind, preferredItemId = null) {
   const baseRecovery = getItemRecoveryValue(itemData, key, { roll: true });
   if (baseRecovery <= 0) return false;
   const recovery = typeof calculateItemRecoveryAmount === "function"
-    ? calculateItemRecoveryAmount(baseRecovery, key)
+    ? calculateItemRecoveryAmount(baseRecovery, key, itemData)
     : baseRecovery;
   const before = key === "hp" ? Number(player.hp || 0) : Number(player.sp || 0);
   if (key === "hp") {

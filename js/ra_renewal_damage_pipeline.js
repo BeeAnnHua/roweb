@@ -48,6 +48,8 @@ function physicalAttackElement(w=weapon()){
  }
  const buffElement=typeof window.getActiveBuffSpecialValue==='function'?window.getActiveBuffSpecialValue('attackElementOverride',null):null;
  if(buffElement) return buffElement;
+ const equipmentElement=window.CardRuntime?.getMergedSource?.()?.weaponElement;
+ if(equipmentElement) return equipmentElement;
  if(window.player?.attackElement) return window.player.attackElement;
  return w?.element||w?.attackElement||'Neutral';
 }

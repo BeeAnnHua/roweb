@@ -1,6 +1,6 @@
 {
-  "version": "0.9.82FV",
-  "note": "RO_WEB Item Database：0.9.82FV 完整怪物卡片、插卡／拆卡、910 張掉落卡與 784 組 Combo。",
+  "version": "0.9.82FW",
+  "note": "RO_WEB Item Database：0.9.82FW 裝備／卡片實際素質與恢復 Runtime、四轉 HP／SP 公式修正版；保留 910 張掉落卡與 784 組 Combo。",
   "legacyCompatibility": "data/items.json retired. Runtime item data is loaded from split JSON through ItemManager/getItemById().",
   "itemPaths": {
     "consumables": "data/items/consumables.json",
@@ -121,6 +121,13 @@
       6716,
       6717,
       6718
-    ]
+    ],
+    "runtimeFixVersion": "0.9.82FW",
+    "equipmentScriptCount": 141,
+    "equipmentScriptRuntimeErrors": 0,
+    "equipmentUnhandledBonuses": 0,
+    "statusPanelUsesDerivedStats": true,
+    "recoveryRuntimeConnected": true,
+    "fourthJobBaseHpSpJobs": 14
   }
 }

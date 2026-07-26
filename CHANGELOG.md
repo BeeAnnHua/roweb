@@ -1,3 +1,13 @@
+# CHANGELOG — 0.9.82FW
+
+## 0.9.82FW
+- 修正裝備與卡片能力值雖已解析、卻未完整進入人物最終素質與素質面板的問題；監視者卡片 DEX 可正常顯示與計算。
+- 新增 141 件目前啟用裝備的 Script Runtime；急速衝刺鎧甲 VIT、自然恢復、補品恢復與受治療量均正式生效。
+- 統一 `bHPrecovRate`／`bSPrecovRate`、補品／物品群組恢復、`bHealPower2` 的 Runtime 消費端。
+- 補齊 13 個一般四轉職業與究極初學者 Lv.1～275 BaseHP／BaseSP，移除四轉誤用初心者 fallback 的低血量問題。
+- MaxHP／MaxSP 依 rAthena Renewal 套用轉生系／主要四轉 1.25 倍係數，並修正固定值與百分比計算順序。
+- 補齊裝備 Script 的武器屬性、技能命中異常、指定技能變動詠唱與盾牌不可破壞解析；141 件裝備 Script 執行錯誤 0、未處理 Bonus 0。
+
 # CHANGELOG — 0.9.82FV
 
 ## 0.9.82FV

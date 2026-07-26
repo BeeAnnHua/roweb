@@ -1910,17 +1910,21 @@ function getPassiveSkillBonusTotals() {
   return totals;
 }
 
-function getItemRecoveryRateBonus(kind = "hp") {
+function getItemRecoveryRateBonus(kind = "hp", itemData = null) {
   const totals = typeof getPassiveSkillBonusTotals === "function" ? getPassiveSkillBonusTotals() : {};
   const key = String(kind || "hp").toLowerCase() === "sp" ? "itemSpRecoveryRate" : "itemHpRecoveryRate";
-  return Math.max(0, Number(totals[key] || 0));
+  const cardAndEquipment = window.CardRuntime?.getItemRecoveryRate ? Number(window.CardRuntime.getItemRecoveryRate(itemData, kind) || 0) : 0;
+  return Math.max(0, Number(totals[key] || 0) + cardAndEquipment);
 }
 
-function calculateItemRecoveryAmount(baseAmount, kind = "hp") {
+function calculateItemRecoveryAmount(baseAmount, kind = "hp", itemData = null) {
   const base = Math.max(0, Number(baseAmount || 0));
-  const itemRate = getItemRecoveryRateBonus(kind);
+  const itemRate = getItemRecoveryRateBonus(kind, itemData);
   const active = typeof getActiveBuffBonusTotals === "function" ? getActiveBuffBonusTotals() : {};
-  const receivedRate = String(kind || "hp").toLowerCase() === "hp" ? Number(active.healingReceivedRate || 0) : 0;
+  const cardAndEquipment = window.CardRuntime?.getMergedSource ? window.CardRuntime.getMergedSource() : {};
+  const receivedRate = String(kind || "hp").toLowerCase() === "hp"
+    ? Number(active.healingReceivedRate || 0) + Number(cardAndEquipment.healingReceivedRate || 0)
+    : 0;
   return Math.max(0, Math.floor(base * (100 + itemRate + receivedRate) / 100));
 }
 

@@ -1,5 +1,5 @@
 //=======================================
-// RO_WEB CardRuntime v0.9.82FV
+// RO_WEB CardRuntime v0.9.82FW
 // rAthena Renewal 2026-06-08 card scripts, card/equipment combos,
 // proc/drop/kill hooks and instance-safe socket/removal services.
 //=======================================
@@ -10,10 +10,11 @@
     effects: "data/card_runtime/card_effects.json",
     combos: "data/card_runtime/card_combos.json",
     groups: "data/card_runtime/item_groups.json",
-    drops: "data/card_runtime/card_drop_sources.json"
+    drops: "data/card_runtime/card_drop_sources.json",
+    equipment: "data/card_runtime/equipment_effects.json"
   };
   const CACHE = { signature: "", sources: [], all: null, tempSignature: "", loaded: false };
-  const DATA = { effects: {}, combos: [], groups: {}, drops: {} };
+  const DATA = { effects: {}, combos: [], groups: {}, drops: {}, equipment: {} };
   const COMPILED = new Map();
   const NESTED_COMPILED = new Map();
   const SLOT_BY_EQI = {
@@ -32,6 +33,7 @@
     DATA.combos = bundled(PATHS.combos, []) || [];
     DATA.groups = bundled(PATHS.groups, {}) || {};
     DATA.drops = bundled(PATHS.drops, {}) || {};
+    DATA.equipment = bundled(PATHS.equipment, {}) || {};
     CACHE.loaded = Object.keys(DATA.effects).length > 0;
     return CACHE.loaded;
   }
@@ -144,15 +146,15 @@
       bMatk:"matkFlat", bMatkRate:"matkRate", bDef:"defFlat", bDefRate:"defRate", bMdef:"mdefFlat", bMdefRate:"mdefRate",
       bHit:"hitFlat", bFlee:"fleeFlat", bCritical:"criFlat", bFlee2:"perfectDodgeFlat", bPerfectHitAddRate:"perfectHitRate",
       bAspd:"aspdFlat", bAspdRate:"aspdRate", bMaxHP:"maxHpFlat", bMaxHPrate:"maxHpRate", bMaxSP:"maxSpFlat", bMaxSPrate:"maxSpRate",
-      bHPrecovRate:"hpRegenRate", bSPrecovRate:"spRegenRate", bHPRegenRate:"hpRegenRate", bSPRegenRate:"spRegenRate",
+      bHPrecovRate:"hpRecoveryRate", bSPrecovRate:"spRecoveryRate", bHPRegenRate:"hpRecoveryRate", bSPRegenRate:"spRecoveryRate",
       bLongAtkRate:"longDamageRate", bShortAtkRate:"shortDamageRate", bCritAtkRate:"critAtkRate", bCriticalLong:"criticalLongRate",
       bVariableCastrate:"variableCastReductionRate", bFixedCastrate:"fixedCastReductionRate", bDelayrate:"afterCastDelayReductionRate",
-      bHealPower:"healPowerRate", bHealPower2:"healPowerRate", bPAtk:"pAtk", bSMatk:"sMatk", bCRate:"crateFlat",
+      bHealPower:"healPowerRate", bHealPower2:"healingReceivedRate", bPAtk:"pAtk", bSMatk:"sMatk", bCRate:"crateFlat",
       bSpeedRate:"moveSpeedRate", bNearAtkDef:"shortDamageReductionRate", bLongAtkDef:"longDamageReductionRate",
       bReduceDamageReturn:"reflectDamageReductionRate", bMagicDamageReturn:"magicReflectRate", bShortWeaponDamageReturn:"shortReflectRate",
       bHPGainValue:"killHpFlat", bSPGainValue:"killSpFlat", bMagicHPGainValue:"magicKillHpFlat",
       bSPDrainValue:"spDrainFlat", bNoWalkDelay:"noWalkDelay", bNoCastCancel:"noCastCancel", bNoSizeFix:"ignoreSizePenalty",
-      bUnbreakableWeapon:"unbreakableWeapon", bUnbreakableArmor:"unbreakableArmor", bNoKnockback:"noKnockback", bIntravision:"intravision",
+      bUnbreakableWeapon:"unbreakableWeapon", bUnbreakableArmor:"unbreakableArmor", bUnbreakableShield:"unbreakableShield", bNoKnockback:"noKnockback", bIntravision:"intravision",
       bNoGemStone:"noGemstone", bNoMadoFuel:"noMadoFuel", bNoMagicDamage:"magicImmune", bRestartFullRecover:"restartFullRecover",
       bSplashRange:"splashRange", bGetZenyNum:"zenyBonusRate", bAbsorbDmgMaxHP2:"absorbDamageMaxHpRate"
     };
@@ -175,13 +177,18 @@
     if (keyed[type]) { addKeyed(out, keyed[type], a[0], a[1] ?? value); return; }
     if (type === "bSkillAtk") { addKeyed(out, "skillDamageRate", normalizeSkillKey(a[0]), a[1]); return; }
     if (type === "bSubSkill") { addKeyed(out, "skillDamageReductionRate", normalizeSkillKey(a[0]), a[1]); return; }
-    if (type === "bSkillCooldown") { addKeyed(out, "skillCooldownReductionMs", normalizeSkillKey(a[0]), -n(a[1])); return; }
-    if (type === "bSkillFixedCast") { addKeyed(out, "skillFixedCastReductionMs", normalizeSkillKey(a[0]), -n(a[1])); return; }
+    if (type === "bSkillCooldown") { addKeyed(out, "skillCooldownReductionMs", resolveSkillStorageKey(a[0]), -n(a[1])); return; }
+    if (type === "bSkillFixedCast") { addKeyed(out, "skillFixedCastReductionMs", resolveSkillStorageKey(a[0]), -n(a[1])); return; }
+    if (type === "bSkillVariableCast") { addKeyed(out, "skillVariableCastReductionMs", resolveSkillStorageKey(a[0]), -n(a[1])); return; }
     if (type === "bSkillUseSP") { addKeyed(out, "skillSpCostFlat", normalizeSkillKey(a[0]), n(a[1])); return; }
     if (type === "bSkillUseSPrate") { addKeyed(out, "skillSpCostRate", normalizeSkillKey(a[0]), n(a[1])); return; }
     if (type === "bUseSPrate") { addScalar(out, "spCostRate", n(value)); return; }
     if (type === "bFixedCast") { addScalar(out, "fixedCastReductionMs", -n(value)); return; }
     if (type === "bDefEle") { out.armorElement = normalizeConstant(a[0] ?? value); return; }
+    if (type === "bAtkEle") { out.weaponElement = normalizeConstant(a[0] ?? value); return; }
+    if (type === "bAddEffOnSkill") {
+      push(out, "skillStatusOnHit", { skill:resolveSkillStorageKey(a[0]), status:normalizeConstant(a[1]), rate:n(a[2]), extra:a.slice(3) }); return;
+    }
     if (type === "bAutoSpell" || type === "bAutoSpellWhenHit" || type === "bAutoSpellOnSkill") {
       const trigger = type === "bAutoSpell" ? "attack" : type === "bAutoSpellWhenHit" ? "hit" : "skill";
       push(out, "autoSpellProcs", { trigger, skill:normalizeSkillKey(a[0]), level:n(a[1],1), rate:n(a[2]), extra:a.slice(3) }); return;
@@ -196,7 +203,10 @@
       push(out, type === "bHPDrainRate" ? "hpDrainProcs" : "spDrainProcs", { rate:n(a[0]), percent:n(a[1]), extra:a.slice(2) }); return;
     }
     if (type === "bAddItemHealRate" || type === "bAddItemSPHealRate") {
-      addKeyed(out, type === "bAddItemHealRate" ? "itemHpHealRate" : "itemSpHealRate", a[0], a[1]); return;
+      const isHp = type === "bAddItemHealRate";
+      if (a.length <= 1) addScalar(out, isHp ? "itemHpRecoveryRate" : "itemSpRecoveryRate", a[0] ?? value);
+      else addKeyed(out, isHp ? "itemHpHealRate" : "itemSpHealRate", a[0], a[1]);
+      return;
     }
     if (type === "bAddItemGroupHealRate") { addKeyed(out, "itemGroupHealRate", a[0], a[1]); return; }
     if (type === "bAddDamageClass" || type === "bAddDefMonster") { addKeyed(out, type === "bAddDamageClass" ? "monsterDamageFlat" : "monsterDefenseFlat", a[0], a[1]); return; }
@@ -306,6 +316,10 @@
     const rows=equipmentRows(), equippedIds=rows.flatMap(row=>[row.itemId,...(row.instance?.cards||[]).filter(Boolean).map(Number)]);
     const sources=[];
     for (const row of rows) {
+      const equipmentRecord = DATA.equipment[String(row.itemId)];
+      if (equipmentRecord) {
+        sources.push(executeScript(equipmentRecord,{sourceType:"equipment",slot:row.slot,hostRow:row,equippedIds,maxRefine:Math.max(0,...rows.map(x=>x.refine))}));
+      }
       for (const cardId of (row.instance?.cards || []).filter(Boolean)) {
         const rec=DATA.effects[String(cardId)]; if (!rec) continue;
         sources.push(executeScript(rec,{sourceType:"card",slot:row.slot,hostRow:row,equippedIds,maxRefine:Math.max(0,...rows.map(x=>x.refine))}));
@@ -427,10 +441,18 @@
     } return triggered;
   }
   function onSkillUsed(skill,target) {
-    const key=normalizeSkillKey(skill?.key||skill?.skillKey||skill?.aegisName||skill?.officialId||skill?.id); let triggered=0;
+    const keys=new Set([
+      resolveSkillStorageKey(skill?.officialId ?? skill?.id ?? skill?.key ?? skill?.skillKey ?? skill?.aegisName),
+      normalizeSkillKey(skill?.key||""), normalizeSkillKey(skill?.skillKey||""), normalizeSkillKey(skill?.aegisName||""),
+      String(skill?.officialId ?? ""), String(skill?.id ?? "")
+    ].filter(Boolean));
+    let triggered=0;
     for(const source of getSources()){
-      for(const auto of source.autoBonuses||[])if(auto.trigger==="skill"&&(!auto.skill||auto.skill===key)&&applyTempBonus(auto,source))triggered++;
+      for(const auto of source.autoBonuses||[])if(auto.trigger==="skill"&&(!auto.skill||keys.has(resolveSkillStorageKey(auto.skill))||keys.has(normalizeSkillKey(auto.skill)))&&applyTempBonus(auto,source))triggered++;
       for(const proc of source.autoSpellProcs||[])if(proc.trigger==="skill"&&triggerAutoSpell(proc,target))triggered++;
+      for(const row of source.skillStatusOnHit||[])if(target&&(keys.has(String(row.skill))||keys.has(resolveSkillStorageKey(row.skill)))&&Math.random()*10000<n(row.rate)){
+        window.StatusManager?.apply?.(target,row.status,{chancePercent:100,durationMs:5000,level:1,allowBoss:false}); triggered++;
+      }
     } return triggered;
   }
   function rollExtraDrops(monster) {
@@ -469,6 +491,20 @@
     const total=getMergedSource(), mapFlat=total.skillSpCostFlat||{}, mapRate=total.skillSpCostRate||{}, keys=[String(skill?.officialId??skill?.id??0),normalizeSkillKey(skill?.key||""),normalizeSkillKey(skill?.skillKey||""),normalizeSkillKey(skill?.aegisName||"")];
     return {flat:keys.reduce((s,k)=>s+n(mapFlat[k]),n(mapFlat.All)),rate:n(total.spCostRate)+keys.reduce((s,k)=>s+n(mapRate[k]),n(mapRate.All))};
   }
+
+  function getItemRecoveryRate(item, kind = "hp") {
+    const total=getMergedSource();
+    const isSp=String(kind||"hp").toLowerCase()==="sp";
+    const id=String(item?.id ?? item?.officialId ?? item?.itemId ?? item ?? "");
+    let rate=n(total[isSp ? "itemSpRecoveryRate" : "itemHpRecoveryRate"]);
+    const keyed=total[isSp ? "itemSpHealRate" : "itemHpHealRate"] || {};
+    rate += n(keyed[id]);
+    for (const [group,groupRate] of Object.entries(total.itemGroupHealRate || {})) {
+      const entries=DATA.groups[String(group).toUpperCase()]?.entries || [];
+      if(entries.some(row=>String(row.itemId)===id)) rate += n(groupRate);
+    }
+    return rate;
+  }
   function tickPeriodicEffects(now=Date.now()) {
     if(!window.player)return false;
     const sources=getSources(), state=player.cardRuntimePeriodicState=player.cardRuntimePeriodicState||{};
@@ -488,10 +524,10 @@
   }
 
   window.CardRuntime = {
-    version:"0.9.82FV", init, invalidate, getSources, getMergedSource, getCardRecord:id=>(init(),DATA.effects[String(id)]||null),
+    version:"0.9.82FW", init, invalidate, getSources, getMergedSource, getCardRecord:id=>(init(),DATA.effects[String(id)]||null),
     getComboRecords:()=> (init(),DATA.combos), getSocketCandidates, socketCard, isCardCompatible, removeAllCardsFromEquipped,
-    onNormalAttack,onPlayerDamaged,onSkillUsed,onMonsterDefeated,rollExtraDrops,getExpRate,getSkillDamageRate,getSkillSpCostModifier,tickPeriodicEffects,
-    getBuildCounts:()=>({cards:Object.keys(DATA.effects).length,combos:DATA.combos.length,dropSources:Object.values(DATA.drops).reduce((n,x)=>n+(x?.length||0),0)}),
+    onNormalAttack,onPlayerDamaged,onSkillUsed,onMonsterDefeated,rollExtraDrops,getExpRate,getSkillDamageRate,getSkillSpCostModifier,getItemRecoveryRate,tickPeriodicEffects,
+    getBuildCounts:()=>({cards:Object.keys(DATA.effects).length,equipmentScripts:Object.keys(DATA.equipment).length,combos:DATA.combos.length,dropSources:Object.values(DATA.drops).reduce((n,x)=>n+(x?.length||0),0)}),
     _debugEvaluateRecord:(record,context={})=>executeScript(record,context), _debugData:()=>DATA, _debugResolveSkill:resolveSkill
   };
   window.invalidateCardRuntime = invalidate;
