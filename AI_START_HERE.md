@@ -1,14 +1,11 @@
-# 0.9.82FU CURRENT RUNTIME
-目前正式版本：**0.9.82FU**。
-基準為 0.9.82FT；不得回退舊版。
+# 0.9.82FV CURRENT RUNTIME
+目前正式版本：**0.9.82FV**。  
+基準為 0.9.82FU；不得回退 FU 已完成的右上 HUD 收合、掛機並排與 ITEM 稽核修正。
 
-本版重點：
-
-- 右上 HUD 的收合／展開按鈕位於獨立掛機按鈕左側，使用 `🔼／🔽` 顯示目前可執行動作。
-- 已完成 ITEM 圖示稽核；專案入口來源本身仍缺少／損壞的圖示詳見 `ITEM_ICON_AUDIT_0.9.82FU.txt`。
-
-- 自動掛機死亡並完成一般 HP 恢復後，會清除舊目標並自動重新選怪繼續戰鬥；死亡等待期間仍顯示掛機中，玩家可手動取消續掛。
-- 右上角掛機按鈕已從九個功能按鈕中分離，改為獨立大型狀態按鈕。
-- 金幣／寶石列與九個右上功能按鈕可透過「•••」一鍵展開／收合；窄螢幕首次載入預設收合，獨立掛機按鈕永遠保留。
-- 新增艾音貝赫礦山 1～2樓、幻影泰迪熊礦山、深淵－艾音貝赫礦山 3樓；三張邏輯地圖共用 118～126 九張實體圖塊。
-- 怪物分布、能力、AI、屬性、經驗與掉落取自 rAthena Renewal 2026-06-08 `npc/re/mobs/dungeons/ein_dun.txt` 與 `db/re/mob_db.yml`。
+## FV 新增契約
+- `js/card_runtime.js` 是卡片 Script、Combo、插卡、拆卡與額外掉落的唯一 Runtime 權威。
+- 卡片主資料：`data/items/cards_1.json`、`cards_2.json`；不得再於 `monster_drops_0_9_82EI.json` 建立重複卡片記錄。
+- 卡片來源／Combo：`data/card_runtime/`，來源為 rAthena Renewal 2026-06-08。
+- 裝備卡片必須存於獨立 equipment instance 的 `cards` 陣列；不可只存裝備 ID。
+- 自動掛機的專屬資源不足採每技能 15 秒重試抑制，不可永久重試卡死。
+- ITEM 圖示以 `items(1).zip` 同步後的 `images/items/` 為準，不得復原 1010 長條圖或 2324 全透明圖。

@@ -201,11 +201,8 @@
   }
 
   function getCardTitle(cardId) {
-    const tables = getDisplayTables();
-    const id = String(baseItemId(cardId));
-    const explicit = String(tables.cardPrefixNames?.[id] || tables.cardItemAliases?.[id] || '').trim();
-    if (explicit) return explicit;
-    const base = stripCardSuffix(getCardInfo(id).name);
+    const id=String(baseItemId(cardId));
+    const base=stripCardSuffix(getCardInfo(id).name);
     return base ? `${base}的` : `卡片${id}的`;
   }
 
@@ -224,7 +221,6 @@
     if (!data) return String(baseItemId(instanceOrId) || '未知道具');
     const instance = normalizeEquipmentInstance(instanceOrId, data);
     const tables = getDisplayTables();
-    const postfix = new Set((tables.cardPostfixIds || []).map(String));
     const slotCount = getEquipmentSlotCount(data);
     const nativeCards = instance.cards.slice(0, slotCount).filter(Boolean).map(id => String(baseItemId(id)));
     const groups = [];
@@ -234,11 +230,9 @@
       group.count += 1;
     }
     const prefixTitles = [];
-    const postfixTitles = [];
     for (const group of groups) {
       const multiplier = group.count > 1 ? String(tables.duplicateCardPrefixes?.[String(Math.min(4, group.count))] || '') : '';
-      const title = `${multiplier}${getCardTitle(group.id)}`;
-      (postfix.has(group.id) ? postfixTitles : prefixTitles).push(title);
+      prefixTitles.push(`${multiplier}${getCardTitle(group.id)}`);
     }
     for (const enchant of instance.enchants) {
       const title = getEnchantTitle(enchant);
@@ -246,8 +240,7 @@
     }
     const refine = instance.refine > 0 ? `+${instance.refine} ` : '';
     const before = prefixTitles.length ? `${prefixTitles.join(' ')} ` : '';
-    const after = postfixTitles.length ? ` ${postfixTitles.join(' ')}` : '';
-    return `${refine}${before}${data.name}${after} [${slotCount}]`.replace(/\s+/g, ' ').trim();
+    return `${refine}${before}${data.name} [${slotCount}]`.replace(/\s+/g, ' ').trim();
   }
 
   function buildCompactItemName(instanceOrItem, itemData = null) {
@@ -340,7 +333,7 @@
     }
   }
 
-  function renderCardDetail(cardId) {
+  function renderCardDetail(cardId, context = {}) {
     resetItemDetailActions();
     const card = getCardInfo(cardId);
     const modal = document.getElementById('item-detail-modal');
@@ -369,13 +362,34 @@
     const lines = typeof cleanItemDescriptionLines === 'function' ? cleanItemDescriptionLines(card) : (card.description || []);
     (lines.length ? lines : ['目前沒有卡片能力說明。']).forEach(line => appendTextLine(desc, typeof stripROColorCodesForCheck === 'function' ? stripROColorCodesForCheck(line) : line));
     body.appendChild(desc);
+    if(context.source==='inventory'&&window.CardRuntime){
+      const actions=document.getElementById('item-detail-actions');
+      const primary=document.getElementById('item-detail-primary-action');
+      const picker=document.getElementById('item-detail-quick-picker');
+      const candidates=window.CardRuntime.getSocketCandidates(card.id)||[];
+      if(actions)actions.hidden=false;
+      if(primary){primary.hidden=false;primary.textContent=candidates.length?'請選擇要插卡的裝備':'沒有可插入的裝備';primary.disabled=true;}
+      if(picker){
+        picker.hidden=false;picker.innerHTML='';picker.classList.add('card-socket-picker');
+        for(const {instance,item} of candidates){
+          const button=document.createElement('button');button.type='button';button.className='item-detail-socket-candidate';
+          button.textContent=buildEquipmentInstanceName(instance,item);
+          button.onclick=()=>{
+            const result=window.CardRuntime.socketCard(card.id,instance.instanceId);
+            if(typeof addBattleLog==='function')addBattleLog(result.ok?`${card.name} 已插入 ${buildEquipmentInstanceName(instance,item)}。`:`${card.name}：${result.reason||'插卡失敗'}`);
+            if(result.ok)closeItemDetailModal();
+          };
+          picker.appendChild(button);
+        }
+      }
+    }
     modal.classList.remove('hidden-window');
   }
 
   function showItemDetail(instanceOrId, context = {}) {
     const data = getBaseItemData(instanceOrId);
     if (!data) return;
-    if (String(data.type) === 'card') { renderCardDetail(data.id); return; }
+    if (String(data.type) === 'card') { renderCardDetail(data.id, context); return; }
     const modal = document.getElementById('item-detail-modal');
     const title = document.getElementById('item-detail-title');
     const body = document.getElementById('item-detail-body');
@@ -537,6 +551,7 @@
     const instance = getEquipmentInstance(slot) || normalizeEquipmentInstance(id, data);
     player.equipment[slot] = null;
     if (player.equipmentInstances) delete player.equipmentInstances[slot];
+    window.invalidateCardRuntime?.();
     if (data) {
       player.inventory.push({ ...instance, count: 1 });
       if (!options.silent) addBattleLog(`卸下了 ${buildEquipmentInstanceName(instance, data)}`);
@@ -582,6 +597,7 @@
     player.equipment[slot] = itemData.id;
     player.equipmentInstances = player.equipmentInstances || {};
     player.equipmentInstances[slot] = instance;
+    window.invalidateCardRuntime?.();
     normalizeEquipmentHandConflicts();
     if (typeof syncEquipmentGrantedSkills === 'function') syncEquipmentGrantedSkills();
     recalculatePlayerStats();

@@ -157,6 +157,7 @@ function getNpcTypeText(type) {
   const map = {
     shop: "商店",
     job_change: "轉職 NPC",
+    card_removal: "卡片拆卸",
     storage: "倉庫"
   };
   return map[type] || type || "NPC";
@@ -165,6 +166,7 @@ function getNpcTypeText(type) {
 function getNpcActionText(npc) {
   if (npc.type === "shop") return "開啟商店";
   if (npc.type === "job_change") return "轉職相談";
+  if (npc.type === "card_removal") return "拆卸卡片";
   return "交談";
 }
 
@@ -179,6 +181,10 @@ function interactNpc(npcId) {
 
   if (npc.type === "job_change") {
     openJobChangeNpc(npc);
+    return;
+  }
+  if (npc.type === "card_removal") {
+    openCardRemovalNpc(npc);
     return;
   }
 
@@ -476,6 +482,59 @@ function buyShopItem(itemId, price, qty = 1) {
   saveGame();
 }
 
+function getEquippedCardRemovalRows(){
+  const rows=[];
+  for(const [slot,itemId] of Object.entries(player?.equipment||{})){
+    if(!itemId)continue;
+    const instance=typeof getEquipmentInstance==="function"?getEquipmentInstance(slot):player?.equipmentInstances?.[slot];
+    const cards=(instance?.cards||[]).filter(Boolean);
+    if(!instance||!cards.length)continue;
+    if(rows.some(row=>row.instance===instance || (instance.instanceId&&String(row.instance?.instanceId||"")===String(instance.instanceId))))continue;
+    rows.push({slot,itemId:Number(itemId),item:getItemData(itemId),instance,cards});
+  }
+  return rows;
+}
+function openCardRemovalNpc(npc){
+  currentShopId=null;currentShopSelectedItem=null;closePurchaseDialog();
+  const panel=document.getElementById("shop-panel"),list=document.getElementById("shop-item-list"),detail=document.getElementById("shop-detail-panel"),win=document.getElementById("shop-window");
+  if(!panel||!list)return false;
+  panel.classList.remove("hidden-town-section");win?.classList.remove("hidden-window");win?.classList.remove("is-shop-list-only");
+  if(typeof bringWindowToFront==="function"&&win)bringWindowToFront(win);
+  const title=panel.querySelector(".shop-title"),windowTitle=document.getElementById("shop-window-title");
+  if(title)title.textContent=`${npc.name}｜選擇穿戴裝備`;if(windowTitle)windowTitle.textContent=`${npc.name}｜拆卡`;
+  list.innerHTML="";if(detail)detail.innerHTML='<div class="town-empty">選擇一件已穿戴且裝有卡片的裝備。每次費用 1,000,000 Zeny。</div>';
+  const rows=getEquippedCardRemovalRows();
+  if(!rows.length){list.innerHTML='<div class="town-empty">目前穿戴中的裝備沒有卡片。</div>';return true;}
+  rows.forEach(row=>{
+    const button=document.createElement("button");button.type="button";button.className="shop-item-row shop-item-button";
+    const iconBox=document.createElement("span");iconBox.className="shop-item-icon";const icon=document.createElement("img");icon.src=row.item?.icon||`images/items/${row.itemId}.webp`;icon.alt=row.item?.name||"裝備";iconBox.appendChild(icon);
+    const info=document.createElement("span");info.className="shop-item-name";const strong=document.createElement("b");strong.textContent=typeof buildEquipmentInstanceName==="function"?buildEquipmentInstanceName(row.instance,row.item):(row.item?.name||String(row.itemId));
+    const small=document.createElement("small");small.textContent=`${typeof getEquipmentSlotName==="function"?getEquipmentSlotName(row.slot):row.slot}｜${row.cards.length} 張卡片`;
+    info.append(strong,small);button.append(iconBox,info);button.onclick=()=>renderCardRemovalDetail(npc,row);list.appendChild(button);
+  });
+  return true;
+}
+function renderCardRemovalDetail(npc,row){
+  const detail=document.getElementById("shop-detail-panel");if(!detail)return;
+  detail.innerHTML="";
+  const cardRecords=row.cards.map(id=>window.CardRuntime?.getCardRecord?.(id)||getItemData(id)).filter(Boolean);
+  const hasMvp=cardRecords.some(card=>card.isMvpCard===true),chance=hasMvp?10:50;
+  const card=document.createElement("div");card.className="shop-detail-card card-removal-detail";
+  const name=document.createElement("div");name.className="shop-detail-name";name.textContent=typeof buildEquipmentInstanceName==="function"?buildEquipmentInstanceName(row.instance,row.item):(row.item?.name||"裝備");
+  const meta=document.createElement("div");meta.className="shop-detail-meta";meta.textContent=`費用 1,000,000 Zeny｜成功率 ${chance}%${hasMvp?'（含 MVP 卡）':''}`;
+  const desc=document.createElement("div");desc.className="shop-detail-desc";desc.textContent=`將一次拆除全部卡片：${cardRecords.map(x=>x.name).join('、')}。失敗仍扣費，但裝備與卡片都不會損壞或消失。`;
+  const actions=document.createElement("div");actions.className="shop-action-row";const confirm=document.createElement("button");confirm.type="button";confirm.textContent="支付 1,000,000 Zeny 並嘗試拆卡";
+  confirm.onclick=()=>{
+    const result=window.CardRuntime?.removeAllCardsFromEquipped?.(row.slot);
+    if(!result){addBattleLog(`${npc.name}：拆卡系統尚未載入。`);return;}
+    if(result.ok)addBattleLog(`${npc.name}：拆卡成功！裝備與 ${result.cards.length} 張卡片已放回背包。`);
+    else if(result.failed)addBattleLog(`${npc.name}：拆卡失敗，裝備與卡片均未受損；已扣除 1,000,000 Zeny。`);
+    else addBattleLog(`${npc.name}：${result.reason||'無法拆卡'}`);
+    openCardRemovalNpc(npc);
+  };
+  actions.appendChild(confirm);card.append(name,meta,desc,actions);detail.appendChild(card);
+}
+
 function openJobChangeNpc(npc) {
   const rules = (jobChangeRules || []).filter(rule => rule.npcId === npc.id && (typeof isJobChangeRuleVisibleForPlayer === "function" ? isJobChangeRuleVisibleForPlayer(rule) : rule.fromJob === player.jobKey));
 
@@ -710,3 +769,5 @@ function updateTownBackground(city) {
     battleField.style.backgroundImage = `linear-gradient(rgba(20, 20, 20, 0.25), rgba(20, 20, 20, 0.25)), url("${city.background}")`;
   }
 }
+
+Object.assign(window,{openCardRemovalNpc,renderCardRemovalDetail,getEquippedCardRemovalRows});

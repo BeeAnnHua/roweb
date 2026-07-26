@@ -125,9 +125,11 @@ function getRuntimeSkillSpCost(skill, level) {
   else baseCost = Math.max(0, Math.floor(getLevelValue(skill?.spCost, level, 0)));
   const passive = typeof getPassiveSkillBonusTotals === "function" ? getPassiveSkillBonusTotals() : {};
   const active = typeof getActiveBuffBonusTotals === "function" ? getActiveBuffBonusTotals() : {};
+  const cardCost = window.CardRuntime?.getSkillSpCostModifier ? window.CardRuntime.getSkillSpCostModifier(skill) : { flat:0, rate:0 };
   const reduction = Math.max(0, Math.min(100, Number(passive.spCostReductionRate || 0) + Number(active.spCostReductionRate || 0)));
   const increase = Math.max(0, Number(active.skillSpCostIncreaseRate || 0));
-  return Math.max(0, Math.floor(baseCost * (100 - reduction) / 100 * (100 + increase) / 100));
+  const cardAdjusted = Math.max(0, Number(baseCost) + Number(cardCost.flat || 0)) * Math.max(0, 100 + Number(cardCost.rate || 0)) / 100;
+  return Math.max(0, Math.floor(cardAdjusted * (100 - reduction) / 100 * (100 + increase) / 100));
 }
 
 function getRuntimeSkillZenyCost(skill, level) {
@@ -678,14 +680,8 @@ function getRuntimeEquippedTimingSources() {
     const item = getItemData(id);
     if (!item) continue;
     sources.push(item);
-    const instanceCards = typeof getEquipmentInstance === 'function' ? getEquipmentInstance(slot)?.cards : null;
-    const slotCards = player?.equipmentCards?.[slot] || player?.socketedCards?.[slot];
-    const cardIds = Array.isArray(instanceCards) ? instanceCards.filter(Boolean) : (Array.isArray(slotCards) ? slotCards : (Array.isArray(item.cards) ? item.cards : (Array.isArray(item.cardIds) ? item.cardIds : [])));
-    for (const cardId of cardIds) {
-      const card = getItemData(cardId);
-      if (card) sources.push(card);
-    }
   }
+  if (window.CardRuntime?.getSources) sources.push(...window.CardRuntime.getSources());
   return sources;
 }
 
@@ -1326,6 +1322,27 @@ function isRuntimeMagicSkill(skill, profile = null) {
   return type === "magic" || ["magic_damage","magic_multihit","chain_magic","ground_damage"].includes(handler) && String(runtime.damageHandler || handler).includes("magic");
 }
 
+
+function getRuntimeResourceDisplayName(type) {
+  const labels={spiritSphere:"氣功彈",servantWeapon:"劍體",rollingCutterCharge:"迴旋層數",soulSphere:"靈魂球",elementalSphere:"元素球"};
+  return labels[String(type||"")] || "戰鬥資源";
+}
+function previewRuntimeResourceCost(profile, level = 1) {
+  const cfg=profile?.resourceCost;
+  if(!cfg||!window.CombatResourceManager)return {ok:true,used:0};
+  const sid=Number(profile?.skillId||0),active=typeof getActiveBuffBonusTotals==="function"?getActiveBuffBonusTotals():{};
+  if(cfg.type==="spiritSphere"){
+    const waived=(sid===2329&&Number(active.waiveFallenEmpireSphereCost||0)>0)||(sid===2330&&Number(active.waiveTigerCannonSphereCost||0)>0)||(sid===5009&&Number(active.waiveFlashComboSphereCost||0)>0)||(sid===2332&&Number(active.massiveFlameBlaster||0)>0)||(sid===2518&&Number(active.massiveFlameBlaster||0)>0);
+    if(waived)return {ok:true,used:0,waived:true};
+  }
+  const type=String(cfg.type||""),current=Math.max(0,Number(window.CombatResourceManager.get(type)||0));
+  let required=Math.max(0,Number(getLevelValue(cfg.amount,level,1)));
+  if(cfg.mode==="asura")required=Math.max(5,Number(cfg.minimum||5));
+  if(current>=required)return {ok:true,type,current,required};
+  const label=getRuntimeResourceDisplayName(type);
+  return {ok:false,type,current,required,reason:`${label}不足（需要 ${required}，目前 ${current}）`,resourceBlock:{type,current,required,label,retryMs:15000}};
+}
+
 function canCastSkill(skill, requestedLevel = null, expectedHandlers = null, options = {}) {
   if (!player || !skill) return { ok: false, reason: "找不到技能" };
   const level = clampSkillLevel(skill, requestedLevel);
@@ -1387,6 +1404,10 @@ function canCastSkill(skill, requestedLevel = null, expectedHandlers = null, opt
   if (options.ignoreSpCostCheck !== true && Number(player.sp || 0) < spCost) return { ok: false, reason: "SP 不足" };
   if (hpCost > 0 && Number(player.hp || 0) <= hpCost) return { ok: false, reason: "HP 不足" };
   if (Number(player.zeny || 0) < zenyCost) return { ok: false, reason: `Zeny 不足，需要 ${zenyCost} Zeny` };
+  if(options.ignoreResourceCostCheck!==true){
+    const resourceCheck=previewRuntimeResourceCost(profile,level);
+    if(!resourceCheck.ok)return {ok:false,level,spCost,hpCost,zenyCost,profile,reason:resourceCheck.reason,resourceBlock:resourceCheck.resourceBlock};
+  }
   return { ok: true, level, spCost, hpCost, zenyCost, profile };
 }
 
@@ -1414,6 +1435,7 @@ function paySkillCost(skill, level, options = {}) {
   if (zenyCost > 0) player.zeny = Math.max(0, Number(player.zeny || 0) - zenyCost);
   consumeMemorizeChargeOnMagicCast(skill);
   commitRuntimeSkillTiming(skill, level);
+  window.CardRuntime?.onSkillUsed?.(skill, typeof currentMonster!=="undefined" ? currentMonster : null);
   const animationAlreadyPlayed = consumeRuntimeCastAnimationHandoff(skill);
   if (options.skipAnimation !== true && !animationAlreadyPlayed) playRuntimeSkillActionMotion(skill, level, options);
   return spCost;
@@ -3712,7 +3734,7 @@ function castHealSkill(skill, requestedLevel = null) {
   return true;
 }
 
-function calculateSkillAttackDamage(skill, requestedLevel = null, target = currentMonster, combatOptions = {}) {
+function calculateSkillAttackDamageBase(skill, requestedLevel = null, target = currentMonster, combatOptions = {}) {
   if (!target || !skill) return null;
   const level = clampSkillLevel(skill, requestedLevel);
   if (level <= 0) return null;
@@ -4535,6 +4557,16 @@ function calculateSkillAttackDamage(skill, requestedLevel = null, target = curre
   return Math.max(1, result.damage);
 }
 
+
+function applyCardSkillDamageRate(skill, damage) {
+  if(damage===null||damage===undefined)return damage;
+  const rate=window.CardRuntime?.getSkillDamageRate ? Number(window.CardRuntime.getSkillDamageRate(skill)||0) : 0;
+  return rate ? Math.max(0,Math.floor(Number(damage||0)*(100+rate)/100)) : damage;
+}
+function calculateSkillAttackDamage(skill, requestedLevel = null, target = currentMonster, combatOptions = {}) {
+  return applyCardSkillDamageRate(skill, calculateSkillAttackDamageBase(skill, requestedLevel, target, combatOptions));
+}
+
 function getRuntimeCombatCandidates(options = {}) {
   const context = window.RO_WEB_COMBAT_EVAL_CONTEXT;
   if (!options.ignoreContext && Array.isArray(context?.candidates)) return context.candidates;
@@ -4792,7 +4824,7 @@ function finalizeSecondaryRuntimeSkillDefeat(target) {
 window.finalizeSecondaryRuntimeSkillDefeat = finalizeSecondaryRuntimeSkillDefeat;
 
 function castAttackSkill(skill, requestedLevel = null, options = {}) {
-  const check = canCastSkill(skill, requestedLevel, ["physical_attack", "physical_attack_size_hits", "physical_attack_formula", "physical_charge", "magic_multihit", "magic_damage", "misc_damage"]);
+  const check = canCastSkill(skill, requestedLevel, ["physical_attack", "physical_attack_size_hits", "physical_attack_formula", "physical_charge", "magic_multihit", "magic_damage", "misc_damage"], options);
   if (!check.ok) return reportPendingRuntime(skill, check.reason);
   if (!currentMonster) return false;
   const skillRange = typeof getSkillRangePx === "function" ? getSkillRangePx(skill, check.level) : null;
@@ -5246,3 +5278,5 @@ function getSkillTypeText(skill) {
   const map = { passive:"被動", attack:"攻擊", buff:"Buff", heal:"治癒", support:"支援", pending:"未完成" };
   return map[getRuntimeSkillUiType(skill)] || "技能";
 }
+
+Object.assign(window,{previewRuntimeResourceCost,getRuntimeResourceDisplayName,applyCardSkillDamageRate});

@@ -1312,6 +1312,33 @@ function shouldCastBySp(minPercent) {
   return getPercent(player.sp, player.maxSp) >= Number(minPercent || 0);
 }
 
+
+const AUTO_RESOURCE_RETRY_MS = 15000;
+function normalizeAutoResourceRetryState() {
+  if(!player)return {};
+  player.autoCombat=player.autoCombat||{};
+  const raw=player.autoCombat.resourceRetryUntil;
+  player.autoCombat.resourceRetryUntil=raw&&typeof raw==="object"&&!Array.isArray(raw)?raw:{};
+  const now=Date.now();
+  Object.keys(player.autoCombat.resourceRetryUntil).forEach(key=>{if(Number(player.autoCombat.resourceRetryUntil[key]||0)<=now)delete player.autoCombat.resourceRetryUntil[key];});
+  return player.autoCombat.resourceRetryUntil;
+}
+function getAutoResourceRetryKey(skill){return String(skill?.officialId??skill?.id??skill?.key??0);}
+function isAutoSkillResourceSuppressed(skill){return Date.now()<Number(normalizeAutoResourceRetryState()[getAutoResourceRetryKey(skill)]||0);}
+function suppressAutoSkillForResource(skill,block,options={}){
+  if(!player||!skill||!block)return 0;
+  const state=normalizeAutoResourceRetryState(),key=getAutoResourceRetryKey(skill),now=Date.now(),previous=Number(state[key]||0);
+  const until=now+Math.max(1000,Number(block.retryMs||AUTO_RESOURCE_RETRY_MS));
+  state[key]=Math.max(previous,until);
+  if(previous<=now&&options.silent!==true&&typeof addBattleLog==="function")addBattleLog(`${skill.name}：${block.label||"戰鬥資源"}不足，15 秒內改用普通攻擊，之後再嘗試。`);
+  return state[key];
+}
+function handleAutoSkillResourceBlock(skill,check,options={}){
+  if(!check?.resourceBlock)return false;
+  suppressAutoSkillForResource(skill,check.resourceBlock,options);
+  return true;
+}
+
 function tryAutoHeal() {
   const cfg = player.autoCombat?.heal;
   if (!cfg?.enabled || !cfg.skillId) return false;
@@ -1319,8 +1346,10 @@ function tryAutoHeal() {
   if (!shouldCastBySp(cfg.spPercent || 20)) return false;
 
   const skill = getSkillDataById(cfg.skillId);
-  if (!skill || (typeof getRuntimeSkillUiType === "function" ? getRuntimeSkillUiType(skill) !== "heal" : skill.skillType !== "heal")) return false;
+  if (!skill || (typeof getRuntimeSkillUiType === "function" ? getRuntimeSkillUiType(skill) !== "heal" : skill.skillType !== "heal") || isAutoSkillResourceSuppressed(skill)) return false;
   const level = Number(cfg.level || getSkillLevel(skill.id) || 1);
+  const precheck=typeof canCastSkill==="function"?canCastSkill(skill,level):{ok:true};
+  if(!precheck.ok){handleAutoSkillResourceBlock(skill,precheck);return false;}
   const timing = typeof getRuntimeAdjustedCastTime === "function" ? getRuntimeAdjustedCastTime(skill, level) : { totalMs: 0 };
   if (Number(timing?.totalMs || 0) > 0 && typeof beginRuntimeSkillCast === "function") {
     return beginRuntimeSkillCast(skill, level, () => castHealSkill(skill, level));
@@ -1342,12 +1371,15 @@ function tryAutoBuffs() {
       ? rawSetting
       : { enabled: Boolean(rawSetting), spPercent: 0 };
     if (!setting.enabled) continue;
+    if (isAutoSkillResourceSuppressed(skill)) continue;
     if (!shouldCastBySp(setting.spPercent || 0)) continue;
 
     const current = player.activeBuffs?.[key] || player.activeBuffs?.[skill.id];
     const remaining = current ? Number(current.expiresAt || 0) - Date.now() : 0;
     if (remaining > 3000) continue;
     const level = Number(getSkillLevel(skill.id) || 1);
+    const precheck=typeof canCastSkill==="function"?canCastSkill(skill,level):{ok:true};
+    if(!precheck.ok){handleAutoSkillResourceBlock(skill,precheck);continue;}
     const timing = typeof getRuntimeAdjustedCastTime === "function" ? getRuntimeAdjustedCastTime(skill, level) : { totalMs: 0 };
     if (Number(timing?.totalMs || 0) > 0 && typeof beginRuntimeSkillCast === "function") {
       return beginRuntimeSkillCast(skill, level, () => castBuffSkill(skill, level, { silent: false }));
@@ -1764,6 +1796,7 @@ function getAutoAttackSkill(monster = currentMonster) {
 
     const skill = getSkillDataById(cfg.skillId);
     if (!skill || (typeof getRuntimeSkillUiType === "function" ? getRuntimeSkillUiType(skill) !== "attack" : skill.skillType !== "attack")) continue;
+    if (isAutoSkillResourceSuppressed(skill)) continue;
 
     const level = Number(cfg.level || getSkillLevel(skill.id) || 1);
     const targetCount = getAutoBattleSkillTargetCount(skill, level, monster);
@@ -1783,6 +1816,7 @@ function getAutoAttackSkill(monster = currentMonster) {
       };
     }
 
+    if (handleAutoSkillResourceBlock(skill,check)) continue;
     if (!check.delayBlock) continue;
     const blockedChoice = {
       skill,
@@ -1880,3 +1914,5 @@ window.getAutoAttackSkill = getAutoAttackSkill;
 window.getAutoCombatAttackAction = getAutoCombatAttackAction;
 window.getAutoBattleControllerSnapshot = () => ({ ...AUTO_BATTLE_CONTROLLER });
 
+
+Object.assign(window,{isAutoSkillResourceSuppressed,suppressAutoSkillForResource,handleAutoSkillResourceBlock});

@@ -511,7 +511,7 @@ function autoAttackMonster(options = {}) {
 
   // v0.9.72：先決定本 tick 要用普攻還是攻擊技能，再用對應射程判定。
   // 這樣投擲長矛 / 弓類技能不會被普攻 1 Cell 射程綁死。
-  const autoAction = options.manual
+  let autoAction = options.manual
     ? { action: "normal", source: "manual_click" }
     : (typeof getAutoCombatAttackAction === "function"
       ? getAutoCombatAttackAction(currentMonster)
@@ -545,27 +545,27 @@ function autoAttackMonster(options = {}) {
 
   if (autoAction && autoAction.action === "attackSkill") {
     const recheck = typeof canCastSkill === "function" ? canCastSkill(autoAction.skill, autoAction.level) : { ok: true, level: autoAction.level };
-    if (!recheck.ok) return;
-    const autoCastTiming = typeof getRuntimeAdjustedCastTime === "function" ? getRuntimeAdjustedCastTime(autoAction.skill, autoAction.level) : { totalMs: 0 };
-    if (Number(autoCastTiming?.totalMs || 0) > 0 && typeof beginRuntimeSkillCast === "function" && typeof quickSlotCastSkill === "function") {
-      beginRuntimeSkillCast(autoAction.skill, autoAction.level, () => quickSlotCastSkill(autoAction.skill.id, { skipRuntimeCast: true, source: "auto_battle" }));
-      return;
+    if (!recheck.ok) {
+      if (typeof handleAutoSkillResourceBlock === "function" && handleAutoSkillResourceBlock(autoAction.skill,recheck)) {
+        autoAction={action:"normal",fallbackFromResource:true};
+      } else return;
     }
-    const autoProfile=typeof getSkillRuntimeProfile==="function"?getSkillRuntimeProfile(autoAction.skill):null;
-    const used=autoProfile?.handler==="combo_sequence"
-      ? castComboSequenceSkill(autoAction.skill,autoAction.level,{source:"auto_battle"})
-      : castAttackSkill(autoAction.skill, autoAction.level, { source: "auto_battle" });
-
-    if (used) {
-      if (currentMonster.currentHp <= 0) {
-        defeatMonster();
+    if (autoAction.action === "attackSkill") {
+      const autoCastTiming = typeof getRuntimeAdjustedCastTime === "function" ? getRuntimeAdjustedCastTime(autoAction.skill, autoAction.level) : { totalMs: 0 };
+      if (Number(autoCastTiming?.totalMs || 0) > 0 && typeof beginRuntimeSkillCast === "function" && typeof quickSlotCastSkill === "function") {
+        beginRuntimeSkillCast(autoAction.skill, autoAction.level, () => quickSlotCastSkill(autoAction.skill.id, { skipRuntimeCast: true, source: "auto_battle" }));
         return;
       }
-
-      monsterAttackPlayer();
+      const autoProfile=typeof getSkillRuntimeProfile==="function"?getSkillRuntimeProfile(autoAction.skill):null;
+      const used=autoProfile?.handler==="combo_sequence"
+        ? castComboSequenceSkill(autoAction.skill,autoAction.level,{source:"auto_battle"})
+        : castAttackSkill(autoAction.skill, autoAction.level, { source: "auto_battle" });
+      if (used) {
+        if (currentMonster.currentHp <= 0) { defeatMonster(); return; }
+        monsterAttackPlayer(); return;
+      }
       return;
     }
-    return;
   }
 
   if (!canPlayerAttackNow()) return;
@@ -610,6 +610,7 @@ function autoAttackMonster(options = {}) {
   if (typeof tryHawkRushAutoAttackOnNormal === "function") tryHawkRushAutoAttackOnNormal(currentMonster);
   if (typeof tryWindSignApGainOnNormalAttack === "function") tryWindSignApGainOnNormalAttack(currentMonster);
   if (typeof tryWargAutoStrikeOnNormal === "function") tryWargAutoStrikeOnNormal(currentMonster);
+  window.CardRuntime?.onNormalAttack?.(currentMonster,playerDamage);
   if (typeof breakCamouflageRuntime === "function" && breakCamouflageRuntime({silent:true})) addBattleLog("發動攻擊，偽裝戰術解除。");
 
   if (currentMonster.currentHp < 0) {
@@ -864,6 +865,7 @@ function monsterAttackPlayer(options = {}) {
   if (monsterDamage <= 0) { updatePlayerUI(); saveGame(); return; }
 
   player.hp -= monsterDamage;
+  window.CardRuntime?.onPlayerDamaged?.(currentMonster,monsterDamage);
   let crescentElbowResult = null;
   if (player.hp > 0 && monsterRangeCells <= 1 && typeof tryCrescentElbowCounter === "function") {
     crescentElbowResult = tryCrescentElbowCounter(currentMonster, monsterDamage);

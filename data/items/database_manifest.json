@@ -1,6 +1,6 @@
 {
-  "version": "0.9.82FU",
-  "note": "RO_WEB Item Database：新增官方 12114～12117 肯貝特；不使用箭矢、子彈、砲彈、苦無等彈藥消耗，肯貝特統一轉換所有玩家物理傷害屬性。",
+  "version": "0.9.82FV",
+  "note": "RO_WEB Item Database：0.9.82FV 完整怪物卡片、插卡／拆卡、910 張掉落卡與 784 組 Combo。",
   "legacyCompatibility": "data/items.json retired. Runtime item data is loaded from split JSON through ItemManager/getItemById().",
   "itemPaths": {
     "consumables": "data/items/consumables.json",
@@ -105,5 +105,22 @@
     "newRecordCount": 74,
     "source": "all active regional monsters including three Einbech Mine variants",
     "note": "Missing item records and icons are activated from itemInfo + rAthena Renewal."
+  },
+  "cardSystem": {
+    "version": "0.9.82FV",
+    "cardCount": 910,
+    "monsterDropSourceCount": 1422,
+    "comboCount": 784,
+    "scriptCompileErrors": 0,
+    "scriptRuntimeErrors": 0,
+    "unknownCommands": 0,
+    "duplicateCardIds": 0,
+    "legacyDuplicateCardRecordsRemovedFromFU": 155,
+    "socketTargetCoverage": 910,
+    "specialCardOverrides": [
+      6716,
+      6717,
+      6718
+    ]
   }
 }

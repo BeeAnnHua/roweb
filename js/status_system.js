@@ -270,11 +270,8 @@ function getEquippedStatusSources() {
     const item = getItemData(itemId);
     if (!item) return;
     result.push(item);
-    const instanceCards = typeof getEquipmentInstance === 'function' ? getEquipmentInstance(slot)?.cards : null;
-    const slotted = player?.equipmentCards?.[slot] || player?.socketedCards?.[slot];
-    const cardIds = Array.isArray(instanceCards) ? instanceCards.filter(Boolean) : (Array.isArray(slotted) ? slotted : (Array.isArray(item.cards) ? item.cards : (Array.isArray(item.cardIds) ? item.cardIds : [])));
-    cardIds.forEach(cardId => { const card = getItemData(cardId); if (card) result.push(card); });
   });
+  if (window.CardRuntime?.getSources) result.push(...window.CardRuntime.getSources());
   return result;
 }
 

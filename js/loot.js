@@ -15,8 +15,9 @@ function grantMonsterRewards(monster) {
   const rawJobExp = Number(monster.jobExp || 0);
   const rawZeny = getMonsterRawZenyReward(monster);
 
-  const baseExp = applyTrainingRewardBonus(applyRate(rawBaseExp, "baseExp"), "baseExp");
-  const jobExp = applyTrainingRewardBonus(applyRate(rawJobExp, "jobExp"), "jobExp");
+  const cardExpRate=window.CardRuntime?.getExpRate ? Number(window.CardRuntime.getExpRate(monster)||0) : 0;
+  const baseExp = Math.max(0,Math.floor(applyTrainingRewardBonus(applyRate(rawBaseExp, "baseExp"), "baseExp")*(100+cardExpRate)/100));
+  const jobExp = Math.max(0,Math.floor(applyTrainingRewardBonus(applyRate(rawJobExp, "jobExp"), "jobExp")*(100+cardExpRate)/100));
   const zeny = getMonsterFinalZenyReward(monster, rawZeny);
 
   if (typeof recordMonsterKill === "function") {
@@ -37,6 +38,12 @@ function grantMonsterRewards(monster) {
 
   rollMonsterDrops(monster);
   rollPassiveSkillExtraDrops(monster);
+  const lootState=getMonsterLootRuntime(monster);
+  if(!lootState.cardRuntimeRewardsApplied){
+    lootState.cardRuntimeRewardsApplied=true;
+    window.CardRuntime?.rollExtraDrops?.(monster);
+    window.CardRuntime?.onMonsterDefeated?.(monster);
+  }
 }
 
 function getMonsterLootRuntime(monster) {

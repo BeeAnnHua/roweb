@@ -1,1 +1,4560 @@
-{}
+{
+  "300078": {
+    "id": 300078,
+    "officialId": 300078,
+    "aegisName": "Sweety_Card",
+    "name": "斯威蒂卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "weapon"
+    ],
+    "locations": {
+      "Right_Hand": true
+    },
+    "description": [
+      "殺戮暗舞傷害+60%。",
+      "殺戮暗舞的SP消耗+25%。"
+    ],
+    "icon": "images/items/300078.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus2 bSkillAtk,\"RL_FIREDANCE\",60;\nbonus2 bSkillUseSPrate,\"RL_FIREDANCE\",-25;\n",
+    "compiledScript": "bonus2(\"bSkillAtk\", \"RL_FIREDANCE\", 60);\nbonus2(\"bSkillUseSPrate\", \"RL_FIREDANCE\", -25);\n",
+    "dropSources": [
+      {
+        "monsterId": 20642,
+        "monsterAegisName": "MD_SWEETY",
+        "monsterName": "Sweety",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": true,
+        "isBoss": true
+      }
+    ],
+    "isMvpCard": true,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300079": {
+    "id": 300079,
+    "officialId": 300079,
+    "aegisName": "Redpepper_Card",
+    "name": "紅椒卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "body"
+    ],
+    "locations": {
+      "Armor": true
+    },
+    "description": [
+      "對無型、魚貝型敵人的魔法傷害+30%。",
+      "對聖屬性、水屬性敵人的魔法傷害+30%。"
+    ],
+    "icon": "images/items/300079.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus2 bMagicAddRace,RC_Fish,30;\nbonus2 bMagicAddRace,RC_Formless,30;\nbonus2 bMagicAddEle,Ele_Holy,30;\nbonus2 bMagicAddEle,Ele_Water,30;\n",
+    "compiledScript": "bonus2(\"bMagicAddRace\", RC_Fish, 30);\nbonus2(\"bMagicAddRace\", RC_Formless, 30);\nbonus2(\"bMagicAddEle\", Ele_Holy, 30);\nbonus2(\"bMagicAddEle\", Ele_Water, 30);\n",
+    "dropSources": [
+      {
+        "monsterId": 20620,
+        "monsterAegisName": "MD_REDPEPPER",
+        "monsterName": "Red Pepper",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": true,
+        "isBoss": true
+      }
+    ],
+    "isMvpCard": true,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300080": {
+    "id": 300080,
+    "officialId": 300080,
+    "aegisName": "Redpepper_H_Card",
+    "name": "夢魘紅椒卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "body"
+    ],
+    "locations": {
+      "Armor": true
+    },
+    "description": [
+      "對無型、魚貝型敵人的魔法傷害+50%。",
+      "對聖屬性、水屬性敵人的魔法傷害+50%。"
+    ],
+    "icon": "images/items/300080.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus2 bMagicAddRace,RC_Fish,50;\nbonus2 bMagicAddRace,RC_Formless,50;\nbonus2 bMagicAddEle,Ele_Holy,50;\nbonus2 bMagicAddEle,Ele_Water,50;\n",
+    "compiledScript": "bonus2(\"bMagicAddRace\", RC_Fish, 50);\nbonus2(\"bMagicAddRace\", RC_Formless, 50);\nbonus2(\"bMagicAddEle\", Ele_Holy, 50);\nbonus2(\"bMagicAddEle\", Ele_Water, 50);\n",
+    "dropSources": [
+      {
+        "monsterId": 20621,
+        "monsterAegisName": "MD_REDPEPPER_H",
+        "monsterName": "Senior Red Pepper",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": true,
+        "isBoss": true
+      }
+    ],
+    "isMvpCard": true,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300081": {
+    "id": 300081,
+    "officialId": 300081,
+    "aegisName": "Assistant_Card",
+    "name": "研究助理機器人卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "shoes"
+    ],
+    "locations": {
+      "Shoes": true
+    },
+    "description": [
+      "INT+2。",
+      "MHP+ 10%，MSP+10%。",
+      "火球術傷害+25%。"
+    ],
+    "icon": "images/items/300081.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bInt,2;\nbonus bMaxHPrate,10;\nbonus bMaxSPrate,10;\nbonus2 bSkillAtk,\"MG_FIREBALL\",25;\n",
+    "compiledScript": "bonus(\"bInt\", 2);\nbonus(\"bMaxHPrate\", 10);\nbonus(\"bMaxSPrate\", 10);\nbonus2(\"bSkillAtk\", \"MG_FIREBALL\", 25);\n",
+    "dropSources": [
+      {
+        "monsterId": 20622,
+        "monsterAegisName": "MD_ASSISTANT",
+        "monsterName": "Assistant Bot",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300082": {
+    "id": 300082,
+    "officialId": 300082,
+    "aegisName": "Assistant_H_Card",
+    "name": "夢魘研究助理機器人卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "weapon"
+    ],
+    "locations": {
+      "Right_Hand": true
+    },
+    "description": [
+      "若裝備的武器是單手矛、雙手矛時，遠距離物理傷害+10%。",
+      "武器精煉每+2時，遠距離物理傷害再+2%。"
+    ],
+    "icon": "images/items/300082.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "if (getiteminfo(getequipid(EQI_HAND_R), ITEMINFO_VIEW) == W_1HSPEAR || getiteminfo(getequipid(EQI_HAND_R), ITEMINFO_VIEW) == W_2HSPEAR) {\n   bonus bLongAtkRate,10;\n}\nbonus bLongAtkRate,2*(getrefine()/2);\n",
+    "compiledScript": "if (getiteminfo(getequipid(EQI_HAND_R), ITEMINFO_VIEW) == W_1HSPEAR || getiteminfo(getequipid(EQI_HAND_R), ITEMINFO_VIEW) == W_2HSPEAR) {\n   bonus(\"bLongAtkRate\", 10);\n}\nbonus(\"bLongAtkRate\", 2*(getrefine()/2));\n",
+    "dropSources": [
+      {
+        "monsterId": 20623,
+        "monsterAegisName": "MD_ASSISTANT_H",
+        "monsterName": "Senior Assistant Bot",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300083": {
+    "id": 300083,
+    "officialId": 300083,
+    "aegisName": "Dry_Rafflesia_Card",
+    "name": "干扁草精卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "shoes"
+    ],
+    "locations": {
+      "Shoes": true
+    },
+    "description": [
+      "AGI+2。",
+      "MHP+10%，MSP+10%。",
+      "冰閃槍、投擲飛刀傷害+15%。"
+    ],
+    "icon": "images/items/300083.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bAgi,2;\nbonus bMaxHPrate,10;\nbonus bMaxSPrate,10;\nbonus2 bSkillAtk,\"NJ_KUNAI\",15;\nbonus2 bSkillAtk,\"NJ_HYOUSENSOU\",15;\n",
+    "compiledScript": "bonus(\"bAgi\", 2);\nbonus(\"bMaxHPrate\", 10);\nbonus(\"bMaxSPrate\", 10);\nbonus2(\"bSkillAtk\", \"NJ_KUNAI\", 15);\nbonus2(\"bSkillAtk\", \"NJ_HYOUSENSOU\", 15);\n",
+    "dropSources": [
+      {
+        "monsterId": 20624,
+        "monsterAegisName": "MD_DRY_RAFFLESIA",
+        "monsterName": "Dry Rafflesia",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300084": {
+    "id": 300084,
+    "officialId": 300084,
+    "aegisName": "Dry_Rafflesia_H_Card",
+    "name": "夢魘干扁草精卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "garment"
+    ],
+    "locations": {
+      "Garment": true
+    },
+    "description": [
+      "對聖屬性攻擊的抗性+30%，",
+      "Flee+5。"
+    ],
+    "icon": "images/items/300084.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus2 bSubEle,Ele_Holy,30;\nbonus bFlee,5;\n",
+    "compiledScript": "bonus2(\"bSubEle\", Ele_Holy, 30);\nbonus(\"bFlee\", 5);\n",
+    "dropSources": [
+      {
+        "monsterId": 20625,
+        "monsterAegisName": "MD_DRY_RAFFLESIA_H",
+        "monsterName": "Senior Dry Rafflesia",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300085": {
+    "id": 300085,
+    "officialId": 300085,
+    "aegisName": "Alnoldi_Ex_Card",
+    "name": "特殊泰坦魔芋花卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "shoes"
+    ],
+    "locations": {
+      "Shoes": true
+    },
+    "description": [
+      "STR+2。",
+      "MHP+10%，MSP+10%。",
+      "[加油]技能等級每+1時，ATK+7。"
+    ],
+    "icon": "images/items/300085.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bStr,2;\nbonus bMaxHPrate,10;\nbonus bMaxSPrate,10;\nbonus bBaseAtk,getskilllv(\"TK_POWER\")*7;\n",
+    "compiledScript": "bonus(\"bStr\", 2);\nbonus(\"bMaxHPrate\", 10);\nbonus(\"bMaxSPrate\", 10);\nbonus(\"bBaseAtk\", getskilllv(\"TK_POWER\")*7);\n",
+    "dropSources": [
+      {
+        "monsterId": 20626,
+        "monsterAegisName": "MD_ALNOLDI_EX",
+        "monsterName": "Special Alnoldi",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300086": {
+    "id": 300086,
+    "officialId": 300086,
+    "aegisName": "Alnoldi_Ex_H_Card",
+    "name": "夢魘特殊泰坦魔芋花卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "weapon"
+    ],
+    "locations": {
+      "Right_Hand": true
+    },
+    "description": [
+      "裝備雙手劍時，近距離物理傷害+10%，",
+      "武器精煉每+1時，近距離物理傷害再+1%，",
+      "當精煉+11時，不可破壞。"
+    ],
+    "icon": "images/items/300086.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": ".@r = getrefine();\nif (getiteminfo(getequipid(EQI_HAND_R), ITEMINFO_VIEW) == W_2HSWORD) {\n   bonus bShortAtkRate,10;\n}\nbonus bShortAtkRate,.@r;\nif (.@r>=11) {\n   bonus bUnbreakableWeapon;\n}\n",
+    "compiledScript": "v.r = getrefine();\nif (getiteminfo(getequipid(EQI_HAND_R), ITEMINFO_VIEW) == W_2HSWORD) {\n   bonus(\"bShortAtkRate\", 10);\n}\nbonus(\"bShortAtkRate\", v.r);\nif (v.r>=11) {\n   bonus(\"bUnbreakableWeapon\");\n}\n",
+    "dropSources": [
+      {
+        "monsterId": 20627,
+        "monsterAegisName": "MD_ALNOLDI_EX_H",
+        "monsterName": "Senior Special Alnoldi",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300087": {
+    "id": 300087,
+    "officialId": 300087,
+    "aegisName": "Beta_Scissore_Ng_Card",
+    "name": "故障的園丁β卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "shoes"
+    ],
+    "locations": {
+      "Shoes": true
+    },
+    "description": [
+      "LUK+2。",
+      "MHP+10%，MSP+10%。",
+      "獼猴桃梗槍、白鼠創傷傷害+10%。"
+    ],
+    "icon": "images/items/300087.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bLuk,2;\nbonus bMaxHPrate,10;\nbonus bMaxSPrate,10;\nbonus2 bSkillAtk,\"SU_SV_STEMSPEAR\",10;\nbonus2 bSkillAtk,\"SU_SCAROFTAROU\",10;\n",
+    "compiledScript": "bonus(\"bLuk\", 2);\nbonus(\"bMaxHPrate\", 10);\nbonus(\"bMaxSPrate\", 10);\nbonus2(\"bSkillAtk\", \"SU_SV_STEMSPEAR\", 10);\nbonus2(\"bSkillAtk\", \"SU_SCAROFTAROU\", 10);\n",
+    "dropSources": [
+      {
+        "monsterId": 20631,
+        "monsterAegisName": "MD_BETA_SCISSORE_NG",
+        "monsterName": "Broken Gardener Beta",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300088": {
+    "id": 300088,
+    "officialId": 300088,
+    "aegisName": "B_Scissore_Ng_H_Card",
+    "name": "夢魘故障的園丁β卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "weapon"
+    ],
+    "locations": {
+      "Right_Hand": true
+    },
+    "description": [
+      "若裝備武器為書籍時，HIT+20、ATK+5%，",
+      "武器精煉每+1時，近距離物理傷害+1%，精煉+10以上時，滿月腳、流星殞落傷害+15%。"
+    ],
+    "icon": "images/items/300088.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": ".@r = getrefine();\nif (getiteminfo(getequipid(EQI_HAND_R), ITEMINFO_VIEW) == W_BOOK) {\n   bonus bAtkRate,5;\n   bonus bHit,20;\n}\nbonus bShortAtkRate,.@r;\nif (.@r>=10) {\n   bonus2 bSkillAtk,\"SJ_FALLINGSTAR_ATK\",15;\n   bonus2 bSkillAtk,\"SJ_FALLINGSTAR_ATK2\",15;\n   bonus2 bSkillAtk,\"SJ_FULLMOONKICK\",15;\n}\n",
+    "compiledScript": "v.r = getrefine();\nif (getiteminfo(getequipid(EQI_HAND_R), ITEMINFO_VIEW) == W_BOOK) {\n   bonus(\"bAtkRate\", 5);\n   bonus(\"bHit\", 20);\n}\nbonus(\"bShortAtkRate\", v.r);\nif (v.r>=10) {\n   bonus2(\"bSkillAtk\", \"SJ_FALLINGSTAR_ATK\", 15);\n   bonus2(\"bSkillAtk\", \"SJ_FALLINGSTAR_ATK2\", 15);\n   bonus2(\"bSkillAtk\", \"SJ_FULLMOONKICK\", 15);\n}\n",
+    "dropSources": [
+      {
+        "monsterId": 20632,
+        "monsterAegisName": "MD_BETA_SCISSORE_NG_H",
+        "monsterName": "S. Broken Gardener Beta",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300089": {
+    "id": 300089,
+    "officialId": 300089,
+    "aegisName": "Verporta_Card",
+    "name": "韋爾波泰卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "shoes"
+    ],
+    "locations": {
+      "Shoes": true
+    },
+    "description": [
+      "STR+2。",
+      "MHP+10%，MSP+10%。",
+      "怒爆傷害+25%。"
+    ],
+    "icon": "images/items/300089.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bStr,2;\nbonus bMaxHPrate,10;\nbonus bMaxSPrate,10;\nbonus2 bSkillAtk,\"SM_MAGNUM\",25;\n",
+    "compiledScript": "bonus(\"bStr\", 2);\nbonus(\"bMaxHPrate\", 10);\nbonus(\"bMaxSPrate\", 10);\nbonus2(\"bSkillAtk\", \"SM_MAGNUM\", 25);\n",
+    "dropSources": [
+      {
+        "monsterId": 20665,
+        "monsterAegisName": "MD_VERPORTA",
+        "monsterName": "Verporta",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300090": {
+    "id": 300090,
+    "officialId": 300090,
+    "aegisName": "Verporte_H_Card",
+    "name": "貝爾福特卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "shoes"
+    ],
+    "locations": {
+      "Shoes": true
+    },
+    "description": [
+      "地屬性魔法傷害+10%。",
+      "SP消耗+5%。",
+      "精煉+9時、地屬性魔法傷害再+10%。"
+    ],
+    "icon": "images/items/300090.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus2 bMagicAtkEle,Ele_Earth,10;\nbonus bUseSPrate,5;\nif (getrefine()>=9) {\n   bonus2 bMagicAtkEle,Ele_Earth,10;\n}\n",
+    "compiledScript": "bonus2(\"bMagicAtkEle\", Ele_Earth, 10);\nbonus(\"bUseSPrate\", 5);\nif (getrefine()>=9) {\n   bonus2(\"bMagicAtkEle\", Ele_Earth, 10);\n}\n",
+    "dropSources": [
+      {
+        "monsterId": 20666,
+        "monsterAegisName": "MD_VERPORTE_H",
+        "monsterName": "Verporte",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300091": {
+    "id": 300091,
+    "officialId": 300091,
+    "aegisName": "Papila_Card",
+    "name": "帕皮拉卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "shoes"
+    ],
+    "locations": {
+      "Shoes": true
+    },
+    "description": [
+      "DEX+2。",
+      "MHP+10%，MSP+10%。",
+      "亡命之徒、全面破壞、火力全開傷害+10%。"
+    ],
+    "icon": "images/items/300091.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bDex,2;\nbonus bMaxHPrate,10;\nbonus bMaxSPrate,10;\nbonus2 bSkillAtk,\"GS_SPREADATTACK\",10;\nbonus2 bSkillAtk,\"GS_DESPERADO\",10;\nbonus2 bSkillAtk,\"GS_FULLBUSTER\",10;\n",
+    "compiledScript": "bonus(\"bDex\", 2);\nbonus(\"bMaxHPrate\", 10);\nbonus(\"bMaxSPrate\", 10);\nbonus2(\"bSkillAtk\", \"GS_SPREADATTACK\", 10);\nbonus2(\"bSkillAtk\", \"GS_DESPERADO\", 10);\nbonus2(\"bSkillAtk\", \"GS_FULLBUSTER\", 10);\n",
+    "dropSources": [
+      {
+        "monsterId": 20669,
+        "monsterAegisName": "MD_PAPILA",
+        "monsterName": "Papila",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300092": {
+    "id": 300092,
+    "officialId": 300092,
+    "aegisName": "Papila_H_Card",
+    "name": "夢魘帕皮拉卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "shoes"
+    ],
+    "locations": {
+      "Shoes": true
+    },
+    "description": [
+      "LUK+2。",
+      "MHP+10%，MSP+10%。",
+      "手推車攻擊傷害+50%。"
+    ],
+    "icon": "images/items/300092.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bLuk,2;\nbonus bMaxHPrate,10;\nbonus bMaxSPrate,10;\nbonus2 bSkillAtk,\"MC_CARTREVOLUTION\",50;\n",
+    "compiledScript": "bonus(\"bLuk\", 2);\nbonus(\"bMaxHPrate\", 10);\nbonus(\"bMaxSPrate\", 10);\nbonus2(\"bSkillAtk\", \"MC_CARTREVOLUTION\", 50);\n",
+    "dropSources": [
+      {
+        "monsterId": 20670,
+        "monsterAegisName": "MD_PAPILA_H",
+        "monsterName": "Senior Papila",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300093": {
+    "id": 300093,
+    "officialId": 300093,
+    "aegisName": "Papila_Ruba_Card",
+    "name": "帕皮拉盧巴卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "shoes"
+    ],
+    "locations": {
+      "Shoes": true
+    },
+    "description": [
+      "INT+2。",
+      "MHP+10%，MSP+10%。",
+      "神聖之光傷害+50%。"
+    ],
+    "icon": "images/items/300093.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bInt,2;\nbonus bMaxHPrate,10;\nbonus bMaxSPrate,10;\nbonus2 bSkillAtk,\"AL_HOLYLIGHT\",50;\n",
+    "compiledScript": "bonus(\"bInt\", 2);\nbonus(\"bMaxHPrate\", 10);\nbonus(\"bMaxSPrate\", 10);\nbonus2(\"bSkillAtk\", \"AL_HOLYLIGHT\", 50);\n",
+    "dropSources": [
+      {
+        "monsterId": 20671,
+        "monsterAegisName": "MD_PAPILA_RUBA",
+        "monsterName": "Papila Ruba",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300094": {
+    "id": 300094,
+    "officialId": 300094,
+    "aegisName": "Papila_Ruba_H_Card",
+    "name": "夢魘帕皮拉盧巴卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "weapon"
+    ],
+    "locations": {
+      "Right_Hand": true
+    },
+    "description": [
+      "武器精煉每+2時，暴擊傷害+2%。",
+      "若裝備武器為雙手劍時，暴擊傷害再+20%。"
+    ],
+    "icon": "images/items/300094.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "if (getiteminfo(getequipid(EQI_HAND_R), ITEMINFO_VIEW) == W_2HSWORD) {\n   bonus bCritAtkRate,20;\n}\nbonus bCritAtkRate,2*(getrefine()/2);\n",
+    "compiledScript": "if (getiteminfo(getequipid(EQI_HAND_R), ITEMINFO_VIEW) == W_2HSWORD) {\n   bonus(\"bCritAtkRate\", 20);\n}\nbonus(\"bCritAtkRate\", 2*(getrefine()/2));\n",
+    "dropSources": [
+      {
+        "monsterId": 20672,
+        "monsterAegisName": "MD_PAPILA_RUBA_H",
+        "monsterName": "Senior Papila Ruba",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300095": {
+    "id": 300095,
+    "officialId": 300095,
+    "aegisName": "Papila_Cae_Card",
+    "name": "帕皮拉凱依卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "shoes"
+    ],
+    "locations": {
+      "Shoes": true
+    },
+    "description": [
+      "DEX+2。",
+      "MHP+10%，MSP+10%。",
+      "箭雨傷害+25%。"
+    ],
+    "icon": "images/items/300095.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bDex,2;\nbonus bMaxHPrate,10;\nbonus bMaxSPrate,10;\nbonus2 bSkillAtk,\"AC_SHOWER\",25;\n",
+    "compiledScript": "bonus(\"bDex\", 2);\nbonus(\"bMaxHPrate\", 10);\nbonus(\"bMaxSPrate\", 10);\nbonus2(\"bSkillAtk\", \"AC_SHOWER\", 25);\n",
+    "dropSources": [
+      {
+        "monsterId": 20674,
+        "monsterAegisName": "MD_PAPILA_CAE",
+        "monsterName": "Papila Cae",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300096": {
+    "id": 300096,
+    "officialId": 300096,
+    "aegisName": "Papila_Cae_H_Card",
+    "name": "夢魘帕皮拉凱依卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "weapon"
+    ],
+    "locations": {
+      "Right_Hand": true
+    },
+    "description": [
+      "若裝備武器為樂器、鞭子時， MATK+20。",
+      "精煉+10時，MATK+20、變動詠唱-10%。",
+      "精煉+13時，MATK+20。"
+    ],
+    "icon": "images/items/300096.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": ".@r = getrefine();\nif (getiteminfo(getequipid(EQI_HAND_R), ITEMINFO_VIEW) == W_MUSICAL || getiteminfo(getequipid(EQI_HAND_R), ITEMINFO_VIEW) == W_WHIP) {\n   bonus bMatk,20;\n}\nif (.@r>=10) {\n   bonus bVariableCastrate,-10;\n   bonus bMatk,20;\n}\nif (.@r>=13) {\n   bonus bMatk,20;\n}\n",
+    "compiledScript": "v.r = getrefine();\nif (getiteminfo(getequipid(EQI_HAND_R), ITEMINFO_VIEW) == W_MUSICAL || getiteminfo(getequipid(EQI_HAND_R), ITEMINFO_VIEW) == W_WHIP) {\n   bonus(\"bMatk\", 20);\n}\nif (v.r>=10) {\n   bonus(\"bVariableCastrate\", -10);\n   bonus(\"bMatk\", 20);\n}\nif (v.r>=13) {\n   bonus(\"bMatk\", 20);\n}\n",
+    "dropSources": [
+      {
+        "monsterId": 20675,
+        "monsterAegisName": "MD_PAPILA_CAE_H",
+        "monsterName": "Senior Papila Cae",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300097": {
+    "id": 300097,
+    "officialId": 300097,
+    "aegisName": "Aries_Card",
+    "name": "艾裡厄斯卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "shoes"
+    ],
+    "locations": {
+      "Shoes": true
+    },
+    "description": [
+      "AGI+2。",
+      "MHP+10%，MSP+10%。",
+      "施毒傷害+25%。"
+    ],
+    "icon": "images/items/300097.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bAgi,2;\nbonus bMaxHPrate,10;\nbonus bMaxSPrate,10;\nbonus2 bSkillAtk,\"TF_POISON\",25;\n",
+    "compiledScript": "bonus(\"bAgi\", 2);\nbonus(\"bMaxHPrate\", 10);\nbonus(\"bMaxSPrate\", 10);\nbonus2(\"bSkillAtk\", \"TF_POISON\", 25);\n",
+    "dropSources": [
+      {
+        "monsterId": 20677,
+        "monsterAegisName": "MD_ARIES",
+        "monsterName": "Aries",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300098": {
+    "id": 300098,
+    "officialId": 300098,
+    "aegisName": "Aries_H_Card",
+    "name": "夢魘艾裡厄斯卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "garment"
+    ],
+    "locations": {
+      "Garment": true
+    },
+    "description": [
+      "MATK+5",
+      "風刃、冰閃槍、火炎花傷害+10%。",
+      "精煉+7時，變動詠唱-5%。"
+    ],
+    "icon": "images/items/300098.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bMatk,5;\nbonus2 bSkillAtk,\"NJ_KOUENKA\",10;\nbonus2 bSkillAtk,\"NJ_HYOUSENSOU\",10;\nbonus2 bSkillAtk,\"NJ_HUUJIN\",10;\nif (getrefine()>=7) {\n   bonus bVariableCastrate,-5;\n}\n",
+    "compiledScript": "bonus(\"bMatk\", 5);\nbonus2(\"bSkillAtk\", \"NJ_KOUENKA\", 10);\nbonus2(\"bSkillAtk\", \"NJ_HYOUSENSOU\", 10);\nbonus2(\"bSkillAtk\", \"NJ_HUUJIN\", 10);\nif (getrefine()>=7) {\n   bonus(\"bVariableCastrate\", -5);\n}\n",
+    "dropSources": [
+      {
+        "monsterId": 20678,
+        "monsterAegisName": "MD_ARIES_H",
+        "monsterName": "Senior Aries",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300099": {
+    "id": 300099,
+    "officialId": 300099,
+    "aegisName": "Silva_Papilia_Card",
+    "name": "席瓦帕皮利亞卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "shield"
+    ],
+    "locations": {
+      "Left_Hand": true
+    },
+    "description": [
+      "受到一般階級敵人的物理和魔法傷害-20%。",
+      "受到的治癒量+15%。"
+    ],
+    "icon": "images/items/300099.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus2 bSubClass,Class_Normal,20;\nbonus bHealPower2,15;\n",
+    "compiledScript": "bonus2(\"bSubClass\", Class_Normal, 20);\nbonus(\"bHealPower2\", 15);\n",
+    "dropSources": [
+      {
+        "monsterId": 20667,
+        "monsterAegisName": "MD_SILVA_PAPILIA",
+        "monsterName": "Silva Papilia",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": true,
+        "isBoss": true
+      }
+    ],
+    "isMvpCard": true,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300100": {
+    "id": 300100,
+    "officialId": 300100,
+    "aegisName": "Gran_Papilia_Card",
+    "name": "格蘭帕皮利亞卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "shield"
+    ],
+    "locations": {
+      "Left_Hand": true
+    },
+    "description": [
+      "受到BOSS階級敵人的物理和魔法傷害-25%。",
+      "受到的治癒量+30%。"
+    ],
+    "icon": "images/items/300100.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus2 bSubClass,Class_Boss,25;\nbonus bHealPower2,30;\n",
+    "compiledScript": "bonus2(\"bSubClass\", Class_Boss, 25);\nbonus(\"bHealPower2\", 30);\n",
+    "dropSources": [
+      {
+        "monsterId": 20668,
+        "monsterAegisName": "MD_GRAN_PAPILIA",
+        "monsterName": "Gran Papilia",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": true,
+        "isBoss": true
+      }
+    ],
+    "isMvpCard": true,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300101": {
+    "id": 300101,
+    "officialId": 300101,
+    "aegisName": "Beta_Cleaner_Card",
+    "name": "故障的搓澡師卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "accessory"
+    ],
+    "locations": {
+      "Both_Accessory": true
+    },
+    "description": [
+      "STR+3。",
+      "MHP+10%，龍之氣息、龍之氣息-水傷害+10%。",
+      "搭配韋爾波泰卡片、夢魘帕皮拉盧巴卡片時，獲得以下效果:",
+      "龍之氣息、龍之氣息-水傷害+20%。",
+      "鞋子精煉每+2時，龍之氣息傷害再+5%，武器精煉每+2時，龍之氣息-水傷害再+5%。"
+    ],
+    "icon": "images/items/300101.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bStr,3;\nbonus bMaxHPrate,10;\nbonus2 bSkillAtk,\"RK_DRAGONBREATH_WATER\",10;\nbonus2 bSkillAtk,\"RK_DRAGONBREATH\",10;\n",
+    "compiledScript": "bonus(\"bStr\", 3);\nbonus(\"bMaxHPrate\", 10);\nbonus2(\"bSkillAtk\", \"RK_DRAGONBREATH_WATER\", 10);\nbonus2(\"bSkillAtk\", \"RK_DRAGONBREATH\", 10);\n",
+    "dropSources": [
+      {
+        "monsterId": 20633,
+        "monsterAegisName": "EP17_2_BETA_CLEANER_A",
+        "monsterName": "Broken Cleaner",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      },
+      {
+        "monsterId": 20634,
+        "monsterAegisName": "EP17_2_BETA_CLEANER_B",
+        "monsterName": "Broken Cleaner",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300102": {
+    "id": 300102,
+    "officialId": 300102,
+    "aegisName": "Beta_Baths_A_Card",
+    "name": "桑拿經理卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "accessory"
+    ],
+    "locations": {
+      "Both_Accessory": true
+    },
+    "description": [
+      "INT+3。",
+      "MHP+10%，手推車加農砲、爆炸孢子傷害+10%。",
+      "搭配強化邪骸弓箭手卡片、夢魘帕皮拉卡片時，獲得以下效果:",
+      "手推車加農砲、爆炸孢子傷害+20%。",
+      "鞋子精煉每+2時，手推車加農砲傷害再+5%，武器精煉每+2時，爆炸孢子傷害再+5%。"
+    ],
+    "icon": "images/items/300102.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bInt,3;\nbonus bMaxHPrate,10;\nbonus2 bSkillAtk,\"GN_SPORE_EXPLOSION\",10;\nbonus2 bSkillAtk,\"GN_CARTCANNON\",10;\n",
+    "compiledScript": "bonus(\"bInt\", 3);\nbonus(\"bMaxHPrate\", 10);\nbonus2(\"bSkillAtk\", \"GN_SPORE_EXPLOSION\", 10);\nbonus2(\"bSkillAtk\", \"GN_CARTCANNON\", 10);\n",
+    "dropSources": [
+      {
+        "monsterId": 20635,
+        "monsterAegisName": "EP17_2_BETA_BATHS_A",
+        "monsterName": "Cleaning Robot",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      },
+      {
+        "monsterId": 20636,
+        "monsterAegisName": "EP17_2_BETA_BATHS_B",
+        "monsterName": "Cleaning Robot",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300103": {
+    "id": 300103,
+    "officialId": 300103,
+    "aegisName": "Bath_Mermaid_Card",
+    "name": "青琴公主卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "shoes"
+    ],
+    "locations": {
+      "Shoes": true
+    },
+    "description": [
+      "MATK+15。",
+      "精煉+9時，對魚貝型、人類型敵人的魔法傷害+10%。",
+      "精煉+11時，技能後延遲-3%。"
+    ],
+    "icon": "images/items/300103.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": ".@r = getrefine();\nbonus bMatk,15;\nif (.@r>=9) {\n   bonus2 bMagicAddRace,RC_Fish,10;\n   bonus2 bMagicAddRace,RC_DemiHuman,10;\n}\nif (.@r>=11) {\n   bonus bDelayrate,-3;\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bMatk\", 15);\nif (v.r>=9) {\n   bonus2(\"bMagicAddRace\", RC_Fish, 10);\n   bonus2(\"bMagicAddRace\", RC_DemiHuman, 10);\n}\nif (v.r>=11) {\n   bonus(\"bDelayrate\", -3);\n}\n",
+    "dropSources": [
+      {
+        "monsterId": 20647,
+        "monsterAegisName": "EP17_2_BATH_MERMAID",
+        "monsterName": "Elder of Chung-Geum",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": true
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300104": {
+    "id": 300104,
+    "officialId": 300104,
+    "aegisName": "Bookworm_Card",
+    "name": "書蟲卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "accessory"
+    ],
+    "locations": {
+      "Both_Accessory": true
+    },
+    "description": [
+      "INT+2、VIT+1。",
+      "MHP+10%，超自然波、鑽石星塵傷害+10%。",
+      "搭配藍肉食人火龍果卡片、研究助理機器人卡片時，獲得以下效果:",
+      "超自然波、鑽石星塵傷害+20%。",
+      "鞋子精煉每+2時，超自然波傷害再+5%，武器精煉每+2時，鑽石星塵傷害再+5%。"
+    ],
+    "icon": "images/items/300104.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bVit,1;\nbonus bInt,2;\nbonus bMaxHPrate,10;\nbonus2 bSkillAtk,\"SO_DIAMONDDUST\",10;\nbonus2 bSkillAtk,\"SO_PSYCHIC_WAVE\",10;\n",
+    "compiledScript": "bonus(\"bVit\", 1);\nbonus(\"bInt\", 2);\nbonus(\"bMaxHPrate\", 10);\nbonus2(\"bSkillAtk\", \"SO_DIAMONDDUST\", 10);\nbonus2(\"bSkillAtk\", \"SO_PSYCHIC_WAVE\", 10);\n",
+    "dropSources": [
+      {
+        "monsterId": 20683,
+        "monsterAegisName": "EP17_2_BOOKWORM",
+        "monsterName": "Bookworm",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300105": {
+    "id": 300105,
+    "officialId": 300105,
+    "aegisName": "Roaming_Splbook_Card",
+    "name": "流浪魔法書卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "accessory"
+    ],
+    "locations": {
+      "Both_Accessory": true
+    },
+    "description": [
+      "INT+3。",
+      "MHP+5%，MSP+5%，碧血隕石、毀滅彗星傷害+10%。",
+      "搭配紅肉食人火龍果卡片、研究助理機器人卡片時，獲得以下效果:",
+      "碧血隕石、毀滅彗星傷害+20%。",
+      "鞋子精煉每+2時，毀滅彗星傷害再+5%，武器精煉每+2時，碧血隕石傷害再+5%。"
+    ],
+    "icon": "images/items/300105.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bInt,3;\nbonus bMaxHPrate,5;\nbonus bMaxSPrate,5;\nbonus2 bSkillAtk,\"WL_CRIMSONROCK\",10;\nbonus2 bSkillAtk,\"WL_COMET\",10;\n",
+    "compiledScript": "bonus(\"bInt\", 3);\nbonus(\"bMaxHPrate\", 5);\nbonus(\"bMaxSPrate\", 5);\nbonus2(\"bSkillAtk\", \"WL_CRIMSONROCK\", 10);\nbonus2(\"bSkillAtk\", \"WL_COMET\", 10);\n",
+    "dropSources": [
+      {
+        "monsterId": 20684,
+        "monsterAegisName": "EP17_2_ROAMING_SPLBOOK",
+        "monsterName": "Roaming Spellbook",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300106": {
+    "id": 300106,
+    "officialId": 300106,
+    "aegisName": "Pitaya_R_Card",
+    "name": "紅肉食人火龍果卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "weapon"
+    ],
+    "locations": {
+      "Right_Hand": true
+    },
+    "description": [
+      "若裝備武器為單手杖、雙手杖時，火屬性魔法傷害+10%。",
+      "武器精煉+10以上時，火屬性魔法傷害再+10%。",
+      "武器精煉+14以上時，火屬性魔法傷害再+10%。"
+    ],
+    "icon": "images/items/300106.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": ".@r = getequiprefinerycnt(EQI_HAND_R);\nif (getiteminfo(getequipid(EQI_HAND_R), ITEMINFO_VIEW) == W_STAFF || getiteminfo(getequipid(EQI_HAND_R), ITEMINFO_VIEW) == W_2HSTAFF) {\n   bonus2 bMagicAtkEle,Ele_Fire,10;\n}\nif (.@r>=10) {\n   bonus2 bMagicAtkEle,Ele_Fire,10;\n}\nif (.@r>=14) {\n   bonus2 bMagicAtkEle,Ele_Fire,10;\n}\n",
+    "compiledScript": "v.r = getequiprefinerycnt(EQI_HAND_R);\nif (getiteminfo(getequipid(EQI_HAND_R), ITEMINFO_VIEW) == W_STAFF || getiteminfo(getequipid(EQI_HAND_R), ITEMINFO_VIEW) == W_2HSTAFF) {\n   bonus2(\"bMagicAtkEle\", Ele_Fire, 10);\n}\nif (v.r>=10) {\n   bonus2(\"bMagicAtkEle\", Ele_Fire, 10);\n}\nif (v.r>=14) {\n   bonus2(\"bMagicAtkEle\", Ele_Fire, 10);\n}\n",
+    "dropSources": [
+      {
+        "monsterId": 20649,
+        "monsterAegisName": "EP17_2_PITAYA_R",
+        "monsterName": "Red Pitaya",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      },
+      {
+        "monsterId": 20660,
+        "monsterAegisName": "MD_PITAYA_R",
+        "monsterName": "Red Pitaya",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300107": {
+    "id": 300107,
+    "officialId": 300107,
+    "aegisName": "Pitaya_Boss_Card",
+    "name": "大王喵喵卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "accessory"
+    ],
+    "locations": {
+      "Both_Accessory": true
+    },
+    "description": [
+      "蘋果、香蕉的恢復量+300%。"
+    ],
+    "icon": "images/items/300107.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus2 bAddItemHealRate,513,500;\nbonus2 bAddItemHealRate,512,500;\n",
+    "compiledScript": "bonus2(\"bAddItemHealRate\", 513, 500);\nbonus2(\"bAddItemHealRate\", 512, 500);\n",
+    "dropSources": [
+      {
+        "monsterId": 20648,
+        "monsterAegisName": "EP17_2_PITAYA_BOSS",
+        "monsterName": "Boss Meow",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": true,
+        "isBoss": true
+      },
+      {
+        "monsterId": 20659,
+        "monsterAegisName": "MD_PITAYA_BOSS",
+        "monsterName": "Pitaya Boss",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": true,
+        "isBoss": true
+      }
+    ],
+    "isMvpCard": true,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300108": {
+    "id": 300108,
+    "officialId": 300108,
+    "aegisName": "Venenum3_Card",
+    "name": "下水道貝納姆卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "accessory"
+    ],
+    "locations": {
+      "Both_Accessory": true
+    },
+    "description": [
+      "AGI+2、DEX+1。",
+      "MHP+10%，致命威脅、三角射擊傷害+10%。",
+      "搭配彎刀草寇卡片、艾里厄斯卡片時，獲得以下效果:",
+      "致命威脅、三角射擊傷害+20%。",
+      "鞋子精煉每+2時，致命威脅傷害再+5%，武器精煉每+2時，三角射擊傷害再+5%。"
+    ],
+    "icon": "images/items/300108.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bAgi,2;\nbonus bDex,1;\nbonus bMaxHPrate,10;\nbonus2 bSkillAtk,\"SC_FATALMENACE\",10;\nbonus2 bSkillAtk,\"SC_TRIANGLESHOT\",10;\n",
+    "compiledScript": "bonus(\"bAgi\", 2);\nbonus(\"bDex\", 1);\nbonus(\"bMaxHPrate\", 10);\nbonus2(\"bSkillAtk\", \"SC_FATALMENACE\", 10);\nbonus2(\"bSkillAtk\", \"SC_TRIANGLESHOT\", 10);\n",
+    "dropSources": [
+      {
+        "monsterId": 20685,
+        "monsterAegisName": "EP17_2_VENENUM3",
+        "monsterName": "Sewage Venenum",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300109": {
+    "id": 300109,
+    "officialId": 300109,
+    "aegisName": "EP17_2_Cramp_Card",
+    "name": "下水道藍鼠卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "accessory"
+    ],
+    "locations": {
+      "Both_Accessory": true
+    },
+    "description": [
+      "DEX+2、STR+1。",
+      "MHP+10%，迴旋刀刃、反擊斬傷害+10%。",
+      "搭配異種朵洛爾卡片、艾里厄斯卡片時，獲得以下效果:",
+      "迴旋刀刃、反擊斬傷害+20%。",
+      "鞋子精煉每+3時，迴旋刀刃、反擊斬傷害再+5%。"
+    ],
+    "icon": "images/items/300109.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bStr,1;\nbonus bDex,2;\nbonus bMaxHPrate,10;\nbonus2 bSkillAtk,\"GC_COUNTERSLASH\",10;\nbonus2 bSkillAtk,\"GC_ROLLINGCUTTER\",10;\n",
+    "compiledScript": "bonus(\"bStr\", 1);\nbonus(\"bDex\", 2);\nbonus(\"bMaxHPrate\", 10);\nbonus2(\"bSkillAtk\", \"GC_COUNTERSLASH\", 10);\nbonus2(\"bSkillAtk\", \"GC_ROLLINGCUTTER\", 10);\n",
+    "dropSources": [
+      {
+        "monsterId": 20686,
+        "monsterAegisName": "EP17_2_CRAMP",
+        "monsterName": "Sewage Cramp",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300110": {
+    "id": 300110,
+    "officialId": 300110,
+    "aegisName": "Waterfall_Card",
+    "name": "下水道瀑布卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "accessory"
+    ],
+    "locations": {
+      "Both_Accessory": true
+    },
+    "description": [
+      "AGI+2、INT+1。",
+      "MHP+10%，炸彈飛刀、幽冥十字斬傷害+10%。",
+      "搭配衛士小賢卡片、乾扁草精卡片時，獲得以下效果:",
+      "炸彈飛刀、幽冥十字斬傷害+20%。",
+      "鞋子精煉每+3時，炸彈飛刀、幽冥十字斬傷害再+5%。"
+    ],
+    "icon": "images/items/300110.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bAgi,2;\nbonus bInt,1;\nbonus bMaxHPrate,10;\nbonus2 bSkillAtk,\"KO_BAKURETSU\",10;\nbonus2 bSkillAtk,\"KO_JYUMONJIKIRI\",10;\n",
+    "compiledScript": "bonus(\"bAgi\", 2);\nbonus(\"bInt\", 1);\nbonus(\"bMaxHPrate\", 10);\nbonus2(\"bSkillAtk\", \"KO_BAKURETSU\", 10);\nbonus2(\"bSkillAtk\", \"KO_JYUMONJIKIRI\", 10);\n",
+    "dropSources": [
+      {
+        "monsterId": 20687,
+        "monsterAegisName": "EP17_2_WATERFALL",
+        "monsterName": "Sewage Waterfall",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300111": {
+    "id": 300111,
+    "officialId": 300111,
+    "aegisName": "Bellare3_Card",
+    "name": "菁英貝拉雷卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "accessory"
+    ],
+    "locations": {
+      "Both_Accessory": true
+    },
+    "description": [
+      "AGI+2、INT+1。",
+      "MHP+10%，火炎花、冰閃槍、風刃傷害+10%。",
+      "搭配E-EA1L卡片、乾扁草精卡片時，獲得以下效果:",
+      "火炎花、冰閃槍、風刃傷害+20%。",
+      "鞋子精煉每+3時，火炎花、冰閃槍、風刃傷害再+5%。"
+    ],
+    "icon": "images/items/300111.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bAgi,2;\nbonus bInt,1;\nbonus bMaxHPrate,10;\nbonus2 bSkillAtk,\"NJ_KOUENKA\",10;\nbonus2 bSkillAtk,\"NJ_HYOUSENSOU\",10;\nbonus2 bSkillAtk,\"NJ_HUUJIN\",10;\n",
+    "compiledScript": "bonus(\"bAgi\", 2);\nbonus(\"bInt\", 1);\nbonus(\"bMaxHPrate\", 10);\nbonus2(\"bSkillAtk\", \"NJ_KOUENKA\", 10);\nbonus2(\"bSkillAtk\", \"NJ_HYOUSENSOU\", 10);\nbonus2(\"bSkillAtk\", \"NJ_HUUJIN\", 10);\n",
+    "dropSources": [
+      {
+        "monsterId": 20688,
+        "monsterAegisName": "EP17_2_BELLARE3",
+        "monsterName": "Elite Bellare",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300112": {
+    "id": 300112,
+    "officialId": 300112,
+    "aegisName": "Dolor3_Card",
+    "name": "魔癮朵洛爾卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "accessory"
+    ],
+    "locations": {
+      "Both_Accessory": true
+    },
+    "description": [
+      "INT+2、VIT+1。",
+      "MHP+10%，艾斯核、邪靈爆炸傷害+10%。",
+      "搭配魔癮普拉加卡片、特殊泰坦魔芋花卡片時，獲得以下效果:",
+      "艾斯核、邪靈爆炸傷害+20%。",
+      "鞋子精煉每+2時，邪靈爆炸傷害再+5%，武器精煉每+2時，艾斯核傷害再+5%。"
+    ],
+    "icon": "images/items/300112.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bVit,1;\nbonus bInt,2;\nbonus bMaxHPrate,10;\nbonus2 bSkillAtk,\"SP_CURSEEXPLOSION\",10;\nbonus2 bSkillAtk,\"SP_SWHOO\",10;\n",
+    "compiledScript": "bonus(\"bVit\", 1);\nbonus(\"bInt\", 2);\nbonus(\"bMaxHPrate\", 10);\nbonus2(\"bSkillAtk\", \"SP_CURSEEXPLOSION\", 10);\nbonus2(\"bSkillAtk\", \"SP_SWHOO\", 10);\n",
+    "dropSources": [
+      {
+        "monsterId": 20689,
+        "monsterAegisName": "EP17_2_DOLOR3",
+        "monsterName": "Spell Addicted Dolor",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300113": {
+    "id": 300113,
+    "officialId": 300113,
+    "aegisName": "Plasma_Y_Card",
+    "name": "釋放魔力卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "accessory"
+    ],
+    "locations": {
+      "Both_Accessory": true
+    },
+    "description": [
+      "INT+2、VIT+1。",
+      "MHP+10%，殘響、大暴雨傷害+10%。",
+      "搭配夢魘帕皮拉凱依卡片、帕皮拉凱依卡片時，獲得以下效果:",
+      "殘響、大暴雨傷害+20%。",
+      "鞋子精煉每+2時，殘響傷害再+5%，武器精煉每+2時，大暴雨傷害再+5%。"
+    ],
+    "icon": "images/items/300113.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bVit,1;\nbonus bInt,2;\nbonus bMaxHPrate,10;\nbonus2 bSkillAtk,\"WM_SEVERE_RAINSTORM_MELEE\",10;\nbonus2 bSkillAtk,\"WM_REVERBERATION\",10;\n",
+    "compiledScript": "bonus(\"bVit\", 1);\nbonus(\"bInt\", 2);\nbonus(\"bMaxHPrate\", 10);\nbonus2(\"bSkillAtk\", \"WM_SEVERE_RAINSTORM_MELEE\", 10);\nbonus2(\"bSkillAtk\", \"WM_REVERBERATION\", 10);\n",
+    "dropSources": [
+      {
+        "monsterId": 20690,
+        "monsterAegisName": "EP17_2_PLASMA_Y",
+        "monsterName": "Released Spell",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300114": {
+    "id": 300114,
+    "officialId": 300114,
+    "aegisName": "Plaga3_Card",
+    "name": "魔癮普拉加卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "weapon"
+    ],
+    "locations": {
+      "Right_Hand": true
+    },
+    "description": [
+      "若裝備武器為單手杖、雙手杖時，無屬性魔法傷害+10%。",
+      "武器精煉+10以上時，無屬性魔法傷害再+10%。",
+      "武器精煉+14以上時，無屬性魔法傷害再+10%。"
+    ],
+    "icon": "images/items/300114.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": ".@r = getequiprefinerycnt(EQI_HAND_R);\nif (getiteminfo(getequipid(EQI_HAND_R), ITEMINFO_VIEW) == W_STAFF || getiteminfo(getequipid(EQI_HAND_R), ITEMINFO_VIEW) == W_2HSTAFF) {\n   bonus2 bMagicAtkEle,Ele_Neutral,10;\n}\nif (.@r>=10) {\n   bonus2 bMagicAtkEle,Ele_Neutral,10;\n}\nif (.@r>=14) {\n   bonus2 bMagicAtkEle,Ele_Neutral,10;\n}\n",
+    "compiledScript": "v.r = getequiprefinerycnt(EQI_HAND_R);\nif (getiteminfo(getequipid(EQI_HAND_R), ITEMINFO_VIEW) == W_STAFF || getiteminfo(getequipid(EQI_HAND_R), ITEMINFO_VIEW) == W_2HSTAFF) {\n   bonus2(\"bMagicAtkEle\", Ele_Neutral, 10);\n}\nif (v.r>=10) {\n   bonus2(\"bMagicAtkEle\", Ele_Neutral, 10);\n}\nif (v.r>=14) {\n   bonus2(\"bMagicAtkEle\", Ele_Neutral, 10);\n}\n",
+    "dropSources": [
+      {
+        "monsterId": 20691,
+        "monsterAegisName": "EP17_2_PLAGA3",
+        "monsterName": "Spell Addicted Plaga",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300115": {
+    "id": 300115,
+    "officialId": 300115,
+    "aegisName": "Sanare3_Card",
+    "name": "魔癮薩納雷卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "accessory"
+    ],
+    "locations": {
+      "Both_Accessory": true
+    },
+    "description": [
+      "INT+2、DEX+1。",
+      "MHP+10%，謳歌、審判傷害+10%。",
+      "搭配薩納雷卡片、帕皮拉盧巴卡片時，獲得以下效果:",
+      "謳歌、審判傷害+20%。",
+      "鞋子精煉每+2時，謳歌傷害再+5%，武器精煉每+2時，審判傷害再+5%。"
+    ],
+    "icon": "images/items/300115.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bInt,2;\nbonus bDex,1;\nbonus bMaxHPrate,10;\nbonus2 bSkillAtk,\"AB_ADORAMUS\",10;\nbonus2 bSkillAtk,\"AB_JUDEX\",10;\n",
+    "compiledScript": "bonus(\"bInt\", 2);\nbonus(\"bDex\", 1);\nbonus(\"bMaxHPrate\", 10);\nbonus2(\"bSkillAtk\", \"AB_ADORAMUS\", 10);\nbonus2(\"bSkillAtk\", \"AB_JUDEX\", 10);\n",
+    "dropSources": [
+      {
+        "monsterId": 20692,
+        "monsterAegisName": "EP17_2_SANARE3",
+        "monsterName": "Spell Addicted Sanare",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300116": {
+    "id": 300116,
+    "officialId": 300116,
+    "aegisName": "Plasma_R_Card",
+    "name": "強大魔力卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "accessory"
+    ],
+    "locations": {
+      "Both_Accessory": true
+    },
+    "description": [
+      "STR+2、INT+1。",
+      "MHP+10%，爆氣散彈、虎砲傷害+10%。",
+      "搭配異種普拉加卡片、帕皮拉盧巴卡片時，獲得以下效果:",
+      "爆氣散彈、虎砲傷害+20%。",
+      "鞋子精煉每+2時，虎砲傷害再+5%，武器精煉每+2時，爆氣散彈傷害再+5%。"
+    ],
+    "icon": "images/items/300116.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bStr,2;\nbonus bInt,1;\nbonus bMaxHPrate,10;\nbonus2 bSkillAtk,\"SR_RAMPAGEBLASTER\",10;\nbonus2 bSkillAtk,\"SR_TIGERCANNON\",10;\n",
+    "compiledScript": "bonus(\"bStr\", 2);\nbonus(\"bInt\", 1);\nbonus(\"bMaxHPrate\", 10);\nbonus2(\"bSkillAtk\", \"SR_RAMPAGEBLASTER\", 10);\nbonus2(\"bSkillAtk\", \"SR_TIGERCANNON\", 10);\n",
+    "dropSources": [
+      {
+        "monsterId": 20693,
+        "monsterAegisName": "EP17_2_PLASMA_R",
+        "monsterName": "Powerful Spell",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300117": {
+    "id": 300117,
+    "officialId": 300117,
+    "aegisName": "Plasma_R2_Card",
+    "name": "尖銳魔力卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "accessory"
+    ],
+    "locations": {
+      "Both_Accessory": true
+    },
+    "description": [
+      "DEX+2、AGI+1。",
+      "MHP+10%，箭雨風暴、榴霰彈傷害+10%。",
+      "搭配強化邪骸弓箭手卡片、帕皮拉凱依卡片時，獲得以下效果:",
+      "箭雨風暴、榴霰彈傷害+20%。",
+      "鞋子精煉每+2時，榴霰彈傷害再+5%，武器精煉每+2時，箭雨風暴傷害再+5%。"
+    ],
+    "icon": "images/items/300117.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bAgi,1;\nbonus bDex,2;\nbonus bMaxHPrate,10;\nbonus2 bSkillAtk,\"RA_ARROWSTORM\",10;\nbonus2 bSkillAtk,\"RA_CLUSTERBOMB\",10;\n",
+    "compiledScript": "bonus(\"bAgi\", 1);\nbonus(\"bDex\", 2);\nbonus(\"bMaxHPrate\", 10);\nbonus2(\"bSkillAtk\", \"RA_ARROWSTORM\", 10);\nbonus2(\"bSkillAtk\", \"RA_CLUSTERBOMB\", 10);\n",
+    "dropSources": [
+      {
+        "monsterId": 20694,
+        "monsterAegisName": "EP17_2_PLASMA_R2",
+        "monsterName": "Sharp Spell",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300118": {
+    "id": 300118,
+    "officialId": 300118,
+    "aegisName": "EP17_2_Phen_Card",
+    "name": "熱池劍魚卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "accessory"
+    ],
+    "locations": {
+      "Both_Accessory": true
+    },
+    "description": [
+      "STR+2、VIT+1。",
+      "MHP+10%，滿月腳、流星殞落傷害+10%。",
+      "搭配夢魘故障的園丁β卡片、特殊泰坦魔芋花卡片時，獲得以下效果:",
+      "滿月腳、流星殞落傷害+20%。",
+      "鞋子精煉每+2時，流星殞落傷害再+5%，武器精煉每+2時，滿月腳傷害再+5%。"
+    ],
+    "icon": "images/items/300118.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bStr,2;\nbonus bVit,1;\nbonus bMaxHPrate,10;\nbonus2 bSkillAtk,\"SJ_FALLINGSTAR_ATK\",10;\nbonus2 bSkillAtk,\"SJ_FALLINGSTAR_ATK2\",10;\nbonus2 bSkillAtk,\"SJ_FULLMOONKICK\",10;\n",
+    "compiledScript": "bonus(\"bStr\", 2);\nbonus(\"bVit\", 1);\nbonus(\"bMaxHPrate\", 10);\nbonus2(\"bSkillAtk\", \"SJ_FALLINGSTAR_ATK\", 10);\nbonus2(\"bSkillAtk\", \"SJ_FALLINGSTAR_ATK2\", 10);\nbonus2(\"bSkillAtk\", \"SJ_FULLMOONKICK\", 10);\n",
+    "dropSources": [
+      {
+        "monsterId": 20643,
+        "monsterAegisName": "EP17_2_PHEN",
+        "monsterName": "Boiled Water Phen",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300119": {
+    "id": 300119,
+    "officialId": 300119,
+    "aegisName": "EP17_2_Sword_Fish_Card",
+    "name": "熱池異變魚卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "accessory"
+    ],
+    "locations": {
+      "Both_Accessory": true
+    },
+    "description": [
+      "DEX+2、AGI+1。",
+      "MHP+10%，圓桌舞蹈、天神憤怒傷害+10%。",
+      "搭配高階貝拉雷卡片、帕皮拉卡片時，獲得以下效果:",
+      "圓桌舞蹈、天神憤怒傷害+20%。",
+      "鞋子精煉每+2時，天神憤怒傷害再+5%，武器精煉每+2時，圓桌舞蹈傷害再+5%。"
+    ],
+    "icon": "images/items/300119.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bAgi,1;\nbonus bDex,2;\nbonus bMaxHPrate,10;\nbonus2 bSkillAtk,\"RL_HAMMER_OF_GOD\",10;\nbonus2 bSkillAtk,\"RL_R_TRIP\",10;\n",
+    "compiledScript": "bonus(\"bAgi\", 1);\nbonus(\"bDex\", 2);\nbonus(\"bMaxHPrate\", 10);\nbonus2(\"bSkillAtk\", \"RL_HAMMER_OF_GOD\", 10);\nbonus2(\"bSkillAtk\", \"RL_R_TRIP\", 10);\n",
+    "dropSources": [
+      {
+        "monsterId": 20645,
+        "monsterAegisName": "EP17_2_SWORD_FISH",
+        "monsterName": "Boiled Water Swordfish",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300120": {
+    "id": 300120,
+    "officialId": 300120,
+    "aegisName": "EP17_2_Piranha_Card",
+    "name": "熱池食人魚卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "accessory"
+    ],
+    "locations": {
+      "Both_Accessory": true
+    },
+    "description": [
+      "MATK+2%。",
+      "搭配食人魚卡片時，MATK+10、對水屬性敵人的魔法傷害+15%。"
+    ],
+    "icon": "images/items/300120.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bMatkRate,2;\n",
+    "compiledScript": "bonus(\"bMatkRate\", 2);\n",
+    "dropSources": [
+      {
+        "monsterId": 20646,
+        "monsterAegisName": "EP17_2_PIRANHA",
+        "monsterName": "Boiled Water Piranha",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300121": {
+    "id": 300121,
+    "officialId": 300121,
+    "aegisName": "EP17_2_Marc_Card",
+    "name": "熱池馬克卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "shoes"
+    ],
+    "locations": {
+      "Shoes": true
+    },
+    "description": [
+      "聖屬性、水屬性魔法傷害+5%。",
+      "精煉每+2時，聖屬性、水屬性魔法傷害再+1%。"
+    ],
+    "icon": "images/items/300121.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": ".@r = getrefine();\nbonus2 bMagicAtkEle,Ele_Holy,5;\nbonus2 bMagicAtkEle,Ele_Water,5;\nbonus2 bMagicAtkEle,Ele_Holy,(.@r/2);\nbonus2 bMagicAtkEle,Ele_Water,(.@r/2);\n",
+    "compiledScript": "v.r = getrefine();\nbonus2(\"bMagicAtkEle\", Ele_Holy, 5);\nbonus2(\"bMagicAtkEle\", Ele_Water, 5);\nbonus2(\"bMagicAtkEle\", Ele_Holy, (v.r/2));\nbonus2(\"bMagicAtkEle\", Ele_Water, (v.r/2));\n",
+    "dropSources": [
+      {
+        "monsterId": 20644,
+        "monsterAegisName": "EP17_2_MARC",
+        "monsterName": "Boiled Water Marc",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300122": {
+    "id": 300122,
+    "officialId": 300122,
+    "aegisName": "Pitaya_Y_Card",
+    "name": "黃肉食人火龍果卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "garment"
+    ],
+    "locations": {
+      "Garment": true
+    },
+    "description": [
+      "對無屬性攻擊的抗性+15%。",
+      "精煉每+1時，聖屬性魔法傷害+3%。",
+      "搭配熱池馬克卡片時，對無屬性攻擊的抗性再+5%。"
+    ],
+    "icon": "images/items/300122.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus2 bSubEle,Ele_Neutral,15;\nbonus2 bMagicAtkEle,Ele_Holy,3*getrefine();\n",
+    "compiledScript": "bonus2(\"bSubEle\", Ele_Neutral, 15);\nbonus2(\"bMagicAtkEle\", Ele_Holy, 3*getrefine());\n",
+    "dropSources": [
+      {
+        "monsterId": 20650,
+        "monsterAegisName": "EP17_2_PITAYA_Y",
+        "monsterName": "Yellow Pitaya",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      },
+      {
+        "monsterId": 20661,
+        "monsterAegisName": "MD_PITAYA_Y",
+        "monsterName": "Yellow Pitaya",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300123": {
+    "id": 300123,
+    "officialId": 300123,
+    "aegisName": "Pitaya_V_Card",
+    "name": "紫肉食人火龍果卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "garment"
+    ],
+    "locations": {
+      "Garment": true
+    },
+    "description": [
+      "對無屬性攻擊的抗性+15%。",
+      "精煉每+1時，無屬性魔法傷害+3%。",
+      "搭配熱池馬克卡片時，對無屬性攻擊的抗性再+5%。"
+    ],
+    "icon": "images/items/300123.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus2 bSubEle,Ele_Neutral,15;\nbonus2 bMagicAtkEle,Ele_Neutral,3*getrefine();\n",
+    "compiledScript": "bonus2(\"bSubEle\", Ele_Neutral, 15);\nbonus2(\"bMagicAtkEle\", Ele_Neutral, 3*getrefine());\n",
+    "dropSources": [
+      {
+        "monsterId": 20652,
+        "monsterAegisName": "EP17_2_PITAYA_V",
+        "monsterName": "Violet Pitaya",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      },
+      {
+        "monsterId": 20663,
+        "monsterAegisName": "MD_PITAYA_V",
+        "monsterName": "Violet Pitaya",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300124": {
+    "id": 300124,
+    "officialId": 300124,
+    "aegisName": "Pitaya_B_Card",
+    "name": "藍肉食人火龍果卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "weapon"
+    ],
+    "locations": {
+      "Right_Hand": true
+    },
+    "description": [
+      "若裝備武器為單手杖、雙手杖時，水屬性魔法傷害+10%。",
+      "武器精煉+10以上時，水屬性魔法傷害再+10%。",
+      "武器精煉+14以上時，水屬性魔法傷害再+10%。"
+    ],
+    "icon": "images/items/300124.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": ".@r = getequiprefinerycnt(EQI_HAND_R);\nif (getiteminfo(getequipid(EQI_HAND_R), ITEMINFO_VIEW) == W_STAFF || getiteminfo(getequipid(EQI_HAND_R), ITEMINFO_VIEW) == W_2HSTAFF) {\n   bonus2 bMagicAtkEle,Ele_Water,10;\n}\nif (.@r>=10) {\n   bonus2 bMagicAtkEle,Ele_Water,10;\n}\nif (.@r>=14) {\n   bonus2 bMagicAtkEle,Ele_Water,10;\n}\n",
+    "compiledScript": "v.r = getequiprefinerycnt(EQI_HAND_R);\nif (getiteminfo(getequipid(EQI_HAND_R), ITEMINFO_VIEW) == W_STAFF || getiteminfo(getequipid(EQI_HAND_R), ITEMINFO_VIEW) == W_2HSTAFF) {\n   bonus2(\"bMagicAtkEle\", Ele_Water, 10);\n}\nif (v.r>=10) {\n   bonus2(\"bMagicAtkEle\", Ele_Water, 10);\n}\nif (v.r>=14) {\n   bonus2(\"bMagicAtkEle\", Ele_Water, 10);\n}\n",
+    "dropSources": [
+      {
+        "monsterId": 20651,
+        "monsterAegisName": "EP17_2_PITAYA_B",
+        "monsterName": "Blue Pitaya",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      },
+      {
+        "monsterId": 20662,
+        "monsterAegisName": "MD_PITAYA_B",
+        "monsterName": "Blue Pitaya",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300125": {
+    "id": 300125,
+    "officialId": 300125,
+    "aegisName": "Pitaya_G_Card",
+    "name": "綠肉食人火龍果卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "accessory"
+    ],
+    "locations": {
+      "Both_Accessory": true
+    },
+    "description": [
+      "LUK+2、INT+1。",
+      "MHP+10%，小雞啄擊、貓薄荷隕石傷害+10%。",
+      "魔癮普拉加卡片、故障的園丁β卡片時，獲得以下效果:",
+      "小雞啄擊、貓薄荷隕石傷害+20%。",
+      "鞋子精煉每+2時，貓薄荷隕石傷害再+5%，武器精煉每+2時，小雞啄擊傷害再+5%。"
+    ],
+    "icon": "images/items/300125.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bInt,1;\nbonus bLuk,2;\nbonus bMaxHPrate,10;\nbonus2 bSkillAtk,\"SU_CN_METEOR\",10;\nbonus2 bSkillAtk,\"SU_PICKYPECK\",10;\n",
+    "compiledScript": "bonus(\"bInt\", 1);\nbonus(\"bLuk\", 2);\nbonus(\"bMaxHPrate\", 10);\nbonus2(\"bSkillAtk\", \"SU_CN_METEOR\", 10);\nbonus2(\"bSkillAtk\", \"SU_PICKYPECK\", 10);\n",
+    "dropSources": [
+      {
+        "monsterId": 20653,
+        "monsterAegisName": "EP17_2_PITAYA_G",
+        "monsterName": "Green Pitaya",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      },
+      {
+        "monsterId": 20664,
+        "monsterAegisName": "MD_PITAYA_G",
+        "monsterName": "Green Pitaya",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300140": {
+    "id": 300140,
+    "officialId": 300140,
+    "aegisName": "ILL_Sropho_Card",
+    "name": "幻影深海電鰻卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "weapon"
+    ],
+    "locations": {
+      "Right_Hand": true
+    },
+    "description": [
+      "風屬性魔法傷害+3%。",
+      "武器精煉+9時，風屬性魔法傷害再+2%。",
+      "武器精煉+11時，風屬性魔法傷害再+5%。",
+      "_"
+    ],
+    "icon": "images/items/300140.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": ".@r = getrefine();\nbonus2 bMagicAtkEle,Ele_Wind,3;\nif (.@r>=9) {\n   bonus2 bMagicAtkEle,Ele_Wind,2;\n}\nif (.@r>=11) {\n   bonus2 bMagicAtkEle,Ele_Wind,5;\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus2(\"bMagicAtkEle\", Ele_Wind, 3);\nif (v.r>=9) {\n   bonus2(\"bMagicAtkEle\", Ele_Wind, 2);\n}\nif (v.r>=11) {\n   bonus2(\"bMagicAtkEle\", Ele_Wind, 5);\n}\n",
+    "dropSources": [
+      {
+        "monsterId": 20801,
+        "monsterAegisName": "ILL_SROPHO",
+        "monsterName": "Deep Sea Sropho",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300141": {
+    "id": 300141,
+    "officialId": 300141,
+    "aegisName": "ILL_Obeaune_Card",
+    "name": "深海人魚卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "accessory"
+    ],
+    "locations": {
+      "Both_Accessory": true
+    },
+    "description": [
+      "MATK+30。",
+      "搭配熱池食人魚卡片時，",
+      "對水屬性敵人的魔法傷害+15%。",
+      "_"
+    ],
+    "icon": "images/items/300141.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bMatk,30;\n",
+    "compiledScript": "bonus(\"bMatk\", 30);\n",
+    "dropSources": [
+      {
+        "monsterId": 20802,
+        "monsterAegisName": "ILL_OBEAUNE",
+        "monsterName": "Deep Sea Obeaune",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300142": {
+    "id": 300142,
+    "officialId": 300142,
+    "aegisName": "ILL_Deviace_Card",
+    "name": "深海狄奧斯卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "weapon"
+    ],
+    "locations": {
+      "Right_Hand": true
+    },
+    "description": [
+      "對水屬性敵人、魚貝型怪的物理傷害+5%。",
+      "武器精煉+7時，對水屬性敵人的物理傷害再+5%。",
+      "武器精煉+9時，魚貝型怪的物理傷害再+5%。",
+      "_"
+    ],
+    "icon": "images/items/300142.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": ".@r = getrefine();\nbonus2 bAddRace,RC_Fish,5;\nbonus2 bAddEle,Ele_Water,5;\nif (.@r>=7) {\n   bonus2 bAddEle,Ele_Water,5;\n}\nif (.@r>=9) {\n   bonus2 bAddRace,RC_Fish,5;\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus2(\"bAddRace\", RC_Fish, 5);\nbonus2(\"bAddEle\", Ele_Water, 5);\nif (v.r>=7) {\n   bonus2(\"bAddEle\", Ele_Water, 5);\n}\nif (v.r>=9) {\n   bonus2(\"bAddRace\", RC_Fish, 5);\n}\n",
+    "dropSources": [
+      {
+        "monsterId": 20803,
+        "monsterAegisName": "ILL_DEVIACE",
+        "monsterName": "Deep Sea Deviace",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300143": {
+    "id": 300143,
+    "officialId": 300143,
+    "aegisName": "ILL_Marse_Card",
+    "name": "深海烏賊卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "shield"
+    ],
+    "locations": {
+      "Left_Hand": true
+    },
+    "description": [
+      "受到地屬性敵人的物理和魔法傷害-15%。",
+      "受到昆蟲型怪的物理和魔法傷害-15%。",
+      "_"
+    ],
+    "icon": "images/items/300143.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus2 bSubEle,Ele_Earth,15;\nbonus2 bSubRace,RC_Insect,15;\n",
+    "compiledScript": "bonus2(\"bSubEle\", Ele_Earth, 15);\nbonus2(\"bSubRace\", RC_Insect, 15);\n",
+    "dropSources": [
+      {
+        "monsterId": 20804,
+        "monsterAegisName": "ILL_MARSE",
+        "monsterName": "Deep Sea Marse",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300144": {
+    "id": 300144,
+    "officialId": 300144,
+    "aegisName": "ILL_Merman_Card",
+    "name": "深海人魚士兵卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "shoes"
+    ],
+    "locations": {
+      "Shoes": true
+    },
+    "description": [
+      "基本屬性STR每15時，ATK+4。",
+      "搭配深海大腳龍蝦卡片時，暴擊傷害+15%。",
+      "_"
+    ],
+    "icon": "images/items/300144.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bBaseAtk,4*(readparam(bStr)/15);\n",
+    "compiledScript": "bonus(\"bBaseAtk\", 4*(readparam(bStr)/15));\n",
+    "dropSources": [
+      {
+        "monsterId": 20805,
+        "monsterAegisName": "ILL_MERMAN",
+        "monsterName": "Deep Sea Merman",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300145": {
+    "id": 300145,
+    "officialId": 300145,
+    "aegisName": "ILL_Abysmal_Witch_Card",
+    "name": "深海魔女卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "garment"
+    ],
+    "locations": {
+      "Garment": true
+    },
+    "description": [
+      "火屬性、暗屬性魔法傷害+100%。",
+      "對全屬性攻擊的抗性-30%。",
+      "_"
+    ],
+    "icon": "images/items/300145.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus2 bMagicAtkEle,Ele_Fire,100;\nbonus2 bMagicAtkEle,Ele_Dark,100;\nbonus2 bSubEle,Ele_All,-30;\n",
+    "compiledScript": "bonus2(\"bMagicAtkEle\", Ele_Fire, 100);\nbonus2(\"bMagicAtkEle\", Ele_Dark, 100);\nbonus2(\"bSubEle\", Ele_All, -30);\n",
+    "dropSources": [
+      {
+        "monsterId": 20843,
+        "monsterAegisName": "ILL_ABYSMAL_WITCH",
+        "monsterName": "Deep Sea Witch",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": true,
+        "isBoss": true
+      }
+    ],
+    "isMvpCard": true,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300146": {
+    "id": 300146,
+    "officialId": 300146,
+    "aegisName": "ILL_Sedora_Card",
+    "name": "深海賽杜拉卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "weapon"
+    ],
+    "locations": {
+      "Right_Hand": true
+    },
+    "description": [
+      "魚貝型怪的CRI+30%。",
+      "搭配賽杜拉卡片時，暴擊傷害+15%。",
+      "_"
+    ],
+    "icon": "images/items/300146.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus2 bCriticalAddRace,RC_Fish,30;\n",
+    "compiledScript": "bonus2(\"bCriticalAddRace\", RC_Fish, 30);\n",
+    "dropSources": [
+      {
+        "monsterId": 20806,
+        "monsterAegisName": "ILL_SEDORA",
+        "monsterName": "Deep Sea Sedora",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300147": {
+    "id": 300147,
+    "officialId": 300147,
+    "aegisName": "ILL_Sword_Fish_Card",
+    "name": "深海異變魚卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "headTop",
+      "headMid",
+      "headLow"
+    ],
+    "locations": {
+      "Head_Top": true,
+      "Head_Mid": true,
+      "Head_Low": true
+    },
+    "description": [
+      "對水屬性攻擊的抗性+10%。",
+      "精煉+9時，對水屬性敵人的魔法傷害+10%。",
+      "搭配異變魚卡片時，MATK+3%。",
+      "_"
+    ],
+    "icon": "images/items/300147.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus2 bSubEle,Ele_Water,10;\nif (getrefine()>=9) {\n   bonus2 bMagicAddEle,Ele_Water,10;\n}\n",
+    "compiledScript": "bonus2(\"bSubEle\", Ele_Water, 10);\nif (getrefine()>=9) {\n   bonus2(\"bMagicAddEle\", Ele_Water, 10);\n}\n",
+    "dropSources": [
+      {
+        "monsterId": 20807,
+        "monsterAegisName": "ILL_SWORD_FISH",
+        "monsterName": "Deep Sea Swordfish",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300148": {
+    "id": 300148,
+    "officialId": 300148,
+    "aegisName": "ILL_Strouf_Card",
+    "name": "深海海神卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "body"
+    ],
+    "locations": {
+      "Armor": true
+    },
+    "description": [
+      "MHP+10%、MSP+5%。",
+      "精煉+9時，對水屬性敵人的物理和魔法傷害+5%。",
+      "搭配深海狄奧斯卡片時，ATK+30。",
+      "搭配幻影深海電鰻卡片時，MATK+30。",
+      "_"
+    ],
+    "icon": "images/items/300148.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bMaxHPrate,10;\nbonus bMaxSPrate,5;\nif (getrefine()>=9) {\n   bonus2 bMagicAddEle,Ele_Water,5;\n   bonus2 bAddEle,Ele_Water,5;\n}\n",
+    "compiledScript": "bonus(\"bMaxHPrate\", 10);\nbonus(\"bMaxSPrate\", 5);\nif (getrefine()>=9) {\n   bonus2(\"bMagicAddEle\", Ele_Water, 5);\n   bonus2(\"bAddEle\", Ele_Water, 5);\n}\n",
+    "dropSources": [
+      {
+        "monsterId": 20808,
+        "monsterAegisName": "ILL_STROUF",
+        "monsterName": "Deep Sea Strouf",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300149": {
+    "id": 300149,
+    "officialId": 300149,
+    "aegisName": "ILL_Phen_Card",
+    "name": "深海劍魚卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "garment"
+    ],
+    "locations": {
+      "Garment": true
+    },
+    "description": [
+      "對無屬性攻擊的抗性+15%。",
+      "精煉每+1時，風屬性魔法傷害+3%。",
+      "搭配深海人魚卡片時，",
+      "對無屬性攻擊的抗性+5%。",
+      "_"
+    ],
+    "icon": "images/items/300149.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus2 bSubEle,Ele_Neutral,15;\nbonus2 bMagicAtkEle,Ele_Wind,3*getrefine();\n",
+    "compiledScript": "bonus2(\"bSubEle\", Ele_Neutral, 15);\nbonus2(\"bMagicAtkEle\", Ele_Wind, 3*getrefine());\n",
+    "dropSources": [
+      {
+        "monsterId": 20809,
+        "monsterAegisName": "ILL_PHEN",
+        "monsterName": "Deep Sea Phen",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300150": {
+    "id": 300150,
+    "officialId": 300150,
+    "aegisName": "ILL_King_Dramoh_Card",
+    "name": "深海大腳龍蝦卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "headTop",
+      "headMid",
+      "headLow"
+    ],
+    "locations": {
+      "Head_Top": true,
+      "Head_Mid": true,
+      "Head_Low": true
+    },
+    "description": [
+      "MHP-5%。",
+      "精煉每+3時，ATK+1%。",
+      "搭配大腳龍蝦卡片時，STR+4、MHP+15%。",
+      "_"
+    ],
+    "icon": "images/items/300150.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bMaxHPrate,-5;\nbonus bAtkRate,(getrefine()/3);\n",
+    "compiledScript": "bonus(\"bMaxHPrate\", -5);\nbonus(\"bAtkRate\", (getrefine()/3));\n",
+    "dropSources": [
+      {
+        "monsterId": 20810,
+        "monsterAegisName": "ILL_KING_DRAMOH",
+        "monsterName": "Deep Sea King Dramoh",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300151": {
+    "id": 300151,
+    "officialId": 300151,
+    "aegisName": "ILL_Kraken_Card",
+    "name": "深海魔鬼大烏賊卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "weapon"
+    ],
+    "locations": {
+      "Right_Hand": true
+    },
+    "description": [
+      "遠距離物理傷害+25%。",
+      "誘導攻擊機率+5%。",
+      "_"
+    ],
+    "icon": "images/items/300151.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bLongAtkRate,25;\nbonus bPerfectHitAddRate,5;\n",
+    "compiledScript": "bonus(\"bLongAtkRate\", 25);\nbonus(\"bPerfectHitAddRate\", 5);\n",
+    "dropSources": [
+      {
+        "monsterId": 20811,
+        "monsterAegisName": "ILL_KRAKEN",
+        "monsterName": "Deep Sea Kraken",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": true,
+        "isBoss": true
+      }
+    ],
+    "isMvpCard": true,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300211": {
+    "id": 300211,
+    "officialId": 300211,
+    "aegisName": "EP18_Ash_Toad_Card",
+    "name": "灰燼蟾蜍卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "accessory1"
+    ],
+    "locations": {
+      "Left_Accessory": true
+    },
+    "description": [
+      "地屬性魔法傷害+35%。",
+      "使用技能時，SP消耗量+10%。"
+    ],
+    "icon": "images/items/300211.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus2 bMagicAtkEle,Ele_Earth,35;\nbonus bUseSPrate,10;\n",
+    "compiledScript": "bonus2(\"bMagicAtkEle\", Ele_Earth, 35);\nbonus(\"bUseSPrate\", 10);\n",
+    "dropSources": [
+      {
+        "monsterId": 21295,
+        "monsterAegisName": "EP18_ASH_TOAD",
+        "monsterName": "Ash Toad",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300212": {
+    "id": 300212,
+    "officialId": 300212,
+    "aegisName": "EP18_Rakehand_Card",
+    "name": "幽靈之爪卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "body"
+    ],
+    "locations": {
+      "Armor": true
+    },
+    "description": [
+      "DEF+50，受到暗屬性敵人的物理和魔法傷害-10%。"
+    ],
+    "icon": "images/items/300212.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus2 bSubEle,Ele_Dark,10;\nbonus bDef,50;\n",
+    "compiledScript": "bonus2(\"bSubEle\", Ele_Dark, 10);\nbonus(\"bDef\", 50);\n",
+    "dropSources": [
+      {
+        "monsterId": 21296,
+        "monsterAegisName": "EP18_RAKEHAND",
+        "monsterName": "Rakehand",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300213": {
+    "id": 300213,
+    "officialId": 300213,
+    "aegisName": "EP18_Spark_Card",
+    "name": "幽靈火花卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "garment"
+    ],
+    "locations": {
+      "Garment": true
+    },
+    "description": [
+      "ATK+5。",
+      "對火屬性敵人的物理傷害+10%，對不死型、惡魔型的CRI+15%。"
+    ],
+    "icon": "images/items/300213.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bBaseAtk,5;\nbonus2 bAddEle,Ele_Fire,10;\nbonus2 bCriticalAddRace,RC_Undead,15;\nbonus2 bCriticalAddRace,RC_Demon,15;\n",
+    "compiledScript": "bonus(\"bBaseAtk\", 5);\nbonus2(\"bAddEle\", Ele_Fire, 10);\nbonus2(\"bCriticalAddRace\", RC_Undead, 15);\nbonus2(\"bCriticalAddRace\", RC_Demon, 15);\n",
+    "dropSources": [
+      {
+        "monsterId": 21297,
+        "monsterAegisName": "EP18_SPARK",
+        "monsterName": "Spark",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300214": {
+    "id": 300214,
+    "officialId": 300214,
+    "aegisName": "EP18_Hot_Molar_Card",
+    "name": "火爪狼牙卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "weapon"
+    ],
+    "locations": {
+      "Right_Hand": true
+    },
+    "description": [
+      "若裝備武器為拳刃時，近距離物理傷害+10%；精煉每+2時，近距離物理傷害再+1%。"
+    ],
+    "icon": "images/items/300214.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "if (getiteminfo(getequipid(EQI_HAND_R),11) == W_KATAR) {\n   bonus bShortAtkRate,10+(getrefine()/2);\n}\n",
+    "compiledScript": "if (getiteminfo(getequipid(EQI_HAND_R),11) == W_KATAR) {\n   bonus(\"bShortAtkRate\", 10+(getrefine()/2));\n}\n",
+    "dropSources": [
+      {
+        "monsterId": 21298,
+        "monsterAegisName": "EP18_HOT_MOLAR",
+        "monsterName": "Hot Molar",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300215": {
+    "id": 300215,
+    "officialId": 300215,
+    "aegisName": "EP18_Volcaring_Card",
+    "name": "熔岩波利卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "shoes"
+    ],
+    "locations": {
+      "Shoes": true
+    },
+    "description": [
+      "火/地屬性魔法傷害+5%；精煉每+2時，火屬性/地屬性魔法傷害再+1%。"
+    ],
+    "icon": "images/items/300215.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": ".@r = getrefine();\nbonus2 bMagicAtkEle,Ele_Earth,5+(.@r/2);\nbonus2 bMagicAtkEle,Ele_Fire,5+(.@r/2);\n",
+    "compiledScript": "v.r = getrefine();\nbonus2(\"bMagicAtkEle\", Ele_Earth, 5+(v.r/2));\nbonus2(\"bMagicAtkEle\", Ele_Fire, 5+(v.r/2));\n",
+    "dropSources": [
+      {
+        "monsterId": 21299,
+        "monsterAegisName": "EP18_VOLCARING",
+        "monsterName": "Volcaring",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300216": {
+    "id": 300216,
+    "officialId": 300216,
+    "aegisName": "EP18_Lava_Toad_Card",
+    "name": "熔岩蟾蜍卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "accessory1"
+    ],
+    "locations": {
+      "Left_Accessory": true
+    },
+    "description": [
+      "火屬性魔法傷害+35%。",
+      "使用技能時，SP消耗量+10%。"
+    ],
+    "icon": "images/items/300216.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus2 bMagicAtkEle,Ele_Fire,35;\nbonus bUseSPrate,10;\n",
+    "compiledScript": "bonus2(\"bMagicAtkEle\", Ele_Fire, 35);\nbonus(\"bUseSPrate\", 10);\n",
+    "dropSources": [
+      {
+        "monsterId": 21300,
+        "monsterAegisName": "EP18_LAVA_TOAD",
+        "monsterName": "Lava Toad",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300217": {
+    "id": 300217,
+    "officialId": 300217,
+    "aegisName": "EP18_Burning_Fang_Card",
+    "name": "火焰狼牙卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "shoes"
+    ],
+    "locations": {
+      "Shoes": true
+    },
+    "description": [
+      "近距離物理傷害+20%，對全屬性攻擊的抗性-15%。"
+    ],
+    "icon": "images/items/300217.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus2 bSubEle,Ele_All,-15;\nbonus bShortAtkRate,20;\n",
+    "compiledScript": "bonus2(\"bSubEle\", Ele_All, -15);\nbonus(\"bShortAtkRate\", 20);\n",
+    "dropSources": [
+      {
+        "monsterId": 21301,
+        "monsterAegisName": "EP18_BURNING_FANG",
+        "monsterName": "Burning Fang",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": true,
+        "isBoss": true
+      }
+    ],
+    "isMvpCard": true,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300218": {
+    "id": 300218,
+    "officialId": 300218,
+    "aegisName": "EP18_Ashhopper_Card",
+    "name": "灰燼蝗蟲卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "accessory1"
+    ],
+    "locations": {
+      "Left_Accessory": true
+    },
+    "description": [
+      "無屬性魔法傷害+35%。",
+      "使用技能時，SP消耗量+10%。"
+    ],
+    "icon": "images/items/300218.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus2 bMagicAtkEle,Ele_Neutral,35;\nbonus bUseSPrate,10;\n",
+    "compiledScript": "bonus2(\"bMagicAtkEle\", Ele_Neutral, 35);\nbonus(\"bUseSPrate\", 10);\n",
+    "dropSources": [
+      {
+        "monsterId": 21302,
+        "monsterAegisName": "EP18_ASHHOPPER",
+        "monsterName": "Ashhopper",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300219": {
+    "id": 300219,
+    "officialId": 300219,
+    "aegisName": "EP18_Ashring_Card",
+    "name": "灰燼波利卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "weapon"
+    ],
+    "locations": {
+      "Right_Hand": true
+    },
+    "description": [
+      "若裝備武器為單/雙手杖時，暗屬性魔法傷害+10%。",
+      "武器精煉+10以上時，暗屬性魔法傷害再+10%。",
+      "武器精煉+14以上時，暗屬性魔法傷害再+10%。"
+    ],
+    "icon": "images/items/300219.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": ".@r = getequiprefinerycnt(EQI_HAND_R);\nif (getiteminfo(getequipid(EQI_HAND_R),11) == W_STAFF || getiteminfo(getequipid(EQI_HAND_R),11) == W_2HSTAFF) {\n   bonus2 bMagicAtkEle,Ele_Dark,10;\n   if (.@r>=10) {\n      bonus2 bMagicAtkEle,Ele_Dark,10;\n      if (.@r>=14) {\n         bonus2 bMagicAtkEle,Ele_Dark,10;\n      }\n   }\n}\n",
+    "compiledScript": "v.r = getequiprefinerycnt(EQI_HAND_R);\nif (getiteminfo(getequipid(EQI_HAND_R),11) == W_STAFF || getiteminfo(getequipid(EQI_HAND_R),11) == W_2HSTAFF) {\n   bonus2(\"bMagicAtkEle\", Ele_Dark, 10);\n   if (v.r>=10) {\n      bonus2(\"bMagicAtkEle\", Ele_Dark, 10);\n      if (v.r>=14) {\n         bonus2(\"bMagicAtkEle\", Ele_Dark, 10);\n      }\n   }\n}\n",
+    "dropSources": [
+      {
+        "monsterId": 21303,
+        "monsterAegisName": "EP18_ASHRING",
+        "monsterName": "Ashring",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300220": {
+    "id": 300220,
+    "officialId": 300220,
+    "aegisName": "EP18_Grey_Wolf_Card",
+    "name": "灰狼卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "accessory1"
+    ],
+    "locations": {
+      "Left_Accessory": true
+    },
+    "description": [
+      "近距離物理傷害+6%，搭配幽靈灰狼卡片時，近距離物理傷害再+8%。"
+    ],
+    "icon": "images/items/300220.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bShortAtkRate,6;\n",
+    "compiledScript": "bonus(\"bShortAtkRate\", 6);\n",
+    "dropSources": [
+      {
+        "monsterId": 21304,
+        "monsterAegisName": "EP18_GREY_WOLF",
+        "monsterName": "Grey Wolf",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300221": {
+    "id": 300221,
+    "officialId": 300221,
+    "aegisName": "EP18_Tumble_Ring_Card",
+    "name": "風滾草波利卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "shoes"
+    ],
+    "locations": {
+      "Shoes": true
+    },
+    "description": [
+      "無/暗屬性魔法傷害+5%，精煉每+2時，無/暗屬性魔法傷害 再+1%。"
+    ],
+    "icon": "images/items/300221.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": ".@r = getrefine();\nbonus2 bMagicAtkEle,Ele_Neutral,5+(.@r/2);\nbonus2 bMagicAtkEle,Ele_Dark,5+(.@r/2);\n",
+    "compiledScript": "v.r = getrefine();\nbonus2(\"bMagicAtkEle\", Ele_Neutral, 5+(v.r/2));\nbonus2(\"bMagicAtkEle\", Ele_Dark, 5+(v.r/2));\n",
+    "dropSources": [
+      {
+        "monsterId": 21305,
+        "monsterAegisName": "EP18_TUMBLE_RING",
+        "monsterName": "Tumblering",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300222": {
+    "id": 300222,
+    "officialId": 300222,
+    "aegisName": "EP18_Firewind_Kite_Card",
+    "name": "風火老鷹卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "accessory1"
+    ],
+    "locations": {
+      "Left_Accessory": true
+    },
+    "description": [
+      "風屬性魔法傷害+35%。",
+      "使用技能時，SP消耗量+10%。"
+    ],
+    "icon": "images/items/300222.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus2 bMagicAtkEle,Ele_Wind,35;\nbonus bUseSPrate,10;\n",
+    "compiledScript": "bonus2(\"bMagicAtkEle\", Ele_Wind, 35);\nbonus(\"bUseSPrate\", 10);\n",
+    "dropSources": [
+      {
+        "monsterId": 21306,
+        "monsterAegisName": "EP18_FIREWIND_KITE",
+        "monsterName": "Firewind Kite",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300223": {
+    "id": 300223,
+    "officialId": 300223,
+    "aegisName": "EP18_Phantom_Wolf_Card",
+    "name": "幽靈灰狼卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "accessory2"
+    ],
+    "locations": {
+      "Right_Accessory": true
+    },
+    "description": [
+      "近距離物理傷害+6%。"
+    ],
+    "icon": "images/items/300223.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bShortAtkRate,6;\n",
+    "compiledScript": "bonus(\"bShortAtkRate\", 6);\n",
+    "dropSources": [
+      {
+        "monsterId": 21307,
+        "monsterAegisName": "EP18_PHANTOM_WOLF",
+        "monsterName": "Phantom Wolf",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300227": {
+    "id": 300227,
+    "officialId": 300227,
+    "aegisName": "EP18_Schulang_Card",
+    "name": "舒朗卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "body"
+    ],
+    "locations": {
+      "Armor": true
+    },
+    "description": [
+      "對天使型怪的魔法傷害+75%。",
+      "受到天使型怪的傷害+25%。"
+    ],
+    "icon": "images/items/300227.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus2 bMagicAddRace,RC_Angel,75;\nbonus2 bSubRace,RC_Angel,-25;\n",
+    "compiledScript": "bonus2(\"bMagicAddRace\", RC_Angel, 75);\nbonus2(\"bSubRace\", RC_Angel, -25);\n",
+    "dropSources": [
+      {
+        "monsterId": 21314,
+        "monsterAegisName": "EP18_MD_SCHULANG",
+        "monsterName": "Schulang",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": true
+      },
+      {
+        "monsterId": 21316,
+        "monsterAegisName": "EP18_MD_SCHULANG_R",
+        "monsterName": "Schulang",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": true,
+        "isBoss": true
+      },
+      {
+        "monsterId": 21360,
+        "monsterAegisName": "EP18_MD_SCHULANG_L",
+        "monsterName": "Schulang",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": true,
+        "isBoss": true
+      }
+    ],
+    "isMvpCard": true,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300228": {
+    "id": 300228,
+    "officialId": 300228,
+    "aegisName": "EP18_Demi_Freyja_Card",
+    "name": "扭曲之神卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "body"
+    ],
+    "locations": {
+      "Armor": true
+    },
+    "description": [
+      "對惡魔型怪的魔法傷害+75%，",
+      "受到惡魔型怪的傷害+25%。"
+    ],
+    "icon": "images/items/300228.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus2 bMagicAddRace,RC_Demon,75;\nbonus2 bSubRace,RC_Demon,-25;\n",
+    "compiledScript": "bonus2(\"bMagicAddRace\", RC_Demon, 75);\nbonus2(\"bSubRace\", RC_Demon, -25);\n",
+    "dropSources": [
+      {
+        "monsterId": 21315,
+        "monsterAegisName": "EP18_MD_DEMI_FREYJA",
+        "monsterName": "Twisted God Freyja",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": true
+      },
+      {
+        "monsterId": 21317,
+        "monsterAegisName": "EP18_MD_DEMI_FREYJA_R",
+        "monsterName": "Twisted God Freyja",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": true,
+        "isBoss": true
+      },
+      {
+        "monsterId": 21361,
+        "monsterAegisName": "EP18_MD_DEMI_FREYJA_L",
+        "monsterName": "Twisted God Freyja",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": true,
+        "isBoss": true
+      }
+    ],
+    "isMvpCard": true,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300230": {
+    "id": 300230,
+    "officialId": 300230,
+    "aegisName": "ILL_Andre_Card",
+    "name": "勤奮的白蟻卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "shield"
+    ],
+    "locations": {
+      "Left_Hand": true
+    },
+    "description": [
+      "受到昆蟲型怪的物理和魔法傷害-20%。",
+      "精煉每+1時，MHP+1%。",
+      "搭配勤奮的白蟻幼蟲卡片時，對昆蟲型怪的物理傷害+20%。"
+    ],
+    "icon": "images/items/300230.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus2 bSubRace,RC_Insect,20;\nbonus bMaxHPrate,getrefine();\n",
+    "compiledScript": "bonus2(\"bSubRace\", RC_Insect, 20);\nbonus(\"bMaxHPrate\", getrefine());\n",
+    "dropSources": [
+      {
+        "monsterId": 21386,
+        "monsterAegisName": "ILL_ANDRE",
+        "monsterName": "Diligent Andre",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300231": {
+    "id": 300231,
+    "officialId": 300231,
+    "aegisName": "ILL_Andre_soldier_Card",
+    "name": "勤奮的士兵白蟻卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "weapon"
+    ],
+    "locations": {
+      "Right_Hand": true
+    },
+    "description": [
+      "對小、中型怪的物理傷害+20%。",
+      "物理攻擊時，以較低機率損壞敵人的鎧甲。"
+    ],
+    "icon": "images/items/300231.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus2 bAddSize,Size_Small,20;\nbonus2 bAddSize,Size_Medium,20;\nbonus bBreakArmorRate,1;\n",
+    "compiledScript": "bonus2(\"bAddSize\", Size_Small, 20);\nbonus2(\"bAddSize\", Size_Medium, 20);\nbonus(\"bBreakArmorRate\", 1);\n",
+    "dropSources": [
+      {
+        "monsterId": 21387,
+        "monsterAegisName": "ILL_SOLDIER_ANDR",
+        "monsterName": "Diligent Soldier Andre",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300232": {
+    "id": 300232,
+    "officialId": 300232,
+    "aegisName": "ILL_Andre_larva_Card",
+    "name": "勤奮的白蟻幼蟲卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "weapon"
+    ],
+    "locations": {
+      "Right_Hand": true
+    },
+    "description": [
+      "對昆蟲型怪的 物理和魔法傷害+20%。"
+    ],
+    "icon": "images/items/300232.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus2 bAddRace,RC_Insect,20;\nbonus2 bMagicAddRace,RC_Insect,20;\n",
+    "compiledScript": "bonus2(\"bAddRace\", RC_Insect, 20);\nbonus2(\"bMagicAddRace\", RC_Insect, 20);\n",
+    "dropSources": [
+      {
+        "monsterId": 21388,
+        "monsterAegisName": "ILL_ANDRE_LARVA",
+        "monsterName": "Diligent Andre Larva",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300233": {
+    "id": 300233,
+    "officialId": 300233,
+    "aegisName": "ILL_Deniro_Card",
+    "name": "勤奮的兵蟻卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "shield"
+    ],
+    "locations": {
+      "Left_Hand": true
+    },
+    "description": [
+      "精煉每+1時，MHP+1%，受到昆蟲型怪的物理和魔法傷害-20%。",
+      "搭配勤奮的白蟻幼蟲卡片時，對昆蟲型怪的魔法傷害+20%。"
+    ],
+    "icon": "images/items/300233.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus2 bSubRace,RC_Insect,20;\nbonus bMaxHPrate,getrefine();\n",
+    "compiledScript": "bonus2(\"bSubRace\", RC_Insect, 20);\nbonus(\"bMaxHPrate\", getrefine());\n",
+    "dropSources": [
+      {
+        "monsterId": 21389,
+        "monsterAegisName": "ILL_DENIRO",
+        "monsterName": "Diligent Deniro",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300234": {
+    "id": 300234,
+    "officialId": 300234,
+    "aegisName": "ILL_Piere_Card",
+    "name": "勤奮的工蟻卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "shield"
+    ],
+    "locations": {
+      "Left_Hand": true
+    },
+    "description": [
+      "無視植物型怪防禦的15%。",
+      "精煉每+2時，對植物型怪的物理傷害+5%。"
+    ],
+    "icon": "images/items/300234.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus2 bIgnoreDefRaceRate,RC_Plant,15;\nbonus2 bAddRace,RC_Plant,5*(getrefine()/2);\n",
+    "compiledScript": "bonus2(\"bIgnoreDefRaceRate\", RC_Plant, 15);\nbonus2(\"bAddRace\", RC_Plant, 5*(getrefine()/2));\n",
+    "dropSources": [
+      {
+        "monsterId": 21390,
+        "monsterAegisName": "ILL_PIERE",
+        "monsterName": "Diligent Piere",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300235": {
+    "id": 300235,
+    "officialId": 300235,
+    "aegisName": "ILL_Ant_egg_Card",
+    "name": "粘稠的白蟻幼蟲卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "shield"
+    ],
+    "locations": {
+      "Left_Hand": true
+    },
+    "description": [
+      "MSP+10%。",
+      "精煉每+1時，MHP+1%。"
+    ],
+    "icon": "images/items/300235.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bMaxSPrate,10;\nbonus bMaxHPrate,getrefine();\n",
+    "compiledScript": "bonus(\"bMaxSPrate\", 10);\nbonus(\"bMaxHPrate\", getrefine());\n",
+    "dropSources": [
+      {
+        "monsterId": 21391,
+        "monsterAegisName": "ILL_ANT_EGG",
+        "monsterName": "Mushy Ant Egg",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300236": {
+    "id": 300236,
+    "officialId": 300236,
+    "aegisName": "ILL_Giearth_Card",
+    "name": "膽大的基爾瑟卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "headTop",
+      "headMid",
+      "headLow"
+    ],
+    "locations": {
+      "Head_Top": true,
+      "Head_Mid": true,
+      "Head_Low": true
+    },
+    "description": [
+      "混亂、黑暗抗性+100%。",
+      "精煉每+2時，對昆蟲型怪的物理傷害+4%。"
+    ],
+    "icon": "images/items/300236.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus2 bResEff,Eff_Confusion,10000;\nbonus2 bResEff,Eff_Blind,10000;\nbonus2 bAddRace,RC_Insect,4*(getrefine()/2);\n",
+    "compiledScript": "bonus2(\"bResEff\", Eff_Confusion, 10000);\nbonus2(\"bResEff\", Eff_Blind, 10000);\nbonus2(\"bAddRace\", RC_Insect, 4*(getrefine()/2));\n",
+    "dropSources": [
+      {
+        "monsterId": 21392,
+        "monsterAegisName": "ILL_GIEARTH",
+        "monsterName": "Gutsy Giearth",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300237": {
+    "id": 300237,
+    "officialId": 300237,
+    "aegisName": "ILL_Farmiliar_Card",
+    "name": "膽大的吸血蝙蝠卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "weapon"
+    ],
+    "locations": {
+      "Right_Hand": true
+    },
+    "description": [
+      "無視動物型怪魔法防禦的15%。",
+      "精煉每+2時，對動物型怪的魔法傷害+5%。"
+    ],
+    "icon": "images/items/300237.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus2 bIgnoreMdefRaceRate,RC_Brute,15;\nbonus2 bMagicAddRace,RC_Brute,5*(getrefine()/2);\n",
+    "compiledScript": "bonus2(\"bIgnoreMdefRaceRate\", RC_Brute, 15);\nbonus2(\"bMagicAddRace\", RC_Brute, 5*(getrefine()/2));\n",
+    "dropSources": [
+      {
+        "monsterId": 21393,
+        "monsterAegisName": "ILL_FARMILIAR",
+        "monsterName": "Gutsy Familiar",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300238": {
+    "id": 300238,
+    "officialId": 300238,
+    "aegisName": "ILL_Vitata_Card",
+    "name": "勤奮的黑蟻卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "headTop",
+      "headMid",
+      "headLow"
+    ],
+    "locations": {
+      "Head_Low": true,
+      "Head_Mid": true,
+      "Head_Top": true
+    },
+    "description": [
+      "毒屬性魔法傷害+5%。",
+      "精煉+9時，毒屬性魔法傷害再+5%。",
+      "可使用治癒術Lv.5。"
+    ],
+    "icon": "images/items/300238.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus2 bMagicAtkEle,Ele_Poison,5;\nif (getrefine()>=9) {\n  bonus2 bMagicAtkEle,Ele_Poison,5;\n  skill \"AL_HEAL\",5;\n}\n",
+    "compiledScript": "bonus2(\"bMagicAtkEle\", Ele_Poison, 5);\nif (getrefine()>=9) {\n  bonus2(\"bMagicAtkEle\", Ele_Poison, 5);\n  skill(\"AL_HEAL\", 5);\n}\n",
+    "dropSources": [
+      {
+        "monsterId": 21394,
+        "monsterAegisName": "ILL_VITATA",
+        "monsterName": "Diligent Vitata",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300239": {
+    "id": 300239,
+    "officialId": 300239,
+    "aegisName": "ILL_Maya_Card",
+    "name": "寡言的蟻後卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "shield"
+    ],
+    "locations": {
+      "Left_Hand": true
+    },
+    "description": [
+      "對動物型敵人、植物型怪的魔法傷害+50%。",
+      "SP消耗量+50%。"
+    ],
+    "icon": "images/items/300239.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus2 bMagicAddRace,RC_Brute,50;\nbonus2 bMagicAddRace,RC_Player_Doram,50;\nbonus2 bMagicAddRace,RC_Plant,50;\nbonus bUseSPrate,50;\n",
+    "compiledScript": "bonus2(\"bMagicAddRace\", RC_Brute, 50);\nbonus2(\"bMagicAddRace\", RC_Player_Doram, 50);\nbonus2(\"bMagicAddRace\", RC_Plant, 50);\nbonus(\"bUseSPrate\", 50);\n",
+    "dropSources": [
+      {
+        "monsterId": 21395,
+        "monsterAegisName": "ILL_MAYA",
+        "monsterName": "Silent Maya",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": true,
+        "isBoss": true
+      }
+    ],
+    "isMvpCard": true,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300240": {
+    "id": 300240,
+    "officialId": 300240,
+    "aegisName": "Gan_Ceann_Card",
+    "name": "甘坎卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "weapon"
+    ],
+    "locations": {
+      "Right_Hand": true
+    },
+    "description": [
+      "ATK+15，",
+      "對大型對象的物理傷害+15%。",
+      "裝備者BaseLv 200以上時，對大型對象的物理傷害再+25%。",
+      "搭配無顱武士卡片時，對大型對象的物理傷害再+30%。"
+    ],
+    "icon": "images/items/300240.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bBaseAtk,15;\nbonus2 bAddSize,Size_Large,15;\nif (BaseLevel>=200) {\n   bonus2 bAddSize,Size_Large,25;\n}\n",
+    "compiledScript": "bonus(\"bBaseAtk\", 15);\nbonus2(\"bAddSize\", Size_Large, 15);\nif (BaseLevel>=200) {\n   bonus2(\"bAddSize\", Size_Large, 25);\n}\n",
+    "dropSources": [
+      {
+        "monsterId": 20935,
+        "monsterAegisName": "GAN_CEANN",
+        "monsterName": "Gan Ceann",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300241": {
+    "id": 300241,
+    "officialId": 300241,
+    "aegisName": "Brutal_Murderer_Card",
+    "name": "殘忍殺手卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "weapon"
+    ],
+    "locations": {
+      "Right_Hand": true
+    },
+    "description": [
+      "ATK+15，",
+      "對中型對象的物理傷害+15%。",
+      "裝備者BaseLv 200以上時，對中型對象的物理傷害再+25%。",
+      "搭配嗜血怪人卡片時，對中型對象的物理傷害再+30%。"
+    ],
+    "icon": "images/items/300241.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bBaseAtk,15;\nbonus2 bAddSize,Size_Medium,15;\nif (BaseLevel>=200) {\n   bonus2 bAddSize,Size_Medium,25;\n}\n",
+    "compiledScript": "bonus(\"bBaseAtk\", 15);\nbonus2(\"bAddSize\", Size_Medium, 15);\nif (BaseLevel>=200) {\n   bonus2(\"bAddSize\", Size_Medium, 25);\n}\n",
+    "dropSources": [
+      {
+        "monsterId": 20937,
+        "monsterAegisName": "BRUTAL_MURDERER",
+        "monsterName": "Brutal Murderer",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300242": {
+    "id": 300242,
+    "officialId": 300242,
+    "aegisName": "Ghost_Cube_Card",
+    "name": "幽靈魔方卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "accessory"
+    ],
+    "locations": {
+      "Both_Accessory": true
+    },
+    "description": [
+      "初學者或超級初學者裝備時，ATK+10%、MHP+1500。",
+      "搭配伽利略南瓜魂，且初學者或超級初學者下進行物理攻擊時，有機率7秒內刪除體型懲罰。"
+    ],
+    "icon": "images/items/300242.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "if (BaseJob == JOB_NOVICE) {\n   bonus bAtkRate,10;\n   bonus bMaxHP,1500;\n}\n",
+    "compiledScript": "if (BaseJob == JOB_NOVICE) {\n   bonus(\"bAtkRate\", 10);\n   bonus(\"bMaxHP\", 1500);\n}\n",
+    "dropSources": [
+      {
+        "monsterId": 20938,
+        "monsterAegisName": "GHOST_CUBE",
+        "monsterName": "Ghost Cube",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300243": {
+    "id": 300243,
+    "officialId": 300243,
+    "aegisName": "Lude_Gal_Card",
+    "name": "伽利略南瓜魂卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "accessory"
+    ],
+    "locations": {
+      "Both_Accessory": true
+    },
+    "description": [
+      "初學者或超級初學者裝備時，MATK+10%. MSP+500。",
+      "搭配幽靈魔方卡片、且初學者或超級初學者下進行魔法攻擊時，有機率7秒內水/火屬性魔法傷害+40%。"
+    ],
+    "icon": "images/items/300243.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "if (BaseJob == JOB_NOVICE) {\n   bonus bMatkRate,10;\n   bonus bMaxSP,500;\n}\n",
+    "compiledScript": "if (BaseJob == JOB_NOVICE) {\n   bonus(\"bMatkRate\", 10);\n   bonus(\"bMaxSP\", 500);\n}\n",
+    "dropSources": [
+      {
+        "monsterId": 20939,
+        "monsterAegisName": "LUDE_GAL",
+        "monsterName": "Lude Gal",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300244": {
+    "id": 300244,
+    "officialId": 300244,
+    "aegisName": "Disguiser_Card",
+    "name": "偽裝者卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "headTop",
+      "headMid",
+      "headLow"
+    ],
+    "locations": {
+      "Head_Top": true,
+      "Head_Mid": true,
+      "Head_Low": true
+    },
+    "description": [
+      "變動詠唱+5%。",
+      "頭具精煉每+1時，變動詠唱-1%。",
+      "精煉+9時，遠距離物理傷害+1%。",
+      "精煉+11時，遠距離物理傷害再+2%。"
+    ],
+    "icon": "images/items/300244.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": ".@r = getrefine();\nbonus bVariableCastrate,5-.@r;\nif (.@r>=9) {\n   bonus bLongAtkRate,1;\n   if (.@r>=11) {\n      bonus bLongAtkRate,2;\n   }\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bVariableCastrate\", 5-v.r);\nif (v.r>=9) {\n   bonus(\"bLongAtkRate\", 1);\n   if (v.r>=11) {\n      bonus(\"bLongAtkRate\", 2);\n   }\n}\n",
+    "dropSources": [
+      {
+        "monsterId": 20936,
+        "monsterAegisName": "DISGUISER",
+        "monsterName": "Disguiser",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300245": {
+    "id": 300245,
+    "officialId": 300245,
+    "aegisName": "Bluemoon_Loli_Ruri_Card",
+    "name": "藍月魔女卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "headTop",
+      "headMid",
+      "headLow"
+    ],
+    "locations": {
+      "Head_Top": true,
+      "Head_Mid": true,
+      "Head_Low": true
+    },
+    "description": [
+      "變動詠唱+5%。",
+      "頭具精煉每+1時，變動詠唱-1%。",
+      "精煉+9時，治癒量+3%。",
+      "精煉+11時，治癒量再+5%。"
+    ],
+    "icon": "images/items/300245.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": ".@r = getrefine();\nbonus bVariableCastrate,5-.@r;\nif (.@r>=9) {\n   bonus bHealPower,3;\n   if (.@r>=11) {\n      bonus bHealPower,5;\n   }\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bVariableCastrate\", 5-v.r);\nif (v.r>=9) {\n   bonus(\"bHealPower\", 3);\n   if (v.r>=11) {\n      bonus(\"bHealPower\", 5);\n   }\n}\n",
+    "dropSources": [
+      {
+        "monsterId": 20940,
+        "monsterAegisName": "BLUEMOON_LOLI_RURI",
+        "monsterName": "Blue Moon Loli Ruri",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300246": {
+    "id": 300246,
+    "officialId": 300246,
+    "aegisName": "Grote_Card",
+    "name": "格羅特卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "headTop",
+      "headMid",
+      "headLow"
+    ],
+    "locations": {
+      "Head_Top": true,
+      "Head_Mid": true,
+      "Head_Low": true
+    },
+    "description": [
+      "變動詠唱+5%。",
+      "頭具精煉每+1時，變動詠唱-1%。",
+      "精煉+9時，MDEF+8，受到小型敵人的魔法傷害-1%。",
+      "精煉+11時，受到小型敵人的魔法傷害再-2%。"
+    ],
+    "icon": "images/items/300246.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": ".@r = getrefine();\nbonus bVariableCastrate,5-.@r;\nif (.@r>=9) {\n   bonus2 bMagicSubSize,Size_Small,1;\n   bonus bMdef,8;\n   if (.@r>=11) {\n      bonus2 bMagicSubSize,Size_Small,2;\n   }\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bVariableCastrate\", 5-v.r);\nif (v.r>=9) {\n   bonus2(\"bMagicSubSize\", Size_Small, 1);\n   bonus(\"bMdef\", 8);\n   if (v.r>=11) {\n      bonus2(\"bMagicSubSize\", Size_Small, 2);\n   }\n}\n",
+    "dropSources": [
+      {
+        "monsterId": 20941,
+        "monsterAegisName": "GROTE",
+        "monsterName": "Grote",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300247": {
+    "id": 300247,
+    "officialId": 300247,
+    "aegisName": "Pierrotzoist_Card",
+    "name": "小丑兔斯拉卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "headTop",
+      "headMid",
+      "headLow"
+    ],
+    "locations": {
+      "Head_Top": true,
+      "Head_Mid": true,
+      "Head_Low": true
+    },
+    "description": [
+      "變動詠唱+5%。",
+      "頭具精煉每+1時，變動詠唱-1%。",
+      "精煉+9時，念屬性魔法傷害+1%。",
+      "精煉+11時，念屬性魔法傷害再+2%。"
+    ],
+    "icon": "images/items/300247.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": ".@r = getrefine();\nbonus bVariableCastrate,5-.@r;\nif (.@r>=9) {\n   bonus2 bMagicAtkEle,Ele_Ghost,1;\n   if (.@r>=11) {\n      bonus2 bMagicAtkEle,Ele_Ghost,2;\n   }\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bVariableCastrate\", 5-v.r);\nif (v.r>=9) {\n   bonus2(\"bMagicAtkEle\", Ele_Ghost, 1);\n   if (v.r>=11) {\n      bonus2(\"bMagicAtkEle\", Ele_Ghost, 2);\n   }\n}\n",
+    "dropSources": [
+      {
+        "monsterId": 20942,
+        "monsterAegisName": "PIERROTZOIST",
+        "monsterName": "Pierrotzoist",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300248": {
+    "id": 300248,
+    "officialId": 300248,
+    "aegisName": "Death_Witch_Card",
+    "name": "死亡女巫卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "shoes"
+    ],
+    "locations": {
+      "Shoes": true
+    },
+    "description": [
+      "MATK+10%，使用技能時SP消耗量+50%。",
+      "對惡魔型/無形怪的魔法傷害+50%。"
+    ],
+    "icon": "images/items/300248.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bUseSPrate,50;\nbonus bMatkRate,10;\nbonus2 bMagicAddRace,RC_Demon,50;\nbonus2 bMagicAddRace,RC_Formless,50;\n",
+    "compiledScript": "bonus(\"bUseSPrate\", 50);\nbonus(\"bMatkRate\", 10);\nbonus2(\"bMagicAddRace\", RC_Demon, 50);\nbonus2(\"bMagicAddRace\", RC_Formless, 50);\n",
+    "dropSources": [
+      {
+        "monsterId": 20943,
+        "monsterAegisName": "DEATH_WITCH",
+        "monsterName": "Death Witch",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": true,
+        "isBoss": true
+      }
+    ],
+    "isMvpCard": true,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300249": {
+    "id": 300249,
+    "officialId": 300249,
+    "aegisName": "Giant_Caput_Card",
+    "name": "巨人卡夫特卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "accessory"
+    ],
+    "locations": {
+      "Both_Accessory": true
+    },
+    "description": [
+      "對無型怪的物理傷害+5%。",
+      "裝備者BaseLv 200以上時，對無型怪的物理傷害再+15%。"
+    ],
+    "icon": "images/items/300249.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus2 bAddRace,RC_Formless,5;\nif (BaseLevel>=200) {\n   bonus2 bAddRace,RC_Formless,15;\n}\n",
+    "compiledScript": "bonus2(\"bAddRace\", RC_Formless, 5);\nif (BaseLevel>=200) {\n   bonus2(\"bAddRace\", RC_Formless, 15);\n}\n",
+    "dropSources": [
+      {
+        "monsterId": 20929,
+        "monsterAegisName": "GIANT_CAPUT",
+        "monsterName": "Giant Caput",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300250": {
+    "id": 300250,
+    "officialId": 300250,
+    "aegisName": "Dolorian_Card",
+    "name": "多洛瑞安卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "accessory"
+    ],
+    "locations": {
+      "Both_Accessory": true
+    },
+    "description": [
+      "對惡魔型怪的物理傷害+5%。",
+      "裝備者BaseLv 200以上時，對惡魔型怪的物理傷害再+15%。"
+    ],
+    "icon": "images/items/300250.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus2 bAddRace,RC_Demon,5;\nif (BaseLevel>=200) {\n   bonus2 bAddRace,RC_Demon,15;\n}\n",
+    "compiledScript": "bonus2(\"bAddRace\", RC_Demon, 5);\nif (BaseLevel>=200) {\n   bonus2(\"bAddRace\", RC_Demon, 15);\n}\n",
+    "dropSources": [
+      {
+        "monsterId": 20930,
+        "monsterAegisName": "DOLORIAN",
+        "monsterName": "Dolorian",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300251": {
+    "id": 300251,
+    "officialId": 300251,
+    "aegisName": "Plagarion_Card",
+    "name": "飛拉加瑞安卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "headTop",
+      "headMid",
+      "headLow"
+    ],
+    "locations": {
+      "Head_Top": true,
+      "Head_Mid": true,
+      "Head_Low": true
+    },
+    "description": [
+      "MATK+15。",
+      "無屬性魔法傷害+7%，使用技能時SP消耗量+5%。"
+    ],
+    "icon": "images/items/300251.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bMatk,15;\nbonus2 bMagicAtkEle,Ele_Neutral,7;\nbonus bUseSPrate,5;\n",
+    "compiledScript": "bonus(\"bMatk\", 15);\nbonus2(\"bMagicAtkEle\", Ele_Neutral, 7);\nbonus(\"bUseSPrate\", 5);\n",
+    "dropSources": [
+      {
+        "monsterId": 20931,
+        "monsterAegisName": "PLAGARION",
+        "monsterName": "Plagarion",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300252": {
+    "id": 300252,
+    "officialId": 300252,
+    "aegisName": "Deadre_Card",
+    "name": "戴德雷卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "headTop",
+      "headMid",
+      "headLow"
+    ],
+    "locations": {
+      "Head_Top": true,
+      "Head_Mid": true,
+      "Head_Low": true
+    },
+    "description": [
+      "MATK+15。",
+      "聖屬性魔法傷害+7%，使用技能時SP消耗量+5%。"
+    ],
+    "icon": "images/items/300252.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bMatk,15;\nbonus2 bMagicAtkEle,Ele_Holy,7;\nbonus bUseSPrate,5;\n",
+    "compiledScript": "bonus(\"bMatk\", 15);\nbonus2(\"bMagicAtkEle\", Ele_Holy, 7);\nbonus(\"bUseSPrate\", 5);\n",
+    "dropSources": [
+      {
+        "monsterId": 20932,
+        "monsterAegisName": "DEADRE",
+        "monsterName": "Deadre",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300253": {
+    "id": 300253,
+    "officialId": 300253,
+    "aegisName": "Venedi_Card",
+    "name": "貝內迪卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "headTop",
+      "headMid",
+      "headLow"
+    ],
+    "locations": {
+      "Head_Top": true,
+      "Head_Mid": true,
+      "Head_Low": true
+    },
+    "description": [
+      "MATK+15。",
+      "毒屬性魔法傷害+7%，使用技能時SP消耗量+5%。"
+    ],
+    "icon": "images/items/300253.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bMatk,15;\nbonus2 bMagicAtkEle,Ele_Poison,7;\nbonus bUseSPrate,5;\n",
+    "compiledScript": "bonus(\"bMatk\", 15);\nbonus2(\"bMagicAtkEle\", Ele_Poison, 7);\nbonus(\"bUseSPrate\", 5);\n",
+    "dropSources": [
+      {
+        "monsterId": 20933,
+        "monsterAegisName": "VENEDI",
+        "monsterName": "Venedi",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300254": {
+    "id": 300254,
+    "officialId": 300254,
+    "aegisName": "Amitera_Card",
+    "name": "變異阿米特拉凱美拉卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "body"
+    ],
+    "locations": {
+      "Armor": true
+    },
+    "description": [
+      "MHP+10%。",
+      "裝備者BaseLv 200以上時，MHP再+10%。"
+    ],
+    "icon": "images/items/300254.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bMaxHPrate,10;\nif (BaseLevel>=200) {\n   bonus bMaxHPrate,10;\n}\n",
+    "compiledScript": "bonus(\"bMaxHPrate\", 10);\nif (BaseLevel>=200) {\n   bonus(\"bMaxHPrate\", 10);\n}\n",
+    "dropSources": [
+      {
+        "monsterId": 20924,
+        "monsterAegisName": "CHIMERA_AMITERA",
+        "monsterName": "Amitera",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300255": {
+    "id": 300255,
+    "officialId": 300255,
+    "aegisName": "Litus_Card",
+    "name": "變異利圖斯凱美拉卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "headTop",
+      "headMid",
+      "headLow"
+    ],
+    "locations": {
+      "Head_Top": true,
+      "Head_Mid": true,
+      "Head_Low": true
+    },
+    "description": [
+      "MATK+15。",
+      "風屬性魔法傷害+7%，使用技能時SP消耗量+5%。"
+    ],
+    "icon": "images/items/300255.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bMatk,15;\nbonus2 bMagicAtkEle,Ele_Wind,7;\nbonus bUseSPrate,5;\n",
+    "compiledScript": "bonus(\"bMatk\", 15);\nbonus2(\"bMagicAtkEle\", Ele_Wind, 7);\nbonus(\"bUseSPrate\", 5);\n",
+    "dropSources": [
+      {
+        "monsterId": 20925,
+        "monsterAegisName": "CHIMERA_LITUS",
+        "monsterName": "Litus",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300256": {
+    "id": 300256,
+    "officialId": 300256,
+    "aegisName": "Fillia_Card",
+    "name": "變異菲利亞凱美拉卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "headTop",
+      "headMid",
+      "headLow"
+    ],
+    "locations": {
+      "Head_Top": true,
+      "Head_Mid": true,
+      "Head_Low": true
+    },
+    "description": [
+      "MATK+15。",
+      "火屬性魔法傷害+7%，使用技能時SP消耗量+5%。"
+    ],
+    "icon": "images/items/300256.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bMatk,15;\nbonus2 bMagicAtkEle,Ele_Fire,7;\nbonus bUseSPrate,5;\n",
+    "compiledScript": "bonus(\"bMatk\", 15);\nbonus2(\"bMagicAtkEle\", Ele_Fire, 7);\nbonus(\"bUseSPrate\", 5);\n",
+    "dropSources": [
+      {
+        "monsterId": 20926,
+        "monsterAegisName": "CHIMERA_FILLIA",
+        "monsterName": "Fillia",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300257": {
+    "id": 300257,
+    "officialId": 300257,
+    "aegisName": "Vanilaqus_Card",
+    "name": "變異水精靈凱美拉卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "headTop",
+      "headMid",
+      "headLow"
+    ],
+    "locations": {
+      "Head_Top": true,
+      "Head_Mid": true,
+      "Head_Low": true
+    },
+    "description": [
+      "MATK+15。",
+      "水屬性魔法傷害+7%，使用技能時SP消耗量+5%。"
+    ],
+    "icon": "images/items/300257.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bMatk,15;\nbonus2 bMagicAtkEle,Ele_Water,7;\nbonus bUseSPrate,5;\n",
+    "compiledScript": "bonus(\"bMatk\", 15);\nbonus2(\"bMagicAtkEle\", Ele_Water, 7);\nbonus(\"bUseSPrate\", 5);\n",
+    "dropSources": [
+      {
+        "monsterId": 20927,
+        "monsterAegisName": "CHIMERA_VANILAQUS",
+        "monsterName": "Vanilaqus",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300258": {
+    "id": 300258,
+    "officialId": 300258,
+    "aegisName": "Lava_Eater_Card",
+    "name": "變異熔岩凱美拉卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "headTop",
+      "headMid",
+      "headLow"
+    ],
+    "locations": {
+      "Head_Top": true,
+      "Head_Mid": true,
+      "Head_Low": true
+    },
+    "description": [
+      "MATK+15。",
+      "暗屬性魔法傷害+7%，使用技能時SP消耗量+5%。"
+    ],
+    "icon": "images/items/300258.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bMatk,15;\nbonus2 bMagicAtkEle,Ele_Dark,7;\nbonus bUseSPrate,5;\n",
+    "compiledScript": "bonus(\"bMatk\", 15);\nbonus2(\"bMagicAtkEle\", Ele_Dark, 7);\nbonus(\"bUseSPrate\", 5);\n",
+    "dropSources": [
+      {
+        "monsterId": 20920,
+        "monsterAegisName": "CHIMERA_LAVA",
+        "monsterName": "Lavaeter",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300259": {
+    "id": 300259,
+    "officialId": 300259,
+    "aegisName": "Fulgor_Card",
+    "name": "變異獨角光輝凱美拉卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "headTop",
+      "headMid",
+      "headLow"
+    ],
+    "locations": {
+      "Head_Top": true,
+      "Head_Mid": true,
+      "Head_Low": true
+    },
+    "description": [
+      "MATK+15。",
+      "地屬性魔法傷害+7%，使用技能時SP消耗量+5%。"
+    ],
+    "icon": "images/items/300259.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bMatk,15;\nbonus2 bMagicAtkEle,Ele_Earth,7;\nbonus bUseSPrate,5;\n",
+    "compiledScript": "bonus(\"bMatk\", 15);\nbonus2(\"bMagicAtkEle\", Ele_Earth, 7);\nbonus(\"bUseSPrate\", 5);\n",
+    "dropSources": [
+      {
+        "monsterId": 20921,
+        "monsterAegisName": "CHIMERA_FULGOR",
+        "monsterName": "Fulgor",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300260": {
+    "id": 300260,
+    "officialId": 300260,
+    "aegisName": "Napeo_Card",
+    "name": "變異納佩奧凱美拉卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "garment"
+    ],
+    "locations": {
+      "Garment": true
+    },
+    "description": [
+      "基本屬性INT每+10時，MATK+5。",
+      "基本屬性INT125以上時，MATK再+60。"
+    ],
+    "icon": "images/items/300260.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bMatk,5*(readparam(bInt)/10);\nif (readparam(bInt)>=125) {\n   bonus bMatk,60;\n}\n",
+    "compiledScript": "bonus(\"bMatk\", 5*(readparam(bInt)/10));\nif (readparam(bInt)>=125) {\n   bonus(\"bMatk\", 60);\n}\n",
+    "dropSources": [
+      {
+        "monsterId": 20922,
+        "monsterAegisName": "CHIMERA_NAPEO",
+        "monsterName": "Napeo",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300261": {
+    "id": 300261,
+    "officialId": 300261,
+    "aegisName": "Galensis_Card",
+    "name": "變異凱倫西斯凱美拉卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "garment"
+    ],
+    "locations": {
+      "Garment": true
+    },
+    "description": [
+      "基本屬性LUK每+10時，CRI+2。",
+      "基本屬性LUK125以上時，暴擊傷害+30%。"
+    ],
+    "icon": "images/items/300261.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bCritical,2*(readparam(bLuk)/10);\nif (readparam(bLuk)>=125) {\n   bonus bCritAtkRate,30;\n}\n",
+    "compiledScript": "bonus(\"bCritical\", 2*(readparam(bLuk)/10));\nif (readparam(bLuk)>=125) {\n   bonus(\"bCritAtkRate\", 30);\n}\n",
+    "dropSources": [
+      {
+        "monsterId": 20923,
+        "monsterAegisName": "CHIMERA_GALENSIS",
+        "monsterName": "Galensis",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300262": {
+    "id": 300262,
+    "officialId": 300262,
+    "aegisName": "The_One_Card",
+    "name": "變異救世主凱美拉卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "shoes"
+    ],
+    "locations": {
+      "Shoes": true
+    },
+    "description": [
+      "MATK+10%，使用技能時SP消耗量+50%。",
+      "對不死型、龍族怪的魔法傷害+50%。"
+    ],
+    "icon": "images/items/300262.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bUseSPrate,50;\nbonus bMatkRate,10;\nbonus2 bMagicAddRace,RC_Undead,50;\nbonus2 bMagicAddRace,RC_Dragon,50;\n",
+    "compiledScript": "bonus(\"bUseSPrate\", 50);\nbonus(\"bMatkRate\", 10);\nbonus2(\"bMagicAddRace\", RC_Undead, 50);\nbonus2(\"bMagicAddRace\", RC_Dragon, 50);\n",
+    "dropSources": [
+      {
+        "monsterId": 20928,
+        "monsterAegisName": "CHIMERA_THEONE",
+        "monsterName": "The One",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": true,
+        "isBoss": true
+      }
+    ],
+    "isMvpCard": true,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300265": {
+    "id": 300265,
+    "officialId": 300265,
+    "aegisName": "Regen_Scientist_Card",
+    "name": "裡根修蘆科學家卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "weapon"
+    ],
+    "locations": {
+      "Right_Hand": true
+    },
+    "description": [
+      "MATK+5%。",
+      "裝備雙手杖時，全屬性魔法傷害+10%；限定武器精煉每+3時，全屬性魔法傷害再+2%。",
+      "若裝備者的BaseLv 200以上，且限定武器精煉每+3時，全屬性魔法傷害再+3%。"
+    ],
+    "icon": "images/items/300265.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": ".@r = getrefine();\nbonus bMatkRate,5;\nif (getiteminfo(getequipid(EQI_HAND_R),11) == W_2HSTAFF) {\n   bonus2 bMagicAtkEle,Ele_All,10+2*(.@r/3);\n   if (BaseLevel>=200) {\n      bonus2 bMagicAtkEle,Ele_All,3*(.@r/3);\n   }\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bMatkRate\", 5);\nif (getiteminfo(getequipid(EQI_HAND_R),11) == W_2HSTAFF) {\n   bonus2(\"bMagicAtkEle\", Ele_All, 10+2*(v.r/3));\n   if (BaseLevel>=200) {\n      bonus2(\"bMagicAtkEle\", Ele_All, 3*(v.r/3));\n   }\n}\n",
+    "dropSources": [
+      {
+        "monsterId": 20543,
+        "monsterAegisName": "MD_ED_M_SCIENCE",
+        "monsterName": "MD_ED_M_SCIENCE",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  },
+  "300281": {
+    "id": 300281,
+    "officialId": 300281,
+    "aegisName": "R001_Bestia_Card",
+    "name": "R001-Bestia卡片",
+    "type": "card",
+    "category": "card",
+    "subCategory": "monster_card",
+    "cardTarget": [
+      "shoes"
+    ],
+    "locations": {
+      "Shoes": true
+    },
+    "description": [
+      "MATK+10%，使用技能時SP消耗量+50%。",
+      "對魚貝型、昆蟲型怪的魔法傷害+50%。"
+    ],
+    "icon": "images/items/300281.webp",
+    "slotCount": 0,
+    "slots": 0,
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "scriptRaw": "bonus bUseSPrate,50;\nbonus bMatkRate,10;\nbonus2 bMagicAddRace,RC_Fish,50;\nbonus2 bMagicAddRace,RC_Insect,50;\n",
+    "compiledScript": "bonus(\"bUseSPrate\", 50);\nbonus(\"bMatkRate\", 10);\nbonus2(\"bMagicAddRace\", RC_Fish, 50);\nbonus2(\"bMagicAddRace\", RC_Insect, 50);\n",
+    "dropSources": [
+      {
+        "monsterId": 20934,
+        "monsterAegisName": "R001_BESTIA",
+        "monsterName": "R001-Bestia",
+        "rate": 1,
+        "stealProtected": true,
+        "isMvp": true,
+        "isBoss": true
+      }
+    ],
+    "isMvpCard": true,
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+  }
+}

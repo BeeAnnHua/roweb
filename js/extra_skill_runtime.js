@@ -30,9 +30,22 @@
     if(typeof updateSkillUI==="function")updateSkillUI();if(typeof updateQuickSlotUI==="function")updateQuickSlotUI();if(typeof saveGame==="function")saveGame();return true;
   }
   function removeSlot(slotKey){normalize();delete player.extraSkills[String(slotKey)];if(typeof updateSkillUI==="function")updateSkillUI();if(typeof updateQuickSlotUI==="function")updateQuickSlotUI();}
+  function resolveSkillRecord(token){
+    const index=skillData()?.skillIndex||{};
+    const direct=index[String(token)];if(direct)return direct;
+    return Object.values(index).find(s=>[s?.officialId,s?.id,s?.key,s?.skillKey,s?.aegisName].some(v=>String(v??"")===String(token)))||null;
+  }
   function collectGrantedSkills(item){
-    const raw=item?.grantedSkills??item?.GrantedSkills??[]; const rows=Array.isArray(raw)?raw:[raw];
-    return rows.map(x=>typeof x==="number"||typeof x==="string"?{skillId:Number(x),level:1}:{skillId:Number(x?.skillId??x?.SkillId??x?.id),level:Number(x?.level??x?.Level??1)}).filter(x=>x.skillId>0&&x.level>0);
+    const raw=item?.grantedSkills??item?.GrantedSkills??[];
+    let rows=[];
+    if(Array.isArray(raw))rows=raw;
+    else if(raw&&typeof raw==="object")rows=Object.entries(raw).map(([skillId,level])=>({skillId,level}));
+    else rows=[raw];
+    return rows.map(x=>{
+      const token=typeof x==="number"||typeof x==="string"?x:(x?.skillId??x?.SkillId??x?.id??x?.key);
+      const skill=resolveSkillRecord(token);
+      return {skillId:Number(skill?.officialId??skill?.id??token),level:Number((typeof x==="object"?x?.level??x?.Level:null)??1)};
+    }).filter(x=>x.skillId>0&&x.level>0);
   }
   function syncEquipment(){
     if(typeof player==="undefined"||!player)return;normalize();
@@ -40,9 +53,9 @@
     for(const [slot,itemId] of Object.entries(player.equipment||{})){
       if(!itemId)continue;const item=typeof getItemData==="function"?getItemData(itemId):null;if(!item)continue;
       collectGrantedSkills(item).forEach(g=>setSlot(`equipment:${slot}:${itemId}:${g.skillId}`,g.skillId,g.level,{sourceType:"equipment",sourceId:itemId,sourceSlot:slot,removeOnSourceLost:true}));
-      const equipmentInstance=typeof getEquipmentInstance==='function'?getEquipmentInstance(slot):null;
-      const cards=equipmentInstance?.cards??item.cards??item.Cards??[];
-      (Array.isArray(cards)?cards:[]).forEach(cardId=>{const card=typeof getItemData==="function"?getItemData(cardId):null;collectGrantedSkills(card).forEach(g=>setSlot(`card:${slot}:${cardId}:${g.skillId}`,g.skillId,g.level,{sourceType:"card",sourceId:cardId,sourceSlot:slot,removeOnSourceLost:true}));});
+    }
+    for(const source of window.CardRuntime?.getSources?.()||[]){
+      collectGrantedSkills(source).forEach(g=>setSlot(`card:${source.sourceType}:${source.sourceId}:${g.skillId}`,g.skillId,g.level,{sourceType:"card",sourceId:source.sourceId,sourceSlot:null,removeOnSourceLost:true}));
     }
   }
   function dataFor(mode){const key=mode==="reproduce"?"reproduce":"plagiarism";return skillData()?.copyableSkills?.[key]||[];}

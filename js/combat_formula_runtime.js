@@ -27,11 +27,8 @@
       if(!id)continue;
       if((slot==='shield'||slot==='leftWeapon')&&id===mainId&&main&&(main.twoHanded||main.hands===2||main.weaponHands===2))continue;
       const item=getItem(id);if(!item)continue;result.push(item);
-      const instanceCards=typeof window.getEquipmentInstance==='function'?window.getEquipmentInstance(slot)?.cards:null;
-      const slotCards=unit?.equipmentCards?.[slot]||unit?.socketedCards?.[slot];
-      const cards=Array.isArray(instanceCards)?instanceCards.filter(Boolean):(Array.isArray(slotCards)?slotCards:(Array.isArray(item.cards)?item.cards:(Array.isArray(item.cardIds)?item.cardIds:[])));
-      for(const cid of cards){const card=getItem(cid);if(card)result.push(card);}
     }
+    if(window.CardRuntime?.getSources)result.push(...window.CardRuntime.getSources());
     return result;
   }
   function passive(){return window.RO_WEB_COMBAT_EVAL_CONTEXT?.passiveCombatModifierTotals||(typeof window.getPassiveCombatModifierTotals==='function'?(window.getPassiveCombatModifierTotals()||{}):{});}
