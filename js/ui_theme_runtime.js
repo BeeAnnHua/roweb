@@ -1,4 +1,4 @@
-// RO_WEB 0.9.82GO — 全站黑金互動元件與自訂確認視窗
+// RO_WEB 0.9.82GQ — 靜態黑金 UI、按需數量控制器與共用確認視窗
 (function initROBlackGoldThemeRuntime(global) {
   "use strict";
 
@@ -91,6 +91,7 @@
     input.focus({ preventScroll: true });
   }
 
+  // 長按計時器只在使用者按住按鈕時存在，放開後立即清除；沒有背景輪詢。
   function bindHoldStepper(button, input, direction) {
     let delayTimer = 0;
     let repeatTimer = 0;
@@ -123,15 +124,16 @@
     });
   }
 
-  function enhanceNumberInput(input) {
-    if (!(input instanceof global.HTMLInputElement) || input.type !== "number" || input.hasAttribute(NUMBER_READY_ATTR)) return;
-    input.setAttribute(NUMBER_READY_ATTR, "1");
+  function enhanceNumberInput(input, options = {}) {
+    if (!(input instanceof global.HTMLInputElement) || input.type !== "number" || input.hasAttribute(NUMBER_READY_ATTR)) return input;
     input.classList.add("ro-number-input", "ro-gold-field");
-    // 自動掛機面板已有專用的緊湊 ▲▼ 控制器。全域黑金控制器不得再包一層，
-    // 否則樞機主教大量 Buff 門檻輸入會形成雙重 DOM 包裝與大量 Mutation。
-    if (input.dataset.roNumberOwner === "auto-combat" || input.closest("#auto-combat-panel, .auto-number-control")) return;
+    // 自動掛機和商店已有專用控制器，不重複包裝。
+    if (input.dataset.roNumberOwner === "auto-combat" || input.dataset.roNumberOwner === "shop" || input.closest("#auto-combat-panel, .auto-number-control, .shop-qty-row")) return input;
+    const requested = options.force === true || input.hasAttribute("data-ro-gold-stepper");
+    if (!requested) return input;
     const parent = input.parentElement;
-    if (!parent) return;
+    if (!parent) return input;
+    input.setAttribute(NUMBER_READY_ATTR, "1");
     const wrapper = DOC.createElement("span");
     wrapper.className = "ro-number-stepper";
     if (input.closest(".auto-inline-setting, .auto-combat-settings, .storage-item-controls")) wrapper.classList.add("is-compact");
@@ -154,6 +156,16 @@
     wrapper.appendChild(plus);
     bindHoldStepper(minus, input, -1);
     bindHoldStepper(plus, input, 1);
+    return input;
+  }
+
+  function enhanceNumberInputs(root, options = {}) {
+    if (!root) return 0;
+    const inputs = [];
+    if (root.matches?.("input[type='number']")) inputs.push(root);
+    root.querySelectorAll?.("input[type='number']").forEach(input => inputs.push(input));
+    inputs.forEach(input => enhanceNumberInput(input, options));
+    return inputs.length;
   }
 
   function auditRoot(root) {
@@ -161,11 +173,11 @@
     const nodes = root.nodeType === 1 || root.nodeType === 9 ? root : null;
     if (!nodes) return;
     if (nodes.matches?.("button")) auditButton(nodes);
-    if (nodes.matches?.("input[type='number']")) enhanceNumberInput(nodes);
     auditFormControl(nodes);
     nodes.querySelectorAll?.("button").forEach(auditButton);
-    nodes.querySelectorAll?.("input[type='number']").forEach(enhanceNumberInput);
-    nodes.querySelectorAll?.("select, textarea, input:not([type]), input[type='text'], input[type='search'], input[type='password'], input[type='email']").forEach(auditFormControl);
+    nodes.querySelectorAll?.("select, textarea, input:not([type]), input[type='text'], input[type='search'], input[type='password'], input[type='email'], input[type='number']").forEach(auditFormControl);
+    if (nodes.matches?.("input[type='number'][data-ro-gold-stepper]")) enhanceNumberInput(nodes);
+    nodes.querySelectorAll?.("input[type='number'][data-ro-gold-stepper]").forEach(input => enhanceNumberInput(input));
   }
 
   let activeDialog = null;
@@ -183,11 +195,11 @@
       <div class="ro-gold-dialog" role="document">
         <header class="ro-gold-dialog-header">
           <b id="roGoldDialogTitle">確認</b>
-          <button type="button" class="ro-gold-dialog-close" aria-label="關閉">×</button>
+          <button type="button" class="ro-gold-dialog-close ro-gold-secondary-control" aria-label="關閉">×</button>
         </header>
         <div id="roGoldDialogMessage" class="ro-gold-dialog-message"></div>
         <footer class="ro-gold-dialog-actions">
-          <button type="button" class="ro-gold-dialog-cancel">取消</button>
+          <button type="button" class="ro-gold-dialog-cancel ro-gold-secondary-control">取消</button>
           <button type="button" class="ro-gold-dialog-confirm">確認</button>
         </footer>
       </div>`;
@@ -246,35 +258,22 @@
     confirm(message, options = {}) { return openDialog(message, { ...options, kind: "confirm" }); },
     alert(message, options = {}) { return openDialog(message, { ...options, kind: "alert" }); },
     audit: auditRoot,
-    refresh() { auditRoot(DOC); }
+    refresh(root = DOC) { auditRoot(root); },
+    enhanceNumberInput,
+    enhanceNumberInputs,
+    performanceProfile: Object.freeze({ mutationObserver: false, backgroundPolling: false, staticCss: true, explicitInitialization: true })
   };
 
   global.ROGoldUI = GoldUI;
-  global.ROBlackGoldAudit = { run: () => auditRoot(DOC), auditRoot, enhanceNumberInput, auditButton };
+  global.ROBlackGoldAudit = { run: () => auditRoot(DOC), auditRoot, enhanceNumberInput, enhanceNumberInputs, auditButton };
+  global.__roBlackGoldObserver = null;
 
   if (DOC) {
     const start = () => {
+      DOC.body?.classList.add("ro-black-gold-theme");
+      // 僅在啟動時稽查一次；動態按鈕由靜態 CSS 套用。
       auditRoot(DOC);
-      const queuedRoots = new Set();
-      let auditFrame = 0;
-      const flushAuditQueue = () => {
-        auditFrame = 0;
-        const roots = Array.from(queuedRoots);
-        queuedRoots.clear();
-        roots.forEach(root => {
-          if (root?.isConnected !== false) auditRoot(root);
-        });
-      };
-      const queueAudit = root => {
-        if (!root || (root.nodeType !== 1 && root.nodeType !== 9)) return;
-        queuedRoots.add(root);
-        if (!auditFrame) auditFrame = global.requestAnimationFrame(flushAuditQueue);
-      };
-      const observer = new MutationObserver(records => {
-        records.forEach(record => record.addedNodes.forEach(queueAudit));
-      });
-      observer.observe(DOC.documentElement, { childList: true, subtree: true });
-      global.__roBlackGoldObserver = observer;
+      ensureDialog();
     };
     if (DOC.readyState === "loading") DOC.addEventListener("DOMContentLoaded", start, { once: true });
     else start();

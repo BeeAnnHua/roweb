@@ -303,7 +303,6 @@ function renderMapMonsterDropDetail(tooltip,mapId,monsterId,options={}){
   host.hidden=false;
   host.querySelector(".map-monster-drop-unpin")?.addEventListener("click",event=>{event.preventDefault();event.stopPropagation();unpinMapMonsterDropDetail();});
   syncPinnedMonsterDropRow(tooltip);
-  window.ROBlackGoldAudit?.auditRoot?.(host);
 }
 function bindMapMonsterDropInteractions(tooltip,mapId){
   if(!tooltip)return;

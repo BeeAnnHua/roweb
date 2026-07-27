@@ -394,7 +394,7 @@ function renderPurchaseDialog(itemId, price) {
         <div class="shop-qty-row purchase-qty-row">
           <button type="button" data-purchase-qty="-10">-10</button>
           <button type="button" data-purchase-qty="-1">-</button>
-          <input id="purchase-buy-qty" type="number" min="1" max="999" value="${qty}" data-no-drag>
+          <input id="purchase-buy-qty" type="number" data-ro-number-owner="shop" min="1" max="999" value="${qty}" data-no-drag>
           <button type="button" data-purchase-qty="1">+</button>
           <button type="button" data-purchase-qty="10">+10</button>
         </div>
@@ -462,7 +462,7 @@ function renderShopItemDetail(itemId, price) {
       <div class="shop-qty-row">
         <button type="button" data-shop-qty="-10">-10</button>
         <button type="button" data-shop-qty="-1">-</button>
-        <input id="shop-buy-qty" type="number" min="1" max="999" value="${qty}" data-no-drag>
+        <input id="shop-buy-qty" type="number" data-ro-number-owner="shop" min="1" max="999" value="${qty}" data-no-drag>
         <button type="button" data-shop-qty="1">+</button>
         <button type="button" data-shop-qty="10">+10</button>
       </div>

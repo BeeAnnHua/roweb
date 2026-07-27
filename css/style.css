@@ -20740,10 +20740,10 @@ body.enchant-grade-window-open{overflow:hidden}
 }
 
 /* ============================================================
-   RO_WEB 0.9.82GO — 全站黑金互動元件稽核
-   - 所有一般操作／確認按鈕統一深黑金框
-   - 原生 number spinner 改為自訂 −／＋
-   - 原生 confirm / alert 改為遊戲內黑金視窗
+   RO_WEB 0.9.82GQ — 零背景掃描黑金互動元件
+   - 一般按鈕由靜態 CSS 直接套用，動態按鈕不需 MutationObserver
+   - 數量控制器只在指定欄位建立時初始化一次
+   - 共用黑金確認視窗只有單一 DOM 節點
    ============================================================ */
 :root{
   --ro-gold-1:#f4d27c;
@@ -20754,10 +20754,20 @@ body.enchant-grade-window-open{overflow:hidden}
   --ro-gold-bg-3:#090704;
   --ro-gold-muted:#9b8257;
 }
-button.ro-gold-control,
-input[type="button"].ro-gold-control,
-input[type="submit"].ro-gold-control,
-input[type="reset"].ro-gold-control{
+
+/* 卡片與格子保留專屬版面；真正的操作按鈕全部使用黑金皮膚。 */
+:where(
+  body.ro-black-gold-theme button:not(:is(
+    .inventory-slot,.equipment-slot,.quick-slot,.skill-card,.skill-button,
+    .world-monster-hitbox,.map-monster-distribution-row,.grade-equipment-row,
+    .refine-equipment-row,.refine-material-choice,.refine-blessing-slot,
+    .storage-item-icon,.character-gender-option
+  )),
+  button.ro-gold-control,
+  input[type="button"].ro-gold-control,
+  input[type="submit"].ro-gold-control,
+  input[type="reset"].ro-gold-control
+){
   appearance:none!important;
   -webkit-appearance:none!important;
   border:1px solid var(--ro-gold-2)!important;
@@ -20769,33 +20779,40 @@ input[type="reset"].ro-gold-control{
   transition:border-color .12s ease,filter .12s ease,box-shadow .12s ease,transform .06s ease!important;
   cursor:pointer!important;
 }
-button.ro-gold-control:hover:not(:disabled),
-button.ro-gold-control:focus-visible:not(:disabled),
-input.ro-gold-control:hover:not(:disabled),
-input.ro-gold-control:focus-visible:not(:disabled){
+:where(
+  body.ro-black-gold-theme button:not(:is(
+    .inventory-slot,.equipment-slot,.quick-slot,.skill-card,.skill-button,
+    .world-monster-hitbox,.map-monster-distribution-row,.grade-equipment-row,
+    .refine-equipment-row,.refine-material-choice,.refine-blessing-slot,
+    .storage-item-icon,.character-gender-option
+  )),button.ro-gold-control
+):hover:not(:disabled),
+:where(
+  body.ro-black-gold-theme button:not(:is(
+    .inventory-slot,.equipment-slot,.quick-slot,.skill-card,.skill-button,
+    .world-monster-hitbox,.map-monster-distribution-row,.grade-equipment-row,
+    .refine-equipment-row,.refine-material-choice,.refine-blessing-slot,
+    .storage-item-icon,.character-gender-option
+  )),button.ro-gold-control
+):focus-visible:not(:disabled){
   border-color:#f3ca69!important;
   filter:brightness(1.14)!important;
   outline:none!important;
   box-shadow:inset 0 1px 0 rgba(255,248,208,.32),0 0 0 2px rgba(229,174,63,.16),0 0 8px rgba(229,174,63,.28)!important;
 }
-button.ro-gold-control:active:not(:disabled),input.ro-gold-control:active:not(:disabled){
+:where(
+  body.ro-black-gold-theme button:not(:is(
+    .inventory-slot,.equipment-slot,.quick-slot,.skill-card,.skill-button,
+    .world-monster-hitbox,.map-monster-distribution-row,.grade-equipment-row,
+    .refine-equipment-row,.refine-material-choice,.refine-blessing-slot,
+    .storage-item-icon,.character-gender-option
+  )),button.ro-gold-control
+):active:not(:disabled){
   transform:translateY(1px)!important;
   background:linear-gradient(180deg,#25170a,#4c3313)!important;
   box-shadow:inset 0 2px 5px rgba(0,0,0,.75)!important;
 }
-button.ro-gold-secondary-control{
-  border-color:#8b6b35!important;
-  background:linear-gradient(180deg,#2c2419,#17110b)!important;
-  color:#d9c59c!important;
-}
-button.ro-gold-danger-control,
-.ro-gold-dialog-overlay.is-danger .ro-gold-dialog-confirm{
-  border-color:#d06a50!important;
-  background:linear-gradient(180deg,#63291c,#32100c)!important;
-  color:#ffd2bd!important;
-  box-shadow:inset 0 1px 0 rgba(255,214,185,.18),0 0 5px rgba(190,56,35,.20)!important;
-}
-button.ro-gold-control:disabled,input.ro-gold-control:disabled{
+:where(body.ro-black-gold-theme button,button.ro-gold-control):disabled{
   border-color:#59472d!important;
   background:linear-gradient(#211b14,#100d09)!important;
   color:#776c5a!important;
@@ -20804,6 +20821,20 @@ button.ro-gold-control:disabled,input.ro-gold-control:disabled{
   cursor:not-allowed!important;
   box-shadow:inset 0 1px rgba(255,255,255,.04)!important;
 }
+button.ro-gold-secondary-control,
+body.ro-black-gold-theme :is(.window-close,.save-reset-cancel,.player-id-cancel,.ro-gold-dialog-cancel,.ro-gold-dialog-close){
+  border-color:#8b6b35!important;
+  background:linear-gradient(180deg,#2c2419,#17110b)!important;
+  color:#d9c59c!important;
+}
+button.ro-gold-danger-control,
+body.ro-black-gold-theme :is(.stats-reset,.btn-decompose,.delete-all,.save-reset-confirm-button),
+.ro-gold-dialog-overlay.is-danger .ro-gold-dialog-confirm{
+  border-color:#d06a50!important;
+  background:linear-gradient(180deg,#63291c,#32100c)!important;
+  color:#ffd2bd!important;
+  box-shadow:inset 0 1px 0 rgba(255,214,185,.18),0 0 5px rgba(190,56,35,.20)!important;
+}
 button.ro-gold-icon-control{
   padding:0!important;
   display:inline-grid!important;
@@ -20811,16 +20842,25 @@ button.ro-gold-icon-control{
   line-height:1!important;
 }
 button.ro-gold-control.is-active,
-button.ro-gold-control[aria-pressed="true"]{
+button.ro-gold-control[aria-pressed="true"],
+body.ro-black-gold-theme button.is-active:not(:is(.inventory-slot,.equipment-slot,.quick-slot,.skill-card,.skill-button,.map-monster-distribution-row,.grade-equipment-row,.refine-equipment-row,.character-gender-option)){
   border-color:#f1c65e!important;
   color:#fff0bb!important;
   background:linear-gradient(180deg,#75531f,#352008)!important;
   box-shadow:inset 0 0 9px rgba(255,205,90,.18),0 0 6px rgba(223,163,45,.26)!important;
 }
 
-.ro-gold-field,
-select.ro-gold-field,
-textarea.ro-gold-field{
+:where(
+  body.ro-black-gold-theme select,
+  body.ro-black-gold-theme textarea,
+  body.ro-black-gold-theme input:not([type]),
+  body.ro-black-gold-theme input[type="text"],
+  body.ro-black-gold-theme input[type="search"],
+  body.ro-black-gold-theme input[type="password"],
+  body.ro-black-gold-theme input[type="email"],
+  body.ro-black-gold-theme input[type="number"],
+  .ro-gold-field
+){
   border:1px solid #9d7535!important;
   border-radius:7px!important;
   background:linear-gradient(180deg,#17110b,#090704)!important;
@@ -20829,15 +20869,17 @@ textarea.ro-gold-field{
   outline:none!important;
   box-shadow:inset 0 1px 5px rgba(0,0,0,.72)!important;
 }
-.ro-gold-field:focus{
+:where(body.ro-black-gold-theme select,body.ro-black-gold-theme textarea,body.ro-black-gold-theme input,.ro-gold-field):focus{
   border-color:#efc45e!important;
   box-shadow:inset 0 1px 5px rgba(0,0,0,.72),0 0 0 2px rgba(232,178,65,.17)!important;
 }
-select.ro-gold-field option{background:#150f08;color:#ffe5a8}
-input[type="checkbox"],input[type="radio"]{accent-color:#c89435}
+body.ro-black-gold-theme select option,select.ro-gold-field option{background:#150f08;color:#ffe5a8}
+body.ro-black-gold-theme input[type="checkbox"],body.ro-black-gold-theme input[type="radio"]{accent-color:#c89435}
 
-/* Browser-native white number arrows are hidden; all platforms use one gold stepper. */
-input.ro-number-input[type="number"]{-moz-appearance:textfield!important;text-align:center!important;min-width:0!important;margin:0!important;border-radius:0!important}
+/* 隱藏瀏覽器原生白色 number 箭頭。 */
+body.ro-black-gold-theme input[type="number"],input.ro-number-input[type="number"]{-moz-appearance:textfield!important;text-align:center!important;min-width:0!important;margin:0!important}
+body.ro-black-gold-theme input[type="number"]::-webkit-inner-spin-button,
+body.ro-black-gold-theme input[type="number"]::-webkit-outer-spin-button,
 input.ro-number-input[type="number"]::-webkit-inner-spin-button,
 input.ro-number-input[type="number"]::-webkit-outer-spin-button{-webkit-appearance:none!important;margin:0!important;display:none!important}
 .ro-number-stepper{
@@ -20854,24 +20896,13 @@ input.ro-number-input[type="number"]::-webkit-outer-spin-button{-webkit-appearan
   box-shadow:inset 0 0 4px #000,0 1px 2px rgba(0,0,0,.42)!important;
 }
 .ro-number-stepper>.ro-number-input{
-  width:100%!important;
-  height:100%!important;
-  padding:5px 4px!important;
-  border-width:0 1px!important;
-  border-style:solid!important;
-  border-color:#76501b!important;
+  width:100%!important;height:100%!important;padding:5px 4px!important;
+  border-width:0 1px!important;border-style:solid!important;border-color:#76501b!important;border-radius:0!important;
 }
 .ro-number-stepper>.ro-number-step{
-  width:30px!important;
-  min-width:30px!important;
-  height:100%!important;
-  min-height:30px!important;
-  border:0!important;
-  border-radius:0!important;
-  font-size:18px!important;
-  font-weight:900!important;
-  touch-action:none!important;
-  user-select:none!important;
+  width:30px!important;min-width:30px!important;height:100%!important;min-height:30px!important;
+  border:0!important;border-radius:0!important;font-size:18px!important;font-weight:900!important;
+  touch-action:none!important;user-select:none!important;
 }
 .ro-number-stepper.is-compact{grid-template-columns:23px minmax(38px,1fr) 23px!important;min-height:26px!important;max-width:118px!important;border-radius:6px!important}
 .ro-number-stepper.is-compact>.ro-number-step{width:23px!important;min-width:23px!important;min-height:24px!important;font-size:14px!important}
@@ -20879,28 +20910,18 @@ input.ro-number-input[type="number"]::-webkit-outer-spin-button{-webkit-appearan
 .grade-exchange-panel>label .ro-number-stepper{max-width:155px!important}
 .storage-item-controls .ro-number-stepper{max-width:120px!important}
 
-/* Gold scrollbar audit: visible and consistent inside every game window. */
+/* 金色捲軸只使用 CSS，不產生 Runtime 工作。 */
 .game-window *, .grade-dialog *, .refine-dialog *, .storage-dialog *, .job-change-confirm-card *, .ro-gold-dialog *, .map-monster-distribution-tooltip{
-  scrollbar-width:thin;
-  scrollbar-color:#c79438 #1d1207;
+  scrollbar-width:thin;scrollbar-color:#c79438 #1d1207;
 }
 .game-window *::-webkit-scrollbar,.grade-dialog *::-webkit-scrollbar,.refine-dialog *::-webkit-scrollbar,.storage-dialog *::-webkit-scrollbar,.job-change-confirm-card *::-webkit-scrollbar,.ro-gold-dialog *::-webkit-scrollbar,.map-monster-distribution-tooltip::-webkit-scrollbar{width:9px;height:9px}
 .game-window *::-webkit-scrollbar-track,.grade-dialog *::-webkit-scrollbar-track,.refine-dialog *::-webkit-scrollbar-track,.storage-dialog *::-webkit-scrollbar-track,.job-change-confirm-card *::-webkit-scrollbar-track,.ro-gold-dialog *::-webkit-scrollbar-track,.map-monster-distribution-tooltip::-webkit-scrollbar-track{background:linear-gradient(90deg,#120b05,#352109,#120b05);border:1px solid #644214;border-radius:8px}
 .game-window *::-webkit-scrollbar-thumb,.grade-dialog *::-webkit-scrollbar-thumb,.refine-dialog *::-webkit-scrollbar-thumb,.storage-dialog *::-webkit-scrollbar-thumb,.job-change-confirm-card *::-webkit-scrollbar-thumb,.ro-gold-dialog *::-webkit-scrollbar-thumb,.map-monster-distribution-tooltip::-webkit-scrollbar-thumb{background:linear-gradient(#e0b55d,#875816);border:1px solid #f0ca79;border-radius:8px}
 
-/* In-game replacement for browser confirm()/alert(). */
+/* 單一共用的遊戲內 confirm/alert 視窗。 */
 .ro-gold-dialog-overlay[hidden]{display:none!important}
-.ro-gold-dialog-overlay{
-  position:fixed!important;inset:0!important;z-index:1100005!important;
-  display:grid!important;place-items:center!important;padding:14px!important;
-  background:rgba(3,3,4,.82)!important;backdrop-filter:blur(4px)!important;
-}
-.ro-gold-dialog{
-  width:min(520px,calc(100vw - 24px))!important;max-height:calc(100dvh - 28px)!important;overflow:auto!important;
-  border:2px solid #bd8d38!important;border-radius:13px!important;
-  background:radial-gradient(circle at 50% 0,rgba(91,59,19,.50),transparent 48%),linear-gradient(160deg,#1b1510,#080706 72%)!important;
-  color:#f5e5bd!important;box-shadow:0 24px 72px rgba(0,0,0,.82),inset 0 0 0 1px rgba(255,222,149,.09)!important;
-}
+.ro-gold-dialog-overlay{position:fixed!important;inset:0!important;z-index:1100005!important;display:grid!important;place-items:center!important;padding:14px!important;background:rgba(3,3,4,.82)!important;backdrop-filter:blur(4px)!important}
+.ro-gold-dialog{width:min(520px,calc(100vw - 24px))!important;max-height:calc(100dvh - 28px)!important;overflow:auto!important;border:2px solid #bd8d38!important;border-radius:13px!important;background:radial-gradient(circle at 50% 0,rgba(91,59,19,.50),transparent 48%),linear-gradient(160deg,#1b1510,#080706 72%)!important;color:#f5e5bd!important;box-shadow:0 24px 72px rgba(0,0,0,.82),inset 0 0 0 1px rgba(255,222,149,.09)!important}
 .ro-gold-dialog-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 13px;border-bottom:1px solid rgba(207,160,68,.45);background:linear-gradient(90deg,#38230e,#17100a)}
 .ro-gold-dialog-header b{color:#ffe39b;font-size:17px;letter-spacing:.05em}.ro-gold-dialog-close{width:32px!important;height:32px!important;font-size:21px!important}
 .ro-gold-dialog-message{padding:19px 18px;white-space:pre-wrap;line-height:1.72;color:#eadbb7;font-size:14px}

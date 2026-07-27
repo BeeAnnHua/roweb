@@ -164,8 +164,10 @@
     const controls=document.createElement("div"); controls.className="storage-item-controls";
     let qty=null;
     if (!entry.equipment) {
-      qty=document.createElement("input"); qty.type="number"; qty.min="1"; qty.max=String(entry.count); qty.value=String(entry.count); qty.inputMode="numeric"; qty.setAttribute("aria-label","數量");
+      qty=document.createElement("input"); qty.type="number"; qty.min="1"; qty.max=String(entry.count); qty.value=String(entry.count); qty.inputMode="numeric"; qty.setAttribute("aria-label","數量"); qty.setAttribute("data-ro-gold-stepper","");
       controls.appendChild(qty);
+      // GQ：建立時初始化一次，不使用全域 DOM 監看。
+      window.ROGoldUI?.enhanceNumberInput?.(qty,{force:true});
     }
     const action=document.createElement("button"); action.type="button"; action.className=side==='inventory'?"storage-deposit-button":"storage-withdraw-button";
     action.textContent=side==='inventory'?"存入":"取出";
