@@ -524,12 +524,13 @@ function autoAttackMonster(options = {}) {
     return;
   }
 
-  const autoSkillProfile = autoAction && autoAction.action === "attackSkill" && typeof getSkillRuntimeProfile === "function"
+  const autoActionIsSkill = autoAction && ["attackSkill", "prerequisiteSkill"].includes(autoAction.action);
+  const autoSkillProfile = autoActionIsSkill && typeof getSkillRuntimeProfile === "function"
     ? (getSkillRuntimeProfile(autoAction.skill) || {}) : null;
-  const autoSkillNeedsPrimaryRange = autoAction && autoAction.action === "attackSkill" && typeof runtimeSkillRequiresPrimaryTargetRange === "function"
+  const autoSkillNeedsPrimaryRange = autoActionIsSkill && typeof runtimeSkillRequiresPrimaryTargetRange === "function"
     ? runtimeSkillRequiresPrimaryTargetRange(autoAction.skill, autoSkillProfile || {}, autoAction.level)
     : true;
-  const intendedRange = autoAction && autoAction.action === "attackSkill"
+  const intendedRange = autoActionIsSkill
     ? (autoSkillNeedsPrimaryRange && typeof getSkillRangePx === "function" ? getSkillRangePx(autoAction.skill, autoAction.level) : Number.POSITIVE_INFINITY)
     : (typeof getPlayerNormalAttackRange === "function" ? getPlayerNormalAttackRange() : null);
   // 0.9.82FM：自動近戰追逐移動怪物時給予一小段命中容差，避免雙方每幀同向移動而永遠差一點打不到。
@@ -538,7 +539,7 @@ function autoAttackMonster(options = {}) {
     ? getAutoBattleEffectiveAttackRange(currentMonster, intendedRange)
     : intendedRange;
 
-  if ((!autoAction || autoAction.action !== "attackSkill" || autoSkillNeedsPrimaryRange) && typeof canAttackMonsterByRange === "function" && !canAttackMonsterByRange(currentMonster, effectiveRange)) {
+  if ((!autoActionIsSkill || autoSkillNeedsPrimaryRange) && typeof canAttackMonsterByRange === "function" && !canAttackMonsterByRange(currentMonster, effectiveRange)) {
     if (!options.manual && typeof setAutoBattleControllerState === "function") setAutoBattleControllerState(AUTO_BATTLE_STATES.APPROACHING, { action: autoAction?.action || "normal", reason: "out_of_range" });
     if (typeof movePlayerTowardMonster === "function") movePlayerTowardMonster(currentMonster, effectiveRange);
     updateMonsterUI();
@@ -548,6 +549,27 @@ function autoAttackMonster(options = {}) {
   // V0.9.79E：進入攻擊距離後立刻停步，避免等 ASPD 期間仍播放走路動畫。
   if (typeof stopPlayerCombatMovementForAttack === "function") stopPlayerCombatMovementForAttack(currentMonster);
   if (!options.manual && typeof setAutoBattleControllerState === "function") setAutoBattleControllerState(AUTO_BATTLE_STATES.COMBAT, { action: autoAction?.action || "normal", reason: "in_range" });
+
+  if (autoAction && autoAction.action === "prerequisiteSkill") {
+    const prerequisiteAction = autoAction;
+    const recheck = typeof canCastSkill === "function" ? canCastSkill(prerequisiteAction.skill, prerequisiteAction.level) : { ok: true, level: prerequisiteAction.level };
+    if (!recheck.ok) {
+      if (typeof handleAutoSkillResourceBlock === "function") handleAutoSkillResourceBlock(prerequisiteAction.skill, recheck, { silent: true });
+      return;
+    }
+    const executePrerequisite = () => {
+      const used = typeof castAutoSkillPrerequisite === "function" ? castAutoSkillPrerequisite(prerequisiteAction) : false;
+      if (used && currentMonster && typeof monsterAttackPlayer === "function") monsterAttackPlayer();
+      return used;
+    };
+    const timing = typeof getRuntimeAdjustedCastTime === "function" ? getRuntimeAdjustedCastTime(prerequisiteAction.skill, prerequisiteAction.level) : { totalMs: 0 };
+    if (Number(timing?.totalMs || 0) > 0 && typeof beginRuntimeSkillCast === "function") {
+      beginRuntimeSkillCast(prerequisiteAction.skill, prerequisiteAction.level, executePrerequisite);
+      return;
+    }
+    executePrerequisite();
+    return;
+  }
 
   if (autoAction && autoAction.action === "attackSkill") {
     const recheck = typeof canCastSkill === "function" ? canCastSkill(autoAction.skill, autoAction.level) : { ok: true, level: autoAction.level };
@@ -585,7 +607,7 @@ function autoAttackMonster(options = {}) {
 
   if (!canPlayerAttackNow()) return;
 
-  if ((!autoAction || autoAction.action !== "attackSkill" || autoSkillNeedsPrimaryRange) && typeof canAttackMonsterByRange === "function" && !canAttackMonsterByRange(currentMonster, effectiveRange)) {
+  if ((!autoActionIsSkill || autoSkillNeedsPrimaryRange) && typeof canAttackMonsterByRange === "function" && !canAttackMonsterByRange(currentMonster, effectiveRange)) {
     if (typeof movePlayerTowardMonster === "function") movePlayerTowardMonster(currentMonster, effectiveRange);
     return;
   }

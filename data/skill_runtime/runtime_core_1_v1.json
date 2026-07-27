@@ -19560,7 +19560,8 @@
           "amount": 1,
           "mode": "fixed"
         },
-        "source": "RA DK_SERVANT_W_SIGN: consumes 1 servant and marks target."
+        "source": "RA DK_SERVANT_W_SIGN: consumes 1 servant and marks target.",
+        "statusAffectsBoss": true
       },
       "targetPolicy": "enemy",
       "status": "servant_sign",
@@ -19578,7 +19579,8 @@
         "mode": "fixed"
       },
       "source": "RA DK_SERVANT_W_SIGN: consumes 1 servant and marks target.",
-      "name": "死侍武器-標記"
+      "name": "死侍武器-標記",
+      "statusAffectsBoss": true
     },
     "5204": {
       "skillId": 5204,
@@ -19618,7 +19620,9 @@
         ],
         "statusDuration": 20000,
         "animationProfile": "servant_weapon_phantom",
-        "source": "RA Servant Weapon Phantom; usable with 0-5 servants, damage hits limited by consumed count, marked target required."
+        "source": "RA Servant Weapon Phantom; usable with 0-5 servants, damage hits limited by consumed count, marked target required.",
+        "autoPrerequisiteSkillId": 5203,
+        "autoPrerequisiteMinimumRemainingResource": 1
       },
       "formula": "renewal_servant_phantom",
       "resourceCost": {
@@ -19652,7 +19656,9 @@
       "statusDuration": 20000,
       "animationProfile": "servant_weapon_phantom",
       "source": "RA Servant Weapon Phantom; usable with 0-5 servants, damage hits limited by consumed count, marked target required.",
-      "name": "死侍武器-瞬幻"
+      "name": "死侍武器-瞬幻",
+      "autoPrerequisiteSkillId": 5203,
+      "autoPrerequisiteMinimumRemainingResource": 1
     },
     "5205": {
       "skillId": 5205,
@@ -19682,7 +19688,9 @@
         "elementSource": "weapon",
         "criticalMode": "normal",
         "animationProfile": "servant_weapon_demolition",
-        "source": "RA Servant Weapon Demolition; consumes up to 5 servants, hits marked targets, restores one servant per damaged target (single-target WEB restores 1)."
+        "source": "RA Servant Weapon Demolition; consumes up to 5 servants, hits marked targets, restores one servant per damaged target (single-target WEB restores 1).",
+        "autoPrerequisiteSkillId": 5203,
+        "autoPrerequisiteMinimumRemainingResource": 1
       },
       "formula": "renewal_servant_demolition",
       "resourceCost": {
@@ -19706,7 +19714,9 @@
       "criticalMode": "normal",
       "animationProfile": "servant_weapon_demolition",
       "source": "RA Servant Weapon Demolition; consumes up to 5 servants, hits marked targets, restores one servant per damaged target (single-target WEB restores 1).",
-      "name": "死侍武器-破滅"
+      "name": "死侍武器-破滅",
+      "autoPrerequisiteSkillId": 5203,
+      "autoPrerequisiteMinimumRemainingResource": 1
     },
     "5206": {
       "handler": "buff",

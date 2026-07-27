@@ -41136,7 +41136,8 @@
           "amount": 1,
           "mode": "fixed"
         },
-        "source": "RA DK_SERVANT_W_SIGN: consumes 1 servant and marks target."
+        "source": "RA DK_SERVANT_W_SIGN: consumes 1 servant and marks target.",
+        "statusAffectsBoss": true
       },
       "source": {
         "metadata": "Skill Core generated from rAthena skill_db.yml / skill_tree.yml",
@@ -41159,10 +41160,12 @@
           "amount": 1,
           "mode": "fixed"
         },
-        "source": "RA DK_SERVANT_W_SIGN: consumes 1 servant and marks target."
+        "source": "RA DK_SERVANT_W_SIGN: consumes 1 servant and marks target.",
+        "statusAffectsBoss": true
       },
       "reviewReason": null,
-      "humanReviewRequired": false
+      "humanReviewRequired": false,
+      "statusAffectsBoss": true
     },
     "5204": {
       "skillId": 5204,
@@ -41206,7 +41209,9 @@
         ],
         "statusDuration": 20000,
         "animationProfile": "servant_weapon_phantom",
-        "source": "RA Servant Weapon Phantom; usable with 0-5 servants, damage hits limited by consumed count, marked target required."
+        "source": "RA Servant Weapon Phantom; usable with 0-5 servants, damage hits limited by consumed count, marked target required.",
+        "autoPrerequisiteSkillId": 5203,
+        "autoPrerequisiteMinimumRemainingResource": 1
       },
       "source": {
         "metadata": "Skill Core generated from rAthena skill_db.yml / skill_tree.yml",
@@ -41245,10 +41250,14 @@
         ],
         "statusDuration": 20000,
         "animationProfile": "servant_weapon_phantom",
-        "source": "RA Servant Weapon Phantom; usable with 0-5 servants, damage hits limited by consumed count, marked target required."
+        "source": "RA Servant Weapon Phantom; usable with 0-5 servants, damage hits limited by consumed count, marked target required.",
+        "autoPrerequisiteSkillId": 5203,
+        "autoPrerequisiteMinimumRemainingResource": 1
       },
       "reviewReason": null,
-      "humanReviewRequired": false
+      "humanReviewRequired": false,
+      "autoPrerequisiteSkillId": 5203,
+      "autoPrerequisiteMinimumRemainingResource": 1
     },
     "5205": {
       "skillId": 5205,
@@ -41282,7 +41291,9 @@
         "elementSource": "weapon",
         "criticalMode": "normal",
         "animationProfile": "servant_weapon_demolition",
-        "source": "RA Servant Weapon Demolition; consumes up to 5 servants, hits marked targets, restores one servant per damaged target (single-target WEB restores 1)."
+        "source": "RA Servant Weapon Demolition; consumes up to 5 servants, hits marked targets, restores one servant per damaged target (single-target WEB restores 1).",
+        "autoPrerequisiteSkillId": 5203,
+        "autoPrerequisiteMinimumRemainingResource": 1
       },
       "source": {
         "metadata": "Skill Core generated from rAthena skill_db.yml / skill_tree.yml",
@@ -41311,10 +41322,14 @@
         "elementSource": "weapon",
         "criticalMode": "normal",
         "animationProfile": "servant_weapon_demolition",
-        "source": "RA Servant Weapon Demolition; consumes up to 5 servants, hits marked targets, restores one servant per damaged target (single-target WEB restores 1)."
+        "source": "RA Servant Weapon Demolition; consumes up to 5 servants, hits marked targets, restores one servant per damaged target (single-target WEB restores 1).",
+        "autoPrerequisiteSkillId": 5203,
+        "autoPrerequisiteMinimumRemainingResource": 1
       },
       "reviewReason": null,
-      "humanReviewRequired": false
+      "humanReviewRequired": false,
+      "autoPrerequisiteSkillId": 5203,
+      "autoPrerequisiteMinimumRemainingResource": 1
     },
     "5206": {
       "skillId": 5206,

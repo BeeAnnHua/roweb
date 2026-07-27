@@ -1,3 +1,19 @@
+# RO_WEB 0.9.82GE
+
+## 死侍武器自動前置技能契約
+- `js/auto_battle.js` 的 `resolveAutoSkillPrerequisite()` 是自動戰鬥目標狀態前置解析入口；目前 `servant_sign` 對應技能 5203。
+- 5204「死侍武器-瞬幻」與 5205「死侍武器-破滅」缺少目前目標的 `servant_sign` 時，必須先回傳 `prerequisiteSkill`，標記成功後才於下一個戰鬥動作施放原技能。
+- 前置技能不得推進 `attackRotationCursor`；切換目標時必須依新目標狀態重新判定。
+- 自動前置失敗不得消耗原技能 SP、冷卻、攻擊動作或洗系統訊息；手動施放仍應保留缺少標記提示。
+- 5204／5205 的 `autoPrerequisiteMinimumRemainingResource` 固定為 1；自動標記不得消耗最後一個劍體。
+- `previewRuntimeResourceCost()` 對 `mode: up_to` 必須使用 `minimum` 作為最低門檻，不可把 `amount` 誤當固定需求。
+- 5203 必須維持 `statusAffectsBoss: true`，以符合 rAthena 對 Boss／MVP 可標記的行為。
+
+## GE 不可回退契約
+- 不得把 5203 直接加入玩家的四格攻擊技能輪替；它是由前置解析器在必要時插入的一次動作。
+- 不得在自動戰鬥缺少印記時呼叫原技能後再依錯誤訊息重試；應在技能結算前完成狀態檢查。
+- 不得讓上一隻怪物的印記狀態影響新鎖定目標。
+
 # RO_WEB 0.9.82GD
 
 ## 玩家 ID／公告／轉蛋／商城料理

@@ -398,7 +398,7 @@ function quickSlotCastSkill(skillId, options = {}) {
     if (quickSlotSkillNeedsFieldTarget(skill, runtimeProfile, learnedLevel) && !quickSlotEnsureFieldMonster()) return false;
     // 技能自身的 RA Cooldown / After Cast Delay / 零延遲物理技能 ASPD 間隔，
     // 統一由 canCastSkill() 與 paySkillCost() 管理，不再預先占用普通攻擊計時器。
-    const used = castAttackSkill(skill, getSkillLevel(skill.id));
+    const used = castAttackSkill(skill, getSkillLevel(skill.id), { source: options.source || "quick_slot" });
     if (!used) return;
     if (currentMonster && currentMonster.currentHp <= 0) {
       defeatMonster();

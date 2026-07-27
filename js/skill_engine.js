@@ -1345,6 +1345,7 @@ function previewRuntimeResourceCost(profile, level = 1) {
   const type=String(cfg.type||""),current=Math.max(0,Number(window.CombatResourceManager.get(type)||0));
   let required=Math.max(0,Number(getLevelValue(cfg.amount,level,1)));
   if(cfg.mode==="asura")required=Math.max(5,Number(cfg.minimum||5));
+  if(cfg.mode==="up_to")required=Math.max(0,Number(cfg.minimum||0));
   if(current>=required)return {ok:true,type,current,required};
   const label=getRuntimeResourceDisplayName(type);
   return {ok:false,type,current,required,reason:`${label}不足（需要 ${required}，目前 ${current}）`,resourceBlock:{type,current,required,label,retryMs:15000}};
@@ -2836,7 +2837,7 @@ function configureRuntimeResource(profile,level,duration){
   if(cfg.startFormula==="max")start=max;
   window.CombatResourceManager.configure(cfg.type,{max,start,regenIntervalMs:getLevelValue(cfg.regenIntervalMs,level,0),regenAmount:Number(cfg.regenAmount||1),durationMs:Number(cfg.durationMs||duration||0)});
 }
-function targetHasRuntimeStatus(target,status){return !!(target?.runtimeState?.statuses?.[String(status).toLowerCase().replace(/[ _-]/g,"")]||target?.runtimeState?.[status]);}
+function targetHasRuntimeStatus(target,status){if(window.StatusManager?.has)return !!window.StatusManager.has(target,status);return !!(target?.runtimeState?.statuses?.[String(status).toLowerCase().replace(/[ _-]/g,"")]||target?.runtimeState?.[status]);}
 
 function grantRuntimeApFromProfile(skill, level, profile, options = {}) {
   if (!player || !profile || profile.apGainMetadata === undefined) return 0;
@@ -4971,7 +4972,7 @@ function castAttackSkill(skill, requestedLevel = null, options = {}) {
   const evalContext = createRuntimeCombatEvaluationContext({ candidates:targets });
   window.RO_WEB_COMBAT_EVAL_CONTEXT = evalContext;
   try {
-  if(profile.requiresTargetStatus && !targetHasRuntimeStatus(currentMonster,profile.requiresTargetStatus)){addBattleLog(`${skill.name} 需要目標先被標記。`);return false;}
+  if(profile.requiresTargetStatus && !targetHasRuntimeStatus(currentMonster,profile.requiresTargetStatus)){if(String(options?.source||"")!=="auto_battle")addBattleLog(`${skill.name} 需要目標先被標記。`);return false;}
   options.preCastHp=Number(player?.hp||0);options.preCastMaxHp=Number(player?.maxHp||0);options.preCastMaxSp=Number(player?.maxSp||0);
   options.preCastSp=Number(player?.sp||0);
   options.preCastResource=profile?.resourceCost?.type&&window.CombatResourceManager?Number(window.CombatResourceManager.get(profile.resourceCost.type)||0):0;

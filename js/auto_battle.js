@@ -1,5 +1,5 @@
 //=======================================
-// AutoBattleController v1.6（0.9.82GD）
+// AutoBattleController v1.7（0.9.82GE）
 // 精簡設定介面 / 自動異常解除 / 低血量逃生 / 自動肯貝特 / 當前地圖怪物篩選
 //=======================================
 
@@ -1982,6 +1982,89 @@ function maybeAutoEscapeFromTarget(monster) {
 }
 
 
+const AUTO_SKILL_PREREQUISITE_BY_STATUS = Object.freeze({
+  servantsign: Object.freeze({ skillId: 5203, handler: "debuff", label: "死侍武器-標記" })
+});
+
+function normalizeAutoPrerequisiteStatusKey(status) {
+  return String(status || "").toLowerCase().replace(/[ _-]/g, "");
+}
+
+function autoTargetHasRuntimeStatus(target, status) {
+  if (!target || !status) return false;
+  if (window.StatusManager?.has) return Boolean(window.StatusManager.has(target, status));
+  if (typeof targetHasRuntimeStatus === "function") return Boolean(targetHasRuntimeStatus(target, status));
+  const key = normalizeAutoPrerequisiteStatusKey(status);
+  return Boolean(target?.runtimeState?.statuses?.[key] || target?.runtimeState?.[status] || target?.runtimeState?.[key]);
+}
+
+function resolveAutoSkillPrerequisite(skill, level, target = currentMonster) {
+  if (!skill || !target) return null;
+  const profile = typeof getSkillRuntimeProfile === "function" ? (getSkillRuntimeProfile(skill) || {}) : {};
+  const requiredStatus = String(profile.requiresTargetStatus || "");
+  if (!requiredStatus || autoTargetHasRuntimeStatus(target, requiredStatus)) return null;
+
+  const fallback = AUTO_SKILL_PREREQUISITE_BY_STATUS[normalizeAutoPrerequisiteStatusKey(requiredStatus)] || null;
+  const prerequisiteSkillId = Number(profile.autoPrerequisiteSkillId || fallback?.skillId || 0);
+  if (!prerequisiteSkillId) return { required: true, available: false, reason: "no_resolver", requiredStatus };
+
+  const prerequisiteSkill = typeof getSkillDataById === "function" ? getSkillDataById(prerequisiteSkillId) : null;
+  const learnedLevel = prerequisiteSkill && typeof getSkillLevel === "function" ? Number(getSkillLevel(prerequisiteSkill.id) || 0) : 0;
+  if (!prerequisiteSkill || learnedLevel <= 0 || isAutoSkillResourceSuppressed(prerequisiteSkill)) {
+    return { required: true, available: false, reason: "not_learned", requiredStatus, skill: prerequisiteSkill };
+  }
+
+  const prerequisiteProfile = typeof getSkillRuntimeProfile === "function" ? (getSkillRuntimeProfile(prerequisiteSkill) || {}) : {};
+  const prerequisiteCheck = typeof canCastSkill === "function" ? canCastSkill(prerequisiteSkill, learnedLevel) : { ok: true, level: learnedLevel };
+  if (!prerequisiteCheck.ok) {
+    if (prerequisiteCheck.resourceBlock) handleAutoSkillResourceBlock(prerequisiteSkill, prerequisiteCheck, { silent: true });
+    return { required: true, available: false, reason: prerequisiteCheck.reason || "blocked", requiredStatus, skill: prerequisiteSkill, check: prerequisiteCheck };
+  }
+
+  // Auto-combo should not spend the final servant on Sign and leave the follow-up with zero useful hits.
+  const parentResource = profile.resourceCost;
+  const prerequisiteResource = prerequisiteProfile.resourceCost;
+  if (parentResource?.type && parentResource.type === prerequisiteResource?.type && window.CombatResourceManager?.get) {
+    const current = Math.max(0, Number(window.CombatResourceManager.get(parentResource.type) || 0));
+    const prerequisiteCost = Math.max(0, Number(typeof getLevelValue === "function" ? getLevelValue(prerequisiteResource.amount, prerequisiteCheck.level, 1) : prerequisiteResource.amount || 1));
+    const reserve = Math.max(0, Number(profile.autoPrerequisiteMinimumRemainingResource ?? parentResource.minimum ?? 0));
+    if (current < prerequisiteCost + reserve) {
+      return { required: true, available: false, reason: "combined_resource", requiredStatus, skill: prerequisiteSkill, current, requiredResource: prerequisiteCost + reserve };
+    }
+  }
+
+  return {
+    required: true,
+    available: true,
+    requiredStatus,
+    skill: prerequisiteSkill,
+    level: Number(prerequisiteCheck.level || learnedLevel),
+    handler: prerequisiteProfile.handler || fallback?.handler || "debuff"
+  };
+}
+
+function castAutoSkillPrerequisite(action) {
+  const skill = action?.skill;
+  const level = Number(action?.level || 1);
+  if (!skill) return false;
+  const handler = String(action?.handler || (typeof getSkillRuntimeProfile === "function" ? getSkillRuntimeProfile(skill)?.handler : "") || "");
+  if (handler === "debuff" && typeof castDebuffSkill === "function") return Boolean(castDebuffSkill(skill, level));
+  if (handler === "ground_debuff" && typeof castGroundDebuffSkill === "function") return Boolean(castGroundDebuffSkill(skill, level));
+  if (handler === "timed_status" && typeof castTimedStatusSkill === "function") return Boolean(castTimedStatusSkill(skill, level));
+  if (handler === "buff" && typeof castBuffSkill === "function") return Boolean(castBuffSkill(skill, level, { source: "auto_battle_prerequisite" }));
+  return false;
+}
+
+function hasAutoSkillMinimumUsefulResource(profile, level = 1) {
+  const cfg = profile?.resourceCost;
+  if (!cfg?.type || !window.CombatResourceManager?.get) return true;
+  const resourceDrivenHits = profile.damageHitCount === "consumed_resource" || profile.visualHitCount === "consumed_resource";
+  if (!resourceDrivenHits) return true;
+  const current = Math.max(0, Number(window.CombatResourceManager.get(cfg.type) || 0));
+  const configuredMinimum = Math.max(0, Number(typeof getLevelValue === "function" ? getLevelValue(cfg.minimum, level, 0) : cfg.minimum || 0));
+  return current >= Math.max(1, configuredMinimum);
+}
+
 function getAutoAttackSkill(monster = currentMonster) {
   normalizeAutoCombatSettings();
   const slots = player.autoCombat?.attacks || [];
@@ -2000,12 +2083,32 @@ function getAutoAttackSkill(monster = currentMonster) {
     if (isAutoSkillResourceSuppressed(skill)) continue;
 
     const level = Number(cfg.level || getSkillLevel(skill.id) || 1);
+    const runtimeProfile = typeof getSkillRuntimeProfile === "function" ? (getSkillRuntimeProfile(skill) || {}) : {};
+    if (!hasAutoSkillMinimumUsefulResource(runtimeProfile, level)) continue;
     const targetCount = getAutoBattleSkillTargetCount(skill, level, monster);
     const minMonsters = Math.max(1, Number(cfg.minMonsters || 1));
     if (targetCount < minMonsters) continue;
 
     const check = canCastSkill(skill, level);
     if (check.ok) {
+      const prerequisite = resolveAutoSkillPrerequisite(skill, check.level, monster);
+      if (prerequisite?.required) {
+        if (!prerequisite.available) continue;
+        return {
+          skill: prerequisite.skill,
+          level: prerequisite.level,
+          handler: prerequisite.handler,
+          blocked: false,
+          prerequisite: true,
+          prerequisiteForSkill: skill,
+          prerequisiteForLevel: check.level,
+          prerequisiteStatus: prerequisite.requiredStatus,
+          fallbackNormal: player.autoCombat.normalAttack?.enabled !== false && cfg.fallbackNormal !== false,
+          slotIndex: index,
+          targetCount,
+          minMonsters
+        };
+      }
       return {
         skill,
         level: check.level,
@@ -2017,7 +2120,7 @@ function getAutoAttackSkill(monster = currentMonster) {
       };
     }
 
-    if (handleAutoSkillResourceBlock(skill,check)) continue;
+    if (handleAutoSkillResourceBlock(skill, check)) continue;
     if (!check.delayBlock) continue;
     const blockedChoice = {
       skill,
@@ -2069,6 +2172,7 @@ function getAutoCombatAttackAction(monster) {
     }
     return { action: "utility", waitForSkill: true, skill: attack.skill, level: attack.level, delayBlock: attack.delayBlock };
   }
+  if (attack?.prerequisite) return { action: "prerequisiteSkill", ...attack };
   if (attack) return { action: "attackSkill", ...attack };
   if (normalEnabled) return { action: "normal" };
   return { action: "utility", waitForConfiguredAction: true };
@@ -2120,6 +2224,9 @@ window.getAutoBattleSkillTargetCount = getAutoBattleSkillTargetCount;
 window.getAutoBattleMonsterClass = getAutoBattleMonsterClass;
 window.maybeAutoEscapeFromTarget = maybeAutoEscapeFromTarget;
 window.getAutoAttackSkill = getAutoAttackSkill;
+window.resolveAutoSkillPrerequisite = resolveAutoSkillPrerequisite;
+window.castAutoSkillPrerequisite = castAutoSkillPrerequisite;
+window.hasAutoSkillMinimumUsefulResource = hasAutoSkillMinimumUsefulResource;
 window.commitAutoAttackSkillRotation = commitAutoAttackSkillRotation;
 window.getAutoCombatAttackAction = getAutoCombatAttackAction;
 window.getAutoBattleControllerSnapshot = () => ({ ...AUTO_BATTLE_CONTROLLER });

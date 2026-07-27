@@ -1,0 +1,161 @@
+{
+  "version": "0.9.82GE",
+  "baseVersion": "0.9.82GD",
+  "title": "Servant Weapon Auto Prerequisite Fix",
+  "generatedAt": "2026-07-27T00:00:00+08:00",
+  "scope": [
+    "Auto Battle detects requiresTargetStatus before casting configured attack skills.",
+    "DK_SERVANT_W_PHANTOM (5204) and DK_SERVANT_W_DEMOL (5205) automatically insert DK_SERVANT_W_SIGN (5203) when the current target is unmarked.",
+    "Prerequisite action does not advance attack rotation; the configured skill resumes on the next combat tick.",
+    "New targets are checked independently and never inherit another target status.",
+    "Automatic missing-status log spam is suppressed while manual casts retain the guidance message.",
+    "Auto Battle reserves at least one servant weapon after Sign and avoids zero-servant Phantom casts.",
+    "up_to resource preview now checks the configured minimum rather than the maximum amount.",
+    "Servant Sign can affect Boss/MVP targets, matching the inspected rAthena Renewal behavior."
+  ],
+  "rAthenaVerification": {
+    "sourcePackage": "RA開機檔案英文版20260608.zip",
+    "filesReviewed": [
+      "src/map/skills/swordman/servantweaponsign.cpp",
+      "src/map/skills/swordman/servantweaponphantom.cpp",
+      "src/map/skills/swordman/servantweapondemolition.cpp",
+      "src/map/skill.cpp",
+      "db/re/skill_db.yml"
+    ],
+    "notes": [
+      "Sign consumes one servant and applies SC_SERVANT_SIGN.",
+      "Phantom/Demolition only produce their intended damage on marked targets.",
+      "Phantom may be manually used without servant weapons in rAthena; Auto Battle intentionally skips a zero-hit cast."
+    ]
+  },
+  "tests": {
+    "servantWeaponAutoPrerequisite": {
+      "passed": 15,
+      "total": 15,
+      "status": "PASS"
+    },
+    "autoBattleFeatures": {
+      "passed": 12,
+      "total": 12,
+      "status": "PASS"
+    },
+    "autoBattleSurvival": {
+      "passed": 16,
+      "total": 16,
+      "status": "PASS"
+    },
+    "allSkillWorldRuntimePerformance": {
+      "status": "PASS",
+      "targets": 14,
+      "derivedCalls": 1,
+      "saveRequests": 1
+    },
+    "deepHealth": {
+      "status": "PASS",
+      "errors": 0,
+      "warnings": 0,
+      "jsonFiles": 1945,
+      "loadedScripts": 36,
+      "jsSyntaxChecked": 726,
+      "bundleEntries": 1497,
+      "binaryAssets": 3453
+    }
+  },
+  "modifiedFiles": [
+    {
+      "path": "index.html",
+      "bytes": 34784,
+      "sha256": "777180009e46b6274616f3e4089de34d2d57e5be6fda5b6d5396f4da047ac734"
+    },
+    {
+      "path": "js/game.js",
+      "bytes": 16875,
+      "sha256": "2f3331116499752a409c1c11d9f3056f0a62586977d90da68e9d96ab7b4c2747"
+    },
+    {
+      "path": "js/player.js",
+      "bytes": 102878,
+      "sha256": "d3b88e4fcb793098ca4bd6091afe941b74a0079e7a6b2e2f502472b6a74facc2"
+    },
+    {
+      "path": "js/player_atlas_runtime.js",
+      "bytes": 43183,
+      "sha256": "efc3ca9d2f1006ce1f8249c39fbfd44999d4024f43fbff427e57b10893dda34a"
+    },
+    {
+      "path": "js/auto_battle.js",
+      "bytes": 106090,
+      "sha256": "2b172e7984f68ce2867c761193d9d48906d3f20f740563459dd25538a4cffc6c"
+    },
+    {
+      "path": "js/battle.js",
+      "bytes": 88384,
+      "sha256": "01911b2c6a2eb260caefae2f4ba90c17a74e3b3e46139460db8d6f3e08658f8e"
+    },
+    {
+      "path": "js/skill_engine.js",
+      "bytes": 364035,
+      "sha256": "81c1a8b8aa263755c97dd9d47c60c081ed204820c6c19c61f6aff3acc8f29c93"
+    },
+    {
+      "path": "js/quick_slots.js",
+      "bytes": 30509,
+      "sha256": "e1398fc1815c8c37eaca5a7cc0bb921711c31c7c46873643d78a84e0a43df3e3"
+    },
+    {
+      "path": "js/data_bundle.js",
+      "bytes": 33989892,
+      "sha256": "239f0529f7cbc63c8892757e06c22c0fc5928c5d4504ed5bc8efb3276e264101"
+    },
+    {
+      "path": "data/skill_runtime/runtime_core_1_v1.json",
+      "bytes": 733681,
+      "sha256": "975c599ebfcf889cc1d2142f324279e5a1192fc3e5547b438f941f2131cc86da"
+    },
+    {
+      "path": "data/skill_runtime/runtime_generated_all.json",
+      "bytes": 1659361,
+      "sha256": "a2f01338d5eca1e8584daf90bd7f75340a44b74caf0fe278f7e89637a8e4b794"
+    },
+    {
+      "path": "data/skill_runtime/runtime_formula_catalog.json",
+      "bytes": 1108869,
+      "sha256": "4c7f12fcb72b37e5152e579d21933087e21051091a751f943f097a51385268d5"
+    },
+    {
+      "path": "README.md",
+      "bytes": 6828,
+      "sha256": "b879dc5dfb9f665b2ad5e1dc29d0109ac651aa845d824706248639352e8bbb87"
+    },
+    {
+      "path": "AI_START_HERE.md",
+      "bytes": 9258,
+      "sha256": "ebd17b1f2f4f4350cb8e47445b2a28206689aeb19d85b3b9759a28c077acdffc"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "bytes": 11216,
+      "sha256": "7d13c5544be9e0072d92e9672f39550e977149df9a7b45a0c513020b09d3a61f"
+    },
+    {
+      "path": "tools/test_servant_weapon_auto_prerequisite_0.9.82GE.js",
+      "bytes": 10820,
+      "sha256": "a5a0ad7db263aa6c2acd74040aa87ec44461e7229c75d92eacf0d287ea662c68"
+    },
+    {
+      "path": "tools/deep_health_check_0.9.82GE.py",
+      "bytes": 21283,
+      "sha256": "3c7f17ff49b5e42299f2a263c7aebd4de70390ae9bbc69c4e8c19c1ca6c4773e"
+    },
+    {
+      "path": "tools/deep_health_report_0.9.82GE.json",
+      "bytes": 2043,
+      "sha256": "4bac87282a6143ba46830ce6f4ed05267c8d397e93ac4dba45a9c403348d5944"
+    },
+    {
+      "path": "TEST_REPORT_0.9.82GE.txt",
+      "bytes": 3256,
+      "sha256": "f38c87267e89797ffec9866f8cf094edf70871f98b49f3fd4ae109b4b43690c0"
+    }
+  ]
+}
