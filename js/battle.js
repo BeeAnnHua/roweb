@@ -780,8 +780,24 @@ function applyActivePhysicalReflect(monster, incomingDamage, options = {}) {
 }
 window.applyActivePhysicalReflect = applyActivePhysicalReflect;
 
+let RO_WEB_WORLD_MONSTER_COMBAT_SAVE_TIMER = null;
+function requestWorldMonsterCombatSave(delayMs = 600) {
+  if (RO_WEB_WORLD_MONSTER_COMBAT_SAVE_TIMER) return true;
+  RO_WEB_WORLD_MONSTER_COMBAT_SAVE_TIMER = setTimeout(() => {
+    RO_WEB_WORLD_MONSTER_COMBAT_SAVE_TIMER = null;
+    if (typeof saveGame === "function") saveGame();
+  }, Math.max(100, Number(delayMs || 600)));
+  return true;
+}
+window.requestWorldMonsterCombatSave = requestWorldMonsterCombatSave;
+
 function monsterAttackPlayer(options = {}) {
   if (!currentMonster) return;
+  const persistMonsterAttackState = () => {
+    if (options.source === "world_monster_stream") return requestWorldMonsterCombatSave(600);
+    if (typeof saveGame === "function") return saveGame();
+    return false;
+  };
   const aiBehavior = typeof getMonsterAiBehavior === "function" ? getMonsterAiBehavior(currentMonster) : null;
   if (aiBehavior && aiBehavior.canAttack === false) { currentMonster.aiState = "IDLE"; return; }
   if (options.respectCooldown) {
@@ -813,7 +829,7 @@ function monsterAttackPlayer(options = {}) {
   if (Number(preTargetBuffs.stealthField || 0) > 0 && !canDetectCamouflage) {
     const stealthBuff = Object.values(player?.activeBuffs || {}).find(buff => Number(buff?.effects?.stealthField || 0) > 0);
     addBattleLog(`${stealthBuff?.name || "偽裝狀態"}使你不會成為 ${currentMonster.name} 的攻擊目標。`);
-    updatePlayerUI(); saveGame(); return;
+    updatePlayerUI(); persistMonsterAttackState(); return;
   }
 
   if (typeof tryTriggerSightBlaster === "function" && tryTriggerSightBlaster(currentMonster)) {
@@ -843,24 +859,24 @@ function monsterAttackPlayer(options = {}) {
   if (Number(preDamageBuffs.stealthField || 0) > 0 && !isHiddenDetector) {
     const stealthBuff = Object.values(player?.activeBuffs || {}).find(buff => Number(buff?.effects?.stealthField || 0) > 0);
     addBattleLog(`${stealthBuff?.name || "偽裝狀態"}使你不會成為 ${currentMonster.name} 的攻擊目標。`);
-    updatePlayerUI(); saveGame(); return;
+    updatePlayerUI(); persistMonsterAttackState(); return;
   }
   if (Number(preDamageBuffs.physicalDamageImmunity || 0) > 0 && !monsterAttackType.includes("magic")) {
     const barrierBuff = Object.values(player?.activeBuffs || {}).find(buff => Number(buff?.effects?.physicalDamageImmunity || 0) > 0);
     addBattleLog(`${barrierBuff?.name || "物理結界"}完全擋下 ${currentMonster.name} 的物理攻擊！`);
-    updatePlayerUI(); saveGame(); return;
+    updatePlayerUI(); persistMonsterAttackState(); return;
   }
   if (Number(preDamageBuffs.longRangePhysicalImmunity || 0) > 0 && monsterRangeCells > 1 && !monsterAttackType.includes("magic")) {
     const barrierBuff = Object.values(player?.activeBuffs || {}).find(buff => Number(buff?.effects?.longRangePhysicalImmunity || 0) > 0);
     addBattleLog(`${barrierBuff?.name || "防護罩"}完全擋下 ${currentMonster.name} 的遠距離物理攻擊！`);
-    updatePlayerUI(); saveGame(); return;
+    updatePlayerUI(); persistMonsterAttackState(); return;
   }
-  if (monsterRangeCells > 1 && typeof tryLightningWalkBlock === "function" && tryLightningWalkBlock(currentMonster)) { updatePlayerUI(); saveGame(); return; }
+  if (monsterRangeCells > 1 && typeof tryLightningWalkBlock === "function" && tryLightningWalkBlock(currentMonster)) { updatePlayerUI(); persistMonsterAttackState(); return; }
   if (monsterAttackType.includes("magic")) {
     const magicEvasionRate = Math.max(0, Math.min(100, Number(preDamageBuffs.magicEvasionRate || 0)));
     if (magicEvasionRate > 0 && Math.random() * 100 < magicEvasionRate) {
       addBattleLog(`魔法迴避成功，完全避開 ${currentMonster.name} 的魔法攻擊！`);
-      updatePlayerUI(); saveGame(); return;
+      updatePlayerUI(); persistMonsterAttackState(); return;
     }
   } else {
     const hasShield = typeof hasEquippedShieldRuntime === "function" ? hasEquippedShieldRuntime() : !!player?.equipment?.shield;
@@ -870,26 +886,26 @@ function monsterAttackPlayer(options = {}) {
       if (Number(preDamageBuffs.autoGuardKnockback || 0) > 0 && window.MovementEffectResolver?.knockback) {
         window.MovementEffectResolver.knockback(currentMonster, player, 2);
       }
-      updatePlayerUI(); saveGame(); return;
+      updatePlayerUI(); persistMonsterAttackState(); return;
     }
     const weaponType = String(typeof getEquippedWeaponTypeRuntime === "function" ? getEquippedWeaponTypeRuntime() : "").toLowerCase();
     const canParry = weaponType.includes("twohandsword") || weaponType.includes("2hsword") || weaponType.includes("two_hand_sword");
     const parryRate = canParry ? Math.max(0, Math.min(100, Number(preDamageBuffs.parryBlockRate || 0))) : 0;
     if (parryRate > 0 && Math.random() * 100 < parryRate) {
       addBattleLog(`雙劍格擋成功，完全擋下 ${currentMonster.name} 的攻擊！`);
-      updatePlayerUI(); saveGame(); return;
+      updatePlayerUI(); persistMonsterAttackState(); return;
     }
     const physicalBlockRate = Math.max(0, Math.min(100, Number(preDamageBuffs.physicalBlockRate || 0)));
     if (physicalBlockRate > 0 && Math.random() * 100 < physicalBlockRate) {
       addBattleLog(`武器格擋成功，完全擋下 ${currentMonster.name} 的攻擊！`);
-      updatePlayerUI(); saveGame(); return;
+      updatePlayerUI(); persistMonsterAttackState(); return;
     }
   }
 
   let monsterDamage = Math.max(0, Number(monsterAttackResult.damage || 0));
   if(monsterAttackType.includes("magic")&&typeof resolveMagicRodIncomingDamage==="function"){
     const rod=resolveMagicRodIncomingDamage(monsterDamage,Number(currentMonster?.skillSpCost??currentMonster?.spCost??0),currentMonster,{singleTarget:currentMonster?.isAreaMagic!==true});
-    if(rod.absorbed){updatePlayerUI();saveGame();return;}monsterDamage=rod.damage;
+    if(rod.absorbed){updatePlayerUI();persistMonsterAttackState();return;}monsterDamage=rod.damage;
   }
   monsterDamage = applyEnergyCoatToIncomingDamage(monsterDamage);
   const guardianResult = applyGuardianShieldBarrier(monsterDamage);
@@ -904,7 +920,7 @@ function monsterAttackPlayer(options = {}) {
     addBattleLog(`${kyrie.name || "霸邪之陣"}吸收 ${absorbed} 點傷害，剩餘護盾 ${kyrie.effects.kyrieBarrierHp}，可承受 ${kyrie.effects.kyrieBarrierHits} 次攻擊。`);
     if (kyrie.effects.kyrieBarrierHp <= 0 || kyrie.effects.kyrieBarrierHits <= 0) delete player.activeBuffs[kyrieId];
   }
-  if (monsterDamage <= 0) { updatePlayerUI(); saveGame(); return; }
+  if (monsterDamage <= 0) { updatePlayerUI(); persistMonsterAttackState(); return; }
   const cappedDamage=window.EffectRuntime?.applyIncomingDamageCap?.(monsterDamage,player,{fixedDamage:monsterAttackResult?.fixedDamage===true});
   if(cappedDamage){
     if(cappedDamage.capped&&typeof addBattleLog==="function")addBattleLog(`裝備／卡片效果將單次傷害限制為最大 HP 的 ${cappedDamage.rate}%（${cappedDamage.cap}）。`);
@@ -927,7 +943,7 @@ function monsterAttackPlayer(options = {}) {
   addBattleLog(currentMonster.name + " 對你造成 " + monsterDamage + " 點傷害。");
   applyActivePhysicalReflect(currentMonster, monsterDamage, { magic:monsterAttackType.includes("magic"), rangeCells:monsterRangeCells });
   if (crescentElbowResult?.triggered && Number(currentMonster.currentHp || 0) <= 0) {
-    if (player.hp <= 0) { updatePlayerUI(); saveGame(); playerDead(); return; }
+    if (player.hp <= 0) { updatePlayerUI(); persistMonsterAttackState(); playerDead(); return; }
     defeatMonster(); return;
   }
   if (typeof applyCounterReflect === "function") {
@@ -946,7 +962,7 @@ function monsterAttackPlayer(options = {}) {
   // 先判斷死亡，再允許自動喝水。避免 HP 歸零後靠藥水復活。
   if (player.hp <= 0) {
     updatePlayerUI();
-    saveGame();
+    persistMonsterAttackState();
     playerDead();
     return;
   }
@@ -957,7 +973,7 @@ function monsterAttackPlayer(options = {}) {
   }
 
   updatePlayerUI();
-  saveGame();
+  persistMonsterAttackState();
 }
 // 玩家死亡：先完整播放 Dead 四幀並停在最後一幀，再恢復 HP。
 function playerDead() {

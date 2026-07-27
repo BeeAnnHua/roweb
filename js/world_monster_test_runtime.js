@@ -1,5 +1,5 @@
 //============================================================
-// RO_WEB V0.9.82EM - RA regional monster streaming runtime
+// RO_WEB V0.9.82GF - RA regional monster streaming runtime
 //
 // Keeps a weighted regional monster population around the player instead of
 // constructing every rAthena field spawn at once. Ordinary monsters use the
@@ -22,7 +22,10 @@ const RO_WORLD_MONSTER_TEST = {
   lastMaintenanceAt: 0,
   instanceCounter: 0,
   rafStarted: false,
-  savedMapSnapshotAt: 0
+  savedMapSnapshotAt: 0,
+  crowdPlan: null,
+  crowdPlanAt: 0,
+  crowdPlanPlayerPosition: null
 };
 window.RO_WORLD_MONSTER_TEST = RO_WORLD_MONSTER_TEST;
 
@@ -215,6 +218,132 @@ function getWorldMonsterProfile(map = currentMap) {
   return key ? RO_WORLD_MONSTER_TEST.config?.regions?.[key] || null : null;
 }
 window.getWorldMonsterProfile = getWorldMonsterProfile;
+
+function getWorldMonsterCrowdControlConfig(profile = RO_WORLD_MONSTER_TEST.profile) {
+  const raw = profile?.crowdControl;
+  if (!raw || raw.enabled !== true) return null;
+  const categories = Array.isArray(raw.categories) && raw.categories.length
+    ? raw.categories.map(value => String(value || "").toLowerCase())
+    : ["mvp"];
+  return { ...raw, categories };
+}
+window.getWorldMonsterCrowdControlConfig = getWorldMonsterCrowdControlConfig;
+
+function isWorldMonsterCoarsePointer() {
+  try {
+    return Boolean(window.matchMedia?.("(pointer: coarse)")?.matches || navigator?.maxTouchPoints > 0);
+  } catch (_) {
+    return false;
+  }
+}
+
+function getWorldMonsterCrowdAttackerLimit(config) {
+  if (!config) return Infinity;
+  const coarse = isWorldMonsterCoarsePointer();
+  const raw = coarse ? config.maxConcurrentAttackersCoarse : config.maxConcurrentAttackers;
+  return Math.max(1, Math.floor(Number(raw || config.maxConcurrentAttackers || 6)));
+}
+
+function isWorldMonsterCrowdCandidate(entity, config = getWorldMonsterCrowdControlConfig()) {
+  if (!config || !entity || entity._deathHandled || Number(entity.currentHp || 0) <= 0) return false;
+  return config.categories.includes(String(entity._category || "normal").toLowerCase());
+}
+
+function refreshWorldMonsterCrowdPlan(now = Date.now(), options = {}) {
+  const config = getWorldMonsterCrowdControlConfig();
+  if (!config || !player?.position) {
+    RO_WORLD_MONSTER_TEST.crowdPlan = null;
+    return null;
+  }
+  const planningInterval = Math.max(50, Number(config.planningIntervalMs || 180));
+  const previousPosition = RO_WORLD_MONSTER_TEST.crowdPlanPlayerPosition;
+  const moved = previousPosition
+    ? Math.hypot(Number(player.position.x || 0) - Number(previousPosition.x || 0), Number(player.position.y || 0) - Number(previousPosition.y || 0))
+    : Infinity;
+  if (!options.force && RO_WORLD_MONSTER_TEST.crowdPlan && now - Number(RO_WORLD_MONSTER_TEST.crowdPlanAt || 0) < planningInterval && moved < 18) {
+    return RO_WORLD_MONSTER_TEST.crowdPlan;
+  }
+
+  const candidates = (RO_WORLD_MONSTER_TEST.entities || [])
+    .filter(entity => isWorldMonsterCrowdCandidate(entity, config) && entity.provoked)
+    .map(entity => ({
+      entity,
+      distance: Math.hypot(Number(entity.position?.x || 0) - Number(player.position.x || 0), Number(entity.position?.y || 0) - Number(player.position.y || 0))
+    }))
+    .sort((a, b) => a.distance - b.distance || Number(a.entity._instanceId || 0) - Number(b.entity._instanceId || 0));
+
+  const attackerLimit = getWorldMonsterCrowdAttackerLimit(config);
+  const assignments = new Map();
+  candidates.forEach((entry, rank) => {
+    assignments.set(Number(entry.entity._instanceId || 0), {
+      rank,
+      engaged: rank < attackerLimit,
+      slotIndex: rank < attackerLimit ? rank : rank - attackerLimit,
+      attackerLimit,
+      total: candidates.length
+    });
+    entry.entity._crowdEngaged = rank < attackerLimit;
+    entry.entity._crowdRank = rank;
+  });
+  for (const entity of RO_WORLD_MONSTER_TEST.entities || []) {
+    if (!assignments.has(Number(entity?._instanceId || 0))) {
+      entity._crowdEngaged = false;
+      entity._crowdRank = -1;
+    }
+  }
+  const plan = { config, assignments, attackerLimit, total:candidates.length, createdAt:now };
+  RO_WORLD_MONSTER_TEST.crowdPlan = plan;
+  RO_WORLD_MONSTER_TEST.crowdPlanAt = now;
+  RO_WORLD_MONSTER_TEST.crowdPlanPlayerPosition = { x:Number(player.position.x || 0), y:Number(player.position.y || 0) };
+  return plan;
+}
+window.refreshWorldMonsterCrowdPlan = refreshWorldMonsterCrowdPlan;
+
+function getWorldMonsterCrowdTarget(entity, assignment, attackRange) {
+  const plan = RO_WORLD_MONSTER_TEST.crowdPlan;
+  const config = plan?.config || getWorldMonsterCrowdControlConfig();
+  if (!config || !assignment || !player?.position) return null;
+  let radius;
+  let angle;
+  if (assignment.engaged) {
+    const count = Math.max(1, Number(assignment.attackerLimit || 1));
+    radius = Math.max(28, Math.min(Number(config.engagedRadiusWorldPx || 44), Math.max(30, Number(attackRange || 55) * 0.86)));
+    angle = (Math.PI * 2 * Number(assignment.slotIndex || 0) / count) + 0.19;
+  } else {
+    const capacity = Math.max(6, Math.floor(Number(config.reserveRingCapacity || 10)));
+    const slot = Math.max(0, Number(assignment.slotIndex || 0));
+    const ring = Math.floor(slot / capacity);
+    const index = slot % capacity;
+    radius = Math.max(90, Number(config.reserveRadiusWorldPx || 150)) + ring * Math.max(36, Number(config.reserveRingSpacingWorldPx || 72));
+    angle = (Math.PI * 2 * index / capacity) + ring * 0.31 + 0.11;
+  }
+  return clampWorldMonsterPosition({
+    x: Number(player.position.x || 0) + Math.cos(angle) * radius,
+    y: Number(player.position.y || 0) + Math.sin(angle) * radius
+  });
+}
+window.getWorldMonsterCrowdTarget = getWorldMonsterCrowdTarget;
+
+function getWorldMonsterAiIntervalMs(entity, distance, assignment = null) {
+  const config = getWorldMonsterCrowdControlConfig();
+  if (!config || !isWorldMonsterCrowdCandidate(entity, config)) return 50;
+  if (assignment?.engaged || entity === currentMonster) return Math.max(35, Number(config.nearAiIntervalMs || 50));
+  if (Number(distance || 0) >= Math.max(360, Number(config.farDistanceWorldPx || 760))) return Math.max(120, Number(config.farAiIntervalMs || 260));
+  return Math.max(80, Number(config.reserveAiIntervalMs || 160));
+}
+
+function getWorldMonsterEffectiveAiDt(entity, now, fallbackDt, intervalMs) {
+  const last = Number(entity?._lastAiUpdateAt || 0);
+  if (now < Number(entity?._nextAiUpdateAt || 0)) return 0;
+  const elapsed = last > 0 ? (now - last) / 1000 : Number(fallbackDt || 0.05);
+  entity._lastAiUpdateAt = now;
+  const crowdConfig = getWorldMonsterCrowdControlConfig();
+  const stagger = crowdConfig && isWorldMonsterCrowdCandidate(entity, crowdConfig)
+    ? (Number(entity?._instanceId || 0) % 5) * 4
+    : 0;
+  entity._nextAiUpdateAt = now + Math.max(35, Number(intervalMs || 50)) + stagger;
+  return Math.max(Number(fallbackDt || 0.05), Math.min(0.3, elapsed));
+}
 
 function getWorldMonsterScale() {
   return Math.max(0.1, Number(currentMap?.worldScale || currentMap?.chunkGrid?.displayScale || 1));
@@ -536,6 +665,14 @@ function createWorldMonsterEntity(monsterData, spawnEntry, options = {}) {
     _deathHandled: false,
     _lastDamagedAt: 0,
     _hurtLockUntil: 0,
+    _nextAiUpdateAt: Date.now(),
+    _lastAiUpdateAt: Date.now(),
+    _nextRenderAt: 0,
+    _lastRenderLeft: null,
+    _lastRenderTop: null,
+    _lastRenderZ: null,
+    _crowdEngaged: false,
+    _crowdRank: -1,
     _hpBarRevealed: currentHp < maxHp,
     _animation: {
       asset: null,
@@ -592,13 +729,17 @@ function createWorldMonsterElement(entity) {
   const canvas = el.querySelector("canvas");
   entity._element = el;
   entity._canvas = canvas;
+  entity._labelElement = el.querySelector(".world-monster-label");
+  entity._nameElement = el.querySelector(".world-monster-name");
+  entity._categoryElement = el.querySelector(".world-monster-category");
+  entity._hitboxElement = el.querySelector(".world-monster-hitbox");
   entity._hpBarElement = el.querySelector(".world-monster-hp");
   entity._hpFillElement = entity._hpBarElement?.querySelector("span") || null;
   entity._ctx = canvas.getContext("2d");
   entity._ctx.imageSmoothingEnabled = false;
-  el.querySelector(".world-monster-name").textContent = entity.name;
-  el.querySelector(".world-monster-category").textContent = getWorldMonsterCategoryLabel(entity);
-  el.querySelector(".world-monster-hitbox")?.addEventListener("click", event => {
+  entity._nameElement.textContent = entity.name;
+  entity._categoryElement.textContent = getWorldMonsterCategoryLabel(entity);
+  entity._hitboxElement?.addEventListener("click", event => {
     event.preventDefault();
     event.stopImmediatePropagation?.();
     event.stopPropagation();
@@ -631,9 +772,17 @@ function removeWorldMonsterElement(entity) {
   entity._element?.remove();
   entity._element = null;
   entity._canvas = null;
+  entity._labelElement = null;
+  entity._nameElement = null;
+  entity._categoryElement = null;
+  entity._hitboxElement = null;
   entity._hpBarElement = null;
   entity._hpFillElement = null;
   entity._ctx = null;
+  entity._nextRenderAt = 0;
+  entity._lastRenderLeft = null;
+  entity._lastRenderTop = null;
+  entity._lastRenderZ = null;
   entity._assetLoading = false;
 }
 
@@ -664,6 +813,9 @@ function clearWorldMonsterFieldTest(options = {}) {
   RO_WORLD_MONSTER_TEST.profile = null;
   RO_WORLD_MONSTER_TEST.mapId = null;
   RO_WORLD_MONSTER_TEST.lastMaintenanceAt = 0;
+  RO_WORLD_MONSTER_TEST.crowdPlan = null;
+  RO_WORLD_MONSTER_TEST.crowdPlanAt = 0;
+  RO_WORLD_MONSTER_TEST.crowdPlanPlayerPosition = null;
   const field = getWorldMonsterTestHost();
   field?.classList.remove("world-monster-test-active", "world-monster-streaming-active");
 }
@@ -952,15 +1104,17 @@ function renderWorldMonsterTestFrame(entity, timestamp) {
     ctx.drawImage(image, sourceX, sourceY, sourceWidth, sourceHeight, drawX, drawY, drawWidth, drawHeight);
   }
   canvas.dataset.flipX = frame.flipX === true ? "true" : "false";
-  const hitbox = entity._element?.querySelector(".world-monster-hitbox");
+  const hitbox = entity._hitboxElement || entity._element?.querySelector(".world-monster-hitbox");
   if (hitbox) {
+    entity._hitboxElement = hitbox;
     hitbox.style.left = `${Math.round(dx)}px`;
     hitbox.style.top = `${Math.round(dy)}px`;
     hitbox.style.width = `${drawWidth}px`;
     hitbox.style.height = `${drawHeight}px`;
   }
-  const label = entity._element?.querySelector(".world-monster-label");
+  const label = entity._labelElement || entity._element?.querySelector(".world-monster-label");
   if (label) {
+    entity._labelElement = label;
     label.style.left = `${Math.round(dx + drawWidth / 2)}px`;
     label.style.top = `${Math.round(dy - 31)}px`;
   }
@@ -1271,30 +1425,50 @@ function updateWorldMonsterFieldTest(dt = 0.05) {
   }
 
   const activeSize = getWorldMonsterActiveWindowWorldSize();
+  const castState = typeof getRuntimeSkillCastState === "function" ? getRuntimeSkillCastState() : null;
+  const casting = Boolean(getWorldMonsterRuntimeValves().castSensorEnabled !== false && castState?.active !== false && Number(castState?.endsAt || 0) > now);
+  let crowdPlanDirty = false;
+
+  // Mark newly detected targets first, then rebuild the dense-arena plan once.
+  // This avoids an O(n²) burst when many MVPs notice the player on the same tick.
+  for (const entity of RO_WORLD_MONSTER_TEST.entities) {
+    if (!entity || entity._deathHandled || Number(entity.currentHp || 0) <= 0 || entity.provoked) continue;
+    const behavior = typeof getMonsterAiBehavior === "function" ? getMonsterAiBehavior(entity) : (entity.behavior || {});
+    const distance = Math.hypot(
+      Number(player.position.x || 0) - Number(entity.position?.x || 0),
+      Number(player.position.y || 0) - Number(entity.position?.y || 0)
+    );
+    const viewRange = typeof getMonsterViewRangePx === "function" ? getMonsterViewRangePx(entity) : 360;
+    if (behavior.aggressive && distance <= viewRange) {
+      markWorldMonsterAttacked(entity, { reason:"aggressive", propagateAssist:false });
+      crowdPlanDirty = true;
+    } else if (behavior.castSensorIdle && casting && distance <= viewRange) {
+      markWorldMonsterAttacked(entity, { reason:"cast_sensor", propagateAssist:false });
+      crowdPlanDirty = true;
+    }
+  }
+
+  const crowdPlan = refreshWorldMonsterCrowdPlan(now, { force:crowdPlanDirty });
   [...RO_WORLD_MONSTER_TEST.entities].forEach(entity => {
     if (entity._deathHandled || Number(entity.currentHp || 0) <= 0) {
       entity.aiState = "DEAD";
       return;
     }
-    const behavior = typeof getMonsterAiBehavior === "function" ? getMonsterAiBehavior(entity) : (entity.behavior || {});
     const dx = Number(player.position.x || 0) - Number(entity.position.x || 0);
     const dy = Number(player.position.y || 0) - Number(entity.position.y || 0);
     const distance = Math.hypot(dx, dy);
+    const assignment = crowdPlan?.assignments?.get(Number(entity._instanceId || 0)) || null;
+    const aiInterval = getWorldMonsterAiIntervalMs(entity, distance, assignment);
+    const effectiveDt = getWorldMonsterEffectiveAiDt(entity, now, dt, aiInterval);
+    if (effectiveDt <= 0) return;
+
+    const behavior = typeof getMonsterAiBehavior === "function" ? getMonsterAiBehavior(entity) : (entity.behavior || {});
     const attackRange = typeof getMonsterAttackRangePx === "function" ? getMonsterAttackRangePx(entity) : 55;
-    const viewRange = typeof getMonsterViewRangePx === "function" ? getMonsterViewRangePx(entity) : 360;
     const baseChaseRange = typeof getMonsterChaseRangePx === "function" ? getMonsterChaseRangePx(entity) : 432;
     const retaliationRange = typeof getMonsterRetaliationChaseRangePx === "function"
       ? getMonsterRetaliationChaseRangePx(entity)
       : Math.max(baseChaseRange, Number(getWorldMonsterRuntimeValves().retaliationChaseMinCells || 24) * 36);
     const leashRange = Math.max(retaliationRange, Number(getWorldMonsterRuntimeValves().retaliationLeashCells || 34) * 36);
-    const castState = typeof getRuntimeSkillCastState === "function" ? getRuntimeSkillCastState() : null;
-    const casting = Boolean(getWorldMonsterRuntimeValves().castSensorEnabled !== false && castState?.active !== false && Number(castState?.endsAt || 0) > now);
-
-    if (!entity.provoked && behavior.aggressive && distance <= viewRange) {
-      markWorldMonsterAttacked(entity, { reason:"aggressive", propagateAssist:false });
-    } else if (!entity.provoked && behavior.castSensorIdle && casting && distance <= viewRange) {
-      markWorldMonsterAttacked(entity, { reason:"cast_sensor", propagateAssist:false });
-    }
 
     // Retaliating/chasing monsters keep their AI awake even outside the ordinary streaming square.
     if (!isWorldMonsterInsideSquare(entity, activeSize) && !entity.provoked) {
@@ -1303,7 +1477,7 @@ function updateWorldMonsterFieldTest(dt = 0.05) {
     }
     if (!behavior.canMove) {
       entity.aiState = entity.provoked ? "ANGRY" : "IDLE";
-      if (entity.provoked && behavior.canAttack && distance <= attackRange) worldMonsterAttackPlayer(entity);
+      if (entity.provoked && behavior.canAttack && distance <= attackRange && assignment?.engaged !== false) worldMonsterAttackPlayer(entity);
       return;
     }
 
@@ -1322,6 +1496,36 @@ function updateWorldMonsterFieldTest(dt = 0.05) {
 
     if (entity.provoked) {
       entity._aggroLastSeenAt = distance <= leashRange ? now : Number(entity._aggroLastSeenAt || 0);
+      const forgetMs = Math.max(0, Number(getWorldMonsterRuntimeValves().aggroForgetMs || 12000));
+      if (distance > leashRange || now - Number(entity._aggroLastSeenAt || entity._aggroSince || now) >= forgetMs) {
+        clearWorldMonsterAggro(entity);
+        crowdPlanDirty = true;
+        updateWorldMonsterWander(entity, effectiveDt, behavior);
+        return;
+      }
+
+      if (assignment && assignment.engaged === false) {
+        // Dense MVP arenas keep the full population alive, but only a bounded front line
+        // may attack at once. The remaining MVPs occupy deterministic reserve rings.
+        entity.aiState = "RESERVE";
+        const reserveTarget = getWorldMonsterCrowdTarget(entity, assignment, attackRange);
+        if (reserveTarget) moveWorldMonsterToward(entity, reserveTarget, effectiveDt, 8);
+        return;
+      }
+
+      const crowdTarget = assignment?.engaged ? getWorldMonsterCrowdTarget(entity, assignment, attackRange) : null;
+      if (crowdTarget) {
+        const slotDistance = Math.hypot(
+          Number(crowdTarget.x || 0) - Number(entity.position.x || 0),
+          Number(crowdTarget.y || 0) - Number(entity.position.y || 0)
+        );
+        if (slotDistance > 14) {
+          entity.aiState = ["damage","assist"].includes(String(entity._aggroReason)) ? "RUSH" : "CHASE";
+          moveWorldMonsterToward(entity, crowdTarget, effectiveDt, 5);
+          return;
+        }
+      }
+
       if (distance <= attackRange) {
         entity.aiState = "ATTACK";
         if (behavior.canAttack) worldMonsterAttackPlayer(entity);
@@ -1329,16 +1533,13 @@ function updateWorldMonsterFieldTest(dt = 0.05) {
       }
       if (distance <= (entity._aggroReason === "aggressive" ? baseChaseRange : retaliationRange)) {
         entity.aiState = ["damage","assist"].includes(String(entity._aggroReason)) ? "RUSH" : "CHASE";
-        moveWorldMonsterToward(entity, player.position, dt, attackRange * 0.86);
+        moveWorldMonsterToward(entity, crowdTarget || player.position, effectiveDt, crowdTarget ? 5 : attackRange * 0.86);
         return;
       }
-      const forgetMs = Math.max(0, Number(getWorldMonsterRuntimeValves().aggroForgetMs || 12000));
-      if (distance > leashRange || now - Number(entity._aggroLastSeenAt || entity._aggroSince || now) >= forgetMs) {
-        clearWorldMonsterAggro(entity);
-      }
     }
-    updateWorldMonsterWander(entity, dt, behavior);
+    updateWorldMonsterWander(entity, effectiveDt, behavior);
   });
+  if (crowdPlanDirty) refreshWorldMonsterCrowdPlan(now, { force:true });
 }
 window.updateWorldMonsterFieldTest = updateWorldMonsterFieldTest;
 
@@ -1367,10 +1568,17 @@ window.updateWorldMonsterHpBarFast = updateWorldMonsterHpBarFast;
 
 function updateWorldMonsterFieldTestUi(entity) {
   if (!entity?._element) return;
-  entity._element.dataset.aiState = String(entity.aiState || "IDLE");
-  entity._element.classList.toggle("is-selected", entity === currentMonster);
-  entity._element.classList.toggle("is-dead", Number(entity.currentHp || 0) <= 0 || entity._deathHandled);
-  entity._element.classList.toggle("is-damaged", Number(entity._lastDamagedAt || 0) > Date.now() - 1800);
+  const aiState = String(entity.aiState || "IDLE");
+  if (entity._uiAiState !== aiState) {
+    entity._uiAiState = aiState;
+    entity._element.dataset.aiState = aiState;
+  }
+  const selected = entity === currentMonster;
+  const dead = Number(entity.currentHp || 0) <= 0 || entity._deathHandled;
+  const damaged = Number(entity._lastDamagedAt || 0) > Date.now() - 1800;
+  if (entity._uiSelected !== selected) { entity._uiSelected = selected; entity._element.classList.toggle("is-selected", selected); }
+  if (entity._uiDead !== dead) { entity._uiDead = dead; entity._element.classList.toggle("is-dead", dead); }
+  if (entity._uiDamaged !== damaged) { entity._uiDamaged = damaged; entity._element.classList.toggle("is-damaged", damaged); }
   updateWorldMonsterHpBarFast(entity);
 }
 window.updateWorldMonsterFieldTestUi = updateWorldMonsterFieldTestUi;
@@ -1382,29 +1590,62 @@ function shouldRenderWorldMonsterEntity(entity) {
   return isWorldMonsterPositionInsideViewport(entity.position, padding);
 }
 
+function getWorldMonsterRenderIntervalMs(entity, visibleCount = 1) {
+  const config = getWorldMonsterCrowdControlConfig();
+  if (!config || !isWorldMonsterCrowdCandidate(entity, config)) return 0;
+  if (entity === currentMonster || entity._crowdEngaged || entity.aiState === "HURT" || entity.aiState === "DEAD") {
+    return Math.max(16, Number(config.renderEngagedIntervalMs || 32));
+  }
+  if (Number(visibleCount || 0) >= Math.max(8, Number(config.crowdedVisibleThreshold || 20))) {
+    return Math.max(60, Number(config.renderCrowdedIntervalMs || 125));
+  }
+  return Math.max(45, Number(config.renderReserveIntervalMs || 90));
+}
+window.getWorldMonsterRenderIntervalMs = getWorldMonsterRenderIntervalMs;
+
 function renderWorldMonsterFieldTest(timestamp = performance.now()) {
   const entities = ensureWorldMonsterFieldTest();
   if (!entities.length) return;
   const camera = typeof getMapCameraOffset === "function" ? getMapCameraOffset() : { x: 0, y: 0 };
   const generation = RO_WORLD_MONSTER_TEST.loadGeneration;
+  const visibleEntities = [];
 
   entities.forEach(entity => {
-    const shouldRender = shouldRenderWorldMonsterEntity(entity);
-    if (!shouldRender) {
-      if (entity._element) removeWorldMonsterElement(entity);
-      return;
-    }
+    if (shouldRenderWorldMonsterEntity(entity)) visibleEntities.push(entity);
+    else if (entity._element) removeWorldMonsterElement(entity);
+  });
+  const visibleCount = visibleEntities.length;
+
+  visibleEntities.forEach(entity => {
     if (!entity._element) createWorldMonsterElement(entity);
     if (!entity._animation.asset && !entity._assetLoading) prepareWorldMonsterEntity(entity, generation);
     const element = entity._element;
     const asset = entity._animation.asset;
     if (!element || !asset) return;
+
+    const interval = getWorldMonsterRenderIntervalMs(entity, visibleCount);
+    if (interval > 0 && Number(timestamp || 0) < Number(entity._nextRenderAt || 0)) return;
+    const stagger = interval > 0 ? (Number(entity._instanceId || 0) % 7) * 2 : 0;
+    entity._nextRenderAt = Number(timestamp || 0) + interval + stagger;
+
     const scale = Math.max(0.1, Number(currentMap?.monsterGlobalScale ?? 1) * Number(entity.displayScale || 1));
     const left = Number(entity.position.x || 0) - Number(camera.x || 0) - asset.bounds.anchorX * scale;
     const top = Number(entity.position.y || 0) - Number(camera.y || 0) - asset.bounds.anchorY * scale;
-    element.style.setProperty("left", `${Math.round(left)}px`, "important");
-    element.style.setProperty("top", `${Math.round(top)}px`, "important");
-    element.style.zIndex = String(getWorldMonsterDepthZIndex(entity));
+    const roundedLeft = Math.round(left);
+    const roundedTop = Math.round(top);
+    const zIndex = getWorldMonsterDepthZIndex(entity);
+    if (entity._lastRenderLeft !== roundedLeft) {
+      entity._lastRenderLeft = roundedLeft;
+      element.style.setProperty("left", `${roundedLeft}px`, "important");
+    }
+    if (entity._lastRenderTop !== roundedTop) {
+      entity._lastRenderTop = roundedTop;
+      element.style.setProperty("top", `${roundedTop}px`, "important");
+    }
+    if (entity._lastRenderZ !== zIndex) {
+      entity._lastRenderZ = zIndex;
+      element.style.zIndex = String(zIndex);
+    }
     updateWorldMonsterFieldTestUi(entity);
     renderWorldMonsterTestFrame(entity, timestamp);
     const localAnchor = entity._damageNumberAnchorLocal;

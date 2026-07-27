@@ -20347,6 +20347,86 @@ body.character-gender-modal-open { overflow: hidden; }
   color: #fff5ce;
   outline: none;
 }
+
+#player-info.character-card .mobile-player-id-stack {
+  display: none;
+}
+
+@media (max-width: 900px), (pointer: coarse) {
+  #player-info.character-card .desktop-player-id-line {
+    display: none !important;
+  }
+  #player-info.character-card .mobile-player-id-stack {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 68px !important;
+    min-width: 0;
+    display: flex !important;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    color: #fff1c0;
+    text-align: left;
+  }
+  #player-info.character-card .mobile-player-job {
+    width: 68px;
+    min-width: 0;
+    height: 20px;
+    line-height: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #fff1c0;
+    font-size: 13px;
+    font-weight: 900;
+  }
+  #player-info.character-card .mobile-player-id-row {
+    display: flex;
+    align-items: center;
+    width: 68px;
+    min-width: 0;
+    height: 18px;
+    line-height: 18px;
+    color: #e2c88f;
+    font-size: 11px;
+  }
+  #player-info.character-card .mobile-player-id-prefix {
+    flex: 0 0 auto;
+    color: #bda369;
+  }
+  #player-info.character-card #mobilePlayerId {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  #player-info.character-card #mobilePlayerIdEditButton {
+    flex: 0 0 auto;
+    min-width: 62px;
+    height: 20px;
+    padding: 1px 8px;
+    border: 1px solid rgba(229,190,92,.78);
+    border-radius: 5px;
+    background: linear-gradient(180deg,#382a16,#110d08);
+    color: #ffe6a5;
+    font-size: 10px;
+    line-height: 16px;
+    box-shadow: inset 0 0 8px rgba(240,190,77,.08);
+    cursor: pointer;
+  }
+  #player-info.character-card #mobilePlayerIdEditButton:active,
+  #player-info.character-card #mobilePlayerIdEditButton:focus-visible {
+    border-color: #ffe18a;
+    color: #fff5ce;
+    outline: none;
+  }
+  #player-info.character-card .level-line {
+    top: 64px !important;
+  }
+}
+
 .player-id-overlay[hidden] { display: none !important; }
 .player-id-overlay {
   position: fixed;

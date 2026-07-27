@@ -118,7 +118,7 @@ window.inferLegacyCharacterGender = inferLegacyCharacterGender;
 
 
 //=======================================
-// 玩家 ID（0.9.82GE）
+// 玩家 ID（0.9.82GF）
 // 僅作為顯示名稱與全服公告名稱；離線版不進行跨玩家唯一性驗證。
 //=======================================
 function sanitizePlayerId(value) {
@@ -514,7 +514,7 @@ function resetGameSave() {
     const base = location.origin && location.origin !== "null"
       ? location.origin + location.pathname
       : location.pathname;
-    location.replace(base + "?v=0.9.82GE-reset-" + Date.now());
+    location.replace(base + "?v=0.9.82GF-reset-" + Date.now());
   };
 
   try {
@@ -645,6 +645,10 @@ function updatePlayerUI() {
   const playerNameElement = document.getElementById("playerName");
   if (playerNameElement) playerNameElement.title = characterCardName;
   setOptionalText("playerJob", currentJobName);
+  setOptionalText("mobilePlayerJob", currentJobName);
+  setOptionalText("mobilePlayerId", playerId || "未設定");
+  const mobilePlayerIdElement = document.getElementById("mobilePlayerId");
+  if (mobilePlayerIdElement) mobilePlayerIdElement.title = playerId || "尚未設定玩家 ID";
 
   setOptionalText("baseLevel", player.baseLevel);
   setOptionalText("jobLevel", player.jobLevel);

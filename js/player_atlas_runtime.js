@@ -492,7 +492,7 @@ window.getROStudioCharacterIdleImage = getROStudioCharacterIdleImage;
 
 function setROStudioIdleImagesForCurrentCharacter(character = null) {
   // 左上角人物欄與城鎮人物永遠使用未坐騎 idle.png。
-  const idleSrc = `${getROStudioCharacterIdleImage(character)}?v=0.9.82GE`;
+  const idleSrc = `${getROStudioCharacterIdleImage(character)}?v=0.9.82GF`;
   const portrait = document.getElementById("playerPortrait");
   if (portrait && portrait.getAttribute("src") !== idleSrc) {
     portrait.src = idleSrc;

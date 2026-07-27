@@ -1,3 +1,14 @@
+# RO_WEB 0.9.82GF
+
+## 手機 ID 與葛坡尼亞密集 MVP 契約
+- 手機／觸控角色資訊使用 `mobilePlayerJob`、`mobilePlayerId`、`mobilePlayerIdEditButton` 直向排列；桌機 `playerName + playerIdEditButton` 不得回退。
+- 葛坡尼亞 51 種 MVP 必須全部保留；`data/monster_spawn_config.json` 的 `crowdControl` 只控制同時攻擊前線、AI 分時與渲染 LOD。
+- 桌機前線上限 6、觸控前線上限 4；後備怪物必須保留生命、位置、仇恨、掉落與重生，並在前線空缺時遞補。
+- `refreshWorldMonsterCrowdPlan()` 是前線／後備唯一分配入口；`getWorldMonsterCrowdTarget()` 讓後備怪物分散在環形位置，不得再次全部追到玩家同一座標。
+- 後備 AI 與動畫可降低更新頻率，但選中怪、受傷／死亡怪及前線怪必須維持較高刷新率。
+- 怪物 DOM 座標、z-index、class 與子元素引用使用差異快取；不得恢復每個 RAF 無條件 querySelector／style 寫入。
+- `monsterAttackPlayer(..., { source: "world_monster_stream" })` 的存檔使用 `requestWorldMonsterCombatSave(600)` 合併；其他來源仍即時 `saveGame()`。
+
 # RO_WEB 0.9.82GE
 
 ## 死侍武器自動前置技能契約

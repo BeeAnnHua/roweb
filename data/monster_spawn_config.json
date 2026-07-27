@@ -1,6 +1,6 @@
 {
   "schema": "ro_web_region_monster_streaming_v1",
-  "version": "0.9.82FZ",
+  "version": "0.9.82GF",
   "source": {
     "mobDb": "rAthena Renewal db/re/mob_db.yml",
     "spawnScripts": "rAthena Renewal npc/re/mobs/fields/*.txt",
@@ -5002,7 +5002,28 @@
       ],
       "recommendedLevelMin": 50,
       "recommendedLevelMax": 275,
-      "selectionRule": "使用者指定 MVP 測試場；每種 MVP 1 隻、固定分散位置、60±30秒重生；暫不加入 9 隻人形／夢羅克王。轉蛋掉落由地圖專屬 Runtime 額外判定。"
+      "selectionRule": "使用者指定 MVP 測試場；每種 MVP 1 隻、固定分散位置、60±30秒重生；暫不加入 9 隻人形／夢羅克王。轉蛋掉落由地圖專屬 Runtime 額外判定。",
+      "crowdControl": {
+        "enabled": true,
+        "categories": [
+          "mvp"
+        ],
+        "planningIntervalMs": 180,
+        "maxConcurrentAttackers": 6,
+        "maxConcurrentAttackersCoarse": 4,
+        "engagedRadiusWorldPx": 50,
+        "reserveRadiusWorldPx": 150,
+        "reserveRingSpacingWorldPx": 72,
+        "reserveRingCapacity": 10,
+        "nearAiIntervalMs": 50,
+        "reserveAiIntervalMs": 160,
+        "farAiIntervalMs": 260,
+        "farDistanceWorldPx": 760,
+        "renderEngagedIntervalMs": 32,
+        "renderReserveIntervalMs": 90,
+        "renderCrowdedIntervalMs": 125,
+        "crowdedVisibleThreshold": 20
+      }
     }
   }
 }
