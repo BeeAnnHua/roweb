@@ -1,6 +1,6 @@
 {
-  "version": "0.9.82GD",
-  "note": "0.9.82GD：玩家 ID 與大獎公告、MVP 卡片紅色公告、商城料理自動維持，以及 MVP 轉蛋精煉材料獎池；沿用 GC 性別與卡片修正。",
+  "version": "0.9.82GG",
+  "note": "0.9.82GG：新增斐揚精煉 NPC、完整 rAthena Renewal 精煉規則與精煉材料轉蛋機率調整；沿用 GF 行動版 ID 與葛坡尼亞效能修正。",
   "legacyCompatibility": "data/items.json retired. Runtime item data is loaded from split JSON through ItemManager/getItemById().",
   "itemPaths": {
     "consumables": "data/items/consumables.json",
@@ -217,13 +217,15 @@
     }
   },
   "mvpGacha": {
-    "version": "0.9.82GD",
+    "version": "0.9.82GG",
     "ordinaryBasisPoints": 9879,
     "rareBasisPoints": 121,
-    "refinementRewardBasisPoints": 6500,
-    "consumableRewardBasisPoints": 3379,
+    "refinementRewardBasisPoints": 6700,
+    "consumableRewardBasisPoints": 3179,
     "newItemIds": [
       6635,
+      7619,
+      7620,
       6240,
       6241,
       1000331,
@@ -235,9 +237,45 @@
     ]
   },
   "itemIconPrune": {
-    "version": "0.9.82GD",
-    "activeIconCount": 805,
-    "addedIcons": 9,
-    "note": "GC 796 張實際引用圖示 + GD 9 張轉蛋精煉材料圖示。"
+    "version": "0.9.82GG",
+    "activeIconCount": 815,
+    "addedIcons": 10,
+    "note": "保留所有實際被精煉系統引用的礦石與祝福圖示；新增 10 張精煉材料圖示。"
+  },
+  "refineSystem": {
+    "version": "0.9.82GG",
+    "npcId": "payon_refine_npc",
+    "cityId": "payon",
+    "maxRefine": 20,
+    "source": "rAthena Renewal 2026-06-08 db/re/refine.yml",
+    "groups": [
+      "Weapon",
+      "Armor"
+    ],
+    "weaponLevels": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "armorLevels": [
+      1,
+      2
+    ],
+    "blacksmithBlessingItemId": 6635,
+    "ruleData": "data/refine_rules.json",
+    "addedMaterialItemIds": [
+      6223,
+      6224,
+      6225,
+      6226,
+      7619,
+      7620,
+      1000368,
+      1000369,
+      1000370,
+      1000371
+    ]
   }
 }

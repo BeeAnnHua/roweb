@@ -31,7 +31,7 @@
       if ((slot === "shield" || slot === "leftWeapon") && String(itemId) === String(mainId) && main &&
           (main.twoHanded || Number(main.hands || main.weaponHands) === 2)) continue;
       const item = window.getItemData(itemId);
-      if (item) result.push(item);
+      if (item) result.push(window.RefineRuntime?.decorateStatusSource ? window.RefineRuntime.decorateStatusSource(slot, item) : item);
     }
     return result;
   }
@@ -213,7 +213,7 @@
   }
 
   window.EffectRuntime = {
-    version:"0.9.82FX",
+    version:"0.9.82GG",
     wrappers,
     getBaseEquipmentSources:baseEquipmentSources,
     getSources,

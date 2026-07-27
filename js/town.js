@@ -159,6 +159,7 @@ function getNpcTypeText(type) {
     job_change: "轉職 NPC",
     card_removal: "卡片拆卸",
     gender_change: "角色性別切換",
+    refine: "裝備精煉",
     storage: "倉庫"
   };
   return map[type] || type || "NPC";
@@ -169,6 +170,7 @@ function getNpcActionText(npc) {
   if (npc.type === "job_change") return "轉職相談";
   if (npc.type === "card_removal") return "拆卸卡片";
   if (npc.type === "gender_change") return "切換角色性別";
+  if (npc.type === "refine") return "開始精煉";
   return "交談";
 }
 
@@ -187,6 +189,14 @@ function interactNpc(npcId) {
   }
   if (npc.type === "card_removal") {
     openCardRemovalNpc(npc);
+    return;
+  }
+  if (npc.type === "refine") {
+    if (typeof openRefineWindow === "function") {
+      openRefineWindow(npc);
+    } else {
+      addBattleLog(npc.name + "：精煉系統尚未載入。");
+    }
     return;
   }
   if (npc.type === "gender_change") {

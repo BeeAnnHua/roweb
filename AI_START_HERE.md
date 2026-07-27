@@ -1,13 +1,20 @@
-# RO_WEB 0.9.82GF
+# RO_WEB 0.9.82GG
 
-## 手機 ID 與葛坡尼亞密集 MVP 契約
-- 手機／觸控角色資訊使用 `mobilePlayerJob`、`mobilePlayerId`、`mobilePlayerIdEditButton` 直向排列；桌機 `playerName + playerIdEditButton` 不得回退。
-- 葛坡尼亞 51 種 MVP 必須全部保留；`data/monster_spawn_config.json` 的 `crowdControl` 只控制同時攻擊前線、AI 分時與渲染 LOD。
-- 桌機前線上限 6、觸控前線上限 4；後備怪物必須保留生命、位置、仇恨、掉落與重生，並在前線空缺時遞補。
-- `refreshWorldMonsterCrowdPlan()` 是前線／後備唯一分配入口；`getWorldMonsterCrowdTarget()` 讓後備怪物分散在環形位置，不得再次全部追到玩家同一座標。
-- 後備 AI 與動畫可降低更新頻率，但選中怪、受傷／死亡怪及前線怪必須維持較高刷新率。
-- 怪物 DOM 座標、z-index、class 與子元素引用使用差異快取；不得恢復每個 RAF 無條件 querySelector／style 寫入。
-- `monsterAttackPlayer(..., { source: "world_monster_stream" })` 的存檔使用 `requestWorldMonsterCombatSave(600)` 合併；其他來源仍即時 `saveGame()`。
+## 精煉系統契約
+- 精煉 NPC 固定為 `payon_refine_npc`，位於 `cityId: payon`；NPC 與所有 UI 都呼叫 `js/refine_runtime.js`。
+- `data/refine_rules.json` 是唯一精煉規則來源，必須由 rAthena Renewal 2026-06-08 `db/re/refine.yml` 產生；不得在 UI 或 Runtime 另寫一套成功率。
+- 完整支援 Weapon Lv1～5、Armor Lv1～2、目標 +1～+20，以及 Rate、Price、Material、BreakingRate、DowngradeAmount、BlacksmithBlessingAmount、BroadcastSuccess／Failure。
+- 鐵匠的祝福 ID 6635 只能在規則要求數量大於 0 時放入紅框；失敗時阻止損壞與退階，但礦石、Zeny 與祝福照常消耗。
+- 精煉實例值儲存在裝備 instance 的 `refine`，不得寫回共用 item master。`EffectRuntime` 與 `RARenewalDamagePipeline` 必須透過 `RefineRuntime` 讀取裝備實例。
+- Lv5 武器每精煉 +1 額外 P.ATK／S.MATK +2；Lv2 防具每精煉 +1 額外 RES／MRES +2；其餘 Bonus／RandomBonus 直接讀 RA 規則。
+- 轉蛋 10,000 基點：稀有 121、補品／料理 3,179、精煉材料 6,700。6635=500；7619、7620、6240、6241 各 800；1000331～1000336 各 500。
+- 手機角色資訊必須保留 `mobilePlayerJob`、`mobilePlayerId`、`mobilePlayerIdEditButton` 三個 DOM，排列為職業→ID→更改 ID→等級。
+
+## GG 不可回退契約
+- 不得把精煉成功率改成自訂簡化表，也不得只支援 +10。
+- 不得直接使用客戶端整張精煉 UI 圖；介面維持原創 HTML／CSS，僅使用物品圖示。
+- 不得讓祝福在規則未開放的階段使用，也不得在材料不足時先扣除部分資源。
+- 每次修改轉蛋必須驗證普通池 9,879 + 稀有池 121 = 10,000。
 
 # RO_WEB 0.9.82GE
 

@@ -1,0 +1,70 @@
+{
+  "version": "0.9.82GG",
+  "baseline": "0.9.82GF",
+  "title": "Payon rAthena Refine System",
+  "source": {
+    "archive": "RA開機檔案英文版20260608.zip",
+    "refineTable": "rathena-master/db/re/refine.yml",
+    "generatedRuleFile": "data/refine_rules.json",
+    "targetProfiles": 140,
+    "maxRefine": 20
+  },
+  "npc": {
+    "id": "payon_refine_npc",
+    "name": "精煉匠人",
+    "cityId": "payon"
+  },
+  "gachaBasisPoints": {
+    "rare": 121,
+    "foodsAndConsumables": 3179,
+    "refinementMaterials": 6700,
+    "total": 10000,
+    "items": {
+      "6635": 500,
+      "7619": 800,
+      "7620": 800,
+      "6240": 800,
+      "6241": 800,
+      "1000331": 500,
+      "1000332": 500,
+      "1000333": 500,
+      "1000334": 500,
+      "1000335": 500,
+      "1000336": 500
+    }
+  },
+  "refineFeatures": [
+    "inventory and equipped equipment selection",
+    "RA success rate and Zeny cost",
+    "break and downgrade outcomes",
+    "Blacksmith Blessing red protection slot",
+    "Weapon Lv1-5 and Armor Lv1-2",
+    "+1 through +20",
+    "broadcast flags",
+    "status and combat stat integration",
+    "responsive desktop/mobile scrolling UI"
+  ],
+  "addedItemIcons": [6223, 6224, 6225, 6226, 7619, 7620, 1000368, 1000369, 1000370, 1000371],
+  "keyFiles": [
+    "js/refine_runtime.js",
+    "data/refine_rules.json",
+    "data/npcs.json",
+    "data/mvp_gacha.json",
+    "css/style.css",
+    "index.html",
+    "js/effect_runtime.js",
+    "js/ra_renewal_damage_pipeline.js",
+    "js/skill_engine.js",
+    "js/data_bundle.js"
+  ],
+  "tests": {
+    "refineData": "3514/3514 PASS",
+    "refineRuntime": "8/8 PASS",
+    "gfRegression": "16/16 PASS",
+    "geRegression": "15/15 PASS",
+    "javascriptSyntax": "729 files, 0 errors",
+    "deepHealth": "0 errors, 0 warnings",
+    "zipIntegrity": "PASS"
+  },
+  "browserLimitation": "Managed Chromium headless screenshot did not finish; UI was verified by DOM/CSS/runtime/static audits."
+}

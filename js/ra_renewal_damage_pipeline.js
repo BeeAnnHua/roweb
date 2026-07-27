@@ -1,4 +1,4 @@
-// RO_WEB 0.9.82FX - RA Renewal damage formula + Trait P.ATK/S.MATK/C.RATE + universal physical element endow
+// RO_WEB 0.9.82GG - RA Renewal damage formula + Trait P.ATK/S.MATK/C.RATE + universal physical element endow
 (function(){
 "use strict";
 const floor=n=>Math.floor(Number(n)||0), clamp=(n,a,b)=>Math.max(a,Math.min(b,Number(n)||0));
@@ -17,7 +17,7 @@ function itemAt(slot){
   const isWeapon=item&&(item.slot==='weapon'||item.category==='weapon'||item.dbType==='Weapon'||item.Type==='Weapon');
   if(!isWeapon) return null;
  }
- return item||null;
+ return (window.RefineRuntime?.decorateCombatItem ? window.RefineRuntime.decorateCombatItem(slot, item) : item)||null;
 }
 function weapon(slot='weapon'){return itemAt(slot);}
 function stats(){const d=derived(window.player),s=d.stats||window.player?.stats||{};return {d,s,baseLevel:Number(window.player?.baseLevel||1)};}
@@ -73,13 +73,18 @@ function isElementImmuneAgainstTarget(element,target,flags={}){
  if(flags?.ignoreElement)return false;
  return getElementRateAgainstTarget(element,target)<=0;
 }
-function refineAtk(w){
+function refineAtkBase(w){
+ if(Number.isFinite(Number(w?.refineAtkBonus)))return Math.max(0,Number(w.refineAtkBonus));
  const refine=Math.max(0,Number(w?.refine??w?.Refine??0));
  const wlv=Math.max(1,Number(w?.weaponLevel??w?.WeaponLevel??1));
  const per=[0,2,3,5,7,10][Math.min(5,wlv)]||2;
  const over=Math.max(0,refine-Number(w?.safeRefine??w?.SafeRefine??0));
- const overBonus=over?floor(over*per/2):0;
- return refine*per+overBonus;
+ return refine*per+(over?floor(over*per/2):0);
+}
+function refineAtk(w){
+ const base=refineAtkBase(w);
+ const randomMax=Math.max(0,floor(Number(w?.refineRandomBonusMax||0)));
+ return base+(randomMax?floor(Math.random()*(randomMax+1)):0);
 }
 function ammoAtk(){return 0; /* RO_WEB 不使用箭矢／子彈／砲彈／苦無等彈藥 ATK。 */}
 function buildHandParts(slot='weapon',opt={}){
@@ -102,8 +107,11 @@ function buildHandParts(slot='weapon',opt={}){
  const mainWeapon=weapon('weapon'),leftWeapon=weapon('leftWeapon');
  const mainWatk=Math.max(0,Number(mainWeapon?.atk||mainWeapon?.Attack||0));
  const leftWatk=leftWeapon&&leftWeapon!==mainWeapon?Math.max(0,Number(leftWeapon?.atk||leftWeapon?.Attack||0)):0;
- // Derived ATK contains status ATK, equipped weapon ATK and flat ATK bonuses. Remove weapon bases to recover Renewal E.ATK-like bonuses.
- let equipTotal=Math.max(0,Number(d.atk||baseStatusAtk)-baseStatusAtk-mainWatk-leftWatk);
+ const mainRefineBase=refineAtkBase(mainWeapon);
+ const leftRefineBase=leftWeapon&&leftWeapon!==mainWeapon?refineAtkBase(leftWeapon):0;
+ // Derived ATK already contains deterministic refine ATK for status display. Remove it here,
+ // then add the RA refine roll exactly once below.
+ let equipTotal=Math.max(0,Number(d.atk||baseStatusAtk)-baseStatusAtk-mainWatk-leftWatk-mainRefineBase-leftRefineBase);
  let weaponAtk=rolled;
  const edpMultiplier=Number(typeof window.getActiveBuffSpecialValue==='function'?window.getActiveBuffSpecialValue('edpWeaponAtkMultiplierPercent',100):100);
  if(edpMultiplier!==100){weaponAtk=floor(weaponAtk*edpMultiplier/100);equipTotal=floor(equipTotal*edpMultiplier/100);}

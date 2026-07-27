@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RO_WEB 0.9.82GF</title>
+  <title>RO_WEB 0.9.82GE</title>
   <meta name="description" content="&#8203;">
   <meta property="og:type" content="website">
   <meta property="og:title" content="RO_WEB">
@@ -13,8 +13,8 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="RO_WEB">
   <meta name="twitter:description" content="&#8203;">
-  <link rel="icon" type="image/png" href="images/ui/icons/icon_gold_64.png?v=0.9.82GF">
-  <link rel="stylesheet" href="css/style.css?v=0.9.82GF">
+  <link rel="icon" type="image/png" href="images/ui/icons/icon_gold_64.png?v=0.9.82GG">
+  <link rel="stylesheet" href="css/style.css?v=0.9.82GG">
 </head>
 
 <body>
@@ -50,11 +50,11 @@
       <section id="player-info" class="fixed-panel character-card">
         <h2>角色資訊</h2>
         <div class="profile-row">
-          <div class="portrait-placeholder"><img id="playerPortrait" src="assets/characters/novice/male/idle.png?v=0.9.82GF" alt="角色頭像"></div>
+          <div class="portrait-placeholder"><img id="playerPortrait" src="assets/characters/novice/male/idle.png?v=0.9.82GG" alt="角色頭像"></div>
           <div>
             <div class="name-line player-id-line desktop-player-id-line"><span id="playerName">載入中</span><button id="playerIdEditButton" type="button" onclick="openPlayerIdEditor()">更改ID</button></div>
-            <div class="mobile-player-id-stack" aria-label="角色職業與玩家 ID">
-              <div id="mobilePlayerJob" class="mobile-player-job">載入中</div>
+            <div class="mobile-player-id-stack" aria-label="手機版角色名稱">
+              <div id="mobilePlayerJob" class="mobile-player-job">初學者</div>
               <div class="mobile-player-id-row"><span class="mobile-player-id-prefix">ID：</span><span id="mobilePlayerId">未設定</span></div>
               <button id="mobilePlayerIdEditButton" type="button" onclick="openPlayerIdEditor()">更改ID</button>
             </div>
@@ -69,7 +69,7 @@
 
       <div id="player-sprite" class="battle-sprite player-sprite">
         <div class="sprite-label">LV.<span id="battlePlayerLevel">0</span> <span id="battlePlayerName">冒險者</span></div>
-        <img id="playerImage" src="assets/characters/novice/male/idle.png?v=0.9.82GF" alt="player">
+        <img id="playerImage" src="assets/characters/novice/male/idle.png?v=0.9.82GG" alt="player">
         <div class="slash-effect" id="slashEffect"></div>
       </div>
 
@@ -451,6 +451,32 @@
   </section>
 
 
+  <section id="refineWindow" class="refine-overlay hidden-window" role="dialog" aria-modal="true" aria-labelledby="refineWindowTitle" hidden onclick="if(event.target===this) closeRefineWindow()">
+    <div class="refine-dialog ui-size-target" data-ui-size-id="refine-window">
+      <header class="refine-header ui-size-header">
+        <div><small id="refineNpcName">斐揚精煉匠人</small><h2 id="refineWindowTitle">裝備精煉</h2><p>選擇裝備、礦石與保護材料後進行精煉。</p></div>
+        <button type="button" aria-label="關閉精煉視窗" onclick="closeRefineWindow()">×</button>
+      </header>
+      <div class="refine-layout">
+        <main class="refine-forge-panel">
+          <div class="refine-forge-decoration" aria-hidden="true"><span>◇</span><span>◇</span><span>◇</span></div>
+          <section id="refineSelectedEquipment" class="refine-selected-host"></section>
+          <div class="refine-workbench">
+            <section class="refine-material-panel"><h3>精煉礦石</h3><div id="refineMaterialChoices" class="refine-material-choices"></div></section>
+            <aside id="refineBlessingHost" class="refine-blessing-host"></aside>
+          </div>
+          <section id="refineSummary" class="refine-summary"></section>
+          <p id="refineResultMessage" class="refine-result-message" aria-live="polite"></p>
+        </main>
+        <aside class="refine-equipment-panel">
+          <div class="refine-equipment-heading"><div><b>可精煉裝備</b><small>背包／穿戴中</small></div><span>最高 +20</span></div>
+          <div id="refineEquipmentList" class="refine-equipment-list"></div>
+          <p class="refine-equipment-note">成功率、費用、損壞、退階與祝福數量完全依 rAthena Renewal 2026-06-08 資料。</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
   <section id="playerIdModal" class="player-id-overlay" role="dialog" aria-modal="true" aria-labelledby="playerIdTitle" hidden onclick="if(event.target===this) closePlayerIdEditor()">
     <div class="player-id-dialog">
       <div class="player-id-header">
@@ -481,12 +507,12 @@
       </div>
       <div class="character-gender-options" role="group" aria-label="角色性別">
         <button class="character-gender-option" type="button" data-character-gender="male" aria-pressed="false" onclick="selectCharacterGender('male')">
-          <span class="character-gender-preview"><img src="assets/characters/novice/male/idle.png?v=0.9.82GF" alt="男性初學者"></span>
+          <span class="character-gender-preview"><img src="assets/characters/novice/male/idle.png?v=0.9.82GG" alt="男性初學者"></span>
           <strong>男性初學者</strong>
           <span>使用男性人物動畫</span>
         </button>
         <button class="character-gender-option" type="button" data-character-gender="female" aria-pressed="false" onclick="selectCharacterGender('female')">
-          <span class="character-gender-preview"><img src="assets/characters/novice/female/idle.png?v=0.9.82GF" alt="女性初學者"></span>
+          <span class="character-gender-preview"><img src="assets/characters/novice/female/idle.png?v=0.9.82GG" alt="女性初學者"></span>
           <strong>女性初學者</strong>
           <span>使用女性人物動畫</span>
         </button>
@@ -495,42 +521,43 @@
     </div>
   </section>
 
-  <script src="./js/data_bundle.js?v=0.9.82GF"></script>
-  <script src="./js/equipment_job_map_bundle.js?v=0.9.82GF"></script>
-  <script src="./js/player.js?v=0.9.82GF"></script>
-  <script src="./js/item_instance_ui.js?v=0.9.82GF"></script>
-  <script src="./js/mvp_gacha_runtime.js?v=0.9.82GF"></script>
-  <script src="./js/card_runtime.js?v=0.9.82GF"></script>
-  <script src="./js/effect_runtime.js?v=0.9.82GF"></script>
-  <script src="./js/position_engine.js?v=0.9.82GF"></script>
-  <script src="./js/job_constitution.js?v=0.9.82GF"></script>
-  <script src="./js/job.js?v=0.9.82GF"></script>
-  <script src="./js/extra_skill_runtime.js?v=0.9.82GF"></script>
-  <script src="./js/combat_mechanics_runtime.js?v=0.9.82GF"></script>
-  <script src="./js/combat_formula_runtime.js?v=0.9.82GF"></script>
-  <script src="./js/ra_renewal_damage_pipeline.js?v=0.9.82GF"></script>
-  <script src="./js/combat_damage_pipeline.js?v=0.9.82GF"></script>
-  <script src="./js/combat_resource_manager.js?v=0.9.82GF"></script>
-  <script src="./js/skill_engine.js?v=0.9.82GF"></script>
-  <script src="./js/status_system.js?v=0.9.82GF"></script>
-  <script src="./js/stats.js?v=0.9.82GF"></script>
-  <script src="./js/loot.js?v=0.9.82GF"></script>
-  <script src="./js/auto_battle.js?v=0.9.82GF"></script>
-  <script src="./js/player_atlas_runtime.js?v=0.9.82GF"></script>
-  <script src="./js/character_gender.js?v=0.9.82GF"></script>
-  <script src="./js/battle.js?v=0.9.82GF"></script>
-  <script src="./js/monster_atlas_runtime.js?v=0.9.82GF"></script>
-  <script src="./js/effect_visual_runtime.js?v=0.9.82GF"></script>
-  <script src="./js/world_monster_test_runtime.js?v=0.9.82GF"></script>
-  <script src="./js/virtual_summon.js?v=0.9.82GF"></script>
-  <script src="./js/homunculus.js?v=0.9.82GF"></script>
-  <script src="./js/homunculus_skill_runtime.js?v=0.9.82GF"></script>
-  <script src="./js/homunculus_s_skill_runtime.js?v=0.9.82GF"></script>
-  <script src="./js/map.js?v=0.9.82GF"></script>
-  <script src="./js/town.js?v=0.9.82GF"></script>
-  <script src="./js/ui.js?v=0.9.82GF"></script>
-  <script src="./js/quick_slots.js?v=0.9.82GF"></script>
-  <script src="./js/game.js?v=0.9.82GF"></script>
+  <script src="./js/data_bundle.js?v=0.9.82GG"></script>
+  <script src="./js/equipment_job_map_bundle.js?v=0.9.82GG"></script>
+  <script src="./js/player.js?v=0.9.82GG"></script>
+  <script src="./js/item_instance_ui.js?v=0.9.82GG"></script>
+  <script src="./js/refine_runtime.js?v=0.9.82GG"></script>
+  <script src="./js/mvp_gacha_runtime.js?v=0.9.82GG"></script>
+  <script src="./js/card_runtime.js?v=0.9.82GG"></script>
+  <script src="./js/effect_runtime.js?v=0.9.82GG"></script>
+  <script src="./js/position_engine.js?v=0.9.82GG"></script>
+  <script src="./js/job_constitution.js?v=0.9.82GG"></script>
+  <script src="./js/job.js?v=0.9.82GG"></script>
+  <script src="./js/extra_skill_runtime.js?v=0.9.82GG"></script>
+  <script src="./js/combat_mechanics_runtime.js?v=0.9.82GG"></script>
+  <script src="./js/combat_formula_runtime.js?v=0.9.82GG"></script>
+  <script src="./js/ra_renewal_damage_pipeline.js?v=0.9.82GG"></script>
+  <script src="./js/combat_damage_pipeline.js?v=0.9.82GG"></script>
+  <script src="./js/combat_resource_manager.js?v=0.9.82GG"></script>
+  <script src="./js/skill_engine.js?v=0.9.82GG"></script>
+  <script src="./js/status_system.js?v=0.9.82GG"></script>
+  <script src="./js/stats.js?v=0.9.82GG"></script>
+  <script src="./js/loot.js?v=0.9.82GG"></script>
+  <script src="./js/auto_battle.js?v=0.9.82GG"></script>
+  <script src="./js/player_atlas_runtime.js?v=0.9.82GG"></script>
+  <script src="./js/character_gender.js?v=0.9.82GG"></script>
+  <script src="./js/battle.js?v=0.9.82GG"></script>
+  <script src="./js/monster_atlas_runtime.js?v=0.9.82GG"></script>
+  <script src="./js/effect_visual_runtime.js?v=0.9.82GG"></script>
+  <script src="./js/world_monster_test_runtime.js?v=0.9.82GG"></script>
+  <script src="./js/virtual_summon.js?v=0.9.82GG"></script>
+  <script src="./js/homunculus.js?v=0.9.82GG"></script>
+  <script src="./js/homunculus_skill_runtime.js?v=0.9.82GG"></script>
+  <script src="./js/homunculus_s_skill_runtime.js?v=0.9.82GG"></script>
+  <script src="./js/map.js?v=0.9.82GG"></script>
+  <script src="./js/town.js?v=0.9.82GG"></script>
+  <script src="./js/ui.js?v=0.9.82GG"></script>
+  <script src="./js/quick_slots.js?v=0.9.82GG"></script>
+  <script src="./js/game.js?v=0.9.82GG"></script>
 </body>
 
 </html>

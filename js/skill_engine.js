@@ -4439,7 +4439,7 @@ function calculateSkillAttackDamageBase(skill, requestedLevel = null, target = c
     const shieldId=player?.equipment?.shield;
     const shield=shieldId&&typeof getItemData==="function"?getItemData(shieldId):null;
     const shieldWeight=Math.max(0,Number(shield?.weight??shield?.Weight??0));
-    const shieldRefine=Math.max(0,Number(shield?.refine??shield?.Refine??player?.equipmentRefine?.shield??0));
+    const shieldRefine=Math.max(0,Number(window.RefineRuntime?.getEquippedRefine?.("shield")??shield?.refine??shield?.Refine??player?.equipmentRefine?.shield??0));
     const shieldTerm=Math.floor((shieldWeight*7/6)/10)+shieldRefine*100;
     ratio=Math.floor((1000+3500*level+10*pow+150*level*mastery+shieldTerm)*Number(player?.baseLevel||1)/100);
   }
