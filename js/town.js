@@ -171,6 +171,7 @@ function getNpcActionText(npc) {
   if (npc.type === "card_removal") return "拆卸卡片";
   if (npc.type === "gender_change") return "切換角色性別";
   if (npc.type === "refine") return "開始精煉";
+  if (npc.type === "storage") return "開啟倉庫";
   return "交談";
 }
 
@@ -196,6 +197,14 @@ function interactNpc(npcId) {
       openRefineWindow(npc);
     } else {
       addBattleLog(npc.name + "：精煉系統尚未載入。");
+    }
+    return;
+  }
+  if (npc.type === "storage") {
+    if (typeof openStorageWindow === "function") {
+      openStorageWindow(npc);
+    } else {
+      addBattleLog(npc.name + "：帳號倉庫尚未載入。");
     }
     return;
   }

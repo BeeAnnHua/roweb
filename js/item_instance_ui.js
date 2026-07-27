@@ -293,6 +293,8 @@
     const primary = document.getElementById('item-detail-primary-action');
     const picker = document.getElementById('item-detail-quick-picker');
     if (!actions || !primary || !picker || !data) return;
+    // 0.9.82GH：倉庫中的物品只能查看資料；不可直接穿戴、使用或加入快捷欄。
+    if (context.source === 'storage') return;
 
     if (isEquipmentData(data)) {
       actions.hidden = false;

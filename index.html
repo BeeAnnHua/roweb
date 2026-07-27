@@ -13,8 +13,8 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="RO_WEB">
   <meta name="twitter:description" content="&#8203;">
-  <link rel="icon" type="image/png" href="images/ui/icons/icon_gold_64.png?v=0.9.82GG">
-  <link rel="stylesheet" href="css/style.css?v=0.9.82GG">
+  <link rel="icon" type="image/png" href="images/ui/icons/icon_gold_64.png?v=0.9.82GH">
+  <link rel="stylesheet" href="css/style.css?v=0.9.82GH">
 </head>
 
 <body>
@@ -50,7 +50,7 @@
       <section id="player-info" class="fixed-panel character-card">
         <h2>角色資訊</h2>
         <div class="profile-row">
-          <div class="portrait-placeholder"><img id="playerPortrait" src="assets/characters/novice/male/idle.png?v=0.9.82GG" alt="角色頭像"></div>
+          <div class="portrait-placeholder"><img id="playerPortrait" src="assets/characters/novice/male/idle.png?v=0.9.82GH" alt="角色頭像"></div>
           <div>
             <div class="name-line player-id-line desktop-player-id-line"><span id="playerName">載入中</span><button id="playerIdEditButton" type="button" onclick="openPlayerIdEditor()">更改ID</button></div>
             <div class="mobile-player-id-stack" aria-label="手機版角色名稱">
@@ -69,7 +69,7 @@
 
       <div id="player-sprite" class="battle-sprite player-sprite">
         <div class="sprite-label">LV.<span id="battlePlayerLevel">0</span> <span id="battlePlayerName">冒險者</span></div>
-        <img id="playerImage" src="assets/characters/novice/male/idle.png?v=0.9.82GG" alt="player">
+        <img id="playerImage" src="assets/characters/novice/male/idle.png?v=0.9.82GH" alt="player">
         <div class="slash-effect" id="slashEffect"></div>
       </div>
 
@@ -477,6 +477,69 @@
     </div>
   </section>
 
+
+
+  <section id="storageWindow" class="storage-overlay hidden-window" role="dialog" aria-modal="true" aria-labelledby="storageWindowTitle" hidden onclick="if(event.target===this) closeStorageWindow()">
+    <div class="storage-dialog ui-size-target" data-ui-size-id="storage-window">
+      <header class="storage-header ui-size-header">
+        <div>
+          <small id="storageNpcName">卡普拉倉庫管理員</small>
+          <h2 id="storageWindowTitle">帳號共用倉庫</h2>
+          <p>存入倉庫的物品可由刪除角色後建立的新角色取回。</p>
+        </div>
+        <button type="button" aria-label="關閉倉庫" onclick="closeStorageWindow()">×</button>
+      </header>
+      <div class="storage-summary-bar">
+        <span>倉庫容量 <b id="storageCapacityText">0 / 100</b></span>
+        <span>角色背包 <b id="storageInventoryCountText">0</b> 種物品</span>
+      </div>
+      <div class="storage-layout">
+        <section class="storage-column">
+          <div class="storage-column-heading"><b>角色背包</b><small>已穿戴裝備需先卸下</small></div>
+          <div id="storageInventoryList" class="storage-item-list"></div>
+        </section>
+        <section class="storage-column storage-account-column">
+          <div class="storage-column-heading"><b>帳號倉庫</b><small>跨角色保留｜100 格</small></div>
+          <div id="storageAccountList" class="storage-item-list"></div>
+        </section>
+      </div>
+      <p id="storageMessage" class="storage-message" aria-live="polite"></p>
+      <footer class="storage-footer-note">刪除角色不會自動搬運背包或身上裝備；只有事先存入此倉庫的物品會保留。</footer>
+    </div>
+  </section>
+
+  <section id="saveResetModal" class="save-reset-overlay" role="dialog" aria-modal="true" aria-labelledby="saveResetTitle" hidden onclick="if(event.target===this) closeResetGameSaveDialog()">
+    <div class="save-reset-dialog">
+      <header class="save-reset-header">
+        <div><b id="saveResetTitle">清除存檔</b><p>請選擇要刪除的資料範圍。</p></div>
+        <button type="button" aria-label="關閉" onclick="closeResetGameSaveDialog()">×</button>
+      </header>
+      <div id="saveResetChoicePanel" class="save-reset-choice-panel">
+        <button type="button" class="save-reset-choice character-only" onclick="beginResetGameSave('character')">
+          <strong>只刪除角色資料</strong>
+          <span>保留帳號共用倉庫與介面設定。新角色仍可取回事先存入倉庫的物品。</span>
+        </button>
+        <button type="button" class="save-reset-choice delete-all" onclick="beginResetGameSave('all')">
+          <strong>刪除角色＋帳號倉庫</strong>
+          <span>永久清除角色、倉庫與本網站全部本機資料。</span>
+        </button>
+        <button type="button" class="save-reset-cancel" onclick="closeResetGameSaveDialog()">取消</button>
+      </div>
+      <div id="saveResetConfirmPanel" class="save-reset-confirm-panel" hidden>
+        <div id="saveResetConfirmText" class="save-reset-confirm-text"></div>
+        <label id="saveResetPhraseLabel" class="save-reset-phrase-label" for="saveResetPhraseInput" hidden>
+          請輸入「全部刪除」以確認
+          <input id="saveResetPhraseInput" type="text" autocomplete="off" spellcheck="false" oninput="updateResetGameSaveConfirmState()" onkeydown="if(event.key==='Enter'){event.preventDefault();confirmResetGameSave()}">
+        </label>
+        <p id="saveResetMessage" class="save-reset-message" aria-live="polite"></p>
+        <div class="save-reset-actions">
+          <button type="button" onclick="showResetGameSaveChoices()">返回</button>
+          <button id="saveResetConfirmButton" type="button" class="save-reset-confirm-button" onclick="confirmResetGameSave()">確認刪除</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="playerIdModal" class="player-id-overlay" role="dialog" aria-modal="true" aria-labelledby="playerIdTitle" hidden onclick="if(event.target===this) closePlayerIdEditor()">
     <div class="player-id-dialog">
       <div class="player-id-header">
@@ -507,12 +570,12 @@
       </div>
       <div class="character-gender-options" role="group" aria-label="角色性別">
         <button class="character-gender-option" type="button" data-character-gender="male" aria-pressed="false" onclick="selectCharacterGender('male')">
-          <span class="character-gender-preview"><img src="assets/characters/novice/male/idle.png?v=0.9.82GG" alt="男性初學者"></span>
+          <span class="character-gender-preview"><img src="assets/characters/novice/male/idle.png?v=0.9.82GH" alt="男性初學者"></span>
           <strong>男性初學者</strong>
           <span>使用男性人物動畫</span>
         </button>
         <button class="character-gender-option" type="button" data-character-gender="female" aria-pressed="false" onclick="selectCharacterGender('female')">
-          <span class="character-gender-preview"><img src="assets/characters/novice/female/idle.png?v=0.9.82GG" alt="女性初學者"></span>
+          <span class="character-gender-preview"><img src="assets/characters/novice/female/idle.png?v=0.9.82GH" alt="女性初學者"></span>
           <strong>女性初學者</strong>
           <span>使用女性人物動畫</span>
         </button>
@@ -521,43 +584,44 @@
     </div>
   </section>
 
-  <script src="./js/data_bundle.js?v=0.9.82GG"></script>
-  <script src="./js/equipment_job_map_bundle.js?v=0.9.82GG"></script>
-  <script src="./js/player.js?v=0.9.82GG"></script>
-  <script src="./js/item_instance_ui.js?v=0.9.82GG"></script>
-  <script src="./js/refine_runtime.js?v=0.9.82GG"></script>
-  <script src="./js/mvp_gacha_runtime.js?v=0.9.82GG"></script>
-  <script src="./js/card_runtime.js?v=0.9.82GG"></script>
-  <script src="./js/effect_runtime.js?v=0.9.82GG"></script>
-  <script src="./js/position_engine.js?v=0.9.82GG"></script>
-  <script src="./js/job_constitution.js?v=0.9.82GG"></script>
-  <script src="./js/job.js?v=0.9.82GG"></script>
-  <script src="./js/extra_skill_runtime.js?v=0.9.82GG"></script>
-  <script src="./js/combat_mechanics_runtime.js?v=0.9.82GG"></script>
-  <script src="./js/combat_formula_runtime.js?v=0.9.82GG"></script>
-  <script src="./js/ra_renewal_damage_pipeline.js?v=0.9.82GG"></script>
-  <script src="./js/combat_damage_pipeline.js?v=0.9.82GG"></script>
-  <script src="./js/combat_resource_manager.js?v=0.9.82GG"></script>
-  <script src="./js/skill_engine.js?v=0.9.82GG"></script>
-  <script src="./js/status_system.js?v=0.9.82GG"></script>
-  <script src="./js/stats.js?v=0.9.82GG"></script>
-  <script src="./js/loot.js?v=0.9.82GG"></script>
-  <script src="./js/auto_battle.js?v=0.9.82GG"></script>
-  <script src="./js/player_atlas_runtime.js?v=0.9.82GG"></script>
-  <script src="./js/character_gender.js?v=0.9.82GG"></script>
-  <script src="./js/battle.js?v=0.9.82GG"></script>
-  <script src="./js/monster_atlas_runtime.js?v=0.9.82GG"></script>
-  <script src="./js/effect_visual_runtime.js?v=0.9.82GG"></script>
-  <script src="./js/world_monster_test_runtime.js?v=0.9.82GG"></script>
-  <script src="./js/virtual_summon.js?v=0.9.82GG"></script>
-  <script src="./js/homunculus.js?v=0.9.82GG"></script>
-  <script src="./js/homunculus_skill_runtime.js?v=0.9.82GG"></script>
-  <script src="./js/homunculus_s_skill_runtime.js?v=0.9.82GG"></script>
-  <script src="./js/map.js?v=0.9.82GG"></script>
-  <script src="./js/town.js?v=0.9.82GG"></script>
-  <script src="./js/ui.js?v=0.9.82GG"></script>
-  <script src="./js/quick_slots.js?v=0.9.82GG"></script>
-  <script src="./js/game.js?v=0.9.82GG"></script>
+  <script src="./js/data_bundle.js?v=0.9.82GH"></script>
+  <script src="./js/equipment_job_map_bundle.js?v=0.9.82GH"></script>
+  <script src="./js/player.js?v=0.9.82GH"></script>
+  <script src="./js/item_instance_ui.js?v=0.9.82GH"></script>
+  <script src="./js/storage_runtime.js?v=0.9.82GH"></script>
+  <script src="./js/refine_runtime.js?v=0.9.82GH"></script>
+  <script src="./js/mvp_gacha_runtime.js?v=0.9.82GH"></script>
+  <script src="./js/card_runtime.js?v=0.9.82GH"></script>
+  <script src="./js/effect_runtime.js?v=0.9.82GH"></script>
+  <script src="./js/position_engine.js?v=0.9.82GH"></script>
+  <script src="./js/job_constitution.js?v=0.9.82GH"></script>
+  <script src="./js/job.js?v=0.9.82GH"></script>
+  <script src="./js/extra_skill_runtime.js?v=0.9.82GH"></script>
+  <script src="./js/combat_mechanics_runtime.js?v=0.9.82GH"></script>
+  <script src="./js/combat_formula_runtime.js?v=0.9.82GH"></script>
+  <script src="./js/ra_renewal_damage_pipeline.js?v=0.9.82GH"></script>
+  <script src="./js/combat_damage_pipeline.js?v=0.9.82GH"></script>
+  <script src="./js/combat_resource_manager.js?v=0.9.82GH"></script>
+  <script src="./js/skill_engine.js?v=0.9.82GH"></script>
+  <script src="./js/status_system.js?v=0.9.82GH"></script>
+  <script src="./js/stats.js?v=0.9.82GH"></script>
+  <script src="./js/loot.js?v=0.9.82GH"></script>
+  <script src="./js/auto_battle.js?v=0.9.82GH"></script>
+  <script src="./js/player_atlas_runtime.js?v=0.9.82GH"></script>
+  <script src="./js/character_gender.js?v=0.9.82GH"></script>
+  <script src="./js/battle.js?v=0.9.82GH"></script>
+  <script src="./js/monster_atlas_runtime.js?v=0.9.82GH"></script>
+  <script src="./js/effect_visual_runtime.js?v=0.9.82GH"></script>
+  <script src="./js/world_monster_test_runtime.js?v=0.9.82GH"></script>
+  <script src="./js/virtual_summon.js?v=0.9.82GH"></script>
+  <script src="./js/homunculus.js?v=0.9.82GH"></script>
+  <script src="./js/homunculus_skill_runtime.js?v=0.9.82GH"></script>
+  <script src="./js/homunculus_s_skill_runtime.js?v=0.9.82GH"></script>
+  <script src="./js/map.js?v=0.9.82GH"></script>
+  <script src="./js/town.js?v=0.9.82GH"></script>
+  <script src="./js/ui.js?v=0.9.82GH"></script>
+  <script src="./js/quick_slots.js?v=0.9.82GH"></script>
+  <script src="./js/game.js?v=0.9.82GH"></script>
 </body>
 
 </html>

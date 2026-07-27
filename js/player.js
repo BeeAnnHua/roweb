@@ -473,62 +473,173 @@ if (typeof window.addEventListener === "function") {
 }
 
 //=======================================
-// 刪除存檔
+// 刪除存檔（0.9.82GH：角色資料與帳號倉庫分離）
 //=======================================
-function resetGameSave() {
-  const ok = confirm("確定要清除 RO_WEB 存檔、UI 位置與暫存快取嗎？頁面會重新載入。");
-  if (!ok) return;
+let RO_WEB_PENDING_RESET_MODE = null;
+const RO_WEB_ACCOUNT_STORAGE_KEY = "ro_web_account_storage_v1";
+window.RO_WEB_ACCOUNT_STORAGE_KEY = RO_WEB_ACCOUNT_STORAGE_KEY;
 
-  // V0.9.79D：清存檔期間禁止任何自動存檔 / 座標存檔把舊角色再寫回去。
+function openResetGameSaveDialog() {
+  const modal = document.getElementById("saveResetModal");
+  if (!modal) return false;
+  RO_WEB_PENDING_RESET_MODE = null;
+  showResetGameSaveChoices();
+  modal.hidden = false;
+  document.body?.classList.add("save-reset-modal-open");
+  return true;
+}
+
+function closeResetGameSaveDialog() {
+  const modal = document.getElementById("saveResetModal");
+  if (modal) modal.hidden = true;
+  document.body?.classList.remove("save-reset-modal-open");
+  RO_WEB_PENDING_RESET_MODE = null;
+  return true;
+}
+
+function showResetGameSaveChoices() {
+  RO_WEB_PENDING_RESET_MODE = null;
+  const choices = document.getElementById("saveResetChoicePanel");
+  const confirmPanel = document.getElementById("saveResetConfirmPanel");
+  const phrase = document.getElementById("saveResetPhraseInput");
+  const message = document.getElementById("saveResetMessage");
+  if (choices) choices.hidden = false;
+  if (confirmPanel) confirmPanel.hidden = true;
+  if (phrase) phrase.value = "";
+  if (message) message.textContent = "";
+  return true;
+}
+
+function beginResetGameSave(mode) {
+  const normalized = mode === "all" ? "all" : "character";
+  RO_WEB_PENDING_RESET_MODE = normalized;
+  const choices = document.getElementById("saveResetChoicePanel");
+  const confirmPanel = document.getElementById("saveResetConfirmPanel");
+  const text = document.getElementById("saveResetConfirmText");
+  const phraseLabel = document.getElementById("saveResetPhraseLabel");
+  const phrase = document.getElementById("saveResetPhraseInput");
+  const message = document.getElementById("saveResetMessage");
+  if (choices) choices.hidden = true;
+  if (confirmPanel) confirmPanel.hidden = false;
+  if (message) message.textContent = "";
+  if (phrase) phrase.value = "";
+  if (normalized === "all") {
+    if (text) text.innerHTML = '<strong class="danger">永久刪除全部資料</strong><p>角色、背包、裝備、技能、帳號倉庫、倉庫內精煉裝備與所有本機設定都會消失，且無法復原。</p>';
+    if (phraseLabel) phraseLabel.hidden = false;
+    window.setTimeout(() => phrase?.focus(), 0);
+  } else {
+    if (text) text.innerHTML = '<strong>建立全新角色</strong><p>目前角色的等級、職業、背包、裝備、技能與進度會刪除；帳號共用倉庫及介面設定會完整保留。</p><p class="save-reset-warning">角色身上的物品不會自動搬入倉庫。</p>';
+    if (phraseLabel) phraseLabel.hidden = true;
+  }
+  updateResetGameSaveConfirmState();
+  return true;
+}
+
+function updateResetGameSaveConfirmState() {
+  const button = document.getElementById("saveResetConfirmButton");
+  const phrase = document.getElementById("saveResetPhraseInput");
+  if (!button) return false;
+  const all = RO_WEB_PENDING_RESET_MODE === "all";
+  button.disabled = all && String(phrase?.value || "").trim() !== "全部刪除";
+  button.classList.toggle("is-delete-all", all);
+  button.textContent = all ? "永久刪除全部資料" : "確認刪除角色";
+  return !button.disabled;
+}
+
+function resetGameSave() {
+  return openResetGameSaveDialog();
+}
+
+function clearCurrentCharacterSaveOnly() {
+  const keysToRemove = [];
+  try {
+    for (let i = 0; i < localStorage.length; i += 1) {
+      const key = localStorage.key(i);
+      if (!key || key === RO_WEB_ACCOUNT_STORAGE_KEY) continue;
+      if (key === SAVE_KEY || /^ro_web_(?:save|player|character)(?:_|$)/i.test(key)) keysToRemove.push(key);
+    }
+    if (!keysToRemove.includes(SAVE_KEY)) keysToRemove.push(SAVE_KEY);
+    keysToRemove.forEach(key => localStorage.removeItem(key));
+    return true;
+  } catch (error) {
+    console.warn("清除角色存檔失敗：", error);
+    try { localStorage.removeItem(SAVE_KEY); return true; } catch (_) { return false; }
+  }
+}
+
+function performResetGameSave(mode) {
+  const deleteAll = mode === "all";
   window.RO_WEB_RESETTING_SAVE = true;
+  if (RO_WEB_PENDING_SAVE_TIMER) {
+    clearTimeout(RO_WEB_PENDING_SAVE_TIMER);
+    RO_WEB_PENDING_SAVE_TIMER = null;
+  }
 
   try {
-    if (typeof clearBattleTimersAndMonster === "function") {
-      clearBattleTimersAndMonster({ clearMonster: true });
-    }
+    if (typeof clearBattleTimersAndMonster === "function") clearBattleTimersAndMonster({ clearMonster: true });
   } catch (error) {
     console.warn("停止戰鬥計時器失敗：", error);
   }
 
   try {
-    // 之前只清 ro_web_*，但部分舊版或瀏覽器可能留下不同 key；
-    // 測試版直接清空本網域 localStorage，避免 Lv.99 舊角色殘留。
-    localStorage.clear();
+    if (deleteAll) localStorage.clear();
+    else clearCurrentCharacterSaveOnly();
   } catch (error) {
     console.warn("清除 localStorage 失敗：", error);
-    try {
-      const keysToRemove = [];
-      for (let i = 0; i < localStorage.length; i += 1) {
-        const key = localStorage.key(i);
-        if (key) keysToRemove.push(key);
-      }
-      keysToRemove.forEach(key => localStorage.removeItem(key));
-    } catch (fallbackError) {
-      console.warn("localStorage fallback 清除失敗：", fallbackError);
-    }
   }
 
   try { sessionStorage.clear(); } catch (error) { console.warn("清除 sessionStorage 失敗：", error); }
 
   const reloadClean = () => {
-    const base = location.origin && location.origin !== "null"
-      ? location.origin + location.pathname
-      : location.pathname;
-    location.replace(base + "?v=0.9.82GF-reset-" + Date.now());
+    const base = location.origin && location.origin !== "null" ? location.origin + location.pathname : location.pathname;
+    location.replace(base + `?v=0.9.82GH-reset-${deleteAll ? "all" : "character"}-` + Date.now());
   };
+
+  if (!deleteAll) {
+    reloadClean();
+    return true;
+  }
 
   try {
     const cachePromise = window.caches?.keys
       ? caches.keys().then(keys => Promise.all(keys.map(key => caches.delete(key))))
       : Promise.resolve();
     cachePromise.finally(reloadClean);
-    return;
+    return true;
   } catch (error) {
     console.warn("清除 Cache Storage 失敗：", error);
   }
-
   reloadClean();
+  return true;
 }
+
+function confirmResetGameSave() {
+  const message = document.getElementById("saveResetMessage");
+  if (!RO_WEB_PENDING_RESET_MODE) {
+    if (message) message.textContent = "請先選擇刪除方式。";
+    return false;
+  }
+  if (RO_WEB_PENDING_RESET_MODE === "all") {
+    const phrase = String(document.getElementById("saveResetPhraseInput")?.value || "").trim();
+    if (phrase !== "全部刪除") {
+      if (message) message.textContent = "請正確輸入「全部刪除」。";
+      updateResetGameSaveConfirmState();
+      return false;
+    }
+  }
+  return performResetGameSave(RO_WEB_PENDING_RESET_MODE);
+}
+
+Object.assign(window, {
+  resetGameSave,
+  openResetGameSaveDialog,
+  closeResetGameSaveDialog,
+  showResetGameSaveChoices,
+  beginResetGameSave,
+  updateResetGameSaveConfirmState,
+  confirmResetGameSave,
+  clearCurrentCharacterSaveOnly
+});
 
 //=======================================
 // 更新玩家資訊畫面
