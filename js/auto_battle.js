@@ -1,5 +1,5 @@
 //=======================================
-// AutoBattleController v1.5（0.9.82FO）
+// AutoBattleController v1.6（0.9.82GD）
 // 精簡設定介面 / 自動異常解除 / 低血量逃生 / 自動肯貝特 / 當前地圖怪物篩選
 //=======================================
 
@@ -44,6 +44,7 @@ function createDefaultAutoCombat() {
     spPotion: { enabled: false, spPercent: 30, itemId: null },
     detox: { enabled: false },
     elementEndow: { enabled: false, element: "" },
+    cashFood: { enabled: false, itemIds: [] },
     monsterFilter: { version: "0.9.82FM", byMap: {} },
     heal: { enabled: false, skillId: null, hpPercent: 60, spPercent: 20, level: 1 },
     normalAttack: { enabled: true },
@@ -252,6 +253,12 @@ function normalizeAutoCombatSettings() {
   player.autoCombat.elementEndow.element = AUTO_ELEMENT_CONVERTER_ITEM_IDS[player.autoCombat.elementEndow.element]
     ? String(player.autoCombat.elementEndow.element)
     : "";
+  const sourceCashFood = source.cashFood && typeof source.cashFood === "object" ? source.cashFood : {};
+  const rawCashFoodIds = Array.isArray(sourceCashFood.itemIds) ? sourceCashFood.itemIds : [];
+  player.autoCombat.cashFood = {
+    enabled: sourceCashFood.enabled === true,
+    itemIds: [...new Set(rawCashFoodIds.map(normalizeItemId).filter(id => id !== null && id !== undefined && id !== ""))]
+  };
 
   const sourceMonsterFilter = source.monsterFilter && typeof source.monsterFilter === "object" ? source.monsterFilter : {};
   const rawFilterByMap = sourceMonsterFilter.byMap && typeof sourceMonsterFilter.byMap === "object"
@@ -751,6 +758,7 @@ function syncAutoCombatSettingsFromUI(options = {}) {
   const detoxEnabled = document.getElementById("autoCombatDetoxEnabled");
   const elementEndowEnabled = document.getElementById("autoCombatElementEndowEnabled");
   const elementEndowSelect = document.getElementById("autoCombatElementEndowSelect");
+  const cashFoodEnabled = document.getElementById("autoCombatCashFoodEnabled");
   const monsterFilterMode = document.getElementById("autoCombatMonsterFilterMode");
   const monsterFilterList = document.getElementById("autoCombatMonsterFilterList");
   const healEnabled = document.getElementById("autoCombatHealEnabled");
@@ -782,6 +790,7 @@ function syncAutoCombatSettingsFromUI(options = {}) {
       ? elementEndowSelect.value
       : "";
   }
+  if (cashFoodEnabled) player.autoCombat.cashFood.enabled = cashFoodEnabled.checked;
 
   const currentFilterMapId = getAutoBattleCurrentMapId();
   const listHasRenderedMap = Boolean(
@@ -1022,6 +1031,179 @@ if (typeof window !== "undefined") {
   window.refreshAutoCombatMonsterFilterUI = refreshAutoCombatMonsterFilterUI;
 }
 
+
+function getAutoCashFoodInventoryRows() {
+  const rows = [];
+  const seen = new Set();
+  for (const inv of player?.inventory || []) {
+    const id = normalizeItemId(inv?.id);
+    if (seen.has(String(id)) || Number(inv?.count || 0) <= 0) continue;
+    const item = typeof getItemData === "function" ? getItemData(id) : null;
+    if (!item?.cashFoodEffect || typeof item.cashFoodEffect !== "object") continue;
+    seen.add(String(id));
+    rows.push({ id, item, count:Number(inv.count || 0) });
+  }
+  return rows.sort((left, right) => String(left.item.name || "").localeCompare(String(right.item.name || ""), "zh-Hant"));
+}
+
+function getAutoCashFoodInventoryCount(itemId) {
+  return (player?.inventory || [])
+    .filter(row => String(row?.id) === String(itemId))
+    .reduce((sum, row) => sum + Math.max(0, Number(row?.count || 0)), 0);
+}
+
+function renderAutoCashFoodUI() {
+  const select = document.getElementById("autoCombatCashFoodSelect");
+  const list = document.getElementById("autoCombatCashFoodList");
+  if (!select && !list) return;
+  normalizeAutoCombatSettings();
+  const selectedIds = player.autoCombat.cashFood.itemIds || [];
+  const inventoryRows = getAutoCashFoodInventoryRows();
+
+  if (select) {
+    const previous = String(select.value || "");
+    select.innerHTML = '<option value="">請選擇背包中的商城料理</option>';
+    inventoryRows.forEach(row => {
+      const option = document.createElement("option");
+      option.value = String(row.id);
+      option.textContent = `${row.item.name} ×${row.count}${selectedIds.some(id => String(id) === String(row.id)) ? "（已加入）" : ""}`;
+      select.appendChild(option);
+    });
+    if ([...select.options].some(option => option.value === previous)) select.value = previous;
+  }
+
+  if (list) {
+    list.innerHTML = "";
+    if (!selectedIds.length) {
+      list.innerHTML = '<div class="auto-empty">尚未加入料理</div>';
+    } else {
+      selectedIds.forEach((id, index) => {
+        const item = typeof getItemData === "function" ? getItemData(id) : null;
+        const row = document.createElement("div");
+        row.className = "auto-cash-food-row";
+        const body = document.createElement("div");
+        const name = document.createElement("div");
+        name.className = "auto-cash-food-row-name";
+        name.textContent = `${index + 1}. ${item?.name || `Item ${id}`}`;
+        name.title = name.textContent;
+        const meta = document.createElement("div");
+        meta.className = "auto-cash-food-row-meta";
+        meta.textContent = `背包數量：${getAutoCashFoodInventoryCount(id)}`;
+        body.appendChild(name);
+        body.appendChild(meta);
+        const remove = document.createElement("button");
+        remove.type = "button";
+        remove.className = "auto-cash-food-remove";
+        remove.textContent = "移除";
+        remove.addEventListener("click", () => removeAutoCashFoodSelection(id));
+        row.appendChild(body);
+        row.appendChild(remove);
+        list.appendChild(row);
+      });
+    }
+  }
+}
+
+function addAutoCashFoodSelection() {
+  if (!player) return false;
+  normalizeAutoCombatSettings();
+  const select = document.getElementById("autoCombatCashFoodSelect");
+  const id = normalizeItemId(select?.value);
+  const item = typeof getItemData === "function" ? getItemData(id) : null;
+  if (!id || !item?.cashFoodEffect) {
+    if (typeof addBattleLog === "function") addBattleLog("請先從背包選擇一項商城料理。");
+    return false;
+  }
+  if (!player.autoCombat.cashFood.itemIds.some(value => String(value) === String(id))) {
+    player.autoCombat.cashFood.itemIds.push(id);
+  }
+  player.autoCombat.cashFood.enabled = true;
+  const enabled = document.getElementById("autoCombatCashFoodEnabled");
+  if (enabled) enabled.checked = true;
+  renderAutoCashFoodUI();
+  saveGame();
+  return true;
+}
+
+function removeAutoCashFoodSelection(itemId) {
+  if (!player) return false;
+  normalizeAutoCombatSettings();
+  player.autoCombat.cashFood.itemIds = player.autoCombat.cashFood.itemIds.filter(id => String(id) !== String(itemId));
+  renderAutoCashFoodUI();
+  saveGame();
+  return true;
+}
+
+function getAutoCashFoodEffectKeys(item) {
+  const raw = item?.cashFoodEffect;
+  if (!raw || typeof raw !== "object") return new Set();
+  const randomKeyMap = {
+    hitRandom:"hitFlat", criRandom:"criFlat", atkRandom:"atkFlat",
+    hpRecoveryRandom:"hpRecoveryRate", fleeRandom:"fleeFlat", matkRandom:"matkFlat"
+  };
+  const keys = new Set();
+  Object.entries(raw).forEach(([key, value]) => {
+    if (["durationMs", "extraDurationMs"].includes(key)) return;
+    if (key.endsWith("Random")) {
+      keys.add(randomKeyMap[key] || `${key.slice(0, -6)}Flat`);
+    } else if (typeof value === "number" && Number.isFinite(value)) {
+      keys.add(key);
+    }
+  });
+  if (keys.has("allStatsFlat")) {
+    ["strFlat","agiFlat","vitFlat","intFlat","dexFlat","lukFlat"].forEach(key => keys.add(key));
+  }
+  return keys;
+}
+
+function getActiveAutoCashFoodBuffs() {
+  if (typeof normalizeActiveBuffs === "function") normalizeActiveBuffs();
+  const now = Date.now();
+  return Object.values(player?.activeBuffs || {}).filter(buff =>
+    buff?.sourceType === "mvp_gacha_cash_food" && Number(buff?.expiresAt || 0) > now
+  );
+}
+
+function activeCashFoodOverlapsItem(item, activeBuffs) {
+  const incoming = getAutoCashFoodEffectKeys(item);
+  if (!incoming.size) return true;
+  for (const buff of activeBuffs) {
+    if (String(buff?.sourceItemId) === String(item?.id)) return true;
+    const existing = new Set(Object.keys(buff?.effects || {}).filter(key => typeof buff.effects[key] === "number"));
+    if (existing.has("allStatsFlat")) {
+      ["strFlat","agiFlat","vitFlat","intFlat","dexFlat","lukFlat"].forEach(key => existing.add(key));
+    }
+    if (incoming.has("allStatsFlat") || existing.has("allStatsFlat")) {
+      const statKeys = ["strFlat","agiFlat","vitFlat","intFlat","dexFlat","lukFlat"];
+      if (statKeys.some(key => incoming.has(key) || existing.has(key))) return true;
+    }
+    if ([...incoming].some(key => existing.has(key))) return true;
+  }
+  return false;
+}
+
+function tryAutoCashFood() {
+  const cfg = player?.autoCombat?.cashFood;
+  if (!cfg?.enabled || !Array.isArray(cfg.itemIds) || !cfg.itemIds.length) return false;
+  const activeBuffs = getActiveAutoCashFoodBuffs();
+  for (const id of cfg.itemIds) {
+    const item = typeof getItemData === "function" ? getItemData(id) : null;
+    if (!item?.cashFoodEffect) continue;
+    if (getAutoCashFoodInventoryCount(id) <= 0) continue;
+    if (activeCashFoodOverlapsItem(item, activeBuffs)) continue;
+    if (window.MvpGachaRuntime?.applyCashFood?.(item)) return true;
+  }
+  return false;
+}
+
+if (typeof window !== "undefined") {
+  window.getAutoCashFoodInventoryRows = getAutoCashFoodInventoryRows;
+  window.renderAutoCashFoodUI = renderAutoCashFoodUI;
+  window.addAutoCashFoodSelection = addAutoCashFoodSelection;
+  window.removeAutoCashFoodSelection = removeAutoCashFoodSelection;
+  window.tryAutoCashFood = tryAutoCashFood;
+}
+
 function enhanceAutoCombatNumberInputs() {
   const panel = document.getElementById("auto-combat-panel");
   if (!panel) return;
@@ -1069,6 +1251,7 @@ function updateAutoCombatUI() {
   const detoxEnabled = document.getElementById("autoCombatDetoxEnabled");
   const elementEndowEnabled = document.getElementById("autoCombatElementEndowEnabled");
   const elementEndowSelect = document.getElementById("autoCombatElementEndowSelect");
+  const cashFoodEnabled = document.getElementById("autoCombatCashFoodEnabled");
   const monsterFilterMode = document.getElementById("autoCombatMonsterFilterMode");
   const teleportEnabled = document.getElementById("autoCombatTeleportEnabled");
   const avoidBoss = document.getElementById("autoCombatAvoidBoss");
@@ -1090,6 +1273,8 @@ function updateAutoCombatUI() {
     elementEndowSelect.value = cfg.elementEndow.element || "";
     elementEndowSelect.disabled = !cfg.elementEndow.enabled;
   }
+  if (cashFoodEnabled) cashFoodEnabled.checked = cfg.cashFood.enabled === true;
+  renderAutoCashFoodUI();
   const currentMonsterFilter = getAutoBattleMapMonsterFilter(getAutoBattleCurrentMapId(), { create: true });
   if (monsterFilterMode) monsterFilterMode.value = normalizeAutoMonsterFilterMode(currentMonsterFilter.mode);
   updateAutoCombatMonsterFilterUI();
@@ -1676,6 +1861,10 @@ function runAutoCombatUtilityTick() {
   if (tryAutoElementEndow()) {
     setAutoBattleControllerState(AUTO_BATTLE_STATES.UTILITY, { action: "element_endow", reason: "auto_element_converter" });
     return { action: "utility", utility: "element_endow" };
+  }
+  if (tryAutoCashFood()) {
+    setAutoBattleControllerState(AUTO_BATTLE_STATES.UTILITY, { action: "cash_food", reason: "auto_cash_food" });
+    return { action: "utility", utility: "cash_food" };
   }
   if (typeof isRuntimeSkillCasting === "function" && isRuntimeSkillCasting()) {
     setAutoBattleControllerState(AUTO_BATTLE_STATES.UTILITY, { action: "casting", reason: "runtime_cast" });

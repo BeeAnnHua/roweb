@@ -213,8 +213,7 @@ function isJobChangeRuleVisibleForPlayer(rule = null) {
   if (rule.enabled === false || rule.fromJob !== player.jobKey) return false;
   if (rule.requiredRebirthFamily && String(player.rebirthFamily || "") !== String(rule.requiredRebirthFamily)) return false;
   if (rule.requiredRebirthOrigin && String(player.rebirthOriginJobKey || "") !== String(rule.requiredRebirthOrigin)) return false;
-  const allowedGenders = Array.isArray(rule.allowedGenders) ? rule.allowedGenders.map(String) : [];
-  if (allowedGenders.length && !allowedGenders.includes(getJobRulePlayerGender())) return false;
+  // 0.9.82GC：RO_WEB 性別只影響人物動畫；所有職業路線皆可自由選擇。
   return true;
 }
 window.isJobChangeRuleVisibleForPlayer = isJobChangeRuleVisibleForPlayer;

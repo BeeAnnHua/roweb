@@ -1,5 +1,5 @@
 {
-  "name": "初心者",
+  "name": "",
   "job": "初心者",
   "baseLevel": 1,
   "baseExp": 0,
@@ -94,8 +94,8 @@
     }
   },
   "positionEngineStarterFlyWingGranted": true,
-  "gender": "male",
-  "characterAtlas": "novice_male",
+  "gender": null,
+  "characterAtlas": null,
   "mountState": {
     "mounted": false,
     "type": null,
@@ -130,5 +130,7 @@
   "availableTraitPoints": 0,
   "traitPoints": 0,
   "statusTraitsExpanded": false,
-  "state": "Town"
+  "state": "Town",
+  "genderChosen": false,
+  "playerIdVersion": 1
 }

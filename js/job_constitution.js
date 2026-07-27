@@ -244,14 +244,7 @@ function validateJobConstitution(rule = {}, targetJobKey = null) {
   if (rule.requiredRebirthOrigin && String(player.rebirthOriginJobKey || "") !== String(rule.requiredRebirthOrigin)) {
     return { ok: false, message: "進階二轉必須與轉生前的二轉職業相同。" };
   }
-  const rawGender = String(player?.gender || player?.sex || player?.bodyGender || "male").trim().toLowerCase();
-  const playerGender = ["female", "f", "女", "woman", "girl"].includes(rawGender) ? "female" : "male";
-  const allowedGenders = Array.isArray(rule.allowedGenders) && rule.allowedGenders.length
-    ? rule.allowedGenders.map(String)
-    : (Array.isArray(targetJob.allowedGenders) ? targetJob.allowedGenders.map(String) : []);
-  if (allowedGenders.length && !allowedGenders.includes(playerGender)) {
-    return { ok: false, message: `${targetJob.name} 不符合目前角色性別的官方轉職限制。` };
-  }
+  // 0.9.82GC：性別不限制職業；轉職只依職業樹與既有等級／技能條件判定。
   if (!Array.isArray(currentJob.nextJobs) || !currentJob.nextJobs.includes(targetKey)) {
     return { ok: false, message: `目前職業不能轉成 ${targetJob.name}。` };
   }

@@ -172,6 +172,25 @@ function isCardDropItem(itemData, drop = null) {
 window.getFinalDropChanceBasisPoints = getFinalDropChanceBasisPoints;
 window.isCardDropItem = isCardDropItem;
 
+
+function isMvpRewardMonster(monster) {
+  if (!monster) return false;
+  if (monster.isMvp === true || monster.isMVP === true || monster.mvp === true) return true;
+  return String(monster._category || monster.category || "").toLowerCase() === "mvp";
+}
+
+function announceMvpCardDrop(monster, itemName, quantity = 1) {
+  if (!isMvpRewardMonster(monster)) return false;
+  const playerName = typeof window.getPlayerAnnouncementName === "function"
+    ? window.getPlayerAnnouncementName()
+    : String(window.player?.name || "冒險者");
+  const quantityText = Number(quantity || 1) > 1 ? ` ×${Number(quantity)}` : "";
+  window.MvpGachaRuntime?.showRareBanner?.("red", `★ 玩家 ${playerName} 取得 ${itemName}${quantityText} ★`);
+  return true;
+}
+window.isMvpRewardMonster = isMvpRewardMonster;
+window.announceMvpCardDrop = announceMvpCardDrop;
+
 function rollMonsterDrops(monster) {
   if (!monster.drops || monster.drops.length === 0) return;
 
@@ -197,6 +216,7 @@ function rollMonsterDrops(monster) {
       if (typeof recordItemDrop === "function") {
         recordItemDrop(itemId, qty);
       }
+      if (category === "card") announceMvpCardDrop(monster, itemName, qty);
     }
   });
 }

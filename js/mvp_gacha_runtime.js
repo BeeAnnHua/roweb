@@ -1,5 +1,5 @@
 //============================================================
-// RO_WEB 0.9.82GA — 葛坡尼亞 MVP 地圖限定轉蛋 Runtime（全域掉落總閥）
+// RO_WEB 0.9.82GD — 葛坡尼亞 MVP 地圖限定轉蛋 Runtime（全域掉落總閥）
 // - 同 ID MVP 只有在指定地圖死亡才以原始 1% 判定轉蛋，並套用全域掉落總閥。
 // - 轉蛋內部稀有機率為單一 10000 基點母池的絕對機率；全域掉落倍率只影響轉蛋本體掉落。
 // - 1% 紅色、0.1% 紫色、0.01% 金色上方橫幅。
@@ -7,7 +7,7 @@
 (() => {
   "use strict";
 
-  const VERSION = "0.9.82GA";
+  const VERSION = "0.9.82GD";
   const BUNDLE_KEY = "data/mvp_gacha.json";
   const DEFAULT_GACHA_ITEM_ID = 14848;
   const CASH_FOOD_SOURCE = "mvp_gacha_cash_food";
@@ -162,9 +162,11 @@
 
     const quantityText = awarded.quantity > 1 ? ` ×${awarded.quantity}` : "";
     if (result.rare) {
-      const playerName = String(window.player?.name || "冒險者");
+      const playerName = typeof window.getPlayerAnnouncementName === "function"
+        ? window.getPlayerAnnouncementName()
+        : String(window.player?.name || "冒險者");
       const label = String(result.category?.bannerLabel || "稀有大獎");
-      showRareBanner(result.category?.tier, `★ ${playerName} 從 MVP幸運轉蛋獲得 ${awarded.item.name}${quantityText}｜${label} ★`);
+      showRareBanner(result.category?.tier, `★ 玩家 ${playerName} 取得 ${awarded.item.name}${quantityText}｜${label} ★`);
       log(`🎉 轉蛋大獎：${awarded.item.name}${quantityText}`, "rare-item");
     } else {
       log(`開啟 ${item.name}，獲得 ${awarded.item.name}${quantityText}。`, "item");

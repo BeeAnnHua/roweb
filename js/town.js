@@ -158,6 +158,7 @@ function getNpcTypeText(type) {
     shop: "商店",
     job_change: "轉職 NPC",
     card_removal: "卡片拆卸",
+    gender_change: "角色性別切換",
     storage: "倉庫"
   };
   return map[type] || type || "NPC";
@@ -167,6 +168,7 @@ function getNpcActionText(npc) {
   if (npc.type === "shop") return "開啟商店";
   if (npc.type === "job_change") return "轉職相談";
   if (npc.type === "card_removal") return "拆卸卡片";
+  if (npc.type === "gender_change") return "切換角色性別";
   return "交談";
 }
 
@@ -185,6 +187,14 @@ function interactNpc(npcId) {
   }
   if (npc.type === "card_removal") {
     openCardRemovalNpc(npc);
+    return;
+  }
+  if (npc.type === "gender_change") {
+    if (typeof openCharacterGenderSelection === "function") {
+      openCharacterGenderSelection({ required: false, source: npc.name });
+    } else {
+      addBattleLog(npc.name + "：角色性別切換功能尚未載入。");
+    }
     return;
   }
 

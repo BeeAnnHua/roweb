@@ -162,18 +162,37 @@ SPECIAL_CARD_OVERRIDES = {
     6718: {'cardTarget':['headLow'], 'scriptRaw':'bonus bMaxSP,10;'},
 }
 
+def classify_card_visual_tier(aegis_name, sources):
+    """0.9.82GC: ignore unrelated event/MVP clones that share a normal card drop."""
+    base_name=re.sub(r'_CARD$','',str(aegis_name or ''),flags=re.I).upper()
+    def _tokens(value):
+        return {part for part in re.split(r'[^A-Z0-9]+',str(value or '').upper()) if part and part!='CARD'}
+    exact=[row for row in sources if str(row.get('monsterAegisName') or '').upper()==base_name]
+    if exact:
+        selected=exact
+    else:
+        base_tokens=_tokens(base_name)
+        selected=[row for row in sources if base_tokens and (base_tokens.issubset(_tokens(row.get('monsterAegisName'))) or _tokens(row.get('monsterAegisName')).issubset(base_tokens))]
+        if not selected: selected=list(sources)
+    if any(bool(row.get('isMvp')) for row in selected): tier='mvp'
+    elif any(bool(row.get('isBoss')) for row in selected): tier='boss'
+    else: tier='normal'
+    return tier,selected
+
 cards={}
 for cid in card_ids:
     item=by_id[cid]
     override=SPECIAL_CARD_OVERRIDES.get(cid,{})
     name=cn_names.get(cid) or client_cards.get(str(cid),{}).get('name') or item.get('Name') or f'卡片 {cid}'
+    visual_tier,tier_sources=classify_card_visual_tier(item.get('AegisName'),drop_sources[cid])
     record={
         'id':cid,'officialId':cid,'aegisName':item.get('AegisName'),'name':name,'type':'card','category':'card','subCategory':'monster_card',
         'cardTarget':override.get('cardTarget', locations_to_targets(item.get('Locations'))),'locations':item.get('Locations') or {},
-        'description':clean_desc(cid),'icon':f'images/items/{cid}.webp','slotCount':0,'slots':0,
+        'description':clean_desc(cid),'icon':('images/items/4001.webp' if cid==4001 else f'images/items/card_{visual_tier}.webp'),'slotCount':0,'slots':0,
         'buyPrice':int(item.get('Buy') or 20),'sellPrice':int(item.get('Sell') if item.get('Sell') is not None else int(item.get('Buy') or 20)//2),
         'scriptRaw':override.get('scriptRaw', item.get('Script') or ''),'compiledScript':transform_script(override.get('scriptRaw', item.get('Script') or '')),
-        'dropSources':drop_sources[cid], 'isMvpCard':any(x['isMvp'] for x in drop_sources[cid]),
+        'dropSources':drop_sources[cid], 'isMvpCard':visual_tier=='mvp', 'isBossCard':visual_tier in ('boss','mvp'),
+        'cardVisualTier':visual_tier, 'cardTierSourceMonsterIds':[int(x.get('monsterId') or 0) for x in tier_sources],
         'dataSource':'rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub'
     }
     cards[str(cid)]=record
@@ -276,7 +295,7 @@ manifest_path.write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',e
 index_path=ROOT/'data/items/item_index.json'
 index=json.loads(index_path.read_text(encoding='utf-8'))
 for cid,rec in cards.items():
-    index[cid]={k:rec[k] for k in ('id','officialId','name','type','category','subCategory','cardTarget','description','icon','slotCount','slots','buyPrice','sellPrice','isMvpCard','dataSource')}
+    index[cid]={k:rec[k] for k in ('id','officialId','name','type','category','subCategory','cardTarget','description','icon','slotCount','slots','buyPrice','sellPrice','isMvpCard','isBossCard','cardVisualTier','dataSource')}
 index_path.write_text(json.dumps(index,ensure_ascii=False,separators=(',',':')),encoding='utf-8')
 
 # Icon sync: add every source icon missing from the FU project, and force-correct the seven audited IDs.

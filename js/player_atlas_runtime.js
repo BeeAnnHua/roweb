@@ -141,10 +141,22 @@ async function initROStudioPlayerAtlasRuntime() {
 
 function resolveROStudioCharacterKey() {
   const state = RO_STUDIO_PLAYER_ATLAS;
-  const desired = buildROStudioCharacterKey(getROStudioCurrentAppearanceGroup(), getROStudioCurrentGender());
+  const gender = getROStudioCurrentGender();
+  const currentJobKey = getROStudioCurrentJobKey();
+  const desired = buildROStudioCharacterKey(getROStudioCurrentAppearanceGroup(), gender);
   if (state.manifest?.characters?.[desired]) return desired;
 
-  const sameGenderNovice = `novice_${getROStudioCurrentGender()}`;
+  // 吟遊詩人／舞孃系列目前各自只有一套官方性別動畫。角色切換性別時，
+  // 只借用同階對應職業的外觀 Atlas，絕不改變玩家實際職業或技能資料。
+  const currentJob = typeof getJobData === "function" ? getJobData(currentJobKey) : null;
+  const counterpartKey = String(currentJob?.genderCounterpartJob || "").trim();
+  if (counterpartKey) {
+    const counterpartAppearance = getROStudioAppearanceGroup(counterpartKey);
+    const counterpartAtlas = buildROStudioCharacterKey(counterpartAppearance, gender);
+    if (state.manifest?.characters?.[counterpartAtlas]) return counterpartAtlas;
+  }
+
+  const sameGenderNovice = `novice_${gender}`;
   if (state.manifest?.characters?.[sameGenderNovice]) return sameGenderNovice;
   return state.manifest?.default_character || "novice_male";
 }
@@ -480,7 +492,7 @@ window.getROStudioCharacterIdleImage = getROStudioCharacterIdleImage;
 
 function setROStudioIdleImagesForCurrentCharacter(character = null) {
   // 左上角人物欄與城鎮人物永遠使用未坐騎 idle.png。
-  const idleSrc = `${getROStudioCharacterIdleImage(character)}?v=0.9.82EM`;
+  const idleSrc = `${getROStudioCharacterIdleImage(character)}?v=0.9.82GD`;
   const portrait = document.getElementById("playerPortrait");
   if (portrait && portrait.getAttribute("src") !== idleSrc) {
     portrait.src = idleSrc;

@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RO_WEB 0.9.82GB1</title>
+  <title>RO_WEB 0.9.82GD</title>
   <meta name="description" content="&#8203;">
   <meta property="og:type" content="website">
   <meta property="og:title" content="RO_WEB">
@@ -13,8 +13,8 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="RO_WEB">
   <meta name="twitter:description" content="&#8203;">
-  <link rel="icon" type="image/png" href="images/ui/icons/icon_gold_64.png?v=0.9.82GB1">
-  <link rel="stylesheet" href="css/style.css?v=0.9.82GB1">
+  <link rel="icon" type="image/png" href="images/ui/icons/icon_gold_64.png?v=0.9.82GD">
+  <link rel="stylesheet" href="css/style.css?v=0.9.82GD">
 </head>
 
 <body>
@@ -50,9 +50,9 @@
       <section id="player-info" class="fixed-panel character-card">
         <h2>角色資訊</h2>
         <div class="profile-row">
-          <div class="portrait-placeholder"><img id="playerPortrait" src="assets/characters/novice/male/idle.png?v=0.9.82GB1" alt="角色頭像"></div>
+          <div class="portrait-placeholder"><img id="playerPortrait" src="assets/characters/novice/male/idle.png?v=0.9.82GD" alt="角色頭像"></div>
           <div>
-            <div class="name-line"><span id="playerName">載入中</span></div>
+            <div class="name-line player-id-line"><span id="playerName">載入中</span><button id="playerIdEditButton" type="button" onclick="openPlayerIdEditor()">更改ID</button></div>
             <div class="level-line"><span id="playerJob" hidden>載入中</span>Base Lv.<span id="baseLevel">0</span> / Job Lv.<span id="jobLevel">0</span></div>
             <div class="status-line hp-line">HP <span id="hp">0 / 0</span></div>
             <div class="status-line sp-line">SP <span id="sp">0 / 0</span></div>
@@ -64,7 +64,7 @@
 
       <div id="player-sprite" class="battle-sprite player-sprite">
         <div class="sprite-label">LV.<span id="battlePlayerLevel">0</span> <span id="battlePlayerName">冒險者</span></div>
-        <img id="playerImage" src="assets/characters/novice/male/idle.png?v=0.9.82GB1" alt="player">
+        <img id="playerImage" src="assets/characters/novice/male/idle.png?v=0.9.82GD" alt="player">
         <div class="slash-effect" id="slashEffect"></div>
       </div>
 
@@ -365,6 +365,15 @@
           <div class="auto-section-title">Buff 技能</div>
           <div id="autoCombatBuffList" class="auto-buff-list"><div class="auto-empty">尚未學會 Buff 技能</div></div>
 
+          <div class="auto-section-title">使用商城料理</div>
+          <label class="auto-cash-food-enable"><input type="checkbox" id="autoCombatCashFoodEnabled" onchange="syncAutoCombatSettingsFromUI({ save: true }); updateAutoCombatUI()"> 自動維持料理效果</label>
+          <div class="auto-cash-food-picker">
+            <select id="autoCombatCashFoodSelect"><option value="">偵測背包中的商城料理...</option></select>
+            <button type="button" onclick="addAutoCashFoodSelection()">加入清單</button>
+          </div>
+          <div id="autoCombatCashFoodList" class="auto-cash-food-list"><div class="auto-empty">尚未加入料理</div></div>
+          <div class="auto-cash-food-note">從背包選擇料理後加入。清單由上到下優先；相同能力不會重複消耗，效果結束後才會補用。</div>
+
           </div>
           <div class="auto-combat-footer">
             <button id="autoCombatSaveSettings" class="auto-combat-save-settings" onclick="saveAutoCombatSettings()">套用戰鬥設定</button>
@@ -436,41 +445,87 @@
     </div>
   </section>
 
-  <script src="./js/data_bundle.js?v=0.9.82GB1"></script>
-  <script src="./js/equipment_job_map_bundle.js?v=0.9.82GB1"></script>
-  <script src="./js/player.js?v=0.9.82GB1"></script>
-  <script src="./js/item_instance_ui.js?v=0.9.82GB1"></script>
-  <script src="./js/mvp_gacha_runtime.js?v=0.9.82GB1"></script>
-  <script src="./js/card_runtime.js?v=0.9.82GB1"></script>
-  <script src="./js/effect_runtime.js?v=0.9.82GB1"></script>
-  <script src="./js/position_engine.js?v=0.9.82GB1"></script>
-  <script src="./js/job_constitution.js?v=0.9.82GB1"></script>
-  <script src="./js/job.js?v=0.9.82GB1"></script>
-  <script src="./js/extra_skill_runtime.js?v=0.9.82GB1"></script>
-  <script src="./js/combat_mechanics_runtime.js?v=0.9.82GB1"></script>
-  <script src="./js/combat_formula_runtime.js?v=0.9.82GB1"></script>
-  <script src="./js/ra_renewal_damage_pipeline.js?v=0.9.82GB1"></script>
-  <script src="./js/combat_damage_pipeline.js?v=0.9.82GB1"></script>
-  <script src="./js/combat_resource_manager.js?v=0.9.82GB1"></script>
-  <script src="./js/skill_engine.js?v=0.9.82GB1"></script>
-  <script src="./js/status_system.js?v=0.9.82GB1"></script>
-  <script src="./js/stats.js?v=0.9.82GB1"></script>
-  <script src="./js/loot.js?v=0.9.82GB1"></script>
-  <script src="./js/auto_battle.js?v=0.9.82GB1"></script>
-  <script src="./js/player_atlas_runtime.js?v=0.9.82GB1"></script>
-  <script src="./js/battle.js?v=0.9.82GB1"></script>
-  <script src="./js/monster_atlas_runtime.js?v=0.9.82GB1"></script>
-  <script src="./js/effect_visual_runtime.js?v=0.9.82GB1"></script>
-  <script src="./js/world_monster_test_runtime.js?v=0.9.82GB1"></script>
-  <script src="./js/virtual_summon.js?v=0.9.82GB1"></script>
-  <script src="./js/homunculus.js?v=0.9.82GB1"></script>
-  <script src="./js/homunculus_skill_runtime.js?v=0.9.82GB1"></script>
-  <script src="./js/homunculus_s_skill_runtime.js?v=0.9.82GB1"></script>
-  <script src="./js/map.js?v=0.9.82GB1"></script>
-  <script src="./js/town.js?v=0.9.82GB1"></script>
-  <script src="./js/ui.js?v=0.9.82GB1"></script>
-  <script src="./js/quick_slots.js?v=0.9.82GB1"></script>
-  <script src="./js/game.js?v=0.9.82GB1"></script>
+
+  <section id="playerIdModal" class="player-id-overlay" role="dialog" aria-modal="true" aria-labelledby="playerIdTitle" hidden onclick="if(event.target===this) closePlayerIdEditor()">
+    <div class="player-id-dialog">
+      <div class="player-id-header">
+        <div>
+          <b id="playerIdTitle">更改玩家 ID</b>
+          <p>輸入後會顯示在職業名稱旁，並用於轉蛋大獎與 MVP 卡片公告。</p>
+        </div>
+        <button type="button" aria-label="關閉" onclick="closePlayerIdEditor()">×</button>
+      </div>
+      <label class="player-id-input-label" for="playerIdInput">玩家 ID（1～12 字）</label>
+      <input id="playerIdInput" class="player-id-input" type="text" maxlength="24" autocomplete="off" spellcheck="false" placeholder="請輸入玩家 ID" onkeydown="if(event.key==='Enter'){event.preventDefault();confirmPlayerIdChange()}">
+      <p id="playerIdMessage" class="player-id-message" aria-live="polite"></p>
+      <div class="player-id-actions">
+        <button type="button" class="player-id-confirm" onclick="confirmPlayerIdChange()">確認更改</button>
+        <button type="button" class="player-id-cancel" onclick="closePlayerIdEditor()">取消</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="characterGenderModal" class="character-gender-overlay" role="dialog" aria-modal="true" aria-labelledby="characterGenderTitle" hidden>
+    <div class="character-gender-dialog">
+      <div class="character-gender-header">
+        <div>
+          <b id="characterGenderTitle">選擇初學者性別</b>
+          <p id="characterGenderDescription">建立新角色前，請先選擇人物外觀。</p>
+        </div>
+        <button id="characterGenderClose" type="button" aria-label="關閉" onclick="closeCharacterGenderSelection()">×</button>
+      </div>
+      <div class="character-gender-options" role="group" aria-label="角色性別">
+        <button class="character-gender-option" type="button" data-character-gender="male" aria-pressed="false" onclick="selectCharacterGender('male')">
+          <span class="character-gender-preview"><img src="assets/characters/novice/male/idle.png?v=0.9.82GD" alt="男性初學者"></span>
+          <strong>男性初學者</strong>
+          <span>使用男性人物動畫</span>
+        </button>
+        <button class="character-gender-option" type="button" data-character-gender="female" aria-pressed="false" onclick="selectCharacterGender('female')">
+          <span class="character-gender-preview"><img src="assets/characters/novice/female/idle.png?v=0.9.82GD" alt="女性初學者"></span>
+          <strong>女性初學者</strong>
+          <span>使用女性人物動畫</span>
+        </button>
+      </div>
+      <p id="characterGenderNotice" class="character-gender-notice">只切換人物外觀，不影響角色資料。</p>
+    </div>
+  </section>
+
+  <script src="./js/data_bundle.js?v=0.9.82GD"></script>
+  <script src="./js/equipment_job_map_bundle.js?v=0.9.82GD"></script>
+  <script src="./js/player.js?v=0.9.82GD"></script>
+  <script src="./js/item_instance_ui.js?v=0.9.82GD"></script>
+  <script src="./js/mvp_gacha_runtime.js?v=0.9.82GD"></script>
+  <script src="./js/card_runtime.js?v=0.9.82GD"></script>
+  <script src="./js/effect_runtime.js?v=0.9.82GD"></script>
+  <script src="./js/position_engine.js?v=0.9.82GD"></script>
+  <script src="./js/job_constitution.js?v=0.9.82GD"></script>
+  <script src="./js/job.js?v=0.9.82GD"></script>
+  <script src="./js/extra_skill_runtime.js?v=0.9.82GD"></script>
+  <script src="./js/combat_mechanics_runtime.js?v=0.9.82GD"></script>
+  <script src="./js/combat_formula_runtime.js?v=0.9.82GD"></script>
+  <script src="./js/ra_renewal_damage_pipeline.js?v=0.9.82GD"></script>
+  <script src="./js/combat_damage_pipeline.js?v=0.9.82GD"></script>
+  <script src="./js/combat_resource_manager.js?v=0.9.82GD"></script>
+  <script src="./js/skill_engine.js?v=0.9.82GD"></script>
+  <script src="./js/status_system.js?v=0.9.82GD"></script>
+  <script src="./js/stats.js?v=0.9.82GD"></script>
+  <script src="./js/loot.js?v=0.9.82GD"></script>
+  <script src="./js/auto_battle.js?v=0.9.82GD"></script>
+  <script src="./js/player_atlas_runtime.js?v=0.9.82GD"></script>
+  <script src="./js/character_gender.js?v=0.9.82GD"></script>
+  <script src="./js/battle.js?v=0.9.82GD"></script>
+  <script src="./js/monster_atlas_runtime.js?v=0.9.82GD"></script>
+  <script src="./js/effect_visual_runtime.js?v=0.9.82GD"></script>
+  <script src="./js/world_monster_test_runtime.js?v=0.9.82GD"></script>
+  <script src="./js/virtual_summon.js?v=0.9.82GD"></script>
+  <script src="./js/homunculus.js?v=0.9.82GD"></script>
+  <script src="./js/homunculus_skill_runtime.js?v=0.9.82GD"></script>
+  <script src="./js/homunculus_s_skill_runtime.js?v=0.9.82GD"></script>
+  <script src="./js/map.js?v=0.9.82GD"></script>
+  <script src="./js/town.js?v=0.9.82GD"></script>
+  <script src="./js/ui.js?v=0.9.82GD"></script>
+  <script src="./js/quick_slots.js?v=0.9.82GD"></script>
+  <script src="./js/game.js?v=0.9.82GD"></script>
 </body>
 
 </html>

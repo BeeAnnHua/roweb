@@ -1,6 +1,6 @@
 {
-  "version": "0.9.82FZ",
-  "note": "0.9.82FZ：MVP 地圖限定轉蛋、商城料理、20週年與時光超越者／LT 裝備；裝備 Script 與純裝備 Combo 進入 FX 統一效果 Runtime。",
+  "version": "0.9.82GD",
+  "note": "0.9.82GD：玩家 ID 與大獎公告、MVP 卡片紅色公告、商城料理自動維持，以及 MVP 轉蛋精煉材料獎池；沿用 GC 性別與卡片修正。",
   "legacyCompatibility": "data/items.json retired. Runtime item data is loaded from split JSON through ItemManager/getItemById().",
   "itemPaths": {
     "consumables": "data/items/consumables.json",
@@ -107,7 +107,7 @@
     "note": "Only item IDs referenced by the active MVP arena monster pools and missing from the existing split Item DB are added here."
   },
   "cardSystem": {
-    "version": "0.9.82FZ",
+    "version": "0.9.82GC",
     "cardCount": 910,
     "monsterDropSourceCount": 1422,
     "comboCount": 797,
@@ -122,7 +122,7 @@
       6717,
       6718
     ],
-    "runtimeFixVersion": "0.9.82FZ",
+    "runtimeFixVersion": "0.9.82GC",
     "equipmentScriptCount": 152,
     "equipmentScriptRuntimeErrors": 0,
     "equipmentUnhandledBonuses": 0,
@@ -139,9 +139,25 @@
     "futureSupportedScriptsAutoConnected": true,
     "activeTransformIds": 20,
     "exactTransformAtlases": 7,
-    "visibleTransformFallbacks": 13
+    "visibleTransformFallbacks": 13,
+    "visualTierCounts": {
+      "normal": 687,
+      "boss": 81,
+      "mvp": 142
+    },
+    "tierClassifier": "canonical monster family first; unrelated event/MVP clone drops ignored",
+    "correctedVisualTierCardIds": [
+      4074,
+      4127,
+      4169,
+      4210,
+      4246,
+      4344,
+      4410
+    ],
+    "poringCardOriginalIcon": "images/items/4001.webp"
   },
-  "runtimeFixVersion": "0.9.82FZ",
+  "runtimeFixVersion": "0.9.82GC",
   "effectRuntime": {
     "version": "0.9.82FZ",
     "sourceOrder": [
@@ -201,38 +217,27 @@
     }
   },
   "mvpGacha": {
-    "gachaItemId": 14848,
-    "equipmentIds": [
-      400368,
-      420186,
-      450175,
-      480076,
-      22202,
-      490030,
-      490097,
-      450299,
-      480312,
-      470183,
-      490404
-    ],
-    "consumableIds": [
-      14848,
-      14849,
-      14850,
-      14851,
-      14852,
-      14853,
-      14854,
-      14841,
-      14886,
-      12739,
-      23221,
-      23222,
-      23223,
-      23224,
-      23225,
-      23226
-    ],
-    "setComboAdded": 13
+    "version": "0.9.82GD",
+    "ordinaryBasisPoints": 9879,
+    "rareBasisPoints": 121,
+    "refinementRewardBasisPoints": 6500,
+    "consumableRewardBasisPoints": 3379,
+    "newItemIds": [
+      6635,
+      6240,
+      6241,
+      1000331,
+      1000332,
+      1000333,
+      1000334,
+      1000335,
+      1000336
+    ]
+  },
+  "itemIconPrune": {
+    "version": "0.9.82GD",
+    "activeIconCount": 805,
+    "addedIcons": 9,
+    "note": "GC 796 張實際引用圖示 + GD 9 張轉蛋精煉材料圖示。"
   }
 }

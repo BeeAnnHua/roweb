@@ -92,6 +92,110 @@ const DEFAULT_EQUIPMENT = {
 };
 
 //=======================================
+// 角色性別存檔遷移
+// 0.9.82GC：新角色必須先選擇性別；舊存檔則保留／推斷原本外觀。
+//=======================================
+function normalizeCharacterGenderValue(value) {
+  const raw = String(value ?? "").trim().toLowerCase();
+  if (["male", "m", "男", "man", "boy"].includes(raw)) return "male";
+  if (["female", "f", "女", "woman", "girl"].includes(raw)) return "female";
+  return null;
+}
+window.normalizeCharacterGenderValue = normalizeCharacterGenderValue;
+
+function inferLegacyCharacterGender(data = null) {
+  if (!data || typeof data !== "object") return null;
+  for (const key of ["gender", "sex", "bodyGender"]) {
+    const direct = normalizeCharacterGenderValue(data[key]);
+    if (direct) return direct;
+  }
+  const atlas = String(data.characterAtlas || data.appearanceAtlas || "").trim().toLowerCase();
+  if (/(?:^|[_\/-])female$/.test(atlas) || /(?:^|[_\/-])女$/.test(atlas)) return "female";
+  if (/(?:^|[_\/-])male$/.test(atlas) || /(?:^|[_\/-])男$/.test(atlas)) return "male";
+  return null;
+}
+window.inferLegacyCharacterGender = inferLegacyCharacterGender;
+
+
+//=======================================
+// 玩家 ID（0.9.82GD）
+// 僅作為顯示名稱與全服公告名稱；離線版不進行跨玩家唯一性驗證。
+//=======================================
+function sanitizePlayerId(value) {
+  return String(value ?? "")
+    .replace(/[\u0000-\u001f\u007f]/g, "")
+    .replace(/[<>]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function getPlayerIdCodePointLength(value) {
+  return Array.from(String(value || "")).length;
+}
+
+function validatePlayerId(value) {
+  const normalized = sanitizePlayerId(value);
+  const length = getPlayerIdCodePointLength(normalized);
+  if (!normalized) return { ok:false, value:"", error:"請輸入玩家 ID。" };
+  if (length > 12) return { ok:false, value:normalized, error:"玩家 ID 最多 12 個字。" };
+  return { ok:true, value:normalized, error:"" };
+}
+
+function getPlayerAnnouncementName() {
+  const name = sanitizePlayerId(window.player?.name);
+  return name || "冒險者";
+}
+
+function openPlayerIdEditor() {
+  const modal = document.getElementById("playerIdModal");
+  const input = document.getElementById("playerIdInput");
+  const message = document.getElementById("playerIdMessage");
+  if (!modal || !input) return false;
+  input.value = sanitizePlayerId(player?.name);
+  if (message) { message.textContent = ""; message.classList.remove("is-error"); }
+  modal.hidden = false;
+  document.body?.classList.add("player-id-modal-open");
+  window.setTimeout(() => { input.focus(); input.select(); }, 0);
+  return true;
+}
+
+function closePlayerIdEditor() {
+  const modal = document.getElementById("playerIdModal");
+  if (modal) modal.hidden = true;
+  document.body?.classList.remove("player-id-modal-open");
+  return true;
+}
+
+function confirmPlayerIdChange() {
+  if (!player) return false;
+  const input = document.getElementById("playerIdInput");
+  const message = document.getElementById("playerIdMessage");
+  const result = validatePlayerId(input?.value);
+  if (!result.ok) {
+    if (message) { message.textContent = result.error; message.classList.add("is-error"); }
+    input?.focus();
+    return false;
+  }
+  const previous = sanitizePlayerId(player.name);
+  player.name = result.value;
+  player.playerIdVersion = 1;
+  updatePlayerUI();
+  saveGame();
+  if (typeof addBattleLog === "function") {
+    addBattleLog(previous ? `玩家 ID 已由 ${previous} 更改為 ${result.value}。` : `玩家 ID 已設定為 ${result.value}。`);
+  }
+  closePlayerIdEditor();
+  return true;
+}
+
+window.sanitizePlayerId = sanitizePlayerId;
+window.validatePlayerId = validatePlayerId;
+window.getPlayerAnnouncementName = getPlayerAnnouncementName;
+window.openPlayerIdEditor = openPlayerIdEditor;
+window.closePlayerIdEditor = closePlayerIdEditor;
+window.confirmPlayerIdChange = confirmPlayerIdChange;
+
+//=======================================
 // 載入玩家資料
 // 先讀取預設角色資料，再用 localStorage 存檔覆蓋
 //=======================================
@@ -108,9 +212,14 @@ async function loadPlayerData() {
     console.warn("無法讀取 localStorage，將使用預設角色資料：", error);
   }
 
+  let loadedSavedPlayer = null;
   if (savedData) {
     try {
       const savedPlayer = JSON.parse(savedData);
+      if (!savedPlayer || typeof savedPlayer !== "object" || Array.isArray(savedPlayer)) {
+        throw new Error("存檔不是有效的角色物件");
+      }
+      loadedSavedPlayer = savedPlayer;
       player = { ...player, ...savedPlayer };
       addBattleLog("讀取存檔成功。");
     } catch (error) {
@@ -118,6 +227,18 @@ async function loadPlayerData() {
       addBattleLog("讀取存檔失敗，使用預設角色資料。");
     }
   }
+
+  // 舊存檔沒有 genderChosen 時，依既有性別欄位或 Atlas 推斷；完全無法判斷時
+  // 採舊版預設男性，避免更新後強迫既有玩家重新選擇。全新角色則保持未選擇狀態。
+  if (loadedSavedPlayer) {
+    player.gender = inferLegacyCharacterGender(loadedSavedPlayer) || "male";
+    player.genderChosen = true;
+  } else {
+    player.gender = normalizeCharacterGenderValue(player.gender);
+    player.genderChosen = false;
+    player.characterAtlas = null;
+  }
+  window.RO_WEB_PLAYER_SAVE_FOUND = Boolean(loadedSavedPlayer);
 
   // 暫存技能配點不應該跟著存檔保存；避免關閉技能窗/重新整理後看起來像已配點。
   if (player && player.pendingSkillAdds) {
@@ -175,6 +296,15 @@ function normalizePlayerData() {
 
   player.pet = player.pet || null;
 
+  const normalizedGender = normalizeCharacterGenderValue(player.gender);
+  player.gender = normalizedGender || null;
+  player.genderChosen = Boolean(player.genderChosen && normalizedGender);
+
+  const legacyPlayerName = sanitizePlayerId(player.name);
+  // GC 以前 player.name 固定等於「初心者」，不是玩家自訂 ID。
+  player.name = !player.playerIdVersion && ["初心者", "冒險者"].includes(legacyPlayerName) ? "" : legacyPlayerName;
+  player.playerIdVersion = 1;
+
   player.jobKey = String(player.jobKey || getJobKeyFromName(player.job) || "novice");
   let currentJobData = typeof getJobData === "function" ? getJobData(player.jobKey) : null;
   if (!currentJobData && typeof getJobData === "function" && getJobData("novice")) {
@@ -182,24 +312,8 @@ function normalizePlayerData() {
     player.jobKey = "novice";
     currentJobData = getJobData("novice");
   }
-  // 0.9.82DM：詩人／舞孃恢復官方性別限制；舊存檔若曾走混轉路線，自動換成同階同性別對應職業。
-  const normalizeJobForGender = jobKey => {
-    const data = typeof getJobData === "function" ? getJobData(jobKey) : null;
-    const gender = normalizePlayerGenderForRules();
-    const allowed = Array.isArray(data?.allowedGenders) ? data.allowedGenders.map(String) : [];
-    if (!allowed.length || allowed.includes(gender)) return String(jobKey || "");
-    const counterpart = String(data?.genderCounterpartJob || "");
-    const counterpartData = counterpart && typeof getJobData === "function" ? getJobData(counterpart) : null;
-    const counterpartAllowed = Array.isArray(counterpartData?.allowedGenders) ? counterpartData.allowedGenders.map(String) : [];
-    return counterpartData && (!counterpartAllowed.length || counterpartAllowed.includes(gender)) ? counterpart : String(jobKey || "");
-  };
-  const normalizedCurrentJobKey = normalizeJobForGender(player.jobKey);
-  if (normalizedCurrentJobKey && normalizedCurrentJobKey !== player.jobKey) {
-    console.warn(`舊存檔職業 ${player.jobKey} 不符合角色性別，已轉換為 ${normalizedCurrentJobKey}。`);
-    player.jobKey = normalizedCurrentJobKey;
-    currentJobData = typeof getJobData === "function" ? getJobData(player.jobKey) : currentJobData;
-  }
-  if (player.rebirthOriginJobKey) player.rebirthOriginJobKey = normalizeJobForGender(player.rebirthOriginJobKey);
+  // 0.9.82GC：角色性別只控制動畫外觀，不再改寫吟遊詩人／舞孃等職業。
+  // 既有職業、轉生來源、技能與所有養成資料都必須原樣保留。
   if (currentJobData) {
     player.job = currentJobData.name;
   }
@@ -400,7 +514,7 @@ function resetGameSave() {
     const base = location.origin && location.origin !== "null"
       ? location.origin + location.pathname
       : location.pathname;
-    location.replace(base + "?v=0.9.82FP-reset-" + Date.now());
+    location.replace(base + "?v=0.9.82GD-reset-" + Date.now());
   };
 
   try {
@@ -523,9 +637,13 @@ function buildSkillUiRenderSignature() {
 function updatePlayerUI() {
   if (!player) return;
 
-  const currentJobName = (typeof getJobData === "function" ? getJobData(player.jobKey)?.name : null) || player.job || player.name || "冒險者";
+  const currentJobName = (typeof getJobData === "function" ? getJobData(player.jobKey)?.name : null) || player.job || "冒險者";
+  const playerId = sanitizePlayerId(player.name);
+  const characterCardName = playerId ? `${currentJobName} ${playerId}` : currentJobName;
   player.job = currentJobName;
-  setOptionalText("playerName", currentJobName);
+  setOptionalText("playerName", characterCardName);
+  const playerNameElement = document.getElementById("playerName");
+  if (playerNameElement) playerNameElement.title = characterCardName;
   setOptionalText("playerJob", currentJobName);
 
   setOptionalText("baseLevel", player.baseLevel);
@@ -566,8 +684,9 @@ function updatePlayerUI() {
 
   const battlePlayerName = document.getElementById("battlePlayerName");
   const battlePlayerLevel = document.getElementById("battlePlayerLevel");
-  if (battlePlayerName) battlePlayerName.textContent = currentJobName;
+  if (battlePlayerName) battlePlayerName.textContent = playerId || currentJobName;
   if (battlePlayerLevel) battlePlayerLevel.textContent = player.baseLevel;
+  if (typeof updateCharacterGenderUI === "function") updateCharacterGenderUI();
 
   if (isPlayerUiWindowVisible("job-window") && typeof updateJobUI === "function") {
     const signature = buildJobUiRenderSignature();
