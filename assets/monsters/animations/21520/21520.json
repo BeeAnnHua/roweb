@@ -1,0 +1,158 @@
+{
+  "schema": "ro_web_monster_animation_v2_shared_4dir",
+  "schema_version": "2.0",
+  "monsterId": 21520,
+  "name": "青翅巨魚",
+  "atlas": {
+    "image": "21520.png",
+    "width": 256,
+    "height": 256
+  },
+  "frames": [
+    {
+      "id": 0,
+      "x": 0,
+      "y": 0,
+      "width": 256,
+      "height": 256,
+      "pivotX": 128,
+      "pivotY": 230,
+      "duration": 200
+    }
+  ],
+  "directions": [
+    "south_west",
+    "north_west",
+    "north_east",
+    "south_east"
+  ],
+  "directionAliases": {
+    "south": "south_west",
+    "west": "south_west",
+    "north": "north_west",
+    "east": "south_east"
+  },
+  "animations": {
+    "idle": {
+      "directions": {
+        "south_west": {
+          "frames": [
+            0
+          ]
+        },
+        "north_west": {
+          "frames": [
+            0
+          ]
+        },
+        "north_east": {
+          "frames": [
+            0
+          ]
+        },
+        "south_east": {
+          "frames": [
+            0
+          ]
+        }
+      }
+    },
+    "walk": {
+      "directions": {
+        "south_west": {
+          "frames": [
+            0
+          ]
+        },
+        "north_west": {
+          "frames": [
+            0
+          ]
+        },
+        "north_east": {
+          "frames": [
+            0
+          ]
+        },
+        "south_east": {
+          "frames": [
+            0
+          ]
+        }
+      }
+    },
+    "attack": {
+      "directions": {
+        "south_west": {
+          "frames": [
+            0
+          ]
+        },
+        "north_west": {
+          "frames": [
+            0
+          ]
+        },
+        "north_east": {
+          "frames": [
+            0
+          ]
+        },
+        "south_east": {
+          "frames": [
+            0
+          ]
+        }
+      }
+    },
+    "hurt": {
+      "directions": {
+        "south_west": {
+          "frames": [
+            0
+          ]
+        },
+        "north_west": {
+          "frames": [
+            0
+          ]
+        },
+        "north_east": {
+          "frames": [
+            0
+          ]
+        },
+        "south_east": {
+          "frames": [
+            0
+          ]
+        }
+      }
+    },
+    "dead": {
+      "directions": {
+        "south_west": {
+          "frames": [
+            0
+          ]
+        },
+        "north_west": {
+          "frames": [
+            0
+          ]
+        },
+        "north_east": {
+          "frames": [
+            0
+          ]
+        },
+        "south_east": {
+          "frames": [
+            0
+          ]
+        }
+      }
+    }
+  },
+  "source": "public monster spritesheet static-frame fallback; replaceable by RO Studio output"
+}

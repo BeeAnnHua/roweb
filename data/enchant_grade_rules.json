@@ -1,0 +1,427 @@
+{
+  "schema": "ro_web_enchant_grade_rules_v1",
+  "version": "0.9.82GK",
+  "source": "rAthena Renewal 2026-06-08 db/re/enchantgrade.yml",
+  "rules": [
+    "Only Lv.5 weapons and Lv.2 armors are eligible.",
+    "Success raises grade one step and resets refine to 0.",
+    "Option 0 is destructive on failure; option 1 preserves equipment.",
+    "Cards, random options, enchants, instance id and lock state remain on the same instance."
+  ],
+  "materials": {
+    "Blessed_Etel_Dust": {
+      "id": 1000337,
+      "name": "庇佑乙太星塵"
+    },
+    "Etel_Skyblue_Jewel": {
+      "id": 1000325,
+      "name": "乙太天藍寶石"
+    },
+    "Etel_Topaz": {
+      "id": 1000326,
+      "name": "乙太黃寶石"
+    },
+    "Etel_Violet_Jewel": {
+      "id": 1000327,
+      "name": "乙太紫寶石"
+    },
+    "Etel_Amber": {
+      "id": 1000328,
+      "name": "乙太琥珀"
+    }
+  },
+  "groups": {
+    "Armor": {
+      "levels": {
+        "2": {
+          "level": 2,
+          "grades": {
+            "None": {
+              "currentGrade": "None",
+              "targetGrade": "D",
+              "chances": {
+                "9": 1000,
+                "10": 2000,
+                "11": 7000,
+                "12": 7000,
+                "13": 7000,
+                "14": 7000,
+                "15": 7000,
+                "16": 8000,
+                "17": 8000,
+                "18": 8000,
+                "19": 8000,
+                "20": 8000
+              },
+              "bonusPercent": 10,
+              "announceSuccess": true,
+              "announceFail": false,
+              "catalyst": {
+                "itemAegis": "Blessed_Etel_Dust",
+                "itemId": 1000337,
+                "amountPerStep": 1,
+                "maximumSteps": 10,
+                "chanceIncrease": 100
+              },
+              "options": [
+                {
+                  "option": 0,
+                  "materialAegis": "Etel_Skyblue_Jewel",
+                  "materialItemId": 1000325,
+                  "amount": 1,
+                  "zeny": 175000,
+                  "breakingRate": 10000,
+                  "downgradeAmount": 0
+                },
+                {
+                  "option": 1,
+                  "materialAegis": "Etel_Skyblue_Jewel",
+                  "materialItemId": 1000325,
+                  "amount": 5,
+                  "zeny": 875000,
+                  "breakingRate": 0,
+                  "downgradeAmount": 0
+                }
+              ]
+            },
+            "D": {
+              "currentGrade": "D",
+              "targetGrade": "C",
+              "chances": {
+                "10": 2000,
+                "11": 6000,
+                "12": 6000,
+                "13": 6000,
+                "14": 6000,
+                "15": 6000,
+                "16": 7000,
+                "17": 7000,
+                "18": 7000,
+                "19": 7000,
+                "20": 7000
+              },
+              "bonusPercent": 30,
+              "announceSuccess": true,
+              "announceFail": false,
+              "catalyst": {
+                "itemAegis": "Blessed_Etel_Dust",
+                "itemId": 1000337,
+                "amountPerStep": 3,
+                "maximumSteps": 10,
+                "chanceIncrease": 100
+              },
+              "options": [
+                {
+                  "option": 0,
+                  "materialAegis": "Etel_Topaz",
+                  "materialItemId": 1000326,
+                  "amount": 1,
+                  "zeny": 175000,
+                  "breakingRate": 10000,
+                  "downgradeAmount": 0
+                },
+                {
+                  "option": 1,
+                  "materialAegis": "Etel_Topaz",
+                  "materialItemId": 1000326,
+                  "amount": 5,
+                  "zeny": 875000,
+                  "breakingRate": 0,
+                  "downgradeAmount": 0
+                }
+              ]
+            },
+            "C": {
+              "currentGrade": "C",
+              "targetGrade": "B",
+              "chances": {
+                "11": 5000,
+                "12": 5000,
+                "13": 5000,
+                "14": 5000,
+                "15": 5000,
+                "16": 6000,
+                "17": 6000,
+                "18": 6000,
+                "19": 6000,
+                "20": 6000
+              },
+              "bonusPercent": 50,
+              "announceSuccess": true,
+              "announceFail": true,
+              "catalyst": {
+                "itemAegis": "Blessed_Etel_Dust",
+                "itemId": 1000337,
+                "amountPerStep": 5,
+                "maximumSteps": 10,
+                "chanceIncrease": 100
+              },
+              "options": [
+                {
+                  "option": 0,
+                  "materialAegis": "Etel_Violet_Jewel",
+                  "materialItemId": 1000327,
+                  "amount": 1,
+                  "zeny": 175000,
+                  "breakingRate": 10000,
+                  "downgradeAmount": 0
+                },
+                {
+                  "option": 1,
+                  "materialAegis": "Etel_Violet_Jewel",
+                  "materialItemId": 1000327,
+                  "amount": 5,
+                  "zeny": 875000,
+                  "breakingRate": 0,
+                  "downgradeAmount": 0
+                }
+              ]
+            },
+            "B": {
+              "currentGrade": "B",
+              "targetGrade": "A",
+              "chances": {
+                "11": 4000,
+                "12": 4000,
+                "13": 4000,
+                "14": 4000,
+                "15": 4000,
+                "16": 5000,
+                "17": 5000,
+                "18": 5000,
+                "19": 5000,
+                "20": 5000
+              },
+              "bonusPercent": 100,
+              "announceSuccess": true,
+              "announceFail": true,
+              "catalyst": {
+                "itemAegis": "Blessed_Etel_Dust",
+                "itemId": 1000337,
+                "amountPerStep": 7,
+                "maximumSteps": 10,
+                "chanceIncrease": 100
+              },
+              "options": [
+                {
+                  "option": 0,
+                  "materialAegis": "Etel_Amber",
+                  "materialItemId": 1000328,
+                  "amount": 2,
+                  "zeny": 175000,
+                  "breakingRate": 10000,
+                  "downgradeAmount": 0
+                },
+                {
+                  "option": 1,
+                  "materialAegis": "Etel_Amber",
+                  "materialItemId": 1000328,
+                  "amount": 10,
+                  "zeny": 875000,
+                  "breakingRate": 0,
+                  "downgradeAmount": 0
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "Weapon": {
+      "levels": {
+        "5": {
+          "level": 5,
+          "grades": {
+            "None": {
+              "currentGrade": "None",
+              "targetGrade": "D",
+              "chances": {
+                "9": 1000,
+                "10": 2000,
+                "11": 7000,
+                "12": 7000,
+                "13": 7000,
+                "14": 7000,
+                "15": 7000,
+                "16": 8000,
+                "17": 8000,
+                "18": 8000,
+                "19": 8000,
+                "20": 8000
+              },
+              "bonusPercent": 10,
+              "announceSuccess": true,
+              "announceFail": false,
+              "catalyst": {
+                "itemAegis": "Blessed_Etel_Dust",
+                "itemId": 1000337,
+                "amountPerStep": 1,
+                "maximumSteps": 10,
+                "chanceIncrease": 100
+              },
+              "options": [
+                {
+                  "option": 0,
+                  "materialAegis": "Etel_Skyblue_Jewel",
+                  "materialItemId": 1000325,
+                  "amount": 1,
+                  "zeny": 175000,
+                  "breakingRate": 10000,
+                  "downgradeAmount": 0
+                },
+                {
+                  "option": 1,
+                  "materialAegis": "Etel_Skyblue_Jewel",
+                  "materialItemId": 1000325,
+                  "amount": 5,
+                  "zeny": 875000,
+                  "breakingRate": 0,
+                  "downgradeAmount": 0
+                }
+              ]
+            },
+            "D": {
+              "currentGrade": "D",
+              "targetGrade": "C",
+              "chances": {
+                "10": 2000,
+                "11": 6000,
+                "12": 6000,
+                "13": 6000,
+                "14": 6000,
+                "15": 6000,
+                "16": 7000,
+                "17": 7000,
+                "18": 7000,
+                "19": 7000,
+                "20": 7000
+              },
+              "bonusPercent": 30,
+              "announceSuccess": true,
+              "announceFail": false,
+              "catalyst": {
+                "itemAegis": "Blessed_Etel_Dust",
+                "itemId": 1000337,
+                "amountPerStep": 3,
+                "maximumSteps": 10,
+                "chanceIncrease": 100
+              },
+              "options": [
+                {
+                  "option": 0,
+                  "materialAegis": "Etel_Topaz",
+                  "materialItemId": 1000326,
+                  "amount": 1,
+                  "zeny": 175000,
+                  "breakingRate": 10000,
+                  "downgradeAmount": 0
+                },
+                {
+                  "option": 1,
+                  "materialAegis": "Etel_Topaz",
+                  "materialItemId": 1000326,
+                  "amount": 5,
+                  "zeny": 875000,
+                  "breakingRate": 0,
+                  "downgradeAmount": 0
+                }
+              ]
+            },
+            "C": {
+              "currentGrade": "C",
+              "targetGrade": "B",
+              "chances": {
+                "11": 5000,
+                "12": 5000,
+                "13": 5000,
+                "14": 5000,
+                "15": 5000,
+                "16": 6000,
+                "17": 6000,
+                "18": 6000,
+                "19": 6000,
+                "20": 6000
+              },
+              "bonusPercent": 50,
+              "announceSuccess": true,
+              "announceFail": true,
+              "catalyst": {
+                "itemAegis": "Blessed_Etel_Dust",
+                "itemId": 1000337,
+                "amountPerStep": 5,
+                "maximumSteps": 10,
+                "chanceIncrease": 100
+              },
+              "options": [
+                {
+                  "option": 0,
+                  "materialAegis": "Etel_Violet_Jewel",
+                  "materialItemId": 1000327,
+                  "amount": 1,
+                  "zeny": 175000,
+                  "breakingRate": 10000,
+                  "downgradeAmount": 0
+                },
+                {
+                  "option": 1,
+                  "materialAegis": "Etel_Violet_Jewel",
+                  "materialItemId": 1000327,
+                  "amount": 5,
+                  "zeny": 875000,
+                  "breakingRate": 0,
+                  "downgradeAmount": 0
+                }
+              ]
+            },
+            "B": {
+              "currentGrade": "B",
+              "targetGrade": "A",
+              "chances": {
+                "11": 4000,
+                "12": 4000,
+                "13": 4000,
+                "14": 4000,
+                "15": 4000,
+                "16": 5000,
+                "17": 5000,
+                "18": 5000,
+                "19": 5000,
+                "20": 5000
+              },
+              "bonusPercent": 100,
+              "announceSuccess": true,
+              "announceFail": true,
+              "catalyst": {
+                "itemAegis": "Blessed_Etel_Dust",
+                "itemId": 1000337,
+                "amountPerStep": 7,
+                "maximumSteps": 10,
+                "chanceIncrease": 100
+              },
+              "options": [
+                {
+                  "option": 0,
+                  "materialAegis": "Etel_Amber",
+                  "materialItemId": 1000328,
+                  "amount": 2,
+                  "zeny": 175000,
+                  "breakingRate": 10000,
+                  "downgradeAmount": 0
+                },
+                {
+                  "option": 1,
+                  "materialAegis": "Etel_Amber",
+                  "materialItemId": 1000328,
+                  "amount": 10,
+                  "zeny": 875000,
+                  "breakingRate": 0,
+                  "downgradeAmount": 0
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

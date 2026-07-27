@@ -1,0 +1,66 @@
+RO_WEB 0.9.82GK Final Test Report
+========================================
+Build: Equipment Enchant Grade / Ice Scale Hill / Serpent Nest
+Base: RO_WEB 0.9.82GJ
+
+IMPLEMENTED
+-----------
+1. Equipment enchant-grade system
+   - Eligible: Lv.5 weapons and Lv.2 armors.
+   - Path: None -> D -> C -> B -> A.
+   - Success chances, minimum refine levels, materials, Zeny, destructive/safe options,
+     catalyst costs, announcements and grade bonus values are generated from local
+     rAthena Renewal 2026-06-08 db/re/enchantgrade.yml.
+   - Success preserves the same equipment instance, cards, random options, enchants and lock,
+     raises one grade, and resets refine to +0.
+   - High-risk failure destroys the item; safe failure preserves the item.
+
+2. Material synthesis
+   - Six exact rAthena barter recipes were added.
+   - Etel Stone, Blessed Etel Dust and four Etel jewels require source materials plus Zeny.
+   - Completed grade jewels are not mass-added to monster drop tables.
+
+3. Payon NPC and UI
+   - Added Payon NPC: 裝備升階匠人.
+   - Added responsive black-gold / ice-blue HTML/CSS grade and synthesis interface.
+   - Supports inventory equipment and currently equipped eligible items.
+
+4. New maps
+   - 冰鱗山丘: chunks 134-142, 9 x 512x512 source tiles.
+   - 蛇巢穴: chunks 143-151, 9 x 512x512 source tiles.
+   - Both maps have stitched backgrounds, thumbnails, region manifests and spawn profiles.
+
+5. Monsters and drops
+   - Added 12 EP19 monster records used by the two maps.
+   - Original monster drop lists remain intact.
+   - Enchant-grade base materials are an independent bonus layer only where needed.
+   - Bonus runtime skips an item when the same monster already has it in original drops/MVP drops.
+   - Bonus grade-material rates are independent from the normal global drop multiplier.
+   - Original MVP drop-list runtime is retained and executed separately.
+
+TEST RESULTS
+------------
+- rAthena grade field-by-field audit: 224/224 PASS
+- Enchant-grade runtime: 8/8 PASS
+- New maps / monsters / drops: 57/57 PASS
+- Refine-system regression: 8/8 PASS
+- Storage/reset regression: PASS
+- Servant Weapon prerequisite regression: 15/15 PASS
+- Geffenia crowd/mobile-ID regression: 16/16 PASS
+- Element endow-slot regression: 18/18 PASS
+- JavaScript syntax: 735/735 PASS
+- Deep Health: 0 errors, 0 warnings
+- JSON files checked by Deep Health: 1,972
+- Item IDs: 1,761
+- Monster records: 236
+- Data bundle entries: 1,513
+
+KNOWN LIMITATIONS
+-----------------
+- The 12 newly added EP19 monsters currently use one-frame display-safe fallback atlases.
+  They will not show full walk/attack/hurt/death motion until complete ACT/SPR-derived animation
+  assets are supplied or exported through RO Studio.
+- The sandbox did not produce a pixel-level Chromium screenshot. UI correctness was checked through
+  DOM/CSS structure, runtime simulations, syntax checks, asset-reference checks and Deep Health.
+
+FINAL STATUS: PASS

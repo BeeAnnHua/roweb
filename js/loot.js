@@ -37,6 +37,8 @@ function grantMonsterRewards(monster) {
   emitLootRewardLog(`獲得 Zeny ${zeny}`, "zeny");
 
   rollMonsterDrops(monster);
+  rollMonsterMvpDrops(monster);
+  window.EnchantGradeRuntime?.rollMapBonusDrops?.(monster);
   window.MvpGachaRuntime?.rollMapExclusiveDrop?.(monster);
   rollPassiveSkillExtraDrops(monster);
   const lootState=getMonsterLootRuntime(monster);
@@ -190,6 +192,19 @@ function announceMvpCardDrop(monster, itemName, quantity = 1) {
 }
 window.isMvpRewardMonster = isMvpRewardMonster;
 window.announceMvpCardDrop = announceMvpCardDrop;
+
+
+function rollMonsterMvpDrops(monster) {
+  if (!isMvpRewardMonster(monster) || !Array.isArray(monster?.mvpDrops)) return;
+  monster.mvpDrops.forEach(drop => {
+    const rawChance=Number(drop.chance||0); if(rawChance<=0)return;
+    const chance=getFinalDropChanceBasisPoints(rawChance,"normal"), roll=Math.floor(Math.random()*10000)+1;
+    if(roll>chance)return;
+    const id=normalizeItemId(drop.itemId), data=getItemData(id), qty=rollDropQuantity(drop), name=data?.name||drop.name||`Item ${id}`;
+    addItem({id,name},qty); if(typeof recordItemDrop==="function")recordItemDrop(id,qty);
+  });
+}
+window.rollMonsterMvpDrops=rollMonsterMvpDrops;
 
 function rollMonsterDrops(monster) {
   if (!monster.drops || monster.drops.length === 0) return;

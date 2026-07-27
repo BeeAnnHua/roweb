@@ -1,6 +1,6 @@
 {
   "schema": "ro_web_region_monster_streaming_v1",
-  "version": "0.9.82GF",
+  "version": "0.9.82GK",
   "source": {
     "mobDb": "rAthena Renewal db/re/mob_db.yml",
     "spawnScripts": "rAthena Renewal npc/re/mobs/fields/*.txt",
@@ -5024,6 +5024,196 @@
         "renderCrowdedIntervalMs": 125,
         "crowdedVisibleThreshold": 20
       }
+    },
+    "ice_scale_hill_3x3_region_camera": {
+      "name": "冰鱗山丘",
+      "sourceSpawnFiles": [
+        "user screenshots: jor_tail / jor_back1 / jor_back2 / jor_back3"
+      ],
+      "sourceNote": "怪物種類與相對數量取使用者提供分布截圖；能力與原始掉落採 RA ID 對照及公開 EP19 資料。",
+      "targetNormalCountAt100": 135,
+      "pool": [
+        {
+          "monsterId": 21523,
+          "weight": 195,
+          "category": "normal",
+          "raSpawnCount": 195,
+          "sourceMaps": [
+            "jor_*"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 2000,
+          "countRateEligible": true
+        },
+        {
+          "monsterId": 21524,
+          "weight": 140,
+          "category": "normal",
+          "raSpawnCount": 140,
+          "sourceMaps": [
+            "jor_*"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 2000,
+          "countRateEligible": true
+        },
+        {
+          "monsterId": 21522,
+          "weight": 115,
+          "category": "normal",
+          "raSpawnCount": 115,
+          "sourceMaps": [
+            "jor_*"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 2000,
+          "countRateEligible": true
+        },
+        {
+          "monsterId": 21520,
+          "weight": 140,
+          "category": "normal",
+          "raSpawnCount": 140,
+          "sourceMaps": [
+            "jor_*"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 2000,
+          "countRateEligible": true
+        },
+        {
+          "monsterId": 21521,
+          "weight": 70,
+          "category": "normal",
+          "raSpawnCount": 70,
+          "sourceMaps": [
+            "jor_*"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 2000,
+          "countRateEligible": true
+        },
+        {
+          "monsterId": 21525,
+          "weight": 70,
+          "category": "normal",
+          "raSpawnCount": 70,
+          "sourceMaps": [
+            "jor_*"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 2000,
+          "countRateEligible": true
+        },
+        {
+          "monsterId": 21526,
+          "weight": 30,
+          "category": "normal",
+          "raSpawnCount": 30,
+          "sourceMaps": [
+            "jor_*"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 2000,
+          "countRateEligible": true
+        },
+        {
+          "monsterId": 21527,
+          "weight": 15,
+          "category": "normal",
+          "raSpawnCount": 15,
+          "sourceMaps": [
+            "jor_*"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 2000,
+          "countRateEligible": true
+        },
+        {
+          "monsterId": 21537,
+          "weight": 1,
+          "category": "mvp",
+          "raSpawnCount": 1,
+          "sourceMaps": [
+            "jor_*"
+          ],
+          "baseRespawnMs": 60000,
+          "respawnVarianceMs": 30000,
+          "countRateEligible": false,
+          "maxAlive": 1,
+          "minAlive": 1
+        }
+      ]
+    },
+    "serpent_nest_3x3_region_camera": {
+      "name": "蛇巢穴",
+      "sourceSpawnFiles": [
+        "user screenshots: jor_dun01 / jor_dun02"
+      ],
+      "sourceNote": "一、二樓怪物群合併為 RO_WEB 3×3 蛇巢穴。",
+      "targetNormalCountAt100": 135,
+      "pool": [
+        {
+          "monsterId": 21526,
+          "weight": 80,
+          "category": "normal",
+          "raSpawnCount": 80,
+          "sourceMaps": [
+            "jor_*"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 2000,
+          "countRateEligible": true
+        },
+        {
+          "monsterId": 21527,
+          "weight": 110,
+          "category": "normal",
+          "raSpawnCount": 110,
+          "sourceMaps": [
+            "jor_*"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 2000,
+          "countRateEligible": true
+        },
+        {
+          "monsterId": 21528,
+          "weight": 70,
+          "category": "normal",
+          "raSpawnCount": 70,
+          "sourceMaps": [
+            "jor_*"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 2000,
+          "countRateEligible": true
+        },
+        {
+          "monsterId": 21529,
+          "weight": 5,
+          "category": "normal",
+          "raSpawnCount": 5,
+          "sourceMaps": [
+            "jor_*"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 2000,
+          "countRateEligible": true
+        },
+        {
+          "monsterId": 21599,
+          "weight": 20,
+          "category": "normal",
+          "raSpawnCount": 20,
+          "sourceMaps": [
+            "jor_*"
+          ],
+          "baseRespawnMs": 5000,
+          "respawnVarianceMs": 2000,
+          "countRateEligible": true
+        }
+      ]
     }
   }
 }

@@ -1,14 +1,14 @@
 {
   "schema": "ro_web_world_region_manifest_v1",
-  "version": "0.9.82FZ",
-  "source": "使用者提供世界地圖素材、達納托斯塔、初學者修練場、螞蟻洞窟 109-117、艾音貝赫礦山 118-126、使用者提供葛坡尼亞 127-135、使用者提供葛坡尼亞 127-135、使用者提供葛坡尼亞 127-135、使用者提供葛坡尼亞 127-135",
-  "rule": "十八個邏輯地圖；新增葛坡尼亞 127-135 獨立 3×3 MVP／轉蛋測試地圖。",
+  "version": "0.9.82GK",
+  "source": "使用者提供世界地圖素材、達納托斯塔、初學者修練場、螞蟻洞窟 109-117、艾音貝赫礦山 118-126、使用者提供葛坡尼亞 127-135、使用者提供葛坡尼亞 127-135、使用者提供葛坡尼亞 127-135、使用者提供葛坡尼亞 127-135、使用者提供冰鱗山丘 134-142、蛇巢穴 143-151",
+  "rule": "二十個邏輯地圖；新增冰鱗山丘 134-142 與蛇巢穴 143-151，作為五級武器／二級防具升階材料狩獵區。",
   "deploymentExcludes": [
     "RO_世界地圖.png",
     "RO世界地圖切割前原圖.zip",
     "所有切割前地區原圖"
   ],
-  "regionCount": 18,
+  "regionCount": 20,
   "regions": [
     {
       "order": 1,
@@ -559,6 +559,66 @@
       "worldScale": 3,
       "monstersDeferred": false,
       "monsterSpecies": 51
+    },
+    {
+      "order": 19,
+      "id": "ice_scale_hill_3x3_region_camera",
+      "name": "冰鱗山丘",
+      "sourceChunkRange": "134-142",
+      "runtimeTileNames": [
+        "001.webp",
+        "002.webp",
+        "003.webp",
+        "004.webp",
+        "005.webp",
+        "006.webp",
+        "007.webp",
+        "008.webp",
+        "009.webp"
+      ],
+      "background": "images/maps/world/ice_scale_hill_3x3/ice_scale_hill_3x3_region_bg_0_9_82GK.webp",
+      "thumb": "images/maps/world/ice_scale_hill_3x3/ice_scale_hill_3x3_region_small_0_9_82GK.webp",
+      "worldSize": [
+        4608,
+        4608
+      ],
+      "cameraSize": [
+        1280,
+        720
+      ],
+      "worldScale": 3,
+      "monstersDeferred": false,
+      "monsterSpecies": 9
+    },
+    {
+      "order": 20,
+      "id": "serpent_nest_3x3_region_camera",
+      "name": "蛇巢穴",
+      "sourceChunkRange": "143-151",
+      "runtimeTileNames": [
+        "001.webp",
+        "002.webp",
+        "003.webp",
+        "004.webp",
+        "005.webp",
+        "006.webp",
+        "007.webp",
+        "008.webp",
+        "009.webp"
+      ],
+      "background": "images/maps/world/serpent_nest_3x3/serpent_nest_3x3_region_bg_0_9_82GK.webp",
+      "thumb": "images/maps/world/serpent_nest_3x3/serpent_nest_3x3_region_small_0_9_82GK.webp",
+      "worldSize": [
+        4608,
+        4608
+      ],
+      "cameraSize": [
+        1280,
+        720
+      ],
+      "worldScale": 3,
+      "monstersDeferred": false,
+      "monsterSpecies": 5
     }
   ],
   "namingDecision": {
@@ -628,7 +688,53 @@
         "illusion_teddy_bear_3x3_region_camera",
         "abyss_einbech_mine_3x3_region_camera"
       ]
+    },
+    "ice_scale_hill_3x3": {
+      "sourceChunkRange": "134-142",
+      "runtimeTileNames": [
+        "001.webp",
+        "002.webp",
+        "003.webp",
+        "004.webp",
+        "005.webp",
+        "006.webp",
+        "007.webp",
+        "008.webp",
+        "009.webp"
+      ],
+      "background": "images/maps/world/ice_scale_hill_3x3/ice_scale_hill_3x3_region_bg_0_9_82GK.webp",
+      "thumb": "images/maps/world/ice_scale_hill_3x3/ice_scale_hill_3x3_region_small_0_9_82GK.webp",
+      "worldSize": [
+        4608,
+        4608
+      ],
+      "logicalMapIds": [
+        "ice_scale_hill_3x3_region_camera"
+      ]
+    },
+    "serpent_nest_3x3": {
+      "sourceChunkRange": "143-151",
+      "runtimeTileNames": [
+        "001.webp",
+        "002.webp",
+        "003.webp",
+        "004.webp",
+        "005.webp",
+        "006.webp",
+        "007.webp",
+        "008.webp",
+        "009.webp"
+      ],
+      "background": "images/maps/world/serpent_nest_3x3/serpent_nest_3x3_region_bg_0_9_82GK.webp",
+      "thumb": "images/maps/world/serpent_nest_3x3/serpent_nest_3x3_region_small_0_9_82GK.webp",
+      "worldSize": [
+        4608,
+        4608
+      ],
+      "logicalMapIds": [
+        "serpent_nest_3x3_region_camera"
+      ]
     }
   },
-  "physicalTileSetCount": 14
+  "physicalTileSetCount": 16
 }

@@ -1,0 +1,107 @@
+{
+  "schema": "ro_web_enchant_grade_map_drops_v1",
+  "version": "0.9.82GK",
+  "rule": "Independent from global drop multiplier. Original monster drop tables remain untouched. A bonus entry is skipped when that monster already has the same item in its original drops.",
+  "profiles": {
+    "ice_scale_hill_3x3_region_camera": {
+      "mapName": "冰鱗山丘",
+      "entries": [
+        {
+          "monsterIds": [
+            21520,
+            21521,
+            21522,
+            21523,
+            21524,
+            21525,
+            21526,
+            21527
+          ],
+          "itemId": 1000322,
+          "chance": 75,
+          "qtyMin": 1,
+          "qtyMax": 1,
+          "skipIfOriginalDrop": true
+        },
+        {
+          "monsterIds": [
+            21537
+          ],
+          "itemId": 1000322,
+          "chance": 10000,
+          "qtyMin": 3,
+          "qtyMax": 5,
+          "skipIfOriginalDrop": true
+        },
+        {
+          "monsterIds": [
+            21520,
+            21522,
+            21523,
+            21525
+          ],
+          "itemId": 720,
+          "chance": 15,
+          "qtyMin": 1,
+          "qtyMax": 1,
+          "skipIfOriginalDrop": true
+        },
+        {
+          "monsterIds": [
+            21521,
+            21524,
+            21526,
+            21527
+          ],
+          "itemId": 728,
+          "chance": 8,
+          "qtyMin": 1,
+          "qtyMax": 1,
+          "skipIfOriginalDrop": true
+        }
+      ]
+    },
+    "serpent_nest_3x3_region_camera": {
+      "mapName": "蛇巢穴",
+      "entries": [
+        {
+          "monsterIds": [
+            21526,
+            21527,
+            21528,
+            21529,
+            21599
+          ],
+          "itemId": 1000322,
+          "chance": 100,
+          "qtyMin": 1,
+          "qtyMax": 1,
+          "skipIfOriginalDrop": true
+        },
+        {
+          "monsterIds": [
+            21528,
+            21529,
+            21599
+          ],
+          "itemId": 719,
+          "chance": 8,
+          "qtyMin": 1,
+          "qtyMax": 1,
+          "skipIfOriginalDrop": true
+        },
+        {
+          "monsterIds": [
+            21529,
+            21599
+          ],
+          "itemId": 1000321,
+          "chance": 3,
+          "qtyMin": 1,
+          "qtyMax": 1,
+          "skipIfOriginalDrop": true
+        }
+      ]
+    }
+  }
+}

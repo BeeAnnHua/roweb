@@ -1,12 +1,12 @@
 //============================================================
-// RO_WEB 0.9.82GG — rAthena Renewal 裝備精煉 Runtime
+// RO_WEB 0.9.82GK — rAthena Renewal 裝備精煉 Runtime
 // Source: rAthena 2026-06-08 db/re/refine.yml
 // UI: original HTML/CSS implementation inspired by the official workflow.
 //============================================================
 (() => {
   "use strict";
 
-  const VERSION = "0.9.82GG";
+  const VERSION = "0.9.82GK";
   const RULE_KEY = "data/refine_rules.json";
   const BLESSING_ID = 6635;
   const state = {
@@ -517,7 +517,7 @@
         out.mresFlat = number(baseItem.mresFlat) + refine * 2;
       }
     }
-    return out;
+    return window.EnchantGradeRuntime?.decorateStatusSource ? window.EnchantGradeRuntime.decorateStatusSource(slot, out) : out;
   }
 
   // Damage-pipeline decoration: makes the equipped instance refine level and exact RA weapon bonus visible.
@@ -528,7 +528,8 @@
     const refine = Math.max(0, integer(instance?.refine));
     if (!refine) return baseItem;
     const result = refineBonusFor(baseItem,refine);
-    return {...baseItem, refine, Refine:refine, refineAtkBonus:result.bonus, refineRandomBonusMax:result.randomBonus};
+    const out = {...baseItem, refine, Refine:refine, refineAtkBonus:result.bonus, refineRandomBonusMax:result.randomBonus};
+    return window.EnchantGradeRuntime?.decorateCombatItem ? window.EnchantGradeRuntime.decorateCombatItem(slot, out) : out;
   }
 
   function getEquippedRefine(slot) {

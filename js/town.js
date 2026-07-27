@@ -160,7 +160,8 @@ function getNpcTypeText(type) {
     card_removal: "卡片拆卸",
     gender_change: "角色性別切換",
     refine: "裝備精煉",
-    storage: "倉庫"
+    storage: "倉庫",
+    enchant_grade: "裝備升階"
   };
   return map[type] || type || "NPC";
 }
@@ -172,6 +173,7 @@ function getNpcActionText(npc) {
   if (npc.type === "gender_change") return "切換角色性別";
   if (npc.type === "refine") return "開始精煉";
   if (npc.type === "storage") return "開啟倉庫";
+  if (npc.type === "enchant_grade") return "裝備升階";
   return "交談";
 }
 
@@ -206,6 +208,11 @@ function interactNpc(npcId) {
     } else {
       addBattleLog(npc.name + "：帳號倉庫尚未載入。");
     }
+    return;
+  }
+  if (npc.type === "enchant_grade") {
+    if (typeof openEnchantGradeWindow === "function") openEnchantGradeWindow(npc);
+    else addBattleLog(npc.name + "：裝備升階系統尚未載入。");
     return;
   }
   if (npc.type === "gender_change") {

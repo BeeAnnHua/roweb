@@ -1,0 +1,133 @@
+{
+  "schema": "ro_web_enchant_grade_exchange_v1",
+  "version": "0.9.82GK",
+  "source": "rAthena Renewal 2026-06-08 npc/re/merchants/barters/enchantgrade.yml",
+  "recipes": [
+    {
+      "index": 0,
+      "outputAegis": "Etel_Stone",
+      "outputItemId": 1000323,
+      "outputName": "乙太魔石",
+      "outputAmount": 1,
+      "zeny": 100000,
+      "requiredItems": [
+        {
+          "itemAegis": "Etel_Dust",
+          "itemId": 1000322,
+          "name": "乙太星塵",
+          "amount": 5
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "outputAegis": "Blessed_Etel_Dust",
+      "outputItemId": 1000337,
+      "outputName": "庇佑乙太星塵",
+      "outputAmount": 1,
+      "zeny": 100000,
+      "requiredItems": [
+        {
+          "itemAegis": "Etel_Dust",
+          "itemId": 1000322,
+          "name": "乙太星塵",
+          "amount": 5
+        },
+        {
+          "itemAegis": "Blacksmith_Blessing",
+          "itemId": 6635,
+          "name": "鐵匠的祝福",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "outputAegis": "Etel_Skyblue_Jewel",
+      "outputItemId": 1000325,
+      "outputName": "乙太天藍寶石",
+      "outputAmount": 1,
+      "zeny": 100000,
+      "requiredItems": [
+        {
+          "itemAegis": "Etel_Stone",
+          "itemId": 1000323,
+          "name": "乙太魔石",
+          "amount": 3
+        },
+        {
+          "itemAegis": "Skyblue_Jewel",
+          "itemId": 720,
+          "name": "天藍寶石",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "outputAegis": "Etel_Topaz",
+      "outputItemId": 1000326,
+      "outputName": "乙太黃寶石",
+      "outputAmount": 1,
+      "zeny": 200000,
+      "requiredItems": [
+        {
+          "itemAegis": "Etel_Stone",
+          "itemId": 1000323,
+          "name": "乙太魔石",
+          "amount": 6
+        },
+        {
+          "itemAegis": "Golden_Jewel",
+          "itemId": 728,
+          "name": "黃寶石",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "outputAegis": "Etel_Violet_Jewel",
+      "outputItemId": 1000327,
+      "outputName": "乙太紫寶石",
+      "outputAmount": 1,
+      "zeny": 300000,
+      "requiredItems": [
+        {
+          "itemAegis": "Etel_Stone",
+          "itemId": 1000323,
+          "name": "乙太魔石",
+          "amount": 10
+        },
+        {
+          "itemAegis": "Violet_Jewel",
+          "itemId": 719,
+          "name": "紫寶石",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "outputAegis": "Etel_Amber",
+      "outputItemId": 1000328,
+      "outputName": "乙太琥珀",
+      "outputAmount": 1,
+      "zeny": 500000,
+      "requiredItems": [
+        {
+          "itemAegis": "Etel_Stone",
+          "itemId": 1000323,
+          "name": "乙太魔石",
+          "amount": 15
+        },
+        {
+          "itemAegis": "Amber",
+          "itemId": 1000321,
+          "name": "琥珀",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}
