@@ -27131,5 +27131,23 @@
     "sellPrice": 5,
     "requiredLevel": 180,
     "reuseDelayMs": 0
+  },
+  "12020": {
+    "id": 12020,
+    "officialId": 12020,
+    "name": "暗水",
+    "type": "consume",
+    "category": "elemental_converter",
+    "subCategory": "physical_element_endow",
+    "icon": "images/items/12020.webp",
+    "buyPrice": 2,
+    "sellPrice": 1,
+    "useEffect": {
+      "type": "physical_element_endow",
+      "buffId": "item_physical_element_endow",
+      "element": "Dark",
+      "durationMs": 1200000,
+      "replacesPreviousElementEndow": true
+    }
   }
 }

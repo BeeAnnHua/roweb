@@ -1434,12 +1434,8 @@ function consumeMemorizeChargeOnMagicCast(skill) {
 }
 
 function paySkillCost(skill, level, options = {}) {
-  // 0.9.82GI：肯貝特只是一層低優先的暫時武器屬性。
-  // 任一實際施放成功、進入扣費階段的玩家技能都會解除它；
-  // 灑水、塗毒與賢者屬性附加等技能接著以自身 Buff 成為新屬性來源。
-  if (typeof window.cancelConverterForSkillUse === "function") {
-    window.cancelConverterForSkillUse(skill?.name || "技能");
-  }
+  // 0.9.82GJ：一般技能施放不會清除武器／鎧甲臨時屬性。
+  // 只有新的同槽屬性附加會覆蓋，或更換／卸下對應裝備時解除。
   const spCost = getRuntimeSkillSpCost(skill, level);
   const profile = getSkillRuntimeProfile(skill) || {};
   const hpCost = Math.max(0, Number(getLevelValue(profile.hpCost, level, 0)));
@@ -3194,7 +3190,11 @@ function castBuffSkill(skill, requestedLevel = null, options = {}) {
   }
   const resolvedWeaponElement = runtimeEffects?.attackElementOverride;
   if (resolvedWeaponElement !== undefined && resolvedWeaponElement !== null && resolvedWeaponElement !== "") {
-    window.cancelConverterForSkillWeaponEndow?.(skill.name || "屬性附加技能");
+    window.cancelConverterForSkillWeaponEndow?.(skill.name || "武器屬性附加技能");
+  }
+  const resolvedArmorElement = runtimeEffects?.armorElement;
+  if (resolvedArmorElement !== undefined && resolvedArmorElement !== null && resolvedArmorElement !== "") {
+    window.cancelPreviousArmorElementEndow?.(skill.name || "鎧甲屬性附加技能");
   }
   const performanceActivationOrder = profile.sustainedPerformance === true
     ? (player.performanceActivationSequence = Number(player.performanceActivationSequence || 0) + 1)

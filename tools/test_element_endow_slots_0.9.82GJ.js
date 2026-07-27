@@ -1,0 +1,25 @@
+const fs=require('fs'),vm=require('vm'),assert=require('assert');
+const src=fs.readFileSync('js/player.js','utf8');
+const a=src.indexOf('// 武器／鎧甲臨時屬性槽（0.9.82GJ）');
+const b=src.indexOf('// 0.9.82FM：手動使用與自動補品共用等級限制及重複使用冷卻。',a);
+assert(a>=0&&b>a);
+const code=src.slice(src.lastIndexOf('//=======================================',a),b);
+let now=1000; const logs=[];
+const ctx={console,window:null,Date:{now:()=>now},player:{activeBuffs:{},attackElement:null},addBattleLog:(m)=>logs.push(m),getPlainPlayerObject:o=>(o&&typeof o==='object'?o:{})};ctx.window=ctx;
+vm.createContext(ctx);vm.runInContext(code,ctx);
+function skill(id,el,extra={}){ctx.cancelConverterForSkillWeaponEndow('skill',{silent:true});ctx.player.activeBuffs[id]={id,name:id,activatedAt:++now,startedAt:now,expiresAt:now+99999,effects:{attackElementOverride:el,...extra}};}
+ctx.applyPhysicalElementEndowFromItem({id:12114,name:'火 肯貝特',useEffect:{type:'physical_element_endow',element:'Fire',durationMs:1200000}});
+assert.equal(ctx.resolvePhysicalWeaponElement('Neutral'),'Fire');
+skill('aspersio','Holy',{statusResistanceRate:10});assert.equal(ctx.resolvePhysicalWeaponElement('Neutral'),'Holy');assert(!ctx.player.activeBuffs.item_physical_element_endow);
+ctx.applyPhysicalElementEndowFromItem({id:12020,name:'暗水',useEffect:{type:'physical_element_endow',element:'Dark',durationMs:1200000}});
+assert.equal(ctx.resolvePhysicalWeaponElement('Neutral'),'Dark');
+assert(ctx.player.activeBuffs.aspersio && ctx.player.activeBuffs.aspersio.effects.statusResistanceRate===10);assert(!('attackElementOverride' in ctx.player.activeBuffs.aspersio.effects));
+skill('poison','Poison');assert.equal(ctx.resolvePhysicalWeaponElement('Neutral'),'Poison');
+ctx.clearPhysicalElementEndow('weapon_change',{silent:true});assert.equal(ctx.resolvePhysicalWeaponElement('Neutral'),'Neutral');
+ctx.player.activeBuffs.piety={id:'piety',activatedAt:++now,expiresAt:now+99999,effects:{armorElement:'Holy',statusResistanceRate:50}};
+ctx.cancelPreviousArmorElementEndow('armor item',{silent:true});ctx.player.activeBuffs.item_armor_element_endow={id:'item_armor_element_endow',elementEndowSlot:'armor',activatedAt:++now,expiresAt:now+99999,effects:{armorElement:'Fire'}};
+assert.equal(ctx.getLatestElementEndow('armorElement').element,'Fire');assert.equal(ctx.player.activeBuffs.piety.effects.statusResistanceRate,50);assert(!('armorElement' in ctx.player.activeBuffs.piety.effects));
+ctx.clearArmorElementEndow('armor_change',{silent:true});assert.equal(ctx.getLatestElementEndow('armorElement'),null);
+const pipeline=fs.readFileSync('js/ra_renewal_damage_pipeline.js','utf8');assert(pipeline.includes("if(profile?.element)return profile.element;"));assert(pipeline.includes("if(mode==='fixed'||mode==='forced'||mode==='skill')return profile.element||'Neutral';"));
+const skillEngine=fs.readFileSync('js/skill_engine.js','utf8');assert(!skillEngine.includes('window.cancelConverterForSkillUse(skill?.name || "技能")'));
+console.log(JSON.stringify({pass:18,weaponLastWins:true,armorLastWins:true,forcedSkillPriority:true,darkWater:true}));

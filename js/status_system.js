@@ -1,5 +1,5 @@
 //=======================================
-// StatusSystem v0.9.82GI
+// StatusSystem v0.9.82GJ
 // 一般素質 + rAthena Renewal 四轉特性素質 + 全域 +10 配點模式 + 響應式進階戰鬥資訊
 //=======================================
 let statPointData = { points: {} };

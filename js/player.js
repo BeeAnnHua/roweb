@@ -2034,6 +2034,9 @@ function moveEquipmentSlotToInventory(slot, options = {}) {
   if ((slot === "weapon" || (slot === "shield" && removedSlotItemIsWeapon)) && typeof clearPhysicalElementEndow === "function") {
     clearPhysicalElementEndow(options.silent ? "weapon_change" : "weapon_unequip", { silent: options.silent === true });
   }
+  if (slot === "armor" && typeof clearArmorElementEndow === "function") {
+    clearArmorElementEndow(options.silent ? "armor_change" : "armor_unequip", { silent: options.silent === true });
+  }
   player.equipment[slot] = null;
   if (itemData) {
     const inventoryItem = findInventoryItemById(itemId);
@@ -2117,9 +2120,12 @@ function equipItem(itemData) {
     return;
   }
 
-  // 肯貝特附著於當下武器組合；裝備任何新的主手／刺客副手武器都視為換武器並解除。
+  // 臨時屬性附著於當下裝備；更換主手／刺客副手清武器屬性，更換鎧甲清鎧甲屬性。
   if ((slot === "weapon" || (slot === "shield" && isWeaponEquipmentItem(itemData))) && typeof clearPhysicalElementEndow === "function") {
     clearPhysicalElementEndow("weapon_change");
+  }
+  if (slot === "armor" && typeof clearArmorElementEndow === "function") {
+    clearArmorElementEndow("armor_change");
   }
 
   // 雙手武器與盾牌／副手互斥；刺客系副手只允許單手劍與短劍。
@@ -2348,97 +2354,133 @@ function findInventoryItemById(itemId) {
 }
 
 //=======================================
-// 肯貝特／武器屬性附魔（0.9.82DN）
+// 武器／鎧甲臨時屬性槽（0.9.82GJ）
+// 物品與技能同優先：最後施加者覆蓋前一個。
+// 技能本身強制傷害屬性由傷害管線處理，優先於本槽但不會刪除本槽。
 //=======================================
 const ITEM_PHYSICAL_ELEMENT_ENDOW_BUFF_ID = "item_physical_element_endow";
+const ITEM_ARMOR_ELEMENT_ENDOW_BUFF_ID = "item_armor_element_endow";
 
 function getPhysicalElementEndowLabel(element) {
-  const labels = { Fire: "火", Water: "水", Earth: "地", Wind: "風", Holy: "聖", Dark: "暗", Ghost: "念", Poison: "毒", Neutral: "無" };
+  const labels = { Fire: "火", Water: "水", Earth: "地", Wind: "風", Holy: "聖", Dark: "暗", Ghost: "念", Poison: "毒", Undead: "不死", Neutral: "無" };
   return labels[String(element || "")] || String(element || "無");
 }
 
-function clearPhysicalElementEndow(reason = "weapon_change", options = {}) {
-  if (!player) return false;
-  player.activeBuffs = getPlainPlayerObject(player.activeBuffs);
-  const active = player.activeBuffs?.[ITEM_PHYSICAL_ELEMENT_ENDOW_BUFF_ID];
-  const legacyElement = String(player.attackElement || "");
-  const hadLegacyConverter = ["Fire","Water","Earth","Wind"].includes(legacyElement);
-  if (!active && !hadLegacyConverter) return false;
-  if (active) delete player.activeBuffs[ITEM_PHYSICAL_ELEMENT_ENDOW_BUFF_ID];
-  if (hadLegacyConverter) player.attackElement = null;
-  if (!options.silent && typeof addBattleLog === "function") {
-    addBattleLog(reason === "weapon_unequip" ? "卸下武器，肯貝特的武器屬性已解除。" : "更換武器，原本的肯貝特屬性已解除。");
-  }
-  return true;
+function isRuntimeBuffActive(buff, now = Date.now()) {
+  const expiresAt = Number(buff?.expiresAt || 0);
+  return !expiresAt || expiresAt > now;
 }
-window.clearPhysicalElementEndow = clearPhysicalElementEndow;
 
-function getActiveSkillWeaponElementEndow() {
+function getLatestElementEndow(effectKey) {
   if (!player) return null;
   player.activeBuffs = getPlainPlayerObject(player.activeBuffs);
   const now = Date.now();
   const rows = Object.entries(player.activeBuffs || {})
-    .filter(([id, buff]) => String(id) !== ITEM_PHYSICAL_ELEMENT_ENDOW_BUFF_ID && buff?.effects?.attackElementOverride)
-    .filter(([, buff]) => !Number(buff?.expiresAt || 0) || Number(buff.expiresAt) > now)
-    .map(([id, buff]) => ({
+    .filter(([, buff]) => isRuntimeBuffActive(buff, now) && buff?.effects?.[effectKey] !== undefined && buff?.effects?.[effectKey] !== null && buff?.effects?.[effectKey] !== "")
+    .map(([id, buff], order) => ({
       id,
       buff,
-      element: String(buff.effects.attackElementOverride),
-      activatedAt: Number(buff.activatedAt || buff.startedAt || 0)
+      element: String(buff.effects[effectKey]),
+      activatedAt: Number(buff.activatedAt || buff.startedAt || 0),
+      order
     }))
-    .sort((a, b) => a.activatedAt - b.activatedAt);
+    .sort((a, b) => (a.activatedAt - b.activatedAt) || (a.order - b.order));
   return rows.length ? rows[rows.length - 1] : null;
+}
+window.getLatestElementEndow = getLatestElementEndow;
+
+function clearElementEndowSlot(effectKey, slotName, reason = "replace", options = {}) {
+  if (!player) return false;
+  player.activeBuffs = getPlainPlayerObject(player.activeBuffs);
+  let changed = false;
+  for (const [id, buff] of Object.entries(player.activeBuffs || {})) {
+    if (!buff?.effects || buff.effects[effectKey] === undefined || buff.effects[effectKey] === null) continue;
+    changed = true;
+    delete buff.effects[effectKey];
+    const isDedicatedItemBuff = String(buff.elementEndowSlot || "") === slotName ||
+      (slotName === "weapon" && String(id) === ITEM_PHYSICAL_ELEMENT_ENDOW_BUFF_ID) ||
+      (slotName === "armor" && String(id) === ITEM_ARMOR_ELEMENT_ENDOW_BUFF_ID);
+    if (isDedicatedItemBuff || Object.keys(buff.effects || {}).length === 0) delete player.activeBuffs[id];
+  }
+  if (slotName === "weapon") {
+    const legacyElement = String(player.attackElement || "");
+    if (["Fire","Water","Earth","Wind"].includes(legacyElement)) {
+      player.attackElement = null;
+      changed = true;
+    }
+  }
+  if (changed && !options.silent && typeof addBattleLog === "function") {
+    const label = slotName === "armor" ? "鎧甲附加屬性" : "武器附加屬性";
+    const action = reason === "unequip" ? "卸下裝備" : reason === "equipment_change" ? "更換裝備" : "新的屬性效果";
+    addBattleLog(`${action}，原本的${label}已解除。`);
+  }
+  return changed;
+}
+
+function clearPhysicalElementEndow(reason = "weapon_change", options = {}) {
+  const mapped = reason === "weapon_unequip" ? "unequip" : reason === "weapon_change" ? "equipment_change" : reason;
+  return clearElementEndowSlot("attackElementOverride", "weapon", mapped, options);
+}
+window.clearPhysicalElementEndow = clearPhysicalElementEndow;
+window.clearWeaponElementEndow = clearPhysicalElementEndow;
+
+function clearArmorElementEndow(reason = "armor_change", options = {}) {
+  const mapped = reason === "armor_unequip" ? "unequip" : reason === "armor_change" ? "equipment_change" : reason;
+  return clearElementEndowSlot("armorElement", "armor", mapped, options);
+}
+window.clearArmorElementEndow = clearArmorElementEndow;
+
+function getActiveWeaponElementEndow() {
+  return getLatestElementEndow("attackElementOverride");
+}
+window.getActiveWeaponElementEndow = getActiveWeaponElementEndow;
+
+// 舊 API 保留給既有模組；只回傳技能來源，不再代表技能有較高優先權。
+function getActiveSkillWeaponElementEndow() {
+  const latest = getActiveWeaponElementEndow();
+  return latest && String(latest.id) !== ITEM_PHYSICAL_ELEMENT_ENDOW_BUFF_ID ? latest : null;
 }
 window.getActiveSkillWeaponElementEndow = getActiveSkillWeaponElementEndow;
 
 function resolvePhysicalWeaponElement(fallbackElement = "Neutral") {
-  // 技能附加（灑水、塗毒、賢者屬性附加、紋章等）永遠高於肯貝特。
-  const skillEndow = getActiveSkillWeaponElementEndow();
-  if (skillEndow?.element) return skillEndow.element;
-  const converter = player?.activeBuffs?.[ITEM_PHYSICAL_ELEMENT_ENDOW_BUFF_ID];
-  if (converter && Number(converter.expiresAt || 0) > Date.now() && converter.effects?.attackElementOverride) {
-    return converter.effects.attackElementOverride;
-  }
-  return fallbackElement || "Neutral";
+  const latest = getActiveWeaponElementEndow();
+  return latest?.element || fallbackElement || "Neutral";
 }
 window.resolvePhysicalWeaponElement = resolvePhysicalWeaponElement;
 
-function cancelConverterForSkillUse(skillName = "技能", options = {}) {
-  const active = player?.activeBuffs?.[ITEM_PHYSICAL_ELEMENT_ENDOW_BUFF_ID];
-  const legacyElement = String(player?.attackElement || "");
-  if (!active && !["Fire", "Water", "Earth", "Wind"].includes(legacyElement)) return false;
-  clearPhysicalElementEndow("skill_use", { silent:true });
-  if (!options.silent && typeof addBattleLog === "function") {
-    addBattleLog(`${skillName}施放後，肯貝特的武器屬性已解除。`, "skill");
-  }
-  return true;
-}
+// 0.9.82GJ：施放普通技能不再解除臨時武器屬性。此 API 僅為舊呼叫相容。
+function cancelConverterForSkillUse() { return false; }
 window.cancelConverterForSkillUse = cancelConverterForSkillUse;
 
-function cancelConverterForSkillWeaponEndow(skillName = "屬性附加技能") {
-  const active = player?.activeBuffs?.[ITEM_PHYSICAL_ELEMENT_ENDOW_BUFF_ID];
-  const legacyElement = String(player?.attackElement || "");
-  if (!active && !["Fire", "Water", "Earth", "Wind"].includes(legacyElement)) return false;
-  clearPhysicalElementEndow("skill_override", { silent:true });
-  if (typeof addBattleLog === "function") addBattleLog(`${skillName}覆蓋了肯貝特的武器屬性。`, "skill");
-  return true;
+function cancelConverterForSkillWeaponEndow(skillName = "屬性附加技能", options = {}) {
+  const previous = getActiveWeaponElementEndow();
+  const changed = clearElementEndowSlot("attackElementOverride", "weapon", "replace", { silent:true });
+  if (changed && !options.silent && typeof addBattleLog === "function") {
+    addBattleLog(`${skillName}覆蓋了原本的武器附加屬性。`, "skill");
+  }
+  return previous || changed;
 }
 window.cancelConverterForSkillWeaponEndow = cancelConverterForSkillWeaponEndow;
+
+function cancelPreviousArmorElementEndow(skillName = "鎧甲屬性附加技能", options = {}) {
+  const previous = getLatestElementEndow("armorElement");
+  const changed = clearElementEndowSlot("armorElement", "armor", "replace", { silent:true });
+  if (changed && !options.silent && typeof addBattleLog === "function") {
+    addBattleLog(`${skillName}覆蓋了原本的鎧甲附加屬性。`, "skill");
+  }
+  return previous || changed;
+}
+window.cancelPreviousArmorElementEndow = cancelPreviousArmorElementEndow;
 
 function applyPhysicalElementEndowFromItem(itemData) {
   const effect = itemData?.useEffect || {};
   if (String(effect.type || "") !== "physical_element_endow") return false;
-
   const element = String(effect.element || "").trim();
   const durationMs = Math.max(1000, Number(effect.durationMs || 1200000));
   if (!element) return false;
 
-  const skillEndow = getActiveSkillWeaponElementEndow();
-  if (skillEndow?.element) {
-    if (typeof addBattleLog === "function") addBattleLog(`目前的${skillEndow.buff?.name || "技能武器屬性"}優先於肯貝特，未消耗 ${itemData.name}。`, "skill");
-    return false;
-  }
-
+  const previous = getActiveWeaponElementEndow();
+  clearElementEndowSlot("attackElementOverride", "weapon", "replace", { silent:true });
   player.activeBuffs = getPlainPlayerObject(player.activeBuffs);
   const now = Date.now();
   const buffId = String(effect.buffId || ITEM_PHYSICAL_ELEMENT_ENDOW_BUFF_ID);
@@ -2446,21 +2488,48 @@ function applyPhysicalElementEndowFromItem(itemData) {
     id: buffId,
     name: itemData.name,
     sourceItemId: itemData.id,
+    elementEndowSlot: "weapon",
+    activatedAt: now,
     startedAt: now,
     expiresAt: now + durationMs,
-    effects: {
-      attackElementOverride: element,
-      physicalDamageOnly: 1,
-      affectsAllPlayerPhysicalDamage: 1,
-      affectsDualWieldBothHands: 1
-    }
+    effects: { attackElementOverride: element }
   };
 
   const minutes = Math.max(1, Math.round(durationMs / 60000));
-  addBattleLog(`使用了 ${itemData.name}，${minutes} 分鐘內所有物理傷害轉為${getPhysicalElementEndowLabel(element)}屬性；主手與副手同步生效。`);
+  const prefix = previous ? `覆蓋原本的${getPhysicalElementEndowLabel(previous.element)}屬性，` : "";
+  addBattleLog(`使用了 ${itemData.name}，${prefix}${minutes} 分鐘內武器附加為${getPhysicalElementEndowLabel(element)}屬性；主手與副手同步生效。`);
   return true;
 }
 window.applyPhysicalElementEndowFromItem = applyPhysicalElementEndowFromItem;
+
+function applyArmorElementEndowFromItem(itemData) {
+  const effect = itemData?.useEffect || {};
+  if (!["armor_element_endow", "armor_element_override"].includes(String(effect.type || ""))) return false;
+  const element = String(effect.element || "").trim();
+  const durationMs = Math.max(1000, Number(effect.durationMs || 1200000));
+  if (!element) return false;
+
+  const previous = getLatestElementEndow("armorElement");
+  clearElementEndowSlot("armorElement", "armor", "replace", { silent:true });
+  player.activeBuffs = getPlainPlayerObject(player.activeBuffs);
+  const now = Date.now();
+  const buffId = String(effect.buffId || ITEM_ARMOR_ELEMENT_ENDOW_BUFF_ID);
+  player.activeBuffs[buffId] = {
+    id: buffId,
+    name: itemData.name,
+    sourceItemId: itemData.id,
+    elementEndowSlot: "armor",
+    activatedAt: now,
+    startedAt: now,
+    expiresAt: now + durationMs,
+    effects: { armorElement: element }
+  };
+  const minutes = Math.max(1, Math.round(durationMs / 60000));
+  const prefix = previous ? `覆蓋原本的${getPhysicalElementEndowLabel(previous.element)}屬性，` : "";
+  addBattleLog(`使用了 ${itemData.name}，${prefix}${minutes} 分鐘內鎧甲附加為${getPhysicalElementEndowLabel(element)}屬性。`);
+  return true;
+}
+window.applyArmorElementEndowFromItem = applyArmorElementEndowFromItem;
 
 // 0.9.82FM：手動使用與自動補品共用等級限制及重複使用冷卻。
 function getConsumableItemRequiredLevel(itemData) {
@@ -2532,12 +2601,13 @@ function consumeItem(itemData) {
     return;
   }
 
-  // 肯貝特：使用資料中的 useEffect，不按物品 ID 硬寫。
-  // 一張肯貝特同時作用主手與刺客副手，並覆蓋所有玩家物理傷害；魔法不受影響。
-  const isPhysicalEndowItem = String(itemData?.useEffect?.type || "") === "physical_element_endow";
-  const appliedPhysicalEndow = applyPhysicalElementEndowFromItem(itemData);
-  // 技能武器附加存在時，肯貝特不能反向蓋回去，也不可扣除道具。
-  if (isPhysicalEndowItem && !appliedPhysicalEndow) return;
+  // 物品屬性附加與技能屬性附加共用同一優先層：最後施加者覆蓋前一個。
+  const endowType = String(itemData?.useEffect?.type || "");
+  const isPhysicalEndowItem = endowType === "physical_element_endow";
+  const isArmorEndowItem = endowType === "armor_element_endow" || endowType === "armor_element_override";
+  const appliedPhysicalEndow = isPhysicalEndowItem ? applyPhysicalElementEndowFromItem(itemData) : false;
+  const appliedArmorEndow = isArmorEndowItem ? applyArmorElementEndowFromItem(itemData) : false;
+  if ((isPhysicalEndowItem && !appliedPhysicalEndow) || (isArmorEndowItem && !appliedArmorEndow)) return;
 
   // 物品腳本優先：支援 itemheal 與 sc_end。這讓蜂膠、萬能藥及未來新增的異常解除品
   // 不必再在 consumeItem() 內建立逐項白名單。
@@ -2584,7 +2654,7 @@ function consumeItem(itemData) {
     itemEffectLogged = true;
   }
 
-  if (!itemEffectLogged && !appliedPhysicalEndow) addBattleLog("使用了 " + itemData.name + "。");
+  if (!itemEffectLogged && !appliedPhysicalEndow && !appliedArmorEndow) addBattleLog("使用了 " + itemData.name + "。");
 
   // 背包扣掉 1 個，並開始該道具的 RA 重複使用冷卻。
   markConsumableItemUsed(itemData);

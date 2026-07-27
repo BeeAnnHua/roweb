@@ -702,5 +702,41 @@
     "reuseDelayMs": 0,
     "dataSource": "itemInfo_UTF8.lub + rAthena Renewal db/re/item_db_usable.yml (2026-06-08)",
     "recoveryIsRandom": true
+  },
+  "12020": {
+    "id": 12020,
+    "officialId": 12020,
+    "Id": 12020,
+    "AegisName": "Water_Of_Darkness",
+    "Name": "暗水",
+    "name": "暗水",
+    "Type": "DelayConsume",
+    "dbType": "DelayConsume",
+    "type": "consume",
+    "category": "elemental_converter",
+    "subCategory": "physical_element_endow",
+    "Buy": 2,
+    "buyPrice": 2,
+    "sellPrice": 1,
+    "description": [
+      "圍繞著紫色陰暗氣息的受詛咒之水。",
+      "使用後 20 分鐘內賦予武器暗屬性；可與肯貝特、灑水、塗毒等屬性附加互相覆蓋。"
+    ],
+    "icon": "images/items/12020.webp",
+    "slots": 0,
+    "slotCount": 0,
+    "Slots": 0,
+    "ClassNum": 0,
+    "Script": "itemskill \"ITEM_ENCHANTARMS\",8;",
+    "scriptRaw": "itemskill \"ITEM_ENCHANTARMS\",8;",
+    "useEffect": {
+      "type": "physical_element_endow",
+      "buffId": "item_physical_element_endow",
+      "element": "Dark",
+      "durationMs": 1200000,
+      "replacesPreviousElementEndow": true
+    },
+    "dataSource": "itemInfo_UTF8.lub + rAthena db/re/item_db_usable.yml ITEM_ENCHANTARMS Lv8",
+    "roWebRule": "Weapon element endow shares one slot with skill endows; the last applied source wins."
   }
 }

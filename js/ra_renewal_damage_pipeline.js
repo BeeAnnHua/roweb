@@ -1,4 +1,4 @@
-// RO_WEB 0.9.82GI - RA Renewal damage formula + Trait P.ATK/S.MATK/C.RATE + universal physical element endow
+// RO_WEB 0.9.82GJ - RA Renewal damage formula + unified last-applied element slots + forced skill element priority
 (function(){
 "use strict";
 const floor=n=>Math.floor(Number(n)||0), clamp=(n,a,b)=>Math.max(a,Math.min(b,Number(n)||0));
@@ -41,14 +41,12 @@ function attackElement(profile={},w=weapon()){
  return profile.element||w?.element||w?.attackElement||'Neutral';
 }
 function physicalAttackElement(w=weapon()){
- // 0.9.82GI：技能武器附加 > 肯貝特 > 卡片／裝備／武器原生屬性。
+ // 0.9.82GJ：物品／技能武器附加同層，最後施加者 > 卡片／裝備／武器原生屬性。
  const equipmentElement=window.CardRuntime?.getMergedSource?.()?.weaponElement;
  const fallback=equipmentElement||window.player?.attackElement||w?.element||w?.attackElement||'Neutral';
  if(typeof window.resolvePhysicalWeaponElement==='function')return window.resolvePhysicalWeaponElement(fallback);
- const skillEndow=window.getActiveSkillWeaponElementEndow?.();
- if(skillEndow?.element)return skillEndow.element;
- const itemBuff=window.player?.activeBuffs?.item_physical_element_endow;
- if(itemBuff&&Number(itemBuff.expiresAt||0)>Date.now()&&itemBuff.effects?.attackElementOverride)return itemBuff.effects.attackElementOverride;
+ const latest=window.getActiveWeaponElementEndow?.();
+ if(latest?.element)return latest.element;
  return fallback;
 }
 function physicalSkillElement(profile={},w=weapon()){
