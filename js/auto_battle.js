@@ -1208,6 +1208,8 @@ function enhanceAutoCombatNumberInputs() {
   const panel = document.getElementById("auto-combat-panel");
   if (!panel) return;
   panel.querySelectorAll('input[type="number"]').forEach(input => {
+    input.dataset.roNumberOwner = "auto-combat";
+    input.classList.add("ro-gold-field");
     if (input.closest(".auto-number-control")) return;
     const wrapper = document.createElement("span");
     wrapper.className = "auto-number-control";

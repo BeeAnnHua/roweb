@@ -127,6 +127,9 @@
     if (!(input instanceof global.HTMLInputElement) || input.type !== "number" || input.hasAttribute(NUMBER_READY_ATTR)) return;
     input.setAttribute(NUMBER_READY_ATTR, "1");
     input.classList.add("ro-number-input", "ro-gold-field");
+    // 自動掛機面板已有專用的緊湊 ▲▼ 控制器。全域黑金控制器不得再包一層，
+    // 否則樞機主教大量 Buff 門檻輸入會形成雙重 DOM 包裝與大量 Mutation。
+    if (input.dataset.roNumberOwner === "auto-combat" || input.closest("#auto-combat-panel, .auto-number-control")) return;
     const parent = input.parentElement;
     if (!parent) return;
     const wrapper = DOC.createElement("span");
@@ -252,8 +255,23 @@
   if (DOC) {
     const start = () => {
       auditRoot(DOC);
+      const queuedRoots = new Set();
+      let auditFrame = 0;
+      const flushAuditQueue = () => {
+        auditFrame = 0;
+        const roots = Array.from(queuedRoots);
+        queuedRoots.clear();
+        roots.forEach(root => {
+          if (root?.isConnected !== false) auditRoot(root);
+        });
+      };
+      const queueAudit = root => {
+        if (!root || (root.nodeType !== 1 && root.nodeType !== 9)) return;
+        queuedRoots.add(root);
+        if (!auditFrame) auditFrame = global.requestAnimationFrame(flushAuditQueue);
+      };
       const observer = new MutationObserver(records => {
-        records.forEach(record => record.addedNodes.forEach(auditRoot));
+        records.forEach(record => record.addedNodes.forEach(queueAudit));
       });
       observer.observe(DOC.documentElement, { childList: true, subtree: true });
       global.__roBlackGoldObserver = observer;

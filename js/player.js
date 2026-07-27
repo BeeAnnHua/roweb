@@ -360,7 +360,8 @@ function normalizePlayerData() {
 
   player.activeBuffs = getPlainPlayerObject(player.activeBuffs);
   if (typeof normalizeActiveBuffs === "function") {
-    normalizeActiveBuffs();
+    // 0.9.82GP：載入存檔只整理／清除過期 Buff；週期治療交給遊戲啟動後的正常 Tick。
+    normalizeActiveBuffs({ processPeriodic: false });
   }
 
   // 狩獵統計：v0.3 新增，舊存檔會自動補齊

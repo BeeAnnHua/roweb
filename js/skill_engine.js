@@ -2192,8 +2192,9 @@ function applyRuntimeBuffAfterEffect(skillId, buff, now = Date.now()) {
 }
 window.applyRuntimeBuffAfterEffect = applyRuntimeBuffAfterEffect;
 
-function normalizeActiveBuffs() {
+function normalizeActiveBuffs(options = {}) {
   if (!player) return;
+  const processPeriodic = options.processPeriodic !== false;
   player.activeBuffs = player.activeBuffs || {};
   // 0.9.82AZ：火狩／怪物情報／火狩芽已改為永久被動。
   // 清除舊存檔殘留的主動 Buff，避免沿用已退役的偵測或觸發攻擊效果。
@@ -2211,6 +2212,10 @@ function normalizeActiveBuffs() {
       if (buff) applyRuntimeBuffAfterEffect(skillId, buff, now);
       delete player.activeBuffs[skillId]; return;
     }
+    // 0.9.82GP：能力值彙總只能清理過期 Buff，不可在同一條呼叫鏈執行週期治療／SP 扣除。
+    // 持續祈療會讀取衍生 MATK；若在 calculateDerivedPlayerStats -> getActiveBuffBonusTotals
+    // 內再次執行週期公式，會形成無限遞迴並在樞機主教存檔載入時爆出 Maximum call stack。
+    if (!processPeriodic) return;
     if (Number(buff?.effects?.revealHidden || 0) > 0 && typeof revealHiddenMonstersAroundPlayer === "function") {
       revealHiddenMonstersAroundPlayer(Number(buff.effects.revealHiddenRadius || 3));
     }
@@ -2269,7 +2274,7 @@ function normalizeActiveBuffs() {
 function getActiveBuffBonusTotals() {
   const totals = {};
   if (!player) return totals;
-  normalizeActiveBuffs();
+  normalizeActiveBuffs({ processPeriodic: false });
   Object.values(player.activeBuffs || {}).forEach(buff => {
     const effects = buff.effects || {};
     Object.keys(effects).forEach(key => {
