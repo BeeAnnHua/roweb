@@ -1,5 +1,5 @@
 //=======================================
-// StatusSystem v0.9.82GB
+// StatusSystem v0.9.82GI
 // 一般素質 + rAthena Renewal 四轉特性素質 + 全域 +10 配點模式 + 響應式進階戰鬥資訊
 //=======================================
 let statPointData = { points: {} };
@@ -14,9 +14,11 @@ const INITIAL_STATUS_POINTS = 25;
 // 視窗關閉時完全停更，使用者滾動進階內容時延後重繪，避免滾輪卡頓。
 const STATUS_UI_REFRESH_MIN_MS = 120;
 const STATUS_ADVANCED_SCROLL_IDLE_MS = 650;
+const STATUS_CONTROL_INTERACTION_GUARD_MS = 420;
 let statusUiRefreshTimer = null;
 let statusUiLastRenderAt = 0;
 let statusAdvancedInteractionUntil = 0;
+let statusControlInteractionUntil = 0;
 
 function isStatusWindowVisible() {
   const win = document.getElementById("status-window");
@@ -39,6 +41,25 @@ function markStatusAdvancedInteraction() {
   }
 }
 
+function markStatusControlInteraction(durationMs = STATUS_CONTROL_INTERACTION_GUARD_MS) {
+  const now = typeof performance !== "undefined" && performance.now ? performance.now() : Date.now();
+  statusControlInteractionUntil = Math.max(statusControlInteractionUntil, now + Math.max(120, Number(durationMs || 0)));
+  cancelScheduledStatusUIUpdate();
+}
+
+function ensureStatusControlInteractionBinding() {
+  const win = document.getElementById("status-window");
+  if (!win || win.dataset.statusControlGuardBound === "1") return;
+  win.dataset.statusControlGuardBound = "1";
+  const guard = event => {
+    if (event.target?.closest?.("button,input,select,textarea")) markStatusControlInteraction();
+  };
+  win.addEventListener("pointerdown", guard, true);
+  win.addEventListener("mousedown", guard, true);
+  win.addEventListener("touchstart", guard, { capture:true, passive:true });
+  win.addEventListener("keydown", guard, true);
+}
+
 function requestStatusUIUpdate(options = {}) {
   if (!player || !isStatusWindowVisible()) {
     cancelScheduledStatusUIUpdate();
@@ -53,7 +74,8 @@ function requestStatusUIUpdate(options = {}) {
   const now = typeof performance !== "undefined" && performance.now ? performance.now() : Date.now();
   const renderAfter = Math.max(
     statusUiLastRenderAt + STATUS_UI_REFRESH_MIN_MS,
-    player.statusAdvancedExpanded ? statusAdvancedInteractionUntil : 0
+    player.statusAdvancedExpanded ? statusAdvancedInteractionUntil : 0,
+    statusControlInteractionUntil
   );
   const delay = Math.max(0, Math.ceil(renderAfter - now));
   if (statusUiRefreshTimer !== null) return true;
@@ -75,6 +97,7 @@ function handleStatusWindowVisibilityChange(isOpen) {
     cancelScheduledStatusUIUpdate();
     return false;
   }
+  ensureStatusControlInteractionBinding();
   return requestStatusUIUpdate({ force: true });
 }
 
@@ -596,14 +619,16 @@ function allocateStatusPoints(statKey, requestedAmount = 1) {
 
     const requested = Math.max(1, Math.floor(Number(requestedAmount || 1)));
     const amount = Math.min(requested, available);
+    markStatusControlInteraction(260);
     player.stats[statKey] += amount;
     player.usedStatusPoints += amount;
     syncStatusPointCache();
     window.invalidateCardRuntime?.();
     recalculatePlayerStats();
+    window.invalidatePlayerUiRenderCaches?.("status");
     updatePlayerUI();
-    updateStatusUI();
-    saveGame();
+    requestStatusUIUpdate({ force:true });
+    if (typeof requestGameSave === "function") requestGameSave(350); else saveGame();
     addBattleLog(`${STATUS_LABELS[statKey]} +${amount}，目前 ${player.stats[statKey]}。`);
     return amount;
   };
@@ -636,14 +661,16 @@ function allocateTraitPoints(traitKey, requestedAmount = 1) {
       return 0;
     }
 
+    markStatusControlInteraction(260);
     player.traits[traitKey] += amount;
     player.traitStats = player.traits;
     syncTraitPointCache();
     window.invalidateCardRuntime?.();
     recalculatePlayerStats();
+    window.invalidatePlayerUiRenderCaches?.("status");
     updatePlayerUI();
-    updateStatusUI();
-    saveGame();
+    requestStatusUIUpdate({ force:true });
+    if (typeof requestGameSave === "function") requestGameSave(350); else saveGame();
     if (typeof addBattleLog === "function") addBattleLog(`${TRAIT_LABELS[traitKey]} ${TRAIT_NAMES[traitKey]} +${amount}，目前玩家配點 ${player.traits[traitKey]}。`);
     return amount;
   };
@@ -1348,6 +1375,7 @@ function appendStatusBattleRow(container, rowData, className = "status-css-battl
 }
 
 function updateStatusUI(options = {}) {
+  ensureStatusControlInteractionBinding();
   const panel = document.getElementById("status-panel");
   if (!panel || !player) return false;
   statusUiLastRenderAt = typeof performance !== "undefined" && performance.now ? performance.now() : Date.now();

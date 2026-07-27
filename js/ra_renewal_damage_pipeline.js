@@ -1,4 +1,4 @@
-// RO_WEB 0.9.82GG - RA Renewal damage formula + Trait P.ATK/S.MATK/C.RATE + universal physical element endow
+// RO_WEB 0.9.82GI - RA Renewal damage formula + Trait P.ATK/S.MATK/C.RATE + universal physical element endow
 (function(){
 "use strict";
 const floor=n=>Math.floor(Number(n)||0), clamp=(n,a,b)=>Math.max(a,Math.min(b,Number(n)||0));
@@ -41,17 +41,15 @@ function attackElement(profile={},w=weapon()){
  return profile.element||w?.element||w?.attackElement||'Neutral';
 }
 function physicalAttackElement(w=weapon()){
- // 肯貝特只覆蓋普通攻擊與明確採用武器屬性的技能。
- const itemBuff=window.player?.activeBuffs?.item_physical_element_endow;
- if(itemBuff&&Number(itemBuff.expiresAt||0)>Date.now()&&itemBuff.effects?.attackElementOverride){
-  return itemBuff.effects.attackElementOverride;
- }
- const buffElement=typeof window.getActiveBuffSpecialValue==='function'?window.getActiveBuffSpecialValue('attackElementOverride',null):null;
- if(buffElement) return buffElement;
+ // 0.9.82GI：技能武器附加 > 肯貝特 > 卡片／裝備／武器原生屬性。
  const equipmentElement=window.CardRuntime?.getMergedSource?.()?.weaponElement;
- if(equipmentElement) return equipmentElement;
- if(window.player?.attackElement) return window.player.attackElement;
- return w?.element||w?.attackElement||'Neutral';
+ const fallback=equipmentElement||window.player?.attackElement||w?.element||w?.attackElement||'Neutral';
+ if(typeof window.resolvePhysicalWeaponElement==='function')return window.resolvePhysicalWeaponElement(fallback);
+ const skillEndow=window.getActiveSkillWeaponElementEndow?.();
+ if(skillEndow?.element)return skillEndow.element;
+ const itemBuff=window.player?.activeBuffs?.item_physical_element_endow;
+ if(itemBuff&&Number(itemBuff.expiresAt||0)>Date.now()&&itemBuff.effects?.attackElementOverride)return itemBuff.effects.attackElementOverride;
+ return fallback;
 }
 function physicalSkillElement(profile={},w=weapon()){
  const mode=String(profile?.elementSource||'').toLowerCase();

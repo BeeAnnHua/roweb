@@ -1,0 +1,64 @@
+RO_WEB 0.9.82GI Final Test Report
+==================================
+Base version: 0.9.82GH
+Generated: 2026-07-27T14:10:06+08:00
+
+Release scope
+-------------
+1. Continuous MVP gacha opening no longer performs a full inventory/UI/save cycle per click.
+   - 55 ms queue dispatch.
+   - Up to 32 opens per batch slice.
+   - Reward addition, quick-slot refresh, logs, and saves are batched.
+   - 100-click simulation consumed exactly 100 boxes, returned pending count to zero,
+     and completed in at most four batch refresh/save slices.
+   - Generic addItem reward logs are suppressed inside the gacha batch to avoid duplicate rows.
+   - Rare announcement DOM nodes are capped at three simultaneous banners.
+
+2. Status allocation during Auto Battle remains interactive and no longer cancels hunting.
+   - Normal status and trait allocation preserve the current monster, player combat state,
+     attack rotation, and Auto Battle Controller.
+   - Pointer/touch interaction guard prevents combat-driven status redraw between pointerdown and click.
+   - Status UI performs one controlled redraw and uses a 350 ms trailing save.
+   - Skill allocation still uses the existing full controller reset where required.
+
+3. Kenbert is now a low-priority, single-layer temporary weapon element.
+   - Any successfully cast player skill clears Kenbert at the shared skill-cost commit point.
+   - Aspersio, Enchant Poison, Sage endows, insignias, and other attackElementOverride buffs
+     then become the active weapon element and cannot be overwritten by Kenbert.
+   - Rejected Kenbert use does not consume the item.
+   - Main-hand or assassin off-hand weapon unequip/switch clears Kenbert.
+   - Renewal damage and fallback combat formulas use the same central resolver.
+
+Automated results
+-----------------
+GI dedicated regression:          137 / 137 PASS
+GH account storage/reset:           3 / 3 PASS
+GG refine runtime:                  8 / 8 PASS
+GF mobile/Geffenia performance:    16 / 16 PASS
+GE Servant Weapon prerequisite:    15 / 15 PASS
+Combined targeted/regression:     179 / 179 PASS
+
+Deep Health
+-----------
+Status: PASS
+Errors: 0
+Warnings: 0
+JSON files parsed: 1953
+JavaScript files syntax-checked: 732
+Loaded runtime scripts: 38
+Item IDs: 1721
+Monsters: 224
+Data bundle entries: 1498
+
+Browser note
+------------
+A real headless Chromium page/click run was attempted, but localhost and file loading timed out
+inside the managed container. No browser screenshot was produced. Static validation, VM runtime
+simulation, source syntax, JSON parsing, data integrity, and focused regressions all passed.
+
+Changed files
+-------------
+Modified: 13
+Added: 3
+Deleted: 0
+See UPDATE_MANIFEST_0.9.82GI.json for the complete path list.

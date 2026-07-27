@@ -1470,6 +1470,10 @@ function tryAutoElementEndow() {
     return false;
   }
 
+  // 灑水、塗毒、賢者屬性附加與其他技能武器附加都高於肯貝特；
+  // 技能效果存在期間不重複嘗試、不消耗肯貝特，也不阻塞掛機攻擊。
+  if (typeof getActiveSkillWeaponElementEndow === "function" && getActiveSkillWeaponElementEndow()) return false;
+
   const element = String(cfg.element || "");
   const itemId = AUTO_ELEMENT_CONVERTER_ITEM_IDS[element];
   if (!itemId) return false;

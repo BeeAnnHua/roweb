@@ -552,7 +552,8 @@
     if (!id) return null;
     const data = getBaseItemData(id);
     const instance = getEquipmentInstance(slot) || normalizeEquipmentInstance(id, data);
-    if (slot === "weapon" && typeof clearPhysicalElementEndow === "function") {
+    const removedSlotItemIsWeapon = data && isWeaponEquipmentItem(data);
+    if ((slot === "weapon" || (slot === "shield" && removedSlotItemIsWeapon)) && typeof clearPhysicalElementEndow === "function") {
       clearPhysicalElementEndow(options.silent ? "weapon_change" : "weapon_unequip", { silent: options.silent === true });
     }
     player.equipment[slot] = null;
@@ -586,6 +587,11 @@
     if (!slot) { addBattleLog(`${itemData.name} 沒有可用的裝備位置。`); return; }
     const inventoryInstance = findInventoryInstance(requestedInstance?.instanceId || requestedInstance || itemData.id);
     if (!inventoryInstance) { addBattleLog(`背包裡沒有 ${itemData.name}。`); return; }
+
+    // 肯貝特附著於當下武器組合；裝備新的主手／刺客副手武器即解除。
+    if ((slot === 'weapon' || (slot === 'shield' && isWeaponEquipmentItem(itemData))) && typeof clearPhysicalElementEndow === 'function') {
+      clearPhysicalElementEndow('weapon_change');
+    }
 
     const conflictSlots = [];
     if (slot === 'weapon') {
@@ -634,7 +640,7 @@
       else player.inventory.push({ id: normalized.id, name: normalized.name || data.name, count: amount, locked: false });
     }
     if (window.RO_WEB_REWARD_BATCH_ACTIVE) {
-      if (typeof emitRewardAwareLog === 'function') emitRewardAwareLog(`獲得道具：${data.name || normalized.name} x ${amount}`, 'item');
+      if (!window.RO_WEB_SUPPRESS_REWARD_ADD_ITEM_LOG && typeof emitRewardAwareLog === 'function') emitRewardAwareLog(`獲得道具：${data.name || normalized.name} x ${amount}`, 'item');
       if (typeof markRewardBatchDirty === 'function') markRewardBatchDirty('inventory');
       return;
     }

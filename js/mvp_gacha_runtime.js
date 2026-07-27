@@ -1,5 +1,5 @@
 //============================================================
-// RO_WEB 0.9.82GG — 葛坡尼亞 MVP 地圖限定轉蛋 Runtime（全域掉落總閥）
+// RO_WEB 0.9.82GI — 葛坡尼亞 MVP 地圖限定轉蛋 Runtime（全域掉落總閥）
 // - 同 ID MVP 只有在指定地圖死亡才以原始 1% 判定轉蛋，並套用全域掉落總閥。
 // - 轉蛋內部稀有機率為單一 10000 基點母池的絕對機率；全域掉落倍率只影響轉蛋本體掉落。
 // - 1% 紅色、0.1% 紫色、0.01% 金色上方橫幅。
@@ -7,7 +7,7 @@
 (() => {
   "use strict";
 
-  const VERSION = "0.9.82GG";
+  const VERSION = "0.9.82GI";
   const BUNDLE_KEY = "data/mvp_gacha.json";
   const DEFAULT_GACHA_ITEM_ID = 14848;
   const CASH_FOOD_SOURCE = "mvp_gacha_cash_food";
@@ -107,6 +107,7 @@
     const banner = document.createElement("div");
     banner.className = `ro-mvp-gacha-banner ${["red","purple","gold"].includes(tier) ? tier : "red"}`;
     banner.textContent = text;
+    while (host.children.length >= 3) host.firstElementChild?.remove();
     host.appendChild(banner);
     window.setTimeout(() => banner.remove(), 5000);
   }
@@ -139,41 +140,125 @@
     return { category:null, row:weightedPick(cfg.ordinaryRewards), roll, rare:false };
   }
 
+  const GACHA_BATCH = {
+    pending:0,
+    scheduled:false,
+    processing:false,
+    item:null,
+    lastMissingLogAt:0
+  };
+  const GACHA_BATCH_DELAY_MS = 55;
+  const GACHA_BATCH_SLICE_LIMIT = 32;
+
+  function formatGachaBatchSummary(item, opened, summary) {
+    const rows = [...summary.values()].sort((a, b) => b.quantity - a.quantity || a.name.localeCompare(b.name, "zh-Hant"));
+    const visible = rows.slice(0, 8).map(row => `${row.name} ×${row.quantity}`);
+    if (rows.length > visible.length) visible.push(`另 ${rows.length - visible.length} 種`);
+    const prefix = opened > 1 ? `連續開啟 ${item.name} ×${opened}` : `開啟 ${item.name}`;
+    return `${prefix}，獲得：${visible.join("、")}。`;
+  }
+
+  function flushGachaBatchUi(item, opened, summary, rareAnnouncements) {
+    if (opened <= 0) return;
+    const inventoryWindow = document.getElementById?.("inventory-window");
+    const inventoryVisible = inventoryWindow && !inventoryWindow.classList.contains("hidden-window") && inventoryWindow.offsetParent !== null;
+    if (inventoryVisible) window.updateInventoryUI?.();
+    else window.RO_WEB_INVENTORY_DIRTY = true;
+    window.updateQuickSlotUI?.({ skipIfUnchanged:true });
+    const entries = [{ text:formatGachaBatchSummary(item, opened, summary), type:"item" }];
+    rareAnnouncements.forEach(row => entries.push({ text:`🎉 轉蛋大獎：${row.name}${row.quantity > 1 ? ` ×${row.quantity}` : ""}`, type:"rare-item" }));
+    if (typeof window.addBattleLogBatch === "function") window.addBattleLogBatch(entries);
+    else entries.forEach(entry => log(entry.text, entry.type));
+    if (typeof window.requestGameSave === "function") window.requestGameSave(1200);
+    else window.setTimeout(() => window.saveGame?.(), 0);
+    // addItem 在 Reward Batch 中只負責標記 dirty；本 Runtime 已完成必要刷新與延遲存檔。
+    window.RO_WEB_REWARD_PLAYER_UI_DIRTY = false;
+    window.RO_WEB_REWARD_JOB_UI_DIRTY = false;
+    window.RO_WEB_REWARD_INVENTORY_UI_DIRTY = false;
+    window.RO_WEB_REWARD_SAVE_DIRTY = false;
+    if (Array.isArray(window.RO_WEB_REWARD_BATCH_LOGS)) window.RO_WEB_REWARD_BATCH_LOGS.length = 0;
+  }
+
+  function processGachaBatch() {
+    GACHA_BATCH.scheduled = false;
+    if (GACHA_BATCH.processing || GACHA_BATCH.pending <= 0 || !window.player) return false;
+    GACHA_BATCH.processing = true;
+    const item = GACHA_BATCH.item || itemData(config()?.gachaItemId || DEFAULT_GACHA_ITEM_ID);
+    const summary = new Map();
+    const rareAnnouncements = [];
+    let opened = 0;
+    window.RO_WEB_REWARD_BATCH_ACTIVE = true;
+    window.RO_WEB_SUPPRESS_REWARD_ADD_ITEM_LOG = true;
+    try {
+      const limit = Math.min(GACHA_BATCH_SLICE_LIMIT, GACHA_BATCH.pending);
+      for (let index = 0; index < limit; index += 1) {
+        const stack = findInventoryStack(item.id);
+        if (!stack || number(stack.count) <= 0) {
+          GACHA_BATCH.pending = 0;
+          break;
+        }
+        const result = rollReward();
+        const awarded = rewardItem(result?.row);
+        if (!awarded) {
+          GACHA_BATCH.pending = 0;
+          log(`${item.name} 的獎池資料異常，未完成的開啟次數已取消。`, "error");
+          break;
+        }
+        if (!removeOneStackItem(item.id)) break;
+        window.markConsumableItemUsed?.(item);
+        GACHA_BATCH.pending -= 1;
+        opened += 1;
+        const key = String(awarded.item.id);
+        const aggregate = summary.get(key) || { id:awarded.item.id, name:awarded.item.name, quantity:0 };
+        aggregate.quantity += awarded.quantity;
+        summary.set(key, aggregate);
+        if (result.rare) {
+          const playerName = typeof window.getPlayerAnnouncementName === "function"
+            ? window.getPlayerAnnouncementName()
+            : String(window.player?.name || "冒險者");
+          const label = String(result.category?.bannerLabel || "稀有大獎");
+          showRareBanner(result.category?.tier, `★ 玩家 ${playerName} 取得 ${awarded.item.name}${awarded.quantity > 1 ? ` ×${awarded.quantity}` : ""}｜${label} ★`);
+          rareAnnouncements.push({ name:awarded.item.name, quantity:awarded.quantity });
+        }
+      }
+    } catch (error) {
+      console.error("連續轉蛋批次處理失敗：", error);
+      log("轉蛋處理發生錯誤，未完成的開啟次數已取消。", "error");
+      GACHA_BATCH.pending = 0;
+    } finally {
+      window.RO_WEB_SUPPRESS_REWARD_ADD_ITEM_LOG = false;
+      window.RO_WEB_REWARD_BATCH_ACTIVE = false;
+      GACHA_BATCH.processing = false;
+      flushGachaBatchUi(item, opened, summary, rareAnnouncements);
+    }
+    if (GACHA_BATCH.pending > 0) scheduleGachaBatch(16);
+    return opened > 0;
+  }
+
+  function scheduleGachaBatch(delayMs = GACHA_BATCH_DELAY_MS) {
+    if (GACHA_BATCH.scheduled || GACHA_BATCH.processing) return true;
+    GACHA_BATCH.scheduled = true;
+    window.setTimeout(processGachaBatch, Math.max(0, Number(delayMs || 0)));
+    return true;
+  }
+
   function openGacha(item = itemData(config()?.gachaItemId || DEFAULT_GACHA_ITEM_ID)) {
     if (!window.player || !item) return false;
     const stack = findInventoryStack(item.id);
-    if (!stack || number(stack.count) <= 0) {
-      log(`背包裡沒有 ${item.name}。`);
+    const available = number(stack?.count) - GACHA_BATCH.pending;
+    if (!stack || available <= 0) {
+      const now = Date.now();
+      if (now - GACHA_BATCH.lastMissingLogAt > 800) log(`背包裡沒有 ${item.name}。`);
+      GACHA_BATCH.lastMissingLogAt = now;
       return false;
     }
     const usability = typeof window.canUseConsumableItem === "function"
-      ? window.canUseConsumableItem(item)
+      ? window.canUseConsumableItem(item, { silent:true })
       : { ok:true };
     if (!usability.ok) return false;
-
-    const result = rollReward();
-    const awarded = rewardItem(result?.row);
-    if (!awarded) {
-      log(`${item.name} 的獎池資料異常，轉蛋沒有被消耗。`);
-      return false;
-    }
-    if (!removeOneStackItem(item.id)) return false;
-    window.markConsumableItemUsed?.(item);
-
-    const quantityText = awarded.quantity > 1 ? ` ×${awarded.quantity}` : "";
-    if (result.rare) {
-      const playerName = typeof window.getPlayerAnnouncementName === "function"
-        ? window.getPlayerAnnouncementName()
-        : String(window.player?.name || "冒險者");
-      const label = String(result.category?.bannerLabel || "稀有大獎");
-      showRareBanner(result.category?.tier, `★ 玩家 ${playerName} 取得 ${awarded.item.name}${quantityText}｜${label} ★`);
-      log(`🎉 轉蛋大獎：${awarded.item.name}${quantityText}`, "rare-item");
-    } else {
-      log(`開啟 ${item.name}，獲得 ${awarded.item.name}${quantityText}。`, "item");
-    }
-    window.updateInventoryUI?.();
-    window.updatePlayerUI?.();
-    window.saveGame?.();
+    GACHA_BATCH.item = item;
+    GACHA_BATCH.pending += 1;
+    scheduleGachaBatch();
     return true;
   }
 
@@ -326,6 +411,8 @@
     config,
     rollReward,
     openGacha,
+    processGachaBatch,
+    getPendingOpenCount:() => GACHA_BATCH.pending,
     rollMapExclusiveDrop,
     applyCashFood,
     applyPercentHeal,

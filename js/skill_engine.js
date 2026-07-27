@@ -1434,6 +1434,12 @@ function consumeMemorizeChargeOnMagicCast(skill) {
 }
 
 function paySkillCost(skill, level, options = {}) {
+  // 0.9.82GI：肯貝特只是一層低優先的暫時武器屬性。
+  // 任一實際施放成功、進入扣費階段的玩家技能都會解除它；
+  // 灑水、塗毒與賢者屬性附加等技能接著以自身 Buff 成為新屬性來源。
+  if (typeof window.cancelConverterForSkillUse === "function") {
+    window.cancelConverterForSkillUse(skill?.name || "技能");
+  }
   const spCost = getRuntimeSkillSpCost(skill, level);
   const profile = getSkillRuntimeProfile(skill) || {};
   const hpCost = Math.max(0, Number(getLevelValue(profile.hpCost, level, 0)));
@@ -3185,6 +3191,10 @@ function castBuffSkill(skill, requestedLevel = null, options = {}) {
   if (requiredBuffEntry && Array.isArray(profile.consumeActiveBuffEffectAny) && profile.consumeActiveBuffEffectAny.length) {
     const [, requiredBuff] = requiredBuffEntry;
     if (profile.consumeActiveBuffEffectAny.some(key => Number(requiredBuff?.effects?.[key] || 0) > 0)) delete player.activeBuffs[requiredBuffEntry[0]];
+  }
+  const resolvedWeaponElement = runtimeEffects?.attackElementOverride;
+  if (resolvedWeaponElement !== undefined && resolvedWeaponElement !== null && resolvedWeaponElement !== "") {
+    window.cancelConverterForSkillWeaponEndow?.(skill.name || "屬性附加技能");
   }
   const performanceActivationOrder = profile.sustainedPerformance === true
     ? (player.performanceActivationSequence = Number(player.performanceActivationSequence || 0) + 1)

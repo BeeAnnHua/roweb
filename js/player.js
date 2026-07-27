@@ -592,7 +592,7 @@ function performResetGameSave(mode) {
 
   const reloadClean = () => {
     const base = location.origin && location.origin !== "null" ? location.origin + location.pathname : location.pathname;
-    location.replace(base + `?v=0.9.82GH-reset-${deleteAll ? "all" : "character"}-` + Date.now());
+    location.replace(base + `?v=0.9.82GI-reset-${deleteAll ? "all" : "character"}-` + Date.now());
   };
 
   if (!deleteAll) {
@@ -661,6 +661,8 @@ function invalidatePlayerUiRenderCaches(scope = "all") {
 // 以同步交易包住整次變更，避免 Auto Battle 在半套資料上執行後卡在舊狀態。
 function withPlayerBuildMutation(reason, callback) {
   const outermost = roPlayerBuildMutationDepth === 0;
+  const mutationReason = String(reason || "change");
+  const preserveAutoController = mutationReason === "status_allocate" || mutationReason === "trait_allocate";
   if (outermost) {
     roPlayerBuildMutationResumeAuto = typeof isAutoBattleRunning === "function" && isAutoBattleRunning();
     window.RO_WEB_PLAYER_BUILD_MUTATION = true;
@@ -674,10 +676,14 @@ function withPlayerBuildMutation(reason, callback) {
       window.RO_WEB_PLAYER_BUILD_MUTATION = false;
       invalidatePlayerUiRenderCaches("all");
       if (roPlayerBuildMutationResumeAuto) {
-        if (typeof resetAutoBattleController === "function") {
-          resetAutoBattleController({ running:true, keepTarget:true, reason:`player_build_${String(reason || "change")}` });
+        // 一般／特性素質配點只會改變即時衍生能力，不應重置掛機控制器、
+        // 攻擊輪替或目前鎖定目標。技能配點、重置與外觀變更仍沿用完整重置。
+        if (!preserveAutoController && typeof resetAutoBattleController === "function") {
+          resetAutoBattleController({ running:true, keepTarget:true, reason:`player_build_${mutationReason}` });
         }
-        if (player) player.state = (typeof currentMonster !== "undefined" && currentMonster) ? "Attacking" : "Searching";
+        if (!preserveAutoController && player) {
+          player.state = (typeof currentMonster !== "undefined" && currentMonster) ? "Attacking" : "Searching";
+        }
         if (typeof scheduleAutoBattleTick === "function") scheduleAutoBattleTick(16);
       }
       roPlayerBuildMutationResumeAuto = false;
@@ -1181,7 +1187,7 @@ function addItem(item, count = 1) {
   }
 
   if (window.RO_WEB_REWARD_BATCH_ACTIVE) {
-    emitRewardAwareLog(`獲得道具：${item.name} x ${count}`, "item");
+    if (!window.RO_WEB_SUPPRESS_REWARD_ADD_ITEM_LOG) emitRewardAwareLog(`獲得道具：${item.name} x ${count}`, "item");
     markRewardBatchDirty("inventory");
     return;
   }
@@ -2023,7 +2029,9 @@ function moveEquipmentSlotToInventory(slot, options = {}) {
   const itemId = player.equipment[slot];
   if (!itemId) return null;
   const itemData = getItemData(itemId);
-  if (slot === "weapon" && typeof clearPhysicalElementEndow === "function") {
+  const removedSlotItemIsWeapon = itemData && (String(itemData.type || "").toLowerCase() === "equipment") &&
+    (String(itemData.slot || "").toLowerCase() === "weapon" || String(itemData.category || "").toLowerCase() === "weapon" || String(itemData.dbType || "").toLowerCase() === "weapon");
+  if ((slot === "weapon" || (slot === "shield" && removedSlotItemIsWeapon)) && typeof clearPhysicalElementEndow === "function") {
     clearPhysicalElementEndow(options.silent ? "weapon_change" : "weapon_unequip", { silent: options.silent === true });
   }
   player.equipment[slot] = null;
@@ -2107,6 +2115,11 @@ function equipItem(itemData) {
   if (!inventoryItem || inventoryItem.count <= 0) {
     addBattleLog("背包裡沒有 " + itemData.name + "。");
     return;
+  }
+
+  // 肯貝特附著於當下武器組合；裝備任何新的主手／刺客副手武器都視為換武器並解除。
+  if ((slot === "weapon" || (slot === "shield" && isWeaponEquipmentItem(itemData))) && typeof clearPhysicalElementEndow === "function") {
+    clearPhysicalElementEndow("weapon_change");
   }
 
   // 雙手武器與盾牌／副手互斥；刺客系副手只允許單手劍與短劍。
@@ -2360,6 +2373,58 @@ function clearPhysicalElementEndow(reason = "weapon_change", options = {}) {
 }
 window.clearPhysicalElementEndow = clearPhysicalElementEndow;
 
+function getActiveSkillWeaponElementEndow() {
+  if (!player) return null;
+  player.activeBuffs = getPlainPlayerObject(player.activeBuffs);
+  const now = Date.now();
+  const rows = Object.entries(player.activeBuffs || {})
+    .filter(([id, buff]) => String(id) !== ITEM_PHYSICAL_ELEMENT_ENDOW_BUFF_ID && buff?.effects?.attackElementOverride)
+    .filter(([, buff]) => !Number(buff?.expiresAt || 0) || Number(buff.expiresAt) > now)
+    .map(([id, buff]) => ({
+      id,
+      buff,
+      element: String(buff.effects.attackElementOverride),
+      activatedAt: Number(buff.activatedAt || buff.startedAt || 0)
+    }))
+    .sort((a, b) => a.activatedAt - b.activatedAt);
+  return rows.length ? rows[rows.length - 1] : null;
+}
+window.getActiveSkillWeaponElementEndow = getActiveSkillWeaponElementEndow;
+
+function resolvePhysicalWeaponElement(fallbackElement = "Neutral") {
+  // 技能附加（灑水、塗毒、賢者屬性附加、紋章等）永遠高於肯貝特。
+  const skillEndow = getActiveSkillWeaponElementEndow();
+  if (skillEndow?.element) return skillEndow.element;
+  const converter = player?.activeBuffs?.[ITEM_PHYSICAL_ELEMENT_ENDOW_BUFF_ID];
+  if (converter && Number(converter.expiresAt || 0) > Date.now() && converter.effects?.attackElementOverride) {
+    return converter.effects.attackElementOverride;
+  }
+  return fallbackElement || "Neutral";
+}
+window.resolvePhysicalWeaponElement = resolvePhysicalWeaponElement;
+
+function cancelConverterForSkillUse(skillName = "技能", options = {}) {
+  const active = player?.activeBuffs?.[ITEM_PHYSICAL_ELEMENT_ENDOW_BUFF_ID];
+  const legacyElement = String(player?.attackElement || "");
+  if (!active && !["Fire", "Water", "Earth", "Wind"].includes(legacyElement)) return false;
+  clearPhysicalElementEndow("skill_use", { silent:true });
+  if (!options.silent && typeof addBattleLog === "function") {
+    addBattleLog(`${skillName}施放後，肯貝特的武器屬性已解除。`, "skill");
+  }
+  return true;
+}
+window.cancelConverterForSkillUse = cancelConverterForSkillUse;
+
+function cancelConverterForSkillWeaponEndow(skillName = "屬性附加技能") {
+  const active = player?.activeBuffs?.[ITEM_PHYSICAL_ELEMENT_ENDOW_BUFF_ID];
+  const legacyElement = String(player?.attackElement || "");
+  if (!active && !["Fire", "Water", "Earth", "Wind"].includes(legacyElement)) return false;
+  clearPhysicalElementEndow("skill_override", { silent:true });
+  if (typeof addBattleLog === "function") addBattleLog(`${skillName}覆蓋了肯貝特的武器屬性。`, "skill");
+  return true;
+}
+window.cancelConverterForSkillWeaponEndow = cancelConverterForSkillWeaponEndow;
+
 function applyPhysicalElementEndowFromItem(itemData) {
   const effect = itemData?.useEffect || {};
   if (String(effect.type || "") !== "physical_element_endow") return false;
@@ -2367,6 +2432,12 @@ function applyPhysicalElementEndowFromItem(itemData) {
   const element = String(effect.element || "").trim();
   const durationMs = Math.max(1000, Number(effect.durationMs || 1200000));
   if (!element) return false;
+
+  const skillEndow = getActiveSkillWeaponElementEndow();
+  if (skillEndow?.element) {
+    if (typeof addBattleLog === "function") addBattleLog(`目前的${skillEndow.buff?.name || "技能武器屬性"}優先於肯貝特，未消耗 ${itemData.name}。`, "skill");
+    return false;
+  }
 
   player.activeBuffs = getPlainPlayerObject(player.activeBuffs);
   const now = Date.now();
@@ -2463,7 +2534,10 @@ function consumeItem(itemData) {
 
   // 肯貝特：使用資料中的 useEffect，不按物品 ID 硬寫。
   // 一張肯貝特同時作用主手與刺客副手，並覆蓋所有玩家物理傷害；魔法不受影響。
+  const isPhysicalEndowItem = String(itemData?.useEffect?.type || "") === "physical_element_endow";
   const appliedPhysicalEndow = applyPhysicalElementEndowFromItem(itemData);
+  // 技能武器附加存在時，肯貝特不能反向蓋回去，也不可扣除道具。
+  if (isPhysicalEndowItem && !appliedPhysicalEndow) return;
 
   // 物品腳本優先：支援 itemheal 與 sc_end。這讓蜂膠、萬能藥及未來新增的異常解除品
   // 不必再在 consumeItem() 內建立逐項白名單。
