@@ -1,5 +1,5 @@
 //=======================================
-// TownManager v0.9
+// TownManager v0.9.82GN
 // 城鎮 / NPC / 商店 / 轉職 NPC 架構
 //=======================================
 
@@ -137,12 +137,22 @@ function renderNpcPanel(panel) {
     info.className = "npc-info";
     info.innerHTML = `<b>${npc.name}</b><small>${npc.description || getNpcTypeText(npc.type)}</small>`;
 
+    const actions = document.createElement("div");
+    actions.className = "npc-actions";
     const action = document.createElement("button");
+    action.type = "button";
     action.textContent = getNpcActionText(npc);
-    action.onclick = function () { interactNpc(npc.id); };
+    action.onclick = function (event) { event?.preventDefault?.(); event?.stopPropagation?.(); interactNpc(npc.id); };
+    actions.appendChild(action);
+    if(npc.type === "enchant_grade"){
+      const exchangeAction=document.createElement("button");
+      exchangeAction.type="button";exchangeAction.className="npc-secondary-action";exchangeAction.textContent="材料合成";
+      exchangeAction.onclick=function(event){event?.preventDefault?.();event?.stopPropagation?.();openEnchantGradeNpcWindow(npc,"exchange");};
+      actions.appendChild(exchangeAction);
+    }
 
     row.appendChild(info);
-    row.appendChild(action);
+    row.appendChild(actions);
     panel.appendChild(row);
   });
 
@@ -176,6 +186,22 @@ function getNpcActionText(npc) {
   if (npc.type === "enchant_grade") return "裝備升階";
   return "交談";
 }
+
+function openEnchantGradeNpcWindow(npc, tab="grade") {
+  const opener = tab === "exchange"
+    ? (window.EnchantGradeRuntime?.openExchange || window.openEnchantGradeExchangeWindow)
+    : (window.EnchantGradeRuntime?.open || window.openEnchantGradeWindow);
+  if (typeof opener !== "function") {
+    addBattleLog((npc?.name || "裝備升階匠人") + "：裝備升階系統尚未載入。");
+    return false;
+  }
+  Promise.resolve(opener(npc, tab === "exchange" ? { tab: "exchange" } : {})).catch(error => {
+    console.error("裝備升階 NPC 開窗失敗", error);
+    addBattleLog((npc?.name || "裝備升階匠人") + "：視窗開啟失敗，請查看主控台。");
+  });
+  return true;
+}
+window.openEnchantGradeNpcWindow = openEnchantGradeNpcWindow;
 
 function interactNpc(npcId) {
   const npc = getNpcData(npcId);
@@ -211,8 +237,7 @@ function interactNpc(npcId) {
     return;
   }
   if (npc.type === "enchant_grade") {
-    if (typeof openEnchantGradeWindow === "function") openEnchantGradeWindow(npc);
-    else addBattleLog(npc.name + "：裝備升階系統尚未載入。");
+    openEnchantGradeNpcWindow(npc, "grade");
     return;
   }
   if (npc.type === "gender_change") {
@@ -802,7 +827,25 @@ function updateTownBackground(city) {
   }
 
   if (city && city.background) {
-    battleField.style.backgroundImage = `linear-gradient(rgba(20, 20, 20, 0.25), rgba(20, 20, 20, 0.25)), url("${city.background}")`;
+    const cityId=String(city.id||"");
+    const separator=String(city.background).includes("?")?"&":"?";
+    const backgroundUrl=`${city.background}${separator}v=0.9.82GN&city=${encodeURIComponent(cityId)}`;
+    // 城鎮切換必須先清除上一張背景；斐揚與吉芬不可共用快取狀態。
+    battleField.dataset.townCityId=cityId;
+    battleField.dataset.townBackground=backgroundUrl;
+    battleField.style.removeProperty("background");
+    battleField.style.backgroundImage="none";
+    battleField.style.backgroundColor="#0b0d09";
+    // 同步套用，避免等待圖片解碼時出現上一座城市殘影。
+    battleField.style.backgroundImage=`linear-gradient(rgba(20, 20, 20, 0.25), rgba(20, 20, 20, 0.25)), url("${backgroundUrl}")`;
+    // 預先解碼後再確認目前城市，防止快速切換時舊圖片回寫。
+    const probe=new Image();
+    probe.onload=()=>{if(window.player?.currentCity===cityId&&battleField.dataset.townCityId===cityId){battleField.style.backgroundImage=`linear-gradient(rgba(20, 20, 20, 0.25), rgba(20, 20, 20, 0.25)), url("${backgroundUrl}")`;}};
+    probe.src=backgroundUrl;
+  } else {
+    battleField.dataset.townCityId="";
+    battleField.dataset.townBackground="";
+    battleField.style.backgroundImage="none";
   }
 }
 

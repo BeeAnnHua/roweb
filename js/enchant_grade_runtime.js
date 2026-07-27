@@ -1,9 +1,9 @@
 //============================================================
-// RO_WEB 0.9.82GK — rAthena Renewal Enchant Grade Runtime
+// RO_WEB 0.9.82GN — rAthena Renewal Enchant Grade Runtime
 //============================================================
 (() => {
   "use strict";
-  const VERSION="0.9.82GK", RULE_KEY="data/enchant_grade_rules.json", EXCHANGE_KEY="data/enchant_grade_exchange.json", DROP_KEY="data/enchant_grade_map_drops.json";
+  const VERSION="0.9.82GN", RULE_KEY="data/enchant_grade_rules.json", EXCHANGE_KEY="data/enchant_grade_exchange.json", DROP_KEY="data/enchant_grade_map_drops.json";
   const state={open:false,npcName:"裝備升階匠人",tab:"grade",selected:null,optionIndex:0,catalystSteps:0,exchangeIndex:0,exchangeQty:1,lastResult:null};
   const n=(v,f=0)=>Number.isFinite(Number(v))?Number(v):f, i=(v,f=0)=>Math.floor(n(v,f));
   const esc=v=>String(v??"").replace(/[&<>'"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]));
@@ -30,11 +30,61 @@
   function playerName(){return window.getPlayerAnnouncementName?.()||window.player?.name||"冒險者";}
   function attempt(opts={}){const c=context();if(!c.sel||!c.rule||!c.option)return {ok:false,reason:"請先選擇可升階裝備。"};if(c.baseChance<=0)return {ok:false,reason:`目前 +${c.sel.instance.refine} 不符合 ${c.rule.targetGrade} 階升階條件。`};const cat=c.rule.catalyst,catNeed=c.steps*i(cat?.amountPerStep);if(invCount(c.option.materialItemId)<i(c.option.amount))return {ok:false,reason:`${itemName(c.option.materialItemId)}不足。`};if(catNeed&&invCount(cat.itemId)<catNeed)return {ok:false,reason:`${itemName(cat.itemId)}不足，需要 ${catNeed}。`};if(n(window.player?.zeny)<i(c.option.zeny))return {ok:false,reason:`Zeny 不足，需要 ${i(c.option.zeny).toLocaleString()}。`};consume(c.option.materialItemId,c.option.amount);if(catNeed)consume(cat.itemId,catNeed);window.player.zeny=Math.max(0,n(window.player.zeny)-i(c.option.zeny));const roll=opts.forceSuccess?0:opts.forceFail?9999:Math.floor(Math.random()*10000),success=roll<c.finalChance,before=gradeIndex(c.sel.instance),target=gradeNames[before+1];let text,kind;if(success){c.sel.instance.enchantGrade=before+1;c.sel.instance.grade=before+1;c.sel.instance.refine=0;text=`升階成功：${c.sel.data.name} 提升為 ${target} 階，精煉值重置為 +0。`;kind="success";if(c.rule.announceSuccess)announce(`玩家 ${playerName()} 將 ${c.sel.data.name} 升階為 ${target} 階`);}else if(i(c.option.breakingRate)>=10000){const name=c.sel.data.name;destroy(c.sel);text=`升階失敗：${name} 已損壞消失。`;kind="failure";if(c.rule.announceFail)announce(`玩家 ${playerName()} 升階 ${name} 至 ${target} 階失敗`);}else{const down=i(c.option.downgradeAmount);c.sel.instance.refine=Math.max(0,i(c.sel.instance.refine)-down);text=down?`升階失敗：精煉值下降 ${down}。`:`升階失敗：裝備完整保留。`;kind="protected";if(c.rule.announceFail)announce(`玩家 ${playerName()} 升階 ${c.sel.data.name} 至 ${target} 階失敗`);}state.lastResult={kind,text};window.addBattleLog?.(text,success?"item":"system");refresh();render();return {ok:true,success,kind,text};}
   function exchange(recipeIndex=state.exchangeIndex,qty=state.exchangeQty){const r=exchanges()?.recipes?.find(x=>i(x.index)===i(recipeIndex));qty=Math.max(1,Math.min(999,i(qty,1)));if(!r)return {ok:false,reason:"找不到合成配方。"};for(const req of r.requiredItems||[])if(invCount(req.itemId)<i(req.amount)*qty)return {ok:false,reason:`${req.name}不足。`};const price=i(r.zeny)*qty;if(n(window.player?.zeny)<price)return {ok:false,reason:`Zeny 不足，需要 ${price.toLocaleString()}。`};for(const req of r.requiredItems||[])consume(req.itemId,i(req.amount)*qty);window.player.zeny-=price;window.addItem?.({id:r.outputItemId,name:r.outputName},i(r.outputAmount)*qty);const text=`合成 ${r.outputName} ×${qty}，消耗 ${price.toLocaleString()} Zeny。`;state.lastResult={kind:"success",text};window.addBattleLog?.(text,"item");refresh();render();return {ok:true,text};}
-  function rollMapBonusDrops(monster){const mapId=window.currentMap?.id||window.player?.map||"",profile=dropProfiles()?.profiles?.[mapId];if(!profile||!monster)return [];const awarded=[];for(const e of profile.entries||[]){if(Array.isArray(e.monsterIds)&&!e.monsterIds.includes(Number(monster.id)))continue;if(e.skipIfOriginalDrop&&[...(monster.drops||[]),...(monster.mvpDrops||[])].some(d=>itemId(d.itemId)===itemId(e.itemId)))continue;if(Math.floor(Math.random()*10000)+1>i(e.chance))continue;const qty=Math.max(1,Math.floor(n(e.qtyMin,1)+Math.random()*(n(e.qtyMax,e.qtyMin)-n(e.qtyMin,1)+1)));window.addItem?.({id:e.itemId,name:itemName(e.itemId)},qty);window.recordItemDrop?.(e.itemId,qty);window.emitLootRewardLog?.(`升階材料：額外取得 ${itemName(e.itemId)} ×${qty}。`,"item");awarded.push({itemId:e.itemId,qty});}return awarded;}
+  function getGradeMaterialDropRate(){const raw=window.RO_WEB_DATA?.["data/server_config.json"]?.server?.rates?.gradeMaterialDropRate ?? window.serverConfig?.server?.rates?.gradeMaterialDropRate ?? window.serverConfig?.rates?.gradeMaterialDropRate ?? 100;return Math.max(0,n(raw,100));}
+  function getScaledGradeDropChance(baseChance){return Math.max(0,Math.min(10000,Math.floor(i(baseChance)*getGradeMaterialDropRate()/100)));}
+  function rollMapBonusDrops(monster){const mapId=window.currentMap?.id||window.player?.map||"",profile=dropProfiles()?.profiles?.[mapId];if(!profile||!monster)return [];const awarded=[];for(const e of profile.entries||[]){if(Array.isArray(e.monsterIds)&&!e.monsterIds.includes(Number(monster.id)))continue;if(e.skipIfOriginalDrop&&[...(monster.drops||[]),...(monster.mvpDrops||[])].some(d=>itemId(d.itemId)===itemId(e.itemId)))continue;const chance=getScaledGradeDropChance(e.chance);if(chance<=0||Math.floor(Math.random()*10000)+1>chance)continue;const qty=Math.max(1,Math.floor(n(e.qtyMin,1)+Math.random()*(n(e.qtyMax,e.qtyMin)-n(e.qtyMin,1)+1)));window.addItem?.({id:e.itemId,name:itemName(e.itemId)},qty);window.recordItemDrop?.(e.itemId,qty);window.emitLootRewardLog?.(`升階材料：額外取得 ${itemName(e.itemId)} ×${qty}。`,"item");awarded.push({itemId:e.itemId,qty,chance});}return awarded;}
   function decorateStatusSource(slot,base){if(!base)return base;const inst=window.player?.equipmentInstances?.[slot];const gi=gradeIndex(inst);if(!gi||groupOf(base)!=="Weapon")return base;const currentKey=["None","D","C","B"][gi-1],r=rules()?.groups?.Weapon?.levels?.["5"]?.grades?.[currentKey],pct=i(r?.bonusPercent);if(!pct)return {...base,enchantGrade:gi};const refineBonus=window.RefineRuntime?.refineBonusFor?.(base,i(inst?.refine))?.bonus||0,extra=Math.floor(refineBonus*pct/100),out={...base,enchantGrade:gi,gradeBonusPercent:pct,gradeRefineBonus:extra};out.atk=n(base.atk??base.Attack)+extra;out.Attack=out.atk;const sub=String(base.subCategory||base.dbSubType||"").toLowerCase();if(sub!=="bow"){out.matk=n(base.matk??base.Matk)+extra;out.Matk=out.matk;}return out;}
   function decorateCombatItem(slot,base){if(!base)return base;const actual=slot==="leftWeapon"&&!window.player?.equipmentInstances?.leftWeapon?"shield":slot,inst=window.player?.equipmentInstances?.[actual],gi=gradeIndex(inst);if(!gi)return base;const key=["None","D","C","B"][gi-1],r=rules()?.groups?.[groupOf(base)]?.levels?.[String(levelOf(base))]?.grades?.[key];return {...base,enchantGrade:gi,EnchantGrade:gi,gradeBonusPercent:i(r?.bonusPercent)};}
-  function open(npc){state.open=true;state.npcName=npc?.name||"裝備升階匠人";const rows=candidates();if(!resolve()&&rows.length)state.selected={key:rows[0].key,instanceId:rows[0].instance.instanceId};const el=document.getElementById("enchantGradeWindow");if(el){el.hidden=false;el.classList.remove("hidden-window");window.bringWindowToFront?.(el);}render();}
-  function close(){state.open=false;const el=document.getElementById("enchantGradeWindow");if(el){el.hidden=true;el.classList.add("hidden-window");}}
+  async function ensureGradeData(){
+    window.RO_WEB_DATA=window.RO_WEB_DATA||{};
+    // 升階視窗只要求規則與合成資料；地圖掉落資料缺少時不可阻止 NPC 開窗。
+    const required=[RULE_KEY,EXCHANGE_KEY],optional=[DROP_KEY];
+    const missing=[...required,...optional].filter(key=>!window.RO_WEB_DATA[key]);
+    if(missing.length&&typeof window.loadJson==="function"){
+      for(const key of missing){
+        try{const value=await window.loadJson(`./${key}`,null);if(value)window.RO_WEB_DATA[key]=value;}catch(error){console.warn(`裝備升階資料載入失敗：${key}`,error);}
+      }
+    }
+    return Boolean(rules()&&exchanges());
+  }
+  function showGradeOverlay(){
+    const el=document.getElementById("enchantGradeWindow");
+    if(!el)return null;
+    if(document.body&&el.parentElement!==document.body)document.body.appendChild(el);
+    el.hidden=false;el.removeAttribute("hidden");el.classList.remove("hidden-window");el.setAttribute("aria-hidden","false");
+    // Essential geometry is applied inline as a final safety net. Even if a
+    // stylesheet cache is stale, the upgrade window must still be visible.
+    const force={display:"flex",position:"fixed",inset:"0",zIndex:"1000002",alignItems:"center",justifyContent:"center",visibility:"visible",opacity:"1",pointerEvents:"auto"};
+    for(const [key,value] of Object.entries(force))el.style.setProperty(key.replace(/[A-Z]/g,m=>`-${m.toLowerCase()}`),value,"important");
+    document.body?.classList.add("enchant-grade-window-open");
+    return el;
+  }
+  async function open(npc,options={}){
+    state.open=true;state.npcName=npc?.name||"裝備升階匠人";
+    if(options?.tab)state.tab=options.tab==="exchange"?"exchange":"grade";
+    const el=showGradeOverlay();
+    if(!el){window.addBattleLog?.("找不到裝備升階視窗，請重新整理頁面。");return false;}
+    state.lastResult=null;
+    const message=document.getElementById("enchantGradeMessage");
+    // 先立刻畫出空清單／材料頁，不能因為沒有裝備或資料載入而完全無反應。
+    try{render();}catch(error){console.error("裝備升階視窗初始繪製失敗",error);}
+    if(message)message.textContent="正在確認升階資料…";
+    const ready=await ensureGradeData();
+    if(!state.open)return false;
+    const rows=candidates();
+    if(!resolve()&&rows.length)state.selected={key:rows[0].key,instanceId:rows[0].instance.instanceId};
+    try{
+      render();
+      if(message){
+        if(!ready)message.textContent="升階資料尚未完整載入；視窗已開啟，請確認 data/enchant_grade_rules.json 與 exchange 資料。";
+        else if(!rows.length&&state.tab==="grade")message.textContent="目前沒有可升階的五級武器或二級防具；仍可切換到「材料合成」。";
+        else message.textContent="";
+      }
+    }catch(error){console.error("裝備升階視窗開啟失敗",error);if(message)message.textContent=`裝備升階視窗開啟失敗：${error?.message||error}`;return false;}
+    return true;
+  }
+  function openExchange(npc){return open(npc,{tab:"exchange"});}
+  function close(){state.open=false;const el=document.getElementById("enchantGradeWindow");if(el){el.hidden=true;el.setAttribute("hidden","");el.classList.add("hidden-window");el.setAttribute("aria-hidden","true");for(const key of ["display","position","inset","z-index","align-items","justify-content","visibility","opacity","pointer-events"])el.style.removeProperty(key);}document.body?.classList.remove("enchant-grade-window-open");}
   function render(){
     if(typeof document==="undefined") return;
     const list=document.getElementById("enchantGradeEquipmentList");
@@ -64,7 +114,7 @@
     if(detail){
       const c=context();
       if(!c.sel){
-        detail.innerHTML='<div class="grade-empty">請選擇裝備。</div>';
+        detail.innerHTML=`<div class="grade-empty">${candidates().length?'請選擇裝備。':'目前沒有可升階的五級武器或二級防具。<br><small>材料合成仍可由上方頁籤開啟。</small>'}</div>`;
       }else{
         const cat=c.rule?.catalyst;
         const catNeed=c.steps*i(cat?.amountPerStep);
@@ -87,6 +137,6 @@
     }
   }
   function setTab(tab){state.tab=tab==='exchange'?'exchange':'grade';render();}
-  window.EnchantGradeRuntime={version:VERSION,state,rules,exchanges,dropProfiles,eligible,groupOf,levelOf,gradeIndex,gradeRule,candidates,inventoryCount:invCount,attemptSelectedGrade:attempt,exchange,rollMapBonusDrops,decorateStatusSource,decorateCombatItem,render};
-  window.openEnchantGradeWindow=open;window.closeEnchantGradeWindow=close;window.setEnchantGradeTab=setTab;window.attemptSelectedGrade=attempt;
+  window.EnchantGradeRuntime={version:VERSION,state,rules,exchanges,dropProfiles,eligible,groupOf,levelOf,gradeIndex,gradeRule,candidates,inventoryCount:invCount,attemptSelectedGrade:attempt,exchange,rollMapBonusDrops,getGradeMaterialDropRate,getScaledGradeDropChance,decorateStatusSource,decorateCombatItem,ensureGradeData,showGradeOverlay,open,openExchange,close,render};
+  window.openEnchantGradeWindow=open;window.openEnchantGradeExchangeWindow=openExchange;window.closeEnchantGradeWindow=close;window.setEnchantGradeTab=setTab;window.attemptSelectedGrade=attempt;
 })();

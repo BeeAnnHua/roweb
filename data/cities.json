@@ -26,9 +26,10 @@
     "features": [
       "supply",
       "equipment_swordman",
-      "job_swordman"
+      "job_swordman",
+      "account_storage"
     ],
-    "hoverDescription": "可購買一般道具、劍士系武器與防具；可辦理劍士系列轉職。"
+    "hoverDescription": "可購買一般道具、劍士系武器與防具；可辦理劍士系列轉職；可使用帳號共用倉庫。"
   },
   {
     "id": "geffen",
@@ -41,9 +42,10 @@
     "features": [
       "supply",
       "equipment_mage",
-      "job_mage"
+      "job_mage",
+      "account_storage"
     ],
-    "hoverDescription": "可購買一般道具、法師系武器與防具；可辦理法師系列轉職。"
+    "hoverDescription": "可購買一般道具、法師系武器與防具；可辦理法師系列轉職；可使用帳號共用倉庫。"
   },
   {
     "id": "payon",
@@ -56,9 +58,12 @@
     "features": [
       "supply",
       "equipment_archer",
-      "job_archer"
+      "job_archer",
+      "account_storage"
     ],
-    "hoverDescription": "可購買一般道具、弓箭手系武器與防具；可辦理弓箭手系列轉職。"
+    "hoverDescription": "可購買一般道具、弓箭手系武器與防具；可辦理弓箭手系列轉職；可使用帳號共用倉庫。",
+    "backgroundVersion": "0.9.82GN",
+    "backgroundSource": "使用者提供的斐揚城鎮透明原圖（1280×720 WebP）"
   },
   {
     "id": "alberta",
@@ -71,9 +76,10 @@
     "features": [
       "supply",
       "equipment_merchant",
-      "job_merchant"
+      "job_merchant",
+      "account_storage"
     ],
-    "hoverDescription": "可購買一般道具、商人系武器與防具；可辦理商人系列轉職。"
+    "hoverDescription": "可購買一般道具、商人系武器與防具；可辦理商人系列轉職；可使用帳號共用倉庫。"
   },
   {
     "id": "morocc",
@@ -86,8 +92,9 @@
     "features": [
       "supply",
       "equipment_thief",
-      "job_thief"
+      "job_thief",
+      "account_storage"
     ],
-    "hoverDescription": "可購買一般道具、盜賊系武器與防具；可辦理盜賊系列轉職。"
+    "hoverDescription": "可購買一般道具、盜賊系武器與防具；可辦理盜賊系列轉職；可使用帳號共用倉庫。"
   }
 ]

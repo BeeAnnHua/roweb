@@ -1200,7 +1200,7 @@ let activeInventoryFilter = "consume";
 let activeInventoryPage = 0;
 let inventoryLockMode = false;
 const INVENTORY_PAGE_SIZE = 40;
-const INVENTORY_VISIBLE_SLOT_COUNT = 20;
+const INVENTORY_VISIBLE_SLOT_COUNT = 30;
 const INVENTORY_DECOMPOSE_LIMIT = 100;
 let inventoryDecomposeActive = false;
 let inventoryDecomposeCooldownUntil = 0;
@@ -1715,7 +1715,7 @@ function updateInventoryUI() {
 
   const filteredItems = getFilteredInventoryItems();
   // V0.9.78AW：背包改為同分類單一可捲動 Grid。
-  // 40 格以內維持固定 5x8 外觀；超過 40 格時繼續往下生成，
+  // 30 格以內維持固定 5×6 外觀；超過 30 格時繼續往下生成，
   // 由 CSS 在格子區內顯示垂直滾輪，Header / Tabs / Footer 不跟著捲。
   const totalPages = 1;
   activeInventoryPage = 0;

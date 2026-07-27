@@ -1,5 +1,5 @@
 //=======================================
-// StatusSystem v0.9.82GJ
+// StatusSystem v0.9.82GN
 // 一般素質 + rAthena Renewal 四轉特性素質 + 全域 +10 配點模式 + 響應式進階戰鬥資訊
 //=======================================
 let statPointData = { points: {} };
@@ -19,6 +19,9 @@ let statusUiRefreshTimer = null;
 let statusUiLastRenderAt = 0;
 let statusAdvancedInteractionUntil = 0;
 let statusControlInteractionUntil = 0;
+let statusAllocationCommitFrame = 0;
+let statusAllocationSaveTimer = 0;
+const pendingStatusAllocationLogs = new Map();
 
 function isStatusWindowVisible() {
   const win = document.getElementById("status-window");
@@ -51,13 +54,32 @@ function ensureStatusControlInteractionBinding() {
   const win = document.getElementById("status-window");
   if (!win || win.dataset.statusControlGuardBound === "1") return;
   win.dataset.statusControlGuardBound = "1";
-  const guard = event => {
-    if (event.target?.closest?.("button,input,select,textarea")) markStatusControlInteraction();
-  };
-  win.addEventListener("pointerdown", guard, true);
-  win.addEventListener("mousedown", guard, true);
-  win.addEventListener("touchstart", guard, { capture:true, passive:true });
-  win.addEventListener("keydown", guard, true);
+  const pointerEvents=["pointerdown","pointerup","mousedown","mouseup","touchstart","touchend","click"];
+  pointerEvents.forEach(type=>win.addEventListener(type,event=>{
+    const control=event.target?.closest?.("button,input,select,textarea,.status-css-row,.status-trait-stat-row");
+    if(!control)return;
+    markStatusControlInteraction(520);
+    event.stopPropagation();
+  },{capture:false,passive:type.startsWith("touch")}));
+  win.addEventListener("keydown",event=>{if(event.target?.closest?.("button,input,select,textarea")){markStatusControlInteraction(520);event.stopPropagation();}},false);
+}
+
+function queueStatusAllocationCommit(logKey,label,value,amount){
+  if(logKey){const prior=pendingStatusAllocationLogs.get(logKey);pendingStatusAllocationLogs.set(logKey,{label,value,amount:Number(amount||0)+Number(prior?.amount||0)});}
+  if(!statusAllocationCommitFrame){
+    const schedule=window.requestAnimationFrame||((fn)=>setTimeout(fn,16));
+    statusAllocationCommitFrame=schedule(()=>{
+      statusAllocationCommitFrame=0;
+      window.invalidatePlayerUiRenderCaches?.("status");
+      if(typeof updatePlayerUI==="function")updatePlayerUI();
+      // 下一個動畫幀立即刷新數字與剩餘點數，不等待互動保護計時器。
+      if(typeof updateStatusUI==="function"&&isStatusWindowVisible())updateStatusUI({force:true,allocationCommit:true});
+      for(const row of pendingStatusAllocationLogs.values())if(typeof addBattleLog==="function")addBattleLog(`${row.label} +${row.amount}，目前 ${row.value}。`);
+      pendingStatusAllocationLogs.clear();
+    });
+  }
+  clearTimeout(statusAllocationSaveTimer);
+  statusAllocationSaveTimer=setTimeout(()=>{statusAllocationSaveTimer=0;if(typeof requestGameSave==="function")requestGameSave(0);else if(typeof saveGame==="function")saveGame();},100);
 }
 
 function requestStatusUIUpdate(options = {}) {
@@ -625,11 +647,7 @@ function allocateStatusPoints(statKey, requestedAmount = 1) {
     syncStatusPointCache();
     window.invalidateCardRuntime?.();
     recalculatePlayerStats();
-    window.invalidatePlayerUiRenderCaches?.("status");
-    updatePlayerUI();
-    requestStatusUIUpdate({ force:true });
-    if (typeof requestGameSave === "function") requestGameSave(350); else saveGame();
-    addBattleLog(`${STATUS_LABELS[statKey]} +${amount}，目前 ${player.stats[statKey]}。`);
+    queueStatusAllocationCommit(`status:${statKey}`,STATUS_LABELS[statKey],player.stats[statKey],amount);
     return amount;
   };
   return typeof withPlayerBuildMutation === "function" ? withPlayerBuildMutation("status_allocate", run) : run();
@@ -667,11 +685,7 @@ function allocateTraitPoints(traitKey, requestedAmount = 1) {
     syncTraitPointCache();
     window.invalidateCardRuntime?.();
     recalculatePlayerStats();
-    window.invalidatePlayerUiRenderCaches?.("status");
-    updatePlayerUI();
-    requestStatusUIUpdate({ force:true });
-    if (typeof requestGameSave === "function") requestGameSave(350); else saveGame();
-    if (typeof addBattleLog === "function") addBattleLog(`${TRAIT_LABELS[traitKey]} ${TRAIT_NAMES[traitKey]} +${amount}，目前玩家配點 ${player.traits[traitKey]}。`);
+    queueStatusAllocationCommit(`trait:${traitKey}`,`${TRAIT_LABELS[traitKey]} ${TRAIT_NAMES[traitKey]}`,player.traits[traitKey],amount);
     return amount;
   };
   return typeof withPlayerBuildMutation === "function" ? withPlayerBuildMutation("trait_allocate", run) : run();
@@ -1442,7 +1456,7 @@ function updateStatusUI(options = {}) {
     const allocationStep = getStatusAllocationStep();
     plus.title = `${label} 最多一次 +${allocationStep}；點數不足時自動使用剩餘點數`;
     plus.disabled = remaining <= 0;
-    plus.onclick = event => { event.stopPropagation(); allocateStatusPoints(key, allocationStep); };
+    plus.onclick = event => { event.preventDefault(); event.stopPropagation(); allocateStatusPoints(key, allocationStep); };
     row.appendChild(name);
     row.appendChild(value);
     row.appendChild(plus);
@@ -1538,7 +1552,7 @@ function updateStatusUI(options = {}) {
     const allocationStep = getStatusAllocationStep();
     plus.disabled = !traitUnlocked || traitRemaining <= 0 || capReached;
     plus.title = capReached ? `玩家配點已達 ${TRAIT_ALLOCATION_CAP}` : (lockReason || `${TRAIT_LABELS[key]} 最多一次 +${allocationStep}；不足時自動加到可用上限`);
-    plus.onclick = event => { event.stopPropagation(); allocateTraitPoints(key, allocationStep); };
+    plus.onclick = event => { event.preventDefault(); event.stopPropagation(); allocateTraitPoints(key, allocationStep); };
     const note = document.createElement("small");
     note.textContent = TRAIT_NAMES[key];
     row.appendChild(name);

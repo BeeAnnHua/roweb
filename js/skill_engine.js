@@ -1334,10 +1334,20 @@ function getRuntimeResourceDisplayName(type) {
   const labels={spiritSphere:"氣功彈",servantWeapon:"劍體",rollingCutterCharge:"迴旋層數",soulSphere:"靈魂球",elementalSphere:"元素球"};
   return labels[String(type||"")] || "戰鬥資源";
 }
-function previewRuntimeResourceCost(profile, level = 1) {
+function isCopiedSkillResourceWaived(skill, profile=null) {
+  const sid=Number(skill?.officialId ?? skill?.id ?? profile?.skillId ?? 0);
+  if(!sid)return false;
+  if(skill){
+    return skill.extraSkill===true&&["plagiarism","reproduce"].includes(String(skill.extraSourceType||skill.sourceType||""));
+  }
+  if(typeof window.getExtraSkillEntries!=="function")return false;
+  return window.getExtraSkillEntries().some(entry=>Number(entry?.skillId)===sid&&["plagiarism","reproduce"].includes(String(entry?.sourceType||"")));
+}
+function previewRuntimeResourceCost(profile, level = 1, skill = null) {
   const cfg=profile?.resourceCost;
   if(!cfg||!window.CombatResourceManager)return {ok:true,used:0};
-  const sid=Number(profile?.skillId||0),active=typeof getActiveBuffBonusTotals==="function"?getActiveBuffBonusTotals():{};
+  if(isCopiedSkillResourceWaived(skill,profile))return {ok:true,used:0,waived:true,copied:true};
+  const sid=Number((skill?.officialId ?? skill?.id ?? profile?.skillId) || 0),active=typeof getActiveBuffBonusTotals==="function"?getActiveBuffBonusTotals():{};
   if(cfg.type==="spiritSphere"){
     const waived=(sid===2329&&Number(active.waiveFallenEmpireSphereCost||0)>0)||(sid===2330&&Number(active.waiveTigerCannonSphereCost||0)>0)||(sid===5009&&Number(active.waiveFlashComboSphereCost||0)>0)||(sid===2332&&Number(active.massiveFlameBlaster||0)>0)||(sid===2518&&Number(active.massiveFlameBlaster||0)>0);
     if(waived)return {ok:true,used:0,waived:true};
@@ -1413,7 +1423,7 @@ function canCastSkill(skill, requestedLevel = null, expectedHandlers = null, opt
   if (hpCost > 0 && Number(player.hp || 0) <= hpCost) return { ok: false, reason: "HP 不足" };
   if (Number(player.zeny || 0) < zenyCost) return { ok: false, reason: `Zeny 不足，需要 ${zenyCost} Zeny` };
   if(options.ignoreResourceCostCheck!==true){
-    const resourceCheck=previewRuntimeResourceCost(profile,level);
+    const resourceCheck=previewRuntimeResourceCost(profile,level,skill);
     if(!resourceCheck.ok)return {ok:false,level,spCost,hpCost,zenyCost,profile,reason:resourceCheck.reason,resourceBlock:resourceCheck.resourceBlock};
   }
   return { ok: true, level, spCost, hpCost, zenyCost, profile };
@@ -2813,9 +2823,10 @@ function consumeVigorHpOnAttack() {
   return cost;
 }
 
-function applyRuntimeResourceCost(profile, level = 1) {
+function applyRuntimeResourceCost(profile, level = 1, skill = null) {
   const cfg=profile?.resourceCost;if(!cfg||!window.CombatResourceManager)return {ok:true,used:0};
-  const sid=Number(profile?.skillId||0), active=typeof getActiveBuffBonusTotals==="function"?getActiveBuffBonusTotals():{};
+  if(isCopiedSkillResourceWaived(skill,profile))return {ok:true,used:0,remaining:Number(window.CombatResourceManager.get(cfg.type)||0),waived:true,copied:true};
+  const sid=Number((skill?.officialId ?? skill?.id ?? profile?.skillId) || 0), active=typeof getActiveBuffBonusTotals==="function"?getActiveBuffBonusTotals():{};
   if(cfg.type==="spiritSphere"){
     const waived=(sid===2329&&Number(active.waiveFallenEmpireSphereCost||0)>0)||(sid===2330&&Number(active.waiveTigerCannonSphereCost||0)>0)||(sid===5009&&Number(active.waiveFlashComboSphereCost||0)>0)||(sid===2332&&Number(active.massiveFlameBlaster||0)>0)||(sid===2518&&Number(active.massiveFlameBlaster||0)>0);
     if(waived)return {ok:true,used:0,remaining:Number(window.CombatResourceManager.get(cfg.type)||0),waived:true};
@@ -2970,7 +2981,7 @@ function castBuffSkill(skill, requestedLevel = null, options = {}) {
   }
   const duration = getRuntimeDuration(skill, level);
   if (duration <= 0) return reportPendingRuntime(skill, "Runtime 缺少有效持續時間");
-  const resource = applyRuntimeResourceCost(profile, level);
+  const resource = applyRuntimeResourceCost(profile, level, skill);
   if (!resource.ok) { if (!options.silent) addBattleLog(`${skill.name} 所需戰鬥資源不足。`); return false; }
   if (!options.skipCost) paySkillCost(skill, level);
   if(profile.selfHpRateCost){const rate=Math.max(0,Number(getLevelValue(profile.selfHpRateCost,level,0)));player.hp=Math.max(1,Number(player.hp||1)-Math.floor(Number(player.maxHp||1)*rate/100));}
@@ -3289,7 +3300,7 @@ function castGroundDebuffSkill(skill, requestedLevel = null) {
     }
   });
   if (!effectId) { addBattleLog(`${skill.name}：${getRuntimeGroundBlockText(window.GroundEffectManager.lastBlockReason)}。`); return false; }
-  const resource = applyRuntimeResourceCost(profile, level);
+  const resource = applyRuntimeResourceCost(profile, level, skill);
   if (!resource.ok) { window.GroundEffectManager.remove(effectId); addBattleLog(`${skill.name} 所需戰鬥資源不足。`); return false; }
   paySkillCost(skill, level);
   addBattleLog(profile.trapMaterialPolicy === "ignored"
@@ -3368,7 +3379,7 @@ function castMovementSkill(skill, requestedLevel = null) {
   const check = canCastSkill(skill, requestedLevel, ["movement"]);
   if (!check.ok) return reportPendingRuntime(skill, check.reason);
   const { level, profile } = check;
-  const resource = applyRuntimeResourceCost(profile, level);
+  const resource = applyRuntimeResourceCost(profile, level, skill);
   if (!resource.ok) { addBattleLog(`${skill.name} 所需氣彈不足。`); return false; }
   paySkillCost(skill, level);
   let moved = false;
@@ -3631,7 +3642,7 @@ function castDebuffSkill(skill, requestedLevel = null) {
     addBattleLog(`${skill.name} 對此目標無效。`);
     return false;
   }
-  const resource=applyRuntimeResourceCost(profile, level); if(!resource.ok){addBattleLog(`${skill.name} 所需戰鬥資源不足。`);return false;}
+  const resource=applyRuntimeResourceCost(profile, level, skill); if(!resource.ok){addBattleLog(`${skill.name} 所需戰鬥資源不足。`);return false;}
   paySkillCost(skill, level);
   let chance = getLevelValue(profile.statusChancePercent, level, 100);
   if (profile.statusChanceFormula === "signum_crucis") {
@@ -3674,7 +3685,7 @@ function castHealSkill(skill, requestedLevel = null) {
   const check = canCastSkill(skill, requestedLevel, ["heal", "heal_fixed"]);
   if (!check.ok) return reportPendingRuntime(skill, check.reason);
   const { level, profile } = check;
-  const resource=applyRuntimeResourceCost(profile,level);
+  const resource=applyRuntimeResourceCost(profile,level,skill);
   if(!resource.ok){addBattleLog(`${skill.name} 所需戰鬥資源不足。`);return false;}
   paySkillCost(skill, level);
   const derived = typeof calculateDerivedPlayerStats === "function" ? calculateDerivedPlayerStats() : null;
@@ -4382,7 +4393,7 @@ function calculateSkillAttackDamageBase(skill, requestedLevel = null, target = c
   if (profile.formula === "renewal_feint_bomb") {
     const dex = Number(derived?.stats?.dex || player?.stats?.dex || 1);
     const jobLv = Math.max(1, Number(player?.jobLevel || 1));
-    ratio = Math.max(1, Math.floor(((level + 1) * dex / 2) * (jobLv / 10) * Number(player?.baseLevel || 1) / 120));
+    ratio = Math.max(1, Math.floor(((level + 1) * dex) * (jobLv / 10) * Number(player?.baseLevel || 1) / 120));
   }
   if (profile.formula === "renewal_brandish_spear") {
     const totalStr = Number(derived?.stats?.str || player?.stats?.str || 1);
@@ -4915,7 +4926,7 @@ function castPeriodicGroundAttackSkill(skill, requestedLevel = null, options = {
     onTick(targets,effect,context){ applyRuntimeGroundAttackTick(skill,level,profile,targets,effect,context); }
   });
   if (!effectId) { addBattleLog(`${skill.name}：${getRuntimeGroundBlockText(window.GroundEffectManager.lastBlockReason)}。`); return false; }
-  const resource = applyRuntimeResourceCost(profile, level);
+  const resource = applyRuntimeResourceCost(profile, level, skill);
   if (!resource.ok) { window.GroundEffectManager.remove(effectId); addBattleLog(`${skill.name} 所需戰鬥資源不足。`); return false; }
   options.consumedResource = resource.used;
   paySkillCost(skill, level);
@@ -4986,7 +4997,7 @@ function castAttackSkill(skill, requestedLevel = null, options = {}) {
   options.preCastHp=Number(player?.hp||0);options.preCastMaxHp=Number(player?.maxHp||0);options.preCastMaxSp=Number(player?.maxSp||0);
   options.preCastSp=Number(player?.sp||0);
   options.preCastResource=profile?.resourceCost?.type&&window.CombatResourceManager?Number(window.CombatResourceManager.get(profile.resourceCost.type)||0):0;
-  const resource=applyRuntimeResourceCost(profile, level); if(!resource.ok){addBattleLog(`${skill.name} 所需戰鬥資源不足。`);return false;}
+  const resource=applyRuntimeResourceCost(profile, level, skill); if(!resource.ok){addBattleLog(`${skill.name} 所需戰鬥資源不足。`);return false;}
   options.consumedResource=resource.used;
   paySkillCost(skill, level);
   if (profile.moveAdjacentToTarget && typeof movePlayerAdjacentToMonster === "function") movePlayerAdjacentToMonster(currentMonster);
@@ -5259,7 +5270,7 @@ function applyComboStageDamage(stageSkill, level, target, options={}) {
 }
 function castComboSequenceSkill(skill, requestedLevel = null, options = {}) {
   const check=canCastSkill(skill,requestedLevel,["combo_sequence"]);if(!check.ok)return reportPendingRuntime(skill,check.reason);if(!currentMonster)return false;
-  const {level,profile}=check;const resource=applyRuntimeResourceCost(profile,level);if(!resource.ok){addBattleLog(`${skill.name} 所需氣彈不足。`);return false;}paySkillCost(skill,level);
+  const {level,profile}=check;const resource=applyRuntimeResourceCost(profile,level,skill);if(!resource.ok){addBattleLog(`${skill.name} 所需氣彈不足。`);return false;}paySkillCost(skill,level);
   let total=0,stages=0;for(const sid of profile.sequenceSkillIds||[]){if(!currentMonster||Number(currentMonster.currentHp||0)<=0)break;const stage=typeof getSkillDataById==="function"?getSkillDataById(sid):null;const stageLevel=Math.max(1,Number(typeof getSkillLevel==="function"?getSkillLevel(sid)||level:level));const r=applyComboStageDamage(stage,stageLevel,currentMonster,{fromFlashCombo:true});if(r.ok){total+=r.damage;stages++;}}
   addBattleLog(`施放 ${skill.name} Lv${level}，完成 ${stages} 段連擊，共造成 ${total} 點傷害。`);updateMonsterUI();updatePlayerUI();saveGame();return true;
 }
@@ -5365,7 +5376,7 @@ function castGroundDamageSkill(skill, requestedLevel = null) {
     }
   });
   if(!effectId){addBattleLog(`${skill.name}：${getRuntimeGroundBlockText(window.GroundEffectManager.lastBlockReason)}。`);return false;}
-  const resource=applyRuntimeResourceCost(profile,level);if(!resource.ok){window.GroundEffectManager.remove(effectId);addBattleLog(`${skill.name} 所需戰鬥資源不足。`);return false;}
+  const resource=applyRuntimeResourceCost(profile,level,skill);if(!resource.ok){window.GroundEffectManager.remove(effectId);addBattleLog(`${skill.name} 所需戰鬥資源不足。`);return false;}
   paySkillCost(skill,level);
   if(profile.initialBurst){
     const initialProfile=profile.initialTargeting?{...profile,targeting:profile.initialTargeting}:profile;
@@ -5391,4 +5402,4 @@ function getSkillTypeText(skill) {
   return map[getRuntimeSkillUiType(skill)] || "技能";
 }
 
-Object.assign(window,{previewRuntimeResourceCost,getRuntimeResourceDisplayName,applyCardSkillDamageRate});
+Object.assign(window,{previewRuntimeResourceCost,isCopiedSkillResourceWaived,getRuntimeResourceDisplayName,applyCardSkillDamageRate});

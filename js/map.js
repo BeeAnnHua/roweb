@@ -264,6 +264,20 @@ function formatMapMonsterCount(entry, countPlan) {
   return Math.max(1, Number(entry?.raSpawnCount || entry?.weight || 1));
 }
 
+const RO_MAP_MONSTER_DROP_CACHE = new Map();
+function formatMonsterDropChance(chance){const value=Math.max(0,Number(chance||0));if(value>=10000)return "100%";if(value>=100)return `${(value/100).toFixed(value%100?2:0)}%`;return `${(value/100).toFixed(2)}%`;}
+function getMapGradeBonusEntries(mapId,monsterId){const profile=window.RO_WEB_DATA?.["data/enchant_grade_map_drops.json"]?.profiles?.[mapId];return (profile?.entries||[]).filter(entry=>!Array.isArray(entry.monsterIds)||entry.monsterIds.includes(Number(monsterId)));}
+function buildMonsterDropCacheEntry(mapId,monster){
+  const key=`${mapId}:${Number(monster?.id||0)}`;if(RO_MAP_MONSTER_DROP_CACHE.has(key))return RO_MAP_MONSTER_DROP_CACHE.get(key);
+  const normalize=(drop,source)=>{const id=Number(drop?.itemId??drop?.id??0),data=typeof getItemData==="function"?getItemData(id):null;return {id,name:data?.name||drop?.displayName||drop?.name||`Item ${id}`,icon:data?.icon||`images/items/${data?.officialId||id}.webp`,chance:Number(drop?.chance||0),qtyMin:Math.max(1,Number(drop?.qtyMin||drop?.amount||1)),qtyMax:Math.max(1,Number(drop?.qtyMax||drop?.qtyMin||drop?.amount||1)),source,type:String(data?.type||"")};};
+  const original=(monster?.drops||[]).map(drop=>normalize(drop,"original"));
+  const mvp=(monster?.mvpDrops||[]).map(drop=>normalize(drop,"mvp"));
+  const bonus=getMapGradeBonusEntries(mapId,monster?.id).filter(entry=>!(entry.skipIfOriginalDrop&&[...original,...mvp].some(drop=>drop.id===Number(entry.itemId)))).map(drop=>normalize({...drop,chance:window.EnchantGradeRuntime?.getScaledGradeDropChance?.(drop.chance)??drop.chance},"grade"));
+  const result={original,mvp,bonus};RO_MAP_MONSTER_DROP_CACHE.set(key,result);return result;
+}
+function renderMonsterDropGroup(title,rows,kind){if(!rows.length)return "";return `<section class="map-monster-drop-group is-${kind}"><h5>${title}</h5>${rows.map(row=>`<div class="map-monster-drop-row"><img src="${row.icon}" alt="" onerror="this.style.display='none'"><span><b>${row.name}</b><small>${row.qtyMin===row.qtyMax?`×${row.qtyMin}`:`×${row.qtyMin}～${row.qtyMax}`}｜${formatMonsterDropChance(row.chance)}</small></span></div>`).join("")}</section>`;}
+function renderMapMonsterDropDetail(tooltip,mapId,monsterId){const host=tooltip?.querySelector?.(".map-monster-drop-detail");const monster=getMapMonsterById(monsterId);if(!host||!monster)return;const drops=buildMonsterDropCacheEntry(mapId,monster);host.innerHTML=`<header><b>${monster.name||`怪物 ${monsterId}`}掉落物</b><small>僅在查看時讀取快取，不參與掛機運算</small></header>${renderMonsterDropGroup("原始掉落",drops.original,"original")}${renderMonsterDropGroup("MVP 額外掉落",drops.mvp,"mvp")}${renderMonsterDropGroup("升階材料額外掉落",drops.bonus,"grade")||(!drops.original.length&&!drops.mvp.length?'<div class="map-monster-drop-empty">目前沒有可顯示的掉落資料</div>':"")}`;host.hidden=false;RO_MAP_MONSTER_TOOLTIP_STATE.selectedMonsterId=Number(monsterId);}
+function bindMapMonsterDropInteractions(tooltip,mapId){if(!tooltip)return;tooltip.querySelectorAll("[data-monster-drop-id]").forEach(row=>{const show=()=>renderMapMonsterDropDetail(tooltip,mapId,Number(row.dataset.monsterDropId));row.addEventListener("pointerenter",show,{passive:true});row.addEventListener("focus",show,{passive:true});row.addEventListener("click",event=>{event.preventDefault();event.stopPropagation();show();});});if(RO_MAP_MONSTER_TOOLTIP_STATE.selectedMonsterId)renderMapMonsterDropDetail(tooltip,mapId,RO_MAP_MONSTER_TOOLTIP_STATE.selectedMonsterId);}
 function createMapMonsterDistributionSection(title, icon, entries, options = {}) {
   if (!entries.length) return "";
   const rows = entries.map(entry => {
@@ -276,7 +290,7 @@ function createMapMonsterDistributionSection(title, icon, entries, options = {})
         ? `<em class="map-monster-state is-respawning">重生倒數 ${formatMapMonsterRespawnDuration(state.remainingSeconds)}</em>`
         : `<em class="map-monster-state is-alive">存在中</em>`;
     }
-    return `<div class="map-monster-distribution-row"><span>${name}</span>${stateHtml}</div>`;
+    return `<button type="button" class="map-monster-distribution-row" data-monster-drop-id="${Number(entry.monsterId)}"><span>${name}</span>${stateHtml}</button>`;
   }).join("");
   return `<section class="map-monster-distribution-section"><h4><span aria-hidden="true">${icon}</span>${title}</h4>${rows}</section>`;
 }
@@ -293,7 +307,7 @@ function buildMapMonsterDistributionHtml(mapData) {
     createMapMonsterDistributionSection("Boss 怪物", "👑", bosses, { liveState: true }),
     createMapMonsterDistributionSection("MVP", "🏆", mvps, { liveState: true })
   ].filter(Boolean).join("");
-  return `<div class="map-monster-distribution-header"><b>${mapData?.displayName || mapData?.name || "怪物地區"}</b>${recommended}</div>${sections || '<div class="map-monster-distribution-empty">此地區尚無怪物資料</div>'}`;
+  return `<div class="map-monster-distribution-header"><b>${mapData?.displayName || mapData?.name || "怪物地區"}</b>${recommended}</div>${sections || '<div class="map-monster-distribution-empty">此地區尚無怪物資料</div>'}<section class="map-monster-drop-detail" hidden></section>`;
 }
 
 function getMapMonsterDistributionTooltip() {
@@ -347,6 +361,7 @@ function refreshMapMonsterDistributionTooltip() {
   if (!mapData) return hideMapMonsterDistributionTooltip();
   const previousScrollTop = tooltip.scrollTop;
   tooltip.innerHTML = buildMapMonsterDistributionHtml(mapData);
+  bindMapMonsterDropInteractions(tooltip,mapData.id);
   tooltip.scrollTop = previousScrollTop;
   positionMapMonsterDistributionTooltip();
 }
@@ -373,8 +388,8 @@ function showMapMonsterDistributionTooltip(mapData, anchor) {
   }
   tooltip.hidden = false;
   tooltip.innerHTML = buildMapMonsterDistributionHtml(mapData);
+  bindMapMonsterDropInteractions(tooltip,mapData.id);
   positionMapMonsterDistributionTooltip();
-  RO_MAP_MONSTER_TOOLTIP_STATE.timer = window.setInterval(refreshMapMonsterDistributionTooltip, 1000);
 }
 
 function scheduleHideMapMonsterDistributionTooltip() {
@@ -388,6 +403,7 @@ function hideMapMonsterDistributionTooltip() {
   RO_MAP_MONSTER_TOOLTIP_STATE.hideTimer = 0;
   RO_MAP_MONSTER_TOOLTIP_STATE.timer = 0;
   RO_MAP_MONSTER_TOOLTIP_STATE.mapId = null;
+  RO_MAP_MONSTER_TOOLTIP_STATE.selectedMonsterId = null;
   RO_MAP_MONSTER_TOOLTIP_STATE.anchor = null;
   const tooltip = document.getElementById("map-monster-distribution-tooltip");
   tooltip?.closest?.(".map-current-card")?.classList.remove("has-monster-info");

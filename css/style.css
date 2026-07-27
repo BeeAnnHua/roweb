@@ -20548,4 +20548,193 @@ body.refine-window-open{overflow:hidden}
 .save-reset-phrase-label{display:block;margin-top:13px;color:#ffaaa2;font-size:12px;font-weight:800}.save-reset-phrase-label input{width:100%;box-sizing:border-box;margin-top:7px;padding:10px;border:1px solid #ad493f;border-radius:7px;background:#080708;color:#ffd0ca;font-size:15px;outline:none}.save-reset-phrase-label input:focus{box-shadow:0 0 0 3px rgba(214,60,48,.16)}
 .save-reset-message{min-height:20px;margin:7px 0 0;color:#ff8d83;font-size:12px}.save-reset-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:9px}.save-reset-actions button{min-width:98px;padding:9px 11px;border-radius:7px;cursor:pointer}.save-reset-actions>button:first-child{border:1px solid #71634d;background:#17130f;color:#d5c9b3}.save-reset-confirm-button{border:1px solid #d5a744;background:linear-gradient(#67491c,#2e1d09);color:#ffe8ac;font-weight:800}.save-reset-confirm-button.is-delete-all{border-color:#e05b50;background:linear-gradient(#802c25,#3b0f0e);color:#ffd0cb}.save-reset-confirm-button:disabled{opacity:.42;cursor:not-allowed}
 @media(max-width:720px){.storage-overlay{padding:5px}.storage-dialog{width:calc(100vw - 10px);height:calc(100dvh - 10px);border-radius:11px}.storage-header{padding:9px 11px}.storage-header h2{font-size:18px}.storage-header p{display:none}.storage-summary-bar{padding:6px 10px}.storage-layout{display:block;overflow:auto;padding:7px}.storage-column{min-height:270px;max-height:43dvh}.storage-account-column{margin-top:8px}.storage-item-list{max-height:calc(43dvh - 44px)}.storage-footer-note{font-size:9px}.storage-item-row{grid-template-columns:42px minmax(0,1fr);}.storage-item-controls{grid-column:1/-1;justify-content:flex-end}.storage-item-controls input{width:62px}.storage-item-controls button{min-width:72px}}
-\n/* RO_WEB 0.9.82GK Enchant Grade */\n.grade-overlay{position:fixed;inset:0;z-index:13050;display:flex;align-items:center;justify-content:center;background:rgba(4,8,15,.72);padding:14px}.grade-overlay[hidden],.grade-overlay.hidden-window{display:none!important}.grade-dialog{width:min(920px,96vw);max-height:92vh;overflow:hidden;border:2px solid #9a7433;border-radius:14px;background:linear-gradient(160deg,#121a25,#17130d);color:#f5e7bd;box-shadow:0 16px 50px #000}.grade-header{display:flex;justify-content:space-between;gap:12px;padding:14px 18px;border-bottom:1px solid #74582c;background:linear-gradient(90deg,#111b29,#271d10)}.grade-header h2,.grade-header p{margin:2px 0}.grade-header small{color:#9fc9f6}.grade-header button{width:38px;height:38px;border:1px solid #8f7548;border-radius:9px;background:#211b14;color:#fff;font-size:24px}.grade-tabs{display:flex;border-bottom:1px solid #58462b}.grade-tabs button{flex:1;padding:11px;border:0;background:#101720;color:#c6b58d}.grade-tabs button.is-active{background:#2a2114;color:#ffd77e;box-shadow:inset 0 -3px #c99840}.grade-layout{display:grid;grid-template-columns:minmax(230px,34%) 1fr;min-height:470px;max-height:68vh}.grade-layout>aside{border-right:1px solid #55452d;padding:12px;min-height:0}.grade-section-title{display:flex;justify-content:space-between;margin-bottom:8px}.grade-section-title small{color:#8fb4d9}.grade-equipment-list{height:420px;max-height:56vh;overflow:auto;display:grid;gap:7px;align-content:start}.grade-equipment-row{display:flex;align-items:center;gap:9px;width:100%;padding:8px;text-align:left;border:1px solid #455365;border-radius:9px;background:#101720;color:#e8e2d5}.grade-equipment-row.is-active{border-color:#d0a451;background:#2b2417}.grade-equipment-row img,.grade-selected img,.grade-recipe img{width:46px;height:46px;object-fit:contain;background:#0b1017;border:1px solid #596473;border-radius:7px}.grade-equipment-row span{min-width:0}.grade-equipment-row b,.grade-equipment-row small{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.grade-equipment-row small{color:#94abc1}.grade-detail{padding:18px;overflow:auto}.grade-selected{display:flex;align-items:center;gap:14px;padding:12px;border:1px solid #7d6334;border-radius:12px;background:#151d28}.grade-selected h3,.grade-selected p{margin:2px 0}.grade-rate{display:grid;grid-template-columns:1fr auto;gap:3px;margin:14px 0;padding:12px;border-radius:10px;background:#0e1721;border:1px solid #34506b}.grade-rate b{font-size:28px;color:#f2c766}.grade-rate small{grid-column:1/-1;color:#9fb4c8}.grade-options{display:grid;grid-template-columns:1fr 1fr;gap:10px}.grade-options button{padding:12px;text-align:left;border:1px solid #5b5260;border-radius:10px;background:#15151a;color:#eee}.grade-options button:first-child{border-color:#783c3c}.grade-options button.is-active{outline:2px solid #d0a451;background:#2b2417}.grade-options b,.grade-options span,.grade-options small{display:block}.grade-options small{color:#d99494}.grade-catalyst{display:grid;gap:7px;margin:14px 0;padding:12px;border:1px solid #5d426f;border-radius:10px;background:#17121e}.grade-catalyst input{width:100%}.grade-execute{width:100%;padding:13px;border:1px solid #e2bd69;border-radius:10px;background:linear-gradient(#5b431c,#33240e);color:#fff2c3;font-size:17px;font-weight:700}.grade-message{min-height:24px;margin:0;padding:9px 16px;border-top:1px solid #4f412c;color:#ffd98d}.grade-exchange-panel{padding:15px;max-height:68vh;overflow:auto}.grade-exchange-panel>label{display:flex;align-items:center;gap:12px;margin-bottom:12px}.grade-exchange-panel input{width:100px;padding:7px;border:1px solid #806a43;border-radius:7px;background:#0e141d;color:#fff}.grade-exchange-list{display:grid;gap:8px}.grade-recipe{display:grid;grid-template-columns:48px 1fr auto;align-items:center;gap:10px;padding:10px;border:1px solid #4e5a69;border-radius:9px;background:#111923}.grade-recipe b,.grade-recipe small{display:block}.grade-recipe small{color:#aebdcc}.grade-recipe button{padding:9px 13px;border:1px solid #bd9245;border-radius:8px;background:#392a11;color:#ffe6a7}.grade-empty{padding:20px;text-align:center;color:#aeb8c2}\n@media(max-width:700px){.grade-overlay{padding:4px}.grade-dialog{width:99vw;max-height:96vh}.grade-header{padding:9px 11px}.grade-header p{font-size:12px}.grade-layout{grid-template-columns:1fr;display:block;max-height:75vh;overflow:auto}.grade-layout>aside{border-right:0;border-bottom:1px solid #55452d}.grade-equipment-list{height:auto;max-height:190px}.grade-detail{padding:11px}.grade-options{grid-template-columns:1fr}.grade-recipe{grid-template-columns:42px 1fr}.grade-recipe button{grid-column:1/-1}.grade-message{font-size:13px}}\n
+
+/* RO_WEB 0.9.82GN Enchant Grade */
+.grade-overlay{position:fixed;inset:0;z-index:13050;display:flex;align-items:center;justify-content:center;background:rgba(4,8,15,.72);padding:14px}.grade-overlay[hidden],.grade-overlay.hidden-window{display:none!important}.grade-dialog{width:min(920px,96vw);max-height:92vh;overflow:hidden;border:2px solid #9a7433;border-radius:14px;background:linear-gradient(160deg,#121a25,#17130d);color:#f5e7bd;box-shadow:0 16px 50px #000}.grade-header{display:flex;justify-content:space-between;gap:12px;padding:14px 18px;border-bottom:1px solid #74582c;background:linear-gradient(90deg,#111b29,#271d10)}.grade-header h2,.grade-header p{margin:2px 0}.grade-header small{color:#9fc9f6}.grade-header button{width:38px;height:38px;border:1px solid #8f7548;border-radius:9px;background:#211b14;color:#fff;font-size:24px}.grade-tabs{display:flex;border-bottom:1px solid #58462b}.grade-tabs button{flex:1;padding:11px;border:0;background:#101720;color:#c6b58d}.grade-tabs button.is-active{background:#2a2114;color:#ffd77e;box-shadow:inset 0 -3px #c99840}.grade-layout{display:grid;grid-template-columns:minmax(230px,34%) 1fr;min-height:470px;max-height:68vh}.grade-layout>aside{border-right:1px solid #55452d;padding:12px;min-height:0}.grade-section-title{display:flex;justify-content:space-between;margin-bottom:8px}.grade-section-title small{color:#8fb4d9}.grade-equipment-list{height:420px;max-height:56vh;overflow:auto;display:grid;gap:7px;align-content:start}.grade-equipment-row{display:flex;align-items:center;gap:9px;width:100%;padding:8px;text-align:left;border:1px solid #455365;border-radius:9px;background:#101720;color:#e8e2d5}.grade-equipment-row.is-active{border-color:#d0a451;background:#2b2417}.grade-equipment-row img,.grade-selected img,.grade-recipe img{width:46px;height:46px;object-fit:contain;background:#0b1017;border:1px solid #596473;border-radius:7px}.grade-equipment-row span{min-width:0}.grade-equipment-row b,.grade-equipment-row small{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.grade-equipment-row small{color:#94abc1}.grade-detail{padding:18px;overflow:auto}.grade-selected{display:flex;align-items:center;gap:14px;padding:12px;border:1px solid #7d6334;border-radius:12px;background:#151d28}.grade-selected h3,.grade-selected p{margin:2px 0}.grade-rate{display:grid;grid-template-columns:1fr auto;gap:3px;margin:14px 0;padding:12px;border-radius:10px;background:#0e1721;border:1px solid #34506b}.grade-rate b{font-size:28px;color:#f2c766}.grade-rate small{grid-column:1/-1;color:#9fb4c8}.grade-options{display:grid;grid-template-columns:1fr 1fr;gap:10px}.grade-options button{padding:12px;text-align:left;border:1px solid #5b5260;border-radius:10px;background:#15151a;color:#eee}.grade-options button:first-child{border-color:#783c3c}.grade-options button.is-active{outline:2px solid #d0a451;background:#2b2417}.grade-options b,.grade-options span,.grade-options small{display:block}.grade-options small{color:#d99494}.grade-catalyst{display:grid;gap:7px;margin:14px 0;padding:12px;border:1px solid #5d426f;border-radius:10px;background:#17121e}.grade-catalyst input{width:100%}.grade-execute{width:100%;padding:13px;border:1px solid #e2bd69;border-radius:10px;background:linear-gradient(#5b431c,#33240e);color:#fff2c3;font-size:17px;font-weight:700}.grade-message{min-height:24px;margin:0;padding:9px 16px;border-top:1px solid #4f412c;color:#ffd98d}.grade-exchange-panel{padding:15px;max-height:68vh;overflow:auto}.grade-exchange-panel>label{display:flex;align-items:center;gap:12px;margin-bottom:12px}.grade-exchange-panel input{width:100px;padding:7px;border:1px solid #806a43;border-radius:7px;background:#0e141d;color:#fff}.grade-exchange-list{display:grid;gap:8px}.grade-recipe{display:grid;grid-template-columns:48px 1fr auto;align-items:center;gap:10px;padding:10px;border:1px solid #4e5a69;border-radius:9px;background:#111923}.grade-recipe b,.grade-recipe small{display:block}.grade-recipe small{color:#aebdcc}.grade-recipe button{padding:9px 13px;border:1px solid #bd9245;border-radius:8px;background:#392a11;color:#ffe6a7}.grade-empty{padding:20px;text-align:center;color:#aeb8c2}
+@media(max-width:700px){.grade-overlay{padding:4px}.grade-dialog{width:99vw;max-height:96vh}.grade-header{padding:9px 11px}.grade-header p{font-size:12px}.grade-layout{grid-template-columns:1fr;display:block;max-height:75vh;overflow:auto}.grade-layout>aside{border-right:0;border-bottom:1px solid #55452d}.grade-equipment-list{height:auto;max-height:190px}.grade-detail{padding:11px}.grade-options{grid-template-columns:1fr}.grade-recipe{grid-template-columns:42px 1fr}.grade-recipe button{grid-column:1/-1}.grade-message{font-size:13px}}
+
+
+/* ============================================================
+   RO_WEB 0.9.82GL — Storage filters / 5×6 backpack / drop lookup
+   ============================================================ */
+.storage-category-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;padding:8px 12px;border-bottom:1px solid rgba(209,169,83,.28);background:rgba(5,9,14,.48)}
+.storage-category-tabs button{padding:8px 10px;border:1px solid #596575;border-radius:8px;background:#101720;color:#c9d2dc;cursor:pointer}
+.storage-category-tabs button.is-active{border-color:#d2a34d;background:linear-gradient(#4b3515,#24190b);color:#ffe5a1;box-shadow:inset 0 -2px rgba(255,212,117,.25)}
+.map-monster-distribution-row{appearance:none;width:100%;border:0;background:transparent;color:inherit;font:inherit;text-align:left;cursor:pointer}
+.map-monster-distribution-row:hover,.map-monster-distribution-row:focus-visible{background:rgba(116,174,218,.12);outline:1px solid rgba(129,193,237,.35)}
+.map-monster-drop-detail{margin-top:10px;padding-top:9px;border-top:1px solid rgba(177,143,78,.4)}
+.map-monster-drop-detail[hidden]{display:none!important}.map-monster-drop-detail header{display:grid;gap:2px;margin-bottom:7px}.map-monster-drop-detail header b{color:#ffe09a}.map-monster-drop-detail header small{color:#8fa4b6;font-size:10px}
+.map-monster-drop-group{margin-top:7px}.map-monster-drop-group h5{margin:0 0 4px;color:#b8d9f2;font-size:11px}.map-monster-drop-group.is-mvp h5{color:#ffb2a2}.map-monster-drop-group.is-grade h5{color:#d6b7ff}
+.map-monster-drop-row{display:grid;grid-template-columns:30px minmax(0,1fr);align-items:center;gap:7px;padding:4px 2px;border-bottom:1px solid rgba(255,255,255,.055)}.map-monster-drop-row img{width:28px;height:28px;object-fit:contain}.map-monster-drop-row b,.map-monster-drop-row small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.map-monster-drop-row b{font-size:11px}.map-monster-drop-row small{color:#aebcca;font-size:10px}.map-monster-drop-empty{padding:8px;color:#9aa7b2;font-size:11px}
+#inventory-window #inventory-list.inventory-slot-grid{grid-template-columns:repeat(5,minmax(0,1fr))!important;grid-auto-rows:var(--inventory-slot-size,52px)!important;align-content:start!important}
+#inventory-window .inventory-grid-wrapper{--ro-inventory-visible-rows:6;max-height:calc(var(--inventory-slot-size,52px)*6 + var(--inventory-grid-gap,6px)*5 + 12px)!important;min-height:calc(var(--inventory-slot-size,52px)*6 + var(--inventory-grid-gap,6px)*5 + 12px)!important;overflow-y:auto!important}
+@media(max-width:720px),(pointer:coarse){.storage-category-tabs{padding:6px 8px}.storage-category-tabs button{min-height:34px}.map-monster-drop-detail{max-height:230px;overflow:auto}#inventory-window .inventory-grid-wrapper{max-height:calc(var(--inventory-slot-size,46px)*6 + var(--inventory-grid-gap,4px)*5 + 10px)!important;min-height:calc(var(--inventory-slot-size,46px)*6 + var(--inventory-grid-gap,4px)*5 + 10px)!important}}
+
+
+/* ============================================================
+   RO_WEB 0.9.82GM — Authoritative 5×6 backpack repair
+   GL only enlarged the wrapper and left the old 5×4 list/window heights,
+   causing the grid to overflow. These rules resize every layer together.
+   ============================================================ */
+#inventory-window,
+#inventory-window.game-window,
+#inventory-window.draggable-window{
+  width:370px!important;min-width:370px!important;max-width:370px!important;
+  height:414px!important;min-height:414px!important;max-height:414px!important;
+  overflow:hidden!important;
+}
+#inventory-window>.window-body.inventory-body,
+#inventory-window .window-body.inventory-body,
+#inventory-window .inventory-body{
+  width:370px!important;height:380px!important;min-height:380px!important;max-height:380px!important;
+  padding:7px 17px 9px!important;overflow:hidden!important;display:flex!important;flex-direction:column!important;
+}
+#inventory-window .window-title{width:370px!important}
+#inventory-window .inventory-tabs{flex:0 0 30px!important;width:306px!important;max-width:306px!important;margin:0 auto 8px!important;gap:8px!important}
+#inventory-window #inventory-panel{
+  flex:1 1 auto!important;width:310px!important;min-width:310px!important;max-width:310px!important;
+  height:316px!important;min-height:316px!important;max-height:316px!important;
+  display:flex!important;flex-direction:column!important;align-items:center!important;gap:0!important;overflow:visible!important;
+}
+#inventory-window .inventory-grid-wrapper{
+  flex:0 0 253px!important;width:278px!important;min-width:278px!important;max-width:278px!important;
+  height:253px!important;min-height:253px!important;max-height:253px!important;
+  margin:0 auto!important;overflow:visible!important;
+}
+#inventory-window .inventory-grid-wrapper::before{left:-12px!important;right:-12px!important;top:-9px!important;bottom:-14px!important}
+#inventory-window #inventory-list,
+#inventory-window #inventory-list.inventory-slot-grid{
+  width:278px!important;min-width:278px!important;max-width:278px!important;
+  height:253px!important;min-height:253px!important;max-height:253px!important;
+  padding:0 12px 0 0!important;display:grid!important;
+  grid-template-columns:repeat(5,44px)!important;grid-template-rows:none!important;grid-auto-rows:38px!important;
+  gap:5px 8px!important;align-content:start!important;justify-content:start!important;
+  overflow-y:auto!important;overflow-x:hidden!important;scrollbar-gutter:stable!important;
+}
+#inventory-window #inventory-list .inventory-slot,
+#inventory-window #inventory-list button.inventory-slot{width:44px!important;height:38px!important;min-height:38px!important}
+#inventory-window .inventory-action-row{
+  flex:0 0 25px!important;position:static!important;left:auto!important;top:auto!important;
+  width:254px!important;min-width:254px!important;max-width:254px!important;height:25px!important;
+  margin:18px auto 0!important;transform:none!important;gap:12px!important;
+}
+#inventory-window .inventory-page-row{display:none!important}
+.npc-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:5px;max-width:190px}
+.npc-actions button{white-space:nowrap}.npc-actions .npc-secondary-action{border-color:#7393aa;background:linear-gradient(#29495c,#11232d);color:#d8f3ff}
+body.enchant-grade-window-open{overflow:hidden}
+@media(max-width:900px),(pointer:coarse){
+  #inventory-window,#inventory-window.game-window,#inventory-window.draggable-window{width:360px!important;min-width:360px!important;max-width:360px!important;height:414px!important;min-height:414px!important;max-height:414px!important}
+  #inventory-window>.window-body.inventory-body,#inventory-window .window-body.inventory-body,#inventory-window .inventory-body{width:360px!important;height:380px!important;min-height:380px!important;max-height:380px!important;padding-left:15px!important;padding-right:15px!important}
+  #inventory-window .window-title{width:360px!important}
+  #inventory-window .inventory-tabs,#inventory-window #inventory-panel{width:304px!important;min-width:304px!important;max-width:304px!important}
+  #inventory-window .inventory-grid-wrapper,#inventory-window #inventory-list,#inventory-window #inventory-list.inventory-slot-grid{width:276px!important;min-width:276px!important;max-width:276px!important}
+  .npc-actions{max-width:150px}.npc-actions button{min-height:32px}
+}
+/* 0.9.82GM final specificity lock: defeat legacy 46×44 slot rules. */
+#inventory-window #inventory-panel #inventory-list.inventory-slot-grid .inventory-slot:nth-child(n),
+#inventory-window #inventory-panel #inventory-list.inventory-slot-grid button.inventory-slot:nth-child(n){
+  width:44px!important;min-width:44px!important;max-width:44px!important;
+  height:38px!important;min-height:38px!important;max-height:38px!important;
+  padding:0!important;margin:0!important;border:0!important;
+}
+#inventory-window #inventory-panel .inventory-action-row{
+  height:25px!important;min-height:25px!important;max-height:25px!important;align-items:center!important;
+}
+#inventory-window #inventory-panel .inventory-action-row .inventory-action-btn{
+  width:52px!important;min-width:52px!important;max-width:52px!important;
+  height:25px!important;min-height:25px!important;max-height:25px!important;padding:0!important;
+}
+
+
+/* ============================================================
+   RO_WEB 0.9.82GN — Backpack borders / visible scroll rail
+   ============================================================ */
+#inventory-window .inventory-grid-wrapper{
+  position:relative!important;
+  overflow:visible!important;
+}
+#inventory-window #inventory-list,
+#inventory-window #inventory-list.inventory-slot-grid{
+  scrollbar-width:thin!important;
+  scrollbar-color:#c99a42 #241507!important;
+  padding-right:14px!important;
+}
+#inventory-window #inventory-list.inventory-slot-grid::-webkit-scrollbar{
+  width:10px!important;
+  display:block!important;
+}
+#inventory-window #inventory-list.inventory-slot-grid::-webkit-scrollbar-track{
+  background:linear-gradient(90deg,#160d05,#35200a,#160d05)!important;
+  border:1px solid #70470f!important;
+  border-radius:7px!important;
+  box-shadow:inset 0 0 4px #000!important;
+}
+#inventory-window #inventory-list.inventory-slot-grid::-webkit-scrollbar-thumb{
+  min-height:30px!important;
+  background:linear-gradient(#d5aa55,#8b5b17)!important;
+  border:1px solid #f0c873!important;
+  border-radius:7px!important;
+  box-shadow:inset 0 0 3px rgba(255,255,255,.28)!important;
+}
+/* 30 格未超出時瀏覽器不產生 thumb，仍保留一條清楚的捲動軌道。 */
+#inventory-window .inventory-grid-wrapper::after{
+  content:""!important;
+  position:absolute!important;
+  pointer-events:none!important;
+  top:0!important;
+  bottom:0!important;
+  right:-5px!important;
+  width:8px!important;
+  border:1px solid #70470f!important;
+  border-radius:7px!important;
+  background:linear-gradient(90deg,#160d05,#35200a,#160d05)!important;
+  box-shadow:inset 0 0 4px #000!important;
+  opacity:.92!important;
+}
+#inventory-window #inventory-panel #inventory-list.inventory-slot-grid .inventory-slot:nth-child(n),
+#inventory-window #inventory-panel #inventory-list.inventory-slot-grid button.inventory-slot:nth-child(n){
+  border:1px solid #a96f12!important;
+  border-radius:7px!important;
+  background:radial-gradient(circle at 50% 42%,rgba(88,55,22,.62),rgba(28,16,8,.94) 72%)!important;
+  box-shadow:inset 0 0 8px rgba(0,0,0,.72),0 0 0 1px rgba(255,198,73,.04)!important;
+}
+#inventory-window #inventory-panel #inventory-list.inventory-slot-grid .inventory-slot.has-item:hover,
+#inventory-window #inventory-panel #inventory-list.inventory-slot-grid button.inventory-slot.has-item:hover{
+  border-color:#f0be55!important;
+  box-shadow:inset 0 0 8px rgba(0,0,0,.55),0 0 6px rgba(236,174,51,.42)!important;
+}
+
+/* ============================================================
+   RO_WEB 0.9.82GN — Enchant Grade modal visibility lock
+   ============================================================ */
+.grade-overlay{
+  position:fixed!important;
+  inset:0!important;
+  z-index:1000002!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  visibility:visible!important;
+  opacity:1!important;
+  pointer-events:auto!important;
+}
+.grade-overlay[hidden],.grade-overlay.hidden-window{
+  display:none!important;
+  visibility:hidden!important;
+  pointer-events:none!important;
+}
+.grade-dialog{position:relative!important;z-index:1!important;display:flex!important;flex-direction:column!important;}
+/* GN tab visibility: author display rules must not override the hidden attribute. */
+.grade-layout[hidden],
+.grade-exchange-panel[hidden]{display:none!important;}
+/* GN visible inventory rail final placement: keep it inside the frame. */
+#inventory-window .inventory-grid-wrapper::after{
+  right:1px!important;
+  width:9px!important;
+  border-color:#b47b20!important;
+  background:linear-gradient(90deg,#1a0e04,#4b2c0b,#1a0e04)!important;
+  box-shadow:inset 0 0 4px #000,0 0 2px rgba(229,171,57,.35)!important;
+}
+#inventory-window #inventory-list.inventory-slot-grid{
+  border-right:1px solid #b47b20!important;
+}

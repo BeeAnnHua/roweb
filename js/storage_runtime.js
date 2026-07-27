@@ -1,14 +1,15 @@
 //=======================================
-// 帳號共用倉庫 Runtime v0.9.82GH
+// 帳號共用倉庫 Runtime v0.9.82GN
 // 獨立於角色 SAVE_KEY；只刪除角色時完整保留。
 //=======================================
 (function () {
   "use strict";
 
   const STORAGE_KEY = window.RO_WEB_ACCOUNT_STORAGE_KEY || "ro_web_account_storage_v1";
-  const STORAGE_CAPACITY = 100;
+  const STORAGE_CAPACITY = 200;
   let accountStorage = null;
   let activeNpc = null;
+  let activeCategory = "consume";
 
   function clone(value) {
     return value == null ? value : JSON.parse(JSON.stringify(value));
@@ -116,6 +117,18 @@
     })).filter(x=>x.data).sort((a,b)=>String(a.data?.name||"").localeCompare(String(b.data?.name||""),'zh-Hant'));
   }
 
+  function categoryOf(entry){
+    if(entry?.equipment||isEquipment(entry?.row))return "equipment";
+    const type=String(entry?.data?.type||"").toLowerCase();
+    return ["consume","cash"].includes(type)?"consume":"item";
+  }
+  function filterRows(rows){return rows.filter(entry=>categoryOf(entry)===activeCategory);}
+  function setStorageCategory(category){
+    activeCategory=["consume","equipment","item"].includes(String(category))?String(category):"consume";
+    document.querySelectorAll("[data-storage-category]").forEach(button=>{const active=button.dataset.storageCategory===activeCategory;button.classList.toggle("is-active",active);button.setAttribute("aria-pressed",String(active));});
+    renderStorageWindow();return true;
+  }
+
   function compactName(row,data) {
     if (isEquipment(row) && typeof buildCompactItemName === "function") return buildCompactItemName(row,data);
     return data?.name || row?.name || `Item ${itemIdOf(row)}`;
@@ -179,14 +192,16 @@
     const cap=document.getElementById("storageCapacityText");
     const invCount=document.getElementById("storageInventoryCountText");
     if (!inventoryList || !storageList) return false;
-    const inventoryRows=getInventoryRows();
-    const storageRows=getStorageRows();
+    const allInventoryRows=getInventoryRows();
+    const allStorageRows=getStorageRows();
+    const inventoryRows=filterRows(allInventoryRows);
+    const storageRows=filterRows(allStorageRows);
     if (cap) cap.textContent=`${storageSlotsUsed()} / ${STORAGE_CAPACITY}`;
-    if (invCount) invCount.textContent=String(inventoryRows.length);
+    if (invCount) invCount.textContent=String(allInventoryRows.length);
     inventoryList.innerHTML=""; storageList.innerHTML="";
-    if (!inventoryRows.length) inventoryList.innerHTML='<div class="storage-empty">背包目前沒有可存入的物品。</div>';
+    if (!inventoryRows.length) inventoryList.innerHTML='<div class="storage-empty">此分類沒有可存入的物品。</div>';
     else inventoryRows.forEach(entry=>inventoryList.appendChild(createItemRow(entry,"inventory")));
-    if (!storageRows.length) storageList.innerHTML='<div class="storage-empty">帳號倉庫目前是空的。</div>';
+    if (!storageRows.length) storageList.innerHTML='<div class="storage-empty">此分類目前沒有物品。</div>';
     else storageRows.forEach(entry=>storageList.appendChild(createItemRow(entry,"storage")));
     return true;
   }
@@ -288,8 +303,8 @@
     if(!modal) return false;
     const npcName=document.getElementById("storageNpcName");
     if(npcName) npcName.textContent=activeNpc?.name||"卡普拉倉庫管理員";
-    setStorageMessage(""); renderStorageWindow();
-    modal.hidden=false; modal.classList.remove("hidden-window");
+    setStorageMessage(""); setStorageCategory(activeCategory);
+    modal.hidden=false; modal.removeAttribute("hidden"); modal.classList.remove("hidden-window"); modal.setAttribute("aria-hidden","false");
     document.body?.classList.add("storage-window-open");
     if(typeof bringWindowToFront==="function") bringWindowToFront(modal);
     return true;
@@ -297,7 +312,7 @@
 
   function closeStorageWindow() {
     const modal=document.getElementById("storageWindow");
-    if(modal){modal.hidden=true;modal.classList.add("hidden-window");}
+    if(modal){modal.hidden=true;modal.setAttribute("hidden","");modal.classList.add("hidden-window");modal.setAttribute("aria-hidden","true");}
     document.body?.classList.remove("storage-window-open");
     return true;
   }
@@ -306,6 +321,6 @@
     RO_WEB_ACCOUNT_STORAGE_KEY:STORAGE_KEY,
     loadAccountStorage,saveAccountStorage,normalizeAccountStorage,storageSlotsUsed,
     openStorageWindow,closeStorageWindow,renderStorageWindow,depositStorageItem,withdrawStorageItem,
-    getAccountStorageSnapshot:()=>clone(loadAccountStorage())
+    setStorageCategory,getStorageCategory:()=>activeCategory,getAccountStorageSnapshot:()=>clone(loadAccountStorage())
   });
 })();
