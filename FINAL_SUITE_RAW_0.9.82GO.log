@@ -1,0 +1,291 @@
+===== python tools/test_go_features_0.9.82GO.py =====
+PASS: server version GO
+PASS: grade material drop rate remains 100=1x
+PASS: black-gold theme runtime loaded
+PASS: theme runtime loads before confirmation callers
+PASS: all index cache keys GO
+PASS: dynamic controls are audited
+PASS: custom number stepper exists
+PASS: number stepper changes values
+PASS: number stepper supports hold-repeat
+PASS: custom black-gold dialog exists
+PASS: shared gold confirmation API exported
+PASS: danger action classification exists
+PASS: secondary action classification exists
+PASS: GO theme CSS section
+PASS: native number arrows hidden
+PASS: gold number stepper styled
+PASS: custom confirmation dialog styled
+PASS: general action buttons styled
+PASS: pinned monster tooltip styled
+PASS: pinned monster row styled
+PASS: no bare native confirm/alert/prompt calls remain
+PASS: no window native dialogs remain
+PASS: js/job.js uses black-gold confirmation
+PASS: js/status_system.js uses black-gold confirmation
+PASS: js/refine_runtime.js uses black-gold confirmation
+PASS: js/quick_slots.js uses black-gold confirmation
+PASS: monster drop pin state exists
+PASS: click can pin selected monster
+PASS: tooltip exposes pinned visual state
+PASS: explicit unpin control exists
+PASS: pointer leave does not hide pinned tooltip
+PASS: outside click closes pinned tooltip
+PASS: drop lookup remains isolated from auto battle
+PASS: monster drop lookup has no polling timer
+PASS: drop data still uses static cache
+PASS: button audit coverage scan (132 factories)
+PASS: number input audit coverage scan (22 factories)
+{"version": "0.9.82GO", "passed": 37, "total": 37, "failed": []}
+===== python tools/test_go_browser_components_0.9.82GO.py =====
+PASS: native number input replaced by custom stepper
+PASS: custom plus button increments quantity
+PASS: dynamic action buttons receive gold audit classes
+PASS: black-gold confirmation modal opens
+PASS: cancel action classified as secondary gold
+PASS: danger action classified as red-gold
+PASS: clicked monster remains pinned after pointer leaves
+PASS: pinned panel renders cached drop data
+PASS: pinned panel exposes unpin control
+PASS: outside click closes pinned monster panel
+{"version": "0.9.82GO", "passed": 10, "total": 10, "failed": []}
+===== python tools/test_enchant_grade_data_0.9.82GO.py =====
+Enchant Grade RA data audit: 224/224 PASS
+===== node tools/test_enchant_grade_runtime_0.9.82GO.js =====
+PASS RA Lv5 weapon None→D +9 chance = 10%
+PASS RA Armor B→A safe option uses 10 Etel Amber
+PASS six exact RA material exchange recipes
+PASS success raises grade and resets refine to +0
+PASS safe failure preserves the same equipment instance
+PASS high-risk failure destroys equipment
+PASS Etel Dust synthesis consumes materials and Zeny
+PASS bonus drop skips material already present in original drop table
+{"version":"0.9.82GO","passed":8}
+===== python tools/test_grade_maps_data_0.9.82GO.py =====
+{"version": "0.9.82GO", "passed": 57, "status": "PASS"}
+===== node tools/test_gn_runtime_0.9.82GO.js =====
+PASS: grade rate 100 reads as 1x
+PASS: 75 basis points stays 75 at 100% valve
+PASS: 200 setting doubles independent grade drop
+PASS: 0 setting disables independent grade drop
+PASS: original drop prevents duplicated bonus material roll
+PASS: reproduced skill waives original profession resource
+PASS: plagiarized skill waives original profession resource
+PASS: native profession skill still requires resource
+{"version":"0.9.82GO","passed":8}
+===== python tools/test_gn_ui_grade_city_0.9.82GO.py =====
+PASS: inventory generates 30 visible slots
+PASS: inventory list is authoritative 5x6 geometry
+PASS: inventory outer window grows with six rows
+PASS: storage has one item category tab
+PASS: town uses explicit grade runtime opener
+PASS: grade runtime exposes robust grade and exchange openers
+PASS: no-equipment grade window renders empty state
+PASS: status allocation save debounce is 100ms
+PASS: Payon and Geffen use different background paths
+PASS: both city backgrounds exist
+PASS: Payon and Geffen background bytes differ
+PASS: Payon and Geffen backgrounds are visually distinct
+PASS: town background cache is isolated by city id
+PASS: HTML cache version updated
+{"version": "0.9.82GO", "passed": 14}
+===== python tools/test_gn_visible_grade_inventory_pay_on_0.9.82GO.py =====
+PASS: Payon uses canonical WebP background
+PASS: Payon uses canonical WebP thumbnail
+PASS: Payon background is 1280x720 WebP
+PASS: Payon thumbnail is 320x180 WebP
+PASS: wrong GM Payon background removed
+PASS: wrong GM Payon thumbnail removed
+PASS: retired Mjolnir single-chunk background removed
+PASS: retired Mjolnir single-chunk thumbnail removed
+PASS: CSS contains no literal backslash-n control text
+PASS: grade overlay has valid fixed high-z CSS
+PASS: grade runtime has inline visibility fallback
+PASS: town grade buttons use direct common opener
+PASS: grade and exchange tabs honor hidden state
+PASS: inventory slot borders restored
+PASS: inventory scroll rail is always visible
+PASS: inventory remains 5x6 / 30 visible slots
+PASS: HTML cache keys updated to GN
+{"version": "0.9.82GO", "passed": 17}
+===== python tools/test_gn_features_0.9.82GO.py =====
+PASS: Server Config grade material rate is 100=1x
+PASS: server version GO
+PASS: all implemented cities have one storage endpoint
+PASS: all city feature lists expose storage
+PASS: storage capacity 200
+PASS: storage category syntax
+PASS: three storage category runtime
+PASS: storage tab 消耗
+PASS: storage tab 裝備
+PASS: storage tab 道具
+PASS: backpack visible slots 30
+PASS: backpack final CSS 5x6
+PASS: monster drop static cache
+PASS: hover/tap drop detail
+PASS: drop tooltip has no polling timer
+PASS: drop detail explicitly isolated from auto battle
+PASS: grade bonus percent multiplier calculation
+PASS: grade window robust open and lazy data load
+PASS: status allocation batch commit
+PASS: status input events isolated
+PASS: allocation avoids synchronous forced status rebuild
+PASS: copied/reproduced resource exemption is source-aware
+PASS: Feint Bomb damage correction enabled
+PASS: skill identity reaches resource consumption
+{"version": "0.9.82GO", "passed": 24, "total": 24, "failed": []}
+===== python tools/test_refine_data_0.9.82GO.py =====
+{
+  "version": "0.9.82GO",
+  "summary": {
+    "checks": 3514,
+    "passed": 3514,
+    "failed": 0
+  },
+  "errors": []
+}
+===== node tools/test_storage_reset_0.9.82GH.js =====
+{"version":"0.9.82GH","storageTransfer":"PASS","instancePreservation":"PASS","characterResetPreservesWarehouse":"PASS"}
+===== node tools/test_element_endow_slots_0.9.82GJ.js =====
+{"pass":18,"weaponLastWins":true,"armorLastWins":true,"forcedSkillPriority":true,"darkWater":true}
+===== node tools/test_servant_weapon_auto_prerequisite_0.9.82GE.js =====
+Servant Weapon Auto Prerequisite 0.9.82GE: 15/15 PASS
+PASS - missing sign selects prerequisite skill
+PASS - prerequisite cast applies sign and spends exactly one servant
+PASS - signed target immediately returns original attack skill
+PASS - signed Phantom with zero servants falls back instead of spending SP on a useless cast
+PASS - new target never reuses old target sign
+PASS - unlearned Sign skips combo and uses normal attack
+PASS - one remaining servant is reserved instead of wasted on Sign
+PASS - Demolition uses the same prerequisite resolver
+PASS - automatic selection does not emit missing-mark spam
+PASS - battle tick executes Sign before the configured attack and preserves rotation
+PASS - battle integration has explicit prerequisite action without rotation commit
+PASS - auto missing-status message is suppressed while manual message remains
+PASS - up_to resource preview uses minimum instead of full amount
+PASS - quick-slot callback preserves auto-battle source
+PASS - runtime metadata enables Boss/MVP sign and both auto chains
+===== node tools/test_geffenia_crowd_mobile_id_0.9.82GF.js =====
+PASS mobile identity stack exists
+PASS mobile identity is vertical and level line moved down
+PASS mobile job and ID render independently
+PASS Geffenia crowd control enabled
+PASS desktop/mobile front-line caps are 6/4
+PASS reserve AI/render are throttled
+PASS crowd planner and ring target exist
+PASS reserve MVPs cannot all attack simultaneously
+PASS adaptive render LOD exists
+PASS DOM writes are cached
+PASS dense incoming attacks use a throttled save gate
+PASS 51 MVPs keep full population with 6 desktop attackers
+PASS front line spreads to six slots and reserves stay outside
+PASS one AI tick never lets all 51 MVPs attack
+PASS front-line vacancy promotes a reserve without deleting the 51-entry population
+PASS coarse pointer lowers attack front to four
+RESULT 16/16
+===== node tools/test_all_skill_world_runtime_performance_0.9.82EW.js =====
+{
+  "version": "0.9.82EW",
+  "status": "PASS",
+  "targets": 14,
+  "derivedCalls": 1,
+  "activeCalls": 0,
+  "passiveCalls": 0,
+  "saveRequests": 1
+}
+===== node tools/test_status_runtime_ui_performance_0.9.82FY.js =====
+PASS 0.9.82FY status/runtime UI performance gating
+{
+  "statusRequests": 2,
+  "jobUpdates": 1,
+  "skillUpdates": 1,
+  "quickUpdates": 103
+}
+===== python tools/deep_health_check_0.9.82GO.py =====
+{
+  "version": "0.9.82GO",
+  "summary": {
+    "errors": 0,
+    "warnings": 0,
+    "status": "PASS"
+  },
+  "info": {
+    "jsonFiles": 1977,
+    "binaryAssets": {
+      "counts": {
+        "png": 2471,
+        "webp": 1064
+      },
+      "bytes": 178279214
+    },
+    "htmlIds": 219,
+    "htmlResources": 49,
+    "cacheVersions": [
+      "0.9.82GO"
+    ],
+    "loadedScripts": 40,
+    "itemIds": 1761,
+    "monsters": 236,
+    "characterManifest": 90,
+    "characterMotionMaps": 90,
+    "characterVariants": 102,
+    "characterMountedVariants": 12,
+    "characterAtlasJson": 888,
+    "characterImages": 978,
+    "skillIds": 1139,
+    "treeNodes": 1362,
+    "officialRuntime": 828,
+    "pendingRuntime": 311,
+    "officialHandlers": {
+      "passive": 216,
+      "physical_attack": 35,
+      "monster_debuff": 8,
+      "buff": 205,
+      "magic_damage": 73,
+      "timed_status": 29,
+      "teleport": 1,
+      "heal": 8,
+      "debuff": 15,
+      "steal_item": 1,
+      "physical_attack_size_hits": 1,
+      "physical_attack_formula": 130,
+      "counter_stance": 2,
+      "mount_unlock": 1,
+      "sanctuary_area": 1,
+      "ground_debuff": 11,
+      "ground_damage": 36,
+      "falcon_toggle": 2,
+      "misc_damage": 3,
+      "falcon_detect": 1,
+      "falcon_spring_trap": 1,
+      "heal_fixed": 1,
+      "movement": 4,
+      "steal_zeny": 1,
+      "physical_charge": 11,
+      "skill_copy_selector": 2,
+      "independent_summon": 2,
+      "homunculus_manager": 1,
+      "homunculus_rest": 1,
+      "spirit_resource": 2,
+      "spirit_absorb": 1,
+      "ground_protection": 1,
+      "dispel": 1,
+      "soul_exchange": 1,
+      "chain_magic": 1,
+      "trap_detonator": 1,
+      "warg_toggle": 1,
+      "warg_sensitive_keen": 1,
+      "virtual_summon": 10,
+      "virtual_summon_dismiss": 1,
+      "spirit_assimilate": 1,
+      "summon_control": 1,
+      "combo_sequence": 1,
+      "follow_area": 1
+    },
+    "implementedSkillDescriptions": 828,
+    "bundleEntries": 1513,
+    "jsSyntaxChecked": 744
+  },
+  "errors": [],
+  "warnings": []
+}

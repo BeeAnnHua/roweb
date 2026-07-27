@@ -1020,7 +1020,7 @@ function confirmPendingSkillPoints() {
     const skill = getSkillDataById(skillId);
     return `${skill?.name || skillId} +${add} → Lv ${getSkillLevel(skillId) + Number(add || 0)}`;
   });
-  if (!confirm(`是否確認配點？\n${lines.join("\n")}\n將消耗 ${totalCost} 點技能點。`)) return;
+  const confirmationMessage = `是否確認配點？\n${lines.join("\n")}\n將消耗 ${totalCost} 點技能點。`;
 
   const run = () => {
     player.learnedSkills = player.learnedSkills || {};
@@ -1042,7 +1042,12 @@ function confirmPendingSkillPoints() {
     if (typeof updateQuickSlotUI === "function") updateQuickSlotUI();
     saveGame();
   };
-  if (typeof withPlayerBuildMutation === "function") withPlayerBuildMutation("skill_allocate", run); else run();
+  const ask = window.ROGoldUI?.confirm;
+  if (typeof ask === "function") {
+    ask(confirmationMessage,{title:"技能配點確認",confirmText:"確認配點",cancelText:"取消"}).then(ok=>{if(ok){if (typeof withPlayerBuildMutation === "function") withPlayerBuildMutation("skill_allocate", run); else run();}});
+    return;
+  }
+  addBattleLog("黑金確認視窗尚未載入，請稍後再試。");
 }
 
 function getSpentNativeSkillPoints() {
@@ -1096,7 +1101,12 @@ function resetAllSkillsFree(options = {}) {
   const message = `確定免費重置全部已學技能嗎？
 將返還 ${spent} 點技能點，並清除 ${pending} 點尚未確認配點。
 快捷欄與自動掛機中的技能設定也會清除，避免繼續嘗試未學技能。`;
-  if (requireConfirm && typeof confirm === "function" && !confirm(message)) return false;
+  if (requireConfirm) {
+    const ask=window.ROGoldUI?.confirm;
+    if(typeof ask==="function")ask(message,{title:"技能重置確認",confirmText:"確認重置",cancelText:"取消",danger:true}).then(ok=>{if(ok)resetAllSkillsFree({...options,confirm:false});});
+    else addBattleLog("黑金確認視窗尚未載入，請稍後再試。");
+    return false;
+  }
   const run = () => {
     player.learnedSkills = {};
     player.skillPoints = Math.max(0, Number(player.skillPoints || 0) + spent);

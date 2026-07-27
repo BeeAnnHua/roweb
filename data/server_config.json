@@ -11,7 +11,7 @@
       "zeny": 10000,
       "cardDrop": 10000,
       "mapExclusiveDrop": 10000,
-      "gradeMaterialDropRate": 100000
+      "gradeMaterialDropRate": 100
     },
     "monsters": {
       "mob_count_rate": 33,
@@ -46,5 +46,5 @@
     "0.9.82GA：drop 為全部怪物掉落總閥；cardDrop、mapExclusiveDrop 為卡片與地圖限定掉落的相對倍率（100=1倍），因此調整 drop 會同步影響一般掉落、王卡與葛坡尼亞轉蛋。",
     "0.9.82GL：gradeMaterialDropRate 採 100 制，100=1倍、200=2倍、50=0.5倍、0=關閉；僅影響冰鱗山丘／蛇巢穴額外補入的升階材料，不影響 rAthena 原始掉落、卡片與 MVP 掉落。"
   ],
-  "version": "0.9.82GN"
+  "version": "0.9.82GO"
 }

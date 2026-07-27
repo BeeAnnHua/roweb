@@ -419,9 +419,12 @@
     const oreId = integer(chance.materialItemId);
     const price = Math.max(0, integer(chance.price));
 
-    if (!state.useBlessing && integer(rule.blacksmithBlessingAmount) > 0 && !options.skipConfirm && typeof window.confirm === "function") {
-      const proceed = window.confirm(`本階段可使用 ${rule.blacksmithBlessingAmount} 個鐵匠的祝福保護。\n未放入祝福，失敗將依材料規則損壞或退階。仍要繼續嗎？`);
-      if (!proceed) return false;
+    if (!state.useBlessing && integer(rule.blacksmithBlessingAmount) > 0 && !options.skipConfirm) {
+      const message=`本階段可使用 ${rule.blacksmithBlessingAmount} 個鐵匠的祝福保護。\n未放入祝福，失敗將依材料規則損壞或退階。仍要繼續嗎？`;
+      const ask=window.ROGoldUI?.confirm;
+      if(typeof ask==="function")ask(message,{title:"精煉風險確認",confirmText:"仍要精煉",cancelText:"取消",danger:true}).then(ok=>{if(ok)attemptSelectedRefine({...options,skipConfirm:true});});
+      else {state.lastResult={kind:"failure",text:"黑金確認視窗尚未載入，請稍後再試。"};render();}
+      return false;
     }
     if (inventoryCount(oreId) < 1) { state.lastResult={kind:"failure",text:`${materialName(chance)}不足。`}; render(); return false; }
     if (blessingNeed && inventoryCount(BLESSING_ID) < blessingNeed) { state.lastResult={kind:"failure",text:"鐵匠的祝福數量不足。"}; render(); return false; }

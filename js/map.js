@@ -121,7 +121,9 @@ const RO_MAP_MONSTER_TOOLTIP_STATE = {
   mapId: null,
   anchor: null,
   timer: 0,
-  hideTimer: 0
+  hideTimer: 0,
+  selectedMonsterId: null,
+  pinned: false
 };
 
 function getMapMonsterById(monsterId) {
@@ -276,8 +278,45 @@ function buildMonsterDropCacheEntry(mapId,monster){
   const result={original,mvp,bonus};RO_MAP_MONSTER_DROP_CACHE.set(key,result);return result;
 }
 function renderMonsterDropGroup(title,rows,kind){if(!rows.length)return "";return `<section class="map-monster-drop-group is-${kind}"><h5>${title}</h5>${rows.map(row=>`<div class="map-monster-drop-row"><img src="${row.icon}" alt="" onerror="this.style.display='none'"><span><b>${row.name}</b><small>${row.qtyMin===row.qtyMax?`×${row.qtyMin}`:`×${row.qtyMin}～${row.qtyMax}`}｜${formatMonsterDropChance(row.chance)}</small></span></div>`).join("")}</section>`;}
-function renderMapMonsterDropDetail(tooltip,mapId,monsterId){const host=tooltip?.querySelector?.(".map-monster-drop-detail");const monster=getMapMonsterById(monsterId);if(!host||!monster)return;const drops=buildMonsterDropCacheEntry(mapId,monster);host.innerHTML=`<header><b>${monster.name||`怪物 ${monsterId}`}掉落物</b><small>僅在查看時讀取快取，不參與掛機運算</small></header>${renderMonsterDropGroup("原始掉落",drops.original,"original")}${renderMonsterDropGroup("MVP 額外掉落",drops.mvp,"mvp")}${renderMonsterDropGroup("升階材料額外掉落",drops.bonus,"grade")||(!drops.original.length&&!drops.mvp.length?'<div class="map-monster-drop-empty">目前沒有可顯示的掉落資料</div>':"")}`;host.hidden=false;RO_MAP_MONSTER_TOOLTIP_STATE.selectedMonsterId=Number(monsterId);}
-function bindMapMonsterDropInteractions(tooltip,mapId){if(!tooltip)return;tooltip.querySelectorAll("[data-monster-drop-id]").forEach(row=>{const show=()=>renderMapMonsterDropDetail(tooltip,mapId,Number(row.dataset.monsterDropId));row.addEventListener("pointerenter",show,{passive:true});row.addEventListener("focus",show,{passive:true});row.addEventListener("click",event=>{event.preventDefault();event.stopPropagation();show();});});if(RO_MAP_MONSTER_TOOLTIP_STATE.selectedMonsterId)renderMapMonsterDropDetail(tooltip,mapId,RO_MAP_MONSTER_TOOLTIP_STATE.selectedMonsterId);}
+function syncPinnedMonsterDropRow(tooltip){
+  if(!tooltip)return;
+  tooltip.classList.toggle("is-drop-pinned",Boolean(RO_MAP_MONSTER_TOOLTIP_STATE.pinned));
+  tooltip.querySelectorAll("[data-monster-drop-id]").forEach(row=>{
+    const active=Number(row.dataset.monsterDropId)===Number(RO_MAP_MONSTER_TOOLTIP_STATE.selectedMonsterId);
+    row.classList.toggle("is-selected",active);
+    row.setAttribute("aria-pressed",active&&RO_MAP_MONSTER_TOOLTIP_STATE.pinned?"true":"false");
+  });
+}
+function unpinMapMonsterDropDetail(options={}){
+  RO_MAP_MONSTER_TOOLTIP_STATE.pinned=false;
+  const tooltip=document.getElementById("map-monster-distribution-tooltip");
+  syncPinnedMonsterDropRow(tooltip);
+  if(options.hide===true)hideMapMonsterDistributionTooltip();
+}
+function renderMapMonsterDropDetail(tooltip,mapId,monsterId,options={}){
+  const host=tooltip?.querySelector?.(".map-monster-drop-detail");const monster=getMapMonsterById(monsterId);if(!host||!monster)return;
+  const drops=buildMonsterDropCacheEntry(mapId,monster);
+  if(options.pin===true)RO_MAP_MONSTER_TOOLTIP_STATE.pinned=true;
+  RO_MAP_MONSTER_TOOLTIP_STATE.selectedMonsterId=Number(monsterId);
+  const pinText=RO_MAP_MONSTER_TOOLTIP_STATE.pinned?"已固定，可放心捲動查看":"滑鼠移入預覽；左鍵／手機點擊可固定";
+  host.innerHTML=`<header><span><b>${monster.name||`怪物 ${monsterId}`}掉落物</b><small>${pinText}｜資料快取不參與掛機運算</small></span>${RO_MAP_MONSTER_TOOLTIP_STATE.pinned?'<button type="button" class="map-monster-drop-unpin" aria-label="解除固定">解除固定</button>':""}</header>${renderMonsterDropGroup("原始掉落",drops.original,"original")}${renderMonsterDropGroup("MVP 額外掉落",drops.mvp,"mvp")}${renderMonsterDropGroup("升階材料額外掉落",drops.bonus,"grade")||(!drops.original.length&&!drops.mvp.length?'<div class="map-monster-drop-empty">目前沒有可顯示的掉落資料</div>':"")}`;
+  host.hidden=false;
+  host.querySelector(".map-monster-drop-unpin")?.addEventListener("click",event=>{event.preventDefault();event.stopPropagation();unpinMapMonsterDropDetail();});
+  syncPinnedMonsterDropRow(tooltip);
+  window.ROBlackGoldAudit?.auditRoot?.(host);
+}
+function bindMapMonsterDropInteractions(tooltip,mapId){
+  if(!tooltip)return;
+  tooltip.querySelectorAll("[data-monster-drop-id]").forEach(row=>{
+    const monsterId=Number(row.dataset.monsterDropId);
+    const preview=()=>{if(!RO_MAP_MONSTER_TOOLTIP_STATE.pinned)renderMapMonsterDropDetail(tooltip,mapId,monsterId);};
+    row.addEventListener("pointerenter",preview,{passive:true});
+    row.addEventListener("focus",preview,{passive:true});
+    row.addEventListener("click",event=>{event.preventDefault();event.stopPropagation();window.clearTimeout(RO_MAP_MONSTER_TOOLTIP_STATE.hideTimer);renderMapMonsterDropDetail(tooltip,mapId,monsterId,{pin:true});});
+  });
+  if(RO_MAP_MONSTER_TOOLTIP_STATE.selectedMonsterId)renderMapMonsterDropDetail(tooltip,mapId,RO_MAP_MONSTER_TOOLTIP_STATE.selectedMonsterId,{pin:RO_MAP_MONSTER_TOOLTIP_STATE.pinned});
+  syncPinnedMonsterDropRow(tooltip);
+}
 function createMapMonsterDistributionSection(title, icon, entries, options = {}) {
   if (!entries.length) return "";
   const rows = entries.map(entry => {
@@ -322,7 +361,7 @@ function getMapMonsterDistributionTooltip() {
     window.clearTimeout(RO_MAP_MONSTER_TOOLTIP_STATE.hideTimer);
     RO_MAP_MONSTER_TOOLTIP_STATE.hideTimer = 0;
   });
-  tooltip.addEventListener("pointerleave", hideMapMonsterDistributionTooltip);
+  tooltip.addEventListener("pointerleave", scheduleHideMapMonsterDistributionTooltip);
   document.body.appendChild(tooltip);
   return tooltip;
 }
@@ -370,6 +409,8 @@ function showMapMonsterDistributionTooltip(mapData, anchor) {
   if (!mapData || !anchor) return;
   window.clearTimeout(RO_MAP_MONSTER_TOOLTIP_STATE.hideTimer);
   window.clearInterval(RO_MAP_MONSTER_TOOLTIP_STATE.timer);
+  const mapChanged=RO_MAP_MONSTER_TOOLTIP_STATE.mapId&&RO_MAP_MONSTER_TOOLTIP_STATE.mapId!==mapData.id;
+  if(mapChanged){RO_MAP_MONSTER_TOOLTIP_STATE.pinned=false;RO_MAP_MONSTER_TOOLTIP_STATE.selectedMonsterId=null;}
   RO_MAP_MONSTER_TOOLTIP_STATE.mapId = mapData.id;
   RO_MAP_MONSTER_TOOLTIP_STATE.anchor = anchor;
   const tooltip = getMapMonsterDistributionTooltip();
@@ -393,8 +434,9 @@ function showMapMonsterDistributionTooltip(mapData, anchor) {
 }
 
 function scheduleHideMapMonsterDistributionTooltip() {
+  if(RO_MAP_MONSTER_TOOLTIP_STATE.pinned)return;
   window.clearTimeout(RO_MAP_MONSTER_TOOLTIP_STATE.hideTimer);
-  RO_MAP_MONSTER_TOOLTIP_STATE.hideTimer = window.setTimeout(hideMapMonsterDistributionTooltip, 140);
+  RO_MAP_MONSTER_TOOLTIP_STATE.hideTimer = window.setTimeout(()=>{if(!RO_MAP_MONSTER_TOOLTIP_STATE.pinned)hideMapMonsterDistributionTooltip();}, 180);
 }
 
 function hideMapMonsterDistributionTooltip() {
@@ -404,6 +446,7 @@ function hideMapMonsterDistributionTooltip() {
   RO_MAP_MONSTER_TOOLTIP_STATE.timer = 0;
   RO_MAP_MONSTER_TOOLTIP_STATE.mapId = null;
   RO_MAP_MONSTER_TOOLTIP_STATE.selectedMonsterId = null;
+  RO_MAP_MONSTER_TOOLTIP_STATE.pinned = false;
   RO_MAP_MONSTER_TOOLTIP_STATE.anchor = null;
   const tooltip = document.getElementById("map-monster-distribution-tooltip");
   tooltip?.closest?.(".map-current-card")?.classList.remove("has-monster-info");
@@ -413,8 +456,15 @@ function hideMapMonsterDistributionTooltip() {
 window.addEventListener("resize", positionMapMonsterDistributionTooltip, { passive: true });
 window.visualViewport?.addEventListener?.("resize", positionMapMonsterDistributionTooltip, { passive: true });
 window.visualViewport?.addEventListener?.("scroll", positionMapMonsterDistributionTooltip, { passive: true });
+document.addEventListener("pointerdown",event=>{
+  if(!RO_MAP_MONSTER_TOOLTIP_STATE.pinned)return;
+  const tooltip=document.getElementById("map-monster-distribution-tooltip");
+  if(tooltip?.contains(event.target)||RO_MAP_MONSTER_TOOLTIP_STATE.anchor?.contains?.(event.target))return;
+  hideMapMonsterDistributionTooltip();
+},{passive:true});
 window.showMapMonsterDistributionTooltip = showMapMonsterDistributionTooltip;
 window.hideMapMonsterDistributionTooltip = hideMapMonsterDistributionTooltip;
+window.unpinMapMonsterDropDetail = unpinMapMonsterDropDetail;
 
 // 0.9.82FK: auto battle records monster discoveries after every kill.  The old
 // updateMapUI() rebuilt the entire destination list each time, replacing the

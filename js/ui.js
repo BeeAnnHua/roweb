@@ -454,9 +454,7 @@ function initCurrencyDetailPopup() {
         if (typeof hideGameTooltip === "function") hideGameTooltip();
       }, 3000);
     } else {
-      alert(`Zeny：${z}
-藍寶石：${b}
-紅寶石：${r}`);
+      window.ROGoldUI?.alert?.(`Zeny：${z}\n藍寶石：${b}\n紅寶石：${r}`,{title:"持有貨幣"});
     }
   };
 

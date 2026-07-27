@@ -1,0 +1,103 @@
+RO_WEB 0.9.82GO FINAL TEST REPORT
+=================================
+Build: RO_WEB 0.9.82GO
+Baseline: RO_WEB 0.9.82GN
+Date: 2026-07-27
+
+1. PINNED MONSTER DROP LOOKUP
+-----------------------------
+PASS  Desktop left-click and mobile tap pin the selected monster's drop panel.
+PASS  A pinned panel remains visible after pointer leave so its long drop list can be scrolled.
+PASS  The selected monster row receives a persistent selected state.
+PASS  A visible "解除固定" control releases the pinned panel.
+PASS  Clicking outside the monster row and tooltip closes the pinned panel.
+PASS  Hover preview remains available while no monster is pinned.
+PASS  Switching map/region clears the previous pin safely.
+PASS  Original drops, MVP extra drops and independent grade-material drops remain supported.
+
+PERFORMANCE SAFETY
+The lookup reads a static per-monster cache and renders only the selected monster.
+It does not scan live monster instances, has no polling timer and is not connected to
+auto-battle, monster AI, damage, animation or world-update ticks.
+
+2. FULL BLACK-GOLD CONTROL AUDIT
+--------------------------------
+PASS  Added a shared runtime audit for current and dynamically created controls.
+PASS  132 static button factories were covered by the project audit scan.
+PASS  General action buttons receive a consistent black-gold appearance.
+PASS  Cancel/back/secondary actions use a lower-emphasis gold style.
+PASS  Delete/reset/danger actions remain distinct with a red-gold warning style.
+PASS  Icon controls, hover, focus, pressed and disabled states are styled consistently.
+PASS  Specialized inventory/equipment/skill/map rows retain their dedicated layouts.
+PASS  Game-window and modal scrollbars use the matching gold style.
+
+3. NUMBER INPUTS
+----------------
+PASS  Browser-native white number spinner arrows are hidden.
+PASS  Number fields receive custom black-gold minus and plus buttons.
+PASS  22 static number-input factories were covered by the audit scan.
+PASS  Direct typing, min, max and step values remain supported.
+PASS  Click and programmatic/keyboard activation update input values correctly.
+PASS  Long press repeats after 430 ms and continues at approximately 95 ms intervals.
+PASS  Input and change events are dispatched after a step operation.
+PASS  MutationObserver upgrades number inputs created later by dynamic systems.
+
+4. BLACK-GOLD CONFIRMATION DIALOGS
+----------------------------------
+PASS  Added shared in-game ROGoldUI.confirm and ROGoldUI.alert dialogs.
+PASS  Job/skill allocation confirmation uses the custom dialog.
+PASS  General status reset and fourth-job trait reset use the custom dialog.
+PASS  Refine danger confirmation uses the custom dialog.
+PASS  Quick-slot replacement confirmation uses the custom dialog.
+PASS  Currency/error alert fallback uses the custom alert dialog.
+PASS  Production JavaScript contains no remaining browser-native confirm(), alert() or prompt() calls.
+
+5. ISOLATED CHROMIUM COMPONENT TEST
+-----------------------------------
+PASS  Native number input is replaced by the custom black-gold stepper.
+PASS  The plus button increments quantity from 3 to 4.
+PASS  Dynamically created action buttons receive audit classes.
+PASS  Black-gold confirmation modal opens.
+PASS  Cancel action is classified as secondary gold.
+PASS  Delete action is classified as red-gold danger.
+PASS  Clicked monster remains pinned after pointer leave.
+PASS  Pinned panel renders cached drop data.
+PASS  Pinned panel exposes the unpin control.
+PASS  Outside click closes the pinned panel.
+
+ISOLATED CHROMIUM COMPONENTS: 10/10 PASS
+
+This was an isolated Chromium DOM/CSS/runtime component harness. The complete game
+URL could not be opened by the container browser because local file/network navigation
+is blocked by its management policy. This report therefore does not claim a complete
+manual gameplay click-through inside the full game page.
+
+6. AUTOMATED REGRESSION
+-----------------------
+GO black-gold / pinned-drop feature audit: 37/37 PASS
+rAthena Enchant Grade data audit: 224/224 PASS
+Enchant Grade runtime: 8/8 PASS
+Grade maps / monsters / drops: 57/57 PASS
+Grade-rate and copied-skill runtime: 8/8 PASS
+Grade/city/inventory UI regression: 14/14 PASS
+Asset / visibility / Payon / inventory regression: 17/17 PASS
+GL->GO feature regression: 24/24 PASS
+rAthena refine source data: 3514/3514 PASS
+Account storage/reset: 3/3 PASS
+Element endow slots: 18/18 PASS
+Servant Weapon prerequisite chain: 15/15 PASS
+Geffenia/mobile crowd control: 16/16 PASS
+All-skill world runtime performance: 1/1 PASS
+Status/runtime UI performance: 1/1 PASS
+
+AUTOMATED REGRESSION TOTAL: 3967/3967 PASS
+
+7. PROJECT HEALTH
+-----------------
+JavaScript syntax: 744 files, 0 errors
+JSON parse: 1,977 files, 0 errors
+Deep Health: 0 errors, 0 warnings
+Data bundle entries: 1,513
+HTML cache version: 0.9.82GO only
+
+FINAL STATUS: PASS

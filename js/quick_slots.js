@@ -77,7 +77,10 @@ function assignQuickSlot(index, data, options = {}) {
   const current = player.quickSlots[index] || { type: "empty" };
   if (options.confirmReplace !== false && current.type && current.type !== "empty") {
     const currentName = sanitizeQuickSlot(current)?.name || "目前內容";
-    if (!window.confirm(`快捷欄 ${QUICK_SLOT_LABELS[index]} 已有「${currentName}」，是否取代？`)) return false;
+    const ask=window.ROGoldUI?.confirm;
+    if(typeof ask==="function")ask(`快捷欄 ${QUICK_SLOT_LABELS[index]} 已有「${currentName}」，是否取代？`,{title:"快捷欄取代確認",confirmText:"確認取代",cancelText:"取消"}).then(ok=>{if(ok)assignQuickSlot(index,data,{...options,confirmReplace:false});});
+    else addBattleLog("黑金確認視窗尚未載入，請稍後再試。");
+    return false;
   }
 
   if (data.type === "basic") {

@@ -715,7 +715,12 @@ function resetAllPlayerStats(options = {}) {
 一般素質返還：${usedStatus} 點
 特性素質返還：${usedTrait} 點
 裝備、卡片、Job Bonus 與永久效果不會被清除。`;
-  if (requireConfirm && typeof confirm === "function" && !confirm(message)) return false;
+  if (requireConfirm) {
+    const ask=window.ROGoldUI?.confirm;
+    if(typeof ask==="function")ask(message,{title:"素質重置確認",confirmText:"確認重置",cancelText:"取消",danger:true}).then(ok=>{if(ok)resetAllPlayerStats({...options,confirm:false});});
+    else if (typeof addBattleLog === "function") addBattleLog("黑金確認視窗尚未載入，請稍後再試。");
+    return false;
+  }
   const run = () => {
     STATUS_KEYS.forEach(key => { player.stats[key] = 1; });
     TRAIT_KEYS.forEach(key => { player.traits[key] = 0; });
@@ -745,7 +750,12 @@ function resetTraitStats(options = {}) {
     return false;
   }
   const requireConfirm = options.confirm !== false;
-  if (requireConfirm && typeof confirm === "function" && !confirm(`測試階段免費重置 ${used} 點特性素質，確定嗎？`)) return false;
+  if (requireConfirm) {
+    const ask=window.ROGoldUI?.confirm;
+    if(typeof ask==="function")ask(`測試階段免費重置 ${used} 點特性素質，確定嗎？`,{title:"特性素質重置",confirmText:"確認重置",cancelText:"取消",danger:true}).then(ok=>{if(ok)resetTraitStats({...options,confirm:false});});
+    else if (typeof addBattleLog === "function") addBattleLog("黑金確認視窗尚未載入，請稍後再試。");
+    return false;
+  }
   TRAIT_KEYS.forEach(key => { player.traits[key] = 0; });
   player.traitStats = player.traits;
   syncTraitPointCache();
