@@ -131,7 +131,10 @@ function toggleWindow(id) {
   const win = document.getElementById(id);
   if (!win) return;
   win.classList.toggle("hidden-window");
-  if (id === "map-window" && win.classList.contains("hidden-window") && typeof hideMapMonsterDistributionTooltip === "function") hideMapMonsterDistributionTooltip();
+  if (id === "map-window") {
+    if (typeof hideMapMonsterDistributionTooltip === "function") hideMapMonsterDistributionTooltip();
+    if (!win.classList.contains("hidden-window") && typeof armMapWindowOpenGuard === "function") armMapWindowOpenGuard(700);
+  }
   if (!win.classList.contains("hidden-window")) {
     refreshWindowContentOnOpen(id);
     if (id === "auto-combat-panel" && typeof updateAutoCombatUI === "function") updateAutoCombatUI();

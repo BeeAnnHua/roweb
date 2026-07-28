@@ -126,6 +126,7 @@ const RO_MAP_MONSTER_TOOLTIP_STATE = {
   pinned: false,
   view: "list",
   suppressWarpClickUntil: 0,
+  mapWindowOpenGuardUntil: 0,
   activationSerial: 0
 };
 
@@ -144,6 +145,12 @@ function armMapMonsterInteractionGuard(durationMs = 850) {
 
 function isMapMonsterInteractionGuardActive() {
   return Date.now() < Number(RO_MAP_MONSTER_TOOLTIP_STATE.suppressWarpClickUntil || 0);
+}
+function armMapWindowOpenGuard(durationMs = 650) {
+  RO_MAP_MONSTER_TOOLTIP_STATE.mapWindowOpenGuardUntil = Date.now() + Math.max(250, Number(durationMs || 0));
+}
+function isMapWindowOpenGuardActive() {
+  return Date.now() < Number(RO_MAP_MONSTER_TOOLTIP_STATE.mapWindowOpenGuardUntil || 0);
 }
 
 function bindStableMapMonsterTap(element, handler) {
@@ -178,8 +185,12 @@ function bindStableMapMonsterTap(element, handler) {
     handledPointerId = null;
   }, { passive: false });
   element.addEventListener("click", event => {
+    // A touch pointerup may replace the current button before Safari emits its
+    // synthetic click.  Do not let that ghost click activate the new button
+    // now occupying the same screen coordinates.
+    const guardedGhostClick = handledAt === 0 && isMapMonsterInteractionGuardActive();
     stop(event);
-    if (Date.now() - handledAt < 700) return;
+    if (guardedGhostClick || Date.now() - handledAt < 700) return;
     handledAt = Date.now();
     handler(event);
   });
@@ -349,21 +360,58 @@ function syncPinnedMonsterDropRow(tooltip){
 function getMapMonsterDistributionData(mapId){
   return (maps||[]).find(map=>String(map?.id||"")===String(mapId||""))||null;
 }
+function getMapMonsterViewerMapData(){
+  return getMapMonsterDistributionData(RO_MAP_MONSTER_TOOLTIP_STATE.mapId);
+}
+function closeMapWindowFromMonsterViewer(){
+  hideMapMonsterDistributionTooltip();
+  const mapWindow=document.getElementById("map-window");
+  if(mapWindow)mapWindow.classList.add("hidden-window");
+  if(typeof updateToggleButtonStates==="function")updateToggleButtonStates();
+}
+function enterMapFromMonsterViewer(){
+  const mapId=String(RO_MAP_MONSTER_TOOLTIP_STATE.mapId||"");
+  if(!mapId)return;
+  const alreadyHere=Boolean(!player?.currentCity&&String(currentMap?.id||"")===mapId);
+  hideMapMonsterDistributionTooltip();
+  if(!alreadyHere)changeMap(mapId);
+  const mapWindow=document.getElementById("map-window");
+  if(mapWindow)mapWindow.classList.add("hidden-window");
+  if(typeof updateToggleButtonStates==="function")updateToggleButtonStates();
+}
+function buildMapMonsterListHeaderActions(mapData){
+  const current=Boolean(!player?.currentCity&&String(currentMap?.id||"")===String(mapData?.id||""));
+  return `<button type="button" class="map-monster-view-action map-monster-enter-map${current?' is-current':''}" aria-label="進入此地圖">進入地圖</button><button type="button" class="map-monster-view-action map-monster-return-map" aria-label="返回地圖傳送清單">返回</button>`;
+}
+function bindMapMonsterViewerNavigation(tooltip){
+  if(!tooltip)return;
+  tooltip.querySelectorAll(".map-monster-enter-map").forEach(button=>bindStableMapMonsterTap(button,enterMapFromMonsterViewer));
+  tooltip.querySelectorAll(".map-monster-return-map").forEach(button=>bindStableMapMonsterTap(button,()=>{
+    armMapMonsterInteractionGuard(500);
+    hideMapMonsterDistributionTooltip();
+  }));
+  tooltip.querySelectorAll(".map-monster-return-list").forEach(button=>bindStableMapMonsterTap(button,()=>{
+    window.clearTimeout(RO_MAP_MONSTER_TOOLTIP_STATE.hideTimer);
+    armMapMonsterInteractionGuard(500);
+    restoreMapMonsterListView(tooltip);
+  }));
+}
 function restoreMapMonsterListView(tooltip,options={}){
   if(!tooltip)return;
-  RO_MAP_MONSTER_TOOLTIP_STATE.pinned=false;
+  // Touch viewers behave like an explicit page, not a hover tooltip.
+  // Keep the list pinned until the player presses Back / Enter Map / Close.
+  RO_MAP_MONSTER_TOOLTIP_STATE.pinned=isCoarseMapMonsterInput();
   RO_MAP_MONSTER_TOOLTIP_STATE.view="list";
   if(options.keepSelection!==true)RO_MAP_MONSTER_TOOLTIP_STATE.selectedMonsterId=null;
   tooltip.classList.remove("is-drop-pinned","is-drop-detail-view");
   const list=tooltip.querySelector(".map-monster-distribution-list");
   const host=tooltip.querySelector(".map-monster-drop-detail");
   const action=tooltip.querySelector(".map-monster-header-action");
-  const mapData=getMapMonsterDistributionData(RO_MAP_MONSTER_TOOLTIP_STATE.mapId);
+  const mapData=getMapMonsterViewerMapData();
   if(list)list.hidden=false;
   if(host){host.hidden=true;host.innerHTML="";}
-  if(action){
-    action.innerHTML=mapData?.recommendedLevel?`<small class="map-monster-level">建議等級 ${mapData.recommendedLevel}</small>`:"";
-  }
+  if(action)action.innerHTML=buildMapMonsterListHeaderActions(mapData);
+  bindMapMonsterViewerNavigation(tooltip);
   syncPinnedMonsterDropRow(tooltip);
   tooltip.scrollTop=0;
 }
@@ -387,18 +435,15 @@ function renderMapMonsterDropDetail(tooltip,mapId,monsterId,options={}){
     renderMonsterDropGroup("MVP 額外掉落",drops.mvp,"mvp"),
     renderMonsterDropGroup("升階材料額外掉落",drops.bonus,"grade")
   ].filter(Boolean).join("");
-  host.innerHTML=`<div class="map-monster-drop-title"><b>${monster.name||`怪物 ${monsterId}`}掉落物</b><small>點擊物品可查看詳細資料；掉落資料快取不參與掛機運算</small></div>${renderedGroups||'<div class="map-monster-drop-empty">目前沒有可顯示的掉落資料</div>'}<div class="map-monster-drop-footer"><button type="button" class="map-monster-drop-back is-footer" aria-label="返回怪物清單">返回怪物清單</button></div>`;
+  host.innerHTML=`<div class="map-monster-drop-title"><b>${monster.name||`怪物 ${monsterId}`}掉落物</b><small>點擊物品可查看詳細資料；掉落資料快取不參與掛機運算</small></div>${renderedGroups||'<div class="map-monster-drop-empty">目前沒有可顯示的掉落資料</div>'}<div class="map-monster-drop-footer"><button type="button" class="map-monster-view-action map-monster-return-list is-footer" aria-label="返回怪物清單">返回怪物清單</button><button type="button" class="map-monster-view-action map-monster-return-map is-footer" aria-label="返回地圖傳送清單">返回地圖</button></div>`;
   if(list)list.hidden=true;
   host.hidden=false;
-  const returnToList = () => {
-    window.clearTimeout(RO_MAP_MONSTER_TOOLTIP_STATE.hideTimer);
-    armMapMonsterInteractionGuard(650);
-    restoreMapMonsterListView(tooltip);
-  };
   if(action){
-    action.innerHTML='<button type="button" class="map-monster-drop-back is-header" aria-label="返回怪物清單">返回</button>';
+    const mapData=getMapMonsterViewerMapData();
+    const current=Boolean(!player?.currentCity&&String(currentMap?.id||"")===String(mapData?.id||""));
+    action.innerHTML=`<button type="button" class="map-monster-view-action map-monster-enter-map${current?' is-current':''}" aria-label="進入此地圖">進入地圖</button><button type="button" class="map-monster-view-action map-monster-return-list" aria-label="返回怪物清單">返回</button>`;
   }
-  tooltip.querySelectorAll(".map-monster-drop-back").forEach(button => bindStableMapMonsterTap(button, returnToList));
+  bindMapMonsterViewerNavigation(tooltip);
   tooltip.classList.add("is-drop-pinned","is-drop-detail-view");
   syncPinnedMonsterDropRow(tooltip);
   tooltip.scrollTop=0;
@@ -449,7 +494,7 @@ function buildMapMonsterDistributionHtml(mapData) {
     createMapMonsterDistributionSection("Boss 怪物", "👑", bosses, { liveState: true }),
     createMapMonsterDistributionSection("MVP", "🏆", mvps, { liveState: true })
   ].filter(Boolean).join("");
-  return `<div class="map-monster-distribution-header"><b>${mapData?.displayName || mapData?.name || "怪物地區"}</b><span class="map-monster-header-action">${recommended}</span></div><div class="map-monster-distribution-list">${sections || '<div class="map-monster-distribution-empty">此地區尚無怪物資料</div>'}</div><section class="map-monster-drop-detail" hidden></section>`;
+  return `<div class="map-monster-distribution-header"><span class="map-monster-distribution-heading"><b>${mapData?.displayName || mapData?.name || "怪物地區"}</b>${recommended}</span><span class="map-monster-header-action">${buildMapMonsterListHeaderActions(mapData)}</span></div><div class="map-monster-distribution-list">${sections || '<div class="map-monster-distribution-empty">此地區尚無怪物資料</div>'}</div><section class="map-monster-drop-detail" hidden></section>`;
 }
 
 function getMapMonsterDistributionTooltip() {
@@ -573,6 +618,9 @@ function hideMapMonsterDistributionTooltip() {
   if (tooltip) tooltip.hidden = true;
 }
 
+function isMapWindowChromeInteractionTarget(target){
+  return Boolean(target?.closest?.("#map-window > .window-title, #map-window > .window-title .window-close, #map-window > .window-title .window-size-cycle"));
+}
 window.addEventListener("resize", positionMapMonsterDistributionTooltip, { passive: true });
 window.visualViewport?.addEventListener?.("resize", positionMapMonsterDistributionTooltip, { passive: true });
 window.visualViewport?.addEventListener?.("scroll", positionMapMonsterDistributionTooltip, { passive: true });
@@ -583,7 +631,8 @@ document.addEventListener("pointerdown",event=>{
     tooltip &&
     !tooltip.hidden &&
     tooltip.classList.contains("is-embedded") &&
-    !tooltip.contains(event.target)
+    !tooltip.contains(event.target) &&
+    !isMapWindowChromeInteractionTarget(event.target)
   ) {
     event.preventDefault?.();
     event.stopPropagation?.();
@@ -604,6 +653,7 @@ document.addEventListener("click",event=>{
     !tooltip.hidden &&
     tooltip.classList.contains("is-embedded") &&
     !tooltip.contains(event.target) &&
+    !isMapWindowChromeInteractionTarget(event.target) &&
     (RO_MAP_MONSTER_TOOLTIP_STATE.pinned || isMapMonsterInteractionGuardActive())
   ) {
     event.preventDefault?.();
@@ -614,6 +664,9 @@ document.addEventListener("click",event=>{
 window.showMapMonsterDistributionTooltip = showMapMonsterDistributionTooltip;
 window.hideMapMonsterDistributionTooltip = hideMapMonsterDistributionTooltip;
 window.unpinMapMonsterDropDetail = unpinMapMonsterDropDetail;
+window.enterMapFromMonsterViewer = enterMapFromMonsterViewer;
+window.closeMapWindowFromMonsterViewer = closeMapWindowFromMonsterViewer;
+window.armMapWindowOpenGuard = armMapWindowOpenGuard;
 
 // 0.9.82FK: auto battle records monster discoveries after every kill.  The old
 // updateMapUI() rebuilt the entire destination list each time, replacing the
@@ -831,15 +884,17 @@ function updateMapUI() {
         return;
       }
       if (coarsePointer) {
-        document.querySelectorAll("#map-window .map-region-warp-button[data-preview-armed='1']").forEach(other => {
-          if (other !== btn) delete other.dataset.previewArmed;
-        });
-        if (isCurrent || btn.dataset.previewArmed !== "1") {
-          btn.dataset.previewArmed = "1";
-          showMapMonsterDistributionTooltip(dest.data, btn);
+        // Opening the Map window itself can emit a delayed synthetic click on
+        // the first destination under the finger.  Ignore that one click so
+        // the player always sees the map browser first.
+        if (isMapWindowOpenGuardActive()) {
+          event?.preventDefault?.();
+          event?.stopPropagation?.();
+          event?.stopImmediatePropagation?.();
           return;
         }
-        delete btn.dataset.previewArmed;
+        showMapMonsterDistributionTooltip(dest.data, btn);
+        return;
       }
       hideMapMonsterDistributionTooltip();
       if (isCurrent) return;
