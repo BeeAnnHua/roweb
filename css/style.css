@@ -21247,3 +21247,125 @@ input.ro-number-input[type="number"]::-webkit-outer-spin-button{-webkit-appearan
     overflow: visible !important;
   }
 }
+
+/* ============================================================
+   RO_WEB 0.9.82HA — two-page map monster / drop viewer
+   - Monster list and drop detail never share one long document.
+   - Touch devices use a full map-body overlay instead of the narrow map card.
+   ============================================================ */
+.map-monster-distribution-list[hidden],
+.map-monster-drop-detail[hidden] {
+  display: none !important;
+}
+.map-monster-distribution-header {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 6 !important;
+  align-items: center !important;
+  min-height: 34px !important;
+  margin: -8px -9px 6px !important;
+  padding: 7px 9px 6px !important;
+  background: linear-gradient(180deg, rgba(52,32,12,.995), rgba(25,15,7,.985)) !important;
+  box-shadow: 0 4px 8px rgba(0,0,0,.38) !important;
+}
+.map-monster-header-action {
+  flex: 0 0 auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  min-width: 58px !important;
+}
+.map-monster-drop-back {
+  min-width: 66px !important;
+  min-height: 28px !important;
+  padding: 4px 12px !important;
+  border: 1px solid #d9a94e !important;
+  border-radius: 7px !important;
+  background: linear-gradient(#5b3c17,#281807) !important;
+  color: #ffe9a8 !important;
+  font-size: 11px !important;
+  font-weight: 900 !important;
+  line-height: 1 !important;
+  box-shadow: inset 0 0 0 1px rgba(255,232,170,.12),0 0 8px rgba(207,153,52,.18) !important;
+}
+.map-monster-drop-back:hover,
+.map-monster-drop-back:focus-visible {
+  filter: brightness(1.18) !important;
+  outline: 1px solid rgba(255,226,149,.72) !important;
+}
+.map-monster-drop-title {
+  display: grid !important;
+  gap: 3px !important;
+  padding: 3px 2px 8px !important;
+  border-bottom: 1px solid rgba(211,163,74,.34) !important;
+}
+.map-monster-drop-title b {
+  color: #ffe09a !important;
+  font-size: 13px !important;
+}
+.map-monster-drop-title small {
+  color: #91a6b7 !important;
+  font-size: 10px !important;
+  line-height: 1.35 !important;
+}
+.map-monster-distribution-tooltip.is-drop-detail-view .map-monster-drop-detail {
+  display: block !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  overflow: visible !important;
+  border-top: 0 !important;
+}
+.map-monster-distribution-tooltip.is-drop-detail-view .map-monster-distribution-list {
+  display: none !important;
+}
+.map-monster-distribution-tooltip.is-drop-detail-view {
+  border-color: #edba53 !important;
+}
+
+@media (max-width: 720px), (pointer: coarse) {
+  #map-window .map-template-body.has-monster-overlay {
+    overflow: hidden !important;
+  }
+  #map-window .map-template-body > .map-monster-distribution-tooltip.is-embedded {
+    position: absolute !important;
+    inset: 7px !important;
+    z-index: 90 !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    margin: 0 !important;
+    padding: 7px 8px 8px !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    border-width: 1px !important;
+    border-radius: 9px !important;
+    touch-action: pan-y !important;
+    overscroll-behavior: contain !important;
+  }
+  #map-window .map-template-body > .map-monster-distribution-tooltip.is-embedded.is-drop-pinned,
+  #map-window .map-template-body > .map-monster-distribution-tooltip.is-embedded.is-drop-detail-view {
+    max-height: none !important;
+  }
+  .map-monster-distribution-header {
+    margin: -7px -8px 5px !important;
+    padding: 6px 8px 6px !important;
+  }
+  .map-monster-distribution-row {
+    min-height: 30px !important;
+    padding: 5px 6px !important;
+    touch-action: manipulation !important;
+  }
+  .map-monster-drop-row {
+    min-height: 38px !important;
+    padding: 5px 2px !important;
+  }
+  .map-monster-drop-back {
+    min-width: 62px !important;
+    min-height: 28px !important;
+  }
+}
