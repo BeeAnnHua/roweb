@@ -21369,3 +21369,63 @@ input.ro-number-input[type="number"]::-webkit-outer-spin-button{-webkit-appearan
     min-height: 28px !important;
   }
 }
+
+
+/* ============================================================
+   RO_WEB 0.9.82HB — stable touch detail page + complete card drops
+   - The embedded viewer is modal on touch devices to block ghost clicks.
+   - Header return stays visible; a footer return is available on long lists.
+   ============================================================ */
+.map-monster-drop-footer {
+  display: flex !important;
+  justify-content: center !important;
+  padding: 12px 2px 4px !important;
+  border-top: 1px solid rgba(211,163,74,.26) !important;
+  margin-top: 8px !important;
+}
+.map-monster-drop-back.is-footer {
+  min-width: 132px !important;
+  min-height: 34px !important;
+}
+.map-monster-distribution-tooltip.is-drop-detail-view .map-monster-distribution-header {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 40 !important;
+}
+.map-monster-distribution-tooltip.is-drop-detail-view .map-monster-header-action {
+  position: relative !important;
+  z-index: 42 !important;
+  pointer-events: auto !important;
+}
+@media (max-width: 720px), (pointer: coarse) {
+  #map-window .map-template-body > .map-monster-distribution-tooltip.is-embedded {
+    pointer-events: auto !important;
+    isolation: isolate !important;
+    overscroll-behavior: contain !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  #map-window .map-template-body.has-monster-overlay > *:not(.map-monster-distribution-tooltip) {
+    pointer-events: none !important;
+  }
+  .map-monster-distribution-tooltip.is-drop-detail-view .map-monster-distribution-header {
+    min-height: 40px !important;
+  }
+  .map-monster-drop-back.is-header {
+    min-width: 70px !important;
+    min-height: 32px !important;
+    font-size: 12px !important;
+  }
+  .map-monster-drop-footer {
+    position: relative !important;
+    z-index: 8 !important;
+    padding-bottom: 10px !important;
+  }
+}
+@media (min-width: 721px) and (pointer: fine) {
+  .map-monster-distribution-tooltip {
+    max-height: min(86dvh, 760px) !important;
+  }
+  .map-monster-distribution-tooltip.is-drop-detail-view {
+    min-height: min(360px, calc(100dvh - 32px)) !important;
+  }
+}

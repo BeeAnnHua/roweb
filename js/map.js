@@ -124,8 +124,66 @@ const RO_MAP_MONSTER_TOOLTIP_STATE = {
   hideTimer: 0,
   selectedMonsterId: null,
   pinned: false,
-  view: "list"
+  view: "list",
+  suppressWarpClickUntil: 0,
+  activationSerial: 0
 };
+
+function isCoarseMapMonsterInput() {
+  return Boolean(window.matchMedia?.("(max-width: 700px), (pointer: coarse)")?.matches);
+}
+
+function armMapMonsterInteractionGuard(durationMs = 850) {
+  const until = Date.now() + Math.max(250, Number(durationMs || 0));
+  RO_MAP_MONSTER_TOOLTIP_STATE.suppressWarpClickUntil = Math.max(
+    Number(RO_MAP_MONSTER_TOOLTIP_STATE.suppressWarpClickUntil || 0),
+    until
+  );
+  return until;
+}
+
+function isMapMonsterInteractionGuardActive() {
+  return Date.now() < Number(RO_MAP_MONSTER_TOOLTIP_STATE.suppressWarpClickUntil || 0);
+}
+
+function bindStableMapMonsterTap(element, handler) {
+  if (!element || typeof handler !== "function" || element.dataset.stableMapTapBound === "1") return;
+  element.dataset.stableMapTapBound = "1";
+  let handledPointerId = null;
+  let handledAt = 0;
+  const stop = event => {
+    event.preventDefault?.();
+    event.stopPropagation?.();
+    event.stopImmediatePropagation?.();
+    window.clearTimeout(RO_MAP_MONSTER_TOOLTIP_STATE.hideTimer);
+    armMapMonsterInteractionGuard();
+  };
+  element.addEventListener("pointerdown", event => {
+    if (event.button !== undefined && event.button !== 0) return;
+    stop(event);
+    handledPointerId = event.pointerId;
+    handledAt = Date.now();
+    try { element.setPointerCapture?.(event.pointerId); } catch (_error) {}
+  }, { passive: false });
+  element.addEventListener("pointerup", event => {
+    if (event.button !== undefined && event.button !== 0) return;
+    if (handledPointerId !== null && event.pointerId !== handledPointerId) return;
+    stop(event);
+    handledPointerId = null;
+    handledAt = Date.now();
+    handler(event);
+  }, { passive: false });
+  element.addEventListener("pointercancel", event => {
+    stop(event);
+    handledPointerId = null;
+  }, { passive: false });
+  element.addEventListener("click", event => {
+    stop(event);
+    if (Date.now() - handledAt < 700) return;
+    handledAt = Date.now();
+    handler(event);
+  });
+}
 
 function getMapMonsterById(monsterId) {
   const id = Number(monsterId || 0);
@@ -324,19 +382,23 @@ function renderMapMonsterDropDetail(tooltip,mapId,monsterId,options={}){
   RO_MAP_MONSTER_TOOLTIP_STATE.pinned=true;
   RO_MAP_MONSTER_TOOLTIP_STATE.view="detail";
   RO_MAP_MONSTER_TOOLTIP_STATE.selectedMonsterId=Number(monsterId);
-  host.innerHTML=`<div class="map-monster-drop-title"><b>${monster.name||`怪物 ${monsterId}`}掉落物</b><small>點擊物品可查看詳細資料；掉落資料快取不參與掛機運算</small></div>${renderMonsterDropGroup("原始掉落",drops.original,"original")}${renderMonsterDropGroup("MVP 額外掉落",drops.mvp,"mvp")}${renderMonsterDropGroup("升階材料額外掉落",drops.bonus,"grade")||(!drops.original.length&&!drops.mvp.length?'<div class="map-monster-drop-empty">目前沒有可顯示的掉落資料</div>':"")}`;
+  const renderedGroups = [
+    renderMonsterDropGroup("原始掉落",drops.original,"original"),
+    renderMonsterDropGroup("MVP 額外掉落",drops.mvp,"mvp"),
+    renderMonsterDropGroup("升階材料額外掉落",drops.bonus,"grade")
+  ].filter(Boolean).join("");
+  host.innerHTML=`<div class="map-monster-drop-title"><b>${monster.name||`怪物 ${monsterId}`}掉落物</b><small>點擊物品可查看詳細資料；掉落資料快取不參與掛機運算</small></div>${renderedGroups||'<div class="map-monster-drop-empty">目前沒有可顯示的掉落資料</div>'}<div class="map-monster-drop-footer"><button type="button" class="map-monster-drop-back is-footer" aria-label="返回怪物清單">返回怪物清單</button></div>`;
   if(list)list.hidden=true;
   host.hidden=false;
+  const returnToList = () => {
+    window.clearTimeout(RO_MAP_MONSTER_TOOLTIP_STATE.hideTimer);
+    armMapMonsterInteractionGuard(650);
+    restoreMapMonsterListView(tooltip);
+  };
   if(action){
-    action.innerHTML='<button type="button" class="map-monster-drop-back" aria-label="返回怪物清單">返回</button>';
-    action.querySelector(".map-monster-drop-back")?.addEventListener("click",event=>{
-      event.preventDefault();
-      event.stopPropagation();
-      event.stopImmediatePropagation?.();
-      window.clearTimeout(RO_MAP_MONSTER_TOOLTIP_STATE.hideTimer);
-      restoreMapMonsterListView(tooltip);
-    });
+    action.innerHTML='<button type="button" class="map-monster-drop-back is-header" aria-label="返回怪物清單">返回</button>';
   }
+  tooltip.querySelectorAll(".map-monster-drop-back").forEach(button => bindStableMapMonsterTap(button, returnToList));
   tooltip.classList.add("is-drop-pinned","is-drop-detail-view");
   syncPinnedMonsterDropRow(tooltip);
   tooltip.scrollTop=0;
@@ -346,15 +408,8 @@ function bindMapMonsterDropInteractions(tooltip,mapId){
   tooltip.querySelectorAll("[data-monster-drop-id]").forEach(row=>{
     const monsterId=Number(row.dataset.monsterDropId);
     row.title="點擊查看掉落物";
-    row.addEventListener("pointerdown",event=>{
-      event.stopPropagation();
-      window.clearTimeout(RO_MAP_MONSTER_TOOLTIP_STATE.hideTimer);
-    },{passive:true});
-    row.addEventListener("click",event=>{
-      event.preventDefault();
-      event.stopPropagation();
-      event.stopImmediatePropagation?.();
-      window.clearTimeout(RO_MAP_MONSTER_TOOLTIP_STATE.hideTimer);
+    bindStableMapMonsterTap(row,()=>{
+      RO_MAP_MONSTER_TOOLTIP_STATE.activationSerial += 1;
       renderMapMonsterDropDetail(tooltip,mapId,monsterId,{pin:true});
     });
   });
@@ -461,6 +516,15 @@ function refreshMapMonsterDistributionTooltip() {
 
 function showMapMonsterDistributionTooltip(mapData, anchor) {
   if (!mapData || !anchor) return;
+  const activeTooltip = document.getElementById("map-monster-distribution-tooltip");
+  if (
+    isCoarseMapMonsterInput() &&
+    isMapMonsterInteractionGuardActive() &&
+    activeTooltip &&
+    !activeTooltip.hidden &&
+    RO_MAP_MONSTER_TOOLTIP_STATE.mapId &&
+    RO_MAP_MONSTER_TOOLTIP_STATE.mapId !== mapData.id
+  ) return;
   window.clearTimeout(RO_MAP_MONSTER_TOOLTIP_STATE.hideTimer);
   window.clearInterval(RO_MAP_MONSTER_TOOLTIP_STATE.timer);
   const mapChanged=RO_MAP_MONSTER_TOOLTIP_STATE.mapId&&RO_MAP_MONSTER_TOOLTIP_STATE.mapId!==mapData.id;
@@ -513,11 +577,40 @@ window.addEventListener("resize", positionMapMonsterDistributionTooltip, { passi
 window.visualViewport?.addEventListener?.("resize", positionMapMonsterDistributionTooltip, { passive: true });
 window.visualViewport?.addEventListener?.("scroll", positionMapMonsterDistributionTooltip, { passive: true });
 document.addEventListener("pointerdown",event=>{
-  if(!RO_MAP_MONSTER_TOOLTIP_STATE.pinned)return;
   const tooltip=document.getElementById("map-monster-distribution-tooltip");
+  if (
+    isCoarseMapMonsterInput() &&
+    tooltip &&
+    !tooltip.hidden &&
+    tooltip.classList.contains("is-embedded") &&
+    !tooltip.contains(event.target)
+  ) {
+    event.preventDefault?.();
+    event.stopPropagation?.();
+    event.stopImmediatePropagation?.();
+    armMapMonsterInteractionGuard();
+    return;
+  }
+  if(!RO_MAP_MONSTER_TOOLTIP_STATE.pinned)return;
   if(tooltip?.contains(event.target)||RO_MAP_MONSTER_TOOLTIP_STATE.anchor?.contains?.(event.target))return;
   hideMapMonsterDistributionTooltip();
-},{passive:true});
+},{passive:false,capture:true});
+
+document.addEventListener("click",event=>{
+  const tooltip=document.getElementById("map-monster-distribution-tooltip");
+  if (
+    isCoarseMapMonsterInput() &&
+    tooltip &&
+    !tooltip.hidden &&
+    tooltip.classList.contains("is-embedded") &&
+    !tooltip.contains(event.target) &&
+    (RO_MAP_MONSTER_TOOLTIP_STATE.pinned || isMapMonsterInteractionGuardActive())
+  ) {
+    event.preventDefault?.();
+    event.stopPropagation?.();
+    event.stopImmediatePropagation?.();
+  }
+},true);
 window.showMapMonsterDistributionTooltip = showMapMonsterDistributionTooltip;
 window.hideMapMonsterDistributionTooltip = hideMapMonsterDistributionTooltip;
 window.unpinMapMonsterDropDetail = unpinMapMonsterDropDetail;
@@ -705,12 +798,38 @@ function updateMapUI() {
     if (isCurrent) btn.setAttribute("aria-disabled", "true");
     btn.innerHTML = `<b>${dest.name}</b>`;
     btn.setAttribute("aria-label", `${dest.name}：查看怪物分布`);
-    btn.addEventListener("pointerenter", () => showMapMonsterDistributionTooltip(dest.data, btn));
-    btn.addEventListener("pointerleave", scheduleHideMapMonsterDistributionTooltip);
-    btn.addEventListener("focus", () => showMapMonsterDistributionTooltip(dest.data, btn));
-    btn.addEventListener("blur", scheduleHideMapMonsterDistributionTooltip);
-    btn.onclick = function () {
+    btn.addEventListener("pointerenter", event => {
+      if (event.pointerType === "touch" || event.pointerType === "pen" || isCoarseMapMonsterInput()) return;
+      showMapMonsterDistributionTooltip(dest.data, btn);
+    });
+    btn.addEventListener("pointerleave", event => {
+      if (event.pointerType === "touch" || event.pointerType === "pen" || isCoarseMapMonsterInput()) return;
+      scheduleHideMapMonsterDistributionTooltip();
+    });
+    btn.addEventListener("focus", () => {
+      if (isCoarseMapMonsterInput()) return;
+      showMapMonsterDistributionTooltip(dest.data, btn);
+    });
+    btn.addEventListener("blur", () => {
+      if (isCoarseMapMonsterInput()) return;
+      scheduleHideMapMonsterDistributionTooltip();
+    });
+    btn.onclick = function (event) {
       const coarsePointer = Boolean(window.matchMedia?.("(max-width: 700px), (pointer: coarse)")?.matches);
+      const activeTooltip = document.getElementById("map-monster-distribution-tooltip");
+      if (
+        coarsePointer &&
+        activeTooltip &&
+        !activeTooltip.hidden &&
+        activeTooltip.classList.contains("is-embedded") &&
+        (RO_MAP_MONSTER_TOOLTIP_STATE.pinned || isMapMonsterInteractionGuardActive())
+      ) {
+        event?.preventDefault?.();
+        event?.stopPropagation?.();
+        event?.stopImmediatePropagation?.();
+        armMapMonsterInteractionGuard();
+        return;
+      }
       if (coarsePointer) {
         document.querySelectorAll("#map-window .map-region-warp-button[data-preview-armed='1']").forEach(other => {
           if (other !== btn) delete other.dataset.previewArmed;

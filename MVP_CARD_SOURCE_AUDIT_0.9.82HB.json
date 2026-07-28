@@ -1,0 +1,632 @@
+{
+  "allMonsterRows": 236,
+  "allCardSources": 1433,
+  "wouldMerge": 42,
+  "alreadyPresent": 184,
+  "unmatchedSources": 1207,
+  "arenaMonsters": 51,
+  "arenaWithCard": 49,
+  "arenaWithoutCard": [
+    {
+      "monsterId": 1956,
+      "monsterName": "夜勝魔"
+    },
+    {
+      "monsterId": 2131,
+      "monsterName": "失落之龍"
+    }
+  ],
+  "arenaCardRows": 51,
+  "arena": [
+    {
+      "monsterId": 1038,
+      "monsterName": "俄塞里斯",
+      "cards": [
+        {
+          "cardId": 4144,
+          "name": "俄塞裡斯卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 1039,
+      "monsterName": "巴風特",
+      "cards": [
+        {
+          "cardId": 4129,
+          "name": "小巴風特卡片",
+          "rate": 1,
+          "icon": "images/items/card_normal.webp"
+        },
+        {
+          "cardId": 4147,
+          "name": "巴風特卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 1046,
+      "monsterName": "死靈",
+      "cards": [
+        {
+          "cardId": 4142,
+          "name": "死靈卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 1059,
+      "monsterName": "蜂后",
+      "cards": [
+        {
+          "cardId": 4132,
+          "name": "蜂后卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 1086,
+      "monsterName": "黃金蟲",
+      "cards": [
+        {
+          "cardId": 4128,
+          "name": "黃金蟲卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 1087,
+      "monsterName": "獸人英雄",
+      "cards": [
+        {
+          "cardId": 4143,
+          "name": "獸人英雄卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 1112,
+      "monsterName": "海盜之王",
+      "cards": [
+        {
+          "cardId": 4137,
+          "name": "海盜之王卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 1115,
+      "monsterName": "虎王",
+      "cards": [
+        {
+          "cardId": 4123,
+          "name": "虎王卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 1147,
+      "monsterName": "蟻后",
+      "cards": [
+        {
+          "cardId": 4146,
+          "name": "蟻後卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 1150,
+      "monsterName": "月夜貓",
+      "cards": [
+        {
+          "cardId": 4131,
+          "name": "月夜貓卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 1157,
+      "monsterName": "法老王",
+      "cards": [
+        {
+          "cardId": 4148,
+          "name": "法老王卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 1159,
+      "monsterName": "皮裡恩",
+      "cards": [
+        {
+          "cardId": 4121,
+          "name": "皮裡恩卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 1190,
+      "monsterName": "獸人酋長",
+      "cards": [
+        {
+          "cardId": 4135,
+          "name": "獸人酋長卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 1251,
+      "monsterName": "冰暴騎士",
+      "cards": [
+        {
+          "cardId": 4318,
+          "name": "冰暴騎士卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 1252,
+      "monsterName": "卡崙",
+      "cards": [
+        {
+          "cardId": 4324,
+          "name": "卡侖卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 1272,
+      "monsterName": "黑暗之王",
+      "cards": [
+        {
+          "cardId": 4168,
+          "name": "黑暗之王卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 1312,
+      "monsterName": "烏龜將軍",
+      "cards": [
+        {
+          "cardId": 4305,
+          "name": "烏龜將軍卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 1389,
+      "monsterName": "德古拉伯爵",
+      "cards": [
+        {
+          "cardId": 4134,
+          "name": "德古拉男爵卡片",
+          "rate": 5,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 1418,
+      "monsterName": "墨蛇君",
+      "cards": [
+        {
+          "cardId": 4330,
+          "name": "墨蛇君卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 1511,
+      "monsterName": "古埃及王",
+      "cards": [
+        {
+          "cardId": 4236,
+          "name": "古埃及王卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 1518,
+      "monsterName": "白素貞",
+      "cards": [
+        {
+          "cardId": 4372,
+          "name": "白素貞卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 1583,
+      "monsterName": "塔奧群卡",
+      "cards": [
+        {
+          "cardId": 4302,
+          "name": "塔奧群卡卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 1623,
+      "monsterName": "RSX-0806",
+      "cards": [
+        {
+          "cardId": 4342,
+          "name": "RSX-0806卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 1685,
+      "monsterName": "貝思波",
+      "cards": [
+        {
+          "cardId": 4374,
+          "name": "貝思波卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 1688,
+      "monsterName": "嗒妮小姐",
+      "cards": [
+        {
+          "cardId": 4376,
+          "name": "嗒妮小姐卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 1708,
+      "monsterName": "魔劍士 達納托斯的記憶",
+      "cards": [
+        {
+          "cardId": 4399,
+          "name": "魔劍士 達納托斯的記憶卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 1719,
+      "monsterName": "水晶龍",
+      "cards": [
+        {
+          "cardId": 4386,
+          "name": "迪塔勒泰晤勒斯卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 1734,
+      "monsterName": "齊爾-D-01",
+      "cards": [
+        {
+          "cardId": 4403,
+          "name": "基爾-D-01卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 1751,
+      "monsterName": "蘭特克力斯",
+      "cards": [
+        {
+          "cardId": 4407,
+          "name": "瓦爾基裡蘭特克力斯卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 1768,
+      "monsterName": "幽暗夢魘",
+      "cards": [
+        {
+          "cardId": 4408,
+          "name": "幽暗夢魘卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 1779,
+      "monsterName": "冰晶龍",
+      "cards": [
+        {
+          "cardId": 4419,
+          "name": "水晶龍卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 1785,
+      "monsterName": "阿特羅斯",
+      "cards": [
+        {
+          "cardId": 4425,
+          "name": "阿特羅斯卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 1832,
+      "monsterName": "伊夫利特",
+      "cards": [
+        {
+          "cardId": 4430,
+          "name": "伊夫利特卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 1871,
+      "monsterName": "墮落大神官",
+      "cards": [
+        {
+          "cardId": 4441,
+          "name": "墮落大神官 悉潘卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 1874,
+      "monsterName": "貝雷傑",
+      "cards": [
+        {
+          "cardId": 4145,
+          "name": "詛咒蠅王卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 1885,
+      "monsterName": "闇影龍",
+      "cards": [
+        {
+          "cardId": 27162,
+          "name": "青冠龍卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 1956,
+      "monsterName": "夜勝魔",
+      "cards": []
+    },
+    {
+      "monsterId": 2022,
+      "monsterName": "尼德霍格的影子",
+      "cards": [
+        {
+          "cardId": 4456,
+          "name": "尼德霍格的影子卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 2068,
+      "monsterName": "波伊塔塔",
+      "cards": [
+        {
+          "cardId": 27126,
+          "name": "波伊塔塔卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 2131,
+      "monsterName": "失落之龍",
+      "cards": []
+    },
+    {
+      "monsterId": 2189,
+      "monsterName": "變異腔棘魚",
+      "cards": [
+        {
+          "cardId": 4528,
+          "name": "變種腔棘魚卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 2202,
+      "monsterName": "克拉肯",
+      "cards": [
+        {
+          "cardId": 4525,
+          "name": "魔鬼大烏賊卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 2249,
+      "monsterName": "憤怒學生傅立葉",
+      "cards": [
+        {
+          "cardId": 4578,
+          "name": "淘汰者 傅立葉卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 2251,
+      "monsterName": "喬伊亞",
+      "cards": [
+        {
+          "cardId": 4576,
+          "name": "喬伊亞卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 2253,
+      "monsterName": "將軍達伊",
+      "cards": [
+        {
+          "cardId": 4574,
+          "name": "將軍大賢卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 2255,
+      "monsterName": "亡靈的守護者卡德斯",
+      "cards": [
+        {
+          "cardId": 4580,
+          "name": "亡靈的守護者 卡德斯卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 2319,
+      "monsterName": "布瓦亞",
+      "cards": [
+        {
+          "cardId": 4592,
+          "name": "寶箱巨鱷卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 2529,
+      "monsterName": "蠕蟲女王",
+      "cards": [
+        {
+          "cardId": 27164,
+          "name": "驚骸森靈皇后卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 2564,
+      "monsterName": "芬里爾",
+      "cards": [
+        {
+          "cardId": 4556,
+          "name": "芬裡厄卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        },
+        {
+          "cardId": 4557,
+          "name": "弱化的芬裡厄卡片",
+          "rate": 500,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 2996,
+      "monsterName": "席琳基米",
+      "cards": [
+        {
+          "cardId": 31023,
+          "name": "席琳基米卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    },
+    {
+      "monsterId": 3254,
+      "monsterName": "T_W_O",
+      "cards": [
+        {
+          "cardId": 27020,
+          "name": "T W O卡片",
+          "rate": 1,
+          "icon": "images/items/card_mvp.webp"
+        }
+      ]
+    }
+  ]
+}

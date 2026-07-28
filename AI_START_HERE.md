@@ -1,3 +1,15 @@
+## 0.9.82HB — 手機掉落頁防穿透與卡片來源合併
+- 最新基準為 0.9.82HB，完整繼承 HA 雙頁地圖怪物／掉落檢視與 GY 黯淡冰晶附魔。
+- 粗指標／觸控裝置不得用 pointerenter、hover、focus 開啟地圖怪物面板；只接受正式點擊。
+- 觸控怪物列與返回必須使用穩定 pointer activation，阻擋 ghost click 與底層地圖按鈕事件穿透。
+- 手機怪物面板開啟期間是模態層；底層 map-template-body 其他內容不得接收 pointer events。
+- 詳情頁頂部固定「返回」，長掉落表底部另有「返回怪物清單」。
+- `loadMonsterData()` 必須把 `data/card_runtime/card_drop_sources.json` 合併至現有 monster.drops；用 monsterId 優先，必要時以去除尾端底線的 AegisName 對應，並以 itemId 去重。
+- 卡片掉落必須走正式 `cardDrop` 與全域掉寶倍率，不可只補 UI 顯示。
+- MVP 試煉場：49/51 隻有官方卡片來源，共 51 筆；夜勝魔、失落之龍不可自行補不存在的卡片。
+
+# 目前基準：RO_WEB 0.9.82HB
+
 ## 0.9.82HA — 地圖怪物／掉落雙頁檢視修復
 - 最新基準為 0.9.82HA，完整繼承 GZ 每分鐘備份、手機素質欄與所有 GY 黯淡冰晶附魔功能。
 - 地圖怪物查詢是雙頁狀態機：list → detail → 返回 list。怪物清單與掉落詳情不得同時顯示。

@@ -13,7 +13,7 @@ let expTables = null;
 let clientItemDisplayData = null;
 let currentMap = null;
 
-const RO_WEB_VERSION = "0.9.82HA";
+const RO_WEB_VERSION = "0.9.82HB";
 
 function normalizeDataPath(path) {
   return String(path || "")
@@ -179,9 +179,86 @@ async function initGame() {
   window.dispatchEvent(new CustomEvent("ro-web-ready", { detail: { ...window.RO_WEB_BOOT_STATE } }));
 }
 
+function normalizeMonsterAegisForCardSource(value) {
+  return String(value || "")
+    .trim()
+    .toUpperCase()
+    .replace(/_+$/g, "")
+    .replace(/[^A-Z0-9_]/g, "");
+}
+
+function mergeCardDropSourcesIntoMonsterData(monsterRows, explicitSourceTable = null) {
+  const rows = Array.isArray(monsterRows) ? monsterRows : [];
+  const sourceTable = explicitSourceTable || window.RO_WEB_DATA?.["data/card_runtime/card_drop_sources.json"] || {};
+  if (!rows.length || !sourceTable || typeof sourceTable !== "object") {
+    return { monsters: rows.length, sources: 0, merged: 0, duplicates: 0, unmatched: 0 };
+  }
+
+  const byId = new Map();
+  const byAegis = new Map();
+  rows.forEach(monster => {
+    const id = Number(monster?.id ?? monster?.officialId ?? 0);
+    if (id > 0) byId.set(id, monster);
+    const aegis = normalizeMonsterAegisForCardSource(monster?.aegisName ?? monster?.AegisName);
+    if (aegis) byAegis.set(aegis, monster);
+  });
+
+  let sourceCount = 0;
+  let merged = 0;
+  let duplicates = 0;
+  let unmatched = 0;
+  Object.entries(sourceTable).forEach(([cardIdText, sources]) => {
+    const cardId = Number(cardIdText || 0);
+    if (cardId <= 0 || !Array.isArray(sources)) return;
+    sources.forEach(source => {
+      sourceCount += 1;
+      const sourceMonsterId = Number(source?.monsterId || 0);
+      const sourceAegis = normalizeMonsterAegisForCardSource(source?.monsterAegisName);
+      const monster = byId.get(sourceMonsterId) || byAegis.get(sourceAegis);
+      if (!monster) {
+        unmatched += 1;
+        return;
+      }
+      monster.drops = Array.isArray(monster.drops) ? monster.drops : [];
+      monster.mvpDrops = Array.isArray(monster.mvpDrops) ? monster.mvpDrops : [];
+      const exists = [...monster.drops, ...monster.mvpDrops].some(drop => Number(drop?.itemId ?? drop?.id ?? 0) === cardId);
+      if (exists) {
+        duplicates += 1;
+        return;
+      }
+      monster.drops.push({
+        itemId: cardId,
+        chance: Math.max(0, Number(source?.rate || 0)),
+        qtyMin: 1,
+        qtyMax: 1,
+        name: `Card_${cardId}`,
+        type: "card",
+        category: "card",
+        stealProtected: source?.stealProtected !== false,
+        isMvpCard: source?.isMvp === true,
+        isBossCard: source?.isBoss === true,
+        cardDropSource: true,
+        sourceMonsterId,
+        sourceMonsterAegisName: source?.monsterAegisName || ""
+      });
+      merged += 1;
+    });
+  });
+
+  const report = { monsters: rows.length, sources: sourceCount, merged, duplicates, unmatched };
+  window.RO_WEB_CARD_DROP_MERGE_REPORT = report;
+  return report;
+}
+window.mergeCardDropSourcesIntoMonsterData = mergeCardDropSourcesIntoMonsterData;
+
 async function loadMonsterData() {
-  monsters = await loadJson("./data/monsters.json", []);
-  console.log("怪物資料載入完成：", monsters);
+  const [monsterRows, cardDropSources] = await Promise.all([
+    loadJson("./data/monsters.json", []),
+    loadJson("./data/card_runtime/card_drop_sources.json", {})
+  ]);
+  monsters = monsterRows;
+  const cardDropReport = mergeCardDropSourcesIntoMonsterData(monsters, cardDropSources);
+  console.log("怪物資料載入完成：", monsters, "卡片掉落合併：", cardDropReport);
 }
 
 async function loadMapData() {
