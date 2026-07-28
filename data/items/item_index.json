@@ -27208,13 +27208,18 @@
   "936": {
     "id": 936,
     "officialId": 936,
-    "name": "鱗片外皮",
+    "name": "鱗片皮膚",
     "type": "etc",
     "category": "drop_misc",
     "subCategory": "monster_drop",
     "sellPrice": 0,
     "buyPrice": 466,
-    "icon": "images/items/936.webp"
+    "icon": "images/items/936.webp",
+    "Name": "鱗片皮膚",
+    "description": [
+      "覆著鱗片的皮膚, 可向收集商購買。"
+    ],
+    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
   },
   "1096": {
     "id": 1096,
@@ -27225,128 +27230,267 @@
     "subCategory": "monster_drop",
     "sellPrice": 0,
     "buyPrice": 780,
-    "icon": "images/items/1096.webp"
+    "icon": "images/items/1096.webp",
+    "Name": "圓形外皮",
+    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR",
+    "description": [
+      "捲成圓形經過乾燥後而成的外皮。可向收集商人購買。"
+    ]
   },
   "7013": {
     "id": 7013,
     "officialId": 7013,
-    "name": "珊瑚礁",
+    "name": "珊瑚",
     "type": "etc",
     "category": "drop_misc",
     "subCategory": "monster_drop",
     "sellPrice": 0,
     "buyPrice": 772,
-    "icon": "images/items/7013.webp"
+    "icon": "images/items/7013.webp",
+    "Name": "珊瑚",
+    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR",
+    "description": [
+      "海裡剪下的珊瑚。可向收集商人購買。"
+    ]
   },
   "7066": {
     "id": 7066,
     "officialId": 7066,
-    "name": "冰塊",
+    "name": "冰塊一角",
     "type": "etc",
     "category": "drop_misc",
     "subCategory": "monster_drop",
     "sellPrice": 0,
     "buyPrice": 660,
-    "icon": "images/items/7066.webp"
+    "icon": "images/items/7066.webp",
+    "Name": "冰塊一角",
+    "description": [
+      "冰塊的一角,很奇怪的是它不會融掉,可以拿出去賣,真是神奇的冰塊一角。"
+    ],
+    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
   },
   "7067": {
     "id": 7067,
     "officialId": 7067,
-    "name": "堅硬碎片",
+    "name": "石頭一角",
     "type": "etc",
     "category": "drop_misc",
     "subCategory": "monster_drop",
     "sellPrice": 0,
     "buyPrice": 640,
-    "icon": "images/items/7067.webp"
+    "icon": "images/items/7067.webp",
+    "Name": "石頭一角",
+    "description": [
+      "破碎的石頭一角,有漂亮的紋路,據說可以賣給石頭蒐集商人"
+    ],
+    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
   },
   "7110": {
     "id": 7110,
     "officialId": 7110,
-    "name": "破損的鎧甲碎片",
+    "name": "破裂之劍",
     "type": "etc",
     "category": "drop_misc",
     "subCategory": "monster_drop",
     "sellPrice": 0,
     "buyPrice": 588,
-    "icon": "images/items/7110.webp"
+    "icon": "images/items/7110.webp",
+    "Name": "破裂之劍",
+    "description": [
+      "有很多裂紋,幾乎到不能使用地步的破碎之劍,快要變成廢鐵了"
+    ],
+    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
   },
   "7193": {
     "id": 7193,
     "officialId": 7193,
-    "name": "嫩芽",
+    "name": "綠芽",
     "type": "etc",
     "category": "drop_misc",
     "subCategory": "monster_drop",
     "sellPrice": 0,
     "buyPrice": 230,
-    "icon": "images/items/7193.webp"
+    "icon": "images/items/7193.webp",
+    "Name": "綠芽",
+    "description": [
+      "從植物的種子裡,剛長出來的苗芽。"
+    ],
+    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
   },
   "7326": {
     "id": 7326,
     "officialId": 7326,
-    "name": "透明之布",
+    "name": "螢光色的液體",
     "type": "etc",
     "category": "drop_misc",
     "subCategory": "monster_drop",
     "sellPrice": 0,
     "buyPrice": 712,
-    "icon": "images/items/7326.webp"
+    "icon": "images/items/7326.webp",
+    "Name": "螢光色的液體",
+    "description": [
+      "非常刺眼的色彩,有著黏稠的液體,晚上看的話非常亮眼的東西。"
+    ],
+    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
   },
   "7561": {
     "id": 7561,
     "officialId": 7561,
-    "name": "冰晶之心",
+    "name": "冰心臟",
     "type": "etc",
     "category": "drop_misc",
     "subCategory": "monster_drop",
     "sellPrice": 0,
     "buyPrice": 606,
-    "icon": "images/items/7561.webp"
+    "icon": "images/items/7561.webp",
+    "Name": "冰心臟",
+    "description": [
+      "堅硬冰凍過的心臟, 非常冰請小心你的手"
+    ],
+    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
   },
   "7565": {
     "id": 7565,
     "officialId": 7565,
-    "name": "黏稠毒液",
+    "name": "粘稠的毒",
     "type": "etc",
     "category": "drop_misc",
     "subCategory": "monster_drop",
     "sellPrice": 0,
     "buyPrice": 350,
-    "icon": "images/items/7565.webp"
+    "icon": "images/items/7565.webp",
+    "Name": "粘稠的毒",
+    "description": [
+      "從植物那裡可以獲得到的粘稠的毒, 毒性很強會用在很多地方"
+    ],
+    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
   },
   "25159": {
     "id": 25159,
     "officialId": 25159,
-    "name": "邪心獵人徽章",
+    "name": "邪心獵人之印",
     "type": "etc",
     "category": "drop_misc",
     "subCategory": "monster_drop",
     "sellPrice": 0,
     "buyPrice": 0,
-    "icon": "images/items/25159.webp"
+    "icon": "images/items/25159.webp",
+    "Name": "邪心獵人之印",
+    "description": [
+      "象徵邪心獵人團隊的印章。"
+    ],
+    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
   },
   "300360": {
     "id": 300360,
     "officialId": 300360,
-    "name": "明亮海帶卡片",
+    "name": "閃亮海帶卡片",
     "type": "card",
     "category": "card",
     "subCategory": "monster_card",
     "sellPrice": 0,
     "buyPrice": 0,
-    "icon": "images/items/300360.webp"
+    "description": [
+      "ATK+10，P.ATK+1。",
+      "近距離物理傷害+3%，使用技能時，SP消耗量+7%。",
+      "精煉+9時，近距離物理傷害再+2%。",
+      "精煉+11時，變動詠唱-5%。"
+    ],
+    "icon": "images/items/300360.webp",
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "台服 itemInfo_UTF8.lub + 中文 item_db_etc + RO_WEB 0.9.82GR",
+    "Id": 300360,
+    "Name": "閃亮海帶卡片",
+    "Buy": 0,
+    "Slots": 0,
+    "AegisName": "Shining_Seaweed_Card",
+    "aegisName": "Shining_Seaweed_Card",
+    "Type": "Card",
+    "dbType": "Card",
+    "cardTarget": [
+      "headTop",
+      "headMid",
+      "headLow"
+    ],
+    "locations": {
+      "Head_Low": true,
+      "Head_Mid": true,
+      "Head_Top": true
+    },
+    "scriptRaw": "bonus bBaseAtk,10;\nbonus bPAtk,1;\nbonus bShortAtkRate,3;\nbonus bUseSPrate,7;\n.@r = getrefine();\nif (.@r >= 9) {\n  bonus bShortAtkRate,2;\n}\nif (.@r >= 11) {\n  bonus bVariableCastrate,-5;\n}\n",
+    "compiledScript": "bonus(\"bBaseAtk\", 10);\nbonus(\"bPAtk\", 1);\nbonus(\"bShortAtkRate\", 3);\nbonus(\"bUseSPrate\", 7);\nv.r = getrefine();\nif (v.r >= 9) {\n  bonus(\"bShortAtkRate\", 2);\n}\nif (v.r >= 11) {\n  bonus(\"bVariableCastrate\", -5);\n}\n",
+    "dropSources": [
+      {
+        "monsterId": 21524,
+        "monsterAegisName": "EP19_SHINING_SEAWEED",
+        "monsterName": "閃亮海帶",
+        "rate": 1,
+        "stealProtected": false,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "isBossCard": false,
+    "cardVisualTier": "normal",
+    "cardTierSourceMonsterIds": [
+      21524
+    ]
   },
   "300361": {
     "id": 300361,
     "officialId": 300361,
-    "name": "冰蜂珠卡片",
+    "name": "冰蛇鰻卡片",
     "type": "card",
     "category": "card",
     "subCategory": "monster_card",
     "sellPrice": 0,
     "buyPrice": 0,
-    "icon": "images/items/300361.webp"
+    "description": [
+      "S.MATK+1，使用技能時，SP消耗量+7%。",
+      "精煉每+2時，水屬性魔法傷害+4%。",
+      "搭配冰鋒球卡片時，MATK+10%。"
+    ],
+    "icon": "images/items/300361.webp",
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "台服 itemInfo_UTF8.lub + 中文 item_db_etc + RO_WEB 0.9.82GR",
+    "Id": 300361,
+    "Name": "冰蛇鰻卡片",
+    "Buy": 0,
+    "Slots": 0,
+    "AegisName": "Ice_Straw_Card",
+    "aegisName": "Ice_Straw_Card",
+    "Type": "Card",
+    "dbType": "Card",
+    "cardTarget": [
+      "body"
+    ],
+    "locations": {
+      "Armor": true
+    },
+    "scriptRaw": "bonus bSMatk,1;\nbonus bUseSPrate,7;\nbonus2 bMagicAtkEle,Ele_Water,4*(getrefine()/2);\n",
+    "compiledScript": "bonus(\"bSMatk\", 1);\nbonus(\"bUseSPrate\", 7);\nbonus2(\"bMagicAtkEle\", Ele_Water, 4*(getrefine()/2));\n",
+    "dropSources": [
+      {
+        "monsterId": 21523,
+        "monsterAegisName": "EP19_ICE_STRAW",
+        "monsterName": "冰蛇鰻",
+        "rate": 1,
+        "stealProtected": false,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "isBossCard": false,
+    "cardVisualTier": "normal",
+    "cardTierSourceMonsterIds": [
+      21523
+    ]
   },
   "300362": {
     "id": 300362,
@@ -27357,29 +27501,159 @@
     "subCategory": "monster_card",
     "sellPrice": 0,
     "buyPrice": 0,
-    "icon": "images/items/300362.webp"
+    "description": [
+      "P.ATK+1，使用技能時，SP消耗量+7%。",
+      "精煉每+3時，近距離物理傷害+4%。",
+      "搭配閃亮海帶卡片時，ATK+10%。"
+    ],
+    "icon": "images/items/300362.webp",
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "台服 itemInfo_UTF8.lub + 中文 item_db_etc + RO_WEB 0.9.82GR",
+    "Id": 300362,
+    "Name": "冰霜花卡片",
+    "Buy": 0,
+    "Slots": 0,
+    "AegisName": "Unfrost_Flower_card",
+    "aegisName": "Unfrost_Flower_card",
+    "Type": "Card",
+    "dbType": "Card",
+    "cardTarget": [
+      "body"
+    ],
+    "locations": {
+      "Armor": true
+    },
+    "scriptRaw": "bonus bPAtk,1;\nbonus bUseSPrate,7;\n.@r = getrefine();\nbonus bShortAtkRate,4*(getrefine()/3);\n",
+    "compiledScript": "bonus(\"bPAtk\", 1);\nbonus(\"bUseSPrate\", 7);\nv.r = getrefine();\nbonus(\"bShortAtkRate\", 4*(getrefine()/3));\n",
+    "dropSources": [
+      {
+        "monsterId": 21521,
+        "monsterAegisName": "EP19_UNFROST_FLOWER",
+        "monsterName": "冰霜花",
+        "rate": 1,
+        "stealProtected": false,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "isBossCard": false,
+    "cardVisualTier": "normal",
+    "cardTierSourceMonsterIds": [
+      21521
+    ]
   },
   "300363": {
     "id": 300363,
     "officialId": 300363,
-    "name": "青翅巨魚卡片",
+    "name": "青翅巨鳥卡片",
     "type": "card",
     "category": "card",
     "subCategory": "monster_card",
     "sellPrice": 0,
     "buyPrice": 0,
-    "icon": "images/items/300363.webp"
+    "description": [
+      "ATK+10，P.ATK+1。",
+      "遠距離物理傷害+3%，使用技能時，SP消耗量+7%。",
+      "精煉+9時，遠距離物理傷害再+2%。",
+      "精煉+11時，變動詠唱-5%。"
+    ],
+    "icon": "images/items/300363.webp",
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "台服 itemInfo_UTF8.lub + 中文 item_db_etc + RO_WEB 0.9.82GR",
+    "Id": 300363,
+    "Name": "青翅巨鳥卡片",
+    "Buy": 0,
+    "Slots": 0,
+    "AegisName": "Limacina_Card",
+    "aegisName": "Limacina_Card",
+    "Type": "Card",
+    "dbType": "Card",
+    "cardTarget": [
+      "headTop",
+      "headMid",
+      "headLow"
+    ],
+    "locations": {
+      "Head_Low": true,
+      "Head_Mid": true,
+      "Head_Top": true
+    },
+    "scriptRaw": "bonus bBaseAtk,10;\nbonus bPAtk,1;\nbonus bLongAtkRate,3;\nbonus bUseSPrate,7;\n.@r = getrefine();\nif (.@r >= 9) {\n  bonus bLongAtkRate,2;\n}\nif (.@r >= 11) {\n  bonus bVariableCastrate,-5;\n}\n",
+    "compiledScript": "bonus(\"bBaseAtk\", 10);\nbonus(\"bPAtk\", 1);\nbonus(\"bLongAtkRate\", 3);\nbonus(\"bUseSPrate\", 7);\nv.r = getrefine();\nif (v.r >= 9) {\n  bonus(\"bLongAtkRate\", 2);\n}\nif (v.r >= 11) {\n  bonus(\"bVariableCastrate\", -5);\n}\n",
+    "dropSources": [
+      {
+        "monsterId": 21520,
+        "monsterAegisName": "EP19_LIMACINA",
+        "monsterName": "青翅巨鳥",
+        "rate": 1,
+        "stealProtected": false,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "isBossCard": false,
+    "cardVisualTier": "normal",
+    "cardTierSourceMonsterIds": [
+      21520
+    ]
   },
   "300364": {
     "id": 300364,
     "officialId": 300364,
-    "name": "冰泡泡卡片",
+    "name": "克拉波利卡片",
     "type": "card",
     "category": "card",
     "subCategory": "monster_card",
     "sellPrice": 0,
     "buyPrice": 0,
-    "icon": "images/items/300364.webp"
+    "description": [
+      "水屬性魔法傷害+35%。",
+      "使用技能時，SP消耗量+10%。"
+    ],
+    "icon": "images/items/300364.webp",
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "台服 itemInfo_UTF8.lub + 中文 item_db_etc + RO_WEB 0.9.82GR",
+    "Id": 300364,
+    "Name": "克拉波利卡片",
+    "Buy": 0,
+    "Slots": 0,
+    "AegisName": "Calmaring_Card",
+    "aegisName": "Calmaring_Card",
+    "Type": "Card",
+    "dbType": "Card",
+    "cardTarget": [
+      "accessory1"
+    ],
+    "locations": {
+      "Left_Accessory": true
+    },
+    "scriptRaw": "bonus2 bMagicAtkEle,Ele_Water,35;\nbonus bUseSPrate,10;\n",
+    "compiledScript": "bonus2(\"bMagicAtkEle\", Ele_Water, 35);\nbonus(\"bUseSPrate\", 10);\n",
+    "dropSources": [
+      {
+        "monsterId": 21522,
+        "monsterAegisName": "EP19_CALMARING",
+        "monsterName": "克拉波利",
+        "rate": 1,
+        "stealProtected": false,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "isBossCard": false,
+    "cardVisualTier": "normal",
+    "cardTierSourceMonsterIds": [
+      21522
+    ]
   },
   "300365": {
     "id": 300365,
@@ -27390,7 +27664,47 @@
     "subCategory": "monster_card",
     "sellPrice": 0,
     "buyPrice": 0,
-    "icon": "images/items/300365.webp"
+    "description": [
+      "近距離物理傷害+8%。"
+    ],
+    "icon": "images/items/300365.webp",
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "台服 itemInfo_UTF8.lub + 中文 item_db_etc + RO_WEB 0.9.82GR",
+    "Id": 300365,
+    "Name": "原始蠕蟲卡片",
+    "Buy": 0,
+    "Slots": 0,
+    "AegisName": "Primitive_Rgan_Card",
+    "aegisName": "Primitive_Rgan_Card",
+    "Type": "Card",
+    "dbType": "Card",
+    "cardTarget": [
+      "accessory2"
+    ],
+    "locations": {
+      "Right_Accessory": true
+    },
+    "scriptRaw": "bonus bShortAtkRate,8;\n",
+    "compiledScript": "bonus(\"bShortAtkRate\", 8);\n",
+    "dropSources": [
+      {
+        "monsterId": 21526,
+        "monsterAegisName": "EP19_RGAN_A",
+        "monsterName": "原始蠕蟲",
+        "rate": 1,
+        "stealProtected": false,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "isBossCard": false,
+    "cardVisualTier": "normal",
+    "cardTierSourceMonsterIds": [
+      21526
+    ]
   },
   "300366": {
     "id": 300366,
@@ -27401,7 +27715,47 @@
     "subCategory": "monster_card",
     "sellPrice": 0,
     "buyPrice": 0,
-    "icon": "images/items/300366.webp"
+    "description": [
+      "CRI+6，C.Rate+1。"
+    ],
+    "icon": "images/items/300366.webp",
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "台服 itemInfo_UTF8.lub + 中文 item_db_etc + RO_WEB 0.9.82GR",
+    "Id": 300366,
+    "Name": "最下級蠕蟲卡片",
+    "Buy": 0,
+    "Slots": 0,
+    "AegisName": "Lowest_Rgan_Card",
+    "aegisName": "Lowest_Rgan_Card",
+    "Type": "Card",
+    "dbType": "Card",
+    "cardTarget": [
+      "accessory2"
+    ],
+    "locations": {
+      "Right_Accessory": true
+    },
+    "scriptRaw": "bonus bCritical,6;\nbonus bCRate,1;\n",
+    "compiledScript": "bonus(\"bCritical\", 6);\nbonus(\"bCRate\", 1);\n",
+    "dropSources": [
+      {
+        "monsterId": 21527,
+        "monsterAegisName": "EP19_RGAN_B",
+        "monsterName": "最下級蠕蟲",
+        "rate": 1,
+        "stealProtected": false,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "isBossCard": false,
+    "cardVisualTier": "normal",
+    "cardTierSourceMonsterIds": [
+      21527
+    ]
   },
   "300367": {
     "id": 300367,
@@ -27412,7 +27766,48 @@
     "subCategory": "monster_card",
     "sellPrice": 0,
     "buyPrice": 0,
-    "icon": "images/items/300367.webp"
+    "description": [
+      "近距離物理傷害+8%。",
+      "搭配原始蠕蟲卡片時，變動詠唱-8%。"
+    ],
+    "icon": "images/items/300367.webp",
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "台服 itemInfo_UTF8.lub + 中文 item_db_etc + RO_WEB 0.9.82GR",
+    "Id": 300367,
+    "Name": "下級蠕蟲卡片",
+    "Buy": 0,
+    "Slots": 0,
+    "AegisName": "Junior_Rgan_Card",
+    "aegisName": "Junior_Rgan_Card",
+    "Type": "Card",
+    "dbType": "Card",
+    "cardTarget": [
+      "accessory1"
+    ],
+    "locations": {
+      "Left_Accessory": true
+    },
+    "scriptRaw": "bonus bShortAtkRate,8;\n",
+    "compiledScript": "bonus(\"bShortAtkRate\", 8);\n",
+    "dropSources": [
+      {
+        "monsterId": 21528,
+        "monsterAegisName": "EP19_RGAN_C",
+        "monsterName": "下級蠕蟲",
+        "rate": 1,
+        "stealProtected": false,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "isBossCard": false,
+    "cardVisualTier": "normal",
+    "cardTierSourceMonsterIds": [
+      21528
+    ]
   },
   "300368": {
     "id": 300368,
@@ -27423,18 +27818,105 @@
     "subCategory": "monster_card",
     "sellPrice": 0,
     "buyPrice": 0,
-    "icon": "images/items/300368.webp"
+    "description": [
+      "CRI+6，C.Rate+1。",
+      "搭配最下級蠕蟲卡片時，暴擊傷害+10%。"
+    ],
+    "icon": "images/items/300368.webp",
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "台服 itemInfo_UTF8.lub + 中文 item_db_etc + RO_WEB 0.9.82GR",
+    "Id": 300368,
+    "Name": "中級蠕蟲卡片",
+    "Buy": 0,
+    "Slots": 0,
+    "AegisName": "Middle_G_Rgan_Card",
+    "aegisName": "Middle_G_Rgan_Card",
+    "Type": "Card",
+    "dbType": "Card",
+    "cardTarget": [
+      "accessory1"
+    ],
+    "locations": {
+      "Left_Accessory": true
+    },
+    "scriptRaw": "bonus bCritical,6;\nbonus bCRate,1;\n",
+    "compiledScript": "bonus(\"bCritical\", 6);\nbonus(\"bCRate\", 1);\n",
+    "dropSources": [
+      {
+        "monsterId": 21529,
+        "monsterAegisName": "EP19_RGAN_D",
+        "monsterName": "中級蠕蟲",
+        "rate": 1,
+        "stealProtected": false,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "isBossCard": false,
+    "cardVisualTier": "normal",
+    "cardTierSourceMonsterIds": [
+      21529
+    ]
   },
   "300377": {
     "id": 300377,
     "officialId": 300377,
-    "name": "終極青翅巨魚卡片",
+    "name": "終極青翅巨鳥卡片",
     "type": "card",
     "category": "card",
     "subCategory": "monster_card",
     "sellPrice": 0,
     "buyPrice": 0,
-    "icon": "images/items/300377.webp"
+    "description": [
+      "ATK+5%，MATK+5%。",
+      "精煉每+3時，P.ATK+2，S.MATK+2。",
+      "精煉+11以上時，固定詠唱-0.5秒。"
+    ],
+    "icon": "images/items/300377.webp",
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "台服 itemInfo_UTF8.lub + 中文 item_db_etc + RO_WEB 0.9.82GR",
+    "Id": 300377,
+    "Name": "終極青翅巨鳥卡片",
+    "Buy": 0,
+    "Slots": 0,
+    "AegisName": "Ultra_Limacina_Card",
+    "aegisName": "Ultra_Limacina_Card",
+    "Type": "Card",
+    "dbType": "Card",
+    "cardTarget": [
+      "headTop",
+      "headMid",
+      "headLow"
+    ],
+    "locations": {
+      "Head_Low": true,
+      "Head_Mid": true,
+      "Head_Top": true
+    },
+    "scriptRaw": "bonus bAtkRate,5;\nbonus bMatkRate,5;\n.@r = getrefine();\nbonus bPAtk,2*(.@r/3);\nbonus bSMatk,2*(.@r/3);\nif (.@r >= 11) {\n  bonus bFixedCast,-500;\n}\n",
+    "compiledScript": "bonus(\"bAtkRate\", 5);\nbonus(\"bMatkRate\", 5);\nv.r = getrefine();\nbonus(\"bPAtk\", 2*(v.r/3));\nbonus(\"bSMatk\", 2*(v.r/3));\nif (v.r >= 11) {\n  bonus(\"bFixedCast\", -500);\n}\n",
+    "dropSources": [
+      {
+        "monsterId": 21537,
+        "monsterAegisName": "EP19_LIMACINA_BOSS",
+        "monsterName": "終極青翅巨鳥",
+        "rate": 1,
+        "stealProtected": false,
+        "isMvp": true,
+        "isBoss": true
+      }
+    ],
+    "isMvpCard": true,
+    "isBossCard": true,
+    "cardVisualTier": "mvp",
+    "cardTierSourceMonsterIds": [
+      21537
+    ]
   },
   "300381": {
     "id": 300381,
@@ -27445,7 +27927,49 @@
     "subCategory": "monster_card",
     "sellPrice": 0,
     "buyPrice": 0,
-    "icon": "images/items/300381.webp"
+    "description": [
+      "P.ATK+1，使用技能時，SP消耗量+7%",
+      "精煉每+3時，遠距離物理傷害+4%。",
+      "搭配青翅巨鳥卡片時，ATK+10%。"
+    ],
+    "icon": "images/items/300381.webp",
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "台服 itemInfo_UTF8.lub + 中文 item_db_etc + RO_WEB 0.9.82GR",
+    "Id": 300381,
+    "Name": "邪心獵人AT卡片",
+    "Buy": 0,
+    "Slots": 0,
+    "AegisName": "Heart_Hunter_AT_Card",
+    "aegisName": "Heart_Hunter_AT_Card",
+    "Type": "Card",
+    "dbType": "Card",
+    "cardTarget": [
+      "body"
+    ],
+    "locations": {
+      "Armor": true
+    },
+    "scriptRaw": "bonus bPAtk,1;\nbonus bUseSPrate,7;\nbonus bLongAtkRate,4*(getrefine()/3);\n",
+    "compiledScript": "bonus(\"bPAtk\", 1);\nbonus(\"bUseSPrate\", 7);\nbonus(\"bLongAtkRate\", 4*(getrefine()/3));\n",
+    "dropSources": [
+      {
+        "monsterId": 21599,
+        "monsterAegisName": "EP19_HEARTHUNTER_AT",
+        "monsterName": "邪心獵人AT",
+        "rate": 1,
+        "stealProtected": false,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "isBossCard": false,
+    "cardVisualTier": "normal",
+    "cardTierSourceMonsterIds": [
+      21599
+    ]
   },
   "1000321": {
     "id": 1000321,
@@ -27467,7 +27991,13 @@
     "subCategory": "enchant_grade_material",
     "sellPrice": 0,
     "buyPrice": 0,
-    "icon": "images/items/1000322.webp"
+    "icon": "images/items/1000322.webp",
+    "Name": "乙太星塵",
+    "description": [
+      "蘊含著乙太魔力的粉末，",
+      "感覺到微量的魔力。"
+    ],
+    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
   },
   "1000323": {
     "id": 1000323,
@@ -27538,90 +28068,131 @@
   "1000707": {
     "id": 1000707,
     "officialId": 1000707,
-    "name": "蛇神的溫熱氣息",
+    "name": "蠕蟲的低級魔力核",
     "type": "etc",
     "category": "drop_misc",
     "subCategory": "monster_drop",
     "sellPrice": 0,
     "buyPrice": 525,
-    "icon": "images/items/1000707.webp"
+    "icon": "images/items/1000707.webp",
+    "Name": "蠕蟲的低級魔力核",
+    "description": [
+      "擊敗蠕蟲後獲得的魔力核，是吸收耶夢加得魔力形成的結晶，魔力核中只有極少量的魔力，效率不高。"
+    ],
+    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
   },
   "1000812": {
     "id": 1000812,
     "officialId": 1000812,
-    "name": "冰封核心",
+    "name": "雪花魔石",
     "type": "etc",
     "category": "drop_misc",
     "subCategory": "monster_drop",
     "sellPrice": 0,
     "buyPrice": 0,
-    "icon": "images/items/1000812.webp"
+    "icon": "images/items/1000812.webp",
+    "Name": "雪花魔石",
+    "description": [
+      "平凡魔力雪花魔石。"
+    ],
+    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
   },
   "1000813": {
     "id": 1000813,
     "officialId": 1000813,
-    "name": "極寒結晶",
+    "name": "閃爍雪花魔石",
     "type": "etc",
     "category": "drop_misc",
     "subCategory": "monster_drop",
     "sellPrice": 0,
     "buyPrice": 0,
-    "icon": "images/items/1000813.webp"
+    "icon": "images/items/1000813.webp",
+    "Name": "閃爍雪花魔石",
+    "description": [
+      "微光閃爍，充滿魔力光芒的雪花魔石。"
+    ],
+    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
   },
   "1000814": {
     "id": 1000814,
     "officialId": 1000814,
-    "name": "神秘冰晶",
+    "name": "耀眼雪花魔石",
     "type": "etc",
     "category": "drop_misc",
     "subCategory": "monster_drop",
     "sellPrice": 0,
     "buyPrice": 0,
-    "icon": "images/items/1000814.webp"
+    "icon": "images/items/1000814.webp",
+    "Name": "耀眼雪花魔石",
+    "description": [
+      "璀璨明亮，充滿魔力光芒的雪花魔石。"
+    ],
+    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
   },
   "1000822": {
     "id": 1000822,
     "officialId": 1000822,
-    "name": "低階蛇族鱗片",
+    "name": "蠕蟲外殼",
     "type": "etc",
     "category": "drop_misc",
     "subCategory": "monster_drop",
     "sellPrice": 0,
     "buyPrice": 920,
-    "icon": "images/items/1000822.webp"
+    "icon": "images/items/1000822.webp",
+    "Name": "蠕蟲外殼",
+    "description": [
+      "蠕蟲外殼，觸感有點奇怪。"
+    ],
+    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
   },
   "1000823": {
     "id": 1000823,
     "officialId": 1000823,
-    "name": "蛇族魔力核",
+    "name": "怪異生命體細胞",
     "type": "etc",
     "category": "drop_misc",
     "subCategory": "monster_drop",
     "sellPrice": 0,
     "buyPrice": 960,
-    "icon": "images/items/1000823.webp"
+    "icon": "images/items/1000823.webp",
+    "Name": "怪異生命體細胞",
+    "description": [
+      "細胞無法辨識，不知道屬於哪種生物。"
+    ],
+    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
   },
   "1000824": {
     "id": 1000824,
     "officialId": 1000824,
-    "name": "卡拉皮",
+    "name": "克拉結晶",
     "type": "etc",
     "category": "drop_misc",
     "subCategory": "monster_drop",
     "sellPrice": 0,
     "buyPrice": 800,
-    "icon": "images/items/1000824.webp"
+    "icon": "images/items/1000824.webp",
+    "Name": "克拉結晶",
+    "description": [
+      "克拉波利體內發現的神秘結晶。"
+    ],
+    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
   },
   "1000828": {
     "id": 1000828,
     "officialId": 1000828,
-    "name": "透明甲殼",
+    "name": "透明殼",
     "type": "etc",
     "category": "drop_misc",
     "subCategory": "monster_drop",
     "sellPrice": 0,
     "buyPrice": 920,
-    "icon": "images/items/1000828.webp"
+    "icon": "images/items/1000828.webp",
+    "Name": "透明殼",
+    "description": [
+      "青翅巨鳥的殼，呈現透明狀，",
+      "聽說味道不錯。"
+    ],
+    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
   },
   "1000829": {
     "id": 1000829,
@@ -27632,39 +28203,59 @@
     "subCategory": "monster_drop",
     "sellPrice": 0,
     "buyPrice": 1080,
-    "icon": "images/items/1000829.webp"
+    "icon": "images/items/1000829.webp",
+    "Name": "水鈴花",
+    "description": [
+      "狩獵時使用的誘餌水鈴花。"
+    ],
+    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
   },
   "1000830": {
     "id": 1000830,
     "officialId": 1000830,
-    "name": "薄而堅韌的外殼",
+    "name": "薄而堅固的外皮",
     "type": "etc",
     "category": "drop_misc",
     "subCategory": "monster_drop",
     "sellPrice": 0,
     "buyPrice": 920,
-    "icon": "images/items/1000830.webp"
+    "icon": "images/items/1000830.webp",
+    "Name": "薄而堅固的外皮",
+    "description": [
+      "冰蛇鰻的外殼。"
+    ],
+    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
   },
   "1000831": {
     "id": 1000831,
     "officialId": 1000831,
-    "name": "明亮海帶莖",
+    "name": "閃亮海帶莖",
     "type": "etc",
     "category": "drop_misc",
     "subCategory": "monster_drop",
     "sellPrice": 0,
     "buyPrice": 880,
-    "icon": "images/items/1000831.webp"
+    "icon": "images/items/1000831.webp",
+    "Name": "閃亮海帶莖",
+    "description": [
+      "閃亮海帶的莖。"
+    ],
+    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
   },
   "1000833": {
     "id": 1000833,
     "officialId": 1000833,
-    "name": "極寒魔力結晶",
+    "name": "神秘發光體",
     "type": "etc",
     "category": "drop_misc",
     "subCategory": "monster_drop",
     "icon": "images/items/1000833.webp",
     "buyPrice": 0,
-    "sellPrice": 0
+    "sellPrice": 0,
+    "Name": "神秘發光體",
+    "description": [
+      "富含神秘能量的礦石。"
+    ],
+    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
   }
 }

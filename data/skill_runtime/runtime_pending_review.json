@@ -23,7 +23,7 @@
     {
       "skillId": 411,
       "skillKey": "TK_RUN",
-      "name": "Running",
+      "name": "跑步",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -33,7 +33,7 @@
     {
       "skillId": 412,
       "skillKey": "TK_READYSTORM",
-      "name": "Tornado Stance",
+      "name": "迴旋準備",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -43,7 +43,7 @@
     {
       "skillId": 413,
       "skillKey": "TK_STORMKICK",
-      "name": "Tornado Kick",
+      "name": "迴旋踢",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -53,7 +53,7 @@
     {
       "skillId": 414,
       "skillKey": "TK_READYDOWN",
-      "name": "Heel Drop Stance",
+      "name": "砸踢準備",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -63,7 +63,7 @@
     {
       "skillId": 415,
       "skillKey": "TK_DOWNKICK",
-      "name": "Heel Drop",
+      "name": "砸踢",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -73,7 +73,7 @@
     {
       "skillId": 416,
       "skillKey": "TK_READYTURN",
-      "name": "Roundhouse Stance",
+      "name": "踢準備",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -83,7 +83,7 @@
     {
       "skillId": 417,
       "skillKey": "TK_TURNKICK",
-      "name": "Roundhouse Kick",
+      "name": "轉身踢",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -93,7 +93,7 @@
     {
       "skillId": 418,
       "skillKey": "TK_READYCOUNTER",
-      "name": "Counter Kick Stance",
+      "name": "還擊準備",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -103,7 +103,7 @@
     {
       "skillId": 419,
       "skillKey": "TK_COUNTER",
-      "name": "Counter Kick",
+      "name": "還擊踢",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -113,7 +113,7 @@
     {
       "skillId": 420,
       "skillKey": "TK_DODGE",
-      "name": "Tumbling",
+      "name": "落法",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -123,7 +123,7 @@
     {
       "skillId": 421,
       "skillKey": "TK_JUMPKICK",
-      "name": "Flying Kick",
+      "name": "飛腳踢",
       "core": "core2",
       "suggestedHandler": "utility",
       "implementationMode": "pending_review",
@@ -133,7 +133,7 @@
     {
       "skillId": 422,
       "skillKey": "TK_HPTIME",
-      "name": "Peaceful Break",
+      "name": "平安的休息",
       "core": "core2",
       "suggestedHandler": "special_review",
       "implementationMode": "pending_review",
@@ -143,7 +143,7 @@
     {
       "skillId": 423,
       "skillKey": "TK_SPTIME",
-      "name": "Happy Break",
+      "name": "快樂的休息",
       "core": "core2",
       "suggestedHandler": "special_review",
       "implementationMode": "pending_review",
@@ -153,7 +153,7 @@
     {
       "skillId": 424,
       "skillKey": "TK_POWER",
-      "name": "Kihop",
+      "name": "加油",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -163,7 +163,7 @@
     {
       "skillId": 425,
       "skillKey": "TK_SEVENWIND",
-      "name": "Mild Wind",
+      "name": "溫暖的風",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -173,7 +173,7 @@
     {
       "skillId": 426,
       "skillKey": "TK_HIGHJUMP",
-      "name": "Taekwon Jump",
+      "name": "跳高",
       "core": "core2",
       "suggestedHandler": "utility",
       "implementationMode": "pending_review",
@@ -183,7 +183,7 @@
     {
       "skillId": 427,
       "skillKey": "SG_FEEL",
-      "name": "Feeling the Sun Moon and Stars",
+      "name": "太陽和月亮和星星的感覺",
       "core": "core2",
       "suggestedHandler": "utility",
       "implementationMode": "pending_review",
@@ -193,7 +193,7 @@
     {
       "skillId": 428,
       "skillKey": "SG_SUN_WARM",
-      "name": "Warmth of the Sun",
+      "name": "太陽的溫暖",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -203,7 +203,7 @@
     {
       "skillId": 429,
       "skillKey": "SG_MOON_WARM",
-      "name": "Warmth of the Moon",
+      "name": "月亮的溫暖",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -213,7 +213,7 @@
     {
       "skillId": 430,
       "skillKey": "SG_STAR_WARM",
-      "name": "Warmth of the Stars",
+      "name": "星星的溫暖",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -223,7 +223,7 @@
     {
       "skillId": 431,
       "skillKey": "SG_SUN_COMFORT",
-      "name": "Comfort of the Sun",
+      "name": "太陽的平安感",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -233,7 +233,7 @@
     {
       "skillId": 432,
       "skillKey": "SG_MOON_COMFORT",
-      "name": "Comfort of the Moon",
+      "name": "月亮的平安感",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -243,7 +243,7 @@
     {
       "skillId": 433,
       "skillKey": "SG_STAR_COMFORT",
-      "name": "Comfort of the Stars",
+      "name": "星星的平安感",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -253,7 +253,7 @@
     {
       "skillId": 434,
       "skillKey": "SG_HATE",
-      "name": "Hatred of the Sun Moon and Stars",
+      "name": "太陽和月亮和星星的憎惡",
       "core": "core2",
       "suggestedHandler": "utility",
       "implementationMode": "pending_review",
@@ -263,7 +263,7 @@
     {
       "skillId": 435,
       "skillKey": "SG_SUN_ANGER",
-      "name": "Anger of the Sun",
+      "name": "太陽的憤怒",
       "core": "core2",
       "suggestedHandler": "passive",
       "implementationMode": "pending_review",
@@ -273,7 +273,7 @@
     {
       "skillId": 436,
       "skillKey": "SG_MOON_ANGER",
-      "name": "Anger of the Moon",
+      "name": "月亮的憤怒",
       "core": "core2",
       "suggestedHandler": "passive",
       "implementationMode": "pending_review",
@@ -283,7 +283,7 @@
     {
       "skillId": 437,
       "skillKey": "SG_STAR_ANGER",
-      "name": "Anger of the Stars",
+      "name": "星星的憤怒",
       "core": "core2",
       "suggestedHandler": "passive",
       "implementationMode": "pending_review",
@@ -293,7 +293,7 @@
     {
       "skillId": 438,
       "skillKey": "SG_SUN_BLESS",
-      "name": "Blessing of the Sun",
+      "name": "太陽的祝福",
       "core": "core2",
       "suggestedHandler": "passive",
       "implementationMode": "pending_review",
@@ -303,7 +303,7 @@
     {
       "skillId": 439,
       "skillKey": "SG_MOON_BLESS",
-      "name": "Blessing of the Moon",
+      "name": "月亮的祝福",
       "core": "core2",
       "suggestedHandler": "passive",
       "implementationMode": "pending_review",
@@ -313,7 +313,7 @@
     {
       "skillId": 440,
       "skillKey": "SG_STAR_BLESS",
-      "name": "Blessing of the Stars",
+      "name": "星星的祝福",
       "core": "core2",
       "suggestedHandler": "passive",
       "implementationMode": "pending_review",
@@ -323,7 +323,7 @@
     {
       "skillId": 441,
       "skillKey": "SG_DEVIL",
-      "name": "Demon of the Sun Moon and Stars",
+      "name": "太陽和月亮和星星的惡魔",
       "core": "core2",
       "suggestedHandler": "passive",
       "implementationMode": "pending_review",
@@ -333,7 +333,7 @@
     {
       "skillId": 442,
       "skillKey": "SG_FRIEND",
-      "name": "Friend of the Sun Moon and Stars",
+      "name": "太陽和月亮和星星的朋友",
       "core": "core2",
       "suggestedHandler": "special_review",
       "implementationMode": "pending_review",
@@ -343,7 +343,7 @@
     {
       "skillId": 443,
       "skillKey": "SG_KNOWLEDGE",
-      "name": "Knowledge of the Sun Moon and Stars",
+      "name": "太陽和月亮和星星的知識",
       "core": "core2",
       "suggestedHandler": "special_review",
       "implementationMode": "pending_review",
@@ -353,7 +353,7 @@
     {
       "skillId": 444,
       "skillKey": "SG_FUSION",
-      "name": "Union of the Sun Moon and Stars",
+      "name": "太陽和月亮和星星的融合",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -363,7 +363,7 @@
     {
       "skillId": 445,
       "skillKey": "SL_ALCHEMIST",
-      "name": "Spirit of the Alchemist",
+      "name": "鍊金術師的靈魂",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -373,7 +373,7 @@
     {
       "skillId": 447,
       "skillKey": "SL_MONK",
-      "name": "Spirit of the Monk",
+      "name": "武道家的靈魂",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -383,7 +383,7 @@
     {
       "skillId": 448,
       "skillKey": "SL_STAR",
-      "name": "Spirit of the Star Gladiator",
+      "name": "拳聖的靈魂",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -393,7 +393,7 @@
     {
       "skillId": 449,
       "skillKey": "SL_SAGE",
-      "name": "Spirit of the Sage",
+      "name": "賢者的靈魂",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -403,7 +403,7 @@
     {
       "skillId": 450,
       "skillKey": "SL_CRUSADER",
-      "name": "Spirit of the Crusader",
+      "name": "十字軍的靈魂",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -413,7 +413,7 @@
     {
       "skillId": 451,
       "skillKey": "SL_SUPERNOVICE",
-      "name": "Spirit of the Supernovice",
+      "name": "超級初學者的靈魂",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -423,7 +423,7 @@
     {
       "skillId": 452,
       "skillKey": "SL_KNIGHT",
-      "name": "Spirit of the Knight",
+      "name": "騎士的靈魂",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -433,7 +433,7 @@
     {
       "skillId": 453,
       "skillKey": "SL_WIZARD",
-      "name": "Spirit of the Wizard",
+      "name": "巫師的靈魂",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -443,7 +443,7 @@
     {
       "skillId": 454,
       "skillKey": "SL_PRIEST",
-      "name": "Spirit of the Priest",
+      "name": "祭司的靈魂",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -453,7 +453,7 @@
     {
       "skillId": 455,
       "skillKey": "SL_BARDDANCER",
-      "name": "Spirit of the Artist",
+      "name": "吟遊詩人和舞孃的靈魂",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -463,7 +463,7 @@
     {
       "skillId": 456,
       "skillKey": "SL_ROGUE",
-      "name": "Spirit of the Rogue",
+      "name": "流氓的靈魂",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -473,7 +473,7 @@
     {
       "skillId": 457,
       "skillKey": "SL_ASSASIN",
-      "name": "Spirit of the Assasin",
+      "name": "刺客的靈魂",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -483,7 +483,7 @@
     {
       "skillId": 458,
       "skillKey": "SL_BLACKSMITH",
-      "name": "Spirit of the Blacksmith",
+      "name": "鐵匠的靈魂",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -493,7 +493,7 @@
     {
       "skillId": 460,
       "skillKey": "SL_HUNTER",
-      "name": "Spirit of the Hunter",
+      "name": "獵人的靈魂",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -503,7 +503,7 @@
     {
       "skillId": 461,
       "skillKey": "SL_SOULLINKER",
-      "name": "Spirit of the Soul Linker",
+      "name": "悟靈士的靈魂",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -513,7 +513,7 @@
     {
       "skillId": 462,
       "skillKey": "SL_KAIZEL",
-      "name": "Kaizel",
+      "name": "凱易哲",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -523,7 +523,7 @@
     {
       "skillId": 463,
       "skillKey": "SL_KAAHI",
-      "name": "Kaahi",
+      "name": "凱阿希",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -533,7 +533,7 @@
     {
       "skillId": 464,
       "skillKey": "SL_KAUPE",
-      "name": "Kaupe",
+      "name": "凱誣僕",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -543,7 +543,7 @@
     {
       "skillId": 465,
       "skillKey": "SL_KAITE",
-      "name": "Kaite",
+      "name": "凱易特",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -553,7 +553,7 @@
     {
       "skillId": 466,
       "skillKey": "SL_KAINA",
-      "name": "Kaina",
+      "name": "凱易娜",
       "core": "core2",
       "suggestedHandler": "magic_damage",
       "implementationMode": "pending_review",
@@ -563,7 +563,7 @@
     {
       "skillId": 470,
       "skillKey": "SL_SWOO",
-      "name": "Eswoo",
+      "name": "艾斯誣",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -573,7 +573,7 @@
     {
       "skillId": 471,
       "skillKey": "SL_SKE",
-      "name": "Eske",
+      "name": "艾斯克",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -583,7 +583,7 @@
     {
       "skillId": 472,
       "skillKey": "SL_SKA",
-      "name": "Eska",
+      "name": "艾斯卡",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -593,7 +593,7 @@
     {
       "skillId": 493,
       "skillKey": "TK_MISSION",
-      "name": "Taekwon Mission",
+      "name": "太拳任務",
       "core": "core2",
       "suggestedHandler": "utility",
       "implementationMode": "pending_review",
@@ -603,7 +603,7 @@
     {
       "skillId": 494,
       "skillKey": "SL_HIGH",
-      "name": "Spirit of Rebirth",
+      "name": "一轉上等職業的靈魂",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -613,7 +613,7 @@
     {
       "skillId": 500,
       "skillKey": "GS_GLITTERING",
-      "name": "Flip the Coin",
+      "name": "裝滿硬幣",
       "core": "core2",
       "suggestedHandler": "utility",
       "implementationMode": "pending_review",
@@ -623,7 +623,7 @@
     {
       "skillId": 501,
       "skillKey": "GS_FLING",
-      "name": "Fling",
+      "name": "投擲硬幣",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -633,7 +633,7 @@
     {
       "skillId": 502,
       "skillKey": "GS_TRIPLEACTION",
-      "name": "Triple Action",
+      "name": "三連攻擊",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -643,7 +643,7 @@
     {
       "skillId": 503,
       "skillKey": "GS_BULLSEYE",
-      "name": "Bulls Eye",
+      "name": "公牛之眼",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -653,7 +653,7 @@
     {
       "skillId": 504,
       "skillKey": "GS_MADNESSCANCEL",
-      "name": "Madness Canceller",
+      "name": "瘋狂凱斯樂",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -663,7 +663,7 @@
     {
       "skillId": 505,
       "skillKey": "GS_ADJUSTMENT",
-      "name": "Adjustment",
+      "name": "終極閃躲",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -673,7 +673,7 @@
     {
       "skillId": 506,
       "skillKey": "GS_INCREASING",
-      "name": "Increasing Accuracy",
+      "name": "命中率遞增  ",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -683,7 +683,7 @@
     {
       "skillId": 507,
       "skillKey": "GS_MAGICALBULLET",
-      "name": "Magical Bullet",
+      "name": "魔術彈",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -693,7 +693,7 @@
     {
       "skillId": 508,
       "skillKey": "GS_CRACKER",
-      "name": "Cracker",
+      "name": "轟然巨響",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -703,7 +703,7 @@
     {
       "skillId": 511,
       "skillKey": "GS_CHAINACTION",
-      "name": "Chain Action",
+      "name": "連鎖衝擊",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -713,7 +713,7 @@
     {
       "skillId": 512,
       "skillKey": "GS_TRACKING",
-      "name": "Tracking",
+      "name": "百步穿楊",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -723,7 +723,7 @@
     {
       "skillId": 513,
       "skillKey": "GS_DISARM",
-      "name": "Disarm",
+      "name": "拋戈卸甲",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -733,7 +733,7 @@
     {
       "skillId": 514,
       "skillKey": "GS_PIERCINGSHOT",
-      "name": "Piercing Shot",
+      "name": "霹靂彈",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -743,7 +743,7 @@
     {
       "skillId": 515,
       "skillKey": "GS_RAPIDSHOWER",
-      "name": "Rapid Shower",
+      "name": "五連擊",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -753,7 +753,7 @@
     {
       "skillId": 516,
       "skillKey": "GS_DESPERADO",
-      "name": "Desperado",
+      "name": "亡命之徒",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -763,7 +763,7 @@
     {
       "skillId": 517,
       "skillKey": "GS_GATLINGFEVER",
-      "name": "Gatling Fever",
+      "name": "格林狂熱",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -773,7 +773,7 @@
     {
       "skillId": 518,
       "skillKey": "GS_DUST",
-      "name": "Dust",
+      "name": "彈片四射",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -783,7 +783,7 @@
     {
       "skillId": 519,
       "skillKey": "GS_FULLBUSTER",
-      "name": "Full Buster",
+      "name": "全面破壞",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -793,7 +793,7 @@
     {
       "skillId": 520,
       "skillKey": "GS_SPREADATTACK",
-      "name": "Spread Attack",
+      "name": "火力全開",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -803,7 +803,7 @@
     {
       "skillId": 521,
       "skillKey": "GS_GROUNDDRIFT",
-      "name": "Ground Drift",
+      "name": "四面埋伏",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -813,7 +813,7 @@
     {
       "skillId": 522,
       "skillKey": "NJ_TOBIDOUGU",
-      "name": "Shuriken Training",
+      "name": "飛刀修練",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -823,7 +823,7 @@
     {
       "skillId": 524,
       "skillKey": "NJ_KUNAI",
-      "name": "Throw Kunai",
+      "name": "投擲飛刀",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -833,7 +833,7 @@
     {
       "skillId": 525,
       "skillKey": "NJ_HUUMA",
-      "name": "Throw Huuma Shuriken",
+      "name": "投擲風魔飛鏢",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -843,7 +843,7 @@
     {
       "skillId": 526,
       "skillKey": "NJ_ZENYNAGE",
-      "name": "Throw Zeny",
+      "name": "投擲金錢",
       "core": "core2",
       "suggestedHandler": "utility",
       "implementationMode": "pending_review",
@@ -853,7 +853,7 @@
     {
       "skillId": 527,
       "skillKey": "NJ_TATAMIGAESHI",
-      "name": "Improvised Defense",
+      "name": "榻榻米攻擊",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -863,7 +863,7 @@
     {
       "skillId": 528,
       "skillKey": "NJ_KASUMIKIRI",
-      "name": "Vanishing Slash",
+      "name": "霧裡砍劈",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -873,7 +873,7 @@
     {
       "skillId": 529,
       "skillKey": "NJ_SHADOWJUMP",
-      "name": "Shadow Leap",
+      "name": "影子跳躍",
       "core": "core2",
       "suggestedHandler": "utility",
       "implementationMode": "pending_review",
@@ -883,7 +883,7 @@
     {
       "skillId": 530,
       "skillKey": "NJ_KIRIKAGE",
-      "name": "Shadow Slash",
+      "name": "隱身攻擊",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -893,7 +893,7 @@
     {
       "skillId": 531,
       "skillKey": "NJ_UTSUSEMI",
-      "name": "Cicada Skin Sheeding",
+      "name": "金蟬脫殼",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -903,7 +903,7 @@
     {
       "skillId": 532,
       "skillKey": "NJ_BUNSINJYUTSU",
-      "name": "Mirror Image",
+      "name": "幻影分身",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -913,7 +913,7 @@
     {
       "skillId": 533,
       "skillKey": "NJ_NINPOU",
-      "name": "Spirit of the Blade",
+      "name": "忍術修練",
       "core": "core2",
       "suggestedHandler": "passive",
       "implementationMode": "pending_review",
@@ -923,7 +923,7 @@
     {
       "skillId": 534,
       "skillKey": "NJ_KOUENKA",
-      "name": "Crimson Fire Petal",
+      "name": "火炎花",
       "core": "core2",
       "suggestedHandler": "magic_damage",
       "implementationMode": "pending_review",
@@ -933,7 +933,7 @@
     {
       "skillId": 535,
       "skillKey": "NJ_KAENSIN",
-      "name": "Crimson Fire Formation",
+      "name": "火炎陣",
       "core": "core2",
       "suggestedHandler": "magic_damage",
       "implementationMode": "pending_review",
@@ -943,7 +943,7 @@
     {
       "skillId": 536,
       "skillKey": "NJ_BAKUENRYU",
-      "name": "Raging Fire Dragon",
+      "name": "爆炎龍",
       "core": "core2",
       "suggestedHandler": "magic_damage",
       "implementationMode": "pending_review",
@@ -953,7 +953,7 @@
     {
       "skillId": 537,
       "skillKey": "NJ_HYOUSENSOU",
-      "name": "Spear of Ice",
+      "name": "冰閃槍",
       "core": "core2",
       "suggestedHandler": "magic_damage",
       "implementationMode": "pending_review",
@@ -963,7 +963,7 @@
     {
       "skillId": 538,
       "skillKey": "NJ_SUITON",
-      "name": "Hidden Water",
+      "name": "水鈍",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -973,7 +973,7 @@
     {
       "skillId": 539,
       "skillKey": "NJ_HYOUSYOURAKU",
-      "name": "Ice Meteor",
+      "name": "冰晶落",
       "core": "core2",
       "suggestedHandler": "magic_damage",
       "implementationMode": "pending_review",
@@ -983,7 +983,7 @@
     {
       "skillId": 540,
       "skillKey": "NJ_HUUJIN",
-      "name": "Wind Blade",
+      "name": "風刃",
       "core": "core2",
       "suggestedHandler": "magic_damage",
       "implementationMode": "pending_review",
@@ -993,7 +993,7 @@
     {
       "skillId": 541,
       "skillKey": "NJ_RAIGEKISAI",
-      "name": "Lightning Strike of Destruction",
+      "name": "雷擊碎",
       "core": "core2",
       "suggestedHandler": "magic_damage",
       "implementationMode": "pending_review",
@@ -1003,7 +1003,7 @@
     {
       "skillId": 542,
       "skillKey": "NJ_KAMAITACHI",
-      "name": "Kamaitachi",
+      "name": "朔風",
       "core": "core2",
       "suggestedHandler": "magic_damage",
       "implementationMode": "pending_review",
@@ -1013,7 +1013,7 @@
     {
       "skillId": 543,
       "skillKey": "NJ_NEN",
-      "name": "Soul",
+      "name": "念",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -1023,7 +1023,7 @@
     {
       "skillId": 544,
       "skillKey": "NJ_ISSEN",
-      "name": "Final Strike",
+      "name": "一閃擊",
       "core": "core2",
       "suggestedHandler": "utility",
       "implementationMode": "pending_review",
@@ -1033,7 +1033,7 @@
     {
       "skillId": 2552,
       "skillKey": "RL_RICHS_COIN",
-      "name": "Rich's Coin",
+      "name": "富翁的財貨",
       "core": "core2",
       "suggestedHandler": "utility",
       "implementationMode": "pending_review",
@@ -1043,7 +1043,7 @@
     {
       "skillId": 2553,
       "skillKey": "RL_MASS_SPIRAL",
-      "name": "Mass Spiral",
+      "name": "絕對貫穿",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -1053,7 +1053,7 @@
     {
       "skillId": 2554,
       "skillKey": "RL_BANISHING_BUSTER",
-      "name": "Banishing Buster",
+      "name": "強制驅逐",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -1063,7 +1063,7 @@
     {
       "skillId": 2555,
       "skillKey": "RL_B_TRAP",
-      "name": "Bind Trap",
+      "name": "暗黑地獄",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -1073,7 +1073,7 @@
     {
       "skillId": 2556,
       "skillKey": "RL_FLICKER",
-      "name": "Flicker",
+      "name": "閃爍信號",
       "core": "core2",
       "suggestedHandler": "utility",
       "implementationMode": "pending_review",
@@ -1083,7 +1083,7 @@
     {
       "skillId": 2557,
       "skillKey": "RL_S_STORM",
-      "name": "Shatter Storm",
+      "name": "粉碎風暴",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -1093,7 +1093,7 @@
     {
       "skillId": 2558,
       "skillKey": "RL_E_CHAIN",
-      "name": "Eternal Chain",
+      "name": "無限連鎖",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -1103,7 +1103,7 @@
     {
       "skillId": 2559,
       "skillKey": "RL_QD_SHOT",
-      "name": "Quick Draw Shot",
+      "name": "瞬速子彈",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -1113,7 +1113,7 @@
     {
       "skillId": 2560,
       "skillKey": "RL_C_MARKER",
-      "name": "Crimson Marker",
+      "name": "血色烙印",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -1123,7 +1123,7 @@
     {
       "skillId": 2561,
       "skillKey": "RL_FIREDANCE",
-      "name": "Fire Dance",
+      "name": "殺戮暗舞",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -1133,7 +1133,7 @@
     {
       "skillId": 2562,
       "skillKey": "RL_H_MINE",
-      "name": "Howling Mine",
+      "name": "破壞怒吼",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -1143,7 +1143,7 @@
     {
       "skillId": 2563,
       "skillKey": "RL_P_ALTER",
-      "name": "Platinum Alter",
+      "name": "白金祭壇",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -1153,7 +1153,7 @@
     {
       "skillId": 2564,
       "skillKey": "RL_FALLEN_ANGEL",
-      "name": "Fallen Angel",
+      "name": "墮落天使",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -1163,7 +1163,7 @@
     {
       "skillId": 2565,
       "skillKey": "RL_R_TRIP",
-      "name": "Round Trip",
+      "name": "圓桌舞蹈",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -1173,7 +1173,7 @@
     {
       "skillId": 2566,
       "skillKey": "RL_D_TAIL",
-      "name": "Dragon Tail",
+      "name": "魔獸擺尾",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -1183,7 +1183,7 @@
     {
       "skillId": 2567,
       "skillKey": "RL_FIRE_RAIN",
-      "name": "Fire Rain",
+      "name": "火焰暴雨",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -1193,7 +1193,7 @@
     {
       "skillId": 2568,
       "skillKey": "RL_HEAT_BARREL",
-      "name": "Heat Barrel",
+      "name": "加速子彈",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -1203,7 +1203,7 @@
     {
       "skillId": 2569,
       "skillKey": "RL_AM_BLAST",
-      "name": "Anti-Material Blast",
+      "name": "毀滅重擊",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -1213,7 +1213,7 @@
     {
       "skillId": 2570,
       "skillKey": "RL_SLUGSHOT",
-      "name": "Slug Shot",
+      "name": "根源破壞",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -1223,7 +1223,7 @@
     {
       "skillId": 2571,
       "skillKey": "RL_HAMMER_OF_GOD",
-      "name": "Hammer of God",
+      "name": "天神憤怒",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -1233,7 +1233,7 @@
     {
       "skillId": 2574,
       "skillKey": "SJ_LIGHTOFMOON",
-      "name": "Light of Moon",
+      "name": "月亮光輝",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -1243,7 +1243,7 @@
     {
       "skillId": 2575,
       "skillKey": "SJ_LUNARSTANCE",
-      "name": "Lunar Stance",
+      "name": "月亮英姿",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -1253,7 +1253,7 @@
     {
       "skillId": 2576,
       "skillKey": "SJ_FULLMOONKICK",
-      "name": "Full Moon Kick",
+      "name": "滿月腳",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -1263,7 +1263,7 @@
     {
       "skillId": 2577,
       "skillKey": "SJ_LIGHTOFSTAR",
-      "name": "Light of Star",
+      "name": "星星光輝",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -1273,7 +1273,7 @@
     {
       "skillId": 2578,
       "skillKey": "SJ_STARSTANCE",
-      "name": "Star Stance",
+      "name": "星星英姿",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -1283,7 +1283,7 @@
     {
       "skillId": 2579,
       "skillKey": "SJ_NEWMOONKICK",
-      "name": "New Moon Kick",
+      "name": "朔月腳",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -1293,7 +1293,7 @@
     {
       "skillId": 2580,
       "skillKey": "SJ_FLASHKICK",
-      "name": "Flash Kick",
+      "name": "閃光腳",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -1303,7 +1303,7 @@
     {
       "skillId": 2581,
       "skillKey": "SJ_STAREMPEROR",
-      "name": "Star Emperor Advent",
+      "name": "拳皇降臨",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -1313,7 +1313,7 @@
     {
       "skillId": 2582,
       "skillKey": "SJ_NOVAEXPLOSING",
-      "name": "Nova Explosion",
+      "name": "新星爆炸",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -1323,7 +1323,7 @@
     {
       "skillId": 2583,
       "skillKey": "SJ_UNIVERSESTANCE",
-      "name": "Universe Stance",
+      "name": "宇宙英姿",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -1333,7 +1333,7 @@
     {
       "skillId": 2584,
       "skillKey": "SJ_FALLINGSTAR",
-      "name": "Falling Star",
+      "name": "流星殞落",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -1343,7 +1343,7 @@
     {
       "skillId": 2585,
       "skillKey": "SJ_GRAVITYCONTROL",
-      "name": "Gravity Control",
+      "name": "重力調整",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -1353,7 +1353,7 @@
     {
       "skillId": 2586,
       "skillKey": "SJ_BOOKOFDIMENSION",
-      "name": "Book of Dimension",
+      "name": "次元之書",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -1363,7 +1363,7 @@
     {
       "skillId": 2587,
       "skillKey": "SJ_BOOKOFCREATINGSTAR",
-      "name": "Book of Creating Star",
+      "name": "創星之書",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -1373,7 +1373,7 @@
     {
       "skillId": 2588,
       "skillKey": "SJ_DOCUMENT",
-      "name": "Document of Sun Moon and Star",
+      "name": "太陽和月亮和星星的紀錄",
       "core": "core2",
       "suggestedHandler": "utility",
       "implementationMode": "pending_review",
@@ -1383,7 +1383,7 @@
     {
       "skillId": 2589,
       "skillKey": "SJ_PURIFY",
-      "name": "Purification of Sun Moon and Star",
+      "name": "太陽和月亮和星星的淨化",
       "core": "core2",
       "suggestedHandler": "passive",
       "implementationMode": "pending_review",
@@ -1393,7 +1393,7 @@
     {
       "skillId": 2590,
       "skillKey": "SJ_LIGHTOFSUN",
-      "name": "Light of Sun",
+      "name": "太陽光輝",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -1403,7 +1403,7 @@
     {
       "skillId": 2591,
       "skillKey": "SJ_SUNSTANCE",
-      "name": "Sun Stance",
+      "name": "太陽英姿",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -1413,7 +1413,7 @@
     {
       "skillId": 2592,
       "skillKey": "SJ_SOLARBURST",
-      "name": "Solar Burst",
+      "name": "太陽爆炸",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -1423,7 +1423,7 @@
     {
       "skillId": 2593,
       "skillKey": "SJ_PROMINENCEKICK",
-      "name": "Prominence Kick",
+      "name": "紅焰腳",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -1433,7 +1433,7 @@
     {
       "skillId": 2596,
       "skillKey": "SP_SOULGOLEM",
-      "name": "Golem's Soul",
+      "name": "巨人靈魂",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -1443,7 +1443,7 @@
     {
       "skillId": 2597,
       "skillKey": "SP_SOULSHADOW",
-      "name": "Shadow's Soul",
+      "name": "影子靈魂",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -1453,7 +1453,7 @@
     {
       "skillId": 2598,
       "skillKey": "SP_SOULFALCON",
-      "name": "Falcon's Soul",
+      "name": "隼鷹靈魂",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -1463,7 +1463,7 @@
     {
       "skillId": 2599,
       "skillKey": "SP_SOULFAIRY",
-      "name": "Fairy's Soul",
+      "name": "精靈靈魂",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -1473,7 +1473,7 @@
     {
       "skillId": 2600,
       "skillKey": "SP_CURSEEXPLOSION",
-      "name": "Curse Explosion",
+      "name": "邪靈爆炸",
       "core": "core2",
       "suggestedHandler": "magic_damage",
       "implementationMode": "pending_review",
@@ -1483,7 +1483,7 @@
     {
       "skillId": 2601,
       "skillKey": "SP_SOULCURSE",
-      "name": "Soul Curse",
+      "name": "邪惡靈魂詛咒",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -1493,7 +1493,7 @@
     {
       "skillId": 2602,
       "skillKey": "SP_SPA",
-      "name": "Espa",
+      "name": "艾斯帕",
       "core": "core2",
       "suggestedHandler": "magic_damage",
       "implementationMode": "pending_review",
@@ -1503,7 +1503,7 @@
     {
       "skillId": 2603,
       "skillKey": "SP_SHA",
-      "name": "Esha",
+      "name": "艾斯哈",
       "core": "core2",
       "suggestedHandler": "magic_damage",
       "implementationMode": "pending_review",
@@ -1513,7 +1513,7 @@
     {
       "skillId": 2604,
       "skillKey": "SP_SWHOO",
-      "name": "Eswhoo",
+      "name": "艾斯核",
       "core": "core2",
       "suggestedHandler": "magic_damage",
       "implementationMode": "pending_review",
@@ -1523,7 +1523,7 @@
     {
       "skillId": 2605,
       "skillKey": "SP_SOULUNITY",
-      "name": "Soul Unity",
+      "name": "靈魂集結",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -1533,7 +1533,7 @@
     {
       "skillId": 2606,
       "skillKey": "SP_SOULDIVISION",
-      "name": "Soul Division",
+      "name": "靈魂分裂",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -1543,7 +1543,7 @@
     {
       "skillId": 2607,
       "skillKey": "SP_SOULREAPER",
-      "name": "Soul Reaper",
+      "name": "靈魂收割",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -1553,7 +1553,7 @@
     {
       "skillId": 2608,
       "skillKey": "SP_SOULREVOLVE",
-      "name": "Soul Revolution",
+      "name": "靈魂循環",
       "core": "core2",
       "suggestedHandler": "utility",
       "implementationMode": "pending_review",
@@ -1563,7 +1563,7 @@
     {
       "skillId": 2609,
       "skillKey": "SP_SOULCOLLECT",
-      "name": "Soul Collect",
+      "name": "靈魂蓄積",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -1573,7 +1573,7 @@
     {
       "skillId": 2610,
       "skillKey": "SP_SOULEXPLOSION",
-      "name": "Soul Explosion",
+      "name": "靈魂引爆",
       "core": "core2",
       "suggestedHandler": "utility",
       "implementationMode": "pending_review",
@@ -1583,7 +1583,7 @@
     {
       "skillId": 2611,
       "skillKey": "SP_SOULENERGY",
-      "name": "Soul Energy Research",
+      "name": "靈魂能量研究",
       "core": "core2",
       "suggestedHandler": "passive",
       "implementationMode": "pending_review",
@@ -1593,7 +1593,7 @@
     {
       "skillId": 2612,
       "skillKey": "SP_KAUTE",
-      "name": "Kaute",
+      "name": "凱渥特",
       "core": "core2",
       "suggestedHandler": "utility",
       "implementationMode": "pending_review",
@@ -1603,7 +1603,7 @@
     {
       "skillId": 3001,
       "skillKey": "KO_YAMIKUMO",
-      "name": "Shadow Hiding",
+      "name": "暗雲",
       "core": "core2",
       "suggestedHandler": "special_review",
       "implementationMode": "pending_review",
@@ -1613,7 +1613,7 @@
     {
       "skillId": 3002,
       "skillKey": "KO_RIGHT",
-      "name": "Right Hand Mastery",
+      "name": "右手修練",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -1623,7 +1623,7 @@
     {
       "skillId": 3003,
       "skillKey": "KO_LEFT",
-      "name": "Left Hand Mastery",
+      "name": "左手修練",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -1633,7 +1633,7 @@
     {
       "skillId": 3004,
       "skillKey": "KO_JYUMONJIKIRI",
-      "name": "Cross Slash",
+      "name": "幽冥十字斬",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -1643,7 +1643,7 @@
     {
       "skillId": 3005,
       "skillKey": "KO_SETSUDAN",
-      "name": "Soul Cutter",
+      "name": "靈魂阻隔",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -1653,7 +1653,7 @@
     {
       "skillId": 3006,
       "skillKey": "KO_BAKURETSU",
-      "name": "Kunai Explosion",
+      "name": "炸彈飛刀",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -1663,7 +1663,7 @@
     {
       "skillId": 3007,
       "skillKey": "KO_HAPPOKUNAI",
-      "name": "Kunai Splash",
+      "name": "八方飛刀",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -1673,7 +1673,7 @@
     {
       "skillId": 3008,
       "skillKey": "KO_MUCHANAGE",
-      "name": "Rapid Throw",
+      "name": "投擲魔幣",
       "core": "core2",
       "suggestedHandler": "utility",
       "implementationMode": "pending_review",
@@ -1683,7 +1683,7 @@
     {
       "skillId": 3009,
       "skillKey": "KO_HUUMARANKA",
-      "name": "Swirling Petal",
+      "name": "風魔飛鏢之飛舞",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -1693,7 +1693,7 @@
     {
       "skillId": 3010,
       "skillKey": "KO_MAKIBISHI",
-      "name": "Makibishi",
+      "name": "投擲三角釘",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -1703,7 +1703,7 @@
     {
       "skillId": 3011,
       "skillKey": "KO_MEIKYOUSISUI",
-      "name": "Pure Soul",
+      "name": "明鏡止水",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -1713,7 +1713,7 @@
     {
       "skillId": 3012,
       "skillKey": "KO_ZANZOU",
-      "name": "Illusion - Shadow",
+      "name": "幻術 – 殘影",
       "core": "core2",
       "suggestedHandler": "utility",
       "implementationMode": "pending_review",
@@ -1723,7 +1723,7 @@
     {
       "skillId": 3013,
       "skillKey": "KO_KYOUGAKU",
-      "name": "Illusion - Shock",
+      "name": "幻術 – 驚恐",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -1733,7 +1733,7 @@
     {
       "skillId": 3014,
       "skillKey": "KO_JYUSATSU",
-      "name": "Illusion - Death",
+      "name": "幻術 – 咒死",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -1743,7 +1743,7 @@
     {
       "skillId": 3015,
       "skillKey": "KO_KAHU_ENTEN",
-      "name": "Fire Charm",
+      "name": "火符:炎天",
       "core": "core2",
       "suggestedHandler": "utility",
       "implementationMode": "pending_review",
@@ -1753,7 +1753,7 @@
     {
       "skillId": 3016,
       "skillKey": "KO_HYOUHU_HUBUKI",
-      "name": "Ice Charm",
+      "name": "冰符:吹雪",
       "core": "core2",
       "suggestedHandler": "utility",
       "implementationMode": "pending_review",
@@ -1763,7 +1763,7 @@
     {
       "skillId": 3017,
       "skillKey": "KO_KAZEHU_SEIRAN",
-      "name": "Wind Charm",
+      "name": "風符:青嵐",
       "core": "core2",
       "suggestedHandler": "utility",
       "implementationMode": "pending_review",
@@ -1773,7 +1773,7 @@
     {
       "skillId": 3018,
       "skillKey": "KO_DOHU_KOUKAI",
-      "name": "Earth Charm",
+      "name": "地符:剛塊",
       "core": "core2",
       "suggestedHandler": "utility",
       "implementationMode": "pending_review",
@@ -1783,7 +1783,7 @@
     {
       "skillId": 3019,
       "skillKey": "KO_KAIHOU",
-      "name": "Release Ninja Spell",
+      "name": "法術–釋放",
       "core": "core2",
       "suggestedHandler": "magic_damage",
       "implementationMode": "pending_review",
@@ -1793,7 +1793,7 @@
     {
       "skillId": 3020,
       "skillKey": "KO_ZENKAI",
-      "name": "Cast Ninja Spell",
+      "name": "法術–施展",
       "core": "core2",
       "suggestedHandler": "magic_damage",
       "implementationMode": "pending_review",
@@ -1803,7 +1803,7 @@
     {
       "skillId": 3021,
       "skillKey": "KO_GENWAKU",
-      "name": "Illusion - Bewitch",
+      "name": "幻術–迷惑",
       "core": "core2",
       "suggestedHandler": "utility",
       "implementationMode": "pending_review",
@@ -1813,7 +1813,7 @@
     {
       "skillId": 3022,
       "skillKey": "KO_IZAYOI",
-      "name": "16th Night",
+      "name": "十六夜",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -1823,7 +1823,7 @@
     {
       "skillId": 3023,
       "skillKey": "KG_KAGEHUMI",
-      "name": "Shadow Trampling",
+      "name": "踏影",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -1833,7 +1833,7 @@
     {
       "skillId": 3024,
       "skillKey": "KG_KYOMU",
-      "name": "Empty Shadow",
+      "name": "虛無飄妙之影",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -1843,7 +1843,7 @@
     {
       "skillId": 3025,
       "skillKey": "KG_KAGEMUSYA",
-      "name": "Shadow Warrior",
+      "name": "影子武士",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -1853,7 +1853,7 @@
     {
       "skillId": 3026,
       "skillKey": "OB_ZANGETSU",
-      "name": "Distorted Crescent",
+      "name": "變形的上弦月",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -1863,7 +1863,7 @@
     {
       "skillId": 3027,
       "skillKey": "OB_OBOROGENSOU",
-      "name": "Moonlight Fantasy",
+      "name": "陰月的幻影",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -1873,7 +1873,7 @@
     {
       "skillId": 3029,
       "skillKey": "OB_AKAITSUKI",
-      "name": "Ominous Moonlight",
+      "name": "不祥的紅月",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -1883,7 +1883,7 @@
     {
       "skillId": 5018,
       "skillKey": "SU_BASIC_SKILL",
-      "name": "New Basic Skill",
+      "name": "新基本技能",
       "core": "core2",
       "suggestedHandler": "passive",
       "implementationMode": "pending_review",
@@ -1893,7 +1893,7 @@
     {
       "skillId": 5019,
       "skillKey": "SU_BITE",
-      "name": "Bite",
+      "name": "狠咬",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -1903,7 +1903,7 @@
     {
       "skillId": 5020,
       "skillKey": "SU_HIDE",
-      "name": "Hide",
+      "name": "躲藏",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -1913,7 +1913,7 @@
     {
       "skillId": 5021,
       "skillKey": "SU_SCRATCH",
-      "name": "Scratch",
+      "name": "抓傷",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -1923,7 +1923,7 @@
     {
       "skillId": 5022,
       "skillKey": "SU_STOOP",
-      "name": "Stoop",
+      "name": "俯身",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -1933,7 +1933,7 @@
     {
       "skillId": 5023,
       "skillKey": "SU_LOPE",
-      "name": "Lope",
+      "name": "跳躍",
       "core": "core2",
       "suggestedHandler": "utility",
       "implementationMode": "pending_review",
@@ -1943,7 +1943,7 @@
     {
       "skillId": 5024,
       "skillKey": "SU_SPRITEMABLE",
-      "name": "Spirit Marble",
+      "name": "靈魂魔珠",
       "core": "core2",
       "suggestedHandler": "passive",
       "implementationMode": "pending_review",
@@ -1953,7 +1953,7 @@
     {
       "skillId": 5025,
       "skillKey": "SU_POWEROFLAND",
-      "name": "Power of Land",
+      "name": "大地力量",
       "core": "core2",
       "suggestedHandler": "passive",
       "implementationMode": "pending_review",
@@ -1963,7 +1963,7 @@
     {
       "skillId": 5026,
       "skillKey": "SU_SV_STEMSPEAR",
-      "name": "Silvervine Stem Spear",
+      "name": "獼猴桃梗槍",
       "core": "core2",
       "suggestedHandler": "magic_damage",
       "implementationMode": "pending_review",
@@ -1973,7 +1973,7 @@
     {
       "skillId": 5027,
       "skillKey": "SU_CN_POWDERING",
-      "name": "Catnip Powdering",
+      "name": "貓薄荷灑粉",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -1983,7 +1983,7 @@
     {
       "skillId": 5028,
       "skillKey": "SU_CN_METEOR",
-      "name": "Catnip Meteor",
+      "name": "貓薄荷隕石",
       "core": "core2",
       "suggestedHandler": "magic_damage",
       "implementationMode": "pending_review",
@@ -1993,7 +1993,7 @@
     {
       "skillId": 5029,
       "skillKey": "SU_SV_ROOTTWIST",
-      "name": "Silvervine Root Twist",
+      "name": "獼猴桃根莖纏繞",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -2003,7 +2003,7 @@
     {
       "skillId": 5031,
       "skillKey": "SU_POWEROFLIFE",
-      "name": "Power of Life",
+      "name": "生命力量",
       "core": "core2",
       "suggestedHandler": "passive",
       "implementationMode": "pending_review",
@@ -2013,7 +2013,7 @@
     {
       "skillId": 5032,
       "skillKey": "SU_SCAROFTAROU",
-      "name": "Scar of Tarou",
+      "name": "白鼠創傷",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -2023,7 +2023,7 @@
     {
       "skillId": 5033,
       "skillKey": "SU_PICKYPECK",
-      "name": "Picky Peck",
+      "name": "小雞啄擊",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -2033,7 +2033,7 @@
     {
       "skillId": 5035,
       "skillKey": "SU_ARCLOUSEDASH",
-      "name": "Arclouse Dash",
+      "name": "捲甲蟲暴衝",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -2043,7 +2043,7 @@
     {
       "skillId": 5036,
       "skillKey": "SU_LUNATICCARROTBEAT",
-      "name": "Lunatic Carrot Beat",
+      "name": "瘋兔胡蘿蔔重擊",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -2053,7 +2053,7 @@
     {
       "skillId": 5037,
       "skillKey": "SU_POWEROFSEA",
-      "name": "Power of Sea",
+      "name": "海洋力量",
       "core": "core2",
       "suggestedHandler": "passive",
       "implementationMode": "pending_review",
@@ -2063,7 +2063,7 @@
     {
       "skillId": 5038,
       "skillKey": "SU_TUNABELLY",
-      "name": "Tuna Belly",
+      "name": "鮪魚肚肉",
       "core": "core2",
       "suggestedHandler": "utility",
       "implementationMode": "pending_review",
@@ -2073,7 +2073,7 @@
     {
       "skillId": 5039,
       "skillKey": "SU_TUNAPARTY",
-      "name": "Tuna Party",
+      "name": "鮪魚派對",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -2083,7 +2083,7 @@
     {
       "skillId": 5040,
       "skillKey": "SU_BUNCHOFSHRIMP",
-      "name": "Bunch of Shrimp",
+      "name": "蝦群",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -2093,7 +2093,7 @@
     {
       "skillId": 5041,
       "skillKey": "SU_FRESHSHRIMP",
-      "name": "Fresh Shrimp",
+      "name": "活蝦",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -2103,7 +2103,7 @@
     {
       "skillId": 5044,
       "skillKey": "SU_SOULATTACK",
-      "name": "Soul Attack",
+      "name": "靈魂攻擊",
       "core": "core2",
       "suggestedHandler": "special_review",
       "implementationMode": "pending_review",
@@ -2113,7 +2113,7 @@
     {
       "skillId": 5045,
       "skillKey": "SU_POWEROFFLOCK",
-      "name": "Power of Flock",
+      "name": "喵喵威武",
       "core": "core2",
       "suggestedHandler": "utility",
       "implementationMode": "pending_review",
@@ -2123,7 +2123,7 @@
     {
       "skillId": 5046,
       "skillKey": "SU_SVG_SPIRIT",
-      "name": "Spirit of Savage",
+      "name": "野豬之魂",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -2133,7 +2133,7 @@
     {
       "skillId": 5047,
       "skillKey": "SU_HISS",
-      "name": "Hiss",
+      "name": "嘶嘶聲",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -2143,7 +2143,7 @@
     {
       "skillId": 5048,
       "skillKey": "SU_NYANGGRASS",
-      "name": "Nyang Grass",
+      "name": "喵喵草",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -2153,7 +2153,7 @@
     {
       "skillId": 5049,
       "skillKey": "SU_GROOMING",
-      "name": "Grooming",
+      "name": "舔毛",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -2163,7 +2163,7 @@
     {
       "skillId": 5050,
       "skillKey": "SU_PURRING",
-      "name": "Purring",
+      "name": "咕嚕咕嚕",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -2173,7 +2173,7 @@
     {
       "skillId": 5051,
       "skillKey": "SU_SHRIMPARTY",
-      "name": "Tasty Shrimp Party",
+      "name": "美味活蝦派對",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -2183,7 +2183,7 @@
     {
       "skillId": 5052,
       "skillKey": "SU_SPIRITOFLIFE",
-      "name": "Spirit of Life",
+      "name": "生命之魂",
       "core": "core2",
       "suggestedHandler": "passive",
       "implementationMode": "pending_review",
@@ -2193,7 +2193,7 @@
     {
       "skillId": 5053,
       "skillKey": "SU_MEOWMEOW",
-      "name": "Meow Meow",
+      "name": "喵喵",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -2203,7 +2203,7 @@
     {
       "skillId": 5054,
       "skillKey": "SU_SPIRITOFLAND",
-      "name": "Spirit of Land",
+      "name": "大地之魂",
       "core": "core2",
       "suggestedHandler": "special_review",
       "implementationMode": "pending_review",
@@ -2213,7 +2213,7 @@
     {
       "skillId": 5055,
       "skillKey": "SU_CHATTERING",
-      "name": "Chattering",
+      "name": "喵喵不休",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -2223,7 +2223,7 @@
     {
       "skillId": 5056,
       "skillKey": "SU_SPIRITOFSEA",
-      "name": "Spirit of Sea",
+      "name": "海洋之魂",
       "core": "core2",
       "suggestedHandler": "passive",
       "implementationMode": "pending_review",
@@ -2243,7 +2243,7 @@
     {
       "skillId": 5402,
       "skillKey": "NW_GRENADE_MASTERY",
-      "name": "Grenade Mastery",
+      "name": "榴彈精通",
       "core": "core2",
       "suggestedHandler": "passive",
       "implementationMode": "pending_review",
@@ -2253,7 +2253,7 @@
     {
       "skillId": 5403,
       "skillKey": "NW_INTENSIVE_AIM",
-      "name": "Intensive Aim",
+      "name": "專注瞄準",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -2263,7 +2263,7 @@
     {
       "skillId": 5404,
       "skillKey": "NW_GRENADE_FRAGMENT",
-      "name": "Grenade Fragment",
+      "name": "榴彈碎片",
       "core": "core2",
       "suggestedHandler": "utility",
       "implementationMode": "pending_review",
@@ -2273,7 +2273,7 @@
     {
       "skillId": 5405,
       "skillKey": "NW_THE_VIGILANTE_AT_NIGHT",
-      "name": "The Vigilante at Night",
+      "name": "夜裡的警惕",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -2283,7 +2283,7 @@
     {
       "skillId": 5406,
       "skillKey": "NW_ONLY_ONE_BULLET",
-      "name": "Only One Bullet",
+      "name": "獨一槍彈",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -2293,7 +2293,7 @@
     {
       "skillId": 5407,
       "skillKey": "NW_SPIRAL_SHOOTING",
-      "name": "Spiral Shooting",
+      "name": "螺旋射擊",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -2303,7 +2303,7 @@
     {
       "skillId": 5408,
       "skillKey": "NW_MAGAZINE_FOR_ONE",
-      "name": "Magazine for One",
+      "name": "梅格競直擊",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -2313,7 +2313,7 @@
     {
       "skillId": 5409,
       "skillKey": "NW_WILD_FIRE",
-      "name": "Wild Fire",
+      "name": "曠野之火",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -2323,7 +2323,7 @@
     {
       "skillId": 5410,
       "skillKey": "NW_BASIC_GRENADE",
-      "name": "Basic Grenade",
+      "name": "初階手榴彈",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -2333,7 +2333,7 @@
     {
       "skillId": 5411,
       "skillKey": "NW_HASTY_FIRE_IN_THE_HOLE",
-      "name": "Hasty Fire in the Hole",
+      "name": "洞中急火",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -2343,7 +2343,7 @@
     {
       "skillId": 5412,
       "skillKey": "NW_GRENADES_DROPPING",
-      "name": "Grenades Dropping",
+      "name": "落空手榴彈",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -2353,7 +2353,7 @@
     {
       "skillId": 5413,
       "skillKey": "NW_AUTO_FIRING_LAUNCHER",
-      "name": "Auto Firing Launcher",
+      "name": "自動射擊發射器",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -2363,7 +2363,7 @@
     {
       "skillId": 5414,
       "skillKey": "NW_HIDDEN_CARD",
-      "name": "Hidden Card",
+      "name": "王牌出手",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -2373,7 +2373,7 @@
     {
       "skillId": 5415,
       "skillKey": "NW_MISSION_BOMBARD",
-      "name": "Mission Bombard",
+      "name": "任務轟炸機",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -2383,7 +2383,7 @@
     {
       "skillId": 5416,
       "skillKey": "SOA_TALISMAN_MASTERY",
-      "name": "Talisman Mastery",
+      "name": "符咒研究",
       "core": "core2",
       "suggestedHandler": "passive",
       "implementationMode": "pending_review",
@@ -2393,7 +2393,7 @@
     {
       "skillId": 5417,
       "skillKey": "SOA_SOUL_MASTERY",
-      "name": "Soul Mastery",
+      "name": "引魂術研究",
       "core": "core2",
       "suggestedHandler": "passive",
       "implementationMode": "pending_review",
@@ -2403,7 +2403,7 @@
     {
       "skillId": 5418,
       "skillKey": "SOA_TALISMAN_OF_PROTECTION",
-      "name": "Talisman Of Protection",
+      "name": "護身符",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -2413,7 +2413,7 @@
     {
       "skillId": 5419,
       "skillKey": "SOA_TALISMAN_OF_WARRIOR",
-      "name": "Talisman Of Warrior",
+      "name": "武士符",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -2423,7 +2423,7 @@
     {
       "skillId": 5420,
       "skillKey": "SOA_TALISMAN_OF_MAGICIAN",
-      "name": "Talisman Of Magician",
+      "name": "法師符",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -2433,7 +2433,7 @@
     {
       "skillId": 5421,
       "skillKey": "SOA_SOUL_GATHERING",
-      "name": "Soul Gathering",
+      "name": "靈魂聚集",
       "core": "core2",
       "suggestedHandler": "utility",
       "implementationMode": "pending_review",
@@ -2443,7 +2443,7 @@
     {
       "skillId": 5422,
       "skillKey": "SOA_TOTEM_OF_TUTELARY",
-      "name": "Totem Of Tutelary",
+      "name": "城隍廟",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -2453,7 +2453,7 @@
     {
       "skillId": 5423,
       "skillKey": "SOA_TALISMAN_OF_FIVE_ELEMENTS",
-      "name": "Talisman Of Five Elements",
+      "name": "五行符",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -2463,7 +2463,7 @@
     {
       "skillId": 5424,
       "skillKey": "SOA_TALISMAN_OF_SOUL_STEALING",
-      "name": "Talisman Of Soul Stealing",
+      "name": "竊魂平安符",
       "core": "core2",
       "suggestedHandler": "magic_damage",
       "implementationMode": "pending_review",
@@ -2473,7 +2473,7 @@
     {
       "skillId": 5425,
       "skillKey": "SOA_EXORCISM_OF_MALICIOUS_SOUL",
-      "name": "Exorcism Of Malicious Soul",
+      "name": "死靈淨化",
       "core": "core2",
       "suggestedHandler": "magic_damage",
       "implementationMode": "pending_review",
@@ -2483,7 +2483,7 @@
     {
       "skillId": 5426,
       "skillKey": "SOA_TALISMAN_OF_BLUE_DRAGON",
-      "name": "Talisman Of Blue Dragon",
+      "name": "青龍符",
       "core": "core2",
       "suggestedHandler": "magic_damage",
       "implementationMode": "pending_review",
@@ -2493,7 +2493,7 @@
     {
       "skillId": 5427,
       "skillKey": "SOA_TALISMAN_OF_WHITE_TIGER",
-      "name": "Talisman Of White Tiger",
+      "name": "白虎符",
       "core": "core2",
       "suggestedHandler": "magic_damage",
       "implementationMode": "pending_review",
@@ -2503,7 +2503,7 @@
     {
       "skillId": 5428,
       "skillKey": "SOA_TALISMAN_OF_RED_PHOENIX",
-      "name": "Talisman Of Red Phoenix",
+      "name": "朱雀符",
       "core": "core2",
       "suggestedHandler": "magic_damage",
       "implementationMode": "pending_review",
@@ -2513,7 +2513,7 @@
     {
       "skillId": 5429,
       "skillKey": "SOA_TALISMAN_OF_BLACK_TORTOISE",
-      "name": "Talisman Of Black Tortoise",
+      "name": "玄武符",
       "core": "core2",
       "suggestedHandler": "magic_damage",
       "implementationMode": "pending_review",
@@ -2523,7 +2523,7 @@
     {
       "skillId": 5430,
       "skillKey": "SOA_TALISMAN_OF_FOUR_BEARING_GOD",
-      "name": "Talisman Of Four Bearing God",
+      "name": "四方神符",
       "core": "core2",
       "suggestedHandler": "magic_damage",
       "implementationMode": "pending_review",
@@ -2533,7 +2533,7 @@
     {
       "skillId": 5431,
       "skillKey": "SOA_CIRCLE_OF_DIRECTIONS_AND_ELEMENTALS",
-      "name": "Circle Of Directions And Elementals",
+      "name": "四方五行陣",
       "core": "core2",
       "suggestedHandler": "magic_damage",
       "implementationMode": "pending_review",
@@ -2543,7 +2543,7 @@
     {
       "skillId": 5432,
       "skillKey": "SOA_SOUL_OF_HEAVEN_AND_EARTH",
-      "name": "Soul Of Heaven And Earth",
+      "name": "天地神靈",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -2553,7 +2553,7 @@
     {
       "skillId": 5433,
       "skillKey": "SH_MYSTICAL_CREATURE_MASTERY",
-      "name": "Mystical Creature Mastery",
+      "name": "靈物互動",
       "core": "core2",
       "suggestedHandler": "passive",
       "implementationMode": "pending_review",
@@ -2563,7 +2563,7 @@
     {
       "skillId": 5434,
       "skillKey": "SH_COMMUNE_WITH_CHUL_HO",
-      "name": "Commune with Chulho",
+      "name": "靈物交流: 鐵虎",
       "core": "core2",
       "suggestedHandler": "passive",
       "implementationMode": "pending_review",
@@ -2573,7 +2573,7 @@
     {
       "skillId": 5435,
       "skillKey": "SH_CHUL_HO_SONIC_CLAW",
-      "name": "Chulho Sonic Claw",
+      "name": "鐵虎空心爪",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -2583,7 +2583,7 @@
     {
       "skillId": 5436,
       "skillKey": "SH_HOWLING_OF_CHUL_HO",
-      "name": "Howling of Chulho",
+      "name": "鐵虎咆哮",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -2593,7 +2593,7 @@
     {
       "skillId": 5437,
       "skillKey": "SH_HOGOGONG_STRIKE",
-      "name": "Hogogong Strike",
+      "name": "虎高空亂打",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -2603,7 +2603,7 @@
     {
       "skillId": 5438,
       "skillKey": "SH_COMMUNE_WITH_KI_SUL",
-      "name": "Commune with Kisul",
+      "name": "靈物交流: 神龜",
       "core": "core2",
       "suggestedHandler": "passive",
       "implementationMode": "pending_review",
@@ -2613,7 +2613,7 @@
     {
       "skillId": 5439,
       "skillKey": "SH_KI_SUL_WATER_SPRAYING",
-      "name": "Kisul Water Spraying",
+      "name": "神龜灑水砲",
       "core": "core2",
       "suggestedHandler": "utility",
       "implementationMode": "pending_review",
@@ -2623,7 +2623,7 @@
     {
       "skillId": 5440,
       "skillKey": "SH_MARINE_FESTIVAL_OF_KI_SUL",
-      "name": "Marine Festival of Kisul",
+      "name": "神龜海洋慶典",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -2633,7 +2633,7 @@
     {
       "skillId": 5441,
       "skillKey": "SH_SANDY_FESTIVAL_OF_KI_SUL",
-      "name": "Sandy Festival of Kisul",
+      "name": "神龜沙雕節",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -2643,7 +2643,7 @@
     {
       "skillId": 5442,
       "skillKey": "SH_KI_SUL_RAMPAGE",
-      "name": "Kisul Rampage",
+      "name": "神龜劇烈震盪",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -2653,7 +2653,7 @@
     {
       "skillId": 5443,
       "skillKey": "SH_COMMUNE_WITH_HYUN_ROK",
-      "name": "Commune with Hyunrok",
+      "name": "靈物交流: 玄鹿",
       "core": "core2",
       "suggestedHandler": "passive",
       "implementationMode": "pending_review",
@@ -2663,7 +2663,7 @@
     {
       "skillId": 5444,
       "skillKey": "SH_COLORS_OF_HYUN_ROK",
-      "name": "Colors of Hyunrok",
+      "name": "玄鹿五色角",
       "core": "core2",
       "suggestedHandler": "utility",
       "implementationMode": "pending_review",
@@ -2673,7 +2673,7 @@
     {
       "skillId": 5445,
       "skillKey": "SH_HYUN_ROKS_BREEZE",
-      "name": "Hyunrok Breeze",
+      "name": "玄鹿葉風",
       "core": "core2",
       "suggestedHandler": "magic_damage",
       "implementationMode": "pending_review",
@@ -2683,7 +2683,7 @@
     {
       "skillId": 5446,
       "skillKey": "SH_HYUN_ROK_CANNON",
-      "name": "Hyunrok Cannon",
+      "name": "玄鹿砲",
       "core": "core2",
       "suggestedHandler": "magic_damage",
       "implementationMode": "pending_review",
@@ -2693,7 +2693,7 @@
     {
       "skillId": 5447,
       "skillKey": "SH_TEMPORARY_COMMUNION",
-      "name": "Temporary Communion",
+      "name": "急速交流",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -2703,7 +2703,7 @@
     {
       "skillId": 5448,
       "skillKey": "SH_BLESSING_OF_MYSTICAL_CREATURES",
-      "name": "Blessing of Mystical Creatures",
+      "name": "靈物祝福",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -2713,7 +2713,7 @@
     {
       "skillId": 5463,
       "skillKey": "SKE_SKY_MASTERY",
-      "name": "Sky Mastery",
+      "name": "天機修練",
       "core": "core2",
       "suggestedHandler": "passive",
       "implementationMode": "pending_review",
@@ -2723,7 +2723,7 @@
     {
       "skillId": 5464,
       "skillKey": "SKE_WAR_BOOK_MASTERY",
-      "name": "War Book Mastery",
+      "name": "兵法修練",
       "core": "core2",
       "suggestedHandler": "passive",
       "implementationMode": "pending_review",
@@ -2733,7 +2733,7 @@
     {
       "skillId": 5465,
       "skillKey": "SKE_RISING_SUN",
-      "name": "Rising Sun",
+      "name": "天地一陽",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -2743,7 +2743,7 @@
     {
       "skillId": 5466,
       "skillKey": "SKE_NOON_BLAST",
-      "name": "Noon Blast",
+      "name": "天晨一陽",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -2753,7 +2753,7 @@
     {
       "skillId": 5467,
       "skillKey": "SKE_SUNSET_BLAST",
-      "name": "Sunset Blast",
+      "name": "天陽",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -2763,7 +2763,7 @@
     {
       "skillId": 5468,
       "skillKey": "SKE_RISING_MOON",
-      "name": "Rising Moon",
+      "name": "天地一月",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -2773,7 +2773,7 @@
     {
       "skillId": 5469,
       "skillKey": "SKE_MIDNIGHT_KICK",
-      "name": "Midnight Kick",
+      "name": "天晨一月",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -2783,7 +2783,7 @@
     {
       "skillId": 5470,
       "skillKey": "SKE_DAWN_BREAK",
-      "name": "Dawn Break",
+      "name": "天月",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -2793,7 +2793,7 @@
     {
       "skillId": 5471,
       "skillKey": "SKE_TWINKLING_GALAXY",
-      "name": "Twinkling Galaxy",
+      "name": "天地萬星",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -2803,7 +2803,7 @@
     {
       "skillId": 5472,
       "skillKey": "SKE_STAR_BURST",
-      "name": "Star Burst",
+      "name": "天命落星",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -2813,7 +2813,7 @@
     {
       "skillId": 5473,
       "skillKey": "SKE_STAR_CANNON",
-      "name": "Star Cannon",
+      "name": "天星",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -2823,7 +2823,7 @@
     {
       "skillId": 5474,
       "skillKey": "SKE_ALL_IN_THE_SKY",
-      "name": "All in the Sky",
+      "name": "天羅萬象",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -2833,7 +2833,7 @@
     {
       "skillId": 5475,
       "skillKey": "SKE_ENCHANTING_SKY",
-      "name": "Enchanting Sky",
+      "name": "天氣地神",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -2843,7 +2843,7 @@
     {
       "skillId": 5476,
       "skillKey": "SS_TOKEDASU",
-      "name": "Melt Away",
+      "name": "致命融化",
       "core": "core2",
       "suggestedHandler": "magic_damage",
       "implementationMode": "pending_review",
@@ -2853,7 +2853,7 @@
     {
       "skillId": 5477,
       "skillKey": "SS_SHIMIRU",
-      "name": "Infiltrate",
+      "name": "滲透",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -2863,7 +2863,7 @@
     {
       "skillId": 5478,
       "skillKey": "SS_AKUMUKESU",
-      "name": "Nightmare Erasion",
+      "name": "消除惡夢",
       "core": "core2",
       "suggestedHandler": "utility",
       "implementationMode": "pending_review",
@@ -2873,7 +2873,7 @@
     {
       "skillId": 5479,
       "skillKey": "SS_SHINKIROU",
-      "name": "Mirage",
+      "name": "海市蜃樓",
       "core": "core2",
       "suggestedHandler": "timed_status",
       "implementationMode": "pending_review",
@@ -2883,7 +2883,7 @@
     {
       "skillId": 5480,
       "skillKey": "SS_KAGEGARI",
-      "name": "Shadow Hunting",
+      "name": "詭影狩獵",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -2893,7 +2893,7 @@
     {
       "skillId": 5481,
       "skillKey": "SS_KAGENOMAI",
-      "name": "Shadow Dance",
+      "name": "詭影舞動",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -2903,7 +2903,7 @@
     {
       "skillId": 5482,
       "skillKey": "SS_KAGEGISSEN",
-      "name": "Shadow Flash",
+      "name": "詭影閃光",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -2913,7 +2913,7 @@
     {
       "skillId": 5483,
       "skillKey": "SS_FUUMASHOUAKU",
-      "name": "Huuma Shuriken - Grasp",
+      "name": "風魔飛鏢–掌握",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -2923,7 +2923,7 @@
     {
       "skillId": 5484,
       "skillKey": "SS_FUUMAKOUCHIKU",
-      "name": "Huuma Shuriken - Construct",
+      "name": "風魔飛鏢–構築",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -2933,7 +2933,7 @@
     {
       "skillId": 5485,
       "skillKey": "SS_KUNAIWAIKYOKU",
-      "name": "Kunai - Distortion",
+      "name": "飛刀–扭曲",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -2943,7 +2943,7 @@
     {
       "skillId": 5486,
       "skillKey": "SS_KUNAIKAITEN",
-      "name": "Kunai - Rotation",
+      "name": "飛刀 - 旋轉",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -2953,7 +2953,7 @@
     {
       "skillId": 5487,
       "skillKey": "SS_KUNAIKUSSETSU",
-      "name": "Kunai - Refraction",
+      "name": "飛刀 - 曲折",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -2963,7 +2963,7 @@
     {
       "skillId": 5488,
       "skillKey": "SS_SEKIENHOU",
-      "name": "Red Flame Cannon",
+      "name": "火焰砲",
       "core": "core2",
       "suggestedHandler": "magic_damage",
       "implementationMode": "pending_review",
@@ -2973,7 +2973,7 @@
     {
       "skillId": 5489,
       "skillKey": "SS_REIKETSUHOU",
-      "name": "Cold Blooded Cannon",
+      "name": "冷焰砲",
       "core": "core2",
       "suggestedHandler": "magic_damage",
       "implementationMode": "pending_review",
@@ -2983,7 +2983,7 @@
     {
       "skillId": 5490,
       "skillKey": "SS_RAIDENPOU",
-      "name": "Thundering Cannon",
+      "name": "雷電砲",
       "core": "core2",
       "suggestedHandler": "magic_damage",
       "implementationMode": "pending_review",
@@ -2993,7 +2993,7 @@
     {
       "skillId": 5491,
       "skillKey": "SS_KINRYUUHOU",
-      "name": "Golden Dragon Cannon",
+      "name": "金龍砲",
       "core": "core2",
       "suggestedHandler": "magic_damage",
       "implementationMode": "pending_review",
@@ -3003,7 +3003,7 @@
     {
       "skillId": 5492,
       "skillKey": "SS_ANTENPOU",
-      "name": "Darkening Cannon",
+      "name": "暗戰砲",
       "core": "core2",
       "suggestedHandler": "magic_damage",
       "implementationMode": "pending_review",
@@ -3013,7 +3013,7 @@
     {
       "skillId": 5493,
       "skillKey": "SS_KAGEAKUMU",
-      "name": "Shadow - Nightmare",
+      "name": "詭影 - 噩夢",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -3023,7 +3023,7 @@
     {
       "skillId": 5494,
       "skillKey": "SS_HITOUAKUMU",
-      "name": "Kunai - Nightmare",
+      "name": "飛刀 - 噩夢",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -3033,7 +3033,7 @@
     {
       "skillId": 5495,
       "skillKey": "SS_ANKOKURYUUAKUMU",
-      "name": "Dark Dragon - Nightmare",
+      "name": "暗黑龍 - 噩夢",
       "core": "core2",
       "suggestedHandler": "magic_damage",
       "implementationMode": "pending_review",
@@ -3043,7 +3043,7 @@
     {
       "skillId": 5499,
       "skillKey": "SS_FOUR_CHARM",
-      "name": "Four Colors Charm",
+      "name": "四色符",
       "core": "core2",
       "suggestedHandler": "utility",
       "implementationMode": "pending_review",
@@ -3053,7 +3053,7 @@
     {
       "skillId": 5500,
       "skillKey": "NW_WILD_SHOT",
-      "name": "Wild Shot",
+      "name": "狂野射擊",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -3063,7 +3063,7 @@
     {
       "skillId": 5501,
       "skillKey": "NW_MIDNIGHT_FALLEN",
-      "name": "Midnight Fallen",
+      "name": "午夜殞落",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -3073,7 +3073,7 @@
     {
       "skillId": 5502,
       "skillKey": "SKE_SKY_SUN",
-      "name": "Sky Sun",
+      "name": "天氣神陽",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -3083,7 +3083,7 @@
     {
       "skillId": 5503,
       "skillKey": "SKE_SKY_MOON",
-      "name": "Sky Moon",
+      "name": "天氣神月",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -3093,7 +3093,7 @@
     {
       "skillId": 5504,
       "skillKey": "SKE_STAR_LIGHT_KICK",
-      "name": "Star Light Kick",
+      "name": "天星地行",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -3103,7 +3103,7 @@
     {
       "skillId": 5506,
       "skillKey": "SH_CHUL_HO_BATTERING",
-      "name": "Chulho Battering",
+      "name": "鐵虎亂舞",
       "core": "core2",
       "suggestedHandler": "physical_damage",
       "implementationMode": "pending_review",
@@ -3113,7 +3113,7 @@
     {
       "skillId": 5507,
       "skillKey": "SH_HYUN_ROK_SPIRIT_POWER",
-      "name": "Hyunrok Spirit Power",
+      "name": "玄鹿靈力釋放",
       "core": "core2",
       "suggestedHandler": "magic_damage",
       "implementationMode": "pending_review",
@@ -3121,5 +3121,5 @@
       "futureRequirement": "magic_damage"
     }
   ],
-  "version": "0.9.82EA"
+  "version": "0.9.82GR"
 }

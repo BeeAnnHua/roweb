@@ -1,0 +1,49 @@
+RO_WEB 0.9.82GR TEST REPORT
+========================================
+Base: 0.9.82GQ
+Date: 2026-07-28
+
+UPDATE SCOPE
+------------
+1. Skills
+   - Player-visible skills: 1,139
+   - Names changed in Skill Core: 529
+   - Duplicated Runtime names synchronized: 1488
+   - Missing official TW names: 0
+   - Core 1 Runtime/custom descriptions changed: 0
+   - Existing Core 2 implemented descriptions changed: 0
+
+2. EP19 monsters
+   - Formal animated atlases installed: 12
+   - Required motions: idle / walk / attack / hit / dead
+   - Required source directions: south_west / north_west / north_east / south_east
+   - Frame bounds/reference errors: 0
+   - Ice Scale Hill spawn IDs verified: 21520, 21521, 21522, 21523, 21524, 21525, 21526, 21527, 21537
+   - Serpent Nest spawn IDs verified: 21526, 21527, 21528, 21529, 21599
+
+3. EP19 items/cards
+   - Active drop item IDs audited: 35
+   - Missing itemInfo entries: 0
+   - Missing icons: 0
+   - EP19 cards completed with socket targets/scripts/drop sources: 11/11
+
+AUTOMATED TESTS
+---------------
+- Deep Health: PASS (0 errors, 0 warnings)
+- JSON files parsed / duplicate-key checked: 1994
+- JavaScript syntax files checked: 745
+- Data bundle entries verified: 1513
+- GR feature regression: 17/17 PASS
+- Effect Runtime matrix: 47/47 PASS
+- Static black-gold Chromium UI: 10/10 PASS
+- Full Cardinal save startup Chromium regression: 9/9 PASS
+- Black-gold control audit: PASS
+
+NON-REGRESSION CONTRACT
+-----------------------
+- RO_WEB Runtime remains the only authority for skill formulas/effects.
+- Official TW skill names do not overwrite customized passives, buffs, summons, mounts, timing, damage, or resource rules.
+- EP19 formal atlases must not be replaced by light-ball, smoke, or single-frame fallbacks.
+- EP19 card records must not be overwritten by simplified item stubs.
+
+FINAL STATUS: PASS

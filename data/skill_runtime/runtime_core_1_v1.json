@@ -1,5 +1,5 @@
 {
-  "version": "0.9.82GB1",
+  "version": "0.9.82GR",
   "scope": "CORE1 official Runtime：保留既有 Batch1～105，新增 Batch106 生命締造者仿生召喚核心。",
   "sources": [
     "rAthena db/re/skill_db.yml",
@@ -944,7 +944,7 @@
     "31": {
       "skillId": 31,
       "skillKey": "AL_HOLYWATER",
-      "name": "神聖之水",
+      "name": "天使之淚",
       "handler": "passive",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -1979,7 +1979,7 @@
     "76": {
       "skillId": 76,
       "skillKey": "PR_LEXDIVINA",
-      "name": "Lex Divina",
+      "name": "沉默之術",
       "handler": "debuff",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -2005,7 +2005,7 @@
     "77": {
       "skillId": 77,
       "skillKey": "PR_TURNUNDEAD",
-      "name": "Turn Undead",
+      "name": "轉生術",
       "handler": "magic_damage",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -2032,7 +2032,7 @@
     "78": {
       "skillId": 78,
       "skillKey": "PR_LEXAETERNA",
-      "name": "Lex Aeterna",
+      "name": "天使之怒",
       "handler": "debuff",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -2048,7 +2048,7 @@
     "79": {
       "skillId": 79,
       "skillKey": "PR_MAGNUS",
-      "name": "Magnus Exorcismus",
+      "name": "十字驅魔攻擊",
       "handler": "magic_damage",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -4169,7 +4169,7 @@
     "156": {
       "skillId": 156,
       "skillKey": "AL_HOLYLIGHT",
-      "name": "Holy Light",
+      "name": "神聖之光",
       "handler": "magic_damage",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -6465,7 +6465,7 @@
     "310": {
       "skillId": 310,
       "skillKey": "BD_RINGNIBELUNGEN",
-      "name": "尼貝龍根之戒",
+      "name": "尼貝隆根之戒指",
       "handler": "buff",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -6550,7 +6550,7 @@
     "312": {
       "skillId": 312,
       "skillKey": "BD_INTOABYSS",
-      "name": "進入深淵",
+      "name": "觸媒之所",
       "handler": "buff",
       "executionEnabled": true,
       "implementationMode": "official",
@@ -7294,7 +7294,7 @@
     "329": {
       "skillId": 329,
       "skillKey": "DC_FORTUNEKISS",
-      "name": "幸運之吻",
+      "name": "女神之吻",
       "handler": "buff",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -7354,7 +7354,7 @@
     "330": {
       "skillId": 330,
       "skillKey": "DC_SERVICEFORYOU",
-      "name": "女神之吻",
+      "name": "為您服務",
       "handler": "buff",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -7787,7 +7787,7 @@
     "372": {
       "skillId": 372,
       "skillKey": "CH_CHAINCRUSH",
-      "name": "連柱崩擊",
+      "name": "氣絕崩擊",
       "handler": "physical_attack_formula",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -8316,7 +8316,7 @@
     "395": {
       "skillId": 395,
       "skillKey": "CG_MOONLIT",
-      "name": "月明之夜",
+      "name": "落花伴著月光下的水車小屋",
       "handler": "passive",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -8696,7 +8696,7 @@
     "410": {
       "skillId": 410,
       "skillKey": "WE_CALLBABY",
-      "name": "呼喚寶寶",
+      "name": "寶貝請來這裡",
       "handler": "passive",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -8743,7 +8743,7 @@
     "467": {
       "skillId": 467,
       "skillKey": "SL_STIN",
-      "name": "Estin",
+      "name": "艾斯提",
       "handler": "magic_damage",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -8780,7 +8780,7 @@
     "468": {
       "skillId": 468,
       "skillKey": "SL_STUN",
-      "name": "Estun",
+      "name": "艾斯敦",
       "handler": "magic_damage",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -8828,7 +8828,7 @@
     "469": {
       "skillId": 469,
       "skillKey": "SL_SMA",
-      "name": "Esma",
+      "name": "艾斯麻",
       "handler": "magic_damage",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -9202,7 +9202,7 @@
     "488": {
       "skillId": 488,
       "skillKey": "CG_HERMODE",
-      "name": "海羅默德的法杖",
+      "name": "海羅默德的手杖",
       "handler": "passive",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -9561,7 +9561,7 @@
     "1007": {
       "skillId": 1007,
       "skillKey": "SA_CREATECON",
-      "name": "肯貝特製作",
+      "name": "元素肯貝特製作",
       "handler": "passive",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -9585,7 +9585,7 @@
     "1008": {
       "skillId": 1008,
       "skillKey": "SA_ELEMENTWATER",
-      "name": "水屬性元素更換",
+      "name": "元素更換(水)",
       "handler": "timed_status",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -9626,7 +9626,7 @@
     "1010": {
       "skillId": 1010,
       "skillKey": "BA_PANGVOICE",
-      "name": "嘲諷之聲",
+      "name": "陣痛之聲",
       "handler": "timed_status",
       "executionEnabled": true,
       "implementationMode": "official",
@@ -9679,7 +9679,7 @@
     "1011": {
       "skillId": 1011,
       "skillKey": "DC_WINKCHARM",
-      "name": "魅惑之眼",
+      "name": "眨眼之誘",
       "handler": "timed_status",
       "executionEnabled": true,
       "implementationMode": "official",
@@ -9742,7 +9742,7 @@
     "1014": {
       "skillId": 1014,
       "skillKey": "PR_REDEMPTIO",
-      "name": "贖罪",
+      "name": "捨身取義",
       "handler": "passive",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -9772,7 +9772,7 @@
     "1016": {
       "skillId": 1016,
       "skillKey": "MO_BALKYOUNG",
-      "name": "氣爆散打",
+      "name": "發勁",
       "handler": "physical_attack_formula",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -9799,7 +9799,7 @@
     "1017": {
       "skillId": 1017,
       "skillKey": "SA_ELEMENTGROUND",
-      "name": "地屬性元素更換",
+      "name": "元素更換(地)",
       "handler": "timed_status",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -9829,7 +9829,7 @@
     "1018": {
       "skillId": 1018,
       "skillKey": "SA_ELEMENTFIRE",
-      "name": "火屬性元素更換",
+      "name": "元素更換(火)",
       "handler": "timed_status",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -9859,7 +9859,7 @@
     "1019": {
       "skillId": 1019,
       "skillKey": "SA_ELEMENTWIND",
-      "name": "風屬性元素更換",
+      "name": "元素更換(風)",
       "handler": "timed_status",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -11536,7 +11536,7 @@
     "2213": {
       "skillId": 2213,
       "skillKey": "WL_COMET",
-      "name": "毀滅彗星",
+      "name": "毀滅慧星",
       "handler": "magic_damage",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -11976,7 +11976,7 @@
     "2232": {
       "skillId": 2232,
       "skillKey": "WL_FREEZE_SP",
-      "name": "保存魔法",
+      "name": "魔法保存",
       "handler": "passive",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -12213,7 +12213,7 @@
     "2237": {
       "skillId": 2237,
       "skillKey": "RA_DETONATOR",
-      "name": "引爆",
+      "name": "雷管",
       "handler": "trap_detonator",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -12280,7 +12280,7 @@
     "2239": {
       "skillId": 2239,
       "skillKey": "RA_CLUSTERBOMB",
-      "name": "集束炸彈",
+      "name": "榴霰彈",
       "handler": "ground_damage",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -15160,7 +15160,7 @@
     "2340": {
       "skillId": 2340,
       "skillKey": "SR_ASSIMILATEPOWER",
-      "name": "吸氣功",
+      "name": "吸氣攻",
       "handler": "spirit_assimilate",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -15211,7 +15211,7 @@
     "2344": {
       "skillId": 2344,
       "skillKey": "SR_GENTLETOUCH_QUIET",
-      "name": "點穴－默",
+      "name": "點穴-默",
       "handler": "physical_attack_formula",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -15237,7 +15237,7 @@
     "2345": {
       "skillId": 2345,
       "skillKey": "SR_GENTLETOUCH_CURE",
-      "name": "點穴－快",
+      "name": "點穴-快",
       "handler": "heal",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -15264,7 +15264,7 @@
     "2346": {
       "skillId": 2346,
       "skillKey": "SR_GENTLETOUCH_ENERGYGAIN",
-      "name": "點穴－球",
+      "name": "點穴-球",
       "handler": "buff",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -15295,7 +15295,7 @@
     "2347": {
       "skillId": 2347,
       "skillKey": "SR_GENTLETOUCH_CHANGE",
-      "name": "點穴－反",
+      "name": "點穴-反",
       "handler": "buff",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -15321,7 +15321,7 @@
     "2348": {
       "skillId": 2348,
       "skillKey": "SR_GENTLETOUCH_REVITALIZE",
-      "name": "點穴－活",
+      "name": "點穴-活",
       "handler": "buff",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -15475,7 +15475,7 @@
     "2381": {
       "skillId": 2381,
       "skillKey": "MI_RUSH_WINDMILL",
-      "name": "風車突擊",
+      "name": "朝風車突擊",
       "handler": "buff",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -17202,7 +17202,7 @@
     "2457": {
       "skillId": 2457,
       "skillKey": "SO_SUMMON_AGNI",
-      "name": "召喚火精靈阿格尼",
+      "name": "召喚火元素",
       "handler": "buff",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -17242,7 +17242,7 @@
     "2458": {
       "skillId": 2458,
       "skillKey": "SO_SUMMON_AQUA",
-      "name": "召喚水精靈阿庫亞",
+      "name": "召喚水精靈阿奎亞",
       "handler": "buff",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -19310,7 +19310,7 @@
     "5068": {
       "skillId": 5068,
       "skillKey": "CG_SPECIALSINGER",
-      "name": "特殊歌手",
+      "name": "職人演奏家",
       "handler": "passive",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -22363,7 +22363,7 @@
     "5302": {
       "skillId": 5302,
       "skillKey": "MT_SUMMON_ABR_BATTLE_WARIOR",
-      "name": "ABR－決戰勇士",
+      "name": "ABR-決戰勇士",
       "handler": "virtual_summon",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -22411,7 +22411,7 @@
     "5303": {
       "skillId": 5303,
       "skillKey": "MT_SUMMON_ABR_DUAL_CANNON",
-      "name": "ABR－雙子加農砲",
+      "name": "ABR-雙子加農砲",
       "handler": "virtual_summon",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -22459,7 +22459,7 @@
     "5304": {
       "skillId": 5304,
       "skillKey": "MT_SUMMON_ABR_MOTHER_NET",
-      "name": "ABR－天網聖母",
+      "name": "ABR-天網聖母",
       "handler": "virtual_summon",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -22507,7 +22507,7 @@
     "5305": {
       "skillId": 5305,
       "skillKey": "MT_SUMMON_ABR_INFINITY",
-      "name": "ABR－無限戰火",
+      "name": "ABR-無限戰火",
       "handler": "virtual_summon",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -22948,7 +22948,7 @@
     "5324": {
       "skillId": 5324,
       "skillKey": "WH_WIND_SIGN",
-      "name": "風之標記",
+      "name": "八風標記",
       "handler": "timed_status",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -23614,7 +23614,7 @@
     "5340": {
       "skillId": 5340,
       "skillKey": "BO_ACIDIFIED_ZONE_WATER",
-      "name": "強酸禁地（水）",
+      "name": "強酸禁地(水)",
       "handler": "physical_attack_formula",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -23662,7 +23662,7 @@
     "5341": {
       "skillId": 5341,
       "skillKey": "BO_ACIDIFIED_ZONE_GROUND",
-      "name": "強酸禁地（地）",
+      "name": "強酸禁地(地)",
       "handler": "physical_attack_formula",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -23710,7 +23710,7 @@
     "5342": {
       "skillId": 5342,
       "skillKey": "BO_ACIDIFIED_ZONE_WIND",
-      "name": "強酸禁地（風）",
+      "name": "強酸禁地(風)",
       "handler": "physical_attack_formula",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -23758,7 +23758,7 @@
     "5343": {
       "skillId": 5343,
       "skillKey": "BO_ACIDIFIED_ZONE_FIRE",
-      "name": "強酸禁地（火）",
+      "name": "強酸禁地(火)",
       "handler": "physical_attack_formula",
       "executionEnabled": true,
       "runtimeProfile": {
@@ -26933,7 +26933,7 @@
     "6520": {
       "skillId": 6520,
       "skillKey": "WH_WILD_WALK",
-      "name": "野性漫步",
+      "name": "狂野疾行",
       "handler": "physical_attack_formula",
       "executionEnabled": true,
       "runtimeProfile": {

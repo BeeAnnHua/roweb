@@ -1,4 +1,4 @@
-// RO_WEB 0.9.82GQ — 靜態黑金 UI、按需數量控制器與共用確認視窗
+// RO_WEB 0.9.82GR — 靜態黑金 UI、按需數量控制器與共用確認視窗
 (function initROBlackGoldThemeRuntime(global) {
   "use strict";
 

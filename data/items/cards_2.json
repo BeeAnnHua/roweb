@@ -5121,54 +5121,113 @@
   "300360": {
     "id": 300360,
     "officialId": 300360,
-    "name": "明亮海帶卡片",
+    "name": "閃亮海帶卡片",
     "type": "card",
     "category": "card",
     "subCategory": "monster_card",
     "sellPrice": 0,
     "buyPrice": 0,
     "description": [
-      "明亮海帶卡片。"
+      "ATK+10，P.ATK+1。",
+      "近距離物理傷害+3%，使用技能時，SP消耗量+7%。",
+      "精煉+9時，近距離物理傷害再+2%。",
+      "精煉+11時，變動詠唱-5%。"
     ],
     "icon": "images/items/300360.webp",
     "slots": 0,
     "slotCount": 0,
     "ClassNum": 0,
-    "dataSource": "rAthena Renewal 2026-06-08 + RO_WEB 0.9.82GK",
+    "dataSource": "台服 itemInfo_UTF8.lub + 中文 item_db_etc + RO_WEB 0.9.82GR",
     "Id": 300360,
-    "Name": "明亮海帶卡片",
+    "Name": "閃亮海帶卡片",
     "Buy": 0,
     "Slots": 0,
     "AegisName": "Shining_Seaweed_Card",
     "aegisName": "Shining_Seaweed_Card",
     "Type": "Card",
-    "dbType": "Card"
+    "dbType": "Card",
+    "cardTarget": [
+      "headTop",
+      "headMid",
+      "headLow"
+    ],
+    "locations": {
+      "Head_Low": true,
+      "Head_Mid": true,
+      "Head_Top": true
+    },
+    "scriptRaw": "bonus bBaseAtk,10;\nbonus bPAtk,1;\nbonus bShortAtkRate,3;\nbonus bUseSPrate,7;\n.@r = getrefine();\nif (.@r >= 9) {\n  bonus bShortAtkRate,2;\n}\nif (.@r >= 11) {\n  bonus bVariableCastrate,-5;\n}\n",
+    "compiledScript": "bonus(\"bBaseAtk\", 10);\nbonus(\"bPAtk\", 1);\nbonus(\"bShortAtkRate\", 3);\nbonus(\"bUseSPrate\", 7);\nv.r = getrefine();\nif (v.r >= 9) {\n  bonus(\"bShortAtkRate\", 2);\n}\nif (v.r >= 11) {\n  bonus(\"bVariableCastrate\", -5);\n}\n",
+    "dropSources": [
+      {
+        "monsterId": 21524,
+        "monsterAegisName": "EP19_SHINING_SEAWEED",
+        "monsterName": "閃亮海帶",
+        "rate": 1,
+        "stealProtected": false,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "isBossCard": false,
+    "cardVisualTier": "normal",
+    "cardTierSourceMonsterIds": [
+      21524
+    ]
   },
   "300361": {
     "id": 300361,
     "officialId": 300361,
-    "name": "冰蜂珠卡片",
+    "name": "冰蛇鰻卡片",
     "type": "card",
     "category": "card",
     "subCategory": "monster_card",
     "sellPrice": 0,
     "buyPrice": 0,
     "description": [
-      "冰蜂珠卡片。"
+      "S.MATK+1，使用技能時，SP消耗量+7%。",
+      "精煉每+2時，水屬性魔法傷害+4%。",
+      "搭配冰鋒球卡片時，MATK+10%。"
     ],
     "icon": "images/items/300361.webp",
     "slots": 0,
     "slotCount": 0,
     "ClassNum": 0,
-    "dataSource": "rAthena Renewal 2026-06-08 + RO_WEB 0.9.82GK",
+    "dataSource": "台服 itemInfo_UTF8.lub + 中文 item_db_etc + RO_WEB 0.9.82GR",
     "Id": 300361,
-    "Name": "冰蜂珠卡片",
+    "Name": "冰蛇鰻卡片",
     "Buy": 0,
     "Slots": 0,
     "AegisName": "Ice_Straw_Card",
     "aegisName": "Ice_Straw_Card",
     "Type": "Card",
-    "dbType": "Card"
+    "dbType": "Card",
+    "cardTarget": [
+      "body"
+    ],
+    "locations": {
+      "Armor": true
+    },
+    "scriptRaw": "bonus bSMatk,1;\nbonus bUseSPrate,7;\nbonus2 bMagicAtkEle,Ele_Water,4*(getrefine()/2);\n",
+    "compiledScript": "bonus(\"bSMatk\", 1);\nbonus(\"bUseSPrate\", 7);\nbonus2(\"bMagicAtkEle\", Ele_Water, 4*(getrefine()/2));\n",
+    "dropSources": [
+      {
+        "monsterId": 21523,
+        "monsterAegisName": "EP19_ICE_STRAW",
+        "monsterName": "冰蛇鰻",
+        "rate": 1,
+        "stealProtected": false,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "isBossCard": false,
+    "cardVisualTier": "normal",
+    "cardTierSourceMonsterIds": [
+      21523
+    ]
   },
   "300362": {
     "id": 300362,
@@ -5180,13 +5239,15 @@
     "sellPrice": 0,
     "buyPrice": 0,
     "description": [
-      "冰霜花卡片。"
+      "P.ATK+1，使用技能時，SP消耗量+7%。",
+      "精煉每+3時，近距離物理傷害+4%。",
+      "搭配閃亮海帶卡片時，ATK+10%。"
     ],
     "icon": "images/items/300362.webp",
     "slots": 0,
     "slotCount": 0,
     "ClassNum": 0,
-    "dataSource": "rAthena Renewal 2026-06-08 + RO_WEB 0.9.82GK",
+    "dataSource": "台服 itemInfo_UTF8.lub + 中文 item_db_etc + RO_WEB 0.9.82GR",
     "Id": 300362,
     "Name": "冰霜花卡片",
     "Buy": 0,
@@ -5194,59 +5255,142 @@
     "AegisName": "Unfrost_Flower_card",
     "aegisName": "Unfrost_Flower_card",
     "Type": "Card",
-    "dbType": "Card"
+    "dbType": "Card",
+    "cardTarget": [
+      "body"
+    ],
+    "locations": {
+      "Armor": true
+    },
+    "scriptRaw": "bonus bPAtk,1;\nbonus bUseSPrate,7;\n.@r = getrefine();\nbonus bShortAtkRate,4*(getrefine()/3);\n",
+    "compiledScript": "bonus(\"bPAtk\", 1);\nbonus(\"bUseSPrate\", 7);\nv.r = getrefine();\nbonus(\"bShortAtkRate\", 4*(getrefine()/3));\n",
+    "dropSources": [
+      {
+        "monsterId": 21521,
+        "monsterAegisName": "EP19_UNFROST_FLOWER",
+        "monsterName": "冰霜花",
+        "rate": 1,
+        "stealProtected": false,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "isBossCard": false,
+    "cardVisualTier": "normal",
+    "cardTierSourceMonsterIds": [
+      21521
+    ]
   },
   "300363": {
     "id": 300363,
     "officialId": 300363,
-    "name": "青翅巨魚卡片",
+    "name": "青翅巨鳥卡片",
     "type": "card",
     "category": "card",
     "subCategory": "monster_card",
     "sellPrice": 0,
     "buyPrice": 0,
     "description": [
-      "青翅巨魚卡片。"
+      "ATK+10，P.ATK+1。",
+      "遠距離物理傷害+3%，使用技能時，SP消耗量+7%。",
+      "精煉+9時，遠距離物理傷害再+2%。",
+      "精煉+11時，變動詠唱-5%。"
     ],
     "icon": "images/items/300363.webp",
     "slots": 0,
     "slotCount": 0,
     "ClassNum": 0,
-    "dataSource": "rAthena Renewal 2026-06-08 + RO_WEB 0.9.82GK",
+    "dataSource": "台服 itemInfo_UTF8.lub + 中文 item_db_etc + RO_WEB 0.9.82GR",
     "Id": 300363,
-    "Name": "青翅巨魚卡片",
+    "Name": "青翅巨鳥卡片",
     "Buy": 0,
     "Slots": 0,
     "AegisName": "Limacina_Card",
     "aegisName": "Limacina_Card",
     "Type": "Card",
-    "dbType": "Card"
+    "dbType": "Card",
+    "cardTarget": [
+      "headTop",
+      "headMid",
+      "headLow"
+    ],
+    "locations": {
+      "Head_Low": true,
+      "Head_Mid": true,
+      "Head_Top": true
+    },
+    "scriptRaw": "bonus bBaseAtk,10;\nbonus bPAtk,1;\nbonus bLongAtkRate,3;\nbonus bUseSPrate,7;\n.@r = getrefine();\nif (.@r >= 9) {\n  bonus bLongAtkRate,2;\n}\nif (.@r >= 11) {\n  bonus bVariableCastrate,-5;\n}\n",
+    "compiledScript": "bonus(\"bBaseAtk\", 10);\nbonus(\"bPAtk\", 1);\nbonus(\"bLongAtkRate\", 3);\nbonus(\"bUseSPrate\", 7);\nv.r = getrefine();\nif (v.r >= 9) {\n  bonus(\"bLongAtkRate\", 2);\n}\nif (v.r >= 11) {\n  bonus(\"bVariableCastrate\", -5);\n}\n",
+    "dropSources": [
+      {
+        "monsterId": 21520,
+        "monsterAegisName": "EP19_LIMACINA",
+        "monsterName": "青翅巨鳥",
+        "rate": 1,
+        "stealProtected": false,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "isBossCard": false,
+    "cardVisualTier": "normal",
+    "cardTierSourceMonsterIds": [
+      21520
+    ]
   },
   "300364": {
     "id": 300364,
     "officialId": 300364,
-    "name": "冰泡泡卡片",
+    "name": "克拉波利卡片",
     "type": "card",
     "category": "card",
     "subCategory": "monster_card",
     "sellPrice": 0,
     "buyPrice": 0,
     "description": [
-      "冰泡泡卡片。"
+      "水屬性魔法傷害+35%。",
+      "使用技能時，SP消耗量+10%。"
     ],
     "icon": "images/items/300364.webp",
     "slots": 0,
     "slotCount": 0,
     "ClassNum": 0,
-    "dataSource": "rAthena Renewal 2026-06-08 + RO_WEB 0.9.82GK",
+    "dataSource": "台服 itemInfo_UTF8.lub + 中文 item_db_etc + RO_WEB 0.9.82GR",
     "Id": 300364,
-    "Name": "冰泡泡卡片",
+    "Name": "克拉波利卡片",
     "Buy": 0,
     "Slots": 0,
     "AegisName": "Calmaring_Card",
     "aegisName": "Calmaring_Card",
     "Type": "Card",
-    "dbType": "Card"
+    "dbType": "Card",
+    "cardTarget": [
+      "accessory1"
+    ],
+    "locations": {
+      "Left_Accessory": true
+    },
+    "scriptRaw": "bonus2 bMagicAtkEle,Ele_Water,35;\nbonus bUseSPrate,10;\n",
+    "compiledScript": "bonus2(\"bMagicAtkEle\", Ele_Water, 35);\nbonus(\"bUseSPrate\", 10);\n",
+    "dropSources": [
+      {
+        "monsterId": 21522,
+        "monsterAegisName": "EP19_CALMARING",
+        "monsterName": "克拉波利",
+        "rate": 1,
+        "stealProtected": false,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "isBossCard": false,
+    "cardVisualTier": "normal",
+    "cardTierSourceMonsterIds": [
+      21522
+    ]
   },
   "300365": {
     "id": 300365,
@@ -5258,13 +5402,13 @@
     "sellPrice": 0,
     "buyPrice": 0,
     "description": [
-      "原始蠕蟲卡片。"
+      "近距離物理傷害+8%。"
     ],
     "icon": "images/items/300365.webp",
     "slots": 0,
     "slotCount": 0,
     "ClassNum": 0,
-    "dataSource": "rAthena Renewal 2026-06-08 + RO_WEB 0.9.82GK",
+    "dataSource": "台服 itemInfo_UTF8.lub + 中文 item_db_etc + RO_WEB 0.9.82GR",
     "Id": 300365,
     "Name": "原始蠕蟲卡片",
     "Buy": 0,
@@ -5272,7 +5416,32 @@
     "AegisName": "Primitive_Rgan_Card",
     "aegisName": "Primitive_Rgan_Card",
     "Type": "Card",
-    "dbType": "Card"
+    "dbType": "Card",
+    "cardTarget": [
+      "accessory2"
+    ],
+    "locations": {
+      "Right_Accessory": true
+    },
+    "scriptRaw": "bonus bShortAtkRate,8;\n",
+    "compiledScript": "bonus(\"bShortAtkRate\", 8);\n",
+    "dropSources": [
+      {
+        "monsterId": 21526,
+        "monsterAegisName": "EP19_RGAN_A",
+        "monsterName": "原始蠕蟲",
+        "rate": 1,
+        "stealProtected": false,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "isBossCard": false,
+    "cardVisualTier": "normal",
+    "cardTierSourceMonsterIds": [
+      21526
+    ]
   },
   "300366": {
     "id": 300366,
@@ -5284,13 +5453,13 @@
     "sellPrice": 0,
     "buyPrice": 0,
     "description": [
-      "最下級蠕蟲卡片。"
+      "CRI+6，C.Rate+1。"
     ],
     "icon": "images/items/300366.webp",
     "slots": 0,
     "slotCount": 0,
     "ClassNum": 0,
-    "dataSource": "rAthena Renewal 2026-06-08 + RO_WEB 0.9.82GK",
+    "dataSource": "台服 itemInfo_UTF8.lub + 中文 item_db_etc + RO_WEB 0.9.82GR",
     "Id": 300366,
     "Name": "最下級蠕蟲卡片",
     "Buy": 0,
@@ -5298,7 +5467,32 @@
     "AegisName": "Lowest_Rgan_Card",
     "aegisName": "Lowest_Rgan_Card",
     "Type": "Card",
-    "dbType": "Card"
+    "dbType": "Card",
+    "cardTarget": [
+      "accessory2"
+    ],
+    "locations": {
+      "Right_Accessory": true
+    },
+    "scriptRaw": "bonus bCritical,6;\nbonus bCRate,1;\n",
+    "compiledScript": "bonus(\"bCritical\", 6);\nbonus(\"bCRate\", 1);\n",
+    "dropSources": [
+      {
+        "monsterId": 21527,
+        "monsterAegisName": "EP19_RGAN_B",
+        "monsterName": "最下級蠕蟲",
+        "rate": 1,
+        "stealProtected": false,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "isBossCard": false,
+    "cardVisualTier": "normal",
+    "cardTierSourceMonsterIds": [
+      21527
+    ]
   },
   "300367": {
     "id": 300367,
@@ -5310,13 +5504,14 @@
     "sellPrice": 0,
     "buyPrice": 0,
     "description": [
-      "下級蠕蟲卡片。"
+      "近距離物理傷害+8%。",
+      "搭配原始蠕蟲卡片時，變動詠唱-8%。"
     ],
     "icon": "images/items/300367.webp",
     "slots": 0,
     "slotCount": 0,
     "ClassNum": 0,
-    "dataSource": "rAthena Renewal 2026-06-08 + RO_WEB 0.9.82GK",
+    "dataSource": "台服 itemInfo_UTF8.lub + 中文 item_db_etc + RO_WEB 0.9.82GR",
     "Id": 300367,
     "Name": "下級蠕蟲卡片",
     "Buy": 0,
@@ -5324,7 +5519,32 @@
     "AegisName": "Junior_Rgan_Card",
     "aegisName": "Junior_Rgan_Card",
     "Type": "Card",
-    "dbType": "Card"
+    "dbType": "Card",
+    "cardTarget": [
+      "accessory1"
+    ],
+    "locations": {
+      "Left_Accessory": true
+    },
+    "scriptRaw": "bonus bShortAtkRate,8;\n",
+    "compiledScript": "bonus(\"bShortAtkRate\", 8);\n",
+    "dropSources": [
+      {
+        "monsterId": 21528,
+        "monsterAegisName": "EP19_RGAN_C",
+        "monsterName": "下級蠕蟲",
+        "rate": 1,
+        "stealProtected": false,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "isBossCard": false,
+    "cardVisualTier": "normal",
+    "cardTierSourceMonsterIds": [
+      21528
+    ]
   },
   "300368": {
     "id": 300368,
@@ -5336,13 +5556,14 @@
     "sellPrice": 0,
     "buyPrice": 0,
     "description": [
-      "中級蠕蟲卡片。"
+      "CRI+6，C.Rate+1。",
+      "搭配最下級蠕蟲卡片時，暴擊傷害+10%。"
     ],
     "icon": "images/items/300368.webp",
     "slots": 0,
     "slotCount": 0,
     "ClassNum": 0,
-    "dataSource": "rAthena Renewal 2026-06-08 + RO_WEB 0.9.82GK",
+    "dataSource": "台服 itemInfo_UTF8.lub + 中文 item_db_etc + RO_WEB 0.9.82GR",
     "Id": 300368,
     "Name": "中級蠕蟲卡片",
     "Buy": 0,
@@ -5350,33 +5571,89 @@
     "AegisName": "Middle_G_Rgan_Card",
     "aegisName": "Middle_G_Rgan_Card",
     "Type": "Card",
-    "dbType": "Card"
+    "dbType": "Card",
+    "cardTarget": [
+      "accessory1"
+    ],
+    "locations": {
+      "Left_Accessory": true
+    },
+    "scriptRaw": "bonus bCritical,6;\nbonus bCRate,1;\n",
+    "compiledScript": "bonus(\"bCritical\", 6);\nbonus(\"bCRate\", 1);\n",
+    "dropSources": [
+      {
+        "monsterId": 21529,
+        "monsterAegisName": "EP19_RGAN_D",
+        "monsterName": "中級蠕蟲",
+        "rate": 1,
+        "stealProtected": false,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "isBossCard": false,
+    "cardVisualTier": "normal",
+    "cardTierSourceMonsterIds": [
+      21529
+    ]
   },
   "300377": {
     "id": 300377,
     "officialId": 300377,
-    "name": "終極青翅巨魚卡片",
+    "name": "終極青翅巨鳥卡片",
     "type": "card",
     "category": "card",
     "subCategory": "monster_card",
     "sellPrice": 0,
     "buyPrice": 0,
     "description": [
-      "終極青翅巨魚卡片。"
+      "ATK+5%，MATK+5%。",
+      "精煉每+3時，P.ATK+2，S.MATK+2。",
+      "精煉+11以上時，固定詠唱-0.5秒。"
     ],
     "icon": "images/items/300377.webp",
     "slots": 0,
     "slotCount": 0,
     "ClassNum": 0,
-    "dataSource": "rAthena Renewal 2026-06-08 + RO_WEB 0.9.82GK",
+    "dataSource": "台服 itemInfo_UTF8.lub + 中文 item_db_etc + RO_WEB 0.9.82GR",
     "Id": 300377,
-    "Name": "終極青翅巨魚卡片",
+    "Name": "終極青翅巨鳥卡片",
     "Buy": 0,
     "Slots": 0,
     "AegisName": "Ultra_Limacina_Card",
     "aegisName": "Ultra_Limacina_Card",
     "Type": "Card",
-    "dbType": "Card"
+    "dbType": "Card",
+    "cardTarget": [
+      "headTop",
+      "headMid",
+      "headLow"
+    ],
+    "locations": {
+      "Head_Low": true,
+      "Head_Mid": true,
+      "Head_Top": true
+    },
+    "scriptRaw": "bonus bAtkRate,5;\nbonus bMatkRate,5;\n.@r = getrefine();\nbonus bPAtk,2*(.@r/3);\nbonus bSMatk,2*(.@r/3);\nif (.@r >= 11) {\n  bonus bFixedCast,-500;\n}\n",
+    "compiledScript": "bonus(\"bAtkRate\", 5);\nbonus(\"bMatkRate\", 5);\nv.r = getrefine();\nbonus(\"bPAtk\", 2*(v.r/3));\nbonus(\"bSMatk\", 2*(v.r/3));\nif (v.r >= 11) {\n  bonus(\"bFixedCast\", -500);\n}\n",
+    "dropSources": [
+      {
+        "monsterId": 21537,
+        "monsterAegisName": "EP19_LIMACINA_BOSS",
+        "monsterName": "終極青翅巨鳥",
+        "rate": 1,
+        "stealProtected": false,
+        "isMvp": true,
+        "isBoss": true
+      }
+    ],
+    "isMvpCard": true,
+    "isBossCard": true,
+    "cardVisualTier": "mvp",
+    "cardTierSourceMonsterIds": [
+      21537
+    ]
   },
   "300381": {
     "id": 300381,
@@ -5388,13 +5665,15 @@
     "sellPrice": 0,
     "buyPrice": 0,
     "description": [
-      "邪心獵人AT卡片。"
+      "P.ATK+1，使用技能時，SP消耗量+7%",
+      "精煉每+3時，遠距離物理傷害+4%。",
+      "搭配青翅巨鳥卡片時，ATK+10%。"
     ],
     "icon": "images/items/300381.webp",
     "slots": 0,
     "slotCount": 0,
     "ClassNum": 0,
-    "dataSource": "rAthena Renewal 2026-06-08 + RO_WEB 0.9.82GK",
+    "dataSource": "台服 itemInfo_UTF8.lub + 中文 item_db_etc + RO_WEB 0.9.82GR",
     "Id": 300381,
     "Name": "邪心獵人AT卡片",
     "Buy": 0,
@@ -5402,6 +5681,31 @@
     "AegisName": "Heart_Hunter_AT_Card",
     "aegisName": "Heart_Hunter_AT_Card",
     "Type": "Card",
-    "dbType": "Card"
+    "dbType": "Card",
+    "cardTarget": [
+      "body"
+    ],
+    "locations": {
+      "Armor": true
+    },
+    "scriptRaw": "bonus bPAtk,1;\nbonus bUseSPrate,7;\nbonus bLongAtkRate,4*(getrefine()/3);\n",
+    "compiledScript": "bonus(\"bPAtk\", 1);\nbonus(\"bUseSPrate\", 7);\nbonus(\"bLongAtkRate\", 4*(getrefine()/3));\n",
+    "dropSources": [
+      {
+        "monsterId": 21599,
+        "monsterAegisName": "EP19_HEARTHUNTER_AT",
+        "monsterName": "邪心獵人AT",
+        "rate": 1,
+        "stealProtected": false,
+        "isMvp": false,
+        "isBoss": false
+      }
+    ],
+    "isMvpCard": false,
+    "isBossCard": false,
+    "cardVisualTier": "normal",
+    "cardTierSourceMonsterIds": [
+      21599
+    ]
   }
 }
