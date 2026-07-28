@@ -1,0 +1,144 @@
+{
+  "version": "0.9.82BC",
+  "result": "PASS",
+  "batch": "Arch Mage Projection / Vulcan / Staff Core Batch61",
+  "sourceFiles": [
+    "Project SkillInfoz skilldescript.lub / skillinfolist.lub",
+    "local rAthena db/re/skill_db.yml",
+    "local rAthena src/map/skills/mage/deadlyprojection.cpp",
+    "local rAthena src/map/skills/mage/soulvulcanstrike.cpp",
+    "local rAthena src/map/skills/mage/rockdown.cpp",
+    "local rAthena src/map/skills/mage/stormcannon.cpp",
+    "local rAthena src/map/skills/mage/frozenslash.cpp",
+    "local rAthena src/map/status.cpp",
+    "local rAthena src/map/battle.cpp"
+  ],
+  "officialAdded": [
+    5214,
+    5220,
+    5228,
+    5233,
+    5234,
+    5237
+  ],
+  "coverage": {
+    "before": 572,
+    "after": 578,
+    "target": 1139
+  },
+  "pending": {
+    "before": 567,
+    "after": 561
+  },
+  "skills": {
+    "5214": {
+      "name": "致命放射",
+      "handler": "magic_damage",
+      "formula": "renewal_deadly_projection",
+      "description": "使目標身體細胞腐壞，造成不死屬性魔法傷害。倍率為（2800×技能等級 + 5×SPL）×BaseLv÷100%。命中後 4／5／6／7／8 秒內使目標的魔法免疫與魔法反射失效。"
+    },
+    "5220": {
+      "name": "靈魂連擊",
+      "handler": "magic_damage",
+      "formula": "renewal_soul_vulcan_strike",
+      "description": "對指定敵人及周圍目標造成念屬性多段魔法傷害。每段倍率為（300×技能等級 + 3×SPL）×BaseLv÷100%，攻擊 3／4／5／6／7 次，範圍為 3×3／5×5／7×7／9×9／11×11。"
+    },
+    "5228": {
+      "name": "雙手杖使用熟練度",
+      "handler": "passive",
+      "formula": null,
+      "description": "裝備雙手杖時，每級 S.MATK +2，並使魔法傷害額外 +1%；Lv10 合計 S.MATK +20、魔法傷害 +10%。RO_WEB 現行 Staff 類型暫視為雙手杖判定。"
+    },
+    "5233": {
+      "name": "巨石降臨",
+      "handler": "magic_damage",
+      "formula": "renewal_rock_down",
+      "description": "對指定敵人及周圍造成地屬性魔法傷害。倍率為（1550×技能等級 + 5×SPL）×BaseLv÷100%，範圍 5×5／7×7，顯示 5 Hit但總傷害只計算一次。魔力巔峰存在時傷害額外增加。"
+    },
+    "5234": {
+      "name": "暴風加農砲",
+      "handler": "magic_damage",
+      "formula": "renewal_storm_cannon",
+      "description": "從施法者朝目標方向形成寬 3 格、長 9 格的風屬性直線攻擊。倍率為（1550×技能等級 + 5×SPL）×BaseLv÷100%，顯示 2 Hit但總傷害只計算一次。魔力巔峰存在時傷害額外增加。"
+    },
+    "5237": {
+      "name": "冰刃斬擊",
+      "handler": "magic_damage",
+      "formula": "renewal_frozen_slash",
+      "description": "對施法者周圍 9×9／11×11／13×13 範圍造成水屬性魔法傷害。倍率為（450 + 950×技能等級 + 5×SPL）×BaseLv÷100%，顯示 3 Hit但總傷害只計算一次。魔力巔峰存在時傷害額外增加。"
+    }
+  },
+  "runtimeAdaptations": {
+    "5228": "Current equipment DB exposes unified Staff rather than W_2HSTAFF, so Staff temporarily activates the mastery.",
+    "5233/5234/5237": "Base skill is official and executable; Climax existence bonus is pre-wired, while Climax stage system remains Pending."
+  },
+  "pendingDecision": {
+    "5215": {
+      "name": "毀滅颶風",
+      "reason": "魔力巔峰五階段會改變追加傷害、擊退、自身長效 Buff、範圍與傷害倍率。"
+    },
+    "5218/5222": {
+      "name": "震裂術／萬紫千紅",
+      "reason": "需要在大型地面範圍隨機生成多個石塊／花朵，並處理五種魔力巔峰行為。"
+    },
+    "5225": {
+      "name": "水晶波爆",
+      "reason": "具有立即傷害、延遲二次爆發與魔力巔峰隊伍防護效果。"
+    },
+    "5230": {
+      "name": "星際突襲",
+      "reason": "消耗 AP 並建立 6 秒持續地面追擊，AP 系統仍延後。"
+    },
+    "5232": {
+      "name": "魔力巔峰",
+      "reason": "消耗大量 AP，且五階段會改寫多招大法師技能；需整套階段狀態決策。"
+    },
+    "5235": {
+      "name": "豔紅魔矢",
+      "reason": "同一次施法包含方向直線傷害與目標爆炸二階段，且爆炸受魔力巔峰影響。"
+    },
+    "6516": {
+      "name": "能量轉換",
+      "reason": "涉及 SP／AP 互換，需等待統一 AP 與技能成本系統。"
+    }
+  },
+  "deferred": [
+    "SP/AP costs",
+    "trait-stat allocation and costs",
+    "full Climax stage state machine"
+  ],
+  "validation": {
+    "jsonParse": "445 JSON files passed before final bundle rebuild",
+    "jsSyntax": "84 JavaScript files passed node --check",
+    "batchTest": "PASS Arch Mage Projection/Vulcan/Staff Batch61",
+    "formulaChecks": {
+      "Deadly Projection Lv5 BaseLv100 SPL100": 14500,
+      "Soul Vulcan Strike Lv5 BaseLv100 SPL100 total 7 hits": 12600,
+      "Rock Down Lv5 BaseLv100 SPL100": 8250,
+      "Rock Down with Climax existence": 9750,
+      "Storm Cannon Lv5 BaseLv100 SPL100": 8250,
+      "Frozen Slash Lv5 BaseLv100 SPL100": 5700,
+      "Frozen Slash with Climax existence": 7600
+    },
+    "passiveChecks": {
+      "Staff Lv10 sMatk": 20,
+      "Staff Lv10 magicDamageRate": 10
+    },
+    "compatibilityTests": [
+      "Warlock Batch60",
+      "Warlock Batch59",
+      "Warlock Batch58",
+      "Mage passive conversion",
+      "Mage/High Wizard foundation",
+      "Merchant completion",
+      "RA damage pipeline",
+      "Deep repair"
+    ],
+    "deepHealth": {
+      "errors": 0,
+      "warnings": 36,
+      "status": "PASS",
+      "note": "Warnings are existing known missing item icons, disabled copyable orphans and disabled job-change placeholders."
+    }
+  }
+}

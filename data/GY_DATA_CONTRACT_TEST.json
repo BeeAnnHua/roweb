@@ -1,0 +1,741 @@
+{
+  "version": "0.9.82GY",
+  "checks": [
+    {
+      "name": "formal mode enabled",
+      "pass": true,
+      "detail": {
+        "enchant": false,
+        "exchange": false
+      }
+    },
+    {
+      "name": "26 target weapons",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "slot counts 179/99/2",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "189 unique runtime enchants",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "8 upgrade steps",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "12 formal recipes",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pure magic EP20 excluded",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "flower 1:1 amethyst",
+      "pass": true,
+      "detail": {
+        "id": "amethyst_fragment",
+        "output": {
+          "id": 1000405,
+          "amount": 1
+        },
+        "inputs": [
+          {
+            "id": 1000608,
+            "amount": 1
+          }
+        ],
+        "name": "紫水晶碎片",
+        "zeny": 0,
+        "category": "exchange_1to1"
+      }
+    },
+    {
+      "name": "flower 1:1 corroded stone 1001029",
+      "pass": true,
+      "detail": {
+        "id": "corroded_magic_stone",
+        "output": {
+          "id": 1001029,
+          "amount": 1
+        },
+        "inputs": [
+          {
+            "id": 1000608,
+            "amount": 1
+          }
+        ],
+        "name": "被侵蝕的魔力晶石",
+        "zeny": 0,
+        "category": "exchange_1to1"
+      }
+    },
+    {
+      "name": "all formal images exist",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "worm 21526 normal drops",
+      "pass": true,
+      "detail": {
+        "monsterId": 21526,
+        "box": {
+          "itemId": 1100100,
+          "chance": 10,
+          "qtyMin": 1,
+          "qtyMax": 1,
+          "name": "RO_WEB_Dim_Glacier_Weapon_Box",
+          "source": "RO_WEB 0.9.82GY normal drop; base 0.10/0.15/0.20/0.30%; global multiplier applies",
+          "dropClass": "normal",
+          "applyGlobalDropMultiplier": true
+        },
+        "flower": {
+          "itemId": 1000608,
+          "chance": 100,
+          "qtyMin": 1,
+          "qtyMax": 1,
+          "name": "Snow_Flower",
+          "source": "RO_WEB 0.9.82GY serpent nest normal drop; base 1.00%; global multiplier applies",
+          "dropClass": "normal",
+          "applyGlobalDropMultiplier": true
+        },
+        "etel": {
+          "itemId": 1000322,
+          "chance": 100,
+          "qtyMin": 1,
+          "qtyMax": 1,
+          "name": "Etel_Dust",
+          "source": "RO_WEB 0.9.82GY serpent nest normal drop; base 1.00%; global multiplier applies",
+          "dropClass": "normal",
+          "applyGlobalDropMultiplier": true
+        }
+      }
+    },
+    {
+      "name": "worm 21526 exact rates",
+      "pass": true,
+      "detail": {
+        "monsterId": 21526,
+        "box": {
+          "itemId": 1100100,
+          "chance": 10,
+          "qtyMin": 1,
+          "qtyMax": 1,
+          "name": "RO_WEB_Dim_Glacier_Weapon_Box",
+          "source": "RO_WEB 0.9.82GY normal drop; base 0.10/0.15/0.20/0.30%; global multiplier applies",
+          "dropClass": "normal",
+          "applyGlobalDropMultiplier": true
+        },
+        "flower": {
+          "itemId": 1000608,
+          "chance": 100,
+          "qtyMin": 1,
+          "qtyMax": 1,
+          "name": "Snow_Flower",
+          "source": "RO_WEB 0.9.82GY serpent nest normal drop; base 1.00%; global multiplier applies",
+          "dropClass": "normal",
+          "applyGlobalDropMultiplier": true
+        },
+        "etel": {
+          "itemId": 1000322,
+          "chance": 100,
+          "qtyMin": 1,
+          "qtyMax": 1,
+          "name": "Etel_Dust",
+          "source": "RO_WEB 0.9.82GY serpent nest normal drop; base 1.00%; global multiplier applies",
+          "dropClass": "normal",
+          "applyGlobalDropMultiplier": true
+        }
+      }
+    },
+    {
+      "name": "worm 21527 normal drops",
+      "pass": true,
+      "detail": {
+        "monsterId": 21527,
+        "box": {
+          "itemId": 1100100,
+          "chance": 15,
+          "qtyMin": 1,
+          "qtyMax": 1,
+          "name": "RO_WEB_Dim_Glacier_Weapon_Box",
+          "source": "RO_WEB 0.9.82GY normal drop; base 0.10/0.15/0.20/0.30%; global multiplier applies",
+          "dropClass": "normal",
+          "applyGlobalDropMultiplier": true
+        },
+        "flower": {
+          "itemId": 1000608,
+          "chance": 100,
+          "qtyMin": 1,
+          "qtyMax": 1,
+          "name": "Snow_Flower",
+          "source": "RO_WEB 0.9.82GY serpent nest normal drop; base 1.00%; global multiplier applies",
+          "dropClass": "normal",
+          "applyGlobalDropMultiplier": true
+        },
+        "etel": {
+          "itemId": 1000322,
+          "chance": 100,
+          "qtyMin": 1,
+          "qtyMax": 1,
+          "name": "Etel_Dust",
+          "source": "RO_WEB 0.9.82GY serpent nest normal drop; base 1.00%; global multiplier applies",
+          "dropClass": "normal",
+          "applyGlobalDropMultiplier": true
+        }
+      }
+    },
+    {
+      "name": "worm 21527 exact rates",
+      "pass": true,
+      "detail": {
+        "monsterId": 21527,
+        "box": {
+          "itemId": 1100100,
+          "chance": 15,
+          "qtyMin": 1,
+          "qtyMax": 1,
+          "name": "RO_WEB_Dim_Glacier_Weapon_Box",
+          "source": "RO_WEB 0.9.82GY normal drop; base 0.10/0.15/0.20/0.30%; global multiplier applies",
+          "dropClass": "normal",
+          "applyGlobalDropMultiplier": true
+        },
+        "flower": {
+          "itemId": 1000608,
+          "chance": 100,
+          "qtyMin": 1,
+          "qtyMax": 1,
+          "name": "Snow_Flower",
+          "source": "RO_WEB 0.9.82GY serpent nest normal drop; base 1.00%; global multiplier applies",
+          "dropClass": "normal",
+          "applyGlobalDropMultiplier": true
+        },
+        "etel": {
+          "itemId": 1000322,
+          "chance": 100,
+          "qtyMin": 1,
+          "qtyMax": 1,
+          "name": "Etel_Dust",
+          "source": "RO_WEB 0.9.82GY serpent nest normal drop; base 1.00%; global multiplier applies",
+          "dropClass": "normal",
+          "applyGlobalDropMultiplier": true
+        }
+      }
+    },
+    {
+      "name": "worm 21528 normal drops",
+      "pass": true,
+      "detail": {
+        "monsterId": 21528,
+        "box": {
+          "itemId": 1100100,
+          "chance": 20,
+          "qtyMin": 1,
+          "qtyMax": 1,
+          "name": "RO_WEB_Dim_Glacier_Weapon_Box",
+          "source": "RO_WEB 0.9.82GY normal drop; base 0.10/0.15/0.20/0.30%; global multiplier applies",
+          "dropClass": "normal",
+          "applyGlobalDropMultiplier": true
+        },
+        "flower": {
+          "itemId": 1000608,
+          "chance": 100,
+          "qtyMin": 1,
+          "qtyMax": 1,
+          "name": "Snow_Flower",
+          "source": "RO_WEB 0.9.82GY serpent nest normal drop; base 1.00%; global multiplier applies",
+          "dropClass": "normal",
+          "applyGlobalDropMultiplier": true
+        },
+        "etel": {
+          "itemId": 1000322,
+          "chance": 100,
+          "qtyMin": 1,
+          "qtyMax": 1,
+          "name": "Etel_Dust",
+          "source": "RO_WEB 0.9.82GY serpent nest normal drop; base 1.00%; global multiplier applies",
+          "dropClass": "normal",
+          "applyGlobalDropMultiplier": true
+        }
+      }
+    },
+    {
+      "name": "worm 21528 exact rates",
+      "pass": true,
+      "detail": {
+        "monsterId": 21528,
+        "box": {
+          "itemId": 1100100,
+          "chance": 20,
+          "qtyMin": 1,
+          "qtyMax": 1,
+          "name": "RO_WEB_Dim_Glacier_Weapon_Box",
+          "source": "RO_WEB 0.9.82GY normal drop; base 0.10/0.15/0.20/0.30%; global multiplier applies",
+          "dropClass": "normal",
+          "applyGlobalDropMultiplier": true
+        },
+        "flower": {
+          "itemId": 1000608,
+          "chance": 100,
+          "qtyMin": 1,
+          "qtyMax": 1,
+          "name": "Snow_Flower",
+          "source": "RO_WEB 0.9.82GY serpent nest normal drop; base 1.00%; global multiplier applies",
+          "dropClass": "normal",
+          "applyGlobalDropMultiplier": true
+        },
+        "etel": {
+          "itemId": 1000322,
+          "chance": 100,
+          "qtyMin": 1,
+          "qtyMax": 1,
+          "name": "Etel_Dust",
+          "source": "RO_WEB 0.9.82GY serpent nest normal drop; base 1.00%; global multiplier applies",
+          "dropClass": "normal",
+          "applyGlobalDropMultiplier": true
+        }
+      }
+    },
+    {
+      "name": "worm 21529 normal drops",
+      "pass": true,
+      "detail": {
+        "monsterId": 21529,
+        "box": {
+          "itemId": 1100100,
+          "chance": 30,
+          "qtyMin": 1,
+          "qtyMax": 1,
+          "name": "RO_WEB_Dim_Glacier_Weapon_Box",
+          "source": "RO_WEB 0.9.82GY normal drop; base 0.10/0.15/0.20/0.30%; global multiplier applies",
+          "dropClass": "normal",
+          "applyGlobalDropMultiplier": true
+        },
+        "flower": {
+          "itemId": 1000608,
+          "chance": 100,
+          "qtyMin": 1,
+          "qtyMax": 1,
+          "name": "Snow_Flower",
+          "source": "RO_WEB 0.9.82GY serpent nest normal drop; base 1.00%; global multiplier applies",
+          "dropClass": "normal",
+          "applyGlobalDropMultiplier": true
+        },
+        "etel": {
+          "itemId": 1000322,
+          "chance": 100,
+          "qtyMin": 1,
+          "qtyMax": 1,
+          "name": "Etel_Dust",
+          "source": "RO_WEB 0.9.82GY serpent nest normal drop; base 1.00%; global multiplier applies",
+          "dropClass": "normal",
+          "applyGlobalDropMultiplier": true
+        }
+      }
+    },
+    {
+      "name": "worm 21529 exact rates",
+      "pass": true,
+      "detail": {
+        "monsterId": 21529,
+        "box": {
+          "itemId": 1100100,
+          "chance": 30,
+          "qtyMin": 1,
+          "qtyMax": 1,
+          "name": "RO_WEB_Dim_Glacier_Weapon_Box",
+          "source": "RO_WEB 0.9.82GY normal drop; base 0.10/0.15/0.20/0.30%; global multiplier applies",
+          "dropClass": "normal",
+          "applyGlobalDropMultiplier": true
+        },
+        "flower": {
+          "itemId": 1000608,
+          "chance": 100,
+          "qtyMin": 1,
+          "qtyMax": 1,
+          "name": "Snow_Flower",
+          "source": "RO_WEB 0.9.82GY serpent nest normal drop; base 1.00%; global multiplier applies",
+          "dropClass": "normal",
+          "applyGlobalDropMultiplier": true
+        },
+        "etel": {
+          "itemId": 1000322,
+          "chance": 100,
+          "qtyMin": 1,
+          "qtyMax": 1,
+          "name": "Etel_Dust",
+          "source": "RO_WEB 0.9.82GY serpent nest normal drop; base 1.00%; global multiplier applies",
+          "dropClass": "normal",
+          "applyGlobalDropMultiplier": true
+        }
+      }
+    },
+    {
+      "name": "only known acquisition gap is poison gas 1001033",
+      "pass": true,
+      "detail": [
+        {
+          "id": 1001033,
+          "name": "毒氣魔力",
+          "directDrops": [],
+          "recipe": null,
+          "available": false
+        }
+      ]
+    }
+  ],
+  "passed": 19,
+  "failed": 0,
+  "requiredImageCount": 232,
+  "missingImages": [],
+  "wormDrops": [
+    {
+      "monsterId": 21526,
+      "box": {
+        "itemId": 1100100,
+        "chance": 10,
+        "qtyMin": 1,
+        "qtyMax": 1,
+        "name": "RO_WEB_Dim_Glacier_Weapon_Box",
+        "source": "RO_WEB 0.9.82GY normal drop; base 0.10/0.15/0.20/0.30%; global multiplier applies",
+        "dropClass": "normal",
+        "applyGlobalDropMultiplier": true
+      },
+      "flower": {
+        "itemId": 1000608,
+        "chance": 100,
+        "qtyMin": 1,
+        "qtyMax": 1,
+        "name": "Snow_Flower",
+        "source": "RO_WEB 0.9.82GY serpent nest normal drop; base 1.00%; global multiplier applies",
+        "dropClass": "normal",
+        "applyGlobalDropMultiplier": true
+      },
+      "etel": {
+        "itemId": 1000322,
+        "chance": 100,
+        "qtyMin": 1,
+        "qtyMax": 1,
+        "name": "Etel_Dust",
+        "source": "RO_WEB 0.9.82GY serpent nest normal drop; base 1.00%; global multiplier applies",
+        "dropClass": "normal",
+        "applyGlobalDropMultiplier": true
+      }
+    },
+    {
+      "monsterId": 21527,
+      "box": {
+        "itemId": 1100100,
+        "chance": 15,
+        "qtyMin": 1,
+        "qtyMax": 1,
+        "name": "RO_WEB_Dim_Glacier_Weapon_Box",
+        "source": "RO_WEB 0.9.82GY normal drop; base 0.10/0.15/0.20/0.30%; global multiplier applies",
+        "dropClass": "normal",
+        "applyGlobalDropMultiplier": true
+      },
+      "flower": {
+        "itemId": 1000608,
+        "chance": 100,
+        "qtyMin": 1,
+        "qtyMax": 1,
+        "name": "Snow_Flower",
+        "source": "RO_WEB 0.9.82GY serpent nest normal drop; base 1.00%; global multiplier applies",
+        "dropClass": "normal",
+        "applyGlobalDropMultiplier": true
+      },
+      "etel": {
+        "itemId": 1000322,
+        "chance": 100,
+        "qtyMin": 1,
+        "qtyMax": 1,
+        "name": "Etel_Dust",
+        "source": "RO_WEB 0.9.82GY serpent nest normal drop; base 1.00%; global multiplier applies",
+        "dropClass": "normal",
+        "applyGlobalDropMultiplier": true
+      }
+    },
+    {
+      "monsterId": 21528,
+      "box": {
+        "itemId": 1100100,
+        "chance": 20,
+        "qtyMin": 1,
+        "qtyMax": 1,
+        "name": "RO_WEB_Dim_Glacier_Weapon_Box",
+        "source": "RO_WEB 0.9.82GY normal drop; base 0.10/0.15/0.20/0.30%; global multiplier applies",
+        "dropClass": "normal",
+        "applyGlobalDropMultiplier": true
+      },
+      "flower": {
+        "itemId": 1000608,
+        "chance": 100,
+        "qtyMin": 1,
+        "qtyMax": 1,
+        "name": "Snow_Flower",
+        "source": "RO_WEB 0.9.82GY serpent nest normal drop; base 1.00%; global multiplier applies",
+        "dropClass": "normal",
+        "applyGlobalDropMultiplier": true
+      },
+      "etel": {
+        "itemId": 1000322,
+        "chance": 100,
+        "qtyMin": 1,
+        "qtyMax": 1,
+        "name": "Etel_Dust",
+        "source": "RO_WEB 0.9.82GY serpent nest normal drop; base 1.00%; global multiplier applies",
+        "dropClass": "normal",
+        "applyGlobalDropMultiplier": true
+      }
+    },
+    {
+      "monsterId": 21529,
+      "box": {
+        "itemId": 1100100,
+        "chance": 30,
+        "qtyMin": 1,
+        "qtyMax": 1,
+        "name": "RO_WEB_Dim_Glacier_Weapon_Box",
+        "source": "RO_WEB 0.9.82GY normal drop; base 0.10/0.15/0.20/0.30%; global multiplier applies",
+        "dropClass": "normal",
+        "applyGlobalDropMultiplier": true
+      },
+      "flower": {
+        "itemId": 1000608,
+        "chance": 100,
+        "qtyMin": 1,
+        "qtyMax": 1,
+        "name": "Snow_Flower",
+        "source": "RO_WEB 0.9.82GY serpent nest normal drop; base 1.00%; global multiplier applies",
+        "dropClass": "normal",
+        "applyGlobalDropMultiplier": true
+      },
+      "etel": {
+        "itemId": 1000322,
+        "chance": 100,
+        "qtyMin": 1,
+        "qtyMax": 1,
+        "name": "Etel_Dust",
+        "source": "RO_WEB 0.9.82GY serpent nest normal drop; base 1.00%; global multiplier applies",
+        "dropClass": "normal",
+        "applyGlobalDropMultiplier": true
+      }
+    }
+  ],
+  "acquisitionMatrix": [
+    {
+      "id": 1000322,
+      "name": "乙太星塵",
+      "directDrops": [
+        {
+          "monsterId": 21525,
+          "chance": 20
+        },
+        {
+          "monsterId": 21526,
+          "chance": 100
+        },
+        {
+          "monsterId": 21527,
+          "chance": 100
+        },
+        {
+          "monsterId": 21528,
+          "chance": 100
+        },
+        {
+          "monsterId": 21529,
+          "chance": 100
+        }
+      ],
+      "recipe": null,
+      "available": true
+    },
+    {
+      "id": 1000405,
+      "name": "紫水晶碎片",
+      "directDrops": [],
+      "recipe": "amethyst_fragment",
+      "available": true
+    },
+    {
+      "id": 1000608,
+      "name": "雪花的花葉",
+      "directDrops": [
+        {
+          "monsterId": 21526,
+          "chance": 100
+        },
+        {
+          "monsterId": 21527,
+          "chance": 100
+        },
+        {
+          "monsterId": 21528,
+          "chance": 100
+        },
+        {
+          "monsterId": 21529,
+          "chance": 100
+        }
+      ],
+      "recipe": null,
+      "available": true
+    },
+    {
+      "id": 1000811,
+      "name": "雪花魔力原石",
+      "directDrops": [
+        {
+          "monsterId": 21520,
+          "chance": 300
+        },
+        {
+          "monsterId": 21521,
+          "chance": 300
+        },
+        {
+          "monsterId": 21522,
+          "chance": 350
+        },
+        {
+          "monsterId": 21523,
+          "chance": 350
+        },
+        {
+          "monsterId": 21524,
+          "chance": 300
+        },
+        {
+          "monsterId": 21525,
+          "chance": 400
+        },
+        {
+          "monsterId": 21526,
+          "chance": 350
+        },
+        {
+          "monsterId": 21527,
+          "chance": 400
+        },
+        {
+          "monsterId": 21528,
+          "chance": 500
+        },
+        {
+          "monsterId": 21529,
+          "chance": 600
+        },
+        {
+          "monsterId": 21537,
+          "chance": 1000
+        },
+        {
+          "monsterId": 21599,
+          "chance": 500
+        }
+      ],
+      "recipe": null,
+      "available": true
+    },
+    {
+      "id": 1001029,
+      "name": "被侵蝕的魔力晶石",
+      "directDrops": [],
+      "recipe": "corroded_magic_stone",
+      "available": true
+    },
+    {
+      "id": 1001031,
+      "name": "被侵蝕的魔力結晶",
+      "directDrops": [],
+      "recipe": "corroded_magic_crystal",
+      "available": true
+    },
+    {
+      "id": 1001032,
+      "name": "中和魔力結晶",
+      "directDrops": [],
+      "recipe": "neutralized_magic_crystal",
+      "available": true
+    },
+    {
+      "id": 1001033,
+      "name": "毒氣魔力",
+      "directDrops": [],
+      "recipe": null,
+      "available": false
+    },
+    {
+      "id": 1001034,
+      "name": "雪花魔石萃取液",
+      "directDrops": [],
+      "recipe": "snow_extract",
+      "available": true
+    },
+    {
+      "id": 1001035,
+      "name": "閃亮雪花魔石萃取液",
+      "directDrops": [],
+      "recipe": "sparkling_extract",
+      "available": true
+    },
+    {
+      "id": 1001036,
+      "name": "光輝雪花魔石萃取液",
+      "directDrops": [],
+      "recipe": "radiant_extract",
+      "available": true
+    },
+    {
+      "id": 1001037,
+      "name": "冰晶萃取液",
+      "directDrops": [],
+      "recipe": "glacier_extract",
+      "available": true
+    },
+    {
+      "id": 1100100,
+      "name": "黯淡冰晶武器箱",
+      "directDrops": [
+        {
+          "monsterId": 21526,
+          "chance": 10
+        },
+        {
+          "monsterId": 21527,
+          "chance": 15
+        },
+        {
+          "monsterId": 21528,
+          "chance": 20
+        },
+        {
+          "monsterId": 21529,
+          "chance": 30
+        }
+      ],
+      "recipe": null,
+      "available": true
+    }
+  ],
+  "knownAcquisitionGap": [
+    {
+      "id": 1001033,
+      "name": "毒氣魔力",
+      "directDrops": [],
+      "recipe": null,
+      "available": false
+    }
+  ]
+}

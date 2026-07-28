@@ -1,0 +1,53 @@
+{
+  "version": "0.9.82FY",
+  "baseVersion": "0.9.82FX",
+  "status": "PASS",
+  "rootCause": {
+    "advancedStatus": "updatePlayerUI previously called updateStatusUI during high-frequency combat updates. When statusAdvancedExpanded remained true, the hidden or visible advanced panel repeatedly destroyed and rebuilt a large DOM tree.",
+    "hiddenWindow": "Closing status-window only applied hidden-window and did not cancel or gate background status rendering.",
+    "scroll": "Advanced content could be destroyed during wheel/touch scrolling, causing layout, paint and scroll-position churn."
+  },
+  "changes": {
+    "statusWindowVisibilityGate": true,
+    "advancedStatusSignatureGate": true,
+    "statusRefreshMinimumIntervalMs": 120,
+    "advancedScrollIdleDelayMs": 650,
+    "advancedScrollPositionRestored": true,
+    "detailsOpenStateRestored": true,
+    "hiddenJobWindowRenderDisabled": true,
+    "hiddenSkillWindowRenderDisabled": true,
+    "quickSlotSignatureDiffRender": true,
+    "unchangedHudTextWritesSkipped": true,
+    "unchangedStatusBarWritesSkipped": true,
+    "advancedBackdropBlurDisabled": true,
+    "mobileFixedUiBackdropBlurDisabled": true
+  },
+  "performanceHarness": {
+    "identicalUpdatePlayerUICalls": 100,
+    "statusRefreshRequests": 1,
+    "jobWindowRebuilds": 1,
+    "skillWindowRebuilds": 1,
+    "hiddenStatusRefreshesAfterChange": 0,
+    "hiddenJobRebuildsAfterChange": 0,
+    "hiddenSkillRebuildsAfterChange": 0,
+    "unchangedQuickSlotUpdateCalls": 100,
+    "additionalQuickSlotDomNodes": 0
+  },
+  "regression": {
+    "projectChecksPassed": 289,
+    "projectChecksFailed": 0,
+    "effectRuntimeChecksPassed": 44,
+    "effectRuntimeChecksFailed": 0,
+    "cardEquipmentStatusChecksPassed": 15,
+    "cardEquipmentStatusChecksFailed": 0,
+    "cardRuntimeErrors": 0,
+    "unknownEffectBonuses": 0,
+    "deepHealthErrors": 0,
+    "deepHealthWarnings": 0,
+    "javascriptSyntaxErrors": 0
+  },
+  "limitations": [
+    "Automated long-running browser rendering and device temperature measurement were not completed in the container.",
+    "Actual temperature and frame pacing must be verified on the user's iPhone, Android devices and desktop browsers."
+  ]
+}

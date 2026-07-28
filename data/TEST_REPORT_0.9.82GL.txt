@@ -1,0 +1,51 @@
+RO_WEB 0.9.82GL FINAL TEST REPORT
+====================================
+Base: RO_WEB 0.9.82GK
+Version: 0.9.82GL
+
+IMPLEMENTED
+-----------
+1. Server Config gradeMaterialDropRate uses percentage integers:
+   100=1x, 200=2x, 50=0.5x, 0=disabled.
+   It only scales independent bonus grade-material drops. Original rAthena drops,
+   cards and MVP drops are untouched.
+2. Teleport monster list supports desktop hover / mobile tap drop lookup.
+   Original, MVP and grade-material bonus drops are separated. Data is cached lazily;
+   there is no one-second polling timer and no Auto Battle / AI tick integration.
+3. Enchant Grade window now opens before async data readiness checks, removes all hidden
+   states safely, and shows loading/no-eligible-equipment/error messages instead of doing nothing.
+4. All six implemented cities have the same account storage endpoint. Capacity is 200 slots.
+   Filters: Consumables / Equipment / Items.
+5. Backpack visible layout is 5 columns x 6 rows = 30 slots.
+6. Normal and trait status allocation uses requestAnimationFrame UI batching and delayed save.
+   Pointer/touch/mouse events are isolated from map controls; current target, rotation and
+   Auto Battle controller are preserved.
+7. Feint Bomb target/shape/timing remains based on the Renewal profile. RO_WEB final ratio
+   receives a player-requested x2 correction because the prior in-game result was too low.
+8. Plagiarism/Reproduce skill instances waive original-profession combat-resource costs only.
+   Native profession skills still consume their resources. SP, item, weapon, range, timing and
+   cooldown rules remain active.
+
+TEST RESULTS
+------------
+- GL feature assertions: 24/24 PASS
+- GL runtime assertions: 8/8 PASS
+- rAthena Enchant Grade data audit: 224/224 PASS
+- Enchant Grade runtime regression: 8/8 PASS
+- Grade map/data regression: 57/57 PASS
+- Storage/reset regression: 3/3 PASS
+- Refine system regression: 8/8 PASS
+- Servant Weapon prerequisite regression: 15/15 PASS
+- Geffenia/mobile identity regression: 16/16 PASS
+- Element endow slot regression: 18/18 PASS
+- Total feature/regression assertions: 381/381 PASS
+- JavaScript syntax: 737 files, 0 errors
+- JSON parse: 1,972 files, 0 errors
+- Deep Health: 0 errors, 0 warnings
+
+BROWSER TEST
+------------
+A real Chromium startup test was attempted with the system browser. The environment blocked
+http://127.0.0.1 with ERR_BLOCKED_BY_ADMINISTRATOR, so no genuine pixel/click browser test or
+screenshot was obtained. DOM structure, runtime simulations, syntax, data and regression tests
+were completed successfully.

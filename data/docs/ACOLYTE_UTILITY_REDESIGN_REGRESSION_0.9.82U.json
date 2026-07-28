@@ -1,0 +1,58 @@
+{
+  "version": "0.9.82V",
+  "result": "PASS",
+  "batch": "Acolyte Utility Redesign",
+  "coverage": {
+    "before": 317,
+    "after": 321,
+    "target": 1139
+  },
+  "pending": {
+    "before": 822,
+    "after": 818
+  },
+  "implementedSkillIds": [
+    24,
+    26,
+    31,
+    1014
+  ],
+  "skills": [
+    {
+      "skillId": 24,
+      "key": "AL_RUWACH",
+      "effect": "Permanent ATK/MATK +3%"
+    },
+    {
+      "skillId": 26,
+      "key": "AL_TELEPORT",
+      "effect": "Lv1 random current-battlefield teleport; no Fly Wing consumed"
+    },
+    {
+      "skillId": 31,
+      "key": "AL_HOLYWATER",
+      "effect": "Permanent ATK/MATK +3%"
+    },
+    {
+      "skillId": 1014,
+      "key": "PR_REDEMPTIO",
+      "effect": "Permanent ATK/MATK +3%"
+    }
+  ],
+  "treeChanges": [
+    "Acolyte AL_TELEPORT max Lv1",
+    "Super Novice AL_TELEPORT max Lv1",
+    "AL_WARP prerequisite AL_TELEPORT Lv1"
+  ],
+  "futureRegionNote": "Teleport currently uses Position Engine battlefield bounds; future world-region legal-coordinate selection remains centralized in Position Engine.",
+  "checks": {
+    "jsonParse": "PASS",
+    "javascriptSyntax": "PASS",
+    "runtimeGeneratedCatalogCounts": "321/321/321",
+    "pendingCount": 818,
+    "teleportVm": "PASS",
+    "duplicateSkillIds": 0,
+    "duplicateSkillKeys": 0,
+    "zipIntegrity": "PASS"
+  }
+}

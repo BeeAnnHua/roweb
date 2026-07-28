@@ -1,0 +1,28 @@
+RO_WEB 0.9.82FB Auto Battle Survival / Status Cure Test Report
+================================================================
+Generated UTC: 2026-07-25 06:56:59
+
+Auto Battle Survival 0.9.82FB: 16/16 PASS
+PASS - item scripts dynamically expose every sc_end status
+PASS - Green Potion and Green Herb use itemInfo fallback cure profiles
+PASS - Panacea and Royal Jelly are detected without a name whitelist
+PASS - narrow cheap cure is selected for poison only
+PASS - one item covering more active ailments outranks a one-status herb
+PASS - Panacea is preferred over Royal Jelly for curse when both are available
+PASS - Royal Jelly clears ailments and applies script HP-SP recovery
+PASS - learned cure skill is used before consuming an item
+PASS - future learned heal-type cure skills are auto-discovered too
+PASS - all status-cure items are reserved from normal HP-SP auto supply
+PASS - critical HP butterfly return has priority over low-HP fly wing
+PASS - escape thresholds are clamped to the requested 1-99 range
+PASS - settings panel contains only direct controls and four numbered skill slots
+PASS - number inputs use dark panel color and gold custom arrows
+PASS - manual consumables also use itemheal and sc_end runtime helpers
+PASS - butterfly wing runtime consumes item 602 and enters the selected city
+
+Current Runtime Integrity:
+{
+  "version": "0.9.82FB",
+  "status": "PASS",
+  "testCount": 14
+}

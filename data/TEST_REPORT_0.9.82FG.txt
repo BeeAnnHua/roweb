@@ -1,0 +1,24 @@
+RO_WEB 0.9.82FG Share Preview / Town Restore / Live Monster Tooltip
+==================================================================
+
+Scope
+- Compact social share metadata; no scraped gameplay test introduction.
+- Remove legacy singleton waiting/searching monster panel.
+- Restore saved town as a pure town scene after reload/BFCache.
+- Disable and clear world monster streaming while player.currentCity is set.
+- Live monster tooltip counts follow the current ordinary monster count rate.
+- Compact desktop/mobile tooltip with preserved scroll position.
+
+Expected dynamic ordinary targets
+- mob_count_rate 33%: 20
+- mob_count_rate 50%: 30
+- mob_count_rate 100%: 40 (current normalHardCap)
+- Rare/Boss/MVP remain independent.
+
+Validation
+- FG feature regression: PASS
+- Current Runtime Integrity: 18/18 PASS
+- JavaScript syntax: PASS
+- Atlas geometry: PASS
+- Binary assets: PASS
+- Deep Health: 0 errors / 0 warnings

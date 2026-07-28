@@ -1,0 +1,39 @@
+RO_WEB 0.9.82FX TEST REPORT
+========================================
+版本：0.9.82FX
+基準：0.9.82FW
+主題：卡片／裝備／Combo 統一效果 Runtime＋未來新增防漏接
+
+資料與效果覆蓋
+- 卡片：910
+- 啟用裝備 Script：141
+- Combo：784
+- 掉卡來源：1422
+- 現有 rAthena bonus 指令種類：142
+- 角色／精煉矩陣執行：29360
+- Script Runtime 錯誤：0
+- 未處理指令：0
+- 消費端覆蓋缺口：0
+
+自動化測試
+- 統一效果 Runtime 行為：44/44 PASS
+- 全專案回歸：289/289 PASS
+- 卡片插入／拆除 Runtime：PASS
+- 裝備／卡片素質與四轉 HP：15/15 PASS
+- 掛機資源不足 15 秒回退：PASS
+- JavaScript 語法：717 檔，錯誤 0
+- Deep Health：PASS，錯誤 0，警告 0
+
+未來新增防漏接
+- 新物品／卡片具有 scriptRaw、Script、script、equipScript 或 compiledScript 時，會動態進入 CardRuntime。
+- 使用現有 142 種指令時會自動進入同一套素質、戰鬥、恢復、技能時序及事件 Hook。
+- 新的未知指令會被 Diagnostics 與發行稽核攔下，不會靜默忽略。
+
+變身效果
+- active_transform ID：20
+- 精確本地 Atlas：7（1040, 2996, 3029, 3073, 3097, 3190, 3658）
+- 可見替代效果：13（缺少來源圖集，不會靜默失效）
+
+環境限制
+- 本地 HTTP 入口回應 200。
+- 容器內 Headless Chromium 未能完成載入；長時間掛機、桌機與手機實際畫面仍需下載後人工測試。

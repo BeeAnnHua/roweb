@@ -1,0 +1,81 @@
+{
+  "version": "0.9.82D",
+  "batch": "Runtime Magic Batch16",
+  "coverage": {
+    "before": 84,
+    "after": 94,
+    "target": 1139
+  },
+  "pending": {
+    "before": 1055,
+    "after": 1045
+  },
+  "addedSkills": [
+    {
+      "skillId": 14,
+      "skillKey": "MG_COLDBOLT",
+      "name": "冰箭術"
+    },
+    {
+      "skillId": 16,
+      "skillKey": "MG_STONECURSE",
+      "name": "石化術"
+    },
+    {
+      "skillId": 18,
+      "skillKey": "MG_FIREWALL",
+      "name": "火焰之壁"
+    },
+    {
+      "skillId": 19,
+      "skillKey": "MG_FIREBOLT",
+      "name": "火箭術"
+    },
+    {
+      "skillId": 20,
+      "skillKey": "MG_LIGHTNINGBOLT",
+      "name": "雷擊術"
+    },
+    {
+      "skillId": 80,
+      "skillKey": "WZ_FIREPILLAR",
+      "name": "火柱攻擊"
+    },
+    {
+      "skillId": 83,
+      "skillKey": "WZ_METEOR",
+      "name": "隕石術"
+    },
+    {
+      "skillId": 85,
+      "skillKey": "WZ_VERMILION",
+      "name": "怒雷強擊"
+    },
+    {
+      "skillId": 89,
+      "skillKey": "WZ_STORMGUST",
+      "name": "暴風雪"
+    },
+    {
+      "skillId": 92,
+      "skillKey": "WZ_QUAGMIRE",
+      "name": "泥沼地"
+    }
+  ],
+  "specialReview": [],
+  "adaptations": [
+    "Ground-position skills use direct target or target-area casting without legal placement checks.",
+    "Stone Curse ignores Red Gemstone consumption.",
+    "Fire Wall, Fire Pillar, Meteor Storm, Lord of Vermilion, Storm Gust and Quagmire use direct-target ground-runtime profiles."
+  ],
+  "checks": {
+    "runtime": true,
+    "formula": true,
+    "handler": true,
+    "json": true,
+    "js": true,
+    "bundle": true,
+    "cache": true,
+    "regression": true
+  }
+}

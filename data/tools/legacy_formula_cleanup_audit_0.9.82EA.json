@@ -1,0 +1,49 @@
+{
+  "version": "0.9.82EA",
+  "ruleset": "rAthena Renewal",
+  "status": "FAIL",
+  "formulaAuthority": {
+    "normalAttack": "CombatDamagePipeline.resolveNormalAttack",
+    "physicalSkill": "CombatDamagePipeline.resolvePhysicalSkill",
+    "magicSkill": "CombatDamagePipeline.resolveMagicSkill",
+    "miscSkill": "CombatDamagePipeline.resolveMiscSkill",
+    "monsterAttack": "CombatDamagePipeline.resolveMonsterAttack",
+    "modifiers": "CombatFormulaRuntime.applyDamage",
+    "hit": "HitResolver",
+    "critical": "CriticalResolver",
+    "defense": "DefenseResolver"
+  },
+  "legacyFormulaFindings": {
+    "legacyHitPlus80": 0,
+    "legacyAspdApproximation": 0,
+    "legacy32pxCellFallback": 0,
+    "playerHitsMonsterCalls": 0,
+    "monsterHitsPlayerCalls": 0,
+    "calculatePlayerDamageCalls": 0,
+    "calculateMonsterDamageCalls": 0
+  },
+  "mapCleanup": {
+    "fieldMapCount": 10,
+    "fieldMapIds": [
+      "prontera_3x3_region_camera",
+      "geffen_3x3_region_camera",
+      "morocc_3x3_region_camera",
+      "mjolnir_3x3_region_camera",
+      "rachel_3x3_region_camera",
+      "payon_3x3_region_camera",
+      "juno_3x3_region_camera",
+      "umbala_3x3_region_camera",
+      "lighthouse_coast_3x3_region_camera",
+      "veins_3x3_region_camera"
+    ],
+    "defaultMap": "mjolnir_3x3_region_camera",
+    "defaultLastFieldMap": "mjolnir_3x3_region_camera",
+    "unexpectedSouthReferences": [],
+    "backgroundExists": false,
+    "thumbExists": false
+  },
+  "allowedMigrationReference": "js/player.js: RO_WEB_REMOVED_FIELD_MAP_IDS",
+  "errors": [
+    "field map cleanup mismatch"
+  ]
+}

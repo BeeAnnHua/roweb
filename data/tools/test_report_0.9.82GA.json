@@ -1,0 +1,326 @@
+{
+  "version": "0.9.82GA",
+  "summary": {
+    "checks": 63,
+    "passed": 63,
+    "failed": 0
+  },
+  "errors": [],
+  "checks": [
+    {
+      "ok": true,
+      "name": "index version",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "game version",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "cache version consistency",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "MVP gacha Runtime loaded",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "gacha Runtime load order",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "葛坡尼亞 map record exists",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "large 3x3 world dimensions",
+      "detail": "4608x4608"
+    },
+    {
+      "ok": true,
+      "name": "map has 9 chunk tiles",
+      "detail": "9"
+    },
+    {
+      "ok": true,
+      "name": "tile 001.webp 512x512",
+      "detail": "(512, 512)"
+    },
+    {
+      "ok": true,
+      "name": "tile 002.webp 512x512",
+      "detail": "(512, 512)"
+    },
+    {
+      "ok": true,
+      "name": "tile 003.webp 512x512",
+      "detail": "(512, 512)"
+    },
+    {
+      "ok": true,
+      "name": "tile 004.webp 512x512",
+      "detail": "(512, 512)"
+    },
+    {
+      "ok": true,
+      "name": "tile 005.webp 512x512",
+      "detail": "(512, 512)"
+    },
+    {
+      "ok": true,
+      "name": "tile 006.webp 512x512",
+      "detail": "(512, 512)"
+    },
+    {
+      "ok": true,
+      "name": "tile 007.webp 512x512",
+      "detail": "(512, 512)"
+    },
+    {
+      "ok": true,
+      "name": "tile 008.webp 512x512",
+      "detail": "(512, 512)"
+    },
+    {
+      "ok": true,
+      "name": "tile 009.webp 512x512",
+      "detail": "(512, 512)"
+    },
+    {
+      "ok": true,
+      "name": "map composite and thumbnail exist",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "51 unique MVP species match final arena list",
+      "detail": "51"
+    },
+    {
+      "ok": true,
+      "name": "9 deferred MVP species are excluded from arena",
+      "detail": "[]"
+    },
+    {
+      "ok": true,
+      "name": "all arena species are MVP",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "all MVP retain original drop rows",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "all 51 MVP visual assets use complete animation atlases",
+      "detail": "{'missing': [], 'animated': 51, 'static': 0}"
+    },
+    {
+      "ok": true,
+      "name": "spawn profile matches all 51 MVP",
+      "detail": "51"
+    },
+    {
+      "ok": true,
+      "name": "MVP fixed spawn positions are unique",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "MVP fixed positions stay inside world",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "MVP spawning is one-per-species and excluded from normal density",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "fixed spawnPosition consumed by world Runtime",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "static monster visual fallback consumed by world Runtime",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "map-exclusive raw 1% drop config before global valve",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "single gacha mother pool totals 100%",
+      "detail": "121+9879"
+    },
+    {
+      "ok": true,
+      "name": "gold/purple/red banner tier mapping",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "ordinary reward weights preserve both user tables",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "loot settlement calls map-exclusive hook",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "gacha map/global-drop token activeMap()?.id",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "gacha map/global-drop token mapExclusiveMvpGachaRolled",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "gacha map/global-drop token mapExclusiveDropChanceBasisPoints",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "gacha map/global-drop token getFinalDropChanceBasisPoints",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "red/purple/gold banner CSS exists",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "all gacha reward item records exist",
+      "detail": "[]"
+    },
+    {
+      "ok": true,
+      "name": "all gacha reward icons exist",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "all gacha equipment has Script Runtime",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "card/equipment combo count includes 13 new combos",
+      "detail": "797"
+    },
+    {
+      "ok": true,
+      "name": "20th hat + balloon combo exists",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "CardRuntime token getenchantgrade",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "CardRuntime token ENCHANTGRADE_D",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "CardRuntime token ENCHANTGRADE_C",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "CardRuntime token ENCHANTGRADE_B",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "CardRuntime token ENCHANTGRADE_A",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "CardRuntime token bRes:\"resFlat\"",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "CardRuntime token bMRes:\"mresFlat\"",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "CardRuntime token bCriticalRate:\"criRate\"",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "equipment instances preserve enchant grade",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "new equipment canonical keys have status consumers",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "data bundle includes gacha config",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "data bundle includes arena map",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "self-centred skill range bypass and official splash expansion are installed",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "four attack slots use round-robin rotation",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "fixed skill property overrides weapon converter",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "drop master and category valves are configured",
+      "detail": "{'baseExp': 20000, 'jobExp': 20000, 'drop': 20000, 'zeny': 20000, 'cardDrop': 100, 'mapExclusiveDrop': 100}"
+    },
+    {
+      "ok": true,
+      "name": "gacha uses ITEM 9525 icon",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "gacha fallback image equals ITEM 9525 bytes",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "five melee-family targeting audit passes",
+      "detail": "[]"
+    }
+  ]
+}

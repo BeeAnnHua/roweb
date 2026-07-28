@@ -1,0 +1,84 @@
+{
+  "version": "0.9.82AS",
+  "result": "PASS",
+  "batch": "Mechanic Artillery Core Batch52",
+  "sourceFiles": [
+    "Project SkillInfoz metadata",
+    "local rAthena db/re/skill_db.yml",
+    "local rAthena vulcanarm.cpp, coldslower.cpp, armcannon.cpp",
+    "local rAthena status.cpp SC_FREEZE/SC_FREEZING",
+    "RO_WEB user decision 2026-07-13"
+  ],
+  "officialAdded": [
+    2258,
+    2260,
+    2261
+  ],
+  "coverage": {
+    "before": 535,
+    "after": 538,
+    "target": 1139
+  },
+  "pending": {
+    "before": 604,
+    "after": 601
+  },
+  "behavior": {
+    "2258": {
+      "name": "火神砲",
+      "formula": "(230 × SkillLv + DEX) × BaseLv / 100",
+      "area": "5x5 target-centered",
+      "itemCost": 0,
+      "madoRequirement": false
+    },
+    "2260": {
+      "name": "液體冷卻彈",
+      "formula": "(300 + 300 × SkillLv) × BaseLv / 150",
+      "area": [
+        "5x5",
+        "7x7",
+        "9x9"
+      ],
+      "element": "Water",
+      "statusSequence": [
+        "Freeze 10/20/30% for 7/14/21 sec",
+        "if failed: Freezing 30/40/50% for 40 sec"
+      ],
+      "itemCost": 0,
+      "madoRequirement": false
+    },
+    "2261": {
+      "name": "加農砲",
+      "formula": "(400 + 350 × SkillLv) × BaseLv / 100",
+      "area": [
+        "3x3",
+        "3x3",
+        "5x5",
+        "5x5",
+        "7x7"
+      ],
+      "ignoreFlee": true,
+      "defenseMode": "simple",
+      "itemCost": 0,
+      "madoRequirement": false
+    }
+  },
+  "deferred": [
+    "SP/AP and trait-stat costs",
+    "formal ammunition/fuel cost system",
+    "mandatory Mado-state checks"
+  ],
+  "validation": {
+    "runtimeGeneratedCatalogCounts": "538/538/538",
+    "pendingCount": 601,
+    "duplicateSkillIds": 0,
+    "duplicateSkillKeys": 0,
+    "cacheVersion": "0.9.82AS",
+    "jsonFilesParsed": 435,
+    "javascriptFilesSyntaxChecked": 58,
+    "regressionScriptsPassed": 34,
+    "regressionScriptsFailed": 0,
+    "dataBundleMatchesDisk": true,
+    "zipIntegrity": "PASS"
+  }
+}

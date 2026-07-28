@@ -1,0 +1,119 @@
+{
+  "version": "0.9.82GN",
+  "baseline": "0.9.82GM",
+  "title": "Payon WebP / Inventory Borders & Scroll Rail / Enchant Grade Visibility Fix",
+  "changes": [
+    {
+      "area": "Payon assets",
+      "details": [
+        "Converted the user-provided 1280x720 RGBA PNG to canonical payon_bg.webp",
+        "Generated payon_small.webp at 320x180",
+        "Updated city data and data bundle",
+        "Removed wrong GM versioned Payon files"
+      ]
+    },
+    {
+      "area": "Legacy cleanup",
+      "details": [
+        "Removed unused mjolnir_chunk_005_bg.webp",
+        "Removed unused mjolnir_chunk_005_small.webp"
+      ]
+    },
+    {
+      "area": "Inventory",
+      "details": [
+        "Restored gold slot borders removed by the GM final specificity rule",
+        "Added an always-visible scroll rail",
+        "Styled native track/thumb for categories exceeding 30 entries",
+        "Kept 5x6 / 30 visible slots"
+      ]
+    },
+    {
+      "area": "Enchant Grade",
+      "details": [
+        "Replaced literal backslash-n control text in the grade CSS with real newlines",
+        "Added fixed high-z modal visibility CSS and inline fallback",
+        "Added hidden-state rules for grade/exchange panels",
+        "Unified town NPC grade and exchange open helper",
+        "No-equipment state opens normally"
+      ]
+    },
+    {
+      "area": "Versioning",
+      "details": [
+        "Updated HTML cache keys and runtime version to 0.9.82GN",
+        "Rebuilt data_bundle.js"
+      ]
+    }
+  ],
+  "modifiedFiles": [
+    "images/maps/backgrounds/payon_bg.webp",
+    "images/maps/thumbs/payon_small.webp",
+    "data/cities.json",
+    "data/server_config.json",
+    "data/enchant_grade_rules.json",
+    "data/enchant_grade_exchange.json",
+    "data/enchant_grade_map_drops.json",
+    "js/data_bundle.js",
+    "css/style.css",
+    "index.html",
+    "js/game.js",
+    "js/player.js",
+    "js/town.js",
+    "js/enchant_grade_runtime.js",
+    "js/status_system.js",
+    "js/storage_runtime.js",
+    "AI_START_HERE.md",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "deletedFiles": [
+    "images/maps/backgrounds/payon_bg_0_9_82GM.webp",
+    "images/maps/thumbs/payon_small_0_9_82GM.webp",
+    "images/maps/backgrounds/mjolnir_chunk_005_bg.webp",
+    "images/maps/thumbs/mjolnir_chunk_005_small.webp"
+  ],
+  "assetVerification": {
+    "payonBackground": {
+      "path": "images/maps/backgrounds/payon_bg.webp",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "f5d09716aed66d06368f5b4376322bbe0ba55abcf4ed2803daa373485acb5940"
+    },
+    "payonThumbnail": {
+      "path": "images/maps/thumbs/payon_small.webp",
+      "size": [
+        320,
+        180
+      ],
+      "sha256": "94820d4de370bbe31aca7ff554aa13f4831a7013b1caade19952718d57aa525d"
+    }
+  },
+  "tests": {
+    "automatedRegression": {
+      "passed": 413,
+      "total": 413
+    },
+    "isolatedChromiumRender": {
+      "passed": 4,
+      "total": 4
+    },
+    "javascriptSyntax": {
+      "files": 741,
+      "errors": 0
+    },
+    "jsonParse": {
+      "files": 1975,
+      "errors": 0
+    },
+    "deepHealth": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "notes": [
+    "Full game browser navigation was blocked by the container management policy; isolated Chromium DOM/CSS/runtime rendering was completed instead."
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "version": "0.9.80ZQ",
+  "result": "PASS",
+  "runtimeProfiles": 44,
+  "addedProfiles": [
+    43,
+    65,
+    105,
+    134,
+    509
+  ],
+  "addedSkills": [
+    {
+      "skillId": 43,
+      "key": "AC_OWL",
+      "name": "鶚梟之眼"
+    },
+    {
+      "skillId": 65,
+      "key": "PR_MACEMASTERY",
+      "name": "Mace Mastery"
+    },
+    {
+      "skillId": 105,
+      "key": "BS_HILTBINDING",
+      "name": "武器保有"
+    },
+    {
+      "skillId": 134,
+      "key": "AS_KATAR",
+      "name": "Katar Mastery"
+    },
+    {
+      "skillId": 509,
+      "key": "GS_SINGLEACTION",
+      "name": "Single Action"
+    }
+  ],
+  "newCapability": "Passive Runtime now enforces weaponTypes before applying bonuses.",
+  "verifiedSources": [
+    "rAthena src/map/status.cpp",
+    "rAthena src/map/battle.cpp"
+  ],
+  "legacyFallbacks": 0,
+  "pendingProfiles": 1095,
+  "notes": [
+    "Only direct Renewal passive formulas compatible with current stat Runtime were enabled.",
+    "Party replacement policy unchanged; Devotion/Resurrection/Sacrifice remain pending."
+  ]
+}

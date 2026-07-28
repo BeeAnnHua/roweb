@@ -1,0 +1,503 @@
+{
+  "version": "0.9.82GR",
+  "monsterIds": [
+    21520,
+    21521,
+    21522,
+    21523,
+    21524,
+    21525,
+    21526,
+    21527,
+    21528,
+    21529,
+    21537,
+    21599
+  ],
+  "activeDropItemIds": [
+    936,
+    1096,
+    7013,
+    7066,
+    7067,
+    7110,
+    7193,
+    7326,
+    7561,
+    7565,
+    25159,
+    300360,
+    300361,
+    300362,
+    300363,
+    300364,
+    300365,
+    300366,
+    300367,
+    300368,
+    300377,
+    300381,
+    1000322,
+    1000707,
+    1000812,
+    1000813,
+    1000814,
+    1000822,
+    1000823,
+    1000824,
+    1000828,
+    1000829,
+    1000830,
+    1000831,
+    1000833
+  ],
+  "activeDropItemCount": 35,
+  "missingItemInfoEntries": [],
+  "missingIcons": [],
+  "cardsExpected": [
+    300360,
+    300361,
+    300362,
+    300363,
+    300364,
+    300365,
+    300366,
+    300367,
+    300368,
+    300377,
+    300381
+  ],
+  "cardsRuntimeComplete": [
+    300360,
+    300361,
+    300362,
+    300363,
+    300364,
+    300365,
+    300366,
+    300367,
+    300368,
+    300377,
+    300381
+  ],
+  "items": [
+    {
+      "itemId": 936,
+      "name": "鱗片皮膚",
+      "description": [
+        "覆著鱗片的皮膚, 可向收集商購買。"
+      ],
+      "type": "etc",
+      "icon": "images/items/936.webp",
+      "iconExists": true,
+      "cardRuntimeComplete": false
+    },
+    {
+      "itemId": 1096,
+      "name": "圓形外皮",
+      "description": [
+        "捲成圓形經過乾燥後而成的外皮。可向收集商人購買。"
+      ],
+      "type": "etc",
+      "icon": "images/items/1096.webp",
+      "iconExists": true,
+      "cardRuntimeComplete": false
+    },
+    {
+      "itemId": 7013,
+      "name": "珊瑚",
+      "description": [
+        "海裡剪下的珊瑚。可向收集商人購買。"
+      ],
+      "type": "etc",
+      "icon": "images/items/7013.webp",
+      "iconExists": true,
+      "cardRuntimeComplete": false
+    },
+    {
+      "itemId": 7066,
+      "name": "冰塊一角",
+      "description": [
+        "冰塊的一角,很奇怪的是它不會融掉,可以拿出去賣,真是神奇的冰塊一角。"
+      ],
+      "type": "etc",
+      "icon": "images/items/7066.webp",
+      "iconExists": true,
+      "cardRuntimeComplete": false
+    },
+    {
+      "itemId": 7067,
+      "name": "石頭一角",
+      "description": [
+        "破碎的石頭一角,有漂亮的紋路,據說可以賣給石頭蒐集商人"
+      ],
+      "type": "etc",
+      "icon": "images/items/7067.webp",
+      "iconExists": true,
+      "cardRuntimeComplete": false
+    },
+    {
+      "itemId": 7110,
+      "name": "破裂之劍",
+      "description": [
+        "有很多裂紋,幾乎到不能使用地步的破碎之劍,快要變成廢鐵了"
+      ],
+      "type": "etc",
+      "icon": "images/items/7110.webp",
+      "iconExists": true,
+      "cardRuntimeComplete": false
+    },
+    {
+      "itemId": 7193,
+      "name": "綠芽",
+      "description": [
+        "從植物的種子裡,剛長出來的苗芽。"
+      ],
+      "type": "etc",
+      "icon": "images/items/7193.webp",
+      "iconExists": true,
+      "cardRuntimeComplete": false
+    },
+    {
+      "itemId": 7326,
+      "name": "螢光色的液體",
+      "description": [
+        "非常刺眼的色彩,有著黏稠的液體,晚上看的話非常亮眼的東西。"
+      ],
+      "type": "etc",
+      "icon": "images/items/7326.webp",
+      "iconExists": true,
+      "cardRuntimeComplete": false
+    },
+    {
+      "itemId": 7561,
+      "name": "冰心臟",
+      "description": [
+        "堅硬冰凍過的心臟, 非常冰請小心你的手"
+      ],
+      "type": "etc",
+      "icon": "images/items/7561.webp",
+      "iconExists": true,
+      "cardRuntimeComplete": false
+    },
+    {
+      "itemId": 7565,
+      "name": "粘稠的毒",
+      "description": [
+        "從植物那裡可以獲得到的粘稠的毒, 毒性很強會用在很多地方"
+      ],
+      "type": "etc",
+      "icon": "images/items/7565.webp",
+      "iconExists": true,
+      "cardRuntimeComplete": false
+    },
+    {
+      "itemId": 25159,
+      "name": "邪心獵人之印",
+      "description": [
+        "象徵邪心獵人團隊的印章。"
+      ],
+      "type": "etc",
+      "icon": "images/items/25159.webp",
+      "iconExists": true,
+      "cardRuntimeComplete": false
+    },
+    {
+      "itemId": 300360,
+      "name": "閃亮海帶卡片",
+      "description": [
+        "ATK+10，P.ATK+1。",
+        "近距離物理傷害+3%，使用技能時，SP消耗量+7%。",
+        "精煉+9時，近距離物理傷害再+2%。",
+        "精煉+11時，變動詠唱-5%。"
+      ],
+      "type": "card",
+      "icon": "images/items/300360.webp",
+      "iconExists": true,
+      "cardRuntimeComplete": true
+    },
+    {
+      "itemId": 300361,
+      "name": "冰蛇鰻卡片",
+      "description": [
+        "S.MATK+1，使用技能時，SP消耗量+7%。",
+        "精煉每+2時，水屬性魔法傷害+4%。",
+        "搭配冰鋒球卡片時，MATK+10%。"
+      ],
+      "type": "card",
+      "icon": "images/items/300361.webp",
+      "iconExists": true,
+      "cardRuntimeComplete": true
+    },
+    {
+      "itemId": 300362,
+      "name": "冰霜花卡片",
+      "description": [
+        "P.ATK+1，使用技能時，SP消耗量+7%。",
+        "精煉每+3時，近距離物理傷害+4%。",
+        "搭配閃亮海帶卡片時，ATK+10%。"
+      ],
+      "type": "card",
+      "icon": "images/items/300362.webp",
+      "iconExists": true,
+      "cardRuntimeComplete": true
+    },
+    {
+      "itemId": 300363,
+      "name": "青翅巨鳥卡片",
+      "description": [
+        "ATK+10，P.ATK+1。",
+        "遠距離物理傷害+3%，使用技能時，SP消耗量+7%。",
+        "精煉+9時，遠距離物理傷害再+2%。",
+        "精煉+11時，變動詠唱-5%。"
+      ],
+      "type": "card",
+      "icon": "images/items/300363.webp",
+      "iconExists": true,
+      "cardRuntimeComplete": true
+    },
+    {
+      "itemId": 300364,
+      "name": "克拉波利卡片",
+      "description": [
+        "水屬性魔法傷害+35%。",
+        "使用技能時，SP消耗量+10%。"
+      ],
+      "type": "card",
+      "icon": "images/items/300364.webp",
+      "iconExists": true,
+      "cardRuntimeComplete": true
+    },
+    {
+      "itemId": 300365,
+      "name": "原始蠕蟲卡片",
+      "description": [
+        "近距離物理傷害+8%。"
+      ],
+      "type": "card",
+      "icon": "images/items/300365.webp",
+      "iconExists": true,
+      "cardRuntimeComplete": true
+    },
+    {
+      "itemId": 300366,
+      "name": "最下級蠕蟲卡片",
+      "description": [
+        "CRI+6，C.Rate+1。"
+      ],
+      "type": "card",
+      "icon": "images/items/300366.webp",
+      "iconExists": true,
+      "cardRuntimeComplete": true
+    },
+    {
+      "itemId": 300367,
+      "name": "下級蠕蟲卡片",
+      "description": [
+        "近距離物理傷害+8%。",
+        "搭配原始蠕蟲卡片時，變動詠唱-8%。"
+      ],
+      "type": "card",
+      "icon": "images/items/300367.webp",
+      "iconExists": true,
+      "cardRuntimeComplete": true
+    },
+    {
+      "itemId": 300368,
+      "name": "中級蠕蟲卡片",
+      "description": [
+        "CRI+6，C.Rate+1。",
+        "搭配最下級蠕蟲卡片時，暴擊傷害+10%。"
+      ],
+      "type": "card",
+      "icon": "images/items/300368.webp",
+      "iconExists": true,
+      "cardRuntimeComplete": true
+    },
+    {
+      "itemId": 300377,
+      "name": "終極青翅巨鳥卡片",
+      "description": [
+        "ATK+5%，MATK+5%。",
+        "精煉每+3時，P.ATK+2，S.MATK+2。",
+        "精煉+11以上時，固定詠唱-0.5秒。"
+      ],
+      "type": "card",
+      "icon": "images/items/300377.webp",
+      "iconExists": true,
+      "cardRuntimeComplete": true
+    },
+    {
+      "itemId": 300381,
+      "name": "邪心獵人AT卡片",
+      "description": [
+        "P.ATK+1，使用技能時，SP消耗量+7%",
+        "精煉每+3時，遠距離物理傷害+4%。",
+        "搭配青翅巨鳥卡片時，ATK+10%。"
+      ],
+      "type": "card",
+      "icon": "images/items/300381.webp",
+      "iconExists": true,
+      "cardRuntimeComplete": true
+    },
+    {
+      "itemId": 1000322,
+      "name": "乙太星塵",
+      "description": [
+        "蘊含著乙太魔力的粉末，",
+        "感覺到微量的魔力。"
+      ],
+      "type": "etc",
+      "icon": "images/items/1000322.webp",
+      "iconExists": true,
+      "cardRuntimeComplete": false
+    },
+    {
+      "itemId": 1000707,
+      "name": "蠕蟲的低級魔力核",
+      "description": [
+        "擊敗蠕蟲後獲得的魔力核，是吸收耶夢加得魔力形成的結晶，魔力核中只有極少量的魔力，效率不高。"
+      ],
+      "type": "etc",
+      "icon": "images/items/1000707.webp",
+      "iconExists": true,
+      "cardRuntimeComplete": false
+    },
+    {
+      "itemId": 1000812,
+      "name": "雪花魔石",
+      "description": [
+        "平凡魔力雪花魔石。"
+      ],
+      "type": "etc",
+      "icon": "images/items/1000812.webp",
+      "iconExists": true,
+      "cardRuntimeComplete": false
+    },
+    {
+      "itemId": 1000813,
+      "name": "閃爍雪花魔石",
+      "description": [
+        "微光閃爍，充滿魔力光芒的雪花魔石。"
+      ],
+      "type": "etc",
+      "icon": "images/items/1000813.webp",
+      "iconExists": true,
+      "cardRuntimeComplete": false
+    },
+    {
+      "itemId": 1000814,
+      "name": "耀眼雪花魔石",
+      "description": [
+        "璀璨明亮，充滿魔力光芒的雪花魔石。"
+      ],
+      "type": "etc",
+      "icon": "images/items/1000814.webp",
+      "iconExists": true,
+      "cardRuntimeComplete": false
+    },
+    {
+      "itemId": 1000822,
+      "name": "蠕蟲外殼",
+      "description": [
+        "蠕蟲外殼，觸感有點奇怪。"
+      ],
+      "type": "etc",
+      "icon": "images/items/1000822.webp",
+      "iconExists": true,
+      "cardRuntimeComplete": false
+    },
+    {
+      "itemId": 1000823,
+      "name": "怪異生命體細胞",
+      "description": [
+        "細胞無法辨識，不知道屬於哪種生物。"
+      ],
+      "type": "etc",
+      "icon": "images/items/1000823.webp",
+      "iconExists": true,
+      "cardRuntimeComplete": false
+    },
+    {
+      "itemId": 1000824,
+      "name": "克拉結晶",
+      "description": [
+        "克拉波利體內發現的神秘結晶。"
+      ],
+      "type": "etc",
+      "icon": "images/items/1000824.webp",
+      "iconExists": true,
+      "cardRuntimeComplete": false
+    },
+    {
+      "itemId": 1000828,
+      "name": "透明殼",
+      "description": [
+        "青翅巨鳥的殼，呈現透明狀，",
+        "聽說味道不錯。"
+      ],
+      "type": "etc",
+      "icon": "images/items/1000828.webp",
+      "iconExists": true,
+      "cardRuntimeComplete": false
+    },
+    {
+      "itemId": 1000829,
+      "name": "水鈴花",
+      "description": [
+        "狩獵時使用的誘餌水鈴花。"
+      ],
+      "type": "etc",
+      "icon": "images/items/1000829.webp",
+      "iconExists": true,
+      "cardRuntimeComplete": false
+    },
+    {
+      "itemId": 1000830,
+      "name": "薄而堅固的外皮",
+      "description": [
+        "冰蛇鰻的外殼。"
+      ],
+      "type": "etc",
+      "icon": "images/items/1000830.webp",
+      "iconExists": true,
+      "cardRuntimeComplete": false
+    },
+    {
+      "itemId": 1000831,
+      "name": "閃亮海帶莖",
+      "description": [
+        "閃亮海帶的莖。"
+      ],
+      "type": "etc",
+      "icon": "images/items/1000831.webp",
+      "iconExists": true,
+      "cardRuntimeComplete": false
+    },
+    {
+      "itemId": 1000833,
+      "name": "神秘發光體",
+      "description": [
+        "富含神秘能量的礦石。"
+      ],
+      "type": "etc",
+      "icon": "images/items/1000833.webp",
+      "iconExists": true,
+      "cardRuntimeComplete": false
+    }
+  ],
+  "correctiveChanges": [
+    {
+      "itemId": 1000812,
+      "file": "item_index.json",
+      "oldName": "平凡魔力雪花魔石",
+      "newName": "雪花魔石"
+    },
+    {
+      "itemId": 1000812,
+      "file": "materials_2.json",
+      "oldName": "平凡魔力雪花魔石",
+      "newName": "雪花魔石"
+    }
+  ]
+}

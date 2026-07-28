@@ -1,0 +1,139 @@
+{
+  "version": "0.9.82AR",
+  "result": "PASS",
+  "batch": "Alchemist Acid & Bottle Combat Core Batch51",
+  "sourceFiles": [
+    "Project SkillInfoz metadata",
+    "local rAthena db/re/skill_db.yml",
+    "local rAthena bomb.cpp, acidterror.cpp, aciddemonstration.cpp",
+    "local rAthena status.cpp SC_BLEEDING",
+    "RO_WEB user decision 2026-07-13"
+  ],
+  "officialAdded": [
+    229,
+    230,
+    490
+  ],
+  "coverage": {
+    "before": 532,
+    "after": 535,
+    "target": 1139
+  },
+  "pending": {
+    "before": 607,
+    "after": 604
+  },
+  "behavior": {
+    "229": {
+      "name": "火煙瓶投擲",
+      "ratioPercent": [
+        120,
+        140,
+        160,
+        180,
+        200
+      ],
+      "durationMs": [
+        40000,
+        45000,
+        50000,
+        55000,
+        60000
+      ],
+      "tickMs": 500,
+      "area": "3x3",
+      "weaponBreakChancePercent": [
+        3,
+        6,
+        9,
+        12,
+        15
+      ],
+      "monsterAdaptation": "ATK -25% / 5 sec",
+      "itemCost": 0
+    },
+    "230": {
+      "name": "強酸攻擊",
+      "ratioPercent": "200 × SkillLv + 100 when Learning Potion is learned",
+      "ignoreFlee": true,
+      "bleedingChancePercent": [
+        3,
+        6,
+        9,
+        12,
+        15
+      ],
+      "bleeding": "200-799 non-lethal damage every 10 sec / 108 sec",
+      "armorBreakChancePercent": [
+        5,
+        15,
+        25,
+        35,
+        45
+      ],
+      "monsterAdaptation": "DEF -25% / 5 sec",
+      "itemCost": 0
+    },
+    "490": {
+      "name": "強酸火煙瓶投擲",
+      "ratioPerHitPercent": "200 × SkillLv + INT + target VIT",
+      "hits": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "weaponArmorBreakChancePercent": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "monsterAdaptation": "ATK/DEF -25% / 5 sec",
+      "itemCost": 0
+    }
+  },
+  "deferred": [
+    "SP/AP and trait-stat costs",
+    "formal item cost system",
+    "player equipment destruction PvP behavior"
+  ],
+  "validation": {
+    "runtimeGeneratedCatalogCounts": "535/535/535",
+    "pendingCount": 604,
+    "duplicateSkillIds": 0,
+    "duplicateSkillKeys": 0,
+    "cacheVersion": "0.9.82AR",
+    "jsonFilesParsed": 434,
+    "javascriptFilesSyntaxChecked": 57,
+    "regressionScriptsPassed": 33,
+    "regressionScriptsFailed": 0,
+    "dataBundleMatchesDisk": true,
+    "copyableChecks": {
+      "AM_DEMONSTRATION": "Plagiarism/Reproduce enabled",
+      "AM_ACIDTERROR": "Plagiarism/Reproduce enabled",
+      "CR_ACIDDEMONSTRATION": "not added because RA CopyFlags are absent"
+    },
+    "dynamicChecks": {
+      "bombLv5Ratio": 200,
+      "acidTerrorLv5LearningPotionRatio": 1100,
+      "acidDemonstrationLv10Int100TargetVit50TotalRatio": 21500,
+      "bleedingTickDamageDeterministic": 200,
+      "bombWeaponBreakAdaptation": "ATK -25% / 5 sec",
+      "acidArmorBreakAdaptation": "DEF -25% / 5 sec",
+      "acidDemonstrationBreakAdaptation": "ATK/DEF -25% / 5 sec"
+    }
+  }
+}

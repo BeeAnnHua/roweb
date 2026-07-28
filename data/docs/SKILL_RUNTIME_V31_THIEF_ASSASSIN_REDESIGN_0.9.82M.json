@@ -1,0 +1,52 @@
+{
+  "version": "0.9.82N",
+  "result": "PASS",
+  "coverage": {
+    "before": 201,
+    "after": 215,
+    "target": 1139
+  },
+  "implementedSkillIds": [
+    51,
+    135,
+    139,
+    140,
+    141,
+    2024,
+    2025,
+    2026,
+    2027,
+    2033,
+    2035,
+    2036,
+    2037,
+    2284,
+    2298
+  ],
+  "designDecisions": {
+    "edp": "Applies to every physical skill; legacy ignoreEdp flags are ignored.",
+    "passiveConversions": [
+      "TF_HIDING",
+      "AS_CLOAKING",
+      "AS_POISONREACT",
+      "AS_VENOMDUST",
+      "AS_SPLASHER",
+      "GC_RESEARCHNEWPOISON",
+      "GC_CREATENEWPOISON",
+      "GC_ANTIDOTE",
+      "GC_POISONINGWEAPON",
+      "GC_CLOAKINGEXCEED",
+      "GC_HALLUCINATIONWALK",
+      "SC_STRIPACCESSARY"
+    ],
+    "SC_FATALMENACE": "7x7 short-range AoE, 300% ATK, no teleport.",
+    "GC_ROLLINGCUTTER": "RA damage + 1 charge per successful cast, max 10; no forced spinning visual.",
+    "GC_CROSSRIPPERSLASHER": "Consumes all charges; +200% ATK per charge."
+  },
+  "descriptionPolicy": "All redesigned skills use polished Traditional Chinese descriptions matching Runtime.",
+  "counts": {
+    "official": 215,
+    "pending": 924,
+    "total": 1139
+  }
+}

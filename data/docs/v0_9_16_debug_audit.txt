@@ -1,0 +1,19 @@
+RO_WEB V0.9.16 Debug Audit
+
+Checks:
+- JS syntax: OK
+- JSON format: OK
+- Image reference scan: 95 refs / missing 0
+- ZIP cleanup: desktop.ini / Thumbs.db / .DS_Store removed
+
+Important changes:
+- Main CSS UI polish continued.
+- Status panel no longer depends on status_panel.webp.
+- status_panel.webp removed from images/ui/panels.
+- Item data corrected to official item IDs where known.
+- 3101 hair clip test record removed.
+- 2201 corrected to sunglasses / headMid.
+- 2208 purple butterfly hairband added.
+- 2103 / 2104 added as round shield candidates.
+- 2111 corrected to Sacred Mission [0]; no icon assigned because official image is not in the current images/items folder and it is not sold in shops.
+- Shops updated: 3101 replaced by 2208; swordman basic shield changed from 2111 to 2103.

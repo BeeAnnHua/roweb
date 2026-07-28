@@ -1,0 +1,67 @@
+{
+  "version": "0.9.82AY",
+  "result": "PASS",
+  "batch": "Mage Passive Conversion Batch57",
+  "convertedSkills": [
+    {
+      "skillId": 10,
+      "skillKey": "MG_SIGHT",
+      "name": "火狩"
+    },
+    {
+      "skillId": 93,
+      "skillKey": "WZ_ESTIMATION",
+      "name": "怪物情報"
+    },
+    {
+      "skillId": 1006,
+      "skillKey": "WZ_SIGHTBLASTER",
+      "name": "火狩芽"
+    }
+  ],
+  "runtime": {
+    "handler": "passive",
+    "passiveBonuses": {
+      "atkRate": 5,
+      "matkRate": 5
+    },
+    "activeEffectsRemoved": true
+  },
+  "copyPolicy": {
+    "plagiarism": false,
+    "reproduce": false
+  },
+  "coverage": {
+    "officialRuntime": 557,
+    "pending": 582,
+    "total": 1139
+  },
+  "deferred": [
+    "SP/AP costs",
+    "trait stats and unified skill cost balancing"
+  ],
+  "validation": {
+    "result": "PASS",
+    "jsonFilesParsed": 441,
+    "javascriptFilesSyntaxChecked": 67,
+    "selectedRegressionScriptsPassed": 4,
+    "selectedRegressionScriptsTotal": 4,
+    "deepHealthCheck": {
+      "errors": 0,
+      "warnings": 36,
+      "status": "PASS"
+    },
+    "runtimeGeneratedCatalogCounts": "557/557/557",
+    "pendingCount": 582,
+    "duplicateSkillIds": 0,
+    "duplicateSkillKeys": 0,
+    "copyableExclusion": "PASS",
+    "legacyActiveBuffCleanup": "PASS",
+    "dynamicChecks": {
+      "threePassivesCombinedAtkRate": 15,
+      "threePassivesCombinedMatkRate": 15
+    },
+    "cacheVersion": "0.9.82AY",
+    "bundleConsistency": "PASS"
+  }
+}

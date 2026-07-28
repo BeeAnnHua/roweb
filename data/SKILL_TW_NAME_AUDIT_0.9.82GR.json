@@ -1,0 +1,3725 @@
+{
+  "version": "0.9.82GR",
+  "source": "skillinfoz原文版/skillinfolist.lub (Lua 5.1 bytecode extracted mapping)",
+  "skillCount": 1139,
+  "coreNameChanges": 529,
+  "runtimeDuplicateNameChanges": 1488,
+  "missingOfficialNames": [],
+  "changes": [
+    {
+      "skillId": 31,
+      "skillKey": "AL_HOLYWATER",
+      "oldName": "神聖之水",
+      "newName": "天使之淚",
+      "core": 1
+    },
+    {
+      "skillId": 36,
+      "skillKey": "MC_INCCARRY",
+      "oldName": "負重量提升",
+      "newName": "負重量上升",
+      "core": 1
+    },
+    {
+      "skillId": 65,
+      "skillKey": "PR_MACEMASTERY",
+      "oldName": "Mace Mastery",
+      "newName": "權杖使用熟練度",
+      "core": 1
+    },
+    {
+      "skillId": 67,
+      "skillKey": "PR_SUFFRAGIUM",
+      "oldName": "Suffragium",
+      "newName": "犧牲祈福",
+      "core": 1
+    },
+    {
+      "skillId": 76,
+      "skillKey": "PR_LEXDIVINA",
+      "oldName": "Lex Divina",
+      "newName": "沉默之術",
+      "core": 1
+    },
+    {
+      "skillId": 77,
+      "skillKey": "PR_TURNUNDEAD",
+      "oldName": "Turn Undead",
+      "newName": "轉生術",
+      "core": 1
+    },
+    {
+      "skillId": 78,
+      "skillKey": "PR_LEXAETERNA",
+      "oldName": "Lex Aeterna",
+      "newName": "天使之怒",
+      "core": 1
+    },
+    {
+      "skillId": 79,
+      "skillKey": "PR_MAGNUS",
+      "oldName": "Magnus Exorcismus",
+      "newName": "十字驅魔攻擊",
+      "core": 1
+    },
+    {
+      "skillId": 99,
+      "skillKey": "BS_SWORD",
+      "oldName": "單手劍製作",
+      "newName": "劍製作",
+      "core": 1
+    },
+    {
+      "skillId": 102,
+      "skillKey": "BS_MACE",
+      "oldName": "鈍器製作",
+      "newName": "權杖製作",
+      "core": 1
+    },
+    {
+      "skillId": 109,
+      "skillKey": "BS_SKINTEMPER",
+      "oldName": "Skin Tempering",
+      "newName": "強化火屬性",
+      "core": 1
+    },
+    {
+      "skillId": 110,
+      "skillKey": "BS_HAMMERFALL",
+      "oldName": "Hammer Fall",
+      "newName": "大地之擊",
+      "core": 1
+    },
+    {
+      "skillId": 111,
+      "skillKey": "BS_ADRENALINE",
+      "oldName": "Adrenaline Rush",
+      "newName": "速度激發",
+      "core": 1
+    },
+    {
+      "skillId": 112,
+      "skillKey": "BS_WEAPONPERFECT",
+      "oldName": "Weapon Perfection",
+      "newName": "無視體型攻擊",
+      "core": 1
+    },
+    {
+      "skillId": 113,
+      "skillKey": "BS_OVERTHRUST",
+      "oldName": "Power-Thrust",
+      "newName": "凶砍",
+      "core": 1
+    },
+    {
+      "skillId": 114,
+      "skillKey": "BS_MAXIMIZE",
+      "oldName": "Maximize Power",
+      "newName": "武器值最大化",
+      "core": 1
+    },
+    {
+      "skillId": 132,
+      "skillKey": "AS_RIGHT",
+      "oldName": "Righthand Mastery",
+      "newName": "右手修練",
+      "core": 1
+    },
+    {
+      "skillId": 133,
+      "skillKey": "AS_LEFT",
+      "oldName": "Lefthand Mastery",
+      "newName": "左手修練",
+      "core": 1
+    },
+    {
+      "skillId": 134,
+      "skillKey": "AS_KATAR",
+      "oldName": "Katar Mastery",
+      "newName": "拳刃修練",
+      "core": 1
+    },
+    {
+      "skillId": 136,
+      "skillKey": "AS_SONICBLOW",
+      "oldName": "Sonic Blow",
+      "newName": "音速投擲",
+      "core": 1
+    },
+    {
+      "skillId": 137,
+      "skillKey": "AS_GRIMTOOTH",
+      "oldName": "Grimtooth",
+      "newName": "無影之牙",
+      "core": 1
+    },
+    {
+      "skillId": 140,
+      "skillKey": "AS_VENOMDUST",
+      "oldName": "毒性散播",
+      "newName": "病毒散撥",
+      "core": 1
+    },
+    {
+      "skillId": 142,
+      "skillKey": "NV_FIRSTAID",
+      "oldName": "急救",
+      "newName": "緊急治療",
+      "core": 1
+    },
+    {
+      "skillId": 149,
+      "skillKey": "TF_SPRINKLESAND",
+      "oldName": "Sand Attack",
+      "newName": "噴砂",
+      "core": 1
+    },
+    {
+      "skillId": 150,
+      "skillKey": "TF_BACKSLIDING",
+      "oldName": "Back Slide",
+      "newName": "後退迴避",
+      "core": 1
+    },
+    {
+      "skillId": 152,
+      "skillKey": "TF_THROWSTONE",
+      "oldName": "丟石頭",
+      "newName": "投擲石頭",
+      "core": 1
+    },
+    {
+      "skillId": 154,
+      "skillKey": "MC_CHANGECART",
+      "oldName": "改變手推車外觀",
+      "newName": "改裝手推車",
+      "core": 1
+    },
+    {
+      "skillId": 156,
+      "skillKey": "AL_HOLYLIGHT",
+      "oldName": "Holy Light",
+      "newName": "神聖之光",
+      "core": 1
+    },
+    {
+      "skillId": 224,
+      "skillKey": "RG_COMPULSION",
+      "oldName": "Haggle",
+      "newName": "強制減價",
+      "core": 1
+    },
+    {
+      "skillId": 226,
+      "skillKey": "AM_AXEMASTERY",
+      "oldName": "斧頭和單手劍使用熟練度",
+      "newName": "斧頭使用熟練度",
+      "core": 1
+    },
+    {
+      "skillId": 252,
+      "skillKey": "CR_REFLECTSHIELD",
+      "oldName": "Shield Reflect",
+      "newName": "反射盾",
+      "core": 1
+    },
+    {
+      "skillId": 254,
+      "skillKey": "CR_GRANDCROSS",
+      "oldName": "Grand Cross",
+      "newName": "聖十字審判",
+      "core": 1
+    },
+    {
+      "skillId": 256,
+      "skillKey": "CR_PROVIDENCE",
+      "oldName": "聖音",
+      "newName": "神祐之光",
+      "core": 1
+    },
+    {
+      "skillId": 257,
+      "skillKey": "CR_DEFENDER",
+      "oldName": "Defending Aura",
+      "newName": "光之盾",
+      "core": 1
+    },
+    {
+      "skillId": 258,
+      "skillKey": "CR_SPEARQUICKEN",
+      "oldName": "Spear Quicken",
+      "newName": "長矛加速術",
+      "core": 1
+    },
+    {
+      "skillId": 265,
+      "skillKey": "MO_DODGE",
+      "oldName": "Dodge",
+      "newName": "移花接木",
+      "core": 1
+    },
+    {
+      "skillId": 272,
+      "skillKey": "MO_CHAINCOMBO",
+      "oldName": "Raging Quadruple Blow",
+      "newName": "連環全身掌",
+      "core": 1
+    },
+    {
+      "skillId": 273,
+      "skillKey": "MO_COMBOFINISH",
+      "oldName": "Raging Thrust",
+      "newName": "猛龍誇強",
+      "core": 1
+    },
+    {
+      "skillId": 274,
+      "skillKey": "SA_ADVANCEDBOOK",
+      "oldName": "Study",
+      "newName": "進化之書",
+      "core": 1
+    },
+    {
+      "skillId": 310,
+      "skillKey": "BD_RINGNIBELUNGEN",
+      "oldName": "尼貝龍根之戒",
+      "newName": "尼貝隆根之戒指",
+      "core": 1
+    },
+    {
+      "skillId": 312,
+      "skillKey": "BD_INTOABYSS",
+      "oldName": "進入深淵",
+      "newName": "觸媒之所",
+      "core": 1
+    },
+    {
+      "skillId": 329,
+      "skillKey": "DC_FORTUNEKISS",
+      "oldName": "幸運之吻",
+      "newName": "女神之吻",
+      "core": 1
+    },
+    {
+      "skillId": 330,
+      "skillKey": "DC_SERVICEFORYOU",
+      "oldName": "女神之吻",
+      "newName": "為您服務",
+      "core": 1
+    },
+    {
+      "skillId": 356,
+      "skillKey": "LK_PARRYING",
+      "oldName": "雙劍格擋",
+      "newName": "雙劍挌擋",
+      "core": 1
+    },
+    {
+      "skillId": 367,
+      "skillKey": "PA_PRESSURE",
+      "oldName": "Gloria Domini",
+      "newName": "神之威壓",
+      "core": 1
+    },
+    {
+      "skillId": 368,
+      "skillKey": "PA_SACRIFICE",
+      "oldName": "Martyr's Reckoning",
+      "newName": "捨命攻擊",
+      "core": 1
+    },
+    {
+      "skillId": 369,
+      "skillKey": "PA_GOSPEL",
+      "oldName": "Battle Chant",
+      "newName": "聖音",
+      "core": 1
+    },
+    {
+      "skillId": 372,
+      "skillKey": "CH_CHAINCRUSH",
+      "oldName": "連柱崩擊",
+      "newName": "氣絕崩擊",
+      "core": 1
+    },
+    {
+      "skillId": 376,
+      "skillKey": "ASC_KATAR",
+      "oldName": "Advanced Katar Mastery",
+      "newName": "高階拳刃修練",
+      "core": 1
+    },
+    {
+      "skillId": 379,
+      "skillKey": "ASC_BREAKER",
+      "oldName": "Soul Destroyer",
+      "newName": "心靈震波",
+      "core": 1
+    },
+    {
+      "skillId": 390,
+      "skillKey": "ST_REJECTSWORD",
+      "oldName": "反擊本能",
+      "newName": "霸王魂",
+      "core": 1
+    },
+    {
+      "skillId": 395,
+      "skillKey": "CG_MOONLIT",
+      "oldName": "月明之夜",
+      "newName": "落花伴著月光下的水車小屋",
+      "core": 1
+    },
+    {
+      "skillId": 406,
+      "skillKey": "ASC_METEORASSAULT",
+      "oldName": "Meteor Assault",
+      "newName": "黑暗瞬間",
+      "core": 1
+    },
+    {
+      "skillId": 407,
+      "skillKey": "ASC_CDP",
+      "oldName": "致命毒藥製作",
+      "newName": "毒液製作",
+      "core": 1
+    },
+    {
+      "skillId": 410,
+      "skillKey": "WE_CALLBABY",
+      "oldName": "呼喚寶寶",
+      "newName": "寶貝請來這裡",
+      "core": 1
+    },
+    {
+      "skillId": 476,
+      "skillKey": "ST_FULLSTRIP",
+      "oldName": "全面卸除",
+      "newName": "所有卸除",
+      "core": 1
+    },
+    {
+      "skillId": 477,
+      "skillKey": "WS_WEAPONREFINE",
+      "oldName": "武器精煉",
+      "newName": "武器精練",
+      "core": 1
+    },
+    {
+      "skillId": 480,
+      "skillKey": "PA_SHIELDCHAIN",
+      "oldName": "Shield Chain",
+      "newName": "連續盾擊",
+      "core": 1
+    },
+    {
+      "skillId": 481,
+      "skillKey": "HP_MANARECHARGE",
+      "oldName": "Mana Recharge",
+      "newName": "魔力減免",
+      "core": 1
+    },
+    {
+      "skillId": 488,
+      "skillKey": "CG_HERMODE",
+      "oldName": "海羅默德的法杖",
+      "newName": "海羅默德的手杖",
+      "core": 1
+    },
+    {
+      "skillId": 496,
+      "skillKey": "AM_TWILIGHT1",
+      "oldName": "寬廣配藥Ⅰ",
+      "newName": "寬廣配藥",
+      "core": 1
+    },
+    {
+      "skillId": 497,
+      "skillKey": "AM_TWILIGHT2",
+      "oldName": "寬廣配藥Ⅱ",
+      "newName": "寬廣配藥",
+      "core": 1
+    },
+    {
+      "skillId": 498,
+      "skillKey": "AM_TWILIGHT3",
+      "oldName": "寬廣配藥Ⅲ",
+      "newName": "寬廣配藥",
+      "core": 1
+    },
+    {
+      "skillId": 1002,
+      "skillKey": "CR_SHRINK",
+      "oldName": "Shrink",
+      "newName": "退縮",
+      "core": 1
+    },
+    {
+      "skillId": 1003,
+      "skillKey": "AS_SONICACCEL",
+      "oldName": "Sonic Acceleration",
+      "newName": "超音速投擲",
+      "core": 1
+    },
+    {
+      "skillId": 1004,
+      "skillKey": "AS_VENOMKNIFE",
+      "oldName": "Throw Venom Knife",
+      "newName": "毒刃",
+      "core": 1
+    },
+    {
+      "skillId": 1005,
+      "skillKey": "RG_CLOSECONFINE",
+      "oldName": "近身纏鬥",
+      "newName": "緊密的約束",
+      "core": 1
+    },
+    {
+      "skillId": 1007,
+      "skillKey": "SA_CREATECON",
+      "oldName": "肯貝特製作",
+      "newName": "元素肯貝特製作",
+      "core": 1
+    },
+    {
+      "skillId": 1008,
+      "skillKey": "SA_ELEMENTWATER",
+      "oldName": "水屬性元素更換",
+      "newName": "元素更換(水)",
+      "core": 1
+    },
+    {
+      "skillId": 1010,
+      "skillKey": "BA_PANGVOICE",
+      "oldName": "嘲諷之聲",
+      "newName": "陣痛之聲",
+      "core": 1
+    },
+    {
+      "skillId": 1011,
+      "skillKey": "DC_WINKCHARM",
+      "oldName": "魅惑之眼",
+      "newName": "眨眼之誘",
+      "core": 1
+    },
+    {
+      "skillId": 1014,
+      "skillKey": "PR_REDEMPTIO",
+      "oldName": "贖罪",
+      "newName": "捨身取義",
+      "core": 1
+    },
+    {
+      "skillId": 1016,
+      "skillKey": "MO_BALKYOUNG",
+      "oldName": "氣爆散打",
+      "newName": "發勁",
+      "core": 1
+    },
+    {
+      "skillId": 1017,
+      "skillKey": "SA_ELEMENTGROUND",
+      "oldName": "地屬性元素更換",
+      "newName": "元素更換(地)",
+      "core": 1
+    },
+    {
+      "skillId": 1018,
+      "skillKey": "SA_ELEMENTFIRE",
+      "oldName": "火屬性元素更換",
+      "newName": "元素更換(火)",
+      "core": 1
+    },
+    {
+      "skillId": 1019,
+      "skillKey": "SA_ELEMENTWIND",
+      "oldName": "風屬性元素更換",
+      "newName": "元素更換(風)",
+      "core": 1
+    },
+    {
+      "skillId": 2021,
+      "skillKey": "GC_VENOMIMPRESS",
+      "oldName": "毒液印記",
+      "newName": "毒耐性弱化",
+      "core": 1
+    },
+    {
+      "skillId": 2022,
+      "skillKey": "GC_CROSSIMPACT",
+      "oldName": "十字衝擊",
+      "newName": "十字斬",
+      "core": 1
+    },
+    {
+      "skillId": 2023,
+      "skillKey": "GC_DARKILLUSION",
+      "oldName": "黑暗幻影",
+      "newName": "黑色幻影",
+      "core": 1
+    },
+    {
+      "skillId": 2025,
+      "skillKey": "GC_CREATENEWPOISON",
+      "oldName": "毒液製作",
+      "newName": "新毒製作",
+      "core": 1
+    },
+    {
+      "skillId": 2028,
+      "skillKey": "GC_WEAPONBLOCKING",
+      "oldName": "武器格擋",
+      "newName": "武器抵禦",
+      "core": 1
+    },
+    {
+      "skillId": 2030,
+      "skillKey": "GC_WEAPONCRUSH",
+      "oldName": "武器破壞",
+      "newName": "卸除武裝",
+      "core": 1
+    },
+    {
+      "skillId": 2031,
+      "skillKey": "GC_VENOMPRESSURE",
+      "oldName": "毒液壓迫",
+      "newName": "劇毒強制賦予",
+      "core": 1
+    },
+    {
+      "skillId": 2034,
+      "skillKey": "GC_PHANTOMMENACE",
+      "oldName": "幻影威脅",
+      "newName": "惡靈威脅",
+      "core": 1
+    },
+    {
+      "skillId": 2213,
+      "skillKey": "WL_COMET",
+      "oldName": "毀滅彗星",
+      "newName": "毀滅慧星",
+      "core": 1
+    },
+    {
+      "skillId": 2232,
+      "skillKey": "WL_FREEZE_SP",
+      "oldName": "保存魔法",
+      "newName": "魔法保存",
+      "core": 1
+    },
+    {
+      "skillId": 2237,
+      "skillKey": "RA_DETONATOR",
+      "oldName": "引爆",
+      "newName": "雷管",
+      "core": 1
+    },
+    {
+      "skillId": 2239,
+      "skillKey": "RA_CLUSTERBOMB",
+      "oldName": "集束炸彈",
+      "newName": "榴霰彈",
+      "core": 1
+    },
+    {
+      "skillId": 2284,
+      "skillKey": "SC_FATALMENACE",
+      "oldName": "惡靈威脅",
+      "newName": "致命威脅",
+      "core": 1
+    },
+    {
+      "skillId": 2287,
+      "skillKey": "SC_SHADOWFORM",
+      "oldName": "暗影型態",
+      "newName": "魅影形態",
+      "core": 1
+    },
+    {
+      "skillId": 2292,
+      "skillKey": "SC_ENERVATION",
+      "oldName": "面具：衰弱",
+      "newName": "面具:無力",
+      "core": 1
+    },
+    {
+      "skillId": 2293,
+      "skillKey": "SC_GROOMY",
+      "oldName": "面具：憂鬱",
+      "newName": "面具-憂鬱",
+      "core": 1
+    },
+    {
+      "skillId": 2294,
+      "skillKey": "SC_IGNORANCE",
+      "oldName": "面具：無知",
+      "newName": "面具-無知",
+      "core": 1
+    },
+    {
+      "skillId": 2295,
+      "skillKey": "SC_LAZINESS",
+      "oldName": "面具：懶散",
+      "newName": "面具:懶散",
+      "core": 1
+    },
+    {
+      "skillId": 2296,
+      "skillKey": "SC_UNLUCKY",
+      "oldName": "面具：不幸",
+      "newName": "面具-不幸",
+      "core": 1
+    },
+    {
+      "skillId": 2297,
+      "skillKey": "SC_WEAKNESS",
+      "oldName": "面具：虛弱",
+      "newName": "面具-衰弱",
+      "core": 1
+    },
+    {
+      "skillId": 2298,
+      "skillKey": "SC_STRIPACCESSARY",
+      "oldName": "卸除武裝",
+      "newName": "卸除配件",
+      "core": 1
+    },
+    {
+      "skillId": 2303,
+      "skillKey": "SC_BLOODYLUST",
+      "oldName": "血腥慾望",
+      "newName": "血腥欲望",
+      "core": 1
+    },
+    {
+      "skillId": 2304,
+      "skillKey": "SC_FEINTBOMB",
+      "oldName": "虛假炸彈",
+      "newName": "虛擊炸彈",
+      "core": 1
+    },
+    {
+      "skillId": 2307,
+      "skillKey": "LG_CANNONSPEAR",
+      "oldName": "Cannon Spear",
+      "newName": "加農砲攻擊",
+      "core": 1
+    },
+    {
+      "skillId": 2308,
+      "skillKey": "LG_BANISHINGPOINT",
+      "oldName": "Banishing Point",
+      "newName": "放逐攻擊",
+      "core": 1
+    },
+    {
+      "skillId": 2309,
+      "skillKey": "LG_TRAMPLE",
+      "oldName": "踐踏",
+      "newName": "摧殘",
+      "core": 1
+    },
+    {
+      "skillId": 2310,
+      "skillKey": "LG_SHIELDPRESS",
+      "oldName": "Shield Press",
+      "newName": "重壓盾擊",
+      "core": 1
+    },
+    {
+      "skillId": 2311,
+      "skillKey": "LG_REFLECTDAMAGE",
+      "oldName": "Reflect Damage Reduction",
+      "newName": "聖冕加護",
+      "core": 1
+    },
+    {
+      "skillId": 2312,
+      "skillKey": "LG_PINPOINTATTACK",
+      "oldName": "Pinpoint Attack",
+      "newName": "精準攻擊",
+      "core": 1
+    },
+    {
+      "skillId": 2316,
+      "skillKey": "LG_EXEEDBREAK",
+      "oldName": "Exceed Break",
+      "newName": "強化衝擊",
+      "core": 1
+    },
+    {
+      "skillId": 2317,
+      "skillKey": "LG_OVERBRAND",
+      "oldName": "Over Brand",
+      "newName": "支配烙印",
+      "core": 1
+    },
+    {
+      "skillId": 2318,
+      "skillKey": "LG_PRESTIGE",
+      "oldName": "Prestige",
+      "newName": "威信",
+      "core": 1
+    },
+    {
+      "skillId": 2319,
+      "skillKey": "LG_BANDING",
+      "oldName": "支配烙印",
+      "newName": "聚集",
+      "core": 1
+    },
+    {
+      "skillId": 2320,
+      "skillKey": "LG_MOONSLASHER",
+      "oldName": "Moon Slasher",
+      "newName": "半月斬",
+      "core": 1
+    },
+    {
+      "skillId": 2321,
+      "skillKey": "LG_RAYOFGENESIS",
+      "oldName": "Ray of Genesis",
+      "newName": "創世之光",
+      "core": 1
+    },
+    {
+      "skillId": 2322,
+      "skillKey": "LG_PIETY",
+      "oldName": "Piety",
+      "newName": "虔誠",
+      "core": 1
+    },
+    {
+      "skillId": 2323,
+      "skillKey": "LG_EARTHDRIVE",
+      "oldName": "Earth Drive",
+      "newName": "大地毀滅",
+      "core": 1
+    },
+    {
+      "skillId": 2324,
+      "skillKey": "LG_HESPERUSLIT",
+      "oldName": "Hesperus Lit",
+      "newName": "黃昏星之光",
+      "core": 1
+    },
+    {
+      "skillId": 2325,
+      "skillKey": "LG_INSPIRATION",
+      "oldName": "Inspiration",
+      "newName": "靈感",
+      "core": 1
+    },
+    {
+      "skillId": 2340,
+      "skillKey": "SR_ASSIMILATEPOWER",
+      "oldName": "吸氣功",
+      "newName": "吸氣攻",
+      "core": 1
+    },
+    {
+      "skillId": 2344,
+      "skillKey": "SR_GENTLETOUCH_QUIET",
+      "oldName": "點穴－默",
+      "newName": "點穴-默",
+      "core": 1
+    },
+    {
+      "skillId": 2345,
+      "skillKey": "SR_GENTLETOUCH_CURE",
+      "oldName": "點穴－快",
+      "newName": "點穴-快",
+      "core": 1
+    },
+    {
+      "skillId": 2346,
+      "skillKey": "SR_GENTLETOUCH_ENERGYGAIN",
+      "oldName": "點穴－球",
+      "newName": "點穴-球",
+      "core": 1
+    },
+    {
+      "skillId": 2347,
+      "skillKey": "SR_GENTLETOUCH_CHANGE",
+      "oldName": "點穴－反",
+      "newName": "點穴-反",
+      "core": 1
+    },
+    {
+      "skillId": 2348,
+      "skillKey": "SR_GENTLETOUCH_REVITALIZE",
+      "oldName": "點穴－活",
+      "newName": "點穴-活",
+      "core": 1
+    },
+    {
+      "skillId": 2381,
+      "skillKey": "MI_RUSH_WINDMILL",
+      "oldName": "風車突擊",
+      "newName": "朝風車突擊",
+      "core": 1
+    },
+    {
+      "skillId": 2457,
+      "skillKey": "SO_SUMMON_AGNI",
+      "oldName": "召喚火精靈阿格尼",
+      "newName": "召喚火元素",
+      "core": 1
+    },
+    {
+      "skillId": 2458,
+      "skillKey": "SO_SUMMON_AQUA",
+      "oldName": "召喚水精靈阿庫亞",
+      "newName": "召喚水精靈阿奎亞",
+      "core": 1
+    },
+    {
+      "skillId": 2474,
+      "skillKey": "GN_TRAINING_SWORD",
+      "oldName": "劍術訓練",
+      "newName": "單手劍使用熟練度",
+      "core": 1
+    },
+    {
+      "skillId": 2535,
+      "skillKey": "ALL_BUYING_STORE",
+      "oldName": "開設收購商店",
+      "newName": "開設購買商店(BUYING STORE)",
+      "core": 1
+    },
+    {
+      "skillId": 2544,
+      "skillKey": "MC_CARTDECORATE",
+      "oldName": "手推車裝飾",
+      "newName": "改裝手推車II",
+      "core": 1
+    },
+    {
+      "skillId": 5001,
+      "skillKey": "GC_DARKCROW",
+      "oldName": "暗黑利爪",
+      "newName": "致命爪痕",
+      "core": 1
+    },
+    {
+      "skillId": 5010,
+      "skillKey": "SC_ESCAPE",
+      "oldName": "緊急脫逃",
+      "newName": "緊急脫身",
+      "core": 1
+    },
+    {
+      "skillId": 5013,
+      "skillKey": "LG_KINGS_GRACE",
+      "oldName": "King's Grace",
+      "newName": "王的恩典",
+      "core": 1
+    },
+    {
+      "skillId": 5068,
+      "skillKey": "CG_SPECIALSINGER",
+      "oldName": "特殊歌手",
+      "newName": "職人演奏家",
+      "core": 1
+    },
+    {
+      "skillId": 5238,
+      "skillKey": "IQ_POWERFUL_FAITH",
+      "oldName": "強力信仰",
+      "newName": "堅毅信念",
+      "core": 1
+    },
+    {
+      "skillId": 5239,
+      "skillKey": "IQ_FIRM_FAITH",
+      "oldName": "堅定信仰",
+      "newName": "堅定信念",
+      "core": 1
+    },
+    {
+      "skillId": 5240,
+      "skillKey": "IQ_WILL_OF_FAITH",
+      "oldName": "信仰意志",
+      "newName": "信念意志",
+      "core": 1
+    },
+    {
+      "skillId": 5242,
+      "skillKey": "IQ_SINCERE_FAITH",
+      "oldName": "虔誠信仰",
+      "newName": "真誠信念",
+      "core": 1
+    },
+    {
+      "skillId": 5243,
+      "skillKey": "IQ_MASSIVE_F_BLASTER",
+      "oldName": "大範圍烈焰爆破",
+      "newName": "焰魔散彈",
+      "core": 1
+    },
+    {
+      "skillId": 5244,
+      "skillKey": "IQ_EXPOSION_BLASTER",
+      "oldName": "爆炸衝擊",
+      "newName": "爆破衝擊",
+      "core": 1
+    },
+    {
+      "skillId": 5245,
+      "skillKey": "IQ_FIRST_BRAND",
+      "oldName": "第一烙印",
+      "newName": "第一擊:烙印",
+      "core": 1
+    },
+    {
+      "skillId": 5246,
+      "skillKey": "IQ_FIRST_FAITH_POWER",
+      "oldName": "第一信仰之力",
+      "newName": "首章:信仰之力",
+      "core": 1
+    },
+    {
+      "skillId": 5247,
+      "skillKey": "IQ_JUDGE",
+      "oldName": "審判",
+      "newName": "次章:審判者",
+      "core": 1
+    },
+    {
+      "skillId": 5248,
+      "skillKey": "IQ_SECOND_FLAME",
+      "oldName": "第二烈焰",
+      "newName": "第二擊:火焰滅絕",
+      "core": 1
+    },
+    {
+      "skillId": 5249,
+      "skillKey": "IQ_SECOND_FAITH",
+      "oldName": "第二信仰",
+      "newName": "第二擊:信念",
+      "core": 1
+    },
+    {
+      "skillId": 5250,
+      "skillKey": "IQ_SECOND_JUDGEMENT",
+      "oldName": "第二審判",
+      "newName": "第二擊:審判",
+      "core": 1
+    },
+    {
+      "skillId": 5251,
+      "skillKey": "IQ_THIRD_PUNISH",
+      "oldName": "第三懲戒",
+      "newName": "第三擊:懲治",
+      "core": 1
+    },
+    {
+      "skillId": 5252,
+      "skillKey": "IQ_THIRD_FLAME_BOMB",
+      "oldName": "第三烈焰炸彈",
+      "newName": "第三擊:火焰彈",
+      "core": 1
+    },
+    {
+      "skillId": 5253,
+      "skillKey": "IQ_THIRD_CONSECRATION",
+      "oldName": "第三奉獻",
+      "newName": "第三擊:淨化",
+      "core": 1
+    },
+    {
+      "skillId": 5254,
+      "skillKey": "IQ_THIRD_EXOR_FLAME",
+      "oldName": "第三驅魔烈焰",
+      "newName": "最終章:驅魔火焰",
+      "core": 1
+    },
+    {
+      "skillId": 5255,
+      "skillKey": "IG_GUARD_STANCE",
+      "oldName": "Guard Stance",
+      "newName": "防禦架式",
+      "core": 1
+    },
+    {
+      "skillId": 5256,
+      "skillKey": "IG_GUARDIAN_SHIELD",
+      "oldName": "Guardian Shield",
+      "newName": "守護神盾",
+      "core": 1
+    },
+    {
+      "skillId": 5257,
+      "skillKey": "IG_REBOUND_SHIELD",
+      "oldName": "Rebound Shield",
+      "newName": "回彈神盾",
+      "core": 1
+    },
+    {
+      "skillId": 5258,
+      "skillKey": "IG_SHIELD_MASTERY",
+      "oldName": "Shield Mastery",
+      "newName": "防盾精熟",
+      "core": 1
+    },
+    {
+      "skillId": 5259,
+      "skillKey": "IG_SPEAR_SWORD_M",
+      "oldName": "Spear And Sword Mastery",
+      "newName": "矛&劍精熟",
+      "core": 1
+    },
+    {
+      "skillId": 5260,
+      "skillKey": "IG_ATTACK_STANCE",
+      "oldName": "Attack Stance",
+      "newName": "攻擊架式",
+      "core": 1
+    },
+    {
+      "skillId": 5262,
+      "skillKey": "IG_HOLY_SHIELD",
+      "oldName": "Holy Shield",
+      "newName": "抗性聖盾",
+      "core": 1
+    },
+    {
+      "skillId": 5263,
+      "skillKey": "IG_GRAND_JUDGEMENT",
+      "oldName": "Grand Judgement",
+      "newName": "末日審判",
+      "core": 1
+    },
+    {
+      "skillId": 5264,
+      "skillKey": "IG_JUDGEMENT_CROSS",
+      "oldName": "Judgement Cross",
+      "newName": "交錯審判",
+      "core": 1
+    },
+    {
+      "skillId": 5265,
+      "skillKey": "IG_SHIELD_SHOOTING",
+      "oldName": "Shield Shooting",
+      "newName": "盾牌投擲",
+      "core": 1
+    },
+    {
+      "skillId": 5266,
+      "skillKey": "IG_OVERSLASH",
+      "oldName": "Overslash",
+      "newName": "瞬間斬擊",
+      "core": 1
+    },
+    {
+      "skillId": 5267,
+      "skillKey": "IG_CROSS_RAIN",
+      "oldName": "Cross Rain",
+      "newName": "聖十字雨",
+      "core": 1
+    },
+    {
+      "skillId": 5268,
+      "skillKey": "CD_REPARATIO",
+      "oldName": "完全治癒",
+      "newName": "聖光治癒",
+      "core": 1
+    },
+    {
+      "skillId": 5269,
+      "skillKey": "CD_MEDIALE_VOTUM",
+      "oldName": "持續祈療",
+      "newName": "治癒誓言",
+      "core": 1
+    },
+    {
+      "skillId": 5270,
+      "skillKey": "CD_MACE_BOOK_M",
+      "oldName": "鈍器與書本精熟",
+      "newName": "鈍器&書籍精熟",
+      "core": 1
+    },
+    {
+      "skillId": 5271,
+      "skillKey": "CD_ARGUTUS_VITA",
+      "oldName": "生命穿透祈禱",
+      "newName": "光耀天命",
+      "core": 1
+    },
+    {
+      "skillId": 5272,
+      "skillKey": "CD_ARGUTUS_TELUM",
+      "oldName": "武力穿透祈禱",
+      "newName": "神聖防護",
+      "core": 1
+    },
+    {
+      "skillId": 5273,
+      "skillKey": "CD_ARBITRIUM",
+      "oldName": "神聖仲裁",
+      "newName": "制裁謳歌",
+      "core": 1
+    },
+    {
+      "skillId": 5275,
+      "skillKey": "CD_PRESENS_ACIES",
+      "oldName": "銳利祝福",
+      "newName": "爆裂聖光",
+      "core": 1
+    },
+    {
+      "skillId": 5276,
+      "skillKey": "CD_FIDUS_ANIMUS",
+      "oldName": "忠誠信念",
+      "newName": "靈魂忠誠",
+      "core": 1
+    },
+    {
+      "skillId": 5277,
+      "skillKey": "CD_EFFLIGO",
+      "oldName": "神聖重擊",
+      "newName": "破壞擊",
+      "core": 1
+    },
+    {
+      "skillId": 5278,
+      "skillKey": "CD_COMPETENTIA",
+      "oldName": "全能聖典",
+      "newName": "神聖權能",
+      "core": 1
+    },
+    {
+      "skillId": 5279,
+      "skillKey": "CD_PNEUMATICUS_PROCELLA",
+      "oldName": "聖靈暴風",
+      "newName": "驅魔風暴",
+      "core": 1
+    },
+    {
+      "skillId": 5280,
+      "skillKey": "CD_DILECTIO_HEAL",
+      "oldName": "神聖群療",
+      "newName": "博愛治癒",
+      "core": 1
+    },
+    {
+      "skillId": 5281,
+      "skillKey": "CD_RELIGIO",
+      "oldName": "靈性祝福",
+      "newName": "全心奉獻",
+      "core": 1
+    },
+    {
+      "skillId": 5282,
+      "skillKey": "CD_BENEDICTUM",
+      "oldName": "力量祝福",
+      "newName": "祝福讚歌",
+      "core": 1
+    },
+    {
+      "skillId": 5283,
+      "skillKey": "CD_PETITIO",
+      "oldName": "神聖請願",
+      "newName": "聖光打擊",
+      "core": 1
+    },
+    {
+      "skillId": 5284,
+      "skillKey": "CD_FRAMEN",
+      "oldName": "聖光火焰",
+      "newName": "聖靈鎮魂",
+      "core": 1
+    },
+    {
+      "skillId": 5285,
+      "skillKey": "SHC_SHADOW_EXCEED",
+      "oldName": "暗影超越",
+      "newName": "魅影強化",
+      "core": 1
+    },
+    {
+      "skillId": 5286,
+      "skillKey": "SHC_DANCING_KNIFE",
+      "oldName": "舞動刀刃",
+      "newName": "舞動血刃",
+      "core": 1
+    },
+    {
+      "skillId": 5287,
+      "skillKey": "SHC_SAVAGE_IMPACT",
+      "oldName": "兇殘衝擊",
+      "newName": "野蠻衝擊",
+      "core": 1
+    },
+    {
+      "skillId": 5288,
+      "skillKey": "SHC_SHADOW_SENSE",
+      "oldName": "暗影感知",
+      "newName": "影刃旋舞",
+      "core": 1
+    },
+    {
+      "skillId": 5290,
+      "skillKey": "SHC_POTENT_VENOM",
+      "oldName": "劇毒穿透",
+      "newName": "強效毒液",
+      "core": 1
+    },
+    {
+      "skillId": 5292,
+      "skillKey": "SHC_IMPACT_CRATER",
+      "oldName": "衝擊爆裂",
+      "newName": "神力撞擊",
+      "core": 1
+    },
+    {
+      "skillId": 5293,
+      "skillKey": "SHC_ENCHANTING_SHADOW",
+      "oldName": "暗影附魔",
+      "newName": "迷惑魅影",
+      "core": 1
+    },
+    {
+      "skillId": 5294,
+      "skillKey": "SHC_FATAL_SHADOW_CROW",
+      "oldName": "致命暗影鴉",
+      "newName": "致命影爪",
+      "core": 1
+    },
+    {
+      "skillId": 5295,
+      "skillKey": "MT_AXE_STOMP",
+      "oldName": "戰斧踏擊",
+      "newName": "戰斧踏滅",
+      "core": 1
+    },
+    {
+      "skillId": 5296,
+      "skillKey": "MT_RUSH_QUAKE",
+      "oldName": "衝鋒震擊",
+      "newName": "衝擊撼動",
+      "core": 1
+    },
+    {
+      "skillId": 5299,
+      "skillKey": "MT_D_MACHINE",
+      "oldName": "啟動防禦裝置",
+      "newName": "啟動防禦裝置(",
+      "core": 1
+    },
+    {
+      "skillId": 5302,
+      "skillKey": "MT_SUMMON_ABR_BATTLE_WARIOR",
+      "oldName": "ABR－決戰勇士",
+      "newName": "ABR-決戰勇士",
+      "core": 1
+    },
+    {
+      "skillId": 5303,
+      "skillKey": "MT_SUMMON_ABR_DUAL_CANNON",
+      "oldName": "ABR－雙子加農砲",
+      "newName": "ABR-雙子加農砲",
+      "core": 1
+    },
+    {
+      "skillId": 5304,
+      "skillKey": "MT_SUMMON_ABR_MOTHER_NET",
+      "oldName": "ABR－天網聖母",
+      "newName": "ABR-天網聖母",
+      "core": 1
+    },
+    {
+      "skillId": 5305,
+      "skillKey": "MT_SUMMON_ABR_INFINITY",
+      "oldName": "ABR－無限戰火",
+      "newName": "ABR-無限戰火",
+      "core": 1
+    },
+    {
+      "skillId": 5311,
+      "skillKey": "ABC_DAGGER_AND_BOW_M",
+      "oldName": "短劍與弓精熟",
+      "newName": "短劍&弓弩精熟",
+      "core": 1
+    },
+    {
+      "skillId": 5313,
+      "skillKey": "ABC_STRIP_SHADOW",
+      "oldName": "卸除影子裝備",
+      "newName": "卸除影子",
+      "core": 1
+    },
+    {
+      "skillId": 5315,
+      "skillKey": "ABC_UNLUCKY_RUSH",
+      "oldName": "厄運突襲",
+      "newName": "不幸衝擊",
+      "core": 1
+    },
+    {
+      "skillId": 5316,
+      "skillKey": "ABC_CHAIN_REACTION_SHOT",
+      "oldName": "連鎖反應射擊",
+      "newName": "連鎖射擊",
+      "core": 1
+    },
+    {
+      "skillId": 5317,
+      "skillKey": "ABC_FROM_THE_ABYSS",
+      "oldName": "深淵降臨",
+      "newName": "萬丈深淵",
+      "core": 1
+    },
+    {
+      "skillId": 5319,
+      "skillKey": "ABC_ABYSS_STRIKE",
+      "oldName": "終極深淵衝擊",
+      "newName": "終結深淵攻擊",
+      "core": 1
+    },
+    {
+      "skillId": 5321,
+      "skillKey": "ABC_ABYSS_SQUARE",
+      "oldName": "深淵方陣",
+      "newName": "深淵墳場",
+      "core": 1
+    },
+    {
+      "skillId": 5324,
+      "skillKey": "WH_WIND_SIGN",
+      "oldName": "風之標記",
+      "newName": "八風標記",
+      "core": 1
+    },
+    {
+      "skillId": 5340,
+      "skillKey": "BO_ACIDIFIED_ZONE_WATER",
+      "oldName": "強酸禁地（水）",
+      "newName": "強酸禁地(水)",
+      "core": 1
+    },
+    {
+      "skillId": 5341,
+      "skillKey": "BO_ACIDIFIED_ZONE_GROUND",
+      "oldName": "強酸禁地（地）",
+      "newName": "強酸禁地(地)",
+      "core": 1
+    },
+    {
+      "skillId": 5342,
+      "skillKey": "BO_ACIDIFIED_ZONE_WIND",
+      "oldName": "強酸禁地（風）",
+      "newName": "強酸禁地(風)",
+      "core": 1
+    },
+    {
+      "skillId": 5343,
+      "skillKey": "BO_ACIDIFIED_ZONE_FIRE",
+      "oldName": "強酸禁地（火）",
+      "newName": "強酸禁地(火)",
+      "core": 1
+    },
+    {
+      "skillId": 6503,
+      "skillKey": "IG_RADIANT_SPEAR",
+      "oldName": "Radiant Spear",
+      "newName": "光輝刺擊",
+      "core": 1
+    },
+    {
+      "skillId": 6504,
+      "skillKey": "IG_IMPERIAL_CROSS",
+      "oldName": "Imperial Cross",
+      "newName": "帝國十字斬",
+      "core": 1
+    },
+    {
+      "skillId": 6505,
+      "skillKey": "IG_IMPERIAL_PRESSURE",
+      "oldName": "Imperial Pressure",
+      "newName": "霸權震域",
+      "core": 1
+    },
+    {
+      "skillId": 6506,
+      "skillKey": "MT_RUSH_STRIKE",
+      "oldName": "衝鋒突擊",
+      "newName": "衝鋒斬擊",
+      "core": 1
+    },
+    {
+      "skillId": 6507,
+      "skillKey": "MT_POWERFUL_SWING",
+      "oldName": "強力揮擊",
+      "newName": "爆發橫掃",
+      "core": 1
+    },
+    {
+      "skillId": 6511,
+      "skillKey": "SHC_CROSS_SLASH",
+      "oldName": "十字交叉斬",
+      "newName": "十字斬擊",
+      "core": 1
+    },
+    {
+      "skillId": 6513,
+      "skillKey": "ABC_CHASING_BREAK",
+      "oldName": "追擊破壞",
+      "newName": "追擊突斷",
+      "core": 1
+    },
+    {
+      "skillId": 6514,
+      "skillKey": "ABC_CHASING_SHOT",
+      "oldName": "追擊射擊",
+      "newName": "追襲射擊",
+      "core": 1
+    },
+    {
+      "skillId": 6515,
+      "skillKey": "ABC_ABYSS_FLAME",
+      "oldName": "深淵火焰",
+      "newName": "深淵之焰",
+      "core": 1
+    },
+    {
+      "skillId": 6518,
+      "skillKey": "CD_DIVINUS_FLOS",
+      "oldName": "神聖之花",
+      "newName": "神聖花雨",
+      "core": 1
+    },
+    {
+      "skillId": 6519,
+      "skillKey": "IQ_BLAZING_FLAME_BLAST",
+      "oldName": "熾烈火焰爆破",
+      "newName": "烈焰爆彈",
+      "core": 1
+    },
+    {
+      "skillId": 6520,
+      "skillKey": "WH_WILD_WALK",
+      "oldName": "野性漫步",
+      "newName": "狂野疾行",
+      "core": 1
+    },
+    {
+      "skillId": 411,
+      "skillKey": "TK_RUN",
+      "oldName": "Running",
+      "newName": "跑步",
+      "core": 2
+    },
+    {
+      "skillId": 412,
+      "skillKey": "TK_READYSTORM",
+      "oldName": "Tornado Stance",
+      "newName": "迴旋準備",
+      "core": 2
+    },
+    {
+      "skillId": 413,
+      "skillKey": "TK_STORMKICK",
+      "oldName": "Tornado Kick",
+      "newName": "迴旋踢",
+      "core": 2
+    },
+    {
+      "skillId": 414,
+      "skillKey": "TK_READYDOWN",
+      "oldName": "Heel Drop Stance",
+      "newName": "砸踢準備",
+      "core": 2
+    },
+    {
+      "skillId": 415,
+      "skillKey": "TK_DOWNKICK",
+      "oldName": "Heel Drop",
+      "newName": "砸踢",
+      "core": 2
+    },
+    {
+      "skillId": 416,
+      "skillKey": "TK_READYTURN",
+      "oldName": "Roundhouse Stance",
+      "newName": "踢準備",
+      "core": 2
+    },
+    {
+      "skillId": 417,
+      "skillKey": "TK_TURNKICK",
+      "oldName": "Roundhouse Kick",
+      "newName": "轉身踢",
+      "core": 2
+    },
+    {
+      "skillId": 418,
+      "skillKey": "TK_READYCOUNTER",
+      "oldName": "Counter Kick Stance",
+      "newName": "還擊準備",
+      "core": 2
+    },
+    {
+      "skillId": 419,
+      "skillKey": "TK_COUNTER",
+      "oldName": "Counter Kick",
+      "newName": "還擊踢",
+      "core": 2
+    },
+    {
+      "skillId": 420,
+      "skillKey": "TK_DODGE",
+      "oldName": "Tumbling",
+      "newName": "落法",
+      "core": 2
+    },
+    {
+      "skillId": 421,
+      "skillKey": "TK_JUMPKICK",
+      "oldName": "Flying Kick",
+      "newName": "飛腳踢",
+      "core": 2
+    },
+    {
+      "skillId": 422,
+      "skillKey": "TK_HPTIME",
+      "oldName": "Peaceful Break",
+      "newName": "平安的休息",
+      "core": 2
+    },
+    {
+      "skillId": 423,
+      "skillKey": "TK_SPTIME",
+      "oldName": "Happy Break",
+      "newName": "快樂的休息",
+      "core": 2
+    },
+    {
+      "skillId": 424,
+      "skillKey": "TK_POWER",
+      "oldName": "Kihop",
+      "newName": "加油",
+      "core": 2
+    },
+    {
+      "skillId": 425,
+      "skillKey": "TK_SEVENWIND",
+      "oldName": "Mild Wind",
+      "newName": "溫暖的風",
+      "core": 2
+    },
+    {
+      "skillId": 426,
+      "skillKey": "TK_HIGHJUMP",
+      "oldName": "Taekwon Jump",
+      "newName": "跳高",
+      "core": 2
+    },
+    {
+      "skillId": 427,
+      "skillKey": "SG_FEEL",
+      "oldName": "Feeling the Sun Moon and Stars",
+      "newName": "太陽和月亮和星星的感覺",
+      "core": 2
+    },
+    {
+      "skillId": 428,
+      "skillKey": "SG_SUN_WARM",
+      "oldName": "Warmth of the Sun",
+      "newName": "太陽的溫暖",
+      "core": 2
+    },
+    {
+      "skillId": 429,
+      "skillKey": "SG_MOON_WARM",
+      "oldName": "Warmth of the Moon",
+      "newName": "月亮的溫暖",
+      "core": 2
+    },
+    {
+      "skillId": 430,
+      "skillKey": "SG_STAR_WARM",
+      "oldName": "Warmth of the Stars",
+      "newName": "星星的溫暖",
+      "core": 2
+    },
+    {
+      "skillId": 431,
+      "skillKey": "SG_SUN_COMFORT",
+      "oldName": "Comfort of the Sun",
+      "newName": "太陽的平安感",
+      "core": 2
+    },
+    {
+      "skillId": 432,
+      "skillKey": "SG_MOON_COMFORT",
+      "oldName": "Comfort of the Moon",
+      "newName": "月亮的平安感",
+      "core": 2
+    },
+    {
+      "skillId": 433,
+      "skillKey": "SG_STAR_COMFORT",
+      "oldName": "Comfort of the Stars",
+      "newName": "星星的平安感",
+      "core": 2
+    },
+    {
+      "skillId": 434,
+      "skillKey": "SG_HATE",
+      "oldName": "Hatred of the Sun Moon and Stars",
+      "newName": "太陽和月亮和星星的憎惡",
+      "core": 2
+    },
+    {
+      "skillId": 435,
+      "skillKey": "SG_SUN_ANGER",
+      "oldName": "Anger of the Sun",
+      "newName": "太陽的憤怒",
+      "core": 2
+    },
+    {
+      "skillId": 436,
+      "skillKey": "SG_MOON_ANGER",
+      "oldName": "Anger of the Moon",
+      "newName": "月亮的憤怒",
+      "core": 2
+    },
+    {
+      "skillId": 437,
+      "skillKey": "SG_STAR_ANGER",
+      "oldName": "Anger of the Stars",
+      "newName": "星星的憤怒",
+      "core": 2
+    },
+    {
+      "skillId": 438,
+      "skillKey": "SG_SUN_BLESS",
+      "oldName": "Blessing of the Sun",
+      "newName": "太陽的祝福",
+      "core": 2
+    },
+    {
+      "skillId": 439,
+      "skillKey": "SG_MOON_BLESS",
+      "oldName": "Blessing of the Moon",
+      "newName": "月亮的祝福",
+      "core": 2
+    },
+    {
+      "skillId": 440,
+      "skillKey": "SG_STAR_BLESS",
+      "oldName": "Blessing of the Stars",
+      "newName": "星星的祝福",
+      "core": 2
+    },
+    {
+      "skillId": 441,
+      "skillKey": "SG_DEVIL",
+      "oldName": "Demon of the Sun Moon and Stars",
+      "newName": "太陽和月亮和星星的惡魔",
+      "core": 2
+    },
+    {
+      "skillId": 442,
+      "skillKey": "SG_FRIEND",
+      "oldName": "Friend of the Sun Moon and Stars",
+      "newName": "太陽和月亮和星星的朋友",
+      "core": 2
+    },
+    {
+      "skillId": 443,
+      "skillKey": "SG_KNOWLEDGE",
+      "oldName": "Knowledge of the Sun Moon and Stars",
+      "newName": "太陽和月亮和星星的知識",
+      "core": 2
+    },
+    {
+      "skillId": 444,
+      "skillKey": "SG_FUSION",
+      "oldName": "Union of the Sun Moon and Stars",
+      "newName": "太陽和月亮和星星的融合",
+      "core": 2
+    },
+    {
+      "skillId": 445,
+      "skillKey": "SL_ALCHEMIST",
+      "oldName": "Spirit of the Alchemist",
+      "newName": "鍊金術師的靈魂",
+      "core": 2
+    },
+    {
+      "skillId": 447,
+      "skillKey": "SL_MONK",
+      "oldName": "Spirit of the Monk",
+      "newName": "武道家的靈魂",
+      "core": 2
+    },
+    {
+      "skillId": 448,
+      "skillKey": "SL_STAR",
+      "oldName": "Spirit of the Star Gladiator",
+      "newName": "拳聖的靈魂",
+      "core": 2
+    },
+    {
+      "skillId": 449,
+      "skillKey": "SL_SAGE",
+      "oldName": "Spirit of the Sage",
+      "newName": "賢者的靈魂",
+      "core": 2
+    },
+    {
+      "skillId": 450,
+      "skillKey": "SL_CRUSADER",
+      "oldName": "Spirit of the Crusader",
+      "newName": "十字軍的靈魂",
+      "core": 2
+    },
+    {
+      "skillId": 451,
+      "skillKey": "SL_SUPERNOVICE",
+      "oldName": "Spirit of the Supernovice",
+      "newName": "超級初學者的靈魂",
+      "core": 2
+    },
+    {
+      "skillId": 452,
+      "skillKey": "SL_KNIGHT",
+      "oldName": "Spirit of the Knight",
+      "newName": "騎士的靈魂",
+      "core": 2
+    },
+    {
+      "skillId": 453,
+      "skillKey": "SL_WIZARD",
+      "oldName": "Spirit of the Wizard",
+      "newName": "巫師的靈魂",
+      "core": 2
+    },
+    {
+      "skillId": 454,
+      "skillKey": "SL_PRIEST",
+      "oldName": "Spirit of the Priest",
+      "newName": "祭司的靈魂",
+      "core": 2
+    },
+    {
+      "skillId": 455,
+      "skillKey": "SL_BARDDANCER",
+      "oldName": "Spirit of the Artist",
+      "newName": "吟遊詩人和舞孃的靈魂",
+      "core": 2
+    },
+    {
+      "skillId": 456,
+      "skillKey": "SL_ROGUE",
+      "oldName": "Spirit of the Rogue",
+      "newName": "流氓的靈魂",
+      "core": 2
+    },
+    {
+      "skillId": 457,
+      "skillKey": "SL_ASSASIN",
+      "oldName": "Spirit of the Assasin",
+      "newName": "刺客的靈魂",
+      "core": 2
+    },
+    {
+      "skillId": 458,
+      "skillKey": "SL_BLACKSMITH",
+      "oldName": "Spirit of the Blacksmith",
+      "newName": "鐵匠的靈魂",
+      "core": 2
+    },
+    {
+      "skillId": 460,
+      "skillKey": "SL_HUNTER",
+      "oldName": "Spirit of the Hunter",
+      "newName": "獵人的靈魂",
+      "core": 2
+    },
+    {
+      "skillId": 461,
+      "skillKey": "SL_SOULLINKER",
+      "oldName": "Spirit of the Soul Linker",
+      "newName": "悟靈士的靈魂",
+      "core": 2
+    },
+    {
+      "skillId": 462,
+      "skillKey": "SL_KAIZEL",
+      "oldName": "Kaizel",
+      "newName": "凱易哲",
+      "core": 2
+    },
+    {
+      "skillId": 463,
+      "skillKey": "SL_KAAHI",
+      "oldName": "Kaahi",
+      "newName": "凱阿希",
+      "core": 2
+    },
+    {
+      "skillId": 464,
+      "skillKey": "SL_KAUPE",
+      "oldName": "Kaupe",
+      "newName": "凱誣僕",
+      "core": 2
+    },
+    {
+      "skillId": 465,
+      "skillKey": "SL_KAITE",
+      "oldName": "Kaite",
+      "newName": "凱易特",
+      "core": 2
+    },
+    {
+      "skillId": 466,
+      "skillKey": "SL_KAINA",
+      "oldName": "Kaina",
+      "newName": "凱易娜",
+      "core": 2
+    },
+    {
+      "skillId": 467,
+      "skillKey": "SL_STIN",
+      "oldName": "Estin",
+      "newName": "艾斯提",
+      "core": 2
+    },
+    {
+      "skillId": 468,
+      "skillKey": "SL_STUN",
+      "oldName": "Estun",
+      "newName": "艾斯敦",
+      "core": 2
+    },
+    {
+      "skillId": 469,
+      "skillKey": "SL_SMA",
+      "oldName": "Esma",
+      "newName": "艾斯麻",
+      "core": 2
+    },
+    {
+      "skillId": 470,
+      "skillKey": "SL_SWOO",
+      "oldName": "Eswoo",
+      "newName": "艾斯誣",
+      "core": 2
+    },
+    {
+      "skillId": 471,
+      "skillKey": "SL_SKE",
+      "oldName": "Eske",
+      "newName": "艾斯克",
+      "core": 2
+    },
+    {
+      "skillId": 472,
+      "skillKey": "SL_SKA",
+      "oldName": "Eska",
+      "newName": "艾斯卡",
+      "core": 2
+    },
+    {
+      "skillId": 493,
+      "skillKey": "TK_MISSION",
+      "oldName": "Taekwon Mission",
+      "newName": "太拳任務",
+      "core": 2
+    },
+    {
+      "skillId": 494,
+      "skillKey": "SL_HIGH",
+      "oldName": "Spirit of Rebirth",
+      "newName": "一轉上等職業的靈魂",
+      "core": 2
+    },
+    {
+      "skillId": 500,
+      "skillKey": "GS_GLITTERING",
+      "oldName": "Flip the Coin",
+      "newName": "裝滿硬幣",
+      "core": 2
+    },
+    {
+      "skillId": 501,
+      "skillKey": "GS_FLING",
+      "oldName": "Fling",
+      "newName": "投擲硬幣",
+      "core": 2
+    },
+    {
+      "skillId": 502,
+      "skillKey": "GS_TRIPLEACTION",
+      "oldName": "Triple Action",
+      "newName": "三連攻擊",
+      "core": 2
+    },
+    {
+      "skillId": 503,
+      "skillKey": "GS_BULLSEYE",
+      "oldName": "Bulls Eye",
+      "newName": "公牛之眼",
+      "core": 2
+    },
+    {
+      "skillId": 504,
+      "skillKey": "GS_MADNESSCANCEL",
+      "oldName": "Madness Canceller",
+      "newName": "瘋狂凱斯樂",
+      "core": 2
+    },
+    {
+      "skillId": 505,
+      "skillKey": "GS_ADJUSTMENT",
+      "oldName": "Adjustment",
+      "newName": "終極閃躲",
+      "core": 2
+    },
+    {
+      "skillId": 506,
+      "skillKey": "GS_INCREASING",
+      "oldName": "Increasing Accuracy",
+      "newName": "命中率遞增  ",
+      "core": 2
+    },
+    {
+      "skillId": 507,
+      "skillKey": "GS_MAGICALBULLET",
+      "oldName": "Magical Bullet",
+      "newName": "魔術彈",
+      "core": 2
+    },
+    {
+      "skillId": 508,
+      "skillKey": "GS_CRACKER",
+      "oldName": "Cracker",
+      "newName": "轟然巨響",
+      "core": 2
+    },
+    {
+      "skillId": 509,
+      "skillKey": "GS_SINGLEACTION",
+      "oldName": "Single Action",
+      "newName": "單槍射擊",
+      "core": 2
+    },
+    {
+      "skillId": 510,
+      "skillKey": "GS_SNAKEEYE",
+      "oldName": "Snake Eye",
+      "newName": "瞄準之眼",
+      "core": 2
+    },
+    {
+      "skillId": 511,
+      "skillKey": "GS_CHAINACTION",
+      "oldName": "Chain Action",
+      "newName": "連鎖衝擊",
+      "core": 2
+    },
+    {
+      "skillId": 512,
+      "skillKey": "GS_TRACKING",
+      "oldName": "Tracking",
+      "newName": "百步穿楊",
+      "core": 2
+    },
+    {
+      "skillId": 513,
+      "skillKey": "GS_DISARM",
+      "oldName": "Disarm",
+      "newName": "拋戈卸甲",
+      "core": 2
+    },
+    {
+      "skillId": 514,
+      "skillKey": "GS_PIERCINGSHOT",
+      "oldName": "Piercing Shot",
+      "newName": "霹靂彈",
+      "core": 2
+    },
+    {
+      "skillId": 515,
+      "skillKey": "GS_RAPIDSHOWER",
+      "oldName": "Rapid Shower",
+      "newName": "五連擊",
+      "core": 2
+    },
+    {
+      "skillId": 516,
+      "skillKey": "GS_DESPERADO",
+      "oldName": "Desperado",
+      "newName": "亡命之徒",
+      "core": 2
+    },
+    {
+      "skillId": 517,
+      "skillKey": "GS_GATLINGFEVER",
+      "oldName": "Gatling Fever",
+      "newName": "格林狂熱",
+      "core": 2
+    },
+    {
+      "skillId": 518,
+      "skillKey": "GS_DUST",
+      "oldName": "Dust",
+      "newName": "彈片四射",
+      "core": 2
+    },
+    {
+      "skillId": 519,
+      "skillKey": "GS_FULLBUSTER",
+      "oldName": "Full Buster",
+      "newName": "全面破壞",
+      "core": 2
+    },
+    {
+      "skillId": 520,
+      "skillKey": "GS_SPREADATTACK",
+      "oldName": "Spread Attack",
+      "newName": "火力全開",
+      "core": 2
+    },
+    {
+      "skillId": 521,
+      "skillKey": "GS_GROUNDDRIFT",
+      "oldName": "Ground Drift",
+      "newName": "四面埋伏",
+      "core": 2
+    },
+    {
+      "skillId": 522,
+      "skillKey": "NJ_TOBIDOUGU",
+      "oldName": "Shuriken Training",
+      "newName": "飛刀修練",
+      "core": 2
+    },
+    {
+      "skillId": 523,
+      "skillKey": "NJ_SYURIKEN",
+      "oldName": "Throw Shuriken",
+      "newName": "投擲飛鏢",
+      "core": 2
+    },
+    {
+      "skillId": 524,
+      "skillKey": "NJ_KUNAI",
+      "oldName": "Throw Kunai",
+      "newName": "投擲飛刀",
+      "core": 2
+    },
+    {
+      "skillId": 525,
+      "skillKey": "NJ_HUUMA",
+      "oldName": "Throw Huuma Shuriken",
+      "newName": "投擲風魔飛鏢",
+      "core": 2
+    },
+    {
+      "skillId": 526,
+      "skillKey": "NJ_ZENYNAGE",
+      "oldName": "Throw Zeny",
+      "newName": "投擲金錢",
+      "core": 2
+    },
+    {
+      "skillId": 527,
+      "skillKey": "NJ_TATAMIGAESHI",
+      "oldName": "Improvised Defense",
+      "newName": "榻榻米攻擊",
+      "core": 2
+    },
+    {
+      "skillId": 528,
+      "skillKey": "NJ_KASUMIKIRI",
+      "oldName": "Vanishing Slash",
+      "newName": "霧裡砍劈",
+      "core": 2
+    },
+    {
+      "skillId": 529,
+      "skillKey": "NJ_SHADOWJUMP",
+      "oldName": "Shadow Leap",
+      "newName": "影子跳躍",
+      "core": 2
+    },
+    {
+      "skillId": 530,
+      "skillKey": "NJ_KIRIKAGE",
+      "oldName": "Shadow Slash",
+      "newName": "隱身攻擊",
+      "core": 2
+    },
+    {
+      "skillId": 531,
+      "skillKey": "NJ_UTSUSEMI",
+      "oldName": "Cicada Skin Sheeding",
+      "newName": "金蟬脫殼",
+      "core": 2
+    },
+    {
+      "skillId": 532,
+      "skillKey": "NJ_BUNSINJYUTSU",
+      "oldName": "Mirror Image",
+      "newName": "幻影分身",
+      "core": 2
+    },
+    {
+      "skillId": 533,
+      "skillKey": "NJ_NINPOU",
+      "oldName": "Spirit of the Blade",
+      "newName": "忍術修練",
+      "core": 2
+    },
+    {
+      "skillId": 534,
+      "skillKey": "NJ_KOUENKA",
+      "oldName": "Crimson Fire Petal",
+      "newName": "火炎花",
+      "core": 2
+    },
+    {
+      "skillId": 535,
+      "skillKey": "NJ_KAENSIN",
+      "oldName": "Crimson Fire Formation",
+      "newName": "火炎陣",
+      "core": 2
+    },
+    {
+      "skillId": 536,
+      "skillKey": "NJ_BAKUENRYU",
+      "oldName": "Raging Fire Dragon",
+      "newName": "爆炎龍",
+      "core": 2
+    },
+    {
+      "skillId": 537,
+      "skillKey": "NJ_HYOUSENSOU",
+      "oldName": "Spear of Ice",
+      "newName": "冰閃槍",
+      "core": 2
+    },
+    {
+      "skillId": 538,
+      "skillKey": "NJ_SUITON",
+      "oldName": "Hidden Water",
+      "newName": "水鈍",
+      "core": 2
+    },
+    {
+      "skillId": 539,
+      "skillKey": "NJ_HYOUSYOURAKU",
+      "oldName": "Ice Meteor",
+      "newName": "冰晶落",
+      "core": 2
+    },
+    {
+      "skillId": 540,
+      "skillKey": "NJ_HUUJIN",
+      "oldName": "Wind Blade",
+      "newName": "風刃",
+      "core": 2
+    },
+    {
+      "skillId": 541,
+      "skillKey": "NJ_RAIGEKISAI",
+      "oldName": "Lightning Strike of Destruction",
+      "newName": "雷擊碎",
+      "core": 2
+    },
+    {
+      "skillId": 542,
+      "skillKey": "NJ_KAMAITACHI",
+      "oldName": "Kamaitachi",
+      "newName": "朔風",
+      "core": 2
+    },
+    {
+      "skillId": 543,
+      "skillKey": "NJ_NEN",
+      "oldName": "Soul",
+      "newName": "念",
+      "core": 2
+    },
+    {
+      "skillId": 544,
+      "skillKey": "NJ_ISSEN",
+      "oldName": "Final Strike",
+      "newName": "一閃擊",
+      "core": 2
+    },
+    {
+      "skillId": 2552,
+      "skillKey": "RL_RICHS_COIN",
+      "oldName": "Rich's Coin",
+      "newName": "富翁的財貨",
+      "core": 2
+    },
+    {
+      "skillId": 2553,
+      "skillKey": "RL_MASS_SPIRAL",
+      "oldName": "Mass Spiral",
+      "newName": "絕對貫穿",
+      "core": 2
+    },
+    {
+      "skillId": 2554,
+      "skillKey": "RL_BANISHING_BUSTER",
+      "oldName": "Banishing Buster",
+      "newName": "強制驅逐",
+      "core": 2
+    },
+    {
+      "skillId": 2555,
+      "skillKey": "RL_B_TRAP",
+      "oldName": "Bind Trap",
+      "newName": "暗黑地獄",
+      "core": 2
+    },
+    {
+      "skillId": 2556,
+      "skillKey": "RL_FLICKER",
+      "oldName": "Flicker",
+      "newName": "閃爍信號",
+      "core": 2
+    },
+    {
+      "skillId": 2557,
+      "skillKey": "RL_S_STORM",
+      "oldName": "Shatter Storm",
+      "newName": "粉碎風暴",
+      "core": 2
+    },
+    {
+      "skillId": 2558,
+      "skillKey": "RL_E_CHAIN",
+      "oldName": "Eternal Chain",
+      "newName": "無限連鎖",
+      "core": 2
+    },
+    {
+      "skillId": 2559,
+      "skillKey": "RL_QD_SHOT",
+      "oldName": "Quick Draw Shot",
+      "newName": "瞬速子彈",
+      "core": 2
+    },
+    {
+      "skillId": 2560,
+      "skillKey": "RL_C_MARKER",
+      "oldName": "Crimson Marker",
+      "newName": "血色烙印",
+      "core": 2
+    },
+    {
+      "skillId": 2561,
+      "skillKey": "RL_FIREDANCE",
+      "oldName": "Fire Dance",
+      "newName": "殺戮暗舞",
+      "core": 2
+    },
+    {
+      "skillId": 2562,
+      "skillKey": "RL_H_MINE",
+      "oldName": "Howling Mine",
+      "newName": "破壞怒吼",
+      "core": 2
+    },
+    {
+      "skillId": 2563,
+      "skillKey": "RL_P_ALTER",
+      "oldName": "Platinum Alter",
+      "newName": "白金祭壇",
+      "core": 2
+    },
+    {
+      "skillId": 2564,
+      "skillKey": "RL_FALLEN_ANGEL",
+      "oldName": "Fallen Angel",
+      "newName": "墮落天使",
+      "core": 2
+    },
+    {
+      "skillId": 2565,
+      "skillKey": "RL_R_TRIP",
+      "oldName": "Round Trip",
+      "newName": "圓桌舞蹈",
+      "core": 2
+    },
+    {
+      "skillId": 2566,
+      "skillKey": "RL_D_TAIL",
+      "oldName": "Dragon Tail",
+      "newName": "魔獸擺尾",
+      "core": 2
+    },
+    {
+      "skillId": 2567,
+      "skillKey": "RL_FIRE_RAIN",
+      "oldName": "Fire Rain",
+      "newName": "火焰暴雨",
+      "core": 2
+    },
+    {
+      "skillId": 2568,
+      "skillKey": "RL_HEAT_BARREL",
+      "oldName": "Heat Barrel",
+      "newName": "加速子彈",
+      "core": 2
+    },
+    {
+      "skillId": 2569,
+      "skillKey": "RL_AM_BLAST",
+      "oldName": "Anti-Material Blast",
+      "newName": "毀滅重擊",
+      "core": 2
+    },
+    {
+      "skillId": 2570,
+      "skillKey": "RL_SLUGSHOT",
+      "oldName": "Slug Shot",
+      "newName": "根源破壞",
+      "core": 2
+    },
+    {
+      "skillId": 2571,
+      "skillKey": "RL_HAMMER_OF_GOD",
+      "oldName": "Hammer of God",
+      "newName": "天神憤怒",
+      "core": 2
+    },
+    {
+      "skillId": 2574,
+      "skillKey": "SJ_LIGHTOFMOON",
+      "oldName": "Light of Moon",
+      "newName": "月亮光輝",
+      "core": 2
+    },
+    {
+      "skillId": 2575,
+      "skillKey": "SJ_LUNARSTANCE",
+      "oldName": "Lunar Stance",
+      "newName": "月亮英姿",
+      "core": 2
+    },
+    {
+      "skillId": 2576,
+      "skillKey": "SJ_FULLMOONKICK",
+      "oldName": "Full Moon Kick",
+      "newName": "滿月腳",
+      "core": 2
+    },
+    {
+      "skillId": 2577,
+      "skillKey": "SJ_LIGHTOFSTAR",
+      "oldName": "Light of Star",
+      "newName": "星星光輝",
+      "core": 2
+    },
+    {
+      "skillId": 2578,
+      "skillKey": "SJ_STARSTANCE",
+      "oldName": "Star Stance",
+      "newName": "星星英姿",
+      "core": 2
+    },
+    {
+      "skillId": 2579,
+      "skillKey": "SJ_NEWMOONKICK",
+      "oldName": "New Moon Kick",
+      "newName": "朔月腳",
+      "core": 2
+    },
+    {
+      "skillId": 2580,
+      "skillKey": "SJ_FLASHKICK",
+      "oldName": "Flash Kick",
+      "newName": "閃光腳",
+      "core": 2
+    },
+    {
+      "skillId": 2581,
+      "skillKey": "SJ_STAREMPEROR",
+      "oldName": "Star Emperor Advent",
+      "newName": "拳皇降臨",
+      "core": 2
+    },
+    {
+      "skillId": 2582,
+      "skillKey": "SJ_NOVAEXPLOSING",
+      "oldName": "Nova Explosion",
+      "newName": "新星爆炸",
+      "core": 2
+    },
+    {
+      "skillId": 2583,
+      "skillKey": "SJ_UNIVERSESTANCE",
+      "oldName": "Universe Stance",
+      "newName": "宇宙英姿",
+      "core": 2
+    },
+    {
+      "skillId": 2584,
+      "skillKey": "SJ_FALLINGSTAR",
+      "oldName": "Falling Star",
+      "newName": "流星殞落",
+      "core": 2
+    },
+    {
+      "skillId": 2585,
+      "skillKey": "SJ_GRAVITYCONTROL",
+      "oldName": "Gravity Control",
+      "newName": "重力調整",
+      "core": 2
+    },
+    {
+      "skillId": 2586,
+      "skillKey": "SJ_BOOKOFDIMENSION",
+      "oldName": "Book of Dimension",
+      "newName": "次元之書",
+      "core": 2
+    },
+    {
+      "skillId": 2587,
+      "skillKey": "SJ_BOOKOFCREATINGSTAR",
+      "oldName": "Book of Creating Star",
+      "newName": "創星之書",
+      "core": 2
+    },
+    {
+      "skillId": 2588,
+      "skillKey": "SJ_DOCUMENT",
+      "oldName": "Document of Sun Moon and Star",
+      "newName": "太陽和月亮和星星的紀錄",
+      "core": 2
+    },
+    {
+      "skillId": 2589,
+      "skillKey": "SJ_PURIFY",
+      "oldName": "Purification of Sun Moon and Star",
+      "newName": "太陽和月亮和星星的淨化",
+      "core": 2
+    },
+    {
+      "skillId": 2590,
+      "skillKey": "SJ_LIGHTOFSUN",
+      "oldName": "Light of Sun",
+      "newName": "太陽光輝",
+      "core": 2
+    },
+    {
+      "skillId": 2591,
+      "skillKey": "SJ_SUNSTANCE",
+      "oldName": "Sun Stance",
+      "newName": "太陽英姿",
+      "core": 2
+    },
+    {
+      "skillId": 2592,
+      "skillKey": "SJ_SOLARBURST",
+      "oldName": "Solar Burst",
+      "newName": "太陽爆炸",
+      "core": 2
+    },
+    {
+      "skillId": 2593,
+      "skillKey": "SJ_PROMINENCEKICK",
+      "oldName": "Prominence Kick",
+      "newName": "紅焰腳",
+      "core": 2
+    },
+    {
+      "skillId": 2596,
+      "skillKey": "SP_SOULGOLEM",
+      "oldName": "Golem's Soul",
+      "newName": "巨人靈魂",
+      "core": 2
+    },
+    {
+      "skillId": 2597,
+      "skillKey": "SP_SOULSHADOW",
+      "oldName": "Shadow's Soul",
+      "newName": "影子靈魂",
+      "core": 2
+    },
+    {
+      "skillId": 2598,
+      "skillKey": "SP_SOULFALCON",
+      "oldName": "Falcon's Soul",
+      "newName": "隼鷹靈魂",
+      "core": 2
+    },
+    {
+      "skillId": 2599,
+      "skillKey": "SP_SOULFAIRY",
+      "oldName": "Fairy's Soul",
+      "newName": "精靈靈魂",
+      "core": 2
+    },
+    {
+      "skillId": 2600,
+      "skillKey": "SP_CURSEEXPLOSION",
+      "oldName": "Curse Explosion",
+      "newName": "邪靈爆炸",
+      "core": 2
+    },
+    {
+      "skillId": 2601,
+      "skillKey": "SP_SOULCURSE",
+      "oldName": "Soul Curse",
+      "newName": "邪惡靈魂詛咒",
+      "core": 2
+    },
+    {
+      "skillId": 2602,
+      "skillKey": "SP_SPA",
+      "oldName": "Espa",
+      "newName": "艾斯帕",
+      "core": 2
+    },
+    {
+      "skillId": 2603,
+      "skillKey": "SP_SHA",
+      "oldName": "Esha",
+      "newName": "艾斯哈",
+      "core": 2
+    },
+    {
+      "skillId": 2604,
+      "skillKey": "SP_SWHOO",
+      "oldName": "Eswhoo",
+      "newName": "艾斯核",
+      "core": 2
+    },
+    {
+      "skillId": 2605,
+      "skillKey": "SP_SOULUNITY",
+      "oldName": "Soul Unity",
+      "newName": "靈魂集結",
+      "core": 2
+    },
+    {
+      "skillId": 2606,
+      "skillKey": "SP_SOULDIVISION",
+      "oldName": "Soul Division",
+      "newName": "靈魂分裂",
+      "core": 2
+    },
+    {
+      "skillId": 2607,
+      "skillKey": "SP_SOULREAPER",
+      "oldName": "Soul Reaper",
+      "newName": "靈魂收割",
+      "core": 2
+    },
+    {
+      "skillId": 2608,
+      "skillKey": "SP_SOULREVOLVE",
+      "oldName": "Soul Revolution",
+      "newName": "靈魂循環",
+      "core": 2
+    },
+    {
+      "skillId": 2609,
+      "skillKey": "SP_SOULCOLLECT",
+      "oldName": "Soul Collect",
+      "newName": "靈魂蓄積",
+      "core": 2
+    },
+    {
+      "skillId": 2610,
+      "skillKey": "SP_SOULEXPLOSION",
+      "oldName": "Soul Explosion",
+      "newName": "靈魂引爆",
+      "core": 2
+    },
+    {
+      "skillId": 2611,
+      "skillKey": "SP_SOULENERGY",
+      "oldName": "Soul Energy Research",
+      "newName": "靈魂能量研究",
+      "core": 2
+    },
+    {
+      "skillId": 2612,
+      "skillKey": "SP_KAUTE",
+      "oldName": "Kaute",
+      "newName": "凱渥特",
+      "core": 2
+    },
+    {
+      "skillId": 3001,
+      "skillKey": "KO_YAMIKUMO",
+      "oldName": "Shadow Hiding",
+      "newName": "暗雲",
+      "core": 2
+    },
+    {
+      "skillId": 3002,
+      "skillKey": "KO_RIGHT",
+      "oldName": "Right Hand Mastery",
+      "newName": "右手修練",
+      "core": 2
+    },
+    {
+      "skillId": 3003,
+      "skillKey": "KO_LEFT",
+      "oldName": "Left Hand Mastery",
+      "newName": "左手修練",
+      "core": 2
+    },
+    {
+      "skillId": 3004,
+      "skillKey": "KO_JYUMONJIKIRI",
+      "oldName": "Cross Slash",
+      "newName": "幽冥十字斬",
+      "core": 2
+    },
+    {
+      "skillId": 3005,
+      "skillKey": "KO_SETSUDAN",
+      "oldName": "Soul Cutter",
+      "newName": "靈魂阻隔",
+      "core": 2
+    },
+    {
+      "skillId": 3006,
+      "skillKey": "KO_BAKURETSU",
+      "oldName": "Kunai Explosion",
+      "newName": "炸彈飛刀",
+      "core": 2
+    },
+    {
+      "skillId": 3007,
+      "skillKey": "KO_HAPPOKUNAI",
+      "oldName": "Kunai Splash",
+      "newName": "八方飛刀",
+      "core": 2
+    },
+    {
+      "skillId": 3008,
+      "skillKey": "KO_MUCHANAGE",
+      "oldName": "Rapid Throw",
+      "newName": "投擲魔幣",
+      "core": 2
+    },
+    {
+      "skillId": 3009,
+      "skillKey": "KO_HUUMARANKA",
+      "oldName": "Swirling Petal",
+      "newName": "風魔飛鏢之飛舞",
+      "core": 2
+    },
+    {
+      "skillId": 3010,
+      "skillKey": "KO_MAKIBISHI",
+      "oldName": "Makibishi",
+      "newName": "投擲三角釘",
+      "core": 2
+    },
+    {
+      "skillId": 3011,
+      "skillKey": "KO_MEIKYOUSISUI",
+      "oldName": "Pure Soul",
+      "newName": "明鏡止水",
+      "core": 2
+    },
+    {
+      "skillId": 3012,
+      "skillKey": "KO_ZANZOU",
+      "oldName": "Illusion - Shadow",
+      "newName": "幻術 – 殘影",
+      "core": 2
+    },
+    {
+      "skillId": 3013,
+      "skillKey": "KO_KYOUGAKU",
+      "oldName": "Illusion - Shock",
+      "newName": "幻術 – 驚恐",
+      "core": 2
+    },
+    {
+      "skillId": 3014,
+      "skillKey": "KO_JYUSATSU",
+      "oldName": "Illusion - Death",
+      "newName": "幻術 – 咒死",
+      "core": 2
+    },
+    {
+      "skillId": 3015,
+      "skillKey": "KO_KAHU_ENTEN",
+      "oldName": "Fire Charm",
+      "newName": "火符:炎天",
+      "core": 2
+    },
+    {
+      "skillId": 3016,
+      "skillKey": "KO_HYOUHU_HUBUKI",
+      "oldName": "Ice Charm",
+      "newName": "冰符:吹雪",
+      "core": 2
+    },
+    {
+      "skillId": 3017,
+      "skillKey": "KO_KAZEHU_SEIRAN",
+      "oldName": "Wind Charm",
+      "newName": "風符:青嵐",
+      "core": 2
+    },
+    {
+      "skillId": 3018,
+      "skillKey": "KO_DOHU_KOUKAI",
+      "oldName": "Earth Charm",
+      "newName": "地符:剛塊",
+      "core": 2
+    },
+    {
+      "skillId": 3019,
+      "skillKey": "KO_KAIHOU",
+      "oldName": "Release Ninja Spell",
+      "newName": "法術–釋放",
+      "core": 2
+    },
+    {
+      "skillId": 3020,
+      "skillKey": "KO_ZENKAI",
+      "oldName": "Cast Ninja Spell",
+      "newName": "法術–施展",
+      "core": 2
+    },
+    {
+      "skillId": 3021,
+      "skillKey": "KO_GENWAKU",
+      "oldName": "Illusion - Bewitch",
+      "newName": "幻術–迷惑",
+      "core": 2
+    },
+    {
+      "skillId": 3022,
+      "skillKey": "KO_IZAYOI",
+      "oldName": "16th Night",
+      "newName": "十六夜",
+      "core": 2
+    },
+    {
+      "skillId": 3023,
+      "skillKey": "KG_KAGEHUMI",
+      "oldName": "Shadow Trampling",
+      "newName": "踏影",
+      "core": 2
+    },
+    {
+      "skillId": 3024,
+      "skillKey": "KG_KYOMU",
+      "oldName": "Empty Shadow",
+      "newName": "虛無飄妙之影",
+      "core": 2
+    },
+    {
+      "skillId": 3025,
+      "skillKey": "KG_KAGEMUSYA",
+      "oldName": "Shadow Warrior",
+      "newName": "影子武士",
+      "core": 2
+    },
+    {
+      "skillId": 3026,
+      "skillKey": "OB_ZANGETSU",
+      "oldName": "Distorted Crescent",
+      "newName": "變形的上弦月",
+      "core": 2
+    },
+    {
+      "skillId": 3027,
+      "skillKey": "OB_OBOROGENSOU",
+      "oldName": "Moonlight Fantasy",
+      "newName": "陰月的幻影",
+      "core": 2
+    },
+    {
+      "skillId": 3029,
+      "skillKey": "OB_AKAITSUKI",
+      "oldName": "Ominous Moonlight",
+      "newName": "不祥的紅月",
+      "core": 2
+    },
+    {
+      "skillId": 5018,
+      "skillKey": "SU_BASIC_SKILL",
+      "oldName": "New Basic Skill",
+      "newName": "新基本技能",
+      "core": 2
+    },
+    {
+      "skillId": 5019,
+      "skillKey": "SU_BITE",
+      "oldName": "Bite",
+      "newName": "狠咬",
+      "core": 2
+    },
+    {
+      "skillId": 5020,
+      "skillKey": "SU_HIDE",
+      "oldName": "Hide",
+      "newName": "躲藏",
+      "core": 2
+    },
+    {
+      "skillId": 5021,
+      "skillKey": "SU_SCRATCH",
+      "oldName": "Scratch",
+      "newName": "抓傷",
+      "core": 2
+    },
+    {
+      "skillId": 5022,
+      "skillKey": "SU_STOOP",
+      "oldName": "Stoop",
+      "newName": "俯身",
+      "core": 2
+    },
+    {
+      "skillId": 5023,
+      "skillKey": "SU_LOPE",
+      "oldName": "Lope",
+      "newName": "跳躍",
+      "core": 2
+    },
+    {
+      "skillId": 5024,
+      "skillKey": "SU_SPRITEMABLE",
+      "oldName": "Spirit Marble",
+      "newName": "靈魂魔珠",
+      "core": 2
+    },
+    {
+      "skillId": 5025,
+      "skillKey": "SU_POWEROFLAND",
+      "oldName": "Power of Land",
+      "newName": "大地力量",
+      "core": 2
+    },
+    {
+      "skillId": 5026,
+      "skillKey": "SU_SV_STEMSPEAR",
+      "oldName": "Silvervine Stem Spear",
+      "newName": "獼猴桃梗槍",
+      "core": 2
+    },
+    {
+      "skillId": 5027,
+      "skillKey": "SU_CN_POWDERING",
+      "oldName": "Catnip Powdering",
+      "newName": "貓薄荷灑粉",
+      "core": 2
+    },
+    {
+      "skillId": 5028,
+      "skillKey": "SU_CN_METEOR",
+      "oldName": "Catnip Meteor",
+      "newName": "貓薄荷隕石",
+      "core": 2
+    },
+    {
+      "skillId": 5029,
+      "skillKey": "SU_SV_ROOTTWIST",
+      "oldName": "Silvervine Root Twist",
+      "newName": "獼猴桃根莖纏繞",
+      "core": 2
+    },
+    {
+      "skillId": 5031,
+      "skillKey": "SU_POWEROFLIFE",
+      "oldName": "Power of Life",
+      "newName": "生命力量",
+      "core": 2
+    },
+    {
+      "skillId": 5032,
+      "skillKey": "SU_SCAROFTAROU",
+      "oldName": "Scar of Tarou",
+      "newName": "白鼠創傷",
+      "core": 2
+    },
+    {
+      "skillId": 5033,
+      "skillKey": "SU_PICKYPECK",
+      "oldName": "Picky Peck",
+      "newName": "小雞啄擊",
+      "core": 2
+    },
+    {
+      "skillId": 5035,
+      "skillKey": "SU_ARCLOUSEDASH",
+      "oldName": "Arclouse Dash",
+      "newName": "捲甲蟲暴衝",
+      "core": 2
+    },
+    {
+      "skillId": 5036,
+      "skillKey": "SU_LUNATICCARROTBEAT",
+      "oldName": "Lunatic Carrot Beat",
+      "newName": "瘋兔胡蘿蔔重擊",
+      "core": 2
+    },
+    {
+      "skillId": 5037,
+      "skillKey": "SU_POWEROFSEA",
+      "oldName": "Power of Sea",
+      "newName": "海洋力量",
+      "core": 2
+    },
+    {
+      "skillId": 5038,
+      "skillKey": "SU_TUNABELLY",
+      "oldName": "Tuna Belly",
+      "newName": "鮪魚肚肉",
+      "core": 2
+    },
+    {
+      "skillId": 5039,
+      "skillKey": "SU_TUNAPARTY",
+      "oldName": "Tuna Party",
+      "newName": "鮪魚派對",
+      "core": 2
+    },
+    {
+      "skillId": 5040,
+      "skillKey": "SU_BUNCHOFSHRIMP",
+      "oldName": "Bunch of Shrimp",
+      "newName": "蝦群",
+      "core": 2
+    },
+    {
+      "skillId": 5041,
+      "skillKey": "SU_FRESHSHRIMP",
+      "oldName": "Fresh Shrimp",
+      "newName": "活蝦",
+      "core": 2
+    },
+    {
+      "skillId": 5044,
+      "skillKey": "SU_SOULATTACK",
+      "oldName": "Soul Attack",
+      "newName": "靈魂攻擊",
+      "core": 2
+    },
+    {
+      "skillId": 5045,
+      "skillKey": "SU_POWEROFFLOCK",
+      "oldName": "Power of Flock",
+      "newName": "喵喵威武",
+      "core": 2
+    },
+    {
+      "skillId": 5046,
+      "skillKey": "SU_SVG_SPIRIT",
+      "oldName": "Spirit of Savage",
+      "newName": "野豬之魂",
+      "core": 2
+    },
+    {
+      "skillId": 5047,
+      "skillKey": "SU_HISS",
+      "oldName": "Hiss",
+      "newName": "嘶嘶聲",
+      "core": 2
+    },
+    {
+      "skillId": 5048,
+      "skillKey": "SU_NYANGGRASS",
+      "oldName": "Nyang Grass",
+      "newName": "喵喵草",
+      "core": 2
+    },
+    {
+      "skillId": 5049,
+      "skillKey": "SU_GROOMING",
+      "oldName": "Grooming",
+      "newName": "舔毛",
+      "core": 2
+    },
+    {
+      "skillId": 5050,
+      "skillKey": "SU_PURRING",
+      "oldName": "Purring",
+      "newName": "咕嚕咕嚕",
+      "core": 2
+    },
+    {
+      "skillId": 5051,
+      "skillKey": "SU_SHRIMPARTY",
+      "oldName": "Tasty Shrimp Party",
+      "newName": "美味活蝦派對",
+      "core": 2
+    },
+    {
+      "skillId": 5052,
+      "skillKey": "SU_SPIRITOFLIFE",
+      "oldName": "Spirit of Life",
+      "newName": "生命之魂",
+      "core": 2
+    },
+    {
+      "skillId": 5053,
+      "skillKey": "SU_MEOWMEOW",
+      "oldName": "Meow Meow",
+      "newName": "喵喵",
+      "core": 2
+    },
+    {
+      "skillId": 5054,
+      "skillKey": "SU_SPIRITOFLAND",
+      "oldName": "Spirit of Land",
+      "newName": "大地之魂",
+      "core": 2
+    },
+    {
+      "skillId": 5055,
+      "skillKey": "SU_CHATTERING",
+      "oldName": "Chattering",
+      "newName": "喵喵不休",
+      "core": 2
+    },
+    {
+      "skillId": 5056,
+      "skillKey": "SU_SPIRITOFSEA",
+      "oldName": "Spirit of Sea",
+      "newName": "海洋之魂",
+      "core": 2
+    },
+    {
+      "skillId": 5402,
+      "skillKey": "NW_GRENADE_MASTERY",
+      "oldName": "Grenade Mastery",
+      "newName": "榴彈精通",
+      "core": 2
+    },
+    {
+      "skillId": 5403,
+      "skillKey": "NW_INTENSIVE_AIM",
+      "oldName": "Intensive Aim",
+      "newName": "專注瞄準",
+      "core": 2
+    },
+    {
+      "skillId": 5404,
+      "skillKey": "NW_GRENADE_FRAGMENT",
+      "oldName": "Grenade Fragment",
+      "newName": "榴彈碎片",
+      "core": 2
+    },
+    {
+      "skillId": 5405,
+      "skillKey": "NW_THE_VIGILANTE_AT_NIGHT",
+      "oldName": "The Vigilante at Night",
+      "newName": "夜裡的警惕",
+      "core": 2
+    },
+    {
+      "skillId": 5406,
+      "skillKey": "NW_ONLY_ONE_BULLET",
+      "oldName": "Only One Bullet",
+      "newName": "獨一槍彈",
+      "core": 2
+    },
+    {
+      "skillId": 5407,
+      "skillKey": "NW_SPIRAL_SHOOTING",
+      "oldName": "Spiral Shooting",
+      "newName": "螺旋射擊",
+      "core": 2
+    },
+    {
+      "skillId": 5408,
+      "skillKey": "NW_MAGAZINE_FOR_ONE",
+      "oldName": "Magazine for One",
+      "newName": "梅格競直擊",
+      "core": 2
+    },
+    {
+      "skillId": 5409,
+      "skillKey": "NW_WILD_FIRE",
+      "oldName": "Wild Fire",
+      "newName": "曠野之火",
+      "core": 2
+    },
+    {
+      "skillId": 5410,
+      "skillKey": "NW_BASIC_GRENADE",
+      "oldName": "Basic Grenade",
+      "newName": "初階手榴彈",
+      "core": 2
+    },
+    {
+      "skillId": 5411,
+      "skillKey": "NW_HASTY_FIRE_IN_THE_HOLE",
+      "oldName": "Hasty Fire in the Hole",
+      "newName": "洞中急火",
+      "core": 2
+    },
+    {
+      "skillId": 5412,
+      "skillKey": "NW_GRENADES_DROPPING",
+      "oldName": "Grenades Dropping",
+      "newName": "落空手榴彈",
+      "core": 2
+    },
+    {
+      "skillId": 5413,
+      "skillKey": "NW_AUTO_FIRING_LAUNCHER",
+      "oldName": "Auto Firing Launcher",
+      "newName": "自動射擊發射器",
+      "core": 2
+    },
+    {
+      "skillId": 5414,
+      "skillKey": "NW_HIDDEN_CARD",
+      "oldName": "Hidden Card",
+      "newName": "王牌出手",
+      "core": 2
+    },
+    {
+      "skillId": 5415,
+      "skillKey": "NW_MISSION_BOMBARD",
+      "oldName": "Mission Bombard",
+      "newName": "任務轟炸機",
+      "core": 2
+    },
+    {
+      "skillId": 5416,
+      "skillKey": "SOA_TALISMAN_MASTERY",
+      "oldName": "Talisman Mastery",
+      "newName": "符咒研究",
+      "core": 2
+    },
+    {
+      "skillId": 5417,
+      "skillKey": "SOA_SOUL_MASTERY",
+      "oldName": "Soul Mastery",
+      "newName": "引魂術研究",
+      "core": 2
+    },
+    {
+      "skillId": 5418,
+      "skillKey": "SOA_TALISMAN_OF_PROTECTION",
+      "oldName": "Talisman Of Protection",
+      "newName": "護身符",
+      "core": 2
+    },
+    {
+      "skillId": 5419,
+      "skillKey": "SOA_TALISMAN_OF_WARRIOR",
+      "oldName": "Talisman Of Warrior",
+      "newName": "武士符",
+      "core": 2
+    },
+    {
+      "skillId": 5420,
+      "skillKey": "SOA_TALISMAN_OF_MAGICIAN",
+      "oldName": "Talisman Of Magician",
+      "newName": "法師符",
+      "core": 2
+    },
+    {
+      "skillId": 5421,
+      "skillKey": "SOA_SOUL_GATHERING",
+      "oldName": "Soul Gathering",
+      "newName": "靈魂聚集",
+      "core": 2
+    },
+    {
+      "skillId": 5422,
+      "skillKey": "SOA_TOTEM_OF_TUTELARY",
+      "oldName": "Totem Of Tutelary",
+      "newName": "城隍廟",
+      "core": 2
+    },
+    {
+      "skillId": 5423,
+      "skillKey": "SOA_TALISMAN_OF_FIVE_ELEMENTS",
+      "oldName": "Talisman Of Five Elements",
+      "newName": "五行符",
+      "core": 2
+    },
+    {
+      "skillId": 5424,
+      "skillKey": "SOA_TALISMAN_OF_SOUL_STEALING",
+      "oldName": "Talisman Of Soul Stealing",
+      "newName": "竊魂平安符",
+      "core": 2
+    },
+    {
+      "skillId": 5425,
+      "skillKey": "SOA_EXORCISM_OF_MALICIOUS_SOUL",
+      "oldName": "Exorcism Of Malicious Soul",
+      "newName": "死靈淨化",
+      "core": 2
+    },
+    {
+      "skillId": 5426,
+      "skillKey": "SOA_TALISMAN_OF_BLUE_DRAGON",
+      "oldName": "Talisman Of Blue Dragon",
+      "newName": "青龍符",
+      "core": 2
+    },
+    {
+      "skillId": 5427,
+      "skillKey": "SOA_TALISMAN_OF_WHITE_TIGER",
+      "oldName": "Talisman Of White Tiger",
+      "newName": "白虎符",
+      "core": 2
+    },
+    {
+      "skillId": 5428,
+      "skillKey": "SOA_TALISMAN_OF_RED_PHOENIX",
+      "oldName": "Talisman Of Red Phoenix",
+      "newName": "朱雀符",
+      "core": 2
+    },
+    {
+      "skillId": 5429,
+      "skillKey": "SOA_TALISMAN_OF_BLACK_TORTOISE",
+      "oldName": "Talisman Of Black Tortoise",
+      "newName": "玄武符",
+      "core": 2
+    },
+    {
+      "skillId": 5430,
+      "skillKey": "SOA_TALISMAN_OF_FOUR_BEARING_GOD",
+      "oldName": "Talisman Of Four Bearing God",
+      "newName": "四方神符",
+      "core": 2
+    },
+    {
+      "skillId": 5431,
+      "skillKey": "SOA_CIRCLE_OF_DIRECTIONS_AND_ELEMENTALS",
+      "oldName": "Circle Of Directions And Elementals",
+      "newName": "四方五行陣",
+      "core": 2
+    },
+    {
+      "skillId": 5432,
+      "skillKey": "SOA_SOUL_OF_HEAVEN_AND_EARTH",
+      "oldName": "Soul Of Heaven And Earth",
+      "newName": "天地神靈",
+      "core": 2
+    },
+    {
+      "skillId": 5433,
+      "skillKey": "SH_MYSTICAL_CREATURE_MASTERY",
+      "oldName": "Mystical Creature Mastery",
+      "newName": "靈物互動",
+      "core": 2
+    },
+    {
+      "skillId": 5434,
+      "skillKey": "SH_COMMUNE_WITH_CHUL_HO",
+      "oldName": "Commune with Chulho",
+      "newName": "靈物交流: 鐵虎",
+      "core": 2
+    },
+    {
+      "skillId": 5435,
+      "skillKey": "SH_CHUL_HO_SONIC_CLAW",
+      "oldName": "Chulho Sonic Claw",
+      "newName": "鐵虎空心爪",
+      "core": 2
+    },
+    {
+      "skillId": 5436,
+      "skillKey": "SH_HOWLING_OF_CHUL_HO",
+      "oldName": "Howling of Chulho",
+      "newName": "鐵虎咆哮",
+      "core": 2
+    },
+    {
+      "skillId": 5437,
+      "skillKey": "SH_HOGOGONG_STRIKE",
+      "oldName": "Hogogong Strike",
+      "newName": "虎高空亂打",
+      "core": 2
+    },
+    {
+      "skillId": 5438,
+      "skillKey": "SH_COMMUNE_WITH_KI_SUL",
+      "oldName": "Commune with Kisul",
+      "newName": "靈物交流: 神龜",
+      "core": 2
+    },
+    {
+      "skillId": 5439,
+      "skillKey": "SH_KI_SUL_WATER_SPRAYING",
+      "oldName": "Kisul Water Spraying",
+      "newName": "神龜灑水砲",
+      "core": 2
+    },
+    {
+      "skillId": 5440,
+      "skillKey": "SH_MARINE_FESTIVAL_OF_KI_SUL",
+      "oldName": "Marine Festival of Kisul",
+      "newName": "神龜海洋慶典",
+      "core": 2
+    },
+    {
+      "skillId": 5441,
+      "skillKey": "SH_SANDY_FESTIVAL_OF_KI_SUL",
+      "oldName": "Sandy Festival of Kisul",
+      "newName": "神龜沙雕節",
+      "core": 2
+    },
+    {
+      "skillId": 5442,
+      "skillKey": "SH_KI_SUL_RAMPAGE",
+      "oldName": "Kisul Rampage",
+      "newName": "神龜劇烈震盪",
+      "core": 2
+    },
+    {
+      "skillId": 5443,
+      "skillKey": "SH_COMMUNE_WITH_HYUN_ROK",
+      "oldName": "Commune with Hyunrok",
+      "newName": "靈物交流: 玄鹿",
+      "core": 2
+    },
+    {
+      "skillId": 5444,
+      "skillKey": "SH_COLORS_OF_HYUN_ROK",
+      "oldName": "Colors of Hyunrok",
+      "newName": "玄鹿五色角",
+      "core": 2
+    },
+    {
+      "skillId": 5445,
+      "skillKey": "SH_HYUN_ROKS_BREEZE",
+      "oldName": "Hyunrok Breeze",
+      "newName": "玄鹿葉風",
+      "core": 2
+    },
+    {
+      "skillId": 5446,
+      "skillKey": "SH_HYUN_ROK_CANNON",
+      "oldName": "Hyunrok Cannon",
+      "newName": "玄鹿砲",
+      "core": 2
+    },
+    {
+      "skillId": 5447,
+      "skillKey": "SH_TEMPORARY_COMMUNION",
+      "oldName": "Temporary Communion",
+      "newName": "急速交流",
+      "core": 2
+    },
+    {
+      "skillId": 5448,
+      "skillKey": "SH_BLESSING_OF_MYSTICAL_CREATURES",
+      "oldName": "Blessing of Mystical Creatures",
+      "newName": "靈物祝福",
+      "core": 2
+    },
+    {
+      "skillId": 5463,
+      "skillKey": "SKE_SKY_MASTERY",
+      "oldName": "Sky Mastery",
+      "newName": "天機修練",
+      "core": 2
+    },
+    {
+      "skillId": 5464,
+      "skillKey": "SKE_WAR_BOOK_MASTERY",
+      "oldName": "War Book Mastery",
+      "newName": "兵法修練",
+      "core": 2
+    },
+    {
+      "skillId": 5465,
+      "skillKey": "SKE_RISING_SUN",
+      "oldName": "Rising Sun",
+      "newName": "天地一陽",
+      "core": 2
+    },
+    {
+      "skillId": 5466,
+      "skillKey": "SKE_NOON_BLAST",
+      "oldName": "Noon Blast",
+      "newName": "天晨一陽",
+      "core": 2
+    },
+    {
+      "skillId": 5467,
+      "skillKey": "SKE_SUNSET_BLAST",
+      "oldName": "Sunset Blast",
+      "newName": "天陽",
+      "core": 2
+    },
+    {
+      "skillId": 5468,
+      "skillKey": "SKE_RISING_MOON",
+      "oldName": "Rising Moon",
+      "newName": "天地一月",
+      "core": 2
+    },
+    {
+      "skillId": 5469,
+      "skillKey": "SKE_MIDNIGHT_KICK",
+      "oldName": "Midnight Kick",
+      "newName": "天晨一月",
+      "core": 2
+    },
+    {
+      "skillId": 5470,
+      "skillKey": "SKE_DAWN_BREAK",
+      "oldName": "Dawn Break",
+      "newName": "天月",
+      "core": 2
+    },
+    {
+      "skillId": 5471,
+      "skillKey": "SKE_TWINKLING_GALAXY",
+      "oldName": "Twinkling Galaxy",
+      "newName": "天地萬星",
+      "core": 2
+    },
+    {
+      "skillId": 5472,
+      "skillKey": "SKE_STAR_BURST",
+      "oldName": "Star Burst",
+      "newName": "天命落星",
+      "core": 2
+    },
+    {
+      "skillId": 5473,
+      "skillKey": "SKE_STAR_CANNON",
+      "oldName": "Star Cannon",
+      "newName": "天星",
+      "core": 2
+    },
+    {
+      "skillId": 5474,
+      "skillKey": "SKE_ALL_IN_THE_SKY",
+      "oldName": "All in the Sky",
+      "newName": "天羅萬象",
+      "core": 2
+    },
+    {
+      "skillId": 5475,
+      "skillKey": "SKE_ENCHANTING_SKY",
+      "oldName": "Enchanting Sky",
+      "newName": "天氣地神",
+      "core": 2
+    },
+    {
+      "skillId": 5476,
+      "skillKey": "SS_TOKEDASU",
+      "oldName": "Melt Away",
+      "newName": "致命融化",
+      "core": 2
+    },
+    {
+      "skillId": 5477,
+      "skillKey": "SS_SHIMIRU",
+      "oldName": "Infiltrate",
+      "newName": "滲透",
+      "core": 2
+    },
+    {
+      "skillId": 5478,
+      "skillKey": "SS_AKUMUKESU",
+      "oldName": "Nightmare Erasion",
+      "newName": "消除惡夢",
+      "core": 2
+    },
+    {
+      "skillId": 5479,
+      "skillKey": "SS_SHINKIROU",
+      "oldName": "Mirage",
+      "newName": "海市蜃樓",
+      "core": 2
+    },
+    {
+      "skillId": 5480,
+      "skillKey": "SS_KAGEGARI",
+      "oldName": "Shadow Hunting",
+      "newName": "詭影狩獵",
+      "core": 2
+    },
+    {
+      "skillId": 5481,
+      "skillKey": "SS_KAGENOMAI",
+      "oldName": "Shadow Dance",
+      "newName": "詭影舞動",
+      "core": 2
+    },
+    {
+      "skillId": 5482,
+      "skillKey": "SS_KAGEGISSEN",
+      "oldName": "Shadow Flash",
+      "newName": "詭影閃光",
+      "core": 2
+    },
+    {
+      "skillId": 5483,
+      "skillKey": "SS_FUUMASHOUAKU",
+      "oldName": "Huuma Shuriken - Grasp",
+      "newName": "風魔飛鏢–掌握",
+      "core": 2
+    },
+    {
+      "skillId": 5484,
+      "skillKey": "SS_FUUMAKOUCHIKU",
+      "oldName": "Huuma Shuriken - Construct",
+      "newName": "風魔飛鏢–構築",
+      "core": 2
+    },
+    {
+      "skillId": 5485,
+      "skillKey": "SS_KUNAIWAIKYOKU",
+      "oldName": "Kunai - Distortion",
+      "newName": "飛刀–扭曲",
+      "core": 2
+    },
+    {
+      "skillId": 5486,
+      "skillKey": "SS_KUNAIKAITEN",
+      "oldName": "Kunai - Rotation",
+      "newName": "飛刀 - 旋轉",
+      "core": 2
+    },
+    {
+      "skillId": 5487,
+      "skillKey": "SS_KUNAIKUSSETSU",
+      "oldName": "Kunai - Refraction",
+      "newName": "飛刀 - 曲折",
+      "core": 2
+    },
+    {
+      "skillId": 5488,
+      "skillKey": "SS_SEKIENHOU",
+      "oldName": "Red Flame Cannon",
+      "newName": "火焰砲",
+      "core": 2
+    },
+    {
+      "skillId": 5489,
+      "skillKey": "SS_REIKETSUHOU",
+      "oldName": "Cold Blooded Cannon",
+      "newName": "冷焰砲",
+      "core": 2
+    },
+    {
+      "skillId": 5490,
+      "skillKey": "SS_RAIDENPOU",
+      "oldName": "Thundering Cannon",
+      "newName": "雷電砲",
+      "core": 2
+    },
+    {
+      "skillId": 5491,
+      "skillKey": "SS_KINRYUUHOU",
+      "oldName": "Golden Dragon Cannon",
+      "newName": "金龍砲",
+      "core": 2
+    },
+    {
+      "skillId": 5492,
+      "skillKey": "SS_ANTENPOU",
+      "oldName": "Darkening Cannon",
+      "newName": "暗戰砲",
+      "core": 2
+    },
+    {
+      "skillId": 5493,
+      "skillKey": "SS_KAGEAKUMU",
+      "oldName": "Shadow - Nightmare",
+      "newName": "詭影 - 噩夢",
+      "core": 2
+    },
+    {
+      "skillId": 5494,
+      "skillKey": "SS_HITOUAKUMU",
+      "oldName": "Kunai - Nightmare",
+      "newName": "飛刀 - 噩夢",
+      "core": 2
+    },
+    {
+      "skillId": 5495,
+      "skillKey": "SS_ANKOKURYUUAKUMU",
+      "oldName": "Dark Dragon - Nightmare",
+      "newName": "暗黑龍 - 噩夢",
+      "core": 2
+    },
+    {
+      "skillId": 5499,
+      "skillKey": "SS_FOUR_CHARM",
+      "oldName": "Four Colors Charm",
+      "newName": "四色符",
+      "core": 2
+    },
+    {
+      "skillId": 5500,
+      "skillKey": "NW_WILD_SHOT",
+      "oldName": "Wild Shot",
+      "newName": "狂野射擊",
+      "core": 2
+    },
+    {
+      "skillId": 5501,
+      "skillKey": "NW_MIDNIGHT_FALLEN",
+      "oldName": "Midnight Fallen",
+      "newName": "午夜殞落",
+      "core": 2
+    },
+    {
+      "skillId": 5502,
+      "skillKey": "SKE_SKY_SUN",
+      "oldName": "Sky Sun",
+      "newName": "天氣神陽",
+      "core": 2
+    },
+    {
+      "skillId": 5503,
+      "skillKey": "SKE_SKY_MOON",
+      "oldName": "Sky Moon",
+      "newName": "天氣神月",
+      "core": 2
+    },
+    {
+      "skillId": 5504,
+      "skillKey": "SKE_STAR_LIGHT_KICK",
+      "oldName": "Star Light Kick",
+      "newName": "天星地行",
+      "core": 2
+    },
+    {
+      "skillId": 5506,
+      "skillKey": "SH_CHUL_HO_BATTERING",
+      "oldName": "Chulho Battering",
+      "newName": "鐵虎亂舞",
+      "core": 2
+    },
+    {
+      "skillId": 5507,
+      "skillKey": "SH_HYUN_ROK_SPIRIT_POWER",
+      "oldName": "Hyunrok Spirit Power",
+      "newName": "玄鹿靈力釋放",
+      "core": 2
+    }
+  ],
+  "synchronizedFiles": [
+    "data/skill_runtime/runtime_copyable_skills.json",
+    "data/skill_runtime/runtime_core_1_v1.json",
+    "data/skill_runtime/runtime_formula_catalog.json",
+    "data/skill_runtime/runtime_generated_all.json",
+    "data/skill_runtime/runtime_pending_review.json"
+  ],
+  "descriptionPolicy": {
+    "core1": "preserve RO_WEB Runtime/custom descriptions",
+    "core2Existing": "preserve existing Runtime descriptions",
+    "core2Pending": "此技能目前尚未接入 RO_WEB Runtime；僅保留技能樹與官方時序資料，不會套用舊傷害、Buff、Debuff、召喚或其他未驗證效果。"
+  }
+}

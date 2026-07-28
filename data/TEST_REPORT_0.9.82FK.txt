@@ -1,0 +1,28 @@
+RO_WEB 0.9.82FK Test Report
+========================================
+Baseline: 0.9.82FJ
+
+Scope
+- Super Novice / Expanded Super Novice / Hyper Novice skill tab resolution
+- Shared town tool shop elemental converters
+- Auto-battle elemental converter selection and renewal
+- Map / teleport destination scroll stability during auto battle
+
+Verified
+1. RA tree key aliases resolve correctly:
+   - super_novice -> supernovice: 51 skills
+   - expanded_super_novice -> super_novice_e: 49 additional skills
+   - hyper_novice -> hyper_novice: 15 skills
+2. Shared tool shop contains item IDs 12114, 12115, 12116, 12117.
+3. Auto converter consumes once when no matching buff exists.
+4. Matching active element does not consume another converter.
+5. Expired effect consumes one converter and renews the selected element.
+6. Existing physical-only converter contract remains unchanged.
+7. Same-location auto-battle refresh does not replace the live map destination panel.
+8. A real location rebuild restores map body, map list and destination panel scrollTop.
+
+Automated tests
+- node tools/test_super_novice_element_converter_0.9.82FK.js : PASS
+- node tools/test_map_scroll_stability_0.9.82FK.js : PASS
+- node --check js/job.js js/auto_battle.js js/map.js js/player.js js/game.js : PASS
+- python -m json.tool data/shops.json : PASS

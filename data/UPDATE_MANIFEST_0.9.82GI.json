@@ -1,0 +1,88 @@
+{
+  "version": "0.9.82GI",
+  "baseVersion": "0.9.82GH",
+  "generatedAt": "2026-07-27T14:10:06+08:00",
+  "title": "Gacha Queue, Auto-Battle Status Allocation, Kenbert Priority Fix",
+  "scope": {
+    "continuousGacha": [
+      "55ms queued dispatch and max 32 opens per processing slice",
+      "batched inventory mutation, quick-slot refresh, battle log, and trailing save",
+      "generic reward add-item log suppression during gacha batch",
+      "rare announcement banner capped at three simultaneous nodes",
+      "error-safe queue unlock and pending count recovery"
+    ],
+    "autoBattleStatusAllocation": [
+      "status and trait allocation preserve current target, combat state, attack rotation, and Auto Battle Controller",
+      "pointer interaction redraw guard prevents combat UI refresh between pointerdown and click",
+      "controlled status refresh and 350ms delayed save"
+    ],
+    "kenbertElementLayer": [
+      "skill weapon endow has priority over Kenbert",
+      "every successful player skill cast clears Kenbert at shared skill payment commit",
+      "manual or automatic Kenbert cannot overwrite an active skill endow and does not consume the item",
+      "main-hand or assassin off-hand weapon unequip/switch clears Kenbert",
+      "Renewal and fallback combat formula paths use the same central weapon element resolver"
+    ]
+  },
+  "changedFiles": {
+    "modified": [
+      "AI_START_HERE.md",
+      "CHANGELOG.md",
+      "README.md",
+      "index.html",
+      "js/auto_battle.js",
+      "js/combat_formula_runtime.js",
+      "js/game.js",
+      "js/item_instance_ui.js",
+      "js/mvp_gacha_runtime.js",
+      "js/player.js",
+      "js/ra_renewal_damage_pipeline.js",
+      "js/skill_engine.js",
+      "js/status_system.js"
+    ],
+    "added": [
+      "tools/deep_health_check_0.9.82GI.py",
+      "tools/deep_health_report_0.9.82GI.json",
+      "tools/test_gacha_status_element_priority_0.9.82GI.js"
+    ],
+    "deleted": []
+  },
+  "tests": {
+    "giDedicated": {
+      "passed": 137,
+      "failed": 0
+    },
+    "storageRegression": {
+      "passed": 3,
+      "failed": 0
+    },
+    "refineRegression": {
+      "passed": 8,
+      "failed": 0
+    },
+    "geffeniaMobileRegression": {
+      "passed": 16,
+      "failed": 0
+    },
+    "servantWeaponRegression": {
+      "passed": 15,
+      "failed": 0
+    },
+    "combinedTargetedAndRegression": {
+      "passed": 179,
+      "failed": 0
+    },
+    "deepHealth": {
+      "status": "PASS",
+      "errors": 0,
+      "warnings": 0,
+      "jsonFiles": 1953,
+      "jsSyntaxChecked": 732,
+      "loadedScripts": 38
+    },
+    "browserClickTest": {
+      "status": "UNAVAILABLE",
+      "reason": "headless Chromium localhost/file loading timed out in the managed container"
+    }
+  }
+}

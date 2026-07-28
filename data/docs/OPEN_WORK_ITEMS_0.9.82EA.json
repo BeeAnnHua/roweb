@@ -1,0 +1,30 @@
+{
+  "version": "0.9.82EA",
+  "title": "RO_WEB 技能系統完成後的下一階段事項",
+  "excludedFromDefectCount": [
+    {"item": "擴充職業 Pending 技能", "count": 310, "reason": "依專案決議暫緩"},
+    {"item": "AP 系統", "reason": "依專案決議不實作"},
+    {"item": "AM_RESURRECTHOMUN", "count": 1, "reason": "生命體目前沒有 HP／死亡模型，沒有可復活目標"}
+  ],
+  "openItems": [
+    {"priority": "P0-驗收", "key": "live_browser_regression", "name": "PC／手機實機瀏覽器回歸", "status": "Node、資料與 Runtime 自動測試完成；仍需在實際 Safari／Chrome 驗收高速技能、地面效果、傷害數字與動畫流暢度"},
+    {"priority": "NEXT", "key": "trait_stat_allocation", "name": "四轉特性素質點數與 UI", "status": "P.ATK、S.MATK、RES、MRES、H.Plus、C.RATE 公式層已就緒；取得、配置、重置與 UI 待建置"},
+    {"priority": "NEXT", "key": "world_map_expansion", "name": "世界地圖 10×9 與洞穴副本", "status": "目前正式野外為妙勒尼 3×3、9 Chunk；長期目標 10×9"},
+    {"priority": "NEXT", "key": "monster_atlas_deployment", "name": "完整怪物動畫與分布部署", "status": "怪物 Atlas Runtime 與測試怪物已存在；完整母庫、地圖分布、主動／被動 AI 待部署"},
+    {"priority": "NEXT", "key": "monster_exp_drop", "name": "怪物經驗、Zeny 與掉落循環", "status": "待完整怪物資料與地圖分布接入後，依 Renewal 資料批次匯入並平衡"},
+    {"priority": "P1", "key": "equipment_card_effect_coverage", "name": "裝備／卡片／附魔效果資料覆蓋", "status": "共用詠唱、後延遲、冷卻、爆傷、破防、種族／體型／屬性與增減傷修正層已完成；官方效果資料尚未全量匯入"},
+    {"priority": "P1", "key": "mount_falcon_warg_npc", "name": "大嘴鳥／獵鷹／狼 NPC 取得與解除流程", "status": "人物動畫與戰鬥 Runtime 已有；NPC 流程待補"},
+    {"priority": "P2", "key": "homunculus_death_revive", "name": "生命體死亡／復活模型", "status": "目前生命體為無 HP、無死亡的協助模式，因此復活技能保留 Pending"},
+    {"priority": "TBD", "key": "hair_customization", "name": "84 種髮型獨立切換", "status": "容量與逐幀對位考量下暫緩"}
+  ],
+  "resolvedInThisVersion": [
+    "所有主動攻擊技能完成 140ms（約秒7）效能安全下限；只在完整 Renewal 時序低於 140ms 時封頂",
+    "自動戰鬥改為依下一個可行動時間排程，不再固定 250ms 輪詢",
+    "828 招正式 Runtime 完成全技能公式、時序、36px 格距與 Handler 批次稽核",
+    "189 招物理、93 招魔法與 90 招地面／範圍相關技能完成結構與公式稽核",
+    "地面效果共用合法落點、36px 對齊、地圖邊界、Land Protector、重疊、實例上限、Tick、波次與狀態流程",
+    "暴風雪 9 格施放、9×9、450ms×10 波、逐波冰凍與擊退 Runtime 驗證",
+    "隕石術、怒雷強擊、泥沼地、超自然波、電擊陷阱等代表技能完成動態測試",
+    "結構化 status 物件正式接入狀態 Resolver，避免地面技能狀態資料存在但未套用"
+  ]
+}

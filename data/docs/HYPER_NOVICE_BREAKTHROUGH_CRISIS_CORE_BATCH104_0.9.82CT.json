@@ -1,0 +1,92 @@
+{
+  "version": "0.9.82CT",
+  "batch": 104,
+  "title": "終極初學者突破強化與征服危機核心",
+  "skillIds": [
+    5461,
+    5462,
+    5505
+  ],
+  "officialRuntime": 827,
+  "pending": 312,
+  "noviceFamilyProgress": "117/118",
+  "skills": [
+    {
+      "id": 5461,
+      "key": "HN_BREAKINGLIMIT",
+      "name": "突破極限",
+      "handler": "buff",
+      "durationMs": 300000,
+      "spCost": 150,
+      "apCostMetadata": 150,
+      "effects": {
+        "5451": "+120%",
+        "5452": "+100%",
+        "5453": "+120%",
+        "5454": "+130%"
+      }
+    },
+    {
+      "id": 5462,
+      "key": "HN_RULEBREAK",
+      "name": "突破規矩",
+      "handler": "buff",
+      "durationMs": 300000,
+      "spCost": 150,
+      "apCostMetadata": 150,
+      "effects": {
+        "5455": "+50%",
+        "5456": "+70%",
+        "5457": "+70%",
+        "5458": "+70%",
+        "5459": "+50%",
+        "5460": "+40%"
+      }
+    },
+    {
+      "id": 5505,
+      "key": "HN_OVERCOMING_CRISIS",
+      "name": "征服危機",
+      "handler": "buff",
+      "durationMs": 300000,
+      "spCost": [
+        70,
+        73,
+        76,
+        79,
+        82
+      ],
+      "apCostMetadata": 50,
+      "effects": {
+        "pAtk": [
+          3,
+          6,
+          9,
+          12,
+          15
+        ],
+        "sMatk": [
+          3,
+          6,
+          9,
+          12,
+          15
+        ],
+        "maxHpFlat": [
+          15000,
+          30000,
+          45000,
+          60000,
+          75000
+        ],
+        "restoreHpToFullAfterBuff": true
+      }
+    }
+  ],
+  "sources": [
+    "rAthena db/re/skill_db.yml",
+    "rAthena src/map/battle.cpp SC_BREAKINGLIMIT",
+    "rAthena src/map/skills/novice/*.cpp SC_RULEBREAK / overcomingcrisis.cpp",
+    "rAthena src/map/status.cpp SC_OVERCOMING_CRISIS"
+  ]
+}

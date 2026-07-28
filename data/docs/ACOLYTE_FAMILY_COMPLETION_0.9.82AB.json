@@ -1,0 +1,121 @@
+{
+  "version": "0.9.82AB",
+  "batch": "服事系列四轉補完 Batch35",
+  "result": "PASS",
+  "source": [
+    "project SkillInfoz",
+    "rAthena db/re/skill_db.yml",
+    "rAthena src/map/skills/acolyte",
+    "rAthena src/map/status.cpp",
+    "rAthena src/map/battle.cpp"
+  ],
+  "coverage": {
+    "before": 383,
+    "after": 418,
+    "target": 1139
+  },
+  "pending": {
+    "before": 756,
+    "after": 721
+  },
+  "implementedSkillIds": [
+    5238,
+    5239,
+    5240,
+    5241,
+    5242,
+    5243,
+    5244,
+    5245,
+    5246,
+    5247,
+    5248,
+    5249,
+    5250,
+    5251,
+    5252,
+    5253,
+    5254,
+    5268,
+    5269,
+    5270,
+    5271,
+    5272,
+    5273,
+    5275,
+    5276,
+    5277,
+    5278,
+    5279,
+    5280,
+    5281,
+    5282,
+    5283,
+    5284,
+    6518,
+    6519
+  ],
+  "familyAudit": {
+    "treeFiles": [
+      "acolyte",
+      "acolyte_high",
+      "priest",
+      "high_priest",
+      "arch_bishop",
+      "cardinal",
+      "monk",
+      "champion",
+      "sura",
+      "inquisitor"
+    ],
+    "uniqueSkillIds": 139,
+    "official": 139,
+    "pending": 0,
+    "pendingIds": []
+  },
+  "fourthJobSystems": {
+    "traitStatsFormulaBridge": true,
+    "traitPointAllocationUI": false,
+    "apAcquisitionAndConsumption": false,
+    "apPolicy": "AP costs/gains retained as metadata; skills execute without AP until the shared AP system is implemented."
+  },
+  "adaptations": [
+    "party buffs/heals changed to self",
+    "activation/sequence prerequisites removed",
+    "materials and catalysts not checked or consumed",
+    "passive skills excluded from Plagiarism/Reproduce UI"
+  ],
+  "runtimeAdditions": [
+    "Cardinal heal formulas",
+    "periodic Mediale Votum healing",
+    "RES/MRES derived fields",
+    "spirit-cost waiver flags",
+    "Inquisitor brand/status chain",
+    "dynamic sphere-based hit count",
+    "ground periodic magic damage"
+  ],
+  "validation": {
+    "result": "PASS",
+    "jsonFilesParsed": 416,
+    "javascriptFilesSyntaxChecked": 41,
+    "regressionScriptsPassed": "17/17",
+    "runtimeGeneratedCatalogCounts": "418/418/418",
+    "pendingCount": 721,
+    "duplicateSkillIds": 0,
+    "duplicateSkillKeys": 0,
+    "acolyteFamilyCoverage": "139/139",
+    "acolyteFamilyPending": 0,
+    "dynamicChecks": {
+      "explosionBlasterHolyOil": "27300 -> 36800 test ratio",
+      "thirdFlameBombSphereHits": "4 spheres=1 hit; 15 spheres=3 hits",
+      "arbitriumLv10ProbeRatio": 26600,
+      "divinusFlosLv5ProbeRatio": 42000,
+      "competentiaLv5FullHpSpRestore": true,
+      "reparatioFullHeal": true,
+      "medialeVotumPeriodicHeal": true,
+      "faithSpiritCostWaiver": true
+    },
+    "cacheVersion": "0.9.82AB",
+    "zipIntegrity": "PASS"
+  }
+}

@@ -1,0 +1,1366 @@
+{
+  "name": "RO_WEB_Constitution",
+  "version": "0.9.82GX",
+  "purpose": "RO_WEB 專案開發憲法。任何 AI 或開發者在修改專案前必須先閱讀本檔案。",
+  "must_read_before_any_update": true,
+  "ai_update_protocol": {
+    "required_first_step": "在修改任何檔案前，先讀取 RO_WEB_CONSTITUTION.json。",
+    "required_final_check": "輸出版本前，檢查本次修改是否違反憲法規則。",
+    "if_conflict": "如果使用者要求與憲法衝突，必須先提醒並詢問是否要修正憲法，不可直接違規修改。",
+    "recommended_project_entry_file": "AI_START_HERE.md"
+  },
+  "rules": [
+    {
+      "id": "ITEM-001",
+      "category": "Item",
+      "title": "官方資料來源",
+      "rule": "物品來源以 itemInfo_UTF8.lub 為唯一官方來源，由 RO Studio 轉換。",
+      "priority": "critical",
+      "read_before_coding": true
+    },
+    {
+      "id": "ITEM-002",
+      "category": "Item",
+      "title": "名稱",
+      "rule": "使用 identifiedDisplayName，不使用 unidentifiedDisplayName。",
+      "priority": "critical",
+      "read_before_coding": true
+    },
+    {
+      "id": "ITEM-003",
+      "category": "Item",
+      "title": "介紹",
+      "rule": "使用 identifiedDescriptionName，不使用 unidentifiedDescriptionName。",
+      "priority": "critical",
+      "read_before_coding": true
+    },
+    {
+      "id": "ITEM-004",
+      "category": "Item",
+      "title": "過濾",
+      "rule": "介紹不顯示重量(weight)、未鑑定、放大鏡相關資訊。",
+      "priority": "critical",
+      "read_before_coding": true
+    },
+    {
+      "id": "ITEM-005",
+      "category": "Item",
+      "title": "鑑定系統",
+      "rule": "RO_WEB 不實作放大鏡與未鑑定系統。",
+      "priority": "critical",
+      "read_before_coding": true
+    },
+    {
+      "id": "ITEM-006",
+      "category": "Item",
+      "title": "資料結構",
+      "rule": "改讀 data/items、data/equipment 等細分 JSON，外層 data/items.json 退役。",
+      "priority": "critical",
+      "read_before_coding": true
+    },
+    {
+      "id": "ITEM-007",
+      "category": "Item",
+      "title": "新增物品",
+      "rule": "新增物品必須放入對應細分 JSON，不可新增到退役的 items.json。",
+      "priority": "critical",
+      "read_before_coding": true
+    },
+    {
+      "id": "ITEM-008",
+      "category": "Item",
+      "title": "官方ID",
+      "rule": "所有物品 ID 必須與官方一致，不可自行修改。",
+      "priority": "critical",
+      "read_before_coding": true
+    },
+    {
+      "id": "ITEM-009",
+      "category": "Item",
+      "title": "查詢介面",
+      "rule": "商店、背包、商城、掉落、Tooltip 全部經 getItemById() 取得資料，不直接讀 JSON。",
+      "priority": "critical",
+      "read_before_coding": true
+    },
+    {
+      "id": "UI-001",
+      "category": "UI",
+      "title": "風格",
+      "rule": "所有 UI 維持黑金風格，Tooltip 與 Hover 行為一致。",
+      "priority": "high",
+      "read_before_coding": true
+    },
+    {
+      "id": "SKILL-001",
+      "category": "Skill",
+      "title": "技能樹",
+      "rule": "採 Skill Tree V2，保留 RO 前置技能邏輯，以 CSS/UI 呈現。",
+      "priority": "high",
+      "read_before_coding": true
+    },
+    {
+      "id": "DB-001",
+      "category": "Database",
+      "title": "Build流程",
+      "rule": "RO_WEB 僅使用 Build 後資料，不直接使用完整 rAthena 資料庫。",
+      "priority": "critical",
+      "read_before_coding": true
+    },
+    {
+      "id": "AI-001",
+      "category": "AI Workflow",
+      "title": "每次更新必讀憲法",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "任何版本更新、Bug 修正、資料整理、UI 調整或功能新增前，必須先閱讀 RO_WEB_CONSTITUTION.json。"
+    },
+    {
+      "id": "AI-002",
+      "category": "AI Workflow",
+      "title": "禁止硬寫資料",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "不可在程式中硬寫物品名、技能名、怪物名、NPC 商品名、Tooltip 文字；必須從對應資料庫或 Manager 讀取。"
+    },
+    {
+      "id": "AI-003",
+      "category": "AI Workflow",
+      "title": "輸出前憲法檢查",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "每次輸出 ZIP 前，必須檢查是否新增舊資料來源、重複資料、硬寫名稱、或違反官方 ID / 細分 JSON / Manager 取用規則。"
+    },
+    {
+      "id": "ITEM-010",
+      "category": "Item",
+      "title": "itemInfo_UTF8.lub 欄位讀取規則",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "解析 itemInfo_UTF8.lub 時，只採用 item ID、identifiedDisplayName、identifiedDescriptionName、slotCount、ClassNum，以及必要的裝備分類欄位。不得使用 unidentifiedDisplayName 或 unidentifiedDescriptionName 作為玩家顯示資料。"
+    },
+    {
+      "id": "ITEM-011",
+      "category": "Item",
+      "title": "韓文 ResourceName 不可顯示",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "unidentifiedResourceName 與 identifiedResourceName 通常為韓文資源名，只能作為內部圖檔/資源對照，不得顯示在背包、商店、Tooltip、裝備欄或任何玩家可見 UI。"
+    },
+    {
+      "id": "ITEM-012",
+      "category": "Item",
+      "title": "RO 色碼解析",
+      "priority": "high",
+      "read_before_coding": true,
+      "rule": "identifiedDescriptionName 中的 RO 色碼（例如 ^777777、^000000、^FF0000）不可直接顯示給玩家，也不要直接刪除。應解析為網頁 CSS/HTML 顏色呈現，以保留官方說明美觀。"
+    },
+    {
+      "id": "ITEM-013",
+      "category": "Item",
+      "title": "Tooltip 內容過濾",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "物品 Tooltip 不顯示重量、不顯示未鑑定文字、不顯示放大鏡相關文字；裝備類底部提示使用「點擊可穿上裝備。」消耗品依功能顯示使用提示。"
+    },
+    {
+      "id": "ITEM-014",
+      "category": "Item",
+      "title": "外層 items.json 不再使用",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "data/items.json 為退役資料，不得作為 runtime 來源，也不得新增資料進去。遊戲必須讀取細分資料夾資料，並由 getItemById() 對外提供。"
+    },
+    {
+      "id": "ITEM-015",
+      "category": "Item",
+      "title": "放大鏡商品移除",
+      "priority": "high",
+      "read_before_coding": true,
+      "rule": "RO_WEB 不做鑑定系統，因此 NPC 商店與商城不販售放大鏡，也不需要任何鑑定流程。"
+    },
+    {
+      "id": "CORE-001",
+      "category": "Core",
+      "title": "快取版本號",
+      "rule": "每次修改 CSS、JS、HTML 後，必須同步更新 HTML 資源引用版本號，例如 ?v=0.9.64b，避免瀏覽器讀取舊快取造成 UI / CSS / JS 看似沒有更新。",
+      "priority": "critical",
+      "read_before_coding": true
+    },
+    {
+      "id": "ui_auto_scale_0959",
+      "title": "Auto UI Scale / Mobile Playable Mode",
+      "rule": "RO_WEB 以 1280x720 PC 畫布為主規格；背景戰鬥區與左上角人物資訊不吃 UI 縮放。其他 UI 視窗、彈窗、快捷按鈕、操作列必須遵守 --ui-scale 總縮放閥門，並可依解析度用 media query 自動切換。手機版採可玩模式，不做完整 RWD，但必須能縮放、能點擊、彈窗可滾動且不阻斷核心流程。音效 / sound / audio 架構暫時不預留。"
+    },
+    {
+      "id": "SKILL-ICON-001",
+      "category": "Skill Icon",
+      "title": "官方辨識度優先",
+      "rule": "技能 ICON 可進行 RO Remaster 風格試作，但必須保留技能原始辨識度；不得改成看不出原技能的全新設計。",
+      "priority": "high",
+      "read_before_coding": true
+    },
+    {
+      "id": "SKILL-ICON-002",
+      "category": "Skill Icon",
+      "title": "狀態效果由 CSS 控制",
+      "rule": "Normal / Learned / Can Learn / Locked 狀態以 CSS class 控制，圖片本體不得為每個狀態重複產生大量檔案，避免維護困難。",
+      "priority": "high",
+      "read_before_coding": true
+    },
+    {
+      "id": "SKILL-ICON-003",
+      "category": "Skill Icon",
+      "title": "前置高亮不可破壞",
+      "rule": "新增技能圖片或發光效果時，不得破壞前置技能高亮與 skill-focus / skill-prereq-ok / skill-prereq-needed 狀態。",
+      "priority": "critical",
+      "read_before_coding": true
+    },
+    {
+      "id": "skill_official_id_primary_key",
+      "title": "技能官方數字 ID 主鍵規則",
+      "rule": "技能資料必須以官方數字 Skill ID 作為主要邏輯 ID；英文技能代號只能保留於 code 欄位作為開發閱讀與官方資料追蹤用途；玩家介面顯示繁體中文 name；技能圖示使用 images/skills/{officialId}.png。"
+    },
+    {
+      "id": "JOB-001",
+      "category": "Job Engine",
+      "title": "轉職唯一入口",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "任何轉職請求都必須先經由 JobEngine/changeJob，並且第一步必須呼叫 Job Constitution 驗證；任何程式不得直接修改玩家職業。"
+    },
+    {
+      "id": "JOB-002",
+      "category": "Job Engine",
+      "title": "新增職業不得修改核心",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "任何新增職業（包含二轉、進階二轉、三轉、四轉、擴充職業）不得修改核心轉職程式，只允許新增 JSON 資料，例如 jobs.json、skills.json、skillTree.json、job_change.json。"
+    },
+    {
+      "id": "JOB-003",
+      "category": "Job Engine",
+      "title": "所有冒險者共通檢查",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "所有職業共通轉職規則只能存在於 Job Constitution，不得散落於各職業程式。所有冒險者轉職前都必須檢查：技能點是否全部點完、特殊系統是否卸除、Base/Job 等級、技能前置、轉職路線。"
+    },
+    {
+      "id": "JOB-004",
+      "category": "Job Engine",
+      "title": "技能點必須點完（全階段）",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "不管一般一轉、二轉、三轉、四轉，或轉生後的一轉、二轉、三轉、四轉，只要當前技能剩餘點數大於 0，或尚有暫存技能配點未確認，皆不可轉職。"
+    },
+    {
+      "id": "JOB-005",
+      "category": "Job Engine",
+      "title": "轉職前卸除特殊系統",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "轉職前必須卸除手推車與獵鷹；並預留坐騎、狼、龍、機甲、傭兵、召喚物等特殊系統檢查。"
+    },
+    {
+      "id": "JOB-006",
+      "category": "Job Engine",
+      "title": "一般職業決定版流程",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "一般職業線必須走：初心者 → 一轉 → 二轉 → 轉生 → 高級初心者 → 高級一轉 → 進階二轉 → 三轉 → 四轉。RO_WEB 不採用未轉生直接三轉。0→1 需 Job10 + 基本技能 Lv9；1→2 採 Job50；轉生 Base99/Job50；進階二轉→三轉 Base99/Job70；三轉→四轉 Base200/Job70；四轉後 Base 上限 275、Job 上限 60。"
+    },
+    {
+      "id": "JOB-007",
+      "category": "Job Engine",
+      "title": "職業引擎目標",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "RO_WEB 的目標不是完成一個職業，而是建立一個可以容納所有 RO 職業的職業引擎。任何更新都不得破壞此原則。"
+    },
+    {
+      "id": "JOB-008",
+      "category": "Job Engine",
+      "title": "轉生素質點固定重置",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "轉生時不要求剩餘素質點必須花完；但轉生完成後必須強制重置六圍為 1，原剩餘素質點不保留，最終可分配素質點固定為 job_constitution.rebirth.fixedStartingStatusPoints。"
+    },
+    {
+      "id": "JOB-009",
+      "category": "Job Engine",
+      "title": "RA 開機檔參照與待確認原則",
+      "priority": "high",
+      "read_before_coding": true,
+      "rule": "一般職業與擴充職業等級/Job 上限以 RA 開機檔 npc/custom/jobmaster.txt 與 db/re/job_exp.yml 為主要參照；若 RA 與 RO_WEB 決定版衝突，必須在 data/job_constitution.json 標記 source/note，不可散落硬寫。"
+    },
+    {
+      "id": "JOB-010",
+      "category": "Job Engine",
+      "title": "擴充職業獨立路線",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "擴充職業不得硬套一般 1~4 轉流程；各路線依 data/job_constitution.json 獨立設定，但仍共用技能點=0、暫存配點=0、特殊狀態卸除等共同憲法。超初界限解放與一般超初共用角色動畫資源。"
+    },
+    {
+      "id": "JOB-011",
+      "category": "Job Engine",
+      "title": "禁止未轉生直接三轉",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "RA jobmaster 內存在一般職業未轉生直接三轉相關入口/需求；RO_WEB 決定版明確不加入。一般職業必須完成轉生與進階二轉後，才可三轉。"
+    },
+    {
+      "id": "POSITION-001",
+      "category": "Position Engine",
+      "title": "座標戰鬥核心原則",
+      "priority": "high",
+      "read_before_coding": true,
+      "rule": "RO_WEB 可在 1280x720 平面背景上建立 Position Engine；玩家、怪物、技能、瞬移、掉落與 NPC 互動應逐步改由 x/y 座標與射程判定，不應在各技能或怪物程式中散落硬寫距離邏輯。"
+    },
+    {
+      "id": "POSITION-002",
+      "category": "Position Engine",
+      "title": "RA mob_db 行為欄位參照",
+      "priority": "high",
+      "read_before_coding": true,
+      "rule": "怪物移動/追擊/攻擊距離應優先參照 RA mob_db 概念欄位 AttackRange、SkillRange、ChaseRange、WalkSpeed、Ai、Modes；若 RO_WEB 有簡化換算，必須集中在 Position Engine 中。"
+    },
+    {
+      "id": "POSITION-003",
+      "category": "Position Engine",
+      "title": "距離判定唯一入口",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "所有普攻、技能、怪物攻擊的距離判定都必須經由 Position Engine 的 distance / range 函式。不得在 battle.js 或 skill_engine.js 內直接繞過距離造成傷害。"
+    },
+    {
+      "id": "POSITION-004",
+      "category": "Position Engine",
+      "title": "武器射程資料化",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "玩家普攻射程必須優先讀取裝備資料 item.range（來源為 DB_RE item_db_equip.yml 的 Range）；data/weapon_types.json 僅作為沒有裝備或舊資料缺 Range 時的 fallback。技能額外距離（例如弓手/獵人的射程加成）必須由技能資料疊加，不得硬寫在戰鬥公式。"
+    },
+    {
+      "id": "POSITION-005",
+      "category": "Position Engine",
+      "title": "手機與桌機同一套指標事件",
+      "priority": "high",
+      "read_before_coding": true,
+      "rule": "點地圖移動必須優先使用 Pointer Events，確保桌機滑鼠、手機觸控與平板都能使用同一套座標換算。"
+    },
+    {
+      "id": "POS-001",
+      "category": "Position Engine",
+      "title": "Mobile Position Engine Stable",
+      "rule": "Mobile Position Engine 已於 V0.9.73 完成 Windows、iPhone Safari、Android 三平台四角可到達驗證。Camera、Viewport、Touch/Pointer 輸入、Sprite Pivot、World Position 換算不可任意重構或改回 CSS 固定座標；若修改必須重新驗證四角可到達、點擊座標只記錄一筆、UI 透明判定同步、iPhone Safari 與 Android 實機通過。",
+      "priority": "critical",
+      "read_before_coding": true
+    },
+    {
+      "id": "WEAPON-001",
+      "category": "Weapon / Equipment",
+      "title": "weaponType 必填",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "所有可裝備武器資料必須有 weaponType，但 weaponType 必須由 DB_RE item_db_equip.yml 的 SubType 自動轉換產生；不得只依 subCategory、ClassNum、handed 或中文說明手填猜測。weaponType 是普攻動畫、普攻特效、射程 fallback 與裝備行為的共同入口。"
+    },
+    {
+      "id": "WEAPON-002",
+      "category": "Weapon / Animation",
+      "title": "普通攻擊動畫解析規則",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "玩家普通攻擊動畫必須由 currentJob + gender + weaponType 讀取 assets/characters/{job}/{gender}/motions.json 的 attack mapping。Renderer 不得硬寫 novice、swordman 或單一武器動畫。"
+    },
+    {
+      "id": "WEAPON-003",
+      "category": "Weapon / Effect",
+      "title": "普通攻擊特效與技能特效分離",
+      "priority": "high",
+      "read_before_coding": true,
+      "rule": "普通攻擊特效可由 weaponType 決定；技能特效必須由 SkillID 或技能特效資料決定，不得用武器類型覆蓋技能特效。"
+    },
+    {
+      "id": "WEAPON-004",
+      "category": "Weapon / Data",
+      "title": "新增武器驗收",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "新增任何武器 ID 時，必須同時確認 weaponType、data/weapon_types.json 射程、可裝備職業、以及對應職業 motions.json 是否有該 weaponType 動畫；缺動畫只能暫時 fallback，正式驗收前必須補齊或禁止裝備。"
+    },
+    {
+      "id": "ITEMDB-001",
+      "category": "Item / Equipment DB",
+      "title": "裝備資料唯一來源",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "RO_WEB 裝備/武器/防具的能力、限制、位置、射程與效果以 DB_RE item_db_equip.yml 為唯一來源；玩家顯示中文名稱、說明與圖示以 itemInfo_UTF8.lub 為來源。"
+    },
+    {
+      "id": "ITEMDB-002",
+      "category": "Item / Equipment DB",
+      "title": "保留欄位",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "RO_WEB 裝備資料保留：Id、AegisName、Name、Type、SubType、Buy、Attack、MagicAttack、Defense、Range、Slots、Jobs、Classes、Locations、WeaponLevel、ArmorLevel、EquipLevelMin、Refineable、Gradable、View、Script、EquipScript、UnEquipScript。"
+    },
+    {
+      "id": "ITEMDB-003",
+      "category": "Item / Equipment DB",
+      "title": "不使用欄位",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "RO_WEB 不使用 Weight、未鑑定資料、Gender、Trade、Stack、NoUse、Delay、DropEffect。描述中也不得顯示重量或未鑑定資訊。"
+    },
+    {
+      "id": "ITEMDB-004",
+      "category": "Item / Price",
+      "title": "價格規則",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "buyPrice 使用 DB_RE Buy；若 Buy 缺少則預設 20。sellPrice 優先使用 DB_RE Sell；若 Sell 缺少則使用 floor(buyPrice / 2)。因此 Buy=20 時 Sell=10。"
+    },
+    {
+      "id": "ITEMDB-005",
+      "category": "Item / Script",
+      "title": "裝備效果原文保存",
+      "priority": "high",
+      "read_before_coding": true,
+      "rule": "Script、EquipScript、UnEquipScript 必須先以 raw string 保存；RO_WEB 可逐步解析常用 bonus/bonus2/bonus3/bonus4，但不得因尚未解析就丟失原始效果資料。"
+    },
+    {
+      "id": "EQUIP-001",
+      "category": "Weapon / Equipment",
+      "title": "官方職業與階級限制必須執行",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "所有裝備動作必須在扣除背包與替換裝備前，依 DB_RE item_db_equip.yml 的 Jobs、Classes、EquipLevelMin 驗證。Jobs 缺省視為 All；Jobs: {All:true, 某職:false} 必須支援排除；Classes 缺省視為全部階級。新增職業必須只更新 data/equipment_job_map.json，不得在 equipItem() 內新增職業 if/else。"
+    },
+    {
+      "id": "SKILL-CORE-001",
+      "category": "Skill",
+      "title": "技能本體全域唯一",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "技能本體只允許存在於 skills_core_1.json 或 skills_core_2.json，並以官方數字 Skill ID 全專案唯一；任何職業不得複製同一技能本體。"
+    },
+    {
+      "id": "SKILL-CORE-002",
+      "category": "Skill",
+      "title": "職業技能樹只引用",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "每個職業使用獨立 data/skill_trees/{job}.json；技能樹只保存 Skill ID、前置、職業可學上限與版面資料，不得重複保存傷害公式、SP、冷卻或技能效果。"
+    },
+    {
+      "id": "SKILL-CORE-003",
+      "category": "Skill",
+      "title": "新增職業資料邊界",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "技能本體已存在時，新增職業只需人物動畫、獨立技能樹、jobs/job_change 等職業資料。不得為新職業建立第二份相同技能。"
+    },
+    {
+      "id": "SKILL-VISUAL-001",
+      "category": "Skill",
+      "title": "技能特效延後",
+      "priority": "high",
+      "read_before_coding": true,
+      "rule": "技能傷害與能力效果可先完成；SPR、ACT、cast、hit、area 視覺資源在特效階段前統一允許為 null。"
+    },
+    {
+      "id": "SKILL-CUSTOM-001",
+      "category": "Skill",
+      "title": "負重量提升自訂效果",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "MC_INCCARRY（負重量提升）在 RO_WEB 改為被動增加最大 HP：每級 +2%，Lv10 共 +20%；商人與超初等引用者共用同一技能本體。"
+    },
+    {
+      "id": "SKILL-VISUAL-002",
+      "category": "Skill",
+      "title": "RO_WEB 技能特效格式",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "技能特效只使用 data/skill_effects/{SkillID}.json 與 images/skill_effects/{SkillID}.png；Skill Core 不得保存或直接讀取官方 SPR/ACT。"
+    },
+    {
+      "id": "SKILL-TARGET-001",
+      "category": "Skill",
+      "title": "技能世界座標責任",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "技能特效 JSON 不保存世界 XY。手動地面技能使用滑鼠位置；自動戰鬥使用 AI 選定目標或怪物群中心；特效 JSON 的 origin 僅為圖片內繪製基準。"
+    },
+    {
+      "id": "SKILL-DATA-001",
+      "category": "Skill",
+      "title": "公式完成狀態必須誠實",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "從 RA skill_db 可直接取得的結構化參數可標記 metadata_ready；需由 skill.cpp/status.cpp/battle.cpp 移植的實際公式，在完成 Runtime 前必須標記 formula_pending，不得假稱已實作。"
+    },
+    {
+      "id": "SKILL-SCOPE-001",
+      "category": "Skill",
+      "title": "玩家技能 Core 白名單",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "CORE_1/CORE_2 只可收錄玩家可學習或玩家職業技能樹必需的技能。怪物專用、傭兵、公會、NPC、GM 與測試技能暫不加入；不得只因其存在於 RA skill_db 就自動匯入。"
+    },
+    {
+      "id": "SKILL-CORE2-001",
+      "category": "Skill",
+      "title": "CORE 2 擴充職技能本體",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "CORE_2 只保存擴充玩家職業的技能本體，依官方 Skill ID 升冪排序；與 CORE_1 共用的 Skill ID 必須引用 CORE_1，不得複製。"
+    },
+    {
+      "id": "SKILL-CORE2-002",
+      "category": "Skill",
+      "title": "CORE 2 技能樹延後",
+      "priority": "high",
+      "read_before_coding": true,
+      "rule": "V0.9.80ZH 先完成 CORE_2 技能本體與技能圖片；擴充職業技能樹必須於後續版本逐職業建立，不得在本版假稱已完成。"
+    },
+    {
+      "id": "SKILL-TREE-CORE2-001",
+      "category": "Skill",
+      "title": "擴充職業技能樹來源",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "擴充職業技能樹必須以 RA db/re/skill_tree.yml 為骨架，並以專案 SkillInfoz、官方 Skill ID 與 Core 1/Core 2 交叉驗證；不得由名稱猜測或人工另造前置。"
+    },
+    {
+      "id": "SKILL-TREE-CORE2-002",
+      "category": "Skill",
+      "title": "擴充技能樹只引用 Core",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "擴充職業 skill_trees JSON 只保存 Skill ID、可學上限與前置技能；技能本體、說明、圖片、效果與數值必須引用 Core 1 或 Core 2。"
+    },
+    {
+      "id": "SKILL-DATA-SOURCE-001",
+      "title": "Skill Core 頂部資料來源區",
+      "requirement": "skills_core_1.json 與 skills_core_2.json 必須在頂部保留 title，記錄資料來源、範圍、自訂規則及 implementationStatus。"
+    },
+    {
+      "id": "SKILL-RUNTIME-002",
+      "category": "Skill Runtime",
+      "title": "禁止舊技能公式回退",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "技能傷害、治療、Buff、Debuff、被動效果只能由 data/skill_runtime Runtime Profile 執行。Skill Core 不得保存或執行 power、healPower、effects、passiveBonuses；缺少 Runtime Profile 的技能必須顯示 pending，不得回退 data/skills.json 或舊簡化公式。"
+    },
+    {
+      "id": "SKILL-RUNTIME-003",
+      "category": "Skill Runtime",
+      "title": "RO_WEB 原生狀態與坐騎 Runtime",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "技能結果遵循 RA；實作方式使用 RO_WEB Runtime。騎乘、反擊、霸體、Debuff、恢復等狀態必須集中由 Skill Runtime 管理。坐騎動畫素材未加入前保留 mountState 與單一切換入口，未來不得在其他檔案重複建立騎乘狀態。"
+    },
+    {
+      "id": "SKILL-RUNTIME-006",
+      "category": "Skill Runtime",
+      "title": "批次 Runtime 遷移清單",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "全部玩家技能必須存在 runtime_formula_catalog.json；只有已驗證 Runtime Profile 的技能可執行，自動分類與 RA metadata 不可被視為公式完成。"
+    },
+    {
+      "id": "SKILL-RUNTIME-007",
+      "category": "Skill Runtime",
+      "title": "多人技能待確認記錄",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "雙人、多人、組隊、合奏、代傷或其他目前 RO_WEB 無對應系統的技能，必須記錄於 runtime_pending_review.json，決策只能為 official、self_only_override 或 pending。"
+    },
+    {
+      "id": "SKILL-RUNTIME-008",
+      "category": "Skill Runtime",
+      "title": "單人改寫可追溯",
+      "priority": "high",
+      "read_before_coding": true,
+      "rule": "任何 self_only_override 必須記錄官方行為、RO_WEB 行為、修改原因與未來恢復所需系統，不得冒充官方效果。"
+    },
+    {
+      "id": "COMBAT-001",
+      "category": "Combat Runtime",
+      "title": "RA Renewal 戰鬥修正唯一來源",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "屬性相剋、武器體型、種族／體型／屬性／Boss／距離增減傷、RES／MRES、硬／軟 DEF／MDEF、左右手、精煉、P.ATK／S.MATK、暴擊與爆傷的共用計算，必須以 rAthena Renewal 的 db/re 與 battle.cpp/status.cpp 套用順序為唯一來源，集中由 CombatFormulaRuntime、RARenewalDamagePipeline 與共用 Resolver 執行。不得混入 Pre-Renewal 的 80 基礎命中率或防禦公式。"
+    },
+    {
+      "id": "COMBAT-002",
+      "category": "Combat Runtime",
+      "title": "技能前置狀態簡化",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "RO_WEB 不因隱匿、接技順序、特殊姿勢等施放前置狀態阻擋技能；但傷害結果中的屬性、種族、體型、命中、暴擊與附加狀態仍須保留。"
+    },
+    {
+      "id": "COMBAT-003",
+      "category": "Combat Runtime",
+      "title": "怪物戰鬥分類欄位",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "怪物資料必須保留 RA Renewal 的 race、size、element、elementLevel，所有普攻與技能傷害共同讀取，不得在個別技能硬寫怪物相剋。"
+    },
+    {
+      "id": "RUNTIME-026",
+      "category": "Runtime",
+      "title": "技能前置狀態簡化",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "RO_WEB 不檢查隱匿、連擊順序、姿勢等技能啟動前置；只保留實際戰鬥結果與裝備限制。"
+    },
+    {
+      "id": "RUNTIME-027",
+      "category": "Runtime",
+      "title": "共用戰鬥判定",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "命中／迴避／幸運閃避／暴擊、爆傷、RES／MRES、硬／軟 DEF／MDEF、狀態、位移、範圍、多段、左右手、資源輸入、Boss、地面 Tick 必須由共用 Resolver 執行。Renewal 攻擊順序固定為幸運閃避 → 暴擊 → 一般 HIT/FLEE；暴擊不得再被舊命中預判擋掉。"
+    },
+    {
+      "id": "RUNTIME-028",
+      "category": "Runtime",
+      "title": "位移不做牆壁阻擋",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "技能擊退、拉近與位移不做牆壁或障礙物碰撞，只限制世界/地圖邊界並遵守 Boss 與擊退免疫。"
+    },
+    {
+      "id": "RUNTIME-029",
+      "category": "Runtime",
+      "title": "手推車重量簡化",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "所有依賴手推車重量的玩家增傷改為技能每級 ATK +1%，Lv10 上限 +10%，不建立手推車重量管理。"
+    },
+    {
+      "id": "RUNTIME-RA-PIPELINE-001",
+      "category": "Runtime",
+      "title": "RA Renewal 共用戰鬥管線",
+      "rule": "普攻、物理技能、魔法技能與被動觸發必須經 CombatDamagePipeline；職業或裝備不符合的 Registry 條件直接跳過，不得為單一職業複製傷害流程。",
+      "priority": "critical",
+      "read_before_coding": true
+    },
+    {
+      "id": "RUNE-001",
+      "category": "Skill Runtime",
+      "title": "盧恩石消耗取消",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "所有需要盧恩石的技能不檢查、不扣除盧恩石；盧恩精熟改為被動 ATK +2%/Lv，Lv10 +20%。"
+    },
+    {
+      "id": "SKILL-DUPE-001",
+      "category": "Skill Runtime",
+      "title": "重複技能資料處理",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "相同官方 Skill ID 或 skillKey 若存在新舊重複資料，保留最新 Runtime Profile，刪除舊版重複資料。"
+    },
+    {
+      "id": "RESOURCE-001",
+      "category": "Combat Resource",
+      "title": "共用戰鬥資源",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "氣彈、死侍武器與未來蓄力資源必須使用 CombatResourceManager；不得在職業專屬程式中重複建立計數器。"
+    },
+    {
+      "id": "SKILL-RUNTIME-POISON-001",
+      "category": "Skill Runtime",
+      "title": "毒屬性與技能耗材規則",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "塗毒與致命塗毒可改變武器攻擊屬性或附加毒傷／中毒；毒藥瓶、毒刃、紅色魔力礦石等技能耗材不檢查、不扣除。EDP 必須遵循 RA 的 Weapon ATK / Equipment ATK 分部件倍率，並尊重官方排除技能。"
+    },
+    {
+      "id": "SKILL-DESC-001",
+      "category": "Skill",
+      "title": "RO_WEB 改造技能說明同步",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "凡技能效果與 RA/官方不同，玩家可見名稱、說明與 Tooltip 必須同步改寫為實際 RO_WEB Runtime 效果，不得保留會誤導玩家的原版敘述。"
+    },
+    {
+      "id": "EDP-001",
+      "category": "Skill Runtime",
+      "title": "致命塗毒不排除物理技能",
+      "priority": "high",
+      "read_before_coding": true,
+      "rule": "RO_WEB 的致命塗毒效果可套用所有物理技能，不維護官方技能排除清單。"
+    },
+    {
+      "id": "SKILL-STEELBODY-001",
+      "category": "Skill Runtime",
+      "title": "金剛不壞主動技能封鎖",
+      "priority": "high",
+      "read_before_coding": true,
+      "rule": "金剛不壞生效期間，玩家不可主動施放任何技能，只能進行普通攻擊；六合拳、二刀連擊、自動施法、武器或卡片等由普通攻擊觸發的效果不得被主動技能封鎖誤擋。"
+    },
+    {
+      "id": "SKILL-COPY-PASSIVE-001",
+      "category": "Skill Runtime",
+      "title": "被動技能不可抄襲／繁殖",
+      "priority": "high",
+      "read_before_coding": true,
+      "rule": "凡被 RO_WEB 改為被動技能者，即使 RA CopyFlags 原本允許複製，也不得出現在抄襲／繁殖選擇 UI。"
+    },
+    {
+      "id": "MONK-RESOURCE-001",
+      "category": "Skill Runtime",
+      "title": "氣彈與潛龍昇天",
+      "priority": "high",
+      "read_before_coding": true,
+      "rule": "氣彈基礎上限為 5；潛龍昇天每級提高 1 顆，上限最高 15 並立即補滿。資源 UI 暫緩至自動戰鬥完成後處理。"
+    },
+    {
+      "id": "MONK-POINT-TARGET-001",
+      "category": "Skill Runtime",
+      "title": "點穴目標規則",
+      "priority": "high",
+      "read_before_coding": true,
+      "rule": "修羅點穴系列中，點穴－默只對敵人施放；點穴－快、球、反、活只對自己施放，不建立隊友目標流程。"
+    },
+    {
+      "id": "MONK-LIGHTNING-WALK-001",
+      "category": "Skill Runtime",
+      "title": "閃電步不位移",
+      "priority": "high",
+      "read_before_coding": true,
+      "rule": "閃電步保留 RA 對遠距離物理攻擊的機率完全防禦與一次性消耗效果，但 RO_WEB 不順移至攻擊者身旁。"
+    },
+    {
+      "id": "MONK-CRESCENT-ELBOW-001",
+      "category": "Skill Runtime",
+      "title": "破碎柱反擊規則",
+      "priority": "high",
+      "read_before_coding": true,
+      "rule": "破碎柱保留 rAthena Renewal 的近距離物理受擊觸發率、一次性反擊傷害公式與自身承受反擊傷害 10% 的反作用力；RO_WEB 不執行官方 SR_CRESCENTELBOW_AUTOSPELL 的 7 格擊退。"
+    },
+    {
+      "id": "SKILL-MERCHANT-PASSIVE-B49",
+      "category": "Skill Runtime",
+      "title": "商人系列決策型被動轉換",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "武器修理、化學保護、製藥、生命體、FAW、ABR、仿生召喚等指定技能依 2026-07-13 使用者決議改為永久 ATK/MATK 或 MHP/MSP 加成；未來召喚 AI 完成後，須透過共用接口恢復召喚功能，不得建立第二套狀態。"
+    },
+    {
+      "id": "SKILL-ALCHEMIST-ACID-B51",
+      "category": "Skill Runtime",
+      "title": "鍊金術師強酸／火煙瓶核心",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "火煙瓶投擲、強酸攻擊、強酸火煙瓶投擲依 RA Renewal 公式執行，不消耗火煙瓶或強酸瓶；怪物裝備破壞統一轉為短時間 ATK／DEF 降低。"
+    },
+    {
+      "id": "SKILL-REQUIRES-001",
+      "category": "Skill Data",
+      "title": "技能前置與 RA 施放需求分離",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "Skill Core 的 RA 執行需求物件必須存於 raRequirements；技能樹前置技能 requires 在載入後必須永遠是陣列。不得再用同一 requires 欄位同時承載兩種資料。"
+    },
+    {
+      "id": "STARTUP-001",
+      "category": "Startup",
+      "title": "資料完成後才渲染 UI",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "遊戲啟動必須先完成所有資料、玩家、地圖與 Runtime 載入，再執行 UI 渲染。個別 UI 初始化失敗必須隔離並記錄，不能中止怪物生成與戰鬥核心。"
+    },
+    {
+      "id": "SERVER-001",
+      "category": "Deployment",
+      "title": "Windows 本地 HTTP 啟動規則",
+      "priority": "high",
+      "read_before_coding": true,
+      "rule": "Windows 啟動器維持 ASCII/CRLF，預設使用 127.0.0.1:8000；依序嘗試 py、python、python3，沒有 Python 時使用 PowerShell TCP 靜態伺服器。不得要求使用者在命令列直接輸入 8000 或 URL。"
+    },
+    {
+      "id": "SAVE-001",
+      "category": "Save Data",
+      "title": "舊存檔與損壞資料正規化",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "任何存檔資料在進入能力計算與 UI 前，陣列/物件欄位必須先正規化，數值必須為有限值並套用上下限；不存在的 jobKey 回復 novice，不可讓 NaN、Infinity 或錯誤容器污染 Runtime。"
+    },
+    {
+      "id": "TIMER-001",
+      "category": "Runtime Lifecycle",
+      "title": "計時器必須可停止與恢復",
+      "priority": "high",
+      "read_before_coding": true,
+      "rule": "所有長駐 setInterval/setTimeout 系統必須保留 timer handle 與對應 start/stop；pagehide 時停止，BFCache pageshow 時只啟動一份，禁止重載後疊加重複迴圈。"
+    },
+    {
+      "id": "SKILL-MAGE-PASSIVE-B57",
+      "category": "Skill",
+      "title": "法師三項實用技能永久被動轉換",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "MG_SIGHT 火狩、WZ_ESTIMATION 怪物情報、WZ_SIGHTBLASTER 火狩芽在 RO_WEB 改為永久被動；各自固定增加 ATK/MATK 5%。移除原本主動偵測、情報查詢與鄰近觸發傷害；三招不可放入快捷欄，也不可進入抄襲／繁殖清單。"
+    },
+    {
+      "id": "SKILL-SAGE-ELEMENT-B67",
+      "category": "Skill Runtime",
+      "title": "賢者屬性附加與元素更換核心",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "火／水／風／地屬性附加依 RO_WEB 單人規則改為 Self Only，互相覆蓋，保留武器屬性賦予與對應屬性魔法傷害 +技能等級%；屬性元素更換只對非 Boss、非狀態免疫怪物生效，持續 30 分鐘並將防禦屬性改為指定屬性、等級隨機 Lv1～Lv4。一般材料與 SP 消耗移除。"
+    },
+    {
+      "id": "SKILL-SORCERER-ELEMENTAL-B72",
+      "category": "Skill Runtime",
+      "title": "妖術師基礎元素精靈狀態核心",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "SO_SUMMON_AGNI／AQUA／VENTUS／TERA 在 RO_WEB 以互斥自身狀態呈現，依技能等級持續 10／15／20 分鐘並記錄精靈元素與等級；現階段不建立召喚物實體與 AI，不消耗屬性礦石，SP 成本延後。四種紋章在完整互動規則確認前維持 Pending。"
+    },
+    {
+      "id": "SKILL-SORCERER-INSIGNIA-B73",
+      "category": "Skill Runtime",
+      "title": "妖術師四紋章與精靈結界單人化核心",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "SO_FIRE/WATER/WIND/EARTH_INSIGNIA 在 RO_WEB 改為 60 秒互斥 Self Buff，依技能等級保留對應精靈資料與玩家能力／屬性效果；SO_ELEMENTAL_SHIELD 需先有基礎元素精靈，施放時消耗該精靈狀態並形成 20～40 秒自身物理免疫。一般材料與 SP 消耗移除。"
+    },
+    {
+      "id": "SKILL-SORCERER-CURE-B77",
+      "category": "Skill",
+      "title": "精靈治癒輕量召喚改造",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "SO_EL_CURE（2464 精靈治癒）在 RO_WEB 需要目前存在基礎或高階元素精靈；因輕量協助型召喚物沒有 HP／SP，改為精靈回復施術者 MaxHP 與 MaxSP 各 10%。保留 Lv1、2 秒詠唱與 1 秒後延遲；不消耗玩家 HP、材料或 SP。"
+    },
+    {
+      "id": "SKILL-HUNTER-FALCON-B79",
+      "category": "Skill",
+      "title": "獵鷹輕量協助與傷害核心",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "HT_FALCON 以可召喚／收回的 assist-only 狀態實作，獵鷹不建立獨立 HP/SP/受擊系統。HT_STEELCROW、HT_BLITZBEAT、SN_FALCONASSAULT 採 rAthena Renewal 公式；普通攻擊裝備弓時依 LUK 與 Job 等級觸發自動閃電衝擊。HT_DETECTING／HT_SPRINGTRAP 在無自由地格選取期間以目前目標位置為中心執行。"
+    },
+    {
+      "id": "SKILL-SNIPER-CORE-B80",
+      "category": "Skill",
+      "title": "神射手三技能核心",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "SN_SIGHT（380 狙殺瞄準）依 Renewal 提供全素質、ATK、HIT、CRI 自身 Buff；SN_SHARPSHOOTING（382 銳利射擊）使用 Renewal BaseLv 倍率、弓限制、5×5 範圍與暴擊率 +30%，箭矢不消耗；SN_WINDWALK（383 風之步）依單人規則改為 Self Only，保留 FLEE、移動速度與持續時間。"
+    },
+    {
+      "id": "SKILL-RANGER-CORE-B81",
+      "category": "Skill",
+      "title": "遊俠弓技／研究／自身強化核心",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "RA_ARROWSTORM、RA_AIMEDBOLT 依 Renewal BaseLv 公式並受微風恐懼強化；RA_FEARBREEZE 接入弓普攻連射且不消耗箭矢；RA_RANGERMAIN 對動物／植物／魚貝族追加與減傷；RA_RESEARCHTRAP 必須同時提供 INT、MaxSP、陷阱距離與 +40×Lv 陷阱傷害；RA_UNLIMIT 台版名稱為菁英狙擊，提供遠距離物理傷害 +50%×Lv，狼系技能排除。"
+    },
+    {
+      "id": "SKILL-RANGER-ADVTRAP-CAMOUFLAGE-B83",
+      "category": "Skill",
+      "title": "遊俠進階陷阱／偽裝戰術核心",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "RA_DETONATOR 以目前目標位置引爆半徑 3 格內陷阱；RA_ELECTRICSHOCKER 保留定身但因怪物無 SP 省略 SP 削減；RA_CLUSTERBOMB 依 Renewal DEX/INT/BaseLv/陷阱研究與武器攻擊雙部分公式；RA_CAMOUFLAGE 為可切換 Self Buff，逐秒堆疊 ATK/CRI 並降低 DEF，低等級限制移動，持續耗 SP，攻擊後解除。陷阱材料一律不消耗。"
+    },
+    {
+      "id": "SKILL-RANGER-ELEMENTAL-TRAP-B84",
+      "category": "Skill",
+      "title": "遊俠屬性陷阱完成與偽裝戰術改造",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "RA_CAMOUFLAGE 改為每級遠距離物理傷害 +2%，移除逐秒 ATK/CRI/DEF 疊層；仍保留隱匿、移動限制、持續 SP 消耗及攻擊解除。RA_MAGENTATRAP／COBALTTRAP／MAIZETRAP／VERDURETRAP 對一般怪物永久覆蓋防禦屬性，Boss/MVP 免疫。RA_FIRINGTRAP／ICEBOUNDTRAP 依 Renewal DEX/INT/BaseLv/陷阱研究特殊傷害加武器攻擊，並附加著火／冰封。所有陷阱材料不消耗。"
+    },
+    {
+      "id": "SKILL-BARD-DANCER-B85",
+      "category": "Skill",
+      "title": "吟遊詩人／舞孃第一批演奏與異常核心",
+      "priority": "high",
+      "read_before_coding": true,
+      "rule": "BA_FROSTJOKER／DC_SCREAM 對目前戰鬥區域內一般怪物施加冰凍／暈眩，基礎成功率 20%×Lv 並受狀態抗性影響；BA_WHISTLE／BA_ASSASSINCROSS／DC_HUMMING 依 RO_WEB 單人規則改為 Self Only，保留 Renewal AGI／DEX／LUK 與演奏／舞蹈熟練度公式；DC_DONTFORGETME 對玩家周圍敵人套用 Renewal ASPD 與移速降低公式。"
+    },
+    {
+      "id": "SKILL-MINSTREL-WANDERER-COMPLETE-B93",
+      "category": "Skill",
+      "title": "宮廷樂師／浪姬舞者完成規則",
+      "priority": "high",
+      "read_before_coding": true,
+      "rule": "宮廷樂師／浪姬舞者歌唱技能沿用限時Buff、多首累加維持SP、自然回魔不中斷及可使用其他技能規則。死亡峽谷採單人一次性自動復活；材料與雙人條件依RO_WEB相容規則移除。"
+    },
+    {
+      "id": "SKILL-WINDHAWK-HAWK-FOUNDATION-B94",
+      "category": "Skill",
+      "title": "風鷹獵鷹協助規則",
+      "priority": "high",
+      "read_before_coding": true,
+      "rule": "風鷹狩獵者的獵鷹精熟沿用輕量獵鷹協助狀態，不建立獨立HP／SP／EXP或受擊系統。獵鷹與狼互斥；獵鷹奇襲可由弓普通攻擊依CON自動觸發，熱愛自然同時強化傷害與觸發率。"
+    },
+    {
+      "id": "SKILL-WINDHAWK-TRAP-BOW-B95",
+      "category": "Skill",
+      "title": "風鷹四轉陷阱與漸進狙擊規則",
+      "priority": "high",
+      "read_before_coding": true,
+      "rule": "四種風鷹屬性陷阱採目標位置持續傷害區域，每0.5秒觸發，傷害與存在時間都必須受高階陷阱實際等級強化；特殊合金陷阱不消耗。漸進狙擊每次施放後累積10秒層數，最多3層，下一次每層增傷20%。"
+    },
+    {
+      "id": "SKILL-TROUBADOUR-TROUVERE-B97",
+      "category": "Skill",
+      "title": "天籟頌者／樂之舞靈攻擊基礎核心",
+      "priority": "high",
+      "read_before_coding": true,
+      "rule": "TR_STAGE_MANNER 裝備弓／樂器／鞭時每級 P.ATK、S.MATK +3，並提高四招基礎技能 AP 獲得；TR_RETROSPECTION 重播上一首四轉演奏並降低30%初始SP、提高50% AP；TR_MYSTIC_SYMPHONY 強化玫瑰箭矢、節奏射擊與混聲烙印；TR_ROSEBLOSSOM／RHYTHMSHOOTING／METALIC_FURY／SOUNDBLEND 依 rAthena Renewal 公式執行，箭矢不消耗。"
+    },
+    {
+      "id": "SKILL-ARCHER-REMAINING-B99",
+      "category": "Skill",
+      "title": "弓箭手剩餘技能第一批決策",
+      "priority": "high",
+      "read_before_coding": true,
+      "rule": "AC_MAKINGARROW（147 製作箭）與 HT_TALKIEBOX（125 陷阱探查）在 RO_WEB 改為永久被動，每級遠距離物理傷害 +3%；HT_POWER（499 動物猛擊）與 CG_ARROWVULCAN（394 奧義箭亂舞）依 rAthena Renewal 公式實裝，箭矢與陷阱材料不消耗。"
+    },
+    {
+      "id": "SKILL-ARCHER-COMPLETION-B100",
+      "category": "Skill",
+      "title": "弓箭手家族最後六招統一被動改造",
+      "priority": "high",
+      "read_before_coding": true,
+      "rule": "HT_SHOCKWAVE（118 魔耗陷阱）、CG_MOONLIT（395 月明之夜）、CG_MARIONETTE（396 傀儡師的把戲）、CG_HERMODE（488 海羅默德的法杖）、CG_TAROTCARD（489 命運的塔羅牌）、CG_SPECIALSINGER（5068 特殊歌手）全部改為永久被動，每級遠距離物理傷害 +2%；保留官方 ID、最大等級及技能樹前置，不再執行原官方特殊機制。"
+    },
+    {
+      "id": "SKILL-MECHANIC-FAW-B107",
+      "category": "Skill",
+      "title": "FAW 輕量召喚核心",
+      "priority": "high",
+      "read_before_coding": true,
+      "rule": "NC_SILVERSNIPER／NC_MAGICDECOY 以共用 assist-only 虛擬召喚實作，沒有地圖實體、HP、SP、EXP 或受擊判定，一次只維持一個召喚夥伴；材料不消耗。NC_MAGICDECOY 每次攻擊自動從火／水／風／地選擇對目前目標最有利屬性；NC_DISJOINT 只解除 FAW，不解除其他召喚家族。"
+    },
+    {
+      "id": "SKILL-SPECIAL-SUMMON-B109",
+      "category": "Skill Runtime",
+      "title": "Batch109 特殊召喚與裝置模式",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "2490 地獄植物與 233 氣泡蟲使用獨立召喚槽，可與主要虛擬召喚物並存；232 生物調撥每級提高輕量召喚傷害 2%；5298 攻擊裝置與 5299 防禦裝置為互斥 Self Only Buff，分別固定提供 ATK/MATK +5% 與 DEF/MDEF +5%。243/244/247 生命體系統在專案另行決議前不得改動。"
+    },
+    {
+      "id": "SKILL-AP-001",
+      "category": "Skill",
+      "title": "AP 系統停用",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "RO_WEB 不實裝 AP 資源；不新增 AP UI、不因 AP 阻擋技能、不扣除或恢復 AP。RA AP Gain/AP Cost 僅保留為非作用參考 metadata；平衡由怪物能力、冷卻或 SP 等方式處理。"
+    },
+    {
+      "id": "JOB-APPEARANCE-001",
+      "category": "Job Engine",
+      "title": "職業外觀五階段共用規則",
+      "rule": "初學者與轉生初學者共用外觀；一轉與進階一轉共用；二轉與進階二轉共用；三轉獨立；四轉獨立。",
+      "priority": "critical",
+      "read_before_coding": true
+    },
+    {
+      "id": "JOB-CONFIRM-001",
+      "category": "Job Engine",
+      "title": "轉職最終確認",
+      "rule": "所有轉職與轉生必須在 NPC 對話中明確顯示目標職業，玩家按下最終確認後才執行。",
+      "priority": "critical",
+      "read_before_coding": true
+    },
+    {
+      "id": "JOB-REBIRTH-RETURN-001",
+      "category": "Job Engine",
+      "title": "轉生後自動承接原二轉",
+      "rule": "轉生後的進階二轉不顯示多分支選單，必須依轉生前二轉職業自動對應唯一進階二轉。",
+      "priority": "critical",
+      "read_before_coding": true
+    },
+    {
+      "id": "SKILL-RANGER-WUGRIDER-B117",
+      "category": "Skill Runtime",
+      "title": "騎狼術永久被動改造",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "RA_WUGRIDER（2241 騎狼術）在 RO_WEB 改為永久被動，Lv1／2／3 移動速度分別 +10%／+20%／+30%；不建立騎乘外觀或坐騎狀態、不切換上下狼、不消耗 SP、不影響普通攻擊或技能攻擊、不限制武器，也不參與轉職前解除坐騎判定。狼維持獨立 assist-only 協助召喚。"
+    },
+    {
+      "id": "CHARACTER-001",
+      "category": "Character Animation",
+      "title": "受傷與死亡共用 Packed Atlas",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "人物受傷與死亡共用同一份 dead PNG／JSON；hurt 使用前三幀，dead 使用全部四幀並停在最後一幀。Runtime 必須依 motion id 選取 JSON 內對應 frame_set，不得固定讀 motions[0]。"
+    },
+    {
+      "id": "CHARACTER-002",
+      "category": "Character Animation",
+      "title": "職業外觀資料驅動",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "人物外觀由 jobs.json appearanceGroup + gender + weaponType + mountState 經 character_atlas_manifest.json 與各角色 motions.json 解析；新增職業素材不得在 Renderer 內硬寫職業分支。"
+    },
+    {
+      "id": "CHARACTER-003",
+      "category": "Character Animation",
+      "title": "盜賊系列外觀共用規則",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "進階盜賊共用盜賊外觀；十字刺客共用刺客外觀；神行太保共用流氓外觀。十字斬首者、魅影追蹤者、暗影十字、深淵追跡者使用各自三／四轉素材。"
+    },
+    {
+      "id": "CHARACTER-004",
+      "category": "Weapon / Animation",
+      "title": "刺客雙持與斧頭簡化",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "刺客系不製作斧頭動畫，基本單手斧 1301/1302 禁止 Assassin 家族裝備。劍＋短劍沒有專用動畫時，外觀優先回退雙短劍，其次雙劍；戰鬥數值仍依實際裝備。"
+    },
+    {
+      "id": "EQUIP-002",
+      "category": "Equipment",
+      "title": "雙手武器與盾牌互斥",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "凡物品資料 handed:2 或 RA Locations.Both_Hand:true，一律視為雙手武器：實際只存於主武器欄，盾牌欄顯示同一件物品的占用鏡像；能力、卡片、精煉與效果只計算一次。裝盾牌／副手時自動卸下雙手武器，裝雙手武器時自動卸下盾牌／副手；舊存檔載入亦須正規化。不得按武器中文名稱或整個種類硬寫。"
+    },
+    {
+      "id": "EQUIP-003",
+      "category": "Equipment",
+      "title": "刺客系副手",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "刺客、十字刺客、十字斬首者、暗影十字可在盾牌／副手格裝備單手劍或短劍；雙持外觀由主手與副手組合解析。"
+    },
+    {
+      "id": "JOB-012",
+      "category": "Job Engine",
+      "title": "詩人舞孃官方性別限制",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "吟遊詩人／搞笑藝人／宮廷樂師／天籟頌者限男性；舞孃／冷豔舞姬／浪姬舞者／樂之舞靈限女性。轉職 NPC 不顯示跨性別選項，不保留趣味混轉對話。"
+    },
+    {
+      "id": "CHARACTER-005",
+      "category": "Weapon / Animation",
+      "title": "流氓斧頭素材取消",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "流氓、神行太保、魅影追蹤者、深淵追跡者不製作斧頭動畫；基本斧 1301/1302 明確禁止 Rogue 家族裝備。"
+    },
+    {
+      "id": "COMBAT-ELEMENT-001",
+      "category": "Combat",
+      "title": "肯貝特統一覆蓋所有玩家物理傷害",
+      "rule": "12114～12117 肯貝特與其他武器附魔作用於所有玩家 physical 傷害：普通攻擊、近／遠距物理技能、弓、槍械、忍者投擲、手推車類、主手與副手都使用同一目前附魔屬性。物理技能原本固定屬性不得阻止肯貝特覆蓋；魔法傷害維持技能自身屬性。混合技能按傷害段分開。",
+      "priority": "critical",
+      "read_before_coding": true
+    },
+    {
+      "id": "COMBAT-AMMO-001",
+      "category": "Combat",
+      "title": "不使用消耗彈藥",
+      "rule": "RO_WEB 不裝備、不檢查、不扣除箭矢、子彈、砲彈、苦無與普通飛鏢等彈藥；彈藥不得提供隱藏 ATK 或屬性。遠距物理攻擊的屬性由武器／肯貝特附魔決定，固定技能倍率直接由技能 Runtime 平衡。",
+      "priority": "critical",
+      "read_before_coding": true
+    },
+    {
+      "id": "COMBAT-DUAL-ENDOW-001",
+      "category": "Combat",
+      "title": "雙持共用附魔屬性",
+      "rule": "刺客主手與盾牌／副手欄中的單手劍或短劍，傷害仍分手計算，但屬性永遠共用同一目前武器附魔；使用一張肯貝特即同時作用兩手，不需要兩張。",
+      "priority": "critical",
+      "read_before_coding": true
+    },
+    {
+      "id": "MOUNT-001",
+      "category": "Mount",
+      "title": "劍士家族坐騎與負重量規則",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "劍士家族保留坐騎狀態與坐騎人物動畫。騎乘術依職業切換大嘴鳥、龍或獅鷲；RA 標記 Riding／Ridingdragon 的技能必須在對應騎乘狀態下使用。坐騎不提供負重量或攜帶量加成。世界地圖與戰鬥依 mountState 切換 mounted／on_foot Atlas；左上人物欄與城鎮人物永遠使用未坐騎 idle.png。"
+    },
+    {
+      "id": "SKILL-DESC-002",
+      "category": "Skill",
+      "title": "已實裝技能說明完整性",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "所有 executionEnabled 的玩家技能都必須有非空白的玩家可見 description，且內容必須描述目前 RO_WEB Runtime 實際效果；不得保留「待後續」「尚未完成」「成本延後」等開發階段文字。每次修改技能 Runtime 後必須同步更新技能說明與 data_bundle.js。"
+    },
+    {
+      "id": "CHARACTER-006",
+      "category": "Character Animation",
+      "title": "人物母庫與部署版分離",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "完整八方向／完整幀人物素材為永久母庫，不得覆寫。RO_WEB 僅部署最佳化版本：逐幀透明裁切、RGBA 完全相同幀去重、Idle/Walk 五來源方向、Attack 兩來源方向、Cast/Hurt/Dead 驗證後回退；JSON 必須保留 256×256 邏輯格、Anchor X128/Y140、targetOffset、sourceDirection、directionAliases 與 flipX。"
+    },
+    {
+      "id": "SKILL-TIMING-001",
+      "category": "Skill",
+      "title": "RA 技能時序為唯一權威",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "玩家技能的 CastTime、FixedCastTime、AfterCastActDelay、AfterCastWalkDelay、Cooldown、CastTimeFlags 與 CastDelayFlags 必須以使用者提供的 rAthena Renewal 開機檔為準。Runtime 必須分離 DEX／INT 變動詠唱、固定詠唱、共通後延遲、獨立冷卻、移動硬直與動作鎖，並提供裝備／卡片／附魔／Buff 共用修正層；固定詠唱百分比減免只取最高值。僅使用者明確決議的例外可忽略 RA 冷卻。"
+    },
+    {
+      "id": "SKILL-ACTION-001",
+      "category": "Skill / Character Animation",
+      "title": "技能動作分類",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "所有會對怪物造成傷害的主動技能（物理、魔法、Misc、地面、連鎖、Combo、投射物）一律使用目前裝備武器的 Attack 動畫；Buff、治療、Debuff、支援、演奏、召喚施術與其他非傷害主動技能一律使用無武器 Cast 動畫；純被動不播放動作，Toggle 關閉不播放、開啟播放 Cast。動作分類以 data/skill_runtime 的 Runtime handler 為唯一權威，不得被舊 Skill Core type=Weapon 誤導。"
+    },
+    {
+      "id": "SKILL-ASPD-001",
+      "category": "Skill / Combat",
+      "title": "零延遲物理技能受 ASPD 節奏限制",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "ASPD 上限為 193。普通攻擊間隔與所有主動技能的 cast-begin 動作鎖，必須使用 rAthena Renewal AttackMotion／unit_set_attackdelay 公式；物理技能的完整 Attack 動畫壓縮至邏輯動作鎖。不得加入模擬官方網路或伺服器延遲的人工秒7／140ms 上限；實際重複施放速度只由 RA 詠唱、共通延遲、獨立冷卻、ASPD 動作鎖與瀏覽器最低排程精度決定。ASPD 不得跳過 SP、射程、命中、前置、武器或坐騎需求。"
+    },
+    {
+      "id": "CHARACTER-007",
+      "category": "Weapon / Animation",
+      "title": "單雙手武器共用人物外觀",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "人物素材只有一套時，單手劍／雙手劍共用 sword、單手斧／雙手斧共用 axe、單手杖／雙手杖共用 staff 動畫。裝備占用、能否使用副手、ATK、技能需求與傷害公式仍依真正單／雙手裝備判定。"
+    },
+    {
+      "id": "COMBAT-CRIT-001",
+      "category": "Combat Runtime",
+      "title": "Renewal 暴擊與爆傷順序",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "一般暴擊攻擊使用完整 bCritAtkRate；可暴擊技能只套用一半 bCritAtkRate。RES／DEF、屬性與目標減傷之後，套用 1.4 + C.RATE/100 的最終暴擊倍率，再套目標 criticalDefenseRate。skill_db DamageFlags.Critical 必須進入共用 Critical Resolver，特殊技能例外需明列。"
+    },
+    {
+      "id": "COMBAT-DEF-001",
+      "category": "Combat Runtime",
+      "title": "Renewal 防禦拆分",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "硬 DEF／MDEF 與素質軟 DEF／MDEF 必須分開；RES／MRES 在硬／軟防禦前套用。穿透 DEF／MDEF 與穿透 RES／MRES 必須分離，且依 Renewal 上限與套用順序處理。"
+    },
+    {
+      "id": "COMBAT-HAND-001",
+      "category": "Combat Runtime",
+      "title": "Renewal 左右手規則",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "普通攻擊可計算左右手；主動物理技能預設只使用右手，除非已由 Renewal 原始碼驗證並在 Runtime Profile 明確開啟左手。拳刃普通攻擊追加傷害依 TF_DOUBLE 等級公式處理。"
+    },
+    {
+      "id": "EQUIP-MOD-001",
+      "category": "Equipment / Card",
+      "title": "共用裝備卡片公式欄位",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "未來裝備、卡片與附魔的詠唱、延遲、暴擊、爆傷、種族、體型、屬性、Boss、距離、破防、治療等效果，必須寫入 data/combat_runtime/renewal_modifier_schema.json 定義的共用欄位，不得在個別技能 Handler 內硬編碼。"
+    },
+    {
+      "id": "SKILL-RANGE-001",
+      "category": "Skill / Position",
+      "title": "技能距離統一使用 36px Cell",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "RO_WEB 一格固定為 36px。所有技能必須分離計算施放距離、普通攻擊距離、投射物距離、地面指定距離、作用半徑／直徑與追擊停止距離；技能等級陣列、RA 負數 Range、AlterRangeVulture／SnakeEye／Radius／ResearchTrap／ShadowJump 與 14 格基礎上限，必須由 PositionEngine 共用 Resolver 處理。不得把施放距離與 AoE 範圍混用。"
+    },
+    {
+      "id": "SKILL-SCHEDULER-001",
+      "category": "Skill / Combat",
+      "title": "高速技能依 nextAvailableAt 排程",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "自動戰鬥不得使用固定 250ms 輪詢限制高速技能。必須依目前詠唱完成時間、共通後延遲、技能獨立冷卻、cast-begin 動作鎖與普通攻擊時間中的最晚阻擋點排程下一個 Tick；最低計時器安全值只能是瀏覽器技術精度，不得模擬官方網路延遲。"
+    },
+    {
+      "id": "TRAIT-001",
+      "category": "Player / Trait Stats",
+      "title": "Renewal 四轉特性素質",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "Base Lv.201～275 的 POW/STA/WIS/SPL/CON/CRT 可分配點數必須取自 rAthena Renewal db/re/statpoint.yml 並套用 RO_WEB ×2：一般等級 +6、每逢 205/210/.../275 該級 +14、Lv.275 累積 570。普通素質點在 Lv.200 固定 4099。玩家自由配點每項上限 110、每點成本 1；四轉 Job Level 自動加成照 RA job_stats.yml 原值，不乘二。所有職業可展開查看特性欄，但只有四轉與 Hyper Novice 且 Base Lv.201 起可配點。POW/CON→P.ATK、SPL/CON→S.MATK、STA→RES、WIS→MRES、CRT→H.Plus/C.RATE，必須走共用 Renewal 戰鬥與治療管線。AP 系統仍停用。"
+    },
+    {
+      "id": "SKILL-PENDING-SCOPE-001",
+      "category": "Skill Runtime",
+      "title": "Pending 技能須明確分類",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "每版全技能稽核必須使正式 Runtime 與 Pending 完整分割覆蓋全部技能。六大職業與初學者系列不得存在未說明 Pending；目前允許的 Pending 僅為明確延期的擴充職業技能與因生命體無死亡系統而無有效目標的 AM_RESURRECTHOMUN。不得把 Pending 冒充已實裝。"
+    },
+    {
+      "id": "MONSTER-001",
+      "category": "Monster",
+      "title": "Renewal 怪物資料權威",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "怪物能力、種族、體型、屬性、AI、掉落與出生時間以使用者提供的 rAthena Renewal mob_db.yml 與 npc/re/mobs 出生腳本為主；不得自行猜測。"
+    },
+    {
+      "id": "MONSTER-002",
+      "category": "Monster",
+      "title": "地區怪物動態密度",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "大地區怪物採玩家中心動態生成：每來源 512×512 基準 15 隻，1024×1024 活動範圍在 100% 時約 60 隻，1280×1280 為保留／清除緩衝，普通怪硬上限 120。"
+    },
+    {
+      "id": "MONSTER-003",
+      "category": "Monster",
+      "title": "比例與唯一怪規則",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "普通怪依 RA 原始出生數量轉為權重，不平均分配；植物、稀有怪、Boss、MVP 使用獨立上限。單隻稀有／Boss／MVP 不受普通怪數量倍率複製，且每一種可各自同時存在 1 隻。"
+    },
+    {
+      "id": "MONSTER-004",
+      "category": "Monster",
+      "title": "出生總閥",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "全域設定沿用 RA 語意：mob_count_rate 控制普通群體數量；mob_spawn_delay、plant_spawn_delay、boss_spawn_delay 分別控制普通怪、植物與 Boss 類重生等待倍率；100 為原值、50 為等待減半、200 為等待加倍。"
+    },
+    {
+      "id": "MONSTER-005",
+      "category": "Monster",
+      "title": "Boss 重生持久化",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "稀有怪、Boss、MVP 使用各自 nextSpawnAt；離開顯示範圍、切換地區或重新進入地圖不得重置死亡與重生計時。"
+    },
+    {
+      "id": "MONSTER-006",
+      "category": "Monster",
+      "title": "動畫資源對照",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "怪物官方 ID 透過 npcidentity／jobname 對照到 RO Studio 輸出的 PNG＋JSON；不得用不屬於該地區的測試怪替代正式怪物。"
+    },
+    {
+      "id": "SKILL-AUTO-PREREQ-001",
+      "category": "Skill UI / Allocation",
+      "title": "前置技能自動補點與確認",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "點擊未滿足前置的技能時，必須遞迴依前置鏈順序加入待確認配點。技能點不足可補到可用點數為止並明確顯示尚缺條件，但不得跳過未完成前置去點目標技能。所有待確認配點只有在玩家按下確認後才可扣除技能點。"
+    },
+    {
+      "id": "ITEM-INSTANCE-001",
+      "category": "Inventory / Equipment",
+      "title": "裝備實例與 RO 客戶端名稱",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "每件裝備必須以獨立 instanceId 保存 refine、broken、cards[4]、enchants[]。Hover 名稱格式固定為精煉值＋卡片／附魔稱號＋裝備基本名稱＋[itemInfo.slotCount]；最後洞數是裝備原始總洞數，不是插卡數或剩餘洞數。單擊開詳細視窗，背包雙擊穿戴，裝備欄雙擊卸除。"
+    },
+    {
+      "id": "ENCHANT-PLATFORM-001",
+      "category": "Inventory / Enchant",
+      "title": "全專案共用附魔平台與 4→3→2 洞位憲法",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "未來所有可附魔武器、防具與特殊裝備系列一律使用同一套共用附魔平台。第1洞永久保留卡片系統，不納入附魔流程；新增附魔必須固定依第4洞→第3洞→第2洞進行，前一洞未完成時後續洞位鎖定且不可提前操作。每個階段右側只顯示目前洞位可用的全部合法附魔石，但不得依當前角色職業過濾，玩家可替其他角色製作後放入共用倉庫。左側裝備清單只顯示小圖、精煉值、裝備名稱與D/C/B/A階級；中央只顯示裝備大圖及1/4/2/3固定洞位，已有卡片或附魔時顯示正式圖示，左鍵可鎖定並開啟名稱與完整效果資訊窗。材料、Zeny、附魔選擇與洞位條件全部成立時，確認執行按鈕才可亮起。第4、3、2洞完成後不再新增洞位，只保留升階、重置與查看。任何新附魔系列只能新增資料池、材料、費用、升階與重置規則，不得另寫不同操作流程；除非使用者明確宣告特例。"
+    }
+  ],
+  "skillRuntime": {
+    "extraSkillPolicy": {
+      "tab": "其他技能",
+      "sources": [
+        "equipment",
+        "card",
+        "plagiarism",
+        "reproduce"
+      ],
+      "sourceLostRemoval": true,
+      "copyOverwriteWithoutPreserve": true,
+      "selectableCopyList": "RA CopyFlags ∩ Official Runtime"
+    },
+    "version": "0.9.82BU"
+  },
+  "runtime_skill_policy": {
+    "latestBatch": "Falcon assist Runtime Batch79",
+    "redesignedDescriptionRule": "所有改造技能的繁中說明必須與實際 Runtime 效果一致。",
+    "traitStatStatus": "Implemented in 0.9.82EB: RA Renewal TraitPoints ×2, six trait formulas, fourth-job Job Bonus, save migration, expandable UI and free test reset.",
+    "resourceUiPolicy": "Combat resources may execute invisibly in Runtime; persistent UI remains deferred until auto-battle redesign.",
+    "swordmanThiefCoverage": "Swordman and Thief job-family skill trees are fully mapped to Official Runtime in the current project scope.",
+    "chargingPiercePolicy": "Charging Pierce uses a hidden 0-10 resource; UI remains deferred until auto-battle/resource UI redesign.",
+    "monkSuraCoverage": "Core combat/resource batch through Flash Combo implemented; reaction/party-transfer/Gentle Touch skills remain pending.",
+    "merchantBlacksmithPolicy": "Identify/Greed become MHP/MSP +5%; vending/buying/crafting/cart appearance skills become permanent ATK bonuses; Pushcart grants ATK +1% per level and retains future cart rental/JSON/PNG hooks; cart attacks always use full-load damage.",
+    "spTraitCostOrder": "Trait-stat points are complete; SP consumption and remaining shared cost balancing continue as separate work.",
+    "hunterTrapPolicy": "Until free tile targeting exists, Hunter traps are placed at the current target position and trigger once after 0.1 seconds; trap item costs are ignored.",
+    "raSkillTimingAuthority": "CastTime/FixedCastTime/AfterCastActDelay/AfterCastWalkDelay/Cooldown are synchronized from the provided rAthena Renewal startup package.",
+    "skillActionMotion": "Physical attack skills use weapon Attack; magic/heal/buff/debuff/support use Cast; passive skills play no action.",
+    "aspdPhysicalSkillGate": "ASPD only limits zero-cast, zero-cooldown, zero-aftercast physical skills using the existing normal-attack interval formula."
+  },
+  "enchantSystem": {
+    "constitutionalStatus": "mandatory",
+    "version": "0.9.82GY",
+    "sharedPlatformOnly": true,
+    "slotPolicy": {
+      "cardSlot": 1,
+      "enchantOrder": [
+        4,
+        3,
+        2
+      ],
+      "unlockRule": "完成前一附魔洞位後才解鎖下一洞位",
+      "postCompletion": [
+        "upgrade",
+        "reset",
+        "inspect"
+      ]
+    },
+    "equipmentListContract": [
+      "icon",
+      "refine",
+      "name",
+      "grade_D_C_B_A"
+    ],
+    "centerContract": {
+      "weaponOrArmorImage": true,
+      "fixedPositions": {
+        "1": "top-left",
+        "4": "top-right",
+        "2": "bottom-left",
+        "3": "bottom-right"
+      },
+      "clickExistingCardOrEnchantToInspect": true
+    },
+    "candidateListContract": {
+      "showOnlyCurrentSlotPool": true,
+      "filterByCurrentCharacterJob": false,
+      "showAllJobsForCrossCharacterCrafting": true,
+      "clickToLockAndOpenInfo": true
+    },
+    "executeButtonContract": {
+      "requiresSelectedEnchant": true,
+      "requiresLegalSlot": true,
+      "requiresEnoughMaterials": true,
+      "requiresEnoughZeny": true,
+      "disabledOtherwise": true,
+      "readyVisual": "illuminated"
+    },
+    "extensionRule": "未來附魔裝備只新增資料設定，不重做UI與流程。",
+    "assetRule": "缺少任何必要圖片時立即停止該部分更新並回報，不得使用錯圖、占位圖或猜測替代。",
+    "formalRuntime": {
+      "inventoryAndEquippedDetection": true,
+      "materialConsumption": true,
+      "equipmentInstancePersistence": true,
+      "storageTransferPersistence": true,
+      "combatEffectRuntime": "CardRuntime enchant source",
+      "targetFamily": "Dim Glacier weapons (26)"
+    }
+  }
+}

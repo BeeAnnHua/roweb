@@ -1,0 +1,190 @@
+{
+  "version": "0.9.82GA",
+  "baseline": "0.9.82FZ",
+  "type": "incremental_update",
+  "deletions": [],
+  "install": "Copy every file/folder from this ZIP into the GitHub roweb repository root and overwrite same-name files.",
+  "changedFileCount": 36,
+  "changedFiles": [
+    {
+      "path": "CHANGELOG.md",
+      "bytes": 7458,
+      "sha256": "6545d11429598414619bec37b70b1e70a90307621fa9aa0752832eefe776a9cd"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2598,
+      "sha256": "3f8eabaa43ebd21e30a5e1aa3d77dda28b494ab8f0f26c67f02123f2f9b285c2"
+    },
+    {
+      "path": "index.html",
+      "bytes": 30883,
+      "sha256": "6f93e4678a6081f7f29f3d76ea28b786f63420c1dff387413fcdb9dcdc3ab12f"
+    },
+    {
+      "path": "SKILL_RUNTIME_BUILD_REPORT_0.9.82GA.json",
+      "bytes": 3133,
+      "sha256": "fd744dee3c2b05ac1bc647c0db0cf8af4398cdcd2d3c32034ac7df13ed02e614"
+    },
+    {
+      "path": "TEST_REPORT_0.9.82GA.txt",
+      "bytes": 1723,
+      "sha256": "333a57e205fce04383f3054411c36ade6c2c581914cd39fb381ce0b6ce4768ee"
+    },
+    {
+      "path": "AI_START_HERE.md",
+      "bytes": 3722,
+      "sha256": "e1dff364fdfa593ab8e5165b117d7d632ec26526edd73f0b9fd4627be11500e7"
+    },
+    {
+      "path": "js/data_bundle.js",
+      "bytes": 33778573,
+      "sha256": "4cde1ff9c141d9e86ee8e85c76a3ad7ce2f7173332d35e21ab5a0b1a35d4312e"
+    },
+    {
+      "path": "js/battle.js",
+      "bytes": 86745,
+      "sha256": "422f591267aab018dbad2d0f013493291f9757e5ccff828ca9acfc60b4ebb95e"
+    },
+    {
+      "path": "js/quick_slots.js",
+      "bytes": 30053,
+      "sha256": "78ec9c2cc115ca3c68b541d49a71835ae75fd4c51278d93ce0d643cd164e3acb"
+    },
+    {
+      "path": "js/loot.js",
+      "bytes": 11049,
+      "sha256": "fa9e4b88f8b0e0a691404b33a58ac4c53cb0b9f2b662fe25bafde3a265978b21"
+    },
+    {
+      "path": "js/game.js",
+      "bytes": 16751,
+      "sha256": "00807e702f81f1701367a283b5b34962ebe2305007ec428164d676d20f12461d"
+    },
+    {
+      "path": "js/auto_battle.js",
+      "bytes": 91632,
+      "sha256": "b5fc3b8be83e0bd8e1f6f5b3681dea623538f965920c3922ba54a0f988b74bba"
+    },
+    {
+      "path": "js/skill_engine.js",
+      "bytes": 363457,
+      "sha256": "dec3105600d74fed14167c005c9d37a59c7a29dd3bb553438afc25320cdd3814"
+    },
+    {
+      "path": "js/item_instance_ui.js",
+      "bytes": 32969,
+      "sha256": "1b627deddb192e388cac7f57f247e3cf1c85a921473d1f100dd3e083a5cbe6aa"
+    },
+    {
+      "path": "js/mvp_gacha_runtime.js",
+      "bytes": 14428,
+      "sha256": "21294a7c60371e2086fb52abe94a3ad8fcdf3c7de40e311528f7ca2f7ca8646d"
+    },
+    {
+      "path": "js/ra_renewal_damage_pipeline.js",
+      "bytes": 35337,
+      "sha256": "2615f2b431c28a77ef49ad147f61f1f5ae93e3652f0b7c7fe1b4ddf5a8f040da"
+    },
+    {
+      "path": "tools/test_effect_runtime_report_0.9.82GA.json",
+      "bytes": 12457,
+      "sha256": "6df369c888896c221ffc6fc1a23086c60471db0eb06b45c3c0050df7ab52d5bf"
+    },
+    {
+      "path": "tools/test_ga_melee_rotation_element_drop_report_0.9.82GA.json",
+      "bytes": 4154,
+      "sha256": "0105c349be2c90545557d034ec3979d567b38bae56368508ee67ced8e378aef6"
+    },
+    {
+      "path": "tools/deep_health_check_0.9.82GA.py",
+      "bytes": 21283,
+      "sha256": "7654345884f2e97c3bc8bdd472c78ff4b50b5baf5cbc29d50f7fbeee390f64e9"
+    },
+    {
+      "path": "tools/test_0.9.82GA.py",
+      "bytes": 9937,
+      "sha256": "51cdc55b021b16411ad821f605b263b3a4babe58e2d806c5b538d29d52629096"
+    },
+    {
+      "path": "tools/test_report_0.9.82GA.json",
+      "bytes": 6948,
+      "sha256": "a537035e579c83a793a3cca52b1d5bc8c6add70dd84355b821e1f789222e073d"
+    },
+    {
+      "path": "tools/test_effect_runtime_0.9.82GA.js",
+      "bytes": 22829,
+      "sha256": "f512b4cdd2a6fc9095da283c9500996431d09d31a123794c1c193f9c7299be22"
+    },
+    {
+      "path": "tools/audit_melee_family_targeting_0.9.82GA.py",
+      "bytes": 7204,
+      "sha256": "a7a660e962ad9db0750035a4374da75510b2a3490a3a6f49c2255822209d3481"
+    },
+    {
+      "path": "tools/test_ga_melee_rotation_element_drop_0.9.82GA.js",
+      "bytes": 11270,
+      "sha256": "07342f5b878bf0417d806fdfa0059e736fa2700a7100089290ea132ac53bcc81"
+    },
+    {
+      "path": "tools/build_data_bundle_0.9.82GA.py",
+      "bytes": 804,
+      "sha256": "eee51f6aa9d59c31d850abdc8d2480ea7c437c73ccc6b043bc2c572ab2f43c8f"
+    },
+    {
+      "path": "tools/melee_family_targeting_audit_0.9.82GA.json",
+      "bytes": 52475,
+      "sha256": "860b933d2fde8cd6fcd30079b1ae81ec47d9ebbde3cccf97c457660669da9eec"
+    },
+    {
+      "path": "tools/deep_health_report_0.9.82GA.json",
+      "bytes": 2045,
+      "sha256": "e774c4bcbde69e31c358d913cda00e9a3761e3bc990960d5522cd2a02777583c"
+    },
+    {
+      "path": "data/mvp_gacha.json",
+      "bytes": 3847,
+      "sha256": "297d6110bfd9555a832dd4632966eeade10fd8c12b2fc1983efbe75075e41991"
+    },
+    {
+      "path": "data/server_config.json",
+      "bytes": 2230,
+      "sha256": "6932112bb88d52c4e5f0cb4b258d3d49a03942c75a9a8d8baefa0cb0c0a375ae"
+    },
+    {
+      "path": "data/items/item_index.json",
+      "bytes": 648360,
+      "sha256": "a632dd6c41b408f14fd5c271faebb18e6119b39168f06ea416dfae7158a64b45"
+    },
+    {
+      "path": "data/items/cash.json",
+      "bytes": 17951,
+      "sha256": "1b0c0fcba88c2e38b0812584ff17adf9eec70e07e78b17e8c59acb2e2eb2911a"
+    },
+    {
+      "path": "data/skill_runtime/runtime_core_1_v1.json",
+      "bytes": 732936,
+      "sha256": "534fb7aead7b5d52059486320e6041bf2664239ca853ea0ae334e03f6552414d"
+    },
+    {
+      "path": "data/skill_runtime/runtime_generated_all.json",
+      "bytes": 1658680,
+      "sha256": "8b9e0b58b584de28aac9dc9d02246a1ec80dc5401d3b89e0db531c3749d50373"
+    },
+    {
+      "path": "data/skill_runtime/runtime_formula_catalog.json",
+      "bytes": 1108256,
+      "sha256": "b3be59eec80d25cb82ae8ed361b57d565fcd75577bf4246aca1191b15e9ddca0"
+    },
+    {
+      "path": "data/skills/skills_core_1.json",
+      "bytes": 2312168,
+      "sha256": "42ca8d6a9fea09f339a8d89764842f49890b964138637ce94cc914a36d68883b"
+    },
+    {
+      "path": "images/items/14848.webp",
+      "bytes": 410,
+      "sha256": "60fb852c7dcef35c4c71dd6016a2235458afb8d7d6630d2fc2a86378c02298c2"
+    }
+  ]
+}

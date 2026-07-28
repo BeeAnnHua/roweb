@@ -1,0 +1,61 @@
+{
+  "version": "0.9.82D",
+  "batch": "Runtime Magic Batch15",
+  "coverage": {
+    "before": 78,
+    "after": 84,
+    "target": 1139
+  },
+  "pending": {
+    "before": 1061,
+    "after": 1055
+  },
+  "addedSkills": [
+    {
+      "skillId": 81,
+      "skillKey": "WZ_SIGHTRASHER",
+      "name": "火之獵殺"
+    },
+    {
+      "skillId": 84,
+      "skillKey": "WZ_JUPITEL",
+      "name": "雷鳴術"
+    },
+    {
+      "skillId": 86,
+      "skillKey": "WZ_WATERBALL",
+      "name": "水球術"
+    },
+    {
+      "skillId": 88,
+      "skillKey": "WZ_FROSTNOVA",
+      "name": "霜凍之術"
+    },
+    {
+      "skillId": 90,
+      "skillKey": "WZ_EARTHSPIKE",
+      "name": "地震術"
+    },
+    {
+      "skillId": 91,
+      "skillKey": "WZ_HEAVENDRIVE",
+      "name": "崩裂術"
+    }
+  ],
+  "specialReview": [],
+  "adaptations": [
+    "WZ_SIGHTRASHER ignores Sight activation prerequisite.",
+    "WZ_WATERBALL removes water-terrain/state requirement and casts directly on target.",
+    "WZ_HEAVENDRIVE uses direct target-area casting instead of ground placement."
+  ],
+  "checks": {
+    "runtime": true,
+    "formula": true,
+    "handler": true,
+    "json": true,
+    "js": true,
+    "bundle": true,
+    "cache": true,
+    "regression": true
+  }
+}

@@ -1,0 +1,390 @@
+{
+  "version": "0.9.82FX",
+  "counts": {
+    "cards": 910,
+    "equipmentScripts": 152,
+    "combos": 797,
+    "dropSources": 1422,
+    "bonusVocabulary": 145,
+    "matrixEvaluations": 29744,
+    "canonicalKeys": 143,
+    "coverageRegistryKeys": 154
+  },
+  "matrix": {
+    "runtimeErrors": 0,
+    "rawBonuses": {},
+    "coverageMissing": [],
+    "emitted": [
+      "afterCastDelayReductionRate",
+      "agiFlat",
+      "allStatsFlat",
+      "armorElement",
+      "aspdFlat",
+      "aspdRate",
+      "atkFlat",
+      "atkRate",
+      "autoBonuses",
+      "autoSpellProcs",
+      "breakArmorRate",
+      "breakWeaponRate",
+      "classChangeRate",
+      "classResist",
+      "comaClassRate",
+      "conFlat",
+      "crateFlat",
+      "criFlat",
+      "criRate",
+      "critAtkRate",
+      "criticalChanceByRace",
+      "crtFlat",
+      "defFlat",
+      "defRate",
+      "defRatioAttackClass",
+      "dexFlat",
+      "elementResist",
+      "enemyArmorElementResist",
+      "expRaceRate",
+      "extraDrops",
+      "fixedCastReductionMs",
+      "fixedCastReductionRate",
+      "fleeFlat",
+      "grantedSkills",
+      "healPowerRate",
+      "healingReceivedRate",
+      "hitFlat",
+      "hpDrainProcs",
+      "hpRecoveryRate",
+      "ignoreDefByClass",
+      "ignoreDefByRace",
+      "ignoreMdefByClass",
+      "ignoreMdefByRace",
+      "ignoreMresByRace",
+      "ignoreWeaponSizePenalty",
+      "incomingDamageMaxHpCapRate",
+      "intFlat",
+      "intravision",
+      "itemGroupHealRate",
+      "itemHpHealRate",
+      "itemHpRecoveryRate",
+      "itemSpHealRate",
+      "killHpFlat",
+      "killSpFlat",
+      "longDamageRate",
+      "longDamageReduction",
+      "longRangeCriticalChanceFlat",
+      "lukFlat",
+      "magicAttackElementDamage",
+      "magicClassDamage",
+      "magicElementDamage",
+      "magicImmune",
+      "magicRaceDamage",
+      "magicReflectRate",
+      "magicSizeDamage",
+      "magicSizeResist",
+      "matkFlat",
+      "matkRate",
+      "maxHpFlat",
+      "maxHpRate",
+      "maxSpFlat",
+      "maxSpRate",
+      "mdefFlat",
+      "mdefRate",
+      "monsterDamageRate",
+      "monsterDamageReductionRate",
+      "moveSpeedRate",
+      "noCastCancel",
+      "noGemstone",
+      "noHpRegen",
+      "noKnockback",
+      "noMadoFuel",
+      "noSpRegen",
+      "noWalkDelay",
+      "pAtk",
+      "percentHpRegen",
+      "perfectDodgeFlat",
+      "perfectHitRate",
+      "periodicHpLoss",
+      "periodicHpRegen",
+      "periodicSpLoss",
+      "periodicSpRegen",
+      "physicalClassDamage",
+      "physicalElementDamage",
+      "physicalRace2Damage",
+      "physicalRaceDamage",
+      "physicalSizeResist",
+      "powFlat",
+      "raceResist",
+      "reflectDamageReductionRate",
+      "restartFullRecover",
+      "sMatk",
+      "shortDamageRate",
+      "shortDamageReduction",
+      "shortPhysicalReflectRate",
+      "sizeDamage",
+      "sizeResist",
+      "skillCooldownReductionMs",
+      "skillDamageRate",
+      "skillDamageReductionRate",
+      "skillFixedCastReductionMs",
+      "skillFixedCastReductionRate",
+      "skillKnockbackBonus",
+      "skillSpCostFlat",
+      "skillSpCostRate",
+      "skillStatusOnHit",
+      "skillVariableCastReductionMs",
+      "spCostRate",
+      "spDrainProcs",
+      "spGainRace",
+      "spOnAttackFlat",
+      "spRecoveryRate",
+      "spVanishOnHit",
+      "splFlat",
+      "splashRange",
+      "staFlat",
+      "statusOnAttack",
+      "statusOnAttackRules",
+      "statusOnSelfAttack",
+      "statusResist",
+      "statusWhenHit",
+      "statusWhenHitRules",
+      "strFlat",
+      "unbreakableArmor",
+      "unbreakableShield",
+      "unbreakableWeapon",
+      "variableCastReductionRate",
+      "vitFlat",
+      "weaponAtkRate",
+      "weaponElement",
+      "weaponTypeDamageRate",
+      "wisFlat",
+      "zenyOnKillProcs"
+    ]
+  },
+  "summary": {
+    "checks": 44,
+    "passed": 42,
+    "failed": 2
+  },
+  "checks": [
+    {
+      "ok": false,
+      "name": "Static rAthena bonus vocabulary count",
+      "detail": "145"
+    },
+    {
+      "ok": true,
+      "name": "All used bonus types have parsers",
+      "detail": "[]"
+    },
+    {
+      "ok": true,
+      "name": "Declared vocabulary matches project data exactly",
+      "detail": "[]"
+    },
+    {
+      "ok": false,
+      "name": "Full effect matrix evaluation count",
+      "detail": "29744"
+    },
+    {
+      "ok": true,
+      "name": "Full effect matrix runtime errors",
+      "detail": "0"
+    },
+    {
+      "ok": true,
+      "name": "Full effect matrix unhandled bonuses",
+      "detail": "{}"
+    },
+    {
+      "ok": true,
+      "name": "Every emitted canonical key has a named consumer",
+      "detail": "[]"
+    },
+    {
+      "ok": true,
+      "name": "Complex raw script compiles without error",
+      "detail": "PASS"
+    },
+    {
+      "ok": true,
+      "name": "Complex raw script scalar effects",
+      "detail": "{\"id\":990770,\"name\":\"Compiler Probe\",\"sourceType\":\"equipment\",\"sourceId\":990770,\"dexFlat\":5,\"maxHpRate\":10,\"autoBonuses\":[{\"trigger\":\"attack\",\"script\":\"{ bonus bAgi,5; heal 10,2; }\",\"rate\":10000,\"durationMs\":3000,\"attackFlags\":65,\"otherScript\":\"{ sc_start SC_SPEEDUP1,3000,50; }\"}]}"
+    },
+    {
+      "ok": true,
+      "name": "BF bitmask remains numeric",
+      "detail": "65"
+    },
+    {
+      "ok": true,
+      "name": "Future item scriptRaw fallback enters CardRuntime",
+      "detail": "{\"id\":990777,\"name\":\"Future Script Item\",\"sourceType\":\"equipment\",\"sourceId\":990777,\"dexFlat\":7,\"maxHpRate\":11}"
+    },
+    {
+      "ok": true,
+      "name": "Future item reaches unified EffectRuntime consumer",
+      "detail": "7"
+    },
+    {
+      "ok": true,
+      "name": "Autobonus triggers on matching normal weapon attack",
+      "detail": "1"
+    },
+    {
+      "ok": true,
+      "name": "Autobonus immediate heal reaches player",
+      "detail": "60/7"
+    },
+    {
+      "ok": true,
+      "name": "Autobonus otherScript status executes",
+      "detail": "[{\"unit\":{\"baseLevel\":275,\"jobLevel\":60,\"job\":\"dragon_knight\",\"jobKey\":\"dragon_knight\",\"gender\":\"male\",\"stats\":{\"str\":120,\"agi\":120,\"vit\":120,\"int\":120,\"dex\":120,\"luk\":120},\"traitStats\":{\"pow\":110,\"sta\":110,\"wis\":110,\"spl\":110,\"con\":110,\"crt\":110},\"learnedSkills\":{},\"equipment\":{\"weapon\":990778},\"equipmentInstances\":{\"weapon\":{\"id\":990778,\"instanceId\":\"fx-990778-weapon\",\"refine\":0,\"cards\":[null,null,null]}},\"inventory\":[],\"activeBuffs\":{},\"hp\":60,\"maxHp\":100,\"sp\":7,\"maxSp\":20,\"zeny\":0,\"cardRuntimeTempBonuses\":{\"temp_990778_1785059408710_0\":{\"expiresAt\":1785059411711,\"source\":{\"id\":\"temp_990778_1785059408710_0\",\"name\":\"Proc Item 自動效果\",\"sourceType\":\"cardTemp\",\"sourceId\":\"temp_990778_1785059408710_0\",\"agiFlat\":5}}}},\"status\":\"SPEEDUP1\",\"opt\":{\"chancePercent\":100,\"durationMs\":3000,\"level\":50,\"value\":50,\"extra\":[],\"allowBoss\":true,\"source\":\"item_script\"}}]"
+    },
+    {
+      "ok": true,
+      "name": "Autobonus persistent bonus enters merged source",
+      "detail": "5"
+    },
+    {
+      "ok": true,
+      "name": "Magic-only proc rejected on normal weapon attack",
+      "detail": "{}"
+    },
+    {
+      "ok": true,
+      "name": "Magic-only proc triggers on damaging magic skill",
+      "detail": "9"
+    },
+    {
+      "ok": true,
+      "name": "ATF_MAGIC does not proc on physical normal attack",
+      "detail": "[]"
+    },
+    {
+      "ok": true,
+      "name": "ATF_MAGIC applies status to skill target",
+      "detail": "[\"Silence\"]"
+    },
+    {
+      "ok": true,
+      "name": "ATF_TARGET|ATF_SELF applies to attacker and wearer",
+      "detail": "2"
+    },
+    {
+      "ok": true,
+      "name": "Observation Card conditional DEX parses in live source",
+      "detail": "6.666666666666667"
+    },
+    {
+      "ok": true,
+      "name": "Muka HP recovery reaches unified source",
+      "detail": "{\"id\":4036,\"name\":\"摩卡卡片\",\"sourceType\":\"card\",\"sourceId\":4036,\"hpRecoveryRate\":10}"
+    },
+    {
+      "ok": true,
+      "name": "Golden Thief Bug magic immunity consumed by combat formula",
+      "detail": "PASS"
+    },
+    {
+      "ok": true,
+      "name": "Drake removes weapon size penalty in formula",
+      "detail": "PASS"
+    },
+    {
+      "ok": true,
+      "name": "Sarah incoming damage MaxHP cap consumer",
+      "detail": "{\"damage\":4000,\"capped\":true,\"rate\":40,\"cap\":4000}"
+    },
+    {
+      "ok": true,
+      "name": "Drosera long-range critical consumer source",
+      "detail": "15"
+    },
+    {
+      "ok": true,
+      "name": "Osiris restart full recovery policy reaches runtime",
+      "detail": "{\"id\":4144,\"name\":\"俄塞裡斯卡片\",\"sourceType\":\"card\",\"sourceId\":4144,\"restartFullRecover\":1}"
+    },
+    {
+      "ok": true,
+      "name": "Thanatos SP drain and DEF-ratio effects parse",
+      "detail": "{\"id\":4399,\"name\":\"魔劍士 達納托斯的記憶卡片\",\"sourceType\":\"card\",\"sourceId\":4399,\"defRatioAttackClass\":{\"All\":1},\"spOnAttackFlat\":-1,\"defFlat\":-30,\"fleeFlat\":-30}"
+    },
+    {
+      "ok": true,
+      "name": "Deep Sea Kraken perfect hit and ranged damage parse",
+      "detail": "{\"id\":300151,\"name\":\"深海魔鬼大烏賊卡片\",\"sourceType\":\"card\",\"sourceId\":300151,\"longDamageRate\":25,\"perfectHitRate\":5}"
+    },
+    {
+      "ok": true,
+      "name": "Baphomet splash consumer damages only nearby target",
+      "detail": "75/100"
+    },
+    {
+      "ok": true,
+      "name": "Cramp card Zeny-on-kill hook executes",
+      "detail": "1"
+    },
+    {
+      "ok": true,
+      "name": "Race-conditioned extra item drop hook executes",
+      "detail": "0/[{\"itemId\":12028,\"amount\":1,\"source\":\"蝙蝠弓箭手卡片\"}]"
+    },
+    {
+      "ok": true,
+      "name": "Natural HP/SP recovery rates reach EffectRuntime",
+      "detail": "20/30"
+    },
+    {
+      "ok": true,
+      "name": "Specified HP/SP item recovery reaches item consumer",
+      "detail": "50/40"
+    },
+    {
+      "ok": true,
+      "name": "Periodic HP/SP effects modify live player resources",
+      "detail": "110/25"
+    },
+    {
+      "ok": true,
+      "name": "Intravision calls live hidden-monster reveal hook",
+      "detail": "1"
+    },
+    {
+      "ok": true,
+      "name": "No-walk-delay policy reaches shared Runtime",
+      "detail": "PASS"
+    },
+    {
+      "ok": true,
+      "name": "Per-skill damage modifier reaches skill consumer",
+      "detail": "25"
+    },
+    {
+      "ok": true,
+      "name": "Per-skill/global SP cost modifiers merge correctly",
+      "detail": "{\"flat\":-5,\"rate\":-10}"
+    },
+    {
+      "ok": true,
+      "name": "Reflection damage reduction reaches incoming reflection consumer",
+      "detail": "{\"damage\":65,\"rate\":35}"
+    },
+    {
+      "ok": true,
+      "name": "Coverage registry spans all Runtime consumer domains",
+      "detail": "[\"attack_hook\",\"break_hook\",\"cast_policy\",\"class_change\",\"coma_hook\",\"combat\",\"combat_profile\",\"critical\",\"death_recovery\",\"defense\",\"defense_ratio\",\"equipment_break_policy\",\"healing\",\"hit\",\"immediate_effect\",\"incoming_cap\",\"item_recovery\",\"kill_hook\",\"magic_immunity\",\"monster_specific\",\"movement\",\"natural_recovery\",\"periodic\",\"reflection\",\"resource_exemption\",\"reward\",\"skill_cost\",\"skill_damage\",\"skill_grant\",\"skill_movement\",\"skill_timing\",\"splash\",\"status\",\"status_hook\",\"status_resistance\",\"ui_feedback\",\"visibility\",\"visual_feedback\",\"visual_transform\",\"weapon_size\",\"weapon_type\"]"
+    },
+    {
+      "ok": true,
+      "name": "Live unified sources pass coverage audit",
+      "detail": "{\"ok\":true,\"emitted\":[\"reflectDamageReductionRate\",\"skillDamageRate\",\"skillSpCostFlat\",\"skillSpCostRate\",\"spCostRate\"],\"missing\":[],\"rawBonuses\":[],\"runtimeErrors\":[]}"
+    },
+    {
+      "ok": true,
+      "name": "Unknown future bonus fails loudly instead of silently disappearing",
+      "detail": "{\"runtimeErrors\":[],\"unhandledBonuses\":{\"bFutureUnknownBonus\":1},\"warnings\":[]}"
+    }
+  ]
+}

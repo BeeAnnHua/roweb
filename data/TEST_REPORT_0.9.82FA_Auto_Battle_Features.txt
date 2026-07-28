@@ -1,0 +1,29 @@
+RO_WEB 0.9.82FA Auto Battle Feature Test Report
+=========================================================
+
+Feature scope:
+- Fixed 1-second no-target teleport; removed manual Fly Wing and wait selector.
+- Normal attack master switch.
+- Separate Boss and MVP Fly Wing avoidance.
+- Inventory-driven HP/SP recovery selection with itemheal script parsing.
+- Four ordered attack-skill slots with SP and monster-count conditions.
+- Per-Buff SP percentage threshold.
+
+Auto Battle Features: 12/12 PASS
+Current Runtime Integrity: 13/13 PASS
+Deep Health: 0 errors / 0 warnings
+
+Integrity commands:
+- PASS: node tools/check_all_js_syntax.js
+- PASS: node tools/test_auto_battle_controller_0.9.82EZ.js
+- PASS: node tools/test_auto_battle_features_0.9.82FA.js
+- PASS: node tools/test_skill_action_motion_contract_0.9.82EY.js
+- PASS: node tools/test_all_skill_timing_actions_0.9.82EA.js
+- PASS: node tools/test_runtime_cast_animation_0.9.82EY.js
+- PASS: node tools/test_skill_ui_runtime_classification_0.9.82EA.js
+- PASS: node tools/test_storm_gust_live_runtime_0.9.82EA.js
+- PASS: node tools/test_map_quest_cast_buff_0.9.82FA.js
+- PASS: node tools/test_packed_character_runtime_0.9.82EY.js
+- PASS: python tools/test_atlas_geometry_integrity_0.9.82EW.py
+- PASS: python tools/test_binary_asset_integrity_0.9.82EW.py
+- PASS: python tools/deep_health_check.py .

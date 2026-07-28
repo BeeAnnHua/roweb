@@ -1,0 +1,300 @@
+{
+  "version": "0.9.82GD",
+  "summary": {
+    "checks": 58,
+    "passed": 58,
+    "failed": 0
+  },
+  "checks": [
+    {
+      "ok": true,
+      "name": "index version",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "game version",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "cache version consistency",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "HUD gender display and button removed",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "first-entry/NPC gender modal remains",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "black-gold player ID editor exists",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "player ID runtime exists",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "character card combines job and player ID",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "gacha rare announcement includes player name",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "MVP card red announcement hook exists",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "no duplicate HTML ids",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "auto cash-food DOM autoCombatCashFoodEnabled",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "auto cash-food DOM autoCombatCashFoodSelect",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "auto cash-food DOM autoCombatCashFoodList",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "auto cash-food save schema",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "auto cash-food detection and maintenance runtime",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "auto utility loop invokes cash food",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "auto panel keeps internal vertical scroll",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "cash food list has nested height limit",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "gacha config version",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "gacha mother pool is exactly 100%",
+      "detail": "121+9879"
+    },
+    {
+      "ok": true,
+      "name": "nine refinement rewards have requested exact chances",
+      "detail": "{6635: 500, 6240: 1500, 6241: 1500, 1000331: 500, 1000332: 500, 1000333: 500, 1000334: 500, 1000335: 500, 1000336: 500}"
+    },
+    {
+      "ok": true,
+      "name": "refinement items total 65%",
+      "detail": "6500"
+    },
+    {
+      "ok": true,
+      "name": "existing foods/recovery items reduced to 33.79%",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "item 6635 name/data exists",
+      "detail": "鐵匠的祝福"
+    },
+    {
+      "ok": true,
+      "name": "item 6635 has RA/itemInfo description",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "item 6635 icon exists",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "item 6240 name/data exists",
+      "detail": "高濃縮神之金屬"
+    },
+    {
+      "ok": true,
+      "name": "item 6240 has RA/itemInfo description",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "item 6240 icon exists",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "item 6241 name/data exists",
+      "detail": "高濃縮鋁"
+    },
+    {
+      "ok": true,
+      "name": "item 6241 has RA/itemInfo description",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "item 6241 icon exists",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "item 1000331 name/data exists",
+      "detail": "乙太鋁"
+    },
+    {
+      "ok": true,
+      "name": "item 1000331 has RA/itemInfo description",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "item 1000331 icon exists",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "item 1000332 name/data exists",
+      "detail": "乙太神之金屬"
+    },
+    {
+      "ok": true,
+      "name": "item 1000332 has RA/itemInfo description",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "item 1000332 icon exists",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "item 1000333 name/data exists",
+      "detail": "濃縮乙太鋁"
+    },
+    {
+      "ok": true,
+      "name": "item 1000333 has RA/itemInfo description",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "item 1000333 icon exists",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "item 1000334 name/data exists",
+      "detail": "濃縮乙太神之金屬"
+    },
+    {
+      "ok": true,
+      "name": "item 1000334 has RA/itemInfo description",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "item 1000334 icon exists",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "item 1000335 name/data exists",
+      "detail": "高濃縮乙太鋁"
+    },
+    {
+      "ok": true,
+      "name": "item 1000335 has RA/itemInfo description",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "item 1000335 icon exists",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "item 1000336 name/data exists",
+      "detail": "高濃縮乙太神之金屬"
+    },
+    {
+      "ok": true,
+      "name": "item 1000336 has RA/itemInfo description",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "item 1000336 icon exists",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "pruned item icon folder remains compact (805)",
+      "detail": "805"
+    },
+    {
+      "ok": true,
+      "name": "Poring card uses card icon file 4001",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "new character default player ID is blank",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "all stat foods have cashFoodEffect runtime data",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "percentage recovery foods have implemented effects",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "five extra biscuit effects are exactly 10 minutes",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "runtime data bundle rebuilt with GD data",
+      "detail": ""
+    }
+  ]
+}

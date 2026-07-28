@@ -1,0 +1,99 @@
+{
+  "version": "0.9.82GT",
+  "baseVersion": "0.9.82GS",
+  "title": "MVP 幸運轉蛋掛機數量防護",
+  "summary": {
+    "manualOnlyGacha": true,
+    "autoBattleGuardIntervalMs": 500,
+    "guardRegression": "13/13 PASS",
+    "deepHealth": "0 errors / 0 warnings",
+    "effectRuntime": "47/47 PASS"
+  },
+  "changedFiles": [
+    {
+      "path": "AI_START_HERE.md",
+      "bytes": 16160,
+      "sha256": "e4b6a4f72ec3eff9ccbffbb57a04f1d5c2704b9a6830ba2f109147833a6702b3"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "bytes": 17590,
+      "sha256": "8719dbce5d571dc57513a9756719fe9936c6072a104e1e4a1417c18bd243236a"
+    },
+    {
+      "path": "README.md",
+      "bytes": 12703,
+      "sha256": "c25d3aa3cd3e9d8b4a07112e600e1e3bc06880716865803da4cb7e79bde8284d"
+    },
+    {
+      "path": "data/items/cash.json",
+      "bytes": 18365,
+      "sha256": "b12507eb783b5c61f31d3ece2335e0b0dacbc40a8a5dfa33a68eba60b5e44738"
+    },
+    {
+      "path": "data/items/item_index.json",
+      "bytes": 740534,
+      "sha256": "badffca03c53abe92e24f581e1e53daf772e596fd361b6d5fad17cb501b8f20b"
+    },
+    {
+      "path": "index.html",
+      "bytes": 43431,
+      "sha256": "3d8146d96fd57b17d648322e4896d61d13ca4e8d8e0d2e2409c1a1296fb95110"
+    },
+    {
+      "path": "js/auto_battle.js",
+      "bytes": 106808,
+      "sha256": "7b347b9f1b840b000a194fa47a29193ce4d03946d6b7373928c04c7977bf8c85"
+    },
+    {
+      "path": "js/data_bundle.js",
+      "bytes": 34808021,
+      "sha256": "3c2cf45cc7dd02ffc57541c572210a306a89fe32f0499b1c4fd8cfff90dfb967"
+    },
+    {
+      "path": "js/mvp_gacha_runtime.js",
+      "bytes": 23700,
+      "sha256": "3ba30852ce6edc175e509802e14bc623907f67e3ed68a189bc9330537a1a3c2b"
+    },
+    {
+      "path": "js/player.js",
+      "bytes": 116602,
+      "sha256": "d35f9efd84434652b8e20c46bb4ef314b28310b2bee5082007b73fc10e6db76b"
+    },
+    {
+      "path": "js/quick_slots.js",
+      "bytes": 31196,
+      "sha256": "a84c817cceee29dbc4bd39ddb7923ab7bda5ec79bb736a53295a9ee474c8ee79"
+    },
+    {
+      "path": "DEEP_HEALTH_0.9.82GT.json",
+      "bytes": 2044,
+      "sha256": "097256977b92d1bba551ac7f757f157a34f2d5b5a2446fa2b214f748022b2008"
+    },
+    {
+      "path": "TEST_REPORT_0.9.82GT_MVP_GACHA_GUARD.txt",
+      "bytes": 3295,
+      "sha256": "bf88fcdd8c098799ca292e7218b9c2c7dd3b295cc65f245b7148b3988566d2c7"
+    },
+    {
+      "path": "tools/build_data_bundle_0.9.82GT.py",
+      "bytes": 557,
+      "sha256": "64373cfe1a8c91ab44a25a5cbcd59e58d4a28ab34ad8c87d2a8354bf5596e7bc"
+    },
+    {
+      "path": "tools/deep_health_check_0.9.82GT.py",
+      "bytes": 21347,
+      "sha256": "06279ba8a150c93c7d3054daaeacd4636735ce5d5f7c41d3f8ab4f4bd7805d01"
+    },
+    {
+      "path": "tools/test_mvp_gacha_inventory_guard_0.9.82GT.js",
+      "bytes": 6066,
+      "sha256": "82957c202aea9fe91138bb2b3081f375c49bcae23f1e8fb5e8acf1c5a2df1688"
+    },
+    {
+      "path": "tools/test_mvp_gacha_inventory_guard_report_0.9.82GT.json",
+      "bytes": 2533,
+      "sha256": "83ea717f3323572ba43285e8eebc08f8e8acc3d6fca13a790ecae57274afc32a"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+RO_WEB V0.9.17 Debug Audit
+
+JS 語法檢查：OK
+JSON 格式檢查：OK
+圖片引用檢查：OK（掃描到的唯一異常為 JS template literal 誤判：images/items/${itemData.officialId，不是實際缺圖）
+ZIP 完整性檢查：待打包後確認
+
+本版重點：
+- 背包 / 裝備 / 技能 / 素質 CSS UI 細修。
+- 背包與裝備欄不再依賴已刪除的大型 UI 面板圖。
+- 保留使用者修正後的 images 內容。

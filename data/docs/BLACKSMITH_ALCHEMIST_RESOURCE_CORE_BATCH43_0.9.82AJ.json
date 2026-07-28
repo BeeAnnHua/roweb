@@ -1,0 +1,93 @@
+{
+  "version": "0.9.82AJ",
+  "result": "PASS",
+  "batch": "Blacksmith / Alchemist Resource Utility Core Batch43",
+  "sources": [
+    "Project SkillInfoz skilldescript.lub / skillinfolist.lub",
+    "rAthena src/map/mob.cpp BS_FINDINGORE",
+    "rAthena src/map/itemdb.cpp GROUP_ALGORITHM_DROP",
+    "rAthena db/re/item_group_db.yml ORE",
+    "rAthena src/map/pc.cpp pc_itemheal AM_LEARNINGPOTION",
+    "Project itemInfo_UTF8.lub identified fields",
+    "rAthena db/re/item_db_etc.yml item prices"
+  ],
+  "coverage": {
+    "before": 467,
+    "after": 469,
+    "target": 1139
+  },
+  "pending": {
+    "before": 672,
+    "after": 670
+  },
+  "implementedSkillIds": [
+    106,
+    227
+  ],
+  "runtime": {
+    "106": "RA ORE group: uniformly choose one of 20 entries, then apply that entry rate; success grants one item and respects RO_WEB drop-rate/training multipliers.",
+    "227": "HP/SP recovery item effect +5% per level, Lv10 +50%; crafting success portion deferred.",
+    "inheritedPassiveScan": "Learned passive Runtime skills remain active after later job changes even when the current tree omits the lower-job skill."
+  },
+  "oreItems": {
+    "importedOfficialIds": [
+      1002,
+      998,
+      993,
+      1003,
+      992,
+      1010,
+      991,
+      990,
+      999,
+      1011,
+      757,
+      756,
+      997,
+      996,
+      995,
+      994,
+      985,
+      984,
+      969,
+      714
+    ],
+    "officialWebpCopied": [
+      714,
+      756,
+      757,
+      969,
+      984,
+      985,
+      999,
+      1003,
+      1010
+    ],
+    "missingWebpFallbackIds": [
+      990,
+      991,
+      992,
+      993,
+      994,
+      995,
+      996,
+      997,
+      998,
+      1002,
+      1011
+    ]
+  },
+  "deferred": [
+    "Potion production success/material crafting system",
+    "Mado/ABR/fuel/ammunition/material-dependent merchant skills",
+    "Trait-stat allocation and unified SP/AP cost balancing"
+  ],
+  "validation": {
+    "jsonParsed": 424,
+    "javascriptSyntaxPassed": 49,
+    "regressionTestsPassed": 25,
+    "regressionTestsFailed": 0,
+    "duplicateSkillIds": 0,
+    "zipIntegrity": "PASS"
+  }
+}

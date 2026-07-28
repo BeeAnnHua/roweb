@@ -1,0 +1,70 @@
+{
+  "version": "0.9.82Q",
+  "result": "PASS",
+  "coverage": {
+    "before": 275,
+    "after": 289,
+    "target": 1139
+  },
+  "pending": {
+    "before": 864,
+    "after": 850
+  },
+  "implementedSkillIds": [
+    2289,
+    2291,
+    2292,
+    2293,
+    2294,
+    2295,
+    2296,
+    2297,
+    2299,
+    2301,
+    2302,
+    2303,
+    5010,
+    5313
+  ],
+  "customEffects": {
+    "SC_BODYPAINT": "ATK/MATK +1% per level",
+    "SC_DEADLYINFECT": "ATK/MATK +1% per level",
+    "SC_MASQUERADES": "Each mask grants cumulative all six stats +1/+3/+5; all six maxed = +30 each",
+    "SC_MANHOLE_CHAOSPANIC_MAELSTROM_BLOODYLUST": "Max HP/Max SP +3% per level",
+    "SC_ESCAPE": "FLEE +8 per level",
+    "ABC_STRIP_SHADOW": "Single-target RES/MRES -25%"
+  },
+  "runtimeChanges": [
+    "Monster RES rate debuffs now affect physical defense calculation.",
+    "Monster MRES rate debuffs now affect magic defense calculation.",
+    "Passive tooltip labels added for STR/AGI/VIT/INT/DEX/LUK."
+  ],
+  "descriptionPolicy": "All redesigned descriptions match actual RO_WEB Runtime.",
+  "notes": [
+    "Strip Shadow uses the existing unified 25% strip policy.",
+    "Same strip-shadow group refreshes duration instead of stacking."
+  ],
+  "checks": {
+    "jsonFiles": 326,
+    "javascriptFiles": 24,
+    "jsonParse": "PASS",
+    "javascriptSyntax": "PASS",
+    "runtimeCoreOfficial": 289,
+    "generatedOfficial": 289,
+    "formulaCatalogOfficial": 289,
+    "pendingCount": 850,
+    "duplicateSkillIds": 0,
+    "duplicateSkillKeys": 0,
+    "implementedStillPending": 0,
+    "cacheVersion": "0.9.82Q"
+  },
+  "dynamicTests": {
+    "sixMasksAllStatsAtAllMax": 30,
+    "stripShadowPhysicalResPipeline": "PASS",
+    "stripShadowMagicResPipeline": "PASS",
+    "physicalTestDamageBefore": 8500,
+    "physicalTestDamageAfter": 8826,
+    "magicTestDamageBefore": 8500,
+    "magicTestDamageAfter": 8826
+  }
+}

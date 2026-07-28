@@ -1,0 +1,31 @@
+RO_WEB 0.9.82FL TEST REPORT
+========================================
+Feature: Auto Battle Current-Map Monster Include / Exclude Filter
+Base: 0.9.82FK
+
+Implemented
+-----------
+1. Current map monster catalog merges RA region pool, map monster IDs and live spawned entities.
+2. Modes: all / include selected / exclude selected.
+3. Per-map persistence at player.autoCombat.monsterFilter.byMap[mapId].
+4. Unified target validation for current lock, forced target, attackers, threats and nearest targets.
+5. Legacy single-monster spawn also filters eligible monster IDs.
+6. Empty include list waits without consuming Fly Wings.
+7. UI rendered-map guard prevents combat-tick synchronization from erasing saved selections.
+8. Desktop/mobile scrollable monster checklist with select all, clear and refresh controls.
+
+Automated Tests
+---------------
+PASS  tools/check_all_js_syntax.js (692 JavaScript files, 0 errors)
+PASS  tools/test_auto_battle_monster_filter_0.9.82FL.js
+PASS  tools/test_aspd_attack_visual_ui_size_0.9.82FL.js
+PASS  tools/test_auto_battle_attack_heading_0.9.82FL.js
+PASS  tools/test_super_novice_element_converter_0.9.82FL.js
+PASS  tools/test_map_scroll_stability_0.9.82FL.js
+PASS  tools/test_auto_battle_controller_0.9.82EZ.js (12/12)
+PASS  tools/test_auto_battle_features_0.9.82FA.js (12/12)
+PASS  tools/test_auto_battle_survival_0.9.82FB.js (16/16)
+
+Result
+------
+PASS

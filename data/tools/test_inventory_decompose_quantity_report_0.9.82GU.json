@@ -1,0 +1,43 @@
+{
+  "version": "0.9.82GU",
+  "checks": [
+    {
+      "name": "Apple 3000 minus 100 remains 2900",
+      "ok": true
+    },
+    {
+      "name": "Jellopy 3000 minus 100 remains 2900",
+      "ok": true
+    },
+    {
+      "name": "Manual MVP gacha is protected",
+      "ok": true
+    },
+    {
+      "name": "Locked item is protected",
+      "ok": true
+    },
+    {
+      "name": "Equipped instance is protected",
+      "ok": true
+    },
+    {
+      "name": "Inventory equipment removes exactly one instance",
+      "ok": true
+    },
+    {
+      "name": "Huge stack uses constant stack loop and exact subtraction",
+      "ok": true
+    },
+    {
+      "name": "Amount is clamped to available count",
+      "ok": true
+    },
+    {
+      "name": "Zero and invalid amount fall back safely",
+      "ok": true
+    }
+  ],
+  "passed": 9,
+  "failed": 0
+}

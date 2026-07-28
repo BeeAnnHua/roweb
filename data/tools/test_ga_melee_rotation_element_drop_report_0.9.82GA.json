@@ -1,0 +1,123 @@
+{
+  "version": "0.9.82GA",
+  "status": "PASS",
+  "checks": 29,
+  "results": [
+    {
+      "name": "Magnum Break derives self AoE from official splashArea",
+      "detail": "{\"origin\":\"self\",\"shape\":\"circle\",\"radius\":2,\"maxTargets\":999,\"forcePrimaryTarget\":false}"
+    },
+    {
+      "name": "Self-centred Magnum Break bypasses selected-target range",
+      "detail": "PASS"
+    },
+    {
+      "name": "Over Brand self AoE bypasses selected-target range",
+      "detail": "PASS"
+    },
+    {
+      "name": "Over Brand Brandish uses official 11x11 radius instead of smaller placeholder",
+      "detail": "{\"origin\":\"self\",\"shape\":\"circle\",\"radius\":5,\"maxTargets\":99,\"officialSplashAreaExpanded\":true}"
+    },
+    {
+      "name": "Moon Slasher uses official 7x7 radius instead of smaller placeholder",
+      "detail": "{\"origin\":\"self\",\"shape\":\"circle\",\"radius\":3,\"maxTargets\":999,\"officialSplashAreaExpanded\":true}"
+    },
+    {
+      "name": "Ray of Genesis is self-centred and bypasses target range",
+      "detail": "{\"origin\":\"self\",\"shape\":\"circle\",\"radius\":5,\"maxTargets\":999,\"forcePrimaryTarget\":false,\"rangeToPrimaryTarget\":false,\"runtimeTargetingFixVersion\":\"0.9.82GA\",\"officialSplashAreaExpanded\":true}"
+    },
+    {
+      "name": "Shield Shooting remains target-locked 7x7 AoE",
+      "detail": "{\"origin\":\"target\",\"shape\":\"circle\",\"radius\":3,\"maxTargets\":999,\"forcePrimaryTarget\":true,\"derivedFromOfficialSplashArea\":true}"
+    },
+    {
+      "name": "Martyr Reckoning remains a target/range skill",
+      "detail": "PASS"
+    },
+    {
+      "name": "Self AoE hits nearby monsters and does not force far selected monster",
+      "detail": "near1,near2"
+    },
+    {
+      "name": "Four auto attack slots rotate in order",
+      "detail": "1,2,3,4,1,2,3,4"
+    },
+    {
+      "name": "Fixed Water Acidified Zone ignores Fire converter",
+      "detail": "PASS"
+    },
+    {
+      "name": "Fixed Earth Acidified Zone ignores Fire converter",
+      "detail": "PASS"
+    },
+    {
+      "name": "Fixed Wind Acidified Zone ignores Fire converter",
+      "detail": "PASS"
+    },
+    {
+      "name": "Fixed Fire Acidified Zone stays Fire",
+      "detail": "PASS"
+    },
+    {
+      "name": "Weapon-property skill uses active converter",
+      "detail": "PASS"
+    },
+    {
+      "name": "Normal attack uses active converter",
+      "detail": "PASS"
+    },
+    {
+      "name": "1% map gacha reaches 100% under current 200x global drop valve",
+      "detail": "10000"
+    },
+    {
+      "name": "0.01% card becomes 2% under current 200x global drop valve",
+      "detail": "200"
+    },
+    {
+      "name": "Ordinary drop also uses same global master",
+      "detail": "2000"
+    },
+    {
+      "name": "Calamity Gale no longer removes Elite Sniping",
+      "detail": "PASS"
+    },
+    {
+      "name": "Elite Sniping cast is no longer blocked by Calamity Gale",
+      "detail": "PASS"
+    },
+    {
+      "name": "Gale Storm becomes critical under Calamity Gale",
+      "detail": "PASS"
+    },
+    {
+      "name": "Crescive Bolt retains Calamity Gale +20% damage interaction",
+      "detail": "PASS"
+    },
+    {
+      "name": "Instance-based weapon unequip clears converter endow",
+      "detail": "PASS"
+    },
+    {
+      "name": "Skill description matches coexistence rule",
+      "detail": "持續 180 秒，使遠距離物理傷害 +250%，可與菁英狙擊同時存在。期間毀滅風暴可暴擊；漸進狙擊額外傷害 +20%；兩招對動物族與魚貝族再 +50%。不消耗 AP。"
+    },
+    {
+      "name": "MVP gacha item points to ITEM 9525 icon",
+      "detail": "images/items/9525.webp"
+    },
+    {
+      "name": "Fallback 14848 image bytes equal ITEM 9525 image",
+      "detail": "PASS"
+    },
+    {
+      "name": "Gacha policy uses global drop master",
+      "detail": "global_drop_master_with_mapExclusiveDrop_relative_multiplier"
+    },
+    {
+      "name": "Category valves default to 1x relative multiplier",
+      "detail": "{\"baseExp\":20000,\"jobExp\":20000,\"drop\":20000,\"zeny\":20000,\"cardDrop\":100,\"mapExclusiveDrop\":100}"
+    }
+  ]
+}

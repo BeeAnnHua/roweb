@@ -1,0 +1,27 @@
+RO_WEB 0.9.82FE Test Report
+========================================
+Feature: MVP/Boss duration countdown, ordinary monster population reduction, staged map-entry spawning
+
+Changes verified:
+- Respawn display: X小時 X分鐘 X秒
+- Ordinary monster count rate: 33% (60 -> about 20 in the active 1024x1024 source window)
+- Ordinary hard cap: 40 (formerly 120)
+- Fallback density: 5 per 512x512 source area (formerly 15)
+- Initial ordinary spawn batch: 8
+- Maintenance fill batch: 4 per 500ms
+- Rare/Boss/MVP maxAlive and respawn rules unchanged
+
+Focused test: PASS
+- tools/test_map_spawn_smoothing_0.9.82FE.js
+
+Current Runtime Integrity: 16/16 PASS
+- JavaScript syntax: PASS (655 files, 0 errors)
+- Auto Battle Controller: PASS
+- Auto Battle feature/survival/UI regressions: PASS
+- Skill action/timing/cast regressions: PASS
+- Packed character runtime: PASS
+- Atlas geometry: PASS
+- Binary assets: PASS
+- Deep Health: PASS (0 errors, 0 warnings)
+
+Package version: 0.9.82FE

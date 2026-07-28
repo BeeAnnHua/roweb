@@ -1,0 +1,52 @@
+{
+  "version": "0.9.82DA",
+  "batch": 111,
+  "title": "進化人工生命體技能 AI 核心",
+  "source": [
+    "rAthena db/re/homunculus_db.yml 2026-06-08",
+    "rAthena db/re/skill_db.yml 2026-06-08",
+    "rAthena src/map/skills/homunculus",
+    "rAthena src/map/status.cpp"
+  ],
+  "scope": {
+    "skillIds": "8001-8016",
+    "total": 16,
+    "implemented": 12,
+    "excluded": 4,
+    "homunculusSSkillsPending": 42
+  },
+  "aiPriority": [
+    "player_hp_below_70_heal",
+    "missing_player_or_internal_buff",
+    "available_attack_skill",
+    "basic_attack"
+  ],
+  "implementedSkills": [
+    8001,
+    8002,
+    8003,
+    8004,
+    8006,
+    8008,
+    8009,
+    8010,
+    8012,
+    8013,
+    8014,
+    8015
+  ],
+  "excludedSkills": {
+    "8005": "位置互換需要主人與生命體地圖座標。",
+    "8007": "只提高生命體 DEF／MaxHP／HP回復，現行生命體沒有受擊與HP。",
+    "8011": "只提高生命體 FLEE，現行生命體不會被攻擊。",
+    "8016": "官方以生命體 MaxHP 自爆並死亡；現行沒有死亡與復活狀態。"
+  },
+  "adaptations": {
+    "8001": "移除紅色纖細藥水材料；使用 RA Renewal Heal 與腦手術治療加成。",
+    "8013": "RA 隨機四屬性；RO_WEB 比較火水風地後選最高傷害。",
+    "8014": "移除治療生命體／敵人分支，只治療主人。",
+    "8008": "保留 ATK 增幅，移除生命偷取。",
+    "8010": "保留 ATK 增幅；固定 AI 行動間隔下不額外套用 ASPD。"
+  },
+  "resurrectionSkill247": "Pending"
+}

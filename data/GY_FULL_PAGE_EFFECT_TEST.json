@@ -1,0 +1,215 @@
+{
+  "version": "0.9.82GY",
+  "checks": [
+    {
+      "name": "base weapon and enchant raise actual ATK",
+      "pass": true,
+      "detail": {
+        "base": {
+          "atk": 221,
+          "matk": 271
+        },
+        "equipped": {
+          "atk": 561,
+          "matk": 541
+        },
+        "removed": {
+          "atk": 221,
+          "matk": 271
+        },
+        "sources": [
+          {
+            "id": 311192,
+            "slot": 4
+          },
+          {
+            "id": 311449,
+            "slot": 2
+          }
+        ],
+        "merged": {
+          "atkFlat": 30,
+          "short": 3,
+          "long": 3,
+          "dragon": 100
+        },
+        "diag": {
+          "runtimeErrors": [],
+          "unhandledBonuses": {},
+          "warnings": []
+        }
+      }
+    },
+    {
+      "name": "base weapon raises actual MATK",
+      "pass": true,
+      "detail": {
+        "base": {
+          "atk": 221,
+          "matk": 271
+        },
+        "equipped": {
+          "atk": 561,
+          "matk": 541
+        },
+        "removed": {
+          "atk": 221,
+          "matk": 271
+        },
+        "sources": [
+          {
+            "id": 311192,
+            "slot": 4
+          },
+          {
+            "id": 311449,
+            "slot": 2
+          }
+        ],
+        "merged": {
+          "atkFlat": 30,
+          "short": 3,
+          "long": 3,
+          "dragon": 100
+        },
+        "diag": {
+          "runtimeErrors": [],
+          "unhandledBonuses": {},
+          "warnings": []
+        }
+      }
+    },
+    {
+      "name": "actual enchant sources enter status runtime",
+      "pass": true,
+      "detail": {
+        "base": {
+          "atk": 221,
+          "matk": 271
+        },
+        "equipped": {
+          "atk": 561,
+          "matk": 541
+        },
+        "removed": {
+          "atk": 221,
+          "matk": 271
+        },
+        "sources": [
+          {
+            "id": 311192,
+            "slot": 4
+          },
+          {
+            "id": 311449,
+            "slot": 2
+          }
+        ],
+        "merged": {
+          "atkFlat": 30,
+          "short": 3,
+          "long": 3,
+          "dragon": 100
+        },
+        "diag": {
+          "runtimeErrors": [],
+          "unhandledBonuses": {},
+          "warnings": []
+        }
+      }
+    },
+    {
+      "name": "actual combat enchant totals apply",
+      "pass": true,
+      "detail": {
+        "base": {
+          "atk": 221,
+          "matk": 271
+        },
+        "equipped": {
+          "atk": 561,
+          "matk": 541
+        },
+        "removed": {
+          "atk": 221,
+          "matk": 271
+        },
+        "sources": [
+          {
+            "id": 311192,
+            "slot": 4
+          },
+          {
+            "id": 311449,
+            "slot": 2
+          }
+        ],
+        "merged": {
+          "atkFlat": 30,
+          "short": 3,
+          "long": 3,
+          "dragon": 100
+        },
+        "diag": {
+          "runtimeErrors": [],
+          "unhandledBonuses": {},
+          "warnings": []
+        }
+      }
+    },
+    {
+      "name": "unequip removes weapon and enchant totals",
+      "pass": true,
+      "detail": {
+        "base": {
+          "atk": 221,
+          "matk": 271
+        },
+        "equipped": {
+          "atk": 561,
+          "matk": 541
+        },
+        "removed": {
+          "atk": 221,
+          "matk": 271
+        },
+        "sources": [
+          {
+            "id": 311192,
+            "slot": 4
+          },
+          {
+            "id": 311449,
+            "slot": 2
+          }
+        ],
+        "merged": {
+          "atkFlat": 30,
+          "short": 3,
+          "long": 3,
+          "dragon": 100
+        },
+        "diag": {
+          "runtimeErrors": [],
+          "unhandledBonuses": {},
+          "warnings": []
+        }
+      }
+    },
+    {
+      "name": "no actual runtime diagnostics or page errors",
+      "pass": true,
+      "detail": {
+        "diag": {
+          "runtimeErrors": [],
+          "unhandledBonuses": {},
+          "warnings": []
+        },
+        "pageErrors": []
+      }
+    }
+  ],
+  "passed": 6,
+  "failed": 0,
+  "errors": []
+}

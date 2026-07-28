@@ -1,0 +1,88 @@
+{
+  "version": "0.9.82GK",
+  "status": "PASS",
+  "sources": {
+    "rAthenaEnchantGrade": {
+      "path": "/mnt/data/ra_grade_full/rathena-master/db/re/enchantgrade.yml",
+      "sha256": "046bde2532a706c3a2ebb1d3180f4642b166dbb2149d87b97a6098abd1071d6f"
+    },
+    "rAthenaExchange": {
+      "path": "/mnt/data/ra_grade_full/rathena-master/npc/re/merchants/barters/enchantgrade.yml",
+      "sha256": "d4bf1469c840ed62def0c41511774db846d51eadd8b7a1850996941bb1b82f45"
+    },
+    "rAthenaMapDropsReference": {
+      "path": "/mnt/data/ra_grade_full/rathena-master/db/re/map_drops.yml",
+      "sha256": "484fb003b2489165af3a8f3af79ec0bd2c00685e7b3b058eebc2ade6f236e375"
+    },
+    "userTiles": {
+      "path": "/mnt/data/tiles.zip",
+      "sha256": "794dc1731c0c1a33fb0ed814d25778a90cf8a62d8eea16e86805c42dac34757b",
+      "tiles": 18,
+      "tileSize": "512x512"
+    }
+  },
+  "generated": {
+    "gradeGroups": [
+      "Armor",
+      "Weapon"
+    ],
+    "gradeProfiles": 8,
+    "exchangeRecipes": 6,
+    "mapDropProfiles": 2,
+    "newMaps": [
+      {
+        "id": "ice_scale_hill_3x3_region_camera",
+        "name": "冰鱗山丘",
+        "sourceChunkRange": "134-142"
+      },
+      {
+        "id": "serpent_nest_3x3_region_camera",
+        "name": "蛇巢穴",
+        "sourceChunkRange": "143-151"
+      }
+    ],
+    "newMonsterIds": [
+      21520,
+      21521,
+      21522,
+      21523,
+      21524,
+      21525,
+      21526,
+      21527,
+      21528,
+      21529,
+      21537,
+      21599
+    ],
+    "gradeNpcIds": [
+      "payon_enchant_grade_npc"
+    ]
+  },
+  "rules": {
+    "originalMonsterDropsPreserved": true,
+    "bonusDropSkipsOriginalDuplicate": true,
+    "bonusDropIndependentFromGlobalDropMultiplier": true,
+    "craftedGradeItemsRequireMaterialsAndZeny": true,
+    "eligibleEquipment": [
+      "Weapon Lv.5",
+      "Armor Lv.2"
+    ],
+    "gradePath": [
+      "None",
+      "D",
+      "C",
+      "B",
+      "A"
+    ]
+  },
+  "validation": {
+    "rAthenaFieldComparison": "224/224 PASS",
+    "runtime": "8/8 PASS",
+    "mapsMonstersDrops": "57/57 PASS"
+  },
+  "knownLimitations": [
+    "The 12 newly added EP19 monsters use a one-frame display-safe fallback atlas. Full multi-action ACT/SPR-derived animations require a later monster animation asset pack.",
+    "No pixel-level browser screenshot was captured in the sandbox; UI was validated through DOM/CSS structure, runtime tests and project audits."
+  ]
+}

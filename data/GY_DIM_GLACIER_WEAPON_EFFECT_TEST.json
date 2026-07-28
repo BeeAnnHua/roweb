@@ -1,0 +1,389 @@
+{
+  "version": "0.9.82GY",
+  "weaponCount": 26,
+  "checks": [
+    {
+      "name": "exactly 26 target weapons",
+      "pass": true,
+      "detail": [
+        500054,
+        500055,
+        510075,
+        510076,
+        520021,
+        530034,
+        540056,
+        550089,
+        550090,
+        560037,
+        570032,
+        580033,
+        590047,
+        590048,
+        600030,
+        610041,
+        620019,
+        630019,
+        640034,
+        650028,
+        700059,
+        800015,
+        810015,
+        820011,
+        830015,
+        840010
+      ]
+    },
+    {
+      "name": "all 26 exist in RA",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "all 26 base weapon definitions match RA",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "status runtime consumes base equipment ATK/MATK",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "status runtime includes CardRuntime enchant sources",
+      "pass": true,
+      "detail": null
+    }
+  ],
+  "passed": 5,
+  "failed": 0,
+  "weapons": [
+    {
+      "id": 500054,
+      "name": "黯淡冰晶長劍",
+      "atk": 220,
+      "matk": 210,
+      "weaponType": "sword",
+      "jobs": [
+        "Alchemist",
+        "Blacksmith",
+        "Crusader",
+        "Knight",
+        "Merchant",
+        "Swordman"
+      ],
+      "errors": []
+    },
+    {
+      "id": 500055,
+      "name": "黯淡冰晶初階長劍",
+      "atk": 220,
+      "matk": 210,
+      "weaponType": "sword",
+      "jobs": [
+        "Novice",
+        "SuperNovice"
+      ],
+      "errors": []
+    },
+    {
+      "id": 510075,
+      "name": "黯淡冰晶短劍",
+      "atk": 210,
+      "matk": 210,
+      "weaponType": "dagger",
+      "jobs": [
+        "Rogue"
+      ],
+      "errors": []
+    },
+    {
+      "id": 510076,
+      "name": "黯淡冰晶初階短劍",
+      "atk": 210,
+      "matk": 210,
+      "weaponType": "dagger",
+      "jobs": [
+        "Novice",
+        "SuperNovice"
+      ],
+      "errors": []
+    },
+    {
+      "id": 520021,
+      "name": "黯淡冰晶斧",
+      "atk": 240,
+      "matk": 210,
+      "weaponType": "axe",
+      "jobs": [
+        "Alchemist",
+        "Blacksmith",
+        "Crusader",
+        "Knight",
+        "Merchant",
+        "Swordman"
+      ],
+      "errors": []
+    },
+    {
+      "id": 530034,
+      "name": "黯淡冰晶長矛",
+      "atk": 220,
+      "matk": 210,
+      "weaponType": "spear",
+      "jobs": [
+        "Crusader",
+        "Knight",
+        "Swordman"
+      ],
+      "errors": []
+    },
+    {
+      "id": 540056,
+      "name": "黯淡冰晶之書",
+      "atk": 210,
+      "matk": 210,
+      "weaponType": "book",
+      "jobs": [
+        "Priest",
+        "Sage",
+        "StarGladiator"
+      ],
+      "errors": []
+    },
+    {
+      "id": 550089,
+      "name": "黯淡冰晶法杖",
+      "atk": 150,
+      "matk": 230,
+      "weaponType": "staff",
+      "jobs": [
+        "Acolyte",
+        "Mage",
+        "Monk",
+        "Novice",
+        "Priest",
+        "Sage",
+        "SoulLinker",
+        "SuperNovice",
+        "Wizard"
+      ],
+      "errors": []
+    },
+    {
+      "id": 550090,
+      "name": "黯淡冰晶狐尾草",
+      "atk": 400,
+      "matk": 400,
+      "weaponType": "staff",
+      "jobs": [
+        "Spirit_Handler"
+      ],
+      "errors": []
+    },
+    {
+      "id": 560037,
+      "name": "黯淡冰晶拳套",
+      "atk": 240,
+      "matk": 220,
+      "weaponType": "knuckle",
+      "jobs": [
+        "Monk"
+      ],
+      "errors": []
+    },
+    {
+      "id": 570032,
+      "name": "黯淡冰晶小提琴",
+      "atk": 210,
+      "matk": 210,
+      "weaponType": "instrument",
+      "jobs": [
+        "BardDancer"
+      ],
+      "errors": []
+    },
+    {
+      "id": 580033,
+      "name": "黯淡冰晶繩鞭",
+      "atk": 210,
+      "matk": 210,
+      "weaponType": "whip",
+      "jobs": [
+        "BardDancer"
+      ],
+      "errors": []
+    },
+    {
+      "id": 590047,
+      "name": "黯淡冰晶鏈錘",
+      "atk": 210,
+      "matk": 210,
+      "weaponType": "mace",
+      "jobs": [
+        "Acolyte",
+        "Alchemist",
+        "Blacksmith",
+        "Crusader",
+        "Knight",
+        "Merchant",
+        "Monk",
+        "Priest",
+        "Swordman"
+      ],
+      "errors": []
+    },
+    {
+      "id": 590048,
+      "name": "黯淡冰晶機械錘",
+      "atk": 400,
+      "matk": 160,
+      "weaponType": "mace",
+      "jobs": [
+        "Blacksmith"
+      ],
+      "errors": []
+    },
+    {
+      "id": 600030,
+      "name": "黯淡冰晶雙手巨劍",
+      "atk": 300,
+      "matk": 270,
+      "weaponType": "sword",
+      "jobs": [
+        "Knight"
+      ],
+      "errors": []
+    },
+    {
+      "id": 610041,
+      "name": "黯淡冰晶拳刃",
+      "atk": 240,
+      "matk": 220,
+      "weaponType": "katar",
+      "jobs": [
+        "Assassin"
+      ],
+      "errors": []
+    },
+    {
+      "id": 620019,
+      "name": "黯淡冰晶機械斧",
+      "atk": 350,
+      "matk": 180,
+      "weaponType": "axe",
+      "jobs": [
+        "Blacksmith"
+      ],
+      "errors": []
+    },
+    {
+      "id": 630019,
+      "name": "黯淡冰晶騎士長矛",
+      "atk": 300,
+      "matk": 270,
+      "weaponType": "spear",
+      "jobs": [
+        "Knight"
+      ],
+      "errors": []
+    },
+    {
+      "id": 640034,
+      "name": "黯淡冰晶魔杖",
+      "atk": 150,
+      "matk": 290,
+      "weaponType": "staff",
+      "jobs": [
+        "Acolyte",
+        "Mage",
+        "Monk",
+        "Priest",
+        "Sage",
+        "SoulLinker",
+        "Wizard"
+      ],
+      "errors": []
+    },
+    {
+      "id": 650028,
+      "name": "黯淡冰晶風魔飛鏢",
+      "atk": 400,
+      "matk": 370,
+      "weaponType": "ninja",
+      "jobs": [
+        "KagerouOboro"
+      ],
+      "errors": []
+    },
+    {
+      "id": 700059,
+      "name": "黯淡冰晶長弓",
+      "atk": 240,
+      "matk": 0,
+      "weaponType": "bow",
+      "jobs": [
+        "Archer",
+        "BardDancer",
+        "Hunter",
+        "Rogue"
+      ],
+      "errors": []
+    },
+    {
+      "id": 800015,
+      "name": "黯淡冰晶手槍",
+      "atk": 230,
+      "matk": 0,
+      "weaponType": "gun",
+      "jobs": [
+        "Rebellion"
+      ],
+      "errors": []
+    },
+    {
+      "id": 810015,
+      "name": "黯淡冰晶來福槍",
+      "atk": 280,
+      "matk": 0,
+      "weaponType": "gun",
+      "jobs": [
+        "Rebellion"
+      ],
+      "errors": []
+    },
+    {
+      "id": 820011,
+      "name": "黯淡冰晶霰彈槍",
+      "atk": 300,
+      "matk": 0,
+      "weaponType": "gun",
+      "jobs": [
+        "Rebellion"
+      ],
+      "errors": []
+    },
+    {
+      "id": 830015,
+      "name": "黯淡冰晶格林機槍",
+      "atk": 350,
+      "matk": 0,
+      "weaponType": "gun",
+      "jobs": [
+        "Rebellion"
+      ],
+      "errors": []
+    },
+    {
+      "id": 840010,
+      "name": "黯淡冰晶榴彈發射器",
+      "atk": 300,
+      "matk": 0,
+      "weaponType": "gun",
+      "jobs": [
+        "Rebellion"
+      ],
+      "errors": []
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "version": "0.9.82BD",
+  "result": "PASS",
+  "batch": "Warlock / Arch Mage Decision Core Batch62",
+  "namingReference": "https://ro.ntome.com/skill (Traditional Chinese profession and skill names)",
+  "officialAdded": [
+    2209,
+    2217,
+    2222,
+    2223,
+    2224,
+    2229,
+    2230,
+    2231,
+    2232,
+    5215,
+    5218,
+    5222,
+    5225,
+    5230,
+    5232,
+    5235,
+    6516
+  ],
+  "coverage": {
+    "before": 578,
+    "after": 595,
+    "target": 1139
+  },
+  "pending": {
+    "before": 561,
+    "after": 544
+  },
+  "mageFamilyProgress": {
+    "totalUniqueSkills": 153,
+    "officialRuntime": 71,
+    "pending": 82,
+    "completionRatePercent": 46.41
+  },
+  "decisions": {
+    "2209": "魔力凍結：施術者與範圍敵人禁止魔法技能。",
+    "2217": "屬性漩渦：不消耗屬性球，四段固定聖屬性。",
+    "2222/2223/2224/2229": "每級 ATK/MATK +3%。",
+    "2230": "每級 MaxHP/MaxSP +5%。",
+    "2231": "MATK +5%。",
+    "2232": "每級 INT +8。",
+    "5232": "魔力巔峰改單一 300 秒 Buff；支援技能 ×125%。",
+    "6516": "每級 MATK +2%。"
+  },
+  "deferred": [
+    "SP/AP costs",
+    "trait-stat allocation and costs",
+    "visual skill effects"
+  ],
+  "validation": {
+    "regressionScriptsPassed": 13,
+    "regressionTests": [
+      "test_deep_repair_regression_0.9.82BB.js",
+      "test_mage_high_wizard_foundation_regression_0.9.82BB.js",
+      "test_mage_passive_conversion_regression_0.9.82BB.js",
+      "test_merchant_completion_regression_0.9.82BB.js",
+      "test_warlock_offensive_control_regression_0.9.82BB.js",
+      "test_warlock_prison_chain_telekinesis_0.9.82BB.js",
+      "test_warlock_spell_power_elemental_regression_0.9.82BB.js",
+      "test_arch_mage_projection_vulcan_staff_0.9.82BC.js",
+      "test_warlock_arch_mage_decision_core_0.9.82BD.js",
+      "test_ra_damage_pipeline.js",
+      "test_dragon_knight_completion_0.9.82S.js",
+      "test_rogue_abyss_batch24.js",
+      "test_acolyte_family_completion_0.9.82AB.js"
+    ],
+    "dynamicChecks": {
+      "tetraVortexLv10TotalRatioPercent": 19200,
+      "redesignedPassiveStack": {
+        "atkRatePercent": 24,
+        "matkRatePercent": 39,
+        "maxHpRatePercent": 10,
+        "maxSpRatePercent": 10,
+        "intFlat": 80
+      },
+      "astralStrikeLv10UndeadInitialRatioAtBase100Spl100": 22400,
+      "astralStrikeLv10TickRatioAtBase100Spl100": 7500,
+      "climaxDamageRatePercent": 25,
+      "climaxDurationMs": 300000
+    },
+    "formulaCorrection": "2217 屬性漩渦改為每段 800+400×Lv，四段合計 3200+1600×Lv，避免總倍率再乘四次。",
+    "dataBundleConsistency": "PASS",
+    "healthCheck": {
+      "errors": 0,
+      "knownWarnings": 36,
+      "status": "PASS"
+    },
+    "javascriptSyntax": "PASS",
+    "jsonFilesParsed": 447,
+    "javascriptFilesSyntaxChecked": 85,
+    "cacheVersion": "0.9.82BD",
+    "zipIntegrity": "PASS"
+  }
+}

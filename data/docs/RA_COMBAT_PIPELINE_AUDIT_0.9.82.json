@@ -1,0 +1,39 @@
+{
+  "version": "0.9.82",
+  "type": "RA Renewal common Combat Pipeline architecture",
+  "coverage": {
+    "officialRuntime": 73,
+    "target": 1139,
+    "changed": false
+  },
+  "singleEntry": "CombatDamagePipeline",
+  "registries": [
+    "PassiveProcRegistry",
+    "ElementModifierRegistry",
+    "RaceModifierRegistry",
+    "SizeModifierRegistry",
+    "DefenseModifierRegistry",
+    "StatusModifierRegistry"
+  ],
+  "compatibility": {
+    "autoBattleRefactored": false,
+    "oldRARenewalDamagePipelineRetainedAsCalculationCore": true
+  },
+  "checks": {
+    "jsSyntax": true,
+    "jsonParse": true,
+    "normalAttack": true,
+    "passiveRegistry": true,
+    "falconAbsentSafeSkip": true,
+    "falconPresentRegistryTrigger": true,
+    "physicalSkill": true,
+    "magicSkill": true,
+    "singleCriticalApplication": true,
+    "bundleRebuilt": true,
+    "cacheUpdated": true
+  },
+  "limitations": [
+    "Falcon/Auto Spell/weapon/card Proc registry entries are safe common hooks; their actual secondary damage or spell execution remains pending until the corresponding runtime data exists.",
+    "Auto battle remains compatibility-only and was not refactored."
+  ]
+}

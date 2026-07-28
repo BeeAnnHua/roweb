@@ -1,0 +1,194 @@
+{
+  "version": "0.9.82S",
+  "result": "PASS",
+  "coverage": {
+    "before": 298,
+    "after": 307,
+    "target": 1139
+  },
+  "pending": {
+    "before": 841,
+    "after": 832
+  },
+  "newOfficialSkillIds": [
+    5206,
+    5207,
+    5208,
+    6001,
+    5210,
+    5211,
+    5212,
+    5213,
+    6502
+  ],
+  "dragonKnightSkills": [
+    {
+      "skillId": 5206,
+      "skillKey": "DK_CHARGINGPIERCE",
+      "name": "蓄力刺擊"
+    },
+    {
+      "skillId": 5207,
+      "skillKey": "DK_TWOHANDDEF",
+      "name": "雙手武器防禦"
+    },
+    {
+      "skillId": 5208,
+      "skillKey": "DK_HACKANDSLASHER",
+      "name": "斬擊連殺"
+    },
+    {
+      "skillId": 6001,
+      "skillKey": "DK_DRAGONIC_BREATH",
+      "name": "龍威氣息"
+    },
+    {
+      "skillId": 5210,
+      "skillKey": "DK_DRAGONIC_AURA",
+      "name": "龍之光環"
+    },
+    {
+      "skillId": 5211,
+      "skillKey": "DK_MADNESS_CRUSHER",
+      "name": "瘋狂粉碎"
+    },
+    {
+      "skillId": 5212,
+      "skillKey": "DK_VIGOR",
+      "name": "活力"
+    },
+    {
+      "skillId": 5213,
+      "skillKey": "DK_STORMSLASH",
+      "name": "風暴斬擊"
+    },
+    {
+      "skillId": 6502,
+      "skillKey": "DK_DRAGONIC_PIERCE",
+      "name": "龍之穿刺"
+    }
+  ],
+  "raFormulaChecks": {
+    "DK_CHARGINGPIERCE": "5-second chain, max 10; 10 stacks double Pierce/Spiral Pierce/Hundred Spear/Madness Crusher and then clear",
+    "DK_TWOHANDDEF": "size resist arrays Small 1-10, Medium 2-15, Large 3-18 with 2H Sword/Spear/Axe",
+    "DK_HACKANDSLASHER": "(500+1000*Lv+7*POW)*BaseLv/100, 2 hits",
+    "DK_DRAGONIC_BREATH": "250+400*Lv+7*POW plus MaxHP/MaxSP, Aura-enhanced, BaseLv/100, defense ignored",
+    "DK_DRAGONIC_AURA": "(100+3650*Lv+10*POW [+150*Lv vs Human/Angel])*BaseLv/100, 300s self buff",
+    "DK_MADNESS_CRUSHER": "(1750+4350*Lv+10*POW+weight/10*weaponLv)*BaseLv/100, x2 at 10 charges",
+    "DK_VIGOR": "short physical extra rate 100+15*Lv (+10*Lv vs Human/Angel), HP cost 100..10 per attack",
+    "DK_STORMSLASH": "(300+750*Lv+5*POW)*BaseLv/100, 1..5 hits, 60% x2 under Giant Growth",
+    "DK_DRAGONIC_PIERCE": "(900+730*Lv+7*POW [+200+50*Lv under Aura])*BaseLv/100, 5 hits"
+  },
+  "animationPlaceholders": [
+    "data/skill_effects/5206.json",
+    "data/skill_effects/5207.json",
+    "data/skill_effects/5208.json",
+    "data/skill_effects/6001.json",
+    "data/skill_effects/5210.json",
+    "data/skill_effects/5211.json",
+    "data/skill_effects/5212.json",
+    "data/skill_effects/5213.json",
+    "data/skill_effects/6502.json",
+    "images/skill_effects/5206.png",
+    "images/skill_effects/5207.png",
+    "images/skill_effects/5208.png",
+    "images/skill_effects/6001.png",
+    "images/skill_effects/5210.png",
+    "images/skill_effects/5211.png",
+    "images/skill_effects/5212.png",
+    "images/skill_effects/5213.png",
+    "images/skill_effects/6502.png"
+  ],
+  "notes": [
+    "Dragonic Aura preserves the RA base 100% term because its calculateSkillRatio implementation does not subtract the default skill ratio.",
+    "Madness Crusher reads weapon weight when available; current generated item JSON generally omits weight, so that term remains 0 until item build data is expanded.",
+    "Fourth-job AP gain/cost remains deferred to the shared AP system; POW and other trait-stat formula hooks are active.",
+    "Charging Pierce is a hidden combat resource and does not add a persistent UI element."
+  ],
+  "dynamicTests": {
+    "twoHandDefense": {
+      "small": 10,
+      "medium": 15,
+      "large": 18
+    },
+    "hackAndSlasher": {
+      "damage": 137043,
+      "ratio": 42560,
+      "range": "long"
+    },
+    "chargedHundredSpear": {
+      "damage": 19964,
+      "ratio": 6200,
+      "range": "long"
+    },
+    "chargingRemaining": 0,
+    "dragonicBreathPlain": {
+      "damage": 39541,
+      "ratio": 12280,
+      "range": "long"
+    },
+    "dragonicBreathAura": {
+      "damage": 44436,
+      "ratio": 13800,
+      "range": "long"
+    },
+    "dragonicAuraAttack": {
+      "damage": 246652,
+      "ratio": 76600,
+      "range": "long"
+    },
+    "madnessCrusher": {
+      "damage": 311438,
+      "ratio": 96720,
+      "range": "long"
+    },
+    "stormSlash": {
+      "damage": 133630,
+      "ratio": 41500,
+      "range": "short"
+    },
+    "dragonicPierce": {
+      "damage": 165508,
+      "ratio": 51400,
+      "range": "long"
+    },
+    "normalPlain": 322,
+    "normalVigor": 1127,
+    "normalVigorAngel": 1449,
+    "vigorHpCost": 10,
+    "officialRuntime": 307,
+    "result": "PASS"
+  },
+  "checks": {
+    "jsonParse": "PASS",
+    "javascriptSyntax": "PASS",
+    "runtimeGeneratedCatalogCounts": "307/307/307",
+    "pendingCount": 832,
+    "duplicateSkillIds": 0,
+    "duplicateSkillKeys": 0,
+    "remainingDragonKnightPending": 0,
+    "zipIntegrity": "PASS",
+    "jsonFiles": 339,
+    "javascriptFiles": 24,
+    "dragonKnightTreeSkills": 13,
+    "swordmanFamilyCoverage": "112/112",
+    "thiefFamilyCoverage": "120/120",
+    "oldCacheReferences": 0,
+    "cacheVersion": "0.9.82S",
+    "runtimeJavascriptFiles": 24,
+    "allJavascriptFilesIncludingTools": 30,
+    "regressionTest": "tools/test_dragon_knight_completion_0.9.82S.js PASS"
+  },
+  "familyCoverage": {
+    "swordman": {
+      "official": 112,
+      "treeSkills": 112,
+      "pending": 0
+    },
+    "thief": {
+      "official": 120,
+      "treeSkills": 120,
+      "pending": 0
+    }
+  }
+}

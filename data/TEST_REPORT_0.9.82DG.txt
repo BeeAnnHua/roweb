@@ -1,0 +1,18 @@
+RO_WEB 0.9.82DG Test Report
+========================================
+Target: 2241 RA_WUGRIDER 騎狼術永久被動修正
+
+PASS - Skill Core 2241 is passive / runtimeHandler=passive
+PASS - Runtime Profile Lv1/Lv2/Lv3 moveSpeedRate = 20/25/30
+PASS - No SP cost, no summon-warg prerequisite, no weapon restriction
+PASS - Legacy wargRiding / warg_rider_runtime state cleanup
+PASS - 2242/2244/2246 use active warg assist instead of riding state
+PASS - 6520 accepts falcon or active warg assist
+PASS - moveSpeedRate is included in derived movement speed
+PASS - Dedicated Node runtime regression test
+PASS - JavaScript syntax check
+PASS - Full deep health check: 0 errors / 0 warnings
+PASS - JSON bundle synchronized: 693 entries
+
+AP system remains disabled.
+Original 0.9.82DF job confirmation and acolyte appearance integration are preserved.

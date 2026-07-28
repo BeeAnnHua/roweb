@@ -1,0 +1,26 @@
+{
+  "version": "0.9.82A",
+  "coverage": "73/1139",
+  "tests": {
+    "javascriptSyntax": "PASS",
+    "jsonParse": "PASS",
+    "BF_WEAPON": "PASS",
+    "BF_MAGIC": "PASS",
+    "BF_MISC": "PASS",
+    "dualWield": "PASS",
+    "refineAtk": "PASS",
+    "ammoContributionNoConsume": "PASS",
+    "shortLongRange": "PASS",
+    "RES_MRES": "PASS",
+    "NKFlags": "PASS",
+    "fixedReduction": "PASS",
+    "immunity": "PASS",
+    "minimumDamage": "PASS",
+    "reflectionEntry": "PASS"
+  },
+  "notes": [
+    "No skill coverage added.",
+    "Auto battle unchanged.",
+    "Trap/manhole target conversion deferred to skill-profile phase."
+  ]
+}

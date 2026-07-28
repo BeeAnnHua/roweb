@@ -1,0 +1,214 @@
+{
+  "version": "0.9.82CK",
+  "summary": {
+    "errors": 0,
+    "warnings": 36,
+    "status": "PASS"
+  },
+  "info": {
+    "jsonFiles": 500,
+    "htmlIds": 112,
+    "htmlResources": 32,
+    "cacheVersions": [
+      "0.9.82CF"
+    ],
+    "loadedScripts": 25,
+    "itemIds": 123,
+    "monsters": 10,
+    "skillIds": 1139,
+    "treeNodes": 1362,
+    "officialRuntime": 748,
+    "pendingRuntime": 391,
+    "officialHandlers": {
+      "passive": 216,
+      "physical_attack": 35,
+      "monster_debuff": 8,
+      "buff": 180,
+      "magic_damage": 64,
+      "timed_status": 20,
+      "teleport": 1,
+      "heal": 8,
+      "debuff": 15,
+      "steal_item": 1,
+      "physical_attack_size_hits": 1,
+      "physical_attack_formula": 116,
+      "counter_stance": 2,
+      "mount_unlock": 1,
+      "sanctuary_area": 1,
+      "ground_debuff": 10,
+      "ground_damage": 28,
+      "falcon_toggle": 1,
+      "misc_damage": 4,
+      "falcon_detect": 1,
+      "falcon_spring_trap": 1,
+      "heal_fixed": 1,
+      "movement": 4,
+      "steal_zeny": 1,
+      "physical_charge": 11,
+      "skill_copy_selector": 2,
+      "spirit_resource": 2,
+      "spirit_absorb": 1,
+      "ground_protection": 1,
+      "dispel": 1,
+      "soul_exchange": 1,
+      "chain_magic": 1,
+      "trap_detonator": 1,
+      "warg_toggle": 1,
+      "warg_ride_toggle": 1,
+      "warg_sensitive_keen": 1,
+      "spirit_assimilate": 1,
+      "summon_control": 1,
+      "combo_sequence": 1,
+      "follow_area": 1
+    },
+    "bundleEntries": 500,
+    "jsSyntaxChecked": 216
+  },
+  "errors": [],
+  "warnings": [
+    {
+      "code": "ITEM_ICON_KNOWN_MISSING",
+      "message": "990: images/items/990.webp"
+    },
+    {
+      "code": "ITEM_ICON_KNOWN_MISSING",
+      "message": "991: images/items/991.webp"
+    },
+    {
+      "code": "ITEM_ICON_KNOWN_MISSING",
+      "message": "992: images/items/992.webp"
+    },
+    {
+      "code": "ITEM_ICON_KNOWN_MISSING",
+      "message": "993: images/items/993.webp"
+    },
+    {
+      "code": "ITEM_ICON_KNOWN_MISSING",
+      "message": "994: images/items/994.webp"
+    },
+    {
+      "code": "ITEM_ICON_KNOWN_MISSING",
+      "message": "995: images/items/995.webp"
+    },
+    {
+      "code": "ITEM_ICON_KNOWN_MISSING",
+      "message": "996: images/items/996.webp"
+    },
+    {
+      "code": "ITEM_ICON_KNOWN_MISSING",
+      "message": "997: images/items/997.webp"
+    },
+    {
+      "code": "ITEM_ICON_KNOWN_MISSING",
+      "message": "998: images/items/998.webp"
+    },
+    {
+      "code": "ITEM_ICON_KNOWN_MISSING",
+      "message": "1002: images/items/1002.webp"
+    },
+    {
+      "code": "ITEM_ICON_KNOWN_MISSING",
+      "message": "1011: images/items/1011.webp"
+    },
+    {
+      "code": "COPYABLE_ORPHAN",
+      "message": "plagiarism:337 enabled=False"
+    },
+    {
+      "code": "COPYABLE_ORPHAN",
+      "message": "reproduce:337 enabled=False"
+    },
+    {
+      "code": "COPYABLE_ORPHAN",
+      "message": "reproduce:2215 enabled=False"
+    },
+    {
+      "code": "COPYABLE_ORPHAN",
+      "message": "reproduce:2218 enabled=False"
+    },
+    {
+      "code": "COPYABLE_ORPHAN",
+      "message": "reproduce:2219 enabled=False"
+    },
+    {
+      "code": "COPYABLE_ORPHAN",
+      "message": "reproduce:2220 enabled=False"
+    },
+    {
+      "code": "COPYABLE_ORPHAN",
+      "message": "reproduce:2221 enabled=False"
+    },
+    {
+      "code": "COPYABLE_ORPHAN",
+      "message": "reproduce:2225 enabled=False"
+    },
+    {
+      "code": "COPYABLE_ORPHAN",
+      "message": "reproduce:2226 enabled=False"
+    },
+    {
+      "code": "COPYABLE_ORPHAN",
+      "message": "reproduce:2227 enabled=False"
+    },
+    {
+      "code": "COPYABLE_ORPHAN",
+      "message": "reproduce:2228 enabled=False"
+    },
+    {
+      "code": "COPYABLE_ORPHAN",
+      "message": "reproduce:2055 enabled=False"
+    },
+    {
+      "code": "COPYABLE_ORPHAN",
+      "message": "reproduce:2056 enabled=False"
+    },
+    {
+      "code": "COPYABLE_ORPHAN",
+      "message": "reproduce:2519 enabled=False"
+    },
+    {
+      "code": "COPYABLE_ORPHAN",
+      "message": "reproduce:2520 enabled=False"
+    },
+    {
+      "code": "COPYABLE_ORPHAN",
+      "message": "reproduce:2415 enabled=False"
+    },
+    {
+      "code": "COPYABLE_ORPHAN",
+      "message": "reproduce:2416 enabled=False"
+    },
+    {
+      "code": "COPYABLE_ORPHAN",
+      "message": "reproduce:2516 enabled=False"
+    },
+    {
+      "code": "COPYABLE_ORPHAN",
+      "message": "reproduce:2484 enabled=False"
+    },
+    {
+      "code": "COPYABLE_ORPHAN",
+      "message": "reproduce:2491 enabled=False"
+    },
+    {
+      "code": "JOB_CHANGE_TO_ORPHAN",
+      "message": "novice_to_acolyte->acolyte enabled=False"
+    },
+    {
+      "code": "JOB_CHANGE_TO_ORPHAN",
+      "message": "novice_to_mage->mage enabled=False"
+    },
+    {
+      "code": "JOB_CHANGE_TO_ORPHAN",
+      "message": "novice_to_archer->archer enabled=False"
+    },
+    {
+      "code": "JOB_CHANGE_TO_ORPHAN",
+      "message": "novice_to_merchant->merchant enabled=False"
+    },
+    {
+      "code": "JOB_CHANGE_TO_ORPHAN",
+      "message": "novice_to_thief->thief enabled=False"
+    }
+  ]
+}

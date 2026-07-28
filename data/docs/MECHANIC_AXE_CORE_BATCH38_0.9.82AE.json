@@ -1,0 +1,70 @@
+{
+  "version": "0.9.82AE",
+  "result": "PASS",
+  "batch": "Mechanic Axe Core Batch38",
+  "sources": [
+    "Project SkillInfoz skillinfolist.lub",
+    "local rAthena db/re/skill_db.yml",
+    "local rAthena src/map/skills/merchant/axeboomerang.cpp",
+    "local rAthena src/map/skills/merchant/powerswing.cpp",
+    "local rAthena src/map/skills/merchant/axetornado.cpp",
+    "local rAthena src/map/battle.cpp",
+    "local rAthena src/map/status.cpp"
+  ],
+  "implementedSkillIds": [
+    2255,
+    2276,
+    2277,
+    2278,
+    2279,
+    2280
+  ],
+  "coverage": {
+    "before": 441,
+    "after": 447,
+    "target": 1139
+  },
+  "pending": {
+    "before": 698,
+    "after": 692
+  },
+  "runtimeRules": {
+    "madoLicense": "ATK +15 per level without requiring Mado; riding/movement system deferred",
+    "axeTraining": "Axe ATK +5/HIT +3 per level; Mace ATK +4/HIT +2 per level",
+    "researchFireEarth": "Flat outgoing +10 and incoming reduction +10 per level versus Fire/Earth",
+    "axeBoomerang": "(150 + 50*Lv + weaponWeight/10) * BaseLv/100; knockback 2-6",
+    "powerSwing": "(300 + 100*Lv + (STR+DEX)/2) * BaseLv/100; 10% Stun for 2 sec",
+    "axeTornado": "(100 + 180*Lv + 2*VIT) * BaseLv/100; radius 2/2/3/3/3; 6 visual hits, one total damage calculation"
+  },
+  "deferred": [
+    "Mado rental/riding/movement implementation",
+    "Trait stat allocation",
+    "Unified SP and cost balancing"
+  ],
+  "validation": {
+    "jsonFilesParsed": 419,
+    "javascriptFilesSyntaxChecked": 44,
+    "regressionScriptsPassed": 20,
+    "runtimeGeneratedCatalogCounts": "447/447/447",
+    "pendingCount": 692,
+    "duplicateSkillIds": 0,
+    "duplicateSkillKeys": 0,
+    "cacheVersions": [
+      "0.9.82AE"
+    ],
+    "dynamicChecks": {
+      "madoLicenseLv5AtkFlat": 75,
+      "axeTrainingLv10AtkFlat": 50,
+      "axeTrainingLv10HitFlat": 30,
+      "maceTrainingLv10AtkFlat": 40,
+      "maceTrainingLv10HitFlat": 20,
+      "researchFireEarthLv5OutgoingFlat": 50,
+      "researchFireEarthLv5IncomingReduction": 50,
+      "axeBoomerangLv5Base100Weight1200Ratio": 520,
+      "powerSwingLv10Str100Dex80Base100Ratio": 1390,
+      "axeTornadoLv5Vit70Base100Ratio": 1140
+    },
+    "passiveCopyExclusion": "PASS",
+    "zipIntegrity": "PASS"
+  }
+}

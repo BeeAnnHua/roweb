@@ -1,0 +1,148 @@
+{
+  "version": "0.9.82CS",
+  "batch": 103,
+  "title": "終極初學者魔法攻擊核心",
+  "skillIds": [
+    5455,
+    5456,
+    5457,
+    5458,
+    5459,
+    5460
+  ],
+  "officialRuntime": 824,
+  "pending": 315,
+  "noviceFamilyProgress": "114/118",
+  "sharedMasterySkill": {
+    "id": 5450,
+    "name": "自學魔法",
+    "effect": "每級 S.MATK +1，並進入六招魔法公式"
+  },
+  "skills": [
+    {
+      "id": 5455,
+      "key": "HN_METEOR_STORM_BUSTER",
+      "name": "隕石術猛擊",
+      "handler": "ground_damage",
+      "formula": "renewal_hn_meteor_storm_buster",
+      "spCost": [
+        74,
+        78,
+        82,
+        86,
+        90,
+        94,
+        98,
+        102,
+        106,
+        110
+      ],
+      "runtimeAdaptation": "落下初擊倍率＝（300＋320×Lv＋5×自學魔法Lv×Lv＋3×SPL）×BaseLv÷100%，再受自學魔法每級+1%增幅；後續爆炸倍率＝（450＋160×Lv＋5×自學魔法Lv×Lv＋3×SPL）×BaseLv÷100%。初擊半徑2格、持續區域半徑3～4格，每0.5秒攻擊並有3×Lv%機率暈眩0.5秒。"
+    },
+    {
+      "id": 5456,
+      "key": "HN_JUPITEL_THUNDER_STORM",
+      "name": "雷鳴術風暴",
+      "handler": "magic_damage",
+      "formula": "renewal_hn_jupitel_thunder_storm",
+      "spCost": [
+        75,
+        80,
+        85,
+        90,
+        95,
+        100,
+        105,
+        110,
+        115,
+        120
+      ],
+      "runtimeAdaptation": "倍率＝（1800×Lv＋3×自學魔法Lv×Lv＋3×SPL）×BaseLv÷100%，再受自學魔法每級+1%增幅。攻擊目標周圍半徑2～4格，依等級顯示6～10段風屬性魔法傷害。"
+    },
+    {
+      "id": 5457,
+      "key": "HN_JACK_FROST_NOVA",
+      "name": "新霜凍術",
+      "handler": "ground_damage",
+      "formula": "renewal_hn_jack_frost_nova",
+      "spCost": [
+        68,
+        71,
+        74,
+        77,
+        80,
+        83,
+        86,
+        89,
+        92,
+        95
+      ],
+      "runtimeAdaptation": "初擊倍率＝（200×Lv＋3×自學魔法Lv×Lv＋2×SPL）×BaseLv÷100%；後續冰爆倍率＝（400＋500×Lv＋3×自學魔法Lv×Lv＋4×SPL）×BaseLv÷100%，再受自學魔法每級+1%增幅。半徑3～4格、每0.3秒攻擊；命中施加5秒霧霜，使目標受到水屬性傷害+15%。"
+    },
+    {
+      "id": 5458,
+      "key": "HN_HELLS_DRIVE",
+      "name": "地獄毀滅",
+      "handler": "magic_damage",
+      "formula": "renewal_hn_hells_drive",
+      "spCost": [
+        88,
+        91,
+        94,
+        97,
+        100,
+        103,
+        106,
+        109,
+        112,
+        115
+      ],
+      "runtimeAdaptation": "倍率＝（1700＋900×Lv＋4×自學魔法Lv×Lv＋3×SPL）×BaseLv÷100%，再受自學魔法每級+1%增幅。以玩家為中心攻擊半徑1～4格，顯示3段地屬性魔法傷害。"
+    },
+    {
+      "id": 5459,
+      "key": "HN_GROUND_GRAVITATION",
+      "name": "地面重力",
+      "handler": "ground_damage",
+      "formula": "renewal_hn_ground_gravitation",
+      "spCost": [
+        93,
+        96,
+        99,
+        102,
+        105,
+        108,
+        111,
+        114,
+        117,
+        120
+      ],
+      "runtimeAdaptation": "初擊倍率＝（3000＋1500×Lv＋4×自學魔法Lv×Lv＋5×SPL）×BaseLv÷100%；重力場倍率＝（800＋700×Lv＋2×自學魔法Lv×Lv＋2×SPL）×BaseLv÷100%，再受自學魔法每級+1%增幅。以玩家為中心維持5秒、每0.5秒攻擊一次；目標5秒內受到全部傷害+10%、移動速度降低20%。"
+    },
+    {
+      "id": 5460,
+      "key": "HN_NAPALM_VULCAN_STRIKE",
+      "name": "念力連擊攻擊",
+      "handler": "magic_damage",
+      "formula": "renewal_hn_napalm_vulcan_strike",
+      "spCost": [
+        48,
+        51,
+        54,
+        57,
+        60,
+        63,
+        66,
+        69,
+        72,
+        75
+      ],
+      "runtimeAdaptation": "倍率＝（350＋650×Lv＋4×自學魔法Lv×Lv＋3×SPL）×BaseLv÷100%，再受自學魔法每級+2%增幅。攻擊目標周圍半徑3格、顯示7段念屬性魔法傷害，5×Lv%機率詛咒。HN資料未列Duration2，沿用同系官方念力連擊攻擊18秒詛咒時間。"
+    }
+  ],
+  "sources": [
+    "rAthena db/re/skill_db.yml",
+    "rAthena src/map/skills/novice/*.cpp",
+    "rAthena src/map/battle.cpp / status.cpp status behavior"
+  ]
+}

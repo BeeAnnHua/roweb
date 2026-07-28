@@ -1,0 +1,109 @@
+{
+  "version": "0.9.82GO",
+  "baseline": "0.9.82GN",
+  "title": "Pinned Monster Drop Lookup / Full Black-Gold UI Audit",
+  "changes": [
+    {
+      "area": "Monster drop lookup",
+      "details": [
+        "Left-click or mobile tap pins the selected monster drop panel",
+        "Pinned drop information stays visible while the user scrolls",
+        "Added a visible unpin control and outside-click close behavior",
+        "Hover remains available as a lightweight preview when no monster is pinned",
+        "Drop lookup continues to use a static cache and has no polling or auto-battle tick integration"
+      ]
+    },
+    {
+      "area": "Black-gold UI audit",
+      "details": [
+        "Added a shared runtime that audits current and dynamically created controls",
+        "Unified ordinary action, secondary/cancel, disabled, icon and danger button appearances",
+        "Kept destructive operations visually distinct with a red-gold warning style",
+        "Applied consistent black-gold focus, hover, pressed and disabled states",
+        "Added gold scrollbar styling for game windows and modal content"
+      ]
+    },
+    {
+      "area": "Number inputs",
+      "details": [
+        "Removed inconsistent browser-native white number spinner arrows",
+        "Added custom black-gold minus and plus controls",
+        "Supports direct typing, min/max/step, keyboard-triggered clicks and long-press repeat",
+        "Automatically upgrades number inputs created later by dynamic UI systems"
+      ]
+    },
+    {
+      "area": "Confirmation dialogs",
+      "details": [
+        "Added a shared in-game black-gold confirm and alert dialog API",
+        "Converted job/skill confirmation, status reset, trait reset, refine warning and quick-slot replacement flows",
+        "Removed remaining production calls to browser-native confirm, alert and prompt dialogs"
+      ]
+    },
+    {
+      "area": "Versioning and validation",
+      "details": [
+        "Updated runtime and all HTML cache keys to 0.9.82GO",
+        "Rebuilt data_bundle.js",
+        "Added feature, browser-component, regression and deep-health tests for this release"
+      ]
+    }
+  ],
+  "modifiedFiles": [
+    "css/style.css",
+    "data/enchant_grade_exchange.json",
+    "data/enchant_grade_map_drops.json",
+    "data/enchant_grade_rules.json",
+    "data/server_config.json",
+    "index.html",
+    "js/data_bundle.js",
+    "js/game.js",
+    "js/job.js",
+    "js/map.js",
+    "js/quick_slots.js",
+    "js/refine_runtime.js",
+    "js/status_system.js",
+    "js/ui.js"
+  ],
+  "addedFiles": [
+    "js/ui_theme_runtime.js",
+    "tools/build_data_bundle_0.9.82GO.py",
+    "tools/deep_health_check_0.9.82GO.py",
+    "tools/test_enchant_grade_data_0.9.82GO.py",
+    "tools/test_enchant_grade_runtime_0.9.82GO.js",
+    "tools/test_gn_features_0.9.82GO.py",
+    "tools/test_gn_runtime_0.9.82GO.js",
+    "tools/test_gn_ui_grade_city_0.9.82GO.py",
+    "tools/test_gn_visible_grade_inventory_pay_on_0.9.82GO.py",
+    "tools/test_go_browser_components_0.9.82GO.py",
+    "tools/test_go_features_0.9.82GO.py",
+    "tools/test_grade_maps_data_0.9.82GO.py",
+    "tools/test_refine_data_0.9.82GO.py"
+  ],
+  "tests": {
+    "automatedRegression": {
+      "passed": 3967,
+      "total": 3967
+    },
+    "isolatedChromiumComponents": {
+      "passed": 10,
+      "total": 10
+    },
+    "javascriptSyntax": {
+      "files": 744,
+      "errors": 0
+    },
+    "jsonParse": {
+      "files": 1977,
+      "errors": 0
+    },
+    "deepHealth": {
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "notes": [
+    "The monster drop panel reads cached static data only; it does not scan live monster instances or join auto-battle, AI, damage or world-update ticks.",
+    "Full game browser navigation is blocked by the container management policy. Actual Chromium rendering and interaction were completed with an isolated component harness instead, so this release does not claim a full manual gameplay click-through."
+  ]
+}

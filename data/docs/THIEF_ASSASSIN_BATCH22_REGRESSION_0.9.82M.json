@@ -1,0 +1,86 @@
+{
+  "version": "0.9.82N",
+  "result": "PASS",
+  "coverage": {
+    "before": 201,
+    "after": 215,
+    "target": 1139
+  },
+  "pending": {
+    "before": 938,
+    "after": 924
+  },
+  "implementedSkillIds": [
+    51,
+    135,
+    139,
+    140,
+    141,
+    2024,
+    2025,
+    2026,
+    2027,
+    2033,
+    2035,
+    2036,
+    2037,
+    2284,
+    2298
+  ],
+  "descriptionUpdatedSkillIds": [
+    51,
+    135,
+    139,
+    140,
+    141,
+    2024,
+    2025,
+    2026,
+    2027,
+    2033,
+    2035,
+    2036,
+    2037,
+    2284,
+    2298,
+    61,
+    255,
+    256,
+    378,
+    2010,
+    2309,
+    2313,
+    2314,
+    2315,
+    2319,
+    5014,
+    5261
+  ],
+  "checks": {
+    "runtimeCoreOfficial": 215,
+    "generatedOfficial": 215,
+    "catalogOfficial": 215,
+    "pendingCount": 924,
+    "duplicateSkillIds": 0,
+    "duplicateSkillKeys": 0,
+    "missingDescriptions": [],
+    "missingProfiles": [],
+    "stillPending": [],
+    "runtimeIgnoreEdpReferences": [],
+    "jsonFiles": 319,
+    "javascriptFiles": 26
+  },
+  "dynamicTests": {
+    "raDamagePipeline": "PASS",
+    "thiefAssassinBatch21Regression": "PASS",
+    "thiefAssassinBatch22Regression": "PASS",
+    "rollingCutterLv5Ratio": 450,
+    "crossRipperLv5Agi40Base100Charge10Ratio": 2520,
+    "edpMultiplierPercent": 400
+  },
+  "notes": [
+    "Legacy ignoreEdp flags no longer disable EDP; every physical skill receives the active EDP effect.",
+    "Rolling Cutter charge UI remains hidden until the later auto-battle/resource UI redesign.",
+    "All redesigned player-facing descriptions match the actual RO_WEB Runtime effect."
+  ]
+}

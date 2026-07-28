@@ -1,0 +1,34 @@
+const fs=require('fs'),vm=require('vm'),path=require('path');
+const root=path.resolve(__dirname,'..');
+const ctx={console,window:{},document:{getElementById:()=>null,querySelectorAll:()=>[]},setTimeout,clearTimeout,setInterval,clearInterval};
+ctx.globalThis=ctx; ctx.window=ctx;
+ctx.addBattleLog=(m)=>{ctx.lastLog=m}; ctx.saveGame=()=>{}; ctx.recalculatePlayerStats=()=>{ctx.player.maxHp=1000;ctx.player.maxSp=500};
+ctx.updatePlayerUI=()=>{};ctx.updateJobUI=()=>{};ctx.updateSkillUI=()=>{};ctx.updateQuickSlotUI=()=>{};ctx.syncROStudioCharacterFromPlayer=()=>{};
+ctx.getExpToNext=()=>100;ctx.getTotalStatusPointsForLevel=()=>48;ctx.getPendingSkillPointCost=()=>0;
+ctx.getSkillLevel=(id)=>Number(ctx.player.learnedSkills?.[String(id)]||0);
+ctx.skillsData={jobs:{novice:[]}};ctx.jobChangeRules=JSON.parse(fs.readFileSync(path.join(root,'data/job_change.json'),'utf8'));
+ctx.player={jobKey:'novice',job:'初心者',baseLevel:1,jobLevel:10,skillPoints:0,learnedSkills:{'1':9},stats:{str:1,agi:1,vit:1,int:1,dex:1,luk:1},quickSlots:[],autoCombat:{buffs:{}},activeBuffs:{}};
+vm.createContext(ctx);
+vm.runInContext(fs.readFileSync(path.join(root,'js/job_constitution.js'),'utf8'),ctx);
+vm.runInContext(fs.readFileSync(path.join(root,'js/job.js'),'utf8'),ctx);
+vm.runInContext('jobs = '+fs.readFileSync(path.join(root,'data/jobs.json'),'utf8'),ctx);
+vm.runInContext('jobConstitution = '+fs.readFileSync(path.join(root,'data/job_constitution.json'),'utf8'),ctx);
+let mage=ctx.jobChangeRules.find(r=>r.id==='novice_to_mage');
+let chk=ctx.validateJobConstitution(mage,'mage'); if(!chk.ok) throw new Error('novice->mage failed '+chk.message);
+// Rebirth runtime
+ctx.player={jobKey:'knight',job:'騎士',baseLevel:99,jobLevel:50,skillPoints:0,learnedSkills:{'1':9,'55':10},stats:{str:90,agi:40,vit:80,int:1,dex:50,luk:1},statusPoints:33,quickSlots:[{type:'skill',id:'55'},{type:'item',id:501}],autoCombat:{heal:{skillId:'55'},attack:{skillId:'55'},buffs:{55:true}},activeBuffs:{},baseExp:999,jobExp:999};
+let reb=ctx.jobChangeRules.find(r=>r.id==='knight_to_high_novice'); chk=ctx.validateJobConstitution(reb,'high_novice'); if(!chk.ok) throw new Error('rebirth validation failed '+chk.message);
+ctx.changeJob('high_novice',reb);
+if(ctx.player.jobKey!=='high_novice'||ctx.player.baseLevel!==1||ctx.player.jobLevel!==1) throw new Error('levels not reset');
+if(ctx.player.statusPoints!==125||Object.values(ctx.player.stats).some(v=>v!==1)) throw new Error('stats not reset');
+if(Object.keys(ctx.player.learnedSkills).length!==0) throw new Error('skills not reset');
+if(ctx.player.quickSlots[0].type!=='empty'||ctx.player.quickSlots[1].type!=='item') throw new Error('quick slots wrong');
+if(ctx.player.rebirthOriginJobKey!=='knight'||ctx.player.rebirthFamily!=='swordman') throw new Error('origin not recorded');
+// Linear route guard
+ctx.player.baseLevel=1;ctx.player.jobLevel=10;ctx.player.skillPoints=0;ctx.player.learnedSkills={'1':9};
+let hs=ctx.jobChangeRules.find(r=>r.id==='high_novice_to_swordman_high'); if(!ctx.validateJobConstitution(hs,'swordman_high').ok) throw new Error('correct high first blocked');
+let hm=ctx.jobChangeRules.find(r=>r.id==='high_novice_to_mage_high'); if(ctx.validateJobConstitution(hm,'mage_high').ok) throw new Error('cross family allowed');
+ctx.player.jobKey='swordman_high';ctx.player.job='進階劍士';ctx.player.jobLevel=50;ctx.player.learnedSkills={};
+let lk=ctx.jobChangeRules.find(r=>r.id==='swordman_high_to_lord_knight'); if(!ctx.validateJobConstitution(lk,'lord_knight').ok) throw new Error('lord knight blocked');
+let pal=ctx.jobChangeRules.find(r=>r.id==='swordman_high_to_paladin'); if(ctx.validateJobConstitution(pal,'paladin').ok) throw new Error('branch switch allowed');
+console.log('PASS job/rebirth runtime behavior');

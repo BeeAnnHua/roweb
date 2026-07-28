@@ -1,0 +1,118 @@
+{
+  "version": "0.9.82AF",
+  "result": "PASS",
+  "batch": "Mechanic Compatible Core Batch39",
+  "sources": [
+    "Project SkillInfoz",
+    "local rAthena Renewal merchant skill source",
+    "db/re/skill_db.yml"
+  ],
+  "coverage": {
+    "before": 447,
+    "after": 452,
+    "target": 1139
+  },
+  "pending": {
+    "before": 692,
+    "after": 687
+  },
+  "implementedSkillIds": [
+    2256,
+    2257,
+    2266,
+    2270,
+    5006
+  ],
+  "skills": {
+    "2256": {
+      "key": "NC_BOOSTKNUCKLE",
+      "name": "噴射飛拳",
+      "formula": "(260 × Lv + DEX) × BaseLv / 100"
+    },
+    "2257": {
+      "key": "NC_PILEBUNKER",
+      "name": "衝擊椎",
+      "formula": "(300 + 100 × Lv + STR) × BaseLv / 100",
+      "clearDefenseStatusChancePercent": [
+        40,
+        55,
+        70
+      ]
+    },
+    "2266": {
+      "key": "NC_MAINFRAME",
+      "name": "主體改造",
+      "defFlat": [
+        40,
+        60,
+        80,
+        100
+      ]
+    },
+    "2270": {
+      "key": "NC_INFRAREDSCAN",
+      "name": "紅外線掃瞄",
+      "radius": 7,
+      "statusDurationMs": 3000,
+      "fleeRate": -30
+    },
+    "5006": {
+      "key": "NC_MAGMA_ERUPTION",
+      "name": "岩漿噴發",
+      "slamRatio": [
+        500,
+        550,
+        600,
+        650,
+        700
+      ],
+      "stunChancePercent": 90,
+      "stunDurationMs": 4500,
+      "dotFlatDamage": [
+        1000,
+        1200,
+        1400,
+        1600,
+        1800
+      ],
+      "durationMs": 5000,
+      "tickIntervalMs": 500,
+      "burningChancePercent": [
+        10,
+        20,
+        30,
+        40,
+        50
+      ],
+      "burningDurationMs": 18000
+    }
+  },
+  "runtimeAdaptation": [
+    "Mado riding/equipment requirements temporarily ignored until future cart/Mado JSON and PNG systems exist.",
+    "Skills consuming ordinary fuel, ammunition, parts, permits or crafting materials remain Pending.",
+    "Trait points and SP costs remain deferred until all job Runtime skills are completed."
+  ],
+  "validation": {
+    "jsonFilesParsed": 420,
+    "javascriptFilesSyntaxChecked": 45,
+    "regressionScriptsPassed": 21,
+    "runtimeGeneratedCatalogCounts": "452/452/452",
+    "pendingCount": 687,
+    "duplicateSkillIds": 0,
+    "duplicateSkillKeys": 0,
+    "cacheVersion": "0.9.82AF",
+    "dynamicChecks": {
+      "boostKnuckleLv5Dex80Base100Ratio": 1380,
+      "pileBunkerLv3Str100Base100Ratio": 700,
+      "pileBunkerDefenseClearChancePercent": 70,
+      "mainframeLv4DefFlat": 100,
+      "infraredFleeRate": -30,
+      "infraredDurationMs": 3000,
+      "magmaEruptionLv5SlamRatio": 700,
+      "magmaEruptionLv5DotFlatDamage": 1800,
+      "magmaEruptionLv5BurningChancePercent": 50,
+      "magmaEruptionReproduceReady": true
+    },
+    "zipIntegrity": "PASS"
+  }
+}
