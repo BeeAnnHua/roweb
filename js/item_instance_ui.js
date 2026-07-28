@@ -1,5 +1,5 @@
 //=======================================
-// ItemInstanceUI v0.9.82EW
+// ItemInstanceUI v0.9.82GU
 // RO client-style equipment names, item/card detail modal, and instance-safe equip flow.
 //=======================================
 (function () {
@@ -281,10 +281,52 @@
   function resetItemDetailActions() {
     const actions = document.getElementById('item-detail-actions');
     const primary = document.getElementById('item-detail-primary-action');
+    const decompose = document.getElementById('item-detail-decompose-action');
     const picker = document.getElementById('item-detail-quick-picker');
     if (actions) actions.hidden = true;
     if (primary) { primary.hidden = true; primary.disabled = false; primary.onclick = null; primary.title = ''; }
+    if (decompose) { decompose.hidden = true; decompose.disabled = false; decompose.onclick = null; decompose.title = ''; }
     if (picker) { picker.hidden = true; picker.innerHTML = ''; }
+  }
+
+  function configureItemDecomposeAction(data, instance, context = {}) {
+    const actions = document.getElementById('item-detail-actions');
+    const decompose = document.getElementById('item-detail-decompose-action');
+    if (!actions || !decompose || !data || context.source === 'storage') return;
+
+    // 穿戴中的裝備必須先卸下；背包內的裝備、卡片、消耗品與雜物皆可由資料窗分解。
+    if (context.source === 'equipment') {
+      actions.hidden = false;
+      decompose.hidden = false;
+      decompose.disabled = true;
+      decompose.textContent = '分解';
+      decompose.title = '請先卸下裝備，再從背包中分解。';
+      return;
+    }
+    if (context.source !== 'inventory') return;
+
+    let inventoryItem = context.inventoryItem && typeof context.inventoryItem === 'object' ? context.inventoryItem : null;
+    if (!inventoryItem || !player?.inventory?.includes(inventoryItem)) inventoryItem = findInventoryInstance(instance) || findInventoryInstance(data.id);
+    const eligible = Boolean(inventoryItem && window.isInventoryItemDecomposeEligible?.(inventoryItem));
+    actions.hidden = false;
+    decompose.hidden = false;
+    decompose.disabled = !eligible;
+    decompose.textContent = '分解';
+    decompose.title = eligible ? '選擇數量並確認分解' : '此物品已鎖定、正在穿戴或屬於受保護道具。';
+    decompose.onclick = () => {
+      if (!eligible || typeof window.openInventoryDecomposeDialog !== 'function') return;
+      window.openInventoryDecomposeDialog({
+        mode:'item',
+        target:{
+          itemRef:inventoryItem,
+          instanceId:inventoryItem.instanceId || '',
+          itemId:inventoryItem.id
+        },
+        itemName:buildCompactItemName(inventoryItem, data),
+        defaultAmount:isEquipmentData(data) ? 1 : Math.min(100, Math.max(1, Number(inventoryItem.count || 1))),
+        source:'item-detail'
+      });
+    };
   }
 
   function renderItemDetailActions(data, instance, context = {}) {
@@ -293,6 +335,7 @@
     const primary = document.getElementById('item-detail-primary-action');
     const picker = document.getElementById('item-detail-quick-picker');
     if (!actions || !primary || !picker || !data) return;
+    configureItemDecomposeAction(data, instance, context);
     // 0.9.82GH：倉庫中的物品只能查看資料；不可直接穿戴、使用或加入快捷欄。
     if (context.source === 'storage') return;
 
@@ -386,13 +429,14 @@
         }
       }
     }
+    configureItemDecomposeAction(card, context.inventoryItem || cardId, context);
     modal.classList.remove('hidden-window');
   }
 
   function showItemDetail(instanceOrId, context = {}) {
     const data = getBaseItemData(instanceOrId);
     if (!data) return;
-    if (String(data.type) === 'card') { renderCardDetail(data.id, context); return; }
+    if (String(data.type) === 'card') { renderCardDetail(data.id, { ...context, inventoryItem:context.inventoryItem || (context.source === 'inventory' ? instanceOrId : null) }); return; }
     const modal = document.getElementById('item-detail-modal');
     const title = document.getElementById('item-detail-title');
     const body = document.getElementById('item-detail-body');
@@ -482,7 +526,7 @@
         body.appendChild(enchantSection);
       }
     }
-    renderItemDetailActions(data, instance, context);
+    renderItemDetailActions(data, instance, { ...context, inventoryItem:context.inventoryItem || (context.source === 'inventory' ? instanceOrId : null) });
     modal.classList.remove('hidden-window');
     if (typeof window.ensureWindowSizeControl === 'function') window.ensureWindowSizeControl(modal.querySelector('.ui-size-target'));
   }

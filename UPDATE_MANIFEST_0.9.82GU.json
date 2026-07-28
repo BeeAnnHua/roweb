@@ -1,0 +1,98 @@
+{
+  "version": "0.9.82GU",
+  "baseVersion": "0.9.82GT",
+  "title": "安全自選數量分解與物品資料窗分解",
+  "features": [
+    "批次分解先選數量並二次確認，預設 100。",
+    "大型堆疊只扣確認數量，採一次陣列重建與一次存檔。",
+    "物品資料窗新增分解按鈕，裝備可與穿戴按鈕並列。",
+    "鎖定、穿戴中、MVP 轉蛋、manualUseOnly 與 noDecompose 道具受保護。"
+  ],
+  "files": [
+    {
+      "path": "index.html",
+      "bytes": 44783,
+      "sha256": "59ddc292e85d665507631637b3e2f162c5760df9c488eecd3ec23534c8d734b8"
+    },
+    {
+      "path": "css/style.css",
+      "bytes": 704649,
+      "sha256": "7861bffc943c7df82c51f03dcc3c64b3de7973f151b63ac55279bb65a778a7d8"
+    },
+    {
+      "path": "js/player.js",
+      "bytes": 126294,
+      "sha256": "fca11830f6c957452b49b4bfabef7db42f970c207bd45eb354a78c8d837aaacb"
+    },
+    {
+      "path": "js/item_instance_ui.js",
+      "bytes": 36186,
+      "sha256": "445e8d6ba7a71294534ddedc804ea2811f6f1edfba07e60c776333baf45bba2b"
+    },
+    {
+      "path": "js/game.js",
+      "bytes": 16875,
+      "sha256": "9555b6c03a96878b25513754d0d9ce05b6fd7ce08d54a7ecc9c3b3f64aa8cbf9"
+    },
+    {
+      "path": "README.md",
+      "bytes": 13375,
+      "sha256": "4c53c1c0ba28aeebb0e80de425f3473281c1a0222736df026f3c359c9eac6803"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "bytes": 18121,
+      "sha256": "8f9fc6665ad160b496331d7bcc7044a4fc2696f5bab9b87c658151b565124ebe"
+    },
+    {
+      "path": "AI_START_HERE.md",
+      "bytes": 16467,
+      "sha256": "bf2ae0021b93a283eda822c84bd17a642dd0496c36e4b7068759743ba43bf51b"
+    },
+    {
+      "path": "TEST_REPORT_0.9.82GU_INVENTORY_DECOMPOSE.txt",
+      "bytes": 2883,
+      "sha256": "347d88abdd2696b9b58a7bcf8b38fa01f2f4694fe569960d62b75cfe7ece7d96"
+    },
+    {
+      "path": "tools/test_inventory_decompose_quantity_0.9.82GU.js",
+      "bytes": 5583,
+      "sha256": "92fd4641b0181ff1541f0e42760d95628f43839744c7d08f3d35a29df01ba7fd"
+    },
+    {
+      "path": "tools/test_inventory_decompose_quantity_report_0.9.82GU.json",
+      "bytes": 840,
+      "sha256": "838e6eed6e0675432c9e504c3383f47e8a3fe25e98959d672ccc3a05469be8b0"
+    },
+    {
+      "path": "tools/test_inventory_decompose_ui_0.9.82GU.py",
+      "bytes": 2284,
+      "sha256": "1c0472a2675293202deff5c21b8758ccf9ad270c256b45fb9f695654c92543de"
+    },
+    {
+      "path": "tools/test_inventory_decompose_ui_report_0.9.82GU.json",
+      "bytes": 1374,
+      "sha256": "626e0ae4382a831644f1b074fd15633603d51534f8cfde40271aee6a756bd746"
+    },
+    {
+      "path": "tools/test_inventory_decompose_mock_browser_0.9.82GU.py",
+      "bytes": 7500,
+      "sha256": "d66ee6e5535c4caa192ec91d50b86efb6227fc3797f89b10c3e429e9c49b6404"
+    },
+    {
+      "path": "tools/test_inventory_decompose_mock_browser_report_0.9.82GU.json",
+      "bytes": 611,
+      "sha256": "90d928ba5c6f5f0df9049bb0ca4b061901c3b948e2f6c7879c07af003e7b8031"
+    },
+    {
+      "path": "tools/deep_health_check_0.9.82GU.py",
+      "bytes": 21347,
+      "sha256": "ff1f65f35dd70a9b4fdd588fbe5e3595fff9bb07931fd8e3c3cd71da7d5082f7"
+    },
+    {
+      "path": "DEEP_HEALTH_0.9.82GU.json",
+      "bytes": 2044,
+      "sha256": "7ef326be2e4b0e71e40b1da08c91298f0049f458d7364b059f69989d418c9096"
+    }
+  ]
+}

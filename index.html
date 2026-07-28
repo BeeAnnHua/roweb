@@ -13,8 +13,8 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="RO_WEB">
   <meta name="twitter:description" content="&#8203;">
-  <link rel="icon" type="image/png" href="images/ui/icons/icon_gold_64.png?v=0.9.82GT">
-  <link rel="stylesheet" href="css/style.css?v=0.9.82GT">
+  <link rel="icon" type="image/png" href="images/ui/icons/icon_gold_64.png?v=0.9.82GU">
+  <link rel="stylesheet" href="css/style.css?v=0.9.82GU">
 </head>
 
 <body class="ro-black-gold-theme">
@@ -50,7 +50,7 @@
       <section id="player-info" class="fixed-panel character-card">
         <h2>角色資訊</h2>
         <div class="profile-row">
-          <div class="portrait-placeholder"><img id="playerPortrait" src="assets/characters/novice/male/idle.png?v=0.9.82GT" alt="角色頭像"></div>
+          <div class="portrait-placeholder"><img id="playerPortrait" src="assets/characters/novice/male/idle.png?v=0.9.82GU" alt="角色頭像"></div>
           <div>
             <div class="name-line player-id-line desktop-player-id-line"><span id="playerName">載入中</span><button id="playerIdEditButton" type="button" onclick="openPlayerIdEditor()">更改ID</button></div>
             <div class="mobile-player-id-stack" aria-label="手機版角色名稱">
@@ -69,7 +69,7 @@
 
       <div id="player-sprite" class="battle-sprite player-sprite">
         <div class="sprite-label">LV.<span id="battlePlayerLevel">0</span> <span id="battlePlayerName">冒險者</span></div>
-        <img id="playerImage" src="assets/characters/novice/male/idle.png?v=0.9.82GT" alt="player">
+        <img id="playerImage" src="assets/characters/novice/male/idle.png?v=0.9.82GU" alt="player">
         <div class="slash-effect" id="slashEffect"></div>
       </div>
 
@@ -122,7 +122,7 @@
             </div>
             <div class="inventory-action-row" aria-label="背包操作">
               <button id="inventorySortBtn" class="inventory-action-btn btn-sort" type="button" title="依物品編號整理">整理</button>
-              <button id="inventoryDecomposeBtn" class="inventory-action-btn btn-decompose" type="button" title="一次最多分解目前分類中 100 件未鎖定物品">分解</button>
+              <button id="inventoryDecomposeBtn" class="inventory-action-btn btn-decompose" type="button" title="選擇數量並分解目前分類中的未鎖定物品">分解</button>
               <button id="inventoryLockBtn" class="inventory-action-btn btn-lock" type="button" title="切換鎖定模式">鎖定</button>
             </div>
             <div class="inventory-page-row" aria-label="背包翻頁">
@@ -402,8 +402,31 @@
       </div>
       <div id="item-detail-body" class="item-detail-body"></div>
       <div id="item-detail-actions" class="item-detail-actions" hidden>
+        <button type="button" id="item-detail-decompose-action" class="item-detail-decompose-action" hidden>分解</button>
         <button type="button" id="item-detail-primary-action" class="item-detail-primary-action" hidden></button>
         <div id="item-detail-quick-picker" class="quick-slot-picker-inline" hidden></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="inventory-decompose-modal" class="inventory-decompose-modal hidden-window" role="dialog" aria-modal="true" aria-labelledby="inventory-decompose-title">
+    <div class="inventory-decompose-card">
+      <div class="inventory-decompose-header">
+        <b id="inventory-decompose-title">確認分解</b>
+        <button type="button" id="inventory-decompose-close" aria-label="關閉">×</button>
+      </div>
+      <div class="inventory-decompose-body">
+        <div id="inventory-decompose-summary" class="inventory-decompose-summary"></div>
+        <label class="inventory-decompose-amount-row">
+          <span>分解數量</span>
+          <input id="inventory-decompose-amount" type="number" min="1" step="1" inputmode="numeric" autocomplete="off" value="100">
+        </label>
+        <div id="inventory-decompose-preview" class="inventory-decompose-preview"></div>
+        <div id="inventory-decompose-note" class="inventory-decompose-note"></div>
+      </div>
+      <div class="inventory-decompose-actions">
+        <button type="button" id="inventory-decompose-cancel">取消</button>
+        <button type="button" id="inventory-decompose-confirm">確認分解</button>
       </div>
     </div>
   </section>
@@ -586,12 +609,12 @@
       </div>
       <div class="character-gender-options" role="group" aria-label="角色性別">
         <button class="character-gender-option" type="button" data-character-gender="male" aria-pressed="false" onclick="selectCharacterGender('male')">
-          <span class="character-gender-preview"><img src="assets/characters/novice/male/idle.png?v=0.9.82GT" alt="男性初學者"></span>
+          <span class="character-gender-preview"><img src="assets/characters/novice/male/idle.png?v=0.9.82GU" alt="男性初學者"></span>
           <strong>男性初學者</strong>
           <span>使用男性人物動畫</span>
         </button>
         <button class="character-gender-option" type="button" data-character-gender="female" aria-pressed="false" onclick="selectCharacterGender('female')">
-          <span class="character-gender-preview"><img src="assets/characters/novice/female/idle.png?v=0.9.82GT" alt="女性初學者"></span>
+          <span class="character-gender-preview"><img src="assets/characters/novice/female/idle.png?v=0.9.82GU" alt="女性初學者"></span>
           <strong>女性初學者</strong>
           <span>使用女性人物動畫</span>
         </button>
@@ -600,46 +623,46 @@
     </div>
   </section>
 
-  <script src="./js/data_bundle.js?v=0.9.82GT"></script>
-  <script src="./js/ui_theme_runtime.js?v=0.9.82GT"></script>
-  <script src="./js/equipment_job_map_bundle.js?v=0.9.82GT"></script>
-  <script src="./js/player.js?v=0.9.82GT"></script>
-  <script src="./js/item_instance_ui.js?v=0.9.82GT"></script>
-  <script src="./js/storage_runtime.js?v=0.9.82GT"></script>
-  <script src="./js/refine_runtime.js?v=0.9.82GT"></script>
-  <script src="./js/enchant_grade_runtime.js?v=0.9.82GT"></script>
-  <script src="./js/mvp_gacha_runtime.js?v=0.9.82GT"></script>
-  <script src="./js/card_runtime.js?v=0.9.82GT"></script>
-  <script src="./js/effect_runtime.js?v=0.9.82GT"></script>
-  <script src="./js/position_engine.js?v=0.9.82GT"></script>
-  <script src="./js/job_constitution.js?v=0.9.82GT"></script>
-  <script src="./js/job.js?v=0.9.82GT"></script>
-  <script src="./js/extra_skill_runtime.js?v=0.9.82GT"></script>
-  <script src="./js/combat_mechanics_runtime.js?v=0.9.82GT"></script>
-  <script src="./js/combat_formula_runtime.js?v=0.9.82GT"></script>
-  <script src="./js/ra_renewal_damage_pipeline.js?v=0.9.82GT"></script>
-  <script src="./js/combat_damage_pipeline.js?v=0.9.82GT"></script>
-  <script src="./js/combat_resource_manager.js?v=0.9.82GT"></script>
-  <script src="./js/skill_engine.js?v=0.9.82GT"></script>
-  <script src="./js/status_system.js?v=0.9.82GT"></script>
-  <script src="./js/stats.js?v=0.9.82GT"></script>
-  <script src="./js/loot.js?v=0.9.82GT"></script>
-  <script src="./js/auto_battle.js?v=0.9.82GT"></script>
-  <script src="./js/player_atlas_runtime.js?v=0.9.82GT"></script>
-  <script src="./js/character_gender.js?v=0.9.82GT"></script>
-  <script src="./js/battle.js?v=0.9.82GT"></script>
-  <script src="./js/monster_atlas_runtime.js?v=0.9.82GT"></script>
-  <script src="./js/effect_visual_runtime.js?v=0.9.82GT"></script>
-  <script src="./js/world_monster_test_runtime.js?v=0.9.82GT"></script>
-  <script src="./js/virtual_summon.js?v=0.9.82GT"></script>
-  <script src="./js/homunculus.js?v=0.9.82GT"></script>
-  <script src="./js/homunculus_skill_runtime.js?v=0.9.82GT"></script>
-  <script src="./js/homunculus_s_skill_runtime.js?v=0.9.82GT"></script>
-  <script src="./js/map.js?v=0.9.82GT"></script>
-  <script src="./js/town.js?v=0.9.82GT"></script>
-  <script src="./js/ui.js?v=0.9.82GT"></script>
-  <script src="./js/quick_slots.js?v=0.9.82GT"></script>
-  <script src="./js/game.js?v=0.9.82GT"></script>
+  <script src="./js/data_bundle.js?v=0.9.82GU"></script>
+  <script src="./js/ui_theme_runtime.js?v=0.9.82GU"></script>
+  <script src="./js/equipment_job_map_bundle.js?v=0.9.82GU"></script>
+  <script src="./js/player.js?v=0.9.82GU"></script>
+  <script src="./js/item_instance_ui.js?v=0.9.82GU"></script>
+  <script src="./js/storage_runtime.js?v=0.9.82GU"></script>
+  <script src="./js/refine_runtime.js?v=0.9.82GU"></script>
+  <script src="./js/enchant_grade_runtime.js?v=0.9.82GU"></script>
+  <script src="./js/mvp_gacha_runtime.js?v=0.9.82GU"></script>
+  <script src="./js/card_runtime.js?v=0.9.82GU"></script>
+  <script src="./js/effect_runtime.js?v=0.9.82GU"></script>
+  <script src="./js/position_engine.js?v=0.9.82GU"></script>
+  <script src="./js/job_constitution.js?v=0.9.82GU"></script>
+  <script src="./js/job.js?v=0.9.82GU"></script>
+  <script src="./js/extra_skill_runtime.js?v=0.9.82GU"></script>
+  <script src="./js/combat_mechanics_runtime.js?v=0.9.82GU"></script>
+  <script src="./js/combat_formula_runtime.js?v=0.9.82GU"></script>
+  <script src="./js/ra_renewal_damage_pipeline.js?v=0.9.82GU"></script>
+  <script src="./js/combat_damage_pipeline.js?v=0.9.82GU"></script>
+  <script src="./js/combat_resource_manager.js?v=0.9.82GU"></script>
+  <script src="./js/skill_engine.js?v=0.9.82GU"></script>
+  <script src="./js/status_system.js?v=0.9.82GU"></script>
+  <script src="./js/stats.js?v=0.9.82GU"></script>
+  <script src="./js/loot.js?v=0.9.82GU"></script>
+  <script src="./js/auto_battle.js?v=0.9.82GU"></script>
+  <script src="./js/player_atlas_runtime.js?v=0.9.82GU"></script>
+  <script src="./js/character_gender.js?v=0.9.82GU"></script>
+  <script src="./js/battle.js?v=0.9.82GU"></script>
+  <script src="./js/monster_atlas_runtime.js?v=0.9.82GU"></script>
+  <script src="./js/effect_visual_runtime.js?v=0.9.82GU"></script>
+  <script src="./js/world_monster_test_runtime.js?v=0.9.82GU"></script>
+  <script src="./js/virtual_summon.js?v=0.9.82GU"></script>
+  <script src="./js/homunculus.js?v=0.9.82GU"></script>
+  <script src="./js/homunculus_skill_runtime.js?v=0.9.82GU"></script>
+  <script src="./js/homunculus_s_skill_runtime.js?v=0.9.82GU"></script>
+  <script src="./js/map.js?v=0.9.82GU"></script>
+  <script src="./js/town.js?v=0.9.82GU"></script>
+  <script src="./js/ui.js?v=0.9.82GU"></script>
+  <script src="./js/quick_slots.js?v=0.9.82GU"></script>
+  <script src="./js/game.js?v=0.9.82GU"></script>
 </body>
 
 </html>

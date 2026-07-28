@@ -1202,9 +1202,11 @@ let activeInventoryPage = 0;
 let inventoryLockMode = false;
 const INVENTORY_PAGE_SIZE = 40;
 const INVENTORY_VISIBLE_SLOT_COUNT = 30;
-const INVENTORY_DECOMPOSE_LIMIT = 100;
+const INVENTORY_DECOMPOSE_LIMIT = 100; // 預設值；玩家可在確認視窗自行調整。
+const INVENTORY_DECOMPOSE_MAX_INPUT = 999999999;
 let inventoryDecomposeActive = false;
 let inventoryDecomposeCooldownUntil = 0;
+let pendingInventoryDecomposeRequest = null;
 // V0.9.78AI：背包格子完全交給 CSS Grid。
 // 舊版固定座標表已退休；這個函式只負責清除可能殘留的 inline 座標。
 function applyInventorySlotPosition(slot, index) {
@@ -1335,6 +1337,8 @@ function initInventoryControls() {
   const decomposeBtn = document.getElementById("inventoryDecomposeBtn");
   if (decomposeBtn) decomposeBtn.onclick = decomposeUnlockedInventoryItems;
 
+  initInventoryDecomposeDialog();
+
   const lockBtn = document.getElementById("inventoryLockBtn");
   if (lockBtn) lockBtn.onclick = toggleInventoryLockMode;
 
@@ -1415,70 +1419,133 @@ function cloneInventoryForDecompose(source) {
   return JSON.parse(JSON.stringify(source || []));
 }
 
-// 0.9.82FN：一次最多分解 100 件，跨目前分類的整個捲動背包。
-// 全程使用單一交易鎖與一次性陣列重建，防止連點造成重複扣除、卡死或壞存檔。
-function decomposeUnlockedInventoryItems() {
-  const now = Date.now();
-  if (!player?.inventory || inventoryDecomposeActive || now < inventoryDecomposeCooldownUntil) return;
+function getInventoryDecomposeEquippedIds() {
+  return new Set(
+    Object.values(player?.equipmentInstances || {})
+      .filter(Boolean)
+      .map(instance => String(instance.instanceId || ""))
+      .filter(Boolean)
+  );
+}
 
-  const decomposeBtn = document.getElementById("inventoryDecomposeBtn");
-  const originalButtonText = decomposeBtn?.textContent || "分解";
+function isInventoryItemDecomposeEligible(item, equippedIds = null) {
+  if (!item || Number(item.count || 0) <= 0 || item.locked) return false;
+  const itemData = getItemData(item.id);
+  if (!itemData) return false;
+  // 0.9.82GU：轉蛋等手動確認型特殊道具不可進入分解流程，避免再次出現背景數量異常。
+  if (itemData.manualUseOnly === true || String(itemData.subCategory || "") === "mvp_gacha" || itemData.noDecompose === true) return false;
+  const ids = equippedIds || getInventoryDecomposeEquippedIds();
+  if (ids.has(String(item.instanceId || ""))) return false;
+  return true;
+}
+
+function resolveInventoryDecomposeTarget(target) {
+  if (!target || !Array.isArray(player?.inventory)) return null;
+  if (target.itemRef && player.inventory.includes(target.itemRef)) return target.itemRef;
+  if (target.instanceId) {
+    const match = player.inventory.find(row => String(row.instanceId || "") === String(target.instanceId));
+    if (match) return match;
+  }
+  if (target.itemId !== undefined && target.itemId !== null) {
+    const match = player.inventory.find(row => String(row.id) === String(target.itemId) && (!target.instanceId || String(row.instanceId || "") === String(target.instanceId)));
+    if (match) return match;
+  }
+  return null;
+}
+
+function getInventoryDecomposeCandidates(request = {}) {
+  if (!Array.isArray(player?.inventory)) return [];
+  const equippedIds = getInventoryDecomposeEquippedIds();
+  if (request.mode === "item" || request.target) {
+    const target = resolveInventoryDecomposeTarget(request.target || request);
+    return target && isInventoryItemDecomposeEligible(target, equippedIds) ? [target] : [];
+  }
+  const filter = String(request.filter || activeInventoryFilter || "consume");
+  return player.inventory.filter(item => {
+    const itemData = getItemData(item.id);
+    return getInventoryFilterForItem(itemData) === filter && isInventoryItemDecomposeEligible(item, equippedIds);
+  });
+}
+
+function getInventoryDecomposeAvailableCount(request = {}) {
+  return getInventoryDecomposeCandidates(request).reduce((sum, item) => sum + Math.max(0, Math.floor(Number(item.count || 0))), 0);
+}
+
+function normalizeInventoryDecomposeAmount(value, availableCount, fallback = INVENTORY_DECOMPOSE_LIMIT) {
+  const available = Math.max(0, Math.floor(Number(availableCount || 0)));
+  if (!available) return 0;
+  let amount = Math.floor(Number(value));
+  if (!Number.isFinite(amount) || amount <= 0) amount = Math.max(1, Math.floor(Number(fallback || 1)));
+  return Math.max(1, Math.min(amount, available, INVENTORY_DECOMPOSE_MAX_INPUT));
+}
+
+function getInventoryDecomposeSellBonusRate() {
+  const passiveTotals = typeof getPassiveSkillBonusTotals === "function" ? getPassiveSkillBonusTotals() : {};
+  return Math.max(0, Number(passiveTotals.shopSellBonusRate || 0));
+}
+
+function getInventoryDecomposeUnitPrice(itemData, sellBonusRate = getInventoryDecomposeSellBonusRate()) {
+  return Math.max(1, Math.floor(Number(itemData?.sellPrice || 0) * (100 + sellBonusRate) / 100));
+}
+
+function estimateInventoryDecompose(request = {}, requestedAmount = INVENTORY_DECOMPOSE_LIMIT) {
+  const candidates = getInventoryDecomposeCandidates(request);
+  const availableCount = candidates.reduce((sum, item) => sum + Math.max(0, Math.floor(Number(item.count || 0))), 0);
+  const amount = normalizeInventoryDecomposeAmount(requestedAmount, availableCount);
+  const sellBonusRate = getInventoryDecomposeSellBonusRate();
+  let remaining = amount;
+  let zenyGain = 0;
+  let affectedStacks = 0;
+  for (const item of candidates) {
+    if (remaining <= 0) break;
+    const count = Math.max(0, Math.floor(Number(item.count || 0)));
+    const units = Math.min(count, remaining);
+    if (!units) continue;
+    affectedStacks += 1;
+    zenyGain += getInventoryDecomposeUnitPrice(getItemData(item.id), sellBonusRate) * units;
+    remaining -= units;
+  }
+  return { candidates, availableCount, amount, zenyGain, affectedStacks };
+}
+
+// 0.9.82GU：分解使用「單次陣列重建＋單次存檔」。即使輸入數十萬件，
+// 運算量仍只與背包堆疊數量有關，不會逐件建立迴圈或逐件存檔。
+function executeInventoryDecompose(request = {}, requestedAmount = INVENTORY_DECOMPOSE_LIMIT) {
+  const now = Date.now();
+  if (!player?.inventory) return { ok:false, reason:"背包尚未載入。" };
+  if (inventoryDecomposeActive || now < inventoryDecomposeCooldownUntil) return { ok:false, reason:"分解處理中，請稍候。" };
+
+  const preview = estimateInventoryDecompose(request, requestedAmount);
+  if (!preview.availableCount || !preview.amount) return { ok:false, reason:"沒有可分解的未鎖定物品。" };
+
   inventoryDecomposeActive = true;
   inventoryDecomposeCooldownUntil = now + 650;
-  if (decomposeBtn) {
-    decomposeBtn.disabled = true;
-    decomposeBtn.classList.add("is-processing");
-    decomposeBtn.textContent = "分解中…";
-  }
-
   const inventorySnapshot = cloneInventoryForDecompose(player.inventory);
   const zenySnapshot = Number(player.zeny || 0);
 
   try {
-    const filteredItems = getFilteredInventoryItems();
-    const equippedIds = new Set(
-      Object.values(player.equipmentInstances || {})
-        .filter(Boolean)
-        .map(instance => String(instance.instanceId || ""))
-    );
-
-    const eligibleItems = filteredItems.filter(item => {
-      const itemData = getItemData(item.id);
-      if (!itemData || item.locked) return false;
-      if (equippedIds.has(String(item.instanceId || ""))) return false;
-      return Number(item.count || 0) > 0;
-    });
-
-    if (!eligibleItems.length) {
-      addBattleLog("目前分類沒有可分解的未鎖定物品。");
-      return;
-    }
-
-    let remainingLimit = INVENTORY_DECOMPOSE_LIMIT;
+    let remaining = preview.amount;
     let removedCount = 0;
     let zenyGain = 0;
     const removeUnitsByObject = new Map();
-    const passiveTotals = typeof getPassiveSkillBonusTotals === "function" ? getPassiveSkillBonusTotals() : {};
-    const sellBonusRate = Math.max(0, Number(passiveTotals.shopSellBonusRate || 0));
+    const sellBonusRate = getInventoryDecomposeSellBonusRate();
+    const breakdown = [];
 
-    for (const item of eligibleItems) {
-      if (remainingLimit <= 0) break;
+    for (const item of preview.candidates) {
+      if (remaining <= 0) break;
       const itemData = getItemData(item.id);
       const count = Math.max(0, Math.floor(Number(item.count || 0)));
-      const removeUnits = Math.min(count, remainingLimit);
+      const removeUnits = Math.min(count, remaining);
       if (removeUnits <= 0) continue;
-
       removeUnitsByObject.set(item, removeUnits);
       removedCount += removeUnits;
-      remainingLimit -= removeUnits;
-      const adjustedSellPrice = Math.max(1, Math.floor(Number(itemData.sellPrice || 0) * (100 + sellBonusRate) / 100));
-      zenyGain += adjustedSellPrice * removeUnits;
+      remaining -= removeUnits;
+      const unitPrice = getInventoryDecomposeUnitPrice(itemData, sellBonusRate);
+      zenyGain += unitPrice * removeUnits;
+      breakdown.push({ id:item.id, name:itemData?.name || String(item.id), removed:removeUnits, before:count, after:count-removeUnits, unitPrice });
     }
 
-    if (!removedCount) {
-      addBattleLog("目前分類沒有可分解的未鎖定物品。");
-      return;
-    }
+    if (!removedCount) return { ok:false, reason:"沒有可分解的未鎖定物品。" };
 
     const nextInventory = [];
     for (const item of player.inventory) {
@@ -1489,13 +1556,12 @@ function decomposeUnlockedInventoryItems() {
       }
       const oldCount = Math.max(0, Math.floor(Number(item.count || 0)));
       const newCount = oldCount - removeUnits;
+      // 只扣除確認數量；例如 3000 個、輸入 100，結果固定保留 2900 個。
       if (newCount > 0) nextInventory.push({ ...item, count:newCount });
     }
 
-    // 先在記憶體中完整建立結果，再一次替換並只寫一次存檔。
     player.inventory = nextInventory;
     player.zeny = zenySnapshot + zenyGain;
-
     if (RO_WEB_PENDING_SAVE_TIMER) {
       clearTimeout(RO_WEB_PENDING_SAVE_TIMER);
       RO_WEB_PENDING_SAVE_TIMER = null;
@@ -1503,31 +1569,146 @@ function decomposeUnlockedInventoryItems() {
     const saved = saveGame();
     if (!saved) throw new Error("decompose_save_failed");
 
-    const remainingEligible = Math.max(0, eligibleItems.reduce((sum, item) => sum + Math.max(0, Number(item.count || 0)), 0) - removedCount);
-    addBattleLog(`分解 ${removedCount} 件未鎖定物品，獲得 ${zenyGain} Zeny。${remainingEligible > 0 ? ` 尚有可分解物品，單次上限 ${INVENTORY_DECOMPOSE_LIMIT} 件。` : ""}`);
     activeInventoryPage = 0;
     updatePlayerUI();
     updateInventoryUI();
+    return {
+      ok:true,
+      removedCount,
+      zenyGain,
+      remainingEligible:Math.max(0, preview.availableCount - removedCount),
+      breakdown
+    };
   } catch (error) {
-    console.error("裝備分解失敗，已回復分解前資料：", error);
+    console.error("物品分解失敗，已回復分解前資料：", error);
     player.inventory = inventorySnapshot;
     player.zeny = zenySnapshot;
-    // 若例外發生在成功寫入之後，也把回復後的快照重新寫回，避免記憶體與重開後存檔不一致。
     try { saveGame(); } catch (rollbackSaveError) { console.error("分解回復存檔失敗：", rollbackSaveError); }
     updatePlayerUI();
     updateInventoryUI();
-    addBattleLog("分解失敗，已自動回復分解前的背包資料，請重新操作。");
+    return { ok:false, reason:"分解失敗，已自動回復分解前的背包資料。", error };
   } finally {
-    setTimeout(() => {
-      inventoryDecomposeActive = false;
-      if (decomposeBtn) {
-        decomposeBtn.disabled = false;
-        decomposeBtn.classList.remove("is-processing");
-        decomposeBtn.textContent = originalButtonText;
-      }
-    }, Math.max(0, inventoryDecomposeCooldownUntil - Date.now()));
+    setTimeout(() => { inventoryDecomposeActive = false; }, Math.max(0, inventoryDecomposeCooldownUntil - Date.now()));
   }
 }
+
+function closeInventoryDecomposeDialog() {
+  pendingInventoryDecomposeRequest = null;
+  document.getElementById("inventory-decompose-modal")?.classList.add("hidden-window");
+}
+
+function refreshInventoryDecomposeDialogPreview() {
+  if (!pendingInventoryDecomposeRequest) return;
+  const input = document.getElementById("inventory-decompose-amount");
+  const previewText = document.getElementById("inventory-decompose-preview");
+  const confirmBtn = document.getElementById("inventory-decompose-confirm");
+  const preview = estimateInventoryDecompose(pendingInventoryDecomposeRequest, input?.value);
+  if (input) {
+    input.max = String(Math.max(1, preview.availableCount));
+    const normalized = normalizeInventoryDecomposeAmount(input.value, preview.availableCount);
+    if (String(normalized) !== String(input.value)) input.value = String(normalized || 1);
+  }
+  if (previewText) {
+    previewText.textContent = preview.availableCount
+      ? `本次將分解 ${preview.amount.toLocaleString()} 件，預計獲得 ${preview.zenyGain.toLocaleString()} Zeny；分解後仍保留 ${Math.max(0, preview.availableCount - preview.amount).toLocaleString()} 件可分解物品。`
+      : "目前沒有可分解的未鎖定物品。";
+  }
+  if (confirmBtn) confirmBtn.disabled = !preview.availableCount || !preview.amount || inventoryDecomposeActive;
+}
+
+function openInventoryDecomposeDialog(request = {}) {
+  const normalizedRequest = {
+    mode:request.mode === "item" || request.target ? "item" : "bulk",
+    filter:String(request.filter || activeInventoryFilter || "consume"),
+    target:request.target || null,
+    itemName:String(request.itemName || ""),
+    source:String(request.source || "inventory")
+  };
+  const preview = estimateInventoryDecompose(normalizedRequest, request.defaultAmount || INVENTORY_DECOMPOSE_LIMIT);
+  if (!preview.availableCount) {
+    addBattleLog(normalizedRequest.mode === "item" ? "此物品目前無法分解；可能已鎖定、正在穿戴或屬於受保護道具。" : "目前分類沒有可分解的未鎖定物品。");
+    return false;
+  }
+
+  pendingInventoryDecomposeRequest = normalizedRequest;
+  const modal = document.getElementById("inventory-decompose-modal");
+  const title = document.getElementById("inventory-decompose-title");
+  const summary = document.getElementById("inventory-decompose-summary");
+  const input = document.getElementById("inventory-decompose-amount");
+  const note = document.getElementById("inventory-decompose-note");
+  if (!modal || !title || !summary || !input) return false;
+
+  title.textContent = normalizedRequest.mode === "item" ? "確認分解物品" : "確認批次分解";
+  summary.textContent = normalizedRequest.mode === "item"
+    ? `${normalizedRequest.itemName || "此物品"}：目前持有 ${preview.availableCount.toLocaleString()} 件。`
+    : `目前分類共有 ${preview.availableCount.toLocaleString()} 件可分解的未鎖定物品。`;
+  const defaultAmount = normalizedRequest.mode === "item" && preview.availableCount === 1
+    ? 1
+    : normalizeInventoryDecomposeAmount(request.defaultAmount || INVENTORY_DECOMPOSE_LIMIT, preview.availableCount);
+  input.min = "1";
+  input.max = String(preview.availableCount);
+  input.value = String(defaultAmount);
+  input.disabled = preview.availableCount === 1;
+  if (note) note.textContent = preview.availableCount > 1
+    ? "只會扣除你輸入的數量，不會整組誤刪。例如持有 3,000 個並輸入 100，分解後會保留 2,900 個。"
+    : "裝備一次只會分解 1 件。鎖定或穿戴中的裝備不可分解。";
+  modal.classList.remove("hidden-window");
+  refreshInventoryDecomposeDialogPreview();
+  setTimeout(() => { if (!input.disabled) { input.focus(); input.select(); } }, 0);
+  return true;
+}
+
+function confirmInventoryDecomposeDialog() {
+  if (!pendingInventoryDecomposeRequest) return;
+  const input = document.getElementById("inventory-decompose-amount");
+  const confirmBtn = document.getElementById("inventory-decompose-confirm");
+  if (confirmBtn) { confirmBtn.disabled = true; confirmBtn.textContent = "分解中…"; }
+  const result = executeInventoryDecompose(pendingInventoryDecomposeRequest, input?.value);
+  if (result.ok) {
+    addBattleLog(`分解 ${result.removedCount.toLocaleString()} 件物品，獲得 ${result.zenyGain.toLocaleString()} Zeny。${result.remainingEligible > 0 ? ` 尚有 ${result.remainingEligible.toLocaleString()} 件可分解物品。` : ""}`);
+    closeInventoryDecomposeDialog();
+    if (typeof window.closeItemDetailModal === "function") window.closeItemDetailModal();
+  } else {
+    addBattleLog(result.reason || "分解失敗，請重新操作。");
+    refreshInventoryDecomposeDialogPreview();
+  }
+  if (confirmBtn) { confirmBtn.textContent = "確認分解"; confirmBtn.disabled = false; }
+}
+
+function initInventoryDecomposeDialog() {
+  const modal = document.getElementById("inventory-decompose-modal");
+  const input = document.getElementById("inventory-decompose-amount");
+  const confirmBtn = document.getElementById("inventory-decompose-confirm");
+  const cancelBtn = document.getElementById("inventory-decompose-cancel");
+  const closeBtn = document.getElementById("inventory-decompose-close");
+  if (modal?.dataset.bound === "true") return;
+  if (modal) {
+    modal.dataset.bound = "true";
+    modal.addEventListener("click", event => { if (event.target === modal) closeInventoryDecomposeDialog(); });
+  }
+  input?.addEventListener("input", refreshInventoryDecomposeDialogPreview);
+  input?.addEventListener("keydown", event => {
+    if (event.key === "Enter") { event.preventDefault(); confirmInventoryDecomposeDialog(); }
+    if (event.key === "Escape") { event.preventDefault(); closeInventoryDecomposeDialog(); }
+  });
+  confirmBtn?.addEventListener("click", confirmInventoryDecomposeDialog);
+  cancelBtn?.addEventListener("click", closeInventoryDecomposeDialog);
+  closeBtn?.addEventListener("click", closeInventoryDecomposeDialog);
+}
+
+// 背包下方「分解」：先顯示數量確認，不再按一下就立即扣除。
+function decomposeUnlockedInventoryItems() {
+  return openInventoryDecomposeDialog({ mode:"bulk", filter:activeInventoryFilter, defaultAmount:INVENTORY_DECOMPOSE_LIMIT });
+}
+
+Object.assign(window, {
+  openInventoryDecomposeDialog,
+  closeInventoryDecomposeDialog,
+  estimateInventoryDecompose,
+  executeInventoryDecompose,
+  getInventoryDecomposeAvailableCount,
+  isInventoryItemDecomposeEligible
+});
 
 function initEquipmentTabs() {
   document.querySelectorAll(".equipment-panel-tab[data-equipment-view]").forEach(button => {
