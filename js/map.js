@@ -293,6 +293,15 @@ function unpinMapMonsterDropDetail(options={}){
   syncPinnedMonsterDropRow(tooltip);
   if(options.hide===true)hideMapMonsterDistributionTooltip();
 }
+function scrollMapMonsterDropDetailIntoView(tooltip,host){
+  if(!tooltip||!host)return;
+  const apply=()=>{
+    const targetTop=Math.max(0,Number(host.offsetTop||0)-6);
+    if(typeof tooltip.scrollTo==="function")tooltip.scrollTo({top:targetTop,behavior:"smooth"});
+    else tooltip.scrollTop=targetTop;
+  };
+  if(typeof window.requestAnimationFrame==="function")window.requestAnimationFrame(apply);else apply();
+}
 function renderMapMonsterDropDetail(tooltip,mapId,monsterId,options={}){
   const host=tooltip?.querySelector?.(".map-monster-drop-detail");const monster=getMapMonsterById(monsterId);if(!host||!monster)return;
   const drops=buildMonsterDropCacheEntry(mapId,monster);
@@ -303,6 +312,7 @@ function renderMapMonsterDropDetail(tooltip,mapId,monsterId,options={}){
   host.hidden=false;
   host.querySelector(".map-monster-drop-unpin")?.addEventListener("click",event=>{event.preventDefault();event.stopPropagation();unpinMapMonsterDropDetail();});
   syncPinnedMonsterDropRow(tooltip);
+  if(options.pin===true)scrollMapMonsterDropDetailIntoView(tooltip,host);
 }
 function bindMapMonsterDropInteractions(tooltip,mapId){
   if(!tooltip)return;
@@ -311,7 +321,17 @@ function bindMapMonsterDropInteractions(tooltip,mapId){
     const preview=()=>{if(!RO_MAP_MONSTER_TOOLTIP_STATE.pinned)renderMapMonsterDropDetail(tooltip,mapId,monsterId);};
     row.addEventListener("pointerenter",preview,{passive:true});
     row.addEventListener("focus",preview,{passive:true});
-    row.addEventListener("click",event=>{event.preventDefault();event.stopPropagation();window.clearTimeout(RO_MAP_MONSTER_TOOLTIP_STATE.hideTimer);renderMapMonsterDropDetail(tooltip,mapId,monsterId,{pin:true});});
+    row.addEventListener("pointerdown",event=>{
+      event.stopPropagation();
+      window.clearTimeout(RO_MAP_MONSTER_TOOLTIP_STATE.hideTimer);
+    },{passive:true});
+    row.addEventListener("click",event=>{
+      event.preventDefault();
+      event.stopPropagation();
+      event.stopImmediatePropagation?.();
+      window.clearTimeout(RO_MAP_MONSTER_TOOLTIP_STATE.hideTimer);
+      renderMapMonsterDropDetail(tooltip,mapId,monsterId,{pin:true});
+    });
   });
   if(RO_MAP_MONSTER_TOOLTIP_STATE.selectedMonsterId)renderMapMonsterDropDetail(tooltip,mapId,RO_MAP_MONSTER_TOOLTIP_STATE.selectedMonsterId,{pin:RO_MAP_MONSTER_TOOLTIP_STATE.pinned});
   syncPinnedMonsterDropRow(tooltip);
@@ -361,6 +381,11 @@ function getMapMonsterDistributionTooltip() {
     RO_MAP_MONSTER_TOOLTIP_STATE.hideTimer = 0;
   });
   tooltip.addEventListener("pointerleave", scheduleHideMapMonsterDistributionTooltip);
+  tooltip.addEventListener("pointerdown", event => {
+    event.stopPropagation();
+    window.clearTimeout(RO_MAP_MONSTER_TOOLTIP_STATE.hideTimer);
+  }, { passive: true });
+  tooltip.addEventListener("click", event => event.stopPropagation());
   document.body.appendChild(tooltip);
   return tooltip;
 }

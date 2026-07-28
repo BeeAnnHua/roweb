@@ -21159,3 +21159,91 @@ input.ro-number-input[type="number"]::-webkit-outer-spin-button{-webkit-appearan
 .item-detail-dim-slot.filled{cursor:pointer;border-color:#72abc7}.item-detail-dim-slot.filled:hover{border-color:#c5ecff;background:#132431}
 .item-detail-dim-slot>b{position:absolute;left:6px;top:5px;width:20px;height:20px;display:grid;place-items:center;border:1px solid #7197b2;border-radius:50%;background:#172838;color:#e4f7ff;font-size:10px}
 .item-detail-dim-slot img{width:44px;height:44px;object-fit:contain}.item-detail-dim-slot span{max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:10px}.item-detail-dim-slot small{color:#8199a7;font-size:9px}
+
+/* ============================================================
+   RO_WEB 0.9.82GZ — minute backup / mobile status / map drop viewer
+   ============================================================ */
+@media (max-width: 900px), (pointer: coarse) {
+  #status-window.true-status-window {
+    width: min(560px, calc(100vw - 8px)) !important;
+    max-width: calc(100vw - 8px) !important;
+  }
+  #status-panel.status-template-body,
+  #status-window.true-status-window .status-template-body {
+    grid-template-columns: clamp(166px, 40%, 200px) minmax(0, 1fr) !important;
+    gap: 12px !important;
+    padding: 11px !important;
+    max-height: calc(100dvh - 42px) !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    scrollbar-gutter: stable !important;
+  }
+  #status-window.true-status-window .status-css-left,
+  #status-window.true-status-window .status-css-right {
+    padding: 10px !important;
+  }
+  #status-window.true-status-window .status-css-row {
+    grid-template-columns: 50px minmax(58px, 1fr) 25px !important;
+    min-height: 28px !important;
+    gap: 6px !important;
+  }
+  #status-window.true-status-window .status-css-label {
+    width: 50px !important;
+    height: 24px !important;
+    line-height: 22px !important;
+    font-size: 13px !important;
+  }
+  #status-window.true-status-window .status-css-value {
+    height: 24px !important;
+    line-height: 22px !important;
+    font-size: 16px !important;
+  }
+  #status-window.true-status-window .status-css-plus {
+    width: 25px !important;
+    height: 25px !important;
+    line-height: 21px !important;
+    font-size: 16px !important;
+  }
+}
+@media (max-width: 420px) {
+  #status-window.true-status-window {
+    width: calc(100vw - 4px) !important;
+    max-width: calc(100vw - 4px) !important;
+  }
+  #status-panel.status-template-body,
+  #status-window.true-status-window .status-template-body {
+    grid-template-columns: minmax(160px, 44%) minmax(0, 56%) !important;
+    gap: 8px !important;
+    padding: 8px !important;
+  }
+}
+
+/* Long maps need a genuinely longer scroll range on both desktop and touch. */
+.map-monster-distribution-tooltip {
+  max-height: min(72dvh, 650px) !important;
+  overscroll-behavior: contain !important;
+  scrollbar-gutter: stable both-edges !important;
+}
+.map-monster-distribution-row {
+  touch-action: manipulation !important;
+}
+@media (max-width: 720px), (pointer: coarse) {
+  .map-monster-distribution-tooltip {
+    width: min(342px, calc(100vw - 10px)) !important;
+    max-height: min(72dvh, 580px) !important;
+  }
+  #map-window .map-current-card .map-monster-distribution-tooltip.is-embedded {
+    max-height: min(68dvh, 560px) !important;
+  }
+  #map-window .map-current-card .map-monster-distribution-tooltip.is-embedded.is-drop-pinned {
+    max-height: min(78dvh, 680px) !important;
+  }
+  #map-window .map-current-card.has-monster-info {
+    overflow: visible !important;
+  }
+  .map-monster-drop-detail {
+    min-height: 120px !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+}

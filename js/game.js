@@ -13,7 +13,7 @@ let expTables = null;
 let clientItemDisplayData = null;
 let currentMap = null;
 
-const RO_WEB_VERSION = "0.9.82GX";
+const RO_WEB_VERSION = "0.9.82GZ";
 
 function normalizeDataPath(path) {
   return String(path || "")
@@ -131,6 +131,7 @@ async function initGame() {
   if (typeof ensureInitialCharacterGenderSelection === "function") {
     await ensureInitialCharacterGenderSelection();
   }
+  if (typeof startMinutePlayerBackup === "function") startMinutePlayerBackup();
   if (typeof loadHomunculusData === "function") await loadHomunculusData();
   validateStartupData();
   if (typeof migrateSkillStorageToOfficialIds === "function") migrateSkillStorageToOfficialIds();

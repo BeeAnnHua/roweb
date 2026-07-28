@@ -4,6 +4,9 @@
 
 let player = null;
 const SAVE_KEY = "ro_web_save_v0_9_19_ui_scroll_quickbar"; // v0.9.12 UI 定位微調版存檔，避免舊版面板位置/背包狀態殘留
+const SAVE_MINUTE_BACKUP_KEY = `${SAVE_KEY}_minute_backup_v1`;
+const SAVE_MINUTE_BACKUP_INTERVAL_MS = 60 * 1000;
+let RO_WEB_MINUTE_BACKUP_TIMER = null;
 
 // 0.9.82EH：加入 rAthena Renewal 四轉特性素質；南門測試地圖維持退役。
 const RO_WEB_DEFAULT_FIELD_MAP_ID = "prontera_3x3_region_camera";
@@ -213,19 +216,39 @@ async function loadPlayerData() {
   }
 
   let loadedSavedPlayer = null;
+  let loadedFromMinuteBackup = false;
+  const parseSavedPlayer = (text, label) => {
+    if (!text) return null;
+    const parsed = JSON.parse(text);
+    const candidate = label === "minute-backup" && parsed && typeof parsed === "object" && parsed.player
+      ? parsed.player
+      : parsed;
+    if (!candidate || typeof candidate !== "object" || Array.isArray(candidate)) {
+      throw new Error(`${label} 不是有效的角色物件`);
+    }
+    return candidate;
+  };
   if (savedData) {
     try {
-      const savedPlayer = JSON.parse(savedData);
-      if (!savedPlayer || typeof savedPlayer !== "object" || Array.isArray(savedPlayer)) {
-        throw new Error("存檔不是有效的角色物件");
-      }
-      loadedSavedPlayer = savedPlayer;
-      player = { ...player, ...savedPlayer };
-      addBattleLog("讀取存檔成功。");
+      loadedSavedPlayer = parseSavedPlayer(savedData, "main-save");
     } catch (error) {
-      console.error("讀取存檔失敗：", error);
-      addBattleLog("讀取存檔失敗，使用預設角色資料。");
+      console.error("讀取主存檔失敗：", error);
     }
+  }
+  if (!loadedSavedPlayer) {
+    try {
+      const backupText = localStorage.getItem(SAVE_MINUTE_BACKUP_KEY);
+      loadedSavedPlayer = parseSavedPlayer(backupText, "minute-backup");
+      loadedFromMinuteBackup = Boolean(loadedSavedPlayer);
+    } catch (error) {
+      console.error("讀取每分鐘備份失敗：", error);
+    }
+  }
+  if (loadedSavedPlayer) {
+    player = { ...player, ...loadedSavedPlayer };
+    addBattleLog(loadedFromMinuteBackup ? "主存檔無法使用，已讀取最近一次每分鐘備份。" : "讀取存檔成功。");
+  } else if (savedData) {
+    addBattleLog("讀取存檔失敗，使用預設角色資料。");
   }
 
   // 舊存檔沒有 genderChosen 時，依既有性別欄位或 Atlas 推斷；完全無法判斷時
@@ -422,10 +445,8 @@ function normalizePlayerData() {
 //=======================================
 // 儲存遊戲
 //=======================================
-function saveGame() {
-  if (window.RO_WEB_RESETTING_SAVE) return false;
-  if (!player) return false;
-
+function buildPlayerSaveSnapshot() {
+  if (!player || typeof player !== "object") return null;
   // 0.9.82FJ：城鎮與野外狀態互斥。城鎮存檔不可被仍在記憶中的
   // last field map 覆寫，否則重新開頁會在城鎮背景生成野外怪物。
   if (player.currentCity) {
@@ -434,10 +455,16 @@ function saveGame() {
   } else if (typeof currentMap !== "undefined" && currentMap) {
     player.map = currentMap.id;
   }
-
   // pendingSkillAdds 是技能窗內的暫存配點，只能在按「確認配點」後套用，不能寫入存檔。
   const playerToSave = { ...player };
   delete playerToSave.pendingSkillAdds;
+  return playerToSave;
+}
+
+function saveGame() {
+  if (window.RO_WEB_RESETTING_SAVE) return false;
+  const playerToSave = buildPlayerSaveSnapshot();
+  if (!playerToSave) return false;
   try {
     localStorage.setItem(SAVE_KEY, JSON.stringify(playerToSave));
     window.RO_WEB_SAVE_ERROR_REPORTED = false;
@@ -452,6 +479,52 @@ function saveGame() {
   }
 }
 
+function writeMinutePlayerBackup(reason = "interval") {
+  if (window.RO_WEB_RESETTING_SAVE) return false;
+  const snapshot = buildPlayerSaveSnapshot();
+  if (!snapshot) return false;
+  try {
+    const payload = {
+      version: 1,
+      savedAt: Date.now(),
+      reason: String(reason || "interval"),
+      player: snapshot
+    };
+    localStorage.setItem(SAVE_MINUTE_BACKUP_KEY, JSON.stringify(payload));
+    window.RO_WEB_MINUTE_BACKUP_ERROR_REPORTED = false;
+    return true;
+  } catch (error) {
+    console.error("每分鐘備份失敗：", error);
+    if (!window.RO_WEB_MINUTE_BACKUP_ERROR_REPORTED && typeof addBattleLog === "function") {
+      addBattleLog("每分鐘備份失敗：瀏覽器儲存空間不可用或已滿。");
+      window.RO_WEB_MINUTE_BACKUP_ERROR_REPORTED = true;
+    }
+    return false;
+  }
+}
+
+function startMinutePlayerBackup() {
+  if (RO_WEB_MINUTE_BACKUP_TIMER || typeof window.setInterval !== "function") return false;
+  // 啟動時先建立第一份安全備份，之後每 60 秒更新一次。
+  saveGame();
+  writeMinutePlayerBackup("startup");
+  RO_WEB_MINUTE_BACKUP_TIMER = window.setInterval(() => {
+    saveGame();
+    writeMinutePlayerBackup("interval");
+  }, SAVE_MINUTE_BACKUP_INTERVAL_MS);
+  return true;
+}
+
+function stopMinutePlayerBackup() {
+  if (!RO_WEB_MINUTE_BACKUP_TIMER) return false;
+  window.clearInterval(RO_WEB_MINUTE_BACKUP_TIMER);
+  RO_WEB_MINUTE_BACKUP_TIMER = null;
+  return true;
+}
+window.writeMinutePlayerBackup = writeMinutePlayerBackup;
+window.startMinutePlayerBackup = startMinutePlayerBackup;
+window.stopMinutePlayerBackup = stopMinutePlayerBackup;
+
 let RO_WEB_PENDING_SAVE_TIMER = null;
 function requestGameSave(delayMs = 300) {
   if (window.RO_WEB_RESETTING_SAVE) return false;
@@ -465,6 +538,7 @@ function requestGameSave(delayMs = 300) {
 function flushPendingGameSave() {
   if (RO_WEB_PENDING_SAVE_TIMER) { clearTimeout(RO_WEB_PENDING_SAVE_TIMER); RO_WEB_PENDING_SAVE_TIMER = null; }
   saveGame();
+  writeMinutePlayerBackup("pagehide");
 }
 window.requestGameSave = requestGameSave;
 window.flushPendingGameSave = flushPendingGameSave;
