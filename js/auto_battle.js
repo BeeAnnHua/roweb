@@ -387,6 +387,8 @@ function evaluateAutoRecoveryExpression(expression, options = {}) {
 
 function getItemRecoveryProfile(item, options = {}) {
   if (!item) return { hp: 0, sp: 0 };
+  // 0.9.82GT：轉蛋與其他手動確認型道具永遠不進入自動補品候選。
+  if (item.manualUseOnly === true || String(item.subCategory || "") === "mvp_gacha") return { hp: 0, sp: 0 };
   let hp = Math.max(0, Number(item.hp ?? item.HP ?? item.recoveryHp ?? item.recoverHp ?? 0));
   let sp = Math.max(0, Number(item.sp ?? item.SP ?? item.recoverySp ?? item.recoverSp ?? 0));
 
@@ -444,6 +446,7 @@ function getPlayerActiveStatusKeys() {
 
 function getItemStatusCureProfile(item) {
   if (!item) return { statuses: [], clearAll: false };
+  if (item.manualUseOnly === true || String(item.subCategory || "") === "mvp_gacha") return { statuses: [], clearAll: false };
   const statuses = new Set();
   const script = String(item.scriptRaw || item.Script || item.script || "");
   for (const match of script.matchAll(/\bsc_end\s+SC_([A-Za-z0-9_]+)/gi)) {

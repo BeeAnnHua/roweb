@@ -191,7 +191,10 @@ function updateQuickSlotUI(options = {}) {
         slotEl.appendChild(count);
       }
 
-      slotEl.addEventListener("click", () => useQuickSlot(slot));
+      slotEl.addEventListener("click", event => useQuickSlot(slot, {
+        source: "quick-slot",
+        userInitiated: event?.isTrusted === true
+      }));
     } else {
       const empty = document.createElement("i");
       empty.textContent = "+";
@@ -202,7 +205,7 @@ function updateQuickSlotUI(options = {}) {
   });
 }
 
-function useQuickSlot(slot) {
+function useQuickSlot(slot, options = {}) {
   if (!slot || slot.type === "empty") return;
 
   if (slot.type === "basic") {
@@ -216,7 +219,10 @@ function useQuickSlot(slot) {
       return;
     }
     if (typeof useItem === "function") {
-      useItem(slot.id);
+      useItem(slot.id, null, {
+        source: options.source || "quick-slot",
+        userInitiated: options.userInitiated === true
+      });
       updateQuickSlotUI();
     }
     return;
@@ -613,11 +619,12 @@ Object.assign(window, {
 });
 
 document.addEventListener("keydown", event => {
+  if (event.repeat) return; // 0.9.82GT：阻擋按住數字鍵時重複消耗快捷欄物品。
   if (["INPUT", "SELECT", "TEXTAREA"].includes(document.activeElement?.tagName)) return;
   const keyMap = { "1": 0, "2": 1, "3": 2, "4": 3, "5": 4, "6": 5, "7": 6, "8": 7, "9": 8, "0": 9 };
   if (!(event.key in keyMap)) return;
   const slot = getManualQuickSlots()[keyMap[event.key]];
   if (!slot || slot.type === "empty") return;
   event.preventDefault();
-  useQuickSlot(slot);
+  useQuickSlot(slot, { source: "quick-slot-key", userInitiated: event.isTrusted === true });
 });

@@ -1,5 +1,5 @@
 //============================================================
-// RO_WEB 0.9.82GI — 葛坡尼亞 MVP 地圖限定轉蛋 Runtime（全域掉落總閥）
+// RO_WEB 0.9.82GT — 葛坡尼亞 MVP 轉蛋 Runtime＋掛機數量守衛
 // - 同 ID MVP 只有在指定地圖死亡才以原始 1% 判定轉蛋，並套用全域掉落總閥。
 // - 轉蛋內部稀有機率為單一 10000 基點母池的絕對機率；全域掉落倍率只影響轉蛋本體掉落。
 // - 1% 紅色、0.1% 紫色、0.01% 金色上方橫幅。
@@ -7,12 +7,14 @@
 (() => {
   "use strict";
 
-  const VERSION = "0.9.82GI";
+  const VERSION = "0.9.82GT";
   const BUNDLE_KEY = "data/mvp_gacha.json";
   const DEFAULT_GACHA_ITEM_ID = 14848;
   const CASH_FOOD_SOURCE = "mvp_gacha_cash_food";
   const BANNER_STYLE_ID = "ro-mvp-gacha-banner-style";
   const BANNER_HOST_ID = "ro-mvp-gacha-banner-host";
+  const MANUAL_GACHA_SOURCES = new Set(["item-info", "quick-slot", "quick-slot-key", "inventory-slot"]);
+  const GACHA_GUARD_INTERVAL_MS = 500;
 
   function bundled(key, fallback = null) {
     return window.RO_WEB_DATA && Object.prototype.hasOwnProperty.call(window.RO_WEB_DATA, key)
@@ -56,11 +58,111 @@
   function removeOneStackItem(id) {
     const stack = findInventoryStack(id);
     if (!stack || number(stack.count) <= 0) return false;
+    if (String(id) === String(gachaItemId())) authorizeGachaInventorySpend(1);
     stack.count = number(stack.count) - 1;
     if (stack.count <= 0) {
       window.player.inventory = (window.player.inventory || []).filter(row => row !== stack);
     }
     return true;
+  }
+
+  // 0.9.82GT：掛機期間的轉蛋數量防護。
+  // 只有本 Runtime 的開啟流程可以授權減少；任何其他程式路徑造成的減少會自動復原。
+  const GACHA_INVENTORY_GUARD = {
+    expectedCount:null,
+    lastWarningAt:0,
+    restoredTotal:0,
+    timer:0
+  };
+
+  function gachaItemId() {
+    return Number(config()?.gachaItemId || DEFAULT_GACHA_ITEM_ID);
+  }
+
+  function getGachaInventoryCount() {
+    const id = gachaItemId();
+    return (window.player?.inventory || []).reduce((sum, row) => {
+      if (String(row?.id) !== String(id) || row?.instanceId) return sum;
+      return sum + Math.max(0, integer(row?.count));
+    }, 0);
+  }
+
+  function isGachaInventoryGuardActive() {
+    return Boolean(window.player && typeof window.isAutoBattleRunning === "function" && window.isAutoBattleRunning());
+  }
+
+  function ensureGachaGuardExpectedCount() {
+    if (!Number.isFinite(GACHA_INVENTORY_GUARD.expectedCount)) {
+      GACHA_INVENTORY_GUARD.expectedCount = getGachaInventoryCount();
+    }
+    return GACHA_INVENTORY_GUARD.expectedCount;
+  }
+
+  function authorizeGachaInventorySpend(quantity = 1) {
+    ensureGachaGuardExpectedCount();
+    GACHA_INVENTORY_GUARD.expectedCount = Math.max(0, GACHA_INVENTORY_GUARD.expectedCount - Math.max(0, integer(quantity)));
+  }
+
+  function noteAuthorizedGachaInventoryAddition(quantity = 1) {
+    ensureGachaGuardExpectedCount();
+    GACHA_INVENTORY_GUARD.expectedCount += Math.max(0, integer(quantity));
+  }
+
+  function restoreGachaInventory(quantity) {
+    const amount = Math.max(0, integer(quantity));
+    if (!amount || !window.player) return 0;
+    const id = gachaItemId();
+    const stack = findInventoryStack(id);
+    const data = itemData(id);
+    if (stack) stack.count = Math.max(0, integer(stack.count)) + amount;
+    else {
+      window.player.inventory = Array.isArray(window.player.inventory) ? window.player.inventory : [];
+      window.player.inventory.push({ id, name:data.name, count:amount, locked:false });
+    }
+    GACHA_INVENTORY_GUARD.restoredTotal += amount;
+    const now = Date.now();
+    if (now - GACHA_INVENTORY_GUARD.lastWarningAt >= 30000) {
+      GACHA_INVENTORY_GUARD.lastWarningAt = now;
+      log(`偵測到掛機流程異常扣除 ${data.name} ×${amount}，已自動復原。`, "error");
+    }
+    window.RO_WEB_INVENTORY_DIRTY = true;
+    window.updateQuickSlotUI?.({ skipIfUnchanged:true });
+    const inventoryWindow = document.getElementById?.("inventory-window");
+    if (inventoryWindow && !inventoryWindow.classList.contains("hidden-window") && inventoryWindow.offsetParent !== null) {
+      window.updateInventoryUI?.();
+    }
+    window.requestGameSave?.(0);
+    return amount;
+  }
+
+  function auditGachaInventoryGuard() {
+    const current = getGachaInventoryCount();
+    if (!isGachaInventoryGuardActive()) {
+      GACHA_INVENTORY_GUARD.expectedCount = current;
+      return { active:false, current, expected:current, restored:0 };
+    }
+    const expected = ensureGachaGuardExpectedCount();
+    let restored = 0;
+    if (current < expected) restored = restoreGachaInventory(expected - current);
+    else if (current > expected) GACHA_INVENTORY_GUARD.expectedCount = current; // 合法掉落或其他增加一律接受。
+    return {
+      active:true,
+      current:getGachaInventoryCount(),
+      expected:GACHA_INVENTORY_GUARD.expectedCount,
+      restored
+    };
+  }
+
+  function startGachaInventoryGuard() {
+    if (GACHA_INVENTORY_GUARD.timer || typeof window.setInterval !== "function") return;
+    GACHA_INVENTORY_GUARD.expectedCount = getGachaInventoryCount();
+    GACHA_INVENTORY_GUARD.timer = window.setInterval(auditGachaInventoryGuard, GACHA_GUARD_INTERVAL_MS);
+  }
+
+  function isAuthorizedManualGachaRequest(options = {}) {
+    if (options?.testAuthorized === true) return true;
+    const source = String(options?.source || "");
+    return MANUAL_GACHA_SOURCES.has(source) && options?.userInitiated === true;
   }
 
   function weightedPick(rows) {
@@ -242,8 +344,14 @@
     return true;
   }
 
-  function openGacha(item = itemData(config()?.gachaItemId || DEFAULT_GACHA_ITEM_ID)) {
+  function openGacha(item = itemData(config()?.gachaItemId || DEFAULT_GACHA_ITEM_ID), options = {}) {
     if (!window.player || !item) return false;
+    if (!isAuthorizedManualGachaRequest(options)) {
+      const now = Date.now();
+      if (now - GACHA_BATCH.lastMissingLogAt > 1200) log(`${item.name} 已阻擋非玩家操作的自動開啟。`, "error");
+      GACHA_BATCH.lastMissingLogAt = now;
+      return false;
+    }
     const stack = findInventoryStack(item.id);
     const available = number(stack?.count) - GACHA_BATCH.pending;
     if (!stack || available <= 0) {
@@ -390,6 +498,7 @@
       : Math.min(10000, typeof window.applyRate === "function" ? window.applyRate(rawChance, "drop") : rawChance);
     if (randomBasisPoint() > finalChance) return false;
     const gacha = itemData(cfg.gachaItemId || DEFAULT_GACHA_ITEM_ID);
+    noteAuthorizedGachaInventoryAddition(1);
     window.addItem?.({ id:Number(gacha.id), name:gacha.name }, 1);
     window.recordItemDrop?.(gacha.id, 1);
     log(`葛坡尼亞限定掉落：${gacha.name} ×1`, "rare-item");
@@ -397,14 +506,16 @@
   }
 
   const previousUseItem = window.useItem;
-  window.useItem = function mvpGachaUseItem(itemId, instance = null) {
+  window.useItem = function mvpGachaUseItem(itemId, instance = null, options = {}) {
     const item = itemData(itemId);
     const cfg = config();
-    if (String(item?.id) === String(cfg?.gachaItemId || DEFAULT_GACHA_ITEM_ID)) return openGacha(item);
+    if (String(item?.id) === String(cfg?.gachaItemId || DEFAULT_GACHA_ITEM_ID)) return openGacha(item, options);
     if (item?.cashFoodEffect) return applyCashFood(item);
     if (item?.percentHeal) return applyPercentHeal(item);
-    return previousUseItem?.(itemId, instance);
+    return previousUseItem?.(itemId, instance, options);
   };
+
+  startGachaInventoryGuard();
 
   window.MvpGachaRuntime = Object.freeze({
     version:VERSION,
@@ -416,6 +527,13 @@
     rollMapExclusiveDrop,
     applyCashFood,
     applyPercentHeal,
-    showRareBanner
+    showRareBanner,
+    auditInventoryGuard:auditGachaInventoryGuard,
+    getInventoryGuardState:() => ({
+      expectedCount:GACHA_INVENTORY_GUARD.expectedCount,
+      actualCount:getGachaInventoryCount(),
+      restoredTotal:GACHA_INVENTORY_GUARD.restoredTotal,
+      active:isGachaInventoryGuardActive()
+    })
   });
 })();

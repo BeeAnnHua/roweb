@@ -1607,8 +1607,11 @@ function showItemInfo(itemId) {
   if (itemData.type === "consume") {
     const useButton = document.createElement("button");
     useButton.textContent = "使用";
-    useButton.onclick = function () {
-      useItem(itemId);
+    useButton.onclick = function (event) {
+      useItem(itemId, null, {
+        source: "item-info",
+        userInitiated: event?.isTrusted === true
+      });
     };
     buttonArea.appendChild(useButton);
   }
@@ -1694,7 +1697,10 @@ function handleInventorySlotClick(item, itemData) {
 
   showItemInfo(item.id);
   if (itemData.type === "consume") {
-    useItem(item.id);
+    // 0.9.82GT：MVP 轉蛋屬於「手動確認型消耗品」。背包格單擊只顯示資料，
+    // 不直接開啟，避免掛機期間 UI 重建、手機 ghost click 或誤觸造成數量下降。
+    if (itemData.manualUseOnly === true || String(itemData.subCategory || "") === "mvp_gacha") return;
+    useItem(item.id, null, { source: "inventory-slot", userInitiated: true });
   }
 }
 
@@ -2580,6 +2586,14 @@ function consumeItem(itemData) {
     return;
   }
 
+  // 0.9.82GT：手動確認型消耗品不可落入通用 consumeItem 扣除流程。
+  // MVP 轉蛋只允許由 MvpGachaRuntime 的授權入口扣除，避免任何掛機／舊 UI
+  // 或未來的自動補品邏輯把它當成普通消耗品而一顆一顆扣掉。
+  if (itemData.manualUseOnly === true || String(itemData.subCategory || "") === "mvp_gacha") {
+    if (typeof addBattleLog === "function") addBattleLog(`${itemData.name} 請從物品資料中的「使用」按鈕開啟。`);
+    return;
+  }
+
   // 確認背包裡真的有這個道具
   const inventoryItem = findInventoryItemById(itemData.id);
 
@@ -2695,6 +2709,7 @@ function updateAutoPotionOptions() {
     const itemData = getItemData(inventoryItem.id);
 
     if (!itemData) return;
+    if (itemData.manualUseOnly === true || String(itemData.subCategory || "") === "mvp_gacha") return;
 
     // 只要物品資料有 hp > 0，就視為可補 HP 的物品
     if (itemData.hp && itemData.hp > 0) {

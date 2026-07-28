@@ -1,5 +1,5 @@
 //============================================================
-// RO_WEB V0.9.82GF - RA regional monster streaming runtime
+// RO_WEB V0.9.82GS - RA regional monster streaming runtime
 //
 // Keeps a weighted regional monster population around the player instead of
 // constructing every rAthena field spawn at once. Ordinary monsters use the
@@ -274,15 +274,62 @@ function refreshWorldMonsterCrowdPlan(now = Date.now(), options = {}) {
 
   const attackerLimit = getWorldMonsterCrowdAttackerLimit(config);
   const assignments = new Map();
+  const previousAssignments = RO_WORLD_MONSTER_TEST.crowdPlan?.assignments instanceof Map
+    ? RO_WORLD_MONSTER_TEST.crowdPlan.assignments
+    : new Map();
+  const candidateById = new Map(candidates.map(entry => [Number(entry.entity._instanceId || 0), entry]));
+  const engagedSlots = new Map();
+  const reserveSlots = new Map();
+  const usedEngagedSlots = new Set();
+  const usedReserveSlots = new Set();
+
+  // Keep existing crowd slots whenever possible. The previous implementation
+  // re-ranked every MVP by distance on each planning pass, causing them to swap
+  // destinations and repeatedly cross through the same center point.
+  for (const [id, previous] of previousAssignments.entries()) {
+    if (!candidateById.has(Number(id)) || previous?.engaged !== true) continue;
+    const slot = Math.max(0, Math.floor(Number(previous.slotIndex || 0)));
+    if (slot >= attackerLimit || usedEngagedSlots.has(slot)) continue;
+    engagedSlots.set(Number(id), slot);
+    usedEngagedSlots.add(slot);
+  }
+  for (const entry of candidates) {
+    const id = Number(entry.entity._instanceId || 0);
+    if (engagedSlots.has(id) || engagedSlots.size >= attackerLimit) continue;
+    let slot = 0;
+    while (usedEngagedSlots.has(slot) && slot < attackerLimit) slot += 1;
+    if (slot >= attackerLimit) break;
+    engagedSlots.set(id, slot);
+    usedEngagedSlots.add(slot);
+  }
+
+  for (const [id, previous] of previousAssignments.entries()) {
+    if (!candidateById.has(Number(id)) || engagedSlots.has(Number(id)) || previous?.engaged === true) continue;
+    const slot = Math.max(0, Math.floor(Number(previous.slotIndex || 0)));
+    if (usedReserveSlots.has(slot)) continue;
+    reserveSlots.set(Number(id), slot);
+    usedReserveSlots.add(slot);
+  }
+  for (const entry of candidates) {
+    const id = Number(entry.entity._instanceId || 0);
+    if (engagedSlots.has(id) || reserveSlots.has(id)) continue;
+    let slot = 0;
+    while (usedReserveSlots.has(slot)) slot += 1;
+    reserveSlots.set(id, slot);
+    usedReserveSlots.add(slot);
+  }
+
   candidates.forEach((entry, rank) => {
-    assignments.set(Number(entry.entity._instanceId || 0), {
+    const id = Number(entry.entity._instanceId || 0);
+    const engaged = engagedSlots.has(id);
+    assignments.set(id, {
       rank,
-      engaged: rank < attackerLimit,
-      slotIndex: rank < attackerLimit ? rank : rank - attackerLimit,
+      engaged,
+      slotIndex: engaged ? engagedSlots.get(id) : reserveSlots.get(id),
       attackerLimit,
       total: candidates.length
     });
-    entry.entity._crowdEngaged = rank < attackerLimit;
+    entry.entity._crowdEngaged = engaged;
     entry.entity._crowdRank = rank;
   });
   for (const entity of RO_WORLD_MONSTER_TEST.entities || []) {
@@ -634,7 +681,13 @@ function createWorldMonsterEntity(monsterData, spawnEntry, options = {}) {
   const configuredPos = spawnEntry?.spawnPosition && Number.isFinite(Number(spawnEntry.spawnPosition.x)) && Number.isFinite(Number(spawnEntry.spawnPosition.y))
     ? clampWorldMonsterPosition(spawnEntry.spawnPosition)
     : null;
-  const position = storedPos || configuredPos || chooseWorldMonsterSpawnPosition({ avoidViewport: options.avoidViewport !== false });
+  const fixedSpawnPosition = Boolean(getWorldMonsterProfile(currentMap)?.fixedSpawnPositions === true && configuredPos);
+  // The MVP arena uses authored grid positions. Do not restore a saved chase
+  // coordinate on the next visit, otherwise every MVP reappears where the last
+  // fight ended and the whole map starts as one pile. HP/respawn timers remain persistent.
+  const position = fixedSpawnPosition
+    ? configuredPos
+    : (storedPos || configuredPos || chooseWorldMonsterSpawnPosition({ avoidViewport: options.avoidViewport !== false }));
   const maxHp = Math.max(1, Number(monsterData.maxHp || monsterData.hp || 1));
   const storedHp = Number(persistent?.currentHp || 0);
   const currentHp = persistent?.alive !== false && storedHp > 0 ? Math.min(maxHp, storedHp) : maxHp;
@@ -1197,6 +1250,63 @@ function playWorldMonsterTestMotion(motion, options = {}) {
 }
 window.playWorldMonsterTestMotion = playWorldMonsterTestMotion;
 
+function getWorldMonsterCrowdSeparationRadius(entity, config) {
+  if (!entity || !config) return 0;
+  if (entity._crowdEngaged) return Math.max(18, Number(config.engagedSeparationRadiusWorldPx || 40));
+  const category = String(entity._category || "normal").toLowerCase();
+  if (category === "mvp") return Math.max(24, Number(config.separationRadiusWorldPx || 66));
+  if (category === "boss") return Math.max(22, Number(config.bossSeparationRadiusWorldPx || 54));
+  return Math.max(16, Number(config.otherSeparationRadiusWorldPx || 32));
+}
+
+function resolveWorldMonsterCrowdSeparation(entity, candidate) {
+  const config = getWorldMonsterCrowdControlConfig();
+  if (!config || config.separationEnabled !== true || !isWorldMonsterCrowdCandidate(entity, config)) return candidate;
+  const radius = getWorldMonsterCrowdSeparationRadius(entity, config);
+  if (radius <= 0) return candidate;
+  const padding = Math.max(0, Number(config.separationPaddingWorldPx || 10));
+  const iterations = Math.max(1, Math.min(3, Math.floor(Number(config.separationIterations || 2))));
+  const strength = Math.max(0.1, Math.min(1, Number(config.separationStrength || 0.62)));
+  const maxPush = Math.max(2, Number(config.separationMaxPushWorldPx || 20));
+  let result = { x:Number(candidate.x || 0), y:Number(candidate.y || 0) };
+
+  for (let iteration = 0; iteration < iterations; iteration += 1) {
+    const queryRadius = radius * 2 + padding + 40;
+    const nearby = queryWorldMonsterEntitiesNear({ position:result }, queryRadius, { activeOnly:false });
+    let pushX = 0;
+    let pushY = 0;
+    for (const other of nearby) {
+      if (!other || other === entity || other._deathHandled || Number(other.currentHp || 0) <= 0) continue;
+      if (!isWorldMonsterCrowdCandidate(other, config)) continue;
+      const otherRadius = getWorldMonsterCrowdSeparationRadius(other, config);
+      const dx = result.x - Number(other.position?.x || 0);
+      const dy = result.y - Number(other.position?.y || 0);
+      let distance = Math.hypot(dx, dy);
+      const minimum = radius + otherRadius + padding;
+      if (distance >= minimum) continue;
+      let ux, uy;
+      if (distance < 0.01) {
+        const angle = ((Number(entity._instanceId || 1) * 2.3999632297) % (Math.PI * 2));
+        ux = Math.cos(angle);
+        uy = Math.sin(angle);
+        distance = 0;
+      } else {
+        ux = dx / distance;
+        uy = dy / distance;
+      }
+      const overlap = minimum - distance;
+      pushX += ux * overlap * strength;
+      pushY += uy * overlap * strength;
+    }
+    const magnitude = Math.hypot(pushX, pushY);
+    if (magnitude < 0.01) break;
+    const scale = Math.min(1, maxPush / magnitude);
+    result = clampWorldMonsterPosition({ x:result.x + pushX * scale, y:result.y + pushY * scale });
+  }
+  return result;
+}
+window.resolveWorldMonsterCrowdSeparation = resolveWorldMonsterCrowdSeparation;
+
 function moveWorldMonsterToward(entity, target, dt, stopDistance) {
   const dx = Number(target.x || 0) - Number(entity.position.x || 0);
   const dy = Number(target.y || 0) - Number(entity.position.y || 0);
@@ -1208,7 +1318,7 @@ function moveWorldMonsterToward(entity, target, dt, stopDistance) {
     x: Number(entity.position.x || 0) + dx / Math.max(1, distance) * step,
     y: Number(entity.position.y || 0) + dy / Math.max(1, distance) * step
   };
-  const safe = clampWorldMonsterPosition(next);
+  const safe = resolveWorldMonsterCrowdSeparation(entity, clampWorldMonsterPosition(next));
   entity.position.x = safe.x;
   entity.position.y = safe.y;
   refreshWorldMonsterSpatialEntity(entity);

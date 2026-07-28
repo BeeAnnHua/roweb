@@ -35,7 +35,8 @@
     "buyPrice": 20,
     "sellPrice": 10,
     "description": [
-      "葛坡尼亞 MVP 試煉場限定掉落。開啟後可獲得商城料理、時光超越者系列、20週年紀念裝備或齊爾-D-01卡片。"
+      "葛坡尼亞 MVP 試煉場限定掉落。開啟後可獲得商城料理、時光超越者系列、20週年紀念裝備或齊爾-D-01卡片。",
+      "此道具只會在玩家手動按下「使用」時開啟，不會被自動戰鬥或自動補品消耗。"
     ],
     "icon": "images/items/9525.webp",
     "slots": 0,
@@ -45,7 +46,9 @@
     "Name": "MVP幸運轉蛋",
     "Buy": 20,
     "Slots": 0,
-    "dataSource": "itemInfo_UTF8.lub + rAthena Renewal 2026-06-08; RO_WEB 0.9.82GA MVP gacha (ITEM 9525 icon)"
+    "dataSource": "itemInfo_UTF8.lub + rAthena Renewal 2026-06-08; RO_WEB 0.9.82GA MVP gacha (ITEM 9525 icon)",
+    "manualUseOnly": true,
+    "autoUse": false
   },
   "14849": {
     "id": 14849,
