@@ -21716,3 +21716,29 @@ body.ro-black-gold-theme .game-window > .window-title > button.window-close:hove
     min-width: 126px !important;
   }
 }
+
+/* ============================================================
+   RO_WEB 0.9.82HF — compact desktop monster roster
+   - Keep long MVP maps inside a shorter desktop scroll viewport.
+   - Add breathing room below the sticky divider so the first category
+     heading (for example MVP) is never clipped by the header line.
+   - Touch/mobile layout remains unchanged from HE.
+   ============================================================ */
+@media (min-width: 721px) and (pointer: fine) {
+  .map-monster-distribution-tooltip:not(.is-drop-detail-view) {
+    max-height: min(56dvh, 470px) !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    overscroll-behavior: contain !important;
+    scrollbar-gutter: stable !important;
+  }
+  .map-monster-distribution-tooltip:not(.is-drop-detail-view) .map-monster-distribution-list {
+    padding-top: 8px !important;
+  }
+  .map-monster-distribution-tooltip:not(.is-drop-detail-view) .map-monster-distribution-section:first-child {
+    margin-top: 2px !important;
+  }
+  .map-monster-distribution-tooltip:not(.is-drop-detail-view) .map-monster-distribution-section:first-child > h4 {
+    padding-top: 2px !important;
+  }
+}
