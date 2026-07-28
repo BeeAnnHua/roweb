@@ -1,1 +1,70 @@
-{}
+{
+  "570032": {
+    "id": 570032,
+    "officialId": 570032,
+    "name": "黯淡冰晶小提琴",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "instrument",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "沾染毒氣魔力且黯淡無光的的小提琴。",
+      "需採取與冰晶武器不同的方式來處理。",
+      "^ffffff_^000000",
+      "MATK+210。",
+      "系列 : ^777777樂器^000000 攻擊 : ^777777210^000000",
+      "重量 : ^777777150^000000",
+      "武器等級 : ^7777775^000000",
+      "要求等級 : ^777777230^000000",
+      "裝備 : ^777777宮廷樂師系列^000000"
+    ],
+    "icon": "images/items/570032.webp",
+    "slot": "weapon",
+    "atk": 210,
+    "matk": 210,
+    "handed": 1,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 13,
+    "weaponType": "instrument",
+    "aegisName": "D_Glacier_Violin",
+    "AegisName": "D_Glacier_Violin",
+    "dbType": "Weapon",
+    "Type": "Weapon",
+    "dbSubType": "Musical",
+    "SubType": "Musical",
+    "range": 1,
+    "Range": 1,
+    "weaponLevel": 5,
+    "WeaponLevel": 5,
+    "equipLevelMin": 230,
+    "requiredLevel": 230,
+    "EquipLevelMin": 230,
+    "equipJobs": {
+      "BardDancer": true
+    },
+    "Jobs": {
+      "BardDancer": true
+    },
+    "equipClasses": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "Classes": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "locations": {
+      "Right_Hand": true
+    },
+    "Locations": {
+      "Right_Hand": true
+    },
+    "refineable": true,
+    "Refineable": true,
+    "gradable": true,
+    "Gradable": true,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱"
+  }
+}

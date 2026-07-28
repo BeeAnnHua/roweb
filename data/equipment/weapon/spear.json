@@ -1,1 +1,130 @@
-{}
+{
+  "530034": {
+    "id": 530034,
+    "officialId": 530034,
+    "name": "黯淡冰晶長矛",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "spear",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "沾染毒氣魔力且黯淡無光的的單手矛。",
+      "需採取與冰晶武器不同的方式來處理。",
+      "^ffffff_^000000",
+      "MATK+210。",
+      "系列 : ^777777單手矛^000000 攻擊 : ^777777220^000000",
+      "重量 : ^777777210^000000",
+      "武器等級 : ^7777775^000000",
+      "要求等級 : ^777777230^000000",
+      "裝備 : ^777777劍士系列^000000"
+    ],
+    "icon": "images/items/530034.webp",
+    "slot": "weapon",
+    "atk": 220,
+    "matk": 210,
+    "handed": 1,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 4,
+    "weaponType": "spear",
+    "aegisName": "D_Glacier_Spear",
+    "AegisName": "D_Glacier_Spear",
+    "dbType": "Weapon",
+    "Type": "Weapon",
+    "dbSubType": "1hSpear",
+    "SubType": "1hSpear",
+    "range": 3,
+    "Range": 3,
+    "weaponLevel": 5,
+    "WeaponLevel": 5,
+    "equipLevelMin": 230,
+    "requiredLevel": 230,
+    "EquipLevelMin": 230,
+    "equipJobs": {
+      "Crusader": true,
+      "Knight": true,
+      "Swordman": true
+    },
+    "Jobs": {
+      "Crusader": true,
+      "Knight": true,
+      "Swordman": true
+    },
+    "equipClasses": {},
+    "Classes": {},
+    "locations": {
+      "Right_Hand": true
+    },
+    "Locations": {
+      "Right_Hand": true
+    },
+    "refineable": true,
+    "Refineable": true,
+    "gradable": true,
+    "Gradable": true,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱"
+  },
+  "630019": {
+    "id": 630019,
+    "officialId": 630019,
+    "name": "黯淡冰晶騎士長矛",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "spear",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "沾染毒氣魔力且黯淡無光的的雙手矛。",
+      "需採取與冰晶武器不同的方式來處理。",
+      "^ffffff_^000000",
+      "MATK+270。",
+      "系列 : ^777777雙手矛^000000 攻擊 : ^777777300^000000",
+      "重量 : ^777777450^000000",
+      "武器等級 : ^7777775^000000",
+      "要求等級 : ^777777230^000000",
+      "裝備 : ^777777騎士系列^000000"
+    ],
+    "icon": "images/items/630019.webp",
+    "slot": "weapon",
+    "atk": 300,
+    "matk": 270,
+    "handed": 2,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 52,
+    "weaponType": "spear",
+    "aegisName": "D_Glacier_Lance",
+    "AegisName": "D_Glacier_Lance",
+    "dbType": "Weapon",
+    "Type": "Weapon",
+    "dbSubType": "2hSpear",
+    "SubType": "2hSpear",
+    "range": 3,
+    "Range": 3,
+    "weaponLevel": 5,
+    "WeaponLevel": 5,
+    "equipLevelMin": 230,
+    "requiredLevel": 230,
+    "EquipLevelMin": 230,
+    "equipJobs": {
+      "Knight": true
+    },
+    "Jobs": {
+      "Knight": true
+    },
+    "equipClasses": {},
+    "Classes": {},
+    "locations": {
+      "Both_Hand": true
+    },
+    "Locations": {
+      "Both_Hand": true
+    },
+    "refineable": true,
+    "Refineable": true,
+    "gradable": true,
+    "Gradable": true,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱"
+  }
+}

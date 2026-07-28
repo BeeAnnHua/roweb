@@ -1089,5 +1089,203 @@
     "EquipLevelMin": 33,
     "Refineable": true,
     "Script": "bonus bDef,5;\nbonus bUnbreakableWeapon;"
+  },
+  "500054": {
+    "id": 500054,
+    "officialId": 500054,
+    "name": "黯淡冰晶長劍",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "sword",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "沾染毒氣魔力且黯淡無光的的單手劍。",
+      "需採取與冰晶武器不同的方式來處理。",
+      "^ffffff_^000000",
+      "MATK+210。",
+      "系列 : ^777777單手劍^000000 攻擊 : ^777777220^000000",
+      "重量 : ^777777160^000000",
+      "武器等級 : ^7777775^000000",
+      "要求等級 : ^777777230^000000",
+      "裝備 : ^777777劍士/商人系列^000000"
+    ],
+    "icon": "images/items/500054.webp",
+    "slot": "weapon",
+    "atk": 220,
+    "matk": 210,
+    "handed": 1,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 42,
+    "weaponType": "sword",
+    "aegisName": "D_Glacier_Sword",
+    "AegisName": "D_Glacier_Sword",
+    "dbType": "Weapon",
+    "Type": "Weapon",
+    "dbSubType": "1hSword",
+    "SubType": "1hSword",
+    "range": 1,
+    "Range": 1,
+    "weaponLevel": 5,
+    "WeaponLevel": 5,
+    "equipLevelMin": 230,
+    "requiredLevel": 230,
+    "EquipLevelMin": 230,
+    "equipJobs": {
+      "Alchemist": true,
+      "Blacksmith": true,
+      "Crusader": true,
+      "Knight": true,
+      "Merchant": true,
+      "Swordman": true
+    },
+    "Jobs": {
+      "Alchemist": true,
+      "Blacksmith": true,
+      "Crusader": true,
+      "Knight": true,
+      "Merchant": true,
+      "Swordman": true
+    },
+    "equipClasses": {},
+    "Classes": {},
+    "locations": {
+      "Right_Hand": true
+    },
+    "Locations": {
+      "Right_Hand": true
+    },
+    "refineable": true,
+    "Refineable": true,
+    "gradable": true,
+    "Gradable": true,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱"
+  },
+  "500055": {
+    "id": 500055,
+    "officialId": 500055,
+    "name": "黯淡冰晶初階長劍",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "sword",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "沾染毒氣魔力且黯淡無光的的單手劍。",
+      "需採取與冰晶武器不同的方式來處理。",
+      "^ffffff_^000000",
+      "MATK+210。",
+      "系列 : ^777777單手劍^000000 攻擊 : ^777777220^000000",
+      "重量 : ^777777140^000000",
+      "武器等級 : ^7777775^000000",
+      "要求等級 : ^777777230^000000",
+      "裝備 : ^777777初學者系列^000000"
+    ],
+    "icon": "images/items/500055.webp",
+    "slot": "weapon",
+    "atk": 220,
+    "matk": 210,
+    "handed": 1,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 42,
+    "weaponType": "sword",
+    "aegisName": "D_Glacier_B_Sword",
+    "AegisName": "D_Glacier_B_Sword",
+    "dbType": "Weapon",
+    "Type": "Weapon",
+    "dbSubType": "1hSword",
+    "SubType": "1hSword",
+    "range": 1,
+    "Range": 1,
+    "weaponLevel": 5,
+    "WeaponLevel": 5,
+    "equipLevelMin": 230,
+    "requiredLevel": 230,
+    "EquipLevelMin": 230,
+    "equipJobs": {
+      "Novice": true,
+      "SuperNovice": true
+    },
+    "Jobs": {
+      "Novice": true,
+      "SuperNovice": true
+    },
+    "equipClasses": {},
+    "Classes": {},
+    "locations": {
+      "Right_Hand": true
+    },
+    "Locations": {
+      "Right_Hand": true
+    },
+    "refineable": true,
+    "Refineable": true,
+    "gradable": true,
+    "Gradable": true,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱"
+  },
+  "600030": {
+    "id": 600030,
+    "officialId": 600030,
+    "name": "黯淡冰晶雙手巨劍",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "sword",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "沾染毒氣魔力且黯淡無光的的雙手劍。",
+      "需採取與冰晶武器不同的方式來處理。",
+      "^ffffff_^000000",
+      "MATK+270。",
+      "系列 : ^777777雙手劍^000000 攻擊 : ^777777300^000000",
+      "重量 : ^777777400^000000",
+      "武器等級 : ^7777775^000000",
+      "要求等級 : ^777777230^000000",
+      "裝備 : ^777777騎士系列^000000"
+    ],
+    "icon": "images/items/600030.webp",
+    "slot": "weapon",
+    "atk": 300,
+    "matk": 270,
+    "handed": 2,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 49,
+    "weaponType": "sword",
+    "aegisName": "D_Glacier_T_Sword",
+    "AegisName": "D_Glacier_T_Sword",
+    "dbType": "Weapon",
+    "Type": "Weapon",
+    "dbSubType": "2hSword",
+    "SubType": "2hSword",
+    "range": 1,
+    "Range": 1,
+    "weaponLevel": 5,
+    "WeaponLevel": 5,
+    "equipLevelMin": 230,
+    "requiredLevel": 230,
+    "EquipLevelMin": 230,
+    "equipJobs": {
+      "Knight": true
+    },
+    "Jobs": {
+      "Knight": true
+    },
+    "equipClasses": {},
+    "Classes": {},
+    "locations": {
+      "Both_Hand": true
+    },
+    "Locations": {
+      "Both_Hand": true
+    },
+    "refineable": true,
+    "Refineable": true,
+    "gradable": true,
+    "Gradable": true,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱"
   }
 }

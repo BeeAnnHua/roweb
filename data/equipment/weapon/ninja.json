@@ -1,1 +1,71 @@
-{}
+{
+  "650028": {
+    "id": 650028,
+    "officialId": 650028,
+    "name": "黯淡冰晶風魔飛鏢",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "ninja",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "沾染毒氣魔力且黯淡無光的的風魔飛鏢。",
+      "需採取與冰晶武器不同的方式來處理。",
+      "^ffffff_^000000",
+      "不可破壞。",
+      "MATK+370。",
+      "系列 : ^777777風魔飛鏢^000000 攻擊 : ^777777400^000000",
+      "重量 : ^777777300^000000",
+      "武器等級 : ^7777775^000000",
+      "要求等級 : ^777777230^000000",
+      "裝備 : ^777777忍者系列^000000"
+    ],
+    "icon": "images/items/650028.webp",
+    "slot": "weapon",
+    "atk": 400,
+    "matk": 370,
+    "handed": 2,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 22,
+    "weaponType": "ninja",
+    "aegisName": "D_Glacier_Humma",
+    "AegisName": "D_Glacier_Humma",
+    "dbType": "Weapon",
+    "Type": "Weapon",
+    "dbSubType": "Huuma",
+    "SubType": "Huuma",
+    "range": 1,
+    "Range": 1,
+    "weaponLevel": 5,
+    "WeaponLevel": 5,
+    "equipLevelMin": 230,
+    "requiredLevel": 230,
+    "EquipLevelMin": 230,
+    "equipJobs": {
+      "KagerouOboro": true
+    },
+    "Jobs": {
+      "KagerouOboro": true
+    },
+    "equipClasses": {
+      "Third": true
+    },
+    "Classes": {
+      "Third": true
+    },
+    "locations": {
+      "Both_Hand": true
+    },
+    "Locations": {
+      "Both_Hand": true
+    },
+    "refineable": true,
+    "Refineable": true,
+    "gradable": true,
+    "Gradable": true,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱",
+    "Script": "bonus bUnbreakableWeapon;\n",
+    "scriptRaw": "bonus bUnbreakableWeapon;\n"
+  }
+}

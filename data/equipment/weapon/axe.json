@@ -438,5 +438,151 @@
     "WeaponLevel": 3,
     "EquipLevelMin": 30,
     "Refineable": true
+  },
+  "520021": {
+    "id": 520021,
+    "officialId": 520021,
+    "name": "黯淡冰晶斧",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "axe",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "沾染毒氣魔力且黯淡無光的的單手斧。",
+      "需採取與冰晶武器不同的方式來處理。",
+      "^ffffff_^000000",
+      "不可破壞。",
+      "MATK+210。",
+      "系列 : ^777777單手斧^000000 攻擊 : ^777777240^000000",
+      "重量 : ^777777500^000000",
+      "武器等級 : ^7777775^000000",
+      "要求等級 : ^777777230^000000",
+      "裝備 : ^777777劍士/商人系列^000000"
+    ],
+    "icon": "images/items/520021.webp",
+    "slot": "weapon",
+    "atk": 240,
+    "matk": 210,
+    "handed": 1,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 6,
+    "weaponType": "axe",
+    "aegisName": "D_Glacier_Axe",
+    "AegisName": "D_Glacier_Axe",
+    "dbType": "Weapon",
+    "Type": "Weapon",
+    "dbSubType": "1hAxe",
+    "SubType": "1hAxe",
+    "range": 1,
+    "Range": 1,
+    "weaponLevel": 5,
+    "WeaponLevel": 5,
+    "equipLevelMin": 230,
+    "requiredLevel": 230,
+    "EquipLevelMin": 230,
+    "equipJobs": {
+      "Alchemist": true,
+      "Blacksmith": true,
+      "Crusader": true,
+      "Knight": true,
+      "Merchant": true,
+      "Swordman": true
+    },
+    "Jobs": {
+      "Alchemist": true,
+      "Blacksmith": true,
+      "Crusader": true,
+      "Knight": true,
+      "Merchant": true,
+      "Swordman": true
+    },
+    "equipClasses": {},
+    "Classes": {},
+    "locations": {
+      "Right_Hand": true
+    },
+    "Locations": {
+      "Right_Hand": true
+    },
+    "refineable": true,
+    "Refineable": true,
+    "gradable": true,
+    "Gradable": true,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱",
+    "Script": "bonus bUnbreakableWeapon;\n",
+    "scriptRaw": "bonus bUnbreakableWeapon;\n"
+  },
+  "620019": {
+    "id": 620019,
+    "officialId": 620019,
+    "name": "黯淡冰晶機械斧",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "axe",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "沾染毒氣魔力且黯淡無光的的雙手斧。",
+      "需採取與冰晶武器不同的方式來處理。",
+      "^ffffff_^000000",
+      "不可破壞。",
+      "MATK+180。",
+      "系列 : ^777777雙手斧^000000 攻擊 : ^777777350^000000",
+      "重量 : ^777777700^000000",
+      "武器等級 : ^7777775^000000",
+      "要求等級 : ^777777230^000000",
+      "裝備 : ^777777機械工匠系列^000000"
+    ],
+    "icon": "images/items/620019.webp",
+    "slot": "weapon",
+    "atk": 350,
+    "matk": 180,
+    "handed": 2,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 7,
+    "weaponType": "axe",
+    "aegisName": "D_Glacier_T_Axe",
+    "AegisName": "D_Glacier_T_Axe",
+    "dbType": "Weapon",
+    "Type": "Weapon",
+    "dbSubType": "2hAxe",
+    "SubType": "2hAxe",
+    "range": 1,
+    "Range": 1,
+    "weaponLevel": 5,
+    "WeaponLevel": 5,
+    "equipLevelMin": 230,
+    "requiredLevel": 230,
+    "EquipLevelMin": 230,
+    "equipJobs": {
+      "Blacksmith": true
+    },
+    "Jobs": {
+      "Blacksmith": true
+    },
+    "equipClasses": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "Classes": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "locations": {
+      "Both_Hand": true
+    },
+    "Locations": {
+      "Both_Hand": true
+    },
+    "refineable": true,
+    "Refineable": true,
+    "gradable": true,
+    "Gradable": true,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱",
+    "Script": "bonus bUnbreakableWeapon;\n",
+    "scriptRaw": "bonus bUnbreakableWeapon;\n"
   }
 }

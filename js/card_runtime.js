@@ -11,10 +11,11 @@
     combos: "data/card_runtime/card_combos.json",
     groups: "data/card_runtime/item_groups.json",
     drops: "data/card_runtime/card_drop_sources.json",
-    equipment: "data/card_runtime/equipment_effects.json"
+    equipment: "data/card_runtime/equipment_effects.json",
+    enchants: "data/enchant_runtime/enchant_effects.json"
   };
   const CACHE = { signature: "", sources: [], all: null, tempSignature: "", loaded: false };
-  const DATA = { effects: {}, combos: [], groups: {}, drops: {}, equipment: {} };
+  const DATA = { effects: {}, combos: [], groups: {}, drops: {}, equipment: {}, enchants: {} };
   const COMPILED = new Map();
   const NESTED_COMPILED = new Map();
   const SLOT_BY_EQI = {
@@ -51,6 +52,7 @@
     DATA.groups = bundled(PATHS.groups, {}) || {};
     DATA.drops = bundled(PATHS.drops, {}) || {};
     DATA.equipment = bundled(PATHS.equipment, {}) || {};
+    DATA.enchants = bundled(PATHS.enchants, {}) || {};
     CACHE.loaded = Object.keys(DATA.effects).length > 0;
     return CACHE.loaded;
   }
@@ -123,7 +125,7 @@
     return rows;
   }
   function signature() {
-    const equipment = equipmentRows().map(row => [row.slot, row.itemId, row.refine, row.grade, ...(row.instance?.cards || [])]);
+    const equipment = equipmentRows().map(row => [row.slot, row.itemId, row.refine, row.grade, ...(row.instance?.cards || []), ...(row.instance?.enchants || []).map(x => [x?.id ?? x?.optionId ?? 0, x?.slot ?? x?.playerSlot ?? 0])]);
     const p = window.player || {};
     const temp = Object.entries(p.cardRuntimeTempBonuses || {}).filter(([,x]) => n(x?.expiresAt) > Date.now()).map(([k,x]) => [k,x.expiresAt]);
     return JSON.stringify([equipment, p.baseLevel, p.jobLevel, p.job, p.jobId, p.gender, p.stats, p.traitStats, p.learnedSkills, temp]);
@@ -372,14 +374,21 @@
   }
   function runtimeRecord(id, sourceType, item) {
     init();
-    const generated=sourceType==="card"?DATA.effects[String(id)]:DATA.equipment[String(id)];
-    return generated || dynamicRecord(item || window.getItemData?.(id),sourceType);
+    let generated=null;
+    if(sourceType==="card")generated=DATA.effects[String(id)];
+    else if(sourceType==="enchant")generated=DATA.enchants[String(id)];
+    else generated=DATA.equipment[String(id)];
+    if(generated){
+      if(String(generated.compiledScript||"").trim())return generated;
+      return dynamicRecord(generated,sourceType);
+    }
+    return dynamicRecord(item || window.getItemData?.(id),sourceType);
   }
 
   function executeScript(record, context = {}) {
     const out = { id:record.id, name:record.name || record.id, sourceType:context.sourceType || "card", sourceId:record.id };
     const vars = {};
-    const equippedIds = context.equippedIds || equipmentRows().flatMap(row => [row.itemId, ...(row.instance?.cards || []).filter(Boolean).map(Number)]);
+    const equippedIds = context.equippedIds || equipmentRows().flatMap(row => [row.itemId, ...(row.instance?.cards || []).filter(Boolean).map(Number), ...(row.instance?.enchants || []).filter(Boolean).map(x=>Number(x?.id ?? x?.optionId ?? 0)).filter(Boolean)]);
     const helpers = {
       v: vars,
       bonus: (type,...args) => applyBonus(out,type,args), bonus2:(type,...args)=>applyBonus(out,type,args), bonus3:(type,...args)=>applyBonus(out,type,args),
@@ -460,7 +469,7 @@
     init();
     const sig=signature();
     if (CACHE.signature===sig) return CACHE.sources;
-    const rows=equipmentRows(), equippedIds=rows.flatMap(row=>[row.itemId,...(row.instance?.cards||[]).filter(Boolean).map(Number)]);
+    const rows=equipmentRows(), equippedIds=rows.flatMap(row=>[row.itemId,...(row.instance?.cards||[]).filter(Boolean).map(Number),...(row.instance?.enchants||[]).filter(Boolean).map(x=>Number(x?.id ?? x?.optionId ?? 0)).filter(Boolean)]);
     const sources=[];
     for (const row of rows) {
       const equipmentRecord = runtimeRecord(row.itemId,"equipment",row.item);
@@ -472,6 +481,15 @@
         const cardItem=window.getItemData?.(cardId);
         const rec=runtimeRecord(cardId,"card",cardItem); if (!rec) continue;
         const source=executeScript(rec,{sourceType:"card",slot:row.slot,hostRow:row,equippedIds,maxRefine:Math.max(0,...rows.map(x=>x.refine))});
+        recordDiagnostic(source); sources.push(source);
+      }
+      for (const enchant of (row.instance?.enchants || []).filter(Boolean)) {
+        const enchantId=Number(enchant?.id ?? enchant?.optionId ?? 0);
+        if(!enchantId)continue;
+        const rec=runtimeRecord(enchantId,"enchant",DATA.enchants[String(enchantId)]||enchant); if(!rec)continue;
+        const source=executeScript(rec,{sourceType:"enchant",slot:row.slot,hostRow:row,equippedIds,maxRefine:Math.max(0,...rows.map(x=>x.refine)),maxGrade:Math.max(0,...rows.map(x=>x.grade))});
+        source.enchantSlot=Number(enchant?.slot ?? enchant?.playerSlot ?? 0);
+        source.hostInstanceId=String(row.instance?.instanceId||"");
         recordDiagnostic(source); sources.push(source);
       }
     }
@@ -882,10 +900,10 @@
 
 
   window.CardRuntime = {
-    version:"0.9.82GB", init, invalidate, getSources, getMergedSource, getCardRecord:id=>(init(),DATA.effects[String(id)]||null),
+    version:"0.9.82GY", init, invalidate, getSources, getMergedSource, getCardRecord:id=>(init(),DATA.effects[String(id)]||null), getEnchantRecord:id=>(init(),DATA.enchants[String(id)]||null),
     getComboRecords:()=> (init(),DATA.combos), getSocketCandidates, socketCard, isCardCompatible, removeAllCardsFromEquipped,
     onNormalAttack,onPlayerDamaged,onSkillUsed,onMonsterDefeated,rollExtraDrops,getExpRate,getSkillDamageRate,getSkillSpCostModifier,getItemRecoveryRate,tickPeriodicEffects,
-    getBuildCounts:()=>({cards:Object.keys(DATA.effects).length,equipmentScripts:Object.keys(DATA.equipment).length,combos:DATA.combos.length,dropSources:Object.values(DATA.drops).reduce((n,x)=>n+(x?.length||0),0)}),
+    getBuildCounts:()=>({cards:Object.keys(DATA.effects).length,equipmentScripts:Object.keys(DATA.equipment).length,enchantScripts:Object.keys(DATA.enchants).length,combos:DATA.combos.length,dropSources:Object.values(DATA.drops).reduce((n,x)=>n+(x?.length||0),0)}),
     getSupportedBonusTypes:()=>[...SUPPORTED_BONUS_TYPES].sort(),
     getRuntimeRecord:(id,sourceType="equipment")=>runtimeRecord(id,sourceType,window.getItemData?.(id)),
     getDiagnostics:()=>JSON.parse(JSON.stringify(DIAGNOSTICS)), clearDiagnostics:()=>{DIAGNOSTICS.runtimeErrors.length=0;DIAGNOSTICS.warnings.length=0;DIAGNOSTICS.unhandledBonuses={};DIAGNOSTIC_KEYS.clear();},

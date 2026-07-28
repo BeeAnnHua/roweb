@@ -1,0 +1,155 @@
+{
+  "version": "0.9.82GV",
+  "schema": "ro_web_item_boxes_v1",
+  "policy": {
+    "selection": "weighted_single_reward",
+    "futureRAItemGroupCompatible": true,
+    "consumeBeforeReward": true,
+    "transactionRollback": true
+  },
+  "boxes": {
+    "ep19_dim_glacier_weapon_box": {
+      "itemId": 1100100,
+      "name": "黯淡冰晶武器箱",
+      "consumeCount": 1,
+      "drawCount": 1,
+      "selection": "uniform",
+      "rewards": [
+        {
+          "itemId": 500054,
+          "quantity": 1,
+          "weight": 1
+        },
+        {
+          "itemId": 500055,
+          "quantity": 1,
+          "weight": 1
+        },
+        {
+          "itemId": 510075,
+          "quantity": 1,
+          "weight": 1
+        },
+        {
+          "itemId": 510076,
+          "quantity": 1,
+          "weight": 1
+        },
+        {
+          "itemId": 520021,
+          "quantity": 1,
+          "weight": 1
+        },
+        {
+          "itemId": 530034,
+          "quantity": 1,
+          "weight": 1
+        },
+        {
+          "itemId": 540056,
+          "quantity": 1,
+          "weight": 1
+        },
+        {
+          "itemId": 550089,
+          "quantity": 1,
+          "weight": 1
+        },
+        {
+          "itemId": 550090,
+          "quantity": 1,
+          "weight": 1
+        },
+        {
+          "itemId": 560037,
+          "quantity": 1,
+          "weight": 1
+        },
+        {
+          "itemId": 570032,
+          "quantity": 1,
+          "weight": 1
+        },
+        {
+          "itemId": 580033,
+          "quantity": 1,
+          "weight": 1
+        },
+        {
+          "itemId": 590047,
+          "quantity": 1,
+          "weight": 1
+        },
+        {
+          "itemId": 590048,
+          "quantity": 1,
+          "weight": 1
+        },
+        {
+          "itemId": 600030,
+          "quantity": 1,
+          "weight": 1
+        },
+        {
+          "itemId": 610041,
+          "quantity": 1,
+          "weight": 1
+        },
+        {
+          "itemId": 620019,
+          "quantity": 1,
+          "weight": 1
+        },
+        {
+          "itemId": 630019,
+          "quantity": 1,
+          "weight": 1
+        },
+        {
+          "itemId": 640034,
+          "quantity": 1,
+          "weight": 1
+        },
+        {
+          "itemId": 650028,
+          "quantity": 1,
+          "weight": 1
+        },
+        {
+          "itemId": 700059,
+          "quantity": 1,
+          "weight": 1
+        },
+        {
+          "itemId": 800015,
+          "quantity": 1,
+          "weight": 1
+        },
+        {
+          "itemId": 810015,
+          "quantity": 1,
+          "weight": 1
+        },
+        {
+          "itemId": 820011,
+          "quantity": 1,
+          "weight": 1
+        },
+        {
+          "itemId": 830015,
+          "quantity": 1,
+          "weight": 1
+        },
+        {
+          "itemId": 840010,
+          "quantity": 1,
+          "weight": 1
+        }
+      ],
+      "publicProbability": {
+        "rewardCount": 26,
+        "eachPercent": 3.84615385
+      }
+    }
+  }
+}

@@ -243,6 +243,20 @@
     "description": "五級武器／二級防具升階，以及乙太星塵、乙太魔石與各色乙太寶石材料合成。"
   },
   {
+    "id": "payon_enchant_platform_npc",
+    "cityId": "payon",
+    "name": "附魔研究員",
+    "type": "enchant_platform",
+    "description": "共用武器／防具附魔平台 UI 預覽。此版本只展示介面，不偵測裝備、不消耗材料、不寫入附魔。"
+  },
+  {
+    "id": "payon_enchant_material_exchange_npc",
+    "cityId": "payon",
+    "name": "綜合材料兌換研究員",
+    "type": "enchant_material_exchange",
+    "description": "附魔材料綜合兌換平台 UI 預覽。固定顯示全部配方與材料，不依背包持有物過濾；本版不執行兌換。"
+  },
+  {
     "id": "izlude_storage_npc",
     "cityId": "izlude",
     "name": "卡普拉倉庫管理員",

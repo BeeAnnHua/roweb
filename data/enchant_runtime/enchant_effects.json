@@ -1,0 +1,2353 @@
+{
+  "311192": {
+    "id": 311192,
+    "name": "雪花魔力（龍之氣息）",
+    "aegisName": "Glacier_F_Orb_1",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"RK_DRAGONBREATH\",20+10*(.@r/3);\nbonus2 bSkillAtk,\"RK_DRAGONBREATH_WATER\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"RK_DRAGONBREATH\",20;\n  bonus2 bSkillAtk,\"RK_DRAGONBREATH_WATER\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"RK_DRAGONBREATH\",20;\n    bonus2 bSkillAtk,\"RK_DRAGONBREATH_WATER\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "龍之氣息，龍之氣息-水傷害+20%。\n精煉每+3時，龍之氣息，龍之氣息-水傷害再+10%。\n精煉+9時，龍之氣息，龍之氣息-水傷害再+20%。\n精煉+11時，龍之氣息，龍之氣息-水傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311193": {
+    "id": 311193,
+    "name": "雪花魔力（風壓飛刃）",
+    "aegisName": "Glacier_F_Orb_2",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"RK_WINDCUTTER\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"RK_WINDCUTTER\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"RK_WINDCUTTER\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "風壓飛刃傷害+20%。\n精煉每+3時，風壓飛刃傷害再+10%。\n精煉+9時，風壓飛刃傷害再+20%。\n精煉+11時，風壓飛刃傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311194": {
+    "id": 311194,
+    "name": "雪花魔力（致命爆裂）",
+    "aegisName": "Glacier_F_Orb_3",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"RK_IGNITIONBREAK\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillCooldown,\"RK_IGNITIONBREAK\",-1000;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"RK_IGNITIONBREAK\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "致命爆裂傷害+20%。\n精煉每+3時，致命爆裂傷害再+10%。\n精煉+9時，致命爆裂技能冷卻時間-1秒。\n精煉+11時，致命爆裂傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311195": {
+    "id": 311195,
+    "name": "雪花魔力（百矛穿刺）",
+    "aegisName": "Glacier_F_Orb_4",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"RK_HUNDREDSPEAR\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillCooldown,\"RK_HUNDREDSPEAR\",-1500;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"RK_HUNDREDSPEAR\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "百矛穿刺傷害+20%。\n精煉每+3時，百矛穿刺傷害再+10%。\n精煉+9時，百矛穿刺技能冷卻時間-1.5秒。\n精煉+11時，百矛穿刺傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311196": {
+    "id": 311196,
+    "name": "雪花魔力（音速衝擊波）",
+    "aegisName": "Glacier_F_Orb_5",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"RK_SONICWAVE\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillCooldown,\"RK_SONICWAVE\",-1500;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"RK_SONICWAVE\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "音速衝擊波傷害+20%。\n精煉每+3時，音速衝擊波傷害再+10%。\n精煉+9時，音速衝擊波技能冷卻時間-1.5秒。\n精煉+11時，音速衝擊波傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311197": {
+    "id": 311197,
+    "name": "雪花魔力（支配烙印）",
+    "aegisName": "Glacier_F_Orb_6",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"LG_OVERBRAND\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillUseSPrate,\"LG_OVERBRAND\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"LG_OVERBRAND\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "支配烙印傷害+20%。\n精煉每+3時，支配烙印傷害再+10%。\n精煉+9時，支配烙印SP消耗-20%。\n精煉+11時，支配烙印傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311198": {
+    "id": 311198,
+    "name": "雪花魔力（黃昏星之光）",
+    "aegisName": "Glacier_F_Orb_7",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"LG_HESPERUSLIT\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"LG_HESPERUSLIT\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"LG_HESPERUSLIT\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "黃昏星之光傷害+20%。\n精煉每+3時，黃昏星之光傷害再+10%。\n精煉+9時，黃昏星之光傷害再+20%。\n精煉+11時，黃昏星之光傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311199": {
+    "id": 311199,
+    "name": "雪花魔力（放逐攻擊）",
+    "aegisName": "Glacier_F_Orb_8",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"LG_BANISHINGPOINT\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"LG_BANISHINGPOINT\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"LG_BANISHINGPOINT\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "放逐攻擊傷害+20%。\n精煉每+3時，放逐攻擊傷害再+10%。\n精煉+9時，放逐攻擊傷害再+20%。\n精煉+11時，放逐攻擊傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311200": {
+    "id": 311200,
+    "name": "雪花魔力（加農砲攻擊）",
+    "aegisName": "Glacier_F_Orb_9",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"LG_CANNONSPEAR\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillCooldown,\"LG_CANNONSPEAR\",-500;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"LG_CANNONSPEAR\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "加農砲攻擊傷害+20%。\n精煉每+3時，加農砲攻擊傷害再+10%。\n精煉+9時，加農砲攻擊技能冷卻時間-0.5秒。\n精煉+11時，加農砲攻擊傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311201": {
+    "id": 311201,
+    "name": "雪花魔力（創世之光）",
+    "aegisName": "Glacier_F_Orb_10",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"LG_RAYOFGENESIS\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillCooldown,\"LG_RAYOFGENESIS\",-1000;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"LG_RAYOFGENESIS\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "創世之光傷害+20%。\n精煉每+3時，創世之光傷害再+10%。\n精煉+9時，創世之光技能冷卻時間-1秒。\n精煉+11時，創世之光傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311202": {
+    "id": 311202,
+    "name": "雪花魔力（重壓盾擊）",
+    "aegisName": "Glacier_F_Orb_11",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"LG_SHIELDPRESS\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillCooldown,\"LG_SHIELDPRESS\",-250;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"LG_SHIELDPRESS\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "重壓盾擊傷害+20%。\n精煉每+3時，重壓盾擊傷害再+10%。\n精煉+9時，重壓盾擊技能冷卻時間-0.25秒。\n精煉+11時，重壓盾擊傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311203": {
+    "id": 311203,
+    "name": "雪花魔力（大地毀滅）",
+    "aegisName": "Glacier_F_Orb_12",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"LG_EARTHDRIVE\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillCooldown,\"LG_EARTHDRIVE\",-1200;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"LG_EARTHDRIVE\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "大地毀滅傷害+20%。\n精煉每+3時，大地毀滅傷害再+10%。\n精煉+9時，大地毀滅技能冷卻時間-1.2秒。\n精煉+11時，大地毀滅傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311204": {
+    "id": 311204,
+    "name": "雪花魔力（噴射飛拳）",
+    "aegisName": "Glacier_F_Orb_13",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"NC_BOOSTKNUCKLE\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"NC_BOOSTKNUCKLE\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"NC_BOOSTKNUCKLE\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "噴射飛拳傷害+20%。\n精煉每+3時，噴射飛拳傷害再+10%。\n精煉+9時，噴射飛拳傷害再+20%。\n精煉+11時，噴射飛拳傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311205": {
+    "id": 311205,
+    "name": "雪花魔力（加農砲）",
+    "aegisName": "Glacier_F_Orb_14",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"NC_ARMSCANNON\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"NC_ARMSCANNON\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"NC_ARMSCANNON\",10;\n    bonus bNoMadoFuel;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "加農砲傷害+20%。\n精煉每+3時，加農砲傷害再+10%。\n精煉+9時，加農砲傷害再+20%。\n精煉+11時，加農砲傷害再+10%，不會消耗魔導戰甲燃料。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311206": {
+    "id": 311206,
+    "name": "雪花魔力（戰斧颶風）",
+    "aegisName": "Glacier_F_Orb_15",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"NC_AXETORNADO\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillCooldown,\"NC_AXETORNADO\",-1000;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"NC_AXETORNADO\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "戰斧颶風傷害+20%。\n精煉每+3時，戰斧颶風傷害再+10%。\n精煉+9時，戰斧颶風技能冷卻時間-1秒。\n精煉+11時，戰斧颶風傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311207": {
+    "id": 311207,
+    "name": "雪花魔力（揮斧重擊）",
+    "aegisName": "Glacier_F_Orb_16",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"NC_POWERSWING\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"NC_POWERSWING\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"NC_POWERSWING\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "揮斧重擊傷害+20%。\n精煉每+3時，揮斧重擊傷害再+10%。\n精煉+9時，揮斧重擊傷害再+20%。\n精煉+11時，揮斧重擊傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311208": {
+    "id": 311208,
+    "name": "雪花魔力（火神砲）",
+    "aegisName": "Glacier_F_Orb_17",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"NC_VULCANARM\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"NC_VULCANARM\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"NC_VULCANARM\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "火神砲傷害+20%。\n精煉每+3時，火神砲傷害再+10%。\n精煉+9時，火神砲傷害再+20%。\n精煉+11時，火神砲傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311209": {
+    "id": 311209,
+    "name": "雪花魔力（迴旋斧）",
+    "aegisName": "Glacier_F_Orb_18",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"NC_AXEBOOMERANG\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"NC_AXEBOOMERANG\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"NC_AXEBOOMERANG\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "迴旋斧傷害+20%。\n精煉每+3時，迴旋斧傷害再+10%。\n精煉+9時，迴旋斧傷害再+20%。\n精煉+11時，迴旋斧傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311210": {
+    "id": 311210,
+    "name": "雪花魔力（手推車龍捲風）",
+    "aegisName": "Glacier_F_Orb_19",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"GN_CART_TORNADO\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"GN_CART_TORNADO\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"GN_CART_TORNADO\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "手推車龍捲風傷害+20%。\n精煉每+3時，手推車龍捲風傷害再+10%。\n精煉+9時，手推車龍捲風傷害再+20%。\n精煉+11時，手推車龍捲風傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311211": {
+    "id": 311211,
+    "name": "雪花魔力（手推車加農砲）",
+    "aegisName": "Glacier_F_Orb_20",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"GN_CARTCANNON\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"GN_CARTCANNON\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"GN_CARTCANNON\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "手推車加農砲傷害+20%。\n精煉每+3時，手推車加農砲傷害再+10%。\n精煉+9時，手推車加農砲傷害再+20%。\n精煉+11時，手推車加農砲傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311212": {
+    "id": 311212,
+    "name": "雪花魔力（爆炸孢子）",
+    "aegisName": "Glacier_F_Orb_21",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"GN_SPORE_EXPLOSION\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillCooldown,\"GN_SPORE_EXPLOSION\",-2000;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"GN_SPORE_EXPLOSION\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "爆炸孢子傷害+20%。\n精煉每+3時，爆炸孢子傷害再+10%。\n精煉+9時，爆炸孢子冷卻時間-2秒。\n精煉+11時，爆炸孢子傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311213": {
+    "id": 311213,
+    "name": "雪花魔力（瘋狂野草）",
+    "aegisName": "Glacier_F_Orb_22",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"GN_CRAZYWEED_ATK\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillCooldown,\"GN_CRAZYWEED\",-2500;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"GN_CRAZYWEED_ATK\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "瘋狂野草傷害+20%。\n精煉每+3時，瘋狂野草傷害再+10%。\n精煉+9時，瘋狂野草技能冷卻時間-2.5秒。\n精煉+11時，瘋狂野草傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311214": {
+    "id": 311214,
+    "name": "雪花魔力（迴旋十字斬）",
+    "aegisName": "Glacier_F_Orb_23",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"GC_CROSSRIPPERSLASHER\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"GC_CROSSRIPPERSLASHER\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"GC_CROSSRIPPERSLASHER\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "迴旋十字斬傷害+20%。\n精煉每+3時，迴旋十字斬傷害再+10%。\n精煉+9時，迴旋十字斬傷害再+20%。\n精煉+11時，迴旋十字斬傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311215": {
+    "id": 311215,
+    "name": "雪花魔力（迴旋刀刃）",
+    "aegisName": "Glacier_F_Orb_24",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"GC_ROLLINGCUTTER\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"GC_ROLLINGCUTTER\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"GC_ROLLINGCUTTER\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "迴旋刀刃傷害+20%。\n精煉每+3時，迴旋刀刃傷害再+10%。\n精煉+9時，迴旋刀刃傷害再+20%。\n精煉+11時，迴旋刀刃傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311216": {
+    "id": 311216,
+    "name": "雪花魔力（反擊斬）",
+    "aegisName": "Glacier_F_Orb_25",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"GC_COUNTERSLASH\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"GC_COUNTERSLASH\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"GC_COUNTERSLASH\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "反擊斬傷害+20%。\n精煉每+3時，反擊斬傷害再+10%。\n精煉+9時，反擊斬傷害再+20%。\n精煉+11時，反擊斬傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311217": {
+    "id": 311217,
+    "name": "雪花魔力（十字斬）",
+    "aegisName": "Glacier_F_Orb_26",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"GC_CROSSIMPACT\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillUseSPrate,\"GC_CROSSIMPACT\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"GC_CROSSIMPACT\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "十字斬傷害+20%。\n精煉每+3時，十字斬傷害再+10%。\n精煉+9時，十字斬SP消耗-20%。\n精煉+11時，十字斬傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311218": {
+    "id": 311218,
+    "name": "雪花魔力（致命威脅）",
+    "aegisName": "Glacier_F_Orb_27",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SC_FATALMENACE\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"SC_FATALMENACE\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"SC_FATALMENACE\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "致命威脅傷害+20%。\n精煉每+3時，致命威脅傷害再+10%。\n精煉+9時，致命威脅傷害再+20%。\n精煉+11時，致命威脅傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311219": {
+    "id": 311219,
+    "name": "雪花魔力（三角射擊）",
+    "aegisName": "Glacier_F_Orb_28",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SC_TRIANGLESHOT\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"SC_TRIANGLESHOT\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"SC_TRIANGLESHOT\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "三角射擊傷害+20%。\n精煉每+3時，三角射擊傷害再+10%。\n精煉+9時，三角射擊傷害再+20%。\n精煉+11時，三角射擊傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311220": {
+    "id": 311220,
+    "name": "雪花魔力（虛擊炸彈）",
+    "aegisName": "Glacier_F_Orb_29",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SC_FEINTBOMB\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"SC_FEINTBOMB\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"SC_FEINTBOMB\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "虛擊炸彈傷害+20%。\n精煉每+3時，虛擊炸彈傷害再+10%。\n精煉+9時，虛擊炸彈傷害再+20%。\n精煉+11時，虛擊炸彈傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311221": {
+    "id": 311221,
+    "name": "雪花魔力（自動魅影念咒）",
+    "aegisName": "Glacier_F_Orb_30",
+    "scriptRaw": ".@r = getrefine();\nbonus5 bAutoSpell,\"WZ_METEOR\",7,70,BF_SHORT|BF_NORMAL,0;\nbonus2 bSkillAtk,\"WZ_METEOR\",25*(.@r/3);\nif (.@r>=9) {\n  bonus5 bAutoSpell,\"SO_PSYCHIC_WAVE\",5,50,BF_SHORT|BF_NORMAL,0;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"SO_PSYCHIC_WAVE\",40;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "一般近距離物理攻擊時，有7%的機率觸發隕石術Lv7。\n精煉每+3時，隕石術傷害+25%。\n精煉+9時，一般近距離物理攻擊時，有5%的機率觸發超自然波Lv5。\n精煉+11時，超自然波傷害+40%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311222": {
+    "id": 311222,
+    "name": "雪花魔力（元素命令）",
+    "aegisName": "Glacier_F_Orb_31",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"WL_CRIMSONROCK\",20+10*(.@r/3);\nbonus2 bSkillAtk,\"WL_JACKFROST\",20+10*(.@r/3);\nbonus2 bSkillAtk,\"WL_CHAINLIGHTNING_ATK\",20+10*(.@r/3);\nbonus2 bSkillAtk,\"WL_EARTHSTRAIN\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"WL_CRIMSONROCK\",20;\n  bonus2 bSkillAtk,\"WL_JACKFROST\",20;\n  bonus2 bSkillAtk,\"WL_CHAINLIGHTNING_ATK\",20;\n  bonus2 bSkillAtk,\"WL_EARTHSTRAIN\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"WL_CRIMSONROCK\",20;\n    bonus2 bSkillAtk,\"WL_JACKFROST\",20;\n    bonus2 bSkillAtk,\"WL_CHAINLIGHTNING_ATK\",20;\n    bonus2 bSkillAtk,\"WL_EARTHSTRAIN\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "碧血隕石/凍僵術/連鎖電擊/地牛翻身傷害+20%。\n精煉每+3時，碧血隕石/凍僵術/連鎖電擊/地牛翻身傷害再+10%。\n精煉+9時，碧血隕石/凍僵術/連鎖電擊/地牛翻身傷害再+20%。\n精煉+11時，碧血隕石/凍僵術/連鎖電擊/地牛翻身傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311223": {
+    "id": 311223,
+    "name": "雪花魔力（靈魂爆炸）",
+    "aegisName": "Glacier_F_Orb_32",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"WL_SOULEXPANSION\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillCooldown,\"WL_TELEKINESIS_INTENSE\",-30000;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"WL_SOULEXPANSION\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "靈魂爆炸傷害+20%。\n精煉每+3時，靈魂爆炸傷害再+10%。\n精煉+9時，終極念力技能冷卻時間-30秒。\n精煉+11時，靈魂爆炸傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311224": {
+    "id": 311224,
+    "name": "雪花魔力（毀滅彗星）",
+    "aegisName": "Glacier_F_Orb_33",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"WL_COMET\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillUseSPrate,\"WL_COMET\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"WL_COMET\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "毀滅彗星傷害+20%。\n精煉每+3時，毀滅彗星傷害再+10%。\n精煉+9時，毀滅彗星SP消耗-20%。\n精煉+11時，毀滅彗星傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311225": {
+    "id": 311225,
+    "name": "雪花魔力（超自然波）",
+    "aegisName": "Glacier_F_Orb_34",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SO_PSYCHIC_WAVE\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillCooldown,\"SO_PSYCHIC_WAVE\",-1500;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"SO_PSYCHIC_WAVE\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "超自然波傷害+20%。\n精煉每+3時，超自然波傷害再+10%。\n精煉+9時，超自然波技能冷卻時間-1.5秒。\n精煉+11時，超自然波傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311226": {
+    "id": 311226,
+    "name": "雪花魔力（鑽石星塵）",
+    "aegisName": "Glacier_F_Orb_35",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SO_DIAMONDDUST\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"SO_DIAMONDDUST\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"SO_DIAMONDDUST\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "鑽石星塵傷害+20%。\n精煉每+3時，鑽石星塵傷害再+10%。\n精煉+9時，鑽石星塵傷害再+20%。\n精煉+11時，鑽石星塵傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311227": {
+    "id": 311227,
+    "name": "雪花魔力（聖槍刺擊）",
+    "aegisName": "Glacier_F_Orb_36",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SO_VARETYR_SPEAR\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillCooldown,\"SO_VARETYR_SPEAR\",-2000;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"SO_VARETYR_SPEAR\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "聖槍刺擊傷害+20%。\n精煉每+3時，聖槍刺擊傷害再+10%。\n精煉+9時，聖槍刺擊技能冷卻時間-2秒。\n精煉+11時，聖槍刺擊傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311228": {
+    "id": 311228,
+    "name": "雪花魔力（大地墳場）",
+    "aegisName": "Glacier_F_Orb_37",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SO_EARTHGRAVE\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillCooldown,\"SO_EARTHGRAVE\",-2000;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"SO_EARTHGRAVE\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "大地墳場傷害+20%。\n精煉每+3時，大地墳場傷害再+10%。\n精煉+9時，大地墳場技能冷卻時間-2秒。\n精煉+11時，大地墳場傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311229": {
+    "id": 311229,
+    "name": "雪花魔力（劇毒猛擊）",
+    "aegisName": "Glacier_F_Orb_38",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SO_POISON_BUSTER\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillCooldown,\"SO_POISON_BUSTER\",-1000;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"SO_POISON_BUSTER\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "劇毒猛擊傷害+20%。\n精煉每+3時，劇毒猛擊傷害再+10%。\n精煉+9時，劇毒猛擊技能冷卻時間-1秒。\n精煉+11時，劇毒猛擊傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311230": {
+    "id": 311230,
+    "name": "雪花魔力（謳歌）",
+    "aegisName": "Glacier_F_Orb_39",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"AB_ADORAMUS\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"AB_ADORAMUS\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"AB_ADORAMUS\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "謳歌傷害+20%。\n精煉每+3時，謳歌傷害再+10%。\n精煉+9時，謳歌傷害再+20%。\n精煉+11時，謳歌傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311231": {
+    "id": 311231,
+    "name": "雪花魔力（審判）",
+    "aegisName": "Glacier_F_Orb_40",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"AB_JUDEX\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"AB_JUDEX\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"AB_JUDEX\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "審判傷害+20%。\n精煉每+3時，審判傷害再+10%。\n精煉+9時，審判傷害再+20%。\n精煉+11時，審判傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311232": {
+    "id": 311232,
+    "name": "雪花魔力（二道聖光）",
+    "aegisName": "Glacier_F_Orb_41",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"AB_DUPLELIGHT_MELEE\",20+10*(.@r/3);\nbonus2 bSkillAtk,\"AB_DUPLELIGHT_MAGIC\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"AB_DUPLELIGHT_MELEE\",20;\n  bonus2 bSkillAtk,\"AB_DUPLELIGHT_MAGIC\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"AB_DUPLELIGHT_MELEE\",20;\n    bonus2 bSkillAtk,\"AB_DUPLELIGHT_MAGIC\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "二道聖光傷害+20%。\n精煉每+3時，二道聖光傷害再+10%。\n精煉+9時，二道聖光傷害再+20%。\n精煉+11時，二道聖光傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311233": {
+    "id": 311233,
+    "name": "雪花魔力（虎砲）",
+    "aegisName": "Glacier_F_Orb_42",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SR_TIGERCANNON\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillCooldown,\"SR_TIGERCANNON\",-1000;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"SR_TIGERCANNON\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "虎砲傷害+20%。\n精煉每+3時，虎砲傷害再+10%。\n精煉+9時，虎砲技能冷卻時間-1秒。\n精煉+11時，虎砲傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311234": {
+    "id": 311234,
+    "name": "雪花魔力（爆氣散彈）",
+    "aegisName": "Glacier_F_Orb_43",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SR_RAMPAGEBLASTER\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillCooldown,\"SR_RAMPAGEBLASTER\",-1000;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"SR_RAMPAGEBLASTER\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "爆氣散彈傷害+20%。\n精煉每+3時，爆氣散彈傷害再+10%。\n精煉+9時，爆氣散彈技能冷卻時間-1秒。\n精煉+11時，爆氣散彈傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311235": {
+    "id": 311235,
+    "name": "雪花魔力（天羅地網）",
+    "aegisName": "Glacier_F_Orb_44",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SR_SKYNETBLOW\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"SR_SKYNETBLOW\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"SR_SKYNETBLOW\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "天羅地網傷害+20%。\n精煉每+3時，天羅地網傷害再+10%。\n精煉+9時，天羅地網傷害再+20%。\n精煉+11時，天羅地網傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311236": {
+    "id": 311236,
+    "name": "雪花魔力（雷光彈）",
+    "aegisName": "Glacier_F_Orb_45",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SR_RIDEINLIGHTNING\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"SR_RIDEINLIGHTNING\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"SR_RIDEINLIGHTNING\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "雷光彈傷害+20%。\n精煉每+3時， 雷光彈傷害再+10%。\n精煉+9時，雷光彈傷害再+20%。\n精煉+11時，雷光彈傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311237": {
+    "id": 311237,
+    "name": "雪花魔力（修羅身彈）",
+    "aegisName": "Glacier_F_Orb_46",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SR_KNUCKLEARROW\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"SR_KNUCKLEARROW\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"SR_KNUCKLEARROW\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "修羅身彈傷害+20%。\n精煉每+3時，修羅身彈傷害再+10%。\n精煉+9時，修羅身彈傷害再+20%。\n精煉+11時，修羅身彈傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311238": {
+    "id": 311238,
+    "name": "雪花魔力（瞄準標靶）",
+    "aegisName": "Glacier_F_Orb_47",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"RA_AIMEDBOLT\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillCooldown,\"RA_AIMEDBOLT\",-1000;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"RA_AIMEDBOLT\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "瞄準標靶傷害+20%。\n精煉每+3時，瞄準標靶傷害再+10%。\n精煉+9時，瞄準標靶技能冷卻時間-1秒。\n精煉+11時，瞄準標靶傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311239": {
+    "id": 311239,
+    "name": "雪花魔力（箭雨風暴）",
+    "aegisName": "Glacier_F_Orb_48",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"RA_ARROWSTORM\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillCooldown,\"RA_ARROWSTORM\",-1200;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"RA_ARROWSTORM\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "箭雨風暴傷害+20%。\n精煉每+3時，箭雨風暴傷害再+10%。\n精煉+9時，箭雨風暴技能冷卻時間-1.2秒。\n精煉+11時，箭雨風暴傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311240": {
+    "id": 311240,
+    "name": "雪花魔力（狼突擊）",
+    "aegisName": "Glacier_F_Orb_49",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"RA_WUGSTRIKE\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"RA_WUGSTRIKE\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"RA_WUGSTRIKE\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "狼突擊傷害+20%。\n精煉每+3時，狼突擊傷害再+10%。\n精煉+9時，狼突擊傷害再+20%。\n精煉+11時，狼突擊傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311241": {
+    "id": 311241,
+    "name": "雪花魔力（大暴雨）",
+    "aegisName": "Glacier_F_Orb_50",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"WM_SEVERE_RAINSTORM_MELEE\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillCooldown,\"WM_SEVERE_RAINSTORM\",-2000;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"WM_SEVERE_RAINSTORM_MELEE\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "大暴雨傷害+20%。\n精煉每+3時，大暴雨傷害再+10%。\n精煉+9時，大暴雨技能冷卻時間-2秒。\n精煉+11時，大暴雨傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311242": {
+    "id": 311242,
+    "name": "雪花魔力（重金屬音樂）",
+    "aegisName": "Glacier_F_Orb_51",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"WM_METALICSOUND\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillCooldown,\"WM_METALICSOUND\",-2000;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"WM_METALICSOUND\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "重金屬音樂傷害+20%。\n精煉每+3時，重金屬音樂傷害再+10%。\n精煉+9時，重金屬音樂技能冷卻時間-2秒。\n精煉+11時，重金屬音樂傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311243": {
+    "id": 311243,
+    "name": "雪花魔力（殘響）",
+    "aegisName": "Glacier_F_Orb_52",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"WM_REVERBERATION\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"WM_REVERBERATION\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"WM_REVERBERATION\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "殘響傷害+20%。\n精煉每+3時，殘響傷害再+10%。\n精煉+9時，殘響傷害再+20%。\n精煉+11時，殘響傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311244": {
+    "id": 311244,
+    "name": "雪花魔力（紅焰爆炸）",
+    "aegisName": "Glacier_F_Orb_53",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SJ_PROMINENCEKICK\",20+10*(.@r/3);\nbonus2 bSkillAtk,\"SJ_SOLARBURST\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"SJ_PROMINENCEKICK\",20;\n  bonus2 bSkillAtk,\"SJ_SOLARBURST\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"SJ_PROMINENCEKICK\",20;\n    bonus2 bSkillAtk,\"SJ_SOLARBURST\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "紅焰腳/太陽爆炸傷害+20%。\n精煉每+3時，紅焰腳/太陽爆炸傷害再+10%。\n精煉+9時，紅焰腳/太陽爆炸傷害再+20%。\n精煉+11時，紅焰腳/太陽爆炸傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311245": {
+    "id": 311245,
+    "name": "雪花魔力（朔月滿月）",
+    "aegisName": "Glacier_F_Orb_54",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SJ_NEWMOONKICK\",20+10*(.@r/3);\nbonus2 bSkillAtk,\"SJ_FULLMOONKICK\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"SJ_NEWMOONKICK\",20;\n  bonus2 bSkillAtk,\"SJ_FULLMOONKICK\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"SJ_NEWMOONKICK\",20;\n    bonus2 bSkillAtk,\"SJ_FULLMOONKICK\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "朔月腳/滿月腳傷害+20%。\n精煉每+3時，朔月腳/滿月腳傷害再+10%。\n精煉+9時，朔月腳/滿月腳傷害再+20%。\n精煉+11時，朔月腳/滿月腳傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311246": {
+    "id": 311246,
+    "name": "雪花魔力（閃光殞落）",
+    "aegisName": "Glacier_F_Orb_55",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SJ_FLASHKICK\",20+10*(.@r/3);\nbonus2 bSkillAtk,\"SJ_FALLINGSTAR_ATK\",20+10*(.@r/3);\nbonus2 bSkillAtk,\"SJ_FALLINGSTAR_ATK2\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"SJ_FLASHKICK\",20;\n  bonus2 bSkillAtk,\"SJ_FALLINGSTAR_ATK\",20;\n  bonus2 bSkillAtk,\"SJ_FALLINGSTAR_ATK2\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"SJ_FLASHKICK\",20;\n    bonus2 bSkillAtk,\"SJ_FALLINGSTAR_ATK\",20;\n    bonus2 bSkillAtk,\"SJ_FALLINGSTAR_ATK2\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "閃光腳/流星殞落傷害+20%。\n精煉每+3時，閃光腳/流星殞落傷害再+10%。\n精煉+9時，閃光腳/流星殞落傷害再+20%。\n精煉+11時，閃光腳/流星殞落傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311247": {
+    "id": 311247,
+    "name": "雪花魔力（艾斯帕）",
+    "aegisName": "Glacier_F_Orb_56",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SP_SPA\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"SP_SPA\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"SP_SPA\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "艾斯帕傷害+20%。\n精煉每+3時，艾斯帕傷害再+10%。\n精煉+9時，艾斯帕傷害再+20%。\n精煉+11時，艾斯帕傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311248": {
+    "id": 311248,
+    "name": "雪花魔力（艾斯核）",
+    "aegisName": "Glacier_F_Orb_57",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SP_SWHOO\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"SP_SWHOO\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"SP_SWHOO\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "艾斯核傷害+20%。\n精煉每+3時，艾斯核傷害再+10%。\n精煉+9時，艾斯核傷害再+20%。\n精煉+11時，艾斯核傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311249": {
+    "id": 311249,
+    "name": "雪花魔力（邪靈爆炸）",
+    "aegisName": "Glacier_F_Orb_58",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SP_CURSEEXPLOSION\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"SP_CURSEEXPLOSION\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"SP_CURSEEXPLOSION\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "邪靈爆炸傷害+20%。\n精煉每+3時，邪靈爆炸傷害再+10%。\n精煉+9時，邪靈爆炸傷害再+20%。\n精煉+11時，邪靈爆炸傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311250": {
+    "id": 311250,
+    "name": "雪花魔力（殺戮暗舞）",
+    "aegisName": "Glacier_F_Orb_59",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"RL_FIREDANCE\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"RL_FIREDANCE\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"RL_FIREDANCE\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "殺戮暗舞傷害+20%。\n精煉每+3時，殺戮暗舞傷害再+10%。\n精煉+9時，殺戮暗舞傷害再+20%。\n精煉+11時，殺戮暗舞傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311251": {
+    "id": 311251,
+    "name": "雪花魔力（天神憤怒）",
+    "aegisName": "Glacier_F_Orb_60",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"RL_HAMMER_OF_GOD\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillCooldown,\"RL_HAMMER_OF_GOD\",-8000;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"RL_HAMMER_OF_GOD\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "天神憤怒傷害+20%。\n精煉每+3時，天神憤怒傷害再+10%。\n精煉+9時，天神憤怒技能冷卻時間-8秒。\n精煉+11時，天神憤怒傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311252": {
+    "id": 311252,
+    "name": "雪花魔力（魔獸擺尾）",
+    "aegisName": "Glacier_F_Orb_61",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"RL_D_TAIL\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillCooldown,\"RL_D_TAIL\",-2000;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"RL_D_TAIL\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "魔獸擺尾傷害+20%。\n精煉每+3時，魔獸擺尾傷害再+10%。\n精煉+9時，魔獸擺尾技能冷卻時間-2秒。\n精煉+11時，魔獸擺尾傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311253": {
+    "id": 311253,
+    "name": "雪花魔力（風暴驅逐）",
+    "aegisName": "Glacier_F_Orb_62",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"RL_S_STORM\",20+10*(.@r/3);\nbonus2 bSkillAtk,\"RL_BANISHING_BUSTER\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillCooldown,\"RL_S_STORM\",-1000;\n  bonus2 bSkillAtk,\"RL_BANISHING_BUSTER\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"RL_S_STORM\",20;\n    bonus2 bSkillAtk,\"RL_BANISHING_BUSTER\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "粉碎風暴/強制驅逐傷害+20%。\n精煉每+3時，粉碎風暴/強制驅逐傷害再+10%。\n精煉+9時，強制驅逐傷害再+20%，粉碎風暴技能冷卻時間-1秒。\n精煉+11時，粉碎風暴/強制驅逐傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311254": {
+    "id": 311254,
+    "name": "雪花魔力（圓桌舞蹈）",
+    "aegisName": "Glacier_F_Orb_63",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"RL_R_TRIP\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"RL_R_TRIP\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"RL_R_TRIP\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "圓桌舞蹈傷害+20%。\n精煉每+3時，圓桌舞蹈傷害再+10%。\n精煉+9時，圓桌舞蹈傷害再+20%。\n精煉+11時，圓桌舞蹈傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311255": {
+    "id": 311255,
+    "name": "雪花魔力（幽冥十字斬）",
+    "aegisName": "Glacier_F_Orb_64",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"KO_JYUMONJIKIRI\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillCooldown,\"KO_JYUMONJIKIRI\",-2000;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"KO_JYUMONJIKIRI\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "幽冥十字斬傷害+20%。\n精煉每+3時，幽冥十字斬傷害再+10%。\n精煉+9時，幽冥十字斬冷卻時間-2秒。\n精煉+11時，幽冥十字斬傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311256": {
+    "id": 311256,
+    "name": "雪花魔力（禁術）",
+    "aegisName": "Glacier_F_Orb_65",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"NJ_BAKUENRYU\",20+10*(.@r/3);\nbonus2 bSkillAtk,\"NJ_HYOUSYOURAKU\",20+10*(.@r/3);\nbonus2 bSkillAtk,\"NJ_KAMAITACHI\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"NJ_BAKUENRYU\",20;\n  bonus2 bSkillAtk,\"NJ_HYOUSYOURAKU\",20;\n  bonus2 bSkillAtk,\"NJ_KAMAITACHI\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"NJ_BAKUENRYU\",20;\n    bonus2 bSkillAtk,\"NJ_HYOUSYOURAKU\",20;\n    bonus2 bSkillAtk,\"NJ_KAMAITACHI\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "爆炎龍/冰晶落/朔風傷害+20%。\n精煉每+3時，爆炎龍/冰晶落/朔風傷害再+10%。\n精煉+9時，爆炎龍/冰晶落/朔風傷害再+20%。\n精煉+11時，爆炎龍/冰晶落/朔風傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311257": {
+    "id": 311257,
+    "name": "雪花魔力（忍術）",
+    "aegisName": "Glacier_F_Orb_66",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"NJ_KOUENKA\",20+10*(.@r/3);\nbonus2 bSkillAtk,\"NJ_HYOUSENSOU\",20+10*(.@r/3);\nbonus2 bSkillAtk,\"NJ_HUUJIN\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"NJ_KOUENKA\",20;\n  bonus2 bSkillAtk,\"NJ_HYOUSENSOU\",20;\n  bonus2 bSkillAtk,\"NJ_HUUJIN\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"NJ_KOUENKA\",20;\n    bonus2 bSkillAtk,\"NJ_HYOUSENSOU\",20;\n    bonus2 bSkillAtk,\"NJ_HUUJIN\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "火炎花/冰閃槍/風刃傷害+20%。\n精煉每+3時，火炎花/冰閃槍/風刃傷害再+10%。\n精煉+9時，火炎花/冰閃槍/風刃傷害再+20%。\n精煉+11時，火炎花/冰閃槍/風刃傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311258": {
+    "id": 311258,
+    "name": "雪花魔力（八方炸彈 ）",
+    "aegisName": "Glacier_F_Orb_67",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"KO_HAPPOKUNAI\",20+10*(.@r/3);\nbonus2 bSkillAtk,\"KO_BAKURETSU\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"KO_HAPPOKUNAI\",20;\n  bonus2 bSkillAtk,\"KO_BAKURETSU\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"KO_HAPPOKUNAI\",20;\n    bonus2 bSkillAtk,\"KO_BAKURETSU\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "八方飛刀/炸彈飛刀傷害+20%。\n精煉每+3時，八方飛刀/炸彈飛刀傷害再+10%。\n精煉+9時，八方飛刀/炸彈飛刀傷害再+20%。\n精煉+11時，八方飛刀/炸彈飛刀傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311259": {
+    "id": 311259,
+    "name": "雪花魔力（風魔飛鏢之飛舞）",
+    "aegisName": "Glacier_F_Orb_68",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"KO_HUUMARANKA\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillCooldown,\"KO_HUUMARANKA\",-2000;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"KO_HUUMARANKA\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "風魔飛鏢之飛舞傷害+20%。\n精煉每+3時，風魔飛鏢之飛舞傷害再+10%。\n精煉+9時，風魔飛鏢之飛舞技能冷卻時間-2秒。\n精煉+11時，風魔飛鏢之飛舞傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311260": {
+    "id": 311260,
+    "name": "雪花魔力（獼猴桃梗槍）",
+    "aegisName": "Glacier_F_Orb_69",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SU_SV_STEMSPEAR\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"SU_SV_STEMSPEAR\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"SU_SV_STEMSPEAR\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "獼猴桃梗槍傷害+20%。\n精煉每+3時，獼猴桃梗槍傷害再+10%。\n精煉+9時，獼猴桃梗槍傷害再+20%。\n精煉+11時，獼猴桃梗槍傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311261": {
+    "id": 311261,
+    "name": "雪花魔力（貓薄荷隕石）",
+    "aegisName": "Glacier_F_Orb_70",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SU_CN_METEOR\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillCooldown,\"SU_CN_METEOR\",-1500;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"SU_CN_METEOR\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "貓薄荷隕石傷害+20%。\n精煉每+3時，貓薄荷隕石傷害再+10%。\n精煉+9時，貓薄荷隕石技能冷卻時間-1.5秒。\n精煉+11時，貓薄荷隕石傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311262": {
+    "id": 311262,
+    "name": "雪花魔力（瘋兔胡蘿蔔重擊）",
+    "aegisName": "Glacier_F_Orb_71",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SU_LUNATICCARROTBEAT\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"SU_LUNATICCARROTBEAT\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"SU_LUNATICCARROTBEAT\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "瘋兔胡蘿蔔重擊傷害+20%。\n精煉每+3時，瘋兔胡蘿蔔重擊傷害再+10%。\n精煉+9時，瘋兔胡蘿蔔重擊傷害再+20%。\n精煉+11時，瘋兔胡蘿蔔重擊傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311263": {
+    "id": 311263,
+    "name": "雪花魔力（小雞啄擊）",
+    "aegisName": "Glacier_F_Orb_72",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SU_PICKYPECK\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"SU_PICKYPECK\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"SU_PICKYPECK\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "小雞啄擊傷害+20%。\n精煉每+3時，小雞啄擊傷害再+10%。\n精煉+9時，小雞啄擊傷害再+20%。\n精煉+11時，小雞啄擊傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311264": {
+    "id": 311264,
+    "name": "雪花魔力（野豬之魂）",
+    "aegisName": "Glacier_F_Orb_73",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SU_SVG_SPIRIT\",20+10*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"SU_SVG_SPIRIT\",20;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"SU_SVG_SPIRIT\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "野豬之魂傷害+20%。\n精煉每+3時，野豬之魂傷害再+10%。\n精煉+9時，野豬之魂傷害再+20%。\n精煉+11時，野豬之魂傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311265": {
+    "id": 311265,
+    "name": "雪花魔力（聖十字攻擊）",
+    "aegisName": "Glacier_F_Orb_74",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"CR_HOLYCROSS\",20+20*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"CR_HOLYCROSS\",30;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"CR_HOLYCROSS\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "聖十字攻擊傷害+20%。\n精煉每+3時，聖十字攻擊傷害再+20%。\n精煉+9時，聖十字攻擊傷害再+30%。\n精煉+11時，聖十字攻擊傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311266": {
+    "id": 311266,
+    "name": "雪花魔力（背刺）",
+    "aegisName": "Glacier_F_Orb_75",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"RG_BACKSTAP\",20+20*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"RG_BACKSTAP\",30;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"RG_BACKSTAP\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "背刺傷害+20%。\n精煉每+3時，背刺傷害再+20%。\n精煉+9時，背刺傷害再+30%。\n精煉+11時，背刺傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311267": {
+    "id": 311267,
+    "name": "雪花魔力（迴旋盾擊）",
+    "aegisName": "Glacier_F_Orb_76",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"CR_SHIELDBOOMERANG\",20+20*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"CR_SHIELDBOOMERANG\",30;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"CR_SHIELDBOOMERANG\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "迴旋盾擊傷害+20%。\n精煉每+3時，迴旋盾擊傷害再+20%。\n精煉+9時，迴旋盾擊傷害再+30%。\n精煉+11時，迴旋盾擊傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311268": {
+    "id": 311268,
+    "name": "雪花魔力（怒雷強擊）",
+    "aegisName": "Glacier_F_Orb_77",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"WZ_VERMILION\",20+20*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"WZ_VERMILION\",30;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"WZ_VERMILION\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "怒雷強擊傷害+20%。\n精煉每+3時，怒雷強擊傷害再+20%。\n精煉+9時，怒雷強擊傷害再+30%。\n精煉+11時，怒雷強擊傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311269": {
+    "id": 311269,
+    "name": "雪花魔力（雷鳴術）",
+    "aegisName": "Glacier_F_Orb_78",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"WZ_JUPITEL\",20+20*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"WZ_JUPITEL\",30;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"WZ_JUPITEL\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "雷鳴術傷害+20%。\n精煉每+3時，雷鳴術傷害再+20%。\n精煉+9時，雷鳴術傷害再+30%。\n精煉+11時，雷鳴術傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311270": {
+    "id": 311270,
+    "name": "雪花魔力（隕石術）",
+    "aegisName": "Glacier_F_Orb_79",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"WZ_METEOR\",20+20*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"WZ_METEOR\",30;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"WZ_METEOR\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "隕石術傷害+20%。\n精煉每+3時，隕石術傷害再+20%。\n精煉+9時，隕石術傷害再+30%。\n精煉+11時，隕石術傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311271": {
+    "id": 311271,
+    "name": "雪花魔力（暴風雪）",
+    "aegisName": "Glacier_F_Orb_80",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"WZ_STORMGUST\",20+20*(.@r/3);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"WZ_STORMGUST\",30;\n  if (.@r>=11) {\n    bonus2 bSkillAtk,\"WZ_STORMGUST\",20;\n  }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "暴風雪傷害+20%。\n精煉每+3時，暴風雪傷害再+20%。\n精煉+9時，暴風雪傷害再+30%。\n精煉+11時，暴風雪傷害再+20%。",
+    "playerSlots": [
+      4
+    ]
+  },
+  "311272": {
+    "id": 311272,
+    "name": "雪花魔力（死侍武器）",
+    "aegisName": "Glacier_F_Orb_81",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"DK_SERVANTWEAPON_ATK\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"DK_SERVANTWEAPON_ATK\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "死侍武器傷害+10%。\n精煉每+4時，死侍武器傷害再+5%。\n精煉+9時，死侍武器傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311273": {
+    "id": 311273,
+    "name": "雪花魔力（橫揮斬）",
+    "aegisName": "Glacier_F_Orb_82",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"DK_HACKANDSLASHER\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"DK_HACKANDSLASHER\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "橫揮斬傷害+10%。\n精煉每+4時，橫揮斬傷害再+5%。\n精煉+9時，橫揮斬傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311274": {
+    "id": 311274,
+    "name": "雪花魔力（狂暴粉碎）",
+    "aegisName": "Glacier_F_Orb_83",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"DK_MADNESS_CRUSHER\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"DK_MADNESS_CRUSHER\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "狂暴粉碎傷害+10%。\n精煉每+4時，狂暴粉碎傷害再+5%。\n精煉+9時，狂暴粉碎傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311275": {
+    "id": 311275,
+    "name": "雪花魔力（風暴斬擊）",
+    "aegisName": "Glacier_F_Orb_84",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"DK_STORMSLASH\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"DK_STORMSLASH\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "風暴斬擊傷害+10%。\n精煉每+4時，風暴斬擊傷害再+5%。\n精煉+9時，風暴斬擊傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311276": {
+    "id": 311276,
+    "name": "雪花魔力（瞬間斬擊）",
+    "aegisName": "Glacier_F_Orb_85",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"IG_OVERSLASH\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"IG_OVERSLASH\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "瞬間斬擊傷害+10%。\n精煉每+4時，瞬間斬擊傷害再+5%。\n精煉+9時，瞬間斬擊傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311277": {
+    "id": 311277,
+    "name": "雪花魔力（盾牌投擲）",
+    "aegisName": "Glacier_F_Orb_86",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"IG_SHIELD_SHOOTING\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"IG_SHIELD_SHOOTING\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "盾牌投擲傷害+10%。\n精煉每+4時，盾牌投擲傷害再+5%。\n精煉+9時，盾牌投擲傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311278": {
+    "id": 311278,
+    "name": "雪花魔力（聖十字雨）",
+    "aegisName": "Glacier_F_Orb_87",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"IG_CROSS_RAIN\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"IG_CROSS_RAIN\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "聖十字雨傷害+10%。\n精煉每+4時，聖十字雨傷害再+5%。\n精煉+9時，聖十字雨傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311279": {
+    "id": 311279,
+    "name": "雪花魔力（戰斧踏滅）",
+    "aegisName": "Glacier_F_Orb_88",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"MT_AXE_STOMP\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"MT_AXE_STOMP\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "戰斧踏滅傷害+10%。\n精煉每+4時，戰斧踏滅傷害再+5%。\n精煉+9時，戰斧踏滅傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311280": {
+    "id": 311280,
+    "name": "雪花魔力（強酸禁地）",
+    "aegisName": "Glacier_F_Orb_89",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"BO_ACIDIFIED_ZONE_WATER\",10+5*(.@r/4);\nbonus2 bSkillAtk,\"BO_ACIDIFIED_ZONE_WIND\",10+5*(.@r/4);\nbonus2 bSkillAtk,\"BO_ACIDIFIED_ZONE_GROUND\",10+5*(.@r/4);\nbonus2 bSkillAtk,\"BO_ACIDIFIED_ZONE_FIRE\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"BO_ACIDIFIED_ZONE_WATER\",10;\n  bonus2 bSkillAtk,\"BO_ACIDIFIED_ZONE_WIND\",10;\n  bonus2 bSkillAtk,\"BO_ACIDIFIED_ZONE_GROUND\",10;\n  bonus2 bSkillAtk,\"BO_ACIDIFIED_ZONE_FIRE\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "強酸禁地(水/風/地/火)傷害+10%。\n精煉每+4時，強酸禁地(水/風/地/火)傷害再+5%。\n精煉+9時，強酸禁地(水/風/地/火)傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311281": {
+    "id": 311281,
+    "name": "雪花魔力（野蠻衝擊）",
+    "aegisName": "Glacier_F_Orb_90",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SHC_SAVAGE_IMPACT\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"SHC_SAVAGE_IMPACT\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "野蠻衝擊傷害+10%。\n精煉每+4時，野蠻衝擊傷害再+5%。\n精煉+9時，野蠻衝擊傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311282": {
+    "id": 311282,
+    "name": "雪花魔力（永恆斬擊）",
+    "aegisName": "Glacier_F_Orb_91",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SHC_ETERNAL_SLASH\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"SHC_ETERNAL_SLASH\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "永恆斬擊傷害+10%。\n精煉每+4時，永恆斬擊傷害再+5%。\n精煉+9時，永恆斬擊傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311283": {
+    "id": 311283,
+    "name": "雪花魔力（神力撞擊）",
+    "aegisName": "Glacier_F_Orb_92",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SHC_IMPACT_CRATER\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"SHC_IMPACT_CRATER\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "神力撞擊傷害+10%。\n精煉每+4時，神力撞擊傷害再+5%。\n精煉+9時，神力撞擊傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311285": {
+    "id": 311285,
+    "name": "雪花魔力（深淵匕首）",
+    "aegisName": "Glacier_F_Orb_93",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"ABC_ABYSS_DAGGER\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"ABC_ABYSS_DAGGER\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "深淵匕首傷害+10%。\n精煉每+4時，深淵匕首傷害再+5%。\n精煉+9時，深淵匕首傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311286": {
+    "id": 311286,
+    "name": "雪花魔力（連鎖射擊）",
+    "aegisName": "Glacier_F_Orb_94",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"ABC_CHAIN_REACTION_SHOT\",10+5*(.@r/4);\nbonus2 bSkillAtk,\"ABC_CHAIN_REACTION_SHOT_ATK\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"ABC_CHAIN_REACTION_SHOT\",10;\n  bonus2 bSkillAtk,\"ABC_CHAIN_REACTION_SHOT_ATK\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "連鎖射擊傷害+10%。\n精煉每+4時，連鎖射擊傷害再+5%。\n精煉+9時，連鎖射擊傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311287": {
+    "id": 311287,
+    "name": "雪花魔力（狂暴射擊）",
+    "aegisName": "Glacier_F_Orb_95",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"ABC_FRENZY_SHOT\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"ABC_FRENZY_SHOT\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "狂暴射擊傷害+10%。\n精煉每+4時，狂暴射擊傷害再+5%。\n精煉+9時，狂暴射擊傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311288": {
+    "id": 311288,
+    "name": "雪花魔力（深淵墳場）",
+    "aegisName": "Glacier_F_Orb_96",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"ABC_ABYSS_SQUARE\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"ABC_ABYSS_SQUARE\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "深淵墳場傷害+10%。\n精煉每+4時，深淵墳場傷害再+5%。\n精煉+9時，深淵墳場傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311289": {
+    "id": 311289,
+    "name": "雪花魔力（靈巧刺擊）",
+    "aegisName": "Glacier_F_Orb_97",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"ABC_DEFT_STAB\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"ABC_DEFT_STAB\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "靈巧刺擊傷害+10%。\n精煉每+4時，靈巧刺擊傷害再+5%。\n精煉+9時，靈巧刺擊傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311290": {
+    "id": 311290,
+    "name": "雪花魔力（閃耀魔法）",
+    "aegisName": "Glacier_F_Orb_98",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"AG_FLORAL_FLARE_ROAD\",10+5*(.@r/4);\nbonus2 bSkillAtk,\"AG_CRIMSON_ARROW\",10+5*(.@r/4);\nbonus2 bSkillAtk,\"AG_CRIMSON_ARROW_ATK\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"AG_FLORAL_FLARE_ROAD\",10;\n  bonus2 bSkillAtk,\"AG_CRIMSON_ARROW\",10;\n  bonus2 bSkillAtk,\"AG_CRIMSON_ARROW_ATK\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "焰火之徑/豔紅魔矢傷害+10%。\n精煉每+4時，焰火之徑/豔紅魔矢傷害再+5%。\n精煉+9時，焰火之徑/豔紅魔矢傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311291": {
+    "id": 311291,
+    "name": "雪花魔力（水晶魔法）",
+    "aegisName": "Glacier_F_Orb_99",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"AG_RAIN_OF_CRYSTAL\",10+5*(.@r/4);\nbonus2 bSkillAtk,\"AG_FROZEN_SLASH\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"AG_RAIN_OF_CRYSTAL\",10;\n  bonus2 bSkillAtk,\"AG_FROZEN_SLASH\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "冰晶飛瀑/冰刃斬傷害+10%。\n精煉每+4時，冰晶飛瀑/冰刃斬傷害再+5%。\n精煉+9時，冰晶飛瀑/冰刃斬傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311292": {
+    "id": 311292,
+    "name": "雪花魔力（風暴魔法）",
+    "aegisName": "Glacier_F_Orb_100",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"AG_TORNADO_STORM\",10+5*(.@r/4);\nbonus2 bSkillAtk,\"AG_STORM_CANNON\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"AG_TORNADO_STORM\",10;\n  bonus2 bSkillAtk,\"AG_STORM_CANNON\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "龍捲風暴/暴風加農砲傷害+10%。\n精煉每+4時，龍捲風暴/暴風加農砲傷害再+5%。\n精煉+9時，龍捲風暴/暴風加農砲傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311293": {
+    "id": 311293,
+    "name": "雪花魔力（巨石魔法）",
+    "aegisName": "Glacier_F_Orb_101",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"AG_STRANTUM_TREMOR\",10+5*(.@r/4);\nbonus2 bSkillAtk,\"AG_ROCK_DOWN\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"AG_STRANTUM_TREMOR\",10;\n  bonus2 bSkillAtk,\"AG_ROCK_DOWN\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "地層震動/巨石降臨傷害+10%。\n精煉每+4時，地層震動/巨石降臨傷害再+5%。\n精煉+9時，地層震動/巨石降臨傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311294": {
+    "id": 311294,
+    "name": "雪花魔力（幻影靈魂魔法）",
+    "aegisName": "Glacier_F_Orb_102",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"AG_MYSTERY_ILLUSION\",10+5*(.@r/4);\nbonus2 bSkillAtk,\"AG_SOUL_VC_STRIKE\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"AG_MYSTERY_ILLUSION\",10;\n  bonus2 bSkillAtk,\"AG_SOUL_VC_STRIKE\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "神秘幻滅/靈魂連擊傷害+10%。\n精煉每+4時，神秘幻滅/靈魂連擊傷害再+5%。\n精煉+9時，神秘幻滅/靈魂連擊傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311295": {
+    "id": 311295,
+    "name": "雪花魔力（鑽石風暴）",
+    "aegisName": "Glacier_F_Orb_103",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"EM_DIAMOND_STORM\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"EM_DIAMOND_STORM\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "鑽石風暴傷害+10%。\n精煉每+4時，鑽石風暴傷害再+5%。\n精煉+9時，鑽石風暴傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311296": {
+    "id": 311296,
+    "name": "雪花魔力（灼熱岩漿）",
+    "aegisName": "Glacier_F_Orb_104",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"EM_CONFLAGRATION\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"EM_CONFLAGRATION\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "灼熱岩漿傷害+10%。\n精煉每+4時，灼熱岩漿傷害再+5%。\n精煉+9時，灼熱岩漿傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311297": {
+    "id": 311297,
+    "name": "雪花魔力（雷霆陣地）",
+    "aegisName": "Glacier_F_Orb_105",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"EM_LIGHTNING_LAND\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"EM_LIGHTNING_LAND\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "雷霆陣地傷害+10%。\n精煉每+4時，雷霆陣地傷害再+5%。\n精煉+9時，雷霆陣地傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311298": {
+    "id": 311298,
+    "name": "雪花魔力（大地驅動）",
+    "aegisName": "Glacier_F_Orb_106",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"EM_TERRA_DRIVE\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"EM_TERRA_DRIVE\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "大地驅動傷害+10%。\n精煉每+4時，大地驅動傷害再+5%。\n精煉+9時，大地驅動傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311299": {
+    "id": 311299,
+    "name": "雪花魔力（毒液沼澤）",
+    "aegisName": "Glacier_F_Orb_107",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"EM_VENOM_SWAMP\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"EM_VENOM_SWAMP\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "毒液沼澤傷害+10%。\n精煉每+4時，毒液沼澤傷害再+5%。\n精煉+9時，毒液沼澤傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311300": {
+    "id": 311300,
+    "name": "雪花魔力（聖靈鎮魂）",
+    "aegisName": "Glacier_F_Orb_108",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"CD_FRAMEN\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"CD_FRAMEN\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "聖靈鎮魂傷害+10%。\n精煉每+4時，聖靈鎮魂傷害再+5%。\n精煉+9時，聖靈鎮魂傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311301": {
+    "id": 311301,
+    "name": "雪花魔力（制裁謳歌）",
+    "aegisName": "Glacier_F_Orb_109",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"CD_ARBITRIUM\",10+5*(.@r/4);\nbonus2 bSkillAtk,\"CD_ARBITRIUM_ATK\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"CD_ARBITRIUM\",10;\n  bonus2 bSkillAtk,\"CD_ARBITRIUM_ATK\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "制裁謳歌傷害+10%。\n精煉每+4時，制裁謳歌傷害再+5%。\n精煉+9時，制裁謳歌傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311302": {
+    "id": 311302,
+    "name": "雪花魔力（聖光打擊）",
+    "aegisName": "Glacier_F_Orb_110",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"CD_PETITIO\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"CD_PETITIO\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "聖光打擊傷害+10%。\n精煉每+4時，聖光打擊傷害再+5%。\n精煉+9時，聖光打擊傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311303": {
+    "id": 311303,
+    "name": "雪花魔力（信念）",
+    "aegisName": "Glacier_F_Orb_111",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"IQ_SECOND_FAITH\",10+5*(.@r/4);\nbonus2 bSkillAtk,\"IQ_THIRD_PUNISH\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"IQ_SECOND_FAITH\",10;\n  bonus2 bSkillAtk,\"IQ_THIRD_PUNISH\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "第二擊 : 信念/第三擊 : 懲治傷害+10%。\n精煉每+4時，第二擊 : 信念/第三擊 : 懲治傷害再+5%。\n精煉+9時，第二擊 : 信念/第三擊 : 懲治傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311304": {
+    "id": 311304,
+    "name": "雪花魔力（審判擊）",
+    "aegisName": "Glacier_F_Orb_112",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"IQ_SECOND_JUDGEMENT\",10+5*(.@r/4);\nbonus2 bSkillAtk,\"IQ_THIRD_CONSECRATION\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"IQ_SECOND_JUDGEMENT\",10;\n  bonus2 bSkillAtk,\"IQ_THIRD_CONSECRATION\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "第二擊 : 審判/第三擊 : 淨化傷害+10%。\n精煉每+4時，第二擊 : 審判/第三擊 : 淨化傷害再+5%。\n精煉+9時，第二擊 : 審判/第三擊 : 淨化傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311305": {
+    "id": 311305,
+    "name": "雪花魔力（驅魔）",
+    "aegisName": "Glacier_F_Orb_113",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"IQ_SECOND_FLAME\",10+5*(.@r/4);\nbonus2 bSkillAtk,\"IQ_THIRD_FLAME_BOMB\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"IQ_SECOND_FLAME\",10;\n  bonus2 bSkillAtk,\"IQ_THIRD_FLAME_BOMB\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "第二擊 : 火焰滅絕/第三擊 : 火焰彈傷害+10%。\n精煉每+4時，第二擊 : 火焰滅絕/第三擊 : 火焰彈傷害再+5%。\n精煉+9時，第二擊 : 火焰滅絕/第三擊 : 火焰彈傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311306": {
+    "id": 311306,
+    "name": "雪花魔力（爆破衝擊）",
+    "aegisName": "Glacier_F_Orb_114",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"IQ_EXPOSION_BLASTER\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"IQ_EXPOSION_BLASTER\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "爆破衝擊傷害+10%。\n精煉每+4時，爆破衝擊傷害再+5%。\n精煉+9時，爆破衝擊傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311307": {
+    "id": 311307,
+    "name": "雪花魔力（獵鷹）",
+    "aegisName": "Glacier_F_Orb_115",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"WH_HAWKRUSH\",10+5*(.@r/4);\nbonus2 bSkillAtk,\"WH_HAWKBOOMERANG\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"WH_HAWKRUSH\",10;\n  bonus2 bSkillAtk,\"WH_HAWKBOOMERANG\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "獵鷹奇襲/獵鷹狙擊傷害+10%。\n精煉每+4時，獵鷹奇襲/獵鷹狙擊傷害再+5%。\n精煉+9時，獵鷹奇襲/獵鷹狙擊傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311308": {
+    "id": 311308,
+    "name": "雪花魔力（毀滅風暴）",
+    "aegisName": "Glacier_F_Orb_116",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"WH_GALESTORM\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"WH_GALESTORM\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "毀滅風暴傷害+10%。\n精煉每+4時，毀滅風暴傷害再+5%。\n精煉+9時，毀滅風暴傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311309": {
+    "id": 311309,
+    "name": "雪花魔力（漸進狙擊）",
+    "aegisName": "Glacier_F_Orb_117",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"WH_CRESCIVE_BOLT\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"WH_CRESCIVE_BOLT\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "漸進狙擊傷害+10%。\n精煉每+4時，漸進狙擊傷害再+5%。\n精煉+9時，漸進狙擊傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311310": {
+    "id": 311310,
+    "name": "雪花魔力（金屬狂怒）",
+    "aegisName": "Glacier_F_Orb_118",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"TR_METALIC_FURY\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"TR_METALIC_FURY\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "金屬狂怒傷害+10%。\n精煉每+4時，金屬狂怒傷害再+5%。\n精煉+9時，金屬狂怒傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311311": {
+    "id": 311311,
+    "name": "雪花魔力（節奏射擊）",
+    "aegisName": "Glacier_F_Orb_119",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"TR_RHYTHMSHOOTING\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"TR_RHYTHMSHOOTING\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "節奏射擊傷害+10%。\n精煉每+4時，節奏射擊傷害再+5%。\n精煉+9時，節奏射擊傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311312": {
+    "id": 311312,
+    "name": "雪花魔力（玫瑰箭矢）",
+    "aegisName": "Glacier_F_Orb_120",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"TR_ROSEBLOSSOM\",10+5*(.@r/4);\nbonus2 bSkillAtk,\"TR_ROSEBLOSSOM_ATK\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"TR_ROSEBLOSSOM\",10;\n  bonus2 bSkillAtk,\"TR_ROSEBLOSSOM_ATK\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "玫瑰箭矢傷害+10%。\n精煉每+4時，玫瑰箭矢傷害再+5%。\n精煉+9時，玫瑰箭矢傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311313": {
+    "id": 311313,
+    "name": "雪花魔力（太陽）",
+    "aegisName": "Glacier_F_Orb_121",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SKE_NOON_BLAST\",10+5*(.@r/4);\nbonus2 bSkillAtk,\"SKE_SUNSET_BLAST\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"SKE_NOON_BLAST\",10;\n  bonus2 bSkillAtk,\"SKE_SUNSET_BLAST\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "天晨一陽/天陽傷害+10%。\n精煉每+4時，天晨一陽/天陽傷害再+5%。\n精煉+9時，天晨一陽/天陽傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311314": {
+    "id": 311314,
+    "name": "雪花魔力（月亮）",
+    "aegisName": "Glacier_F_Orb_122",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SKE_MIDNIGHT_KICK\",10+5*(.@r/4);\nbonus2 bSkillAtk,\"SKE_DAWN_BREAK\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"SKE_MIDNIGHT_KICK\",10;\n  bonus2 bSkillAtk,\"SKE_DAWN_BREAK\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "天晨一月/天月傷害+10%。\n精煉每+4時，天晨一月/天月傷害再+5%。\n精煉+9時，天晨一月/天月傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311315": {
+    "id": 311315,
+    "name": "雪花魔力（星星）",
+    "aegisName": "Glacier_F_Orb_123",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SKE_TWINKLING_GALAXY\",10+5*(.@r/4);\nbonus2 bSkillAtk,\"SKE_STAR_CANNON\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"SKE_TWINKLING_GALAXY\",10;\n  bonus2 bSkillAtk,\"SKE_STAR_CANNON\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "天地萬星/天星傷害+10%。\n精煉每+4時，天地萬星/天星傷害再+5%。\n精煉+9時，天地萬星/天星傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311316": {
+    "id": 311316,
+    "name": "雪花魔力（青龍符）",
+    "aegisName": "Glacier_F_Orb_124",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SOA_TALISMAN_OF_BLUE_DRAGON\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"SOA_TALISMAN_OF_BLUE_DRAGON\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "青龍符傷害+10%。\n精煉每+4時，青龍符傷害再+5%。\n精煉+9時，青龍符傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311317": {
+    "id": 311317,
+    "name": "雪花魔力（白虎符）",
+    "aegisName": "Glacier_F_Orb_125",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SOA_TALISMAN_OF_WHITE_TIGER\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"SOA_TALISMAN_OF_WHITE_TIGER\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "白虎符傷害+10%。\n精煉每+4時，白虎符傷害再+5%。\n精煉+9時，白虎符傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311318": {
+    "id": 311318,
+    "name": "雪花魔力（朱雀符）",
+    "aegisName": "Glacier_F_Orb_126",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SOA_TALISMAN_OF_RED_PHOENIX\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"SOA_TALISMAN_OF_RED_PHOENIX\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "朱雀符傷害+10%。\n精煉每+4時，朱雀符傷害再+5%。\n精煉+9時，朱雀符傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311319": {
+    "id": 311319,
+    "name": "雪花魔力（玄武符）",
+    "aegisName": "Glacier_F_Orb_127",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SOA_TALISMAN_OF_BLACK_TORTOISE\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"SOA_TALISMAN_OF_BLACK_TORTOISE\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "玄武符傷害+10%。\n精煉每+4時，玄武符傷害再+5%。\n精煉+9時，玄武符傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311320": {
+    "id": 311320,
+    "name": "雪花魔力（死靈淨化）",
+    "aegisName": "Glacier_F_Orb_128",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SOA_EXORCISM_OF_MALICIOUS_SOUL\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"SOA_EXORCISM_OF_MALICIOUS_SOUL\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "死靈淨化傷害+10%。\n精煉每+4時，死靈淨化傷害再+5%。\n精煉+9時，死靈淨化傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311321": {
+    "id": 311321,
+    "name": "雪花魔力（詭影）",
+    "aegisName": "Glacier_F_Orb_129",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SS_KAGENOMAI\",10+5*(.@r/4);\nbonus2 bSkillAtk,\"SS_KAGEGISSEN\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"SS_KAGENOMAI\",10;\n  bonus2 bSkillAtk,\"SS_KAGEGISSEN\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "詭影舞動/詭影閃光傷害+10%。\n精煉每+4時，詭影舞動/詭影閃光傷害再+5%。\n精煉+9時，詭影舞動/詭影閃光傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311322": {
+    "id": 311322,
+    "name": "雪花魔力（風魔飛鏢）",
+    "aegisName": "Glacier_F_Orb_130",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SS_FUUMASHOUAKU\",10+5*(.@r/4);\nbonus2 bSkillAtk,\"SS_FUUMAKOUCHIKU\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"SS_FUUMASHOUAKU\",10;\n  bonus2 bSkillAtk,\"SS_FUUMAKOUCHIKU\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "風魔飛鏢–掌握/風魔飛鏢–構築傷害+10%。\n精煉每+4時，風魔飛鏢–掌握/風魔飛鏢–構築傷害再+5%。\n精煉+9時，風魔飛鏢–掌握/風魔飛鏢–構築傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311323": {
+    "id": 311323,
+    "name": "雪花魔力（飛刀）",
+    "aegisName": "Glacier_F_Orb_131",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SS_KUNAIWAIKYOKU\",10+5*(.@r/4);\nbonus2 bSkillAtk,\"SS_KUNAIKUSSETSU\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"SS_KUNAIWAIKYOKU\",10;\n  bonus2 bSkillAtk,\"SS_KUNAIKUSSETSU\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "飛刀–扭曲/飛刀 - 曲折傷害+10%。\n精煉每+4時，飛刀–扭曲/飛刀 - 曲折傷害再+5%。\n精煉+9時，飛刀–扭曲/飛刀 - 曲折傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311324": {
+    "id": 311324,
+    "name": "雪花魔力（組合砲擊）",
+    "aegisName": "Glacier_F_Orb_132",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SS_SEKIENHOU\",10+5*(.@r/4);\nbonus2 bSkillAtk,\"SS_REIKETSUHOU\",10+5*(.@r/4);\nbonus2 bSkillAtk,\"SS_RAIDENPOU\",10+5*(.@r/4);\nbonus2 bSkillAtk,\"SS_KINRYUUHOU\",10+5*(.@r/4);\nbonus2 bSkillAtk,\"SS_ANTENPOU\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"SS_SEKIENHOU\",10;\n  bonus2 bSkillAtk,\"SS_REIKETSUHOU\",10;\n  bonus2 bSkillAtk,\"SS_RAIDENPOU\",10;\n  bonus2 bSkillAtk,\"SS_KINRYUUHOU\",10;\n  bonus2 bSkillAtk,\"SS_ANTENPOU\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "火焰砲/冷焰砲/雷電砲/金龍砲/暗戰砲傷害+10%。\n精煉每+4時，火焰砲/冷焰砲/雷電砲/金龍砲/暗戰砲傷害再+5%。\n精煉+9時，火焰砲/冷焰砲/雷電砲/金龍砲/暗戰砲傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311325": {
+    "id": 311325,
+    "name": "雪花魔力（夜裡的警惕）",
+    "aegisName": "Glacier_F_Orb_133",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"NW_THE_VIGILANTE_AT_NIGHT\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"NW_THE_VIGILANTE_AT_NIGHT\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "夜裡的警惕傷害+10%。\n精煉每+4時，夜裡的警惕傷害再+5%。\n精煉+9時，夜裡的警惕傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311326": {
+    "id": 311326,
+    "name": "雪花魔力（獨一槍彈）",
+    "aegisName": "Glacier_F_Orb_134",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"NW_ONLY_ONE_BULLET\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"NW_ONLY_ONE_BULLET\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "獨一槍彈傷害+10%。\n精煉每+4時，獨一槍彈傷害再+5%。\n精煉+9時，獨一槍彈傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311327": {
+    "id": 311327,
+    "name": "雪花魔力（螺旋射擊）",
+    "aegisName": "Glacier_F_Orb_135",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"NW_SPIRAL_SHOOTING\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"NW_SPIRAL_SHOOTING\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "螺旋射擊傷害+10%。\n精煉每+4時，螺旋射擊傷害再+5%。\n精煉+9時，螺旋射擊傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311328": {
+    "id": 311328,
+    "name": "雪花魔力（梅格競直擊）",
+    "aegisName": "Glacier_F_Orb_136",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"NW_MAGAZINE_FOR_ONE\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"NW_MAGAZINE_FOR_ONE\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "梅格競直擊傷害+10%。\n精煉每+4時，梅格競直擊傷害再+5%。\n精煉+9時，梅格競直擊傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311329": {
+    "id": 311329,
+    "name": "雪花魔力（曠野之火）",
+    "aegisName": "Glacier_F_Orb_137",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"NW_WILD_FIRE\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"NW_WILD_FIRE\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "曠野之火傷害+10%。\n精煉每+4時，曠野之火傷害再+5%。\n精煉+9時，曠野之火傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311330": {
+    "id": 311330,
+    "name": "雪花魔力（手榴彈）",
+    "aegisName": "Glacier_F_Orb_138",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"NW_BASIC_GRENADE\",10+5*(.@r/4);\nbonus2 bSkillAtk,\"NW_HASTY_FIRE_IN_THE_HOLE\",10+5*(.@r/4);\nbonus2 bSkillAtk,\"NW_GRENADES_DROPPING\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"NW_BASIC_GRENADE\",10;\n  bonus2 bSkillAtk,\"NW_HASTY_FIRE_IN_THE_HOLE\",10;\n  bonus2 bSkillAtk,\"NW_GRENADES_DROPPING\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "初階手榴彈/洞中急火/落空手榴彈傷害+10%。\n精煉每+4時，初階手榴彈/洞中急火/落空手榴彈傷害再+5%。\n精煉+9時，初階手榴彈/洞中急火/落空手榴彈傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311331": {
+    "id": 311331,
+    "name": "雪花魔力（鐵虎空心爪）",
+    "aegisName": "Glacier_F_Orb_139",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SH_CHUL_HO_SONIC_CLAW\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"SH_CHUL_HO_SONIC_CLAW\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "鐵虎空心爪傷害+10%。\n精煉每+4時，鐵虎空心爪傷害再+5%。\n精煉+9時，鐵虎空心爪傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311332": {
+    "id": 311332,
+    "name": "雪花魔力（虎高空亂打）",
+    "aegisName": "Glacier_F_Orb_140",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SH_HOGOGONG_STRIKE\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"SH_HOGOGONG_STRIKE\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "虎高空亂打傷害+10%。\n精煉每+4時，虎高空亂打傷害再+5%。\n精煉+9時，虎高空亂打傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311333": {
+    "id": 311333,
+    "name": "雪花魔力（玄鹿葉風）",
+    "aegisName": "Glacier_F_Orb_141",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SH_HYUN_ROKS_BREEZE\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"SH_HYUN_ROKS_BREEZE\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "玄鹿葉風傷害+10%。\n精煉每+4時，玄鹿葉風傷害再+5%。\n精煉+9時，玄鹿葉風傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311334": {
+    "id": 311334,
+    "name": "雪花魔力（玄鹿砲）",
+    "aegisName": "Glacier_F_Orb_142",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SH_HYUN_ROK_CANNON\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"SH_HYUN_ROK_CANNON\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "玄鹿砲傷害+10%。\n精煉每+4時，玄鹿砲傷害再+5%。\n精煉+9時，玄鹿砲傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311335": {
+    "id": 311335,
+    "name": "雪花魔力（雙重怪物互擊）",
+    "aegisName": "Glacier_F_Orb_143",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"HN_DOUBLEBOWLINGBASH\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"HN_DOUBLEBOWLINGBASH\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "雙重怪物互擊傷害+10%。\n精煉每+4時，雙重怪物互擊傷害再+5%。\n精煉+9時，雙重怪物互擊傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311336": {
+    "id": 311336,
+    "name": "雪花魔力（巨型音速投擲）",
+    "aegisName": "Glacier_F_Orb_144",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"HN_MEGA_SONIC_BLOW\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"HN_MEGA_SONIC_BLOW\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "巨型音速投擲傷害+10%。\n精煉每+4時，巨型音速投擲傷害再+5%。\n精煉+9時，巨型音速投擲傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311337": {
+    "id": 311337,
+    "name": "雪花魔力（連續盾擊衝撞）",
+    "aegisName": "Glacier_F_Orb_145",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"HN_SHIELD_CHAIN_RUSH\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"HN_SHIELD_CHAIN_RUSH\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "連續盾擊衝撞傷害+10%。\n精煉每+4時，連續盾擊衝撞傷害再+5%。\n精煉+9時，連續盾擊衝撞傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311338": {
+    "id": 311338,
+    "name": "雪花魔力（螺旋擊刺Max）",
+    "aegisName": "Glacier_F_Orb_146",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"HN_SPIRAL_PIERCE_MAX\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"HN_SPIRAL_PIERCE_MAX\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "螺旋擊刺Max傷害+10%。\n精煉每+4時，螺旋擊刺Max傷害再+5%。\n精煉+9時，螺旋擊刺Max傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311339": {
+    "id": 311339,
+    "name": "雪花魔力（隕石雷鳴）",
+    "aegisName": "Glacier_F_Orb_147",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"HN_METEOR_STORM_BUSTER\",10+5*(.@r/4);\nbonus2 bSkillAtk,\"HN_JUPITEL_THUNDER_STORM\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"HN_METEOR_STORM_BUSTER\",10;\n  bonus2 bSkillAtk,\"HN_JUPITEL_THUNDER_STORM\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "隕石術猛擊/雷鳴術風暴傷害+10%。\n精煉每+4時，隕石術猛擊/雷鳴術風暴傷害再+5%。\n精煉+9時，隕石術猛擊/雷鳴術風暴傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311340": {
+    "id": 311340,
+    "name": "雪花魔力（地獄凍術）",
+    "aegisName": "Glacier_F_Orb_148",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"HN_HELLS_DRIVE\",10+5*(.@r/4);\nbonus2 bSkillAtk,\"HN_JACK_FROST_NOVA\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"HN_HELLS_DRIVE\",10;\n  bonus2 bSkillAtk,\"HN_JACK_FROST_NOVA\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "地獄毀滅/新霜凍術傷害+10%。\n精煉每+4時，地獄毀滅/新霜凍術傷害再+5%。\n精煉+9時，地獄毀滅/新霜凍術傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311341": {
+    "id": 311341,
+    "name": "雪花魔力（念力重力）",
+    "aegisName": "Glacier_F_Orb_149",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"HN_NAPALM_VULCAN_STRIKE\",10+5*(.@r/4);\nbonus2 bSkillAtk,\"HN_GROUND_GRAVITATION\",10+5*(.@r/4);\nif (.@r>=9) {\n  bonus2 bSkillAtk,\"HN_NAPALM_VULCAN_STRIKE\",10;\n  bonus2 bSkillAtk,\"HN_GROUND_GRAVITATION\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "念力連擊攻擊 /地面重力傷害+10%。\n精煉每+4時，念力連擊攻擊 /地面重力傷害再+5%。\n精煉+9時，念力連擊攻擊 /地面重力傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311443": {
+    "id": 311443,
+    "name": "雪花魔力（天龍氣息）",
+    "aegisName": "Glacier_F_Orb_162",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"DK_DRAGONIC_BREATH\",10+5*(.@r/4);\nif (.@r>=9) {\n   bonus2 bSkillAtk,\"DK_DRAGONIC_BREATH\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "天龍氣息傷害+10%。\n精煉每+4時，天龍氣息傷害再+5%。\n精煉+9時，天龍氣息傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311444": {
+    "id": 311444,
+    "name": "雪花魔力（閃光衝擊波）",
+    "aegisName": "Glacier_F_Orb_163",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"MT_SPARK_BLASTER\",10+5*(.@r/4);\nif (.@r>=9) {\n   bonus2 bSkillAtk,\"MT_SPARK_BLASTER\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "閃光衝擊波傷害+10%。\n精煉每+4時，閃光衝擊波傷害再+5%。\n精煉+9時，閃光衝擊波傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311445": {
+    "id": 311445,
+    "name": "雪花魔力（三連雷射）",
+    "aegisName": "Glacier_F_Orb_164",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"MT_TRIPLE_LASER\",10+5*(.@r/4);\nif (.@r>=9) {\n   bonus2 bSkillAtk,\"MT_TRIPLE_LASER\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "三連雷射傷害+10%。\n精煉每+4時，三連雷射傷害再+5%。\n精煉+9時，三連雷射傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311446": {
+    "id": 311446,
+    "name": "雪花魔力（強力粉碎）",
+    "aegisName": "Glacier_F_Orb_165",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"MT_MIGHTY_SMASH\",10+5*(.@r/4);\nif (.@r>=9) {\n   bonus2 bSkillAtk,\"MT_MIGHTY_SMASH\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "強力粉碎傷害+10%。\n精煉每+4時，強力粉碎傷害再+5%。\n精煉+9時，強力粉碎傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311447": {
+    "id": 311447,
+    "name": "雪花魔力（爆炸炸藥）",
+    "aegisName": "Glacier_F_Orb_166",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"BO_EXPLOSIVE_POWDER\",10+5*(.@r/4);\nif (.@r>=9) {\n   bonus2 bSkillAtk,\"BO_EXPLOSIVE_POWDER\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "爆炸炸藥傷害+10%。\n精煉每+4時，爆炸炸藥傷害再+5%。\n精煉+9時，爆炸炸藥傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311448": {
+    "id": 311448,
+    "name": "雪花魔力（混亂的荊棘）",
+    "aegisName": "Glacier_F_Orb_167",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"BO_MAYHEMIC_THORNS\",10+5*(.@r/4);\nif (.@r>=9) {\n   bonus2 bSkillAtk,\"BO_MAYHEMIC_THORNS\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "混亂的荊棘傷害+10%。\n精煉每+4時，混亂的荊棘傷害再+5%。\n精煉+9時，混亂的荊棘傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "311449": {
+    "id": 311449,
+    "name": "雪花魔力（物理等級） Lv.1",
+    "aegisName": "Physical_Grade_1",
+    "scriptRaw": ".@g = getenchantgrade();\n.@r = getrefine();\nbonus bLongAtkRate,3;\nbonus bShortAtkRate,3;\nbonus bBaseAtk,15;\nif (.@r>=7) {\n   bonus bAspdRate,3;\n   if (.@r>=9) {\n      bonus bVariableCastrate,-3;\n      bonus bDelayrate,-3;\n   }\n}\nif (.@g>=ENCHANTGRADE_D) {\n   bonus bAtkRate,1;\n   bonus bBaseAtk,15;\n   if (.@g>=ENCHANTGRADE_C) {\n      if (.@r>=9) {\n         bonus bPAtk,3;\n      }\n      if (.@g>=ENCHANTGRADE_B) {\n         if (.@r>=11) {\n            bonus bPow,1;\n            bonus bCon,1;\n         }\n         if (.@g>=ENCHANTGRADE_A) {\n            bonus2 bAddEle,Ele_All,10;\n            if (.@r>=11) {\n               bonus2 bAddSize,Size_All,10;\n            }\n         }\n      }\n   }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "ATK+15，近/遠距離物理傷害+3%。\n精煉+7時，攻擊速度增加(攻擊後延遲-3%)。\n精煉+9時，變動詠唱、技能後延遲-3%。\n^ffffff_^000000\n^CC3D3D[各階級追加能力]^000000\n[D階級] ATK+1%，ATK+15。\n[C階級] 精煉+9時，P.ATK+3。\n[B階級] 精煉+11時，POW+1，CON+1。\n[A階級] 對全屬性對象的物理傷害+10%，精煉+11時，對全體型對象的物理傷害+10%。",
+    "playerSlots": [
+      2
+    ]
+  },
+  "311450": {
+    "id": 311450,
+    "name": "雪花魔力（物理等級） Lv.2",
+    "aegisName": "Physical_Grade_2",
+    "scriptRaw": ".@g = getenchantgrade();\n.@r = getrefine();\nbonus bLongAtkRate,6;\nbonus bShortAtkRate,6;\nbonus bBaseAtk,30;\nif (.@r>=7) {\n   bonus bAspdRate,6;\n   if (.@r>=9) {\n      bonus bVariableCastrate,-6;\n      bonus bDelayrate,-6;\n   }\n}\nif (.@g>=ENCHANTGRADE_D) {\n   bonus bAtkRate,2;\n   bonus bBaseAtk,30;\n   if (.@g>=ENCHANTGRADE_C) {\n      if (.@r>=7) {\n         bonus bPAtk,3;\n      }\n   }\n   if (.@g>=ENCHANTGRADE_B) {\n      if (.@r>=9) {\n         bonus bPow,1;\n         bonus bCon,1;\n      }\n      if (.@g>=ENCHANTGRADE_A) {\n         bonus2 bAddEle,Ele_All,12;\n         if (.@r>=11) {\n            bonus2 bAddSize,Size_All,12;\n         }\n      }\n   }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "ATK+30，近/遠距離物理傷害+6%。\n精煉+7時，攻擊速度增加(攻擊後延遲-6%)。\n精煉+9時，變動詠唱、技能後延遲-6%。\n^ffffff_^000000\n^CC3D3D[各階級追加能力]^000000\n[D階級] ATK+2%，ATK+30。\n[C階級] 精煉+7時，P.ATK+3。\n[B階級] 精煉+9時，POW+1，CON+1。\n[A階級] 對全屬性對象的物理傷害+12%，精煉+11時，對全體型對象的物理傷害+12%。",
+    "playerSlots": []
+  },
+  "311451": {
+    "id": 311451,
+    "name": "雪花魔力（物理等級） Lv.3",
+    "aegisName": "Physical_Grade_3",
+    "scriptRaw": ".@g = getenchantgrade();\n.@r = getrefine();\nbonus bLongAtkRate,9;\nbonus bShortAtkRate,9;\nbonus bBaseAtk,45;\nif (.@r>=7) {\n   bonus bAspdRate,9;\n   if (.@r>=9) {\n      bonus bVariableCastrate,-9;\n      bonus bDelayrate,-9;\n   }\n}\nif (.@g>=ENCHANTGRADE_D) {\n   bonus bAtkRate,3;\n   bonus bBaseAtk,45;\n   if (.@g>=ENCHANTGRADE_C) {\n      bonus bPAtk,3*(.@r/5);\n      if (.@g>=ENCHANTGRADE_B) {\n         bonus bPow,(.@r/4);\n         bonus bCon,(.@r/4);\n         if (.@g>=ENCHANTGRADE_A) {\n            bonus2 bAddEle,Ele_All,14;\n            if (.@r>=11) {\n               bonus2 bAddSize,Size_All,14;\n            }\n         }\n      }\n   }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "ATK+45，近/遠距離物理傷害+9%。\n精煉+7時，攻擊速度增加(攻擊後延遲-9%)。\n精煉+9時，變動詠唱、技能後延遲-9%。\n^ffffff_^000000\n^CC3D3D[各階級追加能力]^000000\n[D階級] ATK+3%，ATK+45。\n[C階級] 精煉每+5時，P.ATK+3。\n[B階級] 精煉每+4時，POW+1，CON+1。\n[A階級] 對全屬性對象的物理傷害+14%，精煉+11時，對全體型對象的物理傷害+14%。",
+    "playerSlots": []
+  },
+  "311452": {
+    "id": 311452,
+    "name": "雪花魔力（物理等級） Lv.4",
+    "aegisName": "Physical_Grade_4",
+    "scriptRaw": ".@g = getenchantgrade();\n.@r = getrefine();\nbonus bLongAtkRate,12;\nbonus bShortAtkRate,12;\nbonus bBaseAtk,60;\nif (.@r>=7) {\n   bonus bAspdRate,12;\n   if (.@r>=9) {\n      bonus bVariableCastrate,-12;\n      bonus bDelayrate,-12;\n   }\n}\nif (.@g>=ENCHANTGRADE_D) {\n   bonus bAtkRate,4;\n   bonus bBaseAtk,60;\n   if (.@g>=ENCHANTGRADE_C) {\n      bonus bPAtk,3*(.@r/4);\n      if (.@g>=ENCHANTGRADE_B) {\n         bonus bPow,(.@r/3);\n         bonus bCon,(.@r/3);\n         if (.@g>=ENCHANTGRADE_A) {\n            bonus2 bAddEle,Ele_All,16;\n            if (.@r>=11) {\n               bonus2 bAddSize,Size_All,16;\n            }\n         }\n      }\n   }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "ATK+60，近/遠距離物理傷害+12%。\n精煉+7時，攻擊速度增加(攻擊後延遲-12%)。\n精煉+9時，變動詠唱、技能後延遲-12%。\n^ffffff_^000000\n^CC3D3D[各階級追加能力]^000000\n[D階級] ATK+4%，ATK+60。\n[C階級] 精煉每+4時，P.ATK+3。\n[B階級] 精煉每+3時，POW+1，CON+1。\n[A階級] 對全屬性對象的物理傷害+16%，精煉+11時，對全體型對象的物理傷害+16%。",
+    "playerSlots": []
+  },
+  "311453": {
+    "id": 311453,
+    "name": "雪花魔力（物理等級） Lv.5",
+    "aegisName": "Physical_Grade_5",
+    "scriptRaw": ".@g = getenchantgrade();\n.@r = getrefine();\nbonus bLongAtkRate,15;\nbonus bShortAtkRate,15;\nbonus bBaseAtk,75;\nif (.@r>=7) {\n   bonus bAspdRate,15;\n   if (.@r>=9) {\n      bonus bVariableCastrate,-15;\n      bonus bDelayrate,-15;\n   }\n}\nif (.@g>=ENCHANTGRADE_D) {\n   bonus bAtkRate,5;\n   bonus bBaseAtk,75;\n   if (.@g>=ENCHANTGRADE_C) {\n      bonus bPAtk,4*(.@r/3);\n      if (.@g>=ENCHANTGRADE_B) {\n         bonus bPow,(.@r/2);\n         bonus bCon,(.@r/2);\n         if (.@g>=ENCHANTGRADE_A) {\n            bonus2 bAddEle,Ele_All,18;\n            if (.@r>=11) {\n               bonus2 bAddSize,Size_All,18;\n            }\n         }\n      }\n   }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "ATK+75，近/遠距離物理傷害+15%。\n精煉+7時，攻擊速度增加(攻擊後延遲-15%)。\n精煉+9時，變動詠唱、技能後延遲-15%。\n^ffffff_^000000\n^CC3D3D[各階級追加能力]^000000\n[D階級] ATK+5%，ATK+75。\n[C階級] 精煉每+3時，P.ATK+4。\n[B階級] 精煉每+2時，POW+1，CON+1。\n[A階級] 對全屬性對象的物理傷害+18%，精煉+11時，對全體型對象的物理傷害+18%。",
+    "playerSlots": []
+  },
+  "311454": {
+    "id": 311454,
+    "name": "雪花魔力（魔法等級） Lv.1",
+    "aegisName": "Magical_Grade_1",
+    "scriptRaw": ".@g = getenchantgrade();\n.@r = getrefine();\nbonus2 bMagicAtkEle,Ele_All,3;\nbonus bMatk,15;\nif (.@r>=7) {\n   bonus bAspdRate,3;\n   if (.@r>=9) {\n      bonus bVariableCastrate,-3;\n      bonus bDelayrate,-3;\n   }\n}\nif (.@g>=ENCHANTGRADE_D) {\n   bonus bMatkRate,1;\n   bonus bMatk,15;\n   if (.@g>=ENCHANTGRADE_C) {\n      if (.@r>=9) {\n         bonus bSMatk,3;\n      }\n   }\n   if (.@g>=ENCHANTGRADE_B) {\n      if (.@r>=11) {\n         bonus bSpl,1;\n         bonus bCon,1;\n      }\n      if (.@g>=ENCHANTGRADE_A) {\n         bonus2 bMagicAddEle,Ele_All,10;\n         if (.@r>=11) {\n            bonus2 bMagicAddSize,Size_All,10;\n         }\n      }\n   }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "MATK+15，全屬性魔法傷害+3%。\n精煉+7時，攻擊速度增加(攻擊後延遲-3%)。\n精煉+9時，變動詠唱、技能後延遲-3%。\n^ffffff_^000000\n^CC3D3D[各階級追加能力]^000000\n[D階級] MATK+1%，MATK+15。\n[C階級] 精煉+9時，S.MATK+3。\n[B階級] 精煉+11時，SPL+1，CON+1。\n[A階級] 對全屬性對象的魔法傷害+10%，精煉+11時，對全體型對象的魔法傷害+10%。",
+    "playerSlots": [
+      2
+    ]
+  },
+  "311455": {
+    "id": 311455,
+    "name": "雪花魔力（魔法等級） Lv.2",
+    "aegisName": "Magical_Grade_2",
+    "scriptRaw": ".@g = getenchantgrade();\n.@r = getrefine();\nbonus2 bMagicAtkEle,Ele_All,6;\nbonus bMatk,30;\nif (.@r>=7) {\n   bonus bAspdRate,6;\n   if (.@r>=9) {\n      bonus bVariableCastrate,-6;\n      bonus bDelayrate,-6;\n   }\n}\nif (.@g>=ENCHANTGRADE_D) {\n   bonus bMatkRate,2;\n   bonus bMatk,30;\n   if (.@g>=ENCHANTGRADE_C) {\n      if (.@r>=7) {\n         bonus bSMatk,3;\n      }\n   }\n   if (.@g>=ENCHANTGRADE_B) {\n      if (.@r>=9) {\n         bonus bSpl,1;\n         bonus bCon,1;\n      }\n      if (.@g>=ENCHANTGRADE_A) {\n         bonus2 bMagicAddEle,Ele_All,12;\n         if (.@r>=11) {\n            bonus2 bMagicAddSize,Size_All,12;\n         }\n      }\n   }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "MATK+30，全屬性魔法傷害+6%。\n精煉+7時，攻擊速度增加(攻擊後延遲-6%)。\n精煉+9時，變動詠唱、技能後延遲-6%。\n^ffffff_^000000\n^CC3D3D[各階級追加能力]^000000\n[D階級] MATK+2%，MATK+30。\n[C階級] 精煉+7時，S.MATK+3。\n[B階級] 精煉+9時，SPL+1，CON+1。\n[A階級] 對全屬性對象的魔法傷害+12%，精煉+11時，對全體型對象的魔法傷害+12%。",
+    "playerSlots": []
+  },
+  "311456": {
+    "id": 311456,
+    "name": "雪花魔力（魔法等級） Lv.3",
+    "aegisName": "Magical_Grade_3",
+    "scriptRaw": ".@g = getenchantgrade();\n.@r = getrefine();\nbonus2 bMagicAtkEle,Ele_All,9;\nbonus bMatk,45;\nif (.@r>=7) {\n   bonus bAspdRate,9;\n   if (.@r>=9) {\n      bonus bVariableCastrate,-9;\n      bonus bDelayrate,-9;\n   }\n}\nif (.@g>=ENCHANTGRADE_D) {\n   bonus bMatkRate,3;\n   bonus bMatk,45;\n   if (.@g>=ENCHANTGRADE_C) {\n      bonus bSMatk,3*(.@r/5);\n      if (.@g>=ENCHANTGRADE_B) {\n         bonus bSpl,(.@r/4);\n         bonus bCon,(.@r/4);\n         if (.@g>=ENCHANTGRADE_A) {\n            bonus2 bMagicAddEle,Ele_All,14;\n            if (.@r>=11) {\n               bonus2 bMagicAddSize,Size_All,14;\n            }\n         }\n      }\n   }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "MATK+45，全屬性魔法傷害+9%。\n精煉+7時，攻擊速度增加(攻擊後延遲-9%)。\n精煉+9時，變動詠唱、技能後延遲-9%。\n^ffffff_^000000\n^CC3D3D[各階級追加能力]^000000\n[D階級] MATK+3%，MATK+45。\n[C階級] 精煉每+5時，S.MATK+3。\n[B階級] 精煉每+4時，SPL+1，CON+1。\n[A階級] 對全屬性對象的魔法傷害+14%，精煉+11時，對全體型對象的魔法傷害+14%。",
+    "playerSlots": []
+  },
+  "311457": {
+    "id": 311457,
+    "name": "雪花魔力（魔法等級） Lv.4",
+    "aegisName": "Magical_Grade_4",
+    "scriptRaw": ".@g = getenchantgrade();\n.@r = getrefine();\nbonus2 bMagicAtkEle,Ele_All,12;\nbonus bMatk,60;\nif (.@r>=7) {\n   bonus bAspdRate,12;\n   if (.@r>=9) {\n      bonus bVariableCastrate,-12;\n      bonus bDelayrate,-12;\n   }\n}\nif (.@g>=ENCHANTGRADE_D) {\n   bonus bMatkRate,4;\n   bonus bMatk,60;\n   if (.@g>=ENCHANTGRADE_C) {\n      bonus bSMatk,3*(.@r/4);\n      if (.@g>=ENCHANTGRADE_B) {\n         bonus bSpl,(.@r/3);\n         bonus bCon,(.@r/3);\n         if (.@g>=ENCHANTGRADE_A) {\n            bonus2 bMagicAddEle,Ele_All,16;\n            if (.@r>=11) {\n               bonus2 bMagicAddSize,Size_All,16;\n            }\n         }\n      }\n   }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "MATK+60，全屬性魔法傷害+12%。\n精煉+7時，攻擊速度增加(攻擊後延遲-12%)。\n精煉+9時，變動詠唱、技能後延遲-12%。\n^ffffff_^000000\n^CC3D3D[各階級追加能力]^000000\n[D階級] MATK+4%，MATK+60。\n[C階級] 精煉每+4時，S.MATK+3。\n[B階級] 精煉每+3時，SPL+1，CON+1。\n[A階級] 對全屬性對象的魔法傷害+16%，精煉+11時，對全體型對象的魔法傷害+16%。",
+    "playerSlots": []
+  },
+  "311458": {
+    "id": 311458,
+    "name": "雪花魔力（魔法等級） Lv.5",
+    "aegisName": "Magical_Grade_5",
+    "scriptRaw": ".@g = getenchantgrade();\n.@r = getrefine();\nbonus2 bMagicAtkEle,Ele_All,15;\nbonus bMatk,75;\nif (.@r>=7) {\n   bonus bAspdRate,15;\n   if (.@r>=9) {\n      bonus bVariableCastrate,-15;\n      bonus bDelayrate,-15;\n   }\n}\nif (.@g>=ENCHANTGRADE_D) {\n   bonus bMatkRate,5;\n   bonus bMatk,75;\n   if (.@g>=ENCHANTGRADE_C) {\n      bonus bSMatk,4*(.@r/3);\n      if (.@g>=ENCHANTGRADE_B) {\n         bonus bSpl,(.@r/2);\n         bonus bCon,(.@r/2);\n         if (.@g>=ENCHANTGRADE_A) {\n            bonus2 bMagicAddEle,Ele_All,18;\n            if (.@r>=11) {\n               bonus2 bMagicAddSize,Size_All,18;\n            }\n         }\n      }\n   }\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "MATK+75，全屬性魔法傷害+15%。\n精煉+7時，攻擊速度增加(攻擊後延遲-15%)。\n精煉+9時，變動詠唱、技能後延遲-15%。\n^ffffff_^000000\n^CC3D3D[各階級追加能力]^000000\n[D階級] MATK+5%，MATK+75。\n[C階級] 精煉每+3時，S.MATK+4。\n[B階級] 精煉每+2時，SPL+1，CON+1。\n[A階級] 對全屬性對象的魔法傷害+18%，精煉+11時，對全體型對象的魔法傷害+18%。",
+    "playerSlots": []
+  },
+  "313798": {
+    "id": 313798,
+    "name": "雪花魔力（神龍貫刺）",
+    "aegisName": "Glacier_F_Orb_168",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"DK_DRAGONIC_PIERCE\",10+5*(.@r/4);\nif (.@r>=9) {\n   bonus2 bSkillAtk,\"DK_DRAGONIC_PIERCE\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "神龍貫刺傷害+10%。\n精煉每+4，神龍貫刺傷害再+5%。\n精煉+9時，神龍貫刺傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "313799": {
+    "id": 313799,
+    "name": "雪花魔力（光輝刺擊）",
+    "aegisName": "Glacier_F_Orb_169",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"IG_RADIANT_SPEAR\",10+5*(.@r/4);\nif (.@r>=9) {\n   bonus2 bSkillAtk,\"IG_RADIANT_SPEAR\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "光輝刺擊傷害+10%。\n精煉每+4，光輝刺擊傷害再+5%。\n精煉+9時，光輝刺擊傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "313800": {
+    "id": 313800,
+    "name": "雪花魔力（帝國十字斬）",
+    "aegisName": "Glacier_F_Orb_170",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"IG_IMPERIAL_CROSS\",10+5*(.@r/4);\nif (.@r>=9) {\n   bonus2 bSkillAtk,\"IG_IMPERIAL_CROSS\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "帝國十字斬傷害+10%。\n精煉每+4，帝國十字斬傷害再+5%。\n精煉+9時，帝國十字斬傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "313801": {
+    "id": 313801,
+    "name": "雪花魔力（霸權震域）",
+    "aegisName": "Glacier_F_Orb_171",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"IG_IMPERIAL_PRESSURE\",10+5*(.@r/4);\nif (.@r>=9) {\n   bonus2 bSkillAtk,\"IG_IMPERIAL_PRESSURE\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "霸權震域傷害+10%。\n精煉每+4，霸權震域傷害再+5%。\n精煉+9時，霸權震域傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "313802": {
+    "id": 313802,
+    "name": "雪花魔力（衝鋒斬擊）",
+    "aegisName": "Glacier_F_Orb_172",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"MT_RUSH_STRIKE\",10+5*(.@r/4);\nif (.@r>=9) {\n   bonus2 bSkillAtk,\"MT_RUSH_STRIKE\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "衝鋒斬擊傷害+10%。\n精煉每+4，衝鋒斬擊傷害再+5%。\n精煉+9時，衝鋒斬擊傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "313803": {
+    "id": 313803,
+    "name": "雪花魔力（爆發橫掃）",
+    "aegisName": "Glacier_F_Orb_173",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"MT_POWERFUL_SWING\",10+5*(.@r/4);\nif (.@r>=9) {\n   bonus2 bSkillAtk,\"MT_POWERFUL_SWING\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "爆發橫掃傷害+10%。\n精煉每+4，爆發橫掃傷害再+5%。\n精煉+9時，爆發橫掃傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "313804": {
+    "id": 313804,
+    "name": "雪花魔力（能量轟炸）",
+    "aegisName": "Glacier_F_Orb_174",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"MT_ENERGY_CANNONADE\",10+5*(.@r/4);\nif (.@r>=9) {\n   bonus2 bSkillAtk,\"MT_ENERGY_CANNONADE\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "能量轟炸傷害+10%。\n精煉每+4，能量轟炸傷害再+5%。\n精煉+9時，能量轟炸傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "313805": {
+    "id": 313805,
+    "name": "雪花魔力（神秘粉末）",
+    "aegisName": "Glacier_F_Orb_175",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"BO_MYSTERY_POWDER\",10+5*(.@r/4);\nif (.@r>=9) {\n   bonus2 bSkillAtk,\"BO_MYSTERY_POWDER\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "神秘粉末傷害+10%。\n精煉每+4，神秘粉末傷害再+5%。\n精煉+9時，神秘粉末傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "313806": {
+    "id": 313806,
+    "name": "雪花魔力（星塵炸裂）",
+    "aegisName": "Glacier_F_Orb_176",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"BO_DUST_EXPLOSION\",10+5*(.@r/4);\nif (.@r>=9) {\n   bonus2 bSkillAtk,\"BO_DUST_EXPLOSION\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "星塵炸裂傷害+10%。\n精煉每+4，星塵炸裂傷害再+5%。\n精煉+9時，星塵炸裂傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "313807": {
+    "id": 313807,
+    "name": "雪花魔力（十字斬擊）",
+    "aegisName": "Glacier_F_Orb_177",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SHC_CROSS_SLASH\",10+5*(.@r/4);\nif (.@r>=9) {\n   bonus2 bSkillAtk,\"SHC_CROSS_SLASH\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "十字斬擊傷害+10%。\n精煉每+4，十字斬擊傷害再+5%。\n精煉+9時，十字斬擊傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "313808": {
+    "id": 313808,
+    "name": "雪花魔力（突擊滑行）",
+    "aegisName": "Glacier_F_Orb_178",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"ABC_HIT_AND_SLIDING\",10+5*(.@r/4);\nif (.@r>=9) {\n   bonus2 bSkillAtk,\"ABC_HIT_AND_SLIDING\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "突擊滑行傷害+10%。\n精煉每+4，突擊滑行傷害再+5%。\n精煉+9時，突擊滑行傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "313809": {
+    "id": 313809,
+    "name": "雪花魔力（追擊突斷）",
+    "aegisName": "Glacier_F_Orb_179",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"ABC_CHASING_BREAK\",10+5*(.@r/4);\nif (.@r>=9) {\n   bonus2 bSkillAtk,\"ABC_CHASING_BREAK\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "追擊突斷傷害+10%。\n精煉每+4，追擊突斷傷害再+5%。\n精煉+9時，追擊突斷傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "313810": {
+    "id": 313810,
+    "name": "雪花魔力（追襲射擊）",
+    "aegisName": "Glacier_F_Orb_180",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"ABC_CHASING_SHOT\",10+5*(.@r/4);\nif (.@r>=9) {\n   bonus2 bSkillAtk,\"ABC_CHASING_SHOT\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "追襲射擊傷害+10%。\n精煉每+4，追襲射擊傷害再+5%。\n精煉+9時，追襲射擊傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "313811": {
+    "id": 313811,
+    "name": "雪花魔力（深淵之焰）",
+    "aegisName": "Glacier_F_Orb_181",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"ABC_ABYSS_FLAME_ATK\",10+5*(.@r/4);\nbonus2 bSkillAtk,\"ABC_ABYSS_FLAME\",10+5*(.@r/4);\nif (.@r>=9) {\n   bonus2 bSkillAtk,\"ABC_ABYSS_FLAME_ATK\",10;\n   bonus2 bSkillAtk,\"ABC_ABYSS_FLAME\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "深淵之焰傷害+10%。\n精煉每+4，深淵之焰傷害再+5%。\n精煉+9時，深淵之焰傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "313812": {
+    "id": 313812,
+    "name": "雪花魔力（神聖花雨）",
+    "aegisName": "Glacier_F_Orb_182",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"CD_DIVINUS_FLOS\",10+5*(.@r/4);\nif (.@r>=9) {\n   bonus2 bSkillAtk,\"CD_DIVINUS_FLOS\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "神聖花雨傷害+10%。\n精煉每+4，神聖花雨傷害再+5%。\n精煉+9時，神聖花雨傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "313813": {
+    "id": 313813,
+    "name": "雪花魔力（烈焰爆彈）",
+    "aegisName": "Glacier_F_Orb_183",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"IQ_BLAZING_FLAME_BLAST\",10+5*(.@r/4);\nif (.@r>=9) {\n   bonus2 bSkillAtk,\"IQ_BLAZING_FLAME_BLAST\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "烈焰爆彈傷害+10%。\n精煉每+4，烈焰爆彈傷害再+5%。\n精煉+9時，烈焰爆彈傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "313814": {
+    "id": 313814,
+    "name": "雪花魔力（節奏戰波）",
+    "aegisName": "Glacier_F_Orb_184",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"TR_RHYTHMICAL_WAVE\",10+5*(.@r/4);\nif (.@r>=9) {\n   bonus2 bSkillAtk,\"TR_RHYTHMICAL_WAVE\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "節奏戰波傷害+10%。\n精煉每+4，節奏戰波傷害再+5%。\n精煉+9時，節奏戰波傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "313815": {
+    "id": 313815,
+    "name": "雪花魔力（狂野射擊）",
+    "aegisName": "Glacier_F_Orb_185",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"NW_WILD_SHOT\",10+5*(.@r/4);\nif (.@r>=9) {\n   bonus2 bSkillAtk,\"NW_WILD_SHOT\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "狂野射擊傷害+10%。\n精煉每+4，狂野射擊傷害再+5%。\n精煉+9時，狂野射擊傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "313816": {
+    "id": 313816,
+    "name": "雪花魔力（午夜殞落）",
+    "aegisName": "Glacier_F_Orb_186",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"NW_MIDNIGHT_FALLEN\",10+5*(.@r/4);\nif (.@r>=9) {\n   bonus2 bSkillAtk,\"NW_MIDNIGHT_FALLEN\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "午夜殞落傷害+10%。\n精煉每+4，午夜殞落傷害再+5%。\n精煉+9時，午夜殞落傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "313817": {
+    "id": 313817,
+    "name": "雪花魔力（天氣神陽）",
+    "aegisName": "Glacier_F_Orb_187",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SKE_SKY_SUN\",10+5*(.@r/4);\nif (.@r>=9) {\n   bonus2 bSkillAtk,\"SKE_SKY_SUN\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "天氣神陽傷害+10%。\n精煉每+4，天氣神陽傷害再+5%。\n精煉+9時，天氣神陽傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "313818": {
+    "id": 313818,
+    "name": "雪花魔力（天氣神月）",
+    "aegisName": "Glacier_F_Orb_188",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SKE_SKY_MOON\",10+5*(.@r/4);\nif (.@r>=9) {\n   bonus2 bSkillAtk,\"SKE_SKY_MOON\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "天氣神月傷害+10%。\n精煉每+4，天氣神月傷害再+5%。\n精煉+9時，天氣神月傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "313819": {
+    "id": 313819,
+    "name": "雪花魔力（天星地行）",
+    "aegisName": "Glacier_F_Orb_189",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SKE_STAR_LIGHT_KICK\",10+5*(.@r/4);\nif (.@r>=9) {\n   bonus2 bSkillAtk,\"SKE_STAR_LIGHT_KICK\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "天星地行傷害+10%。\n精煉每+4，天星地行傷害再+5%。\n精煉+9時，天星地行傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "313820": {
+    "id": 313820,
+    "name": "雪花魔力（鐵虎亂舞）",
+    "aegisName": "Glacier_F_Orb_190",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SH_CHUL_HO_BATTERING\",10+5*(.@r/4);\nif (.@r>=9) {\n   bonus2 bSkillAtk,\"SH_CHUL_HO_BATTERING\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "鐵虎亂舞傷害+10%。\n精煉每+4，鐵虎亂舞傷害再+5%。\n精煉+9時，鐵虎亂舞傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  },
+  "313821": {
+    "id": 313821,
+    "name": "雪花魔力（玄鹿靈力釋放）",
+    "aegisName": "Glacier_F_Orb_191",
+    "scriptRaw": ".@r = getrefine();\nbonus2 bSkillAtk,\"SH_HYUN_ROK_SPIRIT_POWER\",10+5*(.@r/4);\nif (.@r>=9) {\n   bonus2 bSkillAtk,\"SH_HYUN_ROK_SPIRIT_POWER\",10;\n}\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "玄鹿靈力釋放傷害+10%。\n精煉每+4，玄鹿靈力釋放傷害再+5%。\n精煉+9時，玄鹿靈力釋放傷害再+10%。",
+    "playerSlots": [
+      3,
+      4
+    ]
+  }
+}

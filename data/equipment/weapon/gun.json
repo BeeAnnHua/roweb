@@ -1,1 +1,331 @@
-{}
+{
+  "800015": {
+    "id": 800015,
+    "officialId": 800015,
+    "name": "黯淡冰晶手槍",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "gun",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "沾染毒氣魔力且黯淡無光的手槍。",
+      "需採取與冰晶武器不同的方式來處理。",
+      "^ffffff_^000000",
+      "MATK+230。",
+      "系列 : ^777777手槍^000000 攻擊 : ^777777230^000000",
+      "重量 : ^777777220^000000",
+      "武器等級 : ^7777775^000000",
+      "要求等級 : ^777777230^000000",
+      "裝備 : ^777777叛亂者系列^000000"
+    ],
+    "icon": "images/items/800015.webp",
+    "slot": "weapon",
+    "atk": 230,
+    "matk": 0,
+    "handed": 2,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 17,
+    "weaponType": "gun",
+    "aegisName": "D_Glacier_Revolver",
+    "AegisName": "D_Glacier_Revolver",
+    "dbType": "Weapon",
+    "Type": "Weapon",
+    "dbSubType": "Revolver",
+    "SubType": "Revolver",
+    "range": 7,
+    "Range": 7,
+    "weaponLevel": 5,
+    "WeaponLevel": 5,
+    "equipLevelMin": 230,
+    "requiredLevel": 230,
+    "EquipLevelMin": 230,
+    "equipJobs": {
+      "Rebellion": true
+    },
+    "Jobs": {
+      "Rebellion": true
+    },
+    "equipClasses": {
+      "Third": true
+    },
+    "Classes": {
+      "Third": true
+    },
+    "locations": {
+      "Both_Hand": true
+    },
+    "Locations": {
+      "Both_Hand": true
+    },
+    "refineable": true,
+    "Refineable": true,
+    "gradable": true,
+    "Gradable": true,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱",
+    "Script": "bonus bMatk,230;\n",
+    "scriptRaw": "bonus bMatk,230;\n"
+  },
+  "810015": {
+    "id": 810015,
+    "officialId": 810015,
+    "name": "黯淡冰晶來福槍",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "gun",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "沾染毒氣魔力且黯淡無光的的來福槍。",
+      "需採取與冰晶武器不同的方式來處理。",
+      "^ffffff_^000000",
+      "MATK+230。",
+      "系列 : ^777777來福槍^000000 攻擊 : ^777777280^000000",
+      "重量 : ^777777260^000000",
+      "武器等級 : ^7777775^000000",
+      "要求等級 : ^777777230^000000",
+      "裝備 : ^777777叛亂者系列^000000"
+    ],
+    "icon": "images/items/810015.webp",
+    "slot": "weapon",
+    "atk": 280,
+    "matk": 0,
+    "handed": 2,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 18,
+    "weaponType": "gun",
+    "aegisName": "D_Glacier_Rifle",
+    "AegisName": "D_Glacier_Rifle",
+    "dbType": "Weapon",
+    "Type": "Weapon",
+    "dbSubType": "Rifle",
+    "SubType": "Rifle",
+    "range": 9,
+    "Range": 9,
+    "weaponLevel": 5,
+    "WeaponLevel": 5,
+    "equipLevelMin": 230,
+    "requiredLevel": 230,
+    "EquipLevelMin": 230,
+    "equipJobs": {
+      "Rebellion": true
+    },
+    "Jobs": {
+      "Rebellion": true
+    },
+    "equipClasses": {
+      "Third": true
+    },
+    "Classes": {
+      "Third": true
+    },
+    "locations": {
+      "Both_Hand": true
+    },
+    "Locations": {
+      "Both_Hand": true
+    },
+    "refineable": true,
+    "Refineable": true,
+    "gradable": true,
+    "Gradable": true,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱",
+    "Script": "bonus bMatk,230;\n",
+    "scriptRaw": "bonus bMatk,230;\n"
+  },
+  "820011": {
+    "id": 820011,
+    "officialId": 820011,
+    "name": "黯淡冰晶霰彈槍",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "gun",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "沾染毒氣魔力且黯淡無光的的霰彈槍。",
+      "需採取與冰晶武器不同的方式來處理。",
+      "^ffffff_^000000",
+      "MATK+200。",
+      "擴散攻擊。",
+      "系列 : ^777777霰彈槍^000000 攻擊 : ^777777300^000000",
+      "重量 : ^777777260^000000",
+      "武器等級 : ^7777775^000000",
+      "要求等級 : ^777777230^000000",
+      "裝備 : ^777777叛亂者系列^000000"
+    ],
+    "icon": "images/items/820011.webp",
+    "slot": "weapon",
+    "atk": 300,
+    "matk": 0,
+    "handed": 2,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 20,
+    "weaponType": "gun",
+    "aegisName": "D_Glacier_Shotgun",
+    "AegisName": "D_Glacier_Shotgun",
+    "dbType": "Weapon",
+    "Type": "Weapon",
+    "dbSubType": "Shotgun",
+    "SubType": "Shotgun",
+    "range": 9,
+    "Range": 9,
+    "weaponLevel": 5,
+    "WeaponLevel": 5,
+    "equipLevelMin": 230,
+    "requiredLevel": 230,
+    "EquipLevelMin": 230,
+    "equipJobs": {
+      "Rebellion": true
+    },
+    "Jobs": {
+      "Rebellion": true
+    },
+    "equipClasses": {},
+    "Classes": {},
+    "locations": {
+      "Both_Hand": true
+    },
+    "Locations": {
+      "Both_Hand": true
+    },
+    "refineable": true,
+    "Refineable": true,
+    "gradable": true,
+    "Gradable": true,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱",
+    "Script": "bonus bMatk,200;\nbonus bSplashRange,1;\n",
+    "scriptRaw": "bonus bMatk,200;\nbonus bSplashRange,1;\n"
+  },
+  "830015": {
+    "id": 830015,
+    "officialId": 830015,
+    "name": "黯淡冰晶格林機槍",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "gun",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "沾染毒氣魔力且黯淡無光的的格林機槍。",
+      "需採取與冰晶武器不同的方式來處理。",
+      "^ffffff_^000000",
+      "MATK+200。",
+      "系列 : ^777777格林機槍^000000 攻擊 : ^777777350^000000",
+      "重量 : ^777777350^000000",
+      "武器等級 : ^7777775^000000",
+      "要求等級 : ^777777230^000000",
+      "裝備 : ^777777叛亂者系列^000000"
+    ],
+    "icon": "images/items/830015.webp",
+    "slot": "weapon",
+    "atk": 350,
+    "matk": 0,
+    "handed": 2,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 19,
+    "weaponType": "gun",
+    "aegisName": "D_Glacier_Gatling",
+    "AegisName": "D_Glacier_Gatling",
+    "dbType": "Weapon",
+    "Type": "Weapon",
+    "dbSubType": "Gatling",
+    "SubType": "Gatling",
+    "range": 9,
+    "Range": 9,
+    "weaponLevel": 5,
+    "WeaponLevel": 5,
+    "equipLevelMin": 230,
+    "requiredLevel": 230,
+    "EquipLevelMin": 230,
+    "equipJobs": {
+      "Rebellion": true
+    },
+    "Jobs": {
+      "Rebellion": true
+    },
+    "equipClasses": {},
+    "Classes": {},
+    "locations": {
+      "Both_Hand": true
+    },
+    "Locations": {
+      "Both_Hand": true
+    },
+    "refineable": true,
+    "Refineable": true,
+    "gradable": true,
+    "Gradable": true,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱",
+    "Script": "bonus bMatk,200;\n",
+    "scriptRaw": "bonus bMatk,200;\n"
+  },
+  "840010": {
+    "id": 840010,
+    "officialId": 840010,
+    "name": "黯淡冰晶榴彈發射器",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "gun",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "沾染毒氣魔力且黯淡無光的的榴彈發射器。",
+      "需採取與冰晶武器不同的方式來處理。",
+      "^ffffff_^000000",
+      "MATK+200。",
+      "系列 : ^777777榴彈發射器^000000 攻擊 : ^777777300^000000",
+      "重量 : ^777777300^000000",
+      "武器等級 : ^7777775^000000",
+      "要求等級 : ^777777230^000000",
+      "裝備 : ^777777叛亂者系列^000000"
+    ],
+    "icon": "images/items/840010.webp",
+    "slot": "weapon",
+    "atk": 300,
+    "matk": 0,
+    "handed": 2,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 21,
+    "weaponType": "gun",
+    "aegisName": "D_Glacier_Launcher",
+    "AegisName": "D_Glacier_Launcher",
+    "dbType": "Weapon",
+    "Type": "Weapon",
+    "dbSubType": "Grenade",
+    "SubType": "Grenade",
+    "range": 9,
+    "Range": 9,
+    "weaponLevel": 5,
+    "WeaponLevel": 5,
+    "equipLevelMin": 230,
+    "requiredLevel": 230,
+    "EquipLevelMin": 230,
+    "equipJobs": {
+      "Rebellion": true
+    },
+    "Jobs": {
+      "Rebellion": true
+    },
+    "equipClasses": {},
+    "Classes": {},
+    "locations": {
+      "Both_Hand": true
+    },
+    "Locations": {
+      "Both_Hand": true
+    },
+    "refineable": true,
+    "Refineable": true,
+    "gradable": true,
+    "Gradable": true,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱",
+    "Script": "bonus bMatk,200;\n",
+    "scriptRaw": "bonus bMatk,200;\n"
+  }
+}

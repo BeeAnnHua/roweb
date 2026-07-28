@@ -1,5 +1,5 @@
 //=======================================
-// TownManager v0.9.82GN
+// TownManager v0.9.82GW
 // 城鎮 / NPC / 商店 / 轉職 NPC 架構
 //=======================================
 
@@ -171,7 +171,9 @@ function getNpcTypeText(type) {
     gender_change: "角色性別切換",
     refine: "裝備精煉",
     storage: "倉庫",
-    enchant_grade: "裝備升階"
+    enchant_grade: "裝備升階",
+    enchant_platform: "裝備附魔",
+    enchant_material_exchange: "附魔材料兌換"
   };
   return map[type] || type || "NPC";
 }
@@ -184,6 +186,8 @@ function getNpcActionText(npc) {
   if (npc.type === "refine") return "開始精煉";
   if (npc.type === "storage") return "開啟倉庫";
   if (npc.type === "enchant_grade") return "裝備升階";
+  if (npc.type === "enchant_platform") return "開啟附魔平台";
+  if (npc.type === "enchant_material_exchange") return "瀏覽材料兌換";
   return "交談";
 }
 
@@ -238,6 +242,22 @@ function interactNpc(npcId) {
   }
   if (npc.type === "enchant_grade") {
     openEnchantGradeNpcWindow(npc, "grade");
+    return;
+  }
+  if (npc.type === "enchant_platform") {
+    if (typeof window.openEnchantPlatform === "function") {
+      window.openEnchantPlatform(npc);
+    } else {
+      addBattleLog(npc.name + "：附魔平台 UI 尚未載入。");
+    }
+    return;
+  }
+  if (npc.type === "enchant_material_exchange") {
+    if (typeof window.openEnchantMaterialExchange === "function") {
+      window.openEnchantMaterialExchange(npc);
+    } else {
+      addBattleLog(npc.name + "：附魔材料兌換 UI 尚未載入。");
+    }
     return;
   }
   if (npc.type === "gender_change") {

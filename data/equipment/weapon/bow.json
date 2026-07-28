@@ -533,5 +533,75 @@
     "WeaponLevel": 3,
     "EquipLevelMin": 33,
     "Refineable": true
+  },
+  "700059": {
+    "id": 700059,
+    "officialId": 700059,
+    "name": "黯淡冰晶長弓",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "bow",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "沾染毒氣魔力且黯淡無光的的弓。",
+      "需採取與冰晶武器不同的方式來處理。",
+      "^ffffff_^000000",
+      "MATK+220。",
+      "系列 : ^777777弓^000000 攻擊 : ^777777240^000000",
+      "重量 : ^777777150^000000",
+      "武器等級 : ^7777775^000000",
+      "要求等級 : ^777777230^000000",
+      "裝備 : ^777777弓箭手/流氓系列^000000"
+    ],
+    "icon": "images/items/700059.webp",
+    "slot": "weapon",
+    "atk": 240,
+    "matk": 0,
+    "handed": 2,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 11,
+    "weaponType": "bow",
+    "aegisName": "D_Glacier_Bow",
+    "AegisName": "D_Glacier_Bow",
+    "dbType": "Weapon",
+    "Type": "Weapon",
+    "dbSubType": "Bow",
+    "SubType": "Bow",
+    "range": 5,
+    "Range": 5,
+    "weaponLevel": 5,
+    "WeaponLevel": 5,
+    "equipLevelMin": 230,
+    "requiredLevel": 230,
+    "EquipLevelMin": 230,
+    "equipJobs": {
+      "Archer": true,
+      "BardDancer": true,
+      "Hunter": true,
+      "Rogue": true
+    },
+    "Jobs": {
+      "Archer": true,
+      "BardDancer": true,
+      "Hunter": true,
+      "Rogue": true
+    },
+    "equipClasses": {},
+    "Classes": {},
+    "locations": {
+      "Both_Hand": true
+    },
+    "Locations": {
+      "Both_Hand": true
+    },
+    "refineable": true,
+    "Refineable": true,
+    "gradable": true,
+    "Gradable": true,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱",
+    "Script": "bonus bMatk,220;\n",
+    "scriptRaw": "bonus bMatk,220;\n"
   }
 }

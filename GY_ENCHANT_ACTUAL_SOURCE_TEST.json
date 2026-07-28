@@ -1,0 +1,114 @@
+{
+  "version": "0.9.82GY",
+  "checks": [
+    {
+      "name": "two actual enchant sources",
+      "pass": true,
+      "detail": [
+        {
+          "id": 311192,
+          "name": "雪花魔力（龍之氣息）"
+        },
+        {
+          "id": 311449,
+          "name": "雪花魔力（物理等級） Lv.1"
+        }
+      ]
+    },
+    {
+      "name": "slot 4 actual source",
+      "pass": true,
+      "detail": [
+        {
+          "id": 311192,
+          "slot": 4
+        },
+        {
+          "id": 311449,
+          "slot": 2
+        }
+      ]
+    },
+    {
+      "name": "slot 2 actual source",
+      "pass": true,
+      "detail": [
+        {
+          "id": 311192,
+          "slot": 4
+        },
+        {
+          "id": 311449,
+          "slot": 2
+        }
+      ]
+    },
+    {
+      "name": "physical grade atkFlat applies",
+      "pass": true,
+      "detail": 30
+    },
+    {
+      "name": "physical grade short damage applies",
+      "pass": true,
+      "detail": 3
+    },
+    {
+      "name": "physical grade long damage applies",
+      "pass": true,
+      "detail": 3
+    },
+    {
+      "name": "dragon breath skill rate applies",
+      "pass": true,
+      "detail": [
+        [
+          "RK_DRAGONBREATH",
+          100
+        ],
+        [
+          "RK_DRAGONBREATH_WATER",
+          100
+        ]
+      ]
+    },
+    {
+      "name": "no runtime errors",
+      "pass": true,
+      "detail": {
+        "runtimeErrors": [],
+        "unhandledBonuses": {},
+        "warnings": []
+      }
+    }
+  ],
+  "passed": 8,
+  "failed": 0,
+  "enchantSources": [
+    {
+      "id": 311192,
+      "name": "雪花魔力（龍之氣息）",
+      "slot": 4
+    },
+    {
+      "id": 311449,
+      "name": "雪花魔力（物理等級） Lv.1",
+      "slot": 2
+    }
+  ],
+  "mergedSamples": {
+    "atkFlat": 30,
+    "shortDamageRate": 3,
+    "longDamageRate": 3,
+    "skillDamageRate": [
+      [
+        "RK_DRAGONBREATH",
+        100
+      ],
+      [
+        "RK_DRAGONBREATH_WATER",
+        100
+      ]
+    ]
+  }
+}

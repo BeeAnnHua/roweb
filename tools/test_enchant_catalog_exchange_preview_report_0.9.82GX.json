@@ -1,0 +1,268 @@
+{
+  "version": "0.9.82GX",
+  "checks": [
+    {
+      "name": "version GX",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "slot order 4-3-2",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "slot 4 count 179",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "slot 3 count 99",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "slot 2 count 2",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "unique enchant count 189",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "upgrade steps 8",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "reset raw ore x5",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "exchange shows all without inventory",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "exchange execution disabled",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "exchange catalog 16",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "exchange NPC exists in Payon",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "enchant NPC still exists",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "new exchange UI exists",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "enchant search exists",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "exchange runtime included",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "all cache refs GX",
+      "pass": true,
+      "detail": "['0.9.82GX']"
+    },
+    {
+      "name": "preview scripts do not save",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "preview scripts do not consume",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "slot 4 exact material cost",
+      "pass": true,
+      "detail": "[(1001034, 10), (1001035, 15), (1001036, 25)]"
+    },
+    {
+      "name": "slot 4 every entry shares cost",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "slot 3 exact material cost",
+      "pass": true,
+      "detail": "[(1001034, 15), (1001035, 20), (1001036, 35)]"
+    },
+    {
+      "name": "slot 3 every entry shares cost",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "slot 2 exact material cost",
+      "pass": true,
+      "detail": "[(1001034, 30), (1001035, 40), (1001036, 60), (1001037, 50)]"
+    },
+    {
+      "name": "slot 2 every entry shares cost",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "all required icons exist",
+      "pass": true,
+      "detail": "[]"
+    },
+    {
+      "name": "required icon count 209",
+      "pass": true,
+      "detail": "209"
+    },
+    {
+      "name": "enchant preview opens",
+      "pass": true,
+      "detail": "{'open': True, 'slot': 4, 'rows': 179, 'heading': '第4洞可用附魔｜179 / 179', 'disabled': True}"
+    },
+    {
+      "name": "enchant starts slot 4",
+      "pass": true,
+      "detail": "{'open': True, 'slot': 4, 'rows': 179, 'heading': '第4洞可用附魔｜179 / 179', 'disabled': True}"
+    },
+    {
+      "name": "slot 4 renders all 179",
+      "pass": true,
+      "detail": "{'open': True, 'slot': 4, 'rows': 179, 'heading': '第4洞可用附魔｜179 / 179', 'disabled': True}"
+    },
+    {
+      "name": "slot 4 heading count",
+      "pass": true,
+      "detail": "{'open': True, 'slot': 4, 'rows': 179, 'heading': '第4洞可用附魔｜179 / 179', 'disabled': True}"
+    },
+    {
+      "name": "execute disabled before selection",
+      "pass": true,
+      "detail": "{'open': True, 'slot': 4, 'rows': 179, 'heading': '第4洞可用附魔｜179 / 179', 'disabled': True}"
+    },
+    {
+      "name": "search finds actual enchant",
+      "pass": true,
+      "detail": "{'rows': 1, 'names': ['雪花魔力（天龍氣息）']}"
+    },
+    {
+      "name": "selection opens info",
+      "pass": true,
+      "detail": "{'info': True, 'selected': 1, 'disabled': False, 'costs': ['×10', '×15', '×25']}"
+    },
+    {
+      "name": "selection lights execute",
+      "pass": true,
+      "detail": "{'info': True, 'selected': 1, 'disabled': False, 'costs': ['×10', '×15', '×25']}"
+    },
+    {
+      "name": "slot 4 costs display exact amounts",
+      "pass": true,
+      "detail": "{'info': True, 'selected': 1, 'disabled': False, 'costs': ['×10', '×15', '×25']}"
+    },
+    {
+      "name": "preview advances to slot 3",
+      "pass": true,
+      "detail": "{'slot': 3, 'rows': 99, 'heading': '第3洞可用附魔｜99 / 99', 'costs': ['×15', '×20', '×35']}"
+    },
+    {
+      "name": "slot 3 renders all 99",
+      "pass": true,
+      "detail": "{'slot': 3, 'rows': 99, 'heading': '第3洞可用附魔｜99 / 99', 'costs': ['×15', '×20', '×35']}"
+    },
+    {
+      "name": "slot 3 costs exact",
+      "pass": true,
+      "detail": "{'slot': 3, 'rows': 99, 'heading': '第3洞可用附魔｜99 / 99', 'costs': ['×15', '×20', '×35']}"
+    },
+    {
+      "name": "upgrade renders 8 steps",
+      "pass": true,
+      "detail": "{'rows': 8, 'costs': ['×15', '×20', '×30', '×25', '×5', '×5'], 'ready': True}"
+    },
+    {
+      "name": "upgrade selected and ready",
+      "pass": true,
+      "detail": "{'rows': 8, 'costs': ['×15', '×20', '×30', '×25', '×5', '×5'], 'ready': True}"
+    },
+    {
+      "name": "exchange preview opens",
+      "pass": true,
+      "detail": "{'open': True, 'groups': 5, 'items': 16, 'disabled': True, 'detail': '\\n      \\n        \\n        雪花魔石提煉雪花魔石Item ID 1000812\\n      \\n      平凡魔力雪花魔石。\\n      兌換／合成用途預覽雪花魔力原石可升級為更高階雪花魔石。正式比例尚未寫入，不在預覽版猜測。\\n      固定顯示全部項目不會因目前背包沒有材料而隱藏，玩家可先查看目標再蒐集。'}"
+    },
+    {
+      "name": "exchange has all categories",
+      "pass": true,
+      "detail": "{'open': True, 'groups': 5, 'items': 16, 'disabled': True, 'detail': '\\n      \\n        \\n        雪花魔石提煉雪花魔石Item ID 1000812\\n      \\n      平凡魔力雪花魔石。\\n      兌換／合成用途預覽雪花魔力原石可升級為更高階雪花魔石。正式比例尚未寫入，不在預覽版猜測。\\n      固定顯示全部項目不會因目前背包沒有材料而隱藏，玩家可先查看目標再蒐集。'}"
+    },
+    {
+      "name": "exchange displays all 16",
+      "pass": true,
+      "detail": "{'open': True, 'groups': 5, 'items': 16, 'disabled': True, 'detail': '\\n      \\n        \\n        雪花魔石提煉雪花魔石Item ID 1000812\\n      \\n      平凡魔力雪花魔石。\\n      兌換／合成用途預覽雪花魔力原石可升級為更高階雪花魔石。正式比例尚未寫入，不在預覽版猜測。\\n      固定顯示全部項目不會因目前背包沒有材料而隱藏，玩家可先查看目標再蒐集。'}"
+    },
+    {
+      "name": "exchange remains disabled",
+      "pass": true,
+      "detail": "{'open': True, 'groups': 5, 'items': 16, 'disabled': True, 'detail': '\\n      \\n        \\n        雪花魔石提煉雪花魔石Item ID 1000812\\n      \\n      平凡魔力雪花魔石。\\n      兌換／合成用途預覽雪花魔力原石可升級為更高階雪花魔石。正式比例尚未寫入，不在預覽版猜測。\\n      固定顯示全部項目不會因目前背包沒有材料而隱藏，玩家可先查看目標再蒐集。'}"
+    },
+    {
+      "name": "exchange explains fixed display",
+      "pass": true,
+      "detail": "\n      \n        \n        雪花魔石提煉雪花魔石Item ID 1000812\n      \n      平凡魔力雪花魔石。\n      兌換／合成用途預覽雪花魔力原石可升級為更高階雪花魔石。正式比例尚未寫入，不在預覽版猜測。\n      固定顯示全部項目不會因目前背包沒有材料而隱藏，玩家可先查看目標再蒐集。"
+    },
+    {
+      "name": "exchange search works",
+      "pass": true,
+      "detail": "{'items': 5, 'names': ['雪花魔石萃取液', '閃亮雪花魔石萃取液', '光輝雪花魔石萃取液', '冰晶萃取液', '純粹魔力萃取液']}"
+    },
+    {
+      "name": "mobile enchant no horizontal overflow",
+      "pass": true,
+      "detail": "{'scrollWidth': 390, 'clientWidth': 390, 'bottom': 842, 'height': 844}"
+    },
+    {
+      "name": "mobile enchant dialog in viewport",
+      "pass": true,
+      "detail": "{'scrollWidth': 390, 'clientWidth': 390, 'bottom': 842, 'height': 844}"
+    },
+    {
+      "name": "mobile exchange no horizontal overflow",
+      "pass": true,
+      "detail": "{'scrollWidth': 390, 'clientWidth': 390, 'bottom': 842, 'height': 844}"
+    },
+    {
+      "name": "mobile exchange dialog in viewport",
+      "pass": true,
+      "detail": "{'scrollWidth': 390, 'clientWidth': 390, 'bottom': 842, 'height': 844}"
+    },
+    {
+      "name": "Chromium UI errors",
+      "pass": true,
+      "detail": "[]"
+    }
+  ],
+  "passed": 52,
+  "failed": 0,
+  "errors": []
+}

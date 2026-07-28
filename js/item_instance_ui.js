@@ -433,6 +433,58 @@
     modal.classList.remove('hidden-window');
   }
 
+
+  function isDimGlacierEnchantWeapon(data) {
+    const catalog=window.RO_WEB_DATA?.["data/dim_glacier_enchant.json"];
+    return Array.isArray(catalog?.targetWeaponIds) && catalog.targetWeaponIds.map(Number).includes(Number(data?.id));
+  }
+
+  function getEnchantDisplayInfo(enchant) {
+    if(!enchant)return null;
+    const id=Number(enchant.id ?? enchant.optionId ?? 0);
+    const runtime=window.DimGlacierEnchantRuntime?.getEnchantById?.(id) || window.CardRuntime?.getEnchantRecord?.(id) || null;
+    return {
+      ...runtime,
+      ...enchant,
+      id,
+      name:enchant.name || runtime?.name || `附魔 ${id}`,
+      effect:enchant.effect || enchant.effectText || runtime?.effectText || runtime?.effect || "附魔效果資料尚未載入。"
+    };
+  }
+
+  function renderDimGlacierSlotGrid(body, instance) {
+    const section=document.createElement('section');
+    section.className='item-detail-dim-glacier-section';
+    appendTextLine(section,'卡片／附魔洞位','item-detail-section-title');
+    const grid=document.createElement('div');
+    grid.className='item-detail-dim-glacier-grid';
+    const cardId=(instance.cards||[]).find(Boolean);
+    const card=cardId?getCardInfo(cardId):null;
+    const rows=[
+      {slot:1,label:'第1洞｜卡片',content:card?{id:cardId,name:card.name,effect:(card.description||[]).join('\n'),icon:card.icon}:null},
+      {slot:4,label:'第4洞｜附魔',content:getEnchantDisplayInfo((instance.enchants||[]).find(x=>Number(x.slot??x.playerSlot)===4))},
+      {slot:2,label:'第2洞｜附魔',content:getEnchantDisplayInfo((instance.enchants||[]).find(x=>Number(x.slot??x.playerSlot)===2))},
+      {slot:3,label:'第3洞｜附魔',content:getEnchantDisplayInfo((instance.enchants||[]).find(x=>Number(x.slot??x.playerSlot)===3))}
+    ];
+    rows.forEach(row=>{
+      const button=document.createElement('button');button.type='button';button.className=`item-detail-dim-slot slot-${row.slot} ${row.content?'filled':'empty'}`;
+      const number=document.createElement('b');number.textContent=String(row.slot);button.appendChild(number);
+      if(row.content){
+        const img=document.createElement('img');img.src=row.content.icon||`images/items/${row.content.id}.webp`;img.alt=row.content.name;button.appendChild(img);
+        const text=document.createElement('span');text.textContent=row.content.name;button.appendChild(text);button.dataset.tooltip=`${row.label}：${row.content.name}`;
+        button.addEventListener('click',()=>{
+          if(row.slot===1){renderCardDetail(row.content.id);return;}
+          window.openEnchantStoneInfo?.(row.content,row.label);
+        });
+      }else{
+        const mark=document.createElement('span');mark.className='socket-hole-mark';mark.textContent='◇';button.appendChild(mark);
+        const text=document.createElement('small');text.textContent=row.label;button.appendChild(text);button.disabled=true;
+      }
+      grid.appendChild(button);
+    });
+    section.appendChild(grid);body.appendChild(section);
+  }
+
   function showItemDetail(instanceOrId, context = {}) {
     const data = getBaseItemData(instanceOrId);
     if (!data) return;
@@ -474,56 +526,56 @@
     body.appendChild(desc);
 
     if (isEquipmentData(data)) {
-      const slotCount = getEquipmentSlotCount(data);
-      const socketSection = document.createElement('section');
-      socketSection.className = 'item-detail-socket-section';
-      appendTextLine(socketSection, `卡片插槽 [${slotCount}]`, 'item-detail-section-title');
-      const grid = document.createElement('div');
-      grid.className = 'item-detail-socket-grid';
-      if (slotCount === 0) appendTextLine(grid, '此裝備沒有卡片插槽。', 'item-detail-empty');
-      for (let i = 0; i < slotCount; i += 1) {
-        const cardId = instance.cards[i];
-        const cell = document.createElement('button');
-        cell.type = 'button';
-        cell.className = `item-detail-socket ${cardId ? 'filled' : 'empty'}`;
-        if (cardId) {
-          const card = getCardInfo(cardId);
-          cell.dataset.tooltip = card.name;
-          const cardIcon = document.createElement('img');
-          cardIcon.src = card.icon || `images/items/${cardId}.webp`;
-          cardIcon.alt = card.name;
-          cardIcon.onerror = () => { cardIcon.style.display = 'none'; };
-          cell.appendChild(cardIcon);
-          const label = document.createElement('span'); label.textContent = card.name; cell.appendChild(label);
-          cell.addEventListener('click', event => { event.stopPropagation(); renderCardDetail(cardId); });
-        } else {
-          cell.dataset.tooltip = `空插槽 ${i + 1}`;
-          cell.innerHTML = `<span class="socket-hole-mark">◇</span><small>空插槽 ${i + 1}</small>`;
+      if (isDimGlacierEnchantWeapon(data)) {
+        renderDimGlacierSlotGrid(body, instance);
+      } else {
+        const slotCount = getEquipmentSlotCount(data);
+        const socketSection = document.createElement('section');
+        socketSection.className = 'item-detail-socket-section';
+        appendTextLine(socketSection, `卡片插槽 [${slotCount}]`, 'item-detail-section-title');
+        const grid = document.createElement('div');
+        grid.className = 'item-detail-socket-grid';
+        if (slotCount === 0) appendTextLine(grid, '此裝備沒有卡片插槽。', 'item-detail-empty');
+        for (let i = 0; i < slotCount; i += 1) {
+          const cardId = instance.cards[i];
+          const cell = document.createElement('button');
+          cell.type = 'button';
+          cell.className = `item-detail-socket ${cardId ? 'filled' : 'empty'}`;
+          if (cardId) {
+            const card = getCardInfo(cardId);
+            cell.dataset.tooltip = card.name;
+            const cardIcon = document.createElement('img');
+            cardIcon.src = card.icon || `images/items/${cardId}.webp`;
+            cardIcon.alt = card.name;
+            cardIcon.onerror = () => { cardIcon.style.display = 'none'; };
+            cell.appendChild(cardIcon);
+            const label = document.createElement('span'); label.textContent = card.name; cell.appendChild(label);
+            cell.addEventListener('click', event => { event.stopPropagation(); renderCardDetail(cardId); });
+          } else {
+            cell.dataset.tooltip = `空插槽 ${i + 1}`;
+            cell.innerHTML = `<span class="socket-hole-mark">◇</span><small>空插槽 ${i + 1}</small>`;
+          }
+          grid.appendChild(cell);
         }
-        grid.appendChild(cell);
-      }
-      socketSection.appendChild(grid);
-      body.appendChild(socketSection);
+        socketSection.appendChild(grid);
+        body.appendChild(socketSection);
 
-      if (instance.enchants.length) {
-        const enchantSection = document.createElement('section');
-        enchantSection.className = 'item-detail-enchant-section';
-        appendTextLine(enchantSection, '附魔', 'item-detail-section-title');
-        instance.enchants.forEach(enchant => {
-          const button = document.createElement('button');
-          button.type = 'button';
-          button.className = 'item-detail-enchant';
-          button.textContent = enchant.name;
-          button.dataset.tooltip = enchant.name;
-          button.addEventListener('click', () => {
-            title.textContent = enchant.name;
-            clearElement(body);
-            appendTextLine(body, enchant.name, 'item-detail-name');
-            appendTextLine(body, enchant.description || enchant.effectText || '附魔能力資料尚未匯入。', 'item-detail-description');
+        if (instance.enchants.length) {
+          const enchantSection = document.createElement('section');
+          enchantSection.className = 'item-detail-enchant-section';
+          appendTextLine(enchantSection, '附魔', 'item-detail-section-title');
+          instance.enchants.forEach(enchant => {
+            const info=getEnchantDisplayInfo(enchant);
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'item-detail-enchant';
+            button.textContent = info.name;
+            button.dataset.tooltip = info.name;
+            button.addEventListener('click', () => window.openEnchantStoneInfo?.(info,`第${info.slot??info.playerSlot??'?'}洞｜附魔`));
+            enchantSection.appendChild(button);
           });
-          enchantSection.appendChild(button);
-        });
-        body.appendChild(enchantSection);
+          body.appendChild(enchantSection);
+        }
       }
     }
     renderItemDetailActions(data, instance, { ...context, inventoryItem:context.inventoryItem || (context.source === 'inventory' ? instanceOrId : null) });

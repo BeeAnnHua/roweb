@@ -1,1 +1,154 @@
-{}
+{
+  "590047": {
+    "id": 590047,
+    "officialId": 590047,
+    "name": "黯淡冰晶鏈錘",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "mace",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "沾染毒氣魔力且黯淡無光的的鈍器。",
+      "需採取與冰晶武器不同的方式來處理。",
+      "^ffffff_^000000",
+      "不可破壞。",
+      "MATK+210。",
+      "系列 : ^777777鈍器^000000 攻擊 : ^777777210^000000",
+      "重量 : ^777777180^000000",
+      "武器等級 : ^7777775^000000",
+      "要求等級 : ^777777230^000000",
+      "裝備 : ^777777劍士/商人/服事系列^000000"
+    ],
+    "icon": "images/items/590047.webp",
+    "slot": "weapon",
+    "atk": 210,
+    "matk": 210,
+    "handed": 1,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 62,
+    "weaponType": "mace",
+    "aegisName": "D_Glacier_Mace",
+    "AegisName": "D_Glacier_Mace",
+    "dbType": "Weapon",
+    "Type": "Weapon",
+    "dbSubType": "Mace",
+    "SubType": "Mace",
+    "range": 1,
+    "Range": 1,
+    "weaponLevel": 5,
+    "WeaponLevel": 5,
+    "equipLevelMin": 230,
+    "requiredLevel": 230,
+    "EquipLevelMin": 230,
+    "equipJobs": {
+      "Acolyte": true,
+      "Alchemist": true,
+      "Blacksmith": true,
+      "Crusader": true,
+      "Knight": true,
+      "Merchant": true,
+      "Monk": true,
+      "Priest": true,
+      "Swordman": true
+    },
+    "Jobs": {
+      "Acolyte": true,
+      "Alchemist": true,
+      "Blacksmith": true,
+      "Crusader": true,
+      "Knight": true,
+      "Merchant": true,
+      "Monk": true,
+      "Priest": true,
+      "Swordman": true
+    },
+    "equipClasses": {},
+    "Classes": {},
+    "locations": {
+      "Right_Hand": true
+    },
+    "Locations": {
+      "Right_Hand": true
+    },
+    "refineable": true,
+    "Refineable": true,
+    "gradable": true,
+    "Gradable": true,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱",
+    "Script": "bonus bUnbreakableWeapon;\n",
+    "scriptRaw": "bonus bUnbreakableWeapon;\n"
+  },
+  "590048": {
+    "id": 590048,
+    "officialId": 590048,
+    "name": "黯淡冰晶機械錘",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "mace",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "沾染毒氣魔力且黯淡無光的的鈍器。",
+      "需採取與冰晶武器不同的方式來處理。",
+      "^ffffff_^000000",
+      "不可破壞。",
+      "MATK+160。",
+      "系列 : ^777777鈍器^000000 攻擊 : ^777777400^000000",
+      "重量 : ^777777400^000000",
+      "武器等級 : ^7777775^000000",
+      "要求等級 : ^777777230^000000",
+      "裝備 : ^777777機械工匠系列^000000"
+    ],
+    "icon": "images/items/590048.webp",
+    "slot": "weapon",
+    "atk": 400,
+    "matk": 160,
+    "handed": 1,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 62,
+    "weaponType": "mace",
+    "aegisName": "D_Glacier_M_Mace",
+    "AegisName": "D_Glacier_M_Mace",
+    "dbType": "Weapon",
+    "Type": "Weapon",
+    "dbSubType": "Mace",
+    "SubType": "Mace",
+    "range": 1,
+    "Range": 1,
+    "weaponLevel": 5,
+    "WeaponLevel": 5,
+    "equipLevelMin": 230,
+    "requiredLevel": 230,
+    "EquipLevelMin": 230,
+    "equipJobs": {
+      "Blacksmith": true
+    },
+    "Jobs": {
+      "Blacksmith": true
+    },
+    "equipClasses": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "Classes": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "locations": {
+      "Right_Hand": true
+    },
+    "Locations": {
+      "Right_Hand": true
+    },
+    "refineable": true,
+    "Refineable": true,
+    "gradable": true,
+    "Gradable": true,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱",
+    "Script": "bonus bUnbreakableWeapon;\n",
+    "scriptRaw": "bonus bUnbreakableWeapon;\n"
+  }
+}

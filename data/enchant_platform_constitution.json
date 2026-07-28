@@ -1,0 +1,45 @@
+{
+  "schema": "ro_web_enchant_platform_constitution",
+  "version": "0.9.82GY",
+  "status": "constitutional",
+  "previewOnlyInThisVersion": false,
+  "detectInventory": true,
+  "consumeMaterials": true,
+  "persistEnchantments": true,
+  "npc": {
+    "cityId": "payon",
+    "npcId": "payon_enchant_platform_npc"
+  },
+  "slotOrder": [
+    4,
+    3,
+    2
+  ],
+  "cardSlot": 1,
+  "fixedSlotPositions": {
+    "1": "top-left",
+    "4": "top-right",
+    "2": "bottom-left",
+    "3": "bottom-right"
+  },
+  "allJobCandidatesVisible": true,
+  "futureFeatureBoundary": "正式共用附魔平台已啟用；未來新增附魔武器／防具只新增合法裝備、洞位附魔池、材料、升階與重置資料，不重做流程。",
+  "catalogPreview": {
+    "slot4Count": 179,
+    "slot3Count": 99,
+    "slot2Count": 2,
+    "upgradeSteps": 8,
+    "exchangeNpcId": "payon_enchant_material_exchange_npc",
+    "showAllExchangeEntriesWithoutInventory": true
+  },
+  "formalRuntime": {
+    "targetFamily": "26把黯淡冰晶武器",
+    "slot4Count": 179,
+    "slot3Count": 99,
+    "slot2Count": 2,
+    "upgradeSteps": 8,
+    "reset": "雪花魔力原石×5；僅重置4/3/2洞；第1洞卡片保留",
+    "storageAndSave": true,
+    "actualCombatEffects": true
+  }
+}

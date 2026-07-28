@@ -1,6 +1,6 @@
 {
   "name": "RO_WEB_Constitution",
-  "version": "0.9.82EY",
+  "version": "0.9.82GX",
   "purpose": "RO_WEB 專案開發憲法。任何 AI 或開發者在修改專案前必須先閱讀本檔案。",
   "must_read_before_any_update": true,
   "ai_update_protocol": {
@@ -1264,6 +1264,14 @@
       "priority": "critical",
       "read_before_coding": true,
       "rule": "每件裝備必須以獨立 instanceId 保存 refine、broken、cards[4]、enchants[]。Hover 名稱格式固定為精煉值＋卡片／附魔稱號＋裝備基本名稱＋[itemInfo.slotCount]；最後洞數是裝備原始總洞數，不是插卡數或剩餘洞數。單擊開詳細視窗，背包雙擊穿戴，裝備欄雙擊卸除。"
+    },
+    {
+      "id": "ENCHANT-PLATFORM-001",
+      "category": "Inventory / Enchant",
+      "title": "全專案共用附魔平台與 4→3→2 洞位憲法",
+      "priority": "critical",
+      "read_before_coding": true,
+      "rule": "未來所有可附魔武器、防具與特殊裝備系列一律使用同一套共用附魔平台。第1洞永久保留卡片系統，不納入附魔流程；新增附魔必須固定依第4洞→第3洞→第2洞進行，前一洞未完成時後續洞位鎖定且不可提前操作。每個階段右側只顯示目前洞位可用的全部合法附魔石，但不得依當前角色職業過濾，玩家可替其他角色製作後放入共用倉庫。左側裝備清單只顯示小圖、精煉值、裝備名稱與D/C/B/A階級；中央只顯示裝備大圖及1/4/2/3固定洞位，已有卡片或附魔時顯示正式圖示，左鍵可鎖定並開啟名稱與完整效果資訊窗。材料、Zeny、附魔選擇與洞位條件全部成立時，確認執行按鈕才可亮起。第4、3、2洞完成後不再新增洞位，只保留升階、重置與查看。任何新附魔系列只能新增資料池、材料、費用、升階與重置規則，不得另寫不同操作流程；除非使用者明確宣告特例。"
     }
   ],
   "skillRuntime": {
@@ -1295,5 +1303,64 @@
     "raSkillTimingAuthority": "CastTime/FixedCastTime/AfterCastActDelay/AfterCastWalkDelay/Cooldown are synchronized from the provided rAthena Renewal startup package.",
     "skillActionMotion": "Physical attack skills use weapon Attack; magic/heal/buff/debuff/support use Cast; passive skills play no action.",
     "aspdPhysicalSkillGate": "ASPD only limits zero-cast, zero-cooldown, zero-aftercast physical skills using the existing normal-attack interval formula."
+  },
+  "enchantSystem": {
+    "constitutionalStatus": "mandatory",
+    "version": "0.9.82GY",
+    "sharedPlatformOnly": true,
+    "slotPolicy": {
+      "cardSlot": 1,
+      "enchantOrder": [
+        4,
+        3,
+        2
+      ],
+      "unlockRule": "完成前一附魔洞位後才解鎖下一洞位",
+      "postCompletion": [
+        "upgrade",
+        "reset",
+        "inspect"
+      ]
+    },
+    "equipmentListContract": [
+      "icon",
+      "refine",
+      "name",
+      "grade_D_C_B_A"
+    ],
+    "centerContract": {
+      "weaponOrArmorImage": true,
+      "fixedPositions": {
+        "1": "top-left",
+        "4": "top-right",
+        "2": "bottom-left",
+        "3": "bottom-right"
+      },
+      "clickExistingCardOrEnchantToInspect": true
+    },
+    "candidateListContract": {
+      "showOnlyCurrentSlotPool": true,
+      "filterByCurrentCharacterJob": false,
+      "showAllJobsForCrossCharacterCrafting": true,
+      "clickToLockAndOpenInfo": true
+    },
+    "executeButtonContract": {
+      "requiresSelectedEnchant": true,
+      "requiresLegalSlot": true,
+      "requiresEnoughMaterials": true,
+      "requiresEnoughZeny": true,
+      "disabledOtherwise": true,
+      "readyVisual": "illuminated"
+    },
+    "extensionRule": "未來附魔裝備只新增資料設定，不重做UI與流程。",
+    "assetRule": "缺少任何必要圖片時立即停止該部分更新並回報，不得使用錯圖、占位圖或猜測替代。",
+    "formalRuntime": {
+      "inventoryAndEquippedDetection": true,
+      "materialConsumption": true,
+      "equipmentInstancePersistence": true,
+      "storageTransferPersistence": true,
+      "combatEffectRuntime": "CardRuntime enchant source",
+      "targetFamily": "Dim Glacier weapons (26)"
+    }
   }
 }

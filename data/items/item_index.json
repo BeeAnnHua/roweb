@@ -117,6 +117,28 @@
     "buyPrice": 1000,
     "sellPrice": 500
   },
+  "607": {
+    "id": 607,
+    "officialId": 607,
+    "name": "天地樹果實",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "monster_drop",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "icon": "images/items/607.webp"
+  },
+  "616": {
+    "id": 616,
+    "officialId": 616,
+    "name": "老舊紫色箱子",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "monster_drop",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "icon": "images/items/616.webp"
+  },
   "638": {
     "id": 638,
     "officialId": 638,
@@ -212,6 +234,39 @@
     "buyPrice": 2,
     "sellPrice": 1
   },
+  "719": {
+    "id": 719,
+    "officialId": 719,
+    "name": "紫寶石",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "enchant_grade_material",
+    "sellPrice": 0,
+    "buyPrice": 6000,
+    "icon": "images/items/719.webp"
+  },
+  "720": {
+    "id": 720,
+    "officialId": 720,
+    "name": "天藍寶石",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "enchant_grade_material",
+    "sellPrice": 0,
+    "buyPrice": 6000,
+    "icon": "images/items/720.webp"
+  },
+  "728": {
+    "id": 728,
+    "officialId": 728,
+    "name": "黃寶石",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "enchant_grade_material",
+    "sellPrice": 0,
+    "buyPrice": 4500,
+    "icon": "images/items/728.webp"
+  },
   "756": {
     "id": 756,
     "officialId": 756,
@@ -255,6 +310,22 @@
     "icon": "images/items/914.webp",
     "buyPrice": 20,
     "sellPrice": 10
+  },
+  "936": {
+    "id": 936,
+    "officialId": 936,
+    "name": "鱗片皮膚",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "monster_drop",
+    "sellPrice": 0,
+    "buyPrice": 466,
+    "icon": "images/items/936.webp",
+    "Name": "鱗片皮膚",
+    "description": [
+      "覆著鱗片的皮膚, 可向收集商購買。"
+    ],
+    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
   },
   "969": {
     "id": 969,
@@ -453,6 +524,22 @@
     "icon": "images/items/1065.webp",
     "buyPrice": 50,
     "sellPrice": 25
+  },
+  "1096": {
+    "id": 1096,
+    "officialId": 1096,
+    "name": "圓形外皮",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "monster_drop",
+    "sellPrice": 0,
+    "buyPrice": 780,
+    "icon": "images/items/1096.webp",
+    "Name": "圓形外皮",
+    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR",
+    "description": [
+      "捲成圓形經過乾燥後而成的外皮。可向收集商人購買。"
+    ]
   },
   "1101": {
     "id": 1101,
@@ -18503,6 +18590,134 @@
     "cardVisualTier": "normal",
     "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
   },
+  "7013": {
+    "id": 7013,
+    "officialId": 7013,
+    "name": "珊瑚",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "monster_drop",
+    "sellPrice": 0,
+    "buyPrice": 772,
+    "icon": "images/items/7013.webp",
+    "Name": "珊瑚",
+    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR",
+    "description": [
+      "海裡剪下的珊瑚。可向收集商人購買。"
+    ]
+  },
+  "7066": {
+    "id": 7066,
+    "officialId": 7066,
+    "name": "冰塊一角",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "monster_drop",
+    "sellPrice": 0,
+    "buyPrice": 660,
+    "icon": "images/items/7066.webp",
+    "Name": "冰塊一角",
+    "description": [
+      "冰塊的一角,很奇怪的是它不會融掉,可以拿出去賣,真是神奇的冰塊一角。"
+    ],
+    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
+  },
+  "7067": {
+    "id": 7067,
+    "officialId": 7067,
+    "name": "石頭一角",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "monster_drop",
+    "sellPrice": 0,
+    "buyPrice": 640,
+    "icon": "images/items/7067.webp",
+    "Name": "石頭一角",
+    "description": [
+      "破碎的石頭一角,有漂亮的紋路,據說可以賣給石頭蒐集商人"
+    ],
+    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
+  },
+  "7110": {
+    "id": 7110,
+    "officialId": 7110,
+    "name": "破裂之劍",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "monster_drop",
+    "sellPrice": 0,
+    "buyPrice": 588,
+    "icon": "images/items/7110.webp",
+    "Name": "破裂之劍",
+    "description": [
+      "有很多裂紋,幾乎到不能使用地步的破碎之劍,快要變成廢鐵了"
+    ],
+    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
+  },
+  "7193": {
+    "id": 7193,
+    "officialId": 7193,
+    "name": "綠芽",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "monster_drop",
+    "sellPrice": 0,
+    "buyPrice": 230,
+    "icon": "images/items/7193.webp",
+    "Name": "綠芽",
+    "description": [
+      "從植物的種子裡,剛長出來的苗芽。"
+    ],
+    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
+  },
+  "7326": {
+    "id": 7326,
+    "officialId": 7326,
+    "name": "螢光色的液體",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "monster_drop",
+    "sellPrice": 0,
+    "buyPrice": 712,
+    "icon": "images/items/7326.webp",
+    "Name": "螢光色的液體",
+    "description": [
+      "非常刺眼的色彩,有著黏稠的液體,晚上看的話非常亮眼的東西。"
+    ],
+    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
+  },
+  "7561": {
+    "id": 7561,
+    "officialId": 7561,
+    "name": "冰心臟",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "monster_drop",
+    "sellPrice": 0,
+    "buyPrice": 606,
+    "icon": "images/items/7561.webp",
+    "Name": "冰心臟",
+    "description": [
+      "堅硬冰凍過的心臟, 非常冰請小心你的手"
+    ],
+    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
+  },
+  "7565": {
+    "id": 7565,
+    "officialId": 7565,
+    "name": "粘稠的毒",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "monster_drop",
+    "sellPrice": 0,
+    "buyPrice": 350,
+    "icon": "images/items/7565.webp",
+    "Name": "粘稠的毒",
+    "description": [
+      "從植物那裡可以獲得到的粘稠的毒, 毒性很強會用在很多地方"
+    ],
+    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
+  },
   "7619": {
     "id": 7619,
     "officialId": 7619,
@@ -18638,6 +18853,24 @@
     "sellPrice": 3500,
     "requiredLevel": 60,
     "reuseDelayMs": 10000
+  },
+  "12020": {
+    "id": 12020,
+    "officialId": 12020,
+    "name": "暗水",
+    "type": "consume",
+    "category": "elemental_converter",
+    "subCategory": "physical_element_endow",
+    "icon": "images/items/12020.webp",
+    "buyPrice": 2,
+    "sellPrice": 1,
+    "useEffect": {
+      "type": "physical_element_endow",
+      "buffId": "item_physical_element_endow",
+      "element": "Dark",
+      "durationMs": 1200000,
+      "replacesPreviousElementEndow": true
+    }
   },
   "12030": {
     "id": 12030,
@@ -19554,6 +19787,22 @@
       ]
     },
     "dataSource": "itemInfo_UTF8.lub + rAthena Renewal 2026-06-08; RO_WEB 0.9.82FZ MVP gacha"
+  },
+  "25159": {
+    "id": 25159,
+    "officialId": 25159,
+    "name": "邪心獵人之印",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "monster_drop",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "icon": "images/items/25159.webp",
+    "Name": "邪心獵人之印",
+    "description": [
+      "象徵邪心獵人團隊的印章。"
+    ],
+    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
   },
   "27012": {
     "id": 27012,
@@ -26677,712 +26926,6 @@
     "cardVisualTier": "mvp",
     "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
   },
-  "400368": {
-    "id": 400368,
-    "officialId": 400368,
-    "name": "RO二十週年限定帽",
-    "type": "equipment",
-    "category": "armor",
-    "subCategory": "headgear",
-    "slot": "headTop",
-    "icon": "images/items/400368.webp",
-    "buyPrice": 20,
-    "sellPrice": 10,
-    "slots": 1,
-    "slotCount": 1,
-    "requiredLevel": 1,
-    "ClassNum": 2284,
-    "AegisName": "20th_Anniversary_Hat_TW",
-    "aegisName": "20th_Anniversary_Hat_TW",
-    "Locations": {
-      "Head_Top": true
-    },
-    "locations": {
-      "Head_Top": true
-    },
-    "ArmorLevel": 1,
-    "armorLevel": 1,
-    "EquipLevelMin": 1,
-    "equipLevelMin": 1,
-    "Refineable": true,
-    "refineable": true,
-    "dataSource": "itemInfo_UTF8.lub + rAthena Renewal 2026-06-08; RO_WEB 0.9.82FZ gacha equipment"
-  },
-  "420186": {
-    "id": 420186,
-    "officialId": 420186,
-    "name": "20週年慶生氣球",
-    "type": "equipment",
-    "category": "armor",
-    "subCategory": "headgear",
-    "slot": "headLow",
-    "icon": "images/items/420186.webp",
-    "buyPrice": 20,
-    "sellPrice": 10,
-    "slots": 0,
-    "slotCount": 0,
-    "requiredLevel": 1,
-    "ClassNum": 2005,
-    "AegisName": "20th_Anniversary_TW",
-    "aegisName": "20th_Anniversary_TW",
-    "Locations": {
-      "Head_Low": true
-    },
-    "locations": {
-      "Head_Low": true
-    },
-    "ArmorLevel": 1,
-    "armorLevel": 1,
-    "EquipLevelMin": 1,
-    "equipLevelMin": 1,
-    "dataSource": "itemInfo_UTF8.lub + rAthena Renewal 2026-06-08; RO_WEB 0.9.82FZ gacha equipment"
-  },
-  "450175": {
-    "id": 450175,
-    "officialId": 450175,
-    "name": "時光超越湧現鎧甲",
-    "type": "equipment",
-    "category": "armor",
-    "subCategory": "body",
-    "slot": "armor",
-    "icon": "images/items/450175.webp",
-    "buyPrice": 20,
-    "sellPrice": 10,
-    "slots": 1,
-    "slotCount": 1,
-    "requiredLevel": 1,
-    "ClassNum": 0,
-    "AegisName": "Temporal_Armor_TW",
-    "aegisName": "Temporal_Armor_TW",
-    "Locations": {
-      "Armor": true
-    },
-    "locations": {
-      "Armor": true
-    },
-    "ArmorLevel": 1,
-    "armorLevel": 1,
-    "EquipLevelMin": 1,
-    "equipLevelMin": 1,
-    "Refineable": true,
-    "refineable": true,
-    "dataSource": "itemInfo_UTF8.lub + rAthena Renewal 2026-06-08; RO_WEB 0.9.82FZ gacha equipment"
-  },
-  "450299": {
-    "id": 450299,
-    "officialId": 450299,
-    "name": "時光超越湧現鎧甲-LT",
-    "type": "equipment",
-    "category": "armor",
-    "subCategory": "body",
-    "slot": "armor",
-    "icon": "images/items/450299.webp",
-    "buyPrice": 20,
-    "sellPrice": 10,
-    "slots": 1,
-    "slotCount": 1,
-    "requiredLevel": 190,
-    "ClassNum": 0,
-    "AegisName": "Temporal_Armor_TW_LT",
-    "aegisName": "Temporal_Armor_TW_LT",
-    "Locations": {
-      "Armor": true
-    },
-    "locations": {
-      "Armor": true
-    },
-    "ArmorLevel": 2,
-    "armorLevel": 2,
-    "EquipLevelMin": 190,
-    "equipLevelMin": 190,
-    "Refineable": true,
-    "refineable": true,
-    "Gradable": true,
-    "gradable": true,
-    "dataSource": "itemInfo_UTF8.lub + rAthena Renewal 2026-06-08; RO_WEB 0.9.82FZ gacha equipment"
-  },
-  "470183": {
-    "id": 470183,
-    "officialId": 470183,
-    "name": "時光超越者之靴-LT",
-    "type": "equipment",
-    "category": "armor",
-    "subCategory": "shoes",
-    "slot": "shoes",
-    "icon": "images/items/470183.webp",
-    "buyPrice": 20,
-    "sellPrice": 10,
-    "slots": 1,
-    "slotCount": 1,
-    "requiredLevel": 190,
-    "ClassNum": 0,
-    "AegisName": "Temporal_Boots_LT_TW",
-    "aegisName": "Temporal_Boots_LT_TW",
-    "Locations": {
-      "Shoes": true
-    },
-    "locations": {
-      "Shoes": true
-    },
-    "ArmorLevel": 2,
-    "armorLevel": 2,
-    "EquipLevelMin": 190,
-    "equipLevelMin": 190,
-    "Refineable": true,
-    "refineable": true,
-    "Gradable": true,
-    "gradable": true,
-    "dataSource": "itemInfo_UTF8.lub + rAthena Renewal 2026-06-08; RO_WEB 0.9.82FZ gacha equipment"
-  },
-  "480076": {
-    "id": 480076,
-    "officialId": 480076,
-    "name": "時光超越者斗篷",
-    "type": "equipment",
-    "category": "armor",
-    "subCategory": "garment",
-    "slot": "garment",
-    "icon": "images/items/480076.webp",
-    "buyPrice": 20,
-    "sellPrice": 10,
-    "slots": 1,
-    "slotCount": 1,
-    "requiredLevel": 100,
-    "ClassNum": 0,
-    "AegisName": "Temporal_Cape_TW",
-    "aegisName": "Temporal_Cape_TW",
-    "Locations": {
-      "Garment": true
-    },
-    "locations": {
-      "Garment": true
-    },
-    "ArmorLevel": 1,
-    "armorLevel": 1,
-    "EquipLevelMin": 100,
-    "equipLevelMin": 100,
-    "Refineable": true,
-    "refineable": true,
-    "dataSource": "itemInfo_UTF8.lub + rAthena Renewal 2026-06-08; RO_WEB 0.9.82FZ gacha equipment"
-  },
-  "480312": {
-    "id": 480312,
-    "officialId": 480312,
-    "name": "時光超越者斗篷-LT",
-    "type": "equipment",
-    "category": "armor",
-    "subCategory": "garment",
-    "slot": "garment",
-    "icon": "images/items/480312.webp",
-    "buyPrice": 20,
-    "sellPrice": 10,
-    "slots": 1,
-    "slotCount": 1,
-    "requiredLevel": 190,
-    "ClassNum": 0,
-    "AegisName": "Temporal_Cape_TW_LT",
-    "aegisName": "Temporal_Cape_TW_LT",
-    "Locations": {
-      "Garment": true
-    },
-    "locations": {
-      "Garment": true
-    },
-    "ArmorLevel": 2,
-    "armorLevel": 2,
-    "EquipLevelMin": 190,
-    "equipLevelMin": 190,
-    "Refineable": true,
-    "refineable": true,
-    "Gradable": true,
-    "gradable": true,
-    "dataSource": "itemInfo_UTF8.lub + rAthena Renewal 2026-06-08; RO_WEB 0.9.82FZ gacha equipment"
-  },
-  "490030": {
-    "id": 490030,
-    "officialId": 490030,
-    "name": "時光超越者之戒",
-    "type": "equipment",
-    "category": "armor",
-    "subCategory": "accessory",
-    "slot": "accessory1",
-    "icon": "images/items/490030.webp",
-    "buyPrice": 20,
-    "sellPrice": 10,
-    "slots": 1,
-    "slotCount": 1,
-    "requiredLevel": 100,
-    "ClassNum": 0,
-    "AegisName": "Temporal_Ring_TW",
-    "aegisName": "Temporal_Ring_TW",
-    "Locations": {
-      "Both_Accessory": true
-    },
-    "locations": {
-      "Both_Accessory": true
-    },
-    "ArmorLevel": 1,
-    "armorLevel": 1,
-    "EquipLevelMin": 100,
-    "equipLevelMin": 100,
-    "dataSource": "itemInfo_UTF8.lub + rAthena Renewal 2026-06-08; RO_WEB 0.9.82FZ gacha equipment"
-  },
-  "490097": {
-    "id": 490097,
-    "officialId": 490097,
-    "name": "時光超越者手鐲",
-    "type": "equipment",
-    "category": "armor",
-    "subCategory": "accessory",
-    "slot": "accessory1",
-    "icon": "images/items/490097.webp",
-    "buyPrice": 20,
-    "sellPrice": 10,
-    "slots": 1,
-    "slotCount": 1,
-    "requiredLevel": 100,
-    "ClassNum": 0,
-    "AegisName": "TimeOverloadRing_TW",
-    "aegisName": "TimeOverloadRing_TW",
-    "Locations": {
-      "Left_Accessory": true
-    },
-    "locations": {
-      "Left_Accessory": true
-    },
-    "ArmorLevel": 1,
-    "armorLevel": 1,
-    "EquipLevelMin": 100,
-    "equipLevelMin": 100,
-    "dataSource": "itemInfo_UTF8.lub + rAthena Renewal 2026-06-08; RO_WEB 0.9.82FZ gacha equipment"
-  },
-  "490404": {
-    "id": 490404,
-    "officialId": 490404,
-    "name": "時光超越者之戒-LT",
-    "type": "equipment",
-    "category": "armor",
-    "subCategory": "accessory",
-    "slot": "accessory1",
-    "icon": "images/items/490404.webp",
-    "buyPrice": 20,
-    "sellPrice": 10,
-    "slots": 1,
-    "slotCount": 1,
-    "requiredLevel": 200,
-    "ClassNum": 0,
-    "AegisName": "Temporal_Ring_TW_LT",
-    "aegisName": "Temporal_Ring_TW_LT",
-    "Locations": {
-      "Both_Accessory": true
-    },
-    "locations": {
-      "Both_Accessory": true
-    },
-    "ArmorLevel": 2,
-    "armorLevel": 2,
-    "EquipLevelMin": 200,
-    "equipLevelMin": 200,
-    "dataSource": "itemInfo_UTF8.lub + rAthena Renewal 2026-06-08; RO_WEB 0.9.82FZ gacha equipment"
-  },
-  "1000331": {
-    "id": 1000331,
-    "officialId": 1000331,
-    "name": "乙太鋁",
-    "type": "etc",
-    "category": "drop_misc",
-    "subCategory": "refinement_material",
-    "icon": "images/items/1000331.webp",
-    "buyPrice": 20,
-    "sellPrice": 10
-  },
-  "1000332": {
-    "id": 1000332,
-    "officialId": 1000332,
-    "name": "乙太神之金屬",
-    "type": "etc",
-    "category": "drop_misc",
-    "subCategory": "refinement_material",
-    "icon": "images/items/1000332.webp",
-    "buyPrice": 20,
-    "sellPrice": 10
-  },
-  "1000333": {
-    "id": 1000333,
-    "officialId": 1000333,
-    "name": "濃縮乙太鋁",
-    "type": "etc",
-    "category": "drop_misc",
-    "subCategory": "refinement_material",
-    "icon": "images/items/1000333.webp",
-    "buyPrice": 20,
-    "sellPrice": 10
-  },
-  "1000334": {
-    "id": 1000334,
-    "officialId": 1000334,
-    "name": "濃縮乙太神之金屬",
-    "type": "etc",
-    "category": "drop_misc",
-    "subCategory": "refinement_material",
-    "icon": "images/items/1000334.webp",
-    "buyPrice": 20,
-    "sellPrice": 10
-  },
-  "1000335": {
-    "id": 1000335,
-    "officialId": 1000335,
-    "name": "高濃縮乙太鋁",
-    "type": "etc",
-    "category": "drop_misc",
-    "subCategory": "refinement_material",
-    "icon": "images/items/1000335.webp",
-    "buyPrice": 20,
-    "sellPrice": 10
-  },
-  "1000336": {
-    "id": 1000336,
-    "officialId": 1000336,
-    "name": "高濃縮乙太神之金屬",
-    "type": "etc",
-    "category": "drop_misc",
-    "subCategory": "refinement_material",
-    "icon": "images/items/1000336.webp",
-    "buyPrice": 20,
-    "sellPrice": 10
-  },
-  "1000368": {
-    "id": 1000368,
-    "officialId": 1000368,
-    "name": "乙太鈽鐳",
-    "type": "etc",
-    "category": "drop_misc",
-    "subCategory": "refinement_material",
-    "icon": "images/items/1000368.webp",
-    "buyPrice": 20,
-    "sellPrice": 10
-  },
-  "1000369": {
-    "id": 1000369,
-    "officialId": 1000369,
-    "name": "高密度乙太鈽鐳",
-    "type": "etc",
-    "category": "drop_misc",
-    "subCategory": "refinement_material",
-    "icon": "images/items/1000369.webp",
-    "buyPrice": 20,
-    "sellPrice": 10
-  },
-  "1000370": {
-    "id": 1000370,
-    "officialId": 1000370,
-    "name": "乙太鈣礦石",
-    "type": "etc",
-    "category": "drop_misc",
-    "subCategory": "refinement_material",
-    "icon": "images/items/1000370.webp",
-    "buyPrice": 20,
-    "sellPrice": 10
-  },
-  "1000371": {
-    "id": 1000371,
-    "officialId": 1000371,
-    "name": "高密度乙太鈣礦石",
-    "type": "etc",
-    "category": "drop_misc",
-    "subCategory": "refinement_material",
-    "icon": "images/items/1000371.webp",
-    "buyPrice": 20,
-    "sellPrice": 10
-  },
-  "1100003": {
-    "id": 1100003,
-    "officialId": 1100003,
-    "name": "濃縮紅色糖漿藥水",
-    "type": "consume",
-    "category": "recovery",
-    "subCategory": "hp_potion",
-    "icon": "images/items/1100003.webp",
-    "buyPrice": 10,
-    "sellPrice": 5,
-    "requiredLevel": 120,
-    "reuseDelayMs": 0
-  },
-  "1100004": {
-    "id": 1100004,
-    "officialId": 1100004,
-    "name": "濃縮藍色糖漿藥水",
-    "type": "consume",
-    "category": "recovery",
-    "subCategory": "sp_potion",
-    "icon": "images/items/1100004.webp",
-    "buyPrice": 10,
-    "sellPrice": 5,
-    "requiredLevel": 120,
-    "reuseDelayMs": 0
-  },
-  "1100005": {
-    "id": 1100005,
-    "officialId": 1100005,
-    "name": "濃縮金色糖漿藥水",
-    "type": "consume",
-    "category": "recovery",
-    "subCategory": "hp_potion",
-    "icon": "images/items/1100005.webp",
-    "buyPrice": 10,
-    "sellPrice": 5,
-    "requiredLevel": 180,
-    "reuseDelayMs": 0
-  },
-  "12020": {
-    "id": 12020,
-    "officialId": 12020,
-    "name": "暗水",
-    "type": "consume",
-    "category": "elemental_converter",
-    "subCategory": "physical_element_endow",
-    "icon": "images/items/12020.webp",
-    "buyPrice": 2,
-    "sellPrice": 1,
-    "useEffect": {
-      "type": "physical_element_endow",
-      "buffId": "item_physical_element_endow",
-      "element": "Dark",
-      "durationMs": 1200000,
-      "replacesPreviousElementEndow": true
-    }
-  },
-  "607": {
-    "id": 607,
-    "officialId": 607,
-    "name": "天地樹果實",
-    "type": "etc",
-    "category": "drop_misc",
-    "subCategory": "monster_drop",
-    "sellPrice": 0,
-    "buyPrice": 0,
-    "icon": "images/items/607.webp"
-  },
-  "616": {
-    "id": 616,
-    "officialId": 616,
-    "name": "老舊紫色箱子",
-    "type": "etc",
-    "category": "drop_misc",
-    "subCategory": "monster_drop",
-    "sellPrice": 0,
-    "buyPrice": 0,
-    "icon": "images/items/616.webp"
-  },
-  "719": {
-    "id": 719,
-    "officialId": 719,
-    "name": "紫寶石",
-    "type": "etc",
-    "category": "drop_misc",
-    "subCategory": "enchant_grade_material",
-    "sellPrice": 0,
-    "buyPrice": 6000,
-    "icon": "images/items/719.webp"
-  },
-  "720": {
-    "id": 720,
-    "officialId": 720,
-    "name": "天藍寶石",
-    "type": "etc",
-    "category": "drop_misc",
-    "subCategory": "enchant_grade_material",
-    "sellPrice": 0,
-    "buyPrice": 6000,
-    "icon": "images/items/720.webp"
-  },
-  "728": {
-    "id": 728,
-    "officialId": 728,
-    "name": "黃寶石",
-    "type": "etc",
-    "category": "drop_misc",
-    "subCategory": "enchant_grade_material",
-    "sellPrice": 0,
-    "buyPrice": 4500,
-    "icon": "images/items/728.webp"
-  },
-  "936": {
-    "id": 936,
-    "officialId": 936,
-    "name": "鱗片皮膚",
-    "type": "etc",
-    "category": "drop_misc",
-    "subCategory": "monster_drop",
-    "sellPrice": 0,
-    "buyPrice": 466,
-    "icon": "images/items/936.webp",
-    "Name": "鱗片皮膚",
-    "description": [
-      "覆著鱗片的皮膚, 可向收集商購買。"
-    ],
-    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
-  },
-  "1096": {
-    "id": 1096,
-    "officialId": 1096,
-    "name": "圓形外皮",
-    "type": "etc",
-    "category": "drop_misc",
-    "subCategory": "monster_drop",
-    "sellPrice": 0,
-    "buyPrice": 780,
-    "icon": "images/items/1096.webp",
-    "Name": "圓形外皮",
-    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR",
-    "description": [
-      "捲成圓形經過乾燥後而成的外皮。可向收集商人購買。"
-    ]
-  },
-  "7013": {
-    "id": 7013,
-    "officialId": 7013,
-    "name": "珊瑚",
-    "type": "etc",
-    "category": "drop_misc",
-    "subCategory": "monster_drop",
-    "sellPrice": 0,
-    "buyPrice": 772,
-    "icon": "images/items/7013.webp",
-    "Name": "珊瑚",
-    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR",
-    "description": [
-      "海裡剪下的珊瑚。可向收集商人購買。"
-    ]
-  },
-  "7066": {
-    "id": 7066,
-    "officialId": 7066,
-    "name": "冰塊一角",
-    "type": "etc",
-    "category": "drop_misc",
-    "subCategory": "monster_drop",
-    "sellPrice": 0,
-    "buyPrice": 660,
-    "icon": "images/items/7066.webp",
-    "Name": "冰塊一角",
-    "description": [
-      "冰塊的一角,很奇怪的是它不會融掉,可以拿出去賣,真是神奇的冰塊一角。"
-    ],
-    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
-  },
-  "7067": {
-    "id": 7067,
-    "officialId": 7067,
-    "name": "石頭一角",
-    "type": "etc",
-    "category": "drop_misc",
-    "subCategory": "monster_drop",
-    "sellPrice": 0,
-    "buyPrice": 640,
-    "icon": "images/items/7067.webp",
-    "Name": "石頭一角",
-    "description": [
-      "破碎的石頭一角,有漂亮的紋路,據說可以賣給石頭蒐集商人"
-    ],
-    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
-  },
-  "7110": {
-    "id": 7110,
-    "officialId": 7110,
-    "name": "破裂之劍",
-    "type": "etc",
-    "category": "drop_misc",
-    "subCategory": "monster_drop",
-    "sellPrice": 0,
-    "buyPrice": 588,
-    "icon": "images/items/7110.webp",
-    "Name": "破裂之劍",
-    "description": [
-      "有很多裂紋,幾乎到不能使用地步的破碎之劍,快要變成廢鐵了"
-    ],
-    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
-  },
-  "7193": {
-    "id": 7193,
-    "officialId": 7193,
-    "name": "綠芽",
-    "type": "etc",
-    "category": "drop_misc",
-    "subCategory": "monster_drop",
-    "sellPrice": 0,
-    "buyPrice": 230,
-    "icon": "images/items/7193.webp",
-    "Name": "綠芽",
-    "description": [
-      "從植物的種子裡,剛長出來的苗芽。"
-    ],
-    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
-  },
-  "7326": {
-    "id": 7326,
-    "officialId": 7326,
-    "name": "螢光色的液體",
-    "type": "etc",
-    "category": "drop_misc",
-    "subCategory": "monster_drop",
-    "sellPrice": 0,
-    "buyPrice": 712,
-    "icon": "images/items/7326.webp",
-    "Name": "螢光色的液體",
-    "description": [
-      "非常刺眼的色彩,有著黏稠的液體,晚上看的話非常亮眼的東西。"
-    ],
-    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
-  },
-  "7561": {
-    "id": 7561,
-    "officialId": 7561,
-    "name": "冰心臟",
-    "type": "etc",
-    "category": "drop_misc",
-    "subCategory": "monster_drop",
-    "sellPrice": 0,
-    "buyPrice": 606,
-    "icon": "images/items/7561.webp",
-    "Name": "冰心臟",
-    "description": [
-      "堅硬冰凍過的心臟, 非常冰請小心你的手"
-    ],
-    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
-  },
-  "7565": {
-    "id": 7565,
-    "officialId": 7565,
-    "name": "粘稠的毒",
-    "type": "etc",
-    "category": "drop_misc",
-    "subCategory": "monster_drop",
-    "sellPrice": 0,
-    "buyPrice": 350,
-    "icon": "images/items/7565.webp",
-    "Name": "粘稠的毒",
-    "description": [
-      "從植物那裡可以獲得到的粘稠的毒, 毒性很強會用在很多地方"
-    ],
-    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
-  },
-  "25159": {
-    "id": 25159,
-    "officialId": 25159,
-    "name": "邪心獵人之印",
-    "type": "etc",
-    "category": "drop_misc",
-    "subCategory": "monster_drop",
-    "sellPrice": 0,
-    "buyPrice": 0,
-    "icon": "images/items/25159.webp",
-    "Name": "邪心獵人之印",
-    "description": [
-      "象徵邪心獵人團隊的印章。"
-    ],
-    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
-  },
   "300360": {
     "id": 300360,
     "officialId": 300360,
@@ -27973,6 +27516,2102 @@
       21599
     ]
   },
+  "400368": {
+    "id": 400368,
+    "officialId": 400368,
+    "name": "RO二十週年限定帽",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "headgear",
+    "slot": "headTop",
+    "icon": "images/items/400368.webp",
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "slots": 1,
+    "slotCount": 1,
+    "requiredLevel": 1,
+    "ClassNum": 2284,
+    "AegisName": "20th_Anniversary_Hat_TW",
+    "aegisName": "20th_Anniversary_Hat_TW",
+    "Locations": {
+      "Head_Top": true
+    },
+    "locations": {
+      "Head_Top": true
+    },
+    "ArmorLevel": 1,
+    "armorLevel": 1,
+    "EquipLevelMin": 1,
+    "equipLevelMin": 1,
+    "Refineable": true,
+    "refineable": true,
+    "dataSource": "itemInfo_UTF8.lub + rAthena Renewal 2026-06-08; RO_WEB 0.9.82FZ gacha equipment"
+  },
+  "420186": {
+    "id": 420186,
+    "officialId": 420186,
+    "name": "20週年慶生氣球",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "headgear",
+    "slot": "headLow",
+    "icon": "images/items/420186.webp",
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "slots": 0,
+    "slotCount": 0,
+    "requiredLevel": 1,
+    "ClassNum": 2005,
+    "AegisName": "20th_Anniversary_TW",
+    "aegisName": "20th_Anniversary_TW",
+    "Locations": {
+      "Head_Low": true
+    },
+    "locations": {
+      "Head_Low": true
+    },
+    "ArmorLevel": 1,
+    "armorLevel": 1,
+    "EquipLevelMin": 1,
+    "equipLevelMin": 1,
+    "dataSource": "itemInfo_UTF8.lub + rAthena Renewal 2026-06-08; RO_WEB 0.9.82FZ gacha equipment"
+  },
+  "450175": {
+    "id": 450175,
+    "officialId": 450175,
+    "name": "時光超越湧現鎧甲",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "body",
+    "slot": "armor",
+    "icon": "images/items/450175.webp",
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "slots": 1,
+    "slotCount": 1,
+    "requiredLevel": 1,
+    "ClassNum": 0,
+    "AegisName": "Temporal_Armor_TW",
+    "aegisName": "Temporal_Armor_TW",
+    "Locations": {
+      "Armor": true
+    },
+    "locations": {
+      "Armor": true
+    },
+    "ArmorLevel": 1,
+    "armorLevel": 1,
+    "EquipLevelMin": 1,
+    "equipLevelMin": 1,
+    "Refineable": true,
+    "refineable": true,
+    "dataSource": "itemInfo_UTF8.lub + rAthena Renewal 2026-06-08; RO_WEB 0.9.82FZ gacha equipment"
+  },
+  "450299": {
+    "id": 450299,
+    "officialId": 450299,
+    "name": "時光超越湧現鎧甲-LT",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "body",
+    "slot": "armor",
+    "icon": "images/items/450299.webp",
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "slots": 1,
+    "slotCount": 1,
+    "requiredLevel": 190,
+    "ClassNum": 0,
+    "AegisName": "Temporal_Armor_TW_LT",
+    "aegisName": "Temporal_Armor_TW_LT",
+    "Locations": {
+      "Armor": true
+    },
+    "locations": {
+      "Armor": true
+    },
+    "ArmorLevel": 2,
+    "armorLevel": 2,
+    "EquipLevelMin": 190,
+    "equipLevelMin": 190,
+    "Refineable": true,
+    "refineable": true,
+    "Gradable": true,
+    "gradable": true,
+    "dataSource": "itemInfo_UTF8.lub + rAthena Renewal 2026-06-08; RO_WEB 0.9.82FZ gacha equipment"
+  },
+  "470183": {
+    "id": 470183,
+    "officialId": 470183,
+    "name": "時光超越者之靴-LT",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "shoes",
+    "slot": "shoes",
+    "icon": "images/items/470183.webp",
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "slots": 1,
+    "slotCount": 1,
+    "requiredLevel": 190,
+    "ClassNum": 0,
+    "AegisName": "Temporal_Boots_LT_TW",
+    "aegisName": "Temporal_Boots_LT_TW",
+    "Locations": {
+      "Shoes": true
+    },
+    "locations": {
+      "Shoes": true
+    },
+    "ArmorLevel": 2,
+    "armorLevel": 2,
+    "EquipLevelMin": 190,
+    "equipLevelMin": 190,
+    "Refineable": true,
+    "refineable": true,
+    "Gradable": true,
+    "gradable": true,
+    "dataSource": "itemInfo_UTF8.lub + rAthena Renewal 2026-06-08; RO_WEB 0.9.82FZ gacha equipment"
+  },
+  "480076": {
+    "id": 480076,
+    "officialId": 480076,
+    "name": "時光超越者斗篷",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "garment",
+    "slot": "garment",
+    "icon": "images/items/480076.webp",
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "slots": 1,
+    "slotCount": 1,
+    "requiredLevel": 100,
+    "ClassNum": 0,
+    "AegisName": "Temporal_Cape_TW",
+    "aegisName": "Temporal_Cape_TW",
+    "Locations": {
+      "Garment": true
+    },
+    "locations": {
+      "Garment": true
+    },
+    "ArmorLevel": 1,
+    "armorLevel": 1,
+    "EquipLevelMin": 100,
+    "equipLevelMin": 100,
+    "Refineable": true,
+    "refineable": true,
+    "dataSource": "itemInfo_UTF8.lub + rAthena Renewal 2026-06-08; RO_WEB 0.9.82FZ gacha equipment"
+  },
+  "480312": {
+    "id": 480312,
+    "officialId": 480312,
+    "name": "時光超越者斗篷-LT",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "garment",
+    "slot": "garment",
+    "icon": "images/items/480312.webp",
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "slots": 1,
+    "slotCount": 1,
+    "requiredLevel": 190,
+    "ClassNum": 0,
+    "AegisName": "Temporal_Cape_TW_LT",
+    "aegisName": "Temporal_Cape_TW_LT",
+    "Locations": {
+      "Garment": true
+    },
+    "locations": {
+      "Garment": true
+    },
+    "ArmorLevel": 2,
+    "armorLevel": 2,
+    "EquipLevelMin": 190,
+    "equipLevelMin": 190,
+    "Refineable": true,
+    "refineable": true,
+    "Gradable": true,
+    "gradable": true,
+    "dataSource": "itemInfo_UTF8.lub + rAthena Renewal 2026-06-08; RO_WEB 0.9.82FZ gacha equipment"
+  },
+  "490030": {
+    "id": 490030,
+    "officialId": 490030,
+    "name": "時光超越者之戒",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "accessory",
+    "slot": "accessory1",
+    "icon": "images/items/490030.webp",
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "slots": 1,
+    "slotCount": 1,
+    "requiredLevel": 100,
+    "ClassNum": 0,
+    "AegisName": "Temporal_Ring_TW",
+    "aegisName": "Temporal_Ring_TW",
+    "Locations": {
+      "Both_Accessory": true
+    },
+    "locations": {
+      "Both_Accessory": true
+    },
+    "ArmorLevel": 1,
+    "armorLevel": 1,
+    "EquipLevelMin": 100,
+    "equipLevelMin": 100,
+    "dataSource": "itemInfo_UTF8.lub + rAthena Renewal 2026-06-08; RO_WEB 0.9.82FZ gacha equipment"
+  },
+  "490097": {
+    "id": 490097,
+    "officialId": 490097,
+    "name": "時光超越者手鐲",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "accessory",
+    "slot": "accessory1",
+    "icon": "images/items/490097.webp",
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "slots": 1,
+    "slotCount": 1,
+    "requiredLevel": 100,
+    "ClassNum": 0,
+    "AegisName": "TimeOverloadRing_TW",
+    "aegisName": "TimeOverloadRing_TW",
+    "Locations": {
+      "Left_Accessory": true
+    },
+    "locations": {
+      "Left_Accessory": true
+    },
+    "ArmorLevel": 1,
+    "armorLevel": 1,
+    "EquipLevelMin": 100,
+    "equipLevelMin": 100,
+    "dataSource": "itemInfo_UTF8.lub + rAthena Renewal 2026-06-08; RO_WEB 0.9.82FZ gacha equipment"
+  },
+  "490404": {
+    "id": 490404,
+    "officialId": 490404,
+    "name": "時光超越者之戒-LT",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "accessory",
+    "slot": "accessory1",
+    "icon": "images/items/490404.webp",
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "slots": 1,
+    "slotCount": 1,
+    "requiredLevel": 200,
+    "ClassNum": 0,
+    "AegisName": "Temporal_Ring_TW_LT",
+    "aegisName": "Temporal_Ring_TW_LT",
+    "Locations": {
+      "Both_Accessory": true
+    },
+    "locations": {
+      "Both_Accessory": true
+    },
+    "ArmorLevel": 2,
+    "armorLevel": 2,
+    "EquipLevelMin": 200,
+    "equipLevelMin": 200,
+    "dataSource": "itemInfo_UTF8.lub + rAthena Renewal 2026-06-08; RO_WEB 0.9.82FZ gacha equipment"
+  },
+  "500054": {
+    "id": 500054,
+    "officialId": 500054,
+    "name": "黯淡冰晶長劍",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "sword",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "沾染毒氣魔力且黯淡無光的的單手劍。",
+      "需採取與冰晶武器不同的方式來處理。",
+      "^ffffff_^000000",
+      "MATK+210。",
+      "系列 : ^777777單手劍^000000 攻擊 : ^777777220^000000",
+      "重量 : ^777777160^000000",
+      "武器等級 : ^7777775^000000",
+      "要求等級 : ^777777230^000000",
+      "裝備 : ^777777劍士/商人系列^000000"
+    ],
+    "icon": "images/items/500054.webp",
+    "slot": "weapon",
+    "atk": 220,
+    "matk": 210,
+    "handed": 1,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 42,
+    "weaponType": "sword",
+    "aegisName": "D_Glacier_Sword",
+    "AegisName": "D_Glacier_Sword",
+    "dbType": "Weapon",
+    "Type": "Weapon",
+    "dbSubType": "1hSword",
+    "SubType": "1hSword",
+    "range": 1,
+    "Range": 1,
+    "weaponLevel": 5,
+    "WeaponLevel": 5,
+    "equipLevelMin": 230,
+    "requiredLevel": 230,
+    "EquipLevelMin": 230,
+    "equipJobs": {
+      "Alchemist": true,
+      "Blacksmith": true,
+      "Crusader": true,
+      "Knight": true,
+      "Merchant": true,
+      "Swordman": true
+    },
+    "Jobs": {
+      "Alchemist": true,
+      "Blacksmith": true,
+      "Crusader": true,
+      "Knight": true,
+      "Merchant": true,
+      "Swordman": true
+    },
+    "equipClasses": {},
+    "Classes": {},
+    "locations": {
+      "Right_Hand": true
+    },
+    "Locations": {
+      "Right_Hand": true
+    },
+    "refineable": true,
+    "Refineable": true,
+    "gradable": true,
+    "Gradable": true,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱"
+  },
+  "500055": {
+    "id": 500055,
+    "officialId": 500055,
+    "name": "黯淡冰晶初階長劍",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "sword",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "沾染毒氣魔力且黯淡無光的的單手劍。",
+      "需採取與冰晶武器不同的方式來處理。",
+      "^ffffff_^000000",
+      "MATK+210。",
+      "系列 : ^777777單手劍^000000 攻擊 : ^777777220^000000",
+      "重量 : ^777777140^000000",
+      "武器等級 : ^7777775^000000",
+      "要求等級 : ^777777230^000000",
+      "裝備 : ^777777初學者系列^000000"
+    ],
+    "icon": "images/items/500055.webp",
+    "slot": "weapon",
+    "atk": 220,
+    "matk": 210,
+    "handed": 1,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 42,
+    "weaponType": "sword",
+    "aegisName": "D_Glacier_B_Sword",
+    "AegisName": "D_Glacier_B_Sword",
+    "dbType": "Weapon",
+    "Type": "Weapon",
+    "dbSubType": "1hSword",
+    "SubType": "1hSword",
+    "range": 1,
+    "Range": 1,
+    "weaponLevel": 5,
+    "WeaponLevel": 5,
+    "equipLevelMin": 230,
+    "requiredLevel": 230,
+    "EquipLevelMin": 230,
+    "equipJobs": {
+      "Novice": true,
+      "SuperNovice": true
+    },
+    "Jobs": {
+      "Novice": true,
+      "SuperNovice": true
+    },
+    "equipClasses": {},
+    "Classes": {},
+    "locations": {
+      "Right_Hand": true
+    },
+    "Locations": {
+      "Right_Hand": true
+    },
+    "refineable": true,
+    "Refineable": true,
+    "gradable": true,
+    "Gradable": true,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱"
+  },
+  "510075": {
+    "id": 510075,
+    "officialId": 510075,
+    "name": "黯淡冰晶短劍",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "dagger",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "沾染毒氣魔力且黯淡無光的的短劍。",
+      "需採取與冰晶武器不同的方式來處理。",
+      "^ffffff_^000000",
+      "MATK+210。",
+      "系列 : ^777777短劍^000000 攻擊 : ^777777210^000000",
+      "重量 : ^777777140^000000",
+      "武器等級 : ^7777775^000000",
+      "要求等級 : ^777777230^000000",
+      "裝備 : ^777777魅影追蹤者系列^000000"
+    ],
+    "icon": "images/items/510075.webp",
+    "slot": "weapon",
+    "atk": 210,
+    "matk": 210,
+    "handed": 1,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 31,
+    "weaponType": "dagger",
+    "aegisName": "D_Glacier_R_Knife",
+    "AegisName": "D_Glacier_R_Knife",
+    "dbType": "Weapon",
+    "Type": "Weapon",
+    "dbSubType": "Dagger",
+    "SubType": "Dagger",
+    "range": 1,
+    "Range": 1,
+    "weaponLevel": 5,
+    "WeaponLevel": 5,
+    "equipLevelMin": 230,
+    "requiredLevel": 230,
+    "EquipLevelMin": 230,
+    "equipJobs": {
+      "Rogue": true
+    },
+    "Jobs": {
+      "Rogue": true
+    },
+    "equipClasses": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "Classes": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "locations": {
+      "Right_Hand": true
+    },
+    "Locations": {
+      "Right_Hand": true
+    },
+    "refineable": true,
+    "Refineable": true,
+    "gradable": true,
+    "Gradable": true,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱"
+  },
+  "510076": {
+    "id": 510076,
+    "officialId": 510076,
+    "name": "黯淡冰晶初階短劍",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "dagger",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "沾染毒氣魔力且黯淡無光的的短劍。",
+      "需採取與冰晶武器不同的方式來處理。",
+      "^ffffff_^000000",
+      "MATK+210。",
+      "系列 : ^777777短劍^000000 攻擊 : ^777777210^000000",
+      "重量 : ^777777120^000000",
+      "武器等級 : ^7777775^000000",
+      "要求等級 : ^777777230^000000",
+      "裝備 : ^777777初學者系列^000000"
+    ],
+    "icon": "images/items/510076.webp",
+    "slot": "weapon",
+    "atk": 210,
+    "matk": 210,
+    "handed": 1,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 31,
+    "weaponType": "dagger",
+    "aegisName": "D_Glacier_B_Knife",
+    "AegisName": "D_Glacier_B_Knife",
+    "dbType": "Weapon",
+    "Type": "Weapon",
+    "dbSubType": "Dagger",
+    "SubType": "Dagger",
+    "range": 1,
+    "Range": 1,
+    "weaponLevel": 5,
+    "WeaponLevel": 5,
+    "equipLevelMin": 230,
+    "requiredLevel": 230,
+    "EquipLevelMin": 230,
+    "equipJobs": {
+      "Novice": true,
+      "SuperNovice": true
+    },
+    "Jobs": {
+      "Novice": true,
+      "SuperNovice": true
+    },
+    "equipClasses": {},
+    "Classes": {},
+    "locations": {
+      "Right_Hand": true
+    },
+    "Locations": {
+      "Right_Hand": true
+    },
+    "refineable": true,
+    "Refineable": true,
+    "gradable": true,
+    "Gradable": true,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱"
+  },
+  "520021": {
+    "id": 520021,
+    "officialId": 520021,
+    "name": "黯淡冰晶斧",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "axe",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "沾染毒氣魔力且黯淡無光的的單手斧。",
+      "需採取與冰晶武器不同的方式來處理。",
+      "^ffffff_^000000",
+      "不可破壞。",
+      "MATK+210。",
+      "系列 : ^777777單手斧^000000 攻擊 : ^777777240^000000",
+      "重量 : ^777777500^000000",
+      "武器等級 : ^7777775^000000",
+      "要求等級 : ^777777230^000000",
+      "裝備 : ^777777劍士/商人系列^000000"
+    ],
+    "icon": "images/items/520021.webp",
+    "slot": "weapon",
+    "atk": 240,
+    "matk": 210,
+    "handed": 1,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 6,
+    "weaponType": "axe",
+    "aegisName": "D_Glacier_Axe",
+    "AegisName": "D_Glacier_Axe",
+    "dbType": "Weapon",
+    "Type": "Weapon",
+    "dbSubType": "1hAxe",
+    "SubType": "1hAxe",
+    "range": 1,
+    "Range": 1,
+    "weaponLevel": 5,
+    "WeaponLevel": 5,
+    "equipLevelMin": 230,
+    "requiredLevel": 230,
+    "EquipLevelMin": 230,
+    "equipJobs": {
+      "Alchemist": true,
+      "Blacksmith": true,
+      "Crusader": true,
+      "Knight": true,
+      "Merchant": true,
+      "Swordman": true
+    },
+    "Jobs": {
+      "Alchemist": true,
+      "Blacksmith": true,
+      "Crusader": true,
+      "Knight": true,
+      "Merchant": true,
+      "Swordman": true
+    },
+    "equipClasses": {},
+    "Classes": {},
+    "locations": {
+      "Right_Hand": true
+    },
+    "Locations": {
+      "Right_Hand": true
+    },
+    "refineable": true,
+    "Refineable": true,
+    "gradable": true,
+    "Gradable": true,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱",
+    "Script": "bonus bUnbreakableWeapon;\n",
+    "scriptRaw": "bonus bUnbreakableWeapon;\n"
+  },
+  "530034": {
+    "id": 530034,
+    "officialId": 530034,
+    "name": "黯淡冰晶長矛",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "spear",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "沾染毒氣魔力且黯淡無光的的單手矛。",
+      "需採取與冰晶武器不同的方式來處理。",
+      "^ffffff_^000000",
+      "MATK+210。",
+      "系列 : ^777777單手矛^000000 攻擊 : ^777777220^000000",
+      "重量 : ^777777210^000000",
+      "武器等級 : ^7777775^000000",
+      "要求等級 : ^777777230^000000",
+      "裝備 : ^777777劍士系列^000000"
+    ],
+    "icon": "images/items/530034.webp",
+    "slot": "weapon",
+    "atk": 220,
+    "matk": 210,
+    "handed": 1,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 4,
+    "weaponType": "spear",
+    "aegisName": "D_Glacier_Spear",
+    "AegisName": "D_Glacier_Spear",
+    "dbType": "Weapon",
+    "Type": "Weapon",
+    "dbSubType": "1hSpear",
+    "SubType": "1hSpear",
+    "range": 3,
+    "Range": 3,
+    "weaponLevel": 5,
+    "WeaponLevel": 5,
+    "equipLevelMin": 230,
+    "requiredLevel": 230,
+    "EquipLevelMin": 230,
+    "equipJobs": {
+      "Crusader": true,
+      "Knight": true,
+      "Swordman": true
+    },
+    "Jobs": {
+      "Crusader": true,
+      "Knight": true,
+      "Swordman": true
+    },
+    "equipClasses": {},
+    "Classes": {},
+    "locations": {
+      "Right_Hand": true
+    },
+    "Locations": {
+      "Right_Hand": true
+    },
+    "refineable": true,
+    "Refineable": true,
+    "gradable": true,
+    "Gradable": true,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱"
+  },
+  "540056": {
+    "id": 540056,
+    "officialId": 540056,
+    "name": "黯淡冰晶之書",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "book",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "沾染毒氣魔力且黯淡無光的書。",
+      "需採取與冰晶武器不同的方式來處理。",
+      "^ffffff_^000000",
+      "不可破壞。",
+      "MATK+210。",
+      "系列 : ^777777書^000000 攻擊 : ^777777210^000000",
+      "重量 : ^777777120^000000",
+      "武器等級 : ^7777775^000000",
+      "要求等級 : ^777777230^000000",
+      "裝備 : ^777777賢者/祭司/拳聖系列^000000"
+    ],
+    "icon": "images/items/540056.webp",
+    "slot": "weapon",
+    "atk": 210,
+    "matk": 210,
+    "handed": 1,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 15,
+    "weaponType": "book",
+    "aegisName": "D_Glacier_Book",
+    "AegisName": "D_Glacier_Book",
+    "dbType": "Weapon",
+    "Type": "Weapon",
+    "dbSubType": "Book",
+    "SubType": "Book",
+    "range": 1,
+    "Range": 1,
+    "weaponLevel": 5,
+    "WeaponLevel": 5,
+    "equipLevelMin": 230,
+    "requiredLevel": 230,
+    "EquipLevelMin": 230,
+    "equipJobs": {
+      "Priest": true,
+      "Sage": true,
+      "StarGladiator": true
+    },
+    "Jobs": {
+      "Priest": true,
+      "Sage": true,
+      "StarGladiator": true
+    },
+    "equipClasses": {},
+    "Classes": {},
+    "locations": {
+      "Right_Hand": true
+    },
+    "Locations": {
+      "Right_Hand": true
+    },
+    "refineable": true,
+    "Refineable": true,
+    "gradable": true,
+    "Gradable": true,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱",
+    "Script": "bonus bUnbreakableWeapon;\n",
+    "scriptRaw": "bonus bUnbreakableWeapon;\n"
+  },
+  "550089": {
+    "id": 550089,
+    "officialId": 550089,
+    "name": "黯淡冰晶法杖",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "staff",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "沾染毒氣魔力且黯淡無光的的單手杖。",
+      "需採取與冰晶武器不同的方式來處理。",
+      "^ffffff_^000000",
+      "不可破壞。",
+      "MATK+230。",
+      "系列 : ^777777單手杖^000000 攻擊 : ^777777150^000000",
+      "重量 : ^777777130^000000",
+      "武器等級 : ^7777775^000000",
+      "要求等級 : ^777777230^000000",
+      "裝備 : ^777777初學者/魔法師/服事/悟靈士系列^000000"
+    ],
+    "icon": "images/items/550089.webp",
+    "slot": "weapon",
+    "atk": 150,
+    "matk": 230,
+    "handed": 1,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 69,
+    "weaponType": "staff",
+    "aegisName": "D_Glacier_Wand",
+    "AegisName": "D_Glacier_Wand",
+    "dbType": "Weapon",
+    "Type": "Weapon",
+    "dbSubType": "Staff",
+    "SubType": "Staff",
+    "range": 1,
+    "Range": 1,
+    "weaponLevel": 5,
+    "WeaponLevel": 5,
+    "equipLevelMin": 230,
+    "requiredLevel": 230,
+    "EquipLevelMin": 230,
+    "equipJobs": {
+      "Acolyte": true,
+      "Mage": true,
+      "Monk": true,
+      "Novice": true,
+      "SuperNovice": true,
+      "Priest": true,
+      "Sage": true,
+      "SoulLinker": true,
+      "Wizard": true
+    },
+    "Jobs": {
+      "Acolyte": true,
+      "Mage": true,
+      "Monk": true,
+      "Novice": true,
+      "SuperNovice": true,
+      "Priest": true,
+      "Sage": true,
+      "SoulLinker": true,
+      "Wizard": true
+    },
+    "equipClasses": {},
+    "Classes": {},
+    "locations": {
+      "Right_Hand": true
+    },
+    "Locations": {
+      "Right_Hand": true
+    },
+    "refineable": true,
+    "Refineable": true,
+    "gradable": true,
+    "Gradable": true,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱",
+    "Script": "bonus bUnbreakableWeapon;\n",
+    "scriptRaw": "bonus bUnbreakableWeapon;\n"
+  },
+  "550090": {
+    "id": 550090,
+    "officialId": 550090,
+    "name": "黯淡冰晶狐尾草",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "staff",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "沾染毒氣魔力且黯淡無光的的狐尾草模型。",
+      "需採取與冰晶武器不同的方式來處理。",
+      "^ffffff_^000000",
+      "不可破壞。",
+      "MATK+400。",
+      "系列 : ^777777單手杖^000000 攻擊 : ^777777400^000000",
+      "重量 : ^777777200^000000",
+      "武器等級 : ^7777775^000000",
+      "要求等級 : ^777777230^000000",
+      "裝備 : ^777777召喚師(喵族)系列^000000"
+    ],
+    "icon": "images/items/550090.webp",
+    "slot": "weapon",
+    "atk": 400,
+    "matk": 400,
+    "handed": 1,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 102,
+    "weaponType": "staff",
+    "aegisName": "D_Glacier_Foxtail",
+    "AegisName": "D_Glacier_Foxtail",
+    "dbType": "Weapon",
+    "Type": "Weapon",
+    "dbSubType": "Staff",
+    "SubType": "Staff",
+    "range": 1,
+    "Range": 1,
+    "weaponLevel": 5,
+    "WeaponLevel": 5,
+    "equipLevelMin": 230,
+    "requiredLevel": 230,
+    "EquipLevelMin": 230,
+    "equipJobs": {
+      "Spirit_Handler": true
+    },
+    "Jobs": {
+      "Spirit_Handler": true
+    },
+    "equipClasses": {},
+    "Classes": {},
+    "locations": {
+      "Right_Hand": true
+    },
+    "Locations": {
+      "Right_Hand": true
+    },
+    "refineable": true,
+    "Refineable": true,
+    "gradable": true,
+    "Gradable": true,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱",
+    "Script": "bonus bUnbreakableWeapon;\n",
+    "scriptRaw": "bonus bUnbreakableWeapon;\n"
+  },
+  "560037": {
+    "id": 560037,
+    "officialId": 560037,
+    "name": "黯淡冰晶拳套",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "knuckle",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "沾染毒氣魔力且黯淡無光的的拳套。",
+      "需採取與冰晶武器不同的方式來處理。",
+      "^ffffff_^000000",
+      "MATK+220。",
+      "系列 : ^777777拳套^000000 攻擊 : ^777777240^000000",
+      "重量 : ^777777150^000000",
+      "武器等級 : ^7777775^000000",
+      "要求等級 : ^777777230^000000",
+      "裝備 : ^777777修羅系列^000000"
+    ],
+    "icon": "images/items/560037.webp",
+    "slot": "weapon",
+    "atk": 240,
+    "matk": 220,
+    "handed": 1,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 78,
+    "weaponType": "knuckle",
+    "aegisName": "D_Glacier_Knuckle",
+    "AegisName": "D_Glacier_Knuckle",
+    "dbType": "Weapon",
+    "Type": "Weapon",
+    "dbSubType": "Knuckle",
+    "SubType": "Knuckle",
+    "range": 1,
+    "Range": 1,
+    "weaponLevel": 5,
+    "WeaponLevel": 5,
+    "equipLevelMin": 230,
+    "requiredLevel": 230,
+    "EquipLevelMin": 230,
+    "equipJobs": {
+      "Monk": true
+    },
+    "Jobs": {
+      "Monk": true
+    },
+    "equipClasses": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "Classes": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "locations": {
+      "Right_Hand": true
+    },
+    "Locations": {
+      "Right_Hand": true
+    },
+    "refineable": true,
+    "Refineable": true,
+    "gradable": true,
+    "Gradable": true,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱"
+  },
+  "570032": {
+    "id": 570032,
+    "officialId": 570032,
+    "name": "黯淡冰晶小提琴",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "instrument",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "沾染毒氣魔力且黯淡無光的的小提琴。",
+      "需採取與冰晶武器不同的方式來處理。",
+      "^ffffff_^000000",
+      "MATK+210。",
+      "系列 : ^777777樂器^000000 攻擊 : ^777777210^000000",
+      "重量 : ^777777150^000000",
+      "武器等級 : ^7777775^000000",
+      "要求等級 : ^777777230^000000",
+      "裝備 : ^777777宮廷樂師系列^000000"
+    ],
+    "icon": "images/items/570032.webp",
+    "slot": "weapon",
+    "atk": 210,
+    "matk": 210,
+    "handed": 1,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 13,
+    "weaponType": "instrument",
+    "aegisName": "D_Glacier_Violin",
+    "AegisName": "D_Glacier_Violin",
+    "dbType": "Weapon",
+    "Type": "Weapon",
+    "dbSubType": "Musical",
+    "SubType": "Musical",
+    "range": 1,
+    "Range": 1,
+    "weaponLevel": 5,
+    "WeaponLevel": 5,
+    "equipLevelMin": 230,
+    "requiredLevel": 230,
+    "EquipLevelMin": 230,
+    "equipJobs": {
+      "BardDancer": true
+    },
+    "Jobs": {
+      "BardDancer": true
+    },
+    "equipClasses": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "Classes": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "locations": {
+      "Right_Hand": true
+    },
+    "Locations": {
+      "Right_Hand": true
+    },
+    "refineable": true,
+    "Refineable": true,
+    "gradable": true,
+    "Gradable": true,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱"
+  },
+  "580033": {
+    "id": 580033,
+    "officialId": 580033,
+    "name": "黯淡冰晶繩鞭",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "whip",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "沾染毒氣魔力且黯淡無光的的繩鞭。",
+      "需採取與冰晶武器不同的方式來處理。",
+      "^ffffff_^000000",
+      "MATK+210。",
+      "系列 : ^777777鞭子^000000 攻擊 : ^777777210^000000",
+      "重量 : ^777777150^000000",
+      "武器等級 : ^7777775^000000",
+      "要求等級 : ^777777230^000000",
+      "裝備 : ^777777浪姬舞者系列^000000"
+    ],
+    "icon": "images/items/580033.webp",
+    "slot": "weapon",
+    "atk": 210,
+    "matk": 210,
+    "handed": 1,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 14,
+    "weaponType": "whip",
+    "aegisName": "D_Glacier_Whip",
+    "AegisName": "D_Glacier_Whip",
+    "dbType": "Weapon",
+    "Type": "Weapon",
+    "dbSubType": "Whip",
+    "SubType": "Whip",
+    "range": 2,
+    "Range": 2,
+    "weaponLevel": 5,
+    "WeaponLevel": 5,
+    "equipLevelMin": 230,
+    "requiredLevel": 230,
+    "EquipLevelMin": 230,
+    "equipJobs": {
+      "BardDancer": true
+    },
+    "Jobs": {
+      "BardDancer": true
+    },
+    "equipClasses": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "Classes": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "locations": {
+      "Right_Hand": true
+    },
+    "Locations": {
+      "Right_Hand": true
+    },
+    "refineable": true,
+    "Refineable": true,
+    "gradable": true,
+    "Gradable": true,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱"
+  },
+  "590047": {
+    "id": 590047,
+    "officialId": 590047,
+    "name": "黯淡冰晶鏈錘",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "mace",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "沾染毒氣魔力且黯淡無光的的鈍器。",
+      "需採取與冰晶武器不同的方式來處理。",
+      "^ffffff_^000000",
+      "不可破壞。",
+      "MATK+210。",
+      "系列 : ^777777鈍器^000000 攻擊 : ^777777210^000000",
+      "重量 : ^777777180^000000",
+      "武器等級 : ^7777775^000000",
+      "要求等級 : ^777777230^000000",
+      "裝備 : ^777777劍士/商人/服事系列^000000"
+    ],
+    "icon": "images/items/590047.webp",
+    "slot": "weapon",
+    "atk": 210,
+    "matk": 210,
+    "handed": 1,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 62,
+    "weaponType": "mace",
+    "aegisName": "D_Glacier_Mace",
+    "AegisName": "D_Glacier_Mace",
+    "dbType": "Weapon",
+    "Type": "Weapon",
+    "dbSubType": "Mace",
+    "SubType": "Mace",
+    "range": 1,
+    "Range": 1,
+    "weaponLevel": 5,
+    "WeaponLevel": 5,
+    "equipLevelMin": 230,
+    "requiredLevel": 230,
+    "EquipLevelMin": 230,
+    "equipJobs": {
+      "Acolyte": true,
+      "Alchemist": true,
+      "Blacksmith": true,
+      "Crusader": true,
+      "Knight": true,
+      "Merchant": true,
+      "Monk": true,
+      "Priest": true,
+      "Swordman": true
+    },
+    "Jobs": {
+      "Acolyte": true,
+      "Alchemist": true,
+      "Blacksmith": true,
+      "Crusader": true,
+      "Knight": true,
+      "Merchant": true,
+      "Monk": true,
+      "Priest": true,
+      "Swordman": true
+    },
+    "equipClasses": {},
+    "Classes": {},
+    "locations": {
+      "Right_Hand": true
+    },
+    "Locations": {
+      "Right_Hand": true
+    },
+    "refineable": true,
+    "Refineable": true,
+    "gradable": true,
+    "Gradable": true,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱",
+    "Script": "bonus bUnbreakableWeapon;\n",
+    "scriptRaw": "bonus bUnbreakableWeapon;\n"
+  },
+  "590048": {
+    "id": 590048,
+    "officialId": 590048,
+    "name": "黯淡冰晶機械錘",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "mace",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "沾染毒氣魔力且黯淡無光的的鈍器。",
+      "需採取與冰晶武器不同的方式來處理。",
+      "^ffffff_^000000",
+      "不可破壞。",
+      "MATK+160。",
+      "系列 : ^777777鈍器^000000 攻擊 : ^777777400^000000",
+      "重量 : ^777777400^000000",
+      "武器等級 : ^7777775^000000",
+      "要求等級 : ^777777230^000000",
+      "裝備 : ^777777機械工匠系列^000000"
+    ],
+    "icon": "images/items/590048.webp",
+    "slot": "weapon",
+    "atk": 400,
+    "matk": 160,
+    "handed": 1,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 62,
+    "weaponType": "mace",
+    "aegisName": "D_Glacier_M_Mace",
+    "AegisName": "D_Glacier_M_Mace",
+    "dbType": "Weapon",
+    "Type": "Weapon",
+    "dbSubType": "Mace",
+    "SubType": "Mace",
+    "range": 1,
+    "Range": 1,
+    "weaponLevel": 5,
+    "WeaponLevel": 5,
+    "equipLevelMin": 230,
+    "requiredLevel": 230,
+    "EquipLevelMin": 230,
+    "equipJobs": {
+      "Blacksmith": true
+    },
+    "Jobs": {
+      "Blacksmith": true
+    },
+    "equipClasses": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "Classes": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "locations": {
+      "Right_Hand": true
+    },
+    "Locations": {
+      "Right_Hand": true
+    },
+    "refineable": true,
+    "Refineable": true,
+    "gradable": true,
+    "Gradable": true,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱",
+    "Script": "bonus bUnbreakableWeapon;\n",
+    "scriptRaw": "bonus bUnbreakableWeapon;\n"
+  },
+  "600030": {
+    "id": 600030,
+    "officialId": 600030,
+    "name": "黯淡冰晶雙手巨劍",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "sword",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "沾染毒氣魔力且黯淡無光的的雙手劍。",
+      "需採取與冰晶武器不同的方式來處理。",
+      "^ffffff_^000000",
+      "MATK+270。",
+      "系列 : ^777777雙手劍^000000 攻擊 : ^777777300^000000",
+      "重量 : ^777777400^000000",
+      "武器等級 : ^7777775^000000",
+      "要求等級 : ^777777230^000000",
+      "裝備 : ^777777騎士系列^000000"
+    ],
+    "icon": "images/items/600030.webp",
+    "slot": "weapon",
+    "atk": 300,
+    "matk": 270,
+    "handed": 2,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 49,
+    "weaponType": "sword",
+    "aegisName": "D_Glacier_T_Sword",
+    "AegisName": "D_Glacier_T_Sword",
+    "dbType": "Weapon",
+    "Type": "Weapon",
+    "dbSubType": "2hSword",
+    "SubType": "2hSword",
+    "range": 1,
+    "Range": 1,
+    "weaponLevel": 5,
+    "WeaponLevel": 5,
+    "equipLevelMin": 230,
+    "requiredLevel": 230,
+    "EquipLevelMin": 230,
+    "equipJobs": {
+      "Knight": true
+    },
+    "Jobs": {
+      "Knight": true
+    },
+    "equipClasses": {},
+    "Classes": {},
+    "locations": {
+      "Both_Hand": true
+    },
+    "Locations": {
+      "Both_Hand": true
+    },
+    "refineable": true,
+    "Refineable": true,
+    "gradable": true,
+    "Gradable": true,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱"
+  },
+  "610041": {
+    "id": 610041,
+    "officialId": 610041,
+    "name": "黯淡冰晶拳刃",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "katar",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "沾染毒氣魔力且黯淡無光的的拳刃。",
+      "需採取與冰晶武器不同的方式來處理。",
+      "^ffffff_^000000",
+      "MATK+220。",
+      "系列 : ^777777拳刃^000000 攻擊 : ^777777240^000000",
+      "重量 : ^777777120^000000",
+      "武器等級 : ^7777775^000000",
+      "要求等級 : ^777777230^000000",
+      "裝備 : ^777777十字斬首者系列^000000"
+    ],
+    "icon": "images/items/610041.webp",
+    "slot": "weapon",
+    "atk": 240,
+    "matk": 220,
+    "handed": 2,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 16,
+    "weaponType": "katar",
+    "aegisName": "D_Glacier_Katar",
+    "AegisName": "D_Glacier_Katar",
+    "dbType": "Weapon",
+    "Type": "Weapon",
+    "dbSubType": "Katar",
+    "SubType": "Katar",
+    "range": 1,
+    "Range": 1,
+    "weaponLevel": 5,
+    "WeaponLevel": 5,
+    "equipLevelMin": 230,
+    "requiredLevel": 230,
+    "EquipLevelMin": 230,
+    "equipJobs": {
+      "Assassin": true
+    },
+    "Jobs": {
+      "Assassin": true
+    },
+    "equipClasses": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "Classes": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "locations": {
+      "Both_Hand": true
+    },
+    "Locations": {
+      "Both_Hand": true
+    },
+    "refineable": true,
+    "Refineable": true,
+    "gradable": true,
+    "Gradable": true,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱"
+  },
+  "620019": {
+    "id": 620019,
+    "officialId": 620019,
+    "name": "黯淡冰晶機械斧",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "axe",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "沾染毒氣魔力且黯淡無光的的雙手斧。",
+      "需採取與冰晶武器不同的方式來處理。",
+      "^ffffff_^000000",
+      "不可破壞。",
+      "MATK+180。",
+      "系列 : ^777777雙手斧^000000 攻擊 : ^777777350^000000",
+      "重量 : ^777777700^000000",
+      "武器等級 : ^7777775^000000",
+      "要求等級 : ^777777230^000000",
+      "裝備 : ^777777機械工匠系列^000000"
+    ],
+    "icon": "images/items/620019.webp",
+    "slot": "weapon",
+    "atk": 350,
+    "matk": 180,
+    "handed": 2,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 7,
+    "weaponType": "axe",
+    "aegisName": "D_Glacier_T_Axe",
+    "AegisName": "D_Glacier_T_Axe",
+    "dbType": "Weapon",
+    "Type": "Weapon",
+    "dbSubType": "2hAxe",
+    "SubType": "2hAxe",
+    "range": 1,
+    "Range": 1,
+    "weaponLevel": 5,
+    "WeaponLevel": 5,
+    "equipLevelMin": 230,
+    "requiredLevel": 230,
+    "EquipLevelMin": 230,
+    "equipJobs": {
+      "Blacksmith": true
+    },
+    "Jobs": {
+      "Blacksmith": true
+    },
+    "equipClasses": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "Classes": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "locations": {
+      "Both_Hand": true
+    },
+    "Locations": {
+      "Both_Hand": true
+    },
+    "refineable": true,
+    "Refineable": true,
+    "gradable": true,
+    "Gradable": true,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱",
+    "Script": "bonus bUnbreakableWeapon;\n",
+    "scriptRaw": "bonus bUnbreakableWeapon;\n"
+  },
+  "630019": {
+    "id": 630019,
+    "officialId": 630019,
+    "name": "黯淡冰晶騎士長矛",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "spear",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "沾染毒氣魔力且黯淡無光的的雙手矛。",
+      "需採取與冰晶武器不同的方式來處理。",
+      "^ffffff_^000000",
+      "MATK+270。",
+      "系列 : ^777777雙手矛^000000 攻擊 : ^777777300^000000",
+      "重量 : ^777777450^000000",
+      "武器等級 : ^7777775^000000",
+      "要求等級 : ^777777230^000000",
+      "裝備 : ^777777騎士系列^000000"
+    ],
+    "icon": "images/items/630019.webp",
+    "slot": "weapon",
+    "atk": 300,
+    "matk": 270,
+    "handed": 2,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 52,
+    "weaponType": "spear",
+    "aegisName": "D_Glacier_Lance",
+    "AegisName": "D_Glacier_Lance",
+    "dbType": "Weapon",
+    "Type": "Weapon",
+    "dbSubType": "2hSpear",
+    "SubType": "2hSpear",
+    "range": 3,
+    "Range": 3,
+    "weaponLevel": 5,
+    "WeaponLevel": 5,
+    "equipLevelMin": 230,
+    "requiredLevel": 230,
+    "EquipLevelMin": 230,
+    "equipJobs": {
+      "Knight": true
+    },
+    "Jobs": {
+      "Knight": true
+    },
+    "equipClasses": {},
+    "Classes": {},
+    "locations": {
+      "Both_Hand": true
+    },
+    "Locations": {
+      "Both_Hand": true
+    },
+    "refineable": true,
+    "Refineable": true,
+    "gradable": true,
+    "Gradable": true,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱"
+  },
+  "640034": {
+    "id": 640034,
+    "officialId": 640034,
+    "name": "黯淡冰晶魔杖",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "staff",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "沾染毒氣魔力且黯淡無光的的雙手魔杖。",
+      "需採取與冰晶武器不同的方式來處理。",
+      "^ffffff_^000000",
+      "不可破壞。",
+      "MATK+290。",
+      "系列 : ^777777雙手杖^000000 攻擊 : ^777777150^000000",
+      "重量 : ^777777240^000000",
+      "武器等級 : ^7777775^000000",
+      "要求等級 : ^777777230^000000",
+      "裝備 : ^777777魔法師/服事/悟靈士系列^000000"
+    ],
+    "icon": "images/items/640034.webp",
+    "slot": "weapon",
+    "atk": 150,
+    "matk": 290,
+    "handed": 2,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 96,
+    "weaponType": "staff",
+    "aegisName": "D_Glacier_Staff",
+    "AegisName": "D_Glacier_Staff",
+    "dbType": "Weapon",
+    "Type": "Weapon",
+    "dbSubType": "2hStaff",
+    "SubType": "2hStaff",
+    "range": 1,
+    "Range": 1,
+    "weaponLevel": 5,
+    "WeaponLevel": 5,
+    "equipLevelMin": 230,
+    "requiredLevel": 230,
+    "EquipLevelMin": 230,
+    "equipJobs": {
+      "Acolyte": true,
+      "Mage": true,
+      "Monk": true,
+      "Priest": true,
+      "Sage": true,
+      "SoulLinker": true,
+      "Wizard": true
+    },
+    "Jobs": {
+      "Acolyte": true,
+      "Mage": true,
+      "Monk": true,
+      "Priest": true,
+      "Sage": true,
+      "SoulLinker": true,
+      "Wizard": true
+    },
+    "equipClasses": {},
+    "Classes": {},
+    "locations": {
+      "Both_Hand": true
+    },
+    "Locations": {
+      "Both_Hand": true
+    },
+    "refineable": true,
+    "Refineable": true,
+    "gradable": true,
+    "Gradable": true,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱",
+    "Script": "bonus bUnbreakableWeapon;\n",
+    "scriptRaw": "bonus bUnbreakableWeapon;\n"
+  },
+  "650028": {
+    "id": 650028,
+    "officialId": 650028,
+    "name": "黯淡冰晶風魔飛鏢",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "ninja",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "沾染毒氣魔力且黯淡無光的的風魔飛鏢。",
+      "需採取與冰晶武器不同的方式來處理。",
+      "^ffffff_^000000",
+      "不可破壞。",
+      "MATK+370。",
+      "系列 : ^777777風魔飛鏢^000000 攻擊 : ^777777400^000000",
+      "重量 : ^777777300^000000",
+      "武器等級 : ^7777775^000000",
+      "要求等級 : ^777777230^000000",
+      "裝備 : ^777777忍者系列^000000"
+    ],
+    "icon": "images/items/650028.webp",
+    "slot": "weapon",
+    "atk": 400,
+    "matk": 370,
+    "handed": 2,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 22,
+    "weaponType": "ninja",
+    "aegisName": "D_Glacier_Humma",
+    "AegisName": "D_Glacier_Humma",
+    "dbType": "Weapon",
+    "Type": "Weapon",
+    "dbSubType": "Huuma",
+    "SubType": "Huuma",
+    "range": 1,
+    "Range": 1,
+    "weaponLevel": 5,
+    "WeaponLevel": 5,
+    "equipLevelMin": 230,
+    "requiredLevel": 230,
+    "EquipLevelMin": 230,
+    "equipJobs": {
+      "KagerouOboro": true
+    },
+    "Jobs": {
+      "KagerouOboro": true
+    },
+    "equipClasses": {
+      "Third": true
+    },
+    "Classes": {
+      "Third": true
+    },
+    "locations": {
+      "Both_Hand": true
+    },
+    "Locations": {
+      "Both_Hand": true
+    },
+    "refineable": true,
+    "Refineable": true,
+    "gradable": true,
+    "Gradable": true,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱",
+    "Script": "bonus bUnbreakableWeapon;\n",
+    "scriptRaw": "bonus bUnbreakableWeapon;\n"
+  },
+  "700059": {
+    "id": 700059,
+    "officialId": 700059,
+    "name": "黯淡冰晶長弓",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "bow",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "沾染毒氣魔力且黯淡無光的的弓。",
+      "需採取與冰晶武器不同的方式來處理。",
+      "^ffffff_^000000",
+      "MATK+220。",
+      "系列 : ^777777弓^000000 攻擊 : ^777777240^000000",
+      "重量 : ^777777150^000000",
+      "武器等級 : ^7777775^000000",
+      "要求等級 : ^777777230^000000",
+      "裝備 : ^777777弓箭手/流氓系列^000000"
+    ],
+    "icon": "images/items/700059.webp",
+    "slot": "weapon",
+    "atk": 240,
+    "matk": 0,
+    "handed": 2,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 11,
+    "weaponType": "bow",
+    "aegisName": "D_Glacier_Bow",
+    "AegisName": "D_Glacier_Bow",
+    "dbType": "Weapon",
+    "Type": "Weapon",
+    "dbSubType": "Bow",
+    "SubType": "Bow",
+    "range": 5,
+    "Range": 5,
+    "weaponLevel": 5,
+    "WeaponLevel": 5,
+    "equipLevelMin": 230,
+    "requiredLevel": 230,
+    "EquipLevelMin": 230,
+    "equipJobs": {
+      "Archer": true,
+      "BardDancer": true,
+      "Hunter": true,
+      "Rogue": true
+    },
+    "Jobs": {
+      "Archer": true,
+      "BardDancer": true,
+      "Hunter": true,
+      "Rogue": true
+    },
+    "equipClasses": {},
+    "Classes": {},
+    "locations": {
+      "Both_Hand": true
+    },
+    "Locations": {
+      "Both_Hand": true
+    },
+    "refineable": true,
+    "Refineable": true,
+    "gradable": true,
+    "Gradable": true,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱",
+    "Script": "bonus bMatk,220;\n",
+    "scriptRaw": "bonus bMatk,220;\n"
+  },
+  "800015": {
+    "id": 800015,
+    "officialId": 800015,
+    "name": "黯淡冰晶手槍",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "gun",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "沾染毒氣魔力且黯淡無光的手槍。",
+      "需採取與冰晶武器不同的方式來處理。",
+      "^ffffff_^000000",
+      "MATK+230。",
+      "系列 : ^777777手槍^000000 攻擊 : ^777777230^000000",
+      "重量 : ^777777220^000000",
+      "武器等級 : ^7777775^000000",
+      "要求等級 : ^777777230^000000",
+      "裝備 : ^777777叛亂者系列^000000"
+    ],
+    "icon": "images/items/800015.webp",
+    "slot": "weapon",
+    "atk": 230,
+    "matk": 0,
+    "handed": 2,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 17,
+    "weaponType": "gun",
+    "aegisName": "D_Glacier_Revolver",
+    "AegisName": "D_Glacier_Revolver",
+    "dbType": "Weapon",
+    "Type": "Weapon",
+    "dbSubType": "Revolver",
+    "SubType": "Revolver",
+    "range": 7,
+    "Range": 7,
+    "weaponLevel": 5,
+    "WeaponLevel": 5,
+    "equipLevelMin": 230,
+    "requiredLevel": 230,
+    "EquipLevelMin": 230,
+    "equipJobs": {
+      "Rebellion": true
+    },
+    "Jobs": {
+      "Rebellion": true
+    },
+    "equipClasses": {
+      "Third": true
+    },
+    "Classes": {
+      "Third": true
+    },
+    "locations": {
+      "Both_Hand": true
+    },
+    "Locations": {
+      "Both_Hand": true
+    },
+    "refineable": true,
+    "Refineable": true,
+    "gradable": true,
+    "Gradable": true,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱",
+    "Script": "bonus bMatk,230;\n",
+    "scriptRaw": "bonus bMatk,230;\n"
+  },
+  "810015": {
+    "id": 810015,
+    "officialId": 810015,
+    "name": "黯淡冰晶來福槍",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "gun",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "沾染毒氣魔力且黯淡無光的的來福槍。",
+      "需採取與冰晶武器不同的方式來處理。",
+      "^ffffff_^000000",
+      "MATK+230。",
+      "系列 : ^777777來福槍^000000 攻擊 : ^777777280^000000",
+      "重量 : ^777777260^000000",
+      "武器等級 : ^7777775^000000",
+      "要求等級 : ^777777230^000000",
+      "裝備 : ^777777叛亂者系列^000000"
+    ],
+    "icon": "images/items/810015.webp",
+    "slot": "weapon",
+    "atk": 280,
+    "matk": 0,
+    "handed": 2,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 18,
+    "weaponType": "gun",
+    "aegisName": "D_Glacier_Rifle",
+    "AegisName": "D_Glacier_Rifle",
+    "dbType": "Weapon",
+    "Type": "Weapon",
+    "dbSubType": "Rifle",
+    "SubType": "Rifle",
+    "range": 9,
+    "Range": 9,
+    "weaponLevel": 5,
+    "WeaponLevel": 5,
+    "equipLevelMin": 230,
+    "requiredLevel": 230,
+    "EquipLevelMin": 230,
+    "equipJobs": {
+      "Rebellion": true
+    },
+    "Jobs": {
+      "Rebellion": true
+    },
+    "equipClasses": {
+      "Third": true
+    },
+    "Classes": {
+      "Third": true
+    },
+    "locations": {
+      "Both_Hand": true
+    },
+    "Locations": {
+      "Both_Hand": true
+    },
+    "refineable": true,
+    "Refineable": true,
+    "gradable": true,
+    "Gradable": true,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱",
+    "Script": "bonus bMatk,230;\n",
+    "scriptRaw": "bonus bMatk,230;\n"
+  },
+  "820011": {
+    "id": 820011,
+    "officialId": 820011,
+    "name": "黯淡冰晶霰彈槍",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "gun",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "沾染毒氣魔力且黯淡無光的的霰彈槍。",
+      "需採取與冰晶武器不同的方式來處理。",
+      "^ffffff_^000000",
+      "MATK+200。",
+      "擴散攻擊。",
+      "系列 : ^777777霰彈槍^000000 攻擊 : ^777777300^000000",
+      "重量 : ^777777260^000000",
+      "武器等級 : ^7777775^000000",
+      "要求等級 : ^777777230^000000",
+      "裝備 : ^777777叛亂者系列^000000"
+    ],
+    "icon": "images/items/820011.webp",
+    "slot": "weapon",
+    "atk": 300,
+    "matk": 0,
+    "handed": 2,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 20,
+    "weaponType": "gun",
+    "aegisName": "D_Glacier_Shotgun",
+    "AegisName": "D_Glacier_Shotgun",
+    "dbType": "Weapon",
+    "Type": "Weapon",
+    "dbSubType": "Shotgun",
+    "SubType": "Shotgun",
+    "range": 9,
+    "Range": 9,
+    "weaponLevel": 5,
+    "WeaponLevel": 5,
+    "equipLevelMin": 230,
+    "requiredLevel": 230,
+    "EquipLevelMin": 230,
+    "equipJobs": {
+      "Rebellion": true
+    },
+    "Jobs": {
+      "Rebellion": true
+    },
+    "equipClasses": {},
+    "Classes": {},
+    "locations": {
+      "Both_Hand": true
+    },
+    "Locations": {
+      "Both_Hand": true
+    },
+    "refineable": true,
+    "Refineable": true,
+    "gradable": true,
+    "Gradable": true,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱",
+    "Script": "bonus bMatk,200;\nbonus bSplashRange,1;\n",
+    "scriptRaw": "bonus bMatk,200;\nbonus bSplashRange,1;\n"
+  },
+  "830015": {
+    "id": 830015,
+    "officialId": 830015,
+    "name": "黯淡冰晶格林機槍",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "gun",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "沾染毒氣魔力且黯淡無光的的格林機槍。",
+      "需採取與冰晶武器不同的方式來處理。",
+      "^ffffff_^000000",
+      "MATK+200。",
+      "系列 : ^777777格林機槍^000000 攻擊 : ^777777350^000000",
+      "重量 : ^777777350^000000",
+      "武器等級 : ^7777775^000000",
+      "要求等級 : ^777777230^000000",
+      "裝備 : ^777777叛亂者系列^000000"
+    ],
+    "icon": "images/items/830015.webp",
+    "slot": "weapon",
+    "atk": 350,
+    "matk": 0,
+    "handed": 2,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 19,
+    "weaponType": "gun",
+    "aegisName": "D_Glacier_Gatling",
+    "AegisName": "D_Glacier_Gatling",
+    "dbType": "Weapon",
+    "Type": "Weapon",
+    "dbSubType": "Gatling",
+    "SubType": "Gatling",
+    "range": 9,
+    "Range": 9,
+    "weaponLevel": 5,
+    "WeaponLevel": 5,
+    "equipLevelMin": 230,
+    "requiredLevel": 230,
+    "EquipLevelMin": 230,
+    "equipJobs": {
+      "Rebellion": true
+    },
+    "Jobs": {
+      "Rebellion": true
+    },
+    "equipClasses": {},
+    "Classes": {},
+    "locations": {
+      "Both_Hand": true
+    },
+    "Locations": {
+      "Both_Hand": true
+    },
+    "refineable": true,
+    "Refineable": true,
+    "gradable": true,
+    "Gradable": true,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱",
+    "Script": "bonus bMatk,200;\n",
+    "scriptRaw": "bonus bMatk,200;\n"
+  },
+  "840010": {
+    "id": 840010,
+    "officialId": 840010,
+    "name": "黯淡冰晶榴彈發射器",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "gun",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "沾染毒氣魔力且黯淡無光的的榴彈發射器。",
+      "需採取與冰晶武器不同的方式來處理。",
+      "^ffffff_^000000",
+      "MATK+200。",
+      "系列 : ^777777榴彈發射器^000000 攻擊 : ^777777300^000000",
+      "重量 : ^777777300^000000",
+      "武器等級 : ^7777775^000000",
+      "要求等級 : ^777777230^000000",
+      "裝備 : ^777777叛亂者系列^000000"
+    ],
+    "icon": "images/items/840010.webp",
+    "slot": "weapon",
+    "atk": 300,
+    "matk": 0,
+    "handed": 2,
+    "slots": 1,
+    "slotCount": 1,
+    "ClassNum": 21,
+    "weaponType": "gun",
+    "aegisName": "D_Glacier_Launcher",
+    "AegisName": "D_Glacier_Launcher",
+    "dbType": "Weapon",
+    "Type": "Weapon",
+    "dbSubType": "Grenade",
+    "SubType": "Grenade",
+    "range": 9,
+    "Range": 9,
+    "weaponLevel": 5,
+    "WeaponLevel": 5,
+    "equipLevelMin": 230,
+    "requiredLevel": 230,
+    "EquipLevelMin": 230,
+    "equipJobs": {
+      "Rebellion": true
+    },
+    "Jobs": {
+      "Rebellion": true
+    },
+    "equipClasses": {},
+    "Classes": {},
+    "locations": {
+      "Both_Hand": true
+    },
+    "Locations": {
+      "Both_Hand": true
+    },
+    "refineable": true,
+    "Refineable": true,
+    "gradable": true,
+    "Gradable": true,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱",
+    "Script": "bonus bMatk,200;\n",
+    "scriptRaw": "bonus bMatk,200;\n"
+  },
   "1000321": {
     "id": 1000321,
     "officialId": 1000321,
@@ -28056,6 +29695,72 @@
     "buyPrice": 0,
     "icon": "images/items/1000328.webp"
   },
+  "1000331": {
+    "id": 1000331,
+    "officialId": 1000331,
+    "name": "乙太鋁",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "refinement_material",
+    "icon": "images/items/1000331.webp",
+    "buyPrice": 20,
+    "sellPrice": 10
+  },
+  "1000332": {
+    "id": 1000332,
+    "officialId": 1000332,
+    "name": "乙太神之金屬",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "refinement_material",
+    "icon": "images/items/1000332.webp",
+    "buyPrice": 20,
+    "sellPrice": 10
+  },
+  "1000333": {
+    "id": 1000333,
+    "officialId": 1000333,
+    "name": "濃縮乙太鋁",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "refinement_material",
+    "icon": "images/items/1000333.webp",
+    "buyPrice": 20,
+    "sellPrice": 10
+  },
+  "1000334": {
+    "id": 1000334,
+    "officialId": 1000334,
+    "name": "濃縮乙太神之金屬",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "refinement_material",
+    "icon": "images/items/1000334.webp",
+    "buyPrice": 20,
+    "sellPrice": 10
+  },
+  "1000335": {
+    "id": 1000335,
+    "officialId": 1000335,
+    "name": "高濃縮乙太鋁",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "refinement_material",
+    "icon": "images/items/1000335.webp",
+    "buyPrice": 20,
+    "sellPrice": 10
+  },
+  "1000336": {
+    "id": 1000336,
+    "officialId": 1000336,
+    "name": "高濃縮乙太神之金屬",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "refinement_material",
+    "icon": "images/items/1000336.webp",
+    "buyPrice": 20,
+    "sellPrice": 10
+  },
   "1000337": {
     "id": 1000337,
     "officialId": 1000337,
@@ -28066,6 +29771,99 @@
     "sellPrice": 0,
     "buyPrice": 0,
     "icon": "images/items/1000337.webp"
+  },
+  "1000368": {
+    "id": 1000368,
+    "officialId": 1000368,
+    "name": "乙太鈽鐳",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "refinement_material",
+    "icon": "images/items/1000368.webp",
+    "buyPrice": 20,
+    "sellPrice": 10
+  },
+  "1000369": {
+    "id": 1000369,
+    "officialId": 1000369,
+    "name": "高密度乙太鈽鐳",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "refinement_material",
+    "icon": "images/items/1000369.webp",
+    "buyPrice": 20,
+    "sellPrice": 10
+  },
+  "1000370": {
+    "id": 1000370,
+    "officialId": 1000370,
+    "name": "乙太鈣礦石",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "refinement_material",
+    "icon": "images/items/1000370.webp",
+    "buyPrice": 20,
+    "sellPrice": 10
+  },
+  "1000371": {
+    "id": 1000371,
+    "officialId": 1000371,
+    "name": "高密度乙太鈣礦石",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "refinement_material",
+    "icon": "images/items/1000371.webp",
+    "buyPrice": 20,
+    "sellPrice": 10
+  },
+  "1000405": {
+    "id": 1000405,
+    "officialId": 1000405,
+    "name": "紫水晶碎片",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "ep19_enchant_material",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "description": [
+      "偶爾在歐茲峽谷、灰狼叢林附近發現的紫水晶碎片。",
+      "當地人用來製作首飾等或送禮以示感謝。",
+      "也有人收藏紫水晶碎片。"
+    ],
+    "icon": "images/items/1000405.webp",
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 0,
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08; RO_WEB 0.9.82GY EP19 exchange",
+    "Id": 1000405,
+    "Name": "紫水晶碎片",
+    "Buy": 0,
+    "Slots": 0,
+    "AegisName": "Ep18_Amethyst_Fragment",
+    "aegisName": "Ep18_Amethyst_Fragment",
+    "Type": "Etc",
+    "dbType": "Etc"
+  },
+  "1000608": {
+    "id": 1000608,
+    "officialId": 1000608,
+    "name": "雪花的花葉",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "ep19_glacier_material",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "icon": "images/items/1000608.webp",
+    "Name": "雪花的花葉",
+    "description": [
+      "從耶夢加得表皮滲出的魔力結晶，結滿了凍結的雪花宛如冰塊，實際上是純淨魔力的結晶，在伊斯加爾特被用作各種能源，同時也能當貨幣。",
+      "重量 : ^7777770^000000"
+    ],
+    "AegisName": "Ep19_Snow_Flower",
+    "aegisName": "Ep19_Snow_Flower",
+    "dbType": "Etc",
+    "Type": "Etc",
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_etc.yml; RO_WEB 0.9.82GV"
   },
   "1000707": {
     "id": 1000707,
@@ -28083,21 +29881,47 @@
     ],
     "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
   },
+  "1000811": {
+    "id": 1000811,
+    "officialId": 1000811,
+    "name": "雪花魔力原石",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "ep19_glacier_material",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "icon": "images/items/1000811.webp",
+    "Name": "雪花魔力原石",
+    "description": [
+      "蘊含魔力的雪花魔石碎片。",
+      "重量 : ^7777770.1^000000"
+    ],
+    "AegisName": "Snow_F_Ore",
+    "aegisName": "Snow_F_Ore",
+    "dbType": "Etc",
+    "Type": "Etc",
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_etc.yml; RO_WEB 0.9.82GV"
+  },
   "1000812": {
     "id": 1000812,
     "officialId": 1000812,
     "name": "雪花魔石",
     "type": "etc",
     "category": "drop_misc",
-    "subCategory": "monster_drop",
+    "subCategory": "ep19_glacier_material",
     "sellPrice": 0,
     "buyPrice": 0,
     "icon": "images/items/1000812.webp",
     "Name": "雪花魔石",
     "description": [
-      "平凡魔力雪花魔石。"
+      "平凡魔力雪花魔石。",
+      "重量 : ^7777770.1^000000"
     ],
-    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
+    "AegisName": "Snow_F_Stone1",
+    "aegisName": "Snow_F_Stone1",
+    "dbType": "Etc",
+    "Type": "Etc",
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_etc.yml; RO_WEB 0.9.82GV"
   },
   "1000813": {
     "id": 1000813,
@@ -28105,15 +29929,20 @@
     "name": "閃爍雪花魔石",
     "type": "etc",
     "category": "drop_misc",
-    "subCategory": "monster_drop",
+    "subCategory": "ep19_glacier_material",
     "sellPrice": 0,
     "buyPrice": 0,
     "icon": "images/items/1000813.webp",
     "Name": "閃爍雪花魔石",
     "description": [
-      "微光閃爍，充滿魔力光芒的雪花魔石。"
+      "微光閃爍，充滿魔力光芒的雪花魔石。",
+      "重量 : ^7777770.1^000000"
     ],
-    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
+    "AegisName": "Snow_F_Stone2",
+    "aegisName": "Snow_F_Stone2",
+    "dbType": "Etc",
+    "Type": "Etc",
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_etc.yml; RO_WEB 0.9.82GV"
   },
   "1000814": {
     "id": 1000814,
@@ -28121,15 +29950,20 @@
     "name": "耀眼雪花魔石",
     "type": "etc",
     "category": "drop_misc",
-    "subCategory": "monster_drop",
+    "subCategory": "ep19_glacier_material",
     "sellPrice": 0,
     "buyPrice": 0,
     "icon": "images/items/1000814.webp",
     "Name": "耀眼雪花魔石",
     "description": [
-      "璀璨明亮，充滿魔力光芒的雪花魔石。"
+      "璀璨明亮，充滿魔力光芒的雪花魔石。",
+      "重量 : ^7777770.1^000000"
     ],
-    "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
+    "AegisName": "Snow_F_Stone3",
+    "aegisName": "Snow_F_Stone3",
+    "dbType": "Etc",
+    "Type": "Etc",
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_etc.yml; RO_WEB 0.9.82GV"
   },
   "1000822": {
     "id": 1000822,
@@ -28259,5 +30093,307 @@
       "富含神秘能量的礦石。"
     ],
     "dataSource": "台服 itemInfo_UTF8.lub + RO_WEB 0.9.82GR"
+  },
+  "1001029": {
+    "id": 1001029,
+    "officialId": 1001029,
+    "name": "被侵蝕的魔力晶石",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "ep19_glacier_material",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "icon": "images/items/1001029.webp",
+    "Name": "被侵蝕的魔力晶石",
+    "description": [
+      "沾染毒氣魔力且被侵蝕的晶石。",
+      "與伊斯加爾特的雪花魔力不同。",
+      "似乎可以中和魔力中的毒氣。",
+      "重量 : ^7777773^000000"
+    ],
+    "AegisName": "EP19_D_P_Ore",
+    "aegisName": "EP19_D_P_Ore",
+    "dbType": "Etc",
+    "Type": "Etc",
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_etc.yml; RO_WEB 0.9.82GV"
+  },
+  "1001030": {
+    "id": 1001030,
+    "officialId": 1001030,
+    "name": "中和魔力晶石",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "ep19_glacier_material",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "icon": "images/items/1001030.webp",
+    "Name": "中和魔力晶石",
+    "description": [
+      "毒氣被中和的晶石。",
+      "仍有微弱的毒氣殘留。",
+      "重量 : ^7777773^000000"
+    ],
+    "AegisName": "EP19_N_P_Ore",
+    "aegisName": "EP19_N_P_Ore",
+    "dbType": "Etc",
+    "Type": "Etc",
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_etc.yml; RO_WEB 0.9.82GV"
+  },
+  "1001031": {
+    "id": 1001031,
+    "officialId": 1001031,
+    "name": "被侵蝕的魔力結晶",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "ep19_glacier_material",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "icon": "images/items/1001031.webp",
+    "Name": "被侵蝕的魔力結晶",
+    "description": [
+      "將還未中和毒氣的魔力晶石凝結而成的結晶。",
+      "以雪花魔石的魔力密封，防止毒氣外漏。",
+      "重量 : ^7777775^000000"
+    ],
+    "AegisName": "EP19_D_P_Crystal",
+    "aegisName": "EP19_D_P_Crystal",
+    "dbType": "Etc",
+    "Type": "Etc",
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_etc.yml; RO_WEB 0.9.82GV"
+  },
+  "1001032": {
+    "id": 1001032,
+    "officialId": 1001032,
+    "name": "中和魔力結晶",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "ep19_glacier_material",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "icon": "images/items/1001032.webp",
+    "Name": "中和魔力結晶",
+    "description": [
+      "將中和毒氣的魔力晶石凝結而成的結晶。",
+      "以雪花魔石的魔力密封，防止殘餘毒氣外漏。",
+      "重量 : ^7777775^000000"
+    ],
+    "AegisName": "EP19_N_P_Crystal",
+    "aegisName": "EP19_N_P_Crystal",
+    "dbType": "Etc",
+    "Type": "Etc",
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_etc.yml; RO_WEB 0.9.82GV"
+  },
+  "1001033": {
+    "id": 1001033,
+    "officialId": 1001033,
+    "name": "毒氣魔力",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "ep19_glacier_material",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "icon": "images/items/1001033.webp",
+    "Name": "毒氣魔力",
+    "description": [
+      "未知的毒氣魔力。",
+      "重量 : ^7777775^000000"
+    ],
+    "AegisName": "EP19_D_P_Stone",
+    "aegisName": "EP19_D_P_Stone",
+    "dbType": "Etc",
+    "Type": "Etc",
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_etc.yml; RO_WEB 0.9.82GV"
+  },
+  "1001034": {
+    "id": 1001034,
+    "officialId": 1001034,
+    "name": "雪花魔石萃取液",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "ep19_glacier_material",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "icon": "images/items/1001034.webp",
+    "Name": "雪花魔石萃取液",
+    "description": [
+      "將雪花魔石中萃取出的魔力裝在瓶中。",
+      "重量 : ^7777773^000000"
+    ],
+    "AegisName": "EP19_S_F_1_Extract",
+    "aegisName": "EP19_S_F_1_Extract",
+    "dbType": "Etc",
+    "Type": "Etc",
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_etc.yml; RO_WEB 0.9.82GV"
+  },
+  "1001035": {
+    "id": 1001035,
+    "officialId": 1001035,
+    "name": "閃亮雪花魔石萃取液",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "ep19_glacier_material",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "icon": "images/items/1001035.webp",
+    "Name": "閃亮雪花魔石萃取液",
+    "description": [
+      "將閃亮雪花魔石中萃取出的魔力裝在瓶中。",
+      "重量 : ^7777773^000000"
+    ],
+    "AegisName": "EP19_S_F_2_Extract",
+    "aegisName": "EP19_S_F_2_Extract",
+    "dbType": "Etc",
+    "Type": "Etc",
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_etc.yml; RO_WEB 0.9.82GV"
+  },
+  "1001036": {
+    "id": 1001036,
+    "officialId": 1001036,
+    "name": "光輝雪花魔石萃取液",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "ep19_glacier_material",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "icon": "images/items/1001036.webp",
+    "Name": "光輝雪花魔石萃取液",
+    "description": [
+      "將光輝雪花魔石中萃取出的魔力裝在瓶中。",
+      "重量 : ^7777773^000000"
+    ],
+    "AegisName": "EP19_S_F_3_Extract",
+    "aegisName": "EP19_S_F_3_Extract",
+    "dbType": "Etc",
+    "Type": "Etc",
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_etc.yml; RO_WEB 0.9.82GV"
+  },
+  "1001037": {
+    "id": 1001037,
+    "officialId": 1001037,
+    "name": "冰晶萃取液",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "ep19_glacier_material",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "icon": "images/items/1001037.webp",
+    "Name": "冰晶萃取液",
+    "description": [
+      "從伊斯加爾特冰川中萃取出的魔力裝在瓶中。",
+      "重量 : ^7777773^000000"
+    ],
+    "AegisName": "EP19_Gla_Extract",
+    "aegisName": "EP19_Gla_Extract",
+    "dbType": "Etc",
+    "Type": "Etc",
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_etc.yml; RO_WEB 0.9.82GV"
+  },
+  "1001249": {
+    "id": 1001249,
+    "officialId": 1001249,
+    "name": "純粹魔力結晶",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "ep19_glacier_material",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "icon": "images/items/1001249.webp",
+    "Name": "純粹魔力結晶",
+    "description": [
+      "集結純粹魔力晶石而成的結晶體。",
+      "為了不被四周魔力影響，目前是封印狀態。",
+      "使用地點 :",
+      "^ffffff<NAVI>^4D4DFF[畢畢靈]^000000<INFO>icas_in,170,65,0,100,0,0</INFO></NAVI>^000000",
+      "重量 : ^7777775^000000"
+    ],
+    "AegisName": "EP20_D_P_Crystal",
+    "aegisName": "EP20_D_P_Crystal",
+    "dbType": "Etc",
+    "Type": "Etc",
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_etc.yml; RO_WEB 0.9.82GV"
+  },
+  "1001250": {
+    "id": 1001250,
+    "officialId": 1001250,
+    "name": "純粹魔力萃取液",
+    "type": "etc",
+    "category": "drop_misc",
+    "subCategory": "ep19_glacier_material",
+    "sellPrice": 0,
+    "buyPrice": 0,
+    "icon": "images/items/1001250.webp",
+    "Name": "純粹魔力萃取液",
+    "description": [
+      "裝有萃取自純粹魔力結晶魔力成分的瓶子。",
+      "使用地點 :",
+      "^ffffff<NAVI>^4D4DFF[畢畢靈]^000000<INFO>icas_in,170,65,0,100,0,0</INFO></NAVI>^000000",
+      "重量 : ^7777773^000000"
+    ],
+    "AegisName": "EP20_D_P_Extract",
+    "aegisName": "EP20_D_P_Extract",
+    "dbType": "Etc",
+    "Type": "Etc",
+    "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_etc.yml; RO_WEB 0.9.82GV"
+  },
+  "1100003": {
+    "id": 1100003,
+    "officialId": 1100003,
+    "name": "濃縮紅色糖漿藥水",
+    "type": "consume",
+    "category": "recovery",
+    "subCategory": "hp_potion",
+    "icon": "images/items/1100003.webp",
+    "buyPrice": 10,
+    "sellPrice": 5,
+    "requiredLevel": 120,
+    "reuseDelayMs": 0
+  },
+  "1100004": {
+    "id": 1100004,
+    "officialId": 1100004,
+    "name": "濃縮藍色糖漿藥水",
+    "type": "consume",
+    "category": "recovery",
+    "subCategory": "sp_potion",
+    "icon": "images/items/1100004.webp",
+    "buyPrice": 10,
+    "sellPrice": 5,
+    "requiredLevel": 120,
+    "reuseDelayMs": 0
+  },
+  "1100005": {
+    "id": 1100005,
+    "officialId": 1100005,
+    "name": "濃縮金色糖漿藥水",
+    "type": "consume",
+    "category": "recovery",
+    "subCategory": "hp_potion",
+    "icon": "images/items/1100005.webp",
+    "buyPrice": 10,
+    "sellPrice": 5,
+    "requiredLevel": 180,
+    "reuseDelayMs": 0
+  },
+  "1100100": {
+    "id": 1100100,
+    "officialId": 1100100,
+    "name": "黯淡冰晶武器箱",
+    "type": "consume",
+    "category": "loot_box",
+    "subCategory": "ep19_dim_glacier_weapon_box",
+    "icon": "images/items/1100100.webp",
+    "buyPrice": 0,
+    "sellPrice": 0,
+    "manualUseOnly": true,
+    "noDecompose": true,
+    "lootBoxId": "ep19_dim_glacier_weapon_box",
+    "description": [
+      "受到伊斯加爾特毒氣魔力侵蝕的武器箱。",
+      "開啟後，隨機獲得 26 種黯淡冰晶武器中的其中一把。",
+      "所有武器取得機率相同（每把約 3.8462%）。",
+      "箱子圖片使用台服物品 101638「黯淡冰晶武器強化」。"
+    ],
+    "sourceIconItemId": 101638,
+    "dataSource": "RO_WEB 自訂箱子；圖片來源 item 101638；0.9.82GV"
   }
 }
