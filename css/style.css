@@ -21540,3 +21540,88 @@ input.ro-number-input[type="number"]::-webkit-outer-spin-button{-webkit-appearan
     min-width: 0 !important;
   }
 }
+
+
+/* ============================================================
+   RO_WEB 0.9.82HD — round window chrome + desktop/mobile viewer split
+   - Restore all game-window close buttons to the original round image.
+   - Keep map size/close controls pinned to the title-bar right edge.
+   - Desktop detail viewer only exposes Return to monster list.
+   ============================================================ */
+body.ro-black-gold-theme .game-window > .window-title > button.window-close,
+.game-window > .window-title > button.window-close {
+  position: absolute !important;
+  border: 0 !important;
+  border-radius: 50% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background-color: transparent !important;
+  background-image: url('../images/ui/buttons/btn_close_round.png') !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: 100% 100% !important;
+  color: transparent !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+  aspect-ratio: 1 / 1 !important;
+  box-shadow: none !important;
+  transform: none !important;
+  overflow: hidden !important;
+  flex: 0 0 auto !important;
+}
+body.ro-black-gold-theme .game-window > .window-title > button.window-close:hover,
+.game-window > .window-title > button.window-close:hover {
+  filter: brightness(1.22) !important;
+  box-shadow: 0 0 8px rgba(255,205,89,.45) !important;
+}
+#map-window > .window-title.drag-handle {
+  position: relative !important;
+  padding-right: 84px !important;
+}
+#map-window > .window-title > button.window-close {
+  position: absolute !important;
+  right: 8px !important;
+  top: 8px !important;
+  width: 28px !important;
+  height: 28px !important;
+  min-width: 28px !important;
+  min-height: 28px !important;
+  z-index: 184 !important;
+  touch-action: manipulation !important;
+}
+#map-window > .window-title > button.window-size-cycle {
+  position: absolute !important;
+  right: 43px !important;
+  top: 8px !important;
+  width: 34px !important;
+  min-width: 34px !important;
+  height: 28px !important;
+  min-height: 28px !important;
+  margin: 0 !important;
+  padding: 0 5px !important;
+  line-height: 26px !important;
+  border-radius: 7px !important;
+  z-index: 183 !important;
+  touch-action: manipulation !important;
+}
+@media (min-width: 721px) and (pointer: fine) {
+  .map-monster-distribution-header {
+    grid-template-columns: minmax(0, 1fr) auto !important;
+  }
+  .map-monster-distribution-tooltip:not(.is-drop-detail-view) .map-monster-header-action:empty {
+    display: none !important;
+  }
+  .map-monster-distribution-tooltip.is-drop-detail-view .map-monster-header-action {
+    display: flex !important;
+  }
+  .map-monster-distribution-tooltip.is-drop-detail-view .map-monster-view-action.is-desktop-only {
+    min-width: 112px !important;
+  }
+  .map-monster-distribution-tooltip.is-drop-detail-view .map-monster-drop-footer {
+    justify-content: center !important;
+  }
+  .map-monster-distribution-tooltip.is-drop-detail-view .map-monster-drop-footer .map-monster-view-action.is-footer {
+    flex: 0 0 auto !important;
+    min-width: 150px !important;
+  }
+}

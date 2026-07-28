@@ -1,12 +1,8 @@
-# 目前基準：RO_WEB 0.9.82HC
-
-## 地圖／傳送視窗規則
-- 手機開啟地圖窗時必須先顯示地圖傳送清單；開窗後 700ms 內禁止 ghost click 開啟目的地怪物頁。
-- 怪物清單頁右上角固定為「進入地圖／返回」；建議等級只顯示資訊。
-- 掉落詳情頁頂部固定為「進入地圖／返回怪物清單」，底部固定為「返回怪物清單／返回地圖」。
-- 粗指標／觸控版怪物清單保持 pinned，只有明確按鈕才能退出，禁止 pointerleave 自動關閉。
-- map monster modal 的全域 pointer guard 不得攔截 `#map-window > .window-title`、關閉或大小按鈕；地圖窗必須可拖曳、可關閉。
-- DOM 切換後的 Safari synthetic click 必須由 interaction guard 阻擋，不能落到新建立的返回／進入地圖按鈕。
+## 0.9.82HD — 最新基準
+- 最新基準為 0.9.82HD，完整繼承 HC 手機地圖導覽、HB 觸控防穿透與 MVP 卡片來源、GY 黯淡冰晶附魔。
+- 地圖掉落 UI 已依輸入裝置分流：桌機僅需返回怪物清單；手機保留進入地圖／返回地圖。
+- 標準遊戲視窗的 window-close 必須維持原始圓形圖片；不可再以通用黑金方形按鈕覆蓋。
+- index.html 的 CSS／JS query version 必須與 RO_WEB_VERSION 同步，避免 GitHub Pages 快取混載。
 
 ## 0.9.82HB — 手機掉落頁防穿透與卡片來源合併
 - 最新基準為 0.9.82HB，完整繼承 HA 雙頁地圖怪物／掉落檢視與 GY 黯淡冰晶附魔。

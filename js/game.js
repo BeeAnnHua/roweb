@@ -13,7 +13,7 @@ let expTables = null;
 let clientItemDisplayData = null;
 let currentMap = null;
 
-const RO_WEB_VERSION = "0.9.82HC";
+const RO_WEB_VERSION = "0.9.82HD";
 
 function normalizeDataPath(path) {
   return String(path || "")

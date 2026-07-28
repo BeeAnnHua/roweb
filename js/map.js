@@ -380,6 +380,10 @@ function enterMapFromMonsterViewer(){
   if(typeof updateToggleButtonStates==="function")updateToggleButtonStates();
 }
 function buildMapMonsterListHeaderActions(mapData){
+  // Touch users need explicit navigation because the monster viewer covers the
+  // map browser.  Desktop users keep the compact hover/click viewer and do not
+  // need map-travel buttons inside the tooltip.
+  if(!isCoarseMapMonsterInput())return "";
   const current=Boolean(!player?.currentCity&&String(currentMap?.id||"")===String(mapData?.id||""));
   return `<button type="button" class="map-monster-view-action map-monster-enter-map${current?' is-current':''}" aria-label="進入此地圖">進入地圖</button><button type="button" class="map-monster-view-action map-monster-return-map" aria-label="返回地圖傳送清單">返回</button>`;
 }
@@ -435,13 +439,19 @@ function renderMapMonsterDropDetail(tooltip,mapId,monsterId,options={}){
     renderMonsterDropGroup("MVP 額外掉落",drops.mvp,"mvp"),
     renderMonsterDropGroup("升階材料額外掉落",drops.bonus,"grade")
   ].filter(Boolean).join("");
-  host.innerHTML=`<div class="map-monster-drop-title"><b>${monster.name||`怪物 ${monsterId}`}掉落物</b><small>點擊物品可查看詳細資料；掉落資料快取不參與掛機運算</small></div>${renderedGroups||'<div class="map-monster-drop-empty">目前沒有可顯示的掉落資料</div>'}<div class="map-monster-drop-footer"><button type="button" class="map-monster-view-action map-monster-return-list is-footer" aria-label="返回怪物清單">返回怪物清單</button><button type="button" class="map-monster-view-action map-monster-return-map is-footer" aria-label="返回地圖傳送清單">返回地圖</button></div>`;
+  const coarseViewer=isCoarseMapMonsterInput();
+  const footerActions=coarseViewer
+    ? `<button type="button" class="map-monster-view-action map-monster-return-list is-footer" aria-label="返回怪物清單">返回怪物清單</button><button type="button" class="map-monster-view-action map-monster-return-map is-footer" aria-label="返回地圖傳送清單">返回地圖</button>`
+    : `<button type="button" class="map-monster-view-action map-monster-return-list is-footer" aria-label="返回怪物清單">返回怪物清單</button>`;
+  host.innerHTML=`<div class="map-monster-drop-title"><b>${monster.name||`怪物 ${monsterId}`}掉落物</b><small>點擊物品可查看詳細資料；掉落資料快取不參與掛機運算</small></div>${renderedGroups||'<div class="map-monster-drop-empty">目前沒有可顯示的掉落資料</div>'}<div class="map-monster-drop-footer">${footerActions}</div>`;
   if(list)list.hidden=true;
   host.hidden=false;
   if(action){
     const mapData=getMapMonsterViewerMapData();
     const current=Boolean(!player?.currentCity&&String(currentMap?.id||"")===String(mapData?.id||""));
-    action.innerHTML=`<button type="button" class="map-monster-view-action map-monster-enter-map${current?' is-current':''}" aria-label="進入此地圖">進入地圖</button><button type="button" class="map-monster-view-action map-monster-return-list" aria-label="返回怪物清單">返回</button>`;
+    action.innerHTML=coarseViewer
+      ? `<button type="button" class="map-monster-view-action map-monster-enter-map${current?' is-current':''}" aria-label="進入此地圖">進入地圖</button><button type="button" class="map-monster-view-action map-monster-return-list" aria-label="返回怪物清單">返回</button>`
+      : `<button type="button" class="map-monster-view-action map-monster-return-list is-desktop-only" aria-label="返回怪物清單">返回怪物清單</button>`;
   }
   bindMapMonsterViewerNavigation(tooltip);
   tooltip.classList.add("is-drop-pinned","is-drop-detail-view");
