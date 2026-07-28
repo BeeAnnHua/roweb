@@ -440,10 +440,9 @@ function renderMapMonsterDropDetail(tooltip,mapId,monsterId,options={}){
     renderMonsterDropGroup("升階材料額外掉落",drops.bonus,"grade")
   ].filter(Boolean).join("");
   const coarseViewer=isCoarseMapMonsterInput();
-  const footerActions=coarseViewer
-    ? `<button type="button" class="map-monster-view-action map-monster-return-list is-footer" aria-label="返回怪物清單">返回怪物清單</button><button type="button" class="map-monster-view-action map-monster-return-map is-footer" aria-label="返回地圖傳送清單">返回地圖</button>`
-    : `<button type="button" class="map-monster-view-action map-monster-return-list is-footer" aria-label="返回怪物清單">返回怪物清單</button>`;
-  host.innerHTML=`<div class="map-monster-drop-title"><b>${monster.name||`怪物 ${monsterId}`}掉落物</b><small>點擊物品可查看詳細資料；掉落資料快取不參與掛機運算</small></div>${renderedGroups||'<div class="map-monster-drop-empty">目前沒有可顯示的掉落資料</div>'}<div class="map-monster-drop-footer">${footerActions}</div>`;
+  // HE: navigation stays in the sticky header on every device.  Keeping the
+  // footer free of duplicate buttons leaves more room for long drop tables.
+  host.innerHTML=`<div class="map-monster-drop-title"><b>${monster.name||`怪物 ${monsterId}`}掉落物</b><small>點擊物品可查看詳細資料；掉落資料快取不參與掛機運算</small></div>${renderedGroups||'<div class="map-monster-drop-empty">目前沒有可顯示的掉落資料</div>'}`;
   if(list)list.hidden=true;
   host.hidden=false;
   if(action){

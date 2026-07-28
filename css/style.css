@@ -21625,3 +21625,94 @@ body.ro-black-gold-theme .game-window > .window-title > button.window-close:hove
     min-width: 150px !important;
   }
 }
+
+
+/* ============================================================
+   RO_WEB 0.9.82HE — compact map-detail navigation / aligned title controls
+   - All drop-detail navigation lives in the sticky header.
+   - Mobile: Enter Map + Back. Desktop: Back to monster list only.
+   - Map size and close controls share one vertical center line.
+   ============================================================ */
+.map-monster-drop-footer {
+  display: none !important;
+}
+.map-monster-distribution-tooltip.is-drop-detail-view .map-monster-distribution-header {
+  align-items: end !important;
+  min-height: 48px !important;
+  padding-top: 10px !important;
+  padding-bottom: 7px !important;
+}
+.map-monster-distribution-tooltip.is-drop-detail-view .map-monster-header-action {
+  align-self: end !important;
+  margin: 0 0 1px !important;
+}
+.map-monster-distribution-tooltip.is-drop-detail-view .map-monster-view-action {
+  display: inline-grid !important;
+  place-items: center !important;
+  height: 32px !important;
+  min-height: 32px !important;
+  line-height: 1 !important;
+  box-sizing: border-box !important;
+}
+#map-window > .window-title.drag-handle {
+  padding-right: 82px !important;
+}
+#map-window > .window-title > button.window-close,
+#map-window > .window-title > button.window-size-cycle {
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  vertical-align: middle !important;
+}
+#map-window > .window-title > button.window-close {
+  right: 7px !important;
+  width: 28px !important;
+  height: 28px !important;
+  min-width: 28px !important;
+  min-height: 28px !important;
+}
+#map-window > .window-title > button.window-size-cycle {
+  right: 42px !important;
+  width: 32px !important;
+  height: 28px !important;
+  min-width: 32px !important;
+  min-height: 28px !important;
+  padding: 0 4px !important;
+  line-height: 26px !important;
+  display: inline-grid !important;
+  place-items: center !important;
+}
+#map-window > .window-title > button.window-size-cycle:active {
+  transform: translateY(-50%) !important;
+}
+@media (max-width: 720px), (pointer: coarse) {
+  .map-monster-distribution-tooltip.is-drop-detail-view .map-monster-distribution-header {
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    min-height: 50px !important;
+    padding: 10px 8px 7px !important;
+    gap: 7px !important;
+  }
+  .map-monster-distribution-tooltip.is-drop-detail-view .map-monster-header-action {
+    gap: 6px !important;
+  }
+  .map-monster-distribution-tooltip.is-drop-detail-view .map-monster-view-action {
+    min-width: 64px !important;
+    height: 34px !important;
+    min-height: 34px !important;
+    padding: 4px 9px !important;
+    font-size: 11px !important;
+  }
+  .map-monster-distribution-tooltip.is-drop-detail-view .map-monster-view-action.map-monster-enter-map {
+    min-width: 76px !important;
+  }
+}
+@media (min-width: 721px) and (pointer: fine) {
+  .map-monster-distribution-tooltip.is-drop-detail-view .map-monster-distribution-header {
+    min-height: 46px !important;
+    padding: 9px 10px 7px !important;
+  }
+  .map-monster-distribution-tooltip.is-drop-detail-view .map-monster-view-action.is-desktop-only {
+    min-width: 126px !important;
+  }
+}
