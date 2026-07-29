@@ -432,25 +432,10 @@ function initGameTooltips() {
 }
 
 
-// RO_WEB 0.9.82HL：貨幣完整數量採用捕獲階段事件與最高層固定浮窗。
-// 不再依賴舊 top-bar bubble click；避免早期 HUD handler、拖曳或 Tooltip 攔截事件。
-let currencyDetailOutsideBound = false;
-let currencyDetailLastActivationAt = 0;
-
-function getCurrencyDetailPopup() {
-  let popup = document.getElementById("currency-detail-popup");
-  if (popup) return popup;
-  popup = document.createElement("section");
-  popup.id = "currency-detail-popup";
-  popup.className = "currency-detail-popup";
-  popup.setAttribute("role", "dialog");
-  popup.setAttribute("aria-modal", "false");
-  popup.setAttribute("aria-label", "持有貨幣完整數量");
-  popup.hidden = true;
-  popup.style.setProperty("z-index", "2147483000", "important");
-  document.body.appendChild(popup);
-  return popup;
-}
+// RO_WEB 0.9.82HM：恢復右上貨幣列原地展開／收合。
+// 不建立額外浮窗；直接在現有 #top-bar 內切換完整 Zeny／藍寶石／紅寶石。
+let currencyBarOutsideBound = false;
+let currencyBarLastToggleAt = 0;
 
 function getCurrencyFullValues() {
   const source = window.player || (typeof player !== "undefined" ? player : null) || {};
@@ -461,7 +446,39 @@ function getCurrencyFullValues() {
   };
 }
 
+function ensureCurrencyExpandedMarkup() {
+  const topBar = document.getElementById("top-bar");
+  if (!topBar) return null;
+  const rows = [
+    ["zeny", "Zeny"],
+    ["blueGem", "藍寶石"],
+    ["redGem", "紅寶石"]
+  ];
+  for (const [id, label] of rows) {
+    const compact = document.getElementById(id);
+    const item = compact?.closest?.(".currency-item");
+    if (!compact || !item) continue;
+    compact.classList.add("currency-compact-value");
+    if (!item.querySelector(".currency-expanded-label")) {
+      const labelEl = document.createElement("span");
+      labelEl.className = "currency-expanded-label";
+      labelEl.textContent = label;
+      item.insertBefore(labelEl, compact);
+    }
+    if (!item.querySelector(".currency-expanded-value")) {
+      const fullEl = document.createElement("strong");
+      fullEl.className = "currency-expanded-value";
+      fullEl.dataset.currencyValueId = id;
+      fullEl.textContent = "0";
+      item.appendChild(fullEl);
+    }
+  }
+  return topBar;
+}
+
 function refreshCurrencyAccessibleLabels() {
+  const topBar = ensureCurrencyExpandedMarkup();
+  if (!topBar) return;
   const values = getCurrencyFullValues();
   const rows = [
     ["zeny", "Zeny", values.zeny],
@@ -469,107 +486,113 @@ function refreshCurrencyAccessibleLabels() {
     ["redGem", "紅寶石", values.redGem]
   ];
   for (const [id, label, amount] of rows) {
-    const value = document.getElementById(id);
-    const item = value?.closest?.(".currency-item");
+    const compact = document.getElementById(id);
+    const item = compact?.closest?.(".currency-item");
     if (!item) continue;
     const full = Number(amount || 0).toLocaleString("zh-TW");
-    item.title = `${label}：${full}｜點擊查看全部貨幣`;
-    item.setAttribute("aria-label", `${label} ${full}，點擊查看全部貨幣`);
+    const expandedValue = item.querySelector(".currency-expanded-value");
+    if (expandedValue && expandedValue.textContent !== full) expandedValue.textContent = full;
+    item.title = `${label}：${full}｜點擊展開全部貨幣`;
+    item.setAttribute("aria-label", `${label} ${full}`);
   }
 }
 
-function hideCurrencyDetailPopup() {
-  const popup = document.getElementById("currency-detail-popup");
-  const topBar = document.getElementById("top-bar");
-  if (!popup) return;
-  popup.classList.remove("is-visible");
-  popup.hidden = true;
-  topBar?.setAttribute("aria-expanded", "false");
-}
-
-function positionCurrencyDetailPopup(popup, topBar) {
-  const rect = topBar.getBoundingClientRect();
-  const width = Math.min(350, Math.max(250, window.innerWidth - 20));
-  const estimatedHeight = 160;
-  const left = Math.min(window.innerWidth - width - 10, Math.max(10, rect.right - width));
-  let top = rect.bottom + 8;
-  if (top + estimatedHeight > window.innerHeight) top = Math.max(10, rect.top - estimatedHeight - 8);
-  popup.style.width = `${width}px`;
-  popup.style.left = `${Math.round(left)}px`;
-  popup.style.top = `${Math.round(top)}px`;
-}
-
-function showCurrencyDetailPopup(event) {
-  const now = Date.now();
-  if (now - currencyDetailLastActivationAt < 120) return false;
-  currencyDetailLastActivationAt = now;
-  const topBar = document.getElementById("top-bar");
+function setCurrencyBarExpanded(expanded, options = {}) {
+  const topBar = ensureCurrencyExpandedMarkup();
   if (!topBar) return false;
-  const popup = getCurrencyDetailPopup();
-  const values = getCurrencyFullValues();
-  popup.innerHTML = `
-    <header><b>持有貨幣</b><button type="button" aria-label="關閉貨幣明細">×</button></header>
-    <div><img src="images/ui/icons/icon_gold_64.png" alt="Zeny"><span>Zeny</span><strong>${values.zeny.toLocaleString("zh-TW")}</strong></div>
-    <div><img src="images/ui/icons/icon_blue_gem_64.png" alt="藍寶石"><span>藍寶石</span><strong>${values.blueGem.toLocaleString("zh-TW")}</strong></div>
-    <div><img src="images/ui/icons/icon_red_gem_64.png" alt="紅寶石"><span>紅寶石</span><strong>${values.redGem.toLocaleString("zh-TW")}</strong></div>`;
-  popup.querySelector("button")?.addEventListener("click", closeEvent => {
-    closeEvent.preventDefault();
-    closeEvent.stopPropagation();
-    hideCurrencyDetailPopup();
-  });
-  popup.hidden = false;
-  popup.classList.add("is-visible");
-  topBar.setAttribute("aria-expanded", "true");
-  positionCurrencyDetailPopup(popup, topBar);
+  const next = expanded === true;
   refreshCurrencyAccessibleLabels();
+  topBar.classList.toggle("is-currency-expanded", next);
+  topBar.setAttribute("aria-expanded", next ? "true" : "false");
+  topBar.title = next ? "點擊收合貨幣數量" : "點擊展開完整貨幣數量";
+  if (options.focus === true) topBar.focus({ preventScroll: true });
+  return next;
+}
+
+function toggleCurrencyBarExpanded(event, forceState) {
+  const topBar = ensureCurrencyExpandedMarkup();
+  if (!topBar) return false;
+  const now = Date.now();
+  if (event && now - currencyBarLastToggleAt < 90) {
+    event.preventDefault?.();
+    event.stopPropagation?.();
+    return false;
+  }
+  currencyBarLastToggleAt = now;
+  const next = typeof forceState === "boolean"
+    ? forceState
+    : !topBar.classList.contains("is-currency-expanded");
+  topBar.classList.remove("is-currency-pressed");
+  setCurrencyBarExpanded(next);
+  event?.preventDefault?.();
+  event?.stopPropagation?.();
+  return false;
+}
+
+// 舊 HK／HL 名稱保留為相容入口，但現在控制的是原地貨幣列。
+function getCurrencyDetailPopup() {
+  return document.getElementById("top-bar");
+}
+function showCurrencyDetailPopup(event) {
+  setCurrencyBarExpanded(true);
   event?.preventDefault?.();
   event?.stopPropagation?.();
   return true;
 }
+function hideCurrencyDetailPopup() {
+  return setCurrencyBarExpanded(false);
+}
 
 function initCurrencyDetailPopup() {
-  const topBar = document.getElementById("top-bar");
-  if (!topBar || topBar.dataset.currencyDetailBound === "2") return;
-  topBar.dataset.currencyDetailBound = "2";
+  const topBar = ensureCurrencyExpandedMarkup();
+  if (!topBar || topBar.dataset.currencyDetailBound === "3") return;
+  topBar.dataset.currencyDetailBound = "3";
   topBar.setAttribute("role", "button");
   topBar.setAttribute("tabindex", "0");
-  topBar.setAttribute("aria-haspopup", "dialog");
   topBar.setAttribute("aria-expanded", "false");
-  topBar.title = "點擊顯示完整貨幣數量";
+  topBar.setAttribute("aria-label", "持有貨幣，點擊展開完整數量");
+  topBar.title = "點擊展開完整貨幣數量";
   topBar.querySelectorAll(".currency-item").forEach(item => {
-    item.setAttribute("role", "button");
-    item.setAttribute("tabindex", "-1");
+    item.setAttribute("role", "presentation");
+    item.removeAttribute("tabindex");
   });
   refreshCurrencyAccessibleLabels();
 
-  document.addEventListener("pointerup", event => {
-    const target = event.target instanceof Element ? event.target.closest("#top-bar, #top-bar .currency-item") : null;
-    if (!target) return;
-    showCurrencyDetailPopup(event);
-  }, true);
-  document.addEventListener("click", event => {
-    const target = event.target instanceof Element ? event.target.closest("#top-bar, #top-bar .currency-item") : null;
-    if (!target) return;
-    showCurrencyDetailPopup(event);
-  }, true);
+  // 捕獲階段直接辨識實際 #top-bar；舊 HUD 即使在 bubble 階段攔截也不影響。
+  if (document.documentElement.dataset.currencyInlineCaptureBound !== "1") {
+    document.documentElement.dataset.currencyInlineCaptureBound = "1";
+    const captureToggle = event => {
+      const target = event.target instanceof Element ? event.target.closest("#top-bar") : null;
+      if (!target) return;
+      toggleCurrencyBarExpanded(event);
+    };
+    document.addEventListener("pointerup", captureToggle, true);
+    document.addEventListener("click", captureToggle, true);
+  }
+  // index.html 同時保留 inline onclick；若初始化前被點擊仍有最終備援。
   topBar.addEventListener("keydown", event => {
-    if (event.key === "Enter" || event.key === " ") showCurrencyDetailPopup(event);
-    if (event.key === "Escape") hideCurrencyDetailPopup();
+    if (event.key === "Enter" || event.key === " ") toggleCurrencyBarExpanded(event);
+    if (event.key === "Escape") {
+      event.preventDefault();
+      setCurrencyBarExpanded(false);
+    }
   });
-  window.addEventListener("resize", () => {
-    const popup = document.getElementById("currency-detail-popup");
-    if (popup && !popup.hidden) positionCurrencyDetailPopup(popup, topBar);
-  });
-  if (!currencyDetailOutsideBound) {
-    currencyDetailOutsideBound = true;
+  topBar.addEventListener("pointerdown", () => topBar.classList.add("is-currency-pressed"));
+  const clearPressed = () => topBar.classList.remove("is-currency-pressed");
+  topBar.addEventListener("pointerup", clearPressed);
+  topBar.addEventListener("pointercancel", clearPressed);
+  topBar.addEventListener("pointerleave", clearPressed);
+
+  if (!currencyBarOutsideBound) {
+    currencyBarOutsideBound = true;
     document.addEventListener("pointerdown", event => {
-      const popup = document.getElementById("currency-detail-popup");
-      if (!popup || popup.hidden) return;
-      if (popup.contains(event.target) || topBar.contains(event.target)) return;
-      hideCurrencyDetailPopup();
+      const current = document.getElementById("top-bar");
+      if (!current?.classList.contains("is-currency-expanded")) return;
+      if (current.contains(event.target)) return;
+      setCurrencyBarExpanded(false);
     }, true);
     document.addEventListener("keydown", event => {
-      if (event.key === "Escape") hideCurrencyDetailPopup();
+      if (event.key === "Escape") setCurrencyBarExpanded(false);
     });
   }
 }
@@ -578,6 +601,8 @@ Object.assign(window, {
   getCurrencyDetailPopup,
   showCurrencyDetailPopup,
   hideCurrencyDetailPopup,
+  setCurrencyBarExpanded,
+  toggleCurrencyBarExpanded,
   refreshCurrencyAccessibleLabels
 });
 

@@ -1,13 +1,11 @@
-## 0.9.82HL — 舊版 Tooltip 與貨幣事件強化
+## 0.9.82HM — 貨幣列原地展開／收合
 
-- 修正背包消耗品能顯示名稱，但裝備與一般道具的自訂 Tooltip 被高層遊戲視窗遮住的問題。
-- 消耗品、裝備、一般道具與穿戴中的裝備，全部加入 `data-tooltip` 加原生 `title` 雙重備援。
-- `.game-tooltip` 提升至全域最高 UI 層，避免被早期視窗管理器的動態 z-index 蓋住。
-- 黯淡冰晶武器提示完整保留精煉、階級、卡片及第4／3／2洞附魔名稱。
-- 一般裝備詳細頁點擊附魔石查看正式圖片、名稱及完整效果的功能完整保留。
-- 右上貨幣列改由 document capture 階段的 `pointerup`／`click` 開啟完整數量視窗，繞過早期 HUD bubble handler 的攔截。
-- 貨幣視窗提升至全域最高 fixed UI 層，完整顯示 Zeny、藍寶石及紅寶石。
-- 移除六秒自動收合；視窗保持開啟至玩家按 ×、點擊外部或按 Escape。
-- 0.9.82HK 的升階教學、玩家 NPC 文字、地圖固定滾輪、附魔資訊與正式出生背包皆完整保留。
+- 移除額外貨幣浮窗的實際使用路徑，改為直接展開既有右上 `#top-bar`。
+- 收合時維持三格精簡貨幣顯示；展開時改為 Zeny、藍寶石、紅寶石三列完整數字。
+- 再點一次貨幣列、點擊外部或按 Escape 可收合。
+- 新增 document capture `pointerup`／`click`、inline onclick 及 Enter／Space 鍵盤操作，繞過早期 HUD 事件攔截。
+- 完整數字採獨立 `.currency-expanded-value` 節點，避免 `updatePlayerUI()` 將其重新改成舊顯示。
+- 保留 0.9.82HL 的貨幣滑鼠提示、背包／裝備／一般道具 Tooltip 與附魔石平常查看功能。
+- 不修改角色資料、貨幣數值、掉落率、精煉、升階、附魔或存檔格式。
 
-歷史詳細報告請參閱：`HISTORY_UPDATE_AUDIT_LOG_THROUGH_0.9.82HK.txt`。
+歷史詳細報告請參閱：`HISTORY_UPDATE_AUDIT_LOG_THROUGH_0.9.82HL.txt`。

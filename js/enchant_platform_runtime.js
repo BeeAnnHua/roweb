@@ -1,11 +1,11 @@
 //=======================================
-// RO_WEB Shared Enchant Platform Runtime v0.9.82HL
+// RO_WEB Shared Enchant Platform Runtime v0.9.82HM
 // Formal Dim Glacier weapon enchant: slot 4 -> 3 -> 2, upgrade and reset.
 //=======================================
 (function(){
   "use strict";
 
-  const VERSION="0.9.82HL";
+  const VERSION="0.9.82HM";
   const DATA_KEY="data/dim_glacier_enchant.json";
   const SLOT_ORDER=[4,3,2];
   const GRADE_LABELS=["無階","D","C","B","A"];

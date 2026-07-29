@@ -1,9 +1,9 @@
 //============================================================
-// RO_WEB 0.9.82HL — 裝備升階 Runtime／玩家教學
+// RO_WEB 0.9.82HM — 裝備升階 Runtime／玩家教學
 //============================================================
 (() => {
   "use strict";
-  const VERSION="0.9.82HL", RULE_KEY="data/enchant_grade_rules.json", EXCHANGE_KEY="data/enchant_grade_exchange.json", DROP_KEY="data/enchant_grade_map_drops.json";
+  const VERSION="0.9.82HM", RULE_KEY="data/enchant_grade_rules.json", EXCHANGE_KEY="data/enchant_grade_exchange.json", DROP_KEY="data/enchant_grade_map_drops.json";
   const state={open:false,npcName:"裝備升階匠人",tab:"grade",selected:null,optionIndex:0,catalystSteps:0,exchangeIndex:0,exchangeQty:1,lastResult:null};
   const n=(v,f=0)=>Number.isFinite(Number(v))?Number(v):f, i=(v,f=0)=>Math.floor(n(v,f));
   const esc=v=>String(v??"").replace(/[&<>'"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]));

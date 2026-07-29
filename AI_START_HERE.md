@@ -1,12 +1,11 @@
-## 0.9.82HL — 最新正式基準
+## 0.9.82HM — 最新正式基準
 
-- 以 0.9.82HK 為基準；不得重新帶回 0.9.82HI 的出生測試補給與 10 億 Zeny 自動補足。
-- 背包消耗品、裝備、一般道具與穿戴中的裝備，都必須同時提供 `data-tooltip` 自訂提示與原生 `title` 備援。
-- `.game-tooltip` 使用最高固定 UI 層，避免被早期視窗管理器動態提高的背包／裝備視窗遮住。
-- 黯淡冰晶武器的背包／裝備提示完整顯示精煉、階級、卡片、第4／3／2洞附魔名稱、武器名稱與卡片槽數；物品詳細視窗主標題仍維持簡潔格式。
-- 一般裝備詳細頁中，玩家點擊已填入的附魔石即可開啟全域附魔資訊視窗；不依賴附魔平台處於開啟狀態。
-- 右上 `#top-bar` 的完整貨幣視窗使用 document capture 階段的 `pointerup`／`click`，避免被早期 HUD bubble handler、拖曳或 Tooltip 攔截。
-- `#currency-detail-popup` 位於最高 fixed UI 層，顯示完整 Zeny／藍寶石／紅寶石數量；保持開啟直到玩家按 ×、點擊外部或按 Escape。
-- 完整保留 HH 的存活武器實例交易修正、HJ 的正式玩家介面，以及 HK 的一般裝備附魔資訊功能。
-- 歷史報告續寫至 `HISTORY_UPDATE_AUDIT_LOG_THROUGH_0.9.82HK.txt`；根目錄只保留 HL 最新必要報告。
-- 後續版本以 0.9.82HL 為基準。
+- 以 0.9.82HL 為基準；完整保留背包／裝備 Tooltip、一般裝備附魔石介紹、HH 附魔存活實例交易修正與 HJ 正式玩家介面。
+- 右上貨幣列不再開啟額外浮窗，改為直接在原本 `#top-bar` 內原地展開／收合。
+- 收合時維持三格精簡顯示；點擊整個貨幣列後改為三列完整顯示 Zeny、藍寶石、紅寶石，再點一次或點擊外部即可收合。
+- 貨幣展開採 document capture `pointerup`／`click`、`index.html` inline onclick 與鍵盤 Enter／Space 三重入口，避免早期 HUD handler 攔截。
+- 完整數字使用獨立 `.currency-expanded-value`，不受 `updatePlayerUI()` 重繪精簡數字影響；滑鼠提示仍保留。
+- Escape 可收合；手機觸控與桌機滑鼠使用同一套原地展開流程。
+- 不得重新帶回 0.9.82HI 的出生測試補給與 10 億 Zeny 自動補足。
+- 歷史報告續寫至 `HISTORY_UPDATE_AUDIT_LOG_THROUGH_0.9.82HL.txt`；根目錄只保留 HM 最新必要報告。
+- 後續版本以 0.9.82HM 為基準。

@@ -21846,3 +21846,88 @@ body.ro-black-gold-theme .game-window > .window-title > button.window-close:hove
 .currency-detail-popup.is-visible{display:grid!important;visibility:visible!important;opacity:1!important}
 #top-bar,.currency-item{pointer-events:auto!important}
 .inventory-slot[data-tooltip],.equipment-slot[data-tooltip],.item-detail-dim-slot[data-tooltip]{cursor:help}
+
+
+/* =========================================================
+   RO_WEB 0.9.82HM — 右上貨幣列原地展開／收合
+   ========================================================= */
+#right-hud-shell #top-bar{
+  cursor:pointer!important;
+  user-select:none!important;
+  -webkit-user-select:none!important;
+  touch-action:manipulation!important;
+  transition:height .16s ease,filter .12s ease,box-shadow .16s ease!important;
+}
+#right-hud-shell #top-bar.is-currency-pressed{filter:brightness(1.16)!important}
+#right-hud-shell #top-bar .currency-expanded-label,
+#right-hud-shell #top-bar .currency-expanded-value{display:none!important}
+#right-hud-shell #top-bar.is-currency-expanded{
+  height:auto!important;
+  min-height:116px!important;
+  grid-template-columns:1fr!important;
+  grid-template-rows:repeat(3,minmax(32px,auto))!important;
+  gap:4px!important;
+  padding:5px!important;
+  border-radius:10px!important;
+  box-shadow:0 5px 17px rgba(0,0,0,.68),inset 0 0 0 1px rgba(255,219,134,.18)!important;
+  filter:brightness(1.06)!important;
+}
+#right-hud-shell #top-bar.is-currency-expanded .currency-item{
+  display:grid!important;
+  grid-template-columns:27px 58px minmax(0,1fr)!important;
+  align-items:center!important;
+  width:100%!important;
+  min-height:32px!important;
+  height:32px!important;
+  gap:7px!important;
+  padding:2px 9px 2px 5px!important;
+  overflow:visible!important;
+  border:1px solid rgba(170,124,56,.48)!important;
+  border-radius:8px!important;
+  background:rgba(13,9,6,.74)!important;
+}
+#right-hud-shell #top-bar.is-currency-expanded .currency-item img{
+  width:25px!important;
+  height:25px!important;
+  flex:0 0 25px!important;
+}
+#right-hud-shell #top-bar.is-currency-expanded .currency-compact-value{display:none!important}
+#right-hud-shell #top-bar.is-currency-expanded .currency-expanded-label{
+  display:block!important;
+  min-width:0!important;
+  color:#dfc489!important;
+  font-size:12px!important;
+  font-weight:800!important;
+  line-height:1!important;
+  white-space:nowrap!important;
+}
+#right-hud-shell #top-bar.is-currency-expanded .currency-expanded-value{
+  display:block!important;
+  min-width:0!important;
+  color:#fff1c2!important;
+  font-size:14px!important;
+  font-weight:900!important;
+  line-height:1!important;
+  text-align:right!important;
+  white-space:nowrap!important;
+  overflow:visible!important;
+  text-overflow:clip!important;
+  font-variant-numeric:tabular-nums!important;
+  text-shadow:1px 1px 2px #000!important;
+}
+.currency-detail-popup{display:none!important}
+@media (max-width:900px),(pointer:coarse){
+  #right-hud-shell #top-bar.is-currency-expanded{
+    min-height:112px!important;
+  }
+  #right-hud-shell #top-bar.is-currency-expanded .currency-item{
+    grid-template-columns:23px 48px minmax(0,1fr)!important;
+    gap:5px!important;
+    padding-right:6px!important;
+  }
+  #right-hud-shell #top-bar.is-currency-expanded .currency-item img{
+    width:21px!important;height:21px!important;flex-basis:21px!important;
+  }
+  #right-hud-shell #top-bar.is-currency-expanded .currency-expanded-label{font-size:11px!important}
+  #right-hud-shell #top-bar.is-currency-expanded .currency-expanded-value{font-size:11px!important;letter-spacing:-.15px!important}
+}

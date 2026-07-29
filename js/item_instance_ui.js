@@ -1,5 +1,5 @@
 //=======================================
-// ItemInstanceUI v0.9.82HL
+// ItemInstanceUI v0.9.82HM
 // RO client-style equipment names, item/card detail modal, and instance-safe equip flow.
 //=======================================
 (function () {

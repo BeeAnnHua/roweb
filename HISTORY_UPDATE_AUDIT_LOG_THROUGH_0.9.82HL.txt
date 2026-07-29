@@ -1,12 +1,12 @@
 RO_WEB 歷史更新／測試／稽核調查紀錄
-整併版本：0.9.82HL
-收錄範圍：既有整併紀錄截止 0.9.82HJ，並追加 0.9.82HK 根目錄報告
-來源檔案數：213（既有 207 + HK 追加 6）
+整併版本：0.9.82HM
+收錄範圍：既有整併紀錄截止 0.9.82HK，並追加 0.9.82HL 根目錄報告
+來源檔案數：219（既有 213 + HL 追加 6）
 
 說明：
-1. 本檔完整保留先前截至 0.9.82HJ 的整併紀錄，並追加 0.9.82HK 的根目錄測試、稽核、部署與更新資料。
+1. 本檔完整保留先前截至 0.9.82HK 的整併紀錄，並追加 0.9.82HL 的根目錄測試、稽核、部署與更新資料。
 2. 原始檔名、大小、SHA-256 與完整內容均保留，方便後續追查。
-3. 0.9.82HL 起，專案根目錄只保留最新版必要報告；舊版資料持續併入本檔。
+3. 0.9.82HM 起，專案根目錄只保留最新版必要報告；舊版資料持續併入本檔。
 
 ==================== 0.9.82HK 追加收錄索引 ====================
 - APPLY_0.9.82HK_CLEANUP.bat | 202 bytes | 0e811d574cfe19c5fc28c9c2b340850cfee68dc56fcf953b124b4523d9ff8a4a
@@ -44733,3 +44733,329 @@ PACKAGE_VERIFY_0.9.82HJ.json
 TEST_REPORT_0.9.82HJ_PLAYER_FORMAL_UI.txt
 UPDATE_FILES_0.9.82HJ.txt
 
+
+==================== 0.9.82HL 追加收錄索引 ====================
+- APPLY_0.9.82HL_CLEANUP.bat | 847 bytes | 63b6db35adbd91af45a79e3f8540c0bc20141440b4b9ccd608aa1549b668deca
+- DEEP_HEALTH_0.9.82HL.json | 2044 bytes | 0cfff81b394675ea5adc22b8a9e763cdbe45455e867a716f4162f8ff36c1ccd0
+- INCREMENTAL_MANIFEST_0.9.82HL.json | 1447 bytes | 9d358b2da3c288462f89bad20e28e7ec9d665d171b1b8110f64d43bc7eb390ff
+- PACKAGE_VERIFY_0.9.82HL.json | 449 bytes | 1f26873759e60b33579ee0c031dde663292e12829c692e57d6e0eadf0352c761
+- TEST_REPORT_0.9.82HL_LEGACY_TOOLTIP_CURRENCY_HARDENING.txt | 4701 bytes | ec3a4c2ede698001d7142158d6bb7d658a3dc65fe07a65e14d271c5a2cb240df
+- UPDATE_FILES_0.9.82HL.txt | 1096 bytes | 0bfc31cce7ed6cafa0a299426d0465581232ba2944ed1188d0f5514095b9c9fb
+
+==================== FILE: APPLY_0.9.82HL_CLEANUP.bat ====================
+SIZE: 847 bytes
+SHA-256: 63b6db35adbd91af45a79e3f8540c0bc20141440b4b9ccd608aa1549b668deca
+
+@echo off
+setlocal
+cd /d "%~dp0"
+echo [RO_WEB 0.9.82HL] Cleaning previous HK root reports...
+powershell -NoProfile -ExecutionPolicy Bypass -Command ^
+  "$root=(Resolve-Path '.').Path; $list=Join-Path $root 'tools\DELETE_PATHS_0.9.82HL.txt'; if(!(Test-Path -LiteralPath $list)){throw 'Cleanup list not found.'}; $count=0; Get-Content -LiteralPath $list -Encoding UTF8 | ForEach-Object { $rel=$_.Trim(); if($rel){ $target=Join-Path $root ($rel -replace '/', '\'); if(Test-Path -LiteralPath $target){ Remove-Item -LiteralPath $target -Force -Recurse; $count++ } } }; Write-Host ('Removed ' + $count + ' old files.')"
+if errorlevel 1 (
+  echo Cleanup failed. Please keep this window and report the error.
+  pause
+  exit /b 1
+)
+echo Cleanup complete. The project now keeps the historical audit log through HK plus the latest HL reports.
+pause
+endlocal
+
+==================== FILE: DEEP_HEALTH_0.9.82HL.json ====================
+SIZE: 2044 bytes
+SHA-256: 0cfff81b394675ea5adc22b8a9e763cdbe45455e867a716f4162f8ff36c1ccd0
+
+{
+  "version": "0.9.82HL",
+  "summary": {
+    "errors": 0,
+    "warnings": 0,
+    "status": "PASS"
+  },
+  "info": {
+    "jsonFiles": 1977,
+    "binaryAssets": {
+      "counts": {
+        "png": 2500,
+        "webp": 1306
+      },
+      "bytes": 188253675
+    },
+    "htmlIds": 258,
+    "htmlResources": 53,
+    "cacheVersions": [
+      "0.9.82HL"
+    ],
+    "loadedScripts": 43,
+    "itemIds": 1802,
+    "monsters": 236,
+    "characterManifest": 90,
+    "characterMotionMaps": 90,
+    "characterVariants": 102,
+    "characterMountedVariants": 12,
+    "characterAtlasJson": 888,
+    "characterImages": 978,
+    "skillIds": 1139,
+    "treeNodes": 1362,
+    "officialRuntime": 828,
+    "pendingRuntime": 311,
+    "officialHandlers": {
+      "passive": 216,
+      "physical_attack": 35,
+      "monster_debuff": 8,
+      "buff": 205,
+      "magic_damage": 73,
+      "timed_status": 29,
+      "teleport": 1,
+      "heal": 8,
+      "debuff": 15,
+      "steal_item": 1,
+      "physical_attack_size_hits": 1,
+      "physical_attack_formula": 130,
+      "counter_stance": 2,
+      "mount_unlock": 1,
+      "sanctuary_area": 1,
+      "ground_debuff": 11,
+      "ground_damage": 36,
+      "falcon_toggle": 2,
+      "misc_damage": 3,
+      "falcon_detect": 1,
+      "falcon_spring_trap": 1,
+      "heal_fixed": 1,
+      "movement": 4,
+      "steal_zeny": 1,
+      "physical_charge": 11,
+      "skill_copy_selector": 2,
+      "independent_summon": 2,
+      "homunculus_manager": 1,
+      "homunculus_rest": 1,
+      "spirit_resource": 2,
+      "spirit_absorb": 1,
+      "ground_protection": 1,
+      "dispel": 1,
+      "soul_exchange": 1,
+      "chain_magic": 1,
+      "trap_detonator": 1,
+      "warg_toggle": 1,
+      "warg_sensitive_keen": 1,
+      "virtual_summon": 10,
+      "virtual_summon_dismiss": 1,
+      "spirit_assimilate": 1,
+      "summon_control": 1,
+      "combo_sequence": 1,
+      "follow_area": 1
+    },
+    "implementedSkillDescriptions": 828,
+    "bundleEntries": 1520,
+    "jsSyntaxChecked": 761
+  },
+  "errors": [],
+  "warnings": []
+}
+
+==================== FILE: INCREMENTAL_MANIFEST_0.9.82HL.json ====================
+SIZE: 1447 bytes
+SHA-256: 9d358b2da3c288462f89bad20e28e7ec9d665d171b1b8110f64d43bc7eb390ff
+
+{
+  "version": "0.9.82HL",
+  "baseVersion": "0.9.82HK",
+  "baseFiles": 7035,
+  "targetFiles": 7041,
+  "newCount": 13,
+  "changedCount": 12,
+  "deletedCount": 7,
+  "new": [
+    "APPLY_0.9.82HL_CLEANUP.bat",
+    "DEEP_HEALTH_0.9.82HL.json",
+    "HISTORY_UPDATE_AUDIT_LOG_THROUGH_0.9.82HK.txt",
+    "INCREMENTAL_MANIFEST_0.9.82HL.json",
+    "PACKAGE_VERIFY_0.9.82HL.json",
+    "TEST_REPORT_0.9.82HL_LEGACY_TOOLTIP_CURRENCY_HARDENING.txt",
+    "UPDATE_FILES_0.9.82HL.txt",
+    "docs/previews/LEGACY_TOOLTIP_CURRENCY_0.9.82HL_desktop.png",
+    "docs/previews/LEGACY_TOOLTIP_CURRENCY_0.9.82HL_mobile.png",
+    "tools/DELETE_PATHS_0.9.82HL.txt",
+    "tools/deep_health_check_0.9.82HL.py",
+    "tools/test_hl_legacy_tooltip_currency_hardening.py",
+    "tools/test_hl_legacy_tooltip_currency_hardening_report.json"
+  ],
+  "changed": [
+    "AI_START_HERE.md",
+    "CHANGELOG.md",
+    "README.md",
+    "css/style.css",
+    "index.html",
+    "js/enchant_grade_runtime.js",
+    "js/enchant_material_exchange_runtime.js",
+    "js/enchant_platform_runtime.js",
+    "js/game.js",
+    "js/item_instance_ui.js",
+    "js/player.js",
+    "js/ui.js"
+  ],
+  "deleted": [
+    "APPLY_0.9.82HK_CLEANUP.bat",
+    "DEEP_HEALTH_0.9.82HK.json",
+    "HISTORY_UPDATE_AUDIT_LOG_THROUGH_0.9.82HJ.txt",
+    "INCREMENTAL_MANIFEST_0.9.82HK.json",
+    "PACKAGE_VERIFY_0.9.82HK.json",
+    "TEST_REPORT_0.9.82HK_EQUIPMENT_ENCHANT_CURRENCY_UI.txt",
+    "UPDATE_FILES_0.9.82HK.txt"
+  ]
+}
+
+==================== FILE: PACKAGE_VERIFY_0.9.82HL.json ====================
+SIZE: 449 bytes
+SHA-256: 1f26873759e60b33579ee0c031dde663292e12829c692e57d6e0eadf0352c761
+
+{
+  "version": "0.9.82HL",
+  "baseVersion": "0.9.82HK",
+  "baseFiles": 7035,
+  "targetFiles": 7041,
+  "incrementalNew": 13,
+  "incrementalChanged": 12,
+  "cleanupPaths": 7,
+  "focusedChromiumChecks": 18,
+  "focusedChromiumFailed": 0,
+  "legacyHkChecks": 19,
+  "legacyHkFailed": 0,
+  "deepHealthErrors": 0,
+  "deepHealthWarnings": 0,
+  "pass": true,
+  "overlayFiles": 7041,
+  "cleanupRemoved": 7,
+  "missing": [],
+  "extra": [],
+  "mismatched": []
+}
+
+==================== FILE: TEST_REPORT_0.9.82HL_LEGACY_TOOLTIP_CURRENCY_HARDENING.txt ====================
+SIZE: 4701 bytes
+SHA-256: ec3a4c2ede698001d7142158d6bb7d658a3dc65fe07a65e14d271c5a2cb240df
+
+RO_WEB 0.9.82HL — 舊版 Tooltip／貨幣事件強化測試報告
+基準版本：0.9.82HK
+
+一、使用者回報與根因
+------------------------------------------------------------
+1. 背包中的紅色藥水等消耗品可顯示名稱，但裝備與一般道具沒有顯示。
+   - 消耗品舊程式本來就有原生 HTML title，因此即使自訂 Tooltip 失效仍會看到名稱。
+   - 裝備與一般道具沒有同等的原生 title 備援。
+   - 自訂 .game-tooltip 的 z-index 低於可被早期視窗管理器提高到 20000 以上的遊戲視窗，因此提示實際產生後仍可能被背包／裝備視窗蓋住。
+
+2. 點擊右上貨幣列仍未顯示完整 Zeny／寶石數量。
+   - HK 的新浮窗仍依賴早期 HUD 的 bubble click 路徑。
+   - 舊 click／拖曳／Tooltip handler 可攔截或立即重繪該事件，使浮窗沒有穩定開啟。
+
+二、0.9.82HL 修正
+------------------------------------------------------------
+- 消耗品、裝備、一般道具與穿戴中的裝備，全數同時寫入 data-tooltip 與原生 title。
+- 消耗品原生 title 保留完整物品內容，再追加快捷欄提示，不再只有簡短名稱。
+- .game-tooltip 提升至 z-index 2147483000，固定高於舊視窗管理器的動態層級。
+- Tooltip 綁定加入一次性 guard，避免重複初始化造成多組事件互相干擾。
+- 黯淡冰晶武器完整提示保留精煉、階級、卡片、第4／3／2洞附魔與卡片槽數。
+- 一般裝備詳細頁左鍵點擊附魔石查看正式圖片、名稱與效果的 HK 功能完整保留。
+- 貨幣列改由 document capture 階段監聽 pointerup 與 click，優先於舊 HUD bubble handler 執行。
+- 貨幣浮窗提升至 z-index 2147483000，完整顯示 Zeny、藍寶石與紅寶石。
+- 移除六秒自動收合；保持開啟直到按 ×、點擊外部或按 Escape。
+- 每個貨幣項目同步提供完整數字的 title 與 aria-label 備援。
+
+三、HL 專項 Chromium 測試
+------------------------------------------------------------
+測試程式：tools/test_hl_legacy_tooltip_currency_hardening.py
+結果：18／18 PASS
+
+涵蓋項目：
+- 消耗品、裝備、一般道具三類背包格均有原生 title。
+- 穿戴中的裝備格有原生 title。
+- 自訂 Tooltip 位於 z-index 26000 的舊遊戲視窗之上。
+- 紅色藥水 Tooltip 顯示正常。
+- 黯淡冰晶武器完整組合名稱 Tooltip 顯示正常。
+- 高密度乙太鈽鐳等一般道具 Tooltip 顯示正常。
+- 模擬舊 HUD click handler 使用 stopImmediatePropagation 後，capture pointerup 仍能開啟貨幣視窗。
+- Zeny 991,400,123、藍寶石 2,345,678、紅寶石 3,456,789 均完整顯示。
+- 貨幣浮窗維持開啟超過 6.2 秒。
+- 點擊外部可關閉。
+- 手機 touch pointerup 可開啟且不超出可視範圍。
+- 瀏覽器 Runtime error：0。
+
+預覽：
+- docs/previews/LEGACY_TOOLTIP_CURRENCY_0.9.82HL_desktop.png
+- docs/previews/LEGACY_TOOLTIP_CURRENCY_0.9.82HL_mobile.png
+
+注意：執行環境管理政策會阻擋 Chromium 導航 localhost（ERR_BLOCKED_BY_ADMINISTRATOR），因此未宣稱完成整站 localhost 導航測試；專項測試使用正式 HTML／CSS／JavaScript 與實際 Chromium 事件模型建立可重現介面。
+
+四、既有功能回歸
+------------------------------------------------------------
+- HK 裝備附魔／貨幣介面專項：19／19 PASS
+- HH 存活武器實例與第4洞解鎖：11／11 PASS
+- HJ 臨時出生補給已移除：5／5 PASS
+- HJ 地圖固定高度與內部滾輪：10／10 PASS
+- 裝備升階 Runtime：8／8 PASS
+- 裝備精煉 Runtime：8／8 PASS
+
+未計入失敗的過時測試：
+- test_hh_enchant_browser.py 仍要求 HJ 已正式移除的 .item-detail-dim-glacier-flow。
+- test_hj_player_formal_ui.py 仍要求 HK 之前的附魔提示文字格式。
+這兩項斷言已被較新的 HK／HL 專項測試取代，不代表現行功能退化。
+
+五、靜態與深度健康檢查
+------------------------------------------------------------
+- JavaScript 語法：761／761 通過。
+- JSON 解析：最終套件另於打包後逐份驗證，0 解析錯誤。
+- index.html cache query：僅 0.9.82HL。
+- RO_WEB_VERSION：0.9.82HL。
+- 深度健康檢查：0 錯誤／0 警告。
+- 怪物、掉落、精煉、升階、附魔成功率、材料需求及戰鬥公式：本版未修改。
+
+六、套件驗證
+------------------------------------------------------------
+- 0.9.82HK 套用 HL 增量檔並執行 cleanup 後，與 HL 完整工作樹逐檔 SHA-256 比對。
+- 缺失、額外與內容不一致項目均須為 0，結果記錄於 PACKAGE_VERIFY_0.9.82HL.json。
+- 增量包與完整包均執行 ZIP 完整性測試。
+
+==================== FILE: UPDATE_FILES_0.9.82HL.txt ====================
+SIZE: 1096 bytes
+SHA-256: 0bfc31cce7ed6cafa0a299426d0465581232ba2944ed1188d0f5514095b9c9fb
+
+RO_WEB 0.9.82HL incremental from 0.9.82HK
+
+NEW FILES
+APPLY_0.9.82HL_CLEANUP.bat
+DEEP_HEALTH_0.9.82HL.json
+HISTORY_UPDATE_AUDIT_LOG_THROUGH_0.9.82HK.txt
+INCREMENTAL_MANIFEST_0.9.82HL.json
+PACKAGE_VERIFY_0.9.82HL.json
+TEST_REPORT_0.9.82HL_LEGACY_TOOLTIP_CURRENCY_HARDENING.txt
+UPDATE_FILES_0.9.82HL.txt
+docs/previews/LEGACY_TOOLTIP_CURRENCY_0.9.82HL_desktop.png
+docs/previews/LEGACY_TOOLTIP_CURRENCY_0.9.82HL_mobile.png
+tools/DELETE_PATHS_0.9.82HL.txt
+tools/deep_health_check_0.9.82HL.py
+tools/test_hl_legacy_tooltip_currency_hardening.py
+tools/test_hl_legacy_tooltip_currency_hardening_report.json
+
+CHANGED FILES
+AI_START_HERE.md
+CHANGELOG.md
+README.md
+css/style.css
+index.html
+js/enchant_grade_runtime.js
+js/enchant_material_exchange_runtime.js
+js/enchant_platform_runtime.js
+js/game.js
+js/item_instance_ui.js
+js/player.js
+js/ui.js
+
+DELETED BY CLEANUP
+APPLY_0.9.82HK_CLEANUP.bat
+DEEP_HEALTH_0.9.82HK.json
+HISTORY_UPDATE_AUDIT_LOG_THROUGH_0.9.82HJ.txt
+INCREMENTAL_MANIFEST_0.9.82HK.json
+PACKAGE_VERIFY_0.9.82HK.json
+TEST_REPORT_0.9.82HK_EQUIPMENT_ENCHANT_CURRENCY_UI.txt
+UPDATE_FILES_0.9.82HK.txt

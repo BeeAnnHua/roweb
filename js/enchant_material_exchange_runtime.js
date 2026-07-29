@@ -1,10 +1,10 @@
 //=======================================
-// RO_WEB Enchant Material Exchange Runtime v0.9.82HL
+// RO_WEB Enchant Material Exchange Runtime v0.9.82HM
 // Formal EP19 recipes. Always browse all recipes; never filters by inventory.
 //=======================================
 (function(){
   "use strict";
-  const VERSION="0.9.82HL",DATA_KEY="data/enchant_material_exchange.json";
+  const VERSION="0.9.82HM",DATA_KEY="data/enchant_material_exchange.json";
   const state={groupId:"all",search:"",selectedRecipeId:null,quantity:1};
   function byId(id){return document.getElementById(id);}
   function n(v,f=0){const x=Number(v);return Number.isFinite(x)?x:f;}
