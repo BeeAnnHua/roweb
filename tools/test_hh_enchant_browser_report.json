@@ -1,0 +1,496 @@
+{
+  "version": "0.9.82HH",
+  "checks": [
+    {
+      "name": "platform opens at slot 4",
+      "pass": true,
+      "detail": {
+        "opened": true,
+        "state": {
+          "selectedKey": "inventory:hh-browser-weapon",
+          "activeTab": "enchant",
+          "currentSlot": 4,
+          "selectedStoneId": 311192,
+          "selectedUpgradeIndex": null,
+          "search": ""
+        },
+        "name": "黯淡冰晶長劍",
+        "stoneId": 311192
+      }
+    },
+    {
+      "name": "slot 4 written to live inventory instance",
+      "pass": true,
+      "detail": {
+        "weapon": {
+          "id": 500054,
+          "itemId": 500054,
+          "name": "黯淡冰晶長劍",
+          "count": 1,
+          "locked": false,
+          "instanceId": "hh-browser-weapon",
+          "identified": true,
+          "refine": 13,
+          "enchantGrade": 4,
+          "broken": false,
+          "cards": [
+            null,
+            null,
+            null,
+            null
+          ],
+          "enchants": [
+            {
+              "id": 311192,
+              "optionId": 311192,
+              "name": "雪花魔力（龍之氣息）",
+              "displayName": "雪花魔力（龍之氣息）",
+              "effect": "龍之氣息，龍之氣息-水傷害+20%。\n精煉每+3時，龍之氣息，龍之氣息-水傷害再+10%。\n精煉+9時，龍之氣息，龍之氣息-水傷害再+20%。\n精煉+11時，龍之氣息，龍之氣息-水傷害再+20%。",
+              "effectText": "龍之氣息，龍之氣息-水傷害+20%。\n精煉每+3時，龍之氣息，龍之氣息-水傷害再+10%。\n精煉+9時，龍之氣息，龍之氣息-水傷害再+20%。\n精煉+11時，龍之氣息，龍之氣息-水傷害再+20%。",
+              "aegisName": "Glacier_F_Orb_1",
+              "resource": "Glacier_F_Orb_1",
+              "slot": 4,
+              "playerSlot": 4,
+              "createdAt": 1785300585171,
+              "order": 0
+            }
+          ],
+          "createdAt": 1
+        },
+        "enchant": {
+          "id": 311192,
+          "optionId": 311192,
+          "name": "雪花魔力（龍之氣息）",
+          "displayName": "雪花魔力（龍之氣息）",
+          "effect": "龍之氣息，龍之氣息-水傷害+20%。\n精煉每+3時，龍之氣息，龍之氣息-水傷害再+10%。\n精煉+9時，龍之氣息，龍之氣息-水傷害再+20%。\n精煉+11時，龍之氣息，龍之氣息-水傷害再+20%。",
+          "effectText": "龍之氣息，龍之氣息-水傷害+20%。\n精煉每+3時，龍之氣息，龍之氣息-水傷害再+10%。\n精煉+9時，龍之氣息，龍之氣息-水傷害再+20%。\n精煉+11時，龍之氣息，龍之氣息-水傷害再+20%。",
+          "aegisName": "Glacier_F_Orb_1",
+          "resource": "Glacier_F_Orb_1",
+          "slot": 4,
+          "playerSlot": 4,
+          "createdAt": 1785300585171,
+          "order": 0
+        },
+        "state": {
+          "selectedKey": "inventory:hh-browser-weapon",
+          "activeTab": "enchant",
+          "currentSlot": 3,
+          "selectedStoneId": null,
+          "selectedUpgradeIndex": null,
+          "search": ""
+        },
+        "message": "第4洞完成，已解鎖第3洞。",
+        "slot4Text": "4\n雪花魔力（龍之氣息）",
+        "slot4Img": "images/items/311192.webp?v=0.9.82HH",
+        "slot3Class": "enchant-visual-slot slot-3 is-active",
+        "name": "+13 [A] 黯淡冰晶長劍 [1]",
+        "saveCount": 1
+      }
+    },
+    {
+      "name": "slot 3 unlocks immediately",
+      "pass": true,
+      "detail": {
+        "weapon": {
+          "id": 500054,
+          "itemId": 500054,
+          "name": "黯淡冰晶長劍",
+          "count": 1,
+          "locked": false,
+          "instanceId": "hh-browser-weapon",
+          "identified": true,
+          "refine": 13,
+          "enchantGrade": 4,
+          "broken": false,
+          "cards": [
+            null,
+            null,
+            null,
+            null
+          ],
+          "enchants": [
+            {
+              "id": 311192,
+              "optionId": 311192,
+              "name": "雪花魔力（龍之氣息）",
+              "displayName": "雪花魔力（龍之氣息）",
+              "effect": "龍之氣息，龍之氣息-水傷害+20%。\n精煉每+3時，龍之氣息，龍之氣息-水傷害再+10%。\n精煉+9時，龍之氣息，龍之氣息-水傷害再+20%。\n精煉+11時，龍之氣息，龍之氣息-水傷害再+20%。",
+              "effectText": "龍之氣息，龍之氣息-水傷害+20%。\n精煉每+3時，龍之氣息，龍之氣息-水傷害再+10%。\n精煉+9時，龍之氣息，龍之氣息-水傷害再+20%。\n精煉+11時，龍之氣息，龍之氣息-水傷害再+20%。",
+              "aegisName": "Glacier_F_Orb_1",
+              "resource": "Glacier_F_Orb_1",
+              "slot": 4,
+              "playerSlot": 4,
+              "createdAt": 1785300585171,
+              "order": 0
+            }
+          ],
+          "createdAt": 1
+        },
+        "enchant": {
+          "id": 311192,
+          "optionId": 311192,
+          "name": "雪花魔力（龍之氣息）",
+          "displayName": "雪花魔力（龍之氣息）",
+          "effect": "龍之氣息，龍之氣息-水傷害+20%。\n精煉每+3時，龍之氣息，龍之氣息-水傷害再+10%。\n精煉+9時，龍之氣息，龍之氣息-水傷害再+20%。\n精煉+11時，龍之氣息，龍之氣息-水傷害再+20%。",
+          "effectText": "龍之氣息，龍之氣息-水傷害+20%。\n精煉每+3時，龍之氣息，龍之氣息-水傷害再+10%。\n精煉+9時，龍之氣息，龍之氣息-水傷害再+20%。\n精煉+11時，龍之氣息，龍之氣息-水傷害再+20%。",
+          "aegisName": "Glacier_F_Orb_1",
+          "resource": "Glacier_F_Orb_1",
+          "slot": 4,
+          "playerSlot": 4,
+          "createdAt": 1785300585171,
+          "order": 0
+        },
+        "state": {
+          "selectedKey": "inventory:hh-browser-weapon",
+          "activeTab": "enchant",
+          "currentSlot": 3,
+          "selectedStoneId": null,
+          "selectedUpgradeIndex": null,
+          "search": ""
+        },
+        "message": "第4洞完成，已解鎖第3洞。",
+        "slot4Text": "4\n雪花魔力（龍之氣息）",
+        "slot4Img": "images/items/311192.webp?v=0.9.82HH",
+        "slot3Class": "enchant-visual-slot slot-3 is-active",
+        "name": "+13 [A] 黯淡冰晶長劍 [1]",
+        "saveCount": 1
+      }
+    },
+    {
+      "name": "slot 4 image and name render",
+      "pass": true,
+      "detail": {
+        "weapon": {
+          "id": 500054,
+          "itemId": 500054,
+          "name": "黯淡冰晶長劍",
+          "count": 1,
+          "locked": false,
+          "instanceId": "hh-browser-weapon",
+          "identified": true,
+          "refine": 13,
+          "enchantGrade": 4,
+          "broken": false,
+          "cards": [
+            null,
+            null,
+            null,
+            null
+          ],
+          "enchants": [
+            {
+              "id": 311192,
+              "optionId": 311192,
+              "name": "雪花魔力（龍之氣息）",
+              "displayName": "雪花魔力（龍之氣息）",
+              "effect": "龍之氣息，龍之氣息-水傷害+20%。\n精煉每+3時，龍之氣息，龍之氣息-水傷害再+10%。\n精煉+9時，龍之氣息，龍之氣息-水傷害再+20%。\n精煉+11時，龍之氣息，龍之氣息-水傷害再+20%。",
+              "effectText": "龍之氣息，龍之氣息-水傷害+20%。\n精煉每+3時，龍之氣息，龍之氣息-水傷害再+10%。\n精煉+9時，龍之氣息，龍之氣息-水傷害再+20%。\n精煉+11時，龍之氣息，龍之氣息-水傷害再+20%。",
+              "aegisName": "Glacier_F_Orb_1",
+              "resource": "Glacier_F_Orb_1",
+              "slot": 4,
+              "playerSlot": 4,
+              "createdAt": 1785300585171,
+              "order": 0
+            }
+          ],
+          "createdAt": 1
+        },
+        "enchant": {
+          "id": 311192,
+          "optionId": 311192,
+          "name": "雪花魔力（龍之氣息）",
+          "displayName": "雪花魔力（龍之氣息）",
+          "effect": "龍之氣息，龍之氣息-水傷害+20%。\n精煉每+3時，龍之氣息，龍之氣息-水傷害再+10%。\n精煉+9時，龍之氣息，龍之氣息-水傷害再+20%。\n精煉+11時，龍之氣息，龍之氣息-水傷害再+20%。",
+          "effectText": "龍之氣息，龍之氣息-水傷害+20%。\n精煉每+3時，龍之氣息，龍之氣息-水傷害再+10%。\n精煉+9時，龍之氣息，龍之氣息-水傷害再+20%。\n精煉+11時，龍之氣息，龍之氣息-水傷害再+20%。",
+          "aegisName": "Glacier_F_Orb_1",
+          "resource": "Glacier_F_Orb_1",
+          "slot": 4,
+          "playerSlot": 4,
+          "createdAt": 1785300585171,
+          "order": 0
+        },
+        "state": {
+          "selectedKey": "inventory:hh-browser-weapon",
+          "activeTab": "enchant",
+          "currentSlot": 3,
+          "selectedStoneId": null,
+          "selectedUpgradeIndex": null,
+          "search": ""
+        },
+        "message": "第4洞完成，已解鎖第3洞。",
+        "slot4Text": "4\n雪花魔力（龍之氣息）",
+        "slot4Img": "images/items/311192.webp?v=0.9.82HH",
+        "slot3Class": "enchant-visual-slot slot-3 is-active",
+        "name": "+13 [A] 黯淡冰晶長劍 [1]",
+        "saveCount": 1
+      }
+    },
+    {
+      "name": "success is saved and message reports slot 3",
+      "pass": true,
+      "detail": {
+        "weapon": {
+          "id": 500054,
+          "itemId": 500054,
+          "name": "黯淡冰晶長劍",
+          "count": 1,
+          "locked": false,
+          "instanceId": "hh-browser-weapon",
+          "identified": true,
+          "refine": 13,
+          "enchantGrade": 4,
+          "broken": false,
+          "cards": [
+            null,
+            null,
+            null,
+            null
+          ],
+          "enchants": [
+            {
+              "id": 311192,
+              "optionId": 311192,
+              "name": "雪花魔力（龍之氣息）",
+              "displayName": "雪花魔力（龍之氣息）",
+              "effect": "龍之氣息，龍之氣息-水傷害+20%。\n精煉每+3時，龍之氣息，龍之氣息-水傷害再+10%。\n精煉+9時，龍之氣息，龍之氣息-水傷害再+20%。\n精煉+11時，龍之氣息，龍之氣息-水傷害再+20%。",
+              "effectText": "龍之氣息，龍之氣息-水傷害+20%。\n精煉每+3時，龍之氣息，龍之氣息-水傷害再+10%。\n精煉+9時，龍之氣息，龍之氣息-水傷害再+20%。\n精煉+11時，龍之氣息，龍之氣息-水傷害再+20%。",
+              "aegisName": "Glacier_F_Orb_1",
+              "resource": "Glacier_F_Orb_1",
+              "slot": 4,
+              "playerSlot": 4,
+              "createdAt": 1785300585171,
+              "order": 0
+            }
+          ],
+          "createdAt": 1
+        },
+        "enchant": {
+          "id": 311192,
+          "optionId": 311192,
+          "name": "雪花魔力（龍之氣息）",
+          "displayName": "雪花魔力（龍之氣息）",
+          "effect": "龍之氣息，龍之氣息-水傷害+20%。\n精煉每+3時，龍之氣息，龍之氣息-水傷害再+10%。\n精煉+9時，龍之氣息，龍之氣息-水傷害再+20%。\n精煉+11時，龍之氣息，龍之氣息-水傷害再+20%。",
+          "effectText": "龍之氣息，龍之氣息-水傷害+20%。\n精煉每+3時，龍之氣息，龍之氣息-水傷害再+10%。\n精煉+9時，龍之氣息，龍之氣息-水傷害再+20%。\n精煉+11時，龍之氣息，龍之氣息-水傷害再+20%。",
+          "aegisName": "Glacier_F_Orb_1",
+          "resource": "Glacier_F_Orb_1",
+          "slot": 4,
+          "playerSlot": 4,
+          "createdAt": 1785300585171,
+          "order": 0
+        },
+        "state": {
+          "selectedKey": "inventory:hh-browser-weapon",
+          "activeTab": "enchant",
+          "currentSlot": 3,
+          "selectedStoneId": null,
+          "selectedUpgradeIndex": null,
+          "search": ""
+        },
+        "message": "第4洞完成，已解鎖第3洞。",
+        "slot4Text": "4\n雪花魔力（龍之氣息）",
+        "slot4Img": "images/items/311192.webp?v=0.9.82HH",
+        "slot3Class": "enchant-visual-slot slot-3 is-active",
+        "name": "+13 [A] 黯淡冰晶長劍 [1]",
+        "saveCount": 1
+      }
+    },
+    {
+      "name": "platform/item name uses +refine [grade] name [slot]",
+      "pass": true,
+      "detail": "+13 [A] 黯淡冰晶長劍 [1]"
+    },
+    {
+      "name": "detail title uses standard format",
+      "pass": true,
+      "detail": "+13 [A] 黯淡冰晶長劍 [1]"
+    },
+    {
+      "name": "detail shows grade/card slot metadata",
+      "pass": true,
+      "detail": "+13 [A] 黯淡冰晶長劍 [1]\n類型：武器\nATK：220\nMATK：210\n武器等級：5\n精煉：+13\n裝備階級：[A]｜卡片插槽：[1]"
+    },
+    {
+      "name": "detail explains 4 -> 3 -> 2 order",
+      "pass": true,
+      "detail": "洞位用途：第1洞為卡片；附魔依第4洞 → 第3洞 → 第2洞進行。"
+    },
+    {
+      "name": "detail explicitly labels 第1洞｜卡片",
+      "pass": true,
+      "detail": [
+        {
+          "className": "item-detail-dim-slot slot-1 empty",
+          "text": "1\n第1洞｜卡片\n◇\n尚未插卡",
+          "img": ""
+        },
+        {
+          "className": "item-detail-dim-slot slot-4 filled",
+          "text": "4\n第4洞｜附魔\n雪花魔力（龍之氣息）",
+          "img": "images/items/311192.webp"
+        },
+        {
+          "className": "item-detail-dim-slot slot-2 empty",
+          "text": "2\n第2洞｜附魔\n◇\n尚未附魔",
+          "img": ""
+        },
+        {
+          "className": "item-detail-dim-slot slot-3 empty",
+          "text": "3\n第3洞｜附魔\n◇\n尚未附魔",
+          "img": ""
+        }
+      ]
+    },
+    {
+      "name": "detail explicitly labels 第4洞｜附魔",
+      "pass": true,
+      "detail": [
+        {
+          "className": "item-detail-dim-slot slot-1 empty",
+          "text": "1\n第1洞｜卡片\n◇\n尚未插卡",
+          "img": ""
+        },
+        {
+          "className": "item-detail-dim-slot slot-4 filled",
+          "text": "4\n第4洞｜附魔\n雪花魔力（龍之氣息）",
+          "img": "images/items/311192.webp"
+        },
+        {
+          "className": "item-detail-dim-slot slot-2 empty",
+          "text": "2\n第2洞｜附魔\n◇\n尚未附魔",
+          "img": ""
+        },
+        {
+          "className": "item-detail-dim-slot slot-3 empty",
+          "text": "3\n第3洞｜附魔\n◇\n尚未附魔",
+          "img": ""
+        }
+      ]
+    },
+    {
+      "name": "detail explicitly labels 第2洞｜附魔",
+      "pass": true,
+      "detail": [
+        {
+          "className": "item-detail-dim-slot slot-1 empty",
+          "text": "1\n第1洞｜卡片\n◇\n尚未插卡",
+          "img": ""
+        },
+        {
+          "className": "item-detail-dim-slot slot-4 filled",
+          "text": "4\n第4洞｜附魔\n雪花魔力（龍之氣息）",
+          "img": "images/items/311192.webp"
+        },
+        {
+          "className": "item-detail-dim-slot slot-2 empty",
+          "text": "2\n第2洞｜附魔\n◇\n尚未附魔",
+          "img": ""
+        },
+        {
+          "className": "item-detail-dim-slot slot-3 empty",
+          "text": "3\n第3洞｜附魔\n◇\n尚未附魔",
+          "img": ""
+        }
+      ]
+    },
+    {
+      "name": "detail explicitly labels 第3洞｜附魔",
+      "pass": true,
+      "detail": [
+        {
+          "className": "item-detail-dim-slot slot-1 empty",
+          "text": "1\n第1洞｜卡片\n◇\n尚未插卡",
+          "img": ""
+        },
+        {
+          "className": "item-detail-dim-slot slot-4 filled",
+          "text": "4\n第4洞｜附魔\n雪花魔力（龍之氣息）",
+          "img": "images/items/311192.webp"
+        },
+        {
+          "className": "item-detail-dim-slot slot-2 empty",
+          "text": "2\n第2洞｜附魔\n◇\n尚未附魔",
+          "img": ""
+        },
+        {
+          "className": "item-detail-dim-slot slot-3 empty",
+          "text": "3\n第3洞｜附魔\n◇\n尚未附魔",
+          "img": ""
+        }
+      ]
+    },
+    {
+      "name": "detail slot 4 shows image and enchant name",
+      "pass": true,
+      "detail": [
+        {
+          "className": "item-detail-dim-slot slot-1 empty",
+          "text": "1\n第1洞｜卡片\n◇\n尚未插卡",
+          "img": ""
+        },
+        {
+          "className": "item-detail-dim-slot slot-4 filled",
+          "text": "4\n第4洞｜附魔\n雪花魔力（龍之氣息）",
+          "img": "images/items/311192.webp"
+        },
+        {
+          "className": "item-detail-dim-slot slot-2 empty",
+          "text": "2\n第2洞｜附魔\n◇\n尚未附魔",
+          "img": ""
+        },
+        {
+          "className": "item-detail-dim-slot slot-3 empty",
+          "text": "3\n第3洞｜附魔\n◇\n尚未附魔",
+          "img": ""
+        }
+      ]
+    },
+    {
+      "name": "click slot 4 opens full image/name/description",
+      "pass": true,
+      "detail": {
+        "hidden": false,
+        "title": "雪花魔力（龍之氣息）",
+        "desc": "龍之氣息，龍之氣息-水傷害+20%。\n精煉每+3時，龍之氣息，龍之氣息-水傷害再+10%。\n精煉+9時，龍之氣息，龍之氣息-水傷害再+20%。\n精煉+11時，龍之氣息，龍之氣息-水傷害再+20%。",
+        "icon": "images/items/311192.webp?v=0.9.82HH"
+      }
+    },
+    {
+      "name": "mobile detail retains four explicit slots",
+      "pass": true,
+      "detail": {
+        "title": "+13 [A] 黯淡冰晶長劍 [1]",
+        "slots": 4,
+        "labels": [
+          "第1洞｜卡片",
+          "第4洞｜附魔",
+          "第2洞｜附魔",
+          "第3洞｜附魔"
+        ],
+        "pageOverflow": 0
+      }
+    },
+    {
+      "name": "mobile detail has no page horizontal overflow",
+      "pass": true,
+      "detail": {
+        "title": "+13 [A] 黯淡冰晶長劍 [1]",
+        "slots": 4,
+        "labels": [
+          "第1洞｜卡片",
+          "第4洞｜附魔",
+          "第2洞｜附魔",
+          "第3洞｜附魔"
+        ],
+        "pageOverflow": 0
+      }
+    },
+    {
+      "name": "Chromium DOM test has no errors",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "passed": 18,
+  "failed": 0,
+  "errors": []
+}

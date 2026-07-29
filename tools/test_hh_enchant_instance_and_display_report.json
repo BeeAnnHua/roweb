@@ -1,0 +1,81 @@
+{
+  "version": "0.9.82HH",
+  "passed": 11,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "platform opens",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "global instance normalization only once on open",
+      "pass": true,
+      "detail": 1
+    },
+    {
+      "name": "slot 4 written to live inventory instance",
+      "pass": true,
+      "detail": {
+        "id": 311192,
+        "optionId": 311192,
+        "name": "雪花魔力（龍之氣息）",
+        "displayName": "雪花魔力（龍之氣息）",
+        "effect": "龍之氣息，龍之氣息-水傷害+20%。\n精煉每+3時，龍之氣息，龍之氣息-水傷害再+10%。\n精煉+9時，龍之氣息，龍之氣息-水傷害再+20%。\n精煉+11時，龍之氣息，龍之氣息-水傷害再+20%。",
+        "effectText": "龍之氣息，龍之氣息-水傷害+20%。\n精煉每+3時，龍之氣息，龍之氣息-水傷害再+10%。\n精煉+9時，龍之氣息，龍之氣息-水傷害再+20%。\n精煉+11時，龍之氣息，龍之氣息-水傷害再+20%。",
+        "aegisName": "Glacier_F_Orb_1",
+        "resource": "Glacier_F_Orb_1",
+        "slot": 4,
+        "playerSlot": 4,
+        "createdAt": 1785300583774
+      }
+    },
+    {
+      "name": "slot 3 unlocked after slot 4",
+      "pass": true,
+      "detail": {
+        "selectedKey": "inventory:hh_weapon_1",
+        "activeTab": "enchant",
+        "currentSlot": 3,
+        "selectedStoneId": null,
+        "selectedUpgradeIndex": null,
+        "search": ""
+      }
+    },
+    {
+      "name": "normalizer not rerun during render/select/execute",
+      "pass": true,
+      "detail": 1
+    },
+    {
+      "name": "platform display name order",
+      "pass": true,
+      "detail": "+13 [A] 黯淡冰晶長劍 [1]"
+    },
+    {
+      "name": "material 1001034 consumed exactly",
+      "pass": true,
+      "detail": 50
+    },
+    {
+      "name": "material 1001035 consumed exactly",
+      "pass": true,
+      "detail": 50
+    },
+    {
+      "name": "material 1001036 consumed exactly",
+      "pass": true,
+      "detail": 50
+    },
+    {
+      "name": "Dim Glacier title is +refine [grade] name [card slots]",
+      "pass": true,
+      "detail": "+13 [A] 黯淡冰晶長劍 [1]"
+    },
+    {
+      "name": "Dim Glacier title does not concatenate card/enchant prefixes",
+      "pass": true,
+      "detail": "+13 [A] 黯淡冰晶長劍 [1]"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 //=======================================
-// ItemInstanceUI v0.9.82GU
+// ItemInstanceUI v0.9.82HH
 // RO client-style equipment names, item/card detail modal, and instance-safe equip flow.
 //=======================================
 (function () {
@@ -217,12 +217,21 @@
     return Math.max(0, Math.min(4, Math.floor(Number(itemData?.slotCount ?? itemData?.slots ?? itemData?.Slots ?? 0) || 0)));
   }
 
+  const EQUIPMENT_GRADE_LABELS = ['無階', 'D', 'C', 'B', 'A'];
+  function getEquipmentGradeLabel(instance) {
+    const index = Math.max(0, Math.min(4, Math.floor(Number(instance?.enchantGrade ?? instance?.grade ?? 0) || 0)));
+    return EQUIPMENT_GRADE_LABELS[index] || '無階';
+  }
+
   function buildEquipmentInstanceName(instanceOrId, itemData = null) {
     const data = itemData || getBaseItemData(instanceOrId);
     if (!data) return String(baseItemId(instanceOrId) || '未知道具');
     const instance = normalizeEquipmentInstance(instanceOrId, data);
-    const tables = getDisplayTables();
     const slotCount = getEquipmentSlotCount(data);
+    if (isDimGlacierEnchantWeapon(data)) {
+      return `+${Number(instance.refine || 0)} [${getEquipmentGradeLabel(instance)}] ${data.name} [${slotCount}]`.replace(/\s+/g, ' ').trim();
+    }
+    const tables = getDisplayTables();
     const nativeCards = instance.cards.slice(0, slotCount).filter(Boolean).map(id => String(baseItemId(id)));
     const groups = [];
     for (const id of nativeCards) {
@@ -469,6 +478,7 @@
     rows.forEach(row=>{
       const button=document.createElement('button');button.type='button';button.className=`item-detail-dim-slot slot-${row.slot} ${row.content?'filled':'empty'}`;
       const number=document.createElement('b');number.textContent=String(row.slot);button.appendChild(number);
+      const kind=document.createElement('small');kind.className='item-detail-dim-slot-kind';kind.textContent=row.label;button.appendChild(kind);
       if(row.content){
         const img=document.createElement('img');img.src=row.content.icon||`images/items/${row.content.id}.webp`;img.alt=row.content.name;button.appendChild(img);
         const text=document.createElement('span');text.textContent=row.content.name;button.appendChild(text);button.dataset.tooltip=`${row.label}：${row.content.name}`;
@@ -478,7 +488,7 @@
         });
       }else{
         const mark=document.createElement('span');mark.className='socket-hole-mark';mark.textContent='◇';button.appendChild(mark);
-        const text=document.createElement('small');text.textContent=row.label;button.appendChild(text);button.disabled=true;
+        const text=document.createElement('span');text.textContent=row.slot===1?'尚未插卡':'尚未附魔';button.appendChild(text);button.disabled=true;
       }
       grid.appendChild(button);
     });
@@ -516,6 +526,7 @@
     if (Number(data.mdef || data.MagicDefense || 0)) appendTextLine(summary, `MDEF：${Number(data.mdef || data.MagicDefense)}`, 'item-detail-meta');
     if (Number(data.weaponLevel || data.WeaponLevel || 0)) appendTextLine(summary, `武器等級：${Number(data.weaponLevel || data.WeaponLevel)}`, 'item-detail-meta');
     if (isEquipmentData(data)) appendTextLine(summary, `精煉：+${Number(instance.refine || 0)}${instance.broken ? '（已損壞）' : ''}`, 'item-detail-meta');
+    if (isEquipmentData(data) && isDimGlacierEnchantWeapon(data)) appendTextLine(summary, `裝備階級：[${getEquipmentGradeLabel(instance)}]｜卡片插槽：[${getEquipmentSlotCount(data)}]`, 'item-detail-meta');
     top.appendChild(summary);
     body.appendChild(top);
 
@@ -527,6 +538,7 @@
 
     if (isEquipmentData(data)) {
       if (isDimGlacierEnchantWeapon(data)) {
+        const flow=document.createElement('div');flow.className='item-detail-dim-glacier-flow';flow.textContent='洞位用途：第1洞為卡片；附魔依第4洞 → 第3洞 → 第2洞進行。';body.appendChild(flow);
         renderDimGlacierSlotGrid(body, instance);
       } else {
         const slotCount = getEquipmentSlotCount(data);

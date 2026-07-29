@@ -1,11 +1,11 @@
 //=======================================
-// RO_WEB Shared Enchant Platform Runtime v0.9.82GY
+// RO_WEB Shared Enchant Platform Runtime v0.9.82HH
 // Formal Dim Glacier weapon enchant: slot 4 -> 3 -> 2, upgrade and reset.
 //=======================================
 (function(){
   "use strict";
 
-  const VERSION="0.9.82GY";
+  const VERSION="0.9.82HH";
   const DATA_KEY="data/dim_glacier_enchant.json";
   const SLOT_ORDER=[4,3,2];
   const GRADE_LABELS=["無階","D","C","B","A"];
@@ -44,12 +44,18 @@
     return target;
   }
 
+  function prepareEquipmentInstances(){
+    // Legacy saves may still contain stacked/plain equipment rows. Normalize only
+    // when the platform opens. Re-running the global normalizer during every
+    // render replaces all equipment objects and can invalidate a live transaction.
+    if(typeof window.normalizeAllItemInstances==="function")window.normalizeAllItemInstances();
+  }
+
   function eligibleEquipment(){
     const ids=targetIds(),rows=[];
-    if(typeof window.normalizeAllItemInstances==="function")window.normalizeAllItemInstances();
     (window.player?.inventory||[]).forEach((raw,index)=>{
       if(!ids.has(Number(raw?.id)))return;
-      let instance=normalizeInstanceInPlace(raw);
+      const instance=normalizeInstanceInPlace(raw);
       if(instance!==raw)window.player.inventory[index]=instance;
       rows.push({key:`inventory:${instance.instanceId}`,source:"inventory",sourceLabel:"背包",index,instance,item:itemData(instance.id)});
     });
@@ -58,10 +64,33 @@
       window.player.equipmentInstances=window.player.equipmentInstances||{};
       let instance=window.player.equipmentInstances[slot];
       if(!instance){instance=normalizeInstanceInPlace({id});window.player.equipmentInstances[slot]=instance;}
-      else {instance=normalizeInstanceInPlace(instance);window.player.equipmentInstances[slot]=instance;}
+      else instance=normalizeInstanceInPlace(instance);
       rows.push({key:`equipment:${slot}`,source:"equipment",sourceLabel:"穿戴中",slot,instance,item:itemData(instance.id)});
     }
     return rows;
+  }
+
+  function resolveLiveEntry(key=state.selectedKey){
+    if(!key)return null;
+    const raw=String(key);
+    if(raw.startsWith("inventory:")){
+      const instanceId=raw.slice("inventory:".length);
+      const index=(window.player?.inventory||[]).findIndex(row=>String(row?.instanceId||"")===instanceId);
+      if(index<0)return null;
+      const instance=normalizeInstanceInPlace(window.player.inventory[index]);
+      return {key:raw,source:"inventory",sourceLabel:"背包",index,instance,item:itemData(instance.id)};
+    }
+    if(raw.startsWith("equipment:")){
+      const slot=raw.slice("equipment:".length);
+      const id=window.player?.equipment?.[slot];
+      if(!id||!targetIds().has(Number(id)))return null;
+      window.player.equipmentInstances=window.player.equipmentInstances||{};
+      let instance=window.player.equipmentInstances[slot];
+      if(!instance){instance=normalizeInstanceInPlace({id});window.player.equipmentInstances[slot]=instance;}
+      else instance=normalizeInstanceInPlace(instance);
+      return {key:raw,source:"equipment",sourceLabel:"穿戴中",slot,instance,item:itemData(instance.id)};
+    }
+    return null;
   }
 
   function selectedEntry(){
@@ -109,6 +138,7 @@
   function openEnchantPlatform(npc){
     const host=byId("enchantPlatformWindow");if(!host||!catalog())return false;
     state.activeTab="enchant";state.selectedStoneId=null;state.selectedUpgradeIndex=null;state.search="";
+    prepareEquipmentInstances();
     const rows=eligibleEquipment();state.selectedKey=rows[0]?.key||null;syncCurrentSlot();
     const npcName=byId("enchantPlatformNpcName"),search=byId("enchantPlatformStoneSearch");
     if(npcName)npcName.textContent=npc?.name||"斐揚附魔研究員";if(search)search.value="";
@@ -129,36 +159,48 @@
 
   function executeEnchantPlatformAction(){
     const entry=selectedEntry();if(!entry){setMessage("沒有可操作的黯淡冰晶武器。");return;}
+    const selectedKey=entry.key;
     const snap=snapshot();
     try{
       if(state.activeTab==="enchant"){
         syncCurrentSlot();const stone=selectedStone();if(!state.currentSlot||!stone)throw new Error("請先選擇目前洞位的附魔石。");
         if(!materialEnough(stone.materials)||!zenyEnough(stone.zeny))throw new Error("材料或 Zeny 不足。");
         if(!window.confirm?.(`確定要在第${state.currentSlot}洞附魔「${stone.name}」嗎？`))return;
-        consumeMaterials(stone.materials);window.player.zeny=n(window.player.zeny)-n(stone.zeny);applyEnchantRow(entry.instance,state.currentSlot,stone);
-        const doneSlot=state.currentSlot;state.selectedStoneId=null;syncCurrentSlot();commitUpdates(`${entry.item?.name||entry.instance.name} 第${doneSlot}洞已附魔：${stone.name}`);renderAll();setMessage(state.currentSlot?`第${doneSlot}洞完成，已解鎖第${state.currentSlot}洞。`:`第4、3、2洞全部完成，可進行升階或重置。`);return;
+        const doneSlot=state.currentSlot;
+        consumeMaterials(stone.materials);window.player.zeny=n(window.player.zeny)-n(stone.zeny);
+        const live=resolveLiveEntry(selectedKey);if(!live)throw new Error("附魔武器已移動或不存在，材料未消耗。");
+        applyEnchantRow(live.instance,doneSlot,stone);
+        const written=enchantAt(live.instance,doneSlot);if(!written||Number(written.id)!==Number(stone.id))throw new Error("附魔資料寫入失敗，材料未消耗。");
+        state.selectedStoneId=null;state.selectedKey=live.key;syncCurrentSlot();commitUpdates(`${live.item?.name||live.instance.name} 第${doneSlot}洞已附魔：${stone.name}`);renderAll();setMessage(state.currentSlot?`第${doneSlot}洞完成，已解鎖第${state.currentSlot}洞。`:`第4、3、2洞全部完成，可進行升階或重置。`);return;
       }
       if(state.activeTab==="upgrade"){
         const step=selectedUpgrade();if(!step)throw new Error("目前第2洞沒有可升階的物理／魔法等級附魔。");
         if(!materialEnough(step.materials)||!zenyEnough(step.zeny))throw new Error("升階材料或 Zeny 不足。");
         if(!window.confirm?.(`確定升階「${step.from.name}」→「${step.to.name}」嗎？`))return;
-        consumeMaterials(step.materials);window.player.zeny=n(window.player.zeny)-n(step.zeny);applyEnchantRow(entry.instance,2,step.to);
-        commitUpdates(`${entry.item?.name||entry.instance.name} 第2洞升階完成：${step.to.name}`);renderAll();setMessage(`升階成功：${step.to.name}`);return;
+        consumeMaterials(step.materials);window.player.zeny=n(window.player.zeny)-n(step.zeny);
+        const live=resolveLiveEntry(selectedKey);if(!live)throw new Error("升階武器已移動或不存在，材料未消耗。");
+        applyEnchantRow(live.instance,2,step.to);
+        const written=enchantAt(live.instance,2);if(!written||Number(written.id)!==Number(step.to.id))throw new Error("升階資料寫入失敗，材料未消耗。");
+        state.selectedKey=live.key;commitUpdates(`${live.item?.name||live.instance.name} 第2洞升階完成：${step.to.name}`);renderAll();setMessage(`升階成功：${step.to.name}`);return;
       }
       const reset=catalog()?.reset||{};const current=(entry.instance.enchants||[]).filter(x=>SLOT_ORDER.includes(Number(x?.slot??x?.playerSlot)));
       if(!current.length)throw new Error("這件武器沒有可重置的附魔。");
       if(!materialEnough(reset.materials)||!zenyEnough(reset.zeny))throw new Error("重置材料或 Zeny 不足。");
       if(!window.confirm?.("確定消耗雪花魔力原石 ×5，重置第4、3、2洞全部附魔嗎？第1洞卡片會保留。"))return;
-      consumeMaterials(reset.materials);window.player.zeny=n(window.player.zeny)-n(reset.zeny);entry.instance.enchants=(entry.instance.enchants||[]).filter(x=>!SLOT_ORDER.includes(Number(x?.slot??x?.playerSlot)));
-      state.selectedStoneId=null;syncCurrentSlot();commitUpdates(`${entry.item?.name||entry.instance.name} 的第4、3、2洞附魔已全部重置。`);renderAll();setMessage("重置完成：第1洞卡片保留，第4、3、2洞恢復空白。");
+      consumeMaterials(reset.materials);window.player.zeny=n(window.player.zeny)-n(reset.zeny);
+      const live=resolveLiveEntry(selectedKey);if(!live)throw new Error("重置武器已移動或不存在，材料未消耗。");
+      live.instance.enchants=(live.instance.enchants||[]).filter(x=>!SLOT_ORDER.includes(Number(x?.slot??x?.playerSlot)));
+      if((live.instance.enchants||[]).some(x=>SLOT_ORDER.includes(Number(x?.slot??x?.playerSlot))))throw new Error("附魔重置失敗，材料未消耗。");
+      state.selectedStoneId=null;state.selectedKey=live.key;syncCurrentSlot();commitUpdates(`${live.item?.name||live.instance.name} 的第4、3、2洞附魔已全部重置。`);renderAll();setMessage("重置完成：第1洞卡片保留，第4、3、2洞恢復空白。");
     }catch(error){restore(snap);renderAll();setMessage(`執行失敗：${error?.message||error}`);window.addBattleLog?.(`附魔平台：${error?.message||error}`);}
   }
 
   function renderAll(){syncCurrentSlot();renderEquipmentList();renderCenterPanel();renderStonePanel();renderCostPanel();}
-  function renderEquipmentList(){const host=byId("enchantPlatformEquipmentList");if(!host)return;const rows=eligibleEquipment();host.innerHTML=rows.length?rows.map(row=>{const inst=row.instance;const refine=n(inst.refine);return `<button type="button" class="enchant-preview-equipment${row.key===state.selectedKey?" is-active":""}" onclick="selectEnchantEquipment('${escapeHtml(row.key)}')"><img src="${iconPath(inst.id)}" alt="${escapeHtml(row.item?.name||inst.name)}"><span><b>${refine?`+${refine} `:""}${escapeHtml(row.item?.name||inst.name)} [${gradeLabel(inst)}]</b><small>${row.sourceLabel}｜${escapeHtml(row.item?.weaponType||row.item?.subCategory||"武器")}</small></span></button>`;}).join(""):`<div class="enchant-preview-empty"><b>沒有可附魔武器</b><span>只會列出背包或穿戴中的 26 種黯淡冰晶武器。</span></div>`;}
+  function weaponDisplayName(instance,item){const refine=`+${n(instance?.refine)}`;const grade=`[${gradeLabel(instance)}]`;const name=item?.name||instance?.name||`武器 ${instance?.id||""}`;const slots=Math.max(0,n(item?.slotCount??item?.slots??item?.Slots));return `${refine} ${grade} ${name} [${slots}]`;}
+  function renderEquipmentList(){const host=byId("enchantPlatformEquipmentList");if(!host)return;const rows=eligibleEquipment();host.innerHTML=rows.length?rows.map(row=>{const inst=row.instance;return `<button type="button" class="enchant-preview-equipment${row.key===state.selectedKey?" is-active":""}" onclick="selectEnchantEquipment('${escapeHtml(row.key)}')"><img src="${iconPath(inst.id)}" alt="${escapeHtml(row.item?.name||inst.name)}"><span><b>${escapeHtml(weaponDisplayName(inst,row.item))}</b><small>${row.sourceLabel}｜${escapeHtml(row.item?.weaponType||row.item?.subCategory||"武器")}</small></span></button>`;}).join(""):`<div class="enchant-preview-empty"><b>沒有可附魔武器</b><span>只會列出背包或穿戴中的 26 種黯淡冰晶武器。</span></div>`;}
   function slotState(instance,slot){if(slot===1)return "card";if(enchantAt(instance,slot))return "filled";if(state.activeTab!=="enchant")return "view-only";if(state.currentSlot===slot)return "active";if(state.currentSlot===null)return "complete";const ci=SLOT_ORDER.indexOf(state.currentSlot),si=SLOT_ORDER.indexOf(slot);return si>ci?"locked":"empty";}
   function renderSlot(instance,slot){let content=null;if(slot===1){const cardId=(instance.cards||[]).find(Boolean);if(cardId){const card=window.getCardInfo?.(cardId)||itemData(cardId);content={id:cardId,name:card?.name||`卡片 ${cardId}`};}}else content=enchantAt(instance,slot);const status=slotState(instance,slot),label=slot===1?"第1洞｜卡片":`第${slot}洞｜附魔`;const image=content?`<img src="${iconPath(content.id)}" alt="${escapeHtml(content.name)}">`:`<span class="enchant-slot-empty-mark">${status==="locked"?"🔒":"◇"}</span>`;const name=content?.name||(status==="active"?"目前可附魔":status==="locked"?"尚未解鎖":"尚未附魔");return `<button type="button" class="enchant-visual-slot slot-${slot} is-${status}" ${content?`onclick="inspectEnchantSlot(${slot})"`:"disabled"}><span class="enchant-slot-number">${slot}</span>${image}<small>${escapeHtml(name)}</small></button>`;}
-  function renderCenterPanel(){const host=byId("enchantPlatformCenter"),entry=selectedEntry();if(!host)return;if(!entry){host.innerHTML=`<div class="enchant-preview-empty"><b>請先取得黯淡冰晶武器</b></div>`;return;}const inst=entry.instance,name=entry.item?.name||inst.name,title=`<div class="enchant-preview-weapon-title"><span>${n(inst.refine)?`+${n(inst.refine)}`:"+0"}</span><b>${escapeHtml(name)}</b><em>[${gradeLabel(inst)}]</em></div>`;
+  function renderCenterPanel(){const host=byId("enchantPlatformCenter"),entry=selectedEntry();if(!host)return;if(!entry){host.innerHTML=`<div class="enchant-preview-empty"><b>請先取得黯淡冰晶武器</b></div>`;return;}const inst=entry.instance,name=entry.item?.name||inst.name,title=`<div class="enchant-preview-weapon-title"><b>${escapeHtml(weaponDisplayName(inst,entry.item))}</b></div>`;
     if(state.activeTab==="enchant"){host.innerHTML=`${title}<div class="enchant-weapon-stage"><div class="enchant-stage-glow"></div><img class="enchant-stage-weapon" src="${iconPath(inst.id)}" alt="${escapeHtml(name)}">${renderSlot(inst,1)}${renderSlot(inst,4)}${renderSlot(inst,2)}${renderSlot(inst,3)}</div><div class="enchant-progress-line"><b>${state.currentSlot?`目前順序：第${state.currentSlot}洞`:"第4、3、2洞皆完成"}</b><span>固定流程：第4洞 → 第3洞 → 第2洞；第1洞為卡片</span></div>`;return;}
     if(state.activeTab==="upgrade"){const step=selectedUpgrade();if(!step){const current=enchantAt(inst,2);host.innerHTML=`${title}<div class="enchant-preview-empty"><b>${current?"第2洞已達最高等級或無升階路線":"請先完成第2洞物理／魔法等級附魔"}</b><span>${current?.name||"完成第4、3、2洞後即可升階。"}</span></div>`;return;}host.innerHTML=`${title}<div class="enchant-upgrade-stage"><article><img src="${iconPath(step.from.id)}"><small>目前</small><b>${escapeHtml(step.from.name)}</b></article><div class="enchant-upgrade-arrow">→</div><article class="is-target"><img src="${iconPath(step.to.id)}"><small>升階後</small><b>${escapeHtml(step.to.name)}</b></article></div><div class="enchant-upgrade-effect"><h3>升階後效果</h3><p>${escapeHtml(cleanText(step.to.effect))}</p></div>`;return;}
     const reset=catalog()?.reset;host.innerHTML=`${title}<div class="enchant-tab-placeholder reset-preview"><img src="${iconPath(reset?.materials?.[0]?.id||1000811)}"><h3>重置第4、3、2洞</h3><p>消耗雪花魔力原石 ×5。第1洞卡片永久保留。</p></div>`;}
@@ -170,6 +212,6 @@
   function renderCostPanel(){const mat=byId("enchantPlatformMaterialList"),zeny=byId("enchantPlatformZeny"),button=byId("enchantPlatformExecute"),entry=selectedEntry();if(!mat||!zeny||!button)return;let materials=[],cost=0,label="確認執行",enabled=false;if(state.activeTab==="enchant"){const row=selectedStone();materials=row?.materials||[];cost=n(row?.zeny);enabled=!!entry&&!!state.currentSlot&&!!row&&materialEnough(materials)&&zenyEnough(cost);label=state.currentSlot?`確認附魔｜第${state.currentSlot}洞`:"附魔流程完成";}else if(state.activeTab==="upgrade"){const step=selectedUpgrade();materials=step?.materials||[];cost=n(step?.zeny);enabled=!!entry&&!!step&&materialEnough(materials)&&zenyEnough(cost);label="確認升階";}else{const reset=catalog()?.reset||{};materials=reset.materials||[];cost=n(reset.zeny);const has=(entry?.instance?.enchants||[]).some(x=>SLOT_ORDER.includes(Number(x?.slot??x?.playerSlot)));enabled=!!entry&&has&&materialEnough(materials)&&zenyEnough(cost);label="確認重置";}mat.innerHTML=renderMaterials(materials);zeny.innerHTML=`<span>所需 Zeny</span><b>${cost.toLocaleString("zh-TW")}</b><small>${zenyEnough(cost)?"Zeny 足夠":"Zeny 不足"}</small>`;button.disabled=!enabled;button.classList.toggle("is-ready",enabled);button.textContent=label;}
 
   window.openEnchantPlatform=openEnchantPlatform;window.closeEnchantPlatform=closeEnchantPlatform;window.setEnchantPlatformTab=setEnchantPlatformTab;window.setEnchantSearch=setEnchantSearch;window.selectEnchantEquipment=selectEnchantEquipment;window.selectEnchantStone=selectEnchantStone;window.inspectSelectedUpgrade=inspectSelectedUpgrade;window.inspectEnchantSlot=inspectEnchantSlot;window.openEnchantStoneInfo=openEnchantStoneInfo;window.closeEnchantStoneInfo=closeEnchantStoneInfo;window.inspectEnchantMaterial=inspectEnchantMaterial;window.executeEnchantPlatformAction=executeEnchantPlatformAction;
-  window.DimGlacierEnchantRuntime={version:VERSION,open:openEnchantPlatform,close:closeEnchantPlatform,getCatalog:catalog,getEligibleEquipment:eligibleEquipment,getState:()=>clone(state),getEnchantById:id=>window.CardRuntime?.getEnchantRecord?.(id)||Object.values(catalog()?.slots||{}).flatMap(x=>x.items||[]).find(x=>Number(x.id)===Number(id))||allUpgrades().flatMap(x=>[x.from,x.to]).find(x=>Number(x.id)===Number(id))||null,slotOrder:SLOT_ORDER.slice(),previewOnly:false};
+  window.DimGlacierEnchantRuntime={version:VERSION,open:openEnchantPlatform,close:closeEnchantPlatform,getCatalog:catalog,getEligibleEquipment:eligibleEquipment,getState:()=>clone(state),getEnchantById:id=>window.CardRuntime?.getEnchantRecord?.(id)||Object.values(catalog()?.slots||{}).flatMap(x=>x.items||[]).find(x=>Number(x.id)===Number(id))||allUpgrades().flatMap(x=>[x.from,x.to]).find(x=>Number(x.id)===Number(id))||null,slotOrder:SLOT_ORDER.slice(),previewOnly:false,_debug:{resolveLiveEntry,weaponDisplayName,enchantAt,currentEnchantSlot}};
   document.addEventListener("keydown",event=>{if(event.key!=="Escape")return;const info=byId("enchantStoneInfoWindow");if(info&&!info.hidden){closeEnchantStoneInfo();return;}if(isOpen())closeEnchantPlatform();});
 })();
