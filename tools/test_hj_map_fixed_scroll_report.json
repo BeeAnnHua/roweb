@@ -1,0 +1,113 @@
+{
+  "version": "0.9.82HJ",
+  "checks": [
+    {
+      "name": "map title renamed to 地圖傳送",
+      "pass": true,
+      "detail": "地圖傳送\n中\n×"
+    },
+    {
+      "name": "desktop roster fixed to compact viewport",
+      "pass": true,
+      "detail": {
+        "height": 417.59375,
+        "clientHeight": 414,
+        "scrollHeight": 630,
+        "overflowY": "auto",
+        "rowHeight": 30,
+        "rowCount": 18
+      }
+    },
+    {
+      "name": "desktop roster scrolls internally",
+      "pass": true,
+      "detail": {
+        "height": 417.59375,
+        "clientHeight": 414,
+        "scrollHeight": 630,
+        "overflowY": "auto",
+        "rowHeight": 30,
+        "rowCount": 18
+      }
+    },
+    {
+      "name": "viewport is roughly 10–12 monster rows",
+      "pass": true,
+      "detail": {
+        "visibleRows": 11.966666666666667,
+        "height": 417.59375,
+        "clientHeight": 414,
+        "scrollHeight": 630,
+        "overflowY": "auto",
+        "rowHeight": 30,
+        "rowCount": 18
+      }
+    },
+    {
+      "name": "long drop detail uses same fixed frame",
+      "pass": true,
+      "detail": {
+        "height": 417.59375,
+        "clientHeight": 414,
+        "scrollHeight": 781,
+        "overflowY": "auto",
+        "detailVisible": true,
+        "footerCount": 0
+      }
+    },
+    {
+      "name": "long drop detail scrolls internally",
+      "pass": true,
+      "detail": {
+        "height": 417.59375,
+        "clientHeight": 414,
+        "scrollHeight": 781,
+        "overflowY": "auto",
+        "detailVisible": true,
+        "footerCount": 0
+      }
+    },
+    {
+      "name": "drop detail has no duplicate footer buttons",
+      "pass": true,
+      "detail": {
+        "height": 417.59375,
+        "clientHeight": 414,
+        "scrollHeight": 781,
+        "overflowY": "auto",
+        "detailVisible": true,
+        "footerCount": 0
+      }
+    },
+    {
+      "name": "mobile retains embedded navigation viewer",
+      "pass": true,
+      "detail": {
+        "embedded": true,
+        "height": 256,
+        "maxHeight": "none",
+        "enter": 1,
+        "back": 1
+      }
+    },
+    {
+      "name": "desktop fixed 430px rule does not force mobile",
+      "pass": true,
+      "detail": {
+        "embedded": true,
+        "height": 256,
+        "maxHeight": "none",
+        "enter": 1,
+        "back": 1
+      }
+    },
+    {
+      "name": "no map browser runtime errors",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "passed": 10,
+  "failed": 0,
+  "errors": []
+}

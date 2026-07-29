@@ -1,9 +1,9 @@
 //============================================================
-// RO_WEB 0.9.82HG — rAthena Renewal Enchant Grade Runtime
+// RO_WEB 0.9.82HL — 裝備升階 Runtime／玩家教學
 //============================================================
 (() => {
   "use strict";
-  const VERSION="0.9.82HG", RULE_KEY="data/enchant_grade_rules.json", EXCHANGE_KEY="data/enchant_grade_exchange.json", DROP_KEY="data/enchant_grade_map_drops.json";
+  const VERSION="0.9.82HL", RULE_KEY="data/enchant_grade_rules.json", EXCHANGE_KEY="data/enchant_grade_exchange.json", DROP_KEY="data/enchant_grade_map_drops.json";
   const state={open:false,npcName:"裝備升階匠人",tab:"grade",selected:null,optionIndex:0,catalystSteps:0,exchangeIndex:0,exchangeQty:1,lastResult:null};
   const n=(v,f=0)=>Number.isFinite(Number(v))?Number(v):f, i=(v,f=0)=>Math.floor(n(v,f));
   const esc=v=>String(v??"").replace(/[&<>'"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]));
@@ -24,6 +24,42 @@
   function consume(id,qty){let need=Math.max(0,i(qty)),list=window.player?.inventory||[];if(invCount(id)<need)return false;for(let p=list.length-1;p>=0&&need;p--){const x=list[p];if(itemId(x)!==Number(id)||x.instanceId)continue;const take=Math.min(need,i(x.count));x.count-=take;need-=take;if(x.count<=0)list.splice(p,1);}return !need;}
   function context(){const sel=resolve();if(!sel)return {sel:null,rule:null,option:null,baseChance:0,finalChance:0};const rule=gradeRule(sel.data,sel.instance),option=rule?.options?.find(o=>i(o.option)===i(state.optionIndex))||rule?.options?.[0]||null,baseChance=i(rule?.chances?.[String(i(sel.instance.refine))]),steps=Math.max(0,Math.min(i(rule?.catalyst?.maximumSteps),i(state.catalystSteps))),finalChance=Math.min(10000,baseChance+steps*i(rule?.catalyst?.chanceIncrease));return {sel,rule,option,baseChance,steps,finalChance};}
   function itemName(id){return dataOf(id)?.name||`Item ${id}`;}
+  function compactChanceRanges(chances){
+    const rows=Object.entries(chances||{}).map(([refine,chance])=>({refine:i(refine),chance:i(chance)})).sort((a,b)=>a.refine-b.refine);
+    const groups=[];
+    for(const row of rows){
+      const last=groups[groups.length-1];
+      if(last&&last.chance===row.chance&&last.end+1===row.refine)last.end=row.refine;
+      else groups.push({start:row.refine,end:row.refine,chance:row.chance});
+    }
+    return groups.map(row=>`${row.start===row.end?`+${row.start}`:`+${row.start}～+${row.end}`} ${(row.chance/100).toFixed(0)}%`).join('、');
+  }
+  function buildGradeHelpText(){
+    const source=rules()?.groups?.Weapon?.levels?.["5"]?.grades||rules()?.groups?.Armor?.levels?.["2"]?.grades||{};
+    const order=[['None','無階 → D'],['D','D → C'],['C','C → B'],['B','B → A']];
+    const lines=[
+      '適用裝備：五級武器與二級防具。',
+      '升階順序：無階 → D → C → B → A。',
+      '成功後：階級提升一級，精煉值重置為 +0；卡片、附魔與裝備資料會保留。',
+      '',
+      '基礎成功率（依目前精煉值）：'
+    ];
+    for(const [key,label] of order){const row=source?.[key];if(row)lines.push(`${label}：${compactChanceRanges(row.chances)}`);}
+    lines.push('',
+      '高風險升階：消耗較少材料；失敗時裝備會消失。',
+      '安全升階：消耗較多材料；失敗時裝備完整保留。',
+      '庇佑乙太星塵：每段增加 1% 成功率，最多 10 段；需求數量會隨目標階級提高。',
+      '',
+      '實際成功率與所需材料，請以選取裝備後畫面顯示為準。'
+    );
+    return lines.join('\n');
+  }
+  function openGradeHelp(){
+    const text=buildGradeHelpText();
+    if(window.ROGoldUI?.alert)return window.ROGoldUI.alert(text,{title:'裝備升階詳細',confirmText:'關閉'});
+    window.alert?.(text);
+    return Promise.resolve(true);
+  }
   function refresh(){window.recalculatePlayerStats?.();window.updatePlayerUI?.();window.updateInventoryUI?.();window.updateEquipmentUI?.();window.updateStatusUI?.({force:true});window.updateQuickSlotUI?.();window.saveGame?.();}
   function destroy(sel){if(sel.location==="inventory"){const list=window.player?.inventory||[],idx=list.findIndex(x=>String(x?.instanceId)===String(sel.instance.instanceId));if(idx>=0)list.splice(idx,1);}else{if(window.player?.equipment)window.player.equipment[sel.slot]=null;if(window.player?.equipmentInstances)delete window.player.equipmentInstances[sel.slot];}}
   function announce(text){window.MvpGachaRuntime?.showRareBanner?.("red",`★ ${text} ★`);}
@@ -77,7 +113,7 @@
     try{
       render();
       if(message){
-        if(!ready)message.textContent="升階資料尚未完整載入；視窗已開啟，請確認 data/enchant_grade_rules.json 與 exchange 資料。";
+        if(!ready)message.textContent="升階資料暫時無法讀取，請重新整理後再試。";
         else if(!rows.length&&state.tab==="grade")message.textContent="目前沒有可升階的五級武器或二級防具；仍可切換到「材料合成」。";
         else message.textContent="";
       }
@@ -138,6 +174,6 @@
     }
   }
   function setTab(tab){state.tab=tab==='exchange'?'exchange':'grade';render();}
-  window.EnchantGradeRuntime={version:VERSION,state,rules,exchanges,dropProfiles,eligible,groupOf,levelOf,gradeIndex,gradeRule,candidates,inventoryCount:invCount,attemptSelectedGrade:attempt,exchange,rollMapBonusDrops,getGradeMaterialDropRate,getScaledGradeDropChance,getScaledMapDropChance,decorateStatusSource,decorateCombatItem,ensureGradeData,showGradeOverlay,open,openExchange,close,render};
-  window.openEnchantGradeWindow=open;window.openEnchantGradeExchangeWindow=openExchange;window.closeEnchantGradeWindow=close;window.setEnchantGradeTab=setTab;window.attemptSelectedGrade=attempt;
+  window.EnchantGradeRuntime={version:VERSION,state,rules,exchanges,dropProfiles,eligible,groupOf,levelOf,gradeIndex,gradeRule,candidates,inventoryCount:invCount,attemptSelectedGrade:attempt,exchange,rollMapBonusDrops,getGradeMaterialDropRate,getScaledGradeDropChance,getScaledMapDropChance,decorateStatusSource,decorateCombatItem,ensureGradeData,showGradeOverlay,buildGradeHelpText,openGradeHelp,open,openExchange,close,render};
+  window.openEnchantGradeWindow=open;window.openEnchantGradeExchangeWindow=openExchange;window.closeEnchantGradeWindow=close;window.setEnchantGradeTab=setTab;window.attemptSelectedGrade=attempt;window.openEnchantGradeHelp=openGradeHelp;
 })();

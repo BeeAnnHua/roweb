@@ -1,0 +1,229 @@
+{
+  "version": "0.9.82HI",
+  "passed": 23,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "config_enabled_temporary",
+      "ok": true,
+      "detail": {
+        "enabled": true,
+        "temporary": true
+      }
+    },
+    {
+      "name": "box_50",
+      "ok": true,
+      "detail": [
+        {
+          "id": 1100100,
+          "name": "黯淡冰晶武器箱",
+          "count": 50,
+          "purpose": "黯淡冰晶武器箱"
+        }
+      ]
+    },
+    {
+      "name": "materials_unique_44",
+      "ok": true,
+      "detail": 44
+    },
+    {
+      "name": "materials_each_1000",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "zeny_minimum_1b",
+      "ok": true,
+      "detail": 1000000000
+    },
+    {
+      "name": "materials_exact_source_union",
+      "ok": true,
+      "detail": {
+        "sourceIds": [
+          984,
+          985,
+          1010,
+          1011,
+          6223,
+          6224,
+          6225,
+          6226,
+          6240,
+          6241,
+          6635,
+          7619,
+          7620,
+          1000322,
+          1000325,
+          1000326,
+          1000327,
+          1000328,
+          1000331,
+          1000332,
+          1000333,
+          1000334,
+          1000335,
+          1000336,
+          1000337,
+          1000368,
+          1000369,
+          1000370,
+          1000371,
+          1000405,
+          1000608,
+          1000811,
+          1000812,
+          1000813,
+          1000814,
+          1001029,
+          1001030,
+          1001031,
+          1001032,
+          1001033,
+          1001034,
+          1001035,
+          1001036,
+          1001037
+        ],
+        "configIds": [
+          984,
+          985,
+          1010,
+          1011,
+          6223,
+          6224,
+          6225,
+          6226,
+          6240,
+          6241,
+          6635,
+          7619,
+          7620,
+          1000322,
+          1000325,
+          1000326,
+          1000327,
+          1000328,
+          1000331,
+          1000332,
+          1000333,
+          1000334,
+          1000335,
+          1000336,
+          1000337,
+          1000368,
+          1000369,
+          1000370,
+          1000371,
+          1000405,
+          1000608,
+          1000811,
+          1000812,
+          1000813,
+          1000814,
+          1001029,
+          1001030,
+          1001031,
+          1001032,
+          1001033,
+          1001034,
+          1001035,
+          1001036,
+          1001037
+        ]
+      }
+    },
+    {
+      "name": "all_item_data_present",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "all_item_icons_present",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "fresh_grant_returns_true",
+      "ok": true,
+      "detail": true
+    },
+    {
+      "name": "fresh_marker_written",
+      "ok": true,
+      "detail": "0.9.82HI_LOCAL_REFINE_ENCHANT_GRADE_TEST_V1"
+    },
+    {
+      "name": "fresh_box_exact_50",
+      "ok": true,
+      "detail": 50
+    },
+    {
+      "name": "fresh_materials_exact_1000",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "fresh_zeny_minimum",
+      "ok": true,
+      "detail": 1000000000
+    },
+    {
+      "name": "fresh_summary_log",
+      "ok": true,
+      "detail": [
+        "暫時測試補給已發放：黯淡冰晶武器箱 x50、44 種材料各 x1000。"
+      ]
+    },
+    {
+      "name": "second_grant_returns_false",
+      "ok": true,
+      "detail": false
+    },
+    {
+      "name": "second_no_box_duplicate",
+      "ok": true,
+      "detail": 50
+    },
+    {
+      "name": "second_no_material_duplicate",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "second_no_extra_log",
+      "ok": true,
+      "detail": [
+        "暫時測試補給已發放：黯淡冰晶武器箱 x50、44 種材料各 x1000。"
+      ]
+    },
+    {
+      "name": "existing_inventory_preserved",
+      "ok": true,
+      "detail": 7
+    },
+    {
+      "name": "existing_adds_exact_box_50",
+      "ok": true,
+      "detail": 53
+    },
+    {
+      "name": "existing_adds_material_1000",
+      "ok": true,
+      "detail": 1012
+    },
+    {
+      "name": "existing_zeny_raised_to_minimum",
+      "ok": true,
+      "detail": 1000000000
+    },
+    {
+      "name": "higher_zeny_not_reduced",
+      "ok": true,
+      "detail": 2000000000
+    }
+  ]
+}

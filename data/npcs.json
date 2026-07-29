@@ -100,7 +100,7 @@
     "cityId": "payon",
     "name": "精煉匠人",
     "type": "refine",
-    "description": "使用 rAthena Renewal 成功率精煉背包或穿戴中的武器、防具；可選擇鐵匠的祝福保護。"
+    "description": "可精煉背包或穿戴中的武器與防具；高精煉時可搭配鐵匠的祝福降低裝備損壞風險。"
   },
   {
     "id": "alberta_tool_npc",
@@ -240,21 +240,21 @@
     "cityId": "payon",
     "name": "裝備升階匠人",
     "type": "enchant_grade",
-    "description": "五級武器／二級防具升階，以及乙太星塵、乙太魔石與各色乙太寶石材料合成。"
+    "description": "可為五級武器與二級防具進行 D／C／B／A 升階，也能合成升階所需的乙太寶石與庇佑材料。"
   },
   {
     "id": "payon_enchant_platform_npc",
     "cityId": "payon",
     "name": "附魔研究員",
     "type": "enchant_platform",
-    "description": "共用武器／防具附魔平台 UI 預覽。此版本只展示介面，不偵測裝備、不消耗材料、不寫入附魔。"
+    "description": "可為黯淡冰晶武器依序進行附魔，也能升級第二洞效果或重置附魔。請先準備對應材料與 Zeny。"
   },
   {
     "id": "payon_enchant_material_exchange_npc",
     "cityId": "payon",
     "name": "綜合材料兌換研究員",
     "type": "enchant_material_exchange",
-    "description": "附魔材料綜合兌換平台 UI 預覽。固定顯示全部配方與材料，不依背包持有物過濾；本版不執行兌換。"
+    "description": "可將冰川與蛇巢穴取得的材料兌換成黯淡冰晶附魔所需道具。所有配方皆可查看，材料足夠時即可兌換。"
   },
   {
     "id": "izlude_storage_npc",

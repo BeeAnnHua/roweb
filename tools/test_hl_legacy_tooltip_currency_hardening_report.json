@@ -1,0 +1,164 @@
+{
+  "version": "0.9.82HL",
+  "passed": 18,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "all inventory categories receive native title fallback",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "consume title preserves rich tooltip",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "equipped slots receive native title fallback",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tooltip uses highest overlay layer",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "currency uses capture pointer handler",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "currency popup no six-second auto hide",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "all cache references use HL",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "#consume hover visible above window",
+      "pass": true,
+      "detail": {
+        "visible": true,
+        "text": "紅色藥水",
+        "z": "2147483000",
+        "topId": "equipment",
+        "topClass": "inventory-slot"
+      }
+    },
+    {
+      "name": "#equipment hover visible above window",
+      "pass": true,
+      "detail": {
+        "visible": true,
+        "text": "+13 [A] [卡片：波利卡片] [附魔4：雪花魔力] 黯淡冰晶長劍 [1]",
+        "z": "2147483000",
+        "topId": "etc",
+        "topClass": "inventory-slot"
+      }
+    },
+    {
+      "name": "#etc hover visible above window",
+      "pass": true,
+      "detail": {
+        "visible": true,
+        "text": "高密度乙太鈽鐳",
+        "z": "2147483000",
+        "topId": "inventory-window",
+        "topClass": "game-window"
+      }
+    },
+    {
+      "name": "currency pointerup bypasses old click blocker",
+      "pass": true,
+      "detail": {
+        "hidden": false,
+        "visible": true,
+        "text": "持有貨幣\n×\nZeny\n991,400,123\n藍寶石\n2,345,678\n紅寶石\n3,456,789",
+        "z": "2147483000",
+        "rect": [
+          910,
+          58,
+          1260,
+          234
+        ],
+        "expanded": "true"
+      }
+    },
+    {
+      "name": "currency shows exact full values",
+      "pass": true,
+      "detail": {
+        "hidden": false,
+        "visible": true,
+        "text": "持有貨幣\n×\nZeny\n991,400,123\n藍寶石\n2,345,678\n紅寶石\n3,456,789",
+        "z": "2147483000",
+        "rect": [
+          910,
+          58,
+          1260,
+          234
+        ],
+        "expanded": "true"
+      }
+    },
+    {
+      "name": "currency popup above all legacy UI",
+      "pass": true,
+      "detail": {
+        "hidden": false,
+        "visible": true,
+        "text": "持有貨幣\n×\nZeny\n991,400,123\n藍寶石\n2,345,678\n紅寶石\n3,456,789",
+        "z": "2147483000",
+        "rect": [
+          910,
+          58,
+          1260,
+          234
+        ],
+        "expanded": "true"
+      }
+    },
+    {
+      "name": "currency remains open until explicit close",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "outside pointer closes currency popup",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "mobile pointerup opens currency",
+      "pass": true,
+      "detail": {
+        "visible": true,
+        "text": "持有貨幣\n×\nZeny\n991,400,123\n藍寶石\n2,345,678\n紅寶石\n3,456,789",
+        "left": 620,
+        "right": 970,
+        "vw": 980
+      }
+    },
+    {
+      "name": "mobile currency fits viewport",
+      "pass": true,
+      "detail": {
+        "visible": true,
+        "text": "持有貨幣\n×\nZeny\n991,400,123\n藍寶石\n2,345,678\n紅寶石\n3,456,789",
+        "left": 620,
+        "right": 970,
+        "vw": 980
+      }
+    },
+    {
+      "name": "no browser runtime errors",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "errors": []
+}

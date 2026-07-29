@@ -198,6 +198,7 @@ window.openPlayerIdEditor = openPlayerIdEditor;
 window.closePlayerIdEditor = closePlayerIdEditor;
 window.confirmPlayerIdChange = confirmPlayerIdChange;
 
+
 //=======================================
 // 載入玩家資料
 // 先讀取預設角色資料，再用 localStorage 存檔覆蓋
@@ -877,6 +878,7 @@ function updatePlayerUI() {
   setOptionalText("zeny", formatResourceNumber(player.zeny));
   setOptionalText("blueGem", formatResourceNumber(player.blueGem));
   setOptionalText("redGem", formatResourceNumber(player.redGem));
+  if (typeof refreshCurrencyAccessibleLabels === "function") refreshCurrencyAccessibleLabels();
 
   const battlePlayerName = document.getElementById("battlePlayerName");
   const battlePlayerLevel = document.getElementById("battlePlayerLevel");
@@ -1994,11 +1996,12 @@ function updateInventoryUI() {
 
     if (itemData) {
       slot.dataset.tooltip = buildItemTooltip(item, itemData);
+      slot.title = slot.dataset.tooltip;
       slot.setAttribute("aria-label", `${typeof buildCompactItemName === "function" ? buildCompactItemName(item, itemData) : itemData.name} x ${item.count}`);
       if (itemData.type === "consume") {
         const mobileUi = (typeof isMobileViewport === "function" && isMobileViewport()) || Boolean(window.matchMedia?.("(pointer: coarse)")?.matches);
         slot.draggable = !mobileUi;
-        slot.title = `${itemData.name}：點擊查看與設定快捷欄`;
+        slot.title = `${slot.dataset.tooltip}\n點擊查看與設定快捷欄`;
         if (slot.draggable) slot.addEventListener("dragstart", event => {
           event.dataTransfer.setData("application/json", JSON.stringify({ type: "item", id: itemData.id }));
           event.dataTransfer.effectAllowed = "copy";

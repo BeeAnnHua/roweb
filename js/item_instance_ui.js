@@ -1,5 +1,5 @@
 //=======================================
-// ItemInstanceUI v0.9.82HH
+// ItemInstanceUI v0.9.82HL
 // RO client-style equipment names, item/card detail modal, and instance-safe equip flow.
 //=======================================
 (function () {
@@ -253,6 +253,35 @@
     return `${refine}${before}${data.name} [${slotCount}]`.replace(/\s+/g, ' ').trim();
   }
 
+  function buildEquipmentHoverTooltip(instanceOrId, itemData = null) {
+    const data = itemData || getBaseItemData(instanceOrId);
+    if (!data) return String(baseItemId(instanceOrId) || '未知道具');
+    const instance = normalizeEquipmentInstance(instanceOrId, data);
+    const header = buildEquipmentInstanceName(instance, data);
+    if (!isDimGlacierEnchantWeapon(data)) return header;
+
+    const attachmentLabels = [];
+    const details = [];
+    const cardId = (instance.cards || []).find(Boolean);
+    if (cardId) {
+      const cardName = getCardInfo(cardId)?.name || `卡片 ${cardId}`;
+      attachmentLabels.push(`[卡片：${cardName}]`);
+      details.push(`卡片：${cardName}`);
+    }
+    for (const slot of [4, 3, 2]) {
+      const info = getEnchantDisplayInfo((instance.enchants || []).find(row => Number(row?.slot ?? row?.playerSlot) === slot));
+      if (!info?.name) continue;
+      attachmentLabels.push(`[附魔${slot}：${info.name}]`);
+      details.push(`第${slot}洞附魔：${info.name}`);
+    }
+
+    const prefix = `+${Number(instance.refine || 0)} [${getEquipmentGradeLabel(instance)}]`;
+    const richTitle = `${prefix}${attachmentLabels.length ? ` ${attachmentLabels.join(' ')}` : ''} ${data.name} [${getEquipmentSlotCount(data)}]`
+      .replace(/\s+/g, ' ')
+      .trim();
+    return [richTitle, ...details].join('\n');
+  }
+
   function buildCompactItemName(instanceOrItem, itemData = null) {
     const data = itemData || getBaseItemData(instanceOrItem);
     if (!data) return '找不到物品資料';
@@ -262,13 +291,13 @@
 
   buildItemTooltip = function (item, itemData) {
     if (!itemData) return '找不到物品資料。';
-    if (isEquipmentData(itemData)) return buildEquipmentInstanceName(item, itemData);
+    if (isEquipmentData(itemData)) return buildEquipmentHoverTooltip(item, itemData);
     return itemData.name || getItemName(item?.id);
   };
 
   buildEquipmentTooltip = function (slot, itemData) {
     if (!itemData) return `${getEquipmentSlotName(slot)}\n無`;
-    return buildEquipmentInstanceName(getEquipmentInstance(slot) || itemData, itemData);
+    return buildEquipmentHoverTooltip(getEquipmentInstance(slot) || itemData, itemData);
   };
 
   function clearElement(element) {
@@ -395,6 +424,7 @@
     const title = document.getElementById('item-detail-title');
     const body = document.getElementById('item-detail-body');
     if (!modal || !title || !body) return;
+    modal.classList.remove('is-dim-glacier-detail');
     title.textContent = card.name;
     clearElement(body);
     const top = document.createElement('div');
@@ -461,6 +491,30 @@
     };
   }
 
+  function openEquipmentEnchantInfo(info, label) {
+    if (!info) return false;
+    if (typeof window.openEnchantStoneInfo === 'function') {
+      window.openEnchantStoneInfo(info, label);
+      return true;
+    }
+    const modal = document.getElementById('enchantStoneInfoWindow');
+    if (!modal) return false;
+    const title = document.getElementById('enchantStoneInfoTitle');
+    const icon = document.getElementById('enchantStoneInfoIcon');
+    const group = document.getElementById('enchantStoneInfoGroup');
+    const description = document.getElementById('enchantStoneInfoDescription');
+    if (title) title.textContent = info.name || '附魔資訊';
+    if (icon) {
+      icon.src = info.icon || `images/items/${info.id}.webp`;
+      icon.alt = info.name || '附魔圖示';
+    }
+    if (group) group.textContent = label || '附魔資訊';
+    if (description) description.textContent = info.effect || info.effectText || (Array.isArray(info.description) ? info.description.join('\n') : info.description) || '尚無說明。';
+    modal.hidden = false;
+    modal.classList.remove('hidden-window');
+    return true;
+  }
+
   function renderDimGlacierSlotGrid(body, instance) {
     const section=document.createElement('section');
     section.className='item-detail-dim-glacier-section';
@@ -481,10 +535,11 @@
       const kind=document.createElement('small');kind.className='item-detail-dim-slot-kind';kind.textContent=row.label;button.appendChild(kind);
       if(row.content){
         const img=document.createElement('img');img.src=row.content.icon||`images/items/${row.content.id}.webp`;img.alt=row.content.name;button.appendChild(img);
-        const text=document.createElement('span');text.textContent=row.content.name;button.appendChild(text);button.dataset.tooltip=`${row.label}：${row.content.name}`;
-        button.addEventListener('click',()=>{
+        const text=document.createElement('span');text.textContent=row.content.name;button.appendChild(text);button.dataset.tooltip=`${row.label}：${row.content.name}`;button.title=button.dataset.tooltip;
+        button.addEventListener('click',event=>{
+          event.stopPropagation();
           if(row.slot===1){renderCardDetail(row.content.id);return;}
-          window.openEnchantStoneInfo?.(row.content,row.label);
+          openEquipmentEnchantInfo(row.content,row.label);
         });
       }else{
         const mark=document.createElement('span');mark.className='socket-hole-mark';mark.textContent='◇';button.appendChild(mark);
@@ -505,6 +560,7 @@
     if (!modal || !title || !body) return;
     const instance = isEquipmentData(data) ? normalizeEquipmentInstance(instanceOrId, data) : instanceOrId;
     const displayName = buildCompactItemName(instance, data);
+    modal.classList.toggle('is-dim-glacier-detail', Boolean(isEquipmentData(data) && isDimGlacierEnchantWeapon(data)));
     title.textContent = displayName;
     clearElement(body);
 
@@ -538,7 +594,6 @@
 
     if (isEquipmentData(data)) {
       if (isDimGlacierEnchantWeapon(data)) {
-        const flow=document.createElement('div');flow.className='item-detail-dim-glacier-flow';flow.textContent='洞位用途：第1洞為卡片；附魔依第4洞 → 第3洞 → 第2洞進行。';body.appendChild(flow);
         renderDimGlacierSlotGrid(body, instance);
       } else {
         const slotCount = getEquipmentSlotCount(data);
@@ -556,6 +611,7 @@
           if (cardId) {
             const card = getCardInfo(cardId);
             cell.dataset.tooltip = card.name;
+            cell.title = cell.dataset.tooltip;
             const cardIcon = document.createElement('img');
             cardIcon.src = card.icon || `images/items/${cardId}.webp`;
             cardIcon.alt = card.name;
@@ -565,6 +621,7 @@
             cell.addEventListener('click', event => { event.stopPropagation(); renderCardDetail(cardId); });
           } else {
             cell.dataset.tooltip = `空插槽 ${i + 1}`;
+            cell.title = cell.dataset.tooltip;
             cell.innerHTML = `<span class="socket-hole-mark">◇</span><small>空插槽 ${i + 1}</small>`;
           }
           grid.appendChild(cell);
@@ -583,7 +640,8 @@
             button.className = 'item-detail-enchant';
             button.textContent = info.name;
             button.dataset.tooltip = info.name;
-            button.addEventListener('click', () => window.openEnchantStoneInfo?.(info,`第${info.slot??info.playerSlot??'?'}洞｜附魔`));
+            button.title = button.dataset.tooltip;
+            button.addEventListener('click', event => { event.stopPropagation(); openEquipmentEnchantInfo(info,`第${info.slot??info.playerSlot??'?'}洞｜附魔`); });
             enchantSection.appendChild(button);
           });
           body.appendChild(enchantSection);
@@ -772,7 +830,8 @@
     }
     const data = itemId ? getBaseItemData(itemId) : null;
     const instance = data ? getEquipmentInstance(displaySlot) : null;
-    element.dataset.tooltip = data ? buildEquipmentInstanceName(instance || data, data) : `${getEquipmentSlotName(slot)}\n無`;
+    element.dataset.tooltip = data ? buildEquipmentHoverTooltip(instance || data, data) : `${getEquipmentSlotName(slot)}\n無`;
+    element.title = element.dataset.tooltip;
     element.onclick = null;
     if (!data) { element.setAttribute('aria-label', `${getEquipmentSlotName(slot)}：無`); return; }
     element.classList.add('has-item');
@@ -816,6 +875,7 @@
     normalizeAllItemInstances,
     getEquipmentInstance,
     buildEquipmentInstanceName,
+    buildEquipmentHoverTooltip,
     buildCompactItemName,
     getCardInfo,
     showItemDetail,

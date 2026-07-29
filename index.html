@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RO_WEB 0.9.82HH</title>
+  <title>RO_WEB 0.9.82HL</title>
   <meta name="description" content="&#8203;">
   <meta property="og:type" content="website">
   <meta property="og:title" content="RO_WEB">
@@ -13,8 +13,8 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="RO_WEB">
   <meta name="twitter:description" content="&#8203;">
-  <link rel="icon" type="image/png" href="images/ui/icons/icon_gold_64.png?v=0.9.82HH">
-  <link rel="stylesheet" href="css/style.css?v=0.9.82HH">
+  <link rel="icon" type="image/png" href="images/ui/icons/icon_gold_64.png?v=0.9.82HL">
+  <link rel="stylesheet" href="css/style.css?v=0.9.82HL">
 </head>
 
 <body class="ro-black-gold-theme">
@@ -50,7 +50,7 @@
       <section id="player-info" class="fixed-panel character-card">
         <h2>角色資訊</h2>
         <div class="profile-row">
-          <div class="portrait-placeholder"><img id="playerPortrait" src="assets/characters/novice/male/idle.png?v=0.9.82HH" alt="角色頭像"></div>
+          <div class="portrait-placeholder"><img id="playerPortrait" src="assets/characters/novice/male/idle.png?v=0.9.82HL" alt="角色頭像"></div>
           <div>
             <div class="name-line player-id-line desktop-player-id-line"><span id="playerName">載入中</span><button id="playerIdEditButton" type="button" onclick="openPlayerIdEditor()">更改ID</button></div>
             <div class="mobile-player-id-stack" aria-label="手機版角色名稱">
@@ -69,7 +69,7 @@
 
       <div id="player-sprite" class="battle-sprite player-sprite">
         <div class="sprite-label">LV.<span id="battlePlayerLevel">0</span> <span id="battlePlayerName">冒險者</span></div>
-        <img id="playerImage" src="assets/characters/novice/male/idle.png?v=0.9.82HH" alt="player">
+        <img id="playerImage" src="assets/characters/novice/male/idle.png?v=0.9.82HL" alt="player">
         <div class="slash-effect" id="slashEffect"></div>
       </div>
 
@@ -172,7 +172,7 @@
       </section>
 
       <section id="map-window" class="game-window draggable-window hidden-window true-map-window" data-default-x="760" data-default-y="252">
-        <div class="window-title drag-handle">地圖 / 傳送 <button class="window-close" data-target="map-window">×</button></div>
+        <div class="window-title drag-handle">地圖傳送 <button class="window-close" data-target="map-window">×</button></div>
         <div class="window-body map-template-body">
           <div id="current-map-name" class="map-current-label">目前位置：載入中</div>
           <div id="map-list" class="map-warp-layout"></div>
@@ -469,7 +469,7 @@
       <input id="skill-copy-search" type="search" placeholder="搜尋技能名稱、代碼或 ID">
       <div class="skill-copy-summary"></div>
       <div class="skill-copy-list"></div>
-      <div class="skill-copy-note">只顯示 RA 允許複製且已完成 Official Runtime 的技能。新選擇會覆蓋同類複製欄位。</div>
+      <div class="skill-copy-note">只顯示目前可複製的技能；重新選擇後會覆蓋原本的同類技能。</div>
     </div>
   </section>
 
@@ -494,7 +494,7 @@
         <aside class="refine-equipment-panel">
           <div class="refine-equipment-heading"><div><b>可精煉裝備</b><small>背包／穿戴中</small></div><span>最高 +20</span></div>
           <div id="refineEquipmentList" class="refine-equipment-list"></div>
-          <p class="refine-equipment-note">成功率、費用、損壞、退階與祝福數量完全依 rAthena Renewal 2026-06-08 資料。</p>
+          <p class="refine-equipment-note">選取裝備後會顯示成功率、費用、失敗結果與可使用的保護材料。</p>
         </aside>
       </div>
     </div>
@@ -505,7 +505,7 @@
 
   <section id="enchantGradeWindow" class="grade-overlay hidden-window" role="dialog" aria-modal="true" aria-labelledby="enchantGradeTitle" hidden onclick="if(event.target===this) closeEnchantGradeWindow()">
     <div class="grade-dialog ui-size-target" data-ui-size-id="enchant-grade-window">
-      <header class="grade-header ui-size-header"><div><small id="enchantGradeNpcName">裝備升階匠人</small><h2 id="enchantGradeTitle">裝備升階</h2><p>五級武器／二級防具｜無階 → D → C → B → A</p></div><button type="button" aria-label="關閉" onclick="closeEnchantGradeWindow()">×</button></header>
+      <header class="grade-header ui-size-header"><div><small id="enchantGradeNpcName">裝備升階匠人</small><h2 id="enchantGradeTitle">裝備升階</h2><p class="grade-header-guide"><span>五級武器／二級防具｜無階 → D → C → B → A</span><button id="enchantGradeHelpButton" class="grade-help-button" type="button" onclick="openEnchantGradeHelp()">詳細</button></p></div><button type="button" aria-label="關閉" onclick="closeEnchantGradeWindow()">×</button></header>
       <nav class="grade-tabs"><button type="button" data-grade-tab="grade" class="is-active" onclick="setEnchantGradeTab('grade')">裝備升階</button><button type="button" data-grade-tab="exchange" onclick="setEnchantGradeTab('exchange')">材料合成</button></nav>
       <section id="enchantGradeGradePanel" class="grade-layout"><aside><div class="grade-section-title"><b>可升階裝備</b><small>背包／穿戴中</small></div><div id="enchantGradeEquipmentList" class="grade-equipment-list"></div></aside><main id="enchantGradeDetail" class="grade-detail"></main></section>
       <section id="enchantGradeExchangePanel" class="grade-exchange-panel" hidden><label>本次合成數量<input id="enchantGradeExchangeQty" type="number" data-ro-gold-stepper min="1" max="999" value="1"></label><div id="enchantGradeExchangeList" class="grade-exchange-list"></div></section>
@@ -518,8 +518,8 @@
       <header class="enchant-platform-header ui-size-header">
         <div>
           <small id="enchantPlatformNpcName">斐揚附魔研究員</small>
-          <div class="enchant-platform-title-line"><h2 id="enchantPlatformTitle">共用附魔平台</h2><span>正式版</span></div>
-          <p>第1洞為卡片；附魔順序固定為第4洞 → 第3洞 → 第2洞。</p>
+          <div class="enchant-platform-title-line"><h2 id="enchantPlatformTitle">黯淡冰晶武器附魔</h2><span>斐揚</span></div>
+          <p>選擇武器後，可進行附魔、升級第二洞效果或重置附魔。</p>
         </div>
         <button type="button" aria-label="關閉附魔平台" onclick="closeEnchantPlatform()">×</button>
       </header>
@@ -536,7 +536,7 @@
         </aside>
         <main id="enchantPlatformCenter" class="enchant-platform-center"></main>
         <aside class="enchant-platform-stone-column">
-          <div class="enchant-platform-section-heading"><b id="enchantPlatformStoneHeading">第4洞可用附魔</b><small>不依目前角色職業過濾</small></div>
+          <div class="enchant-platform-section-heading"><b id="enchantPlatformStoneHeading">第4洞可用附魔</b><small>可查看所有職業效果</small></div>
           <label id="enchantPlatformSearchWrap" class="enchant-platform-search" for="enchantPlatformStoneSearch">
             <span aria-hidden="true">⌕</span>
             <input id="enchantPlatformStoneSearch" type="search" autocomplete="off" spellcheck="false" placeholder="搜尋名稱、技能或 Item ID" oninput="setEnchantSearch(this.value)">
@@ -549,15 +549,17 @@
         <div id="enchantPlatformZeny" class="enchant-platform-zeny"></div>
         <button id="enchantPlatformExecute" class="enchant-platform-execute" type="button" disabled onclick="executeEnchantPlatformAction()">確認執行</button>
       </footer>
-      <p id="enchantPlatformMessage" class="enchant-platform-message" aria-live="polite">正式附魔：材料與 Zeny 足夠時才可執行，結果會永久保存。</p>
+      <p id="enchantPlatformMessage" class="enchant-platform-message" aria-live="polite">選擇附魔與材料後即可執行，完成結果會保存在武器上。</p>
 
-      <section id="enchantStoneInfoWindow" class="enchant-stone-info-window hidden-window" role="dialog" aria-modal="false" aria-labelledby="enchantStoneInfoTitle" hidden>
-        <div class="enchant-stone-info-card">
-          <button type="button" class="enchant-stone-info-close" aria-label="關閉附魔資訊" onclick="closeEnchantStoneInfo()">×</button>
-          <img id="enchantStoneInfoIcon" src="images/items/311342.webp?v=0.9.82HH" alt="附魔圖示">
-          <div><small id="enchantStoneInfoGroup">附魔資訊</small><h3 id="enchantStoneInfoTitle">雪花魔力</h3><p id="enchantStoneInfoDescription">左鍵點擊附魔石或中央洞位即可查看完整資訊。</p></div>
-        </div>
-      </section>
+
+    </div>
+  </section>
+
+  <section id="enchantStoneInfoWindow" class="enchant-stone-info-window hidden-window" role="dialog" aria-modal="false" aria-labelledby="enchantStoneInfoTitle" hidden>
+    <div class="enchant-stone-info-card">
+      <button type="button" class="enchant-stone-info-close" aria-label="關閉附魔資訊" onclick="closeEnchantStoneInfo()">×</button>
+      <img id="enchantStoneInfoIcon" src="images/items/311342.webp?v=0.9.82HL" alt="附魔圖示">
+      <div><small id="enchantStoneInfoGroup">附魔資訊</small><h3 id="enchantStoneInfoTitle">雪花魔力</h3><p id="enchantStoneInfoDescription">左鍵點擊附魔石或中央洞位即可查看完整資訊。</p></div>
     </div>
   </section>
 
@@ -566,8 +568,8 @@
       <header class="enchant-exchange-header ui-size-header">
         <div>
           <small id="enchantExchangeNpcName">綜合材料兌換研究員</small>
-          <div><h2 id="enchantExchangeTitle">附魔材料綜合兌換</h2><span>正式版</span></div>
-          <p>固定顯示全部可規劃材料，不依目前背包持有物過濾。</p>
+          <div><h2 id="enchantExchangeTitle">黯淡冰晶材料兌換</h2><span>斐揚</span></div>
+          <p>可查看全部兌換配方，備妥材料後即可製作所需道具。</p>
         </div>
         <button type="button" aria-label="關閉材料兌換" onclick="closeEnchantMaterialExchange()">×</button>
       </header>
@@ -590,7 +592,7 @@
         <div id="enchantExchangeRequirement" class="enchant-exchange-requirement"></div>
         <button id="enchantExchangeExecute" type="button" disabled onclick="executeEnchantMaterialExchange()">材料不足</button>
       </footer>
-      <p class="enchant-exchange-message">固定顯示全部配方；材料足夠時可正式兌換。</p>
+      <p class="enchant-exchange-message">選擇配方與數量，材料及 Zeny 足夠時即可兌換。</p>
     </div>
   </section>
 
@@ -691,12 +693,12 @@
       </div>
       <div class="character-gender-options" role="group" aria-label="角色性別">
         <button class="character-gender-option" type="button" data-character-gender="male" aria-pressed="false" onclick="selectCharacterGender('male')">
-          <span class="character-gender-preview"><img src="assets/characters/novice/male/idle.png?v=0.9.82HH" alt="男性初學者"></span>
+          <span class="character-gender-preview"><img src="assets/characters/novice/male/idle.png?v=0.9.82HL" alt="男性初學者"></span>
           <strong>男性初學者</strong>
           <span>使用男性人物動畫</span>
         </button>
         <button class="character-gender-option" type="button" data-character-gender="female" aria-pressed="false" onclick="selectCharacterGender('female')">
-          <span class="character-gender-preview"><img src="assets/characters/novice/female/idle.png?v=0.9.82HH" alt="女性初學者"></span>
+          <span class="character-gender-preview"><img src="assets/characters/novice/female/idle.png?v=0.9.82HL" alt="女性初學者"></span>
           <strong>女性初學者</strong>
           <span>使用女性人物動畫</span>
         </button>
@@ -705,49 +707,49 @@
     </div>
   </section>
 
-  <script src="./js/data_bundle.js?v=0.9.82HH"></script>
-  <script src="./js/ui_theme_runtime.js?v=0.9.82HH"></script>
-  <script src="./js/equipment_job_map_bundle.js?v=0.9.82HH"></script>
-  <script src="./js/player.js?v=0.9.82HH"></script>
-  <script src="./js/item_instance_ui.js?v=0.9.82HH"></script>
-  <script src="./js/storage_runtime.js?v=0.9.82HH"></script>
-  <script src="./js/refine_runtime.js?v=0.9.82HH"></script>
-  <script src="./js/enchant_grade_runtime.js?v=0.9.82HH"></script>
-  <script src="./js/mvp_gacha_runtime.js?v=0.9.82HH"></script>
-  <script src="./js/item_box_runtime.js?v=0.9.82HH"></script>
-  <script src="./js/card_runtime.js?v=0.9.82HH"></script>
-  <script src="./js/effect_runtime.js?v=0.9.82HH"></script>
-  <script src="./js/position_engine.js?v=0.9.82HH"></script>
-  <script src="./js/job_constitution.js?v=0.9.82HH"></script>
-  <script src="./js/job.js?v=0.9.82HH"></script>
-  <script src="./js/extra_skill_runtime.js?v=0.9.82HH"></script>
-  <script src="./js/combat_mechanics_runtime.js?v=0.9.82HH"></script>
-  <script src="./js/combat_formula_runtime.js?v=0.9.82HH"></script>
-  <script src="./js/ra_renewal_damage_pipeline.js?v=0.9.82HH"></script>
-  <script src="./js/combat_damage_pipeline.js?v=0.9.82HH"></script>
-  <script src="./js/combat_resource_manager.js?v=0.9.82HH"></script>
-  <script src="./js/skill_engine.js?v=0.9.82HH"></script>
-  <script src="./js/status_system.js?v=0.9.82HH"></script>
-  <script src="./js/stats.js?v=0.9.82HH"></script>
-  <script src="./js/loot.js?v=0.9.82HH"></script>
-  <script src="./js/auto_battle.js?v=0.9.82HH"></script>
-  <script src="./js/player_atlas_runtime.js?v=0.9.82HH"></script>
-  <script src="./js/character_gender.js?v=0.9.82HH"></script>
-  <script src="./js/battle.js?v=0.9.82HH"></script>
-  <script src="./js/monster_atlas_runtime.js?v=0.9.82HH"></script>
-  <script src="./js/effect_visual_runtime.js?v=0.9.82HH"></script>
-  <script src="./js/world_monster_test_runtime.js?v=0.9.82HH"></script>
-  <script src="./js/virtual_summon.js?v=0.9.82HH"></script>
-  <script src="./js/homunculus.js?v=0.9.82HH"></script>
-  <script src="./js/homunculus_skill_runtime.js?v=0.9.82HH"></script>
-  <script src="./js/homunculus_s_skill_runtime.js?v=0.9.82HH"></script>
-  <script src="./js/map.js?v=0.9.82HH"></script>
-  <script src="./js/enchant_platform_runtime.js?v=0.9.82HH"></script>
-  <script src="./js/enchant_material_exchange_runtime.js?v=0.9.82HH"></script>
-  <script src="./js/town.js?v=0.9.82HH"></script>
-  <script src="./js/ui.js?v=0.9.82HH"></script>
-  <script src="./js/quick_slots.js?v=0.9.82HH"></script>
-  <script src="./js/game.js?v=0.9.82HH"></script>
+  <script src="./js/data_bundle.js?v=0.9.82HL"></script>
+  <script src="./js/ui_theme_runtime.js?v=0.9.82HL"></script>
+  <script src="./js/equipment_job_map_bundle.js?v=0.9.82HL"></script>
+  <script src="./js/player.js?v=0.9.82HL"></script>
+  <script src="./js/item_instance_ui.js?v=0.9.82HL"></script>
+  <script src="./js/storage_runtime.js?v=0.9.82HL"></script>
+  <script src="./js/refine_runtime.js?v=0.9.82HL"></script>
+  <script src="./js/enchant_grade_runtime.js?v=0.9.82HL"></script>
+  <script src="./js/mvp_gacha_runtime.js?v=0.9.82HL"></script>
+  <script src="./js/item_box_runtime.js?v=0.9.82HL"></script>
+  <script src="./js/card_runtime.js?v=0.9.82HL"></script>
+  <script src="./js/effect_runtime.js?v=0.9.82HL"></script>
+  <script src="./js/position_engine.js?v=0.9.82HL"></script>
+  <script src="./js/job_constitution.js?v=0.9.82HL"></script>
+  <script src="./js/job.js?v=0.9.82HL"></script>
+  <script src="./js/extra_skill_runtime.js?v=0.9.82HL"></script>
+  <script src="./js/combat_mechanics_runtime.js?v=0.9.82HL"></script>
+  <script src="./js/combat_formula_runtime.js?v=0.9.82HL"></script>
+  <script src="./js/ra_renewal_damage_pipeline.js?v=0.9.82HL"></script>
+  <script src="./js/combat_damage_pipeline.js?v=0.9.82HL"></script>
+  <script src="./js/combat_resource_manager.js?v=0.9.82HL"></script>
+  <script src="./js/skill_engine.js?v=0.9.82HL"></script>
+  <script src="./js/status_system.js?v=0.9.82HL"></script>
+  <script src="./js/stats.js?v=0.9.82HL"></script>
+  <script src="./js/loot.js?v=0.9.82HL"></script>
+  <script src="./js/auto_battle.js?v=0.9.82HL"></script>
+  <script src="./js/player_atlas_runtime.js?v=0.9.82HL"></script>
+  <script src="./js/character_gender.js?v=0.9.82HL"></script>
+  <script src="./js/battle.js?v=0.9.82HL"></script>
+  <script src="./js/monster_atlas_runtime.js?v=0.9.82HL"></script>
+  <script src="./js/effect_visual_runtime.js?v=0.9.82HL"></script>
+  <script src="./js/world_monster_test_runtime.js?v=0.9.82HL"></script>
+  <script src="./js/virtual_summon.js?v=0.9.82HL"></script>
+  <script src="./js/homunculus.js?v=0.9.82HL"></script>
+  <script src="./js/homunculus_skill_runtime.js?v=0.9.82HL"></script>
+  <script src="./js/homunculus_s_skill_runtime.js?v=0.9.82HL"></script>
+  <script src="./js/map.js?v=0.9.82HL"></script>
+  <script src="./js/enchant_platform_runtime.js?v=0.9.82HL"></script>
+  <script src="./js/enchant_material_exchange_runtime.js?v=0.9.82HL"></script>
+  <script src="./js/town.js?v=0.9.82HL"></script>
+  <script src="./js/ui.js?v=0.9.82HL"></script>
+  <script src="./js/quick_slots.js?v=0.9.82HL"></script>
+  <script src="./js/game.js?v=0.9.82HL"></script>
 </body>
 
 </html>

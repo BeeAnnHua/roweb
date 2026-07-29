@@ -1,0 +1,211 @@
+{
+  "version": "0.9.82HK",
+  "checks": [
+    {
+      "name": "hover title includes refine and grade",
+      "pass": true,
+      "detail": "+11 [C] [卡片：波利卡片] [附魔4：雪花魔力（龍之氣息）] [附魔3：雪花魔力（死侍武器）] [附魔2：雪花魔力（物理等級） Lv.1] 黯淡冰晶長劍 [1]\n卡片：波利卡片\n第4洞附魔：雪花魔力（龍之氣息）\n第3洞附魔：雪花魔力（死侍武器）\n第2洞附魔：雪花魔力（物理等級） Lv.1"
+    },
+    {
+      "name": "hover title includes card item name",
+      "pass": true,
+      "detail": "+11 [C] [卡片：波利卡片] [附魔4：雪花魔力（龍之氣息）] [附魔3：雪花魔力（死侍武器）] [附魔2：雪花魔力（物理等級） Lv.1] 黯淡冰晶長劍 [1]\n卡片：波利卡片\n第4洞附魔：雪花魔力（龍之氣息）\n第3洞附魔：雪花魔力（死侍武器）\n第2洞附魔：雪花魔力（物理等級） Lv.1"
+    },
+    {
+      "name": "hover title includes all enchant item names",
+      "pass": true,
+      "detail": "+11 [C] [卡片：波利卡片] [附魔4：雪花魔力（龍之氣息）] [附魔3：雪花魔力（死侍武器）] [附魔2：雪花魔力（物理等級） Lv.1] 黯淡冰晶長劍 [1]\n卡片：波利卡片\n第4洞附魔：雪花魔力（龍之氣息）\n第3洞附魔：雪花魔力（死侍武器）\n第2洞附魔：雪花魔力（物理等級） Lv.1"
+    },
+    {
+      "name": "hover title includes weapon item name",
+      "pass": true,
+      "detail": "+11 [C] [卡片：波利卡片] [附魔4：雪花魔力（龍之氣息）] [附魔3：雪花魔力（死侍武器）] [附魔2：雪花魔力（物理等級） Lv.1] 黯淡冰晶長劍 [1]\n卡片：波利卡片\n第4洞附魔：雪花魔力（龍之氣息）\n第3洞附魔：雪花魔力（死侍武器）\n第2洞附魔：雪花魔力（物理等級） Lv.1"
+    },
+    {
+      "name": "actual mouse hover opens tooltip",
+      "pass": true,
+      "detail": {
+        "visible": true,
+        "text": "+11 [C] [卡片：波利卡片] [附魔4：雪花魔力（龍之氣息）] [附魔3：雪花魔力（死侍武器）] [附魔2：雪花魔力（物理等級） Lv.1] 黯淡冰晶長劍 [1]\n卡片：波利卡片\n第4洞附魔：雪花魔力（龍之氣息）\n第3洞附魔：雪花魔力（死侍武器）\n第2洞附魔：雪花魔力（物理等級） Lv.1"
+      }
+    },
+    {
+      "name": "actual tooltip labels attached items",
+      "pass": true,
+      "detail": {
+        "visible": true,
+        "text": "+11 [C] [卡片：波利卡片] [附魔4：雪花魔力（龍之氣息）] [附魔3：雪花魔力（死侍武器）] [附魔2：雪花魔力（物理等級） Lv.1] 黯淡冰晶長劍 [1]\n卡片：波利卡片\n第4洞附魔：雪花魔力（龍之氣息）\n第3洞附魔：雪花魔力（死侍武器）\n第2洞附魔：雪花魔力（物理等級） Lv.1"
+      }
+    },
+    {
+      "name": "normal item detail click opens enchant info",
+      "pass": true,
+      "detail": {
+        "hidden": false,
+        "className": "enchant-stone-info-window",
+        "title": "雪花魔力（龍之氣息）",
+        "desc": "龍之氣息，龍之氣息-水傷害+20%。\n精煉每+3時，龍之氣息，龍之氣息-水傷害再+10%。\n精煉+9時，龍之氣息，龍之氣息-水傷害再+20%。\n精煉+11時，龍之氣息，龍之氣息-水傷害再+20%。",
+        "position": "fixed",
+        "z": "35000",
+        "platformHidden": true
+      }
+    },
+    {
+      "name": "enchant info works while platform stays closed",
+      "pass": true,
+      "detail": {
+        "hidden": false,
+        "className": "enchant-stone-info-window",
+        "title": "雪花魔力（龍之氣息）",
+        "desc": "龍之氣息，龍之氣息-水傷害+20%。\n精煉每+3時，龍之氣息，龍之氣息-水傷害再+10%。\n精煉+9時，龍之氣息，龍之氣息-水傷害再+20%。\n精煉+11時，龍之氣息，龍之氣息-水傷害再+20%。",
+        "position": "fixed",
+        "z": "35000",
+        "platformHidden": true
+      }
+    },
+    {
+      "name": "enchant info shows name and effect",
+      "pass": true,
+      "detail": {
+        "hidden": false,
+        "className": "enchant-stone-info-window",
+        "title": "雪花魔力（龍之氣息）",
+        "desc": "龍之氣息，龍之氣息-水傷害+20%。\n精煉每+3時，龍之氣息，龍之氣息-水傷害再+10%。\n精煉+9時，龍之氣息，龍之氣息-水傷害再+20%。\n精煉+11時，龍之氣息，龍之氣息-水傷害再+20%。",
+        "position": "fixed",
+        "z": "35000",
+        "platformHidden": true
+      }
+    },
+    {
+      "name": "enchant info is global fixed overlay",
+      "pass": true,
+      "detail": {
+        "hidden": false,
+        "className": "enchant-stone-info-window",
+        "title": "雪花魔力（龍之氣息）",
+        "desc": "龍之氣息，龍之氣息-水傷害+20%。\n精煉每+3時，龍之氣息，龍之氣息-水傷害再+10%。\n精煉+9時，龍之氣息，龍之氣息-水傷害再+20%。\n精煉+11時，龍之氣息，龍之氣息-水傷害再+20%。",
+        "position": "fixed",
+        "z": "35000",
+        "platformHidden": true
+      }
+    },
+    {
+      "name": "currency click opens full-number popup",
+      "pass": true,
+      "detail": {
+        "hidden": false,
+        "text": "持有貨幣\n×\nZeny\n1,234,567,890\n藍寶石\n234,567\n紅寶石\n345,678",
+        "visible": true,
+        "rect": {
+          "left": 930,
+          "right": 1260,
+          "top": 58,
+          "bottom": 234
+        }
+      }
+    },
+    {
+      "name": "currency popup shows full Zeny",
+      "pass": true,
+      "detail": {
+        "hidden": false,
+        "text": "持有貨幣\n×\nZeny\n1,234,567,890\n藍寶石\n234,567\n紅寶石\n345,678",
+        "visible": true,
+        "rect": {
+          "left": 930,
+          "right": 1260,
+          "top": 58,
+          "bottom": 234
+        }
+      }
+    },
+    {
+      "name": "currency popup shows full gem counts",
+      "pass": true,
+      "detail": {
+        "hidden": false,
+        "text": "持有貨幣\n×\nZeny\n1,234,567,890\n藍寶石\n234,567\n紅寶石\n345,678",
+        "visible": true,
+        "rect": {
+          "left": 930,
+          "right": 1260,
+          "top": 58,
+          "bottom": 234
+        }
+      }
+    },
+    {
+      "name": "currency popup stays inside viewport",
+      "pass": true,
+      "detail": {
+        "hidden": false,
+        "text": "持有貨幣\n×\nZeny\n1,234,567,890\n藍寶石\n234,567\n紅寶石\n345,678",
+        "visible": true,
+        "rect": {
+          "left": 930,
+          "right": 1260,
+          "top": 58,
+          "bottom": 234
+        }
+      }
+    },
+    {
+      "name": "mobile currency popup opens",
+      "pass": true,
+      "detail": {
+        "visible": true,
+        "text": "持有貨幣\n×\nZeny\n1,234,567,890\n藍寶石\n234,567\n紅寶石\n345,678",
+        "left": 640,
+        "right": 970,
+        "viewport": 980
+      }
+    },
+    {
+      "name": "mobile currency popup fits viewport",
+      "pass": true,
+      "detail": {
+        "visible": true,
+        "text": "持有貨幣\n×\nZeny\n1,234,567,890\n藍寶石\n234,567\n紅寶石\n345,678",
+        "left": 640,
+        "right": 970,
+        "viewport": 980
+      }
+    },
+    {
+      "name": "mobile attached enchant info opens",
+      "pass": true,
+      "detail": {
+        "visible": true,
+        "title": "雪花魔力（龍之氣息）",
+        "left": 255,
+        "right": 725,
+        "top": 947.015625,
+        "bottom": 1173.96875,
+        "viewportW": 980,
+        "viewportH": 2121
+      }
+    },
+    {
+      "name": "mobile attached enchant info fits viewport",
+      "pass": true,
+      "detail": {
+        "visible": true,
+        "title": "雪花魔力（龍之氣息）",
+        "left": 255,
+        "right": 725,
+        "top": 947.015625,
+        "bottom": 1173.96875,
+        "viewportW": 980,
+        "viewportH": 2121
+      }
+    },
+    {
+      "name": "no browser runtime errors",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "passed": 19,
+  "failed": 0,
+  "errors": []
+}

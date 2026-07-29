@@ -21746,8 +21746,103 @@ body.ro-black-gold-theme .game-window > .window-title > button.window-close:hove
 /* =========================================================
    0.9.82HH — 黯淡冰晶附魔實例安全與洞位資訊
    ========================================================= */
-.item-detail-dim-glacier-flow{margin-top:10px;padding:8px 10px;border-left:3px solid #6ba9c7;background:rgba(11,27,38,.82);color:#a9c8d8;font-size:11px;line-height:1.55}
 .item-detail-dim-slot{padding-top:24px}
 .item-detail-dim-slot .item-detail-dim-slot-kind{position:absolute;left:30px;right:6px;top:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#9eb8c6;font-size:9px;text-align:left}
 .item-detail-dim-slot>span:not(.socket-hole-mark){max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:10px;color:#e6d4aa}
 .enchant-preview-weapon-title b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+
+/* =========================================================
+   RO_WEB 0.9.82HK — 玩家教學、裝備資訊與地圖清單固定高度
+   ========================================================= */
+.grade-header-guide{display:flex!important;align-items:center!important;flex-wrap:wrap!important;gap:8px!important;margin-top:4px!important}
+.grade-help-button{min-width:58px!important;min-height:28px!important;padding:3px 12px!important;border:1px solid #d5a64a!important;border-radius:7px!important;background:linear-gradient(180deg,#5c3b15,#251707)!important;color:#ffe5a0!important;font-size:12px!important;font-weight:900!important;line-height:1!important}
+.grade-help-button:hover,.grade-help-button:focus-visible{filter:brightness(1.18)!important;outline:1px solid rgba(255,225,145,.65)!important}
+.item-detail-modal.is-dim-glacier-detail .item-detail-description{max-height:min(290px,44vh)!important;min-height:92px!important}
+@media(max-width:700px){.item-detail-modal.is-dim-glacier-detail .item-detail-description{max-height:36vh!important;min-height:78px!important}}
+@media (min-width:721px) and (pointer:fine){
+  .map-monster-distribution-tooltip:not(.is-drop-detail-view),
+  .map-monster-distribution-tooltip.is-drop-detail-view{
+    width:min(340px,calc(100vw - 24px))!important;
+    height:min(58dvh,430px)!important;
+    max-height:min(58dvh,430px)!important;
+    min-height:0!important;
+    overflow-x:hidden!important;
+    overflow-y:auto!important;
+    overscroll-behavior:contain!important;
+    scrollbar-gutter:stable!important;
+  }
+  .map-monster-distribution-tooltip:not(.is-drop-detail-view) .map-monster-distribution-row{
+    min-height:30px!important;
+    padding:4px 6px!important;
+  }
+  .map-monster-distribution-tooltip.is-drop-detail-view .map-monster-drop-detail{
+    max-height:none!important;
+    overflow:visible!important;
+  }
+}
+
+
+/* =========================================================
+   RO_WEB 0.9.82HK — 裝備附魔資訊與貨幣完整數量
+   ========================================================= */
+#enchantStoneInfoWindow.enchant-stone-info-window{
+  position:fixed!important;
+  inset:0!important;
+  z-index:35000!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  padding:18px!important;
+  background:rgba(1,5,9,.64)!important;
+  backdrop-filter:blur(2px)!important;
+}
+#enchantStoneInfoWindow.enchant-stone-info-window[hidden],
+#enchantStoneInfoWindow.enchant-stone-info-window.hidden-window{display:none!important}
+#enchantStoneInfoWindow .enchant-stone-info-card{max-height:min(520px,calc(100dvh - 32px));overflow:auto}
+.currency-detail-popup{
+  position:fixed;
+  z-index:35010;
+  display:grid;
+  gap:7px;
+  padding:9px;
+  border:1px solid rgba(224,174,79,.94);
+  border-radius:12px;
+  background:linear-gradient(180deg,rgba(54,35,16,.98),rgba(12,8,5,.99));
+  box-shadow:0 14px 34px rgba(0,0,0,.72),inset 0 0 0 1px rgba(255,231,169,.12);
+  color:#ffe9b1;
+  opacity:0;
+  transform:translateY(-4px);
+  transition:opacity .1s ease,transform .1s ease;
+}
+.currency-detail-popup[hidden]{display:none!important}
+.currency-detail-popup.is-visible{opacity:1;transform:translateY(0)}
+.currency-detail-popup header{display:flex;align-items:center;justify-content:space-between;padding:0 2px 5px;border-bottom:1px solid rgba(193,145,63,.45)}
+.currency-detail-popup header b{font-size:14px;color:#ffe2a0}
+.currency-detail-popup header button{width:27px;height:27px;padding:0;border:1px solid #8e6935;border-radius:50%;background:#23170b;color:#ffe9b7;font-size:18px;line-height:25px;cursor:pointer}
+.currency-detail-popup>div{display:grid;grid-template-columns:28px 72px minmax(0,1fr);align-items:center;gap:8px;min-height:32px;padding:3px 7px;border:1px solid rgba(121,86,38,.52);border-radius:8px;background:rgba(10,7,5,.66)}
+.currency-detail-popup>div img{width:26px;height:26px;object-fit:contain}
+.currency-detail-popup>div span{font-size:12px;color:#dbc28d}
+.currency-detail-popup>div strong{min-width:0;text-align:right;font-size:15px;color:#fff2c7;overflow-wrap:anywhere}
+@media(max-width:700px),(pointer:coarse){
+  .currency-detail-popup{padding:8px;gap:6px}
+  .currency-detail-popup>div{grid-template-columns:26px 66px minmax(0,1fr)}
+}
+
+
+/* =========================================================
+   RO_WEB 0.9.82HL — legacy Tooltip / currency event hardening
+   ========================================================= */
+.game-tooltip{
+  z-index:2147483000!important;
+  max-width:min(420px,calc(100vw - 20px))!important;
+  pointer-events:none!important;
+}
+.currency-detail-popup{
+  z-index:2147483000!important;
+  pointer-events:auto!important;
+  visibility:visible;
+}
+.currency-detail-popup.is-visible{display:grid!important;visibility:visible!important;opacity:1!important}
+#top-bar,.currency-item{pointer-events:auto!important}
+.inventory-slot[data-tooltip],.equipment-slot[data-tooltip],.item-detail-dim-slot[data-tooltip]{cursor:help}
