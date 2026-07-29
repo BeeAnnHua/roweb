@@ -344,8 +344,11 @@ function buildMonsterDropCacheEntry(mapId,monster){
   const normalize=(drop,source)=>{const id=Number(drop?.itemId??drop?.id??0),data=typeof getItemData==="function"?getItemData(id):null;return {id,name:data?.name||drop?.displayName||drop?.name||`Item ${id}`,icon:data?.icon||`images/items/${data?.officialId||id}.webp`,chance:Number(drop?.chance||0),qtyMin:Math.max(1,Number(drop?.qtyMin||drop?.amount||1)),qtyMax:Math.max(1,Number(drop?.qtyMax||drop?.qtyMin||drop?.amount||1)),source,type:String(data?.type||"")};};
   const original=(monster?.drops||[]).map(drop=>normalize(drop,"original"));
   const mvp=(monster?.mvpDrops||[]).map(drop=>normalize(drop,"mvp"));
-  const bonus=getMapGradeBonusEntries(mapId,monster?.id).filter(entry=>!(entry.skipIfOriginalDrop&&[...original,...mvp].some(drop=>drop.id===Number(entry.itemId)))).map(drop=>normalize({...drop,chance:window.EnchantGradeRuntime?.getScaledGradeDropChance?.(drop.chance)??drop.chance},"grade"));
-  const result={original,mvp,bonus};RO_MAP_MONSTER_DROP_CACHE.set(key,result);return result;
+  const mapEntries=getMapGradeBonusEntries(mapId,monster?.id).filter(entry=>!(entry.skipIfOriginalDrop&&[...original,...mvp].some(drop=>drop.id===Number(entry.itemId))));
+  const scaled=drop=>window.EnchantGradeRuntime?.getScaledMapDropChance?.(drop)??window.EnchantGradeRuntime?.getScaledGradeDropChance?.(drop.chance)??drop.chance;
+  const mapNormal=mapEntries.filter(drop=>["normal","globaldrop","global_drop"].includes(String(drop.rateMode||"").toLowerCase())).map(drop=>normalize({...drop,chance:scaled(drop)},"original"));
+  const bonus=mapEntries.filter(drop=>!["normal","globaldrop","global_drop"].includes(String(drop.rateMode||"").toLowerCase())).map(drop=>normalize({...drop,chance:scaled(drop)},"grade"));
+  const result={original:[...original,...mapNormal],mvp,bonus};RO_MAP_MONSTER_DROP_CACHE.set(key,result);return result;
 }
 function renderMonsterDropGroup(title,rows,kind){if(!rows.length)return "";return `<section class="map-monster-drop-group is-${kind}"><h5>${title}</h5>${rows.map(row=>`<div class="map-monster-drop-row"><img src="${row.icon}" alt="" onerror="this.style.display='none'"><span><b>${row.name}</b><small>${row.qtyMin===row.qtyMax?`×${row.qtyMin}`:`×${row.qtyMin}～${row.qtyMax}`}｜${formatMonsterDropChance(row.chance)}</small></span></div>`).join("")}</section>`;}
 function syncPinnedMonsterDropRow(tooltip){

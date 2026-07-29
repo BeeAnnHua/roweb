@@ -1,7 +1,7 @@
 {
   "schema": "ro_web_enchant_grade_map_drops_v1",
-  "version": "0.9.82GQ",
-  "rule": "Independent from global drop multiplier. Original monster drop tables remain untouched. A bonus entry is skipped when that monster already has the same item in its original drops.",
+  "version": "0.9.82HG",
+  "rule": "Map-specific bonus drops. Entries with rateMode=normal use the global ordinary drop multiplier; legacy entries continue using gradeMaterialDropRate. Original monster tables remain untouched, and shared monster IDs can have different drops by map.",
   "profiles": {
     "ice_scale_hill_3x3_region_camera": {
       "mapName": "冰鱗山丘",
@@ -58,6 +58,132 @@
           "qtyMin": 1,
           "qtyMax": 1,
           "skipIfOriginalDrop": true
+        },
+        {
+          "monsterIds": [
+            21520,
+            21521,
+            21522,
+            21523,
+            21524,
+            21525,
+            21526,
+            21527,
+            21537
+          ],
+          "itemId": 6225,
+          "chance": 100,
+          "qtyMin": 1,
+          "qtyMax": 1,
+          "skipIfOriginalDrop": true,
+          "rateMode": "normal",
+          "displayGroup": "original",
+          "note": "高密度鈣礦石：冰鱗山丘地圖限定一般掉落，套用全域 drop 倍率。"
+        },
+        {
+          "monsterIds": [
+            21520,
+            21521,
+            21522,
+            21523,
+            21524,
+            21525,
+            21526,
+            21527,
+            21537
+          ],
+          "itemId": 6226,
+          "chance": 100,
+          "qtyMin": 1,
+          "qtyMax": 1,
+          "skipIfOriginalDrop": true,
+          "rateMode": "normal",
+          "displayGroup": "original",
+          "note": "高密度鈽鐳礦石：冰鱗山丘地圖限定一般掉落，套用全域 drop 倍率。"
+        },
+        {
+          "monsterIds": [
+            21520,
+            21521,
+            21522,
+            21523,
+            21524,
+            21525,
+            21526,
+            21527,
+            21537
+          ],
+          "itemId": 1000368,
+          "chance": 500,
+          "qtyMin": 1,
+          "qtyMax": 1,
+          "skipIfOriginalDrop": true,
+          "rateMode": "normal",
+          "displayGroup": "original",
+          "note": "乙太鈽鐳：冰鱗山丘地圖限定一般掉落，套用全域 drop 倍率。"
+        },
+        {
+          "monsterIds": [
+            21520,
+            21521,
+            21522,
+            21523,
+            21524,
+            21525,
+            21526,
+            21527,
+            21537
+          ],
+          "itemId": 1000369,
+          "chance": 100,
+          "qtyMin": 1,
+          "qtyMax": 1,
+          "skipIfOriginalDrop": true,
+          "rateMode": "normal",
+          "displayGroup": "original",
+          "note": "高密度乙太鈽鐳：冰鱗山丘地圖限定一般掉落，套用全域 drop 倍率。"
+        },
+        {
+          "monsterIds": [
+            21520,
+            21521,
+            21522,
+            21523,
+            21524,
+            21525,
+            21526,
+            21527,
+            21537
+          ],
+          "itemId": 1000370,
+          "chance": 500,
+          "qtyMin": 1,
+          "qtyMax": 1,
+          "skipIfOriginalDrop": true,
+          "rateMode": "normal",
+          "displayGroup": "original",
+          "note": "乙太鈣礦石：冰鱗山丘地圖限定一般掉落，套用全域 drop 倍率。"
+        },
+        {
+          "monsterIds": [
+            21520,
+            21521,
+            21522,
+            21523,
+            21524,
+            21525,
+            21526,
+            21527,
+            21537
+          ],
+          "itemId": 1000371,
+          "chance": 100,
+          "qtyMin": 1,
+          "qtyMax": 1,
+          "skipIfOriginalDrop": true,
+          "rateMode": "normal",
+          "displayGroup": "original",
+          "note": "高密度乙太鈣礦石：冰鱗山丘地圖限定一般掉落，套用全域 drop 倍率。"
         }
       ]
     },
