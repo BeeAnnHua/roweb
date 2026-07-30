@@ -1,0 +1,259 @@
+{
+  "version": "0.9.82HW",
+  "passed": 24,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "index uses HW cache version",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "top bar keeps inline fallback",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "currency uses inline expanded class",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "currency uses capture pointer and click",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "full values use independent nodes",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "legacy popup is disabled",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "starts collapsed at compact height",
+      "pass": true,
+      "detail": {
+        "expanded": "false",
+        "height": 40,
+        "fullCount": 3,
+        "title": "點擊展開完整貨幣數量"
+      }
+    },
+    {
+      "name": "creates three full value nodes",
+      "pass": true,
+      "detail": {
+        "expanded": "false",
+        "height": 40,
+        "fullCount": 3,
+        "title": "點擊展開完整貨幣數量"
+      }
+    },
+    {
+      "name": "hover title keeps exact zeny",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "click expands despite old blocker",
+      "pass": true,
+      "detail": {
+        "expanded": "true",
+        "className": "is-currency-expanded",
+        "height": 116,
+        "text": "Zeny\n991,400,123\n藍寶石\n2,345,678\n紅寶石\n3,456,789",
+        "compact": [
+          "none",
+          "none",
+          "none"
+        ],
+        "full": [
+          "block",
+          "block",
+          "block"
+        ],
+        "popup": null
+      }
+    },
+    {
+      "name": "expanded bar grows in place",
+      "pass": true,
+      "detail": {
+        "expanded": "true",
+        "className": "is-currency-expanded",
+        "height": 116,
+        "text": "Zeny\n991,400,123\n藍寶石\n2,345,678\n紅寶石\n3,456,789",
+        "compact": [
+          "none",
+          "none",
+          "none"
+        ],
+        "full": [
+          "block",
+          "block",
+          "block"
+        ],
+        "popup": null
+      }
+    },
+    {
+      "name": "shows all exact full values",
+      "pass": true,
+      "detail": {
+        "expanded": "true",
+        "className": "is-currency-expanded",
+        "height": 116,
+        "text": "Zeny\n991,400,123\n藍寶石\n2,345,678\n紅寶石\n3,456,789",
+        "compact": [
+          "none",
+          "none",
+          "none"
+        ],
+        "full": [
+          "block",
+          "block",
+          "block"
+        ],
+        "popup": null
+      }
+    },
+    {
+      "name": "compact nodes hidden and full nodes shown",
+      "pass": true,
+      "detail": {
+        "expanded": "true",
+        "className": "is-currency-expanded",
+        "height": 116,
+        "text": "Zeny\n991,400,123\n藍寶石\n2,345,678\n紅寶石\n3,456,789",
+        "compact": [
+          "none",
+          "none",
+          "none"
+        ],
+        "full": [
+          "block",
+          "block",
+          "block"
+        ],
+        "popup": null
+      }
+    },
+    {
+      "name": "does not create separate popup",
+      "pass": true,
+      "detail": {
+        "expanded": "true",
+        "className": "is-currency-expanded",
+        "height": 116,
+        "text": "Zeny\n991,400,123\n藍寶石\n2,345,678\n紅寶石\n3,456,789",
+        "compact": [
+          "none",
+          "none",
+          "none"
+        ],
+        "full": [
+          "block",
+          "block",
+          "block"
+        ],
+        "popup": null
+      }
+    },
+    {
+      "name": "pressed feedback is cleared",
+      "pass": true,
+      "detail": {
+        "expanded": "true",
+        "className": "is-currency-expanded",
+        "height": 116,
+        "text": "Zeny\n991,400,123\n藍寶石\n2,345,678\n紅寶石\n3,456,789",
+        "compact": [
+          "none",
+          "none",
+          "none"
+        ],
+        "full": [
+          "block",
+          "block",
+          "block"
+        ],
+        "popup": null
+      }
+    },
+    {
+      "name": "runtime refresh updates full nodes",
+      "pass": true,
+      "detail": [
+        "1,234,567,890",
+        "7,654,321",
+        "9,876,543"
+      ]
+    },
+    {
+      "name": "outside click collapses",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "escape collapses",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "enter expands",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "second click collapses",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "mobile tap expands inline",
+      "pass": true,
+      "detail": {
+        "expanded": "true",
+        "height": 116,
+        "left": 196,
+        "right": 380,
+        "vw": 390,
+        "text": "Zeny\n991,400,123\n藍寶石\n2,345,678\n紅寶石\n3,456,789"
+      }
+    },
+    {
+      "name": "mobile expanded bar fits viewport",
+      "pass": true,
+      "detail": {
+        "expanded": "true",
+        "height": 116,
+        "left": 196,
+        "right": 380,
+        "vw": 390,
+        "text": "Zeny\n991,400,123\n藍寶石\n2,345,678\n紅寶石\n3,456,789"
+      }
+    },
+    {
+      "name": "mobile shows exact values",
+      "pass": true,
+      "detail": {
+        "expanded": "true",
+        "height": 116,
+        "left": 196,
+        "right": 380,
+        "vw": 390,
+        "text": "Zeny\n991,400,123\n藍寶石\n2,345,678\n紅寶石\n3,456,789"
+      }
+    },
+    {
+      "name": "no browser runtime errors",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "errors": []
+}

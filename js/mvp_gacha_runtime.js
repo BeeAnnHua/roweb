@@ -1,5 +1,5 @@
 //============================================================
-// RO_WEB 0.9.82HT — 葛坡尼亞 MVP 轉蛋 Runtime＋全域稀有公告橋接
+// RO_WEB 0.9.82HW — MVP 轉蛋每件特殊獎絕對機率＋全域稀有公告橋接
 // - 同 ID MVP 只有在指定地圖死亡才以原始 1% 判定轉蛋，並套用全域掉落總閥。
 // - 轉蛋內部稀有機率為單一 10000 基點母池的絕對機率；全域掉落倍率只影響轉蛋本體掉落。
 // - 1% 紅色、0.1% 紫色、0.01% 金色上方橫幅。
@@ -7,7 +7,7 @@
 (() => {
   "use strict";
 
-  const VERSION = "0.9.82HT";
+  const VERSION = "0.9.82HW";
   const BUNDLE_KEY = "data/mvp_gacha.json";
   const DEFAULT_GACHA_ITEM_ID = 14848;
   const CASH_FOOD_SOURCE = "mvp_gacha_cash_food";
@@ -257,12 +257,28 @@
     const roll = randomBasisPoint();
     let cumulative = 0;
     for (const category of cfg.rareCategories || []) {
-      cumulative += Math.max(0, integer(category.chanceBasisPoints));
+      const rewards = Array.isArray(category?.rewards) ? category.rewards : [];
+      const directChanceMode = String(category?.chanceMode || "") === "per_reward_absolute";
+      const directRows = directChanceMode
+        ? rewards.filter(row => Math.max(0, integer(row?.chanceBasisPoints)) > 0)
+        : [];
+      if (directRows.length) {
+        for (const row of directRows) {
+          const chanceBasisPoints = Math.max(0, integer(row.chanceBasisPoints));
+          cumulative += chanceBasisPoints;
+          if (roll <= cumulative) {
+            return { category, row, roll, rare:true, chanceBasisPoints };
+          }
+        }
+        continue;
+      }
+      const categoryChance = Math.max(0, integer(category.chanceBasisPoints));
+      cumulative += categoryChance;
       if (roll <= cumulative) {
-        const row = weightedPick(category.rewards);
+        const row = weightedPick(rewards);
         return {
           category, row, roll, rare:true,
-          chanceBasisPoints:weightedItemChance(category.rewards, row, category.chanceBasisPoints)
+          chanceBasisPoints:weightedItemChance(rewards, row, categoryChance)
         };
       }
     }

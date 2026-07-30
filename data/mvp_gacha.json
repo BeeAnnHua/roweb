@@ -1,6 +1,6 @@
 {
   "schema": "ro_web_mvp_gacha_v1",
-  "version": "0.9.82HT",
+  "version": "0.9.82HW",
   "mapId": "geffenia_mvp_arena_3x3_region_camera",
   "gachaItemId": 14848,
   "mapExclusiveDropChanceBasisPoints": 100,
@@ -10,93 +10,109 @@
       "id": "kiel_card",
       "chanceBasisPoints": 1,
       "tier": "gold",
-      "bannerLabel": "0.01% 金色大獎",
+      "bannerLabel": "每件 0.01% 金色大獎",
       "rewards": [
         {
           "itemId": 4403,
           "quantity": 1,
-          "weight": 1
+          "weight": 1,
+          "chanceBasisPoints": 1
         }
-      ]
+      ],
+      "chanceMode": "per_reward_absolute"
     },
     {
       "id": "anniversary_20th",
-      "chanceBasisPoints": 10,
+      "chanceBasisPoints": 20,
       "tier": "purple",
-      "bannerLabel": "0.1% 紫色大獎",
+      "bannerLabel": "每件 0.1% 紫色大獎",
       "rewards": [
         {
           "itemId": 400368,
           "quantity": 1,
-          "weight": 1
+          "weight": 1,
+          "chanceBasisPoints": 10
         },
         {
           "itemId": 420186,
           "quantity": 1,
-          "weight": 1
+          "weight": 1,
+          "chanceBasisPoints": 10
         }
-      ]
+      ],
+      "chanceMode": "per_reward_absolute"
     },
     {
       "id": "temporal_transcendent",
-      "chanceBasisPoints": 100,
+      "chanceBasisPoints": 500,
       "tier": "red",
-      "bannerLabel": "1% 紅色大獎",
+      "bannerLabel": "每件 1% 紅色大獎",
       "rewards": [
         {
           "itemId": 450175,
           "quantity": 1,
-          "weight": 1
+          "weight": 1,
+          "chanceBasisPoints": 100
         },
         {
           "itemId": 480076,
           "quantity": 1,
-          "weight": 1
+          "weight": 1,
+          "chanceBasisPoints": 100
         },
         {
           "itemId": 22202,
           "quantity": 1,
-          "weight": 1
+          "weight": 1,
+          "chanceBasisPoints": 100
         },
         {
           "itemId": 490030,
           "quantity": 1,
-          "weight": 1
+          "weight": 1,
+          "chanceBasisPoints": 100
         },
         {
           "itemId": 490097,
           "quantity": 1,
-          "weight": 1
+          "weight": 1,
+          "chanceBasisPoints": 100
         }
-      ]
+      ],
+      "chanceMode": "per_reward_absolute"
     },
     {
       "id": "temporal_lt",
-      "chanceBasisPoints": 10,
+      "chanceBasisPoints": 40,
       "tier": "purple",
-      "bannerLabel": "0.1% 紫色大獎",
+      "bannerLabel": "每件 0.1% 紫色大獎",
       "rewards": [
         {
           "itemId": 450299,
           "quantity": 1,
-          "weight": 1
+          "weight": 1,
+          "chanceBasisPoints": 10
         },
         {
           "itemId": 480312,
           "quantity": 1,
-          "weight": 1
+          "weight": 1,
+          "chanceBasisPoints": 10
         },
         {
           "itemId": 470183,
           "quantity": 1,
-          "weight": 1
+          "weight": 1,
+          "chanceBasisPoints": 10
         },
         {
           "itemId": 490404,
           "quantity": 1,
-          "weight": 1
+          "weight": 1,
+          "chanceBasisPoints": 10
         }
-      ]
+      ],
+      "chanceMode": "per_reward_absolute"
     },
     {
       "id": "token_of_siegfried_box",
@@ -107,12 +123,14 @@
         {
           "itemId": 12922,
           "quantity": 1,
-          "weight": 1
+          "weight": 1,
+          "chanceBasisPoints": 500
         }
-      ]
+      ],
+      "chanceMode": "per_reward_absolute"
     }
   ],
-  "ordinaryFillBasisPoints": 9379,
+  "ordinaryFillBasisPoints": 8939,
   "ordinaryRewards": [
     {
       "itemId": 14849,
@@ -256,15 +274,15 @@
     "gold": "0.01%"
   },
   "notes": [
-    "稀有大獎合計 1.21%；普通獎池合計 98.79%，全母池精確為 100.00%。",
     "鐵匠的祝福 5%；濃縮神之金屬、高濃縮神之金屬、濃縮鋁、高濃縮鋁各 8%。",
     "六種乙太精煉礦石各 5%；精煉材料合計 67%，原商城料理／補品按原比例縮減至 31.79%。",
     "精煉成功率與失敗懲罰由 rAthena Renewal 2026-06-08 db/re/refine.yml 控制。",
-    "0.9.82HR：橫幅不再直接採 rareCategories.tier，而是以分類機率 × 該物品權重占比計算每件獎品真實機率；普通池低於等於 1% 的物品也會公告。",
-    "0.9.82HT：原地復活之證箱子（Item 12922）以絕對 5.00% 加入母池；普通獎池由 98.79% 調整為 93.79%，既有稀有獎機率不變。"
+    "0.9.82HW：20週年兩件各自為絕對 0.10%；時光超越者五件各自為絕對 1.00%；時光超越者-LT 四件各自為絕對 0.10%，不再先抽整組後於組內分配。",
+    "0.9.82HW：特殊獎合計 10.61%；普通獎池 89.39%；全母池精確為 100.00%。",
+    "普通獎池內部權重比例維持不變，只調整整個普通池佔母池的填充比例。"
   ],
   "dropRateCategory": "mapExclusive",
-  "announcementPolicy": "Global per-item actual probability. Category chance is multiplied by the selected item weight share; ordinary-pool items <=1% also announce.",
+  "announcementPolicy": "Global per-item actual probability. Rare rewards with chanceMode=per_reward_absolute use each reward chanceBasisPoints directly; ordinary rewards use ordinaryFillBasisPoints × merged weight share.",
   "revivalBoxPolicy": {
     "itemId": 12922,
     "chanceBasisPoints": 500,
@@ -272,5 +290,12 @@
       "itemId": 7621,
       "quantity": 10
     }
+  },
+  "probabilityPolicy": {
+    "mode": "per_reward_absolute_for_special_rewards",
+    "specialTotalBasisPoints": 1061,
+    "ordinaryFillBasisPoints": 8939,
+    "specialTotalPercent": 10.61,
+    "ordinaryFillPercent": 89.39
   }
 }

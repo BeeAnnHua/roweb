@@ -1,0 +1,62 @@
+{
+  "version": "0.9.82HW",
+  "fromVersion": "0.9.82HV",
+  "title": "MVP Gacha Per-Reward Absolute Rates",
+  "added": [
+    "DEEP_HEALTH_0.9.82HW.json",
+    "INCREMENTAL_MANIFEST_0.9.82HW.json",
+    "RARE_ITEM_PROBABILITY_AUDIT_0.9.82HW.json",
+    "RARE_ITEM_PROBABILITY_AUDIT_0.9.82HW.md",
+    "TEST_REPORT_0.9.82HW_DAMAGE_NUMBER_VISUAL_CONTRACT.json",
+    "TEST_REPORT_0.9.82HW_DAMAGE_NUMBER_VISUAL_CONTRACT.txt",
+    "TEST_REPORT_0.9.82HW_DEATH_MOVEMENT_LOCK.json",
+    "TEST_REPORT_0.9.82HW_DEATH_MOVEMENT_LOCK.txt",
+    "TEST_REPORT_0.9.82HW_DEATH_REVIVAL.json",
+    "TEST_REPORT_0.9.82HW_MANUAL_COMBAT.json",
+    "TEST_REPORT_0.9.82HW_MVP_GACHA_PER_ITEM.json",
+    "TEST_REPORT_0.9.82HW_RARE_ITEM_ANNOUNCEMENT.json",
+    "UPDATE_FILES_0.9.82HW.txt",
+    "docs/previews/CURRENCY_INLINE_EXPAND_0.9.82HW_desktop.png",
+    "docs/previews/CURRENCY_INLINE_EXPAND_0.9.82HW_mobile.png",
+    "tools/audit_rare_item_probabilities_0.9.82HW.py",
+    "tools/build_data_bundle_0.9.82HW.py",
+    "tools/deep_health_check_0.9.82HW.py",
+    "tools/test_damage_number_visual_contract_0.9.82HW.js",
+    "tools/test_death_movement_lock_0.9.82HW.js",
+    "tools/test_death_revival_0.9.82HW.js",
+    "tools/test_hw_currency_inline_expand.py",
+    "tools/test_hw_currency_inline_expand_report.json",
+    "tools/test_manual_combat_0.9.82HW.js",
+    "tools/test_mvp_gacha_inventory_guard_0.9.82HW.js",
+    "tools/test_mvp_gacha_inventory_guard_report_0.9.82HW.json",
+    "tools/test_mvp_gacha_per_item_absolute_0.9.82HW.js",
+    "tools/test_rare_item_announcement_0.9.82HW.js"
+  ],
+  "modified": [
+    "AI_START_HERE.md",
+    "CHANGELOG.md",
+    "README.md",
+    "RO_WEB_CONSTITUTION.json",
+    "data/mvp_gacha.json",
+    "index.html",
+    "js/data_bundle.js",
+    "js/game.js",
+    "js/mvp_gacha_runtime.js",
+    "tools/deep_health_check.py"
+  ],
+  "deleted": [],
+  "counts": {
+    "added": 28,
+    "modified": 10,
+    "deleted": 0
+  },
+  "probabilities": {
+    "kielCardPercent": 0.01,
+    "anniversaryEachPercent": 0.1,
+    "temporalTranscendentEachPercent": 1.0,
+    "temporalLtEachPercent": 0.1,
+    "revivalTokenBoxPercent": 5.0,
+    "specialTotalPercent": 10.61,
+    "ordinaryPoolPercent": 89.39
+  }
+}

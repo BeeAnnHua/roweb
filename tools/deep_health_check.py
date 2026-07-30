@@ -3,7 +3,7 @@ from __future__ import annotations
 import argparse, collections, json, pathlib, re, shutil, struct, subprocess, sys, zlib
 from html.parser import HTMLParser
 
-EXPECTED_VERSION = "0.9.82HV"
+EXPECTED_VERSION = "0.9.82HW"
 KNOWN_MISSING_ITEM_ICONS = set()
 DYNAMIC_DOM_IDS = {"autoHpPotionSelect","autoSpPotionSelect","autoHpEnabled","autoHpPercent","autoSpEnabled","autoSpPercent","world-camera-layer","playerAtlasCanvas","position-debug-overlay","position-debug-cross","position-coordinate-ui","basic-skill-info-window","battle-log-new-notice","battle-area","game-tooltip","runtime-skill-cast-bar","status-advanced-panel","autoCombatSettingsScroll","cardTransformCanvas","cardTransformFallback","monster-position-debug-cross","monsterAtlasCanvas","map-monster-distribution-tooltip","roGoldDialogOverlay","roGoldDialogTitle","roGoldDialogMessage","currency-detail-popup"}
 
@@ -350,11 +350,11 @@ def main():
         for token in ("tierForChanceBasisPoints", "weightedItemChanceBasisPoints", "announceAcquisition", "announceBatch", "THRESHOLDS.gold", "THRESHOLDS.purple"):
             if token not in rrt: a.error("HR_RARE_RUNTIME_TOKEN", token)
     index_text = (root / "index.html").read_text(encoding="utf-8")
-    rare_tag = './js/rare_item_announcement_runtime.js?v=0.9.82HV'
+    rare_tag = './js/rare_item_announcement_runtime.js?v=0.9.82HW'
     if rare_tag not in index_text: a.error("HR_RARE_RUNTIME_INDEX", rare_tag)
     else:
         try:
-            rare_pos=index_text.index(rare_tag); gacha_pos=index_text.index('./js/mvp_gacha_runtime.js?v=0.9.82HV'); box_pos=index_text.index('./js/item_box_runtime.js?v=0.9.82HV')
+            rare_pos=index_text.index(rare_tag); gacha_pos=index_text.index('./js/mvp_gacha_runtime.js?v=0.9.82HW'); box_pos=index_text.index('./js/item_box_runtime.js?v=0.9.82HW')
             if not (rare_pos < gacha_pos and rare_pos < box_pos): a.error("HR_RARE_RUNTIME_ORDER", "rare runtime must load before gacha and boxes")
         except ValueError as e: a.error("HR_RARE_RUNTIME_ORDER", str(e))
     server_cfg=a.load("data/server_config.json") or {}
@@ -407,7 +407,7 @@ def main():
         for token in ("TOKEN_ITEM_ID = 7621", "TOKEN_BOX_ITEM_ID = 12922", "handleDeath", "reviveWithToken", "returnToVillage", "recoverPersistedDeathState"):
             if token not in drt: a.error("HT_DEATH_RUNTIME_TOKEN", token)
     index_text = (root / "index.html").read_text(encoding="utf-8")
-    for token in ('id="playerDeathModal"', 'id="deathReviveTokenButton"', 'id="deathReturnVillageButton"', 'id="autoCombatAutoReviveTokenEnabled"', './js/death_revival_runtime.js?v=0.9.82HV'):
+    for token in ('id="playerDeathModal"', 'id="deathReviveTokenButton"', 'id="deathReturnVillageButton"', 'id="autoCombatAutoReviveTokenEnabled"', './js/death_revival_runtime.js?v=0.9.82HW'):
         if token not in index_text: a.error("HT_DEATH_UI_MISSING", token)
     for iid in (7621,12922):
         if iid not in item_ids: a.error("HT_REVIVAL_ITEM_MISSING", str(iid))
@@ -435,7 +435,7 @@ def main():
         if token not in position_js: a.error("HU_DEATH_MOVE_TOKEN", token)
     for token in ("clearPlayerMovementForDeath", "bindDeathInputShield"):
         if token not in drt: a.error("HU_DEATH_RUNTIME_MOVE_BRIDGE", token)
-    for token in ('./js/position_engine.js?v=0.9.82HV', './js/death_revival_runtime.js?v=0.9.82HV'):
+    for token in ('./js/position_engine.js?v=0.9.82HW', './js/death_revival_runtime.js?v=0.9.82HW'):
         if token not in index_text: a.error("HU_INDEX_CACHE", token)
     style_text = (root / "css/style.css").read_text(encoding="utf-8") if (root / "css/style.css").is_file() else ""
     if "body.player-death-modal-open #battle-field{touch-action:none!important}" not in style_text:
@@ -445,6 +445,41 @@ def main():
     else:
         report = a.load(hu_report.name) or {}
         if int(report.get("failed", -1)) != 0: a.error("HU_REPORT_FAILED", str(report.get("failures")))
+
+    # 0.9.82HW MVP gacha per-reward absolute probabilities.
+    hw_gacha = a.load("data/mvp_gacha.json") or {}
+    if hw_gacha.get("version") != "0.9.82HW": a.error("HW_GACHA_VERSION", str(hw_gacha.get("version")))
+    expected_reward_chances = {
+        4403:1, 400368:10, 420186:10,
+        450175:100, 480076:100, 22202:100, 490030:100, 490097:100,
+        450299:10, 480312:10, 470183:10, 490404:10, 12922:500
+    }
+    seen_reward_chances = {}
+    for category in hw_gacha.get("rareCategories",[]):
+        if category.get("chanceMode") != "per_reward_absolute":
+            a.error("HW_GACHA_CHANCE_MODE", str(category.get("id")))
+        row_sum = 0
+        for reward in category.get("rewards",[]):
+            item_id = int(reward.get("itemId",0)); chance = int(reward.get("chanceBasisPoints",0))
+            seen_reward_chances[item_id] = chance; row_sum += chance
+        if row_sum != int(category.get("chanceBasisPoints",-1)):
+            a.error("HW_GACHA_CATEGORY_TOTAL", f"{category.get('id')}: {row_sum}/{category.get('chanceBasisPoints')}")
+    if seen_reward_chances != expected_reward_chances:
+        a.error("HW_GACHA_REWARD_CHANCES", str(seen_reward_chances))
+    hw_special_total = sum(int(row.get("chanceBasisPoints",0)) for row in hw_gacha.get("rareCategories",[]))
+    if hw_special_total != 1061 or int(hw_gacha.get("ordinaryFillBasisPoints",0)) != 8939:
+        a.error("HW_GACHA_POOL_TOTALS", f"{hw_special_total}/{hw_gacha.get('ordinaryFillBasisPoints')}")
+    hw_runtime = (root / "js/mvp_gacha_runtime.js").read_text(encoding="utf-8") if (root / "js/mvp_gacha_runtime.js").is_file() else ""
+    for token in ('chanceMode || "") === "per_reward_absolute"', 'chanceBasisPoints = Math.max(0, integer(row.chanceBasisPoints))'):
+        if token not in hw_runtime: a.error("HW_GACHA_RUNTIME_TOKEN", token)
+    hw_report = root / "TEST_REPORT_0.9.82HW_MVP_GACHA_PER_ITEM.json"
+    if not hw_report.is_file(): a.error("HW_REPORT_MISSING", hw_report.name)
+    else:
+        report = a.load(hw_report.name) or {}
+        if int(report.get("failed", -1)) != 0: a.error("HW_REPORT_FAILED", str(report.get("checks")))
+
+    for rel in ("RARE_ITEM_PROBABILITY_AUDIT_0.9.82HW.json", "RARE_ITEM_PROBABILITY_AUDIT_0.9.82HW.md"):
+        if not (root / rel).is_file(): a.error("HW_AUDIT_MISSING", rel)
 
     # 0.9.82HV unified damage-number colors / critical effect / incoming red damage.
     battle_js = (root / "js/battle.js").read_text(encoding="utf-8") if (root / "js/battle.js").is_file() else ""

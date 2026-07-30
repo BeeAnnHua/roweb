@@ -1,6 +1,6 @@
 {
   "name": "RO_WEB_Constitution",
-  "version": "0.9.82HV",
+  "version": "0.9.82HW",
   "purpose": "RO_WEB 專案開發憲法。任何 AI 或開發者在修改專案前必須先閱讀本檔案。",
   "must_read_before_any_update": true,
   "ai_update_protocol": {
@@ -1395,7 +1395,7 @@
       "targetFamily": "Dim Glacier weapons (26)"
     }
   },
-  "currentVersion": "0.9.82HV",
+  "currentVersion": "0.9.82HW",
   "versionHistory": [
     {
       "version": "0.9.82HN",
@@ -1417,6 +1417,17 @@
         "玩家暴擊改為黃紅漸層、紅色描邊與火花光圈特效",
         "怪物對玩家造成的任何傷害固定紅色",
         "玩家受擊數字固定在命中瞬間世界座標"
+      ]
+    },
+    {
+      "version": "0.9.82HW",
+      "title": "MVP Gacha Per-Reward Absolute Rates",
+      "changes": [
+        "20週年兩件各 0.1%",
+        "時光超越者五件各 1%",
+        "時光超越者-LT 四件各 0.1%",
+        "特殊獎合計 10.61%",
+        "普通獎池 89.39%"
       ]
     }
   ]
