@@ -1,0 +1,78 @@
+{
+  "version": "0.9.82HP",
+  "passed": 14,
+  "total": 14,
+  "status": "PASS",
+  "results": [
+    {
+      "name": "all_manifest_items_have_local_icons",
+      "pass": true,
+      "detail": "2372/2372; missing=[]"
+    },
+    {
+      "name": "box_ep19_dim_glacier_weapon_box_reward_icons_complete",
+      "pass": true,
+      "detail": "26/26; missing=[]"
+    },
+    {
+      "name": "box_ra_old_blue_box_reward_icons_complete",
+      "pass": true,
+      "detail": "1032/1032; missing=[]"
+    },
+    {
+      "name": "box_ra_old_violet_box_reward_icons_complete",
+      "pass": true,
+      "detail": "958/958; missing=[]"
+    },
+    {
+      "name": "box_ra_gift_box_reward_icons_complete",
+      "pass": true,
+      "detail": "70/70; missing=[]"
+    },
+    {
+      "name": "all_numeric_item_webp_riff_valid",
+      "pass": true,
+      "detail": "count=2575; bad=[]"
+    },
+    {
+      "name": "item_500054_official_hash",
+      "pass": true,
+      "detail": "3dbc4ff3f090332117bcaafd9b559b4ba5918495e0106e2a74fa35322f3c8145"
+    },
+    {
+      "name": "custom_box_1100100_explicit_101638_mapping",
+      "pass": true,
+      "detail": "6c2baaae105825ef6fde7b8874d7a3753fe992bcab5cddb682cee6c03b7427d3"
+    },
+    {
+      "name": "official_source_count",
+      "pass": true,
+      "detail": "20909"
+    },
+    {
+      "name": "replaced_count",
+      "pass": true,
+      "detail": "1"
+    },
+    {
+      "name": "required_icons_added_count",
+      "pass": true,
+      "detail": "1480"
+    },
+    {
+      "name": "only_source_missing_is_custom_box",
+      "pass": true,
+      "detail": "[1100100]"
+    },
+    {
+      "name": "no_wrong_id_borrowed_candidates",
+      "pass": true,
+      "detail": "0"
+    },
+    {
+      "name": "all_ra_classic_box_icons_complete",
+      "pass": true,
+      "detail": "{'ra_old_blue_box': {'boxItemId': 603, 'uniqueRewardIds': 1032, 'localIconsPresent': 1032, 'missingIconIds': []}, 'ra_old_violet_box': {'boxItemId': 617, 'uniqueRewardIds': 958, 'localIconsPresent': 958, 'missingIconIds': []}, 'ra_gift_box': {'boxItemId': 644, 'uniqueRewardIds': 70, 'localIconsPresent': 70, 'missingIconIds': []}}"
+    }
+  ]
+}

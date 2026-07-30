@@ -1,0 +1,132 @@
+{
+  "version": "0.9.82HP",
+  "packageType": "FULL_AND_INCREMENTAL",
+  "baseVersion": "0.9.82HO",
+  "buildPurpose": "Official item icon alignment by exact item ID and complete local icon coverage for all active items and ItemBox rewards",
+  "generatedAt": "2026-07-30T13:50:00+08:00",
+  "officialIconSource": {
+    "archive": "RO_WEB專案資料(1).zip",
+    "directory": "items/",
+    "officialUniqueNumericWebp": 20909
+  },
+  "iconMigration": {
+    "beforeNumericIcons": 1094,
+    "sameIdAlreadyOfficial": 1092,
+    "sameIdReplaced": 1,
+    "requiredMissingAdded": 1480,
+    "mappingSourceIconAdded": 1,
+    "finalNumericIcons": 2575,
+    "sourceMissingTargetIds": [
+      1100100
+    ],
+    "officialReplacementIds": [
+      500054
+    ]
+  },
+  "boxIconCoverage": {
+    "ep19_dim_glacier_weapon_box": {
+      "boxItemId": 1100100,
+      "uniqueRewardIds": 26,
+      "localIconsPresent": 26,
+      "missingIconIds": []
+    },
+    "ra_old_blue_box": {
+      "boxItemId": 603,
+      "uniqueRewardIds": 1032,
+      "localIconsPresent": 1032,
+      "missingIconIds": []
+    },
+    "ra_old_violet_box": {
+      "boxItemId": 617,
+      "uniqueRewardIds": 958,
+      "localIconsPresent": 958,
+      "missingIconIds": []
+    },
+    "ra_gift_box": {
+      "boxItemId": 644,
+      "uniqueRewardIds": 70,
+      "localIconsPresent": 70,
+      "missingIconIds": []
+    }
+  },
+  "customException": [
+    {
+      "itemId": 1100100,
+      "name": "黯淡冰晶武器箱",
+      "reason": "RO_WEB custom item ID; no official same-ID icon exists",
+      "sourceIconItemId": 101638,
+      "contentEqual": true,
+      "sha256": "6c2baaae105825ef6fde7b8874d7a3753fe992bcab5cddb682cee6c03b7427d3"
+    }
+  ],
+  "rateVerification": {
+    "baseExp": 10000,
+    "jobExp": 10000,
+    "drop": 10000,
+    "zeny": 10000,
+    "cardDrop": 10000,
+    "mapExclusiveDrop": 10000,
+    "gradeMaterialDropRate": 10000
+  },
+  "testSummary": {
+    "itemIcons": "14/14 PASS",
+    "raClassicBoxes": "56/56 PASS",
+    "legacyDimGlacierBox": "26/26 reward icons PASS",
+    "saveDurability": "15/15 PASS",
+    "serverRates": "2/2 PASS",
+    "currencyRegression": "24/24 PASS",
+    "deepHealth": "0 errors, 0 warnings",
+    "jsonParse": "1992 PASS",
+    "jsSyntax": "763 PASS"
+  },
+  "keyFiles": {
+    "index.html": {
+      "bytes": 51409,
+      "sha256": "af37e09af5cdd9678a4aa395483eed153f646cd33c30ce40784d8ff253425039"
+    },
+    "data/server_config.json": {
+      "bytes": 4800,
+      "sha256": "ad5671026af967b6f4b629e2d11cbbda5877b56810a4a4871b63f018bb53aad5"
+    },
+    "js/data_bundle.js": {
+      "bytes": 36629924,
+      "sha256": "0a48850858f75126c1b5322e98adbc26e95de136fa00159bb08d528633f0344b"
+    },
+    "images/items/500054.webp": {
+      "bytes": 190,
+      "sha256": "3dbc4ff3f090332117bcaafd9b559b4ba5918495e0106e2a74fa35322f3c8145"
+    },
+    "images/items/101638.webp": {
+      "bytes": 888,
+      "sha256": "6c2baaae105825ef6fde7b8874d7a3753fe992bcab5cddb682cee6c03b7427d3"
+    },
+    "images/items/1100100.webp": {
+      "bytes": 888,
+      "sha256": "6c2baaae105825ef6fde7b8874d7a3753fe992bcab5cddb682cee6c03b7427d3"
+    },
+    "ITEM_ICON_OFFICIALIZATION_0.9.82HP.json": {
+      "bytes": 17517,
+      "sha256": "ccd35075e5cf8029a3221a22ccac03493b23540fb2d40cfba1c61c1c54553792"
+    },
+    "TEST_REPORT_0.9.82HP_ITEM_ICONS.txt": {
+      "bytes": 1165,
+      "sha256": "855f0873b010aa2917c901f3f51dc7ee4b72705819f8f207c7340a7dacfcabe9"
+    },
+    "DEEP_HEALTH_0.9.82HP.json": {
+      "bytes": 2044,
+      "sha256": "f941a6e65069e32f5409583bfa391a1eabdbc21405dcbe55b28cc15c167e947b"
+    },
+    "tools/test_item_icons_0.9.82HP.py": {
+      "bytes": 3469,
+      "sha256": "e053640fcfd50542470f3aed123b2521bd92533adf3e0e2d93903745483e9a57"
+    },
+    "tools/test_item_icons_report_0.9.82HP.json": {
+      "bytes": 2136,
+      "sha256": "3ee905dcae8d2084cf643c5999275963f40948a1cccf13a12b261736b699a11b"
+    },
+    "tools/deep_health_check.py": {
+      "bytes": 21371,
+      "sha256": "b95d8ea71019fce45be4db9ce7eaccea497eacc1e8f03d67e4dcec27adc1e23b"
+    }
+  }
+}
