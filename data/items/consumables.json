@@ -911,5 +911,38 @@
       "moveSpeedRate": 25,
       "durationMs": 180000
     }
+  },
+  "12922": {
+    "id": 12922,
+    "officialId": 12922,
+    "Id": 12922,
+    "AegisName": "Token_Of_Siegfried_Box",
+    "aegisName": "Token_Of_Siegfried_Box",
+    "Name": "原地復活之證箱子",
+    "name": "原地復活之證箱子",
+    "Type": "Cash",
+    "dbType": "Cash",
+    "type": "consume",
+    "category": "loot_box",
+    "subCategory": "revival_box",
+    "Buy": 20,
+    "buyPrice": 20,
+    "sellPrice": 0,
+    "Weight": 10,
+    "description": [
+      "裝有 10 個原地復活之證的箱子。",
+      "開啟後固定獲得原地復活之證 ×10。"
+    ],
+    "icon": "images/items/12922.webp",
+    "slots": 0,
+    "slotCount": 0,
+    "Slots": 0,
+    "ClassNum": 0,
+    "Script": "getitem 7621,10;",
+    "scriptRaw": "getitem 7621,10;",
+    "lootBoxId": "token_of_siegfried_box",
+    "container": true,
+    "tradeRestricted": true,
+    "dataSource": "itemInfo_UTF8.lub + rAthena Renewal db/re/item_db_usable.yml (2026-06-08); RO_WEB 0.9.82HT ItemBoxRuntime"
   }
 }

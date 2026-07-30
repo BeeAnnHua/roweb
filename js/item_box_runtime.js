@@ -1,11 +1,11 @@
 //=======================================
-// RO_WEB ItemBoxRuntime v0.9.82HR
+// RO_WEB ItemBoxRuntime v0.9.82HT
 // Generic weighted loot-box runtime. Supports the EP19 Dim Glacier box and
-// exact rAthena weighted Item Groups for Gift/Old Blue/Old Purple boxes.
+// exact rAthena weighted Item Groups for Gift/Old Blue/Old Purple boxes, plus the fixed Token of Siegfried box.
 //=======================================
 (function () {
   "use strict";
-  const VERSION = "0.9.82HR";
+  const VERSION = "0.9.82HT";
   const DATA_KEY = "data/item_boxes.json";
   const number = (v, f = 0) => Number.isFinite(Number(v)) ? Number(v) : f;
   const config = () => window.RO_WEB_DATA?.[DATA_KEY] || { boxes:{} };

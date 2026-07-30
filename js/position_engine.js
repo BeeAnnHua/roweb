@@ -4,7 +4,7 @@
 // 參考 RA mob_db 概念欄位：AttackRange / SkillRange / ChaseRange / WalkSpeed / Ai / Modes。
 //=======================================
 
-const POSITION_ENGINE_VERSION = "0.9.82EM";
+const POSITION_ENGINE_VERSION = "0.9.82HU";
 // Exact rAthena Aegis AI bitmasks from src/map/mob.hpp.
 const RA_MONSTER_AI_MASKS = Object.freeze({
   1:0x81,2:0x83,3:0x1089,4:0x3885,5:0x2085,6:0x0,7:0x108B,8:0x7085,9:0x3095,
@@ -146,6 +146,34 @@ const POSITION_SAFE = {
 function getBattleFieldElement() {
   return document.getElementById("battle-field");
 }
+
+// RO_WEB 0.9.82HU：死亡狀態是移動系統的最高優先鎖。
+// 不能只依賴死亡視窗遮罩，因為死亡前留下的 target、world-camera 的
+// document capture fallback，或其他模組呼叫 setPlayerMoveTarget() 都可能繼續移動。
+function isPlayerDeathMovementLocked() {
+  let runtimeDead = false;
+  try { runtimeDead = window.DeathRevivalRuntime?.isDead?.() === true; } catch (_) {}
+  const hpDead = Boolean(player) && Number(player?.hp || 0) <= 0;
+  const modal = document.getElementById("playerDeathModal");
+  const modalOpen = Boolean(modal && modal.hidden === false);
+  const bodyLocked = Boolean(document.body?.classList?.contains?.("player-death-modal-open"));
+  return runtimeDead || hpDead || modalOpen || bodyLocked;
+}
+
+function clearPlayerMovementForDeath(options = {}) {
+  if (!player) return false;
+  player.position = player.position || {};
+  player.position.targetX = null;
+  player.position.targetY = null;
+  player.state = "Dead";
+  if (options.render !== false) {
+    try { if (typeof renderPositionSprites === "function") renderPositionSprites(); } catch (_) {}
+    try { if (typeof updatePositionCoordinateUi === "function") updatePositionCoordinateUi(); } catch (_) {}
+  }
+  return true;
+}
+window.isPlayerDeathMovementLocked = isPlayerDeathMovementLocked;
+window.clearPlayerMovementForDeath = clearPlayerMovementForDeath;
 
 function isMobileBattleLayout() {
   const field = getBattleFieldElement();
@@ -898,6 +926,14 @@ function bindBattleFieldMovement() {
     if (!isPrimaryMoveInput(event)) return;
     if (isPointerOnBlockedUi(event.target)) return;
     if (!player) return;
+    if (isPlayerDeathMovementLocked()) {
+      clearPlayerMovementForDeath({ render: false });
+      if (event.cancelable) event.preventDefault();
+      event.stopImmediatePropagation?.();
+      event.stopPropagation?.();
+      updatePositionDebugOverlay({ tap: `${options.source || event.type}/${event.pointerType || ""} death movement locked` });
+      return;
+    }
     if (player.currentCity && !isWorldCameraEngineActive()) return;
 
     const now = Date.now();
@@ -968,6 +1004,10 @@ function bindBattleFieldMovement() {
 }
 
 function setPlayerMoveTarget(x, y) {
+  if (isPlayerDeathMovementLocked()) {
+    clearPlayerMovementForDeath({ render: false });
+    return false;
+  }
   const activeBuffs = typeof getActiveBuffBonusTotals === "function" ? getActiveBuffBonusTotals() : {};
   if (Number(activeBuffs.movementLocked || 0) > 0) {
     if (typeof addBattleLog === "function") addBattleLog("目前的偽裝戰術等級無法移動。");
@@ -993,6 +1033,10 @@ function setPlayerMoveTarget(x, y) {
 
 function updatePositionMovement(dt) {
   if (!player?.position) return;
+  if (isPlayerDeathMovementLocked()) {
+    clearPlayerMovementForDeath({ render: false });
+    return;
+  }
   const activeBuffs = typeof getActiveBuffBonusTotals === "function" ? getActiveBuffBonusTotals() : {};
   if (Number(activeBuffs.movementLocked || 0) > 0) {
     player.position.targetX = null;
@@ -1389,6 +1433,7 @@ window.getAutoBattleEffectiveAttackRange = getAutoBattleEffectiveAttackRange;
 window.getPredictedMonsterChasePosition = getPredictedMonsterChasePosition;
 
 function movePlayerTowardMonster(monster = currentMonster, desiredRange = null) {
+  if (isPlayerDeathMovementLocked()) { clearPlayerMovementForDeath({ render: false }); return false; }
   if (!monster || !player?.position) return false;
   const baseMonsterPos = getMonsterPosition(monster);
   const autoRunning = typeof isAutoBattleRunning === "function" ? isAutoBattleRunning() : false;
@@ -1413,6 +1458,7 @@ function movePlayerTowardMonster(monster = currentMonster, desiredRange = null) 
 }
 
 function movePlayerAdjacentToMonster(monster = currentMonster) {
+  if (isPlayerDeathMovementLocked()) { clearPlayerMovementForDeath({ render: false }); return false; }
   if (!monster || !player?.position) return false;
   const monsterPos = getMonsterPosition(monster);
   const playerPos = getPlayerPosition();
@@ -1790,6 +1836,11 @@ function consumeInventoryItemCount(itemId, count = 1) {
 
 function useFlyWing(options = {}) {
   if (!player) return false;
+  if (isPlayerDeathMovementLocked()) {
+    clearPlayerMovementForDeath({ render: false });
+    if (!options.silent && typeof addBattleLog === "function") addBattleLog("角色已死亡，請先選擇復活方式。");
+    return false;
+  }
   if (player.currentCity) {
     if (!options.silent) addBattleLog("城鎮內暫不使用蒼蠅翅膀。");
     return false;
@@ -1820,6 +1871,11 @@ function useFlyWing(options = {}) {
 
 function useButterflyWing(options = {}) {
   if (!player) return false;
+  if (isPlayerDeathMovementLocked()) {
+    clearPlayerMovementForDeath({ render: false });
+    if (!options.silent && typeof addBattleLog === "function") addBattleLog("角色已死亡，請使用死亡視窗返回村莊。");
+    return false;
+  }
   if (player.currentCity) {
     if (!options.silent && typeof addBattleLog === "function") addBattleLog("目前已在城鎮內。");
     return false;
@@ -1852,6 +1908,7 @@ function useButterflyWing(options = {}) {
 window.useButterflyWing = useButterflyWing;
 
 function maybeAutoTeleportWhenNoTarget() {
+  if (isPlayerDeathMovementLocked()) { clearPlayerMovementForDeath({ render: false }); return false; }
   if (!player?.autoCombat?.teleport?.enabled) return false;
   // 0.9.82FL：只打指定怪物但尚未勾選任何目標時，停在原地等待，
   // 不可每秒浪費蒼蠅翅膀。

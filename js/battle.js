@@ -265,9 +265,16 @@ function getManualAttackTimingCandidates(now = Date.now()) {
   return waits.filter(value => Number.isFinite(value) && value > 0);
 }
 
+function isManualCombatTargetValid(monster) {
+  if (!monster || monster._deathHandled || monster._defeatResolutionQueued) return false;
+  if (Number(monster.currentHp ?? monster.hp ?? 0) <= 0) return false;
+  if (!player || player.currentCity || Number(player.hp || 0) <= 0) return false;
+  return true;
+}
+
 function getManualAttackNextDelayMs(now = Date.now()) {
   if (!manualAttackRunning) return AUTO_BATTLE_MAX_IDLE_MS;
-  if (!manualAttackTarget || currentMonster !== manualAttackTarget) return AUTO_BATTLE_MIN_SCHEDULE_MS;
+  if (!isManualCombatTargetValid(manualAttackTarget) || currentMonster !== manualAttackTarget) return AUTO_BATTLE_MIN_SCHEDULE_MS;
   if (["Approaching", "Moving", "Move"].includes(String(player?.state || ""))) return 16;
   const waits = getManualAttackTimingCandidates(now);
   return Math.max(AUTO_BATTLE_MIN_SCHEDULE_MS, Math.min(AUTO_BATTLE_MAX_IDLE_MS, Math.ceil(waits.length ? Math.max(...waits) : 16)));
@@ -297,7 +304,7 @@ function scheduleManualMonsterAttack(delayMs = null) {
   manualAttackTimer = setTimeout(() => {
     manualAttackTimer = null;
     if (!manualAttackRunning || autoBattleRunning) return;
-    if (!manualAttackTarget || currentMonster !== manualAttackTarget || Number(manualAttackTarget.currentHp || 0) <= 0 || manualAttackTarget._deathHandled || player?.currentCity || Number(player?.hp || 0) <= 0) {
+    if (!isManualCombatTargetValid(manualAttackTarget) || currentMonster !== manualAttackTarget) {
       stopManualMonsterAttack({ clearTarget: false, silent: true });
       return;
     }
@@ -312,7 +319,7 @@ function scheduleManualMonsterAttack(delayMs = null) {
 }
 
 function startManualMonsterAttack(monster = currentMonster, options = {}) {
-  if (!monster || Number(monster.currentHp || monster.hp || 0) <= 0 || monster._deathHandled || player?.currentCity) return false;
+  if (!isManualCombatTargetValid(monster)) return false;
   if (autoBattleRunning) {
     if (typeof forceAutoBattleTarget === "function") forceAutoBattleTarget(monster, { announce: false, manual: true, priorityMs: 12000 });
     else {
@@ -332,12 +339,37 @@ function startManualMonsterAttack(monster = currentMonster, options = {}) {
   return true;
 }
 
+function requestManualRetaliationAgainstMonster(monster, options = {}) {
+  if (!isManualCombatTargetValid(monster) || autoBattleRunning) return false;
+
+  // 玩家已經手動鎖定另一個有效目標時，主動怪不得搶走目標。
+  if (manualAttackRunning && isManualCombatTargetValid(manualAttackTarget) && manualAttackTarget !== monster) return false;
+  if (!manualAttackRunning && isManualCombatTargetValid(currentMonster) && currentMonster !== monster) return false;
+
+  const changed = currentMonster !== monster || manualAttackTarget !== monster || manualAttackRunning !== true;
+  if (monster._worldTestEntity && typeof selectWorldMonsterTestTarget === "function") {
+    selectWorldMonsterTestTarget(monster, { announce: false, attacking: true });
+  } else {
+    currentMonster = monster;
+    if (player) player.state = "Attacking";
+    if (typeof updateMonsterUI === "function") updateMonsterUI();
+  }
+  const started = startManualMonsterAttack(monster, { immediate: true, retaliation: true });
+  if (started && changed && options.announce !== false && typeof addBattleLog === "function") {
+    addBattleLog(`遭到 ${monster.name || "怪物"} 攻擊，開始反擊。`);
+  }
+  return started;
+}
+
+window.isManualCombatTargetValid = isManualCombatTargetValid;
 window.getManualAttackTimingCandidates = getManualAttackTimingCandidates;
 window.getManualAttackNextDelayMs = getManualAttackNextDelayMs;
 window.scheduleManualMonsterAttack = scheduleManualMonsterAttack;
 window.startManualMonsterAttack = startManualMonsterAttack;
 window.stopManualMonsterAttack = stopManualMonsterAttack;
+window.requestManualRetaliationAgainstMonster = requestManualRetaliationAgainstMonster;
 window.isManualMonsterAttackRunning = () => manualAttackRunning === true;
+window.getManualMonsterAttackTarget = () => manualAttackTarget;
 
 // 開始自動戰鬥
 function startAutoBattle() {
@@ -359,10 +391,11 @@ function startAutoBattle() {
   }
 
   if (player.hp <= 0) {
-    player.hp = player.maxHp;
-    updatePlayerUI();
-    saveGame();
-    addBattleLog("HP 已恢復。");
+    if (window.DeathRevivalRuntime?.recoverPersistedDeathState) {
+      window.DeathRevivalRuntime.recoverPersistedDeathState();
+    }
+    addBattleLog("角色已死亡，請先選擇原地復活或回到村莊。");
+    return;
   }
 
   // 開始戰鬥前先同步一次 Auto Battle Controller v1 設定
@@ -941,6 +974,19 @@ function monsterAttackPlayer(options = {}) {
   }
 
   addBattleLog(currentMonster.name + " 對你造成 " + monsterDamage + " 點傷害。");
+  // 0.9.82HV：怪物對玩家造成的任何傷害統一使用紅色受擊數字。
+  // 不論物理、魔法或怪物端暴擊，都不得套用玩家的白／黃／黃紅傷害樣式。
+  if (typeof showDamageNumber === "function") {
+    showDamageNumber(monsterDamage, {
+      target:player,
+      source:"monster",
+      incoming:true,
+      critical:false,
+      combo:false,
+      cumulative:false,
+      offsetY:-4
+    });
+  }
   applyActivePhysicalReflect(currentMonster, monsterDamage, { magic:monsterAttackType.includes("magic"), rangeCells:monsterRangeCells });
   if (crescentElbowResult?.triggered && Number(currentMonster.currentHp || 0) <= 0) {
     if (player.hp <= 0) { updatePlayerUI(); persistMonsterAttackState(); playerDead(); return; }
@@ -975,7 +1021,7 @@ function monsterAttackPlayer(options = {}) {
   updatePlayerUI();
   persistMonsterAttackState();
 }
-// 玩家死亡：先完整播放 Dead 四幀並停在最後一幀，再恢復 HP。
+// 玩家死亡：保留技能型自動復活；一般死亡交由 0.9.82HT 死亡／復活 Runtime。
 function playerDead() {
   if(typeof normalizeActiveBuffs==="function")normalizeActiveBuffs();
   const reviveEntry=Object.entries(player?.activeBuffs||{}).find(([,buff])=>Number(buff?.effects?.valleyOfDeathAutoRevive||0)>0);
@@ -989,44 +1035,24 @@ function playerDead() {
     if(typeof addBattleLog==="function")addBattleLog(`${buff?.name||"復活效果"}發動：恢復 ${player.hp} HP，剩餘 ${player.sp} SP。`);
     return true;
   }
-  if (window.roWebPlayerDeathRecoveryTimer) return false;
 
   const defeatedBy = currentMonster?.name || "怪物";
-  player.hp = 0;
-  if (typeof playROStudioPlayerMotion === "function") {
-    playROStudioPlayerMotion("dead", { duration: 900, holdLast: true });
+  const wasAutoBattle = autoBattleRunning === true || window.RO_WEB_AUTO_BATTLE_RESUME_PENDING === true;
+  if (window.DeathRevivalRuntime?.handleDeath) {
+    return window.DeathRevivalRuntime.handleDeath({ defeatedBy, wasAutoBattle });
   }
-  addBattleLog(`你被 ${defeatedBy} 擊敗了。`);
-  const shouldResumeAutoBattle = autoBattleRunning === true || window.RO_WEB_AUTO_BATTLE_RESUME_PENDING === true;
-  window.RO_WEB_AUTO_BATTLE_RESUME_PENDING = shouldResumeAutoBattle;
-  stopAutoBattle({ silent: true, keepResumePending: true });
-  updateAutoBattleQuickToggleState();
-  currentMonster = null;
-  updateMonsterUI();
-  updatePlayerUI();
-  saveGame();
 
-  const deadDuration = Math.max(900, Number(typeof getROStudioMotionDuration === "function" ? getROStudioMotionDuration("dead") : 0));
-  window.roWebPlayerDeathRecoveryTimer = setTimeout(() => {
-    window.roWebPlayerDeathRecoveryTimer = null;
-    player.hp = Math.max(1, Number(player.maxHp || 1));
-    if (window.EffectRuntime?.hasFlag?.("restartFullRecover", player)) player.sp = Math.max(0, Number(player.maxSp || 0));
-    if (typeof clearROStudioPlayerMotionOverride === "function") clearROStudioPlayerMotionOverride();
-    updatePlayerUI();
-    saveGame();
-    const resumeAutoBattle = window.RO_WEB_AUTO_BATTLE_RESUME_PENDING === true;
-    window.RO_WEB_AUTO_BATTLE_RESUME_PENDING = false;
-    if (resumeAutoBattle && !player.currentCity && currentMap) {
-      if (typeof resetAutoBattleController === "function") resetAutoBattleController({ running: false, keepTarget: false, reason: "death_recovery" });
-      currentMonster = null;
-      if (typeof updateMonsterUI === "function") updateMonsterUI();
-      addBattleLog("HP 已恢復，自動掛機繼續運作。");
-      setTimeout(() => startAutoBattle(), 80);
-    } else {
-      updateAutoBattleQuickToggleState();
-      addBattleLog("HP 已恢復。");
-    }
-  }, deadDuration);
+  // Fail-safe：Runtime 未載入時也不得免費自動復活。
+  player.hp = 0;
+  if (typeof playROStudioPlayerMotion === "function") playROStudioPlayerMotion("dead", { duration: 900, holdLast: true });
+  if (typeof addBattleLog === "function") addBattleLog(`你被 ${defeatedBy} 擊敗了。`);
+  window.RO_WEB_AUTO_BATTLE_RESUME_PENDING = false;
+  if (typeof stopAutoBattle === "function") stopAutoBattle({ silent: true });
+  if (typeof stopManualMonsterAttack === "function") stopManualMonsterAttack({ clearTarget: true, silent: true });
+  currentMonster = null;
+  if (typeof updateMonsterUI === "function") updateMonsterUI();
+  if (typeof updatePlayerUI === "function") updatePlayerUI();
+  if (typeof saveGame === "function") saveGame({ reason: "player-death-failsafe" });
   return true;
 }
 
@@ -1389,6 +1415,35 @@ const RO_WEB_DAMAGE_NUMBER_BATCH = {
 function captureDamageNumberAnchor(target) {
   if (!target) return null;
   const camera = typeof getMapCameraOffset === "function" ? getMapCameraOffset() : { x:0, y:0 };
+
+  // 0.9.82HV：玩家受到怪物傷害時，傷害字固定在命中瞬間的玩家世界座標。
+  // 這與怪物傷害數字使用相同的 world-anchor 契約；玩家之後移動時，數字留在原命中位置。
+  if (target === player || target?.isPlayer === true || target?.entityType === "player") {
+    const position = target?.position;
+    if (position && Number.isFinite(Number(position.x)) && Number.isFinite(Number(position.y))) {
+      const worldX = Number(position.x);
+      const worldY = Number(position.y) - 96;
+      return {
+        x:worldX - Number(camera.x || 0),
+        y:worldY - Number(camera.y || 0),
+        worldX,
+        worldY,
+        instanceId:"player"
+      };
+    }
+    const playerElement = document.getElementById?.("player-sprite");
+    const battleField = document.getElementById?.("battle-field");
+    if (playerElement?.getBoundingClientRect && battleField?.getBoundingClientRect) {
+      const playerRect = playerElement.getBoundingClientRect();
+      const fieldRect = battleField.getBoundingClientRect();
+      return {
+        x:playerRect.left - fieldRect.left + playerRect.width / 2,
+        y:playerRect.top - fieldRect.top + Math.min(58, playerRect.height * .28),
+        instanceId:"player"
+      };
+    }
+  }
+
   const world = target._damageNumberAnchorWorld;
   if (world && Number.isFinite(Number(world.x)) && Number.isFinite(Number(world.y))) {
     return {
@@ -1420,19 +1475,23 @@ function captureDamageNumberAnchor(target) {
 function createDamageNumberElement(entry) {
   const options = entry.options || {};
   const number = document.createElement("div");
-  const source = String(options.source || "player");
-  const critical = options.critical === true || options.isCritical === true || options.criticalResult?.critical === true;
+  const source = String(options.source || "player").toLowerCase();
+  const incoming = options.incoming === true || source === "monster" || source === "enemy";
+  const critical = !incoming && (options.critical === true || options.isCritical === true || options.criticalResult?.critical === true);
   const hitCount = Math.max(1, Number(options.hitCount || options.visualHits || options.damageHitCount || 1));
-  const combo = options.combo === true || options.isCombo === true || options.multiHit === true || hitCount > 1 || options.cumulative === true;
+  const combo = !incoming && (options.combo === true || options.isCombo === true || options.multiHit === true || hitCount > 1 || options.cumulative === true);
   const classes = ["damage-number"];
-  if (source === "summon") classes.push("summon-damage-number");
-  if (source === "additional") classes.push("additional-damage-number", "combo-damage-number");
+  if (incoming) classes.push("incoming-damage-number");
+  if (!incoming && source === "summon") classes.push("summon-damage-number");
+  if (!incoming && source === "additional") classes.push("additional-damage-number", "combo-damage-number");
   if (combo && source !== "summon" && source !== "additional") classes.push("combo-damage-number");
   if (critical && source !== "additional") classes.push("critical-damage-number");
   if (options.cumulative === true) classes.push("cumulative-damage-number");
   if (options.cumulativeFinal === true) classes.push("cumulative-damage-final");
   if (options.miss === true || options.textOverride === "MISS") classes.push("miss-damage-number");
   number.className = classes.join(" ");
+  number.dataset.damageSource = source;
+  number.dataset.damageKind = incoming ? "incoming" : (critical ? "critical" : (combo ? "combo" : "normal"));
   const numericDamage = Math.max(0, Math.floor(Number(entry.damage || 0)));
   number.textContent = options.textOverride !== undefined
     ? String(options.textOverride)

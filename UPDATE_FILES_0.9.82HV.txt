@@ -1,0 +1,32 @@
+RO_WEB 0.9.82HV — HU→HV 增量更新檔案
+
+核心修改：
+- index.html
+- css/style.css
+- js/battle.js
+- js/game.js
+- AI_START_HERE.md
+- README.md
+- CHANGELOG.md
+- RO_WEB_CONSTITUTION.json
+- tools/deep_health_check.py
+
+新增測試／報告：
+- tools/deep_health_check_0.9.82HV.py
+- tools/test_damage_number_visual_contract_0.9.82HV.js
+- tools/test_damage_number_browser_0.9.82HV.py
+- tools/test_death_movement_lock_0.9.82HV.js
+- tools/test_death_revival_0.9.82HV.js
+- tools/test_manual_combat_0.9.82HV.js
+- TEST_REPORT_0.9.82HV_DAMAGE_NUMBER_VISUAL_CONTRACT.json/.txt
+- TEST_REPORT_0.9.82HV_DAMAGE_NUMBER_BROWSER_RENDER.json
+- TEST_REPORT_0.9.82HV_DEATH_MOVEMENT_LOCK.json/.txt
+- TEST_REPORT_0.9.82HV_DEATH_REVIVAL.json
+- TEST_REPORT_0.9.82HV_MANUAL_COMBAT.json
+- TEST_REPORT_0.9.82HV_INTEGRATION.json/.txt
+- DEEP_HEALTH_0.9.82HV.json
+- docs/previews/DAMAGE_NUMBER_VISUAL_0.9.82HV.html/.png
+- INCREMENTAL_MANIFEST_0.9.82HV.json
+- UPDATE_FILES_0.9.82HV.txt
+
+需刪除檔案：無

@@ -1552,5 +1552,36 @@
     "dbType": "Etc",
     "Type": "Etc",
     "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_etc.yml; RO_WEB 0.9.82GV"
+  },
+  "7621": {
+    "id": 7621,
+    "officialId": 7621,
+    "Id": 7621,
+    "AegisName": "Token_Of_Siegfried",
+    "aegisName": "Token_Of_Siegfried",
+    "Name": "原地復活之證",
+    "name": "原地復活之證",
+    "Type": "Etc",
+    "dbType": "Etc",
+    "type": "etc",
+    "category": "revival",
+    "subCategory": "token_of_siegfried",
+    "Buy": 2,
+    "buyPrice": 2,
+    "sellPrice": 1,
+    "Weight": 10,
+    "description": [
+      "有著不死神齊格弗里德氣息的證明。",
+      "角色死亡時，可在死亡場所消耗 1 個立即復活。"
+    ],
+    "icon": "images/items/7621.webp",
+    "slots": 0,
+    "slotCount": 0,
+    "Slots": 0,
+    "ClassNum": 0,
+    "usableOnDeath": true,
+    "reviveItem": true,
+    "tradeRestricted": true,
+    "dataSource": "itemInfo_UTF8.lub + rAthena Renewal db/re/item_db_etc.yml (2026-06-08); RO_WEB 0.9.82HT death revival runtime"
   }
 }

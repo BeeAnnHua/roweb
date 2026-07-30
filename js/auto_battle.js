@@ -1,5 +1,5 @@
 //=======================================
-// AutoBattleController v1.8（0.9.82HQ）
+// AutoBattleController v1.9（0.9.82HT）
 // 精簡設定介面 / 自動異常解除 / 低血量逃生 / 自動肯貝特 / 當前地圖怪物篩選
 //=======================================
 
@@ -45,6 +45,7 @@ function createDefaultAutoCombat() {
     detox: { enabled: false },
     elementEndow: { enabled: false, element: "" },
     speedBadge: { enabled: false, itemId: 662 },
+    death: { autoUseToken: false, itemId: 7621 },
     cashFood: { enabled: false, itemIds: [] },
     monsterFilter: { version: "0.9.82FM", byMap: {} },
     heal: { enabled: false, skillId: null, hpPercent: 60, spPercent: 20, level: 1 },
@@ -257,6 +258,9 @@ function normalizeAutoCombatSettings() {
   const sourceSpeedBadge = source.speedBadge && typeof source.speedBadge === "object" ? source.speedBadge : { enabled:Boolean(source.speedBadge) };
   player.autoCombat.speedBadge = { ...defaults.speedBadge, ...sourceSpeedBadge, itemId:662 };
   player.autoCombat.speedBadge.enabled = player.autoCombat.speedBadge.enabled === true;
+  const sourceDeath = source.death && typeof source.death === "object" ? source.death : { autoUseToken:Boolean(source.autoUseReviveToken) };
+  player.autoCombat.death = { ...defaults.death, ...sourceDeath, itemId:7621 };
+  player.autoCombat.death.autoUseToken = player.autoCombat.death.autoUseToken === true;
   const sourceCashFood = source.cashFood && typeof source.cashFood === "object" ? source.cashFood : {};
   const rawCashFoodIds = Array.isArray(sourceCashFood.itemIds) ? sourceCashFood.itemIds : [];
   player.autoCombat.cashFood = {
@@ -783,6 +787,7 @@ function syncAutoCombatSettingsFromUI(options = {}) {
   const butterflyEnabled = document.getElementById("autoCombatButterflyEnabled");
   const butterflyPercent = document.getElementById("autoCombatButterflyPercent");
   const returnCity = document.getElementById("autoCombatReturnCity");
+  const autoReviveTokenEnabled = document.getElementById("autoCombatAutoReviveTokenEnabled");
 
   if (hpEnabled) player.autoCombat.hpPotion.enabled = hpEnabled.checked;
   if (hpPercent) player.autoCombat.hpPotion.hpPercent = Number(hpPercent.value) || 50;
@@ -834,6 +839,7 @@ function syncAutoCombatSettingsFromUI(options = {}) {
   if (butterflyEnabled) player.autoCombat.teleport.returnHome.enabled = butterflyEnabled.checked;
   if (butterflyPercent) player.autoCombat.teleport.returnHome.hpPercent = Math.max(1, Math.min(99, Number(butterflyPercent.value) || 10));
   if (returnCity) player.autoCombat.teleport.returnHome.cityId = returnCity.value || "prontera";
+  if (autoReviveTokenEnabled) player.autoCombat.death.autoUseToken = autoReviveTokenEnabled.checked === true;
   player.autoCombat.teleport.noTargetSeconds = 1;
 
   player.autoCombat.attacks.forEach((slot, index) => {
@@ -1273,6 +1279,7 @@ function updateAutoCombatUI() {
   const butterflyEnabled = document.getElementById("autoCombatButterflyEnabled");
   const butterflyPercent = document.getElementById("autoCombatButterflyPercent");
   const returnCity = document.getElementById("autoCombatReturnCity");
+  const autoReviveTokenEnabled = document.getElementById("autoCombatAutoReviveTokenEnabled");
   const normalAttackEnabled = document.getElementById("autoCombatNormalAttackEnabled");
 
   if (hpEnabled) hpEnabled.checked = !!cfg.hpPotion.enabled;
@@ -1299,6 +1306,8 @@ function updateAutoCombatUI() {
   if (butterflyEnabled) butterflyEnabled.checked = !!cfg.teleport.returnHome.enabled;
   if (butterflyPercent) butterflyPercent.value = cfg.teleport.returnHome.hpPercent;
   updateAutoCombatReturnCityOptions(returnCity, cfg.teleport.returnHome.cityId);
+  if (autoReviveTokenEnabled) autoReviveTokenEnabled.checked = cfg.death?.autoUseToken === true;
+  if (typeof updateDeathAutoCombatTokenCount === "function") updateDeathAutoCombatTokenCount();
   if (normalAttackEnabled) normalAttackEnabled.checked = cfg.normalAttack.enabled !== false;
   updatePotionSelectOptions(hpItem, "hp", cfg.hpPotion.itemId);
   updatePotionSelectOptions(spItem, "sp", cfg.spPotion.itemId);

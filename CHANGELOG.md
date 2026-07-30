@@ -1,3 +1,37 @@
+## 0.9.82HV — 傷害數字色彩與爆擊特效統一
+
+- 玩家普通攻擊與一般技能浮字由橘色改為白色。
+- 連段、多段、二刀／六合與追加攻擊維持黃色識別。
+- 玩家普通攻擊與可暴擊技能統一使用黃紅漸層字面、紅色外框、火花與光圈爆發。
+- 怪物對玩家造成的物理、魔法與暴擊傷害全部固定紅色。
+- 新增玩家世界座標傷害錨點；受擊浮字留在命中位置，不黏著移動中的角色。
+- 新增傷害來源／類型 dataset，供測試與未來戰鬥視覺擴充。
+
+## 0.9.82HU — 死亡期間完全禁止移動
+
+- Position Engine 新增 `isPlayerDeathMovementLocked()` 與 `clearPlayerMovementForDeath()`。
+- 死亡時立即清除 `player.position.targetX/targetY`，角色狀態固定為 `Dead`。
+- 地圖 pointer/touch/click、World Camera fallback、追怪、貼近怪物、蒼蠅翅膀、蝴蝶翅膀與自動無目標瞬移全部套用死亡鎖。
+- 死亡遮罩新增輸入隔離，避免按鈕或背景手勢冒泡到地圖移動入口。
+- 復活或回村恢復 HP 後才解除移動鎖。
+
+## 0.9.82HT — 死亡復活、原地復活之證與 5% 補給箱
+
+- 新增 `js/death_revival_runtime.js`，統一管理死亡、原地復活、回村與存檔恢復。
+- 移除 `playerDead()` 舊有的免費計時復活與自動掛機直接續戰。
+- 自動戰鬥設定新增 `autoCombat.death.autoUseToken`，固定對應 Item 7621。
+- Item 12922 接入通用 ItemBox，固定發放 Item 7621 ×10。
+- MVP 轉蛋增加 500 basis points（5%）的 Item 12922 獎項，總機率仍為 100%。
+- 新增死亡 UI、手機版樣式、正式物品圖示、HT 專項測試與健康檢查。
+
+## 0.9.82HS — 手動戰鬥與主動怪反擊
+
+- 新增獨立 `isManualCombatTargetValid()`，手動目標不再套用掛機黑白名單。
+- 快捷欄手動普攻／目標技能改用手動目標驗證。
+- 點擊世界怪物：掛機中交由強制掛機目標；未掛機則啟動手動連續普攻。
+- 世界主動怪攻擊玩家時，在沒有其他手動目標的前提下自動反擊。
+- 新增 `requestManualRetaliationAgainstMonster()`，保護玩家既有鎖定不被其他攻擊者搶走。
+
 ## 0.9.82HR — 全域稀有物品公告與升階材料 5% 絕對掉落
 
 - 新增 `js/rare_item_announcement_runtime.js`，統一紅／紫／金橫幅 UI、機率門檻、權重計算與批次合併。

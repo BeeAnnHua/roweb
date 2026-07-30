@@ -21931,3 +21931,169 @@ body.ro-black-gold-theme .game-window > .window-title > button.window-close:hove
   #right-hud-shell #top-bar.is-currency-expanded .currency-expanded-label{font-size:11px!important}
   #right-hud-shell #top-bar.is-currency-expanded .currency-expanded-value{font-size:11px!important;letter-spacing:-.15px!important}
 }
+
+
+/* ============================================================
+   RO_WEB 0.9.82HU — Death / Revival UI + movement lock
+   ============================================================ */
+body.player-death-modal-open{overflow:hidden!important}
+.player-death-overlay[hidden]{display:none!important}
+.player-death-overlay{position:fixed;inset:0;z-index:1200010;display:grid;place-items:center;padding:18px;box-sizing:border-box;background:radial-gradient(circle at 50% 38%,rgba(115,20,20,.28),transparent 42%),rgba(3,2,3,.88);backdrop-filter:blur(5px)}
+.player-death-dialog{width:min(520px,calc(100vw - 28px));padding:26px 24px 22px;box-sizing:border-box;text-align:center;border:2px solid #9b742f;border-radius:16px;color:#f4e8c8;background:linear-gradient(180deg,rgba(54,15,15,.98),rgba(19,14,10,.99) 34%,rgba(8,8,9,.99));box-shadow:0 28px 80px rgba(0,0,0,.86),inset 0 0 0 1px rgba(255,224,142,.14),inset 0 0 42px rgba(129,24,17,.18)}
+.player-death-emblem{width:66px;height:66px;margin:-4px auto 7px;display:grid;place-items:center;border:1px solid #a87936;border-radius:50%;background:#160c0c;color:#f2d17d;font-size:36px;line-height:1;box-shadow:0 0 24px rgba(177,45,34,.32),inset 0 0 16px rgba(0,0,0,.72)}
+.player-death-dialog h2{margin:4px 0 7px;color:#ffdc82;font-size:29px;letter-spacing:2px;text-shadow:0 2px 3px #000}
+.player-death-cause{margin:0;color:#ffaaa0;font-size:15px;font-weight:800}.player-death-help{margin:10px auto 18px;max-width:430px;color:#cbbd9f;font-size:12px;line-height:1.65}.player-death-actions{display:grid;gap:10px}
+.player-death-action{width:100%;min-height:72px;display:grid;grid-template-columns:50px minmax(0,1fr) auto;align-items:center;gap:12px;padding:10px 13px;border:1px solid #9b7539;border-radius:11px;text-align:left;cursor:pointer;color:#f8e9c5;background:linear-gradient(180deg,#332516,#17110c);box-shadow:inset 0 0 0 1px rgba(255,221,139,.06),0 5px 14px rgba(0,0,0,.36)}
+.player-death-action:hover:not(:disabled),.player-death-action:focus-visible:not(:disabled){border-color:#edc567;filter:brightness(1.13);outline:none;box-shadow:0 0 0 2px rgba(237,197,103,.19),0 7px 18px rgba(0,0,0,.45)}
+.player-death-action img{width:44px;height:44px;object-fit:contain;image-rendering:auto;border:1px solid rgba(205,161,76,.35);border-radius:8px;background:#100d0a}.player-death-action span strong,.player-death-action span small{display:block}.player-death-action span strong{font-size:16px;color:#ffe29a}.player-death-action span small{margin-top:4px;color:#c9b997;font-size:11px;line-height:1.35}.player-death-action>b{min-width:72px;color:#f2cd7c;font-size:12px;text-align:right}
+.player-death-village{grid-template-columns:50px minmax(0,1fr)}.player-death-village-icon{width:44px;height:44px;display:grid!important;place-items:center;border:1px solid rgba(205,161,76,.35);border-radius:8px;background:#100d0a;color:#e9c879;font-size:30px}.player-death-action:disabled{cursor:not-allowed;opacity:.46;filter:grayscale(.45)}.player-death-overlay.is-resolving .player-death-dialog{pointer-events:none;filter:brightness(.84)}
+.auto-death-revive-setting{display:grid!important;grid-template-columns:auto minmax(0,1fr) auto!important;align-items:center!important;gap:7px!important;margin-top:7px!important;padding:7px 8px!important;border:1px solid rgba(167,126,58,.42)!important;border-radius:7px!important;background:rgba(21,15,8,.46)!important}.auto-death-revive-setting input{margin:0!important}.auto-death-revive-setting span{min-width:0;font-size:12px}.auto-death-revive-setting small{color:#d8b769;font-size:10px;white-space:nowrap}
+@media(max-width:620px){.player-death-overlay{padding:8px}.player-death-dialog{width:calc(100vw - 16px);padding:20px 13px 15px;border-radius:13px}.player-death-emblem{width:56px;height:56px;font-size:31px}.player-death-dialog h2{font-size:24px}.player-death-action{grid-template-columns:44px minmax(0,1fr) auto;gap:8px;padding:9px;min-height:68px}.player-death-action img,.player-death-village-icon{width:39px;height:39px}.player-death-action>b{min-width:58px;font-size:10px}}
+
+/* 0.9.82HU: the death layer is the only interactive plane while HP is zero. */
+body.player-death-modal-open #battle-field{touch-action:none!important}
+body.player-death-modal-open #player-sprite{pointer-events:none!important}
+.player-death-overlay{pointer-events:auto!important;overscroll-behavior:contain!important}
+
+
+/* ============================================================
+   RO_WEB 0.9.82HV — Unified combat-number color contract
+   - Player normal attack / normal skill: white
+   - Player combo / multi-hit / additional trigger: yellow
+   - Player critical (normal or skill): yellow-red face + red outline + spark burst
+   - Damage received from monsters: always red
+   ============================================================ */
+.damage-number:not(.summon-damage-number):not(.combo-damage-number):not(.critical-damage-number):not(.incoming-damage-number):not(.miss-damage-number) {
+  color:#ffffff !important;
+  -webkit-text-fill-color:#ffffff !important;
+  -webkit-text-stroke:3px #242424 !important;
+  paint-order:stroke fill !important;
+  text-shadow:0 3px 0 #000,1px 0 0 #000,-1px 0 0 #000,0 0 8px rgba(255,255,255,.72) !important;
+  filter:none !important;
+}
+.damage-number.combo-damage-number:not(.critical-damage-number):not(.incoming-damage-number),
+.damage-number.additional-damage-number:not(.critical-damage-number):not(.incoming-damage-number) {
+  color:#ffe34a !important;
+  -webkit-text-fill-color:#ffe34a !important;
+  -webkit-text-stroke:3px #4b3200 !important;
+  paint-order:stroke fill !important;
+  text-shadow:0 3px 0 #171000,1px 0 #000,-1px 0 #000,0 0 12px rgba(255,226,70,.98) !important;
+}
+.damage-number.critical-damage-number:not(.incoming-damage-number),
+.damage-number.combo-damage-number.critical-damage-number:not(.incoming-damage-number) {
+  position:absolute;
+  isolation:isolate;
+  overflow:visible;
+  color:#ffe84f !important;
+  background:none !important;
+  -webkit-background-clip:initial !important;
+  background-clip:initial !important;
+  -webkit-text-fill-color:#ffe84f !important;
+  font-size:45px !important;
+  line-height:1.05;
+  -webkit-text-stroke:3px #d32b1f !important;
+  paint-order:stroke fill !important;
+  text-shadow:
+    0 4px 0 #3b0500,
+    2px 0 0 #3b0500,
+    -2px 0 0 #3b0500,
+    0 -1px 0 #fff9a3,
+    0 0 7px rgba(255,235,61,.98),
+    0 0 15px rgba(255,94,28,.98),
+    0 0 25px rgba(255,36,24,.72) !important;
+  filter:drop-shadow(0 0 3px rgba(255,224,46,.9)) drop-shadow(0 0 7px rgba(255,45,24,.78)) !important;
+  animation:ro-web-critical-damage-float .92s cubic-bezier(.12,.78,.2,1) forwards !important;
+}
+.damage-number.critical-damage-number:not(.incoming-damage-number)::before {
+  content:"";
+  position:absolute;
+  z-index:-1;
+  left:50%;
+  top:50%;
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:#fff7a0;
+  box-shadow:
+    -34px -18px 0 1px #ffe442,
+    -43px 7px 0 0 #ff572f,
+    -25px 25px 0 1px #ffc52f,
+    35px -22px 0 1px #fff06a,
+    46px 3px 0 1px #ff4b2e,
+    29px 27px 0 0 #ffd93d,
+    2px -32px 0 1px #ff6240,
+    3px 33px 0 1px #fff06b;
+  transform:translate(-50%,-50%) scale(.35) rotate(0deg);
+  opacity:0;
+  animation:ro-web-critical-spark-burst .62s ease-out forwards;
+}
+.damage-number.critical-damage-number:not(.incoming-damage-number)::after {
+  content:"";
+  position:absolute;
+  z-index:-2;
+  left:50%;
+  top:52%;
+  width:118%;
+  height:84%;
+  border:3px solid rgba(255,207,44,.92);
+  border-left-color:rgba(255,55,35,.86);
+  border-right-color:rgba(255,55,35,.86);
+  border-radius:50%;
+  transform:translate(-50%,-50%) scale(.35);
+  opacity:0;
+  box-shadow:0 0 10px rgba(255,222,50,.9),0 0 20px rgba(255,52,30,.72);
+  animation:ro-web-critical-ring-burst .58s ease-out forwards;
+}
+.damage-number.incoming-damage-number,
+.damage-number.incoming-damage-number.combo-damage-number,
+.damage-number.incoming-damage-number.critical-damage-number {
+  color:#ff3c3c !important;
+  background:none !important;
+  -webkit-background-clip:initial !important;
+  background-clip:initial !important;
+  -webkit-text-fill-color:#ff3c3c !important;
+  font-size:38px !important;
+  -webkit-text-stroke:3px #580000 !important;
+  paint-order:stroke fill !important;
+  text-shadow:0 3px 0 #180000,1px 0 #270000,-1px 0 #270000,0 0 10px rgba(255,38,38,.92) !important;
+  filter:none !important;
+  animation:ro-web-incoming-damage-float .78s ease-out forwards !important;
+}
+.damage-number.incoming-damage-number::before,
+.damage-number.incoming-damage-number::after { content:none !important; }
+
+@keyframes ro-web-critical-damage-float {
+  0% { opacity:0; transform:translateY(14px) scale(.58) rotate(-2deg); }
+  18% { opacity:1; transform:translateY(-2px) scale(1.30) rotate(1deg); }
+  36% { transform:translateY(-8px) scale(1.02) rotate(0deg); }
+  74% { opacity:1; transform:translateY(-32px) scale(1.06); }
+  100% { opacity:0; transform:translateY(-62px) scale(.90); }
+}
+@keyframes ro-web-critical-spark-burst {
+  0% { opacity:0; transform:translate(-50%,-50%) scale(.25) rotate(0deg); }
+  22% { opacity:1; }
+  100% { opacity:0; transform:translate(-50%,-50%) scale(1.35) rotate(22deg); }
+}
+@keyframes ro-web-critical-ring-burst {
+  0% { opacity:0; transform:translate(-50%,-50%) scale(.30); }
+  25% { opacity:.95; }
+  100% { opacity:0; transform:translate(-50%,-50%) scale(1.35); }
+}
+@keyframes ro-web-incoming-damage-float {
+  0% { opacity:0; transform:translateY(9px) scale(.78); }
+  20% { opacity:1; transform:translateY(0) scale(1.10); }
+  100% { opacity:0; transform:translateY(-46px) scale(.92); }
+}
+
+/* The final cumulative number keeps its 3-second hold while inheriting the
+   matching white/yellow/critical palette above. */
+.damage-number.cumulative-damage-final.critical-damage-number {
+  font-size:62px !important;
+  animation:ro-web-cumulative-critical-final 3000ms cubic-bezier(.12,.78,.2,1) both !important;
+}
+@keyframes ro-web-cumulative-critical-final {
+  0% { opacity:.45; transform:scale(.60); }
+  6% { opacity:1; transform:scale(1.30); }
+  14%,88% { opacity:1; transform:scale(1); }
+  100% { opacity:0; transform:translateY(-12px) scale(.94); }
+}

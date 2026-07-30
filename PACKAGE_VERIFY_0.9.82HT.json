@@ -1,0 +1,21 @@
+{
+  "version": "0.9.82HT",
+  "baseVersion": "0.9.82HS",
+  "expectedChangedFiles": 19,
+  "expectedAddedFiles": 21,
+  "expectedRemovedFiles": 0,
+  "deepHealth": {
+    "errors": 0,
+    "warnings": 0,
+    "status": "PASS"
+  },
+  "deathRevivalTests": {
+    "passed": 34,
+    "failed": 0
+  },
+  "installation": {
+    "full": "extract into an empty directory",
+    "incremental": "overlay onto 0.9.82HS",
+    "deletionsRequired": false
+  }
+}

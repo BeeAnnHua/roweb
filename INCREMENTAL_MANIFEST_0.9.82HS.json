@@ -1,0 +1,35 @@
+{
+  "version": "0.9.82HS",
+  "baseVersion": "0.9.82HR",
+  "description": "Manual combat target authority separated from auto-battle filters, plus aggressive-monster retaliation when auto battle is off",
+  "changedFiles": [
+    "AI_START_HERE.md",
+    "CHANGELOG.md",
+    "README.md",
+    "data/server_config.json",
+    "index.html",
+    "js/battle.js",
+    "js/data_bundle.js",
+    "js/game.js",
+    "js/quick_slots.js",
+    "js/world_monster_test_runtime.js",
+    "tools/deep_health_check.py"
+  ],
+  "addedFiles": [
+    "DEEP_HEALTH_0.9.82HS.json",
+    "INCREMENTAL_MANIFEST_0.9.82HS.json",
+    "PACKAGE_VERIFY_0.9.82HS.json",
+    "TEST_REPORT_0.9.82HS_MANUAL_COMBAT.json",
+    "UPDATE_FILES_0.9.82HS.txt",
+    "docs/previews/CURRENCY_INLINE_EXPAND_0.9.82HS_desktop.png",
+    "docs/previews/CURRENCY_INLINE_EXPAND_0.9.82HS_mobile.png",
+    "tools/build_data_bundle_0.9.82HS.py",
+    "tools/deep_health_check_0.9.82HS.py",
+    "tools/test_hs_currency_inline_expand.py",
+    "tools/test_hs_currency_inline_expand_report.json",
+    "tools/test_manual_combat_0.9.82HS.js",
+    "tools/test_server_rates_0.9.82HS.py"
+  ],
+  "removedFiles": [],
+  "apply": "Extract over a clean RO_WEB 0.9.82HR project root. No cleanup/deletion step is required."
+}

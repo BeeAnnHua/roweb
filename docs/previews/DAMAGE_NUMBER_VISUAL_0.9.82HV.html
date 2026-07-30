@@ -1,0 +1,16 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><title>0.9.82HV Damage Number Preview</title>
+<link rel="stylesheet" href="../../css/style.css?v=0.9.82HV">
+<style>
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#252018;font-family:"Microsoft JhengHei",sans-serif}.preview{width:960px;height:540px;margin:0 auto;position:relative;background:radial-gradient(circle at 55% 42%,rgba(139,111,68,.35),transparent 38%),linear-gradient(135deg,#395245,#4d553c 44%,#514132);box-shadow:inset 0 0 100px rgba(0,0,0,.58)}.title{position:absolute;left:28px;top:22px;color:#ffe4a0;font-weight:900;font-size:22px;text-shadow:0 2px 3px #000}.row{position:absolute;left:45px;right:45px;display:flex;align-items:center;gap:48px}.row.one{top:130px}.row.two{top:300px}.sample{width:160px;height:100px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px}.label{color:#eadfc8;font-size:14px;text-shadow:0 2px 2px #000}.damage-number{position:relative!important;left:auto!important;top:auto!important;display:inline-block!important;opacity:1!important;transform:none!important;animation:none!important;min-width:120px!important}.damage-number.critical-damage-number::before{opacity:1!important;transform:translate(-50%,-50%) scale(1.05) rotate(12deg)!important;animation:none!important}.damage-number.critical-damage-number::after{opacity:.85!important;transform:translate(-50%,-50%) scale(1)!important;animation:none!important}.damage-number.cumulative-damage-final{animation:none!important}.note{position:absolute;left:28px;bottom:18px;color:#d2c3a6;font-size:12px}
+</style></head><body><div class="preview"><div class="title">RO_WEB 0.9.82HV 傷害數字規則預覽</div>
+<div class="row one">
+<div class="sample"><div class="damage-number" data-damage-kind="normal">12,345</div><div class="label">一般攻擊／一般技能：白色</div></div>
+<div class="sample"><div class="damage-number combo-damage-number" data-damage-kind="combo">24,680</div><div class="label">連段／多段／追加：黃色</div></div>
+<div class="sample"><div class="damage-number critical-damage-number" data-damage-kind="critical">98,765</div><div class="label">普通／技能爆擊：黃紅＋特效</div></div>
+<div class="sample"><div class="damage-number incoming-damage-number" data-damage-kind="incoming">4,321</div><div class="label">怪物打玩家：固定紅色</div></div>
+</div>
+<div class="row two">
+<div class="sample"><div class="damage-number combo-damage-number critical-damage-number cumulative-damage-final" data-damage-kind="critical">1,234,567</div><div class="label">連段技能爆擊總傷</div></div>
+<div class="sample"><div class="damage-number summon-damage-number">36,900</div><div class="label">召喚物維持藍色識別</div></div>
+<div class="sample"><div class="damage-number miss-damage-number">MISS</div><div class="label">MISS 維持白灰色</div></div>
+</div><div class="note">本頁只供封裝前視覺驗證；實際遊戲仍使用浮起、累積與世界座標動畫。</div></div></body></html>

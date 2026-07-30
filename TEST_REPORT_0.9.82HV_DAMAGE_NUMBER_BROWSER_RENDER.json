@@ -1,0 +1,54 @@
+{
+  "version": "0.9.82HV",
+  "suite": "damage-number-browser-render",
+  "passed": 4,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "normal white",
+      "ok": true
+    },
+    {
+      "name": "combo yellow",
+      "ok": true
+    },
+    {
+      "name": "critical yellow fill red outline",
+      "ok": true
+    },
+    {
+      "name": "incoming red",
+      "ok": true
+    }
+  ],
+  "computedStyles": {
+    "normal": {
+      "color": "rgb(255, 255, 255)",
+      "fill": "rgb(255, 255, 255)",
+      "stroke": "rgb(36, 36, 36)",
+      "background": "none",
+      "fontSize": "39px"
+    },
+    "combo": {
+      "color": "rgb(255, 227, 74)",
+      "fill": "rgb(255, 227, 74)",
+      "stroke": "rgb(75, 50, 0)",
+      "background": "none",
+      "fontSize": "39px"
+    },
+    "critical": {
+      "color": "rgb(255, 232, 79)",
+      "fill": "rgb(255, 232, 79)",
+      "stroke": "rgb(211, 43, 31)",
+      "background": "none",
+      "fontSize": "45px"
+    },
+    "incoming": {
+      "color": "rgb(255, 60, 60)",
+      "fill": "rgb(255, 60, 60)",
+      "stroke": "rgb(88, 0, 0)",
+      "background": "none",
+      "fontSize": "38px"
+    }
+  }
+}

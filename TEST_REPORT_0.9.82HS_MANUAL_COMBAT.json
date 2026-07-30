@@ -1,0 +1,26 @@
+{
+  "version": "0.9.82HS",
+  "suite": "manual-combat-and-aggressive-retaliation",
+  "passed": 17,
+  "failed": 0,
+  "passes": [
+    "manual validator ignores auto-battle filter",
+    "manual click starts attack while auto off",
+    "manual controller running",
+    "manual target stored",
+    "manual timer scheduled",
+    "quick-slot accepts manually selected target excluded by auto filter",
+    "retaliation does not steal another manual target",
+    "existing manual target preserved",
+    "manual controller stops cleanly",
+    "aggressive monster starts manual retaliation",
+    "retaliation locks attacker",
+    "world-stream attack calls manual retaliation bridge",
+    "world click branches between auto forced target and manual attack",
+    "world-stream aggressive attack starts retaliation with no selected target",
+    "world-stream aggressive attack preserves existing selected target",
+    "world-stream aggressive attack does not steal selected target",
+    "manual target path does not use auto monster whitelist"
+  ],
+  "failures": []
+}

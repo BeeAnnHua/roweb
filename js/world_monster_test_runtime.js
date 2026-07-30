@@ -798,7 +798,11 @@ function createWorldMonsterElement(entity) {
     event.stopPropagation();
     if (Number(entity.currentHp || 0) <= 0 || entity._deathHandled) return;
     selectWorldMonsterTestTarget(entity, { announce: true, attacking: true });
-    if (typeof startManualMonsterAttack === "function") startManualMonsterAttack(entity, { immediate: true });
+    if (typeof isAutoBattleRunning === "function" && isAutoBattleRunning()) {
+      if (typeof forceAutoBattleTarget === "function") forceAutoBattleTarget(entity, { announce: false, manual: true, priorityMs: 12000 });
+    } else if (typeof startManualMonsterAttack === "function") {
+      startManualMonsterAttack(entity, { immediate: true });
+    }
   });
   host.appendChild(el);
   if (entity._animation?.asset) applyWorldMonsterAssetToElement(entity, entity._animation.asset);
@@ -1367,12 +1371,26 @@ function updateWorldMonsterWander(entity, dt, behavior) {
 function worldMonsterAttackPlayer(entity) {
   if (!entity || Number(entity.currentHp || 0) <= 0 || !player || Number(player.hp || 0) <= 0 || typeof monsterAttackPlayer !== "function") return;
   const previousTarget = currentMonster;
+  const autoRunning = typeof isAutoBattleRunning === "function" && isAutoBattleRunning();
+  const manualTargetBefore = typeof getManualMonsterAttackTarget === "function" ? getManualMonsterAttackTarget() : null;
+  const manualRunningBefore = typeof isManualMonsterAttackRunning === "function" && isManualMonsterAttackRunning();
   currentMonster = entity;
   monsterAttackPlayer({ respectCooldown: true, source: "world_monster_stream" });
   const previousStillValid = previousTarget && previousTarget !== entity && Number(previousTarget.currentHp || 0) > 0 && !previousTarget._deathHandled;
   if (Number(player.hp || 0) > 0 && previousStillValid) {
     currentMonster = previousTarget;
     if (typeof updateMonsterUI === "function") updateMonsterUI();
+  }
+
+  // HS：未開掛機時，主動怪第一次攻擊玩家會啟動手動普通攻擊反擊。
+  // 已手動鎖定其他目標時保留玩家選擇，不讓旁邊怪物搶走鎖定。
+  if (!autoRunning && Number(player.hp || 0) > 0 && typeof requestManualRetaliationAgainstMonster === "function") {
+    const hadOtherManualTarget = manualRunningBefore && manualTargetBefore && manualTargetBefore !== entity
+      && Number(manualTargetBefore.currentHp ?? manualTargetBefore.hp ?? 0) > 0 && !manualTargetBefore._deathHandled;
+    const hadOtherSelectedTarget = previousStillValid;
+    if (!hadOtherManualTarget && !hadOtherSelectedTarget) {
+      requestManualRetaliationAgainstMonster(entity, { announce: true });
+    }
   }
 }
 

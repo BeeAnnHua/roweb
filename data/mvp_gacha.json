@@ -1,6 +1,6 @@
 {
   "schema": "ro_web_mvp_gacha_v1",
-  "version": "0.9.82HR",
+  "version": "0.9.82HT",
   "mapId": "geffenia_mvp_arena_3x3_region_camera",
   "gachaItemId": 14848,
   "mapExclusiveDropChanceBasisPoints": 100,
@@ -97,9 +97,22 @@
           "weight": 1
         }
       ]
+    },
+    {
+      "id": "token_of_siegfried_box",
+      "chanceBasisPoints": 500,
+      "tier": "none",
+      "bannerLabel": "5% 原地復活補給",
+      "rewards": [
+        {
+          "itemId": 12922,
+          "quantity": 1,
+          "weight": 1
+        }
+      ]
     }
   ],
-  "ordinaryFillBasisPoints": 9879,
+  "ordinaryFillBasisPoints": 9379,
   "ordinaryRewards": [
     {
       "itemId": 14849,
@@ -247,8 +260,17 @@
     "鐵匠的祝福 5%；濃縮神之金屬、高濃縮神之金屬、濃縮鋁、高濃縮鋁各 8%。",
     "六種乙太精煉礦石各 5%；精煉材料合計 67%，原商城料理／補品按原比例縮減至 31.79%。",
     "精煉成功率與失敗懲罰由 rAthena Renewal 2026-06-08 db/re/refine.yml 控制。",
-    "0.9.82HR：橫幅不再直接採 rareCategories.tier，而是以分類機率 × 該物品權重占比計算每件獎品真實機率；普通池低於等於 1% 的物品也會公告。"
+    "0.9.82HR：橫幅不再直接採 rareCategories.tier，而是以分類機率 × 該物品權重占比計算每件獎品真實機率；普通池低於等於 1% 的物品也會公告。",
+    "0.9.82HT：原地復活之證箱子（Item 12922）以絕對 5.00% 加入母池；普通獎池由 98.79% 調整為 93.79%，既有稀有獎機率不變。"
   ],
   "dropRateCategory": "mapExclusive",
-  "announcementPolicy": "Global per-item actual probability. Category chance is multiplied by the selected item weight share; ordinary-pool items <=1% also announce."
+  "announcementPolicy": "Global per-item actual probability. Category chance is multiplied by the selected item weight share; ordinary-pool items <=1% also announce.",
+  "revivalBoxPolicy": {
+    "itemId": 12922,
+    "chanceBasisPoints": 500,
+    "openReward": {
+      "itemId": 7621,
+      "quantity": 10
+    }
+  }
 }

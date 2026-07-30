@@ -240,10 +240,12 @@ function quickSlotEnsureFieldMonster() {
     addBattleLog("目前沒有練功地圖。");
     return false;
   }
+  const autoRunning = typeof isAutoBattleRunning === "function" && isAutoBattleRunning();
   const valid = monster => {
     if (!monster || monster._deathHandled || Number(monster.currentHp ?? monster.hp ?? 0) <= 0) return false;
-    if (typeof isAutoBattleTargetValid === "function") return isAutoBattleTargetValid(monster);
-    return true;
+    if (autoRunning && typeof isAutoBattleTargetValid === "function") return isAutoBattleTargetValid(monster);
+    if (!autoRunning && typeof isManualCombatTargetValid === "function") return isManualCombatTargetValid(monster);
+    return !player?.currentCity && Number(player?.hp || 0) > 0;
   };
   if (currentMonster && !valid(currentMonster)) currentMonster = null;
 
@@ -253,7 +255,6 @@ function quickSlotEnsureFieldMonster() {
       addBattleLog("目前沒有有效鎖定目標。");
       return false;
     }
-    const autoRunning = typeof isAutoBattleRunning === "function" && isAutoBattleRunning();
     if (autoRunning && typeof acquireAutoBattleTarget === "function") {
       acquireAutoBattleTarget({ reason: "quick_slot_target" });
     } else if (typeof spawnMonsterFromCurrentMap === "function") {

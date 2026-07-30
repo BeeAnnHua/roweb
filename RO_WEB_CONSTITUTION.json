@@ -1,6 +1,6 @@
 {
   "name": "RO_WEB_Constitution",
-  "version": "0.9.82HN",
+  "version": "0.9.82HV",
   "purpose": "RO_WEB 專案開發憲法。任何 AI 或開發者在修改專案前必須先閱讀本檔案。",
   "must_read_before_any_update": true,
   "ai_update_protocol": {
@@ -1395,7 +1395,7 @@
       "targetFamily": "Dim Glacier weapons (26)"
     }
   },
-  "currentVersion": "0.9.82HN",
+  "currentVersion": "0.9.82HV",
   "versionHistory": [
     {
       "version": "0.9.82HN",
@@ -1406,6 +1406,17 @@
         "多分頁防覆蓋",
         "背景與離頁補存",
         "倍率統一 10000 並重建 Bundle"
+      ]
+    },
+    {
+      "version": "0.9.82HV",
+      "title": "Unified Damage Number Colors / Critical FX",
+      "changes": [
+        "玩家普通攻擊與一般技能傷害字改為白色",
+        "連段／多段／追加攻擊維持黃色",
+        "玩家暴擊改為黃紅漸層、紅色描邊與火花光圈特效",
+        "怪物對玩家造成的任何傷害固定紅色",
+        "玩家受擊數字固定在命中瞬間世界座標"
       ]
     }
   ]

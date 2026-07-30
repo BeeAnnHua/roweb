@@ -1,5 +1,5 @@
 //============================================================
-// RO_WEB 0.9.82HR — 葛坡尼亞 MVP 轉蛋 Runtime＋全域稀有公告橋接
+// RO_WEB 0.9.82HT — 葛坡尼亞 MVP 轉蛋 Runtime＋全域稀有公告橋接
 // - 同 ID MVP 只有在指定地圖死亡才以原始 1% 判定轉蛋，並套用全域掉落總閥。
 // - 轉蛋內部稀有機率為單一 10000 基點母池的絕對機率；全域掉落倍率只影響轉蛋本體掉落。
 // - 1% 紅色、0.1% 紫色、0.01% 金色上方橫幅。
@@ -7,7 +7,7 @@
 (() => {
   "use strict";
 
-  const VERSION = "0.9.82HR";
+  const VERSION = "0.9.82HT";
   const BUNDLE_KEY = "data/mvp_gacha.json";
   const DEFAULT_GACHA_ITEM_ID = 14848;
   const CASH_FOOD_SOURCE = "mvp_gacha_cash_food";

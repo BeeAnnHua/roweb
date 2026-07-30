@@ -1,5 +1,5 @@
 {
-  "version": "0.9.82HR",
+  "version": "0.9.82HT",
   "schema": "ro_web_item_boxes_v2",
   "policy": {
     "selection": "weighted_single_reward",
@@ -14640,6 +14640,30 @@
         "uniqueRewardItems": 70,
         "totalWeight": 88,
         "formula": "reward.weight / totalWeight"
+      }
+    },
+    "token_of_siegfried_box": {
+      "itemId": 12922,
+      "name": "原地復活之證箱子",
+      "consumeCount": 1,
+      "drawCount": 1,
+      "selection": "fixed",
+      "source": {
+        "engine": "rAthena Renewal",
+        "snapshot": "2026-06-08",
+        "path": "db/re/item_db_usable.yml",
+        "script": "getitem 7621,10;"
+      },
+      "rewards": [
+        {
+          "itemId": 7621,
+          "quantity": 10,
+          "weight": 1
+        }
+      ],
+      "publicProbability": {
+        "rewardCount": 1,
+        "eachPercent": 100
       }
     }
   }
