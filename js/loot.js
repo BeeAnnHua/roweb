@@ -8,6 +8,14 @@ function emitLootRewardLog(text, type = null) {
   else if (typeof addBattleLog === "function") addBattleLog(text, type);
 }
 
+
+function announceRareItemAcquisition(itemId, itemName, quantity, chanceBasisPoints, sourceLabel, extra = {}) {
+  return window.RareItemAnnouncementRuntime?.announceAcquisition?.({
+    itemId, itemName, quantity, chanceBasisPoints, source:"monster_reward", sourceLabel, ...extra
+  }) || { announced:false };
+}
+window.announceRareItemAcquisition = announceRareItemAcquisition;
+
 function grantMonsterRewards(monster) {
   if (!monster) return;
 
@@ -146,8 +154,11 @@ function rollPassiveSkillExtraDrops(monster) {
     const qty = Math.max(1, Number(table.quantity || selected.quantity || 1));
     if (typeof addItem === "function") addItem({ id: itemId, name: itemName }, qty);
     if (typeof recordItemDrop === "function") recordItemDrop(itemId, qty);
+    const matchingEntries = entries.filter(entry => String(entry?.itemId) === String(selected.itemId)).length || 1;
+    const actualItemChance = Math.max(0, Math.min(10000, chance * matchingEntries / entries.length));
+    announceRareItemAcquisition(itemId, itemName, qty, actualItemChance, `${skill.name || "被動技能"}額外掉落`);
     emitLootRewardLog(`${skill.name || "被動技能"}：額外取得 ${itemName} ×${qty}。`, "item");
-    awarded.push({ skillId: Number(skill.officialId ?? skill.id), itemId, itemName, qty, rawChance, finalChance: chance });
+    awarded.push({ skillId: Number(skill.officialId ?? skill.id), itemId, itemName, qty, rawChance, finalChance: chance, actualItemChance });
   });
   return awarded;
 }
@@ -181,14 +192,9 @@ function isMvpRewardMonster(monster) {
   return String(monster._category || monster.category || "").toLowerCase() === "mvp";
 }
 
-function announceMvpCardDrop(monster, itemName, quantity = 1) {
+function announceMvpCardDrop(monster, itemName, quantity = 1, chanceBasisPoints = 100) {
   if (!isMvpRewardMonster(monster)) return false;
-  const playerName = typeof window.getPlayerAnnouncementName === "function"
-    ? window.getPlayerAnnouncementName()
-    : String(window.player?.name || "冒險者");
-  const quantityText = Number(quantity || 1) > 1 ? ` ×${Number(quantity)}` : "";
-  window.MvpGachaRuntime?.showRareBanner?.("red", `★ 玩家 ${playerName} 取得 ${itemName}${quantityText} ★`);
-  return true;
+  return Boolean(announceRareItemAcquisition(null, itemName, quantity, chanceBasisPoints, `${monster?.name || "MVP"}掉落`)?.announced);
 }
 window.isMvpRewardMonster = isMvpRewardMonster;
 window.announceMvpCardDrop = announceMvpCardDrop;
@@ -202,6 +208,7 @@ function rollMonsterMvpDrops(monster) {
     if(roll>chance)return;
     const id=normalizeItemId(drop.itemId), data=getItemData(id), qty=rollDropQuantity(drop), name=data?.name||drop.name||`Item ${id}`;
     addItem({id,name},qty); if(typeof recordItemDrop==="function")recordItemDrop(id,qty);
+    announceRareItemAcquisition(id, name, qty, chance, `${monster.name || "MVP"}掉落`);
   });
 }
 window.rollMonsterMvpDrops=rollMonsterMvpDrops;
@@ -231,7 +238,7 @@ function rollMonsterDrops(monster) {
       if (typeof recordItemDrop === "function") {
         recordItemDrop(itemId, qty);
       }
-      if (category === "card") announceMvpCardDrop(monster, itemName, qty);
+      announceRareItemAcquisition(itemId, itemName, qty, chance, `${monster.name || "怪物"}掉落`);
     }
   });
 }

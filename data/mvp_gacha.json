@@ -1,6 +1,6 @@
 {
   "schema": "ro_web_mvp_gacha_v1",
-  "version": "0.9.82GG",
+  "version": "0.9.82HR",
   "mapId": "geffenia_mvp_arena_3x3_region_camera",
   "gachaItemId": 14848,
   "mapExclusiveDropChanceBasisPoints": 100,
@@ -246,7 +246,9 @@
     "稀有大獎合計 1.21%；普通獎池合計 98.79%，全母池精確為 100.00%。",
     "鐵匠的祝福 5%；濃縮神之金屬、高濃縮神之金屬、濃縮鋁、高濃縮鋁各 8%。",
     "六種乙太精煉礦石各 5%；精煉材料合計 67%，原商城料理／補品按原比例縮減至 31.79%。",
-    "精煉成功率與失敗懲罰由 rAthena Renewal 2026-06-08 db/re/refine.yml 控制。"
+    "精煉成功率與失敗懲罰由 rAthena Renewal 2026-06-08 db/re/refine.yml 控制。",
+    "0.9.82HR：橫幅不再直接採 rareCategories.tier，而是以分類機率 × 該物品權重占比計算每件獎品真實機率；普通池低於等於 1% 的物品也會公告。"
   ],
-  "dropRateCategory": "mapExclusive"
+  "dropRateCategory": "mapExclusive",
+  "announcementPolicy": "Global per-item actual probability. Category chance is multiplied by the selected item weight share; ordinary-pool items <=1% also announce."
 }

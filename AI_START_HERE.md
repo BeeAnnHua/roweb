@@ -1,11 +1,20 @@
-## 0.9.82HP — 最新正式基準
+## 0.9.82HR — 最新正式基準
+
+- 後續版本以 0.9.82HR 為基準，完整保留 HQ 消耗品 Runtime、馬牌、自動掛機、防回檔存檔與箱子裝備效果。
+- 稀有物品公告唯一權威為 `window.RareItemAnnouncementRuntime`；不得再為轉蛋、BOX 或怪物掉落各自建立不同門檻。
+- 門檻固定：最終實際機率 ≤1% 紅、≤0.1% 紫、≤0.01% 金；高於 1% 不公告。
+- 加權池必須用相同 Item ID 的總權重計算物品機率，不能只看被抽中的單一資料列。
+- 升階材料唯一有效機率為 `server.rates.gradeMaterialDropChanceBasisPoints=500`；不得套用 `drop`、`mapExclusiveDrop` 或 `gradeMaterialDropRate`。
+- 舊 `MvpGachaRuntime.showRareBanner()` 只保留相容橋接，實際 UI 由全域 Runtime 管理。
+
+## 0.9.82HP — 正式物品圖歷史基準
 
 - 以 0.9.82HO 為基準，完整保留 RA 經典箱子、HN 耐久存檔、倍率 10000 與未來後端 Adapter。
 - `images/items/<ID>.webp` 必須優先使用 `RO_WEB專案資料/items/<ID>.webp` 的同 ID 正式圖。
 - 已補入專案實際物品與 ItemBox 獎池缺少的 1,480 張圖示；三個 RA 經典箱子 1,081 種獎品圖示覆蓋率為 100%。
 - Item 500054 原錯誤長條圖已替換為正式物品圖。
 - 1100100 是 RO_WEB 自訂黯淡冰晶武器箱 ID；官方圖庫沒有同 ID，唯一允許的明確例外為內容等同官方 101638 圖示。
-- 後續版本以 0.9.82HP 為基準。
+- 0.9.82HP 的正式物品圖規則由後續版本完整保留。
 
 ## 0.9.82HO — 前一版基準
 

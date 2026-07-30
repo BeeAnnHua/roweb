@@ -1,6 +1,6 @@
 {
-  "version": "0.9.82GY",
-  "note": "0.9.82GG：新增斐揚精煉 NPC、完整 rAthena Renewal 精煉規則與精煉材料轉蛋機率調整；沿用 GF 行動版 ID 與葛坡尼亞效能修正。 0.9.82GK adds enchant-grade materials and EP19 original-drop references. 0.9.82GV adds 26 Dim Glacier weapons, a uniform weapon box, and 16 EP19 glacier materials. 0.9.82GY formally enables Dim Glacier enchant effects, EP19 recipes, Amethyst Fragment, and multiplier-aware serpent-nest materials. 0.9.82GY formally enables Dim Glacier enchant effects, EP19 recipes, Amethyst Fragment, and multiplier-aware serpent-nest materials.",
+  "version": "0.9.82HQ",
+  "note": "0.9.82GG：新增斐揚精煉 NPC、完整 rAthena Renewal 精煉規則與精煉材料轉蛋機率調整；沿用 GF 行動版 ID 與葛坡尼亞效能修正。 0.9.82GK adds enchant-grade materials and EP19 original-drop references. 0.9.82GV adds 26 Dim Glacier weapons, a uniform weapon box, and 16 EP19 glacier materials. 0.9.82GY formally enables Dim Glacier enchant effects, EP19 recipes, Amethyst Fragment, and multiplier-aware serpent-nest materials. 0.9.82GY formally enables Dim Glacier enchant effects, EP19 recipes, Amethyst Fragment, and multiplier-aware serpent-nest materials. 0.9.82HO enables the official RA Gift Box, Old Blue Box and Old Purple Box pools through ItemBoxRuntime. 0.9.82HQ audits all obtainable consumables, enables supported rAthena healing/buff/item-grant effects, safely blocks unsupported mechanics without consuming items, adds Item 662 Horse Badge automation, and verifies classic-box equipment effects.",
   "legacyCompatibility": "data/items.json retired. Runtime item data is loaded from split JSON through ItemManager/getItemById().",
   "itemPaths": {
     "consumables": "data/items/consumables.json",
@@ -94,11 +94,12 @@
     "data/items/consumables.json",
     "data/items/materials_1.json",
     "data/items/materials_2.json",
+    "data/items/monster_drops_0_9_82EI.json",
+    "data/items/mvp_arena_original_drops_0_9_82FZ.json",
     "data/items/pets.json",
     "data/items/quest.json",
-    "data/items/stones.json",
-    "data/items/monster_drops_0_9_82EI.json",
-    "data/items/mvp_arena_original_drops_0_9_82FZ.json"
+    "data/items/ra_classic_box_rewards_0_9_82HO.json",
+    "data/items/stones.json"
   ],
   "monsterDropActivation": {
     "version": "0.9.82FZ",
@@ -130,7 +131,7 @@
     "recoveryRuntimeConnected": true,
     "fourthJobBaseHpSpJobs": 14,
     "effectRuntimeUnified": true,
-    "supportedRAthenaBonusTypes": 145,
+    "supportedRAthenaBonusTypes": 148,
     "effectMatrixEvaluations": 29744,
     "canonicalEffectKeys": 143,
     "effectCoverageMissing": 0,
@@ -181,7 +182,7 @@
       "kill/EXP/drop rewards",
       "movement/visibility/visual transform"
     ],
-    "supportedRAthenaBonusTypes": 145,
+    "supportedRAthenaBonusTypes": 148,
     "unknownCommandPolicy": "BLOCK_AND_REPORT",
     "futureDataPolicy": "A new item/card with scriptRaw or compiledScript is evaluated dynamically when it uses the supported vocabulary; a new unsupported command fails the release audit and is never silently ignored.",
     "projectPolicyNoOps": {
@@ -298,5 +299,56 @@
     ],
     "exchangeRecipeCount": 12,
     "effectSource": "rAthena db/re/item_db_etc.yml"
+  },
+  "raClassicBoxes": {
+    "version": "0.9.82HO",
+    "source": "rAthena Renewal 2026-06-08 db/re/item_group_db.yml",
+    "boxes": {
+      "ra_old_blue_box": {
+        "group": "BLUEBOX",
+        "itemId": 603,
+        "rewardRows": 1032,
+        "uniqueRewardItems": 1032,
+        "totalWeight": 8429
+      },
+      "ra_old_violet_box": {
+        "group": "VIOLETBOX",
+        "itemId": 617,
+        "rewardRows": 958,
+        "uniqueRewardItems": 958,
+        "totalWeight": 9570
+      },
+      "ra_gift_box": {
+        "group": "GIFTBOX",
+        "itemId": 644,
+        "rewardRows": 70,
+        "uniqueRewardItems": 70,
+        "totalWeight": 88
+      }
+    },
+    "unionRewardItemCount": 1081,
+    "newRewardItemRecords": 570,
+    "boxItemIds": [
+      603,
+      617,
+      644
+    ],
+    "probabilityPolicy": "Exact RA Rate weights; unavailable reward data aborts without consuming and is never removed from denominator."
+  },
+  "consumableRuntime": {
+    "version": "0.9.82HQ",
+    "officialHorseBadgeItemId": 662,
+    "horseBadgeMoveSpeedRate": 25,
+    "horseBadgeDurationMs": 180000,
+    "unsupportedPolicy": "BLOCK_WITHOUT_CONSUMING",
+    "auditReport": "CONSUMABLE_EFFECT_AUDIT_0.9.82HQ.json",
+    "supportedCommands": [
+      "itemheal",
+      "percentheal",
+      "sc_start (mapped statuses)",
+      "getitem",
+      "Zeny += rand/value",
+      "specialeffect2 (visual-safe no-op)"
+    ]
   }
 }

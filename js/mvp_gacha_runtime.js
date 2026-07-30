@@ -1,5 +1,5 @@
 //============================================================
-// RO_WEB 0.9.82GT — 葛坡尼亞 MVP 轉蛋 Runtime＋掛機數量守衛
+// RO_WEB 0.9.82HR — 葛坡尼亞 MVP 轉蛋 Runtime＋全域稀有公告橋接
 // - 同 ID MVP 只有在指定地圖死亡才以原始 1% 判定轉蛋，並套用全域掉落總閥。
 // - 轉蛋內部稀有機率為單一 10000 基點母池的絕對機率；全域掉落倍率只影響轉蛋本體掉落。
 // - 1% 紅色、0.1% 紫色、0.01% 金色上方橫幅。
@@ -7,7 +7,7 @@
 (() => {
   "use strict";
 
-  const VERSION = "0.9.82GT";
+  const VERSION = "0.9.82HR";
   const BUNDLE_KEY = "data/mvp_gacha.json";
   const DEFAULT_GACHA_ITEM_ID = 14848;
   const CASH_FOOD_SOURCE = "mvp_gacha_cash_food";
@@ -204,14 +204,18 @@
   }
 
   function showRareBanner(tier, text) {
+    if (window.RareItemAnnouncementRuntime?.showRareBanner) {
+      return window.RareItemAnnouncementRuntime.showRareBanner(tier, text);
+    }
     const host = ensureBannerUi();
-    if (!host) return;
+    if (!host) return false;
     const banner = document.createElement("div");
     banner.className = `ro-mvp-gacha-banner ${["red","purple","gold"].includes(tier) ? tier : "red"}`;
     banner.textContent = text;
     while (host.children.length >= 3) host.firstElementChild?.remove();
     host.appendChild(banner);
     window.setTimeout(() => banner.remove(), 5000);
+    return true;
   }
 
   function log(text, type = "item") {
@@ -227,6 +231,26 @@
     return { item:data, quantity:qty };
   }
 
+  function rareTierForChance(chanceBasisPoints) {
+    const chance = Math.max(0, number(chanceBasisPoints));
+    if (!(chance > 0) || chance > 100) return null;
+    if (chance <= 1) return "gold";
+    if (chance <= 10) return "purple";
+    return "red";
+  }
+
+  function weightedItemChance(rows, selected, parentChanceBasisPoints) {
+    if (window.RareItemAnnouncementRuntime?.weightedItemChanceBasisPoints) {
+      return window.RareItemAnnouncementRuntime.weightedItemChanceBasisPoints(rows, selected, parentChanceBasisPoints);
+    }
+    const list = Array.isArray(rows) ? rows : [];
+    const total = list.reduce((sum, entry) => sum + Math.max(0, number(entry?.weight)), 0);
+    if (!(total > 0) || !selected) return 0;
+    const id = String(selected.itemId);
+    const weight = list.reduce((sum, entry) => String(entry?.itemId) === id ? sum + Math.max(0, number(entry?.weight)) : sum, 0);
+    return Math.max(0, Math.min(10000, number(parentChanceBasisPoints) * weight / total));
+  }
+
   function rollReward() {
     const cfg = config();
     if (!cfg) return null;
@@ -236,10 +260,17 @@
       cumulative += Math.max(0, integer(category.chanceBasisPoints));
       if (roll <= cumulative) {
         const row = weightedPick(category.rewards);
-        return { category, row, roll, rare:true };
+        return {
+          category, row, roll, rare:true,
+          chanceBasisPoints:weightedItemChance(category.rewards, row, category.chanceBasisPoints)
+        };
       }
     }
-    return { category:null, row:weightedPick(cfg.ordinaryRewards), roll, rare:false };
+    const row = weightedPick(cfg.ordinaryRewards);
+    return {
+      category:null, row, roll, rare:false,
+      chanceBasisPoints:weightedItemChance(cfg.ordinaryRewards, row, cfg.ordinaryFillBasisPoints)
+    };
   }
 
   const GACHA_BATCH = {
@@ -288,6 +319,7 @@
     const item = GACHA_BATCH.item || itemData(config()?.gachaItemId || DEFAULT_GACHA_ITEM_ID);
     const summary = new Map();
     const rareAnnouncements = [];
+    const rareAcquisitions = [];
     let opened = 0;
     window.RO_WEB_REWARD_BATCH_ACTIVE = true;
     window.RO_WEB_SUPPRESS_REWARD_ADD_ITEM_LOG = true;
@@ -314,13 +346,20 @@
         const aggregate = summary.get(key) || { id:awarded.item.id, name:awarded.item.name, quantity:0 };
         aggregate.quantity += awarded.quantity;
         summary.set(key, aggregate);
-        if (result.rare) {
-          const playerName = typeof window.getPlayerAnnouncementName === "function"
-            ? window.getPlayerAnnouncementName()
-            : String(window.player?.name || "冒險者");
-          const label = String(result.category?.bannerLabel || "稀有大獎");
-          showRareBanner(result.category?.tier, `★ 玩家 ${playerName} 取得 ${awarded.item.name}${awarded.quantity > 1 ? ` ×${awarded.quantity}` : ""}｜${label} ★`);
-          rareAnnouncements.push({ name:awarded.item.name, quantity:awarded.quantity });
+        const actualChance = Math.max(0, number(result?.chanceBasisPoints));
+        const tier = window.RareItemAnnouncementRuntime?.tierForChanceBasisPoints?.(actualChance) || rareTierForChance(actualChance);
+        if (tier) {
+          const row = {
+            itemId:awarded.item.id,
+            itemName:awarded.item.name,
+            quantity:awarded.quantity,
+            chanceBasisPoints:actualChance,
+            source:"mvp_gacha",
+            sourceLabel:item.name || "MVP 幸運轉蛋",
+            tier
+          };
+          rareAcquisitions.push(row);
+          rareAnnouncements.push({ name:awarded.item.name, quantity:awarded.quantity, chanceBasisPoints:actualChance });
         }
       }
     } catch (error) {
@@ -331,6 +370,11 @@
       window.RO_WEB_SUPPRESS_REWARD_ADD_ITEM_LOG = false;
       window.RO_WEB_REWARD_BATCH_ACTIVE = false;
       GACHA_BATCH.processing = false;
+      if (rareAcquisitions.length && window.RareItemAnnouncementRuntime?.announceBatch) {
+        window.RareItemAnnouncementRuntime.announceBatch(rareAcquisitions);
+      } else if (rareAcquisitions.length) {
+        rareAcquisitions.forEach(row => showRareBanner(row.tier || "red", `★ 玩家 ${window.player?.name || "冒險者"} 取得 ${row.itemName} ★`));
+      }
       flushGachaBatchUi(item, opened, summary, rareAnnouncements);
     }
     if (GACHA_BATCH.pending > 0) scheduleGachaBatch(16);
@@ -501,6 +545,10 @@
     noteAuthorizedGachaInventoryAddition(1);
     window.addItem?.({ id:Number(gacha.id), name:gacha.name }, 1);
     window.recordItemDrop?.(gacha.id, 1);
+    window.RareItemAnnouncementRuntime?.announceAcquisition?.({
+      itemId:gacha.id, itemName:gacha.name, quantity:1, chanceBasisPoints:finalChance,
+      source:"map_exclusive_drop", sourceLabel:`${monster.name || "MVP"} 地圖限定掉落`
+    });
     log(`葛坡尼亞限定掉落：${gacha.name} ×1`, "rare-item");
     return true;
   }

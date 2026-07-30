@@ -1,0 +1,50 @@
+{
+  "version": "0.9.82HQ",
+  "summary": {
+    "checks": 8,
+    "passed": 8,
+    "failed": 0
+  },
+  "checks": [
+    {
+      "ok": true,
+      "name": "自動掛機會使用馬牌",
+      "detail": "true"
+    },
+    {
+      "ok": true,
+      "name": "自動馬牌只扣一個",
+      "detail": "1"
+    },
+    {
+      "ok": true,
+      "name": "效果存在時不重複使用",
+      "detail": "false"
+    },
+    {
+      "ok": true,
+      "name": "效果存在時不浪費馬牌",
+      "detail": "1"
+    },
+    {
+      "ok": true,
+      "name": "沒有馬牌時不阻塞掛機",
+      "detail": "false"
+    },
+    {
+      "ok": true,
+      "name": "沒有馬牌有明確提示",
+      "detail": "自動馬牌：背包沒有馬牌，請向共用道具商人購買。"
+    },
+    {
+      "ok": true,
+      "name": "自動戰鬥 UI 有馬牌選項",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "共用商人販售馬牌 1450 Zeny",
+      "detail": ""
+    }
+  ]
+}

@@ -3329,6 +3329,11 @@ function consumeItem(itemData) {
   const appliedArmorEndow = isArmorEndowItem ? applyArmorElementEndowFromItem(itemData) : false;
   if ((isPhysicalEndowItem && !appliedPhysicalEndow) || (isArmorEndowItem && !appliedArmorEndow)) return;
 
+  // 0.9.82HQ：官方消耗品 Script 先交由安全 Runtime。支援的效果完整套用；
+  // 尚未實作的寵物／製作／Item Group 等機制只提示，不可再默默扣除道具。
+  const runtimeUse = window.ConsumableRuntime?.apply?.(itemData, inventoryItem);
+  if (runtimeUse?.handled) return runtimeUse.applied === true;
+
   // 物品腳本優先：支援 itemheal 與 sc_end。這讓蜂膠、萬能藥及未來新增的異常解除品
   // 不必再在 consumeItem() 內建立逐項白名單。
   const recoveryProfile = typeof window.getItemRecoveryProfile === "function"
@@ -3374,7 +3379,10 @@ function consumeItem(itemData) {
     itemEffectLogged = true;
   }
 
-  if (!itemEffectLogged && !appliedPhysicalEndow && !appliedArmorEndow) addBattleLog("使用了 " + itemData.name + "。");
+  if (!itemEffectLogged && !appliedPhysicalEndow && !appliedArmorEndow) {
+    addBattleLog(`${itemData.name} 的官方使用效果尚未接入，目前不會消耗此道具。`);
+    return false;
+  }
 
   // 背包扣掉 1 個，並開始該道具的 RA 重複使用冷卻。
   markConsumableItemUsed(itemData);

@@ -1,0 +1,44 @@
+RO_WEB 0.9.82HO update from 0.9.82HN
+
+CHANGED FILES
+AI_START_HERE.md
+CHANGELOG.md
+README.md
+data/item_boxes.json
+data/items/consumables.json
+data/items/database_manifest.json
+data/items/item_index.json
+data/items/monster_drops_0_9_82EI.json
+data/server_config.json
+index.html
+js/data_bundle.js
+js/item_box_runtime.js
+tools/deep_health_check.py
+
+NEW FILES
+DEEP_HEALTH_0.9.82HO.json
+PACKAGE_VERIFY_0.9.82HO.json
+TEST_REPORT_0.9.82HO_RA_CLASSIC_BOXES.txt
+UPDATE_FILES_0.9.82HO.txt
+data/items/ra_classic_box_rewards_0_9_82HO.json
+docs/previews/CURRENCY_INLINE_EXPAND_0.9.82HO_desktop.png
+docs/previews/CURRENCY_INLINE_EXPAND_0.9.82HO_mobile.png
+tools/build_ra_classic_boxes_0.9.82HO.py
+tools/deep_health_check_0.9.82HO.py
+tools/ra_classic_boxes_build_report_0.9.82HO.json
+tools/test_ho_currency_inline_expand.py
+tools/test_ho_currency_inline_expand_report.json
+tools/test_ra_classic_boxes_0.9.82HO.js
+tools/test_ra_classic_boxes_report_0.9.82HO.json
+tools/test_server_rates_0.9.82HO.py
+
+DELETED FILES
+(none)
+
+KEY RUNTIME CHANGES
+- Gift Box (644), Old Blue Box / 神秘箱子 (603), Old Violet Box / 神秘紫箱 (617)
+- Exact rAthena GIFTBOX / BLUEBOX / VIOLETBOX Rate-weighted pools
+- Same ItemBoxRuntime flow as the Dim Glacier Weapon Box
+- Missing reward definitions never get filtered and reweighted
+- 570 missing reward item records added; 511 existing records reused
+- HN durable save, backend adapter, multi-tab protection and all 10000 rates preserved

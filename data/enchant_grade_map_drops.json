@@ -1,7 +1,7 @@
 {
   "schema": "ro_web_enchant_grade_map_drops_v1",
-  "version": "0.9.82HG",
-  "rule": "Map-specific bonus drops. Entries with rateMode=normal use the global ordinary drop multiplier; legacy entries continue using gradeMaterialDropRate. Original monster tables remain untouched, and shared monster IDs can have different drops by map.",
+  "version": "0.9.82HR",
+  "rule": "Map-specific bonus drops. grade_absolute entries always use server.rates.gradeMaterialDropChanceBasisPoints (500 = 5%) and never use global drop multipliers. normal entries continue using the global ordinary drop pipeline.",
   "profiles": {
     "ice_scale_hill_3x3_region_camera": {
       "mapName": "冰鱗山丘",
@@ -18,20 +18,26 @@
             21527
           ],
           "itemId": 1000322,
-          "chance": 75,
+          "chance": 500,
           "qtyMin": 1,
           "qtyMax": 1,
-          "skipIfOriginalDrop": true
+          "skipIfOriginalDrop": true,
+          "absoluteChanceBasisPoints": 500,
+          "rateMode": "grade_absolute",
+          "note": "最終絕對掉落率 5%，不套用全域掉落倍率。"
         },
         {
           "monsterIds": [
             21537
           ],
           "itemId": 1000322,
-          "chance": 10000,
+          "chance": 500,
           "qtyMin": 3,
           "qtyMax": 5,
-          "skipIfOriginalDrop": true
+          "skipIfOriginalDrop": true,
+          "absoluteChanceBasisPoints": 500,
+          "rateMode": "grade_absolute",
+          "note": "最終絕對掉落率 5%，不套用全域掉落倍率。"
         },
         {
           "monsterIds": [
@@ -41,10 +47,13 @@
             21525
           ],
           "itemId": 720,
-          "chance": 15,
+          "chance": 500,
           "qtyMin": 1,
           "qtyMax": 1,
-          "skipIfOriginalDrop": true
+          "skipIfOriginalDrop": true,
+          "absoluteChanceBasisPoints": 500,
+          "rateMode": "grade_absolute",
+          "note": "最終絕對掉落率 5%，不套用全域掉落倍率。"
         },
         {
           "monsterIds": [
@@ -54,10 +63,13 @@
             21527
           ],
           "itemId": 728,
-          "chance": 8,
+          "chance": 500,
           "qtyMin": 1,
           "qtyMax": 1,
-          "skipIfOriginalDrop": true
+          "skipIfOriginalDrop": true,
+          "absoluteChanceBasisPoints": 500,
+          "rateMode": "grade_absolute",
+          "note": "最終絕對掉落率 5%，不套用全域掉落倍率。"
         },
         {
           "monsterIds": [
@@ -199,10 +211,13 @@
             21599
           ],
           "itemId": 1000322,
-          "chance": 100,
+          "chance": 500,
           "qtyMin": 1,
           "qtyMax": 1,
-          "skipIfOriginalDrop": true
+          "skipIfOriginalDrop": true,
+          "absoluteChanceBasisPoints": 500,
+          "rateMode": "grade_absolute",
+          "note": "最終絕對掉落率 5%，不套用全域掉落倍率。"
         },
         {
           "monsterIds": [
@@ -211,10 +226,13 @@
             21599
           ],
           "itemId": 719,
-          "chance": 8,
+          "chance": 500,
           "qtyMin": 1,
           "qtyMax": 1,
-          "skipIfOriginalDrop": true
+          "skipIfOriginalDrop": true,
+          "absoluteChanceBasisPoints": 500,
+          "rateMode": "grade_absolute",
+          "note": "最終絕對掉落率 5%，不套用全域掉落倍率。"
         },
         {
           "monsterIds": [
@@ -222,10 +240,13 @@
             21599
           ],
           "itemId": 1000321,
-          "chance": 3,
+          "chance": 500,
           "qtyMin": 1,
           "qtyMax": 1,
-          "skipIfOriginalDrop": true
+          "skipIfOriginalDrop": true,
+          "absoluteChanceBasisPoints": 500,
+          "rateMode": "grade_absolute",
+          "note": "最終絕對掉落率 5%，不套用全域掉落倍率。"
         }
       ]
     }

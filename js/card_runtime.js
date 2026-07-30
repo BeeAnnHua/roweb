@@ -161,7 +161,7 @@
     "bAddRace","bAddRace2","bAddSize","bAddSkillBlow","bAgi","bAllStats","bAspd","bAspdRate","bAtkEle","bAtkRate",
     "bAutoSpell","bAutoSpellOnSkill","bAutoSpellWhenHit","bBaseAtk","bBreakArmorRate","bBreakWeaponRate","bCRate","bClassChange",
     "bComaClass","bComaRace","bCon","bCritAtkRate","bCritical","bCriticalAddRace","bCriticalLong","bCriticalRate","bCrt","bDef","bDefEle",
-    "bDefRate","bDefRatioAtkClass","bDelayrate","bDex","bExpAddRace","bFixedCast","bFixedCastrate","bFlee","bFlee2","bGetZenyNum",
+    "bDefRate","bDefRatioAtkClass","bDelayrate","bDex","bExpAddRace","bFixedCast","bFixedCastRate","bFixedCastrate","bFlee","bFlee2","bGetZenyNum",
     "bHPDrainRate","bHPGainValue","bHPLossRate","bHPRegenRate","bHPrecovRate","bHealPower","bHealPower2","bHit",
     "bIgnoreDefClass","bIgnoreDefClassRate","bIgnoreDefRace","bIgnoreDefRaceRate","bIgnoreMResRaceRate","bIgnoreMdefClassRate",
     "bIgnoreMdefRaceRate","bInt","bIntravision","bLongAtkDef","bLongAtkRate","bLuk","bMagicAddClass","bMagicAddEle","bMagicAddRace",
@@ -171,7 +171,7 @@
     "bRegenPercentHP","bRes","bMRes","bResEff","bRestartFullRecover","bSMatk","bSPDrainRate","bSPDrainValue","bSPGainRace","bSPGainValue",
     "bSPLossRate","bSPRegenRate","bSPVanishRate","bSPrecovRate","bShortAtkRate","bShortWeaponDamageReturn","bSkillAtk",
     "bSkillCooldown","bSkillFixedCast","bSkillUseSP","bSkillUseSPrate","bSkillVariableCast","bSpeedRate","bSpl","bSplashRange",
-    "bSta","bStr","bSubClass","bSubDefEle","bSubEle","bSubRace","bSubSize","bSubSkill","bUnbreakableArmor","bUnbreakableShield",
+    "bSta","bStr","bSubClass","bSubDefEle","bSubEle","bSubRace","bSubSize","bSubSkill","bUnbreakableArmor","bUnbreakableGarment","bUnbreakableHelm","bUnbreakableShield",
     "bUnbreakableWeapon","bUseSPrate","bVariableCastrate","bVit","bWeaponAtkRate","bWeaponDamageRate","bWeaponSubSize","bWis"
   ]);
 
@@ -196,7 +196,7 @@
       bReduceDamageReturn:"reflectDamageReductionRate", bMagicDamageReturn:"magicReflectRate", bShortWeaponDamageReturn:"shortPhysicalReflectRate",
       bHPGainValue:"killHpFlat", bSPGainValue:"killSpFlat", bMagicHPGainValue:"magicKillHpFlat", bSPDrainValue:"spOnAttackFlat",
       bNoWalkDelay:"noWalkDelay", bNoCastCancel:"noCastCancel", bNoSizeFix:"ignoreWeaponSizePenalty",
-      bUnbreakableWeapon:"unbreakableWeapon", bUnbreakableArmor:"unbreakableArmor", bUnbreakableShield:"unbreakableShield",
+      bUnbreakableWeapon:"unbreakableWeapon", bUnbreakableArmor:"unbreakableArmor", bUnbreakableGarment:"unbreakableGarment", bUnbreakableHelm:"unbreakableHeadgear", bUnbreakableShield:"unbreakableShield",
       bNoKnockback:"noKnockback", bIntravision:"intravision", bNoGemStone:"noGemstone", bNoMadoFuel:"noMadoFuel",
       bNoMagicDamage:"magicImmune", bRestartFullRecover:"restartFullRecover", bSplashRange:"splashRange",
       bAbsorbDmgMaxHP2:"incomingDamageMaxHpCapRate"
@@ -204,7 +204,7 @@
     if (scalars[type]) { addScalar(out, scalars[type], n(value, 1)); return; }
     if (type === "bVariableCastrate") { addScalar(out,"variableCastReductionRate",-n(value)); return; }
     if (type === "bDelayrate") { addScalar(out,"afterCastDelayReductionRate",-n(value)); return; }
-    if (type === "bFixedCastrate") {
+    if (type === "bFixedCastrate" || type === "bFixedCastRate") {
       if (a.length >= 2 && looksLikeSkill(a[0])) addKeyed(out,"skillFixedCastReductionRate",resolveSkillStorageKey(a[0]),-n(a[1]));
       else addScalar(out,"fixedCastReductionRate",-n(value));
       return;
@@ -812,17 +812,21 @@
     for(const drop of extras){
       if(drop.conditionRace && drop.conditionRace!=="All" && drop.conditionRace!==race)continue;
       const raw=Math.max(0,n(drop.rate)); const rated=typeof window.applyRate==="function"?window.applyRate(raw,"drop"):raw;
-      if(Math.random()*10000>=Math.min(10000,rated))continue;
-      let itemId=drop.itemId,amount=1;
+      const outerChance=Math.max(0,Math.min(10000,rated));
+      if(Math.random()*10000>=outerChance)continue;
+      let itemId=drop.itemId,amount=1,actualItemChance=outerChance;
       if(drop.kind==="group"){
         const group=DATA.groups[String(drop.group).toUpperCase()]; const entries=group?.entries||[]; if(!entries.length)continue;
         const total=entries.reduce((s,x)=>s+Math.max(0,n(x.rate)),0); let roll=Math.random()*Math.max(1,total),selected=entries[entries.length-1];
         for(const entry of entries){roll-=Math.max(0,n(entry.rate));if(roll<=0){selected=entry;break;}}
         itemId=selected.itemId; amount=Math.max(1,n(selected.amount,1));
+        const matching=entries.reduce((sum,entry)=>String(entry?.itemId)===String(itemId)?sum+Math.max(0,n(entry.rate)):sum,0);
+        actualItemChance=Math.max(0,Math.min(10000,outerChance*(total>0?matching/total:0)));
       }
       const item=window.getItemData?.(itemId); if(!item)continue;
       window.addItem?.({id:Number(itemId),name:item.name},amount); window.recordItemDrop?.(itemId,amount);
-      window.emitLootRewardLog?.(`${drop.sourceName||"卡片"}：額外取得 ${item.name} ×${amount}。`,"item"); awarded.push({itemId,amount,source:drop.sourceName});
+      window.RareItemAnnouncementRuntime?.announceAcquisition?.({itemId,itemName:item.name,quantity:amount,chanceBasisPoints:actualItemChance,source:"card_extra_drop",sourceLabel:`${drop.sourceName||"卡片"}額外掉落`});
+      window.emitLootRewardLog?.(`${drop.sourceName||"卡片"}：額外取得 ${item.name} ×${amount}。`,"item"); awarded.push({itemId,amount,source:drop.sourceName,actualItemChance});
     } return awarded;
   }
   function onMonsterDefeated(monster) {

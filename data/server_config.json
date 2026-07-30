@@ -11,7 +11,8 @@
       "zeny": 10000,
       "cardDrop": 10000,
       "mapExclusiveDrop": 10000,
-      "gradeMaterialDropRate": 10000
+      "gradeMaterialDropRate": 10000,
+      "gradeMaterialDropChanceBasisPoints": 500
     },
     "monsters": {
       "mob_count_rate": 33,
@@ -54,7 +55,10 @@
     "0.9.82HN：Base EXP／Job EXP／一般掉落／Zeny／卡片相對倍率／地圖限定相對倍率／升階材料倍率統一設為 10000；同步重建 data_bundle，避免只改 JSON 未進入 Runtime。",
     "0.9.82HN：存檔升級為驗證式主檔＋安全備份，載入時比較 saveVersion／savedAt 並選最新有效資料；新增 IndexedDB 耐久鏡像、多分頁寫入租約、背景／F5 補存與未來後端 Adapter。",
     "0.9.82HO：新增禮物箱、神秘箱子、神秘紫箱，沿用黯淡冰晶武器箱 ItemBoxRuntime；獎池直接使用 rAthena GIFTBOX／BLUEBOX／VIOLETBOX Rate 權重。",
-    "0.9.82HP：以專案素材 items 正式圖庫依物品 ID 校正 images/items；同 ID 不一致圖覆蓋、缺圖補齊，三種 RA 經典箱子獎池圖示完整化。1100100 為 RO_WEB 自訂箱子 ID，明確沿用官方 101638 圖示。"
+    "0.9.82HP：以專案素材 items 正式圖庫依物品 ID 校正 images/items；同 ID 不一致圖覆蓋、缺圖補齊，三種 RA 經典箱子獎池圖示完整化。1100100 為 RO_WEB 自訂箱子 ID，明確沿用官方 101638 圖示。",
+    "0.9.82HQ：新增官方 Item 662 馬牌（移動速度+25%、3分鐘、共用商人1450 Zeny、自動掛機可維持）；建立安全消耗品 Script Runtime。玩家可取得164種消耗品中102種已有實際效果，62種未實作系統改為提示且不扣道具；三箱514種裝備獎品全部完成效果稽核，補齊頭飾／披肩防破壞與 bFixedCastRate 支援。",
+    "0.9.82HR：建立全域稀有物品取得公告 Runtime；怪物掉落、地圖額外掉落、卡片額外掉落、MVP 轉蛋與所有 ItemBox 依單一物品最終實際機率公告：≤1%紅、≤0.1%紫、≤0.01%金。",
+    "0.9.82HR：冰鱗山丘／蛇巢穴升階材料改為最終絕對 5%（500/10000）；gradeMaterialDropChanceBasisPoints 優先，完全不套用 drop=10000 或舊 gradeMaterialDropRate 倍率。"
   ],
-  "version": "0.9.82HP"
+  "version": "0.9.82HR"
 }

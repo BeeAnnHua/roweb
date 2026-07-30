@@ -1,5 +1,5 @@
 //=======================================
-// AutoBattleController v1.7（0.9.82GE）
+// AutoBattleController v1.8（0.9.82HQ）
 // 精簡設定介面 / 自動異常解除 / 低血量逃生 / 自動肯貝特 / 當前地圖怪物篩選
 //=======================================
 
@@ -44,6 +44,7 @@ function createDefaultAutoCombat() {
     spPotion: { enabled: false, spPercent: 30, itemId: null },
     detox: { enabled: false },
     elementEndow: { enabled: false, element: "" },
+    speedBadge: { enabled: false, itemId: 662 },
     cashFood: { enabled: false, itemIds: [] },
     monsterFilter: { version: "0.9.82FM", byMap: {} },
     heal: { enabled: false, skillId: null, hpPercent: 60, spPercent: 20, level: 1 },
@@ -253,6 +254,9 @@ function normalizeAutoCombatSettings() {
   player.autoCombat.elementEndow.element = AUTO_ELEMENT_CONVERTER_ITEM_IDS[player.autoCombat.elementEndow.element]
     ? String(player.autoCombat.elementEndow.element)
     : "";
+  const sourceSpeedBadge = source.speedBadge && typeof source.speedBadge === "object" ? source.speedBadge : { enabled:Boolean(source.speedBadge) };
+  player.autoCombat.speedBadge = { ...defaults.speedBadge, ...sourceSpeedBadge, itemId:662 };
+  player.autoCombat.speedBadge.enabled = player.autoCombat.speedBadge.enabled === true;
   const sourceCashFood = source.cashFood && typeof source.cashFood === "object" ? source.cashFood : {};
   const rawCashFoodIds = Array.isArray(sourceCashFood.itemIds) ? sourceCashFood.itemIds : [];
   player.autoCombat.cashFood = {
@@ -759,6 +763,7 @@ function syncAutoCombatSettingsFromUI(options = {}) {
   const spPercent = document.getElementById("autoCombatSpPotionPercent");
   const spItem = document.getElementById("autoCombatSpPotionSelect");
   const detoxEnabled = document.getElementById("autoCombatDetoxEnabled");
+  const speedBadgeEnabled = document.getElementById("autoCombatSpeedBadgeEnabled");
   const elementEndowEnabled = document.getElementById("autoCombatElementEndowEnabled");
   const elementEndowSelect = document.getElementById("autoCombatElementEndowSelect");
   const cashFoodEnabled = document.getElementById("autoCombatCashFoodEnabled");
@@ -787,6 +792,7 @@ function syncAutoCombatSettingsFromUI(options = {}) {
   if (spPercent) player.autoCombat.spPotion.spPercent = Number(spPercent.value) || 30;
   if (spItem) player.autoCombat.spPotion.itemId = normalizeItemId(spItem.value) || null;
   if (detoxEnabled) player.autoCombat.detox.enabled = detoxEnabled.checked;
+  if (speedBadgeEnabled) player.autoCombat.speedBadge.enabled = speedBadgeEnabled.checked;
   if (elementEndowEnabled) player.autoCombat.elementEndow.enabled = elementEndowEnabled.checked;
   if (elementEndowSelect) {
     player.autoCombat.elementEndow.element = AUTO_ELEMENT_CONVERTER_ITEM_IDS[elementEndowSelect.value]
@@ -1254,6 +1260,7 @@ function updateAutoCombatUI() {
   const spPercent = document.getElementById("autoCombatSpPotionPercent");
   const spItem = document.getElementById("autoCombatSpPotionSelect");
   const detoxEnabled = document.getElementById("autoCombatDetoxEnabled");
+  const speedBadgeEnabled = document.getElementById("autoCombatSpeedBadgeEnabled");
   const elementEndowEnabled = document.getElementById("autoCombatElementEndowEnabled");
   const elementEndowSelect = document.getElementById("autoCombatElementEndowSelect");
   const cashFoodEnabled = document.getElementById("autoCombatCashFoodEnabled");
@@ -1273,6 +1280,7 @@ function updateAutoCombatUI() {
   if (spEnabled) spEnabled.checked = !!cfg.spPotion.enabled;
   if (spPercent) spPercent.value = cfg.spPotion.spPercent;
   if (detoxEnabled) detoxEnabled.checked = !!cfg.detox.enabled;
+  if (speedBadgeEnabled) speedBadgeEnabled.checked = !!cfg.speedBadge.enabled;
   if (elementEndowEnabled) elementEndowEnabled.checked = !!cfg.elementEndow.enabled;
   if (elementEndowSelect) {
     elementEndowSelect.value = cfg.elementEndow.element || "";
@@ -1462,6 +1470,26 @@ function autoUsePotion() {
     used = useRecoveryItem("sp", cfg.spPotion.itemId) || used;
   }
   return used;
+}
+
+function tryAutoSpeedBadge() {
+  const cfg = player?.autoCombat?.speedBadge;
+  if (!cfg?.enabled) return false;
+  const itemId = 662;
+  if (window.ConsumableRuntime?.hasActiveItemEffect?.(itemId,"SC_SPEEDUP0")) return false;
+  const stack = (player?.inventory || []).find(item => String(item.id) === String(itemId) && Number(item.count || 0) > 0);
+  if (!stack) {
+    const now = Date.now();
+    if (now - Number(AUTO_BATTLE_CONTROLLER.lastSpeedBadgeWarningAt || 0) >= 30000) {
+      AUTO_BATTLE_CONTROLLER.lastSpeedBadgeWarningAt = now;
+      addBattleLog("自動馬牌：背包沒有馬牌，請向共用道具商人購買。");
+    }
+    return false;
+  }
+  const before = Number(stack.count || 0);
+  window.useItem?.(itemId, null, { source:"auto_speed_badge" });
+  const after = (player?.inventory || []).find(item => String(item.id) === String(itemId));
+  return Number(after?.count || 0) < before;
 }
 
 function tryAutoElementEndow() {
@@ -1867,6 +1895,10 @@ function runAutoCombatUtilityTick() {
     setAutoBattleControllerState(AUTO_BATTLE_STATES.UTILITY, { action: "status_cure", reason: "auto_status_cure" });
     return { action: "utility", utility: "status_cure" };
   }
+  if (tryAutoSpeedBadge()) {
+    setAutoBattleControllerState(AUTO_BATTLE_STATES.UTILITY, { action: "speed_badge", reason: "auto_horse_badge" });
+    return { action: "utility", utility: "speed_badge" };
+  }
   if (tryAutoElementEndow()) {
     setAutoBattleControllerState(AUTO_BATTLE_STATES.UTILITY, { action: "element_endow", reason: "auto_element_converter" });
     return { action: "utility", utility: "element_endow" };
@@ -2210,6 +2242,7 @@ window.clearAutoBattleTarget = clearAutoBattleTarget;
 window.acquireAutoBattleTarget = acquireAutoBattleTarget;
 window.noteAutoBattleTargetDefeated = noteAutoBattleTargetDefeated;
 window.runAutoCombatUtilityTick = runAutoCombatUtilityTick;
+window.tryAutoSpeedBadge = tryAutoSpeedBadge;
 window.getItemRecoveryProfile = getItemRecoveryProfile;
 window.getItemRecoveryValue = getItemRecoveryValue;
 window.normalizeAutoStatusKey = normalizeAutoStatusKey;

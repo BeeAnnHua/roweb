@@ -1,0 +1,47 @@
+{
+  "version": "0.9.82HR",
+  "baseVersion": "0.9.82HQ",
+  "featureSummary": {
+    "sharedRareAnnouncementRuntime": "js/rare_item_announcement_runtime.js",
+    "redThresholdBasisPoints": 100,
+    "purpleThresholdBasisPoints": 10,
+    "goldThresholdBasisPoints": 1,
+    "duplicateItemIdWeightsAggregated": true,
+    "connectedSources": [
+      "monster drops",
+      "MVP drops",
+      "passive extra drops",
+      "card extra drops",
+      "map bonus drops",
+      "MVP gacha",
+      "ItemBox"
+    ],
+    "gradeMaterialAbsoluteChanceBasisPoints": 500,
+    "gradeMaterialConfiguredEntries": 7,
+    "gradeMaterialUsesGlobalDropMultiplier": false
+  },
+  "tests": {
+    "rareAnnouncement": "19/19 PASS",
+    "serverRatesAndGradePolicy": "3/3 PASS",
+    "consumableRuntime": "18/18 PASS",
+    "autoHorseBadge": "8/8 PASS",
+    "raClassicBoxes": "56/56 PASS",
+    "officialItemIcons": "14/14 PASS",
+    "saveDurability": "15/15 PASS",
+    "currencyInlineExpand": "24/24 PASS",
+    "mvpGachaInventoryGuard": "13/13 PASS",
+    "boxEquipmentEffects": "514 audited / 0 failures / 0 runtime errors",
+    "obtainableConsumables": "164 audited / 102 active / 62 safely blocked",
+    "deepHealth": "0 errors / 0 warnings"
+  },
+  "rates": {
+    "baseExp": 10000,
+    "jobExp": 10000,
+    "drop": 10000,
+    "zeny": 10000,
+    "cardDrop": 10000,
+    "mapExclusiveDrop": 10000,
+    "gradeMaterialDropRate": 10000,
+    "gradeMaterialDropChanceBasisPoints": 500
+  }
+}

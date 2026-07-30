@@ -172,7 +172,7 @@
     transforms:"visual_transform", scriptMessages:"ui_feedback", visualEffects:"visual_feedback",
 
     // Equipment/visual/movement policies.
-    unbreakableWeapon:"equipment_break_policy", unbreakableArmor:"equipment_break_policy", unbreakableShield:"equipment_break_policy",
+    unbreakableWeapon:"equipment_break_policy", unbreakableArmor:"equipment_break_policy", unbreakableGarment:"equipment_break_policy", unbreakableHeadgear:"equipment_break_policy", unbreakableShield:"equipment_break_policy",
     noKnockback:"movement", noWalkDelay:"movement", intravision:"visibility"
   });
 
@@ -192,7 +192,7 @@
 
   function getSkillKnockbackBonus(skill, unit = window.player) { return getSkillKeyed("skillKnockbackBonus",skill,unit); }
   function blocksEquipmentBreak(kind, unit = window.player) {
-    const key={weapon:"unbreakableWeapon",armor:"unbreakableArmor",shield:"unbreakableShield"}[String(kind||"").toLowerCase()];
+    const key={weapon:"unbreakableWeapon",armor:"unbreakableArmor",garment:"unbreakableGarment",headgear:"unbreakableHeadgear",helm:"unbreakableHeadgear",shield:"unbreakableShield"}[String(kind||"").toLowerCase()];
     return key ? hasFlag(key,unit) : false;
   }
 

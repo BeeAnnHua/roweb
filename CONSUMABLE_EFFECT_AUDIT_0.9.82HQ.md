@@ -1,0 +1,70 @@
+# 0.9.82HQ 可取得消耗品效果稽核
+
+- 可取得消耗品：164
+- 已有實際效果：102
+- 尚未實作、已安全封鎖：62
+
+## 尚未實作（使用時不扣道具）
+
+- 604 枯樹枝：monster
+- 609 返魂符：沒有可辨識效果
+- 610 天地樹葉子：itemskill
+- 611 放大鏡：itemskill
+- 612 攜帶用熔礦爐：produce
+- 613 鋼鐵錘子：produce
+- 614 黃金錘子：produce
+- 615 神之金屬錘子：produce
+- 616 老舊收集冊：getgroupitem
+- 618 老舊卷軸：沒有可辨識效果
+- 619 青澀蘋果：pet
+- 620 濃縮柳橙汁：pet
+- 621 苦味草：pet
+- 622 彩色紅蘿蔔：pet
+- 623 變態蚯蚓：pet
+- 624 腐臭之魚：pet
+- 625 鏽鐵：pet
+- 626 魔物飲料：pet
+- 627 魔物牛奶：pet
+- 628 營養大骨：pet
+- 629 呢喃花：pet
+- 630 青苔：pet
+- 631 青嫩毒草：pet
+- 632 營養蚯蚓：pet
+- 633 魔物番薯：pet
+- 634 魔物香蕉：pet
+- 635 魔物之證：pet
+- 636 魔物信件：pet
+- 637 魔物掃把：pet
+- 638 純潔銀刃：pet
+- 639 馴服手鐲：pet
+- 640 閃爍之石：pet
+- 641 黑暗合約書：pet
+- 642 惡魔召喚書：pet
+- 643 攜帶用孵蛋器：bpet
+- 658 組織的團結力。：guildgetexp
+- 659 心愛女人之回憶：pet
+- 661 搖曳的圍裙：pet
+- 664 禮盒：getgroupitem
+- 665 禮盒：getgroupitem
+- 666 禮盒：getgroupitem
+- 667 禮盒：getgroupitem
+- 678 毒藥瓶：conditional_script
+- 9517 虛實原石：getgroupitem
+- 11620 熊皮軟糖：沒有可辨識效果
+- 12040 賢者之石：homevolution
+- 12127 高級料理器具：cooking
+- 12128 宮廷料理器具：cooking
+- 12129 幻想料理器具：cooking
+- 12246 具有魔力的卡片冊子：getgroupitem
+- 12359 光滑柔軟草：pet
+- 12395 擔擔麵：pet
+- 12612 老舊錢袋：getgroupitem
+- 12614 中級錢袋：getgroupitem
+- 12615 下級錢袋：getgroupitem
+- 12617 A級錢袋：getgroupitem
+- 12623 高級武器箱子：getgroupitem
+- 12675 城戰武器補給箱：getgroupitem
+- 12738 珍貴盧恩原石：makerune
+- 22534 心門緊閉箱：getgroupitem
+- 23258 餿臭之肉：沒有可辨識效果
+- 23817 神秘咒語集：getgroupitem

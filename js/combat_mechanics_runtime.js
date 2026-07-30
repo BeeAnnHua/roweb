@@ -155,11 +155,12 @@ const StatusManager={
    const unbreakableWeapon=window.EffectRuntime?.hasFlag?.('unbreakableWeapon',target)===true;
    const unbreakableShield=window.EffectRuntime?.hasFlag?.('unbreakableShield',target)===true;
    const unbreakableArmor=window.EffectRuntime?.hasFlag?.('unbreakableArmor',target)===true;
+   const unbreakableHeadgear=window.EffectRuntime?.hasFlag?.('unbreakableHeadgear',target)===true;
    const blocked=(whole&&[...groups.weapon,...groups.shield,...groups.armor,...groups.headgear].includes(normalized))
     ||((Number(active.weaponProtection||0)>0||unbreakableWeapon)&&groups.weapon.includes(normalized))
     ||((Number(active.shieldProtection||0)>0||unbreakableShield)&&groups.shield.includes(normalized))
     ||((Number(active.armorProtection||0)>0||unbreakableArmor)&&groups.armor.includes(normalized))
-    ||(Number(active.headgearProtection||0)>0&&groups.headgear.includes(normalized))
+    ||((Number(active.headgearProtection||0)>0||unbreakableHeadgear)&&groups.headgear.includes(normalized))
     ||(Number(active.shadowEquipmentProtection||0)>0&&groups.shadow.includes(normalized));
    if(blocked)return {applied:false,chance:0,blocked:true,id:normalized,reason:'equipment_protected'};
   }
