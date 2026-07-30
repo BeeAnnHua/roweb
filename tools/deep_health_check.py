@@ -3,9 +3,9 @@ from __future__ import annotations
 import argparse, collections, json, pathlib, re, shutil, struct, subprocess, sys, zlib
 from html.parser import HTMLParser
 
-EXPECTED_VERSION = "0.9.82FJ"
+EXPECTED_VERSION = "0.9.82HN"
 KNOWN_MISSING_ITEM_ICONS = set()
-DYNAMIC_DOM_IDS = {"autoHpPotionSelect","autoSpPotionSelect","autoHpEnabled","autoHpPercent","autoSpEnabled","autoSpPercent","world-camera-layer","playerAtlasCanvas","position-debug-overlay","position-debug-cross","position-coordinate-ui","basic-skill-info-window","battle-log-new-notice","battle-area","game-tooltip","runtime-skill-cast-bar","monster-position-debug-cross","monsterAtlasCanvas","map-monster-distribution-tooltip"}
+DYNAMIC_DOM_IDS = {"autoHpPotionSelect","autoSpPotionSelect","autoHpEnabled","autoHpPercent","autoSpEnabled","autoSpPercent","world-camera-layer","playerAtlasCanvas","position-debug-overlay","position-debug-cross","position-coordinate-ui","basic-skill-info-window","battle-log-new-notice","battle-area","game-tooltip","runtime-skill-cast-bar","status-advanced-panel","autoCombatSettingsScroll","cardTransformCanvas","cardTransformFallback","monster-position-debug-cross","monsterAtlasCanvas","map-monster-distribution-tooltip","roGoldDialogOverlay","roGoldDialogTitle","roGoldDialogMessage","currency-detail-popup"}
 
 class Audit:
     def __init__(self, root): self.root=root; self.errors=[]; self.warnings=[]; self.info={}

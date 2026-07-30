@@ -1,3 +1,15 @@
+## 0.9.82HN — 最新正式基準
+
+- 以 0.9.82HM 為基準，完整保留右上貨幣列原地展開／收合。
+- 存檔格式升級為 `ro_web_player_save_v2`，但保留原 `SAVE_KEY`，舊玩家可直接原地遷移。
+- 任何後續改動不得繞過 `saveGame()`／`requestGameSave()`／`ROWebSaveManager` 另建互相衝突的角色存檔。
+- 載入候選必須依 `saveVersion`、`savedAt` 與 checksum 選最新有效資料，不得恢復「主檔能解析就固定優先」的舊規則。
+- localStorage 是同步主檔與安全備份；IndexedDB 是耐久鏡像；未來後端只能透過 `registerRemoteAdapter()` 接入。
+- 多分頁規則為最新分頁接管寫入，舊分頁禁止覆蓋。
+- 清除角色或全部資料時必須同時清除 localStorage 角色鍵與 IndexedDB 玩家存檔。
+- 目前倍率：`baseExp/jobExp/drop/zeny/cardDrop/mapExclusiveDrop/gradeMaterialDropRate = 10000`；修改 JSON 後必須重建 `js/data_bundle.js`。
+- 後續版本以 0.9.82HN 為基準。
+
 ## 0.9.82HM — 最新正式基準
 
 - 以 0.9.82HL 為基準；完整保留背包／裝備 Tooltip、一般裝備附魔石介紹、HH 附魔存活實例交易修正與 HJ 正式玩家介面。

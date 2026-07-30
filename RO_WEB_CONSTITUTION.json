@@ -1,6 +1,6 @@
 {
   "name": "RO_WEB_Constitution",
-  "version": "0.9.82GX",
+  "version": "0.9.82HN",
   "purpose": "RO_WEB 專案開發憲法。任何 AI 或開發者在修改專案前必須先閱讀本檔案。",
   "must_read_before_any_update": true,
   "ai_update_protocol": {
@@ -1272,6 +1272,38 @@
       "priority": "critical",
       "read_before_coding": true,
       "rule": "未來所有可附魔武器、防具與特殊裝備系列一律使用同一套共用附魔平台。第1洞永久保留卡片系統，不納入附魔流程；新增附魔必須固定依第4洞→第3洞→第2洞進行，前一洞未完成時後續洞位鎖定且不可提前操作。每個階段右側只顯示目前洞位可用的全部合法附魔石，但不得依當前角色職業過濾，玩家可替其他角色製作後放入共用倉庫。左側裝備清單只顯示小圖、精煉值、裝備名稱與D/C/B/A階級；中央只顯示裝備大圖及1/4/2/3固定洞位，已有卡片或附魔時顯示正式圖示，左鍵可鎖定並開啟名稱與完整效果資訊窗。材料、Zeny、附魔選擇與洞位條件全部成立時，確認執行按鈕才可亮起。第4、3、2洞完成後不再新增洞位，只保留升階、重置與查看。任何新附魔系列只能新增資料池、材料、費用、升階與重置規則，不得另寫不同操作流程；除非使用者明確宣告特例。"
+    },
+    {
+      "id": "SAVE-002",
+      "category": "Save",
+      "title": "最新有效候選",
+      "rule": "載入時比較 localStorage 主檔、安全備份、IndexedDB 與已註冊後端候選的 saveVersion／savedAt，並驗證 checksum；不得固定偏好較舊主檔。",
+      "priority": "critical",
+      "read_before_coding": true
+    },
+    {
+      "id": "SAVE-003",
+      "category": "Save",
+      "title": "多分頁防覆蓋",
+      "rule": "最新分頁持有 writer lease；非持有者不得寫入，以防舊分頁覆蓋新進度。",
+      "priority": "critical",
+      "read_before_coding": true
+    },
+    {
+      "id": "SAVE-004",
+      "category": "Save",
+      "title": "刪檔完整性",
+      "rule": "刪除角色或全部資料時，localStorage 與 IndexedDB 玩家存檔必須同步清除；帳號倉庫依玩家選擇保留或刪除。",
+      "priority": "critical",
+      "read_before_coding": true
+    },
+    {
+      "id": "RATE-001",
+      "category": "ServerConfig",
+      "title": "倍率 Bundle 同步",
+      "rule": "修改 data/server_config.json 後必須重建 js/data_bundle.js，並執行 HN 倍率一致性測試。",
+      "priority": "critical",
+      "read_before_coding": true
     }
   ],
   "skillRuntime": {
@@ -1362,5 +1394,19 @@
       "combatEffectRuntime": "CardRuntime enchant source",
       "targetFamily": "Dim Glacier weapons (26)"
     }
-  }
+  },
+  "currentVersion": "0.9.82HN",
+  "versionHistory": [
+    {
+      "version": "0.9.82HN",
+      "title": "Save Durability / Backend Ready",
+      "changes": [
+        "驗證式主存檔與安全備份",
+        "IndexedDB 耐久鏡像",
+        "多分頁防覆蓋",
+        "背景與離頁補存",
+        "倍率統一 10000 並重建 Bundle"
+      ]
+    }
+  ]
 }

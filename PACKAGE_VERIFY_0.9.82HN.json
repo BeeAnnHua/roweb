@@ -1,0 +1,70 @@
+{
+  "version": "0.9.82HN",
+  "packageType": "FULL",
+  "baseVersion": "0.9.82HM",
+  "buildPurpose": "Save durability, rollback prevention, backend-ready storage, and 10000x rate synchronization",
+  "generatedAtUnix": 1785379139,
+  "rateVerification": {
+    "baseExp": 10000,
+    "jobExp": 10000,
+    "drop": 10000,
+    "zeny": 10000,
+    "cardDrop": 10000,
+    "mapExclusiveDrop": 10000,
+    "gradeMaterialDropRate": 10000
+  },
+  "testSummary": {
+    "saveDurability": "15/15 PASS",
+    "serverRates": "2/2 PASS",
+    "currencyRegression": "24/24 PASS",
+    "deepHealth": "0 errors, 0 warnings",
+    "jsonParse": "1980 PASS",
+    "jsSyntax": "762 PASS"
+  },
+  "keyFiles": {
+    "index.html": {
+      "bytes": 51409,
+      "sha256": "f21bf2adc158f24b86ab43296d979c483e0487072275ea8b664af00f346a5038"
+    },
+    "js/player.js": {
+      "bytes": 148536,
+      "sha256": "12c903ad8b8f986a34ccb35b72bceb31ce2895c3a10b4e38c35b743f1ca829b9"
+    },
+    "js/game.js": {
+      "bytes": 19902,
+      "sha256": "32d2b78fe7e01238dba4f9686bc964d7348293527597e5c33251d9c4d53630b3"
+    },
+    "data/server_config.json": {
+      "bytes": 4368,
+      "sha256": "bf3bba4aa4e82b563915dc8b1d49188e20a3a483a00b19f67af23c7db5974eaa"
+    },
+    "js/data_bundle.js": {
+      "bytes": 35606308,
+      "sha256": "ce0a87e70f4c41f7fbc29b8e61b827b1f905ae262344814b8f6fe46f0dbd0478"
+    },
+    "RO_WEB_CONSTITUTION.json": {
+      "bytes": 73861,
+      "sha256": "f67cdce269e44720b939dc7b5fadbf96e1b06db0793cf76ba370216776034084"
+    },
+    "TEST_REPORT_0.9.82HN_SAVE_DURABILITY.txt": {
+      "bytes": 3040,
+      "sha256": "1c8c63a39f6d6add29550f3d186818cfba6880846117f6b5e396c9e7c1c9d6cf"
+    },
+    "DEEP_HEALTH_0.9.82HN.json": {
+      "bytes": 2044,
+      "sha256": "ae09dad87e6ed754cf32bba66a7905c113f77d6a24d4bfc63f240a1f6643b142"
+    },
+    "tools/test_save_durability_0.9.82HN.js": {
+      "bytes": 7418,
+      "sha256": "4f54a78f1da1e5b6cd9a1cfec3418906561da0dfefaa99fd879de1c8c776a6e6"
+    },
+    "tools/test_server_rates_0.9.82HN.py": {
+      "bytes": 855,
+      "sha256": "9863378c07ea447d2220a84b31b3c558c146436eed661fab2c481bced0d1f062"
+    },
+    "tools/test_hn_currency_inline_expand.py": {
+      "bytes": 7967,
+      "sha256": "118b395495b1d4e5909ddb9f22c4b4297e2370225fe74d3c6d65b03d0e77356b"
+    }
+  }
+}

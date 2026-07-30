@@ -1,3 +1,14 @@
+## 0.9.82HN — 防回檔耐久存檔／後端預留／倍率統一
+
+- 修正舊載入流程只要主存檔能解析就永遠優先採用、即使安全備份較新的回檔風險。
+- 主存檔與安全備份改為 `saveVersion`、`savedAt`、`sessionId`、checksum 驗證封裝；載入時永遠選最新且驗證通過的一份。
+- 新增 IndexedDB 主鏡像與上一代耐久備份；localStorage 仍負責同步 F5／離頁存檔。
+- 新增分頁寫入租約：最新分頁接管，舊分頁停止寫入，避免掛機進度被舊頁面反蓋。
+- `pagehide`、`beforeunload`、`visibilitychange(hidden)`、`freeze` 全部強制補存；每 60 秒持續完整存檔。
+- 預留 `ROWebSaveManager.registerRemoteAdapter()`，未來可接離線後端，不需重寫角色快照格式。
+- 清除角色／全部資料時同步清除 IndexedDB，避免刪檔後被耐久鏡像復原。
+- Base EXP、Job EXP、一般掉落、Zeny、卡片、地圖限定、升階材料倍率全部統一為 `10000`，並重建 `js/data_bundle.js`。
+
 ## 0.9.82HM — 貨幣列原地展開／收合
 
 - 移除額外貨幣浮窗的實際使用路徑，改為直接展開既有右上 `#top-bar`。

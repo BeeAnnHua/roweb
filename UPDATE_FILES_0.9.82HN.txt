@@ -1,0 +1,34 @@
+RO_WEB 0.9.82HN full package from 0.9.82HM
+
+CHANGED FILES
+AI_START_HERE.md
+CHANGELOG.md
+README.md
+RO_WEB_CONSTITUTION.json
+data/server_config.json
+index.html
+js/data_bundle.js
+js/game.js
+js/player.js
+tools/deep_health_check.py
+
+NEW FILES
+DEEP_HEALTH_0.9.82HN.json
+TEST_REPORT_0.9.82HN_SAVE_DURABILITY.txt
+UPDATE_FILES_0.9.82HN.txt
+docs/previews/CURRENCY_INLINE_EXPAND_0.9.82HN_desktop.png
+docs/previews/CURRENCY_INLINE_EXPAND_0.9.82HN_mobile.png
+tools/deep_health_check_0.9.82HN.py
+tools/test_hn_currency_inline_expand.py
+tools/test_hn_currency_inline_expand_report.json
+tools/test_save_durability_0.9.82HN.js
+tools/test_server_rates_0.9.82HN.py
+
+KEY RUNTIME CHANGES
+- Verified localStorage main + backup envelopes
+- Newest valid save candidate selection
+- IndexedDB durable primary + previous generation
+- Multi-tab writer lease
+- pagehide / beforeunload / visibility / freeze flush
+- Backend adapter contract
+- All agreed test rates set to 10000 and bundled
