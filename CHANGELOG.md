@@ -1,3 +1,22 @@
+## 0.9.82IA — Renewal 詠唱／後延遲／獨立冷卻完整校正
+
+- 確認並固定使用 Renewal `DEX×2+INT=530` 變動詠唱門檻；採最終角色素質。
+- 修正技能專屬與通用固定詠唱百分比錯誤直接相加；通用來源取最強，同技能專屬來源依 rAthena 先合併為一個候選，再與通用／狀態候選取最高。
+- 修正技能專屬 `bVariableCastrate` 被當成全域變詠減免。
+- 新增 `bSkillDelay` → 技能專屬後延遲毫秒修正。
+- 補上 MO_TRIPLEATTACK、MO_CHAINCOMBO、MO_COMBOFINISH、CH_TIGERFIST、CH_CHAINCRUSH、SR_DRAGONCOMBO、SR_FALLENEMPIRE、SJ_PROMINENCEKICK 的 AGI／DEX 特殊後延遲。
+- 技能詳細視窗新增實際變詠、固詠、總詠唱、技能後延遲、獨立冷卻、行走延遲及高速安全間隔。
+- Node 稽核可在無 DOM 環境載入 battle.js，避免舊測試入口失效。
+
+## 0.9.82HZ — 種族／體型／屬性／階級鍵值正規化
+
+- 新增 `ModifierKeyRuntime`，所有分類式戰鬥修正改用相同 canonical key 與 alias resolver。
+- 修正 Renewal 表 `Demihuman` 與卡片 Runtime `DemiHuman` 大小寫不同，導致海葵卡片等人形增傷失效。
+- `Demihuman`、`DemiHuman`、`Human`、`RC_DemiHuman`、人形／人型統一解析為 `DemiHuman`。
+- 修正物理／魔法種族增傷、種族耐性、種族暴擊、DEF／MDEF／RES／MRES 穿透、種族 EXP、擊殺 SP、Coma 與條件式額外掉落。
+- `All` 類別與特定類別改為正確累加，UI 進階面板與實際傷害使用同一查詢邏輯。
+- 怪物資料中的 `Human`／`Demihuman` 全部正規化為 `DemiHuman`，重建 `data_bundle.js`。
+
 ## 0.9.82HY — 全域指定數量批量開啟
 
 - 新增 `js/item_batch_open_runtime.js`，箱子、轉蛋、未來卡冊共用同一個數量輸入與 Adapter 架構。

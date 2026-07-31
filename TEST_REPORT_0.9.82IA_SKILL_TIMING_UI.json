@@ -1,0 +1,31 @@
+{
+  "version": "0.9.82IA",
+  "suite": "skill-timing-detail-ui-contract",
+  "passed": 22,
+  "failed": 0,
+  "passes": [
+    "timing detail appends for active skill",
+    "one timing section appended",
+    "timing section class",
+    "UI contains 目前實際時序（Lv5）",
+    "UI contains 變動詠唱",
+    "UI contains 固定詠唱",
+    "UI contains 總詠唱",
+    "UI contains 技能後延遲",
+    "UI contains 獨立冷卻",
+    "UI contains 行走延遲",
+    "UI contains 高速施放安全間隔",
+    "UI contains DEX×2＋INT＝530／530",
+    "UI contains 通用／技能專屬候選取最高",
+    "UI contains 連技公式已減少 600 ms",
+    "zero duration formatting",
+    "millisecond formatting",
+    "second formatting",
+    "CSS contains .skill-detail-timing",
+    "CSS contains .skill-detail-timing-title",
+    "CSS contains .skill-detail-timing-row",
+    "CSS contains .skill-detail-timing-note",
+    "passive skill omits timing section"
+  ],
+  "failures": []
+}

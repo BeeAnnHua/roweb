@@ -22157,3 +22157,33 @@ body.player-death-modal-open #player-sprite{pointer-events:none!important}
   .item-batch-open-input,.item-batch-open-button { height: 38px; }
   .item-batch-open-button { min-width: 82px; }
 }
+
+/* 0.9.82IA：技能詳細視窗顯示目前裝備／Buff 後的實際詠唱與延遲。 */
+.skill-detail-timing {
+  margin-top: 10px;
+  padding: 8px 9px;
+  border: 1px solid rgba(212, 170, 82, 0.42);
+  border-radius: 7px;
+  background: rgba(18, 13, 7, 0.72);
+}
+.skill-detail-timing-title {
+  margin-bottom: 5px;
+  color: #ffe2a0;
+  font-size: 12px;
+  font-weight: 900;
+}
+.skill-detail-timing-row {
+  display: grid;
+  grid-template-columns: minmax(92px, 0.8fr) minmax(130px, 1.2fr);
+  gap: 3px 8px;
+  padding: 4px 0;
+  border-top: 1px solid rgba(212, 170, 82, 0.13);
+  font-size: 11px;
+}
+.skill-detail-timing-row:first-of-type { border-top: 0; }
+.skill-detail-timing-label { color: #cdb989; }
+.skill-detail-timing-value { color: #fff0c5; text-align: right; font-variant-numeric: tabular-nums; }
+.skill-detail-timing-note { grid-column: 1 / -1; color: #9f9272; line-height: 1.35; }
+@media (max-width: 520px) {
+  .skill-detail-timing-row { grid-template-columns: minmax(82px, 0.75fr) minmax(118px, 1.25fr); }
+}

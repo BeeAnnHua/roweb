@@ -551,6 +551,68 @@ function getSkillDetailDescription(skill) {
   return lines.filter(Boolean).join("\n") || "目前沒有技能說明。";
 }
 
+function formatSkillTimingDuration(ms) {
+  const value = Math.max(0, Math.round(Number(ms || 0)));
+  if (value <= 0) return "0 秒";
+  if (value < 1000) return `${value} ms`;
+  return `${(value / 1000).toFixed(value % 1000 === 0 ? 1 : 3).replace(/\.0+$/, "").replace(/(\.\d*?)0+$/, "$1")} 秒`;
+}
+
+function appendSkillRuntimeTimingDetail(body, skill, learnedLevel) {
+  if (!body || typeof getRuntimeSkillTimingProfile !== "function") return false;
+  const uiType = typeof getRuntimeSkillUiType === "function" ? getRuntimeSkillUiType(skill) : String(skill?.skillType || "");
+  if (uiType === "passive" || uiType === "pending") return false;
+  const level = Math.max(1, Number(learnedLevel || 1));
+  let timing;
+  try { timing = getRuntimeSkillTimingProfile(skill, level); } catch (error) { return false; }
+  if (!timing?.cast) return false;
+
+  const derived = typeof calculateDerivedPlayerStats === "function" ? (calculateDerivedPlayerStats() || {}) : {};
+  const stats = derived.stats || window.player?.stats || {};
+  const dex = Math.max(0, Number(stats.dex || 0));
+  const intStat = Math.max(0, Number(stats.int || 0));
+  const statTotal = Math.max(0, dex * 2 + intStat);
+  const section = document.createElement("div");
+  section.className = "skill-detail-timing";
+  const heading = document.createElement("div");
+  heading.className = "skill-detail-timing-title";
+  heading.textContent = `目前實際時序（Lv${level}）`;
+  section.appendChild(heading);
+
+  const addRow = (label, value, note = "") => {
+    const row = document.createElement("div");
+    row.className = "skill-detail-timing-row";
+    const key = document.createElement("span");
+    key.className = "skill-detail-timing-label";
+    key.textContent = label;
+    const val = document.createElement("span");
+    val.className = "skill-detail-timing-value";
+    val.textContent = value;
+    row.append(key, val);
+    if (note) {
+      const help = document.createElement("small");
+      help.className = "skill-detail-timing-note";
+      help.textContent = note;
+      row.appendChild(help);
+    }
+    section.appendChild(row);
+  };
+
+  addRow("變動詠唱", `${formatSkillTimingDuration(timing.cast.rawVariableMs)} → ${formatSkillTimingDuration(timing.cast.variableMs)}`, `最終 DEX×2＋INT＝${Math.floor(statTotal)}／530`);
+  addRow("固定詠唱", `${formatSkillTimingDuration(timing.cast.rawFixedMs)} → ${formatSkillTimingDuration(timing.cast.fixedMs)}`, "不受 DEX／INT 影響；通用／技能專屬候選取最高");
+  addRow("總詠唱", formatSkillTimingDuration(timing.cast.totalMs));
+  const comboNote = timing.comboStatDelayRule ? `連技公式已減少 ${formatSkillTimingDuration(timing.comboStatDelayReductionMs)}` : "所有技能共用的施放後延遲";
+  addRow("技能後延遲", `${formatSkillTimingDuration(timing.databaseAfterCastMs ?? timing.rawAfterCastMs)} → ${formatSkillTimingDuration(timing.afterCastActDelayMs)}`, comboNote);
+  addRow("獨立冷卻", `${formatSkillTimingDuration(timing.rawCooldownMs)} → ${formatSkillTimingDuration(timing.cooldownMs)}`, "只限制這一招，不直接封鎖其他技能");
+  addRow("行走延遲", formatSkillTimingDuration(timing.afterCastWalkDelayMs));
+  if (typeof getRuntimeSkillPerformanceFloorMs === "function") {
+    const floor = Number(getRuntimeSkillPerformanceFloorMs(skill, level) || 0);
+    if (floor > 0) addRow("高速施放安全間隔", formatSkillTimingDuration(floor), "攻擊技能最少 140ms；不會縮短原始詠唱、延遲或冷卻");
+  }
+  body.appendChild(section);
+  return true;
+}
+
 function openSkillQuickSlotDialog(skillOrId, options = {}) {
   const skill = typeof skillOrId === "object" ? skillOrId : (typeof getSkillDataById === "function" ? getSkillDataById(skillOrId) : null);
   if (!skill) return false;
@@ -580,6 +642,7 @@ function openSkillQuickSlotDialog(skillOrId, options = {}) {
   desc.className = "skill-detail-description";
   desc.textContent = getSkillDetailDescription(skill);
   body.appendChild(desc);
+  appendSkillRuntimeTimingDetail(body, skill, level);
   if (eligible) renderQuickSlotPicker(picker, { type: "skill", id: skill.id }, { onAssigned: () => modal.classList.add("hidden-window") });
   else renderQuickSlotPicker(picker, null, { messageOnly: uiType === "passive" ? "被動技能不能放入快捷欄。" : "學會此技能後才能放入快捷欄。" });
   modal.classList.remove("hidden-window");

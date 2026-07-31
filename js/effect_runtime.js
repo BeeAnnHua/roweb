@@ -1,5 +1,5 @@
 //=======================================
-// RO_WEB EffectRuntime v0.9.82FZ
+// RO_WEB EffectRuntime v0.9.82IA
 // Unified equipment/card/combo effect source and coverage registry.
 // New item/card scripts are evaluated by CardRuntime and automatically flow
 // through the same status, combat, timing, recovery and event-hook consumers.
@@ -66,7 +66,9 @@
     for (const wrapper of wrappers(source)) {
       const map = wrapper[group];
       if (!map || typeof map !== "object" || Array.isArray(map)) continue;
-      total += number(map[normalized] ?? map[lower] ?? map.All ?? map.all ?? map.ALL);
+      total += window.ModifierKeyRuntime?.valueFromMap
+        ? window.ModifierKeyRuntime.valueFromMap(map, group, key)
+        : number(map[normalized] ?? map[lower] ?? map.All ?? map.all ?? map.ALL);
     }
     return total;
   }
@@ -153,6 +155,7 @@
     grantedSkills:"skill_grant", variableCastReductionRate:"skill_timing", fixedCastReductionRate:"skill_timing",
     fixedCastReductionMs:"skill_timing", afterCastDelayReductionRate:"skill_timing", skillCooldownReductionMs:"skill_timing",
     skillFixedCastReductionMs:"skill_timing", skillFixedCastReductionRate:"skill_timing", skillVariableCastReductionMs:"skill_timing",
+    skillVariableCastReductionRate:"skill_timing", skillAfterCastDelayReductionMs:"skill_timing",
     skillSpCostFlat:"skill_cost", skillSpCostRate:"skill_cost", spCostRate:"skill_cost",
     noCastCancel:"cast_policy", noGemstone:"resource_exemption", noMadoFuel:"resource_exemption",
 
@@ -213,7 +216,7 @@
   }
 
   window.EffectRuntime = {
-    version:"0.9.82GG",
+    version:"0.9.82IA",
     wrappers,
     getBaseEquipmentSources:baseEquipmentSources,
     getSources,

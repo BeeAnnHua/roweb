@@ -1,0 +1,31 @@
+{
+  "version": "0.9.82IA",
+  "suite": "renewal-cast-delay-release-summary",
+  "source": "uploaded rAthena Renewal 2026-06-18 skill_db.yml + skill.cpp + pc.cpp + RO_WEB runtime",
+  "results": {
+    "castTimingIntegrity": {
+      "passed": 39,
+      "failed": 0
+    },
+    "skillTimingUiContract": {
+      "passed": 22,
+      "failed": 0
+    },
+    "raSkillDatabaseMatch": {
+      "skills": 1139,
+      "errors": 0
+    },
+    "allSkillLevelTiming": {
+      "skills": 1139,
+      "levels": 6323,
+      "activeLevels": 3450,
+      "errors": 0
+    },
+    "deepHealth": {
+      "errors": 0,
+      "warnings": 0,
+      "status": "PASS"
+    }
+  },
+  "browserVisualTest": "not_run_in_build_environment; DOM/UI contract passed and user deployment test remains"
+}

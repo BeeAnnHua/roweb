@@ -730,14 +730,30 @@ function collectRuntimeTimingModifiers(skill, level = 1) {
     for (const key of Object.keys(aliases)) {
       if (key === "fixedRate") {
         const values = sources.flatMap(src => getRuntimeTimingValues(src, aliases[key]));
+        // rAthena pc_bonus(): generic item bFixedCastrate keeps only the
+        // strongest reduction. Positive item-script values are ignored rather
+        // than becoming a fixed-cast penalty. Status/system penalties remain
+        // additive because they are applied after the strongest reduction.
         out.fixedRate = Math.max(0, ...values.filter(v => v > 0));
-        out.fixedPenaltyRate = values.filter(v => v < 0).reduce((n, v) => n + v, 0);
+        out.fixedPenaltyRate = group === "item" ? 0 : values.filter(v => v < 0).reduce((n, v) => n + v, 0);
       } else if (key === "variableMultiplicative") {
         out.variableMultipliers = sources.flatMap(src => getRuntimeTimingValues(src, aliases[key]));
         out.variableMultiplicative = 0;
       } else out[key] = sources.reduce((n, src) => n + getRuntimeTimingScalar(src, aliases[key]), 0);
     }
-    for (const [key, names] of Object.entries(skillAliases)) out[key] = Number(out[key] || 0) + sources.reduce((n, src) => n + getRuntimeTimingSkillMapValue(src, names, skillId), 0);
+    for (const [key, names] of Object.entries(skillAliases)) {
+      const values = sources.map(src => getRuntimeTimingSkillMapValue(src, names, skillId)).filter(value => Number.isFinite(Number(value)));
+      if (key === "fixedRate") {
+        // rAthena pc_bonus2(bFixedCastrate): reductions targeting the same
+        // skill are accumulated into one per-skill candidate. That candidate
+        // then competes with generic/status fixed-cast reductions; they are
+        // not added to each other. Non-reduction item values are ignored.
+        const targetedCandidate = values.filter(value => Number(value) > 0).reduce((n, value) => n + Number(value), 0);
+        out.fixedRate = Math.max(Number(out.fixedRate || 0), targetedCandidate);
+      } else {
+        out[key] = Number(out[key] || 0) + values.reduce((n, value) => n + Number(value), 0);
+      }
+    }
   }
   // Skill-specific passive logic that exists in RA source but is not an item/status bonus.
   result.skill.fixedRate = Math.max(Number(result.skill.fixedRate || 0), getWarlockRadiusFixedCastReduction(skill));
@@ -812,7 +828,45 @@ function getRuntimeAdjustedCastTime(skill, level = 1) {
   };
 }
 
-// ===== 0.9.82EH：rAthena Renewal skill timing resolver + 140ms active-attack safety floor =====
+const RENEWAL_COMBO_STAT_DELAY_SKILL_IDS = new Set([
+  263,  // MO_TRIPLEATTACK
+  272,  // MO_CHAINCOMBO
+  273,  // MO_COMBOFINISH
+  371,  // CH_TIGERFIST
+  372,  // CH_CHAINCRUSH
+  2326, // SR_DRAGONCOMBO
+  2329, // SR_FALLENEMPIRE
+  2593  // SJ_PROMINENCEKICK
+]);
+
+function getRuntimeBaseAfterCastActDelay(skill, level = 1, options = {}) {
+  if (options.ignore === true) {
+    return { databaseMs: 0, baseMs: 0, comboStatReductionMs: 0, comboStatRule: false };
+  }
+  const databaseMs = Math.max(0, Math.floor(getRaLevelValue(skill?.afterCastActDelay, level, 0, "Time")));
+  const skillId = Number(skill?.officialId ?? skill?.id ?? 0);
+  if (!RENEWAL_COMBO_STAT_DELAY_SKILL_IDS.has(skillId)) {
+    return { databaseMs, baseMs: databaseMs, comboStatReductionMs: 0, comboStatRule: false };
+  }
+
+  // rAthena skill_delayfix(): these combo skills use 1000ms when the DB delay
+  // is zero, then subtract 4*AGI + 2*DEX from final character stats. This is
+  // a skill-specific rule and is independent from CastDelayFlags.IgnoreStatus.
+  const beforeStats = databaseMs > 0 ? databaseMs : 1000;
+  const derived = window.RO_WEB_COMBAT_EVAL_CONTEXT?.derivedStats ||
+    (typeof calculateDerivedPlayerStats === "function" ? (calculateDerivedPlayerStats() || {}) : {});
+  const stats = derived.stats || player?.stats || {};
+  const requestedReduction = Math.max(0, 4 * Number(stats.agi || 0) + 2 * Number(stats.dex || 0));
+  const comboStatReductionMs = Math.min(beforeStats, Math.floor(requestedReduction));
+  return {
+    databaseMs,
+    baseMs: Math.max(0, beforeStats - comboStatReductionMs),
+    comboStatReductionMs,
+    comboStatRule: true
+  };
+}
+
+// ===== 0.9.82IA：rAthena Renewal skill timing resolver + 140ms active-attack safety floor =====
 function getRuntimeSkillTimingProfile(skill, level = 1) {
   const profile = getSkillRuntimeProfile(skill) || {};
   const cast = getRuntimeAdjustedCastTime(skill, level);
@@ -822,7 +876,8 @@ function getRuntimeSkillTimingProfile(skill, level = 1) {
   const ignoreAfterCast = profile.ignoreRaAfterCastActDelay === true;
   const ignoreWalkDelay = profile.ignoreRaAfterCastWalkDelay === true;
   const rawCooldownMs = ignoreCooldown ? 0 : Math.max(0, Math.floor(getRaLevelValue(skill?.cooldown, level, 0, "Time")));
-  const rawAfterCastMs = ignoreAfterCast ? 0 : Math.max(0, Math.floor(getRaLevelValue(skill?.afterCastActDelay, level, 0, "Time")));
+  const afterCastBase = getRuntimeBaseAfterCastActDelay(skill, level, { ignore: ignoreAfterCast });
+  const rawAfterCastMs = Number(afterCastBase.baseMs || 0);
   const explicitWalkDelayMs = ignoreWalkDelay ? 0 : Math.max(0, Math.floor(getRaLevelValue(skill?.afterCastWalkDelay, level, 0, "Time")));
 
   let afterRate = 0, afterAddMs = 0;
@@ -867,7 +922,11 @@ function getRuntimeSkillTimingProfile(skill, level = 1) {
   const baseWalkDelayMs = ignoreWalkDelay || equipmentNoWalkDelay || getRuntimeSkillUiType(skill) === "passive" ? 0 : 300 + explicitWalkDelayMs;
   const afterCastWalkDelayMs = Math.max(0, Math.floor(Math.max(0, baseWalkDelayMs + walkAddMs) * (1 - walkRate / 100)));
   return {
-    cast, rawCooldownMs, cooldownMs, rawAfterCastMs, afterCastActDelayMs,
+    cast, rawCooldownMs, cooldownMs,
+    databaseAfterCastMs: Number(afterCastBase.databaseMs || 0),
+    rawAfterCastMs, afterCastActDelayMs,
+    comboStatDelayReductionMs: Number(afterCastBase.comboStatReductionMs || 0),
+    comboStatDelayRule: afterCastBase.comboStatRule === true,
     explicitWalkDelayMs, afterCastWalkDelayMs, equipmentNoWalkDelay,
     afterCastReductionRate: afterRate, cooldownReductionRate: cooldownRate, walkDelayReductionRate: walkRate,
     castTimeFlags: cast.flags, castDelayFlags: delayFlags, modifiers,

@@ -1,0 +1,436 @@
+{
+  "version": "0.9.82HZ",
+  "suite": "canonical keyed combat modifiers",
+  "passed": 60,
+  "total": 60,
+  "failed": [],
+  "checks": [
+    {
+      "name": "Runtime version",
+      "ok": true,
+      "detail": {
+        "version": "0.9.82HZ"
+      }
+    },
+    {
+      "name": "Race alias Demihuman",
+      "ok": true,
+      "detail": {
+        "actual": "DemiHuman",
+        "expected": "DemiHuman"
+      }
+    },
+    {
+      "name": "Race alias DemiHuman",
+      "ok": true,
+      "detail": {
+        "actual": "DemiHuman",
+        "expected": "DemiHuman"
+      }
+    },
+    {
+      "name": "Race alias Human",
+      "ok": true,
+      "detail": {
+        "actual": "DemiHuman",
+        "expected": "DemiHuman"
+      }
+    },
+    {
+      "name": "Race alias RC_DemiHuman",
+      "ok": true,
+      "detail": {
+        "actual": "DemiHuman",
+        "expected": "DemiHuman"
+      }
+    },
+    {
+      "name": "Race alias 人形",
+      "ok": true,
+      "detail": {
+        "actual": "DemiHuman",
+        "expected": "DemiHuman"
+      }
+    },
+    {
+      "name": "Race alias 人型",
+      "ok": true,
+      "detail": {
+        "actual": "DemiHuman",
+        "expected": "DemiHuman"
+      }
+    },
+    {
+      "name": "Race alias RC_Player_Human",
+      "ok": true,
+      "detail": {
+        "actual": "Player",
+        "expected": "Player"
+      }
+    },
+    {
+      "name": "Race alias RC_Player_Doram",
+      "ok": true,
+      "detail": {
+        "actual": "Player",
+        "expected": "Player"
+      }
+    },
+    {
+      "name": "Size alias",
+      "ok": true,
+      "detail": {
+        "actual": "Large"
+      }
+    },
+    {
+      "name": "Element alias",
+      "ok": true,
+      "detail": {
+        "actual": "Fire"
+      }
+    },
+    {
+      "name": "Class alias",
+      "ok": true,
+      "detail": {
+        "actual": "NonBoss"
+      }
+    },
+    {
+      "name": "Sea Anemone canonical card key",
+      "ok": true,
+      "detail": {
+        "map": {
+          "DemiHuman": 20,
+          "Player": 20
+        }
+      }
+    },
+    {
+      "name": "Sea Anemone player key",
+      "ok": true,
+      "detail": {
+        "map": {
+          "DemiHuman": 20,
+          "Player": 20
+        }
+      }
+    },
+    {
+      "name": "Sea Anemone card output changes real DemiHuman damage",
+      "ok": true,
+      "detail": {}
+    },
+    {
+      "name": "Sea Anemone card output changes real Player damage",
+      "ok": true,
+      "detail": {}
+    },
+    {
+      "name": "Race matrix Formless match",
+      "ok": true,
+      "detail": {
+        "match": 120
+      }
+    },
+    {
+      "name": "Race matrix Formless mismatch",
+      "ok": true,
+      "detail": {
+        "miss": 100,
+        "other": "Undead"
+      }
+    },
+    {
+      "name": "Race matrix Undead match",
+      "ok": true,
+      "detail": {
+        "match": 120
+      }
+    },
+    {
+      "name": "Race matrix Undead mismatch",
+      "ok": true,
+      "detail": {
+        "miss": 100,
+        "other": "Brute"
+      }
+    },
+    {
+      "name": "Race matrix Brute match",
+      "ok": true,
+      "detail": {
+        "match": 120
+      }
+    },
+    {
+      "name": "Race matrix Brute mismatch",
+      "ok": true,
+      "detail": {
+        "miss": 100,
+        "other": "Plant"
+      }
+    },
+    {
+      "name": "Race matrix Plant match",
+      "ok": true,
+      "detail": {
+        "match": 120
+      }
+    },
+    {
+      "name": "Race matrix Plant mismatch",
+      "ok": true,
+      "detail": {
+        "miss": 100,
+        "other": "Insect"
+      }
+    },
+    {
+      "name": "Race matrix Insect match",
+      "ok": true,
+      "detail": {
+        "match": 120
+      }
+    },
+    {
+      "name": "Race matrix Insect mismatch",
+      "ok": true,
+      "detail": {
+        "miss": 100,
+        "other": "Fish"
+      }
+    },
+    {
+      "name": "Race matrix Fish match",
+      "ok": true,
+      "detail": {
+        "match": 120
+      }
+    },
+    {
+      "name": "Race matrix Fish mismatch",
+      "ok": true,
+      "detail": {
+        "miss": 100,
+        "other": "Demon"
+      }
+    },
+    {
+      "name": "Race matrix Demon match",
+      "ok": true,
+      "detail": {
+        "match": 120
+      }
+    },
+    {
+      "name": "Race matrix Demon mismatch",
+      "ok": true,
+      "detail": {
+        "miss": 100,
+        "other": "DemiHuman"
+      }
+    },
+    {
+      "name": "Race matrix DemiHuman match",
+      "ok": true,
+      "detail": {
+        "match": 120
+      }
+    },
+    {
+      "name": "Race matrix DemiHuman mismatch",
+      "ok": true,
+      "detail": {
+        "miss": 100,
+        "other": "Angel"
+      }
+    },
+    {
+      "name": "Race matrix Angel match",
+      "ok": true,
+      "detail": {
+        "match": 120
+      }
+    },
+    {
+      "name": "Race matrix Angel mismatch",
+      "ok": true,
+      "detail": {
+        "miss": 100,
+        "other": "Dragon"
+      }
+    },
+    {
+      "name": "Race matrix Dragon match",
+      "ok": true,
+      "detail": {
+        "match": 120
+      }
+    },
+    {
+      "name": "Race matrix Dragon mismatch",
+      "ok": true,
+      "detail": {
+        "miss": 100,
+        "other": "Player"
+      }
+    },
+    {
+      "name": "Race matrix Player match",
+      "ok": true,
+      "detail": {
+        "match": 120
+      }
+    },
+    {
+      "name": "Race matrix Player mismatch",
+      "ok": true,
+      "detail": {
+        "miss": 100,
+        "other": "Formless"
+      }
+    },
+    {
+      "name": "Physical DemiHuman damage target=Demihuman",
+      "ok": true,
+      "detail": {
+        "value": 120
+      }
+    },
+    {
+      "name": "Physical DemiHuman damage target=DemiHuman",
+      "ok": true,
+      "detail": {
+        "value": 120
+      }
+    },
+    {
+      "name": "Physical DemiHuman damage target=Human",
+      "ok": true,
+      "detail": {
+        "value": 120
+      }
+    },
+    {
+      "name": "Physical DemiHuman damage target=RC_DemiHuman",
+      "ok": true,
+      "detail": {
+        "value": 120
+      }
+    },
+    {
+      "name": "Physical DemiHuman damage target=人形",
+      "ok": true,
+      "detail": {
+        "value": 120
+      }
+    },
+    {
+      "name": "Wrong race no specific bonus",
+      "ok": true,
+      "detail": {}
+    },
+    {
+      "name": "All + specific are additive",
+      "ok": true,
+      "detail": {}
+    },
+    {
+      "name": "All applies to other race",
+      "ok": true,
+      "detail": {}
+    },
+    {
+      "name": "Magic race alias",
+      "ok": true,
+      "detail": {}
+    },
+    {
+      "name": "Race resistance alias",
+      "ok": true,
+      "detail": {}
+    },
+    {
+      "name": "Size alias damage",
+      "ok": true,
+      "detail": {}
+    },
+    {
+      "name": "Class alias damage",
+      "ok": true,
+      "detail": {}
+    },
+    {
+      "name": "Boss class still distinct",
+      "ok": true,
+      "detail": {}
+    },
+    {
+      "name": "EffectRuntime canonical lookup",
+      "ok": true,
+      "detail": {
+        "value": 25
+      }
+    },
+    {
+      "name": "Combat keyed lookup canonical",
+      "ok": true,
+      "detail": {}
+    },
+    {
+      "name": "EXP race lookup canonical value",
+      "ok": true,
+      "detail": {}
+    },
+    {
+      "name": "Race critical lookup canonical value",
+      "ok": true,
+      "detail": {}
+    },
+    {
+      "name": "Race DEF pierce lookup canonical value",
+      "ok": true,
+      "detail": {}
+    },
+    {
+      "name": "Advanced status UI uses canonical resolver",
+      "ok": true,
+      "detail": {}
+    },
+    {
+      "name": "Renewal table canonical DemiHuman",
+      "ok": true,
+      "detail": {
+        "races": [
+          "Formless",
+          "Undead",
+          "Brute",
+          "Plant",
+          "Insect",
+          "Fish",
+          "Demon",
+          "DemiHuman",
+          "Angel",
+          "Dragon",
+          "Player"
+        ]
+      }
+    },
+    {
+      "name": "Monster races canonical",
+      "ok": true,
+      "detail": {
+        "invalidHuman": []
+      }
+    },
+    {
+      "name": "Heart Hunter AT is DemiHuman",
+      "ok": true,
+      "detail": {
+        "race": "DemiHuman"
+      }
+    }
+  ]
+}

@@ -846,7 +846,9 @@ function getStatusKeyedSourceNumber(source, group, key) {
   getStatusModifierWrappers(source).forEach(wrapper => {
     const map = wrapper?.[group];
     if (!map || typeof map !== "object" || Array.isArray(map)) return;
-    total += Number(map[key] ?? map[String(key).toLowerCase()] ?? map.all ?? map.All ?? 0) || 0;
+    total += window.ModifierKeyRuntime?.valueFromMap
+      ? window.ModifierKeyRuntime.valueFromMap(map, group, key)
+      : Number(map[key] ?? map[String(key).toLowerCase()] ?? map.all ?? map.All ?? 0) || 0;
   });
   return total;
 }

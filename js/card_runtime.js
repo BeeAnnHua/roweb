@@ -1,5 +1,5 @@
 //=======================================
-// RO_WEB CardRuntime v0.9.82FX
+// RO_WEB CardRuntime v0.9.82IA
 // rAthena Renewal 2026-06-08 card scripts, card/equipment combos,
 // proc/drop/kill hooks and instance-safe socket/removal services.
 //=======================================
@@ -57,11 +57,17 @@
     return CACHE.loaded;
   }
   function n(value, fallback = 0) { const x = Number(value); return Number.isFinite(x) ? x : fallback; }
+  function keyedValue(map, group, key) {
+    if (window.ModifierKeyRuntime?.valueFromMap) return window.ModifierKeyRuntime.valueFromMap(map, group, key);
+    return n(map?.[key]) + n(map?.All);
+  }
   function addScalar(out, key, value) { const x = n(value); if (x) out[key] = n(out[key]) + x; }
   function addKeyed(out, group, key, value) {
     const x = n(value); if (!x) return;
     out[group] = out[group] && typeof out[group] === "object" ? out[group] : {};
-    const normalized = normalizeConstant(key);
+    const normalized = window.ModifierKeyRuntime?.canonical
+      ? window.ModifierKeyRuntime.canonical(group, key)
+      : normalizeConstant(key);
     out[group][normalized] = n(out[group][normalized]) + x;
   }
   function push(out, key, row) { out[key] = Array.isArray(out[key]) ? out[key] : []; out[key].push(row); }
@@ -69,7 +75,7 @@
     const raw = String(value ?? "All");
     const stripped = raw.replace(/^(RC2?|Ele|Size|Class|Eff|SC)_/i, "");
     const aliases = {
-      All: "All", DemiHuman: "DemiHuman", Player_Human: "Player", Player_Doram: "Player", Player: "Player",
+      All: "All", DemiHuman: "DemiHuman", Demihuman: "DemiHuman", Human: "DemiHuman", Player_Human: "Player", Player_Doram: "Player", Player: "Player",
       Boss: "Boss", Normal: "NonBoss", NonBoss: "NonBoss", Formless: "Formless", Undead: "Undead",
       Brute: "Brute", Plant: "Plant", Insect: "Insect", Fish: "Fish", Demon: "Demon", Angel: "Angel", Dragon: "Dragon",
       Neutral: "Neutral", Water: "Water", Earth: "Earth", Fire: "Fire", Wind: "Wind", Poison: "Poison", Holy: "Holy",
@@ -170,7 +176,7 @@
     "bNoMagicDamage","bNoRegen","bNoSizeFix","bNoWalkDelay","bPAtk","bPerfectHitAddRate","bPow","bReduceDamageReturn",
     "bRegenPercentHP","bRes","bMRes","bResEff","bRestartFullRecover","bSMatk","bSPDrainRate","bSPDrainValue","bSPGainRace","bSPGainValue",
     "bSPLossRate","bSPRegenRate","bSPVanishRate","bSPrecovRate","bShortAtkRate","bShortWeaponDamageReturn","bSkillAtk",
-    "bSkillCooldown","bSkillFixedCast","bSkillUseSP","bSkillUseSPrate","bSkillVariableCast","bSpeedRate","bSpl","bSplashRange",
+    "bSkillCooldown","bSkillDelay","bSkillFixedCast","bSkillUseSP","bSkillUseSPrate","bSkillVariableCast","bSpeedRate","bSpl","bSplashRange",
     "bSta","bStr","bSubClass","bSubDefEle","bSubEle","bSubRace","bSubSize","bSubSkill","bUnbreakableArmor","bUnbreakableGarment","bUnbreakableHelm","bUnbreakableShield",
     "bUnbreakableWeapon","bUseSPrate","bVariableCastrate","bVit","bWeaponAtkRate","bWeaponDamageRate","bWeaponSubSize","bWis"
   ]);
@@ -202,7 +208,11 @@
       bAbsorbDmgMaxHP2:"incomingDamageMaxHpCapRate"
     };
     if (scalars[type]) { addScalar(out, scalars[type], n(value, 1)); return; }
-    if (type === "bVariableCastrate") { addScalar(out,"variableCastReductionRate",-n(value)); return; }
+    if (type === "bVariableCastrate") {
+      if (a.length >= 2 && looksLikeSkill(a[0])) addKeyed(out,"skillVariableCastReductionRate",resolveSkillStorageKey(a[0]),-n(a[1]));
+      else addScalar(out,"variableCastReductionRate",-n(value));
+      return;
+    }
     if (type === "bDelayrate") { addScalar(out,"afterCastDelayReductionRate",-n(value)); return; }
     if (type === "bFixedCastrate" || type === "bFixedCastRate") {
       if (a.length >= 2 && looksLikeSkill(a[0])) addKeyed(out,"skillFixedCastReductionRate",resolveSkillStorageKey(a[0]),-n(a[1]));
@@ -234,6 +244,7 @@
     if (type === "bSkillAtk") { addKeyed(out, "skillDamageRate", resolveSkillStorageKey(a[0]), a[1]); return; }
     if (type === "bSubSkill") { addKeyed(out, "skillDamageReductionRate", resolveSkillStorageKey(a[0]), a[1]); return; }
     if (type === "bSkillCooldown") { addKeyed(out, "skillCooldownReductionMs", resolveSkillStorageKey(a[0]), -n(a[1])); return; }
+    if (type === "bSkillDelay") { addKeyed(out, "skillAfterCastDelayReductionMs", resolveSkillStorageKey(a[0]), -n(a[1])); return; }
     if (type === "bSkillFixedCast") { addKeyed(out, "skillFixedCastReductionMs", resolveSkillStorageKey(a[0]), -n(a[1])); return; }
     if (type === "bSkillVariableCast") { addKeyed(out, "skillVariableCastReductionMs", resolveSkillStorageKey(a[0]), -n(a[1])); return; }
     if (type === "bSkillUseSP") { addKeyed(out, "skillSpCostFlat", resolveSkillStorageKey(a[0]), n(a[1])); return; }
@@ -253,7 +264,7 @@
     }
     if (type === "bAddMonsterDropItem") {
       const conditioned=a.length>=3 && /^(RC2?|Class|Ele|Size)_/i.test(String(a[1]));
-      push(out,"extraDrops",{kind:"item",itemId:n(a[0]),conditionRace:conditioned?normalizeConstant(a[1]):null,rate:n(conditioned?a[2]:a[1]),extra:a.slice(conditioned?3:2)}); return;
+      push(out,"extraDrops",{kind:"item",itemId:n(a[0]),conditionRace:conditioned?(window.ModifierKeyRuntime?.canonical?.("race",a[1])||normalizeConstant(a[1])):null,rate:n(conditioned?a[2]:a[1]),extra:a.slice(conditioned?3:2)}); return;
     }
     if (type === "bAddMonsterDropItemGroup") { push(out,"extraDrops",{kind:"group",group:String(a[0]).toUpperCase(),rate:n(a[1])}); return; }
     if (type === "bHPDrainRate" || type === "bSPDrainRate") {
@@ -690,7 +701,7 @@
     return true;
   }
 
-  function sourceRace(unit) { return normalizeConstant(unit?.race || unit?.Race || "Formless"); }
+  function sourceRace(unit) { return window.ModifierKeyRuntime?.normalizeRace?.(unit?.race || unit?.Race || "Formless") || normalizeConstant(unit?.race || unit?.Race || "Formless"); }
   function sourceClass(unit) { return (unit?.isBoss||unit?.isMvp||unit?.boss) ? "Boss" : "NonBoss"; }
   function sourceId(unit) { return String(unit?.id ?? unit?.monsterId ?? unit?.officialId ?? unit?.classId ?? "0"); }
   function positionOf(unit) { return unit?.position || {x:n(unit?.worldX ?? unit?.x),y:n(unit?.worldY ?? unit?.y)}; }
@@ -720,7 +731,7 @@
   function tryComa(target,total) {
     if(!target || target.isBoss || target.isMvp || target.boss)return false;
     const race=sourceRace(target), cls=sourceClass(target);
-    const rate=n(total.comaRaceRate?.[race])+n(total.comaRaceRate?.All)+n(total.comaClassRate?.[cls])+n(total.comaClassRate?.All);
+    const rate=keyedValue(total.comaRaceRate,"comaRaceRate",race)+keyedValue(total.comaClassRate,"comaClassRate",cls);
     if(rate<=0||Math.random()*10000>=rate)return false;
     if(target.currentHp!==undefined)target.currentHp=Math.min(1,Math.max(0,n(target.currentHp)));
     else if(target.hp!==undefined)target.hp=Math.min(1,Math.max(0,n(target.hp)));
@@ -810,7 +821,7 @@
     if(!monster)return [];
     const race=sourceRace(monster),awarded=[]; const extras=getSources().flatMap(source=>(source.extraDrops||[]).map(drop=>({...drop,sourceName:source.name})));
     for(const drop of extras){
-      if(drop.conditionRace && drop.conditionRace!=="All" && drop.conditionRace!==race)continue;
+      if(drop.conditionRace && (window.ModifierKeyRuntime?.token?.("race",drop.conditionRace)||String(drop.conditionRace).toLowerCase())!==(window.ModifierKeyRuntime?.token?.("race",race)||String(race).toLowerCase()) && drop.conditionRace!=="All")continue;
       const raw=Math.max(0,n(drop.rate)); const rated=typeof window.applyRate==="function"?window.applyRate(raw,"drop"):raw;
       const outerChance=Math.max(0,Math.min(10000,rated));
       if(Math.random()*10000>=outerChance)continue;
@@ -833,15 +844,15 @@
     const total=getMergedSource(),race=sourceRace(monster); let changed=false;
     if(n(total.killHpFlat)){adjustPlayerResource("hp",n(total.killHpFlat));changed=true;}
     if(n(total.killSpFlat)){adjustPlayerResource("sp",n(total.killSpFlat));changed=true;}
-    const raceSp=n(total.spGainRace?.[race])+n(total.spGainRace?.All); if(raceSp){adjustPlayerResource("sp",raceSp);changed=true;}
+    const raceSp=keyedValue(total.spGainRace,"spGainRace",race); if(raceSp){adjustPlayerResource("sp",raceSp);changed=true;}
     const lastType=String(monster?._lastDamageType||window.lastRADamageTrace?.type||"").toLowerCase();
     if(lastType.includes("magic")&&n(total.magicKillHpFlat)){adjustPlayerResource("hp",n(total.magicKillHpFlat));changed=true;}
     for(const proc of total.zenyOnKillProcs||[]){if(Math.random()*100<n(proc.chancePercent)){const amount=1+Math.floor(Math.random()*Math.max(1,n(proc.maxAmount,1)));player.zeny=Math.max(0,n(player.zeny)+amount);changed=true;window.emitLootRewardLog?.(`卡片效果：額外獲得 ${amount.toLocaleString()} Zeny。`,"zeny");}}
     if(changed)window.updatePlayerUI?.(); return changed;
   }
   function getExpRate(monster) {
-    const total=getMergedSource(),race=normalizeConstant(monster?.race||monster?.Race||"All");
-    return n(total.expRaceRate?.[race])+n(total.expRaceRate?.All);
+    const total=getMergedSource(),race=window.ModifierKeyRuntime?.normalizeRace?.(monster?.race||monster?.Race||"All")||normalizeConstant(monster?.race||monster?.Race||"All");
+    return keyedValue(total.expRaceRate,"expRaceRate",race);
   }
   function getSkillDamageRate(skill) {
     const map=getMergedSource().skillDamageRate||{}, keys=[String(skill?.officialId??skill?.id??0),normalizeSkillKey(skill?.key||""),normalizeSkillKey(skill?.skillKey||""),normalizeSkillKey(skill?.aegisName||"")];
@@ -904,7 +915,7 @@
 
 
   window.CardRuntime = {
-    version:"0.9.82GY", init, invalidate, getSources, getMergedSource, getCardRecord:id=>(init(),DATA.effects[String(id)]||null), getEnchantRecord:id=>(init(),DATA.enchants[String(id)]||null),
+    version:"0.9.82IA", init, invalidate, getSources, getMergedSource, getCardRecord:id=>(init(),DATA.effects[String(id)]||null), getEnchantRecord:id=>(init(),DATA.enchants[String(id)]||null),
     getComboRecords:()=> (init(),DATA.combos), getSocketCandidates, socketCard, isCardCompatible, removeAllCardsFromEquipped,
     onNormalAttack,onPlayerDamaged,onSkillUsed,onMonsterDefeated,rollExtraDrops,getExpRate,getSkillDamageRate,getSkillSpCostModifier,getItemRecoveryRate,tickPeriodicEffects,
     getBuildCounts:()=>({cards:Object.keys(DATA.effects).length,equipmentScripts:Object.keys(DATA.equipment).length,enchantScripts:Object.keys(DATA.enchants).length,combos:DATA.combos.length,dropSources:Object.values(DATA.drops).reduce((n,x)=>n+(x?.length||0),0)}),

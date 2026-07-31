@@ -1,4 +1,4 @@
-// RO_WEB 0.9.82FX - rAthena Renewal shared combat formula runtime + unified item/card consumers
+// RO_WEB 0.9.82HZ - rAthena Renewal shared combat formula runtime + canonical keyed modifiers
 (function () {
   "use strict";
   const FALLBACK = {
@@ -11,14 +11,14 @@
   const cap=(n,min,max)=>Math.max(min,Math.min(max,Number(n)||0));
   const percentStage=(damage,rate)=>Math.floor(Number(damage||0)*(100+Number(rate||0))/100);
   function canon(value,allowed,fallback){const raw=String(value??"").trim().toLowerCase().replace(/[ _-]/g,"");const found=(Array.isArray(allowed)?allowed:[]).find(x=>String(x).toLowerCase().replace(/[ _-]/g,"")===raw);return found||fallback;}
-  function normalizeElement(v){return canon(v,tables.elements||FALLBACK.elements,"Neutral");}
-  function normalizeSize(v){return canon(v,["Small","Medium","Large"],"Medium");}
-  function normalizeRace(v){return canon(v,tables.races||FALLBACK.races,"Formless");}
+  function normalizeElement(v){return window.ModifierKeyRuntime?.normalizeElement?.(v)||canon(v,tables.elements||FALLBACK.elements,"Neutral");}
+  function normalizeSize(v){return window.ModifierKeyRuntime?.normalizeSize?.(v)||canon(v,["Small","Medium","Large"],"Medium");}
+  function normalizeRace(v){return window.ModifierKeyRuntime?.normalizeRace?.(v)||canon(v,tables.races||FALLBACK.races,"Formless");}
   function levelOf(v){return String(cap(Math.floor(Number(v)||1),1,4));}
 
   function modifierWrappers(source){return source?[source,source.effects,source.bonuses,source.combatModifiers,source.runtimeCombatModifiers].filter(x=>x&&typeof x==='object'):[];}
   function scalarRate(source,key,aliases=[]){let total=0;for(const obj of modifierWrappers(source)){for(const name of [key,...aliases]){const v=obj[name];if(typeof v==='number')total+=Number(v)||0;else if(v&&typeof v==='object'&&!Array.isArray(v)){const d=v.current??v.all??v.All??v.ALL;if(typeof d==='number')total+=Number(d)||0;}}}return total;}
-  function keyedRate(source,group,key){let total=0;for(const obj of modifierWrappers(source)){const map=obj[group];if(!map||typeof map!=='object'||Array.isArray(map))continue;total+=Number(map[key]??map[String(key).toLowerCase()]??map.all??map.All??0)||0;}return total;}
+  function keyedRate(source,group,key){let total=0;for(const obj of modifierWrappers(source)){const map=obj[group];if(!map||typeof map!=='object'||Array.isArray(map))continue;total+=window.ModifierKeyRuntime?.valueFromMap?window.ModifierKeyRuntime.valueFromMap(map,group,key):Number(map[key]??map[String(key).toLowerCase()]??map.all??map.All??0)||0;}return total;}
   function getItem(id){return id&&typeof window.getItemData==='function'?window.getItemData(id):null;}
   function equipmentSources(unit=window.player){
     if(window.EffectRuntime?.getSources)return window.EffectRuntime.getSources(unit,{includeBaseItems:true,includeScripts:true,includePassive:false,includeActive:false});

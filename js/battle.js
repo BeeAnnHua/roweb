@@ -238,10 +238,12 @@ function toggleAutoBattleQuick() {
 }
 window.updateAutoBattleQuickToggleState = updateAutoBattleQuickToggleState;
 window.toggleAutoBattleQuick = toggleAutoBattleQuick;
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", updateAutoBattleQuickToggleState, { once: true });
-} else {
-  updateAutoBattleQuickToggleState();
+if (typeof document !== "undefined") {
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", updateAutoBattleQuickToggleState, { once: true });
+  } else {
+    updateAutoBattleQuickToggleState();
+  }
 }
 window.getAutoBattleTimingCandidates = getAutoBattleTimingCandidates;
 window.getAutoBattleNextDelayMs = getAutoBattleNextDelayMs;
