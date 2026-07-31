@@ -1,0 +1,18 @@
+{
+  "version": "0.9.82HX",
+  "suite": "mass-gacha-durable-save-integration",
+  "scenario": "queue 4000 MVP gacha -> manual save -> verified localStorage and IndexedDB snapshot -> simulated reload candidate selection",
+  "passed": 18,
+  "failed": 0,
+  "results": {
+    "pending4000SettledBeforeSnapshot": true,
+    "savedGachaCount": 0,
+    "newestDurableCandidateGachaCount": 0,
+    "manualWriterLeaseReclaimed": true,
+    "localStorageQuotaFallbackToIndexedDB": true,
+    "manualSaveReadbackVerified": true,
+    "checkpointEveryOpens": 256,
+    "finalBatchImmediateSave": true
+  },
+  "sourceReport": "tools/test_gacha_save_barrier_report_0.9.82HX.json"
+}

@@ -1,5 +1,5 @@
 //============================================================
-// RO_WEB 0.9.82HW — MVP 轉蛋每件特殊獎絕對機率＋全域稀有公告橋接
+// RO_WEB 0.9.82HX — MVP 轉蛋每件特殊獎絕對機率＋全域稀有公告橋接
 // - 同 ID MVP 只有在指定地圖死亡才以原始 1% 判定轉蛋，並套用全域掉落總閥。
 // - 轉蛋內部稀有機率為單一 10000 基點母池的絕對機率；全域掉落倍率只影響轉蛋本體掉落。
 // - 1% 紅色、0.1% 紫色、0.01% 金色上方橫幅。
@@ -7,7 +7,7 @@
 (() => {
   "use strict";
 
-  const VERSION = "0.9.82HW";
+  const VERSION = "0.9.82HX";
   const BUNDLE_KEY = "data/mvp_gacha.json";
   const DEFAULT_GACHA_ITEM_ID = 14848;
   const CASH_FOOD_SOURCE = "mvp_gacha_cash_food";
@@ -293,8 +293,11 @@
     pending:0,
     scheduled:false,
     processing:false,
+    timerId:0,
     item:null,
-    lastMissingLogAt:0
+    lastMissingLogAt:0,
+    openedSinceCheckpoint:0,
+    totalOpened:0
   };
   const GACHA_BATCH_DELAY_MS = 55;
   const GACHA_BATCH_SLICE_LIMIT = 32;
@@ -307,7 +310,7 @@
     return `${prefix}，獲得：${visible.join("、")}。`;
   }
 
-  function flushGachaBatchUi(item, opened, summary, rareAnnouncements) {
+  function flushGachaBatchUi(item, opened, summary, rareAnnouncements, options = {}) {
     if (opened <= 0) return;
     const inventoryWindow = document.getElementById?.("inventory-window");
     const inventoryVisible = inventoryWindow && !inventoryWindow.classList.contains("hidden-window") && inventoryWindow.offsetParent !== null;
@@ -318,8 +321,10 @@
     rareAnnouncements.forEach(row => entries.push({ text:`🎉 轉蛋大獎：${row.name}${row.quantity > 1 ? ` ×${row.quantity}` : ""}`, type:"rare-item" }));
     if (typeof window.addBattleLogBatch === "function") window.addBattleLogBatch(entries);
     else entries.forEach(entry => log(entry.text, entry.type));
-    if (typeof window.requestGameSave === "function") window.requestGameSave(1200);
-    else window.setTimeout(() => window.saveGame?.(), 0);
+    if (!options.skipSave && !window.RO_WEB_SAVE_PREPARING_REWARDS) {
+      if (typeof window.requestGameSave === "function") window.requestGameSave(1200, "mvp-gacha-batch");
+      else window.setTimeout(() => window.saveGame?.({ reason:"mvp-gacha-batch", preparePendingRewards:false }), 0);
+    }
     // addItem 在 Reward Batch 中只負責標記 dirty；本 Runtime 已完成必要刷新與延遲存檔。
     window.RO_WEB_REWARD_PLAYER_UI_DIRTY = false;
     window.RO_WEB_REWARD_JOB_UI_DIRTY = false;
@@ -328,8 +333,9 @@
     if (Array.isArray(window.RO_WEB_REWARD_BATCH_LOGS)) window.RO_WEB_REWARD_BATCH_LOGS.length = 0;
   }
 
-  function processGachaBatch() {
+  function processGachaBatch(options = {}) {
     GACHA_BATCH.scheduled = false;
+    GACHA_BATCH.timerId = 0;
     if (GACHA_BATCH.processing || GACHA_BATCH.pending <= 0 || !window.player) return false;
     GACHA_BATCH.processing = true;
     const item = GACHA_BATCH.item || itemData(config()?.gachaItemId || DEFAULT_GACHA_ITEM_ID);
@@ -340,7 +346,7 @@
     window.RO_WEB_REWARD_BATCH_ACTIVE = true;
     window.RO_WEB_SUPPRESS_REWARD_ADD_ITEM_LOG = true;
     try {
-      const limit = Math.min(GACHA_BATCH_SLICE_LIMIT, GACHA_BATCH.pending);
+      const limit = options.drainAll === true ? GACHA_BATCH.pending : Math.min(GACHA_BATCH_SLICE_LIMIT, GACHA_BATCH.pending);
       for (let index = 0; index < limit; index += 1) {
         const stack = findInventoryStack(item.id);
         if (!stack || number(stack.count) <= 0) {
@@ -391,17 +397,47 @@
       } else if (rareAcquisitions.length) {
         rareAcquisitions.forEach(row => showRareBanner(row.tier || "red", `★ 玩家 ${window.player?.name || "冒險者"} 取得 ${row.itemName} ★`));
       }
-      flushGachaBatchUi(item, opened, summary, rareAnnouncements);
+      flushGachaBatchUi(item, opened, summary, rareAnnouncements, options);
     }
-    if (GACHA_BATCH.pending > 0) scheduleGachaBatch(16);
+    GACHA_BATCH.openedSinceCheckpoint += opened;
+    GACHA_BATCH.totalOpened += opened;
+    if (!options.skipCheckpoint && GACHA_BATCH.openedSinceCheckpoint >= 256) {
+      GACHA_BATCH.openedSinceCheckpoint = 0;
+      window.saveGame?.({ reason:"mvp-gacha-checkpoint", durableDelayMs:0, preparePendingRewards:false });
+    }
+    if (GACHA_BATCH.pending > 0 && options.skipSchedule !== true) scheduleGachaBatch(16);
+    if (GACHA_BATCH.pending <= 0 && opened > 0 && !options.skipSave && !window.RO_WEB_SAVE_PREPARING_REWARDS) {
+      window.saveGame?.({ reason:"mvp-gacha-final", durableDelayMs:0, preparePendingRewards:false });
+    }
     return opened > 0;
   }
 
   function scheduleGachaBatch(delayMs = GACHA_BATCH_DELAY_MS) {
     if (GACHA_BATCH.scheduled || GACHA_BATCH.processing) return true;
     GACHA_BATCH.scheduled = true;
-    window.setTimeout(processGachaBatch, Math.max(0, Number(delayMs || 0)));
+    GACHA_BATCH.timerId = window.setTimeout(() => processGachaBatch(), Math.max(0, Number(delayMs || 0)));
     return true;
+  }
+
+  function flushPendingGachaForSave(options = {}) {
+    if (GACHA_BATCH.processing) {
+      return { opened:0, remaining:GACHA_BATCH.pending, busy:true, reason:String(options.reason || "save") };
+    }
+    if (GACHA_BATCH.timerId) {
+      window.clearTimeout?.(GACHA_BATCH.timerId);
+      GACHA_BATCH.timerId = 0;
+    }
+    GACHA_BATCH.scheduled = false;
+    const before = Math.max(0, GACHA_BATCH.pending);
+    if (before > 0) {
+      processGachaBatch({ drainAll:true, skipSchedule:true, skipSave:true, skipCheckpoint:true });
+    }
+    return {
+      opened: Math.max(0, before - Math.max(0, GACHA_BATCH.pending)),
+      remaining: Math.max(0, GACHA_BATCH.pending),
+      totalOpened:GACHA_BATCH.totalOpened,
+      reason:String(options.reason || "save")
+    };
   }
 
   function openGacha(item = itemData(config()?.gachaItemId || DEFAULT_GACHA_ITEM_ID), options = {}) {
@@ -587,6 +623,7 @@
     rollReward,
     openGacha,
     processGachaBatch,
+    flushPendingForSave:flushPendingGachaForSave,
     getPendingOpenCount:() => GACHA_BATCH.pending,
     rollMapExclusiveDrop,
     applyCashFood,

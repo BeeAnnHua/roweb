@@ -12,7 +12,7 @@ const SAVE_LEASE_HEARTBEAT_MS = 5 * 1000;
 const SAVE_LEASE_STALE_MS = 20 * 1000;
 const RO_WEB_SAVE_SCHEMA = "ro_web_player_save_v2";
 const RO_WEB_SAVE_FORMAT_VERSION = 2;
-const RO_WEB_SAVE_APP_VERSION = "0.9.82HN";
+const RO_WEB_SAVE_APP_VERSION = "0.9.82HX";
 const RO_WEB_SAVE_DB_NAME = "ro_web_offline_save_v1";
 const RO_WEB_SAVE_DB_VERSION = 1;
 const RO_WEB_SAVE_DB_STORE = "player_saves";
@@ -29,6 +29,9 @@ let RO_WEB_SAVE_DURABLE_CHAIN = Promise.resolve();
 let RO_WEB_PENDING_DURABLE_SAVE = null;
 let RO_WEB_DURABLE_SAVE_TIMER = null;
 let RO_WEB_REMOTE_SAVE_ADAPTER = window.RO_WEB_REMOTE_SAVE_ADAPTER || null;
+let RO_WEB_LAST_SAVE_ENVELOPE = null;
+let RO_WEB_LAST_SAVE_TEXT = "";
+let RO_WEB_MANUAL_SAVE_PROMISE = null;
 
 function createSaveSessionId() {
   try {
@@ -229,16 +232,23 @@ function flushDurablePlayerSave() {
     .then(async () => {
       const { text, envelope } = pending;
       const idbOk = await writeIndexedDbPlayerSaveEnvelope(text, envelope);
+      let remoteOk = false;
       const adapter = RO_WEB_REMOTE_SAVE_ADAPTER;
       if (adapter) {
         try {
           if (typeof adapter.saveEnvelope === "function") await adapter.saveEnvelope(envelope, { text, saveKey: SAVE_KEY });
           else if (typeof adapter.save === "function") await adapter.save(envelope, { text, saveKey: SAVE_KEY });
+          remoteOk = true;
         } catch (error) {
           console.warn("後端存檔同步失敗；本機耐久存檔仍保留：", error);
         }
       }
-      return idbOk;
+      RO_WEB_SAVE_STATE.lastDurableSaveOk = Boolean(idbOk || remoteOk);
+      RO_WEB_SAVE_STATE.lastDurableSaveVersion = Number(envelope.saveVersion || 0);
+      if (!idbOk && !remoteOk) {
+        RO_WEB_SAVE_STATE.lastError = "IndexedDB／後端耐久存檔寫入失敗";
+      }
+      return Boolean(idbOk || remoteOk);
     })
     .finally(() => {
       if (RO_WEB_PENDING_DURABLE_SAVE && !RO_WEB_DURABLE_SAVE_TIMER) {
@@ -788,10 +798,43 @@ function buildPlayerSaveSnapshot() {
   return playerToSave;
 }
 
+function normalizeSaveOptions(reasonOrOptions) {
+  if (typeof reasonOrOptions === "string") {
+    return { reason: reasonOrOptions || "manual", forceWriter:false, preparePendingRewards:true, durableDelayMs:null };
+  }
+  const source = reasonOrOptions && typeof reasonOrOptions === "object" ? reasonOrOptions : {};
+  return {
+    reason: String(source.reason || "manual"),
+    forceWriter: source.forceWriter === true || source.userInitiated === true,
+    preparePendingRewards: source.preparePendingRewards !== false,
+    durableDelayMs: Number.isFinite(Number(source.durableDelayMs)) ? Math.max(0, Number(source.durableDelayMs)) : null
+  };
+}
+
 function normalizeSaveReason(reasonOrOptions) {
-  if (typeof reasonOrOptions === "string") return reasonOrOptions || "manual";
-  if (reasonOrOptions && typeof reasonOrOptions === "object") return String(reasonOrOptions.reason || "manual");
-  return "manual";
+  return normalizeSaveOptions(reasonOrOptions).reason;
+}
+
+function preparePendingRewardsForSave(reason = "save") {
+  if (window.RO_WEB_SAVE_PREPARING_REWARDS) return { opened:0, remaining:0, skipped:true };
+  const runtime = window.MvpGachaRuntime;
+  if (!runtime || typeof runtime.flushPendingForSave !== "function") return { opened:0, remaining:0, skipped:true };
+  window.RO_WEB_SAVE_PREPARING_REWARDS = true;
+  try {
+    const result = runtime.flushPendingForSave({ reason:String(reason || "save") }) || {};
+    RO_WEB_SAVE_STATE.lastPreparedRewardBatch = {
+      opened: Math.max(0, Number(result.opened || 0)),
+      remaining: Math.max(0, Number(result.remaining || 0)),
+      at: Date.now()
+    };
+    return result;
+  } catch (error) {
+    console.error("保存前結算轉蛋佇列失敗：", error);
+    RO_WEB_SAVE_STATE.lastError = String(error?.message || error || "reward save barrier failed");
+    return { opened:0, remaining:Number(runtime.getPendingOpenCount?.() || 0), error:String(error?.message || error) };
+  } finally {
+    window.RO_WEB_SAVE_PREPARING_REWARDS = false;
+  }
 }
 
 function createPlayerSaveEnvelope(snapshot, reason = "manual") {
@@ -843,33 +886,49 @@ function markGameSaveDirty(reason = "change") {
 
 function saveGame(reasonOrOptions = "manual") {
   if (window.RO_WEB_RESETTING_SAVE || RO_WEB_SAVE_IN_PROGRESS) return false;
-  if (!isCurrentSaveWriter()) {
+  const options = normalizeSaveOptions(reasonOrOptions);
+  const ownsWriter = options.forceWriter ? claimSaveWriterLease(true) : isCurrentSaveWriter();
+  if (!ownsWriter) {
     if (!window.RO_WEB_SAVE_CONFLICT_REPORTED && typeof addBattleLog === "function") {
-      addBattleLog("偵測到另一個較新的遊戲分頁；本分頁已停止寫入存檔，避免覆蓋新進度。");
+      addBattleLog("偵測到另一個較新的遊戲分頁；本分頁已停止寫入存檔，避免覆蓋新進度。請在目前操作的分頁按『存檔』重新接管。");
       window.RO_WEB_SAVE_CONFLICT_REPORTED = true;
     }
     return false;
   }
+  if (options.preparePendingRewards) preparePendingRewardsForSave(options.reason);
   const snapshot = buildPlayerSaveSnapshot();
   if (!snapshot) return false;
-  const reason = normalizeSaveReason(reasonOrOptions);
+  const reason = options.reason;
   RO_WEB_SAVE_IN_PROGRESS = true;
   try {
     const { envelope, text } = createPlayerSaveEnvelope(snapshot, reason);
-    localStorage.setItem(SAVE_KEY, text);
-    if (!verifyStoredEnvelope(SAVE_KEY, envelope)) throw new Error("主存檔寫入後驗證失敗");
+    RO_WEB_LAST_SAVE_ENVELOPE = envelope;
+    RO_WEB_LAST_SAVE_TEXT = text;
 
-    let backupOk = true;
+    let mainOk = false;
+    let backupOk = false;
+    let localError = null;
     try {
-      localStorage.setItem(SAVE_MINUTE_BACKUP_KEY, text);
-      backupOk = verifyStoredEnvelope(SAVE_MINUTE_BACKUP_KEY, envelope);
-      if (!backupOk) throw new Error("安全備份寫入後驗證失敗");
-    } catch (backupError) {
-      backupOk = false;
-      console.error("安全備份寫入失敗；主存檔仍已驗證成功：", backupError);
-      if (!window.RO_WEB_BACKUP_ERROR_REPORTED && typeof addBattleLog === "function") {
-        addBattleLog("主存檔已保存，但安全備份寫入失敗；請檢查瀏覽器儲存空間。");
-        window.RO_WEB_BACKUP_ERROR_REPORTED = true;
+      localStorage.setItem(SAVE_KEY, text);
+      mainOk = verifyStoredEnvelope(SAVE_KEY, envelope);
+      if (!mainOk) throw new Error("主存檔寫入後驗證失敗");
+    } catch (error) {
+      localError = error;
+      console.warn("localStorage 主存檔寫入失敗，將改用 IndexedDB 耐久存檔：", error);
+    }
+
+    if (mainOk) {
+      try {
+        localStorage.setItem(SAVE_MINUTE_BACKUP_KEY, text);
+        backupOk = verifyStoredEnvelope(SAVE_MINUTE_BACKUP_KEY, envelope);
+        if (!backupOk) throw new Error("安全備份寫入後驗證失敗");
+      } catch (backupError) {
+        backupOk = false;
+        console.error("安全備份寫入失敗；主存檔仍已驗證成功：", backupError);
+        if (!window.RO_WEB_BACKUP_ERROR_REPORTED && typeof addBattleLog === "function") {
+          addBattleLog("主存檔已保存，但 localStorage 安全備份空間不足；IndexedDB 耐久備份仍會繼續保存。");
+          window.RO_WEB_BACKUP_ERROR_REPORTED = true;
+        }
       }
     }
 
@@ -878,21 +937,94 @@ function saveGame(reasonOrOptions = "manual") {
     RO_WEB_SAVE_STATE.saveVersion = RO_WEB_SAVE_SEQUENCE;
     RO_WEB_SAVE_STATE.lastSuccessfulSaveAt = Number(envelope.savedAt || Date.now());
     RO_WEB_SAVE_STATE.lastReason = reason;
+    RO_WEB_SAVE_STATE.lastLocalSaveOk = mainOk;
     RO_WEB_SAVE_STATE.lastBackupOk = backupOk;
+    RO_WEB_SAVE_STATE.localStorageFallback = !mainOk;
+    RO_WEB_SAVE_STATE.lastEnvelopeBytes = String(text || "").length;
     RO_WEB_SAVE_STATE.dirty = false;
-    RO_WEB_SAVE_STATE.lastError = "";
-    window.RO_WEB_SAVE_ERROR_REPORTED = false;
+    RO_WEB_SAVE_STATE.lastError = localError ? String(localError?.message || localError) : "";
+    if (mainOk) window.RO_WEB_SAVE_ERROR_REPORTED = false;
     if (backupOk) window.RO_WEB_BACKUP_ERROR_REPORTED = false;
     window.RO_WEB_SAVE_CONFLICT_REPORTED = false;
-    queueDurablePlayerSave(text, envelope);
+
+    const durableDelay = options.durableDelayMs !== null
+      ? options.durableDelayMs
+      : (options.forceWriter || reason.includes("gacha") || !mainOk ? 0 : 700);
+    queueDurablePlayerSave(text, envelope, durableDelay);
+    if (!mainOk && !window.RO_WEB_LOCAL_FALLBACK_REPORTED && typeof addBattleLog === "function") {
+      addBattleLog("localStorage 空間不足，這次進度已改交由瀏覽器耐久存檔保存；請等候『存檔完成』後再重新整理。");
+      window.RO_WEB_LOCAL_FALLBACK_REPORTED = true;
+    }
     try { window.dispatchEvent(new CustomEvent("ro-web-save-success", { detail: { ...RO_WEB_SAVE_STATE } })); } catch (_) {}
     return true;
   } catch (error) {
-    reportSaveFailure("儲存失敗：瀏覽器儲存空間不可用、已滿，或資料驗證未通過。", error);
+    reportSaveFailure("儲存失敗：角色快照無法建立或資料驗證未通過。", error);
     return false;
   } finally {
     RO_WEB_SAVE_IN_PROGRESS = false;
   }
+}
+
+async function saveGameAndWait(reasonOrOptions = "manual") {
+  const options = normalizeSaveOptions(reasonOrOptions);
+  options.forceWriter = options.forceWriter || options.reason === "manual" || options.reason === "manual-button";
+  options.durableDelayMs = 0;
+  const accepted = saveGame(options);
+  if (!accepted || !RO_WEB_LAST_SAVE_ENVELOPE) return false;
+  const expected = { ...RO_WEB_LAST_SAVE_ENVELOPE };
+  await flushDurablePlayerSave();
+  const local = readLocalPlayerSaveCandidates().some(candidate =>
+    Number(candidate.saveVersion) === Number(expected.saveVersion)
+    && Number(candidate.savedAt) === Number(expected.savedAt)
+    && candidate.checksum === expected.checksum
+  );
+  const durableCandidates = await readIndexedDbPlayerSaveCandidates();
+  const durable = durableCandidates.some(candidate =>
+    Number(candidate.saveVersion) === Number(expected.saveVersion)
+    && Number(candidate.savedAt) === Number(expected.savedAt)
+    && candidate.checksum === expected.checksum
+  );
+  const ok = Boolean(local || durable);
+  RO_WEB_SAVE_STATE.lastManualSaveVerified = ok;
+  RO_WEB_SAVE_STATE.lastManualSaveAt = Date.now();
+  RO_WEB_SAVE_STATE.lastManualSaveVersion = Number(expected.saveVersion || 0);
+  if (!ok) reportSaveFailure("存檔驗證失敗：主存檔與耐久存檔都沒有讀回最新進度。", null);
+  return ok;
+}
+
+function updateManualSaveButtonState(state, text) {
+  const button = document?.getElementById?.("manualSaveButton");
+  if (!button) return;
+  button.disabled = state === "saving";
+  button.dataset.saveState = String(state || "idle");
+  button.textContent = String(text || "存檔");
+}
+
+function manualSaveGame() {
+  if (RO_WEB_MANUAL_SAVE_PROMISE) return RO_WEB_MANUAL_SAVE_PROMISE;
+  updateManualSaveButtonState("saving", "存檔中…");
+  RO_WEB_MANUAL_SAVE_PROMISE = saveGameAndWait({ reason:"manual-button", forceWriter:true, durableDelayMs:0 })
+    .then(ok => {
+      if (typeof addBattleLog === "function") {
+        const pendingInfo = RO_WEB_SAVE_STATE.lastPreparedRewardBatch;
+        const preparedText = Number(pendingInfo?.opened || 0) > 0 ? `，並完成 ${Number(pendingInfo.opened).toLocaleString()} 次待處理轉蛋` : "";
+        addBattleLog(ok
+          ? `存檔完成：已驗證最新角色資料${preparedText}。`
+          : "存檔失敗：未能驗證最新資料，請勿重新整理並檢查瀏覽器儲存空間。");
+      }
+      updateManualSaveButtonState(ok ? "success" : "error", ok ? "已存檔" : "失敗");
+      window.setTimeout(() => updateManualSaveButtonState("idle", "存檔"), 1600);
+      return ok;
+    })
+    .catch(error => {
+      console.error("手動存檔失敗：", error);
+      reportSaveFailure("手動存檔失敗，請勿重新整理。", error);
+      updateManualSaveButtonState("error", "失敗");
+      window.setTimeout(() => updateManualSaveButtonState("idle", "存檔"), 1800);
+      return false;
+    })
+    .finally(() => { RO_WEB_MANUAL_SAVE_PROMISE = null; });
+  return RO_WEB_MANUAL_SAVE_PROMISE;
 }
 
 function writeMinutePlayerBackup(reason = "interval") {
@@ -946,6 +1078,8 @@ window.requestGameSave = requestGameSave;
 window.flushPendingGameSave = flushPendingGameSave;
 window.markGameSaveDirty = markGameSaveDirty;
 window.saveGame = saveGame;
+window.saveGameAndWait = saveGameAndWait;
+window.manualSaveGame = manualSaveGame;
 
 window.ROWebSaveManager = Object.freeze({
   version: RO_WEB_SAVE_APP_VERSION,
@@ -960,6 +1094,7 @@ window.ROWebSaveManager = Object.freeze({
   markDirty: markGameSaveDirty,
   requestSave: requestGameSave,
   saveNow: saveGame,
+  saveAndWait: saveGameAndWait,
   flush: flushPendingGameSave,
   clearDurable: clearIndexedDbPlayerSaves,
   flushDurable: flushDurablePlayerSave,

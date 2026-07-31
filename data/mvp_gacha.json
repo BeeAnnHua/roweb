@@ -1,6 +1,6 @@
 {
   "schema": "ro_web_mvp_gacha_v1",
-  "version": "0.9.82HW",
+  "version": "0.9.82HX",
   "mapId": "geffenia_mvp_arena_3x3_region_camera",
   "gachaItemId": 14848,
   "mapExclusiveDropChanceBasisPoints": 100,
@@ -279,7 +279,8 @@
     "精煉成功率與失敗懲罰由 rAthena Renewal 2026-06-08 db/re/refine.yml 控制。",
     "0.9.82HW：20週年兩件各自為絕對 0.10%；時光超越者五件各自為絕對 1.00%；時光超越者-LT 四件各自為絕對 0.10%，不再先抽整組後於組內分配。",
     "0.9.82HW：特殊獎合計 10.61%；普通獎池 89.39%；全母池精確為 100.00%。",
-    "普通獎池內部權重比例維持不變，只調整整個普通池佔母池的填充比例。"
+    "普通獎池內部權重比例維持不變，只調整整個普通池佔母池的填充比例。",
+    "0.9.82HX：大量轉蛋加入保存前結算屏障、每 256 次耐久檢查點與最終立即存檔；手動存檔會等待 IndexedDB／localStorage 讀回驗證。"
   ],
   "dropRateCategory": "mapExclusive",
   "announcementPolicy": "Global per-item actual probability. Rare rewards with chanceMode=per_reward_absolute use each reward chanceBasisPoints directly; ordinary rewards use ordinaryFillBasisPoints × merged weight share.",

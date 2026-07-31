@@ -1,0 +1,11 @@
+RO_WEB 0.9.82HX Gacha Save Durability
+========================================
+Scenario: queue 4,000 MVP gacha, press manual save, verify localStorage + IndexedDB newest snapshot, then verify reload candidate count.
+Passed: 18
+Failed: 0
+Saved MVP gacha count: 0
+Durable newest candidate count: 0
+Writer lease reclaim: PASS
+localStorage quota -> IndexedDB fallback: PASS
+Manual read-back verification: PASS
+Checkpoint interval: 256 opens

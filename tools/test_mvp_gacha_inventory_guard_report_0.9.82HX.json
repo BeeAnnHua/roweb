@@ -1,0 +1,101 @@
+{
+  "version": "0.9.82HX",
+  "summary": {
+    "checks": 13,
+    "passed": 13,
+    "failed": 0
+  },
+  "checks": [
+    {
+      "ok": true,
+      "name": "Runtime version",
+      "detail": "0.9.82HX"
+    },
+    {
+      "ok": true,
+      "name": "Gacha master data is manual-only",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "Unknown/programmatic useItem cannot consume gacha",
+      "detail": "5"
+    },
+    {
+      "ok": true,
+      "name": "Authorized manual open consumes exactly one",
+      "detail": "4"
+    },
+    {
+      "ok": true,
+      "name": "Authorized spend is not restored",
+      "detail": "{\"active\":true,\"current\":4,\"expected\":4,\"restored\":0}"
+    },
+    {
+      "ok": true,
+      "name": "Unauthorized background decrement is restored during auto battle",
+      "detail": "{\"active\":true,\"current\":4,\"expected\":4,\"restored\":1}"
+    },
+    {
+      "ok": true,
+      "name": "Cash food consumption does not change gacha count",
+      "detail": "4"
+    },
+    {
+      "ok": true,
+      "name": "Cash food cannot create gacha-spend authorization",
+      "detail": "{\"active\":true,\"current\":4,\"expected\":4,\"restored\":1}"
+    },
+    {
+      "ok": true,
+      "name": "Legitimate arena drop increases protected count",
+      "detail": "{\"active\":true,\"current\":5,\"expected\":5,\"restored\":0}"
+    },
+    {
+      "ok": true,
+      "name": "Guard is passive outside auto battle",
+      "detail": "{\"active\":false,\"current\":4,\"expected\":4,\"restored\":0}"
+    },
+    {
+      "ok": true,
+      "name": "Generic consumeItem has gacha hard block",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "Quick-slot keyboard repeat is blocked",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "Auto potion excludes manual-only gacha",
+      "detail": ""
+    }
+  ],
+  "logs": [
+    {
+      "text": "MVP幸運轉蛋 已阻擋非玩家操作的自動開啟。",
+      "type": "error"
+    },
+    {
+      "text": "開啟 MVP幸運轉蛋，獲得：基爾-D-01卡片 ×1。",
+      "type": "item"
+    },
+    {
+      "text": "🎉 轉蛋大獎：基爾-D-01卡片",
+      "type": "rare-item"
+    },
+    {
+      "text": "偵測到掛機流程異常扣除 MVP幸運轉蛋 ×1，已自動復原。",
+      "type": "error"
+    },
+    {
+      "text": "使用了 體力料理[轉蛋專用]，主要效果持續 30 分鐘。",
+      "type": "item"
+    },
+    {
+      "text": "葛坡尼亞限定掉落：MVP幸運轉蛋 ×1",
+      "type": "rare-item"
+    }
+  ]
+}
