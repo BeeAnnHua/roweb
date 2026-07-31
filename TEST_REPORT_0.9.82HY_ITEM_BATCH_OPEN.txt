@@ -1,0 +1,14 @@
+RO_WEB 0.9.82HY Shared Quantity Batch Open
+
+Batch-open checks: 32 passed / 0 failed
+Save-barrier checks: 18 passed / 0 failed
+
+Verified:
+- MVP gacha and all five current ItemBox entries use the common adapter.
+- 4,000 MVP gacha are processed in 125 scheduled slices.
+- 4,000 generic boxes are processed in 125 scheduled slices.
+- Requested quantity is capped to held quantity.
+- Numeric input supports Enter and defaults to 100.
+- No hold-to-repeat handlers exist.
+- Future card-album adapter can register without editing the common UI.
+- HX manual-save drain, writer lease, local readback, IndexedDB readback and quota fallback pass.

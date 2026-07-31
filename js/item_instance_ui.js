@@ -402,6 +402,12 @@
 
     if (String(data.type) === 'consume') {
       actions.hidden = false;
+      if (window.ItemBatchOpenRuntime?.canBatchOpen?.(data)) {
+        primary.hidden = true;
+        picker.hidden = false;
+        window.ItemBatchOpenRuntime.renderControls(picker, data, { instance, context });
+        return;
+      }
       primary.hidden = false;
       primary.textContent = '使用';
       primary.onclick = () => {

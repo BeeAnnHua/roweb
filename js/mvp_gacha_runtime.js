@@ -1,5 +1,5 @@
 //============================================================
-// RO_WEB 0.9.82HX — MVP 轉蛋每件特殊獎絕對機率＋全域稀有公告橋接
+// RO_WEB 0.9.82HY — MVP 轉蛋單件絕對機率＋全域指定數量批量開啟橋接
 // - 同 ID MVP 只有在指定地圖死亡才以原始 1% 判定轉蛋，並套用全域掉落總閥。
 // - 轉蛋內部稀有機率為單一 10000 基點母池的絕對機率；全域掉落倍率只影響轉蛋本體掉落。
 // - 1% 紅色、0.1% 紫色、0.01% 金色上方橫幅。
@@ -7,13 +7,13 @@
 (() => {
   "use strict";
 
-  const VERSION = "0.9.82HX";
+  const VERSION = "0.9.82HY";
   const BUNDLE_KEY = "data/mvp_gacha.json";
   const DEFAULT_GACHA_ITEM_ID = 14848;
   const CASH_FOOD_SOURCE = "mvp_gacha_cash_food";
   const BANNER_STYLE_ID = "ro-mvp-gacha-banner-style";
   const BANNER_HOST_ID = "ro-mvp-gacha-banner-host";
-  const MANUAL_GACHA_SOURCES = new Set(["item-info", "quick-slot", "quick-slot-key", "inventory-slot"]);
+  const MANUAL_GACHA_SOURCES = new Set(["item-info", "quick-slot", "quick-slot-key", "inventory-slot", "batch-open-ui"]);
   const GACHA_GUARD_INTERVAL_MS = 500;
 
   function bundled(key, fallback = null) {
@@ -306,7 +306,7 @@
     const rows = [...summary.values()].sort((a, b) => b.quantity - a.quantity || a.name.localeCompare(b.name, "zh-Hant"));
     const visible = rows.slice(0, 8).map(row => `${row.name} ×${row.quantity}`);
     if (rows.length > visible.length) visible.push(`另 ${rows.length - visible.length} 種`);
-    const prefix = opened > 1 ? `連續開啟 ${item.name} ×${opened}` : `開啟 ${item.name}`;
+    const prefix = opened > 1 ? `批量開啟 ${item.name} ×${opened}` : `開啟 ${item.name}`;
     return `${prefix}，獲得：${visible.join("、")}。`;
   }
 
@@ -409,6 +409,7 @@
     if (GACHA_BATCH.pending <= 0 && opened > 0 && !options.skipSave && !window.RO_WEB_SAVE_PREPARING_REWARDS) {
       window.saveGame?.({ reason:"mvp-gacha-final", durableDelayMs:0, preparePendingRewards:false });
     }
+    emitGachaBatchProgress(GACHA_BATCH.pending > 0 ? "slice" : "complete");
     return opened > 0;
   }
 
@@ -440,30 +441,59 @@
     };
   }
 
-  function openGacha(item = itemData(config()?.gachaItemId || DEFAULT_GACHA_ITEM_ID), options = {}) {
-    if (!window.player || !item) return false;
+  function emitGachaBatchProgress(reason = "progress") {
+    if (typeof window.dispatchEvent !== "function" || typeof window.CustomEvent !== "function") return;
+    window.dispatchEvent(new window.CustomEvent("ro-web:batch-open-progress", {
+      detail:{
+        adapterId:"mvp_gacha",
+        itemId:Number(GACHA_BATCH.item?.id || gachaItemId()),
+        itemName:String(GACHA_BATCH.item?.name || itemData(gachaItemId())?.name || "MVP幸運轉蛋"),
+        pending:Math.max(0, integer(GACHA_BATCH.pending)),
+        processing:Boolean(GACHA_BATCH.processing),
+        totalOpened:Math.max(0, integer(GACHA_BATCH.totalOpened)),
+        reason:String(reason || "progress")
+      }
+    }));
+  }
+
+  function enqueueGachaQuantity(item = itemData(config()?.gachaItemId || DEFAULT_GACHA_ITEM_ID), requested = 1, options = {}) {
+    if (!window.player || !item) return { ok:false, accepted:0, reason:"missing-player-or-item" };
     if (!isAuthorizedManualGachaRequest(options)) {
       const now = Date.now();
       if (now - GACHA_BATCH.lastMissingLogAt > 1200) log(`${item.name} 已阻擋非玩家操作的自動開啟。`, "error");
       GACHA_BATCH.lastMissingLogAt = now;
-      return false;
+      return { ok:false, accepted:0, reason:"unauthorized" };
     }
     const stack = findInventoryStack(item.id);
-    const available = number(stack?.count) - GACHA_BATCH.pending;
+    const requestedCount = Math.max(1, integer(requested, 1));
+    const available = Math.max(0, integer(stack?.count) - Math.max(0, integer(GACHA_BATCH.pending)));
     if (!stack || available <= 0) {
       const now = Date.now();
       if (now - GACHA_BATCH.lastMissingLogAt > 800) log(`背包裡沒有 ${item.name}。`);
       GACHA_BATCH.lastMissingLogAt = now;
-      return false;
+      return { ok:false, accepted:0, available:0, reason:"missing-item" };
     }
     const usability = typeof window.canUseConsumableItem === "function"
       ? window.canUseConsumableItem(item, { silent:true })
       : { ok:true };
-    if (!usability.ok) return false;
+    if (!usability.ok) return { ok:false, accepted:0, available, reason:"unusable" };
+    const accepted = Math.min(requestedCount, available);
     GACHA_BATCH.item = item;
-    GACHA_BATCH.pending += 1;
-    scheduleGachaBatch();
-    return true;
+    GACHA_BATCH.pending += accepted;
+    scheduleGachaBatch(options.immediate === true ? 0 : GACHA_BATCH_DELAY_MS);
+    emitGachaBatchProgress("queued");
+    return {
+      ok:true,
+      accepted,
+      requested:requestedCount,
+      available,
+      pending:Math.max(0, integer(GACHA_BATCH.pending)),
+      totalOpened:Math.max(0, integer(GACHA_BATCH.totalOpened))
+    };
+  }
+
+  function openGacha(item = itemData(config()?.gachaItemId || DEFAULT_GACHA_ITEM_ID), options = {}) {
+    return enqueueGachaQuantity(item, 1, options).accepted > 0;
   }
 
   function cashFoodEffectInstance(item) {
@@ -622,9 +652,16 @@
     config,
     rollReward,
     openGacha,
+    enqueueOpenQuantity:enqueueGachaQuantity,
     processGachaBatch,
     flushPendingForSave:flushPendingGachaForSave,
     getPendingOpenCount:() => GACHA_BATCH.pending,
+    getBatchState:() => ({
+      itemId:Number(GACHA_BATCH.item?.id || gachaItemId()),
+      pending:Math.max(0, integer(GACHA_BATCH.pending)),
+      processing:Boolean(GACHA_BATCH.processing),
+      totalOpened:Math.max(0, integer(GACHA_BATCH.totalOpened))
+    }),
     rollMapExclusiveDrop,
     applyCashFood,
     applyPercentHeal,

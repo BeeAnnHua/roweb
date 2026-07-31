@@ -12,7 +12,7 @@ const SAVE_LEASE_HEARTBEAT_MS = 5 * 1000;
 const SAVE_LEASE_STALE_MS = 20 * 1000;
 const RO_WEB_SAVE_SCHEMA = "ro_web_player_save_v2";
 const RO_WEB_SAVE_FORMAT_VERSION = 2;
-const RO_WEB_SAVE_APP_VERSION = "0.9.82HX";
+const RO_WEB_SAVE_APP_VERSION = "0.9.82HY";
 const RO_WEB_SAVE_DB_NAME = "ro_web_offline_save_v1";
 const RO_WEB_SAVE_DB_VERSION = 1;
 const RO_WEB_SAVE_DB_STORE = "player_saves";
@@ -817,7 +817,7 @@ function normalizeSaveReason(reasonOrOptions) {
 
 function preparePendingRewardsForSave(reason = "save") {
   if (window.RO_WEB_SAVE_PREPARING_REWARDS) return { opened:0, remaining:0, skipped:true };
-  const runtime = window.MvpGachaRuntime;
+  const runtime = window.ItemBatchOpenRuntime || window.MvpGachaRuntime;
   if (!runtime || typeof runtime.flushPendingForSave !== "function") return { opened:0, remaining:0, skipped:true };
   window.RO_WEB_SAVE_PREPARING_REWARDS = true;
   try {
@@ -829,7 +829,7 @@ function preparePendingRewardsForSave(reason = "save") {
     };
     return result;
   } catch (error) {
-    console.error("保存前結算轉蛋佇列失敗：", error);
+    console.error("保存前結算批量開啟佇列失敗：", error);
     RO_WEB_SAVE_STATE.lastError = String(error?.message || error || "reward save barrier failed");
     return { opened:0, remaining:Number(runtime.getPendingOpenCount?.() || 0), error:String(error?.message || error) };
   } finally {
@@ -1007,7 +1007,7 @@ function manualSaveGame() {
     .then(ok => {
       if (typeof addBattleLog === "function") {
         const pendingInfo = RO_WEB_SAVE_STATE.lastPreparedRewardBatch;
-        const preparedText = Number(pendingInfo?.opened || 0) > 0 ? `，並完成 ${Number(pendingInfo.opened).toLocaleString()} 次待處理轉蛋` : "";
+        const preparedText = Number(pendingInfo?.opened || 0) > 0 ? `，並完成 ${Number(pendingInfo.opened).toLocaleString()} 次待處理箱子／轉蛋` : "";
         addBattleLog(ok
           ? `存檔完成：已驗證最新角色資料${preparedText}。`
           : "存檔失敗：未能驗證最新資料，請勿重新整理並檢查瀏覽器儲存空間。");

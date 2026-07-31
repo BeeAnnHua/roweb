@@ -22097,3 +22097,63 @@ body.player-death-modal-open #player-sprite{pointer-events:none!important}
   14%,88% { opacity:1; transform:scale(1); }
   100% { opacity:0; transform:translateY(-12px) scale(.94); }
 }
+
+/* 0.9.82HY — shared explicit quantity opener for loot boxes, gacha and future albums. */
+.item-batch-open-control {
+  display: grid;
+  gap: 7px;
+  padding: 9px;
+  border: 1px solid rgba(208,160,73,.78);
+  border-radius: 8px;
+  background: linear-gradient(180deg,rgba(62,42,22,.96),rgba(23,15,8,.98));
+  box-shadow: inset 0 0 0 1px rgba(255,231,168,.08);
+}
+.item-batch-open-title-row,
+.item-batch-open-action-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.item-batch-open-title-row { justify-content: space-between; }
+.item-batch-open-title-row b { color: #ffe2a0; font-size: 12px; }
+.item-batch-open-held { color: #cdb989; font-size: 11px; font-weight: 800; }
+.item-batch-open-input {
+  min-width: 0;
+  flex: 1 1 auto;
+  height: 34px;
+  padding: 0 10px;
+  border: 1px solid #a87935;
+  border-radius: 6px;
+  outline: none;
+  background: #fffdf6;
+  color: #24180b;
+  font-size: 15px;
+  font-weight: 900;
+  text-align: center;
+}
+.item-batch-open-input:focus { border-color: #f0c669; box-shadow: 0 0 0 2px rgba(240,198,105,.2); }
+.item-batch-open-input::-webkit-outer-spin-button,
+.item-batch-open-input::-webkit-inner-spin-button { margin: 0; -webkit-appearance: none; }
+.item-batch-open-input[type="number"] { appearance: textfield; -moz-appearance: textfield; }
+.item-batch-open-button {
+  flex: 0 0 auto;
+  min-width: 76px;
+  height: 34px;
+  padding: 0 13px;
+  border: 1px solid #d0a049;
+  border-radius: 6px;
+  background: linear-gradient(#5a3c1d,#251607);
+  color: #ffe8a9;
+  font-size: 12px;
+  font-weight: 900;
+  touch-action: manipulation;
+}
+.item-batch-open-button:disabled,
+.item-batch-open-input:disabled { opacity: .55; cursor: wait; }
+.item-batch-open-status { min-height: 16px; color: #bda97a; font-size: 10px; line-height: 1.45; }
+.item-batch-open-control.is-running .item-batch-open-status { color: #ffe09a; }
+@media (max-width: 560px) {
+  .item-batch-open-control { padding: 8px; }
+  .item-batch-open-input,.item-batch-open-button { height: 38px; }
+  .item-batch-open-button { min-width: 82px; }
+}

@@ -1,0 +1,177 @@
+{
+  "version": "0.9.82HY",
+  "suite": "shared-explicit-quantity-batch-open",
+  "passed": 32,
+  "failed": 0,
+  "metrics": {
+    "gachaTimerSteps": 125,
+    "boxTimerSteps": 125,
+    "inventoryUpdates": 0,
+    "quickUpdates": 251,
+    "saveCalls": 284,
+    "logs": 496,
+    "announceCalls": 245
+  },
+  "checks": [
+    {
+      "ok": true,
+      "name": "shared runtime version",
+      "detail": "0.9.82HY"
+    },
+    {
+      "ok": true,
+      "name": "MVP adapter version",
+      "detail": "0.9.82HY"
+    },
+    {
+      "ok": true,
+      "name": "ItemBox adapter version",
+      "detail": "0.9.82HY"
+    },
+    {
+      "ok": true,
+      "name": "MVP gacha is batch-openable",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "generic item box is batch-openable",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "ordinary potion is not batch-openable",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "official/current box 603 is batch-openable",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "official/current box 617 is batch-openable",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "official/current box 644 is batch-openable",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "official/current box 1100100 is batch-openable",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "official/current box 12922 is batch-openable",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "queue 4000 MVP gacha in one call",
+      "detail": "{\"ok\":true,\"accepted\":4000,\"requested\":4000,\"available\":4000,\"pending\":4000,\"totalOpened\":0}"
+    },
+    {
+      "ok": true,
+      "name": "MVP pending count is 4000",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "4000 MVP gacha consumed after sliced processing",
+      "detail": "0"
+    },
+    {
+      "ok": true,
+      "name": "MVP queue completed",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "MVP batch yielded across many timer slices",
+      "detail": "125"
+    },
+    {
+      "ok": true,
+      "name": "MVP UI refresh count is bounded",
+      "detail": "0"
+    },
+    {
+      "ok": true,
+      "name": "queue 4000 generic boxes in one call",
+      "detail": "{\"ok\":true,\"accepted\":4000,\"requested\":4000,\"available\":4000,\"pending\":4000,\"totalOpened\":0}"
+    },
+    {
+      "ok": true,
+      "name": "4000 generic boxes consumed",
+      "detail": "0"
+    },
+    {
+      "ok": true,
+      "name": "4000 rewards granted",
+      "detail": "4000"
+    },
+    {
+      "ok": true,
+      "name": "generic box queue completed",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "generic boxes yielded across many timer slices",
+      "detail": "125"
+    },
+    {
+      "ok": true,
+      "name": "generic box UI refresh count is bounded",
+      "detail": "0"
+    },
+    {
+      "ok": true,
+      "name": "checkpoint/final save hooks fired",
+      "detail": "282"
+    },
+    {
+      "ok": true,
+      "name": "requested quantity is capped to held amount",
+      "detail": "{\"ok\":true,\"accepted\":7,\"requested\":7,\"available\":7,\"pending\":7,\"totalOpened\":4000}"
+    },
+    {
+      "ok": true,
+      "name": "held-amount cap consumed exactly seven",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "future card album can register without changing core",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "future adapter uses shared held-amount cap",
+      "detail": "{\"ok\":true,\"accepted\":3,\"totalOpened\":0}"
+    },
+    {
+      "ok": true,
+      "name": "UI uses numeric quantity input",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "quantity input supports Enter",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "default quantity is 100",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "no hold-to-repeat event handlers",
+      "detail": ""
+    }
+  ]
+}

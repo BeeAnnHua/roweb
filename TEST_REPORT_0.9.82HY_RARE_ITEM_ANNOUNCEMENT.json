@@ -1,0 +1,106 @@
+{
+  "version": "0.9.82HY",
+  "summary": {
+    "checks": 19,
+    "passed": 19,
+    "failed": 0,
+    "status": "PASS"
+  },
+  "results": [
+    {
+      "ok": true,
+      "name": "global rare runtime version",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "1% is red",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "0.1% is purple",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "0.01% is gold",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "above 1% has no banner",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "zero chance has no banner",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "chance percent formatting",
+      "detail": "0.2%"
+    },
+    {
+      "ok": true,
+      "name": "duplicate Item IDs sum in weighted probability",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "Old Blue Box low-weight reward qualifies for rare banner",
+      "detail": "1.1863803535413453"
+    },
+    {
+      "ok": true,
+      "name": "26-way Dim Glacier box reward is not rare-banner eligible",
+      "detail": "384.61538461538464"
+    },
+    {
+      "ok": true,
+      "name": "Kiel card remains 0.01% gold",
+      "detail": "1"
+    },
+    {
+      "ok": true,
+      "name": "20th anniversary rewards are 0.1% each",
+      "detail": "10"
+    },
+    {
+      "ok": true,
+      "name": "Temporal Transcendent rewards are 1% each",
+      "detail": "100"
+    },
+    {
+      "ok": true,
+      "name": "ordinary weighted probability computed from real pool",
+      "detail": "142.9660896851908"
+    },
+    {
+      "ok": true,
+      "name": "duplicate ordinary reward is aggregated before tiering, no false rare banner",
+      "detail": "142.9660896851908"
+    },
+    {
+      "ok": true,
+      "name": "grade material absolute config is 500/10000",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "grade base chance and 10000x multiplier are ignored",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "grade map entry final chance is exactly 5%",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "name": "monster drop uses common announcement with final chance",
+      "detail": "{\"itemId\":501,\"itemName\":\"Item 501\",\"quantity\":1,\"chanceBasisPoints\":100,\"source\":\"monster_reward\",\"sourceLabel\":\"波利掉落\"}"
+    }
+  ]
+}
