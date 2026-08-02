@@ -1,0 +1,82 @@
+{
+  "title": "RO_WEB 0.9.82IB V92 Skill Effect Runtime Chromium Bootstrap Test",
+  "version": "0.9.82IB",
+  "testMode": "real Chromium about:blank DOM injection with manifest fetch shim",
+  "localNavigationNote": "Direct localhost/file navigation was blocked by organization browser policy; runtime was therefore executed in a real Chromium page with injected DOM and exact project manifests.",
+  "result": {
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/144.0.0.0 Safari/537.36",
+    "ready": true,
+    "status": {
+      "version": "0.9.82IB",
+      "ready": true,
+      "skills": 55,
+      "effects": 454,
+      "passiveCandidatesExcluded": 0,
+      "localizationWriteback": false
+    },
+    "selfTest": {
+      "pass": true,
+      "errors": [],
+      "skills": 55,
+      "effects": 454,
+      "diagnostics": {
+        "begins": 0,
+        "commits": 0,
+        "hits": 0,
+        "skippedPassive": 0,
+        "playedEvents": 0,
+        "loadedEffects": 0,
+        "loadFailures": 0,
+        "clearedLifecycles": 0
+      }
+    },
+    "activeSkillId": 5201,
+    "initialEligible": true,
+    "tokenCreated": true,
+    "committed": true,
+    "hit": true,
+    "diagnosticsAfterHooks": {
+      "begins": 1,
+      "commits": 1,
+      "hits": 1,
+      "skippedPassive": 0,
+      "playedEvents": 4,
+      "loadedEffects": 4,
+      "loadFailures": 0,
+      "clearedLifecycles": 0,
+      "activeInstances": 3,
+      "activeLifecycles": 0
+    },
+    "dynamicPassiveEligible": false,
+    "dynamicPassiveBegin": null,
+    "passiveCatalogEligible": false,
+    "canvases": [
+      {
+        "id": "skill-effect-back-canvas",
+        "width": 1280,
+        "height": 720
+      },
+      {
+        "id": "skill-effect-front-canvas",
+        "width": 1280,
+        "height": 720
+      }
+    ],
+    "fetchedEffectJsonCount": 12,
+    "neededEffectIds": [
+      "servantweapon_cast_1f4eafa6bd30",
+      "min_servantweapon_cast_fad7efdf9509",
+      "servantweapon_90393f3bfbc5",
+      "min_servantweapon_down_d6dfa263f0ad",
+      "min_servantweapon_f506ba0412e3",
+      "min_servantweapon_shoot_bc4927c77354",
+      "servantweapon_down_8d13d1e4002d",
+      "servantweapon_shoot_38a603beb6f3",
+      "servantweapon_hit_a027cce962b5",
+      "min_servantweapon_hit_20636448e32f",
+      "servantweapon_hit_bottom_215082d7a981",
+      "min_servantweapon_hit_bottom_5ef391042704"
+    ],
+    "pass": true
+  }
+}

@@ -1,0 +1,246 @@
+{
+  "schema": "ro-effect-str-1.1",
+  "source": "destructive_hurricane/destructive_hurricane_cast/destructive_hurricane_cast.str",
+  "version": 148,
+  "fps": 60,
+  "frameCount": 30,
+  "durationSeconds": 0.5,
+  "layers": [
+    {
+      "textures": [],
+      "keyframes": []
+    },
+    {
+      "textures": [
+        "des_cast_00.bmp",
+        "des_cast_01.bmp",
+        "des_cast_02.bmp",
+        "des_cast_03.bmp",
+        "des_cast_04.bmp",
+        "des_cast_05.bmp",
+        "des_cast_06.bmp",
+        "des_cast_07.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 0,
+          "type": 0,
+          "position": [
+            320.0,
+            280.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -113.0,
+            113.0,
+            113.0,
+            -113.0,
+            -118.0,
+            -118.0,
+            118.0,
+            118.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 0,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 30,
+          "type": 0,
+          "position": [
+            320.0,
+            280.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -113.0,
+            113.0,
+            113.0,
+            -113.0,
+            -118.0,
+            -118.0,
+            118.0,
+            118.0
+          ],
+          "textureId": 7.0,
+          "animationType": 3,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    }
+  ],
+  "effectId": "destructive_hurricane_cast_a83ee0d16412",
+  "classification": "READY_FULL",
+  "variant": "FULL",
+  "role": "CAST",
+  "scope": {
+    "profession": "destructive_hurricane",
+    "skillGroup": "destructive_hurricane_cast"
+  },
+  "dependencies": [
+    {
+      "declared": "des_cast_00.bmp",
+      "resolved": "destructive_hurricane/destructive_hurricane_cast/des_cast_00.bmp",
+      "missing": false,
+      "hash": "4f775aa1eb49b20179af60f6b09efe6e69051ee24436c8c17d27dec1396edf35",
+      "png": "textures/4f/4f775aa1eb49b20179af60f6b09efe6e69051ee24436c8c17d27dec1396edf35.png",
+      "width": 113,
+      "height": 118,
+      "bytes": 7616
+    },
+    {
+      "declared": "des_cast_01.bmp",
+      "resolved": "destructive_hurricane/destructive_hurricane_cast/des_cast_01.bmp",
+      "missing": false,
+      "hash": "28b2c9249073d8a34ed2dec81049cf1efa4df9c51a3866b2dba9f723a617454e",
+      "png": "textures/28/28b2c9249073d8a34ed2dec81049cf1efa4df9c51a3866b2dba9f723a617454e.png",
+      "width": 113,
+      "height": 118,
+      "bytes": 9410
+    },
+    {
+      "declared": "des_cast_02.bmp",
+      "resolved": "destructive_hurricane/destructive_hurricane_cast/des_cast_02.bmp",
+      "missing": false,
+      "hash": "a7bfe7298312a6ea778a2eb921a7193d6c577f81a76eb0aec306320934055d20",
+      "png": "textures/a7/a7bfe7298312a6ea778a2eb921a7193d6c577f81a76eb0aec306320934055d20.png",
+      "width": 113,
+      "height": 118,
+      "bytes": 10268
+    },
+    {
+      "declared": "des_cast_03.bmp",
+      "resolved": "destructive_hurricane/destructive_hurricane_cast/des_cast_03.bmp",
+      "missing": false,
+      "hash": "7053c985c43ae42fd10ec7c48fc93da78decffa826ffcf5d190d068a5dc87873",
+      "png": "textures/70/7053c985c43ae42fd10ec7c48fc93da78decffa826ffcf5d190d068a5dc87873.png",
+      "width": 113,
+      "height": 118,
+      "bytes": 10291
+    },
+    {
+      "declared": "des_cast_04.bmp",
+      "resolved": "destructive_hurricane/destructive_hurricane_cast/des_cast_04.bmp",
+      "missing": false,
+      "hash": "4c1860a86adac618775d947548947d569cfe2fff2b2a44471ba7513e3857ccdf",
+      "png": "textures/4c/4c1860a86adac618775d947548947d569cfe2fff2b2a44471ba7513e3857ccdf.png",
+      "width": 113,
+      "height": 118,
+      "bytes": 9336
+    },
+    {
+      "declared": "des_cast_05.bmp",
+      "resolved": "destructive_hurricane/destructive_hurricane_cast/des_cast_05.bmp",
+      "missing": false,
+      "hash": "c48533ae34e0e947c341b08d6d3ae394013cb878f163ea8bb4c5aca8d44b28dd",
+      "png": "textures/c4/c48533ae34e0e947c341b08d6d3ae394013cb878f163ea8bb4c5aca8d44b28dd.png",
+      "width": 113,
+      "height": 118,
+      "bytes": 9258
+    },
+    {
+      "declared": "des_cast_06.bmp",
+      "resolved": "destructive_hurricane/destructive_hurricane_cast/des_cast_06.bmp",
+      "missing": false,
+      "hash": "b55d9571edd35845a55b3e5e5f4ee95b20d3755ebd43f3389df4d1b9dfb757d6",
+      "png": "textures/b5/b55d9571edd35845a55b3e5e5f4ee95b20d3755ebd43f3389df4d1b9dfb757d6.png",
+      "width": 113,
+      "height": 118,
+      "bytes": 8557
+    },
+    {
+      "declared": "des_cast_07.bmp",
+      "resolved": "destructive_hurricane/destructive_hurricane_cast/des_cast_07.bmp",
+      "missing": false,
+      "hash": "7101d548814ca172d669bc1c1562dddef39bc64359b2025a383eca6a6b340560",
+      "png": "textures/71/7101d548814ca172d669bc1c1562dddef39bc64359b2025a383eca6a6b340560.png",
+      "width": 113,
+      "height": 118,
+      "bytes": 7184
+    }
+  ],
+  "assetPathMode": "library-root-relative",
+  "renderer": {
+    "mode": "V81 approximate-2d",
+    "notes": "Timeline/layers/textures/color/rotation supported; perspective and exact GL blends approximated."
+  }
+}

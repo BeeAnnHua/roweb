@@ -561,6 +561,8 @@ function normalizePositionData() {
   player.autoCombat.teleport = {
     enabled: player.autoCombat.teleport?.enabled ?? false,
     noTargetSeconds: 1,
+    fixedIntervalEnabled: player.autoCombat.teleport?.fixedIntervalEnabled === true,
+    fixedIntervalSeconds: Math.max(1, Math.min(3600, Number(player.autoCombat.teleport?.fixedIntervalSeconds ?? 10) || 10)),
     avoidBoss: player.autoCombat.teleport?.avoidBoss ?? false,
     avoidMvp: player.autoCombat.teleport?.avoidMvp ?? false,
     lowHpEnabled: player.autoCombat.teleport?.lowHpEnabled ?? false,

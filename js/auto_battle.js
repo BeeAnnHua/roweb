@@ -1,5 +1,5 @@
 //=======================================
-// AutoBattleController v1.9（0.9.82HT）
+// AutoBattleController v2.1（0.9.82ID）
 // 精簡設定介面 / 自動異常解除 / 低血量逃生 / 自動肯貝特 / 當前地圖怪物篩選
 //=======================================
 
@@ -55,6 +55,8 @@ function createDefaultAutoCombat() {
     teleport: {
       enabled: false,
       noTargetSeconds: 1,
+      fixedIntervalEnabled: false,
+      fixedIntervalSeconds: 10,
       avoidBoss: false,
       avoidMvp: false,
       lowHpEnabled: false,
@@ -328,6 +330,8 @@ function normalizeAutoCombatSettings() {
     ...defaults.teleport,
     ...sourceTeleport,
     noTargetSeconds: 1,
+    fixedIntervalEnabled: sourceTeleport.fixedIntervalEnabled === true,
+    fixedIntervalSeconds: Math.max(1, Math.min(3600, Number(sourceTeleport.fixedIntervalSeconds ?? defaults.teleport.fixedIntervalSeconds) || 10)),
     lowHpEnabled: sourceTeleport.lowHpEnabled === true,
     lowHpPercent: Math.max(1, Math.min(99, Number(sourceTeleport.lowHpPercent ?? defaults.teleport.lowHpPercent))),
     returnHome: {
@@ -780,6 +784,8 @@ function syncAutoCombatSettingsFromUI(options = {}) {
   const healSpPercent = document.getElementById("autoCombatHealSpPercent");
   const normalAttackEnabled = document.getElementById("autoCombatNormalAttackEnabled");
   const teleportEnabled = document.getElementById("autoCombatTeleportEnabled");
+  const fixedFlyEnabled = document.getElementById("autoCombatFixedFlyEnabled");
+  const fixedFlySeconds = document.getElementById("autoCombatFixedFlySeconds");
   const avoidBoss = document.getElementById("autoCombatAvoidBoss");
   const avoidMvp = document.getElementById("autoCombatAvoidMvp");
   const lowHpFlyEnabled = document.getElementById("autoCombatLowHpFlyEnabled");
@@ -832,6 +838,8 @@ function syncAutoCombatSettingsFromUI(options = {}) {
 
   if (normalAttackEnabled) player.autoCombat.normalAttack.enabled = normalAttackEnabled.checked;
   if (teleportEnabled) player.autoCombat.teleport.enabled = teleportEnabled.checked;
+  if (fixedFlyEnabled) player.autoCombat.teleport.fixedIntervalEnabled = fixedFlyEnabled.checked;
+  if (fixedFlySeconds) player.autoCombat.teleport.fixedIntervalSeconds = Math.max(1, Math.min(3600, Number(fixedFlySeconds.value) || 10));
   if (avoidBoss) player.autoCombat.teleport.avoidBoss = avoidBoss.checked;
   if (avoidMvp) player.autoCombat.teleport.avoidMvp = avoidMvp.checked;
   if (lowHpFlyEnabled) player.autoCombat.teleport.lowHpEnabled = lowHpFlyEnabled.checked;
@@ -1272,6 +1280,8 @@ function updateAutoCombatUI() {
   const cashFoodEnabled = document.getElementById("autoCombatCashFoodEnabled");
   const monsterFilterMode = document.getElementById("autoCombatMonsterFilterMode");
   const teleportEnabled = document.getElementById("autoCombatTeleportEnabled");
+  const fixedFlyEnabled = document.getElementById("autoCombatFixedFlyEnabled");
+  const fixedFlySeconds = document.getElementById("autoCombatFixedFlySeconds");
   const avoidBoss = document.getElementById("autoCombatAvoidBoss");
   const avoidMvp = document.getElementById("autoCombatAvoidMvp");
   const lowHpFlyEnabled = document.getElementById("autoCombatLowHpFlyEnabled");
@@ -1299,6 +1309,8 @@ function updateAutoCombatUI() {
   if (monsterFilterMode) monsterFilterMode.value = normalizeAutoMonsterFilterMode(currentMonsterFilter.mode);
   updateAutoCombatMonsterFilterUI();
   if (teleportEnabled) teleportEnabled.checked = !!cfg.teleport.enabled;
+  if (fixedFlyEnabled) fixedFlyEnabled.checked = cfg.teleport.fixedIntervalEnabled === true;
+  if (fixedFlySeconds) fixedFlySeconds.value = String(Math.max(1, Number(cfg.teleport.fixedIntervalSeconds || 10)));
   if (avoidBoss) avoidBoss.checked = !!cfg.teleport.avoidBoss;
   if (avoidMvp) avoidMvp.checked = !!cfg.teleport.avoidMvp;
   if (lowHpFlyEnabled) lowHpFlyEnabled.checked = !!cfg.teleport.lowHpEnabled;
@@ -1444,6 +1456,62 @@ function performAutoFlyWingEscape(reason = "low_hp") {
   return true;
 }
 
+function getAutoFixedIntervalMs() {
+  normalizeAutoCombatSettings();
+  return Math.max(1000, Math.min(3600000, Number(player?.autoCombat?.teleport?.fixedIntervalSeconds || 10) * 1000));
+}
+
+function tryAutoFixedIntervalTeleport() {
+  if (!player || player.currentCity || Number(player.hp || 0) <= 0) return false;
+  normalizeAutoCombatSettings();
+  const teleport = player.autoCombat?.teleport || {};
+  if (teleport.fixedIntervalEnabled !== true) {
+    AUTO_BATTLE_CONTROLLER.lastFixedIntervalFlyAt = 0;
+    AUTO_BATTLE_CONTROLLER.lastFixedIntervalAttemptAt = 0;
+    return false;
+  }
+  const now = Date.now();
+  const intervalMs = getAutoFixedIntervalMs();
+  if (!Number(AUTO_BATTLE_CONTROLLER.lastFixedIntervalFlyAt || 0)) {
+    AUTO_BATTLE_CONTROLLER.lastFixedIntervalFlyAt = now;
+    return false;
+  }
+  if (now - Number(AUTO_BATTLE_CONTROLLER.lastFixedIntervalFlyAt || 0) < intervalMs) return false;
+  // 到秒只嘗試一次；沒有翅膀時也等下一個週期，避免每個 8ms tick 洗版。
+  if (now - Number(AUTO_BATTLE_CONTROLLER.lastFixedIntervalAttemptAt || 0) < Math.min(intervalMs, 1000)) return false;
+  AUTO_BATTLE_CONTROLLER.lastFixedIntervalAttemptAt = now;
+  AUTO_BATTLE_CONTROLLER.lastFixedIntervalFlyAt = now;
+  return performAutoFlyWingEscape("fixed_interval");
+}
+
+function collectAutoAvoidThreats() {
+  if (!player || player.currentCity) return [];
+  normalizeAutoCombatSettings();
+  const teleport = player.autoCombat?.teleport || {};
+  if (teleport.avoidBoss !== true && teleport.avoidMvp !== true) return [];
+  let candidates = [];
+  try {
+    candidates = typeof collectLiveCombatEnemies === "function"
+      ? (collectLiveCombatEnemies({ activeOnly: true }) || [])
+      : (typeof getLivingWorldMonsterTestEntities === "function" ? (getLivingWorldMonsterTestEntities({ activeOnly: true }) || []) : []);
+  } catch (_) {}
+  return [...new Set(candidates)].filter(monster => {
+    if (!monster || monster._deathHandled || monster._defeatResolutionQueued || Number(monster.currentHp ?? monster.hp ?? 0) <= 0) return false;
+    const monsterClass = getAutoBattleMonsterClass(monster);
+    return monsterClass === "mvp" ? teleport.avoidMvp === true : monsterClass === "boss" && teleport.avoidBoss === true;
+  });
+}
+
+function findAutoAvoidThreat() {
+  const threats = collectAutoAvoidThreats();
+  if (!threats.length) return null;
+  // 正在打玩家 > 正在追玩家 > 最近；不受目前鎖定普通怪物與攻擊篩選影響。
+  return threats.sort((a, b) => {
+    const rank = monster => isMonsterActivelyAttackingPlayer(monster) ? 0 : (isMonsterThreateningPlayer(monster) ? 1 : 2);
+    return rank(a) - rank(b) || getAutoBattleTargetDistance(a) - getAutoBattleTargetDistance(b);
+  })[0] || null;
+}
+
 function tryAutoEmergencyEscape() {
   if (!player || player.currentCity) return null;
   normalizeAutoCombatSettings();
@@ -1466,7 +1534,7 @@ function tryAutoEmergencyEscape() {
 }
 
 function autoUsePotion() {
-  syncAutoCombatSettingsFromUI({ save: false });
+  // 設定由「套用」／欄位 onchange／開始掛機時同步；戰鬥 tick 不再反覆讀取整套 DOM。
   normalizeAutoCombatSettings();
   const cfg = player.autoCombat;
   let used = false;
@@ -1651,6 +1719,8 @@ const AUTO_BATTLE_CONTROLLER = {
   lastAvoidTeleportAt: 0,
   lastLowHpTeleportAt: 0,
   lastButterflyAt: 0,
+  lastFixedIntervalFlyAt: 0,
+  lastFixedIntervalAttemptAt: 0,
   lastElementWarningAt: 0,
   ignoredTarget: null,
   ignoredTargetUntil: 0,
@@ -1673,6 +1743,8 @@ function resetAutoBattleController(options = {}) {
   AUTO_BATTLE_CONTROLLER.lastAvoidTeleportAt = 0;
   AUTO_BATTLE_CONTROLLER.lastLowHpTeleportAt = 0;
   AUTO_BATTLE_CONTROLLER.lastButterflyAt = 0;
+  AUTO_BATTLE_CONTROLLER.lastFixedIntervalFlyAt = options.running ? Date.now() : 0;
+  AUTO_BATTLE_CONTROLLER.lastFixedIntervalAttemptAt = 0;
   AUTO_BATTLE_CONTROLLER.lastElementWarningAt = 0;
   AUTO_BATTLE_CONTROLLER.ignoredTarget = null;
   AUTO_BATTLE_CONTROLLER.ignoredTargetUntil = 0;
@@ -1821,6 +1893,9 @@ function onAutoBattleTeleportCompleted(previousTarget = currentMonster, details 
   AUTO_BATTLE_CONTROLLER.targetLockedAt = 0;
   AUTO_BATTLE_CONTROLLER.noTargetSince = now;
   AUTO_BATTLE_CONTROLLER.lastTeleportAt = now;
+  // 任一種瞬移都重設固定飛行倒數，避免 Boss 迴避後立刻再飛一次。
+  AUTO_BATTLE_CONTROLLER.lastFixedIntervalFlyAt = now;
+  AUTO_BATTLE_CONTROLLER.lastFixedIntervalAttemptAt = now;
   AUTO_BATTLE_CONTROLLER.manualOverrideUntil = 0;
   AUTO_BATTLE_CONTROLLER.reacquireSuppressedUntil = now + Math.max(280, Number(details.suppressMs || 420));
   currentMonster = null;
@@ -1889,8 +1964,20 @@ function noteAutoBattleTargetDefeated(monster) {
 
 function runAutoCombatUtilityTick() {
   if (!player) return { action: "none" };
-  syncAutoCombatSettingsFromUI({ save: false });
   normalizeAutoCombatSettings();
+
+  // Boss / MVP 迴避是全場威脅檢查，不等待目前普通怪物打完。
+  const avoidThreat = findAutoAvoidThreat();
+  if (avoidThreat && maybeAutoEscapeFromTarget(avoidThreat)) {
+    setAutoBattleControllerState(AUTO_BATTLE_STATES.UTILITY, { action: "avoid_boss", reason: "global_boss_threat" });
+    return { action: "utility", utility: "avoid_boss", threat: avoidThreat };
+  }
+
+  // 固定秒數飛行優先於目前追怪／攻擊／詠唱，到秒就直接瞬移。
+  if (tryAutoFixedIntervalTeleport()) {
+    setAutoBattleControllerState(AUTO_BATTLE_STATES.UTILITY, { action: "fixed_interval_fly", reason: "fixed_interval" });
+    return { action: "utility", utility: "fixed_interval_fly" };
+  }
 
   const emergencyEscape = tryAutoEmergencyEscape();
   if (emergencyEscape) {
@@ -2002,10 +2089,12 @@ function getAutoBattleMonsterClass(monster) {
   return "normal";
 }
 
-function maybeAutoEscapeFromTarget(monster) {
-  if (!player || !isAutoBattleTargetValid(monster)) return false;
+function maybeAutoEscapeFromTarget(monster = null) {
+  if (!player || player.currentCity) return false;
   normalizeAutoCombatSettings();
-  const monsterClass = getAutoBattleMonsterClass(monster);
+  const threat = monster || findAutoAvoidThreat();
+  if (!threat || threat._deathHandled || Number(threat.currentHp ?? threat.hp ?? 0) <= 0) return false;
+  const monsterClass = getAutoBattleMonsterClass(threat);
   const teleport = player.autoCombat.teleport || {};
   const shouldEscape = monsterClass === "mvp" ? teleport.avoidMvp === true : monsterClass === "boss" && teleport.avoidBoss === true;
   if (!shouldEscape) return false;
@@ -2270,6 +2359,9 @@ window.AUTO_ELEMENT_CONVERTER_ITEM_IDS = AUTO_ELEMENT_CONVERTER_ITEM_IDS;
 window.hasPlayerPoisonStatus = hasPlayerPoisonStatus;
 window.tryAutoDetox = tryAutoDetox;
 window.tryAutoEmergencyEscape = tryAutoEmergencyEscape;
+window.tryAutoFixedIntervalTeleport = tryAutoFixedIntervalTeleport;
+window.collectAutoAvoidThreats = collectAutoAvoidThreats;
+window.findAutoAvoidThreat = findAutoAvoidThreat;
 window.enhanceAutoCombatNumberInputs = enhanceAutoCombatNumberInputs;
 window.getAutoBattleSkillTargetCount = getAutoBattleSkillTargetCount;
 window.getAutoBattleMonsterClass = getAutoBattleMonsterClass;

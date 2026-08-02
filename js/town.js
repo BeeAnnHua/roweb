@@ -1,5 +1,5 @@
 //=======================================
-// TownManager v0.9.82GW
+// TownManager v0.9.82ID
 // 城鎮 / NPC / 商店 / 轉職 NPC 架構
 //=======================================
 
@@ -73,12 +73,16 @@ function updateTownUI() {
   renderShopPanel(null);
 }
 
-function enterCity(cityId) {
+function enterCity(cityId, options = {}) {
   const city = getCityData(cityId);
   if (!city) {
     addBattleLog("找不到城鎮資料：" + cityId);
     return;
   }
+
+  const wasAutoBattle = options.wasAutoBattle === true
+    || (typeof isAutoBattleRunning === "function" && isAutoBattleRunning())
+    || window.RO_WEB_AUTO_BATTLE_RESUME_PENDING === true;
 
   if (typeof clearFieldCombatRuntimeForTravel === "function") clearFieldCombatRuntimeForTravel();
   else {
@@ -103,6 +107,7 @@ function enterCity(cityId) {
   saveGame();
 
   addBattleLog("進入城鎮：「" + city.name + "」。");
+  if (wasAutoBattle) addBattleLog("回到村莊，停止自動掛機。");
 }
 
 function leaveTownToLastField() {

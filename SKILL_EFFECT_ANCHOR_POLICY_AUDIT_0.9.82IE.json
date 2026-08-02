@@ -1,0 +1,244 @@
+{
+  "schema": "ro-web-skill-effect-anchor-policy-audit-0.9.82IE-1.0",
+  "version": "0.9.82IE",
+  "policy": {
+    "CASTER_BODY/CASTER_FOOT": "LIVE_PLAYER_COORDINATE",
+    "TARGET_BODY/TARGET_FOOT": "LIVE_TARGET_COORDINATE",
+    "GROUND_CELL/GROUND_SPAWN": "TARGET_FOOT_WORLD_COORDINATE_SNAPSHOT",
+    "PROJECTILE_PATH": "LIVE_PLAYER_TO_LIVE_TARGET",
+    "acidifiedZoneOverride": "Skill 5340/5341/5342 target-side events use TARGET_FOOT_WORLD_COORDINATE_SNAPSHOT"
+  },
+  "acidifiedSkills": [
+    {
+      "skillId": 5340,
+      "skillKey": "BO_ACIDIFIED_ZONE_WATER",
+      "events": [
+        {
+          "trigger": "CAST_BEGIN",
+          "phase": "CAST",
+          "target": "CASTER_BODY",
+          "policy": "CASTER_LIVE",
+          "effectCount": 1
+        },
+        {
+          "trigger": "CAST_BEGIN",
+          "phase": "CAST_BOTTOM",
+          "target": "CASTER_FOOT",
+          "policy": "CASTER_LIVE",
+          "effectCount": 1
+        },
+        {
+          "trigger": "CAST_COMPLETE",
+          "phase": "START",
+          "target": "TARGET_BODY",
+          "policy": "GROUND_WORLD_SNAPSHOT",
+          "effectCount": 2
+        },
+        {
+          "trigger": "CAST_COMPLETE",
+          "phase": "START_BOTTOM",
+          "target": "TARGET_FOOT",
+          "policy": "GROUND_WORLD_SNAPSHOT",
+          "effectCount": 1
+        },
+        {
+          "trigger": "GROUND_SPAWN",
+          "phase": "BOTTOM",
+          "target": "TARGET_FOOT",
+          "policy": "GROUND_WORLD_SNAPSHOT",
+          "effectCount": 2
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "policy": "GROUND_WORLD_SNAPSHOT",
+          "effectCount": 2
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "policy": "GROUND_WORLD_SNAPSHOT",
+          "effectCount": 2
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "policy": "GROUND_WORLD_SNAPSHOT",
+          "effectCount": 2
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "policy": "GROUND_WORLD_SNAPSHOT",
+          "effectCount": 2
+        },
+        {
+          "trigger": "HIT_CONFIRM",
+          "phase": "HIT",
+          "target": "TARGET_BODY",
+          "policy": "GROUND_WORLD_SNAPSHOT",
+          "effectCount": 2
+        }
+      ]
+    },
+    {
+      "skillId": 5341,
+      "skillKey": "BO_ACIDIFIED_ZONE_GROUND",
+      "events": [
+        {
+          "trigger": "CAST_BEGIN",
+          "phase": "CAST",
+          "target": "CASTER_BODY",
+          "policy": "CASTER_LIVE",
+          "effectCount": 1
+        },
+        {
+          "trigger": "CAST_BEGIN",
+          "phase": "CAST_BOTTOM",
+          "target": "CASTER_FOOT",
+          "policy": "CASTER_LIVE",
+          "effectCount": 1
+        },
+        {
+          "trigger": "CAST_COMPLETE",
+          "phase": "START",
+          "target": "TARGET_BODY",
+          "policy": "GROUND_WORLD_SNAPSHOT",
+          "effectCount": 2
+        },
+        {
+          "trigger": "CAST_COMPLETE",
+          "phase": "START_BOTTOM",
+          "target": "TARGET_FOOT",
+          "policy": "GROUND_WORLD_SNAPSHOT",
+          "effectCount": 1
+        },
+        {
+          "trigger": "GROUND_SPAWN",
+          "phase": "BOTTOM",
+          "target": "TARGET_FOOT",
+          "policy": "GROUND_WORLD_SNAPSHOT",
+          "effectCount": 1
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "policy": "GROUND_WORLD_SNAPSHOT",
+          "effectCount": 1
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "policy": "GROUND_WORLD_SNAPSHOT",
+          "effectCount": 2
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "policy": "GROUND_WORLD_SNAPSHOT",
+          "effectCount": 2
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "policy": "GROUND_WORLD_SNAPSHOT",
+          "effectCount": 2
+        },
+        {
+          "trigger": "HIT_CONFIRM",
+          "phase": "HIT",
+          "target": "TARGET_BODY",
+          "policy": "GROUND_WORLD_SNAPSHOT",
+          "effectCount": 2
+        }
+      ]
+    },
+    {
+      "skillId": 5342,
+      "skillKey": "BO_ACIDIFIED_ZONE_WIND",
+      "events": [
+        {
+          "trigger": "CAST_BEGIN",
+          "phase": "CAST",
+          "target": "CASTER_BODY",
+          "policy": "CASTER_LIVE",
+          "effectCount": 1
+        },
+        {
+          "trigger": "CAST_BEGIN",
+          "phase": "CAST_BOTTOM",
+          "target": "CASTER_FOOT",
+          "policy": "CASTER_LIVE",
+          "effectCount": 2
+        },
+        {
+          "trigger": "CAST_COMPLETE",
+          "phase": "START",
+          "target": "TARGET_BODY",
+          "policy": "GROUND_WORLD_SNAPSHOT",
+          "effectCount": 2
+        },
+        {
+          "trigger": "CAST_COMPLETE",
+          "phase": "START_BOTTOM",
+          "target": "TARGET_FOOT",
+          "policy": "GROUND_WORLD_SNAPSHOT",
+          "effectCount": 1
+        },
+        {
+          "trigger": "GROUND_SPAWN",
+          "phase": "BOTTOM",
+          "target": "TARGET_FOOT",
+          "policy": "GROUND_WORLD_SNAPSHOT",
+          "effectCount": 2
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "policy": "GROUND_WORLD_SNAPSHOT",
+          "effectCount": 2
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "policy": "GROUND_WORLD_SNAPSHOT",
+          "effectCount": 1
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "policy": "GROUND_WORLD_SNAPSHOT",
+          "effectCount": 2
+        },
+        {
+          "trigger": "HIT_CONFIRM",
+          "phase": "HIT",
+          "target": "TARGET_BODY",
+          "policy": "GROUND_WORLD_SNAPSHOT",
+          "effectCount": 2
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "acidifiedSkills": 3,
+    "acidifiedTargetEvents": 23,
+    "acidifiedCasterEvents": 6,
+    "groundSnapshotTrigger": "event trigger time",
+    "followsPlayerAfterSpawn": false,
+    "followsMonsterAfterSpawn": false,
+    "cameraProjection": "world snapshot reprojected every frame"
+  },
+  "pass": true
+}

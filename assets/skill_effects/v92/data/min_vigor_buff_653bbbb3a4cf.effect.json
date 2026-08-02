@@ -1,0 +1,643 @@
+{
+  "schema": "ro-effect-str-1.1",
+  "source": "texture/effect/dragon_knight/dk_vigor/vigor_buff/min_vigor_buff.str",
+  "version": 148,
+  "fps": 60,
+  "frameCount": 55,
+  "durationSeconds": 0.916667,
+  "layers": [
+    {
+      "textures": [],
+      "keyframes": []
+    },
+    {
+      "textures": [
+        "vig_fire_01.bmp",
+        "vig_fire_02.bmp",
+        "vig_fire_03.bmp",
+        "vig_fire_04.bmp",
+        "vig_fire_05.bmp",
+        "vig_fire_06.bmp",
+        "vig_fire_07.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 0,
+          "type": 0,
+          "position": [
+            287.0,
+            319.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -32.0,
+            32.0,
+            32.0,
+            -32.0,
+            -75.5,
+            -75.5,
+            9.5,
+            9.5
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 0.1666666716337204,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            130.0,
+            130.0,
+            100.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 0,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            -0.3682926595211029,
+            -0.3682926595211029,
+            0.04634145274758339,
+            0.04634145274758339
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 0.1666666716337204,
+          "rotation": 0.0,
+          "color": [
+            -3.0975608825683594,
+            -3.170731782913208,
+            -3.170731782913208,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 41,
+          "type": 0,
+          "position": [
+            287.0,
+            319.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -32.0,
+            32.0,
+            32.0,
+            -32.0,
+            -90.5999984741211,
+            -90.5999984741211,
+            11.399999618530273,
+            11.399999618530273
+          ],
+          "textureId": 6.0,
+          "animationType": 3,
+          "animationDelta": 0.1666666716337204,
+          "rotation": 0.0,
+          "color": [
+            128.0,
+            0.0,
+            0.0,
+            100.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "vig_fire_01.bmp",
+        "vig_fire_02.bmp",
+        "vig_fire_03.bmp",
+        "vig_fire_04.bmp",
+        "vig_fire_05.bmp",
+        "vig_fire_06.bmp",
+        "vig_fire_07.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 5,
+          "type": 0,
+          "position": [
+            340.0,
+            290.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -48.0,
+            48.0,
+            48.0,
+            -48.0,
+            -75.5,
+            -75.5,
+            9.5,
+            9.5
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 0.1666666716337204,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            130.0,
+            130.0,
+            150.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 5,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            -1.5099998712539673,
+            -1.5099998712539673,
+            0.1900000125169754,
+            0.1900000125169754
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 0.1666666716337204,
+          "rotation": 0.0,
+          "color": [
+            -3.174999952316284,
+            -3.25,
+            -3.25,
+            -1.25
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 45,
+          "type": 0,
+          "position": [
+            340.0,
+            290.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -48.0,
+            48.0,
+            48.0,
+            -48.0,
+            -135.89999389648438,
+            -135.89999389648438,
+            17.100000381469727,
+            17.100000381469727
+          ],
+          "textureId": 6.0,
+          "animationType": 3,
+          "animationDelta": 0.1666666716337204,
+          "rotation": 0.0,
+          "color": [
+            128.0,
+            0.0,
+            0.0,
+            100.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "vig_fire_01.bmp",
+        "vig_fire_02.bmp",
+        "vig_fire_03.bmp",
+        "vig_fire_04.bmp",
+        "vig_fire_05.bmp",
+        "vig_fire_06.bmp",
+        "vig_fire_07.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 10,
+          "type": 0,
+          "position": [
+            311.0,
+            255.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            35.0,
+            -35.0,
+            -35.0,
+            35.0,
+            -82.60590362548828,
+            -82.60590362548828,
+            10.394100189208984,
+            10.394100189208984
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 0.1666666716337204,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            130.0,
+            130.0,
+            150.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 10,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.07500000298023224,
+            -0.07500000298023224,
+            -0.07500000298023224,
+            0.07500000298023224,
+            -0.9548498392105103,
+            -0.9548498392105103,
+            0.12014999240636826,
+            0.12014999240636826
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 0.1666666716337204,
+          "rotation": 0.0,
+          "color": [
+            -3.174999952316284,
+            -3.25,
+            -3.25,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 50,
+          "type": 0,
+          "position": [
+            311.0,
+            255.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            38.0,
+            -38.0,
+            -38.0,
+            38.0,
+            -120.79989624023438,
+            -120.79989624023438,
+            15.20009994506836,
+            15.20009994506836
+          ],
+          "textureId": 6.0,
+          "animationType": 3,
+          "animationDelta": 0.1666666716337204,
+          "rotation": 0.0,
+          "color": [
+            128.0,
+            0.0,
+            0.0,
+            150.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "vig_fire_01.bmp",
+        "vig_fire_02.bmp",
+        "vig_fire_03.bmp",
+        "vig_fire_04.bmp",
+        "vig_fire_05.bmp",
+        "vig_fire_06.bmp",
+        "vig_fire_07.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 12,
+          "type": 0,
+          "position": [
+            333.0,
+            325.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -32.0,
+            32.0,
+            32.0,
+            -32.0,
+            -60.400001525878906,
+            -60.400001525878906,
+            7.599999904632568,
+            7.599999904632568
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 0.1666666716337204,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            130.0,
+            130.0,
+            150.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 12,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            -0.1652534008026123,
+            -0.1652534008026123,
+            0.020793016999959946,
+            0.020793016999959946
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 0.1666666716337204,
+          "rotation": 0.0,
+          "color": [
+            -2.953488349914551,
+            -3.0232558250427246,
+            -3.0232558250427246,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 55,
+          "type": 0,
+          "position": [
+            333.0,
+            325.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -32.0,
+            32.0,
+            32.0,
+            -32.0,
+            -67.50589752197266,
+            -67.50589752197266,
+            8.494099617004395,
+            8.494099617004395
+          ],
+          "textureId": 6.0,
+          "animationType": 3,
+          "animationDelta": 0.1666666716337204,
+          "rotation": 0.0,
+          "color": [
+            128.0,
+            0.0,
+            0.0,
+            150.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    }
+  ],
+  "effectId": "min_vigor_buff_653bbbb3a4cf",
+  "classification": "READY_MIN",
+  "variant": "MIN",
+  "role": "BUFF",
+  "scope": {
+    "profession": "dragon_knight",
+    "skillGroup": "dk_vigor"
+  },
+  "dependencies": [
+    {
+      "declared": "vig_fire_01.bmp",
+      "resolved": "texture/effect/dragon_knight/dk_vigor/vigor_buff/vig_fire_01.bmp",
+      "missing": false,
+      "hash": "be46b6c9a869652c8cf761061b7cbf71ee65f223f528b64f6d3b36647151c834",
+      "png": "textures/be/be46b6c9a869652c8cf761061b7cbf71ee65f223f528b64f6d3b36647151c834.png",
+      "width": 64,
+      "height": 85,
+      "bytes": 5301
+    },
+    {
+      "declared": "vig_fire_02.bmp",
+      "resolved": "texture/effect/dragon_knight/dk_vigor/vigor_buff/vig_fire_02.bmp",
+      "missing": false,
+      "hash": "97cee289bf1e1029a3213742439fa0afb9d73af0ee8532475017564b4b96d800",
+      "png": "textures/97/97cee289bf1e1029a3213742439fa0afb9d73af0ee8532475017564b4b96d800.png",
+      "width": 64,
+      "height": 85,
+      "bytes": 5170
+    },
+    {
+      "declared": "vig_fire_03.bmp",
+      "resolved": "texture/effect/dragon_knight/dk_vigor/vigor_buff/vig_fire_03.bmp",
+      "missing": false,
+      "hash": "e18b825d52ec6d0a6954a88cae03f1a71f76421c656c5e3870f4017bfbc516ee",
+      "png": "textures/e1/e18b825d52ec6d0a6954a88cae03f1a71f76421c656c5e3870f4017bfbc516ee.png",
+      "width": 64,
+      "height": 85,
+      "bytes": 5024
+    },
+    {
+      "declared": "vig_fire_04.bmp",
+      "resolved": "texture/effect/dragon_knight/dk_vigor/vigor_buff/vig_fire_04.bmp",
+      "missing": false,
+      "hash": "aeab4d811e0f60dd3b0c49974def37589470a20c5c545bbc305a665cfd57e0d0",
+      "png": "textures/ae/aeab4d811e0f60dd3b0c49974def37589470a20c5c545bbc305a665cfd57e0d0.png",
+      "width": 64,
+      "height": 85,
+      "bytes": 5283
+    },
+    {
+      "declared": "vig_fire_05.bmp",
+      "resolved": "texture/effect/dragon_knight/dk_vigor/vigor_buff/vig_fire_05.bmp",
+      "missing": false,
+      "hash": "bdd7700121e9d02a8f6b80535d0a2b74078db29a4ebbb3c66d8d5fd1a7e17efb",
+      "png": "textures/bd/bdd7700121e9d02a8f6b80535d0a2b74078db29a4ebbb3c66d8d5fd1a7e17efb.png",
+      "width": 64,
+      "height": 85,
+      "bytes": 4139
+    },
+    {
+      "declared": "vig_fire_06.bmp",
+      "resolved": "texture/effect/dragon_knight/dk_vigor/vigor_buff/vig_fire_06.bmp",
+      "missing": false,
+      "hash": "a2b1ae98d19d5d6a1321a418945302b16bf00f6979e799db7f9c91c19df22348",
+      "png": "textures/a2/a2b1ae98d19d5d6a1321a418945302b16bf00f6979e799db7f9c91c19df22348.png",
+      "width": 64,
+      "height": 85,
+      "bytes": 2803
+    },
+    {
+      "declared": "vig_fire_07.bmp",
+      "resolved": "texture/effect/dragon_knight/dk_vigor/vigor_buff/vig_fire_07.bmp",
+      "missing": false,
+      "hash": "bd3da9dd9e299bc4e0a9e899a1f891c034e31d044ee9f8710e34c26c0cba8d2f",
+      "png": "textures/bd/bd3da9dd9e299bc4e0a9e899a1f891c034e31d044ee9f8710e34c26c0cba8d2f.png",
+      "width": 64,
+      "height": 85,
+      "bytes": 1779
+    }
+  ],
+  "assetPathMode": "library-root-relative",
+  "renderer": {
+    "mode": "V81 approximate-2d",
+    "notes": "Timeline/layers/textures/color/rotation supported; perspective and exact GL blends approximated."
+  }
+}

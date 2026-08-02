@@ -1,0 +1,134 @@
+{
+  "schema": "ro-web-incremental-manifest-0.9.82IE-1.0",
+  "baseVersion": "0.9.82ID",
+  "version": "0.9.82IE",
+  "description": "V92 ground-effect target world-coordinate snapshot and Acidified Zone anchor correction.",
+  "entries": [
+    {
+      "path": "CHANGELOG.md",
+      "size": 14803,
+      "sha256": "eb35f6640a8a72ac9a1131ca3bd8d16ffd262694da2b2d9af382dab87d61548a",
+      "change": "modified"
+    },
+    {
+      "path": "DEEP_HEALTH_0.9.82IE.json",
+      "size": 2044,
+      "sha256": "d0e599d122f6ea0c0e7656cc61b7a6f4d2c57a2af20175083f1e5b6fd2312253",
+      "change": "added"
+    },
+    {
+      "path": "README.md",
+      "size": 4644,
+      "sha256": "a1355283207d6be44c5791e00e161f01ea79d5a61c6e387a6cceb1e9b1365e01",
+      "change": "modified"
+    },
+    {
+      "path": "RO_WEB_0.9.82IE_RELEASE_SUMMARY.json",
+      "size": 1229,
+      "sha256": "33738b5637a0e1a1b307e217b8cde97a2b00554d0a993bc810b2fa48048f0896",
+      "change": "added"
+    },
+    {
+      "path": "SKILL_EFFECT_ANCHOR_POLICY_AUDIT_0.9.82IE.json",
+      "size": 6694,
+      "sha256": "84c56775b4a02289b683ccd3686f5d8dee917e8933d3df8f0b4cda0a0434bb6a",
+      "change": "added"
+    },
+    {
+      "path": "TEST_REPORT_0.9.82IE_BROWSER_UI_CONTRACT.json",
+      "size": 881,
+      "sha256": "841278093e6b85bb6cc513c2bdd992e7ebfee008450741a1c0e7487407213ba5",
+      "change": "added"
+    },
+    {
+      "path": "TEST_REPORT_0.9.82IE_BROWSER_UI_CONTRACT.txt",
+      "size": 529,
+      "sha256": "4d27b9ac71a3796606a6f4896e5afaf8e305b88b62ab6afd696ac35c14511f6a",
+      "change": "added"
+    },
+    {
+      "path": "TEST_REPORT_0.9.82IE_REGRESSION.json",
+      "size": 847,
+      "sha256": "acf2c62877055eec5ac05609764bc4fd65c9fe3dddbb46b15d2a0918f4a58e9a",
+      "change": "added"
+    },
+    {
+      "path": "TEST_REPORT_0.9.82IE_REGRESSION.txt",
+      "size": 600,
+      "sha256": "4c9a105f59e2ca9fa45e20f44b51aaf8c95f2a06b194395712e41ab2c454acf1",
+      "change": "added"
+    },
+    {
+      "path": "TEST_REPORT_0.9.82IE_SKILL_EFFECT_RUNTIME.json",
+      "size": 3709,
+      "sha256": "b97f704c4071c676f4d627c9f95628989594a4e1ecb7718befefd2f2ec9aa6b8",
+      "change": "added"
+    },
+    {
+      "path": "TEST_REPORT_0.9.82IE_SKILL_EFFECT_RUNTIME.txt",
+      "size": 402,
+      "sha256": "10ef5ab82c8929b340c08b005ba8d9eb0d5995b01656c87b96dd7e44d236c9f3",
+      "change": "added"
+    },
+    {
+      "path": "index.html",
+      "size": 54128,
+      "sha256": "d726d62aabd2330b21fa3132a3c23fe17bceee237cf1eee3a05d6027cbf1a148",
+      "change": "modified"
+    },
+    {
+      "path": "js/game.js",
+      "size": 19902,
+      "sha256": "e305f29d4ce8a3f96245bec54c2e8fc9b0e528fe680fee31054b5842405268bc",
+      "change": "modified"
+    },
+    {
+      "path": "js/player.js",
+      "size": 156022,
+      "sha256": "03d1909b023db1e0cb8d4c5512446ba09557112aafc19a08aef7d6c51d09c771",
+      "change": "modified"
+    },
+    {
+      "path": "js/skill_effect_runtime_v92.js",
+      "size": 36392,
+      "sha256": "2c3a860580b8b623deb0682dcb636b9e8f8e923419aa8ea4ab1f984caefed68e",
+      "change": "modified"
+    },
+    {
+      "path": "tools/deep_health_check_0.9.82IE.py",
+      "size": 37194,
+      "sha256": "2cf77f041efc112b96022e948e55f2728caa29ebbfc8b8e2fa5db88e6a33a42c",
+      "change": "added"
+    },
+    {
+      "path": "tools/test_browser_ui_contract_0.9.82IE.py",
+      "size": 4136,
+      "sha256": "cc5f79322884ba54f94a02ebd762b53fc61da9590c2a379aa3a0aa2dc43de28a",
+      "change": "added"
+    },
+    {
+      "path": "tools/test_hotfix_0.9.82IE.js",
+      "size": 8209,
+      "sha256": "00aa90e7b0c30f1c36c56ffd4a9de41e250eb60a71a7bc134dd704b75f10e316",
+      "change": "added"
+    },
+    {
+      "path": "tools/test_skill_effect_integration_0.9.82IE.py",
+      "size": 7344,
+      "sha256": "1014ab2a524ac169738ec1d24be0cc22ba9b996b20ee57d88be39481e610f9a7",
+      "change": "added"
+    },
+    {
+      "path": "tools/test_skill_effect_runtime_0.9.82IE.js",
+      "size": 6114,
+      "sha256": "b8279b3393f6804fe707d6cf0ee0b329dad6cc7516d7d43381180bafd2bc9f6f",
+      "change": "added"
+    }
+  ],
+  "removedFiles": [],
+  "summary": {
+    "changedOrAddedFiles": 20,
+    "removedFiles": 0,
+    "changedBytes": 365823
+  }
+}

@@ -12,7 +12,7 @@ const SAVE_LEASE_HEARTBEAT_MS = 5 * 1000;
 const SAVE_LEASE_STALE_MS = 20 * 1000;
 const RO_WEB_SAVE_SCHEMA = "ro_web_player_save_v2";
 const RO_WEB_SAVE_FORMAT_VERSION = 2;
-const RO_WEB_SAVE_APP_VERSION = "0.9.82IA";
+const RO_WEB_SAVE_APP_VERSION = "0.9.82IE";
 const RO_WEB_SAVE_DB_NAME = "ro_web_offline_save_v1";
 const RO_WEB_SAVE_DB_VERSION = 1;
 const RO_WEB_SAVE_DB_STORE = "player_saves";
@@ -3464,10 +3464,17 @@ function consumeItem(itemData) {
   const appliedArmorEndow = isArmorEndowItem ? applyArmorElementEndowFromItem(itemData) : false;
   if ((isPhysicalEndowItem && !appliedPhysicalEndow) || (isArmorEndowItem && !appliedArmorEndow)) return;
 
-  // 0.9.82HQ：官方消耗品 Script 先交由安全 Runtime。支援的效果完整套用；
-  // 尚未實作的寵物／製作／Item Group 等機制只提示，不可再默默扣除道具。
-  const runtimeUse = window.ConsumableRuntime?.apply?.(itemData, inventoryItem);
-  if (runtimeUse?.handled) return runtimeUse.applied === true;
+  // 0.9.82IC：屬性附加已由上方專用 Runtime 完整處理。
+  // 肯貝特／暗水的官方 Script 使用 itemskill ITEM_ENCHANTARMS；通用安全 Runtime
+  // 會把 itemskill 視為未支援機制。若再次送入，會在 Buff 已套用後提早 return，
+  // 造成道具不扣除、畫面看起來像無法使用。屬性附加品因此直接跳過通用解析，
+  // 沿用下方統一扣除、冷卻、UI 與存檔流程。
+  if (!isPhysicalEndowItem && !isArmorEndowItem) {
+    // 0.9.82HQ：官方消耗品 Script 先交由安全 Runtime。支援的效果完整套用；
+    // 尚未實作的寵物／製作／Item Group 等機制只提示，不可再默默扣除道具。
+    const runtimeUse = window.ConsumableRuntime?.apply?.(itemData, inventoryItem);
+    if (runtimeUse?.handled) return runtimeUse.applied === true;
+  }
 
   // 物品腳本優先：支援 itemheal 與 sc_end。這讓蜂膠、萬能藥及未來新增的異常解除品
   // 不必再在 consumeItem() 內建立逐項白名單。

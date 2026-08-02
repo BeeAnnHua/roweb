@@ -13,6 +13,7 @@ const INITIAL_STATUS_POINTS = 25;
 // 戰鬥中的 HP／SP／EXP 更新不可反覆重建整個進階屬性 DOM；
 // 視窗關閉時完全停更，使用者滾動進階內容時延後重繪，避免滾輪卡頓。
 const STATUS_UI_REFRESH_MIN_MS = 120;
+const STATUS_UI_AUTOBATTLE_REFRESH_MIN_MS = 2500;
 const STATUS_ADVANCED_SCROLL_IDLE_MS = 650;
 const STATUS_CONTROL_INTERACTION_GUARD_MS = 420;
 let statusUiRefreshTimer = null;
@@ -93,9 +94,17 @@ function requestStatusUIUpdate(options = {}) {
     return true;
   }
 
+  // 0.9.82ID：掛機中素質欄只保留開窗時的完整快照。
+  // HP／SP／EXP 仍由主 HUD 即時更新；避免每次戰鬥結算都重建整個素質與進階面板，
+  // 造成自動戰鬥 timer 長時間飢餓、只轉向而無法攻擊。
+  if (typeof isAutoBattleRunning === "function" && isAutoBattleRunning()) return true;
+
   const now = typeof performance !== "undefined" && performance.now ? performance.now() : Date.now();
+  const combatRefreshMinMs = (typeof isAutoBattleRunning === "function" && isAutoBattleRunning())
+    ? STATUS_UI_AUTOBATTLE_REFRESH_MIN_MS
+    : STATUS_UI_REFRESH_MIN_MS;
   const renderAfter = Math.max(
-    statusUiLastRenderAt + STATUS_UI_REFRESH_MIN_MS,
+    statusUiLastRenderAt + combatRefreshMinMs,
     player.statusAdvancedExpanded ? statusAdvancedInteractionUntil : 0,
     statusControlInteractionUntil
   );
@@ -120,7 +129,9 @@ function handleStatusWindowVisibilityChange(isOpen) {
     return false;
   }
   ensureStatusControlInteractionBinding();
-  return requestStatusUIUpdate({ force: true });
+  const rendered = requestStatusUIUpdate({ force: true, reason: "status_window_open" });
+  if (typeof wakeAutoBattleScheduler === "function") wakeAutoBattleScheduler("status_window_open");
+  return rendered;
 }
 
 async function loadStatusData() {

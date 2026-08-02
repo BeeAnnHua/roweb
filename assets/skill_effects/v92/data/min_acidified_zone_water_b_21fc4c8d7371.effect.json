@@ -1,0 +1,268 @@
+{
+  "schema": "ro-effect-str-1.1",
+  "source": "acidified_zone_water/acidified_zone_water_b/min_acidified_zone_water_b.str",
+  "version": 148,
+  "fps": 60,
+  "frameCount": 39,
+  "durationSeconds": 0.65,
+  "layers": [
+    {
+      "textures": [],
+      "keyframes": []
+    },
+    {
+      "textures": [
+        "aci_crack_00.bmp",
+        "aci_crack_01.bmp",
+        "aci_crack_02.bmp",
+        "aci_crack_03.bmp",
+        "aci_crack_04.bmp",
+        "aci_crack_05.bmp",
+        "aci_crack_06.bmp",
+        "aci_crack_07.bmp",
+        "aci_crack_08.bmp",
+        "aci_crack_09.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 0,
+          "type": 0,
+          "position": [
+            318.0,
+            303.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -96.0,
+            96.0,
+            96.0,
+            -96.0,
+            -80.0,
+            -80.0,
+            80.0,
+            80.0
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            100.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 0,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 39,
+          "type": 0,
+          "position": [
+            318.0,
+            303.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -96.0,
+            96.0,
+            96.0,
+            -96.0,
+            -80.0,
+            -80.0,
+            80.0,
+            80.0
+          ],
+          "textureId": 9.0,
+          "animationType": 2,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            100.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    }
+  ],
+  "effectId": "min_acidified_zone_water_b_21fc4c8d7371",
+  "classification": "READY_MIN",
+  "variant": "MIN",
+  "role": "MAIN",
+  "scope": {
+    "profession": "acidified_zone_water",
+    "skillGroup": "acidified_zone_water_b"
+  },
+  "dependencies": [
+    {
+      "declared": "aci_crack_00.bmp",
+      "resolved": "acidified_zone_water/acidified_zone_water_b/aci_crack_00.bmp",
+      "missing": false,
+      "hash": "daa168ae9c7c20abe4fade045fc657dd03f101889e8ce9061d1cf5429ba45f0b",
+      "png": "textures/da/daa168ae9c7c20abe4fade045fc657dd03f101889e8ce9061d1cf5429ba45f0b.png",
+      "width": 128,
+      "height": 107,
+      "bytes": 2452
+    },
+    {
+      "declared": "aci_crack_01.bmp",
+      "resolved": "acidified_zone_water/acidified_zone_water_b/aci_crack_01.bmp",
+      "missing": false,
+      "hash": "ca0982f41d0e71f86fcadb69214e36f98e9c7b58f3d918b2cc71dd072206689b",
+      "png": "textures/ca/ca0982f41d0e71f86fcadb69214e36f98e9c7b58f3d918b2cc71dd072206689b.png",
+      "width": 128,
+      "height": 107,
+      "bytes": 13394
+    },
+    {
+      "declared": "aci_crack_02.bmp",
+      "resolved": "acidified_zone_water/acidified_zone_water_b/aci_crack_02.bmp",
+      "missing": false,
+      "hash": "ff4eaebb08c6e4a83ac68a4d26aeaf29f8a7d6585de301562bedcfbff38f37a0",
+      "png": "textures/ff/ff4eaebb08c6e4a83ac68a4d26aeaf29f8a7d6585de301562bedcfbff38f37a0.png",
+      "width": 128,
+      "height": 107,
+      "bytes": 14729
+    },
+    {
+      "declared": "aci_crack_03.bmp",
+      "resolved": "acidified_zone_water/acidified_zone_water_b/aci_crack_03.bmp",
+      "missing": false,
+      "hash": "1549fefb6f1ec9d4063c29bc328f25888ec95c97906447158c620b10daa3db31",
+      "png": "textures/15/1549fefb6f1ec9d4063c29bc328f25888ec95c97906447158c620b10daa3db31.png",
+      "width": 128,
+      "height": 107,
+      "bytes": 10359
+    },
+    {
+      "declared": "aci_crack_04.bmp",
+      "resolved": "acidified_zone_water/acidified_zone_water_b/aci_crack_04.bmp",
+      "missing": false,
+      "hash": "e6ef798ffd7cbe94757068588a2e358184e98e25795b16e467165b720c6d5d14",
+      "png": "textures/e6/e6ef798ffd7cbe94757068588a2e358184e98e25795b16e467165b720c6d5d14.png",
+      "width": 128,
+      "height": 107,
+      "bytes": 8768
+    },
+    {
+      "declared": "aci_crack_05.bmp",
+      "resolved": "acidified_zone_water/acidified_zone_water_b/aci_crack_05.bmp",
+      "missing": false,
+      "hash": "59354be96d7c5d0962b334e9f604cdfdd5e36662bb2aa3f842745bee86bb4a43",
+      "png": "textures/59/59354be96d7c5d0962b334e9f604cdfdd5e36662bb2aa3f842745bee86bb4a43.png",
+      "width": 128,
+      "height": 107,
+      "bytes": 8765
+    },
+    {
+      "declared": "aci_crack_06.bmp",
+      "resolved": "acidified_zone_water/acidified_zone_water_b/aci_crack_06.bmp",
+      "missing": false,
+      "hash": "e6bbd441ef3b056b0324e0bc9b95b4267909a85617e57206c6c72bcd72165873",
+      "png": "textures/e6/e6bbd441ef3b056b0324e0bc9b95b4267909a85617e57206c6c72bcd72165873.png",
+      "width": 128,
+      "height": 107,
+      "bytes": 7605
+    },
+    {
+      "declared": "aci_crack_07.bmp",
+      "resolved": "acidified_zone_water/acidified_zone_water_b/aci_crack_07.bmp",
+      "missing": false,
+      "hash": "469cad2b44cfb0b89cace13eba9fa99d96d1a38c6b4b4e64f500cf3c740a6407",
+      "png": "textures/46/469cad2b44cfb0b89cace13eba9fa99d96d1a38c6b4b4e64f500cf3c740a6407.png",
+      "width": 128,
+      "height": 107,
+      "bytes": 7434
+    },
+    {
+      "declared": "aci_crack_08.bmp",
+      "resolved": "acidified_zone_water/acidified_zone_water_b/aci_crack_08.bmp",
+      "missing": false,
+      "hash": "e4483737d7b3166f4bc22b16ea200204b9682bcb59136e846d4a2035ce9aaa22",
+      "png": "textures/e4/e4483737d7b3166f4bc22b16ea200204b9682bcb59136e846d4a2035ce9aaa22.png",
+      "width": 128,
+      "height": 107,
+      "bytes": 6022
+    },
+    {
+      "declared": "aci_crack_09.bmp",
+      "resolved": "acidified_zone_water/acidified_zone_water_b/aci_crack_09.bmp",
+      "missing": false,
+      "hash": "0530606e168533865683565af30f2e51b556736b6ecb684446589e66558cb041",
+      "png": "textures/05/0530606e168533865683565af30f2e51b556736b6ecb684446589e66558cb041.png",
+      "width": 128,
+      "height": 107,
+      "bytes": 3036
+    }
+  ],
+  "assetPathMode": "library-root-relative",
+  "renderer": {
+    "mode": "V81 approximate-2d",
+    "notes": "Timeline/layers/textures/color/rotation supported; perspective and exact GL blends approximated."
+  }
+}

@@ -1,0 +1,202 @@
+{
+  "schema": "ro-web-incremental-manifest-1.0",
+  "version": "0.9.82IC",
+  "baseVersion": "0.9.82IB",
+  "title": "Auto Battle Stability / Fixed Fly / Boss Escape / Death Visibility / Elemental Converter Hotfix",
+  "createdUnix": 1785649648,
+  "summary": {
+    "added": 17,
+    "modified": 12,
+    "deleted": 0,
+    "payloadFiles": 29
+  },
+  "apply": "Extract the patch ZIP over a clean RO_WEB 0.9.82IB project, preserving relative paths. No files are deleted in this update.",
+  "files": [
+    {
+      "path": "DEEP_HEALTH_0.9.82IC.json",
+      "action": "add",
+      "bytes": 2044,
+      "sha256": "058f696ae6623f505aad259f2b0d71b72646c27a3a4c6d9f157ae73524ef3e80"
+    },
+    {
+      "path": "RO_WEB_0.9.82IC_BUILD_SUMMARY.json",
+      "action": "add",
+      "bytes": 2592,
+      "sha256": "2b7980cd2dc82765961a92b951e433daebd870c901983737b40e21fa13f655c4"
+    },
+    {
+      "path": "RO_WEB_0.9.82IC_CHANGED_FILES.txt",
+      "action": "add",
+      "bytes": 920,
+      "sha256": "458e27f6052982eb1a0c5cbb0d6c7dcce663674bd3edd11f2cef6b0ed01ccc6e"
+    },
+    {
+      "path": "TEST_REPORT_0.9.82IC_AUTO_BATTLE_HOTFIX.json",
+      "action": "add",
+      "bytes": 8303,
+      "sha256": "2db7b4bba8c3585599016fa78f9e8f0ffaa5520c2c2f4f67556432b0745280b5"
+    },
+    {
+      "path": "TEST_REPORT_0.9.82IC_AUTO_BATTLE_HOTFIX.txt",
+      "action": "add",
+      "bytes": 645,
+      "sha256": "def7998983659457c7b08ef76e947949a38547cf080b9bdba2cfe460a68768ae"
+    },
+    {
+      "path": "TEST_REPORT_0.9.82IC_BROWSER_UI_CONTRACT.json",
+      "action": "add",
+      "bytes": 807,
+      "sha256": "d4cf2c25b1f8e92dab705e57d5f7e742e9075a2b894da535ce3cf4395b69d43d"
+    },
+    {
+      "path": "TEST_REPORT_0.9.82IC_BROWSER_UI_CONTRACT.txt",
+      "action": "add",
+      "bytes": 467,
+      "sha256": "7652c017e49fdddf1a0419f271cd59beb672f019f561a6c640a06a5692702daf"
+    },
+    {
+      "path": "TEST_REPORT_0.9.82IC_FIRE_CONVERTER.json",
+      "action": "add",
+      "bytes": 940,
+      "sha256": "92712833aaefde816d386fc5a038464614b3c658ec976633aab26e5da3c2768b"
+    },
+    {
+      "path": "TEST_REPORT_0.9.82IC_FIRE_CONVERTER.txt",
+      "action": "add",
+      "bytes": 430,
+      "sha256": "6f41571a29101df6ad90f45db6d5d94af85368a921adb8606aa7c71d2b1ec17e"
+    },
+    {
+      "path": "TEST_REPORT_0.9.82IC_SKILL_EFFECT_RUNTIME.json",
+      "action": "add",
+      "bytes": 3111,
+      "sha256": "6861c40cbf3851b3d5edf88bd88d3b0c720db97f002b8dbf46ff6527797768db"
+    },
+    {
+      "path": "TEST_REPORT_0.9.82IC_SKILL_EFFECT_RUNTIME.txt",
+      "action": "add",
+      "bytes": 413,
+      "sha256": "913cd9870bcad97d804a9a0a89d0646b74b7ab0e1b1fc41c4c4599b2a8e355ac"
+    },
+    {
+      "path": "tools/deep_health_check_0.9.82IC.py",
+      "action": "add",
+      "bytes": 37194,
+      "sha256": "930700268cd66c8973f4efc2add35799453933c870bac1900d863555f5e60a39"
+    },
+    {
+      "path": "tools/test_auto_battle_hotfix_0.9.82IC.js",
+      "action": "add",
+      "bytes": 4798,
+      "sha256": "2e343a4428d29b1cc3440d21e67d08cd5e78df6e6985d23fd8e821f02ea0f21a"
+    },
+    {
+      "path": "tools/test_auto_battle_town_death_0.9.82IC.js",
+      "action": "add",
+      "bytes": 4047,
+      "sha256": "30b7bdcd30c3053b3a62cf60c1bb44d6e4a8bf0acfed1b4ea3ed35f09cab2b8b"
+    },
+    {
+      "path": "tools/test_browser_ui_contract_0.9.82IC.py",
+      "action": "add",
+      "bytes": 3930,
+      "sha256": "dd2746dd09aa23896845ff3049975ce78cb69c60a11db2ae892951839590d467"
+    },
+    {
+      "path": "tools/test_fire_converter_0.9.82IC.js",
+      "action": "add",
+      "bytes": 4521,
+      "sha256": "3ef9651c58a053062a19a1f632d378e7d87061f2ea663a172772128723a429d8"
+    },
+    {
+      "path": "tools/test_skill_effect_integration_0.9.82IC.py",
+      "action": "add",
+      "bytes": 6877,
+      "sha256": "85f75fb674291929d5b52ed7f2f6784aa16188f0d7a44d430b8b8de44b88a953"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "action": "replace",
+      "bytes": 12917,
+      "sha256": "887466ae26dd4578054a698e73989024df98472b8ef68e5bfd881218570ff704",
+      "baseSha256": "5ce1281b836dd39441cc63a0d13d0a4628f493d05cc0ddf99dba8b061c78f5d6"
+    },
+    {
+      "path": "css/style.css",
+      "action": "replace",
+      "bytes": 780308,
+      "sha256": "cc48cbc08fee140d8ef43f71f6b2831d4306ad840b1e083789c333cab2917cde",
+      "baseSha256": "fbc338e2407e7d27aa3a8c862ee2a5241a99e5b1e360387b88f192a9beb8d9cb"
+    },
+    {
+      "path": "index.html",
+      "action": "replace",
+      "bytes": 54128,
+      "sha256": "ba94e26de6464dca22d89be4c103fb86cf2f26be78e85c0fd2e6ac171dca76b7",
+      "baseSha256": "73fec36e0f45a78f7d27cc07b7857dd29948d68d901257a0711f6a18d61963a7"
+    },
+    {
+      "path": "js/auto_battle.js",
+      "action": "replace",
+      "bytes": 115315,
+      "sha256": "527b1ed8d326d7ea410169ad74b3885e54f5a781e5304a031c54b7ee60a3af4a",
+      "baseSha256": "7588d012f07547e2093d60aafffbac715ee9ee35cf700c5770d790084a96f88e"
+    },
+    {
+      "path": "js/battle.js",
+      "action": "replace",
+      "bytes": 94136,
+      "sha256": "7660460321528a20b4dda4b5dae8cab33d48347c3027403e73bdd01b6f0566d6",
+      "baseSha256": "681d3352ca044ae293e00780619178531adbc90d9426898204f533a636c19834"
+    },
+    {
+      "path": "js/death_revival_runtime.js",
+      "action": "replace",
+      "bytes": 14471,
+      "sha256": "26e46acfc9133f168d1179686dbd03336ef4d60c5911aa266c21f21685d5a5cf",
+      "baseSha256": "6b73cafb9d7e105b0950da500f649eeb146508cac3340d09f8711fda77871e95"
+    },
+    {
+      "path": "js/game.js",
+      "action": "replace",
+      "bytes": 19902,
+      "sha256": "fa522ed3b356669c8972dade2b8143cb5a8989514db1b2af04c19bf6b1ead298",
+      "baseSha256": "9480bda0e53bd0321a1a827df2415ba3599f5e357e0fdbd6e09d90276a767f66"
+    },
+    {
+      "path": "js/player.js",
+      "action": "replace",
+      "bytes": 156022,
+      "sha256": "b4611e59f1015dcc0d7c82b08f381c58b4444bbfbfee39287cf2a67ce3f9808b",
+      "baseSha256": "383d2368b03afea441ac590b93d8d00ad982bedefc9bb8b05270f31d714ff0d5"
+    },
+    {
+      "path": "js/position_engine.js",
+      "action": "replace",
+      "bytes": 87946,
+      "sha256": "42e490992f0fe1ce71a838c82f671e830643ab586d006391f879e3e53fff5ff1",
+      "baseSha256": "2f3802a3190c6a99e14d18ea766754590d8bf4e85ed3eca5f5ee0fc887ac5dd1"
+    },
+    {
+      "path": "js/status_system.js",
+      "action": "replace",
+      "bytes": 87128,
+      "sha256": "7d145f304f16e3ceeac72d39159c3f28f6c06b4b8ab2490e41dc835feace9cae",
+      "baseSha256": "24256b8a0dc23c797c2e22c84786e929ff60e5a3300023fa82656371ab7dc04a"
+    },
+    {
+      "path": "js/town.js",
+      "action": "replace",
+      "bytes": 38399,
+      "sha256": "a6784980a9f53751f485896b501ade482da81466e209ed0c4cc95a479e323199",
+      "baseSha256": "64a6eebffc8e1ab7cb79d78c99712197ab7350b58910c87da8656e325eb07242"
+    },
+    {
+      "path": "js/ui.js",
+      "action": "replace",
+      "bytes": 38262,
+      "sha256": "d7993d8a0619a0aba83692d2be0c2e85f4e1fc9f7e45e0184f13f27bd5d55811",
+      "baseSha256": "dec7fa35175fffa77167b1dbca89909638f51d892b8f6ca1a23ce2598ae194db"
+    }
+  ]
+}

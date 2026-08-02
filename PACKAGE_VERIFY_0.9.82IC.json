@@ -1,0 +1,95 @@
+{
+  "schema": "ro-web-package-verify-1.0",
+  "version": "0.9.82IC",
+  "baseVersion": "0.9.82IB",
+  "title": "RO_WEB 0.9.82IC Auto Battle Stability / Fixed Fly / Boss Escape / Death Visibility / Elemental Converter Hotfix",
+  "createdUnix": 1785649691,
+  "scope": {
+    "temporaryHotfix": true,
+    "v92ActiveSkillEffectsPreserved": {
+      "skills": 55,
+      "effects": 454,
+      "png": 2395
+    },
+    "runtimeSkillDataModified": false,
+    "saveVersion": "0.9.82IC"
+  },
+  "fixes": {
+    "alchemistAutoBattle": "Preserve saved attack skill slots through uninitialized UI renders; remove per-tick full DOM settings synchronization; throttle status-window full rebuilds during auto battle.",
+    "fixedFlyWing": {
+      "enabledByDefault": false,
+      "seconds": {
+        "min": 1,
+        "default": 10,
+        "max": 3600
+      },
+      "interruptsCombatAndCast": true,
+      "schedulerWakeDuringLongCast": true,
+      "positionNormalizationPersistence": true
+    },
+    "bossMvpImmediateEscape": "Global active-threat scan before current-target combat with 80ms utility wake while enabled.",
+    "townStop": "Conditional 回到村莊~~ 已停止自動掛機。 log and passive-retaliation suppression until explicit manual combat or auto battle restart.",
+    "deathUi": "No blur, lighter overlay, compact bottom-aligned dialog preserving the dead-character view.",
+    "elementalConverter": {
+      "ids": [
+        12020,
+        12114,
+        12115,
+        12116,
+        12117
+      ],
+      "defaultPhysicalElement": "Neutral unless weapon/card/active endow overrides it",
+      "sameElementRefresh": true,
+      "weaponSwitchSafe": true,
+      "consumesExactlyOne": true,
+      "durationMinutes": 20,
+      "rootCause": "Dedicated endow succeeded, but generic ITEM_ENCHANTARMS rejection returned before item consumption/persistence."
+    }
+  },
+  "tests": {
+    "hotfixSuites": {
+      "suites": 8,
+      "passed": 8,
+      "failed": 0
+    },
+    "fireConverter": {
+      "pass": true,
+      "checksPassed": 16,
+      "genericRuntimeCalls": 0
+    },
+    "chromiumUiContract": {
+      "pass": true,
+      "checksPassed": 11,
+      "checksTotal": 11
+    },
+    "v92SkillEffectRegression": {
+      "pass": true,
+      "skills": 55,
+      "effects": 454,
+      "strictEffectJson": 454,
+      "pngDependencyReferences": 4740,
+      "passiveRuntimeSkills": 216,
+      "candidatePassiveIntersection": 0,
+      "checksPassed": 24,
+      "checksTotal": 24
+    },
+    "deepHealth": {
+      "errors": 0,
+      "warnings": 0,
+      "status": "PASS"
+    }
+  },
+  "incremental": {
+    "added": 17,
+    "modified": 12,
+    "deleted": 0,
+    "payloadFiles": 29
+  },
+  "packageTree": {
+    "verificationScope": "all project files except PACKAGE_VERIFY_0.9.82IC.json itself",
+    "fileCount": 11689,
+    "totalBytes": 357187119,
+    "treeSha256": "b985ef21b331b0ffd2003fc282e557b955a3e38ddca85f45e0dcbef3aa941619"
+  },
+  "knownTestBoundary": "Direct localhost navigation is blocked by organization browser policy. Chromium was used for the actual CSS/UI contract; JavaScript runtime behavior was executed through Node VM/regression suites, and project-wide Deep Health reported zero errors/warnings."
+}

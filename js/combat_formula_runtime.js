@@ -203,6 +203,13 @@
       trace.critical={crate,multiplier:critMultiplier,targetReductionRate:critDef};
     }
     const flatRaceReduction=collectKeyed(target,'raceFlatReduction',sourceProfile.race);damage=Math.max(0,damage-flatRaceReduction);
+    // rAthena battle.cpp: mob_db DamageTaken is a final incoming-damage rate (default 100), minimum 1 for a successful non-zero hit.
+    // Example: Boitata uses DamageTaken:10. This is not IgnoreMagic; elemental compatibility is still evaluated normally.
+    const monsterDamageTakenRate=target!==window.player?Number(target?.DamageTaken??target?.damageTaken??target?.damagetaken??100):100;
+    if(damage>0&&Number.isFinite(monsterDamageTakenRate)&&monsterDamageTakenRate>=0&&monsterDamageTakenRate!==100){
+      damage=Math.max(1,Math.floor(damage*monsterDamageTakenRate/100));
+      trace.monsterDamageTakenRate=monsterDamageTakenRate;
+    }
     if(context.minimumDamage!==undefined&&damage>0)damage=Math.max(Number(context.minimumDamage)||0,damage);
     trace.attackBonuses=atk;trace.defenseBonuses=def;trace.flatRaceReduction=flatRaceReduction;trace.final=Math.max(0,damage);window.lastCombatFormulaTrace=trace;return Math.max(0,damage);
   }

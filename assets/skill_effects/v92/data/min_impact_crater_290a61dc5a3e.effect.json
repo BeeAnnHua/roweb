@@ -1,0 +1,725 @@
+{
+  "schema": "ro-effect-str-1.1",
+  "source": "texture/effect/shadow_cross/shc_impact_crater/impact_crater/min_impact_crater.str",
+  "version": 148,
+  "fps": 60,
+  "frameCount": 27,
+  "durationSeconds": 0.45,
+  "layers": [
+    {
+      "textures": [],
+      "keyframes": []
+    },
+    {
+      "textures": [
+        "imp_slash_07.tga",
+        "imp_slash_06.tga",
+        "imp_slash_05.tga",
+        "imp_slash_04.tga",
+        "imp_slash_03.tga",
+        "imp_slash_02.tga",
+        "imp_slash_01.tga",
+        "imp_slash_00.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 0,
+          "type": 0,
+          "position": [
+            310.0,
+            260.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            128.0,
+            -128.0,
+            -128.0,
+            128.0,
+            78.0,
+            78.0,
+            -78.0,
+            -78.0
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.4000000059604645,
+          "rotation": 312.8888854980469,
+          "color": [
+            45.0,
+            0.0,
+            0.0,
+            120.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 0,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.4000000059604645,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -3.5
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 20,
+          "type": 0,
+          "position": [
+            310.0,
+            260.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            128.0,
+            -128.0,
+            -128.0,
+            128.0,
+            78.0,
+            78.0,
+            -78.0,
+            -78.0
+          ],
+          "textureId": 7.0,
+          "animationType": 2,
+          "animationDelta": 0.4000000059604645,
+          "rotation": 312.8888854980469,
+          "color": [
+            45.0,
+            0.0,
+            0.0,
+            50.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "imp_slash_06.bmp",
+        "imp_slash_05.bmp",
+        "imp_slash_04.bmp",
+        "imp_slash_03.bmp",
+        "imp_slash_02.bmp",
+        "imp_slash_01.bmp",
+        "imp_slash_00.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 0,
+          "type": 0,
+          "position": [
+            310.0,
+            260.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            128.0,
+            -128.0,
+            -128.0,
+            128.0,
+            78.0,
+            78.0,
+            -78.0,
+            -78.0
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.4000000059604645,
+          "rotation": 312.8888854980469,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            150.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 0,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.4000000059604645,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -8.333333015441895
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 18,
+          "type": 0,
+          "position": [
+            310.0,
+            260.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            128.0,
+            -128.0,
+            -128.0,
+            128.0,
+            78.0,
+            78.0,
+            -78.0,
+            -78.0
+          ],
+          "textureId": 6.0,
+          "animationType": 2,
+          "animationDelta": 0.4000000059604645,
+          "rotation": 312.8888854980469,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "imp_slash_07.tga",
+        "imp_slash_06.tga",
+        "imp_slash_05.tga",
+        "imp_slash_04.tga",
+        "imp_slash_03.tga",
+        "imp_slash_02.tga",
+        "imp_slash_01.tga",
+        "imp_slash_00.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 2,
+          "type": 0,
+          "position": [
+            320.0,
+            280.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -140.5,
+            140.5,
+            140.5,
+            -140.5,
+            -87.0,
+            -87.0,
+            87.0,
+            87.0
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.3333333432674408,
+          "rotation": 0.0,
+          "color": [
+            45.0,
+            0.0,
+            0.0,
+            120.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 2,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            -0.8125,
+            0.8125,
+            0.8125,
+            -0.8125,
+            -0.5416666865348816,
+            -0.5416666865348816,
+            0.5416666865348816,
+            0.5416666865348816
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.3333333432674408,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -2.9166667461395264
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 26,
+          "type": 0,
+          "position": [
+            320.0,
+            280.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -160.0,
+            160.0,
+            160.0,
+            -160.0,
+            -100.0,
+            -100.0,
+            100.0,
+            100.0
+          ],
+          "textureId": 7.0,
+          "animationType": 2,
+          "animationDelta": 0.3333333432674408,
+          "rotation": 0.0,
+          "color": [
+            45.0,
+            0.0,
+            0.0,
+            50.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "imp_slash_06.bmp",
+        "imp_slash_05.bmp",
+        "imp_slash_04.bmp",
+        "imp_slash_03.bmp",
+        "imp_slash_02.bmp",
+        "imp_slash_01.bmp",
+        "imp_slash_00.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 2,
+          "type": 0,
+          "position": [
+            320.0,
+            280.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -140.5,
+            140.5,
+            140.5,
+            -140.5,
+            -87.0,
+            -87.0,
+            87.0,
+            87.0
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.3333333432674408,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            150.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 2,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            -0.9285714030265808,
+            0.9285714030265808,
+            0.9285714030265808,
+            -0.9285714030265808,
+            -0.6190476417541504,
+            -0.6190476417541504,
+            0.6190476417541504,
+            0.6190476417541504
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.3333333432674408,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -7.142857074737549
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 23,
+          "type": 0,
+          "position": [
+            320.0,
+            280.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -160.0,
+            160.0,
+            160.0,
+            -160.0,
+            -100.0,
+            -100.0,
+            100.0,
+            100.0
+          ],
+          "textureId": 6.0,
+          "animationType": 2,
+          "animationDelta": 0.3333333432674408,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    }
+  ],
+  "effectId": "min_impact_crater_290a61dc5a3e",
+  "classification": "READY_MIN",
+  "variant": "MIN",
+  "role": "MAIN",
+  "scope": {
+    "profession": "shadow_cross",
+    "skillGroup": "shc_impact_crater"
+  },
+  "dependencies": [
+    {
+      "declared": "imp_slash_07.tga",
+      "resolved": "texture/effect/shadow_cross/shc_impact_crater/impact_crater/imp_slash_07.tga",
+      "missing": false,
+      "hash": "005f62be97584800757fe6d936641b037ddd780af6507e9cd7da992724ff59d3",
+      "png": "textures/00/005f62be97584800757fe6d936641b037ddd780af6507e9cd7da992724ff59d3.png",
+      "width": 96,
+      "height": 65,
+      "bytes": 706
+    },
+    {
+      "declared": "imp_slash_06.tga",
+      "resolved": "texture/effect/shadow_cross/shc_impact_crater/impact_crater/imp_slash_06.tga",
+      "missing": false,
+      "hash": "61add9321356547b428bbfe137dfd3a9f37f97e8a9a453f13cd4d6dfa8b84b54",
+      "png": "textures/61/61add9321356547b428bbfe137dfd3a9f37f97e8a9a453f13cd4d6dfa8b84b54.png",
+      "width": 96,
+      "height": 65,
+      "bytes": 1215
+    },
+    {
+      "declared": "imp_slash_05.tga",
+      "resolved": "texture/effect/shadow_cross/shc_impact_crater/impact_crater/imp_slash_05.tga",
+      "missing": false,
+      "hash": "66c3db518534424652ea3cd0ce288281fd1b37aefbbc93513bd6fdef81a1670a",
+      "png": "textures/66/66c3db518534424652ea3cd0ce288281fd1b37aefbbc93513bd6fdef81a1670a.png",
+      "width": 96,
+      "height": 65,
+      "bytes": 2885
+    },
+    {
+      "declared": "imp_slash_04.tga",
+      "resolved": "texture/effect/shadow_cross/shc_impact_crater/impact_crater/imp_slash_04.tga",
+      "missing": false,
+      "hash": "60f1a2bff97a27fa8680f2566cd7723782cb5e4f10b93c7673e902c45f8b5995",
+      "png": "textures/60/60f1a2bff97a27fa8680f2566cd7723782cb5e4f10b93c7673e902c45f8b5995.png",
+      "width": 96,
+      "height": 65,
+      "bytes": 4010
+    },
+    {
+      "declared": "imp_slash_03.tga",
+      "resolved": "texture/effect/shadow_cross/shc_impact_crater/impact_crater/imp_slash_03.tga",
+      "missing": false,
+      "hash": "7773a4da0cd703d18c532f8efd4632da49782ed25dd54ac31c30eec0018647c6",
+      "png": "textures/77/7773a4da0cd703d18c532f8efd4632da49782ed25dd54ac31c30eec0018647c6.png",
+      "width": 96,
+      "height": 65,
+      "bytes": 4145
+    },
+    {
+      "declared": "imp_slash_02.tga",
+      "resolved": "texture/effect/shadow_cross/shc_impact_crater/impact_crater/imp_slash_02.tga",
+      "missing": false,
+      "hash": "d30076e26910c1c9270758445ed7494007d7b093135594216471fd912d2c664e",
+      "png": "textures/d3/d30076e26910c1c9270758445ed7494007d7b093135594216471fd912d2c664e.png",
+      "width": 96,
+      "height": 65,
+      "bytes": 3411
+    },
+    {
+      "declared": "imp_slash_01.tga",
+      "resolved": "texture/effect/shadow_cross/shc_impact_crater/impact_crater/imp_slash_01.tga",
+      "missing": false,
+      "hash": "458c3a82cdf964c9576a16a3cda2777386f3cd635c7ccb2b906ec00aa6e3cffc",
+      "png": "textures/45/458c3a82cdf964c9576a16a3cda2777386f3cd635c7ccb2b906ec00aa6e3cffc.png",
+      "width": 96,
+      "height": 65,
+      "bytes": 1702
+    },
+    {
+      "declared": "imp_slash_00.tga",
+      "resolved": "texture/effect/shadow_cross/shc_impact_crater/impact_crater/imp_slash_00.tga",
+      "missing": false,
+      "hash": "9cdda6383876ef7ed4eee1e4293215e4b89ded51bf9a52ec6542a79b7efe3bf8",
+      "png": "textures/9c/9cdda6383876ef7ed4eee1e4293215e4b89ded51bf9a52ec6542a79b7efe3bf8.png",
+      "width": 96,
+      "height": 65,
+      "bytes": 1598
+    },
+    {
+      "declared": "imp_slash_06.bmp",
+      "resolved": "texture/effect/shadow_cross/shc_impact_crater/impact_crater/imp_slash_06.bmp",
+      "missing": false,
+      "hash": "e2a64a05259501f0e07f6f7ee8a8ae3f78dca06c43d1fbfac0f2c9300352b02d",
+      "png": "textures/e2/e2a64a05259501f0e07f6f7ee8a8ae3f78dca06c43d1fbfac0f2c9300352b02d.png",
+      "width": 96,
+      "height": 65,
+      "bytes": 636
+    },
+    {
+      "declared": "imp_slash_05.bmp",
+      "resolved": "texture/effect/shadow_cross/shc_impact_crater/impact_crater/imp_slash_05.bmp",
+      "missing": false,
+      "hash": "e39a2607479a6e7064a98918ba26d4298f9432b98879214f0cea08f13c65e65d",
+      "png": "textures/e3/e39a2607479a6e7064a98918ba26d4298f9432b98879214f0cea08f13c65e65d.png",
+      "width": 96,
+      "height": 65,
+      "bytes": 1317
+    },
+    {
+      "declared": "imp_slash_04.bmp",
+      "resolved": "texture/effect/shadow_cross/shc_impact_crater/impact_crater/imp_slash_04.bmp",
+      "missing": false,
+      "hash": "e7a22a4b56223096c3129e75abfefb71fa3962a6486a75d76df80d92e67ff044",
+      "png": "textures/e7/e7a22a4b56223096c3129e75abfefb71fa3962a6486a75d76df80d92e67ff044.png",
+      "width": 96,
+      "height": 65,
+      "bytes": 2785
+    },
+    {
+      "declared": "imp_slash_03.bmp",
+      "resolved": "texture/effect/shadow_cross/shc_impact_crater/impact_crater/imp_slash_03.bmp",
+      "missing": false,
+      "hash": "cb29ee96d44e4c8d18c44475b9894d135e32985f3c652c091a515d163aabe200",
+      "png": "textures/cb/cb29ee96d44e4c8d18c44475b9894d135e32985f3c652c091a515d163aabe200.png",
+      "width": 96,
+      "height": 65,
+      "bytes": 2690
+    },
+    {
+      "declared": "imp_slash_02.bmp",
+      "resolved": "texture/effect/shadow_cross/shc_impact_crater/impact_crater/imp_slash_02.bmp",
+      "missing": false,
+      "hash": "53aa6fc1921bfb4712dc9b5c3f1dd2ab649dce539ce743e47d28b00f34a3e7db",
+      "png": "textures/53/53aa6fc1921bfb4712dc9b5c3f1dd2ab649dce539ce743e47d28b00f34a3e7db.png",
+      "width": 96,
+      "height": 65,
+      "bytes": 2468
+    },
+    {
+      "declared": "imp_slash_01.bmp",
+      "resolved": "texture/effect/shadow_cross/shc_impact_crater/impact_crater/imp_slash_01.bmp",
+      "missing": false,
+      "hash": "113306f665983fc14d269afd1959a19a3b8abaa4ad2e672b0eb88172ab627493",
+      "png": "textures/11/113306f665983fc14d269afd1959a19a3b8abaa4ad2e672b0eb88172ab627493.png",
+      "width": 96,
+      "height": 65,
+      "bytes": 1259
+    },
+    {
+      "declared": "imp_slash_00.bmp",
+      "resolved": "texture/effect/shadow_cross/shc_impact_crater/impact_crater/imp_slash_00.bmp",
+      "missing": false,
+      "hash": "47c88e025833252957c625828b4e61fc2c46a0963625780fa9079e9564ed7214",
+      "png": "textures/47/47c88e025833252957c625828b4e61fc2c46a0963625780fa9079e9564ed7214.png",
+      "width": 96,
+      "height": 65,
+      "bytes": 1153
+    }
+  ],
+  "assetPathMode": "library-root-relative",
+  "renderer": {
+    "mode": "V81 approximate-2d",
+    "notes": "Timeline/layers/textures/color/rotation supported; perspective and exact GL blends approximated."
+  }
+}

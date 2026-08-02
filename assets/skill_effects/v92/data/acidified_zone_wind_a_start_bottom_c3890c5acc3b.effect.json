@@ -1,0 +1,169 @@
+{
+  "schema": "ro-effect-str-1.1",
+  "source": "acidified_zone_wind/acidified_zone_wind_a_start_bottom/acidified_zone_wind_a_start_bottom.str",
+  "version": 148,
+  "fps": 60,
+  "frameCount": 10,
+  "durationSeconds": 0.166667,
+  "layers": [
+    {
+      "textures": [],
+      "keyframes": []
+    },
+    {
+      "textures": [
+        "aci_glow_3.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 0,
+          "type": 0,
+          "position": [
+            321.0,
+            299.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -0.0,
+            0.0,
+            0.0,
+            -0.0,
+            -0.0,
+            -0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            130.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 0,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            -6.800000190734863,
+            6.800000190734863,
+            6.800000190734863,
+            -6.800000190734863,
+            -3.700000047683716,
+            -3.700000047683716,
+            3.700000047683716,
+            3.700000047683716
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 10,
+          "type": 0,
+          "position": [
+            321.0,
+            299.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -68.0,
+            68.0,
+            68.0,
+            -68.0,
+            -37.0,
+            -37.0,
+            37.0,
+            37.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            130.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        }
+      ]
+    }
+  ],
+  "effectId": "acidified_zone_wind_a_start_bottom_c3890c5acc3b",
+  "classification": "READY_FULL",
+  "variant": "FULL",
+  "role": "START_BOTTOM",
+  "scope": {
+    "profession": "acidified_zone_wind",
+    "skillGroup": "acidified_zone_wind_a_start_bottom"
+  },
+  "dependencies": [
+    {
+      "declared": "aci_glow_3.tga",
+      "resolved": "acidified_zone_wind/acidified_zone_wind_a_start_bottom/aci_glow_3.tga",
+      "missing": false,
+      "hash": "5b2c1435d916cab4677d49b65e90b0c9bb1c9bb7910526676f3b8bebe8b2f05a",
+      "png": "textures/5b/5b2c1435d916cab4677d49b65e90b0c9bb1c9bb7910526676f3b8bebe8b2f05a.png",
+      "width": 90,
+      "height": 90,
+      "bytes": 4927
+    }
+  ],
+  "assetPathMode": "library-root-relative",
+  "renderer": {
+    "mode": "V81 approximate-2d",
+    "notes": "Timeline/layers/textures/color/rotation supported; perspective and exact GL blends approximated."
+  }
+}

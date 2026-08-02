@@ -1,0 +1,137 @@
+{
+  "version": "0.9.82IE",
+  "pass": true,
+  "summary": {
+    "skills": 55,
+    "effects": 454,
+    "strictEffectJson": 454,
+    "pngDependencyReferences": 4740,
+    "passiveRuntimeSkills": 216,
+    "candidatePassiveIntersection": 0,
+    "checksPassed": 28,
+    "checksTotal": 28
+  },
+  "checks": {
+    "manifest_skill_count": {
+      "pass": true,
+      "detail": 55
+    },
+    "manifest_effect_count": {
+      "pass": true,
+      "detail": 454
+    },
+    "passive_runtime_count": {
+      "pass": true,
+      "detail": 216
+    },
+    "candidate_passive_intersection_zero": {
+      "pass": true,
+      "detail": 0
+    },
+    "localization_writeback_disabled": {
+      "pass": true
+    },
+    "active_id_index_matches": {
+      "pass": true
+    },
+    "excluded_ids_absent": {
+      "pass": true
+    },
+    "no_passive_deployed": {
+      "pass": true,
+      "detail": []
+    },
+    "all_deployed_runtime_active": {
+      "pass": true
+    },
+    "timeline_effect_closure": {
+      "pass": true,
+      "detail": {
+        "refs": 454,
+        "effects": 454,
+        "missing": [],
+        "extra": []
+      }
+    },
+    "strict_effect_json_count": {
+      "pass": true,
+      "detail": 454
+    },
+    "all_png_dependencies_exist": {
+      "pass": true,
+      "detail": []
+    },
+    "dependency_count_nonzero": {
+      "pass": true,
+      "detail": 4740
+    },
+    "index_loads_v92_runtime": {
+      "pass": true
+    },
+    "begin_hook_present": {
+      "pass": true
+    },
+    "commit_hook_present": {
+      "pass": true
+    },
+    "hit_hook_present": {
+      "pass": true,
+      "detail": 2
+    },
+    "dynamic_passive_guard_present": {
+      "pass": true
+    },
+    "dual_canvas_present": {
+      "pass": true
+    },
+    "skill_end_lifecycle_present": {
+      "pass": true
+    },
+    "projectile_anchor_present": {
+      "pass": true
+    },
+    "ground_world_snapshot_policy_present": {
+      "pass": true
+    },
+    "acidified_ground_snapshot_ids_present": {
+      "pass": true
+    },
+    "world_coordinate_conversion_present": {
+      "pass": true
+    },
+    "buff_caster_live_policy_present": {
+      "pass": true
+    },
+    "version_updated": {
+      "pass": true
+    },
+    "node_syntax": {
+      "pass": true,
+      "detail": [
+        {
+          "file": "js/skill_effect_runtime_v92.js",
+          "returncode": 0,
+          "stderr": ""
+        },
+        {
+          "file": "js/skill_engine.js",
+          "returncode": 0,
+          "stderr": ""
+        },
+        {
+          "file": "js/game.js",
+          "returncode": 0,
+          "stderr": ""
+        }
+      ]
+    },
+    "node_vm_runtime_selftest": {
+      "pass": true,
+      "detail": {
+        "stdout": "[V92 SkillEffect] ready: 55 active skills / 454 effects; passive guard enabled.\n{\n  \"pass\": true,\n  \"checks\": {\n    \"ready\": true,\n    \"self_test\": true,\n    \"skill_count\": true,\n    \"effect_count\": true,\n    \"active_skill_eligible\": true,\n    \"converted_passive_not_candidate\": true,\n    \"dynamic_passive_guard\": true,\n    \"event_hooks\": true,\n    \"acidified_target_ground_snapshot\": true,\n    \"ground_spawn_snapshot\": true,\n    \"buff_caster_live\": true,\n    \"ordinary_target_live\": true,\n    \"projectile_live_endpoints\": true,\n    \"self_test_anchor_contract\": true,\n    \"back_canvas\": true,\n    \"front_canvas\": true\n  },\n  \"failed\": [],\n  \"status\": {\n    \"version\": \"0.9.82IE\",\n    \"ready\": true,\n    \"skills\": 55,\n    \"effects\": 454,\n    \"passiveCandidatesExcluded\": 0,\n    \"localizationWriteback\": false,\n    \"anchorPolicy\": \"CASTER_LIVE_TARGET_LIVE_GROUND_WORLD_SNAPSHOT\"\n  }\n}\n",
+        "stderr": ""
+      }
+    }
+  },
+  "errors": []
+}

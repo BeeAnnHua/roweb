@@ -30405,6 +30405,138 @@
     "animationPipeline": "RO Studio V78 monster batch output"
   },
   {
+    "id": 2190,
+    "officialId": 2190,
+    "aegisName": "COELACANTH_H_A",
+    "name": "暴力腔棘魚",
+    "raEnglishName": "Violent Coelacanth",
+    "level": 155,
+    "hp": 5200000,
+    "maxHp": 5200000,
+    "sp": 1,
+    "atk": 5500,
+    "atk2": 5500,
+    "def": 280,
+    "mdef": 280,
+    "res": 0,
+    "mres": 0,
+    "str": 260,
+    "agi": 260,
+    "vit": 260,
+    "int": 260,
+    "dex": 260,
+    "luk": 260,
+    "baseExp": 1500000,
+    "jobExp": 1650000,
+    "mvpExp": 0,
+    "drops": [
+      {
+        "itemId": 12617,
+        "chance": 7000,
+        "qtyMin": 1,
+        "qtyMax": 1,
+        "name": "Agrade_Pocket",
+        "stealProtected": false
+      },
+      {
+        "itemId": 12612,
+        "chance": 5000,
+        "qtyMin": 1,
+        "qtyMax": 1,
+        "name": "Old_Coin_Pocket",
+        "stealProtected": false
+      },
+      {
+        "itemId": 12623,
+        "chance": 5000,
+        "qtyMin": 1,
+        "qtyMax": 1,
+        "name": "High_Weapon_Box",
+        "stealProtected": false
+      },
+      {
+        "itemId": 12614,
+        "chance": 5000,
+        "qtyMin": 1,
+        "qtyMax": 1,
+        "name": "Mid_Coin_Pocket",
+        "stealProtected": false
+      },
+      {
+        "itemId": 12615,
+        "chance": 5000,
+        "qtyMin": 1,
+        "qtyMax": 1,
+        "name": "Low_Coin_Pocket",
+        "stealProtected": false
+      },
+      {
+        "itemId": 12615,
+        "chance": 5000,
+        "qtyMin": 1,
+        "qtyMax": 1,
+        "name": "Low_Coin_Pocket",
+        "stealProtected": false
+      },
+      {
+        "itemId": 617,
+        "chance": 5500,
+        "qtyMin": 1,
+        "qtyMax": 1,
+        "name": "Old_Violet_Box",
+        "mvpDrop": true
+      }
+    ],
+    "AttackRange": 1,
+    "SkillRange": 10,
+    "ChaseRange": 12,
+    "WalkSpeed": 165,
+    "AttackDelay": 864,
+    "AttackMotion": 864,
+    "ClientAttackMotion": 336,
+    "DamageMotion": 432,
+    "DamageTaken": 100,
+    "Ai": "21",
+    "ai": 21,
+    "Modes": [
+      "IgnoreMelee",
+      "IgnoreRanged",
+      "Mvp"
+    ],
+    "behavior": {
+      "canMove": true,
+      "canAttack": true,
+      "aggressive": true,
+      "randomWalk": true,
+      "castSensorIdle": true,
+      "castSensorChase": true,
+      "source": "rAthena Renewal Ai 21 + Modes (IgnoreMelee / IgnoreRanged / Mvp)"
+    },
+    "passive": false,
+    "aggressive": true,
+    "detector": false,
+    "size": "Large",
+    "race": "Fish",
+    "element": "Water",
+    "elementLevel": 2,
+    "monsterClass": "Boss",
+    "isBoss": true,
+    "isMvp": true,
+    "displayScale": 1.5,
+    "combatSource": "rAthena Renewal db/re/mob_db.yml ID 2190",
+    "animationAtlas": "assets/monsters/animations/2189/2189.png",
+    "animationAtlases": [
+      "assets/monsters/animations/2189/2189.png"
+    ],
+    "animationJson": "assets/monsters/animations/2189/2189.json",
+    "animationSchema": "ro_web_monster_animation_v2_shared_4dir",
+    "useAnimatedAtlas": true,
+    "supportsFrameFlipX": true,
+    "animationPipeline": "RO Studio V78 monster batch output",
+    "animationSharedFromMonsterId": 2189,
+    "animationShareReason": "RO Studio atlas usedByMonsterIds includes 2189 and 2190 (same coelacanth_h sprite)"
+  },
+  {
     "id": 2202,
     "officialId": 2202,
     "aegisName": "KRAKEN",

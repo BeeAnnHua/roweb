@@ -1,0 +1,642 @@
+{
+  "schema": "ro-effect-str-1.1",
+  "source": "texture/effect/dragon_knight/dk_servantweapon/servantweapon_hit/min_servantweapon_hit.str",
+  "version": 148,
+  "fps": 60,
+  "frameCount": 60,
+  "durationSeconds": 1.0,
+  "layers": [
+    {
+      "textures": [],
+      "keyframes": []
+    },
+    {
+      "textures": [
+        "sav_hit_00.bmp",
+        "sav_hit_01.bmp",
+        "sav_hit_02.bmp",
+        "sav_hit_03.bmp",
+        "sav_hit_04.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 0,
+          "type": 0,
+          "position": [
+            320.0,
+            230.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -41.5,
+            41.5,
+            41.5,
+            -41.5,
+            -96.0,
+            -96.0,
+            96.0,
+            96.0
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.5,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            100.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 0,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.5,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 10,
+          "type": 0,
+          "position": [
+            320.0,
+            230.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -41.5,
+            41.5,
+            41.5,
+            -41.5,
+            -96.0,
+            -96.0,
+            96.0,
+            96.0
+          ],
+          "textureId": 4.0,
+          "animationType": 2,
+          "animationDelta": 0.5,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            100.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "sav_hitsub_00.bmp",
+        "sav_hitsub_01.bmp",
+        "sav_hitsub_02.bmp",
+        "sav_hitsub_03.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 0,
+          "type": 0,
+          "position": [
+            350.0,
+            270.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -50.5,
+            50.5,
+            50.5,
+            -50.5,
+            -46.5,
+            -46.5,
+            46.5,
+            46.5
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.5,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            100.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 0,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.125,
+            -0.125,
+            -0.125,
+            0.125,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.5,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 8,
+          "type": 0,
+          "position": [
+            350.0,
+            270.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -49.5,
+            49.5,
+            49.5,
+            -49.5,
+            -46.5,
+            -46.5,
+            46.5,
+            46.5
+          ],
+          "textureId": 3.0,
+          "animationType": 2,
+          "animationDelta": 0.5,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            100.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "sav_hitsub_00.bmp",
+        "sav_hitsub_01.bmp",
+        "sav_hitsub_02.bmp",
+        "sav_hitsub_03.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 0,
+          "type": 0,
+          "position": [
+            290.0,
+            270.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            50.5,
+            -50.5,
+            -50.5,
+            50.5,
+            -46.5,
+            -46.5,
+            46.5,
+            46.5
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.5,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            100.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 0,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.5,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 8,
+          "type": 0,
+          "position": [
+            290.0,
+            270.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            50.5,
+            -50.5,
+            -50.5,
+            50.5,
+            -46.5,
+            -46.5,
+            46.5,
+            46.5
+          ],
+          "textureId": 3.0,
+          "animationType": 2,
+          "animationDelta": 0.5,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            100.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 9,
+          "type": 0,
+          "position": [
+            290.0,
+            270.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            50.5,
+            -50.5,
+            -50.5,
+            50.5,
+            -46.5,
+            -46.5,
+            46.5,
+            46.5
+          ],
+          "textureId": 3.0,
+          "animationType": 2,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 9,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 60,
+          "type": 0,
+          "position": [
+            290.0,
+            270.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            50.5,
+            -50.5,
+            -50.5,
+            50.5,
+            -46.5,
+            -46.5,
+            46.5,
+            46.5
+          ],
+          "textureId": 3.0,
+          "animationType": 2,
+          "animationDelta": 0.5,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    }
+  ],
+  "effectId": "min_servantweapon_hit_20636448e32f",
+  "classification": "READY_MIN",
+  "variant": "MIN",
+  "role": "HIT",
+  "scope": {
+    "profession": "dragon_knight",
+    "skillGroup": "dk_servantweapon"
+  },
+  "dependencies": [
+    {
+      "declared": "sav_hit_00.bmp",
+      "resolved": "texture/effect/dragon_knight/dk_servantweapon/servantweapon_hit/sav_hit_00.bmp",
+      "missing": false,
+      "hash": "3eba5f1566bbb07b19a3ca7a0c30dac505f8d4ce76632f1856ac64d2111beab1",
+      "png": "textures/3e/3eba5f1566bbb07b19a3ca7a0c30dac505f8d4ce76632f1856ac64d2111beab1.png",
+      "width": 104,
+      "height": 128,
+      "bytes": 3631
+    },
+    {
+      "declared": "sav_hit_01.bmp",
+      "resolved": "texture/effect/dragon_knight/dk_servantweapon/servantweapon_hit/sav_hit_01.bmp",
+      "missing": false,
+      "hash": "1be40dccfa50e6a322f597eef09022bbbca5ac63d566fa047a1db1203ccf3e65",
+      "png": "textures/1b/1be40dccfa50e6a322f597eef09022bbbca5ac63d566fa047a1db1203ccf3e65.png",
+      "width": 104,
+      "height": 128,
+      "bytes": 8589
+    },
+    {
+      "declared": "sav_hit_02.bmp",
+      "resolved": "texture/effect/dragon_knight/dk_servantweapon/servantweapon_hit/sav_hit_02.bmp",
+      "missing": false,
+      "hash": "b315b5854bf8b47f4b23c95ba3b887e1cbef591ac3df80dcc9758e8e177b81e7",
+      "png": "textures/b3/b315b5854bf8b47f4b23c95ba3b887e1cbef591ac3df80dcc9758e8e177b81e7.png",
+      "width": 104,
+      "height": 128,
+      "bytes": 8154
+    },
+    {
+      "declared": "sav_hit_03.bmp",
+      "resolved": "texture/effect/dragon_knight/dk_servantweapon/servantweapon_hit/sav_hit_03.bmp",
+      "missing": false,
+      "hash": "32cb18c1da0fc753cac3f33cbebf0114061126f499c845817157cf222ad0aa7b",
+      "png": "textures/32/32cb18c1da0fc753cac3f33cbebf0114061126f499c845817157cf222ad0aa7b.png",
+      "width": 104,
+      "height": 128,
+      "bytes": 5801
+    },
+    {
+      "declared": "sav_hit_04.bmp",
+      "resolved": "texture/effect/dragon_knight/dk_servantweapon/servantweapon_hit/sav_hit_04.bmp",
+      "missing": false,
+      "hash": "e642a3716f5f12bb752578b0ea612448144117b4a13cb597b121b0bba0ad40b6",
+      "png": "textures/e6/e642a3716f5f12bb752578b0ea612448144117b4a13cb597b121b0bba0ad40b6.png",
+      "width": 104,
+      "height": 128,
+      "bytes": 2817
+    },
+    {
+      "declared": "sav_hitsub_00.bmp",
+      "resolved": "texture/effect/dragon_knight/dk_servantweapon/servantweapon_hit/sav_hitsub_00.bmp",
+      "missing": false,
+      "hash": "05c79fea5123079a29c6e733b93a84b8970b46f5f23336afbd4f71a820b9cde6",
+      "png": "textures/05/05c79fea5123079a29c6e733b93a84b8970b46f5f23336afbd4f71a820b9cde6.png",
+      "width": 128,
+      "height": 104,
+      "bytes": 8433
+    },
+    {
+      "declared": "sav_hitsub_01.bmp",
+      "resolved": "texture/effect/dragon_knight/dk_servantweapon/servantweapon_hit/sav_hitsub_01.bmp",
+      "missing": false,
+      "hash": "ee42bb2a7d9d06a128a0586a28964d154b04658f4d2f7de3adb3dbba3306eb20",
+      "png": "textures/ee/ee42bb2a7d9d06a128a0586a28964d154b04658f4d2f7de3adb3dbba3306eb20.png",
+      "width": 128,
+      "height": 104,
+      "bytes": 7695
+    },
+    {
+      "declared": "sav_hitsub_02.bmp",
+      "resolved": "texture/effect/dragon_knight/dk_servantweapon/servantweapon_hit/sav_hitsub_02.bmp",
+      "missing": false,
+      "hash": "3c66af18fcbda19bce5c7503440c0148d9e29e05b979a85899291970fd80c488",
+      "png": "textures/3c/3c66af18fcbda19bce5c7503440c0148d9e29e05b979a85899291970fd80c488.png",
+      "width": 128,
+      "height": 104,
+      "bytes": 5199
+    },
+    {
+      "declared": "sav_hitsub_03.bmp",
+      "resolved": "texture/effect/dragon_knight/dk_servantweapon/servantweapon_hit/sav_hitsub_03.bmp",
+      "missing": false,
+      "hash": "41d81eec696d46f3a7a5d8dcaab3d19a6e69d58bcdef6d15f63d0a416c55ad48",
+      "png": "textures/41/41d81eec696d46f3a7a5d8dcaab3d19a6e69d58bcdef6d15f63d0a416c55ad48.png",
+      "width": 128,
+      "height": 104,
+      "bytes": 2971
+    }
+  ],
+  "assetPathMode": "library-root-relative",
+  "renderer": {
+    "mode": "V81 approximate-2d",
+    "notes": "Timeline/layers/textures/color/rotation supported; perspective and exact GL blends approximated."
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "version": "0.9.82IE",
+  "title": "V92 Ground Effect World Coordinate Snapshot Fix",
+  "baseVersion": "0.9.82ID",
+  "changes": [
+    "GROUND_CELL and GROUND_SPAWN capture target-foot world coordinates when the event fires.",
+    "Acidified Zone Water/Earth/Wind target-side START/BOTTOM/MAIN/HIT visuals use a ground world snapshot.",
+    "Caster buffs remain live on the player; normal target effects remain live on the monster; projectile endpoints remain live.",
+    "Saved world positions are reprojected through the current camera each frame and do not inherit player-relative offsets."
+  ],
+  "preserved": [
+    "55 active skill effects / 454 deployed effects and passive gate",
+    "0.9.82ID auto-battle/status panel recovery",
+    "MVP magic attribute corrections",
+    "refine risk warning, fixed fly, boss escape, death UI, converters"
+  ],
+  "testTargets": [
+    "Cast Acidified Zone on a monster, then move the player: effect stays at the original monster-ground point.",
+    "Move the monster after the ground burst starts: the saved ground layers do not follow it.",
+    "Use a buff: its visual still follows the player.",
+    "Use a projectile: it still travels from the live player to the live target."
+  ]
+}

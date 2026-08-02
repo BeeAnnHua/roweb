@@ -1,0 +1,2046 @@
+{
+  "schema": "ro-effect-str-1.1",
+  "source": "acidified_zone_water/acidified_zone_water_b/acidified_zone_water_b.str",
+  "version": 148,
+  "fps": 60,
+  "frameCount": 39,
+  "durationSeconds": 0.65,
+  "layers": [
+    {
+      "textures": [],
+      "keyframes": []
+    },
+    {
+      "textures": [
+        "aci_crack_00.bmp",
+        "aci_crack_01.bmp",
+        "aci_crack_02.bmp",
+        "aci_crack_03.bmp",
+        "aci_crack_04.bmp",
+        "aci_crack_05.bmp",
+        "aci_crack_06.bmp",
+        "aci_crack_07.bmp",
+        "aci_crack_08.bmp",
+        "aci_crack_09.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 0,
+          "type": 0,
+          "position": [
+            318.0,
+            303.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -96.0,
+            96.0,
+            96.0,
+            -96.0,
+            -80.0,
+            -80.0,
+            80.0,
+            80.0
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            180.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 0,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 39,
+          "type": 0,
+          "position": [
+            318.0,
+            303.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -96.0,
+            96.0,
+            96.0,
+            -96.0,
+            -80.0,
+            -80.0,
+            80.0,
+            80.0
+          ],
+          "textureId": 9.0,
+          "animationType": 2,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            180.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "aci_water_00.tga",
+        "aci_water_01.tga",
+        "aci_water_02.tga",
+        "aci_water_03.tga",
+        "aci_water_04.tga",
+        "aci_water_05.tga",
+        "aci_water_06.tga",
+        "aci_water_07.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 4,
+          "type": 0,
+          "position": [
+            280.0,
+            283.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -56.0,
+            56.0,
+            56.0,
+            -56.0,
+            -33.5,
+            -33.5,
+            33.5,
+            33.5
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            100.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 4,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 35,
+          "type": 0,
+          "position": [
+            280.0,
+            283.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -56.0,
+            56.0,
+            56.0,
+            -56.0,
+            -33.5,
+            -33.5,
+            33.5,
+            33.5
+          ],
+          "textureId": 7.0,
+          "animationType": 2,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            100.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "aci_water_00.bmp",
+        "aci_water_01.bmp",
+        "aci_water_02.bmp",
+        "aci_water_03.bmp",
+        "aci_water_04.bmp",
+        "aci_water_05.bmp",
+        "aci_water_06.bmp",
+        "aci_water_07.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 4,
+          "type": 0,
+          "position": [
+            280.0,
+            283.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -56.0,
+            56.0,
+            56.0,
+            -56.0,
+            -33.5,
+            -33.5,
+            33.5,
+            33.5
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            60.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 4,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 35,
+          "type": 0,
+          "position": [
+            280.0,
+            283.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -56.0,
+            56.0,
+            56.0,
+            -56.0,
+            -33.5,
+            -33.5,
+            33.5,
+            33.5
+          ],
+          "textureId": 7.0,
+          "animationType": 2,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            60.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "aci_water_00.tga",
+        "aci_water_01.tga",
+        "aci_water_02.tga",
+        "aci_water_03.tga",
+        "aci_water_04.tga",
+        "aci_water_05.tga",
+        "aci_water_06.tga",
+        "aci_water_07.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 4,
+          "type": 0,
+          "position": [
+            369.0,
+            284.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            56.0,
+            -56.0,
+            -56.0,
+            56.0,
+            -33.5,
+            -33.5,
+            33.5,
+            33.5
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            100.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 4,
+          "type": 1,
+          "position": [
+            -0.032258063554763794,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 35,
+          "type": 0,
+          "position": [
+            368.0,
+            284.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            56.0,
+            -56.0,
+            -56.0,
+            56.0,
+            -33.5,
+            -33.5,
+            33.5,
+            33.5
+          ],
+          "textureId": 7.0,
+          "animationType": 2,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            100.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "aci_water_00.bmp",
+        "aci_water_01.bmp",
+        "aci_water_02.bmp",
+        "aci_water_03.bmp",
+        "aci_water_04.bmp",
+        "aci_water_05.bmp",
+        "aci_water_06.bmp",
+        "aci_water_07.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 4,
+          "type": 0,
+          "position": [
+            368.0,
+            284.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            56.0,
+            -56.0,
+            -56.0,
+            56.0,
+            -33.5,
+            -33.5,
+            33.5,
+            33.5
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            50.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 4,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 35,
+          "type": 0,
+          "position": [
+            368.0,
+            284.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            56.0,
+            -56.0,
+            -56.0,
+            56.0,
+            -33.5,
+            -33.5,
+            33.5,
+            33.5
+          ],
+          "textureId": 7.0,
+          "animationType": 2,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            50.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "aci_particle_1.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 4,
+          "type": 0,
+          "position": [
+            308.0,
+            280.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -10.117600440979004,
+            12.882399559020996,
+            12.882399559020996,
+            -10.117600440979004,
+            -19.0,
+            -19.0,
+            16.0,
+            16.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            160.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 4,
+          "type": 1,
+          "position": [
+            -3.820002317428589,
+            -4.040000915527344
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            1.1819500923156738,
+            -1.3847166299819946,
+            -1.3847166299819946,
+            1.1819500923156738,
+            0.07961654663085938,
+            0.07961654663085938,
+            -0.06704998016357422,
+            -0.06704998016357422
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 5.214816570281982,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 10,
+          "type": 0,
+          "position": [
+            285.0799865722656,
+            255.75999450683594
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -3.025899887084961,
+            4.574100017547607,
+            4.574100017547607,
+            -3.025899887084961,
+            -18.522300720214844,
+            -18.522300720214844,
+            15.597700119018555,
+            15.597700119018555
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 31.28890037536621,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            160.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 10,
+          "type": 1,
+          "position": [
+            -1.4342848062515259,
+            -1.5542852878570557
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.4304214119911194,
+            -0.5410071611404419,
+            -0.5410071611404419,
+            0.4304214119911194,
+            0.15057142078876495,
+            0.15057142078876495,
+            -0.12679283320903778,
+            -0.12679283320903778
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 2.844442844390869,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -11.428571701049805
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 24,
+          "type": 0,
+          "position": [
+            265.0,
+            234.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            3.0,
+            -3.0,
+            -3.0,
+            3.0,
+            -16.4143009185791,
+            -16.4143009185791,
+            13.822600364685059,
+            13.822600364685059
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 71.11109924316406,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "aci_particle_1.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 4,
+          "type": 0,
+          "position": [
+            325.0,
+            283.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            10.117600440979004,
+            -12.882399559020996,
+            -12.882399559020996,
+            10.117600440979004,
+            -19.0,
+            -19.0,
+            16.0,
+            16.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 28.444400787353516,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            160.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 4,
+          "type": 1,
+          "position": [
+            4.013330936431885,
+            -5.3733344078063965
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            -2.1905834674835205,
+            2.909416675567627,
+            2.909416675567627,
+            -2.1905834674835205,
+            0.07961654663085938,
+            0.07961654663085938,
+            -0.06704998016357422,
+            -0.06704998016357422
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": -14.222216606140137,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 10,
+          "type": 0,
+          "position": [
+            349.0799865722656,
+            250.75999450683594
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -3.025899887084961,
+            4.574100017547607,
+            4.574100017547607,
+            -3.025899887084961,
+            -18.522300720214844,
+            -18.522300720214844,
+            15.597700119018555,
+            15.597700119018555
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": -56.88890075683594,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            160.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 10,
+          "type": 1,
+          "position": [
+            1.4942866563796997,
+            -1.9828567504882812
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.4304214119911194,
+            -0.5410071611404419,
+            -0.5410071611404419,
+            0.4304214119911194,
+            0.15057142078876495,
+            0.15057142078876495,
+            -0.12679283320903778,
+            -0.12679283320903778
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": -1.015871286392212,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -11.428571701049805
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 24,
+          "type": 0,
+          "position": [
+            370.0,
+            223.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            3.0,
+            -3.0,
+            -3.0,
+            3.0,
+            -16.4143009185791,
+            -16.4143009185791,
+            13.822600364685059,
+            13.822600364685059
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": -71.11109924316406,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "aci_particle_1.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 4,
+          "type": 0,
+          "position": [
+            318.0,
+            270.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -13.5,
+            13.5,
+            13.5,
+            -13.5,
+            -20.0,
+            -20.0,
+            20.0,
+            20.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 85.33329772949219,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            160.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 4,
+          "type": 1,
+          "position": [
+            0.1182810440659523,
+            -2.2957000732421875
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.4139833450317383,
+            -0.4139833450317383,
+            -0.4139833450317383,
+            0.4139833450317383,
+            0.591400146484375,
+            0.591400146484375,
+            -0.591400146484375,
+            -0.591400146484375
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 23.703718185424805,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 10,
+          "type": 0,
+          "position": [
+            318.7096862792969,
+            256.2257995605469
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -11.01609992980957,
+            11.01609992980957,
+            11.01609992980957,
+            -11.01609992980957,
+            -16.45159912109375,
+            -16.45159912109375,
+            16.45159912109375,
+            16.45159912109375
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 227.55560302734375,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            160.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 10,
+          "type": 1,
+          "position": [
+            0.08602091670036316,
+            -3.548386573791504
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.3010733425617218,
+            -0.3010733425617218,
+            -0.3010733425617218,
+            0.3010733425617218,
+            0.43010661005973816,
+            0.43010661005973816,
+            -0.43010661005973816,
+            -0.43010661005973816
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 15.170367240905762,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -10.666666984558105
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 25,
+          "type": 0,
+          "position": [
+            320.0,
+            203.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -6.5,
+            6.5,
+            6.5,
+            -6.5,
+            -10.0,
+            -10.0,
+            10.0,
+            10.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 455.1111145019531,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "aci_particle_1.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 4,
+          "type": 0,
+          "position": [
+            319.0,
+            292.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -13.5,
+            13.5,
+            13.5,
+            -13.5,
+            -20.0,
+            -20.0,
+            20.0,
+            20.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 85.33329772949219,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            160.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 4,
+          "type": 1,
+          "position": [
+            3.618281126022339,
+            1.5376332998275757
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.4139833450317383,
+            -0.4139833450317383,
+            -0.4139833450317383,
+            0.4139833450317383,
+            0.591400146484375,
+            0.591400146484375,
+            -0.591400146484375,
+            -0.591400146484375
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 23.703718185424805,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 10,
+          "type": 0,
+          "position": [
+            340.7096862792969,
+            301.2257995605469
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -11.01609992980957,
+            11.01609992980957,
+            11.01609992980957,
+            -11.01609992980957,
+            -16.45159912109375,
+            -16.45159912109375,
+            16.45159912109375,
+            16.45159912109375
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 227.55560302734375,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            160.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 10,
+          "type": 1,
+          "position": [
+            2.6635937690734863,
+            1.055299997329712
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.3225785791873932,
+            -0.3225785791873932,
+            -0.3225785791873932,
+            0.3225785791873932,
+            0.7318785190582275,
+            0.7318785190582275,
+            -0.7318785190582275,
+            -0.7318785190582275
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 16.253965377807617,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -11.428571701049805
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 24,
+          "type": 0,
+          "position": [
+            378.0,
+            316.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -6.5,
+            6.5,
+            6.5,
+            -6.5,
+            -6.2052998542785645,
+            -6.2052998542785645,
+            6.2052998542785645,
+            6.2052998542785645
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 455.1111145019531,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "aci_particle_1.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 4,
+          "type": 0,
+          "position": [
+            319.0,
+            292.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -13.5,
+            13.5,
+            13.5,
+            -13.5,
+            -20.0,
+            -20.0,
+            20.0,
+            20.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 85.33329772949219,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            160.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 4,
+          "type": 1,
+          "position": [
+            -4.215052127838135,
+            0.8709666132926941
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            4.086016654968262,
+            -4.086016654968262,
+            -4.086016654968262,
+            4.086016654968262,
+            1.6049166917800903,
+            1.6049166917800903,
+            -1.6049166917800903,
+            -1.6049166917800903
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 23.703718185424805,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 10,
+          "type": 0,
+          "position": [
+            293.7096862792969,
+            297.2257995605469
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            11.01609992980957,
+            -11.01609992980957,
+            -11.01609992980957,
+            11.01609992980957,
+            -10.370499610900879,
+            -10.370499610900879,
+            10.370499610900879,
+            10.370499610900879
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 227.55560302734375,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            160.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 10,
+          "type": 1,
+          "position": [
+            -3.313979148864746,
+            0.2516133487224579
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            -0.3010733425617218,
+            0.3010733425617218,
+            0.3010733425617218,
+            -0.3010733425617218,
+            0.277679979801178,
+            0.277679979801178,
+            -0.277679979801178,
+            -0.277679979801178
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 15.170367240905762,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -10.666666984558105
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 25,
+          "type": 0,
+          "position": [
+            244.0,
+            301.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            6.5,
+            -6.5,
+            -6.5,
+            6.5,
+            -6.2052998542785645,
+            -6.2052998542785645,
+            6.2052998542785645,
+            6.2052998542785645
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 455.1111145019531,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    }
+  ],
+  "effectId": "acidified_zone_water_b_7c312863250a",
+  "classification": "READY_FULL",
+  "variant": "FULL",
+  "role": "MAIN",
+  "scope": {
+    "profession": "acidified_zone_water",
+    "skillGroup": "acidified_zone_water_b"
+  },
+  "dependencies": [
+    {
+      "declared": "aci_crack_00.bmp",
+      "resolved": "acidified_zone_water/acidified_zone_water_b/aci_crack_00.bmp",
+      "missing": false,
+      "hash": "daa168ae9c7c20abe4fade045fc657dd03f101889e8ce9061d1cf5429ba45f0b",
+      "png": "textures/da/daa168ae9c7c20abe4fade045fc657dd03f101889e8ce9061d1cf5429ba45f0b.png",
+      "width": 128,
+      "height": 107,
+      "bytes": 2452
+    },
+    {
+      "declared": "aci_crack_01.bmp",
+      "resolved": "acidified_zone_water/acidified_zone_water_b/aci_crack_01.bmp",
+      "missing": false,
+      "hash": "ca0982f41d0e71f86fcadb69214e36f98e9c7b58f3d918b2cc71dd072206689b",
+      "png": "textures/ca/ca0982f41d0e71f86fcadb69214e36f98e9c7b58f3d918b2cc71dd072206689b.png",
+      "width": 128,
+      "height": 107,
+      "bytes": 13394
+    },
+    {
+      "declared": "aci_crack_02.bmp",
+      "resolved": "acidified_zone_water/acidified_zone_water_b/aci_crack_02.bmp",
+      "missing": false,
+      "hash": "ff4eaebb08c6e4a83ac68a4d26aeaf29f8a7d6585de301562bedcfbff38f37a0",
+      "png": "textures/ff/ff4eaebb08c6e4a83ac68a4d26aeaf29f8a7d6585de301562bedcfbff38f37a0.png",
+      "width": 128,
+      "height": 107,
+      "bytes": 14729
+    },
+    {
+      "declared": "aci_crack_03.bmp",
+      "resolved": "acidified_zone_water/acidified_zone_water_b/aci_crack_03.bmp",
+      "missing": false,
+      "hash": "1549fefb6f1ec9d4063c29bc328f25888ec95c97906447158c620b10daa3db31",
+      "png": "textures/15/1549fefb6f1ec9d4063c29bc328f25888ec95c97906447158c620b10daa3db31.png",
+      "width": 128,
+      "height": 107,
+      "bytes": 10359
+    },
+    {
+      "declared": "aci_crack_04.bmp",
+      "resolved": "acidified_zone_water/acidified_zone_water_b/aci_crack_04.bmp",
+      "missing": false,
+      "hash": "e6ef798ffd7cbe94757068588a2e358184e98e25795b16e467165b720c6d5d14",
+      "png": "textures/e6/e6ef798ffd7cbe94757068588a2e358184e98e25795b16e467165b720c6d5d14.png",
+      "width": 128,
+      "height": 107,
+      "bytes": 8768
+    },
+    {
+      "declared": "aci_crack_05.bmp",
+      "resolved": "acidified_zone_water/acidified_zone_water_b/aci_crack_05.bmp",
+      "missing": false,
+      "hash": "59354be96d7c5d0962b334e9f604cdfdd5e36662bb2aa3f842745bee86bb4a43",
+      "png": "textures/59/59354be96d7c5d0962b334e9f604cdfdd5e36662bb2aa3f842745bee86bb4a43.png",
+      "width": 128,
+      "height": 107,
+      "bytes": 8765
+    },
+    {
+      "declared": "aci_crack_06.bmp",
+      "resolved": "acidified_zone_water/acidified_zone_water_b/aci_crack_06.bmp",
+      "missing": false,
+      "hash": "e6bbd441ef3b056b0324e0bc9b95b4267909a85617e57206c6c72bcd72165873",
+      "png": "textures/e6/e6bbd441ef3b056b0324e0bc9b95b4267909a85617e57206c6c72bcd72165873.png",
+      "width": 128,
+      "height": 107,
+      "bytes": 7605
+    },
+    {
+      "declared": "aci_crack_07.bmp",
+      "resolved": "acidified_zone_water/acidified_zone_water_b/aci_crack_07.bmp",
+      "missing": false,
+      "hash": "469cad2b44cfb0b89cace13eba9fa99d96d1a38c6b4b4e64f500cf3c740a6407",
+      "png": "textures/46/469cad2b44cfb0b89cace13eba9fa99d96d1a38c6b4b4e64f500cf3c740a6407.png",
+      "width": 128,
+      "height": 107,
+      "bytes": 7434
+    },
+    {
+      "declared": "aci_crack_08.bmp",
+      "resolved": "acidified_zone_water/acidified_zone_water_b/aci_crack_08.bmp",
+      "missing": false,
+      "hash": "e4483737d7b3166f4bc22b16ea200204b9682bcb59136e846d4a2035ce9aaa22",
+      "png": "textures/e4/e4483737d7b3166f4bc22b16ea200204b9682bcb59136e846d4a2035ce9aaa22.png",
+      "width": 128,
+      "height": 107,
+      "bytes": 6022
+    },
+    {
+      "declared": "aci_crack_09.bmp",
+      "resolved": "acidified_zone_water/acidified_zone_water_b/aci_crack_09.bmp",
+      "missing": false,
+      "hash": "0530606e168533865683565af30f2e51b556736b6ecb684446589e66558cb041",
+      "png": "textures/05/0530606e168533865683565af30f2e51b556736b6ecb684446589e66558cb041.png",
+      "width": 128,
+      "height": 107,
+      "bytes": 3036
+    },
+    {
+      "declared": "aci_water_00.tga",
+      "resolved": "acidified_zone_water/acidified_zone_water_b/aci_water_00.tga",
+      "missing": false,
+      "hash": "da3da727aa4e2cef4b1e3af3e95e94ac2dce7d02779c8f24601aaa2ea5d0f37f",
+      "png": "textures/da/da3da727aa4e2cef4b1e3af3e95e94ac2dce7d02779c8f24601aaa2ea5d0f37f.png",
+      "width": 80,
+      "height": 48,
+      "bytes": 1100
+    },
+    {
+      "declared": "aci_water_01.tga",
+      "resolved": "acidified_zone_water/acidified_zone_water_b/aci_water_01.tga",
+      "missing": false,
+      "hash": "3c1fd8671ab9714af488136ea389d4d273760cc87726942df7ba48bd8d2a9d43",
+      "png": "textures/3c/3c1fd8671ab9714af488136ea389d4d273760cc87726942df7ba48bd8d2a9d43.png",
+      "width": 80,
+      "height": 48,
+      "bytes": 2428
+    },
+    {
+      "declared": "aci_water_02.tga",
+      "resolved": "acidified_zone_water/acidified_zone_water_b/aci_water_02.tga",
+      "missing": false,
+      "hash": "6cf316810082f3e35565492d71162eb5ac27e20fdc065ddd28c338b7471d8035",
+      "png": "textures/6c/6cf316810082f3e35565492d71162eb5ac27e20fdc065ddd28c338b7471d8035.png",
+      "width": 80,
+      "height": 48,
+      "bytes": 3108
+    },
+    {
+      "declared": "aci_water_03.tga",
+      "resolved": "acidified_zone_water/acidified_zone_water_b/aci_water_03.tga",
+      "missing": false,
+      "hash": "a5e7f8e884fae8bd2466ace1d85c3aa244168a31741b802eb923033d0603c784",
+      "png": "textures/a5/a5e7f8e884fae8bd2466ace1d85c3aa244168a31741b802eb923033d0603c784.png",
+      "width": 80,
+      "height": 48,
+      "bytes": 3309
+    },
+    {
+      "declared": "aci_water_04.tga",
+      "resolved": "acidified_zone_water/acidified_zone_water_b/aci_water_04.tga",
+      "missing": false,
+      "hash": "29b3b7f5a250bc5d1f9a77feeb6eaff58b9efb7370fc69c58ca4943efa439df3",
+      "png": "textures/29/29b3b7f5a250bc5d1f9a77feeb6eaff58b9efb7370fc69c58ca4943efa439df3.png",
+      "width": 80,
+      "height": 48,
+      "bytes": 3209
+    },
+    {
+      "declared": "aci_water_05.tga",
+      "resolved": "acidified_zone_water/acidified_zone_water_b/aci_water_05.tga",
+      "missing": false,
+      "hash": "2a5efcbb133b8eb413cc382ea6623cd835e59cd8cad70fbb1c50c730d1b85154",
+      "png": "textures/2a/2a5efcbb133b8eb413cc382ea6623cd835e59cd8cad70fbb1c50c730d1b85154.png",
+      "width": 80,
+      "height": 48,
+      "bytes": 2055
+    },
+    {
+      "declared": "aci_water_06.tga",
+      "resolved": "acidified_zone_water/acidified_zone_water_b/aci_water_06.tga",
+      "missing": false,
+      "hash": "dceb90b16356259760811ae5ab5cc58acc7f8b9d0d194bc94e8eeeccbcd4a8aa",
+      "png": "textures/dc/dceb90b16356259760811ae5ab5cc58acc7f8b9d0d194bc94e8eeeccbcd4a8aa.png",
+      "width": 80,
+      "height": 48,
+      "bytes": 1411
+    },
+    {
+      "declared": "aci_water_07.tga",
+      "resolved": "acidified_zone_water/acidified_zone_water_b/aci_water_07.tga",
+      "missing": false,
+      "hash": "4ed07f4b814c7ca2a579013031241696251e387373db9e6f9b0cd7200b82921c",
+      "png": "textures/4e/4ed07f4b814c7ca2a579013031241696251e387373db9e6f9b0cd7200b82921c.png",
+      "width": 80,
+      "height": 48,
+      "bytes": 612
+    },
+    {
+      "declared": "aci_water_00.bmp",
+      "resolved": "acidified_zone_water/acidified_zone_water_b/aci_water_00.bmp",
+      "missing": false,
+      "hash": "c051f0875989f0568601bd48a8c881dda3a320e742d9425195858ec0f45da27e",
+      "png": "textures/c0/c051f0875989f0568601bd48a8c881dda3a320e742d9425195858ec0f45da27e.png",
+      "width": 80,
+      "height": 48,
+      "bytes": 916
+    },
+    {
+      "declared": "aci_water_01.bmp",
+      "resolved": "acidified_zone_water/acidified_zone_water_b/aci_water_01.bmp",
+      "missing": false,
+      "hash": "a80f7eb5d845a3e81a2b867b572b80613ece7590981e93b0da23bc5bde7056ce",
+      "png": "textures/a8/a80f7eb5d845a3e81a2b867b572b80613ece7590981e93b0da23bc5bde7056ce.png",
+      "width": 80,
+      "height": 48,
+      "bytes": 2108
+    },
+    {
+      "declared": "aci_water_02.bmp",
+      "resolved": "acidified_zone_water/acidified_zone_water_b/aci_water_02.bmp",
+      "missing": false,
+      "hash": "d92bb52d60d531d29bcd4f4544cb5bf25b2589b313897394dd3f394b2006b85c",
+      "png": "textures/d9/d92bb52d60d531d29bcd4f4544cb5bf25b2589b313897394dd3f394b2006b85c.png",
+      "width": 80,
+      "height": 48,
+      "bytes": 2690
+    },
+    {
+      "declared": "aci_water_03.bmp",
+      "resolved": "acidified_zone_water/acidified_zone_water_b/aci_water_03.bmp",
+      "missing": false,
+      "hash": "279bc4e925470c99f88618142965b55c4406d8cbd143f389f9118759cc8919d3",
+      "png": "textures/27/279bc4e925470c99f88618142965b55c4406d8cbd143f389f9118759cc8919d3.png",
+      "width": 80,
+      "height": 48,
+      "bytes": 2925
+    },
+    {
+      "declared": "aci_water_04.bmp",
+      "resolved": "acidified_zone_water/acidified_zone_water_b/aci_water_04.bmp",
+      "missing": false,
+      "hash": "83e02906d3b70c130f7f7f7f06a15af466a4f88dea08b139f97fb09476beae71",
+      "png": "textures/83/83e02906d3b70c130f7f7f7f06a15af466a4f88dea08b139f97fb09476beae71.png",
+      "width": 80,
+      "height": 48,
+      "bytes": 2904
+    },
+    {
+      "declared": "aci_water_05.bmp",
+      "resolved": "acidified_zone_water/acidified_zone_water_b/aci_water_05.bmp",
+      "missing": false,
+      "hash": "afafdb56b0e644a0e85e9eb9bcfbb7169a3e8d61c48cdd776bc8041c8ca4cc41",
+      "png": "textures/af/afafdb56b0e644a0e85e9eb9bcfbb7169a3e8d61c48cdd776bc8041c8ca4cc41.png",
+      "width": 80,
+      "height": 48,
+      "bytes": 1849
+    },
+    {
+      "declared": "aci_water_06.bmp",
+      "resolved": "acidified_zone_water/acidified_zone_water_b/aci_water_06.bmp",
+      "missing": false,
+      "hash": "0e6c5f3a01d6f3e47b68a9f3aea841487d55468b0cb9f5aa9ba11527f72c6168",
+      "png": "textures/0e/0e6c5f3a01d6f3e47b68a9f3aea841487d55468b0cb9f5aa9ba11527f72c6168.png",
+      "width": 80,
+      "height": 48,
+      "bytes": 1302
+    },
+    {
+      "declared": "aci_water_07.bmp",
+      "resolved": "acidified_zone_water/acidified_zone_water_b/aci_water_07.bmp",
+      "missing": false,
+      "hash": "9aee08b7daed25b1ee9898af9b2d837e18a6defaf92dc4746715e7cba7fb5c95",
+      "png": "textures/9a/9aee08b7daed25b1ee9898af9b2d837e18a6defaf92dc4746715e7cba7fb5c95.png",
+      "width": 80,
+      "height": 48,
+      "bytes": 515
+    },
+    {
+      "declared": "aci_particle_1.bmp",
+      "resolved": "acidified_zone_water/acidified_zone_water_b/aci_particle_1.bmp",
+      "missing": false,
+      "hash": "22ebd9e00c1d7adb6e4de388b396612bb1fbd6bfe4b86971776fb484a853abc3",
+      "png": "textures/22/22ebd9e00c1d7adb6e4de388b396612bb1fbd6bfe4b86971776fb484a853abc3.png",
+      "width": 34,
+      "height": 50,
+      "bytes": 1386
+    }
+  ],
+  "assetPathMode": "library-root-relative",
+  "renderer": {
+    "mode": "V81 approximate-2d",
+    "notes": "Timeline/layers/textures/color/rotation supported; perspective and exact GL blends approximated."
+  }
+}

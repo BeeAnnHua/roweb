@@ -1,11 +1,11 @@
 //============================================================
-// RO_WEB 0.9.82HU — Death / Revival Runtime
+// RO_WEB 0.9.82IC — Death / Revival Runtime
 // 手動死亡 UI、原地復活之證、自動掛機死亡策略、回城復活
 //============================================================
 (() => {
   "use strict";
 
-  const VERSION = "0.9.82HU";
+  const VERSION = "0.9.82IC";
   const TOKEN_ITEM_ID = 7621;
   const TOKEN_BOX_ITEM_ID = 12922;
   const DEFAULT_CITY_ID = "prontera";
@@ -251,13 +251,14 @@
     state.resolving = true;
     refreshModal();
     const cityId = resolveReturnCityId();
+    const wasAutoBattle = state.autoBattleWasRunning === true;
     restorePlayerVitals();
     completeRevivalState();
 
     let entered = false;
     try {
       if (typeof enterCity === "function") {
-        enterCity(cityId);
+        enterCity(cityId, { wasAutoBattle, source: "death_return" });
         entered = true;
       }
     } catch (error) {

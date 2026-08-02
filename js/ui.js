@@ -115,6 +115,8 @@ function refreshWindowContentOnOpen(id) {
   if (id === "status-window") {
     if (typeof handleStatusWindowVisibilityChange === "function") handleStatusWindowVisibilityChange(true);
     else if (typeof updateStatusUI === "function") updateStatusUI({ force: true });
+    // V91.6：完整 DOM 建立後由具 watchdog 的掛機排程器喚醒，不重設技能／目標狀態。
+    if (typeof wakeAutoBattleScheduler === "function") wakeAutoBattleScheduler("status_window_ui_open");
   } else if (id === "skill-window" && typeof updateSkillUI === "function") {
     updateSkillUI();
   } else if (id === "job-window" && typeof updateJobUI === "function") {

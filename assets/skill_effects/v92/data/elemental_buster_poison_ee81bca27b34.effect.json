@@ -1,0 +1,1574 @@
+{
+  "schema": "ro-effect-str-1.1",
+  "source": "elemental_buster/elemental_buster/elemental_buster_poison/elemental_buster_poison.str",
+  "version": 148,
+  "fps": 60,
+  "frameCount": 44,
+  "durationSeconds": 0.733333,
+  "layers": [
+    {
+      "textures": [],
+      "keyframes": []
+    },
+    {
+      "textures": [
+        "bus_fire_a_00.bmp",
+        "bus_fire_a_01.bmp",
+        "bus_fire_a_02.bmp",
+        "bus_fire_a_03.bmp",
+        "bus_fire_a_04.bmp",
+        "bus_fire_a_05.bmp",
+        "bus_fire_a_06.bmp",
+        "bus_fire_a_07.bmp",
+        "bus_fire_a_08.bmp",
+        "bus_fire_a_09.bmp",
+        "bus_fire_a_10.bmp",
+        "bus_fire_a_11.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 0,
+          "type": 0,
+          "position": [
+            336.0,
+            247.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -192.0,
+            192.0,
+            192.0,
+            -192.0,
+            -210.0,
+            -210.0,
+            210.0,
+            210.0
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            80.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 0,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            -0.28409090638160706,
+            0.28409090638160706,
+            0.28409090638160706,
+            -0.28409090638160706,
+            -0.3181818127632141,
+            -0.3181818127632141,
+            0.3181818127632141,
+            0.3181818127632141
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 44,
+          "type": 0,
+          "position": [
+            336.0,
+            247.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -204.5,
+            204.5,
+            204.5,
+            -204.5,
+            -224.0,
+            -224.0,
+            224.0,
+            224.0
+          ],
+          "textureId": 11.0,
+          "animationType": 2,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            80.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "bus_bomb_fire_00.tga",
+        "bus_bomb_fire_01.tga",
+        "bus_bomb_fire_02.tga",
+        "bus_bomb_fire_03.tga",
+        "bus_bomb_fire_04.tga",
+        "bus_bomb_fire_05.tga",
+        "bus_bomb_fire_06.tga",
+        "bus_bomb_fire_07.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 0,
+          "type": 0,
+          "position": [
+            323.0,
+            257.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -216.0,
+            216.0,
+            216.0,
+            -216.0,
+            -208.5,
+            -208.5,
+            208.5,
+            208.5
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            120.0
+          ],
+          "sourceBlend": 1,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 0,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            -0.4137931168079376,
+            0.4137931168079376,
+            0.4137931168079376,
+            -0.4137931168079376,
+            -0.3965517282485962,
+            -0.3965517282485962,
+            0.3965517282485962,
+            0.3965517282485962
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 29,
+          "type": 0,
+          "position": [
+            323.0,
+            257.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -228.0,
+            228.0,
+            228.0,
+            -228.0,
+            -220.0,
+            -220.0,
+            220.0,
+            220.0
+          ],
+          "textureId": 7.0,
+          "animationType": 2,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            120.0
+          ],
+          "sourceBlend": 1,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "bus_bomb_fire_00.bmp",
+        "bus_bomb_fire_01.bmp",
+        "bus_bomb_fire_02.bmp",
+        "bus_bomb_fire_03.bmp",
+        "bus_bomb_fire_04.bmp",
+        "bus_bomb_fire_05.bmp",
+        "bus_bomb_fire_06.bmp",
+        "bus_bomb_fire_07.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 0,
+          "type": 0,
+          "position": [
+            323.0,
+            257.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -180.0,
+            180.0,
+            180.0,
+            -180.0,
+            -174.0,
+            -174.0,
+            174.0,
+            174.0
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            140.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 0,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            -0.4137931168079376,
+            0.4137931168079376,
+            0.4137931168079376,
+            -0.4137931168079376,
+            -0.3965517282485962,
+            -0.3965517282485962,
+            0.3965517282485962,
+            0.3965517282485962
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 29,
+          "type": 0,
+          "position": [
+            323.0,
+            257.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -192.0,
+            192.0,
+            192.0,
+            -192.0,
+            -185.5,
+            -185.5,
+            185.5,
+            185.5
+          ],
+          "textureId": 7.0,
+          "animationType": 2,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            140.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "bus_dust_helix_00.bmp",
+        "bus_dust_helix_01.bmp",
+        "bus_dust_helix_02.bmp",
+        "bus_dust_helix_03.bmp",
+        "bus_dust_helix_04.bmp",
+        "bus_dust_helix_05.bmp",
+        "bus_dust_helix_06.bmp",
+        "bus_dust_helix_07.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 0,
+          "type": 0,
+          "position": [
+            316.0,
+            262.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -59.657901763916016,
+            59.657901763916016,
+            59.657901763916016,
+            -59.657901763916016,
+            -118.24369812011719,
+            -118.24369812011719,
+            118.24369812011719,
+            118.24369812011719
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.3333333432674408,
+          "rotation": -71.11109924316406,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            140.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 0,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            -0.17951250076293945,
+            0.17951250076293945,
+            0.17951250076293945,
+            -0.17951250076293945,
+            -0.3461875915527344,
+            -0.3461875915527344,
+            0.3461875915527344,
+            0.3461875915527344
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.3333333432674408,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -0.8333333134651184
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 24,
+          "type": 0,
+          "position": [
+            316.0,
+            262.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -63.96620178222656,
+            63.96620178222656,
+            63.96620178222656,
+            -63.96620178222656,
+            -126.55220031738281,
+            -126.55220031738281,
+            126.55220031738281,
+            126.55220031738281
+          ],
+          "textureId": 7.0,
+          "animationType": 2,
+          "animationDelta": 0.3333333432674408,
+          "rotation": -71.11109924316406,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            120.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "bus_dust_helix_00.bmp",
+        "bus_dust_helix_01.bmp",
+        "bus_dust_helix_02.bmp",
+        "bus_dust_helix_03.bmp",
+        "bus_dust_helix_04.bmp",
+        "bus_dust_helix_05.bmp",
+        "bus_dust_helix_06.bmp",
+        "bus_dust_helix_07.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 0,
+          "type": 0,
+          "position": [
+            316.0,
+            262.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -56.05569839477539,
+            56.05569839477539,
+            56.05569839477539,
+            -56.05569839477539,
+            -112.77469635009766,
+            -112.77469635009766,
+            112.77469635009766,
+            112.77469635009766
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.3333333432674408,
+          "rotation": -597.3333740234375,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            140.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 0,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            -0.427004337310791,
+            0.427004337310791,
+            0.427004337310791,
+            -0.427004337310791,
+            -0.5502211451530457,
+            -0.5502211451530457,
+            0.5502211451530457,
+            0.5502211451530457
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.3333333432674408,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 24,
+          "type": 0,
+          "position": [
+            316.0,
+            262.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -66.30380249023438,
+            66.30380249023438,
+            66.30380249023438,
+            -66.30380249023438,
+            -125.9800033569336,
+            -125.9800033569336,
+            125.9800033569336,
+            125.9800033569336
+          ],
+          "textureId": 7.0,
+          "animationType": 2,
+          "animationDelta": 0.3333333432674408,
+          "rotation": -597.3333740234375,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            140.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "bus_dust_helix_00.bmp",
+        "bus_dust_helix_01.bmp",
+        "bus_dust_helix_02.bmp",
+        "bus_dust_helix_03.bmp",
+        "bus_dust_helix_04.bmp",
+        "bus_dust_helix_05.bmp",
+        "bus_dust_helix_06.bmp",
+        "bus_dust_helix_07.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 0,
+          "type": 0,
+          "position": [
+            320.0,
+            259.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            69.63420104980469,
+            -69.63420104980469,
+            -69.63420104980469,
+            69.63420104980469,
+            -109.69229888916016,
+            -109.69229888916016,
+            109.69229888916016,
+            109.69229888916016
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.3333333432674408,
+          "rotation": 71.11109924316406,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            140.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 0,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            -0.024616559967398643,
+            0.024616559967398643,
+            0.024616559967398643,
+            -0.024616559967398643,
+            -0.3392791748046875,
+            -0.3392791748046875,
+            0.3392791748046875,
+            0.3392791748046875
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.3333333432674408,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 24,
+          "type": 0,
+          "position": [
+            320.0,
+            259.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            69.04340362548828,
+            -69.04340362548828,
+            -69.04340362548828,
+            69.04340362548828,
+            -117.83499908447266,
+            -117.83499908447266,
+            117.83499908447266,
+            117.83499908447266
+          ],
+          "textureId": 7.0,
+          "animationType": 2,
+          "animationDelta": 0.3333333432674408,
+          "rotation": 71.11109924316406,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            140.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "bus_dust_helix_00.bmp",
+        "bus_dust_helix_01.bmp",
+        "bus_dust_helix_02.bmp",
+        "bus_dust_helix_03.bmp",
+        "bus_dust_helix_04.bmp",
+        "bus_dust_helix_05.bmp",
+        "bus_dust_helix_06.bmp",
+        "bus_dust_helix_07.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 0,
+          "type": 0,
+          "position": [
+            320.0,
+            259.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            64.15869903564453,
+            -64.15869903564453,
+            -64.15869903564453,
+            64.15869903564453,
+            -111.23490142822266,
+            -111.23490142822266,
+            111.23490142822266,
+            111.23490142822266
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.3333333432674408,
+          "rotation": 597.3333740234375,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            140.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 0,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.23345406353473663,
+            -0.23345406353473663,
+            -0.23345406353473663,
+            0.23345406353473663,
+            -0.3681039810180664,
+            -0.3681039810180664,
+            0.3681039810180664,
+            0.3681039810180664
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.3333333432674408,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 24,
+          "type": 0,
+          "position": [
+            320.0,
+            259.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            69.7615966796875,
+            -69.7615966796875,
+            -69.7615966796875,
+            69.7615966796875,
+            -120.06939697265625,
+            -120.06939697265625,
+            120.06939697265625,
+            120.06939697265625
+          ],
+          "textureId": 7.0,
+          "animationType": 2,
+          "animationDelta": 0.3333333432674408,
+          "rotation": 597.3333740234375,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            140.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "bus_circle_00.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 0,
+          "type": 0,
+          "position": [
+            322.0,
+            251.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -51.0,
+            51.0,
+            51.0,
+            -51.0,
+            -51.0,
+            -51.0,
+            51.0,
+            51.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            100.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 0,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            -2.794869899749756,
+            2.794869899749756,
+            2.794869899749756,
+            -2.794869899749756,
+            -2.794869899749756,
+            -2.794869899749756,
+            2.794869899749756,
+            2.794869899749756
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 10,
+          "type": 0,
+          "position": [
+            322.0,
+            251.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -78.94869995117188,
+            78.94869995117188,
+            78.94869995117188,
+            -78.94869995117188,
+            -78.94869995117188,
+            -78.94869995117188,
+            78.94869995117188,
+            78.94869995117188
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            100.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 10,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            -7.536753177642822,
+            7.536753177642822,
+            7.536753177642822,
+            -7.536753177642822,
+            -7.536753177642822,
+            -7.536753177642822,
+            7.536753177642822,
+            7.536753177642822
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -6.666666507720947
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 25,
+          "type": 0,
+          "position": [
+            322.0,
+            251.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -192.0,
+            192.0,
+            192.0,
+            -192.0,
+            -192.0,
+            -192.0,
+            192.0,
+            192.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    }
+  ],
+  "effectId": "elemental_buster_poison_ee81bca27b34",
+  "classification": "READY_FULL",
+  "variant": "FULL",
+  "role": "MAIN",
+  "scope": {
+    "profession": "elemental_buster",
+    "skillGroup": "elemental_buster"
+  },
+  "dependencies": [
+    {
+      "declared": "bus_fire_a_00.bmp",
+      "resolved": "elemental_buster/elemental_buster/elemental_buster_poison/bus_fire_a_00.bmp",
+      "missing": false,
+      "hash": "0e96b23901a1fc72f340bf8a507b1d46b530e0df185bf7acd7b6057a98a6b270",
+      "png": "textures/0e/0e96b23901a1fc72f340bf8a507b1d46b530e0df185bf7acd7b6057a98a6b270.png",
+      "width": 80,
+      "height": 80,
+      "bytes": 1249
+    },
+    {
+      "declared": "bus_fire_a_01.bmp",
+      "resolved": "elemental_buster/elemental_buster/elemental_buster_poison/bus_fire_a_01.bmp",
+      "missing": false,
+      "hash": "ce1bc17d4e06c664536707ed881a3c8a32c0e5f4b0ab66fb6a75f13f8de8d15a",
+      "png": "textures/ce/ce1bc17d4e06c664536707ed881a3c8a32c0e5f4b0ab66fb6a75f13f8de8d15a.png",
+      "width": 80,
+      "height": 80,
+      "bytes": 3152
+    },
+    {
+      "declared": "bus_fire_a_02.bmp",
+      "resolved": "elemental_buster/elemental_buster/elemental_buster_poison/bus_fire_a_02.bmp",
+      "missing": false,
+      "hash": "0da8e53088fcf3e58d6b0b23f03937382e15ecfb07ea7ab73f5f5c943876882d",
+      "png": "textures/0d/0da8e53088fcf3e58d6b0b23f03937382e15ecfb07ea7ab73f5f5c943876882d.png",
+      "width": 80,
+      "height": 80,
+      "bytes": 4108
+    },
+    {
+      "declared": "bus_fire_a_03.bmp",
+      "resolved": "elemental_buster/elemental_buster/elemental_buster_poison/bus_fire_a_03.bmp",
+      "missing": false,
+      "hash": "afbc0d109ab63739963c1da6f8576cf78f15fc7d9793d4897b327e2018d902ed",
+      "png": "textures/af/afbc0d109ab63739963c1da6f8576cf78f15fc7d9793d4897b327e2018d902ed.png",
+      "width": 80,
+      "height": 80,
+      "bytes": 5638
+    },
+    {
+      "declared": "bus_fire_a_04.bmp",
+      "resolved": "elemental_buster/elemental_buster/elemental_buster_poison/bus_fire_a_04.bmp",
+      "missing": false,
+      "hash": "da44067015d39b2920afa111c10dec5844822fc43d73ca86b6288ca87debda36",
+      "png": "textures/da/da44067015d39b2920afa111c10dec5844822fc43d73ca86b6288ca87debda36.png",
+      "width": 80,
+      "height": 80,
+      "bytes": 5187
+    },
+    {
+      "declared": "bus_fire_a_05.bmp",
+      "resolved": "elemental_buster/elemental_buster/elemental_buster_poison/bus_fire_a_05.bmp",
+      "missing": false,
+      "hash": "82d307c27b0f72d0581b8472148ca239ee448b87b2e8fe4f167ae84dc1a1a50e",
+      "png": "textures/82/82d307c27b0f72d0581b8472148ca239ee448b87b2e8fe4f167ae84dc1a1a50e.png",
+      "width": 80,
+      "height": 80,
+      "bytes": 2694
+    },
+    {
+      "declared": "bus_fire_a_06.bmp",
+      "resolved": "elemental_buster/elemental_buster/elemental_buster_poison/bus_fire_a_06.bmp",
+      "missing": false,
+      "hash": "7a351ccefc88bb98b702a94b4c28676c360fb6f2ce76b9082d6432df6ad1db7c",
+      "png": "textures/7a/7a351ccefc88bb98b702a94b4c28676c360fb6f2ce76b9082d6432df6ad1db7c.png",
+      "width": 80,
+      "height": 80,
+      "bytes": 1856
+    },
+    {
+      "declared": "bus_fire_a_07.bmp",
+      "resolved": "elemental_buster/elemental_buster/elemental_buster_poison/bus_fire_a_07.bmp",
+      "missing": false,
+      "hash": "bc5f920395684f0599e64a4c946c69438a8e022cdea16542bf334a92cbe0c5f6",
+      "png": "textures/bc/bc5f920395684f0599e64a4c946c69438a8e022cdea16542bf334a92cbe0c5f6.png",
+      "width": 80,
+      "height": 80,
+      "bytes": 1842
+    },
+    {
+      "declared": "bus_fire_a_08.bmp",
+      "resolved": "elemental_buster/elemental_buster/elemental_buster_poison/bus_fire_a_08.bmp",
+      "missing": false,
+      "hash": "21ae2eb57d77a3c251786a7797788ce0bfddab36950cd464a1a8e890ca440596",
+      "png": "textures/21/21ae2eb57d77a3c251786a7797788ce0bfddab36950cd464a1a8e890ca440596.png",
+      "width": 80,
+      "height": 80,
+      "bytes": 1779
+    },
+    {
+      "declared": "bus_fire_a_09.bmp",
+      "resolved": "elemental_buster/elemental_buster/elemental_buster_poison/bus_fire_a_09.bmp",
+      "missing": false,
+      "hash": "97369a4b14d9c178282782551e7200250a93cac333146a86e9b405ec5b9d4ac8",
+      "png": "textures/97/97369a4b14d9c178282782551e7200250a93cac333146a86e9b405ec5b9d4ac8.png",
+      "width": 80,
+      "height": 80,
+      "bytes": 1678
+    },
+    {
+      "declared": "bus_fire_a_10.bmp",
+      "resolved": "elemental_buster/elemental_buster/elemental_buster_poison/bus_fire_a_10.bmp",
+      "missing": false,
+      "hash": "2a74c8e9abbde0b632a5b8e572c4b1cbc1d778c68fd67a5e8e5aa9121816426c",
+      "png": "textures/2a/2a74c8e9abbde0b632a5b8e572c4b1cbc1d778c68fd67a5e8e5aa9121816426c.png",
+      "width": 80,
+      "height": 80,
+      "bytes": 1920
+    },
+    {
+      "declared": "bus_fire_a_11.bmp",
+      "resolved": "elemental_buster/elemental_buster/elemental_buster_poison/bus_fire_a_11.bmp",
+      "missing": false,
+      "hash": "005d0e5b261d5c7cc4a4fc2ab7a6913cd5cb1def875c143d310231a8aaaefdc5",
+      "png": "textures/00/005d0e5b261d5c7cc4a4fc2ab7a6913cd5cb1def875c143d310231a8aaaefdc5.png",
+      "width": 80,
+      "height": 80,
+      "bytes": 2347
+    },
+    {
+      "declared": "bus_bomb_fire_00.tga",
+      "resolved": "elemental_buster/elemental_buster/elemental_buster_poison/bus_bomb_fire_00.tga",
+      "missing": false,
+      "hash": "fabb13e4234646a9185e7da97f1abd6cdb733ec2806929554675cb64272a900e",
+      "png": "textures/fa/fabb13e4234646a9185e7da97f1abd6cdb733ec2806929554675cb64272a900e.png",
+      "width": 120,
+      "height": 116,
+      "bytes": 1573
+    },
+    {
+      "declared": "bus_bomb_fire_01.tga",
+      "resolved": "elemental_buster/elemental_buster/elemental_buster_poison/bus_bomb_fire_01.tga",
+      "missing": false,
+      "hash": "c06877b01f578413a36c33859f4ade81302dcb93e42d1c8499cccca524647765",
+      "png": "textures/c0/c06877b01f578413a36c33859f4ade81302dcb93e42d1c8499cccca524647765.png",
+      "width": 120,
+      "height": 116,
+      "bytes": 5852
+    },
+    {
+      "declared": "bus_bomb_fire_02.tga",
+      "resolved": "elemental_buster/elemental_buster/elemental_buster_poison/bus_bomb_fire_02.tga",
+      "missing": false,
+      "hash": "21d528296dad1581fb07ba6056ab11ba8e87a3f1466d2073d97487ef55d40b19",
+      "png": "textures/21/21d528296dad1581fb07ba6056ab11ba8e87a3f1466d2073d97487ef55d40b19.png",
+      "width": 120,
+      "height": 116,
+      "bytes": 7538
+    },
+    {
+      "declared": "bus_bomb_fire_03.tga",
+      "resolved": "elemental_buster/elemental_buster/elemental_buster_poison/bus_bomb_fire_03.tga",
+      "missing": false,
+      "hash": "a3a0a6f617f5599429ab8452dd24da7c759307020d3b91dce98343a1fe12be2e",
+      "png": "textures/a3/a3a0a6f617f5599429ab8452dd24da7c759307020d3b91dce98343a1fe12be2e.png",
+      "width": 120,
+      "height": 116,
+      "bytes": 8928
+    },
+    {
+      "declared": "bus_bomb_fire_04.tga",
+      "resolved": "elemental_buster/elemental_buster/elemental_buster_poison/bus_bomb_fire_04.tga",
+      "missing": false,
+      "hash": "3472ebfdeb538fa7d5ebfeb8fd063952a4fefe64404987adf7b6b02dfe8f353e",
+      "png": "textures/34/3472ebfdeb538fa7d5ebfeb8fd063952a4fefe64404987adf7b6b02dfe8f353e.png",
+      "width": 120,
+      "height": 116,
+      "bytes": 9041
+    },
+    {
+      "declared": "bus_bomb_fire_05.tga",
+      "resolved": "elemental_buster/elemental_buster/elemental_buster_poison/bus_bomb_fire_05.tga",
+      "missing": false,
+      "hash": "37a1dafcaebb4f21261e9e24a6c5715b33148bb0f705f9316920182ac13a4f67",
+      "png": "textures/37/37a1dafcaebb4f21261e9e24a6c5715b33148bb0f705f9316920182ac13a4f67.png",
+      "width": 120,
+      "height": 116,
+      "bytes": 8460
+    },
+    {
+      "declared": "bus_bomb_fire_06.tga",
+      "resolved": "elemental_buster/elemental_buster/elemental_buster_poison/bus_bomb_fire_06.tga",
+      "missing": false,
+      "hash": "08c2c77438e9ecef5011d49a0a22cb32969646f146bc6289b6d2a4b2b33cda29",
+      "png": "textures/08/08c2c77438e9ecef5011d49a0a22cb32969646f146bc6289b6d2a4b2b33cda29.png",
+      "width": 120,
+      "height": 116,
+      "bytes": 7367
+    },
+    {
+      "declared": "bus_bomb_fire_07.tga",
+      "resolved": "elemental_buster/elemental_buster/elemental_buster_poison/bus_bomb_fire_07.tga",
+      "missing": false,
+      "hash": "02fd50ba2a467665a7aacd880cbd167639b21648c8263c5503f4cbeb40075412",
+      "png": "textures/02/02fd50ba2a467665a7aacd880cbd167639b21648c8263c5503f4cbeb40075412.png",
+      "width": 120,
+      "height": 116,
+      "bytes": 5529
+    },
+    {
+      "declared": "bus_bomb_fire_00.bmp",
+      "resolved": "elemental_buster/elemental_buster/elemental_buster_poison/bus_bomb_fire_00.bmp",
+      "missing": false,
+      "hash": "3cdd0555a674d89de777ea9960fe568e64172c3f166b8fcc8c10d409bc634066",
+      "png": "textures/3c/3cdd0555a674d89de777ea9960fe568e64172c3f166b8fcc8c10d409bc634066.png",
+      "width": 120,
+      "height": 116,
+      "bytes": 1944
+    },
+    {
+      "declared": "bus_bomb_fire_01.bmp",
+      "resolved": "elemental_buster/elemental_buster/elemental_buster_poison/bus_bomb_fire_01.bmp",
+      "missing": false,
+      "hash": "1ff31c03c5a029bc0a9faa561ef03f9376a691169f6f4daa06fd106b321ab68b",
+      "png": "textures/1f/1ff31c03c5a029bc0a9faa561ef03f9376a691169f6f4daa06fd106b321ab68b.png",
+      "width": 120,
+      "height": 116,
+      "bytes": 5287
+    },
+    {
+      "declared": "bus_bomb_fire_02.bmp",
+      "resolved": "elemental_buster/elemental_buster/elemental_buster_poison/bus_bomb_fire_02.bmp",
+      "missing": false,
+      "hash": "92f104652416b64fa6aed6c143573ef58cb94c9b961b4856584897a4f8555713",
+      "png": "textures/92/92f104652416b64fa6aed6c143573ef58cb94c9b961b4856584897a4f8555713.png",
+      "width": 120,
+      "height": 116,
+      "bytes": 7910
+    },
+    {
+      "declared": "bus_bomb_fire_03.bmp",
+      "resolved": "elemental_buster/elemental_buster/elemental_buster_poison/bus_bomb_fire_03.bmp",
+      "missing": false,
+      "hash": "da6a0a4bb127c73562c225be76f22e8402d46e645d8135f949e419c8045c92e8",
+      "png": "textures/da/da6a0a4bb127c73562c225be76f22e8402d46e645d8135f949e419c8045c92e8.png",
+      "width": 120,
+      "height": 116,
+      "bytes": 8912
+    },
+    {
+      "declared": "bus_bomb_fire_04.bmp",
+      "resolved": "elemental_buster/elemental_buster/elemental_buster_poison/bus_bomb_fire_04.bmp",
+      "missing": false,
+      "hash": "3c0a9a6275a9a710afd7d79b9f8bc66ae78d8d8e9451bb2d63542082c51c76f7",
+      "png": "textures/3c/3c0a9a6275a9a710afd7d79b9f8bc66ae78d8d8e9451bb2d63542082c51c76f7.png",
+      "width": 120,
+      "height": 116,
+      "bytes": 9485
+    },
+    {
+      "declared": "bus_bomb_fire_05.bmp",
+      "resolved": "elemental_buster/elemental_buster/elemental_buster_poison/bus_bomb_fire_05.bmp",
+      "missing": false,
+      "hash": "fa518f58aacb9ff571efb69cfdddebdfc544134ddc8dcec75b2d65602ef19fcd",
+      "png": "textures/fa/fa518f58aacb9ff571efb69cfdddebdfc544134ddc8dcec75b2d65602ef19fcd.png",
+      "width": 120,
+      "height": 116,
+      "bytes": 9600
+    },
+    {
+      "declared": "bus_bomb_fire_06.bmp",
+      "resolved": "elemental_buster/elemental_buster/elemental_buster_poison/bus_bomb_fire_06.bmp",
+      "missing": false,
+      "hash": "3a98d2d7b4ce07ddf86718d619b2ebdaa24d0876b6548097849ee38f55ebae58",
+      "png": "textures/3a/3a98d2d7b4ce07ddf86718d619b2ebdaa24d0876b6548097849ee38f55ebae58.png",
+      "width": 120,
+      "height": 116,
+      "bytes": 9399
+    },
+    {
+      "declared": "bus_bomb_fire_07.bmp",
+      "resolved": "elemental_buster/elemental_buster/elemental_buster_poison/bus_bomb_fire_07.bmp",
+      "missing": false,
+      "hash": "08db628e48004260aa71042ec03abacc021dc80691c0122e5a9ea06886acfc6e",
+      "png": "textures/08/08db628e48004260aa71042ec03abacc021dc80691c0122e5a9ea06886acfc6e.png",
+      "width": 120,
+      "height": 116,
+      "bytes": 7774
+    },
+    {
+      "declared": "bus_dust_helix_00.bmp",
+      "resolved": "elemental_buster/elemental_buster/elemental_buster_poison/bus_dust_helix_00.bmp",
+      "missing": false,
+      "hash": "5d233d43f62053233ad65cfe01352d4957a64ba415a199e38e38ae4ab8ac14dc",
+      "png": "textures/5d/5d233d43f62053233ad65cfe01352d4957a64ba415a199e38e38ae4ab8ac14dc.png",
+      "width": 80,
+      "height": 120,
+      "bytes": 6165
+    },
+    {
+      "declared": "bus_dust_helix_01.bmp",
+      "resolved": "elemental_buster/elemental_buster/elemental_buster_poison/bus_dust_helix_01.bmp",
+      "missing": false,
+      "hash": "edcfd8e79b04d3d5c38d97eca0b5cc8344416502b286510d18248e7b8c1d6128",
+      "png": "textures/ed/edcfd8e79b04d3d5c38d97eca0b5cc8344416502b286510d18248e7b8c1d6128.png",
+      "width": 80,
+      "height": 120,
+      "bytes": 5571
+    },
+    {
+      "declared": "bus_dust_helix_02.bmp",
+      "resolved": "elemental_buster/elemental_buster/elemental_buster_poison/bus_dust_helix_02.bmp",
+      "missing": false,
+      "hash": "e8db100bc52893dedd8d1f230b793b941a55db85c98745c2bee3f9c403db2eac",
+      "png": "textures/e8/e8db100bc52893dedd8d1f230b793b941a55db85c98745c2bee3f9c403db2eac.png",
+      "width": 80,
+      "height": 120,
+      "bytes": 4761
+    },
+    {
+      "declared": "bus_dust_helix_03.bmp",
+      "resolved": "elemental_buster/elemental_buster/elemental_buster_poison/bus_dust_helix_03.bmp",
+      "missing": false,
+      "hash": "d4499f7fcf2a07e674156b31f2eca73d3f58a27adcf1f64de2029a808b1cc546",
+      "png": "textures/d4/d4499f7fcf2a07e674156b31f2eca73d3f58a27adcf1f64de2029a808b1cc546.png",
+      "width": 80,
+      "height": 120,
+      "bytes": 4002
+    },
+    {
+      "declared": "bus_dust_helix_04.bmp",
+      "resolved": "elemental_buster/elemental_buster/elemental_buster_poison/bus_dust_helix_04.bmp",
+      "missing": false,
+      "hash": "bc156a392159a1e57226e145bf49af4e9465f15c58b120ad92e8377b7f8f3d2e",
+      "png": "textures/bc/bc156a392159a1e57226e145bf49af4e9465f15c58b120ad92e8377b7f8f3d2e.png",
+      "width": 80,
+      "height": 120,
+      "bytes": 2999
+    },
+    {
+      "declared": "bus_dust_helix_05.bmp",
+      "resolved": "elemental_buster/elemental_buster/elemental_buster_poison/bus_dust_helix_05.bmp",
+      "missing": false,
+      "hash": "8e90de12fd00cc8b06c1d6b458234fc116a2052811bb5225d1067d7e348f2cb4",
+      "png": "textures/8e/8e90de12fd00cc8b06c1d6b458234fc116a2052811bb5225d1067d7e348f2cb4.png",
+      "width": 80,
+      "height": 120,
+      "bytes": 2079
+    },
+    {
+      "declared": "bus_dust_helix_06.bmp",
+      "resolved": "elemental_buster/elemental_buster/elemental_buster_poison/bus_dust_helix_06.bmp",
+      "missing": false,
+      "hash": "251ff31f484376f84630152f2d0d146955727b650d07f3373167abe73a529706",
+      "png": "textures/25/251ff31f484376f84630152f2d0d146955727b650d07f3373167abe73a529706.png",
+      "width": 80,
+      "height": 120,
+      "bytes": 1611
+    },
+    {
+      "declared": "bus_dust_helix_07.bmp",
+      "resolved": "elemental_buster/elemental_buster/elemental_buster_poison/bus_dust_helix_07.bmp",
+      "missing": false,
+      "hash": "94166e87fc37bf895904bfa3bea7ff714ee6d83755d96f40418b258041bdf56f",
+      "png": "textures/94/94166e87fc37bf895904bfa3bea7ff714ee6d83755d96f40418b258041bdf56f.png",
+      "width": 80,
+      "height": 120,
+      "bytes": 1137
+    },
+    {
+      "declared": "bus_circle_00.bmp",
+      "resolved": "elemental_buster/elemental_buster/elemental_buster_poison/bus_circle_00.bmp",
+      "missing": false,
+      "hash": "ee2520a2df2a9796bdf7869c4f97ad7e0aaadbef409100dfb581893f4b8d1a09",
+      "png": "textures/ee/ee2520a2df2a9796bdf7869c4f97ad7e0aaadbef409100dfb581893f4b8d1a09.png",
+      "width": 40,
+      "height": 40,
+      "bytes": 1992
+    }
+  ],
+  "assetPathMode": "library-root-relative",
+  "renderer": {
+    "mode": "V81 approximate-2d",
+    "notes": "Timeline/layers/textures/color/rotation supported; perspective and exact GL blends approximated."
+  }
+}

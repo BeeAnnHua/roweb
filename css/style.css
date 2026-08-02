@@ -22187,3 +22187,61 @@ body.player-death-modal-open #player-sprite{pointer-events:none!important}
 @media (max-width: 520px) {
   .skill-detail-timing-row { grid-template-columns: minmax(82px, 0.75fr) minmax(118px, 1.25fr); }
 }
+
+
+/* =========================================================
+   RO_WEB 0.9.82IB — V92 Active Skill Effect Runtime
+   BACK canvas < player/monster (z=3) < FRONT canvas; HUD remains above.
+   ========================================================= */
+.ro-v92-skill-effect-canvas {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  pointer-events: none !important;
+  user-select: none !important;
+  contain: strict;
+}
+#skill-effect-back-canvas { z-index: 2 !important; }
+#skill-effect-front-canvas { z-index: 4 !important; }
+.ui-drag-active .ro-v92-skill-effect-canvas { opacity: .28; }
+@media (prefers-reduced-motion: reduce) {
+  .ro-v92-skill-effect-canvas { image-rendering: auto; }
+}
+
+
+/* 0.9.82IC — Auto Battle / Death visibility hotfix */
+#auto-combat-panel .auto-fixed-fly-setting{display:flex!important;align-items:center!important;gap:5px!important;flex-wrap:wrap!important}
+#auto-combat-panel .auto-fixed-fly-setting input[type="number"]{width:72px!important;min-width:72px!important;text-align:center!important}
+#auto-combat-panel .auto-setting-note{margin:-2px 0 7px 24px;color:#aeb6bd;font-size:11px;line-height:1.45}
+.player-death-overlay{
+  place-items:end center!important;
+  padding:16px!important;
+  background:linear-gradient(180deg,rgba(3,2,3,.08),rgba(3,2,3,.22) 58%,rgba(3,2,3,.42))!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+}
+.player-death-dialog{
+  width:min(390px,calc(100vw - 24px))!important;
+  padding:13px 14px 12px!important;
+  margin-bottom:8px!important;
+  border-radius:12px!important;
+  box-shadow:0 12px 36px rgba(0,0,0,.68),inset 0 0 0 1px rgba(255,224,142,.12)!important;
+}
+.player-death-emblem{width:42px!important;height:42px!important;margin:-2px auto 2px!important;font-size:25px!important}
+.player-death-dialog h2{margin:2px 0 3px!important;font-size:21px!important}
+.player-death-cause{font-size:13px!important}
+.player-death-help{margin:5px auto 8px!important;max-width:350px!important;font-size:10px!important;line-height:1.4!important}
+.player-death-actions{gap:6px!important}
+.player-death-action{min-height:52px!important;grid-template-columns:38px minmax(0,1fr) auto!important;gap:8px!important;padding:6px 8px!important;border-radius:9px!important}
+.player-death-action img,.player-death-village-icon{width:34px!important;height:34px!important}
+.player-death-village{grid-template-columns:38px minmax(0,1fr)!important}
+.player-death-action span strong{font-size:13px!important}.player-death-action span small{margin-top:2px!important;font-size:9px!important}.player-death-action>b{min-width:58px!important;font-size:10px!important}
+@media(max-width:620px){
+  .player-death-overlay{padding:6px!important}
+  .player-death-dialog{width:calc(100vw - 12px)!important;padding:10px 9px 9px!important;margin-bottom:4px!important}
+  .player-death-emblem{width:36px!important;height:36px!important;font-size:22px!important}
+  .player-death-dialog h2{font-size:19px!important}
+  .player-death-action{min-height:48px!important;grid-template-columns:34px minmax(0,1fr) auto!important;padding:5px 7px!important}
+  .player-death-action img,.player-death-village-icon{width:31px!important;height:31px!important}
+}

@@ -1,3 +1,44 @@
+## 0.9.82IE — V92 地面特效世界座標快照修正
+
+- 修正強酸禁地（水／地／風）特效以玩家座標加固定偏移渲染，玩家行走時特效會一起移動。
+- `GROUND_CELL`／`GROUND_SPAWN` 改在事件觸發瞬間保存目標怪物腳下世界座標；之後只依 Camera 轉換畫面位置，不再重新跟隨玩家或怪物。
+- 強酸禁地的 START／BOTTOM／MAIN／HIT 全部使用同類地面快照政策，避免部分圖層仍黏在玩家或怪物身上。
+- BUFF、架式與光環維持玩家即時座標；一般目標命中特效維持目標即時座標；投射物維持玩家到目標的即時端點。
+- 0.9.82ID 既有掛機、暴力腔棘魚／波伊塔塔、精煉警告、固定飛行與肯貝特修正完整保留。
+
+## 0.9.82ID — 素質欄掛機恢復、MVP 魔法屬性與高精煉警告修正
+
+- 修正自動掛機中開啟素質欄後，完整 DOM 重建反覆佔用主執行緒，造成角色持續轉向／偵測卻不再攻擊；掛機中改為開窗快照，並新增事件排程 watchdog 自動恢復逾期 timer。
+- 移除 0.9.82IC 對「煉金術士技能選單被清空」的錯誤推測性修改，技能設定流程恢復原本規則。
+- 掛機中回城只執行停止掛機，系統訊息統一為「回到村莊，停止自動掛機。」；未掛機不顯示，不再額外禁止主動怪正常反擊。
+- MVP 試煉場原本誤放 ID 2189 變異腔棘魚（IgnoreMagic），改為官方 ID 2190 暴力腔棘魚（IgnoreMelee／IgnoreRanged；魔法有效），共用官方 `coelacanth_h` 動畫圖集。
+- 波伊塔塔維持官方火屬性 3、MDEF 66，沒有 IgnoreMagic；火魔法對火 3 為 0 倍，水等相剋魔法正常。正式接上 rAthena `DamageTaken: 10` 最終承傷率，非屬性免疫。
+- 精煉 +14 → +15 等「鐵匠的祝福不可用」階段，只要失敗會損壞或退階，也會顯示高精煉風險確認；+7 等可使用祝福階段仍保留原警告。
+- 固定秒數蒼蠅翅膀、Boss／MVP 遇到即飛、死亡視野、肯貝特與 V92 55 招特效維持不變。
+
+## 0.9.82IC — 自動掛機穩定、固定飛行、Boss 即飛與死亡視野修正
+
+- 修正煉金術士／其他職業已保存的自動攻擊技能被背景 UI 空選單清除，戰鬥 tick 不再反覆讀取整套設定 DOM。
+- 開啟素質欄時降低戰鬥中完整重繪頻率，並在首次開窗後喚醒掛機排程。
+- 新增固定每 N 秒使用蒼蠅翅膀；到秒時即使追怪、攻擊或詠唱也直接瞬移。
+- Boss／MVP 迴避改為全場威脅掃描；正在打普通怪時，Boss／MVP 追來或攻擊也會立即飛走。
+- 死亡背景取消模糊並降低遮罩，死亡視窗縮小移至底部，保留角色倒地畫面。
+- 掛機中回城會顯示「回到村莊~~ 已停止自動掛機。」；未掛機不顯示。回城後重新出城不再自動反擊數隻怪物。
+- 修正火／水／地／風肯貝特與暗水已套用屬性後，又被通用消耗品 Runtime 以 `itemskill` 未支援攔截，造成道具不扣除、看似無法使用；現在由專用屬性附加流程完成後直接進入統一扣除與存檔。
+
+## 0.9.82IB — V92 主動技能特效 Runtime 與被動技能輸出守門
+
+- 接入 V91.6 Ready Library：55 招主動技能、454 個 Effect JSON、2395 張 PNG。
+- 新增 `js/skill_effect_runtime_v92.js`，依 SKILL_BEGIN／CAST_BEGIN／CAST_COMPLETE／PROJECTILE_LAUNCH／GROUND_SPAWN／DAMAGE_COMMIT／HIT_CONFIRM／LOOP_START／SKILL_END 播放。
+- `skill_engine.js` 在詠唱開始、正式結算及傷害命中處送出權威 Runtime 事件。
+- 新增 BACK／FRONT 雙 Canvas、人物／目標身體與腳底錨點、投射物路徑及 Gravity STR 基本／MORPH 動畫取樣。
+- 桌機優先 Full；手機、觸控或低核心裝置優先 Min，Full／Min 可互相 fallback。
+- 新增被動技能輸出守門：handler=passive／pending、空 handler 或 executionEnabled!=true 一律排除。
+- 完整記錄目前 216 招被動技能；本次 55 招候選與被動清單交集為 0。
+- Runtime 每次 Begin／Commit／Hit 再次檢查技能狀態，避免未來資料改為被動後仍播放。
+- 持續特效支援 SKILL_END、死亡、換圖、切角、pagehide／beforeunload 清理。
+- 保留 `allowNameWriteback=false` 與 `allowDescriptionWriteback=false`。
+
 ## 0.9.82IA — Renewal 詠唱／後延遲／獨立冷卻完整校正
 
 - 確認並固定使用 Renewal `DEX×2+INT=530` 變動詠唱門檻；採最終角色素質。

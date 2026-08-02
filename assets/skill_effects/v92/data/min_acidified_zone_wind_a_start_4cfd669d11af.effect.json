@@ -1,0 +1,191 @@
+{
+  "schema": "ro-effect-str-1.1",
+  "source": "acidified_zone_wind/acidified_zone_wind_a_start/min_acidified_zone_wind_a_start.str",
+  "version": 148,
+  "fps": 60,
+  "frameCount": 10,
+  "durationSeconds": 0.166667,
+  "layers": [
+    {
+      "textures": [],
+      "keyframes": []
+    },
+    {
+      "textures": [
+        "aci_tornado_00.tga",
+        "aci_tornado_01.tga",
+        "aci_tornado_02.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 0,
+          "type": 0,
+          "position": [
+            321.0,
+            311.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            100.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 0,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            -5.598680019378662,
+            5.901319980621338,
+            5.901319980621338,
+            -5.598680019378662,
+            -11.5,
+            -11.5,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 10,
+          "type": 0,
+          "position": [
+            321.0,
+            311.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -55.98680114746094,
+            59.01319885253906,
+            59.01319885253906,
+            -55.98680114746094,
+            -115.0,
+            -115.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 2.0,
+          "animationType": 3,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            100.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        }
+      ]
+    }
+  ],
+  "effectId": "min_acidified_zone_wind_a_start_4cfd669d11af",
+  "classification": "READY_MIN",
+  "variant": "MIN",
+  "role": "START",
+  "scope": {
+    "profession": "acidified_zone_wind",
+    "skillGroup": "acidified_zone_wind_a_start"
+  },
+  "dependencies": [
+    {
+      "declared": "aci_tornado_00.tga",
+      "resolved": "acidified_zone_wind/acidified_zone_wind_a_start/aci_tornado_00.tga",
+      "missing": false,
+      "hash": "b456a2ea250c008c86ec1ab6189c7c0bb22e835b52ac18fc6b36fc3e5d888e3e",
+      "png": "textures/b4/b456a2ea250c008c86ec1ab6189c7c0bb22e835b52ac18fc6b36fc3e5d888e3e.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 19649
+    },
+    {
+      "declared": "aci_tornado_01.tga",
+      "resolved": "acidified_zone_wind/acidified_zone_wind_a_start/aci_tornado_01.tga",
+      "missing": false,
+      "hash": "c7a63a42c45159e4cc46f80e75b479c25581abf5cfe55fe2da11184b3a6d70b1",
+      "png": "textures/c7/c7a63a42c45159e4cc46f80e75b479c25581abf5cfe55fe2da11184b3a6d70b1.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 19278
+    },
+    {
+      "declared": "aci_tornado_02.tga",
+      "resolved": "acidified_zone_wind/acidified_zone_wind_a_start/aci_tornado_02.tga",
+      "missing": false,
+      "hash": "23a75d937c5b008b05a8411d25f6d286ae8ae1f0d97cd30f0e84598d3f35d2ea",
+      "png": "textures/23/23a75d937c5b008b05a8411d25f6d286ae8ae1f0d97cd30f0e84598d3f35d2ea.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 18894
+    }
+  ],
+  "assetPathMode": "library-root-relative",
+  "renderer": {
+    "mode": "V81 approximate-2d",
+    "notes": "Timeline/layers/textures/color/rotation supported; perspective and exact GL blends approximated."
+  }
+}

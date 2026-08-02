@@ -1,0 +1,2401 @@
+{
+  "schema": "ro-effect-str-1.1",
+  "source": "texture/effect/windhawk/crescive_bolt/crescivebolt_cast/crescivebolt_cast.str",
+  "version": 148,
+  "fps": 60,
+  "frameCount": 45,
+  "durationSeconds": 0.75,
+  "layers": [
+    {
+      "textures": [],
+      "keyframes": []
+    },
+    {
+      "textures": [
+        "cre_helix_00.tga",
+        "cre_helix_01.tga",
+        "cre_helix_02.tga",
+        "cre_helix_03.tga",
+        "cre_helix_04.tga",
+        "cre_helix_05.tga",
+        "cre_helix_06.tga",
+        "cre_helix_07.tga",
+        "cre_helix_08.tga",
+        "cre_helix_09.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 0,
+          "type": 0,
+          "position": [
+            325.0,
+            250.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            89.0625,
+            -10.9375,
+            -10.9375,
+            89.0625,
+            -21.859600067138672,
+            -21.859600067138672,
+            67.1404037475586,
+            67.1404037475586
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 0.0,
+          "color": [
+            129.0,
+            183.0,
+            111.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 0,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 9,
+          "type": 0,
+          "position": [
+            325.0,
+            250.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            89.0625,
+            -10.9375,
+            -10.9375,
+            89.0625,
+            -21.859600067138672,
+            -21.859600067138672,
+            67.1404037475586,
+            67.1404037475586
+          ],
+          "textureId": 9.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 0.0,
+          "color": [
+            129.0,
+            183.0,
+            111.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "cre_helix_00.tga",
+        "cre_helix_01.tga",
+        "cre_helix_02.tga",
+        "cre_helix_03.tga",
+        "cre_helix_04.tga",
+        "cre_helix_05.tga",
+        "cre_helix_06.tga",
+        "cre_helix_07.tga",
+        "cre_helix_08.tga",
+        "cre_helix_09.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 5,
+          "type": 0,
+          "position": [
+            317.0,
+            253.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -70.3593978881836,
+            8.640600204467773,
+            8.640600204467773,
+            -70.3593978881836,
+            -17.19300079345703,
+            -17.19300079345703,
+            52.80699920654297,
+            52.80699920654297
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": -113.77780151367188,
+          "color": [
+            103.0,
+            208.0,
+            47.0,
+            220.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 5,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 14,
+          "type": 0,
+          "position": [
+            317.0,
+            253.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -70.3593978881836,
+            8.640600204467773,
+            8.640600204467773,
+            -70.3593978881836,
+            -17.19300079345703,
+            -17.19300079345703,
+            52.80699920654297,
+            52.80699920654297
+          ],
+          "textureId": 9.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": -113.77780151367188,
+          "color": [
+            103.0,
+            208.0,
+            47.0,
+            220.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "cre_helix_00.tga",
+        "cre_helix_01.tga",
+        "cre_helix_02.tga",
+        "cre_helix_03.tga",
+        "cre_helix_04.tga",
+        "cre_helix_05.tga",
+        "cre_helix_06.tga",
+        "cre_helix_07.tga",
+        "cre_helix_08.tga",
+        "cre_helix_09.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 6,
+          "type": 0,
+          "position": [
+            305.0,
+            280.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -114.8906021118164,
+            14.109399795532227,
+            14.109399795532227,
+            -114.8906021118164,
+            28.2455997467041,
+            28.2455997467041,
+            -86.75440216064453,
+            -86.75440216064453
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 156.4444122314453,
+          "color": [
+            87.0,
+            198.0,
+            64.0,
+            210.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 6,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 15,
+          "type": 0,
+          "position": [
+            305.0,
+            280.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -114.8906021118164,
+            14.109399795532227,
+            14.109399795532227,
+            -114.8906021118164,
+            28.2455997467041,
+            28.2455997467041,
+            -86.75440216064453,
+            -86.75440216064453
+          ],
+          "textureId": 9.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 156.4444122314453,
+          "color": [
+            87.0,
+            198.0,
+            64.0,
+            210.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "cre_helix_00.tga",
+        "cre_helix_01.tga",
+        "cre_helix_02.tga",
+        "cre_helix_03.tga",
+        "cre_helix_04.tga",
+        "cre_helix_05.tga",
+        "cre_helix_06.tga",
+        "cre_helix_07.tga",
+        "cre_helix_08.tga",
+        "cre_helix_09.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 11,
+          "type": 0,
+          "position": [
+            310.0,
+            265.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            90.84369659423828,
+            -11.156299591064453,
+            -11.156299591064453,
+            90.84369659423828,
+            -22.350900650024414,
+            -22.350900650024414,
+            68.64910125732422,
+            68.64910125732422
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": -170.6667022705078,
+          "color": [
+            83.0,
+            202.0,
+            19.0,
+            210.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 11,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 20,
+          "type": 0,
+          "position": [
+            310.0,
+            265.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            90.84369659423828,
+            -11.156299591064453,
+            -11.156299591064453,
+            90.84369659423828,
+            -22.350900650024414,
+            -22.350900650024414,
+            68.64910125732422,
+            68.64910125732422
+          ],
+          "textureId": 9.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": -170.6667022705078,
+          "color": [
+            83.0,
+            202.0,
+            19.0,
+            210.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "cre_helix_00.tga",
+        "cre_helix_01.tga",
+        "cre_helix_02.tga",
+        "cre_helix_03.tga",
+        "cre_helix_04.tga",
+        "cre_helix_05.tga",
+        "cre_helix_06.tga",
+        "cre_helix_07.tga",
+        "cre_helix_08.tga",
+        "cre_helix_09.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 17,
+          "type": 0,
+          "position": [
+            330.0,
+            265.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            90.84369659423828,
+            -11.156299591064453,
+            -11.156299591064453,
+            90.84369659423828,
+            -22.350900650024414,
+            -22.350900650024414,
+            68.64910125732422,
+            68.64910125732422
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 199.11109924316406,
+          "color": [
+            149.0,
+            180.0,
+            114.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 17,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 26,
+          "type": 0,
+          "position": [
+            330.0,
+            265.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            90.84369659423828,
+            -11.156299591064453,
+            -11.156299591064453,
+            90.84369659423828,
+            -22.350900650024414,
+            -22.350900650024414,
+            68.64910125732422,
+            68.64910125732422
+          ],
+          "textureId": 9.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 199.11109924316406,
+          "color": [
+            149.0,
+            180.0,
+            114.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "cre_glow_00.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 30,
+          "type": 0,
+          "position": [
+            320.0,
+            260.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -96.0,
+            96.0,
+            96.0,
+            -96.0,
+            -96.0,
+            -96.0,
+            96.0,
+            96.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            200.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 30,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            -6.400000095367432,
+            6.400000095367432,
+            6.400000095367432,
+            -6.400000095367432,
+            -6.400000095367432,
+            -6.400000095367432,
+            6.400000095367432,
+            6.400000095367432
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            -25.5,
+            -25.5,
+            -25.5,
+            -20.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 40,
+          "type": 0,
+          "position": [
+            320.0,
+            260.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -160.0,
+            160.0,
+            160.0,
+            -160.0,
+            -160.0,
+            -160.0,
+            160.0,
+            160.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "cre_glow_00.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 0,
+          "type": 0,
+          "position": [
+            320.0,
+            260.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -48.0,
+            48.0,
+            48.0,
+            -48.0,
+            -48.0,
+            -48.0,
+            48.0,
+            48.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            129.0,
+            183.0,
+            111.0,
+            100.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 0,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            -0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            -0.800000011920929,
+            -0.800000011920929,
+            -0.800000011920929,
+            0.800000011920929,
+            0.800000011920929
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 0.0,
+          "rotation": 6.400000095367432,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            2.5
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 20,
+          "type": 0,
+          "position": [
+            320.0,
+            260.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -64.0,
+            64.0,
+            64.0,
+            -64.0,
+            -64.0,
+            -64.0,
+            64.0,
+            64.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 0.0,
+          "rotation": 128.0,
+          "color": [
+            129.0,
+            183.0,
+            111.0,
+            150.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 20,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.800000011920929,
+            -0.800000011920929,
+            -0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            -0.800000011920929,
+            -0.800000011920929
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 0.0,
+          "rotation": 6.400000095367432,
+          "color": [
+            6.300000190734863,
+            3.5999999046325684,
+            7.199999809265137,
+            -5.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 40,
+          "type": 0,
+          "position": [
+            320.0,
+            260.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -48.0,
+            48.0,
+            48.0,
+            -48.0,
+            -48.0,
+            -48.0,
+            48.0,
+            48.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 0.0,
+          "rotation": 256.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            50.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "cre_helix_00.bmp",
+        "cre_helix_01.bmp",
+        "cre_helix_02.bmp",
+        "cre_helix_03.bmp",
+        "cre_helix_04.bmp",
+        "cre_helix_05.bmp",
+        "cre_helix_06.bmp",
+        "cre_helix_07.bmp",
+        "cre_helix_08.bmp",
+        "cre_helix_09.bmp",
+        "cre_helix_10.bmp",
+        "cre_helix_11.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 4,
+          "type": 0,
+          "position": [
+            325.0,
+            250.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            64.125,
+            -7.875,
+            -7.875,
+            64.125,
+            -15.719300270080566,
+            -15.719300270080566,
+            48.28070068359375,
+            48.28070068359375
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 42.66669845581055,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            200.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 4,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 15,
+          "type": 0,
+          "position": [
+            325.0,
+            250.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            64.125,
+            -7.875,
+            -7.875,
+            64.125,
+            -15.719300270080566,
+            -15.719300270080566,
+            48.28070068359375,
+            48.28070068359375
+          ],
+          "textureId": 11.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 42.66669845581055,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            200.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "cre_helix_00.bmp",
+        "cre_helix_01.bmp",
+        "cre_helix_02.bmp",
+        "cre_helix_03.bmp",
+        "cre_helix_04.bmp",
+        "cre_helix_05.bmp",
+        "cre_helix_06.bmp",
+        "cre_helix_07.bmp",
+        "cre_helix_08.bmp",
+        "cre_helix_09.bmp",
+        "cre_helix_10.bmp",
+        "cre_helix_11.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 10,
+          "type": 0,
+          "position": [
+            313.0,
+            251.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -50.76559829711914,
+            6.234399795532227,
+            6.234399795532227,
+            -50.76559829711914,
+            -12.526300430297852,
+            -12.526300430297852,
+            38.47370147705078,
+            38.47370147705078
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": -14.222200393676758,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            180.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 10,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 21,
+          "type": 0,
+          "position": [
+            313.0,
+            251.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -50.76559829711914,
+            6.234399795532227,
+            6.234399795532227,
+            -50.76559829711914,
+            -12.526300430297852,
+            -12.526300430297852,
+            38.47370147705078,
+            38.47370147705078
+          ],
+          "textureId": 11.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": -14.222200393676758,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            180.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "cre_helix_00.bmp",
+        "cre_helix_01.bmp",
+        "cre_helix_02.bmp",
+        "cre_helix_03.bmp",
+        "cre_helix_04.bmp",
+        "cre_helix_05.bmp",
+        "cre_helix_06.bmp",
+        "cre_helix_07.bmp",
+        "cre_helix_08.bmp",
+        "cre_helix_09.bmp",
+        "cre_helix_10.bmp",
+        "cre_helix_11.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 10,
+          "type": 0,
+          "position": [
+            305.0,
+            280.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -96.1875,
+            11.8125,
+            11.8125,
+            -96.1875,
+            23.578899383544922,
+            23.578899383544922,
+            -72.42109680175781,
+            -72.42109680175781
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 199.11109924316406,
+          "color": [
+            96.0,
+            223.0,
+            89.0,
+            160.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 10,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 0.0,
+          "color": [
+            14.454545021057129,
+            2.909090995788574,
+            15.090909004211426,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 21,
+          "type": 0,
+          "position": [
+            305.0,
+            280.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -96.1875,
+            11.8125,
+            11.8125,
+            -96.1875,
+            23.578899383544922,
+            23.578899383544922,
+            -72.42109680175781,
+            -72.42109680175781
+          ],
+          "textureId": 11.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 199.11109924316406,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            160.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "cre_helix_00.bmp",
+        "cre_helix_01.bmp",
+        "cre_helix_02.bmp",
+        "cre_helix_03.bmp",
+        "cre_helix_04.bmp",
+        "cre_helix_05.bmp",
+        "cre_helix_06.bmp",
+        "cre_helix_07.bmp",
+        "cre_helix_08.bmp",
+        "cre_helix_09.bmp",
+        "cre_helix_10.bmp",
+        "cre_helix_11.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 15,
+          "type": 0,
+          "position": [
+            310.0,
+            265.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            64.125,
+            -7.875,
+            -7.875,
+            64.125,
+            -15.719300270080566,
+            -15.719300270080566,
+            48.28070068359375,
+            48.28070068359375
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": -142.22219848632812,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            160.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 15,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 26,
+          "type": 0,
+          "position": [
+            310.0,
+            265.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            64.125,
+            -7.875,
+            -7.875,
+            64.125,
+            -15.719300270080566,
+            -15.719300270080566,
+            48.28070068359375,
+            48.28070068359375
+          ],
+          "textureId": 11.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": -142.22219848632812,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            160.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "cre_helix_00.bmp",
+        "cre_helix_01.bmp",
+        "cre_helix_02.bmp",
+        "cre_helix_03.bmp",
+        "cre_helix_04.bmp",
+        "cre_helix_05.bmp",
+        "cre_helix_06.bmp",
+        "cre_helix_07.bmp",
+        "cre_helix_08.bmp",
+        "cre_helix_09.bmp",
+        "cre_helix_10.bmp",
+        "cre_helix_11.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 21,
+          "type": 0,
+          "position": [
+            330.0,
+            265.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            64.125,
+            -7.875,
+            -7.875,
+            64.125,
+            -15.719300270080566,
+            -15.719300270080566,
+            48.28070068359375,
+            48.28070068359375
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 284.4444885253906,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            200.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 21,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 32,
+          "type": 0,
+          "position": [
+            330.0,
+            265.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            64.125,
+            -7.875,
+            -7.875,
+            64.125,
+            -15.719300270080566,
+            -15.719300270080566,
+            48.28070068359375,
+            48.28070068359375
+          ],
+          "textureId": 11.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 284.4444885253906,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            200.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "cre_circle.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 28,
+          "type": 0,
+          "position": [
+            322.0,
+            260.5
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -34.5,
+            34.5,
+            34.5,
+            -34.5,
+            -35.0,
+            -35.0,
+            35.0,
+            35.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 28,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            -1.9583333730697632,
+            1.9583333730697632,
+            1.9583333730697632,
+            -1.9583333730697632,
+            -1.9583333730697632,
+            -1.9583333730697632,
+            1.9583333730697632,
+            1.9583333730697632
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -21.25
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 40,
+          "type": 0,
+          "position": [
+            322.0,
+            260.5
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -58.0,
+            58.0,
+            58.0,
+            -58.0,
+            -58.5,
+            -58.5,
+            58.5,
+            58.5
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "cre_circle.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 30,
+          "type": 0,
+          "position": [
+            320.5,
+            259.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -78.5,
+            78.5,
+            78.5,
+            -78.5,
+            -69.5,
+            -69.5,
+            69.5,
+            69.5
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            150.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 30,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            -2.0999999046325684,
+            2.0999999046325684,
+            2.0999999046325684,
+            -2.0999999046325684,
+            -2.75,
+            -2.75,
+            2.75,
+            2.75
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -15.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 40,
+          "type": 0,
+          "position": [
+            320.5,
+            259.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -99.5,
+            99.5,
+            99.5,
+            -99.5,
+            -97.0,
+            -97.0,
+            97.0,
+            97.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "cre_circle.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 33,
+          "type": 0,
+          "position": [
+            322.0,
+            260.5
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -52.5,
+            52.5,
+            52.5,
+            -52.5,
+            -49.5,
+            -49.5,
+            49.5,
+            49.5
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 33,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            -1.6666666269302368,
+            1.6666666269302368,
+            1.6666666269302368,
+            -1.6666666269302368,
+            -1.375,
+            -1.375,
+            1.375,
+            1.375
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -21.25
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 45,
+          "type": 0,
+          "position": [
+            322.0,
+            260.5
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -72.5,
+            72.5,
+            72.5,
+            -72.5,
+            -66.0,
+            -66.0,
+            66.0,
+            66.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    }
+  ],
+  "effectId": "crescivebolt_cast_68e8a4a091c1",
+  "classification": "READY_FULL",
+  "variant": "FULL",
+  "role": "CAST",
+  "scope": {
+    "profession": "windhawk",
+    "skillGroup": "crescive_bolt"
+  },
+  "dependencies": [
+    {
+      "declared": "cre_helix_00.tga",
+      "resolved": "texture/effect/windhawk/crescive_bolt/crescivebolt_cast/cre_helix_00.tga",
+      "missing": false,
+      "hash": "ec162ff5cce0aac30ab0f2e6f96836cc1a538d740f24c01a9205e6171f666450",
+      "png": "textures/ec/ec162ff5cce0aac30ab0f2e6f96836cc1a538d740f24c01a9205e6171f666450.png",
+      "width": 72,
+      "height": 64,
+      "bytes": 1300
+    },
+    {
+      "declared": "cre_helix_01.tga",
+      "resolved": "texture/effect/windhawk/crescive_bolt/crescivebolt_cast/cre_helix_01.tga",
+      "missing": false,
+      "hash": "97078026ae880aebad35121544ab295e89fededad75cc0f7c35db4be9f0de77b",
+      "png": "textures/97/97078026ae880aebad35121544ab295e89fededad75cc0f7c35db4be9f0de77b.png",
+      "width": 72,
+      "height": 64,
+      "bytes": 1674
+    },
+    {
+      "declared": "cre_helix_02.tga",
+      "resolved": "texture/effect/windhawk/crescive_bolt/crescivebolt_cast/cre_helix_02.tga",
+      "missing": false,
+      "hash": "655a3bd040a444087b5e6c610b2a0f558ac5ff9319c13a373e7af5a5f8bf19b4",
+      "png": "textures/65/655a3bd040a444087b5e6c610b2a0f558ac5ff9319c13a373e7af5a5f8bf19b4.png",
+      "width": 72,
+      "height": 64,
+      "bytes": 1865
+    },
+    {
+      "declared": "cre_helix_03.tga",
+      "resolved": "texture/effect/windhawk/crescive_bolt/crescivebolt_cast/cre_helix_03.tga",
+      "missing": false,
+      "hash": "d5ed9d432401b43a6ff712eeb958d148f7fcdb7c8709c36910f1d3265942dc58",
+      "png": "textures/d5/d5ed9d432401b43a6ff712eeb958d148f7fcdb7c8709c36910f1d3265942dc58.png",
+      "width": 72,
+      "height": 64,
+      "bytes": 1931
+    },
+    {
+      "declared": "cre_helix_04.tga",
+      "resolved": "texture/effect/windhawk/crescive_bolt/crescivebolt_cast/cre_helix_04.tga",
+      "missing": false,
+      "hash": "a71dbc301b2b286134baaebf64f11adcb217abc72e1451065e074235985544eb",
+      "png": "textures/a7/a71dbc301b2b286134baaebf64f11adcb217abc72e1451065e074235985544eb.png",
+      "width": 72,
+      "height": 64,
+      "bytes": 1959
+    },
+    {
+      "declared": "cre_helix_05.tga",
+      "resolved": "texture/effect/windhawk/crescive_bolt/crescivebolt_cast/cre_helix_05.tga",
+      "missing": false,
+      "hash": "2df61dd54917a9012511299d996fb09c052007ba7654bce2a23158a0710d3244",
+      "png": "textures/2d/2df61dd54917a9012511299d996fb09c052007ba7654bce2a23158a0710d3244.png",
+      "width": 72,
+      "height": 64,
+      "bytes": 1680
+    },
+    {
+      "declared": "cre_helix_06.tga",
+      "resolved": "texture/effect/windhawk/crescive_bolt/crescivebolt_cast/cre_helix_06.tga",
+      "missing": false,
+      "hash": "d5ff70c33f00be7520b6c74b300696b9adaaf4f3ece3b119c92019a9deb9fc52",
+      "png": "textures/d5/d5ff70c33f00be7520b6c74b300696b9adaaf4f3ece3b119c92019a9deb9fc52.png",
+      "width": 72,
+      "height": 64,
+      "bytes": 1312
+    },
+    {
+      "declared": "cre_helix_07.tga",
+      "resolved": "texture/effect/windhawk/crescive_bolt/crescivebolt_cast/cre_helix_07.tga",
+      "missing": false,
+      "hash": "260826999b92a7eb687f32ee07f55e0bcf61199075d17aec4b3b7affc08e2c7a",
+      "png": "textures/26/260826999b92a7eb687f32ee07f55e0bcf61199075d17aec4b3b7affc08e2c7a.png",
+      "width": 72,
+      "height": 64,
+      "bytes": 1179
+    },
+    {
+      "declared": "cre_helix_08.tga",
+      "resolved": "texture/effect/windhawk/crescive_bolt/crescivebolt_cast/cre_helix_08.tga",
+      "missing": false,
+      "hash": "37f25db5aabd16568bbc2e71fecf3d1b4d355324c4047f0de9b044b5f22afd80",
+      "png": "textures/37/37f25db5aabd16568bbc2e71fecf3d1b4d355324c4047f0de9b044b5f22afd80.png",
+      "width": 72,
+      "height": 64,
+      "bytes": 929
+    },
+    {
+      "declared": "cre_helix_09.tga",
+      "resolved": "texture/effect/windhawk/crescive_bolt/crescivebolt_cast/cre_helix_09.tga",
+      "missing": false,
+      "hash": "4e0ea284738e23b75d4fe5b2fa0c3e672ac3073cd4e9a7cd538015c8234cdf03",
+      "png": "textures/4e/4e0ea284738e23b75d4fe5b2fa0c3e672ac3073cd4e9a7cd538015c8234cdf03.png",
+      "width": 72,
+      "height": 64,
+      "bytes": 675
+    },
+    {
+      "declared": "cre_glow_00.bmp",
+      "resolved": "texture/effect/windhawk/crescive_bolt/crescivebolt_cast/cre_glow_00.bmp",
+      "missing": false,
+      "hash": "f7be044ec88bb9b1eaf0e900d8be17cc4a424f6d8c786077a65ee0408f755361",
+      "png": "textures/f7/f7be044ec88bb9b1eaf0e900d8be17cc4a424f6d8c786077a65ee0408f755361.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 4965
+    },
+    {
+      "declared": "cre_helix_00.bmp",
+      "resolved": "texture/effect/windhawk/crescive_bolt/crescivebolt_cast/cre_helix_00.bmp",
+      "missing": false,
+      "hash": "3910499f22d4d84e5d54c0f17c6927a8b74a261c8b122bcf1bf8b4068b933244",
+      "png": "textures/39/3910499f22d4d84e5d54c0f17c6927a8b74a261c8b122bcf1bf8b4068b933244.png",
+      "width": 72,
+      "height": 64,
+      "bytes": 736
+    },
+    {
+      "declared": "cre_helix_01.bmp",
+      "resolved": "texture/effect/windhawk/crescive_bolt/crescivebolt_cast/cre_helix_01.bmp",
+      "missing": false,
+      "hash": "4579b88348cdad9f2ed757802fb238226cae5f85b8e69301de4c2e8a80b82666",
+      "png": "textures/45/4579b88348cdad9f2ed757802fb238226cae5f85b8e69301de4c2e8a80b82666.png",
+      "width": 72,
+      "height": 64,
+      "bytes": 1209
+    },
+    {
+      "declared": "cre_helix_02.bmp",
+      "resolved": "texture/effect/windhawk/crescive_bolt/crescivebolt_cast/cre_helix_02.bmp",
+      "missing": false,
+      "hash": "229cb165032313dc85d95958166f6adb238a9308001c5f426cd4eef62b28f631",
+      "png": "textures/22/229cb165032313dc85d95958166f6adb238a9308001c5f426cd4eef62b28f631.png",
+      "width": 72,
+      "height": 64,
+      "bytes": 1512
+    },
+    {
+      "declared": "cre_helix_03.bmp",
+      "resolved": "texture/effect/windhawk/crescive_bolt/crescivebolt_cast/cre_helix_03.bmp",
+      "missing": false,
+      "hash": "aab0677debfee5c1cc3728c7e4a0cfea6bdc0a156318aa377a171de754ff94eb",
+      "png": "textures/aa/aab0677debfee5c1cc3728c7e4a0cfea6bdc0a156318aa377a171de754ff94eb.png",
+      "width": 72,
+      "height": 64,
+      "bytes": 1686
+    },
+    {
+      "declared": "cre_helix_04.bmp",
+      "resolved": "texture/effect/windhawk/crescive_bolt/crescivebolt_cast/cre_helix_04.bmp",
+      "missing": false,
+      "hash": "a07686747376017e1d1cf511c92ad1f0032db0692790b3785890d32b789dee9e",
+      "png": "textures/a0/a07686747376017e1d1cf511c92ad1f0032db0692790b3785890d32b789dee9e.png",
+      "width": 72,
+      "height": 64,
+      "bytes": 1733
+    },
+    {
+      "declared": "cre_helix_05.bmp",
+      "resolved": "texture/effect/windhawk/crescive_bolt/crescivebolt_cast/cre_helix_05.bmp",
+      "missing": false,
+      "hash": "573c00909b2c9addd2cbd8351440f36f3515ede61a6ff748a9accd4cc763c107",
+      "png": "textures/57/573c00909b2c9addd2cbd8351440f36f3515ede61a6ff748a9accd4cc763c107.png",
+      "width": 72,
+      "height": 64,
+      "bytes": 1737
+    },
+    {
+      "declared": "cre_helix_06.bmp",
+      "resolved": "texture/effect/windhawk/crescive_bolt/crescivebolt_cast/cre_helix_06.bmp",
+      "missing": false,
+      "hash": "094d5eff61447dad323051951ba3dad5f1873fd4909478c4f0e10e4b57c43f62",
+      "png": "textures/09/094d5eff61447dad323051951ba3dad5f1873fd4909478c4f0e10e4b57c43f62.png",
+      "width": 72,
+      "height": 64,
+      "bytes": 1499
+    },
+    {
+      "declared": "cre_helix_07.bmp",
+      "resolved": "texture/effect/windhawk/crescive_bolt/crescivebolt_cast/cre_helix_07.bmp",
+      "missing": false,
+      "hash": "6781657ad4160eabe3bd7ec8180fd8bafa3d959c8284f7db8b99aa0a6d9ac953",
+      "png": "textures/67/6781657ad4160eabe3bd7ec8180fd8bafa3d959c8284f7db8b99aa0a6d9ac953.png",
+      "width": 72,
+      "height": 64,
+      "bytes": 1157
+    },
+    {
+      "declared": "cre_helix_08.bmp",
+      "resolved": "texture/effect/windhawk/crescive_bolt/crescivebolt_cast/cre_helix_08.bmp",
+      "missing": false,
+      "hash": "1a211f1e15c2fc8f4ecc2e1a31341b832b787fd6b37e0709464185a879dc5781",
+      "png": "textures/1a/1a211f1e15c2fc8f4ecc2e1a31341b832b787fd6b37e0709464185a879dc5781.png",
+      "width": 72,
+      "height": 64,
+      "bytes": 1030
+    },
+    {
+      "declared": "cre_helix_09.bmp",
+      "resolved": "texture/effect/windhawk/crescive_bolt/crescivebolt_cast/cre_helix_09.bmp",
+      "missing": false,
+      "hash": "c1612df87aa8e04e30f39ea218fb282e7a68f504197a23490f17e4d12806cc58",
+      "png": "textures/c1/c1612df87aa8e04e30f39ea218fb282e7a68f504197a23490f17e4d12806cc58.png",
+      "width": 72,
+      "height": 64,
+      "bytes": 825
+    },
+    {
+      "declared": "cre_helix_10.bmp",
+      "resolved": "texture/effect/windhawk/crescive_bolt/crescivebolt_cast/cre_helix_10.bmp",
+      "missing": false,
+      "hash": "520e37dd95397ea03af163c9a5e179bfdddd7ddf1ce480b4b781ba09a33fa3f1",
+      "png": "textures/52/520e37dd95397ea03af163c9a5e179bfdddd7ddf1ce480b4b781ba09a33fa3f1.png",
+      "width": 72,
+      "height": 64,
+      "bytes": 638
+    },
+    {
+      "declared": "cre_helix_11.bmp",
+      "resolved": "texture/effect/windhawk/crescive_bolt/crescivebolt_cast/cre_helix_11.bmp",
+      "missing": false,
+      "hash": "1c46b912a5b77580e198c34b6ba5b166eb7c73de61d2745cd3e7322c32355c54",
+      "png": "textures/1c/1c46b912a5b77580e198c34b6ba5b166eb7c73de61d2745cd3e7322c32355c54.png",
+      "width": 72,
+      "height": 64,
+      "bytes": 411
+    },
+    {
+      "declared": "cre_circle.bmp",
+      "resolved": "texture/effect/windhawk/crescive_bolt/crescivebolt_cast/cre_circle.bmp",
+      "missing": false,
+      "hash": "58f7793e379f3ad8711dd703365fa5ac278f195c061d218392db946b807355c7",
+      "png": "textures/58/58f7793e379f3ad8711dd703365fa5ac278f195c061d218392db946b807355c7.png",
+      "width": 100,
+      "height": 100,
+      "bytes": 13002
+    }
+  ],
+  "assetPathMode": "library-root-relative",
+  "renderer": {
+    "mode": "V81 approximate-2d",
+    "notes": "Timeline/layers/textures/color/rotation supported; perspective and exact GL blends approximated."
+  }
+}

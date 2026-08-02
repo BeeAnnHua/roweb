@@ -1113,7 +1113,15 @@ function beginRuntimeSkillTiming(skill, level = 1, options = {}) {
   // rAthena unit_set_attackdelay(DELAY_EVENT_CASTBEGIN_*): every player skill
   // also pushes normal attackabletime by the current weapon adelay.
   if (typeof markPlayerAttackUsed === "function") markPlayerAttackUsed();
-  return { token, skillId, startedAt: now, lockMs, lockUntil: now + lockMs };
+  const timingResult = { token, skillId, startedAt: now, lockMs, lockUntil: now + lockMs };
+  // 0.9.82IB / V92：只有 RO_WEB Runtime 仍為可執行主動技能時，才送出特效開始事件。
+  // SkillEffectRuntimeV92 會再次檢查 handler/passive/executionEnabled，避免改造被動技能誤播放。
+  window.SkillEffectRuntimeV92?.onSkillBegin?.(skill, level, {
+    ...options,
+    token,
+    target: options.target || (typeof currentMonster !== "undefined" ? currentMonster : null)
+  });
+  return timingResult;
 }
 
 function hasRuntimeCastTimingHandoff(skill) {
@@ -1176,6 +1184,11 @@ function commitRuntimeSkillTiming(skill, level = 1) {
   if (Number(timing.cooldownMs || 0) > 0) state.skillCooldownUntil[skillId] = Math.max(Number(state.skillCooldownUntil[skillId] || 0), now + Number(timing.cooldownMs));
   if (Number(timing.afterCastActDelayMs || 0) > 0) state.globalDelayUntil = Math.max(Number(state.globalDelayUntil || 0), now + Number(timing.afterCastActDelayMs));
   if (Number(timing.afterCastWalkDelayMs || 0) > 0) state.walkDelayUntil = Math.max(Number(state.walkDelayUntil || 0), now + Number(timing.afterCastWalkDelayMs));
+  // 0.9.82IB / V92：成本扣除與技能正式結算時送出 Runtime commit。
+  window.SkillEffectRuntimeV92?.onSkillCommit?.(skill, level, {
+    target: typeof currentMonster !== "undefined" ? currentMonster : null,
+    timing
+  });
   return timing;
 }
 
@@ -4713,6 +4726,13 @@ function applyRuntimeCalculatedDamage(target, calculatedDamage, options = {}) {
   if (dealt > 0 && options.notifyStatus !== false && window.StatusManager?.onDamage) {
     window.StatusManager.onDamage(target, dealt, { source:options.source || player, skillId:Number(options.skillId || 0) });
   }
+  if (dealt > 0 && Number(options.skillId || 0) > 0) {
+    window.SkillEffectRuntimeV92?.onSkillHit?.(Number(options.skillId), target, {
+      dealt,
+      calculatedDamage: calculated,
+      additional: options.additional === true || options.triggeredByNormalAttack === true
+    });
+  }
   if (calculated > 0 && options.showNumber !== false && typeof showDamageNumber === "function") showDamageNumber(calculated, {
     target,
     source:options.additional === true || options.triggeredByNormalAttack === true ? "additional" : (options.damageSource || "player"),
@@ -5113,6 +5133,7 @@ function castAttackSkill(skill, requestedLevel = null, options = {}) {
       if (target.currentHp <= 0) break;
     }
     if(dealt>0&&window.StatusManager?.onDamage)window.StatusManager.onDamage(target,dealt,{source:player,skillId:Number(skill?.officialId??skill?.id)});
+    if(dealt>0)window.SkillEffectRuntimeV92?.onSkillHit?.(skill,target,{dealt,calculatedDamage});
     if(dealt>0&&target===currentMonster&&Array.isArray(profile.consumePrimaryTargetStatusesOnHit)&&target?.runtimeState?.statuses){for(const statusName of profile.consumePrimaryTargetStatusesOnHit){const key=window.StatusManager?.normalize?window.StatusManager.normalize(statusName):String(statusName).toLowerCase().replace(/[ _-]/g,"");delete target.runtimeState.statuses[key];delete target.runtimeState[key];}}
     if (hitMeta.statusProcMode !== "per_hit") applyAttackRuntimeStatus(profile,level,target);
     if (elementalActionSpec) applyElementalActionRuntimeStatus(target, elementalActionSpec);

@@ -1,0 +1,133 @@
+{
+  "schema": "ro-web-package-verify-0.9.82ID-1.0",
+  "version": "0.9.82ID",
+  "baseVersion": "0.9.82IC",
+  "title": "Status Panel Auto-Battle Recovery / MVP Magic Attribute / Refine Risk Warning",
+  "generatedAt": "2026-08-02T14:55:00+08:00",
+  "sourceInventory": {
+    "fileCount": 11704,
+    "bytes": 357271704
+  },
+  "diff": {
+    "changedCount": 17,
+    "addedCount": 14,
+    "removedCount": 0,
+    "changedFiles": [
+      "CHANGELOG.md",
+      "data/maps.json",
+      "data/monster_spawn_config.json",
+      "data/monsters.json",
+      "index.html",
+      "js/auto_battle.js",
+      "js/battle.js",
+      "js/combat_formula_runtime.js",
+      "js/data_bundle.js",
+      "js/game.js",
+      "js/player.js",
+      "js/refine_runtime.js",
+      "js/status_system.js",
+      "js/town.js",
+      "js/ui.js",
+      "tools/build_data_bundle_0.9.82HX.py",
+      "tools/build_mvp_gacha_map_0.9.82FZ.py"
+    ],
+    "addedFiles": [
+      "DEEP_HEALTH_0.9.82ID.json",
+      "MONSTER_MAGIC_ATTRIBUTE_AUDIT_0.9.82ID.json",
+      "PACKAGE_VERIFY_0.9.82ID.json",
+      "REFINE_RISK_WARNING_AUDIT_0.9.82ID.json",
+      "RO_WEB_0.9.82ID_RELEASE_SUMMARY.json",
+      "TEST_REPORT_0.9.82ID_BROWSER_UI_CONTRACT.json",
+      "TEST_REPORT_0.9.82ID_BROWSER_UI_CONTRACT.txt",
+      "TEST_REPORT_0.9.82ID_HOTFIX.json",
+      "TEST_REPORT_0.9.82ID_SKILL_EFFECT_RUNTIME.json",
+      "TEST_REPORT_0.9.82ID_SKILL_EFFECT_RUNTIME.txt",
+      "tools/deep_health_check_0.9.82ID.py",
+      "tools/test_browser_ui_contract_0.9.82ID.py",
+      "tools/test_hotfix_0.9.82ID.js",
+      "tools/test_skill_effect_integration_0.9.82ID.py"
+    ],
+    "removedFiles": [],
+    "productionFiles": [
+      "CHANGELOG.md",
+      "data/maps.json",
+      "data/monster_spawn_config.json",
+      "data/monsters.json",
+      "index.html",
+      "js/auto_battle.js",
+      "js/battle.js",
+      "js/combat_formula_runtime.js",
+      "js/data_bundle.js",
+      "js/game.js",
+      "js/player.js",
+      "js/refine_runtime.js",
+      "js/status_system.js",
+      "js/town.js",
+      "js/ui.js"
+    ]
+  },
+  "contracts": {
+    "statusPanelAutoBattleWatchdog": true,
+    "speculativeAlchemistSelectorPersistenceRemoved": true,
+    "townExactMessage": "回到村莊，停止自動掛機。",
+    "townMessageOnlyWhenAutoBattleWasActive": true,
+    "fixedIntervalFlyPreserved": true,
+    "bossMvpImmediateEscapePreserved": true,
+    "deathVisibilityPreserved": true,
+    "elementalConverterFixPreserved": true,
+    "violentCoelacanthId": 2190,
+    "violentCoelacanthMagicEnabled": true,
+    "mutantCoelacanthId": 2189,
+    "mutantCoelacanthIgnoreMagic": true,
+    "boitataElement": "Fire",
+    "boitataElementLevel": 3,
+    "boitataDamageTaken": 10,
+    "refineWarningPlus14To15": true,
+    "v92SkillCount": 55,
+    "v92EffectCount": 454,
+    "passiveCandidateIntersection": 0
+  },
+  "tests": {
+    "hotfixRegression": {
+      "passed": 6,
+      "failed": 0
+    },
+    "refineSystem": {
+      "passed": 8,
+      "failed": 0
+    },
+    "elementalConverter": {
+      "passed": 16,
+      "failed": 0
+    },
+    "autoBattleSurvival": {
+      "passed": 16,
+      "failed": 0
+    },
+    "statusRuntimePerformance": {
+      "status": "PASS"
+    },
+    "browserUIContract": {
+      "passed": 13,
+      "failed": 0
+    },
+    "v92Integration": {
+      "passed": 24,
+      "failed": 0,
+      "skills": 55,
+      "effects": 454
+    },
+    "deepHealth": {
+      "errors": 0,
+      "warnings": 0,
+      "status": "PASS"
+    },
+    "jsonParse": {
+      "status": "PASS"
+    },
+    "javascriptSyntax": {
+      "checked": 832,
+      "errors": 0
+    }
+  }
+}

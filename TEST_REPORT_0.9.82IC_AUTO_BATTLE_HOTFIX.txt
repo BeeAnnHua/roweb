@@ -1,0 +1,14 @@
+RO_WEB 0.9.82IC Temporary Hotfix Regression Report
+==================================================================
+Result: PASS
+Suites: 8/8
+PASS - auto_battle_skill_persistence_fixed_fly_scheduler
+PASS - town_retaliation_and_death_visibility
+PASS - elemental_converter_manual_use
+PASS - auto_battle_survival_regression
+PASS - status_ui_performance_regression
+PASS - manual_combat_regression
+PASS - v92_skill_effect_regression
+PASS - chromium_ui_runtime_contract
+
+Fire converter root cause: dedicated element endow succeeded, but generic itemskill rejection returned before item consumption. This was not an innate-fire-character restriction.

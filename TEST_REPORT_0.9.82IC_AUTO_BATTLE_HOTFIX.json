@@ -1,0 +1,178 @@
+{
+  "title": "RO_WEB 0.9.82IC Temporary Hotfix Regression Report",
+  "version": "0.9.82IC",
+  "baseVersion": "0.9.82IB",
+  "summary": {
+    "suites": 8,
+    "passed": 8,
+    "failed": 0
+  },
+  "results": [
+    {
+      "name": "auto_battle_skill_persistence_fixed_fly_scheduler",
+      "pass": true,
+      "checks": 6,
+      "detail": {
+        "passed": 6,
+        "failed": 0,
+        "logs": []
+      }
+    },
+    {
+      "name": "town_retaliation_and_death_visibility",
+      "pass": true,
+      "checks": 6,
+      "detail": {
+        "title": "RO_WEB 0.9.82IC Auto Battle / Town / Death Hotfix Test",
+        "passed": 6,
+        "failed": 0,
+        "tests": [
+          {
+            "name": "entering town while not auto battling does not emit stopped-auto-battle log",
+            "pass": true
+          },
+          {
+            "name": "entering town while auto battling emits conditional log and suppresses passive retaliation",
+            "pass": true
+          },
+          {
+            "name": "manual combat source contains passive retaliation suppression and explicit release paths",
+            "pass": true
+          },
+          {
+            "name": "fixed Fly Wing controls and fixed interval runtime are present",
+            "pass": true
+          },
+          {
+            "name": "global Boss/MVP threat scan runs before current-target combat and fixed flight",
+            "pass": true
+          },
+          {
+            "name": "death overlay removes blur and uses compact bottom dialog",
+            "pass": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "elemental_converter_manual_use",
+      "pass": true,
+      "checks": 16,
+      "detail": {
+        "title": "RO_WEB 0.9.82IC Elemental Converter Manual Use Regression",
+        "passed": 16,
+        "failed": 0,
+        "genericRuntimeCalls": 0,
+        "finalElement": "Dark",
+        "logs": [
+          "使用了 火 肯貝特，20 分鐘內武器附加為火屬性；主手與副手同步生效。",
+          "使用了 火 肯貝特，覆蓋原本的火屬性，20 分鐘內武器附加為火屬性；主手與副手同步生效。",
+          "使用了 水 肯貝特，覆蓋原本的火屬性，20 分鐘內武器附加為水屬性；主手與副手同步生效。",
+          "使用了 地 肯貝特，覆蓋原本的水屬性，20 分鐘內武器附加為地屬性；主手與副手同步生效。",
+          "使用了 風 肯貝特，覆蓋原本的地屬性，20 分鐘內武器附加為風屬性；主手與副手同步生效。",
+          "使用了 暗水，覆蓋原本的風屬性，20 分鐘內武器附加為暗屬性；主手與副手同步生效。"
+        ],
+        "failures": []
+      }
+    },
+    {
+      "name": "auto_battle_survival_regression",
+      "pass": true,
+      "checks": 16,
+      "stdout": "Auto Battle Survival 0.9.82FB: 16/16 PASS\nPASS - item scripts dynamically expose every sc_end status\nPASS - Green Potion and Green Herb use itemInfo fallback cure profiles\nPASS - Panacea and Royal Jelly are detected without a name whitelist\nPASS - narrow cheap cure is selected for poison only\nPASS - one item covering more active ailments outranks a one-status herb\nPASS - Panacea is preferred over Royal Jelly for curse when both are available\nPASS - Royal Jelly clears ailments and applies script HP-SP recovery\nPASS - learned cure skill is used before consuming an item\nPASS - future learned heal-type cure skills are auto-discovered too\nPASS - all status-cure items are reserved from normal HP-SP auto supply\nPASS - critical HP butterfly return has priority over low-HP fly wing\nPASS - escape thresholds are clamped to the requested 1-99 range\nPASS - settings panel contains only direct controls and four numbered skill slots\nPASS - number inputs use dark panel color and gold custom arrows\nPASS - manual consumables also use itemheal and sc_end runtime helpers\nPASS - butterfly wing runtime consumes item 602 and enters the selected city\n"
+    },
+    {
+      "name": "status_ui_performance_regression",
+      "pass": true,
+      "stdout": "PASS 0.9.82FY status/runtime UI performance gating\n{\n  \"statusRequests\": 2,\n  \"jobUpdates\": 1,\n  \"skillUpdates\": 1,\n  \"quickUpdates\": 103\n}\n"
+    },
+    {
+      "name": "manual_combat_regression",
+      "pass": true,
+      "checks": 17,
+      "detail": {
+        "version": "0.9.82IA",
+        "suite": "manual-combat-and-aggressive-retaliation",
+        "passed": 17,
+        "failed": 0,
+        "passes": [
+          "manual validator ignores auto-battle filter",
+          "manual click starts attack while auto off",
+          "manual controller running",
+          "manual target stored",
+          "manual timer scheduled",
+          "quick-slot accepts manually selected target excluded by auto filter",
+          "retaliation does not steal another manual target",
+          "existing manual target preserved",
+          "manual controller stops cleanly",
+          "aggressive monster starts manual retaliation",
+          "retaliation locks attacker",
+          "world-stream attack calls manual retaliation bridge",
+          "world click branches between auto forced target and manual attack",
+          "world-stream aggressive attack starts retaliation with no selected target",
+          "world-stream aggressive attack preserves existing selected target",
+          "world-stream aggressive attack does not steal selected target",
+          "manual target path does not use auto monster whitelist"
+        ],
+        "failures": []
+      }
+    },
+    {
+      "name": "v92_skill_effect_regression",
+      "pass": true,
+      "checks": 24,
+      "detail": {
+        "skills": 55,
+        "effects": 454,
+        "strictEffectJson": 454,
+        "pngDependencyReferences": 4740,
+        "passiveRuntimeSkills": 216,
+        "candidatePassiveIntersection": 0,
+        "checksPassed": 24,
+        "checksTotal": 24
+      }
+    },
+    {
+      "name": "chromium_ui_runtime_contract",
+      "pass": true,
+      "checks": 11,
+      "detail": {
+        "title": "RO_WEB 0.9.82IC Chromium UI / Runtime Contract",
+        "pass": true,
+        "checks": {
+          "death_no_blur": true,
+          "death_bottom_aligned": true,
+          "death_dialog_compact": true,
+          "death_overlay_translucent": true,
+          "fixed_fly_layout": true,
+          "fixed_seconds_width": true,
+          "fixed_fly_runtime_present": true,
+          "global_boss_scan_present": true,
+          "utility_wake_during_long_cast": true,
+          "position_preserves_fixed_settings": true,
+          "converter_bypasses_generic_runtime": true
+        },
+        "computedStyles": {
+          "backdrop": "none",
+          "placeItems": "end center",
+          "background": "linear-gradient(rgba(3, 2, 3, 0.08), rgba(3, 2, 3, 0.22) 58%, rgba(3, 2, 3, 0.42))",
+          "dialogWidth": "390px",
+          "dialogBottom": "8px",
+          "fixedDisplay": "flex",
+          "secondsWidth": "72px"
+        }
+      }
+    }
+  ],
+  "rootCause": {
+    "alchemistAutoBattle": "Saved attack skill IDs could be overwritten by an uninitialized empty skill selector; full settings DOM was also synchronized every battle utility tick.",
+    "fireConverter": "The character does not gain Fire intrinsically from this code path: the default physical attack element is Neutral unless weapon/card/active endow overrides it. The actual failure was that the dedicated endow applied first, then generic ConsumableRuntime rejected ITEM_ENCHANTARMS and returned before item consumption/persistence.",
+    "townGhostCombat": "Auto battle/manual retaliation state could remain eligible after travel without an explicit post-town passive-retaliation guard."
+  },
+  "notes": [
+    "Fixed flight is saved through position normalization and the scheduler wakes at its due time during long casts/action locks.",
+    "Boss/MVP avoidance scans the active battlefield before current-target combat and wakes at an 80ms polling ceiling while enabled.",
+    "Returning to town logs the stop message only when auto battle was active; passive retaliation stays suppressed until manual attack or auto battle is explicitly restarted.",
+    "V92 55-skill effect runtime remains intact and passes 24/24 regression checks."
+  ]
+}

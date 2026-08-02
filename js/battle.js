@@ -34,6 +34,10 @@ window.getCombatGroundCandidates = collectLiveCombatEnemies;
 window.getSkillTargetCandidates = collectLiveCombatEnemies;
 let autoBattleTimer = null;
 let autoBattleRunning = false;
+let autoBattleWatchdogTimer = null;
+let autoBattleLastTickAt = 0;
+let autoBattleNextDueAt = 0;
+let autoBattleWakeReason = "";
 let manualAttackTimer = null;
 let manualAttackRunning = false;
 let manualAttackTarget = null;
@@ -102,6 +106,8 @@ function markPlayerAttackUsed() {
 
 function clearBattleTimersAndMonster(options = {}) {
   autoBattleRunning = false;
+  stopAutoBattleWatchdog();
+  autoBattleNextDueAt = 0;
   updateAutoBattleQuickToggleState();
   manualAttackRunning = false;
   manualAttackTarget = null;
@@ -153,24 +159,49 @@ function getAutoBattleTimingCandidates(now = Date.now()) {
 }
 
 
+function getAutoBattleUtilityWakeDelayMs(now = Date.now()) {
+  if (!player || player.currentCity) return Number.POSITIVE_INFINITY;
+  const teleport = player.autoCombat?.teleport || {};
+  let delay = Number.POSITIVE_INFINITY;
+
+  // Boss / MVP may enter or start attacking while the player is locked in a long cast.
+  // Keep a lightweight threat poll so "encounter = fly" never waits for the current target/cast.
+  if (teleport.avoidBoss === true || teleport.avoidMvp === true) delay = Math.min(delay, 80);
+
+  // Fixed flight should wake exactly at its next due time even when Renewal timing gates
+  // would otherwise put the controller to sleep until CAST_COMPLETE / action-lock end.
+  if (teleport.fixedIntervalEnabled === true) {
+    const intervalMs = Math.max(1000, Math.min(3600000, Number(teleport.fixedIntervalSeconds || 10) * 1000));
+    const last = Number(window.AUTO_BATTLE_CONTROLLER?.lastFixedIntervalFlyAt || now);
+    delay = Math.min(delay, Math.max(AUTO_BATTLE_MIN_SCHEDULE_MS, intervalMs - Math.max(0, now - last)));
+  }
+  return delay;
+}
+
 function getAutoBattleNextDelayMs(now = Date.now()) {
   if (!autoBattleRunning) return AUTO_BATTLE_MAX_IDLE_MS;
   const waits = getAutoBattleTimingCandidates(now);
+  const utilityWake = getAutoBattleUtilityWakeDelayMs(now);
+  const capForUtility = value => {
+    const base = Math.max(AUTO_BATTLE_MIN_SCHEDULE_MS, Number(value || AUTO_BATTLE_MIN_SCHEDULE_MS));
+    return Number.isFinite(utilityWake) ? Math.min(base, Math.max(AUTO_BATTLE_MIN_SCHEDULE_MS, utilityWake)) : base;
+  };
   const validTarget = typeof isAutoBattleTargetValid === "function" ? isAutoBattleTargetValid(currentMonster) : !!currentMonster;
-  if (!validTarget) return Math.min(AUTO_BATTLE_MAX_IDLE_MS, Math.max(32, waits.length ? Math.min(...waits) : 80));
-  if (player?.state === "Approaching" || player?.state === "Moving" || player?.state === "Move") return 16;
+  if (!validTarget) return Math.min(AUTO_BATTLE_MAX_IDLE_MS, capForUtility(Math.max(32, waits.length ? Math.min(...waits) : 80)));
+  if (player?.state === "Approaching" || player?.state === "Moving" || player?.state === "Move") return capForUtility(16);
 
   if (!waits.length && typeof getAutoCombatAttackAction === "function") {
     const action = getAutoCombatAttackAction(currentMonster);
-    if (action?.action === "utility") return 80;
+    if (action?.action === "utility") return capForUtility(80);
   }
 
   const desired = waits.length ? Math.max(...waits) : AUTO_BATTLE_MIN_SCHEDULE_MS;
-  return Math.max(AUTO_BATTLE_MIN_SCHEDULE_MS, Math.min(AUTO_BATTLE_MAX_IDLE_MS, Math.ceil(desired)));
+  return Math.max(AUTO_BATTLE_MIN_SCHEDULE_MS, Math.min(AUTO_BATTLE_MAX_IDLE_MS, Math.ceil(capForUtility(desired))));
 }
 
 
 function runAutoBattleControllerTick() {
+  autoBattleLastTickAt = Date.now();
   if (!autoBattleRunning || !player || player.currentCity || Number(player.hp || 0) <= 0) return false;
   if (window.RO_WEB_PLAYER_BUILD_MUTATION === true) return true;
 
@@ -200,13 +231,50 @@ function scheduleAutoBattleTick(delayMs = null) {
   if (!autoBattleRunning) return false;
   const delay = delayMs === null ? getAutoBattleNextDelayMs() : Math.max(AUTO_BATTLE_MIN_SCHEDULE_MS, Number(delayMs || 0));
   if (autoBattleTimer) clearTimeout(autoBattleTimer);
+  autoBattleNextDueAt = Date.now() + delay;
   autoBattleTimer = setTimeout(() => {
     autoBattleTimer = null;
+    autoBattleNextDueAt = 0;
     if (!autoBattleRunning) return;
     runAutoBattleControllerTick();
     scheduleAutoBattleTick(getAutoBattleNextDelayMs());
   }, delay);
   return true;
+}
+
+// 0.9.82ID：素質欄等大型 UI 建立 DOM 時，瀏覽器可能延遲或遺失原本的戰鬥 timer。
+// Watchdog 只在掛機中啟用；偵測排程逾期後立即補上一個 tick，不改變目標、技能輪替或 Renewal 時序。
+function stopAutoBattleWatchdog() {
+  if (autoBattleWatchdogTimer) {
+    clearInterval(autoBattleWatchdogTimer);
+    autoBattleWatchdogTimer = null;
+  }
+}
+
+function startAutoBattleWatchdog() {
+  stopAutoBattleWatchdog();
+  autoBattleLastTickAt = Date.now();
+  autoBattleWatchdogTimer = setInterval(() => {
+    if (!autoBattleRunning) {
+      stopAutoBattleWatchdog();
+      return;
+    }
+    if (!player || player.currentCity || Number(player.hp || 0) <= 0) return;
+    const now = Date.now();
+    const dueExpired = !autoBattleTimer || (autoBattleNextDueAt > 0 && now > autoBattleNextDueAt + 420);
+    const tickStale = now - Number(autoBattleLastTickAt || 0) > 900;
+    if ((dueExpired || tickStale) && window.RO_WEB_PLAYER_BUILD_MUTATION !== true) {
+      autoBattleWakeReason = "watchdog";
+      scheduleAutoBattleTick(AUTO_BATTLE_MIN_SCHEDULE_MS);
+    }
+  }, 250);
+}
+
+function wakeAutoBattleScheduler(reason = "external_ui") {
+  if (!autoBattleRunning || !player || player.currentCity || Number(player.hp || 0) <= 0) return false;
+  autoBattleWakeReason = String(reason || "external_ui");
+  autoBattleLastTickAt = Date.now();
+  return scheduleAutoBattleTick(AUTO_BATTLE_MIN_SCHEDULE_MS);
 }
 
 function isAutoBattleRunning() {
@@ -248,8 +316,13 @@ if (typeof document !== "undefined") {
 window.getAutoBattleTimingCandidates = getAutoBattleTimingCandidates;
 window.getAutoBattleNextDelayMs = getAutoBattleNextDelayMs;
 window.scheduleAutoBattleTick = scheduleAutoBattleTick;
+window.getAutoBattleUtilityWakeDelayMs = getAutoBattleUtilityWakeDelayMs;
+window.getAutoBattleNextDelayMs = getAutoBattleNextDelayMs;
 window.runAutoBattleControllerTick = runAutoBattleControllerTick;
 window.isAutoBattleRunning = isAutoBattleRunning;
+window.wakeAutoBattleScheduler = wakeAutoBattleScheduler;
+window.startAutoBattleWatchdog = startAutoBattleWatchdog;
+window.stopAutoBattleWatchdog = stopAutoBattleWatchdog;
 
 // ===== 0.9.82EM：左鍵直接鎖定並連續普通攻擊 =====
 // 手動點怪與自動掛機分離：手動模式只使用普通攻擊，不會自動施放掛機技能。
@@ -420,6 +493,7 @@ function startAutoBattle() {
   spawnMonsterFromCurrentMap();
   if (typeof acquireAutoBattleTarget === "function") acquireAutoBattleTarget({ reason: "start", announce: false });
   scheduleAutoBattleTick(AUTO_BATTLE_MIN_SCHEDULE_MS);
+  startAutoBattleWatchdog();
 }
 
 // 停止自動戰鬥
@@ -428,6 +502,8 @@ function stopAutoBattle(options = {}) {
   const wasRunning = Boolean(autoBattleRunning || autoBattleTimer || spawnTimer);
   autoBattleRunning = false;
   updateAutoBattleQuickToggleState();
+  stopAutoBattleWatchdog();
+  autoBattleNextDueAt = 0;
 
   if (autoBattleTimer) {
     clearTimeout(autoBattleTimer);
@@ -444,6 +520,9 @@ function stopAutoBattle(options = {}) {
 
   if (wasRunning && !options.silent) {
     addBattleLog("已停止自動戰鬥。");
+  }
+  if (wasRunning && typeof isStatusWindowVisible === "function" && isStatusWindowVisible() && typeof requestStatusUIUpdate === "function") {
+    requestStatusUIUpdate({ force: true, reason: "auto_battle_stopped" });
   }
 }
 

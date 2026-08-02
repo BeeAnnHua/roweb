@@ -1,0 +1,257 @@
+{
+  "schema": "ro-effect-str-1.1",
+  "source": "texture/effect/dragon_knight/dk_servant_w_sign/servant_sign_down_bottom/min_servant_sign_down_bottom.str",
+  "version": 148,
+  "fps": 60,
+  "frameCount": 27,
+  "durationSeconds": 0.45,
+  "layers": [
+    {
+      "textures": [],
+      "keyframes": []
+    },
+    {
+      "textures": [
+        "ser_bottom_pajang_00.bmp",
+        "ser_bottom_pajang_01.bmp",
+        "ser_bottom_pajang_02.bmp",
+        "ser_bottom_pajang_03.bmp",
+        "ser_bottom_pajang_04.bmp",
+        "ser_bottom_pajang_05.bmp",
+        "ser_bottom_pajang_06.bmp",
+        "ser_bottom_pajang_07.bmp",
+        "ser_bottom_pajang_08.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 9,
+          "type": 0,
+          "position": [
+            320.0,
+            300.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -116.47059631347656,
+            116.47059631347656,
+            116.47059631347656,
+            -116.47059631347656,
+            -86.47059631347656,
+            -86.47059631347656,
+            86.47059631347656,
+            86.47059631347656
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.5,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            100.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 9,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.5,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 27,
+          "type": 0,
+          "position": [
+            320.0,
+            300.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -116.47059631347656,
+            116.47059631347656,
+            116.47059631347656,
+            -116.47059631347656,
+            -86.47059631347656,
+            -86.47059631347656,
+            86.47059631347656,
+            86.47059631347656
+          ],
+          "textureId": 8.0,
+          "animationType": 2,
+          "animationDelta": 0.5,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            100.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    }
+  ],
+  "effectId": "min_servant_sign_down_bottom_e3376410a09f",
+  "classification": "READY_MIN",
+  "variant": "MIN",
+  "role": "BOTTOM",
+  "scope": {
+    "profession": "dragon_knight",
+    "skillGroup": "dk_servant_w_sign"
+  },
+  "dependencies": [
+    {
+      "declared": "ser_bottom_pajang_00.bmp",
+      "resolved": "texture/effect/dragon_knight/dk_servant_w_sign/servant_sign_down_bottom/ser_bottom_pajang_00.bmp",
+      "missing": false,
+      "hash": "d85c717738b34df692fa0f426b03861a694229c8c36277149f6edb8bfc12ed7d",
+      "png": "textures/d8/d85c717738b34df692fa0f426b03861a694229c8c36277149f6edb8bfc12ed7d.png",
+      "width": 248,
+      "height": 92,
+      "bytes": 4187
+    },
+    {
+      "declared": "ser_bottom_pajang_01.bmp",
+      "resolved": "texture/effect/dragon_knight/dk_servant_w_sign/servant_sign_down_bottom/ser_bottom_pajang_01.bmp",
+      "missing": false,
+      "hash": "f63fd04406e00bb1ebb04736547613dec1b5b1e63ad9e5266de67103401adb9e",
+      "png": "textures/f6/f63fd04406e00bb1ebb04736547613dec1b5b1e63ad9e5266de67103401adb9e.png",
+      "width": 248,
+      "height": 92,
+      "bytes": 6478
+    },
+    {
+      "declared": "ser_bottom_pajang_02.bmp",
+      "resolved": "texture/effect/dragon_knight/dk_servant_w_sign/servant_sign_down_bottom/ser_bottom_pajang_02.bmp",
+      "missing": false,
+      "hash": "909b73e5b24b6a0d5b5c7727f96418a1b8313bceefdb1bf38f5a851e3b678539",
+      "png": "textures/90/909b73e5b24b6a0d5b5c7727f96418a1b8313bceefdb1bf38f5a851e3b678539.png",
+      "width": 248,
+      "height": 92,
+      "bytes": 7200
+    },
+    {
+      "declared": "ser_bottom_pajang_03.bmp",
+      "resolved": "texture/effect/dragon_knight/dk_servant_w_sign/servant_sign_down_bottom/ser_bottom_pajang_03.bmp",
+      "missing": false,
+      "hash": "3e99a3371812de8ada3f0beb2e5e02649993c3bf179a3ca5ce0e651910766dcf",
+      "png": "textures/3e/3e99a3371812de8ada3f0beb2e5e02649993c3bf179a3ca5ce0e651910766dcf.png",
+      "width": 248,
+      "height": 92,
+      "bytes": 8236
+    },
+    {
+      "declared": "ser_bottom_pajang_04.bmp",
+      "resolved": "texture/effect/dragon_knight/dk_servant_w_sign/servant_sign_down_bottom/ser_bottom_pajang_04.bmp",
+      "missing": false,
+      "hash": "5fa4b33031da99d26dc81d49117f234445848d7af43a359f5222f3e660067a5d",
+      "png": "textures/5f/5fa4b33031da99d26dc81d49117f234445848d7af43a359f5222f3e660067a5d.png",
+      "width": 248,
+      "height": 92,
+      "bytes": 10080
+    },
+    {
+      "declared": "ser_bottom_pajang_05.bmp",
+      "resolved": "texture/effect/dragon_knight/dk_servant_w_sign/servant_sign_down_bottom/ser_bottom_pajang_05.bmp",
+      "missing": false,
+      "hash": "bcd3a4a78fd37486b26071f2057df7a79d072d8b8f53f00651234b72a671246f",
+      "png": "textures/bc/bcd3a4a78fd37486b26071f2057df7a79d072d8b8f53f00651234b72a671246f.png",
+      "width": 248,
+      "height": 92,
+      "bytes": 9944
+    },
+    {
+      "declared": "ser_bottom_pajang_06.bmp",
+      "resolved": "texture/effect/dragon_knight/dk_servant_w_sign/servant_sign_down_bottom/ser_bottom_pajang_06.bmp",
+      "missing": false,
+      "hash": "22b1e0e20af03cf6a7b6f2f6ed8e65a2cb4d8304cfed8f5df6e9f52ab99c3a36",
+      "png": "textures/22/22b1e0e20af03cf6a7b6f2f6ed8e65a2cb4d8304cfed8f5df6e9f52ab99c3a36.png",
+      "width": 248,
+      "height": 92,
+      "bytes": 9751
+    },
+    {
+      "declared": "ser_bottom_pajang_07.bmp",
+      "resolved": "texture/effect/dragon_knight/dk_servant_w_sign/servant_sign_down_bottom/ser_bottom_pajang_07.bmp",
+      "missing": false,
+      "hash": "cedef91d217dbdb918bcecf964b2264236c53b408673f847f12480202a9da33f",
+      "png": "textures/ce/cedef91d217dbdb918bcecf964b2264236c53b408673f847f12480202a9da33f.png",
+      "width": 248,
+      "height": 92,
+      "bytes": 8416
+    },
+    {
+      "declared": "ser_bottom_pajang_08.bmp",
+      "resolved": "texture/effect/dragon_knight/dk_servant_w_sign/servant_sign_down_bottom/ser_bottom_pajang_08.bmp",
+      "missing": false,
+      "hash": "a4a5d0da33012cceda998f40f8ede3f57cabd9d38d5e13170f8f854baa4fe158",
+      "png": "textures/a4/a4a5d0da33012cceda998f40f8ede3f57cabd9d38d5e13170f8f854baa4fe158.png",
+      "width": 248,
+      "height": 92,
+      "bytes": 7375
+    }
+  ],
+  "assetPathMode": "library-root-relative",
+  "renderer": {
+    "mode": "V81 approximate-2d",
+    "notes": "Timeline/layers/textures/color/rotation supported; perspective and exact GL blends approximated."
+  }
+}

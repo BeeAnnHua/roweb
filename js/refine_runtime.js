@@ -419,10 +419,16 @@
     const oreId = integer(chance.materialItemId);
     const price = Math.max(0, integer(chance.price));
 
-    if (!state.useBlessing && integer(rule.blacksmithBlessingAmount) > 0 && !options.skipConfirm) {
-      const message=`本階段可使用 ${rule.blacksmithBlessingAmount} 個鐵匠的祝福保護。\n未放入祝福，失敗將依材料規則損壞或退階。仍要繼續嗎？`;
+    const blessingAvailable = integer(rule.blacksmithBlessingAmount) > 0;
+    const riskyFailure = integer(chance.breakingRate) > 0 || integer(chance.downgradeAmount) > 0;
+    if (!state.useBlessing && riskyFailure && !options.skipConfirm) {
+      const targetLevel = Math.max(1, integer(rule.targetLevel || selected.instance.refine + 1));
+      const protectionText = blessingAvailable
+        ? `本階段可使用 ${rule.blacksmithBlessingAmount} 個鐵匠的祝福保護。\n目前未放入祝福。`
+        : `目標 +${targetLevel}；本階段無法使用鐵匠的祝福。`;
+      const message = `${protectionText}\n${failureDescription(chance, false)}\n仍要繼續嗎？`;
       const ask=window.ROGoldUI?.confirm;
-      if(typeof ask==="function")ask(message,{title:"精煉風險確認",confirmText:"仍要精煉",cancelText:"取消",danger:true}).then(ok=>{if(ok)attemptSelectedRefine({...options,skipConfirm:true});});
+      if(typeof ask==="function")ask(message,{title:"高精煉風險確認",confirmText:"仍要精煉",cancelText:"取消",danger:true}).then(ok=>{if(ok)attemptSelectedRefine({...options,skipConfirm:true});});
       else {state.lastResult={kind:"failure",text:"黑金確認視窗尚未載入，請稍後再試。"};render();}
       return false;
     }
