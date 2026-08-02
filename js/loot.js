@@ -16,6 +16,77 @@ function announceRareItemAcquisition(itemId, itemName, quantity, chanceBasisPoin
 }
 window.announceRareItemAcquisition = announceRareItemAcquisition;
 
+function getMonsterRewardIdentity(monster) {
+  const deathIdentity = monster?._deathIdentity;
+  const monsterId = Number(
+    deathIdentity?.monsterId ||
+    monster?._spawnEntry?.monsterId ||
+    monster?.officialId ||
+    monster?.combatMonsterId ||
+    monster?.id || 0
+  );
+  return {
+    monsterId,
+    aegisName: String(deathIdentity?.aegisName || monster?.aegisName || ""),
+    name: String(deathIdentity?.name || monster?.name || monster?.displayName || `怪物 ${monsterId || ""}`)
+  };
+}
+window.getMonsterRewardIdentity = getMonsterRewardIdentity;
+
+function getCardDropSourceMonsterIds(itemId, itemData = null) {
+  const record = window.CardRuntime?.getCardRecord?.(itemId) || itemData || null;
+  const sources = Array.isArray(record?.dropSources) ? record.dropSources : [];
+  return [...new Set(sources.map(source => Number(source?.monsterId || 0)).filter(id => id > 0))];
+}
+
+function recordMonsterDropIdentityBlock(monster, drop, itemId, allowedMonsterIds, reason) {
+  const identity = getMonsterRewardIdentity(monster);
+  const audit = window.RO_WEB_MONSTER_DEATH_IDENTITY_AUDIT;
+  if (audit) audit.cardSourceMismatchBlocked = Number(audit.cardSourceMismatchBlocked || 0) + 1;
+  window.appendMonsterDeathIdentityAudit?.({
+    type: "CARD_SOURCE_MISMATCH_BLOCKED",
+    reason,
+    deathMonsterId: identity.monsterId,
+    deathMonsterName: identity.name,
+    itemId: Number(itemId || 0),
+    dropSourceMonsterId: Number(drop?.sourceMonsterId || 0),
+    allowedMonsterIds
+  });
+}
+
+function validateMonsterDropIdentity(monster, drop, itemId, itemData = null) {
+  const identity = getMonsterRewardIdentity(monster);
+  const isCard = isCardDropItem(itemData, drop);
+  if (!isCard) return { ok:true, isCard:false, identity };
+  const declaredSourceId = Number(drop?.sourceMonsterId || 0);
+  if (declaredSourceId > 0 && identity.monsterId > 0 && declaredSourceId !== identity.monsterId) {
+    recordMonsterDropIdentityBlock(monster, drop, itemId, [declaredSourceId], "MERGED_CARD_SOURCE_ID_MISMATCH");
+    return { ok:false, isCard:true, identity, reason:"MERGED_CARD_SOURCE_ID_MISMATCH" };
+  }
+  const allowedMonsterIds = getCardDropSourceMonsterIds(itemId, itemData);
+  if (allowedMonsterIds.length && identity.monsterId > 0 && !allowedMonsterIds.includes(identity.monsterId)) {
+    recordMonsterDropIdentityBlock(monster, drop, itemId, allowedMonsterIds, "CARD_CATALOG_SOURCE_ID_MISMATCH");
+    return { ok:false, isCard:true, identity, reason:"CARD_CATALOG_SOURCE_ID_MISMATCH" };
+  }
+  return { ok:true, isCard:true, identity, allowedMonsterIds };
+}
+window.validateMonsterDropIdentity = validateMonsterDropIdentity;
+
+function addMonsterRewardDrop(monster, itemId, itemName, quantity, options = {}) {
+  const qty = Math.max(1, Number(quantity || 1));
+  if (options.isCard === true) {
+    const previous = window.RO_WEB_SUPPRESS_REWARD_ADD_ITEM_LOG;
+    window.RO_WEB_SUPPRESS_REWARD_ADD_ITEM_LOG = true;
+    try { addItem({ id:itemId, name:itemName }, qty); }
+    finally { window.RO_WEB_SUPPRESS_REWARD_ADD_ITEM_LOG = previous; }
+    const identity = getMonsterRewardIdentity(monster);
+    emitLootRewardLog(`獲得道具：${itemName} x ${qty}（來源：${identity.name}）`, "item");
+    return;
+  }
+  addItem({ id:itemId, name:itemName }, qty);
+}
+window.addMonsterRewardDrop = addMonsterRewardDrop;
+
 function grantMonsterRewards(monster) {
   if (!monster) return;
 
@@ -207,8 +278,9 @@ function rollMonsterMvpDrops(monster) {
     const chance=getFinalDropChanceBasisPoints(rawChance,"normal"), roll=Math.floor(Math.random()*10000)+1;
     if(roll>chance)return;
     const id=normalizeItemId(drop.itemId), data=getItemData(id), qty=rollDropQuantity(drop), name=data?.name||drop.name||`Item ${id}`;
-    addItem({id,name},qty); if(typeof recordItemDrop==="function")recordItemDrop(id,qty);
-    announceRareItemAcquisition(id, name, qty, chance, `${monster.name || "MVP"}掉落`);
+    const validation=validateMonsterDropIdentity(monster,drop,id,data); if(!validation.ok)return;
+    addMonsterRewardDrop(monster,id,name,qty,{isCard:validation.isCard}); if(typeof recordItemDrop==="function")recordItemDrop(id,qty);
+    announceRareItemAcquisition(id, name, qty, chance, `${validation.identity.name || "MVP"}掉落`);
   });
 }
 window.rollMonsterMvpDrops=rollMonsterMvpDrops;
@@ -230,15 +302,14 @@ function rollMonsterDrops(monster) {
       const qty = rollDropQuantity(drop);
       const itemName = itemData?.name || drop.name || `Item ${itemId}`;
 
-      addItem({
-        id: itemId,
-        name: itemName
-      }, qty);
+      const validation = validateMonsterDropIdentity(monster, drop, itemId, itemData);
+      if (!validation.ok) return;
+      addMonsterRewardDrop(monster, itemId, itemName, qty, { isCard:validation.isCard });
 
       if (typeof recordItemDrop === "function") {
         recordItemDrop(itemId, qty);
       }
-      announceRareItemAcquisition(itemId, itemName, qty, chance, `${monster.name || "怪物"}掉落`);
+      announceRareItemAcquisition(itemId, itemName, qty, chance, `${validation.identity.name || "怪物"}掉落`);
     }
   });
 }

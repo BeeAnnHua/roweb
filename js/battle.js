@@ -1171,6 +1171,120 @@ function playerDead() {
   return true;
 }
 
+// ===== 0.9.82IK：怪物死亡身分鎖定 =====
+// 同一個死亡封包的名稱、EXP、掉落、卡片、MVP 獎勵與公告必須全部使用
+// 同一個權威 Mob ID。動畫 Atlas、DOM 名稱、currentMonster 後續切換都不得改寫。
+const RO_WEB_MONSTER_DEATH_IDENTITY_AUDIT = window.RO_WEB_MONSTER_DEATH_IDENTITY_AUDIT || {
+  version: "0.9.82IK",
+  queued: 0,
+  resolved: 0,
+  canonicalMissing: 0,
+  identityMismatch: 0,
+  cardSourceMismatchBlocked: 0,
+  records: []
+};
+window.RO_WEB_MONSTER_DEATH_IDENTITY_AUDIT = RO_WEB_MONSTER_DEATH_IDENTITY_AUDIT;
+
+function appendMonsterDeathIdentityAudit(record) {
+  if (!record || typeof record !== "object") return;
+  RO_WEB_MONSTER_DEATH_IDENTITY_AUDIT.records.push({ at: Date.now(), ...record });
+  if (RO_WEB_MONSTER_DEATH_IDENTITY_AUDIT.records.length > 120) {
+    RO_WEB_MONSTER_DEATH_IDENTITY_AUDIT.records.splice(0, RO_WEB_MONSTER_DEATH_IDENTITY_AUDIT.records.length - 120);
+  }
+}
+window.appendMonsterDeathIdentityAudit = appendMonsterDeathIdentityAudit;
+
+function getAuthoritativeMonsterDeathId(monster) {
+  const candidates = [
+    monster?._deathIdentity?.monsterId,
+    monster?._spawnEntry?.monsterId,
+    monster?.officialId,
+    monster?.combatMonsterId,
+    monster?.id
+  ];
+  for (const candidate of candidates) {
+    const id = Number(candidate || 0);
+    if (Number.isInteger(id) && id > 0) return id;
+  }
+  return 0;
+}
+window.getAuthoritativeMonsterDeathId = getAuthoritativeMonsterDeathId;
+
+function resolveCanonicalDeathMonster(monsterId) {
+  const list = typeof monsters !== "undefined" && Array.isArray(monsters) ? monsters : [];
+  return list.find(row => Number(row?.officialId || row?.id || 0) === Number(monsterId || 0)) || null;
+}
+
+function canonicalDeathMonsterName(monsterId, canonical, fallbackMonster) {
+  if (Number(monsterId) === 1719) return "迪塔勒泰晤勒斯";
+  if (Number(monsterId) === 1779) return "冰晶龍";
+  return String(canonical?.name || fallbackMonster?.name || fallbackMonster?.displayName || `怪物 ${monsterId || ""}`).trim();
+}
+
+function cloneMonsterRewardRows(rows) {
+  if (!Array.isArray(rows)) return [];
+  return rows.map(row => row && typeof row === "object" ? { ...row } : row);
+}
+
+function createMonsterDeathRewardSnapshot(monster) {
+  if (!monster) return null;
+  const monsterId = getAuthoritativeMonsterDeathId(monster);
+  const canonical = resolveCanonicalDeathMonster(monsterId);
+  if (!canonical) RO_WEB_MONSTER_DEATH_IDENTITY_AUDIT.canonicalMissing += 1;
+
+  const runtimeId = Number(monster?.id || 0);
+  const officialId = Number(monster?.officialId || 0);
+  const spawnId = Number(monster?._spawnEntry?.monsterId || 0);
+  const mismatchIds = [runtimeId, officialId, spawnId].filter(id => id > 0 && monsterId > 0 && id !== monsterId);
+  if (mismatchIds.length) {
+    RO_WEB_MONSTER_DEATH_IDENTITY_AUDIT.identityMismatch += 1;
+    appendMonsterDeathIdentityAudit({
+      type: "DEATH_IDENTITY_MISMATCH",
+      authoritativeMonsterId: monsterId,
+      runtimeId,
+      officialId,
+      spawnId,
+      instanceId: Number(monster?._instanceId || 0)
+    });
+  }
+
+  const identity = Object.freeze({
+    monsterId,
+    officialId: monsterId,
+    aegisName: String(canonical?.aegisName || monster?.aegisName || ""),
+    name: canonicalDeathMonsterName(monsterId, canonical, monster),
+    instanceId: Number(monster?._instanceId || monster?._worldTestIndex || 0),
+    mapId: String(currentMap?.id || player?.map || ""),
+    lockedAt: Date.now()
+  });
+  const snapshot = {
+    ...(canonical || {}),
+    ...monster,
+    id: monsterId,
+    officialId: monsterId,
+    combatMonsterId: monsterId,
+    aegisName: identity.aegisName,
+    name: identity.name,
+    drops: cloneMonsterRewardRows(canonical?.drops ?? monster?.drops),
+    mvpDrops: cloneMonsterRewardRows(canonical?.mvpDrops ?? monster?.mvpDrops),
+    _deathIdentity: identity,
+    _deathSourceMonster: monster,
+    _deathRewardSnapshot: true,
+    _rewardsGranted: false
+  };
+  monster._deathIdentity = identity;
+  RO_WEB_MONSTER_DEATH_IDENTITY_AUDIT.queued += 1;
+  appendMonsterDeathIdentityAudit({
+    type: "DEATH_IDENTITY_LOCKED",
+    monsterId,
+    monsterName: identity.name,
+    aegisName: identity.aegisName,
+    instanceId: identity.instanceId
+  });
+  return snapshot;
+}
+window.createMonsterDeathRewardSnapshot = createMonsterDeathRewardSnapshot;
+
 // ===== 0.9.82ES：怪物死亡結算拆離傷害影格 =====
 // 怪物死亡時只在當前影格完成「死亡狀態／動畫／解除鎖定」。
 // EXP、掉落、背包重建、戰鬥紀錄與存檔改在下一個 idle 時段批次處理，
@@ -1234,11 +1348,15 @@ function flushDefeatResolutionBatch(deadline = null) {
       if (processed > 0 && deadline && typeof deadline.timeRemaining === "function" && deadline.timeRemaining() < 2) break;
       const item = RO_WEB_DEFEAT_RESOLUTION_BATCH.queue.shift();
       const monster = item?.monster;
-      if (!monster || monster._rewardsGranted) continue;
+      const sourceMonster = item?.sourceMonster || monster?._deathSourceMonster || null;
+      if (!monster || monster._rewardsGranted || sourceMonster?._rewardsGranted) continue;
       monster._rewardsGranted = true;
+      if (sourceMonster) sourceMonster._rewardsGranted = true;
       if (typeof recordMapMonsterDiscovery === "function") recordMapMonsterDiscovery(monster);
       if (typeof grantMonsterRewards === "function") grantMonsterRewards(monster);
-      queueRewardBatchLog(`${monster.name || "怪物"} 被擊敗了！`, "death");
+      const deathName = monster?._deathIdentity?.name || monster.name || "怪物";
+      queueRewardBatchLog(`${deathName} 被擊敗了！`, "death");
+      RO_WEB_MONSTER_DEATH_IDENTITY_AUDIT.resolved += 1;
       processed += 1;
       // One reward package per idle slice is enough to keep mobile frames smooth.
       if (!deadline && processed >= 1) break;
@@ -1265,7 +1383,9 @@ function queueMonsterDefeatResolution(monster, options = {}) {
     playMonsterDeathAnimation(monster);
   }
 
-  RO_WEB_DEFEAT_RESOLUTION_BATCH.queue.push({ monster, primary:isPrimary, queuedAt:Date.now() });
+  const rewardSnapshot = createMonsterDeathRewardSnapshot(monster);
+  if (!rewardSnapshot) return false;
+  RO_WEB_DEFEAT_RESOLUTION_BATCH.queue.push({ monster:rewardSnapshot, sourceMonster:monster, primary:isPrimary, queuedAt:Date.now() });
   scheduleDefeatResolutionBatch();
 
   if (isPrimary) {
@@ -1297,10 +1417,10 @@ function queueMonsterDefeatResolution(monster, options = {}) {
 window.queueMonsterDefeatResolution = queueMonsterDefeatResolution;
 
 // 怪物死亡
-function defeatMonster() {
-  const defeatedMonster = currentMonster;
+function defeatMonster(explicitMonster = null) {
+  const defeatedMonster = explicitMonster || currentMonster;
   if (!defeatedMonster) return false;
-  return queueMonsterDefeatResolution(defeatedMonster, { primary:true });
+  return queueMonsterDefeatResolution(defeatedMonster, { primary:defeatedMonster === currentMonster });
 }
 
 // 掉寶判定

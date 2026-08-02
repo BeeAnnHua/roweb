@@ -1,0 +1,51 @@
+{
+  "version": "0.9.82IK",
+  "feature": "Monster Death Identity Lock and Card Source Validation",
+  "authoritativeIdentityOrder": [
+    "deathIdentity.monsterId",
+    "spawnEntry.monsterId",
+    "officialId",
+    "combatMonsterId",
+    "id"
+  ],
+  "lockedFields": [
+    "monsterId",
+    "officialId",
+    "aegisName",
+    "displayName",
+    "instanceId",
+    "mapId",
+    "drops",
+    "mvpDrops"
+  ],
+  "cardValidation": {
+    "mergedDropSourceMonsterId": true,
+    "cardCatalogDropSources": true,
+    "mismatchAction": "BLOCK_DROP_AND_AUDIT",
+    "genericFallbackToCurrentMonster": false
+  },
+  "nameCorrections": [
+    {
+      "monsterId": 1719,
+      "aegisName": "DETALE",
+      "oldName": "水晶龍",
+      "newName": "迪塔勒泰晤勒斯",
+      "cardId": 4386,
+      "cardName": "迪塔勒泰晤勒斯卡片"
+    },
+    {
+      "monsterId": 1779,
+      "aegisName": "KTULLANUX",
+      "name": "冰晶龍",
+      "cardId": 4419,
+      "cardName": "水晶龍卡片"
+    }
+  ],
+  "logFormat": "獲得道具：{卡片名稱} x {數量}（來源：{死亡怪物名稱}）",
+  "screenshotIssue": "高速 MVP 戰鬥時，無來源的卡片取得訊息與下一筆死亡訊息容易被誤認為同一怪物；舊「水晶龍」名稱亦與冰晶龍混淆。",
+  "preserved": [
+    "V92 exact monster-instance effect anchor",
+    "Warlock elemental spheres and Tetra Vortex",
+    "Violent Coelacanth magic fix"
+  ]
+}
