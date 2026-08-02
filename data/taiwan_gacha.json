@@ -1,6 +1,6 @@
 {
   "schema": "ro_web_taiwan_gacha_v1",
-  "version": "0.9.82IL3",
+  "version": "0.9.82IL4",
   "mapId": "geffenia_mvp_arena_3x3_region_camera",
   "gachaItemId": 9512,
   "mapExclusiveDropChanceBasisPoints": 100,
@@ -201,5 +201,5 @@
     "totalBasisPoints": 10000,
     "ordinaryPerItemBasisPoints": 822.6
   },
-  "sourceNote": "0.9.82IL3: corrected MVP card identity; gacha reward is 27321 DespairGodMorocc_Card at 0.01%, while existing 300084 is restored to Dry_Rafflesia_H_Card."
+  "sourceNote": "0.9.82IL4: full Taiwan gacha effect audit; 27321 keeps numeric effects and First Aid system-log-only transform notification; 9512 quick-slot support retained."
 }

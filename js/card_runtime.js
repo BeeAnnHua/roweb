@@ -944,7 +944,7 @@
 
 
   window.CardRuntime = {
-    version:"0.9.82IL1", init, invalidate, getSources, getMergedSource, getCardRecord:id=>(init(),DATA.effects[String(id)]||null), getEnchantRecord:id=>(init(),DATA.enchants[String(id)]||null),
+    version:"0.9.82IL4", init, invalidate, getSources, getMergedSource, getCardRecord:id=>(init(),DATA.effects[String(id)]||null), getEnchantRecord:id=>(init(),DATA.enchants[String(id)]||null),
     getComboRecords:()=> (init(),DATA.combos), getSocketCandidates, socketCard, isCardCompatible, removeAllCardsFromEquipped,
     onNormalAttack,onPlayerDamaged,onSkillUsed,onMonsterDefeated,rollExtraDrops,getExpRate,getSkillDamageRate,getSkillSpCostModifier,getItemRecoveryRate,tickPeriodicEffects,
     getBuildCounts:()=>({cards:Object.keys(DATA.effects).length,equipmentScripts:Object.keys(DATA.equipment).length,enchantScripts:Object.keys(DATA.enchants).length,combos:DATA.combos.length,dropSources:Object.values(DATA.drops).reduce((n,x)=>n+(x?.length||0),0)}),

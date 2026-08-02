@@ -1,0 +1,70 @@
+{
+  "version": "0.9.82IL4",
+  "baseVersion": "0.9.82IL3",
+  "title": "Taiwan Gacha Full Effect Audit and Root Report Consolidation",
+  "gachaItem": {
+    "itemId": 9512,
+    "name": "光輝天翼轉蛋",
+    "quickSlotEligible": true,
+    "actualQuickSlotAssignment": "PASS",
+    "numberKeyActivation": "PASS",
+    "batchOpen": true
+  },
+  "featuredEquipment": [
+    410254,
+    420199,
+    400511,
+    490088,
+    400401,
+    28902,
+    420236
+  ],
+  "featuredCards": [
+    27323,
+    27322,
+    4509,
+    4507,
+    4148,
+    27321
+  ],
+  "testResult": {
+    "passed": 111,
+    "failed": 0,
+    "suite": "taiwan-gacha-full-equipment-card-runtime-audit"
+  },
+  "staticValidation": {
+    "javascriptSyntax": {
+      "passed": 850,
+      "failed": 0
+    },
+    "jsonParsingAfterConsolidation": {
+      "passed": 2554,
+      "failed": 0
+    },
+    "dataBundleEntries": 1522,
+    "dataBundleBytes": 36706582
+  },
+  "intentionalPolicies": {
+    "27321": "numeric effects active; First Aid trigger produces system log only; no visual transformation",
+    "28902": "noCastCancel flag preserved pending global cast-interruption implementation",
+    "4507": "RC2_SCARABA damage prewired pending Scaraba-tagged monsters"
+  },
+  "probabilityAudit": {
+    "specialBasisPoints": 1774,
+    "ordinaryBasisPoints": 8226,
+    "totalBasisPoints": 10000,
+    "ordinaryPerItemBasisPoints": 822.6
+  },
+  "reportConsolidation": {
+    "rootFilesBefore": 264,
+    "rootTestAndUpdateReportsMerged": 145,
+    "rootFilesAfter": 119,
+    "remainingRootTestOrUpdateReports": 0,
+    "historyFile": "HISTORY_UPDATE_AUDIT_LOG_THROUGH_0.9.82IL4.txt",
+    "historyBytes": 1500967,
+    "historySha256": "35cadde57a16a79dea41b9f8edb83c5c145ce959e9b7d4c459a88f9a22bc3c41",
+    "cumulativeArchivedSourceFiles": 364
+  },
+  "playerAnnouncement": "PLAYER_ANNOUNCEMENT_0.9.82IL4_TAIWAN_GACHA.md",
+  "effectAudit": "TAIWAN_GACHA_EFFECT_COMPLETION_AUDIT_0.9.82IL4.json"
+}

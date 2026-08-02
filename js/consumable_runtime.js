@@ -5,7 +5,7 @@
 //=======================================
 (function(){
   "use strict";
-  const VERSION="0.9.82IL1";
+  const VERSION="0.9.82IL4";
   const num=(v,f=0)=>Number.isFinite(Number(v))?Number(v):f;
   const text=v=>String(v??"").trim();
   const scriptOf=item=>text(item?.scriptRaw||item?.Script||item?.script);

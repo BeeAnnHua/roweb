@@ -1,3 +1,11 @@
+# 0.9.82IL4 current baseline
+- Taiwan gacha item 9512 is quick-slot eligible and batch-open capable.
+- All featured equipment/cards are runtime audited.
+- Despair God Morocc Card 27321: numeric effects enabled; First Aid transform is system-log-only with no appearance swap.
+- Mad Bunny +12 no-cast-cancel remains a forward-compatible flag until global cast interruption exists.
+- Queen Scaraba Card RC2_SCARABA damage is prewired and waits only for Scaraba-tagged monsters.
+- Root TEST_REPORT/UPDATE_FILES history is consolidated into one file.
+
 # 0.9.82IL3 current baseline
 - Taiwan gacha MVP reward is 27321 DespairGodMorocc_Card at 0.01%.
 - 300084 remains Dry_Rafflesia_H_Card and must never be repurposed as Nightmare King.

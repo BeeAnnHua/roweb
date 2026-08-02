@@ -39940,7 +39940,7 @@
     "description": [
       "ATK+10%、MHP-50%。",
       "對天使型、人類型、玩家人類型敵人的物理傷害+30%。",
-      "RO_WEB 僅套用能力效果，不切換絕望之神夢羅克變身外觀。"
+      "使用緊急治療時，依原始腳本觸發5秒夢羅克變身訊息；RO_WEB 不切換外觀。"
     ],
     "icon": "images/items/27321.webp",
     "slotCount": 0,
@@ -39950,8 +39950,10 @@
     "isMvpCard": true,
     "isBossCard": true,
     "cardVisualTier": "mvp",
-    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + user-approved no-appearance-transform rule",
-    "visualTransformDisabled": true
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + user-approved system-log-only transform rule",
+    "visualTransformDisabled": true,
+    "systemTransformNoticeEnabled": true,
+    "systemTransformNotice": "絕望之神夢羅克卡片發動：5秒內進入夢羅克變身狀態（本作僅顯示系統訊息，不切換外觀）。"
   },
   "27322": {
     "id": 27322,

@@ -1,5 +1,5 @@
 //============================================================
-// RO_WEB 0.9.82IL3 — 台灣頭飾 轉蛋單件絕對機率＋全域指定數量批量開啟橋接
+// RO_WEB 0.9.82IL4 — 台灣頭飾 轉蛋單件絕對機率＋全域指定數量批量開啟橋接
 // - 同 ID MVP 只有在指定地圖死亡才以原始 1% 判定轉蛋，並套用全域掉落總閥。
 // - 轉蛋內部稀有機率為單一 10000 基點母池的絕對機率；全域掉落倍率只影響轉蛋本體掉落。
 // - 1% 紅色、0.1% 紫色、0.01% 金色上方橫幅。
@@ -7,7 +7,7 @@
 (() => {
   "use strict";
 
-  const VERSION = "0.9.82IL3";
+  const VERSION = "0.9.82IL4";
   const BUNDLE_KEY = "data/taiwan_gacha.json";
   const DEFAULT_GACHA_ITEM_ID = 9512;
   const CASH_FOOD_SOURCE = "taiwan_gacha_cash_food";
