@@ -139,6 +139,26 @@
   function currentJobToken() {
     return String(window.player?.jobAegisName || window.player?.job || window.player?.jobId || "Job_Novice");
   }
+  function currentBaseJobToken() {
+    const jobs=window.jobsData || bundled("data/jobs.json", {}) || {};
+    const token=String(window.player?.jobKey || window.player?.job || window.player?.jobAegisName || window.player?.jobId || "");
+    const rows=Array.isArray(jobs)?jobs:Object.values(jobs);
+    const row=rows.find(x=>[x?.id,x?.officialId,x?.raJob,x?.aegisName].some(v=>String(v??"")===token));
+    const chain=(row?.skillTreeChain||[]).map(x=>String(x).toLowerCase());
+    if(chain.includes("sage"))return "Job_Sage";
+    if(chain.includes("wizard"))return "Job_Wizard";
+    if(chain.includes("priest"))return "Job_Priest";
+    if(chain.includes("monk"))return "Job_Monk";
+    if(chain.includes("knight"))return "Job_Knight";
+    if(chain.includes("crusader"))return "Job_Crusader";
+    if(chain.includes("assassin"))return "Job_Assassin";
+    if(chain.includes("rogue"))return "Job_Rogue";
+    if(chain.includes("hunter"))return "Job_Hunter";
+    if(chain.includes("bard")||chain.includes("dancer"))return "Job_BardDancer";
+    if(chain.includes("blacksmith"))return "Job_Blacksmith";
+    if(chain.includes("alchemist"))return "Job_Alchemist";
+    return currentJobToken();
+  }
   function statValue(token) {
     const key = String(token).replace(/^b/, "").toLowerCase();
     const basic = window.player?.stats || {};
@@ -421,8 +441,8 @@
       getiteminfo: (id,info) => { const item=window.getItemData?.(id); return String(info)==="ITEMINFO_VIEW" ? getItemView(item) : n(item?.[String(info)]); },
       readparam: token => statValue(token), getskilllv: skill => { const resolved=resolveSkill(skill); return n(window.getSkillLevel?.(resolved?.officialId ?? resolved?.id ?? skill)); },
       isequipped: (...ids) => ids.every(id => equippedIds.map(String).includes(String(id))), eaclass:eaclassMask,
-      min:Math.min, max:Math.max, pow:Math.pow,
-      BaseLevel:n(window.player?.baseLevel,1), JobLevel:n(window.player?.jobLevel,1), BaseJob:currentJobToken(), BaseClass:currentJobToken(), Class:currentJobToken(), Sex:String(window.player?.gender||""),
+      min:Math.min, max:Math.max, pow:Math.pow, floor:Math.floor,
+      BaseLevel:n(window.player?.baseLevel,1), JobLevel:n(window.player?.jobLevel,1), BaseJob:currentBaseJobToken(), BaseClass:currentBaseJobToken(), Class:currentJobToken(), Sex:String(window.player?.gender||""),
       EAJL_THIRD:4, EAJL_FOURTH:8,
       ENCHANTGRADE_NONE:0, ENCHANTGRADE_D:1, ENCHANTGRADE_C:2, ENCHANTGRADE_B:3, ENCHANTGRADE_A:4,
       ...BATTLE_FLAGS,
@@ -717,6 +737,15 @@
     }
     if(attackContext&&!matchesBattleFlags(proc.attackFlags,attackContext))return false;
     if(Math.random()*10000>=Math.max(0,n(proc.rate)))return false;
+    if(normalizeSkillKey(proc.skill)==="NPC_MAGICMIRROR"){
+      if(!window.player)return false;
+      const id=`mad_bunny_magic_mirror_${Date.now()}_${Math.random()}`;
+      player.cardRuntimeTempBonuses=player.cardRuntimeTempBonuses||{};
+      player.cardRuntimeTempBonuses[id]={expiresAt:Date.now()+2000,source:{id,name:"瘋狂兔寶寶－魔法鏡",sourceType:"equipmentTemp",sourceId:28902,magicReflectChancePercent:60}};
+      invalidate(); window.recalculatePlayerStats?.();
+      window.addBattleLog?.("瘋狂兔寶寶發動魔法鏡：2秒內啟動60%魔法反射。");
+      return true;
+    }
     const skill=resolveSkill(proc.skill); if(!skill)return false;
     const level=Math.max(1,n(proc.level,1));
     try { return !!window.castAttackSkill?.(skill,level,{source:"card_autospell",ignoreSpCostCheck:true,triggerSource:proc.trigger||"card_proc",skipAnimation:true,target}); }
@@ -915,7 +944,7 @@
 
 
   window.CardRuntime = {
-    version:"0.9.82IA", init, invalidate, getSources, getMergedSource, getCardRecord:id=>(init(),DATA.effects[String(id)]||null), getEnchantRecord:id=>(init(),DATA.enchants[String(id)]||null),
+    version:"0.9.82IL", init, invalidate, getSources, getMergedSource, getCardRecord:id=>(init(),DATA.effects[String(id)]||null), getEnchantRecord:id=>(init(),DATA.enchants[String(id)]||null),
     getComboRecords:()=> (init(),DATA.combos), getSocketCandidates, socketCard, isCardCompatible, removeAllCardsFromEquipped,
     onNormalAttack,onPlayerDamaged,onSkillUsed,onMonsterDefeated,rollExtraDrops,getExpRate,getSkillDamageRate,getSkillSpCostModifier,getItemRecoveryRate,tickPeriodicEffects,
     getBuildCounts:()=>({cards:Object.keys(DATA.effects).length,equipmentScripts:Object.keys(DATA.equipment).length,enchantScripts:Object.keys(DATA.enchants).length,combos:DATA.combos.length,dropSources:Object.values(DATA.drops).reduce((n,x)=>n+(x?.length||0),0)}),

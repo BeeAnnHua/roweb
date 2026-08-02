@@ -148,7 +148,7 @@
     ignoreDefByRace:"defense", ignoreDefByClass:"defense", ignoreMdefByRace:"defense", ignoreMdefByClass:"defense", ignoreMresByRace:"defense",
     ignoreWeaponSizePenalty:"weapon_size", weaponTypeDamageRate:"weapon_type", defRatioAttackClass:"defense_ratio",
     monsterDamageRate:"monster_specific", monsterDamageReductionRate:"monster_specific", magicImmune:"magic_immunity",
-    incomingDamageMaxHpCapRate:"incoming_cap", magicReflectRate:"reflection", shortPhysicalReflectRate:"reflection", reflectDamageReductionRate:"reflection",
+    incomingDamageMaxHpCapRate:"incoming_cap", magicReflectRate:"reflection", magicReflectChancePercent:"reflection", shortPhysicalReflectRate:"reflection", reflectDamageReductionRate:"reflection",
     skillDamageRate:"skill_damage", skillDamageReductionRate:"skill_damage", skillKnockbackBonus:"skill_movement",
 
     // Skill timing, costs and grants.

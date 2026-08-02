@@ -260,6 +260,22 @@
   });
 
   registerAdapter({
+    id:"taiwan_gacha",
+    matches(item) {
+      const config = window.TaiwanGachaRuntime?.config?.();
+      return Boolean(window.TaiwanGachaRuntime && String(item?.id) === String(config?.gachaItemId || 9512));
+    },
+    getAvailable(item) {
+      const stack = inventoryStack(item.id);
+      const state = window.TaiwanGachaRuntime?.getBatchState?.() || {};
+      return Math.max(0, integer(stack?.count) - Math.max(0, integer(state.pending)));
+    },
+    getState() { return window.TaiwanGachaRuntime?.getBatchState?.() || {}; },
+    enqueue(item, amount, options) { return window.TaiwanGachaRuntime?.enqueueOpenQuantity?.(item, amount, options); },
+    flushPendingForSave(options) { return window.TaiwanGachaRuntime?.flushPendingForSave?.(options) || {}; }
+  });
+
+  registerAdapter({
     id:"item_box",
     matches(item) { return Boolean(window.ItemBoxRuntime?.boxForItem?.(item)); },
     getAvailable(item) {

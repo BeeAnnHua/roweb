@@ -1196,6 +1196,24 @@
     "sourcePath": "data/items/monster_drops_0_9_82EI.json",
     "sourceType": "equipment"
   },
+  "18813": {
+    "id": 18813,
+    "name": "新浪潮墨鏡",
+    "aegisName": "New_Wave_Sunglasses",
+    "scriptRaw": "bonus bDelayrate,-10;",
+    "compiledScript": "bonus(\"bDelayrate\", -10);",
+    "sourcePath": "data/equipment/headgear/mid.json",
+    "sourceType": "equipment"
+  },
+  "19181": {
+    "id": 19181,
+    "name": "新浪潮墨鏡 [1]",
+    "aegisName": "New_Wave_Sunglasses_",
+    "scriptRaw": "bonus bDelayrate,-5;",
+    "compiledScript": "bonus(\"bDelayrate\", -5);",
+    "sourcePath": "data/equipment/headgear/mid.json",
+    "sourceType": "equipment"
+  },
   "20788": {
     "id": 20788,
     "name": "喵族專屬斗篷",
@@ -1221,6 +1239,15 @@
     "scriptRaw": "bonus bMaxHP,100;\nbonus bMaxSP,50;\n.@r = getrefine()/3;\nbonus bHPrecovRate,.@r*10;\nbonus bSPrecovRate,.@r*10;\n",
     "compiledScript": "bonus(\"bMaxHP\", 100);\nbonus(\"bMaxSP\", 50);\nv.r = getrefine()/3;\nbonus(\"bHPrecovRate\", v.r*10);\nbonus(\"bSPrecovRate\", v.r*10);\n",
     "sourcePath": "data/items/monster_drops_0_9_82EI.json",
+    "sourceType": "equipment"
+  },
+  "22202": {
+    "id": 22202,
+    "name": "時光超越者之靴",
+    "aegisName": "Temporal_Boots_TW",
+    "scriptRaw": ".@r = getrefine();\nbonus bMdef,15;\nif (.@r>=10) {\n   bonus bAllStats,2;\n   if (readparam(bStr)>=108)\n      bonus bBaseAtk,50;\n   if (readparam(bAgi)>=108)\n      bonus bAspd,1;\n   if (readparam(bVit)>=108)\n      bonus bMaxHPrate,8;\n   if (readparam(bInt)>=108)\n      bonus bMatk,60;\n   if (readparam(bDex)>=108) {\n      bonus bFixedCast,-500;\n      bonus bLongAtkRate,5;\n   }\n   if (readparam(bLuk)>=108)\n      bonus bCriticalRate,30;\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bMdef\", 15);\nif (v.r>=10) {\n   bonus(\"bAllStats\", 2);\n   if (readparam(bStr)>=108)\n      bonus(\"bBaseAtk\", 50);\n   if (readparam(bAgi)>=108)\n      bonus(\"bAspd\", 1);\n   if (readparam(bVit)>=108)\n      bonus(\"bMaxHPrate\", 8);\n   if (readparam(bInt)>=108)\n      bonus(\"bMatk\", 60);\n   if (readparam(bDex)>=108) {\n      bonus(\"bFixedCast\", -500);\n      bonus(\"bLongAtkRate\", 5);\n   }\n   if (readparam(bLuk)>=108)\n      bonus(\"bCriticalRate\", 30);\n}\n",
+    "sourcePath": "RO_WEB 0.9.82FZ gacha equipment",
     "sourceType": "equipment"
   },
   "28106": {
@@ -1268,6 +1295,15 @@
     "sourcePath": "data/items/monster_drops_0_9_82EI.json",
     "sourceType": "equipment"
   },
+  "28902": {
+    "id": 28902,
+    "name": "瘋狂兔寶寶",
+    "aegisName": "Mad_Bunny_K_",
+    "scriptRaw": "bonus bAtkRate,5;\nbonus bMatkRate,5;\nbonus bShortWeaponDamageReturn,10;\nbonus5 bAutoSpellWhenHit,\"NPC_MAGICMIRROR\",8,1000,BF_MAGIC,0;\n.@r = getrefine();\nif (.@r>=7) { bonus bBaseAtk,5; bonus bMatk,5; }\nif (.@r>=9) { bonus bBaseAtk,15; bonus bMatk,15; }\nif (.@r>=12) { bonus bCritical,10; bonus bNoCastCancel; }",
+    "compiledScript": "bonus(\"bAtkRate\", 5);\nbonus(\"bMatkRate\", 5);\nbonus(\"bShortWeaponDamageReturn\", 10);\nbonus5(\"bAutoSpellWhenHit\", \"NPC_MAGICMIRROR\", 8, 1000, BF_MAGIC, 0);\nv.r = getrefine();\nif (v.r>=7) { bonus(\"bBaseAtk\", 5); bonus(\"bMatk\", 5); }\nif (v.r>=9) { bonus(\"bBaseAtk\", 15); bonus(\"bMatk\", 15); }\nif (v.r>=12) { bonus(\"bCritical\", 10); bonus(\"bNoCastCancel\"); }",
+    "sourcePath": "data/equipment/armor/shield.json",
+    "sourceType": "equipment"
+  },
   "400368": {
     "id": 400368,
     "name": "RO二十週年限定帽",
@@ -1275,6 +1311,33 @@
     "scriptRaw": ".@r = getrefine();\nbonus bMaxHP,2000;\nbonus bMaxSP,200;\nbonus bBaseAtk,20*(.@r/2);\nbonus bMatk,20*(.@r/2);\nbonus bAtkRate,3*(.@r/3);\nbonus bMatkRate,3*(.@r/3);\nif (.@r>=7)\n   bonus bAspdRate,10;\nif (.@r>=9) {\n   bonus bShortAtkRate,10;\n   bonus bLongAtkRate,10;\n   bonus2 bMagicAtkEle,Ele_All,10;\n}\nif (.@r>=11) {\n   bonus2 bAddEle,Ele_All,15;\n   bonus2 bMagicAddEle,Ele_All,15;\n}\nif (.@r>=12)\n   bonus bFixedCast,-15*(.@r-11);\n",
     "compiledScript": "v.r = getrefine();\nbonus(\"bMaxHP\", 2000);\nbonus(\"bMaxSP\", 200);\nbonus(\"bBaseAtk\", 20*(v.r/2));\nbonus(\"bMatk\", 20*(v.r/2));\nbonus(\"bAtkRate\", 3*(v.r/3));\nbonus(\"bMatkRate\", 3*(v.r/3));\nif (v.r>=7)\n   bonus(\"bAspdRate\", 10);\nif (v.r>=9) {\n   bonus(\"bShortAtkRate\", 10);\n   bonus(\"bLongAtkRate\", 10);\n   bonus2(\"bMagicAtkEle\", Ele_All, 10);\n}\nif (v.r>=11) {\n   bonus2(\"bAddEle\", Ele_All, 15);\n   bonus2(\"bMagicAddEle\", Ele_All, 15);\n}\nif (v.r>=12)\n   bonus(\"bFixedCast\", -15*(v.r-11));\n",
     "sourcePath": "RO_WEB 0.9.82FZ gacha equipment",
+    "sourceType": "equipment"
+  },
+  "400401": {
+    "id": 400401,
+    "name": "天地樹的信仰",
+    "aegisName": "Yggdrasil_Faith",
+    "scriptRaw": ".@r = getrefine();\nbonus bMatk,20*floor(.@r/2);\nbonus2 bMagicAtkEle,Ele_All,7*floor(.@r/3);\nif (.@r>=7) bonus bMatkRate,10;\nif (.@r>=9) bonus bDelayrate,-10;\nif (.@r>=11) bonus2 bMagicAddRace,RC_All,15;\nif (.@r>=12) bonus2 bMagicAddEle,Ele_All,15;\nif (.@r>=13) bonus bFixedCast,-500;",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bMatk\", 20*floor(v.r/2));\nbonus2(\"bMagicAtkEle\", Ele_All, 7*floor(v.r/3));\nif (v.r>=7) bonus(\"bMatkRate\", 10);\nif (v.r>=9) bonus(\"bDelayrate\", -10);\nif (v.r>=11) bonus2(\"bMagicAddRace\", RC_All, 15);\nif (v.r>=12) bonus2(\"bMagicAddEle\", Ele_All, 15);\nif (v.r>=13) bonus(\"bFixedCast\", -500);",
+    "sourcePath": "data/equipment/headgear/top.json",
+    "sourceType": "equipment"
+  },
+  "400511": {
+    "id": 400511,
+    "name": "女王甲蟲頭盔",
+    "aegisName": "Q_Scaraba_Crown_TW",
+    "scriptRaw": ".@r = getrefine();\nbonus bPow,3;\nbonus bCon,3;\nbonus bCrt,3;\nbonus bBaseAtk,20*floor(.@r/2);\nbonus bCritical,4*floor(.@r/2);\nbonus bCritAtkRate,10*floor(.@r/3);\nif (.@r>=7) {\n bonus bAtkRate,10;\n if (.@r>=9) {\n  bonus bDelayrate,-10;\n  if (.@r>=11) {\n   bonus bLongAtkRate,15;\n   bonus bShortAtkRate,15;\n   if (.@r>=12) {\n    bonus2 bAddRace,RC_All,15;\n    if (.@r>=13) bonus bFixedCast,-500;\n   }\n  }\n }\n}",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bPow\", 3);\nbonus(\"bCon\", 3);\nbonus(\"bCrt\", 3);\nbonus(\"bBaseAtk\", 20*floor(v.r/2));\nbonus(\"bCritical\", 4*floor(v.r/2));\nbonus(\"bCritAtkRate\", 10*floor(v.r/3));\nif (v.r>=7) {\n bonus(\"bAtkRate\", 10);\n if (v.r>=9) {\n  bonus(\"bDelayrate\", -10);\n  if (v.r>=11) {\n   bonus(\"bLongAtkRate\", 15);\n   bonus(\"bShortAtkRate\", 15);\n   if (v.r>=12) {\n    bonus2(\"bAddRace\", RC_All, 15);\n    if (v.r>=13) bonus(\"bFixedCast\", -500);\n   }\n  }\n }\n}",
+    "sourcePath": "data/equipment/headgear/top.json",
+    "sourceType": "equipment"
+  },
+  "410254": {
+    "id": 410254,
+    "name": "古代夢羅克貴族首飾",
+    "aegisName": "Old_Moroc_Acc",
+    "scriptRaw": ".@a = ((5*floor(readparam(bStr)/8))+(3*floor(readparam(bAgi)/8))+(2*floor(readparam(bVit)/8))+(2*floor(readparam(bDex)/8)));\n.@b = ((2*floor(readparam(bVit)/8))+(5*floor(readparam(bInt)/8))+(2*floor(readparam(bDex)/8))+(3*floor(readparam(bLuk)/8)));\nbonus bBaseAtk,.@a;\nbonus bMatk,.@b;",
+    "compiledScript": "v.a = ((5*floor(readparam(bStr)/8))+(3*floor(readparam(bAgi)/8))+(2*floor(readparam(bVit)/8))+(2*floor(readparam(bDex)/8)));\nv.b = ((2*floor(readparam(bVit)/8))+(5*floor(readparam(bInt)/8))+(2*floor(readparam(bDex)/8))+(3*floor(readparam(bLuk)/8)));\nbonus(\"bBaseAtk\", v.a);\nbonus(\"bMatk\", v.b);",
+    "sourcePath": "data/equipment/headgear/mid.json",
     "sourceType": "equipment"
   },
   "420186": {
@@ -1286,48 +1349,21 @@
     "sourcePath": "RO_WEB 0.9.82FZ gacha equipment",
     "sourceType": "equipment"
   },
+  "420199": {
+    "id": 420199,
+    "name": "幽魅火球",
+    "aegisName": "Ghost_Fire",
+    "scriptRaw": "bonus bVariableCastrate,-8;\nbonus bDelayrate,-5;\nbonus bFixedCast,-100;",
+    "compiledScript": "bonus(\"bVariableCastrate\", -8);\nbonus(\"bDelayrate\", -5);\nbonus(\"bFixedCast\", -100);",
+    "sourcePath": "data/equipment/headgear/low.json",
+    "sourceType": "equipment"
+  },
   "450175": {
     "id": 450175,
     "name": "時光超越湧現鎧甲",
     "aegisName": "Temporal_Armor_TW",
     "scriptRaw": ".@r = getrefine();\nbonus bMdef,10;\nbonus bBaseAtk,30;\nbonus bMatk,30;\nbonus bAtkRate,2*(.@r/3);\nbonus bMatkRate,2*(.@r/3);\nif (.@r>=7) {\n   bonus bBaseAtk,50;\n   bonus bMatk,50;\n}\nif (.@r>=9) {\n   bonus2 bIgnoreDefRaceRate,RC_Brute,30;\n   bonus2 bIgnoreDefRaceRate,RC_Demon,30;\n   bonus2 bIgnoreMdefRaceRate,RC_Brute,30;\n   bonus2 bIgnoreMdefRaceRate,RC_Demon,30;\n}\nif (.@r>=11) {\n   bonus2 bAddEle,Ele_All,10;\n   bonus2 bMagicAddEle,Ele_All,10;\n}\n",
     "compiledScript": "v.r = getrefine();\nbonus(\"bMdef\", 10);\nbonus(\"bBaseAtk\", 30);\nbonus(\"bMatk\", 30);\nbonus(\"bAtkRate\", 2*(v.r/3));\nbonus(\"bMatkRate\", 2*(v.r/3));\nif (v.r>=7) {\n   bonus(\"bBaseAtk\", 50);\n   bonus(\"bMatk\", 50);\n}\nif (v.r>=9) {\n   bonus2(\"bIgnoreDefRaceRate\", RC_Brute, 30);\n   bonus2(\"bIgnoreDefRaceRate\", RC_Demon, 30);\n   bonus2(\"bIgnoreMdefRaceRate\", RC_Brute, 30);\n   bonus2(\"bIgnoreMdefRaceRate\", RC_Demon, 30);\n}\nif (v.r>=11) {\n   bonus2(\"bAddEle\", Ele_All, 10);\n   bonus2(\"bMagicAddEle\", Ele_All, 10);\n}\n",
-    "sourcePath": "RO_WEB 0.9.82FZ gacha equipment",
-    "sourceType": "equipment"
-  },
-  "480076": {
-    "id": 480076,
-    "name": "時光超越者斗篷",
-    "aegisName": "Temporal_Cape_TW",
-    "scriptRaw": ".@r = getrefine();\nbonus bMdef,10;\nbonus bAtkRate,.@r/2;\nbonus bMatkRate,.@r/2;\nbonus bLongAtkRate,.@r/2;\nbonus bCritical,3*(.@r/2);\nbonus bCritAtkRate,.@r/2;\nbonus2 bAddEle,Ele_All,3*(.@r/4);\nbonus2 bMagicAddEle,Ele_All,3*(.@r/4);\nbonus bMaxHPrate,3*(.@r/4);\nbonus bAspdRate,3*(.@r/4);\nbonus bDelayrate,-3*(.@r/4);\nbonus bCritAtkRate,3*(.@r/4);\nif (.@r >= 9) {\n   bonus bAtkRate,7;\n   bonus bMatkRate,7;\n}\n",
-    "compiledScript": "v.r = getrefine();\nbonus(\"bMdef\", 10);\nbonus(\"bAtkRate\", v.r/2);\nbonus(\"bMatkRate\", v.r/2);\nbonus(\"bLongAtkRate\", v.r/2);\nbonus(\"bCritical\", 3*(v.r/2));\nbonus(\"bCritAtkRate\", v.r/2);\nbonus2(\"bAddEle\", Ele_All, 3*(v.r/4));\nbonus2(\"bMagicAddEle\", Ele_All, 3*(v.r/4));\nbonus(\"bMaxHPrate\", 3*(v.r/4));\nbonus(\"bAspdRate\", 3*(v.r/4));\nbonus(\"bDelayrate\", -3*(v.r/4));\nbonus(\"bCritAtkRate\", 3*(v.r/4));\nif (v.r >= 9) {\n   bonus(\"bAtkRate\", 7);\n   bonus(\"bMatkRate\", 7);\n}\n",
-    "sourcePath": "RO_WEB 0.9.82FZ gacha equipment",
-    "sourceType": "equipment"
-  },
-  "22202": {
-    "id": 22202,
-    "name": "時光超越者之靴",
-    "aegisName": "Temporal_Boots_TW",
-    "scriptRaw": ".@r = getrefine();\nbonus bMdef,15;\nif (.@r>=10) {\n   bonus bAllStats,2;\n   if (readparam(bStr)>=108)\n      bonus bBaseAtk,50;\n   if (readparam(bAgi)>=108)\n      bonus bAspd,1;\n   if (readparam(bVit)>=108)\n      bonus bMaxHPrate,8;\n   if (readparam(bInt)>=108)\n      bonus bMatk,60;\n   if (readparam(bDex)>=108) {\n      bonus bFixedCast,-500;\n      bonus bLongAtkRate,5;\n   }\n   if (readparam(bLuk)>=108)\n      bonus bCriticalRate,30;\n}\n",
-    "compiledScript": "v.r = getrefine();\nbonus(\"bMdef\", 15);\nif (v.r>=10) {\n   bonus(\"bAllStats\", 2);\n   if (readparam(bStr)>=108)\n      bonus(\"bBaseAtk\", 50);\n   if (readparam(bAgi)>=108)\n      bonus(\"bAspd\", 1);\n   if (readparam(bVit)>=108)\n      bonus(\"bMaxHPrate\", 8);\n   if (readparam(bInt)>=108)\n      bonus(\"bMatk\", 60);\n   if (readparam(bDex)>=108) {\n      bonus(\"bFixedCast\", -500);\n      bonus(\"bLongAtkRate\", 5);\n   }\n   if (readparam(bLuk)>=108)\n      bonus(\"bCriticalRate\", 30);\n}\n",
-    "sourcePath": "RO_WEB 0.9.82FZ gacha equipment",
-    "sourceType": "equipment"
-  },
-  "490030": {
-    "id": 490030,
-    "name": "時光超越者之戒",
-    "aegisName": "Temporal_Ring_TW",
-    "scriptRaw": "bonus bAllStats,1;\n",
-    "compiledScript": "bonus(\"bAllStats\", 1);\n",
-    "sourcePath": "RO_WEB 0.9.82FZ gacha equipment",
-    "sourceType": "equipment"
-  },
-  "490097": {
-    "id": 490097,
-    "name": "時光超越者手鐲",
-    "aegisName": "TimeOverloadRing_TW",
-    "scriptRaw": "bonus bAllStats,2;\nbonus bMdef,5;\n",
-    "compiledScript": "bonus(\"bAllStats\", 2);\nbonus(\"bMdef\", 5);\n",
     "sourcePath": "RO_WEB 0.9.82FZ gacha equipment",
     "sourceType": "equipment"
   },
@@ -1340,6 +1376,24 @@
     "sourcePath": "RO_WEB 0.9.82FZ gacha equipment",
     "sourceType": "equipment"
   },
+  "470183": {
+    "id": 470183,
+    "name": "時光超越者之靴-LT",
+    "aegisName": "Temporal_Boots_LT_TW",
+    "scriptRaw": ".@r = getrefine();\n.@g = getenchantgrade();\nbonus bAllStats,2;\nbonus bMdef,15;\nbonus bMaxHPrate,15;\nbonus bMaxSPrate,5;\nif (.@r>=10) {\n   if (readparam(bStr)>=108)\n       bonus bBaseAtk,80;\n   if (readparam(bAgi)>=108)\n       bonus bAspd,2;\n   if (readparam(bVit)>=108)\n       bonus bMaxHPrate,10;\n   if (readparam(bInt)>=108)\n       bonus bMatk,80;\n   if (readparam(bDex)>=108) {\n       bonus bFixedCast,-500;\n       bonus bLongAtkRate,10;\n   }\n   if (readparam(bLuk)>=108)\n       bonus bCritAtkRate,35;\n}\nif (.@r>=13) {\n   if (readparam(bPow)>=60)\n       bonus2 bAddSize,Size_All,15;\n   if (readparam(bSta)>=60) {\n       bonus bDelayrate,-5;\n       bonus bPAtk,15;\n   }\n   if (readparam(bWis)>=60) {\n       bonus bDelayrate,-5;\n       bonus bSMatk,15;\n   }\n   if (readparam(bSpl)>=60)\n       bonus2 bMagicAddSize,Size_All,15;\n   if (readparam(bCon)>=60)\n       bonus bAspdRate,10;\n   if (readparam(bCrt)>=60) {\n       bonus bFixedCast,-200;\n       bonus bCritAtkRate,10;\n   }\n}\nif (.@g>=ENCHANTGRADE_D) {\n   bonus bRes,30;\n   bonus bMRes,30;\n}\nif (.@g>=ENCHANTGRADE_C) {\n   bonus bBaseAtk,50;\n   bonus bMatk,50;\n}\nif (.@g>=ENCHANTGRADE_B) {\n   bonus2 bAddRace,RC_All,15;\n   bonus2 bMagicAddRace,RC_All,15;\n}\nif (.@g>=ENCHANTGRADE_A) {\n   bonus bPAtk,7;\n   bonus bSMatk,7;\n}\n",
+    "compiledScript": "v.r = getrefine();\nv.g = getenchantgrade();\nbonus(\"bAllStats\", 2);\nbonus(\"bMdef\", 15);\nbonus(\"bMaxHPrate\", 15);\nbonus(\"bMaxSPrate\", 5);\nif (v.r>=10) {\n   if (readparam(bStr)>=108)\n       bonus(\"bBaseAtk\", 80);\n   if (readparam(bAgi)>=108)\n       bonus(\"bAspd\", 2);\n   if (readparam(bVit)>=108)\n       bonus(\"bMaxHPrate\", 10);\n   if (readparam(bInt)>=108)\n       bonus(\"bMatk\", 80);\n   if (readparam(bDex)>=108) {\n       bonus(\"bFixedCast\", -500);\n       bonus(\"bLongAtkRate\", 10);\n   }\n   if (readparam(bLuk)>=108)\n       bonus(\"bCritAtkRate\", 35);\n}\nif (v.r>=13) {\n   if (readparam(bPow)>=60)\n       bonus2(\"bAddSize\", Size_All, 15);\n   if (readparam(bSta)>=60) {\n       bonus(\"bDelayrate\", -5);\n       bonus(\"bPAtk\", 15);\n   }\n   if (readparam(bWis)>=60) {\n       bonus(\"bDelayrate\", -5);\n       bonus(\"bSMatk\", 15);\n   }\n   if (readparam(bSpl)>=60)\n       bonus2(\"bMagicAddSize\", Size_All, 15);\n   if (readparam(bCon)>=60)\n       bonus(\"bAspdRate\", 10);\n   if (readparam(bCrt)>=60) {\n       bonus(\"bFixedCast\", -200);\n       bonus(\"bCritAtkRate\", 10);\n   }\n}\nif (v.g>=ENCHANTGRADE_D) {\n   bonus(\"bRes\", 30);\n   bonus(\"bMRes\", 30);\n}\nif (v.g>=ENCHANTGRADE_C) {\n   bonus(\"bBaseAtk\", 50);\n   bonus(\"bMatk\", 50);\n}\nif (v.g>=ENCHANTGRADE_B) {\n   bonus2(\"bAddRace\", RC_All, 15);\n   bonus2(\"bMagicAddRace\", RC_All, 15);\n}\nif (v.g>=ENCHANTGRADE_A) {\n   bonus(\"bPAtk\", 7);\n   bonus(\"bSMatk\", 7);\n}\n",
+    "sourcePath": "RO_WEB 0.9.82FZ gacha equipment",
+    "sourceType": "equipment"
+  },
+  "480076": {
+    "id": 480076,
+    "name": "時光超越者斗篷",
+    "aegisName": "Temporal_Cape_TW",
+    "scriptRaw": ".@r = getrefine();\nbonus bMdef,10;\nbonus bAtkRate,.@r/2;\nbonus bMatkRate,.@r/2;\nbonus bLongAtkRate,.@r/2;\nbonus bCritical,3*(.@r/2);\nbonus bCritAtkRate,.@r/2;\nbonus2 bAddEle,Ele_All,3*(.@r/4);\nbonus2 bMagicAddEle,Ele_All,3*(.@r/4);\nbonus bMaxHPrate,3*(.@r/4);\nbonus bAspdRate,3*(.@r/4);\nbonus bDelayrate,-3*(.@r/4);\nbonus bCritAtkRate,3*(.@r/4);\nif (.@r >= 9) {\n   bonus bAtkRate,7;\n   bonus bMatkRate,7;\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bMdef\", 10);\nbonus(\"bAtkRate\", v.r/2);\nbonus(\"bMatkRate\", v.r/2);\nbonus(\"bLongAtkRate\", v.r/2);\nbonus(\"bCritical\", 3*(v.r/2));\nbonus(\"bCritAtkRate\", v.r/2);\nbonus2(\"bAddEle\", Ele_All, 3*(v.r/4));\nbonus2(\"bMagicAddEle\", Ele_All, 3*(v.r/4));\nbonus(\"bMaxHPrate\", 3*(v.r/4));\nbonus(\"bAspdRate\", 3*(v.r/4));\nbonus(\"bDelayrate\", -3*(v.r/4));\nbonus(\"bCritAtkRate\", 3*(v.r/4));\nif (v.r >= 9) {\n   bonus(\"bAtkRate\", 7);\n   bonus(\"bMatkRate\", 7);\n}\n",
+    "sourcePath": "RO_WEB 0.9.82FZ gacha equipment",
+    "sourceType": "equipment"
+  },
   "480312": {
     "id": 480312,
     "name": "時光超越者斗篷-LT",
@@ -1349,12 +1403,30 @@
     "sourcePath": "RO_WEB 0.9.82FZ gacha equipment",
     "sourceType": "equipment"
   },
-  "470183": {
-    "id": 470183,
-    "name": "時光超越者之靴-LT",
-    "aegisName": "Temporal_Boots_LT_TW",
-    "scriptRaw": ".@r = getrefine();\n.@g = getenchantgrade();\nbonus bAllStats,2;\nbonus bMdef,15;\nbonus bMaxHPrate,15;\nbonus bMaxSPrate,5;\nif (.@r>=10) {\n   if (readparam(bStr)>=108)\n       bonus bBaseAtk,80;\n   if (readparam(bAgi)>=108)\n       bonus bAspd,2;\n   if (readparam(bVit)>=108)\n       bonus bMaxHPrate,10;\n   if (readparam(bInt)>=108)\n       bonus bMatk,80;\n   if (readparam(bDex)>=108) {\n       bonus bFixedCast,-500;\n       bonus bLongAtkRate,10;\n   }\n   if (readparam(bLuk)>=108)\n       bonus bCritAtkRate,35;\n}\nif (.@r>=13) {\n   if (readparam(bPow)>=60)\n       bonus2 bAddSize,Size_All,15;\n   if (readparam(bSta)>=60) {\n       bonus bDelayrate,-5;\n       bonus bPAtk,15;\n   }\n   if (readparam(bWis)>=60) {\n       bonus bDelayrate,-5;\n       bonus bSMatk,15;\n   }\n   if (readparam(bSpl)>=60)\n       bonus2 bMagicAddSize,Size_All,15;\n   if (readparam(bCon)>=60)\n       bonus bAspdRate,10;\n   if (readparam(bCrt)>=60) {\n       bonus bFixedCast,-200;\n       bonus bCritAtkRate,10;\n   }\n}\nif (.@g>=ENCHANTGRADE_D) {\n   bonus bRes,30;\n   bonus bMRes,30;\n}\nif (.@g>=ENCHANTGRADE_C) {\n   bonus bBaseAtk,50;\n   bonus bMatk,50;\n}\nif (.@g>=ENCHANTGRADE_B) {\n   bonus2 bAddRace,RC_All,15;\n   bonus2 bMagicAddRace,RC_All,15;\n}\nif (.@g>=ENCHANTGRADE_A) {\n   bonus bPAtk,7;\n   bonus bSMatk,7;\n}\n",
-    "compiledScript": "v.r = getrefine();\nv.g = getenchantgrade();\nbonus(\"bAllStats\", 2);\nbonus(\"bMdef\", 15);\nbonus(\"bMaxHPrate\", 15);\nbonus(\"bMaxSPrate\", 5);\nif (v.r>=10) {\n   if (readparam(bStr)>=108)\n       bonus(\"bBaseAtk\", 80);\n   if (readparam(bAgi)>=108)\n       bonus(\"bAspd\", 2);\n   if (readparam(bVit)>=108)\n       bonus(\"bMaxHPrate\", 10);\n   if (readparam(bInt)>=108)\n       bonus(\"bMatk\", 80);\n   if (readparam(bDex)>=108) {\n       bonus(\"bFixedCast\", -500);\n       bonus(\"bLongAtkRate\", 10);\n   }\n   if (readparam(bLuk)>=108)\n       bonus(\"bCritAtkRate\", 35);\n}\nif (v.r>=13) {\n   if (readparam(bPow)>=60)\n       bonus2(\"bAddSize\", Size_All, 15);\n   if (readparam(bSta)>=60) {\n       bonus(\"bDelayrate\", -5);\n       bonus(\"bPAtk\", 15);\n   }\n   if (readparam(bWis)>=60) {\n       bonus(\"bDelayrate\", -5);\n       bonus(\"bSMatk\", 15);\n   }\n   if (readparam(bSpl)>=60)\n       bonus2(\"bMagicAddSize\", Size_All, 15);\n   if (readparam(bCon)>=60)\n       bonus(\"bAspdRate\", 10);\n   if (readparam(bCrt)>=60) {\n       bonus(\"bFixedCast\", -200);\n       bonus(\"bCritAtkRate\", 10);\n   }\n}\nif (v.g>=ENCHANTGRADE_D) {\n   bonus(\"bRes\", 30);\n   bonus(\"bMRes\", 30);\n}\nif (v.g>=ENCHANTGRADE_C) {\n   bonus(\"bBaseAtk\", 50);\n   bonus(\"bMatk\", 50);\n}\nif (v.g>=ENCHANTGRADE_B) {\n   bonus2(\"bAddRace\", RC_All, 15);\n   bonus2(\"bMagicAddRace\", RC_All, 15);\n}\nif (v.g>=ENCHANTGRADE_A) {\n   bonus(\"bPAtk\", 7);\n   bonus(\"bSMatk\", 7);\n}\n",
+  "490030": {
+    "id": 490030,
+    "name": "時光超越者之戒",
+    "aegisName": "Temporal_Ring_TW",
+    "scriptRaw": "bonus bAllStats,1;\n",
+    "compiledScript": "bonus(\"bAllStats\", 1);\n",
+    "sourcePath": "RO_WEB 0.9.82FZ gacha equipment",
+    "sourceType": "equipment"
+  },
+  "490088": {
+    "id": 490088,
+    "name": "絕望的連通之環",
+    "aegisName": "2020maypay_06",
+    "scriptRaw": "bonus bAtkRate,5;\nbonus bMatkRate,5;",
+    "compiledScript": "bonus(\"bAtkRate\", 5);\nbonus(\"bMatkRate\", 5);",
+    "sourcePath": "data/equipment/armor/accessory_h1.json",
+    "sourceType": "equipment"
+  },
+  "490097": {
+    "id": 490097,
+    "name": "時光超越者手鐲",
+    "aegisName": "TimeOverloadRing_TW",
+    "scriptRaw": "bonus bAllStats,2;\nbonus bMdef,5;\n",
+    "compiledScript": "bonus(\"bAllStats\", 2);\nbonus(\"bMdef\", 5);\n",
     "sourcePath": "RO_WEB 0.9.82FZ gacha equipment",
     "sourceType": "equipment"
   },

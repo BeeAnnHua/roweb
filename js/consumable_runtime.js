@@ -5,7 +5,7 @@
 //=======================================
 (function(){
   "use strict";
-  const VERSION="0.9.82HQ";
+  const VERSION="0.9.82IL";
   const num=(v,f=0)=>Number.isFinite(Number(v))?Number(v):f;
   const text=v=>String(v??"").trim();
   const scriptOf=item=>text(item?.scriptRaw||item?.Script||item?.script);
@@ -37,7 +37,23 @@
   function applyHarmful(status,durationMs,chanceRaw){const key=HARMFUL_STATUS[status];if(!key||!window.player)return null;const basis=chanceRaw===undefined||chanceRaw===""?10000:Math.max(0,num(chanceRaw,10000));const chancePercent=Math.min(100,basis/100);const ok=window.StatusManager?.apply?.(player,key,{chancePercent,durationMs:Math.max(1000,num(durationMs,1000)),level:1,allowBoss:true,source:"consumable"});return {status:key,chancePercent,applied:ok!==false};}
   function removeOne(item,stack){const target=stack||inventoryStack(item.id);if(!target||num(target.count)<=0)return false;target.count=num(target.count)-1;if(target.count<=0)player.inventory=player.inventory.filter(x=>x!==target&&String(x.id)!==String(item.id));return true;}
   function finalize(item,stack,summary){if(!removeOne(item,stack))return false;window.markConsumableItemUsed?.(item);window.invalidateCardRuntime?.();window.recalculatePlayerStats?.();window.updatePlayerUI?.();window.updateInventoryUI?.();window.saveGame?.({reason:"consumable-runtime",itemId:item.id});if(summary)window.addBattleLog?.(`使用了 ${item.name}，${summary}。`);return true;}
+  function applyHornScarabaScroll(item,stack=null){
+    if(String(item?.id)!=="22750"||!window.player)return null;
+    const target=stack||inventoryStack(item.id);if(!target||num(target.count)<=0){window.addBattleLog?.(`背包裡沒有 ${item.name}。`);return {handled:true,applied:false};}
+    if(!removeOne(item,target))return {handled:true,applied:false};
+    const now=Date.now(),transformDuration=1200000;
+    player.cardRuntimeTransform={monsterId:2161,status:"MTF_ASPD2",values:[2,10],sourceId:22750,expiresAt:now+transformDuration};
+    try{window.dispatchEvent?.(new CustomEvent("ro:web-player-transform",{detail:{...player.cardRuntimeTransform}}));}catch(_){}
+    player.activeBuffs=player.activeBuffs&&typeof player.activeBuffs==="object"?player.activeBuffs:{};
+    player.activeBuffs.horn_scaraba_scroll={id:"horn_scaraba_scroll",name:item.name,sourceType:"consumable",sourceItemId:22750,startedAt:now,activatedAt:now,expiresAt:now+transformDuration,effects:{aspdRate:10,hitFlat:10}};
+    const equippedIds=Object.values(player.equipment||{}).map(String);
+    if(equippedIds.includes("400511"))player.activeBuffs.queen_scaraba_scroll_combo={id:"queen_scaraba_scroll_combo",name:"女王甲蟲頭盔－雙角甲蟲變身",sourceType:"consumable",sourceItemId:22750,startedAt:now,activatedAt:now,expiresAt:now+300000,effects:{sizeDamage:{All:5},magicSizeDamage:{All:5}}};
+    window.markConsumableItemUsed?.(item);window.invalidateCardRuntime?.();window.recalculatePlayerStats?.();window.updatePlayerUI?.();window.updateInventoryUI?.();window.saveGame?.({reason:"horn-scaraba-scroll",itemId:22750});
+    window.addBattleLog?.(`使用了 ${item.name}，完成雙角甲蟲變身${equippedIds.includes("400511")?"；女王甲蟲頭盔套裝效果持續5分鐘":""}。`);
+    return {handled:true,applied:true,consumed:true};
+  }
   function apply(item,stack=null){
+    const special=applyHornScarabaScroll(item,stack);if(special)return special;
     const audit=analyze(item);if(!audit.script)return {handled:false,audit};
     if(audit.unsupported.length){window.addBattleLog?.(`${item.name} 的官方效果包含目前尚未接入的機制（${audit.unsupported.join("、")}），本次不會消耗道具。`);return {handled:true,applied:false,blocked:true,audit};}
     if(!audit.hasSupported)return {handled:false,audit};

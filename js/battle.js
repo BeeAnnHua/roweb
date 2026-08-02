@@ -917,7 +917,11 @@ function applyActivePhysicalReflect(monster, incomingDamage, options = {}) {
   const cardRate = isMagic
     ? Number(window.EffectRuntime?.collectScalar?.("magicReflectRate", [], player, { includePassive:false, includeActive:false }) || 0)
     : (rangeCells <= 1 ? Number(window.EffectRuntime?.collectScalar?.("shortPhysicalReflectRate", [], player, { includePassive:false, includeActive:false }) || 0) : 0);
-  const rate = Math.max(0, (isMagic ? 0 : Number(active.physicalReflectRate || 0)) + cardRate);
+  const magicReflectChance = isMagic
+    ? Math.max(0, Number(window.EffectRuntime?.collectScalar?.("magicReflectChancePercent", [], player, { includePassive:false, includeActive:false }) || 0))
+    : 0;
+  if (isMagic && magicReflectChance > 0 && Math.random() * 100 >= Math.min(100, magicReflectChance)) return 0;
+  const rate = Math.max(0, (isMagic && magicReflectChance > 0 ? 100 : (isMagic ? 0 : Number(active.physicalReflectRate || 0))) + cardRate);
   if (rate <= 0) return 0;
   const reflected = Math.max(1, Math.floor(Number(incomingDamage || 0) * rate / 100));
   monster.currentHp = Math.max(0, Number(monster.currentHp || 0) - reflected);

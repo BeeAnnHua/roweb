@@ -1,0 +1,178 @@
+{
+  "schema": "ro_web_taiwan_gacha_v1",
+  "version": "0.9.82IL",
+  "mapId": "geffenia_mvp_arena_3x3_region_camera",
+  "gachaItemId": 9512,
+  "mapExclusiveDropChanceBasisPoints": 100,
+  "dropRatePolicy": "global_drop_master_with_mapExclusiveDrop_relative_multiplier",
+  "rareCategories": [
+    {
+      "id": "demon_apostle_cards",
+      "chanceBasisPoints": 200,
+      "tier": "red",
+      "bannerLabel": "每張 1% 紅色大獎",
+      "chanceMode": "per_reward_absolute",
+      "rewards": [
+        {
+          "itemId": 27323,
+          "quantity": 1,
+          "weight": 1,
+          "chanceBasisPoints": 100
+        },
+        {
+          "itemId": 27322,
+          "quantity": 1,
+          "weight": 1,
+          "chanceBasisPoints": 100
+        }
+      ]
+    },
+    {
+      "id": "taiwan_featured_equipment",
+      "chanceBasisPoints": 60,
+      "tier": "purple",
+      "bannerLabel": "每件 0.1% 紫色大獎",
+      "chanceMode": "per_reward_absolute",
+      "rewards": [
+        {
+          "itemId": 410254,
+          "quantity": 1,
+          "weight": 1,
+          "chanceBasisPoints": 10
+        },
+        {
+          "itemId": 420199,
+          "quantity": 1,
+          "weight": 1,
+          "chanceBasisPoints": 10
+        },
+        {
+          "itemId": 400511,
+          "quantity": 1,
+          "weight": 1,
+          "chanceBasisPoints": 10
+        },
+        {
+          "itemId": 490088,
+          "quantity": 1,
+          "weight": 1,
+          "chanceBasisPoints": 10
+        },
+        {
+          "itemId": 400401,
+          "quantity": 1,
+          "weight": 1,
+          "chanceBasisPoints": 10
+        },
+        {
+          "itemId": 28902,
+          "quantity": 1,
+          "weight": 1,
+          "chanceBasisPoints": 10
+        }
+      ]
+    },
+    {
+      "id": "mvp_cards",
+      "chanceBasisPoints": 3,
+      "tier": "gold",
+      "bannerLabel": "每張 0.01% 金色大獎",
+      "chanceMode": "per_reward_absolute",
+      "rewards": [
+        {
+          "itemId": 4509,
+          "quantity": 1,
+          "weight": 1,
+          "chanceBasisPoints": 1
+        },
+        {
+          "itemId": 4507,
+          "quantity": 1,
+          "weight": 1,
+          "chanceBasisPoints": 1
+        },
+        {
+          "itemId": 4148,
+          "quantity": 1,
+          "weight": 1,
+          "chanceBasisPoints": 1
+        }
+      ]
+    },
+    {
+      "id": "blacksmith_blessing",
+      "chanceBasisPoints": 500,
+      "tier": "none",
+      "bannerLabel": "5% 精煉保護材料",
+      "chanceMode": "per_reward_absolute",
+      "rewards": [
+        {
+          "itemId": 6635,
+          "quantity": 1,
+          "weight": 1,
+          "chanceBasisPoints": 500
+        }
+      ]
+    }
+  ],
+  "ordinaryFillBasisPoints": 9237,
+  "ordinaryRewards": [
+    {
+      "itemId": 7620,
+      "quantity": 1,
+      "weight": 1
+    },
+    {
+      "itemId": 6240,
+      "quantity": 1,
+      "weight": 1
+    },
+    {
+      "itemId": 7619,
+      "quantity": 1,
+      "weight": 1
+    },
+    {
+      "itemId": 6241,
+      "quantity": 1,
+      "weight": 1
+    },
+    {
+      "itemId": 1000331,
+      "quantity": 1,
+      "weight": 1
+    },
+    {
+      "itemId": 1000332,
+      "quantity": 1,
+      "weight": 1
+    },
+    {
+      "itemId": 1000333,
+      "quantity": 1,
+      "weight": 1
+    },
+    {
+      "itemId": 1000334,
+      "quantity": 1,
+      "weight": 1
+    },
+    {
+      "itemId": 1000335,
+      "quantity": 1,
+      "weight": 1
+    },
+    {
+      "itemId": 1000336,
+      "quantity": 1,
+      "weight": 1
+    }
+  ],
+  "probabilityAudit": {
+    "specialBasisPoints": 763,
+    "ordinaryBasisPoints": 9237,
+    "totalBasisPoints": 10000,
+    "ordinaryPerItemBasisPoints": 923.7
+  },
+  "sourceNote": "User-approved Taiwan gacha pool; itemInfo_UTF8.lub and rAthena Renewal 2026-06-08 effects."
+}

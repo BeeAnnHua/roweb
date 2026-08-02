@@ -9445,21 +9445,6 @@
     "source": "rAthena Renewal 2026-06-08 item_combos.yml"
   },
   {
-    "id": "card_combo_0620",
-    "rowIndex": 3771,
-    "requiredItemIds": [
-      4556,
-      400401
-    ],
-    "requiredAegisNames": [
-      "Fenrir_Card",
-      "Yggdrasil_Faith"
-    ],
-    "scriptRaw": ".@r = getequiprefinerycnt(EQI_HEAD_TOP);\nbonus bSMatk,20;\nbonus bFixedCast,-200;\nbonus2 bSkillAtk,\"WL_COMET\",7*(.@r/2);\nif (eaclass()&EAJL_THIRD && BaseJob == Job_Sage) {\n   skill \"WL_COMET\",3;\n   bonus bUseSPrate,30;\n}\nif (eaclass()&EAJL_THIRD && BaseJob == Job_Wizard)\n   bonus2 bSkillCooldown,\"WL_COMET\",-20000;\n",
-    "compiledScript": "v.r = getequiprefinerycnt(EQI_HEAD_TOP);\nbonus(\"bSMatk\", 20);\nbonus(\"bFixedCast\", -200);\nbonus2(\"bSkillAtk\", \"WL_COMET\", 7*(v.r/2));\nif (eaclass()&EAJL_THIRD && BaseJob == Job_Sage) {\n   skill(\"WL_COMET\", 3);\n   bonus(\"bUseSPrate\", 30);\n}\nif (eaclass()&EAJL_THIRD && BaseJob == Job_Wizard)\n   bonus2(\"bSkillCooldown\", \"WL_COMET\", -20000);\n",
-    "source": "rAthena Renewal 2026-06-08 item_combos.yml"
-  },
-  {
     "id": "card_combo_0621",
     "rowIndex": 3773,
     "requiredItemIds": [
@@ -9474,36 +9459,6 @@
     ],
     "scriptRaw": ".@r = getequiprefinerycnt(EQI_SHOES);\nbonus bMaxHPrate,4+.@r;\nbonus bMaxSPrate,4+.@r;\n",
     "compiledScript": "v.r = getequiprefinerycnt(EQI_SHOES);\nbonus(\"bMaxHPrate\", 4+v.r);\nbonus(\"bMaxSPrate\", 4+v.r);\n",
-    "source": "rAthena Renewal 2026-06-08 item_combos.yml"
-  },
-  {
-    "id": "card_combo_0622",
-    "rowIndex": 3775,
-    "requiredItemIds": [
-      4509,
-      400511
-    ],
-    "requiredAegisNames": [
-      "Gold_Q_Scaraba_Card",
-      "Q_Scaraba_Crown_TW"
-    ],
-    "scriptRaw": "bonus bPAtk,20;\nbonus bCritAtkRate,10*getequiprefinerycnt(EQI_HEAD_TOP);\n",
-    "compiledScript": "bonus(\"bPAtk\", 20);\nbonus(\"bCritAtkRate\", 10*getequiprefinerycnt(EQI_HEAD_TOP));\n",
-    "source": "rAthena Renewal 2026-06-08 item_combos.yml"
-  },
-  {
-    "id": "card_combo_0623",
-    "rowIndex": 3776,
-    "requiredItemIds": [
-      4507,
-      400511
-    ],
-    "requiredAegisNames": [
-      "Q_Scaraba_Card",
-      "Q_Scaraba_Crown_TW"
-    ],
-    "scriptRaw": "bonus2 bAddClass,Class_Boss,10+(3*(getequiprefinerycnt(EQI_HEAD_TOP)/2));\n",
-    "compiledScript": "bonus2(\"bAddClass\", Class_Boss, 10+(3*(getequiprefinerycnt(EQI_HEAD_TOP)/2)));\n",
     "source": "rAthena Renewal 2026-06-08 item_combos.yml"
   },
   {
@@ -12121,5 +12076,185 @@
     "scriptRaw": "if (getequiprefinerycnt(EQI_ARMOR)+getequiprefinerycnt(EQI_SHOES)+getequiprefinerycnt(EQI_GARMENT) >= 37)\n   bonus bDelayrate,-10;\nif (getenchantgrade(EQI_SHOES) && getenchantgrade(EQI_GARMENT) >= ENCHANTGRADE_A) {\n   bonus bPAtk,10;\n   bonus bSMatk,10;\n}\n",
     "compiledScript": "if (getequiprefinerycnt(EQI_ARMOR)+getequiprefinerycnt(EQI_SHOES)+getequiprefinerycnt(EQI_GARMENT) >= 37)\n   bonus(\"bDelayrate\", -10);\nif (getenchantgrade(EQI_SHOES) && getenchantgrade(EQI_GARMENT) >= ENCHANTGRADE_A) {\n   bonus(\"bPAtk\", 10);\n   bonus(\"bSMatk\", 10);\n}\n",
     "source": "rAthena Renewal 2026-06-08 item_combos.yml; RO_WEB 0.9.82FZ equipment set"
+  },
+  {
+    "id": "card_combo_0785",
+    "rowIndex": 900785,
+    "requiredItemIds": [
+      4556,
+      400401
+    ],
+    "requiredAegisNames": [
+      "Fenrir_Card",
+      "Yggdrasil_Faith"
+    ],
+    "scriptRaw": ".@r = getequiprefinerycnt(EQI_HEAD_TOP);\nbonus bSMatk,20;\nbonus bFixedCast,-200;\nbonus2 bSkillAtk,\"WL_COMET\",7*floor(.@r/2);\nif (eaclass()&EAJL_THIRD && BaseJob == Job_Sage) { skill \"WL_COMET\",3; bonus bUseSPrate,30; }\nif (eaclass()&EAJL_THIRD && BaseJob == Job_Wizard) bonus2 bSkillCooldown,\"WL_COMET\",-20000;",
+    "compiledScript": "v.r = getequiprefinerycnt(EQI_HEAD_TOP);\nbonus(\"bSMatk\", 20);\nbonus(\"bFixedCast\", -200);\nbonus2(\"bSkillAtk\", \"WL_COMET\", 7*floor(v.r/2));\nif (eaclass()&EAJL_THIRD && BaseJob == Job_Sage) { skill(\"WL_COMET\", 3); bonus(\"bUseSPrate\", 30); }\nif (eaclass()&EAJL_THIRD && BaseJob == Job_Wizard) bonus2(\"bSkillCooldown\", \"WL_COMET\", -20000);",
+    "source": "rAthena Renewal 2026-06-08 + RO_WEB 0.9.82IL Taiwan completion"
+  },
+  {
+    "id": "card_combo_0786",
+    "rowIndex": 900786,
+    "requiredItemIds": [
+      4509,
+      400511
+    ],
+    "requiredAegisNames": [
+      "Gold_Q_Scaraba_Card",
+      "Q_Scaraba_Crown_TW"
+    ],
+    "scriptRaw": "bonus bPAtk,20;\nbonus bCritAtkRate,10*getequiprefinerycnt(EQI_HEAD_TOP);",
+    "compiledScript": "bonus(\"bPAtk\", 20);\nbonus(\"bCritAtkRate\", 10*getequiprefinerycnt(EQI_HEAD_TOP));",
+    "source": "rAthena Renewal 2026-06-08 + RO_WEB 0.9.82IL Taiwan completion"
+  },
+  {
+    "id": "card_combo_0787",
+    "rowIndex": 900787,
+    "requiredItemIds": [
+      4507,
+      400511
+    ],
+    "requiredAegisNames": [
+      "Q_Scaraba_Card",
+      "Q_Scaraba_Crown_TW"
+    ],
+    "scriptRaw": "bonus2 bAddClass,Class_Boss,35;",
+    "compiledScript": "bonus2(\"bAddClass\", Class_Boss, 35);",
+    "source": "rAthena Renewal 2026-06-08 + RO_WEB 0.9.82IL Taiwan completion"
+  },
+  {
+    "id": "card_combo_0788",
+    "rowIndex": 900788,
+    "requiredItemIds": [
+      27209,
+      400511
+    ],
+    "requiredAegisNames": [
+      "SLD_Q_Scaraba_Card",
+      "Q_Scaraba_Crown_TW"
+    ],
+    "scriptRaw": "bonus2 bAddClass,Class_Boss,30;",
+    "compiledScript": "bonus2(\"bAddClass\", Class_Boss, 30);",
+    "source": "rAthena Renewal 2026-06-08 + RO_WEB 0.9.82IL Taiwan completion"
+  },
+  {
+    "id": "card_combo_0789",
+    "rowIndex": 900789,
+    "requiredItemIds": [
+      18813,
+      420199
+    ],
+    "requiredAegisNames": [
+      "New_Wave_Sunglasses",
+      "Ghost_Fire"
+    ],
+    "scriptRaw": ".@a = floor(readparam(bPow)/18); .@b = floor(readparam(bSta)/18); .@c = floor(readparam(bWis)/18); .@d = floor(readparam(bSpl)/18); .@e = floor(readparam(bCon)/18); .@f = floor(readparam(bCrt)/18);\nbonus2 bAddRace,RC_All,7*.@a; bonus2 bMagicAddRace,RC_All,7*.@d; bonus bBaseAtk,60*.@b; bonus bMatk,60*.@c; bonus bAtkRate,4*.@e; bonus bMatkRate,4*.@e; bonus bCritAtkRate,7*.@f; bonus bFixedCast,-50*.@f;",
+    "compiledScript": "v.a = floor(readparam(bPow)/18); v.b = floor(readparam(bSta)/18); v.c = floor(readparam(bWis)/18); v.d = floor(readparam(bSpl)/18); v.e = floor(readparam(bCon)/18); v.f = floor(readparam(bCrt)/18);\nbonus2(\"bAddRace\", RC_All, 7*v.a); bonus2(\"bMagicAddRace\", RC_All, 7*v.d); bonus(\"bBaseAtk\", 60*v.b); bonus(\"bMatk\", 60*v.c); bonus(\"bAtkRate\", 4*v.e); bonus(\"bMatkRate\", 4*v.e); bonus(\"bCritAtkRate\", 7*v.f); bonus(\"bFixedCast\", -50*v.f);",
+    "source": "rAthena Renewal 2026-06-08 + RO_WEB 0.9.82IL Taiwan completion"
+  },
+  {
+    "id": "card_combo_0790",
+    "rowIndex": 900790,
+    "requiredItemIds": [
+      19181,
+      420199
+    ],
+    "requiredAegisNames": [
+      "New_Wave_Sunglasses_",
+      "Ghost_Fire"
+    ],
+    "scriptRaw": ".@a = floor(readparam(bPow)/18); .@b = floor(readparam(bSta)/18); .@c = floor(readparam(bWis)/18); .@d = floor(readparam(bSpl)/18); .@e = floor(readparam(bCon)/18); .@f = floor(readparam(bCrt)/18);\nbonus2 bAddRace,RC_All,7*.@a; bonus2 bMagicAddRace,RC_All,7*.@d; bonus bBaseAtk,60*.@b; bonus bMatk,60*.@c; bonus bAtkRate,4*.@e; bonus bMatkRate,4*.@e; bonus bCritAtkRate,7*.@f; bonus bFixedCast,-50*.@f;",
+    "compiledScript": "v.a = floor(readparam(bPow)/18); v.b = floor(readparam(bSta)/18); v.c = floor(readparam(bWis)/18); v.d = floor(readparam(bSpl)/18); v.e = floor(readparam(bCon)/18); v.f = floor(readparam(bCrt)/18);\nbonus2(\"bAddRace\", RC_All, 7*v.a); bonus2(\"bMagicAddRace\", RC_All, 7*v.d); bonus(\"bBaseAtk\", 60*v.b); bonus(\"bMatk\", 60*v.c); bonus(\"bAtkRate\", 4*v.e); bonus(\"bMatkRate\", 4*v.e); bonus(\"bCritAtkRate\", 7*v.f); bonus(\"bFixedCast\", -50*v.f);",
+    "source": "rAthena Renewal 2026-06-08 + RO_WEB 0.9.82IL Taiwan completion"
+  },
+  {
+    "id": "card_combo_0791",
+    "rowIndex": 900791,
+    "requiredItemIds": [
+      4910,
+      490088
+    ],
+    "requiredAegisNames": [
+      "Force3",
+      "2020maypay_06"
+    ],
+    "scriptRaw": "bonus bStr,4;\nbonus bAtkRate,5;",
+    "compiledScript": "bonus(\"bStr\", 4);\nbonus(\"bAtkRate\", 5);",
+    "source": "rAthena Renewal 2026-06-08 + RO_WEB 0.9.82IL Taiwan completion"
+  },
+  {
+    "id": "card_combo_0792",
+    "rowIndex": 900792,
+    "requiredItemIds": [
+      4913,
+      490088
+    ],
+    "requiredAegisNames": [
+      "Intellect3",
+      "2020maypay_06"
+    ],
+    "scriptRaw": "bonus bInt,4;\nbonus bMatkRate,5;",
+    "compiledScript": "bonus(\"bInt\", 4);\nbonus(\"bMatkRate\", 5);",
+    "source": "rAthena Renewal 2026-06-08 + RO_WEB 0.9.82IL Taiwan completion"
+  },
+  {
+    "id": "card_combo_0793",
+    "rowIndex": 900793,
+    "requiredItemIds": [
+      4916,
+      490088
+    ],
+    "requiredAegisNames": [
+      "Swiftness3",
+      "2020maypay_06"
+    ],
+    "scriptRaw": "bonus bAgi,4;\nbonus bAspdRate,5;",
+    "compiledScript": "bonus(\"bAgi\", 4);\nbonus(\"bAspdRate\", 5);",
+    "source": "rAthena Renewal 2026-06-08 + RO_WEB 0.9.82IL Taiwan completion"
+  },
+  {
+    "id": "card_combo_0794",
+    "rowIndex": 900794,
+    "requiredItemIds": [
+      4922,
+      490088
+    ],
+    "requiredAegisNames": [
+      "Artful3",
+      "2020maypay_06"
+    ],
+    "scriptRaw": "bonus bDex,4;\nbonus bVariableCastrate,-5;",
+    "compiledScript": "bonus(\"bDex\", 4);\nbonus(\"bVariableCastrate\", -5);",
+    "source": "rAthena Renewal 2026-06-08 + RO_WEB 0.9.82IL Taiwan completion"
+  },
+  {
+    "id": "card_combo_0795",
+    "rowIndex": 900795,
+    "requiredItemIds": [
+      4919,
+      490088
+    ],
+    "requiredAegisNames": [
+      "Tough3",
+      "2020maypay_06"
+    ],
+    "scriptRaw": "bonus bVit,4;\nbonus bMaxHPrate,5;",
+    "compiledScript": "bonus(\"bVit\", 4);\nbonus(\"bMaxHPrate\", 5);",
+    "source": "rAthena Renewal 2026-06-08 + RO_WEB 0.9.82IL Taiwan completion"
+  },
+  {
+    "id": "card_combo_0796",
+    "rowIndex": 900796,
+    "requiredItemIds": [
+      4925,
+      490088
+    ],
+    "requiredAegisNames": [
+      "Fortune3",
+      "2020maypay_06"
+    ],
+    "scriptRaw": "bonus bLuk,4;\nbonus bCritAtkRate,5;",
+    "compiledScript": "bonus(\"bLuk\", 4);\nbonus(\"bCritAtkRate\", 5);",
+    "source": "rAthena Renewal 2026-06-08 + RO_WEB 0.9.82IL Taiwan completion"
   }
 ]

@@ -425,5 +425,56 @@
     "Refineable": true,
     "View": 4,
     "Script": "bonus bVit,3;\nbonus bInt,2;\nbonus bMdef,3;\nbonus bUnbreakableShield;"
+  },
+  "28902": {
+    "id": 28902,
+    "officialId": 28902,
+    "name": "瘋狂兔寶寶",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "shield",
+    "slot": "shield",
+    "atk": 0,
+    "def": 0,
+    "slots": 1,
+    "cards": [],
+    "requiredLevel": 1,
+    "description": [
+      "對全種族的物理傷害+5%，MATK+5%。",
+      "反射遭受近距離物理攻擊的10%。",
+      "遭受魔法攻擊時，有10%機率在2秒內啟動60%魔法反射。",
+      "+7 ATK/MATK+5；+9 再增加 ATK/MATK+15；+12 詠唱不會中斷、CRI+10。",
+      "位置：盾牌；插槽：1；要求等級：1。"
+    ],
+    "icon": "images/items/28902.webp",
+    "slotCount": 1,
+    "ClassNum": 1,
+    "aegisName": "Mad_Bunny_K_",
+    "dbType": "Armor",
+    "armorLevel": 1,
+    "viewId": 1,
+    "locations": {
+      "Left_Hand": true
+    },
+    "scriptRaw": "bonus bAtkRate,5;\nbonus bMatkRate,5;\nbonus bShortWeaponDamageReturn,10;\nbonus5 bAutoSpellWhenHit,\"NPC_MAGICMIRROR\",8,1000,BF_MAGIC,0;\n.@r = getrefine();\nif (.@r>=7) { bonus bBaseAtk,5; bonus bMatk,5; }\nif (.@r>=9) { bonus bBaseAtk,15; bonus bMatk,15; }\nif (.@r>=12) { bonus bCritical,10; bonus bNoCastCancel; }",
+    "dataSource": "台灣 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08",
+    "Id": 28902,
+    "Name": "瘋狂兔寶寶",
+    "AegisName": "Mad_Bunny_K_",
+    "Type": "Armor",
+    "Attack": 0,
+    "Defense": 0,
+    "Slots": 1,
+    "Locations": {
+      "Left_Hand": true
+    },
+    "ArmorLevel": 1,
+    "EquipLevelMin": 1,
+    "View": 1,
+    "equipLevelMin": 1,
+    "Weight": 10,
+    "weight": 10,
+    "refineable": true,
+    "Refineable": true
   }
 }

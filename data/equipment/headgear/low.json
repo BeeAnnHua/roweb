@@ -97,5 +97,53 @@
     "scriptRaw": "bonus bPAtk,2;\nbonus bSMatk,2;\nbonus bFixedCast,-100;\n",
     "requiredLevel": 1,
     "compiledScript": "bonus(\"bPAtk\", 2);\nbonus(\"bSMatk\", 2);\nbonus(\"bFixedCast\", -100);\n"
+  },
+  "420199": {
+    "id": 420199,
+    "officialId": 420199,
+    "name": "幽魅火球",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "headLow",
+    "slot": "headLow",
+    "atk": 0,
+    "def": 0,
+    "slots": 0,
+    "cards": [],
+    "requiredLevel": 90,
+    "description": [
+      "變動詠唱-8%，技能後延遲-5%，固定詠唱-0.1秒。",
+      "搭配新浪潮墨鏡或新浪潮墨鏡[1]：POW 每 18 對全種族物理傷害+7%；STA 每 18 ATK+60；WIS 每 18 MATK+60。",
+      "SPL 每 18 對全種族魔法傷害+7%；CON 每 18 ATK/MATK+4%；CRT 每 18 暴擊傷害+7%、固定詠唱-0.05秒。",
+      "位置：頭下；要求等級：90。"
+    ],
+    "icon": "images/items/420199.webp",
+    "slotCount": 0,
+    "ClassNum": 2353,
+    "aegisName": "Ghost_Fire",
+    "dbType": "Armor",
+    "armorLevel": 1,
+    "viewId": 2353,
+    "locations": {
+      "Head_Low": true
+    },
+    "scriptRaw": "bonus bVariableCastrate,-8;\nbonus bDelayrate,-5;\nbonus bFixedCast,-100;",
+    "dataSource": "台灣 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08",
+    "Id": 420199,
+    "Name": "幽魅火球",
+    "AegisName": "Ghost_Fire",
+    "Type": "Armor",
+    "Attack": 0,
+    "Defense": 0,
+    "Slots": 0,
+    "Locations": {
+      "Head_Low": true
+    },
+    "ArmorLevel": 1,
+    "EquipLevelMin": 90,
+    "View": 2353,
+    "equipLevelMin": 90,
+    "Weight": 70,
+    "weight": 70
   }
 }

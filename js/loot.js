@@ -119,6 +119,7 @@ function grantMonsterRewards(monster) {
   rollMonsterMvpDrops(monster);
   window.EnchantGradeRuntime?.rollMapBonusDrops?.(monster);
   window.MvpGachaRuntime?.rollMapExclusiveDrop?.(monster);
+  window.TaiwanGachaRuntime?.rollMapExclusiveDrop?.(monster);
   rollPassiveSkillExtraDrops(monster);
   const lootState=getMonsterLootRuntime(monster);
   if(!lootState.cardRuntimeRewardsApplied){

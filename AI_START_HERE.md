@@ -1,3 +1,15 @@
+# RO_WEB 0.9.82IL
+
+最新正式基準：光輝天翼台灣裝備轉蛋。
+
+- 基準來源：0.9.82IK FULL。
+- 葛坡尼亞 MVP 試煉場每隻 MVP 獨立 1% 掉落 9512 光輝天翼轉蛋；原 14848 MVP 幸運轉蛋完整保留。
+- 轉蛋內部單一 10,000 基點母池，總和固定 100%。
+- 六件台灣裝備與相關卡片、支援裝備、魔神精髓、封印女王甲蟲卡、雙角甲蟲卷軸均已接入 item index、部位資料、CardRuntime／ConsumableRuntime 與圖片。
+- 關鍵 Runtime：`js/taiwan_gacha_runtime.js`、`js/card_runtime.js`、`js/consumable_runtime.js`、`js/battle.js`。
+- 驗證：`tools/test_taiwan_gacha_0.9.82IL.js`，104 項全部通過。
+- 後續版本一律以 0.9.82IL 為正式基準。
+
 # RO_WEB 0.9.82IB
 
 最新正式基準：V92 主動技能特效 Runtime 接入。

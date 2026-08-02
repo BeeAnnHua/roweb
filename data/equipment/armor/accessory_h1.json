@@ -363,5 +363,53 @@
     "scriptRaw": "bonus bAtkRate,7;\nbonus bMatkRate,7;\n",
     "requiredLevel": 200,
     "compiledScript": "bonus(\"bAtkRate\", 7);\nbonus(\"bMatkRate\", 7);\n"
+  },
+  "490088": {
+    "id": 490088,
+    "officialId": 490088,
+    "name": "絕望的連通之環",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "accessory",
+    "slot": "accessory1",
+    "atk": 0,
+    "def": 10,
+    "slots": 1,
+    "cards": [],
+    "requiredLevel": 100,
+    "description": [
+      "對全階級的物理傷害+5%，MATK+5%。",
+      "搭配魔神使徒許乃任卡片：MHP+15%；搭配魔神使徒阿哈特卡片：MSP+15%。",
+      "搭配六種魔神精髓3，可分別獲得 STR/INT/AGI/DEX/VIT/LUK+4 與對應額外效果。",
+      "位置：飾品；插槽：1；要求等級：100。"
+    ],
+    "icon": "images/items/490088.webp",
+    "slotCount": 1,
+    "ClassNum": 0,
+    "aegisName": "2020maypay_06",
+    "dbType": "Armor",
+    "armorLevel": 1,
+    "viewId": 0,
+    "locations": {
+      "Both_Accessory": true
+    },
+    "scriptRaw": "bonus bAtkRate,5;\nbonus bMatkRate,5;",
+    "dataSource": "台灣 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08",
+    "Id": 490088,
+    "Name": "絕望的連通之環",
+    "AegisName": "2020maypay_06",
+    "Type": "Armor",
+    "Attack": 0,
+    "Defense": 10,
+    "Slots": 1,
+    "Locations": {
+      "Both_Accessory": true
+    },
+    "ArmorLevel": 1,
+    "EquipLevelMin": 100,
+    "View": 0,
+    "equipLevelMin": 100,
+    "Weight": 10,
+    "weight": 10
   }
 }
