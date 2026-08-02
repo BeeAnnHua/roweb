@@ -67,8 +67,23 @@
     return "W_FIST";
   }
 
+  function getAuthoritativeMonsterCombatIdentity(target){
+    if(!target)return 0;
+    const aegis=String(target.aegisName||target.AegisName||"").toUpperCase();
+    const name=String(target.name||target.Name||target.raEnglishName||"").toLowerCase();
+    // The two Coelacanth variants share art but never share combat modes. Resolve by
+    // explicit Aegis/name before numeric fallbacks so a reused atlas/template cannot leak IgnoreMagic.
+    if(aegis==="COELACANTH_H_A"||name.includes("暴力腔棘魚")||name.includes("violent coelacanth"))return 2190;
+    if(aegis==="COELACANTH_H_M"||name.includes("變異腔棘魚")||name.includes("mutant coelacanth"))return 2189;
+    const candidates=[target.combatMonsterId,target._spawnEntry?.monsterId,target.officialId,target.monsterId,target.mobId,target.id];
+    for(const value of candidates){const id=Number(value||0);if(Number.isFinite(id)&&id>0)return id;}
+    return 0;
+  }
   function hasMonsterMode(target,key){
     if(!target)return false;
+    const identity=getAuthoritativeMonsterCombatIdentity(target);
+    if(identity===2189)return key==='IgnoreMagic'||key==='Mvp';
+    if(identity===2190)return key==='IgnoreMelee'||key==='IgnoreRanged'||key==='Mvp';
     const flags=target.modeFlags||target.Modes||target.modes||{};
     if(Array.isArray(flags))return flags.some(name=>String(name).toLowerCase()===String(key).toLowerCase());
     if(flags&&typeof flags==='object'){
@@ -80,6 +95,9 @@
     const behaviorKey={IgnoreMelee:'ignoreMelee',IgnoreMagic:'ignoreMagic',IgnoreRanged:'ignoreRanged',IgnoreMisc:'ignoreMisc'}[key];
     return behaviorKey?behavior[behaviorKey]===true:false;
   }
+
+  window.getAuthoritativeMonsterCombatIdentity = getAuthoritativeMonsterCombatIdentity;
+  window.hasAuthoritativeMonsterMode = hasMonsterMode;
   function isInfiniteDefenseTarget(target,context={}){
     if(!target)return false;
     if(target.infiniteDefense===true)return true;
@@ -214,6 +232,6 @@
     trace.attackBonuses=atk;trace.defenseBonuses=def;trace.flatRaceReduction=flatRaceReduction;trace.final=Math.max(0,damage);window.lastCombatFormulaTrace=trace;return Math.max(0,damage);
   }
   async function load(){try{tables=typeof window.loadJson==='function'?await window.loadJson('./data/combat_runtime/renewal_combat_tables.json',FALLBACK):FALLBACK;}catch(err){console.warn('[CombatFormulaRuntime] table fallback',err);tables=FALLBACK;}window.ROCombatFormulaTables=tables;return tables;}
-  window.CombatFormulaRuntime={load,applyDamage,getElementMultiplier,getWeaponSizeMultiplier,getTargetProfile,normalizeElement,normalizeRace,normalizeSize,collectScalarBonus:collectScalar,collectKeyedBonus:collectKeyed,equipmentModifierSources:equipmentSources,isBossUnit,resolveCrate,resolveCriticalDefenseRate,hasMonsterMode,isInfiniteDefenseTarget,normalizeIncomingDamage,weaponViewKey};
+  window.CombatFormulaRuntime={load,applyDamage,getElementMultiplier,getWeaponSizeMultiplier,getTargetProfile,normalizeElement,normalizeRace,normalizeSize,collectScalarBonus:collectScalar,collectKeyedBonus:collectKeyed,equipmentModifierSources:equipmentSources,isBossUnit,resolveCrate,resolveCriticalDefenseRate,getAuthoritativeMonsterCombatIdentity,hasMonsterMode,isInfiniteDefenseTarget,normalizeIncomingDamage,weaponViewKey};
   window.applyROCombatDamageModifiers=applyDamage;
 })();

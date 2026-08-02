@@ -22245,3 +22245,29 @@ body.player-death-modal-open #player-sprite{pointer-events:none!important}
   .player-death-action{min-height:48px!important;grid-template-columns:34px minmax(0,1fr) auto!important;padding:5px 7px!important}
   .player-death-action img,.player-death-village-icon{width:31px!important;height:31px!important}
 }
+
+/* RO_WEB 0.9.82IJ — Warlock elemental spheres */
+#player-sprite .warlock-elemental-sphere-layer{
+  position:absolute; inset:0; pointer-events:none; z-index:24; overflow:visible;
+  transform-origin:50% 58%;
+}
+#player-sprite .warlock-elemental-sphere{
+  --sphere-radius:64px;
+  position:absolute; left:50%; top:48%; width:17px; height:17px; margin:-8.5px;
+  display:flex; align-items:center; justify-content:center; border-radius:50%;
+  font-size:9px; line-height:1; font-weight:900; color:#fff;
+  border:1px solid rgba(255,255,255,.9); box-shadow:0 0 6px 2px currentColor, inset 0 0 4px rgba(255,255,255,.9);
+  transform:rotate(var(--sphere-angle)) translateX(var(--sphere-radius)) rotate(calc(-1 * var(--sphere-angle)));
+  animation:roweb-warlock-sphere-orbit 4.2s linear infinite, roweb-warlock-sphere-pulse 1.15s ease-in-out infinite alternate;
+  animation-delay:var(--sphere-delay),var(--sphere-delay);
+  will-change:transform,filter;
+}
+#player-sprite .sphere-fire{background:#ef4b25;color:#ff713f}
+#player-sprite .sphere-wind{background:#45d682;color:#74f7aa}
+#player-sprite .sphere-water{background:#2f8ee8;color:#65b9ff}
+#player-sprite .sphere-earth{background:#c89b41;color:#f2c661}
+@keyframes roweb-warlock-sphere-orbit{
+  from{transform:rotate(var(--sphere-angle)) translateX(var(--sphere-radius)) rotate(calc(-1 * var(--sphere-angle)))}
+  to{transform:rotate(calc(var(--sphere-angle) + 360deg)) translateX(var(--sphere-radius)) rotate(calc(-1 * (var(--sphere-angle) + 360deg)))}
+}
+@keyframes roweb-warlock-sphere-pulse{from{filter:brightness(.82)}to{filter:brightness(1.35)}}

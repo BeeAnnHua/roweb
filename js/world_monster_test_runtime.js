@@ -693,8 +693,16 @@ function createWorldMonsterEntity(monsterData, spawnEntry, options = {}) {
   const currentHp = persistent?.alive !== false && storedHp > 0 ? Math.min(maxHp, storedHp) : maxHp;
   const instanceId = ++RO_WORLD_MONSTER_TEST.instanceCounter;
 
+  const authoritativeMonsterId = Number(spawnEntry?.monsterId || monsterData?.officialId || monsterData?.id || 0);
+  const authoritativeCoelacanthModes = authoritativeMonsterId === 2189
+    ? ["IgnoreMagic", "Mvp"]
+    : (authoritativeMonsterId === 2190 ? ["IgnoreMelee", "IgnoreRanged", "Mvp"] : null);
   const entity = {
     ...monsterData,
+    id: authoritativeMonsterId || Number(monsterData?.id || 0),
+    officialId: authoritativeMonsterId || Number(monsterData?.officialId || monsterData?.id || 0),
+    combatMonsterId: authoritativeMonsterId || Number(monsterData?.officialId || monsterData?.id || 0),
+    ...(authoritativeCoelacanthModes ? { Modes: authoritativeCoelacanthModes, modeFlags: null } : {}),
     currentHp,
     position: { ...position },
     spawnPosition: { ...position },
@@ -743,6 +751,15 @@ function createWorldMonsterEntity(monsterData, spawnEntry, options = {}) {
     _ctx: null,
     _assetLoading: false
   };
+
+  if (authoritativeMonsterId === 2189) {
+    entity.behavior = { ...(entity.behavior || {}), ignoreMagic:true, ignoreMelee:false, ignoreRanged:false, mvpMode:true, source:"rAthena mob_db authoritative 2189" };
+    entity.magicImmune = true; entity.magicImmunity = true; entity.immuneMagic = true;
+  } else if (authoritativeMonsterId === 2190) {
+    entity.behavior = { ...(entity.behavior || {}), ignoreMagic:false, ignoreMelee:true, ignoreRanged:true, mvpMode:true, source:"rAthena mob_db authoritative 2190" };
+    entity.magicImmune = false; entity.magicImmunity = false; entity.immuneMagic = false;
+    entity.infiniteDefense = false;
+  }
 
   if (persistent) {
     persistent.alive = true;

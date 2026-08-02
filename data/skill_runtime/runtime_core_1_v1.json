@@ -11731,14 +11731,17 @@
       "skillId": 2217,
       "skillKey": "WL_TETRAVORTEX",
       "name": "屬性漩渦",
-      "handler": "magic_damage",
+      "handler": "tetra_vortex",
       "executionEnabled": true,
       "runtimeProfile": {
-        "handler": "magic_damage",
-        "formula": "renewal_tetra_vortex_holy",
+        "handler": "tetra_vortex",
+        "formula": "renewal_tetra_vortex_spheres",
         "attackRangeType": "long",
-        "elementSource": "fixed",
-        "element": "Holy",
+        "elementSource": "elemental_sphere_sequence",
+        "requiredElementalSphereCount": 4,
+        "consumeElementalSphereCount": 4,
+        "maxElementalSpheres": 5,
+        "hitIntervalMs": 200,
         "damageHitCount": 4,
         "visualHitCount": 4,
         "targeting": {
@@ -11782,174 +11785,211 @@
           }
         ],
         "spCost": [
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0
+          120,
+          150,
+          180,
+          210,
+          240,
+          200,
+          240,
+          280,
+          320,
+          360
         ],
-        "runtimeAdaptation": "保留 Renewal 四段傷害與最終隨機異常狀態，但依專案決議取消四顆屬性球需求與消耗，四段屬性統一固定為聖屬性。每段倍率（800+400×Lv）%，四段總倍率（3200+1600×Lv）%。",
+        "runtimeAdaptation": "恢復 rAthena Renewal 正式元素球機制：至少持有 4 顆元素球才可施放；若有 5 顆先移除最舊一顆，再由最新至最舊依序消耗 4 顆，每顆決定一段火／風／水／地魔法傷害，段間隔 200ms。Lv6 起依官方範圍擴大。",
         "source": [
-          "仙境全書技能名稱：屬性漩渦",
           "rAthena db/re/skill_db.yml WL_TETRAVORTEX",
           "rAthena src/map/skills/mage/tetravortex.cpp",
-          "rAthena src/map/skill.cpp final status effect"
+          "rAthena src/map/skill.cpp sphere precast check"
         ]
       },
       "skillType": "attack",
       "type": "Magic",
       "targetType": "Attack",
-      "description": "不消耗屬性球，對指定敵人及周圍造成 4 段聖屬性魔法傷害。每段倍率為（800 + 400×技能等級）%，四段總倍率為（3200 + 1600×技能等級）%；Lv1～5 單體，Lv6～7 為 3×3，Lv8～9 為 5×5，Lv10 為 7×7。最後一段會隨機附加灼燒、冰凍、出血或暈眩。"
+      "description": "消耗 4 顆元素球，依最新至最舊順序造成四段對應屬性魔法傷害。",
+      "suggestedHandler": "tetra_vortex",
+      "formula": "renewal_tetra_vortex_spheres"
     },
     "2222": {
       "skillId": 2222,
       "skillKey": "WL_SUMMONFB",
       "name": "召喚火焰球",
-      "handler": "passive",
+      "handler": "elemental_sphere_summon",
       "executionEnabled": true,
       "runtimeProfile": {
-        "handler": "passive",
-        "passiveBonuses": {
-          "atkRate": [
-            3,
-            6
-          ],
-          "matkRate": [
-            3,
-            6
-          ]
-        },
-        "runtimeAdaptation": "依專案決議改為永久 ATK／MATK 每級 +3%，移除元素球資源機制。",
+        "handler": "elemental_sphere_summon",
+        "sphereElement": "Fire",
+        "sphereSkillId": 2222,
+        "maxElementalSpheres": 5,
+        "summonAmount": [
+          1,
+          5
+        ],
+        "replaceAllAtLevel": 2,
+        "durationMs": [
+          120000,
+          160000
+        ],
+        "spCost": [
+          10,
+          12
+        ],
+        "runtimeAdaptation": "恢復 rAthena Renewal 正式火屬性球：Lv1 在空槽召喚 1 顆，最多 5 顆；Lv2 清除原有元素球並以 5 顆火屬性球覆蓋。球分別持續 120／160 秒，可供屬性漩渦與釋放 Lv2 消耗。",
         "source": [
-          "User decision 2026-07-14",
-          "rAthena db/re/skill_db.yml WL_SUMMONFB"
+          "rAthena db/re/skill_db.yml WL_SUMMONFB",
+          "rAthena src/map/skills/mage/summonfireball.cpp"
         ]
       },
-      "skillType": "passive",
-      "type": "passive",
+      "skillType": "support",
+      "type": "Magic",
       "targetType": "Self",
-      "description": "RO_WEB 改造為永久被動：每級 ATK／MATK +3%，Lv2 合計各 +6%；不再召喚或消耗火屬性球。"
+      "description": "恢復正式元素球召喚；Lv1 一顆，Lv2 覆蓋為五顆。",
+      "suggestedHandler": "elemental_sphere_summon",
+      "formula": null
     },
     "2223": {
       "skillId": 2223,
       "skillKey": "WL_SUMMONBL",
       "name": "召喚雷電球",
-      "handler": "passive",
+      "handler": "elemental_sphere_summon",
       "executionEnabled": true,
       "runtimeProfile": {
-        "handler": "passive",
-        "passiveBonuses": {
-          "atkRate": [
-            3,
-            6
-          ],
-          "matkRate": [
-            3,
-            6
-          ]
-        },
-        "runtimeAdaptation": "依專案決議改為永久 ATK／MATK 每級 +3%，移除元素球資源機制。",
+        "handler": "elemental_sphere_summon",
+        "sphereElement": "Wind",
+        "sphereSkillId": 2223,
+        "maxElementalSpheres": 5,
+        "summonAmount": [
+          1,
+          5
+        ],
+        "replaceAllAtLevel": 2,
+        "durationMs": [
+          120000,
+          160000
+        ],
+        "spCost": [
+          10,
+          12
+        ],
+        "runtimeAdaptation": "恢復 rAthena Renewal 正式風屬性球：Lv1 在空槽召喚 1 顆，最多 5 顆；Lv2 清除原有元素球並以 5 顆風屬性球覆蓋。球分別持續 120／160 秒，可供屬性漩渦與釋放 Lv2 消耗。",
         "source": [
-          "User decision 2026-07-14",
-          "rAthena db/re/skill_db.yml WL_SUMMONBL"
+          "rAthena db/re/skill_db.yml WL_SUMMONBL",
+          "rAthena src/map/skills/mage/summonfireball.cpp"
         ]
       },
-      "skillType": "passive",
-      "type": "passive",
+      "skillType": "support",
+      "type": "Magic",
       "targetType": "Self",
-      "description": "RO_WEB 改造為永久被動：每級 ATK／MATK +3%，Lv2 合計各 +6%；不再召喚或消耗風屬性球。"
+      "description": "恢復正式元素球召喚；Lv1 一顆，Lv2 覆蓋為五顆。",
+      "suggestedHandler": "elemental_sphere_summon",
+      "formula": null
     },
     "2224": {
       "skillId": 2224,
       "skillKey": "WL_SUMMONWB",
       "name": "召喚水球",
-      "handler": "passive",
+      "handler": "elemental_sphere_summon",
       "executionEnabled": true,
       "runtimeProfile": {
-        "handler": "passive",
-        "passiveBonuses": {
-          "atkRate": [
-            3,
-            6
-          ],
-          "matkRate": [
-            3,
-            6
-          ]
-        },
-        "runtimeAdaptation": "依專案決議改為永久 ATK／MATK 每級 +3%，移除元素球資源機制。",
+        "handler": "elemental_sphere_summon",
+        "sphereElement": "Water",
+        "sphereSkillId": 2224,
+        "maxElementalSpheres": 5,
+        "summonAmount": [
+          1,
+          5
+        ],
+        "replaceAllAtLevel": 2,
+        "durationMs": [
+          120000,
+          160000
+        ],
+        "spCost": [
+          10,
+          12
+        ],
+        "runtimeAdaptation": "恢復 rAthena Renewal 正式水屬性球：Lv1 在空槽召喚 1 顆，最多 5 顆；Lv2 清除原有元素球並以 5 顆水屬性球覆蓋。球分別持續 120／160 秒，可供屬性漩渦與釋放 Lv2 消耗。",
         "source": [
-          "User decision 2026-07-14",
-          "rAthena db/re/skill_db.yml WL_SUMMONWB"
+          "rAthena db/re/skill_db.yml WL_SUMMONWB",
+          "rAthena src/map/skills/mage/summonfireball.cpp"
         ]
       },
-      "skillType": "passive",
-      "type": "passive",
+      "skillType": "support",
+      "type": "Magic",
       "targetType": "Self",
-      "description": "RO_WEB 改造為永久被動：每級 ATK／MATK +3%，Lv2 合計各 +6%；不再召喚或消耗水屬性球。"
+      "description": "恢復正式元素球召喚；Lv1 一顆，Lv2 覆蓋為五顆。",
+      "suggestedHandler": "elemental_sphere_summon",
+      "formula": null
     },
     "2229": {
       "skillId": 2229,
       "skillKey": "WL_SUMMONSTONE",
       "name": "召喚石塊",
-      "handler": "passive",
+      "handler": "elemental_sphere_summon",
       "executionEnabled": true,
       "runtimeProfile": {
-        "handler": "passive",
-        "passiveBonuses": {
-          "atkRate": [
-            3,
-            6
-          ],
-          "matkRate": [
-            3,
-            6
-          ]
-        },
-        "runtimeAdaptation": "依專案決議改為永久 ATK／MATK 每級 +3%，移除元素球資源機制。",
+        "handler": "elemental_sphere_summon",
+        "sphereElement": "Earth",
+        "sphereSkillId": 2229,
+        "maxElementalSpheres": 5,
+        "summonAmount": [
+          1,
+          5
+        ],
+        "replaceAllAtLevel": 2,
+        "durationMs": [
+          120000,
+          160000
+        ],
+        "spCost": [
+          10,
+          12
+        ],
+        "runtimeAdaptation": "恢復 rAthena Renewal 正式地屬性球：Lv1 在空槽召喚 1 顆，最多 5 顆；Lv2 清除原有元素球並以 5 顆地屬性球覆蓋。球分別持續 120／160 秒，可供屬性漩渦與釋放 Lv2 消耗。",
         "source": [
-          "User decision 2026-07-14",
-          "rAthena db/re/skill_db.yml WL_SUMMONSTONE"
+          "rAthena db/re/skill_db.yml WL_SUMMONSTONE",
+          "rAthena src/map/skills/mage/summonfireball.cpp"
         ]
       },
-      "skillType": "passive",
-      "type": "passive",
+      "skillType": "support",
+      "type": "Magic",
       "targetType": "Self",
-      "description": "RO_WEB 改造為永久被動：每級 ATK／MATK +3%，Lv2 合計各 +6%；不再召喚或消耗地屬性球。"
+      "description": "恢復正式元素球召喚；Lv1 一顆，Lv2 覆蓋為五顆。",
+      "suggestedHandler": "elemental_sphere_summon",
+      "formula": null
     },
     "2230": {
       "skillId": 2230,
       "skillKey": "WL_RELEASE",
       "name": "釋放",
-      "handler": "passive",
+      "handler": "elemental_release",
       "executionEnabled": true,
       "runtimeProfile": {
-        "handler": "passive",
-        "passiveBonuses": {
-          "maxHpRate": [
-            5,
-            10
-          ],
-          "maxSpRate": [
-            5,
-            10
-          ]
-        },
-        "runtimeAdaptation": "依專案決議改為永久 MaxHP／MaxSP 每級 +5%，移除魔法釋放與元素球需求。",
+        "handler": "elemental_release",
+        "formula": "renewal_release_elemental_spheres",
+        "attackRangeType": "long",
+        "releaseSphereLevel": 2,
+        "requiredElementalSphereCountAtLevel2": 1,
+        "consumeAllElementalSpheresAtLevel2": true,
+        "sphereHitIntervalMs": 150,
+        "sphereAttackRatio": 300,
+        "spCost": [
+          3,
+          20
+        ],
+        "runtimeAdaptation": "恢復 rAthena Renewal 元素球分支：Lv2 至少需要 1 顆元素球，從最新至最舊依序釋放並消耗全部元素球，每顆以召喚時技能等級及自身屬性攻擊目標。Lv1 的魔法書保存分支仍需閱讀魔法書／魔法保存系統，未保存魔法時會明確阻擋。",
         "source": [
-          "User decision 2026-07-14",
-          "rAthena db/re/skill_db.yml WL_RELEASE"
+          "rAthena db/re/skill_db.yml WL_RELEASE",
+          "rAthena src/map/skills/mage/release.cpp",
+          "rAthena src/map/skill.cpp sphere precast check"
         ]
       },
-      "skillType": "passive",
-      "type": "passive",
-      "targetType": "Self",
-      "description": "RO_WEB 改造為永久被動：每級 MaxHP／MaxSP +5%，Lv2 合計各 +10%；不再使用保存魔法或元素球釋放流程。"
+      "skillType": "attack",
+      "type": "Magic",
+      "targetType": "Attack",
+      "description": "Lv2 依序釋放並消耗全部元素球；Lv1 需保存魔法。",
+      "suggestedHandler": "elemental_release",
+      "formula": "renewal_release_elemental_spheres"
     },
     "2231": {
       "skillId": 2231,

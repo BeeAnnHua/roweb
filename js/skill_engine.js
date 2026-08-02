@@ -1591,6 +1591,17 @@ function canCastSkill(skill, requestedLevel = null, expectedHandlers = null, opt
     const resourceCheck=previewRuntimeResourceCost(profile,level,skill);
     if(!resourceCheck.ok)return {ok:false,level,spCost,hpCost,zenyCost,profile,reason:resourceCheck.reason,resourceBlock:resourceCheck.resourceBlock};
   }
+  // 0.9.82IJ: official Warlock elemental-sphere prerequisites are checked before cast start,
+  // so Tetra Vortex / Release do not consume a long cast or cooldown when spheres are missing.
+  if(options.ignoreResourceCostCheck!==true && typeof window.getWarlockElementalSphereCount === "function") {
+    const sphereCount=Math.max(0,Number(window.getWarlockElementalSphereCount()||0));
+    const required=profile.requiredElementalSphereCount!==undefined
+      ? Math.max(0,Number(getLevelValue(profile.requiredElementalSphereCount,level,0)))
+      : (profile.requiredElementalSphereCountAtLevel2!==undefined && Number(level)>=2
+        ? Math.max(0,Number(profile.requiredElementalSphereCountAtLevel2||0)) : 0);
+    if(required>0 && sphereCount<required) return {ok:false,level,spCost,hpCost,zenyCost,profile,reason:`元素球不足（需要 ${required}，目前 ${sphereCount}）`,resourceBlock:{type:"elementalSphere",current:sphereCount,required,label:"元素球",retryMs:15000}};
+    if(profile.handler==="elemental_sphere_summon" && Number(level)===1 && sphereCount>=5) return {ok:false,level,spCost,hpCost,zenyCost,profile,reason:"元素球已達 5 顆上限"};
+  }
   return { ok: true, level, spCost, hpCost, zenyCost, profile };
 }
 
@@ -4106,7 +4117,7 @@ function calculateSkillAttackDamageBase(skill, requestedLevel = null, target = c
     if(profile.formula==="renewal_soul_vulcan_strike"){const spl=Number(derived?.stats?.spl||player?.traitStats?.spl||0),baseLv=Number(player?.baseLevel||1);magicRatio=Math.floor((300*level+3*spl)*baseLv/100);}
     if(profile.formula==="renewal_rock_down"||profile.formula==="renewal_storm_cannon"){const spl=Number(derived?.stats?.spl||player?.traitStats?.spl||0),baseLv=Number(player?.baseLevel||1);magicRatio=Math.floor((1550*level+5*spl)*baseLv/100);}
     if(profile.formula==="renewal_frozen_slash"){const spl=Number(derived?.stats?.spl||player?.traitStats?.spl||0),baseLv=Number(player?.baseLevel||1);magicRatio=Math.floor((450+950*level+5*spl)*baseLv/100);}
-    if(profile.formula==="renewal_tetra_vortex_holy") magicRatio=800+400*level;
+    if(profile.formula==="renewal_tetra_vortex_spheres") magicRatio=800+400*level;
     if(profile.formula==="renewal_gravitation_field") magicRatio=Math.floor((100*level)*Number(player?.baseLevel||1)/100);
     if(profile.formula==="renewal_rain_of_crystal"){const spl=Number(derived?.stats?.spl||player?.traitStats?.spl||0);magicRatio=Math.floor((180+760*level+5*spl)*Number(player?.baseLevel||1)/100);}
     if(profile.formula==="renewal_mystery_illusion"){const spl=Number(derived?.stats?.spl||player?.traitStats?.spl||0);magicRatio=Math.floor((950*level+5*spl)*Number(player?.baseLevel||1)/100);}

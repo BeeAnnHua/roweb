@@ -165,7 +165,10 @@ function finalModifiers(raw,target,opt={}){
  const imprisoned=!!window.StatusManager?.has(target,'white_imprison'),incomingElement=String(opt.element||'Neutral').toLowerCase();
  if(imprisoned&&incomingElement!=='ghost')return 0;
  const runtime=typeof window.getMonsterRuntimeBonuses==='function'?(window.getMonsterRuntimeBonuses(target)||{}):{};
- const magicImmune=target?.magicImmune===true||target?.magicImmunity===true||target?.immuneMagic===true;
+ const authoritativeMonsterId=Number(window.CombatFormulaRuntime?.getAuthoritativeMonsterCombatIdentity?.(target)||0);
+ const legacyMagicImmune=target?.magicImmune===true||target?.magicImmunity===true||target?.immuneMagic===true;
+ // 2189 Mutant is magic immune; 2190 Violent explicitly is not. Shared art/template flags must never leak across variants.
+ const magicImmune=authoritativeMonsterId===2189 ? true : (authoritativeMonsterId===2190 ? false : legacyMagicImmune);
  if(String(opt.damageType||'').toLowerCase()==='magic'&&magicImmune&&Number(runtime.magicImmunityDisabled||0)<=0&&!flags.ignoreMagicImmunity)return 0;
  if(target?.damageImmune===true||opt.damageImmunity===true) return 0;
  let damage=Math.max(0,floor(raw));

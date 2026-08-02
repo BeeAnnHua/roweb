@@ -1,0 +1,29 @@
+{
+  "version": "0.9.82IJ",
+  "baseVersion": "0.9.82II",
+  "title": "Warlock Elemental Sphere Restoration & Violent Coelacanth Magic Fix",
+  "completed": [
+    "Restored active Fire/Wind/Water/Earth sphere summon skills.",
+    "Restored Tetra Vortex sphere prerequisite, ordering, consumption, per-hit element and timing.",
+    "Restored Release Lv2 elemental-sphere branch.",
+    "Added visible orbiting sphere state with expiry/death cleanup and save persistence.",
+    "Removed old fixed-Holy no-sphere Tetra behavior and stale passive metadata.",
+    "Fixed Violent Coelacanth 2190 magic damage being reduced to 1 by leaked 2189 magic-immunity fields.",
+    "Preserved 0.9.82II exact monster anchor and successful attack-effect targeting changes."
+  ],
+  "notChanged": [
+    "V92 55 active skill effect library and passive gate.",
+    "Exact monster-instance effect anchor from 0.9.82II.",
+    "Auto-battle scheduler recovery and Chain Lightning alias fix.",
+    "Fixed fly, Boss/MVP escape, death UI, converters, refine warning."
+  ],
+  "declaredPartial": [
+    "Release Lv1 spellbook branch is not fabricated; it remains explicitly blocked until the Reading Spellbook/preserved-spell system is restored."
+  ],
+  "tests": {
+    "warlockAndCoelacanth": "26/26",
+    "integration": "62/62",
+    "allJavaScriptSyntax": "843/843",
+    "dataBundle": "1521/1521 exact, V92 deployment JSON excluded as designed"
+  }
+}

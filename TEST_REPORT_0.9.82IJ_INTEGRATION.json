@@ -1,0 +1,259 @@
+{
+  "version": "0.9.82IJ",
+  "pass": true,
+  "checks": {
+    "version_title": {
+      "pass": true,
+      "detail": ""
+    },
+    "cache_bust_only_ij": {
+      "pass": true,
+      "detail": "['0.9.82IJ']"
+    },
+    "sphere_runtime_loaded": {
+      "pass": true,
+      "detail": ""
+    },
+    "sphere_after_skill_engine": {
+      "pass": true,
+      "detail": ""
+    },
+    "sphere_before_status": {
+      "pass": true,
+      "detail": ""
+    },
+    "quick_dispatch_elemental_sphere_summon": {
+      "pass": true,
+      "detail": ""
+    },
+    "quick_dispatch_tetra_vortex": {
+      "pass": true,
+      "detail": ""
+    },
+    "quick_dispatch_elemental_release": {
+      "pass": true,
+      "detail": ""
+    },
+    "tetra_precast_four": {
+      "pass": true,
+      "detail": ""
+    },
+    "release_precast_one": {
+      "pass": true,
+      "detail": ""
+    },
+    "max_five_guard": {
+      "pass": true,
+      "detail": ""
+    },
+    "five_discards_oldest": {
+      "pass": true,
+      "detail": ""
+    },
+    "tetra_newest_first": {
+      "pass": true,
+      "detail": ""
+    },
+    "tetra_200ms": {
+      "pass": true,
+      "detail": ""
+    },
+    "sphere_death_cleanup": {
+      "pass": true,
+      "detail": ""
+    },
+    "violent_identity_override": {
+      "pass": true,
+      "detail": ""
+    },
+    "mutant_identity_override": {
+      "pass": true,
+      "detail": ""
+    },
+    "violent_mode_authority": {
+      "pass": true,
+      "detail": ""
+    },
+    "mutant_mode_authority": {
+      "pass": true,
+      "detail": ""
+    },
+    "spawn_combat_id": {
+      "pass": true,
+      "detail": ""
+    },
+    "core_handler_2217": {
+      "pass": true,
+      "detail": "tetra_vortex"
+    },
+    "core_effect_handler_2217": {
+      "pass": true,
+      "detail": "{'status': 'official', 'handler': 'tetra_vortex', 'formulaSource': ['rAthena db/re/skill_db.yml WL_TETRAVORTEX', 'rAthena src/map/skills/mage/tetravortex.cpp', 'rAthena src/map/skill.cpp sphere precast check'], 'note': 'rAthena Renewal Tetra Vortex elemental sphere runtime', 'runtimeVersion': '0.9.82IJ'}"
+    },
+    "runtime_handler_2217": {
+      "pass": true,
+      "detail": "tetra_vortex"
+    },
+    "runtime_enabled_2217": {
+      "pass": true,
+      "detail": "True"
+    },
+    "core_handler_2222": {
+      "pass": true,
+      "detail": "elemental_sphere_summon"
+    },
+    "core_effect_handler_2222": {
+      "pass": true,
+      "detail": "{'status': 'official', 'handler': 'elemental_sphere_summon', 'formulaSource': ['rAthena db/re/skill_db.yml WL_SUMMONFB', 'rAthena src/map/skills/mage/summonfireball.cpp'], 'note': 'rAthena Renewal Fire sphere summon runtime', 'runtimeVersion': '0.9.82IJ'}"
+    },
+    "runtime_handler_2222": {
+      "pass": true,
+      "detail": "elemental_sphere_summon"
+    },
+    "runtime_enabled_2222": {
+      "pass": true,
+      "detail": "True"
+    },
+    "core_handler_2223": {
+      "pass": true,
+      "detail": "elemental_sphere_summon"
+    },
+    "core_effect_handler_2223": {
+      "pass": true,
+      "detail": "{'status': 'official', 'handler': 'elemental_sphere_summon', 'formulaSource': ['rAthena db/re/skill_db.yml WL_SUMMONBL', 'rAthena src/map/skills/mage/summonfireball.cpp'], 'note': 'rAthena Renewal Wind sphere summon runtime', 'runtimeVersion': '0.9.82IJ'}"
+    },
+    "runtime_handler_2223": {
+      "pass": true,
+      "detail": "elemental_sphere_summon"
+    },
+    "runtime_enabled_2223": {
+      "pass": true,
+      "detail": "True"
+    },
+    "core_handler_2224": {
+      "pass": true,
+      "detail": "elemental_sphere_summon"
+    },
+    "core_effect_handler_2224": {
+      "pass": true,
+      "detail": "{'status': 'official', 'handler': 'elemental_sphere_summon', 'formulaSource': ['rAthena db/re/skill_db.yml WL_SUMMONWB', 'rAthena src/map/skills/mage/summonfireball.cpp'], 'note': 'rAthena Renewal Water sphere summon runtime', 'runtimeVersion': '0.9.82IJ'}"
+    },
+    "runtime_handler_2224": {
+      "pass": true,
+      "detail": "elemental_sphere_summon"
+    },
+    "runtime_enabled_2224": {
+      "pass": true,
+      "detail": "True"
+    },
+    "core_handler_2229": {
+      "pass": true,
+      "detail": "elemental_sphere_summon"
+    },
+    "core_effect_handler_2229": {
+      "pass": true,
+      "detail": "{'status': 'official', 'handler': 'elemental_sphere_summon', 'formulaSource': ['rAthena db/re/skill_db.yml WL_SUMMONSTONE', 'rAthena src/map/skills/mage/summonfireball.cpp'], 'note': 'rAthena Renewal Earth sphere summon runtime', 'runtimeVersion': '0.9.82IJ'}"
+    },
+    "runtime_handler_2229": {
+      "pass": true,
+      "detail": "elemental_sphere_summon"
+    },
+    "runtime_enabled_2229": {
+      "pass": true,
+      "detail": "True"
+    },
+    "core_handler_2230": {
+      "pass": true,
+      "detail": "elemental_release"
+    },
+    "core_effect_handler_2230": {
+      "pass": true,
+      "detail": "{'status': 'official_partial', 'handler': 'elemental_release', 'formulaSource': ['rAthena db/re/skill_db.yml WL_RELEASE', 'rAthena src/map/skills/mage/release.cpp', 'rAthena src/map/skill.cpp sphere precast check'], 'note': 'rAthena Renewal Release Lv2 elemental sphere branch; Lv1 spellbook branch pending', 'runtimeVersion': '0.9.82IJ'}"
+    },
+    "runtime_handler_2230": {
+      "pass": true,
+      "detail": "elemental_release"
+    },
+    "runtime_enabled_2230": {
+      "pass": true,
+      "detail": "True"
+    },
+    "old_holy_formula_removed": {
+      "pass": true,
+      "detail": ""
+    },
+    "tetra_requires_four": {
+      "pass": true,
+      "detail": ""
+    },
+    "tetra_consumes_four": {
+      "pass": true,
+      "detail": ""
+    },
+    "tetra_sp_cost": {
+      "pass": true,
+      "detail": ""
+    },
+    "summon_rule_2222": {
+      "pass": true,
+      "detail": "{'handler': 'elemental_sphere_summon', 'sphereElement': 'Fire', 'sphereSkillId': 2222, 'maxElementalSpheres': 5, 'summonAmount': [1, 5], 'replaceAllAtLevel': 2, 'durationMs': [120000, 160000], 'spCost': [10, 12], 'runtimeAdaptation': '恢復 rAthena Renewal 正式火屬性球：Lv1 在空槽召喚 1 顆，最多 5 顆；Lv2 清除原有元素球並以 5 顆火屬性球覆蓋。球分別持續 120／160 秒，可供屬性漩渦與釋放 Lv2 消耗。', 'source': ['rAthena db/re/skill_db.yml WL_SUMMONFB', 'rAthena src/map/skills/mage/summonfireball.cpp']}"
+    },
+    "summon_rule_2223": {
+      "pass": true,
+      "detail": "{'handler': 'elemental_sphere_summon', 'sphereElement': 'Wind', 'sphereSkillId': 2223, 'maxElementalSpheres': 5, 'summonAmount': [1, 5], 'replaceAllAtLevel': 2, 'durationMs': [120000, 160000], 'spCost': [10, 12], 'runtimeAdaptation': '恢復 rAthena Renewal 正式風屬性球：Lv1 在空槽召喚 1 顆，最多 5 顆；Lv2 清除原有元素球並以 5 顆風屬性球覆蓋。球分別持續 120／160 秒，可供屬性漩渦與釋放 Lv2 消耗。', 'source': ['rAthena db/re/skill_db.yml WL_SUMMONBL', 'rAthena src/map/skills/mage/summonfireball.cpp']}"
+    },
+    "summon_rule_2224": {
+      "pass": true,
+      "detail": "{'handler': 'elemental_sphere_summon', 'sphereElement': 'Water', 'sphereSkillId': 2224, 'maxElementalSpheres': 5, 'summonAmount': [1, 5], 'replaceAllAtLevel': 2, 'durationMs': [120000, 160000], 'spCost': [10, 12], 'runtimeAdaptation': '恢復 rAthena Renewal 正式水屬性球：Lv1 在空槽召喚 1 顆，最多 5 顆；Lv2 清除原有元素球並以 5 顆水屬性球覆蓋。球分別持續 120／160 秒，可供屬性漩渦與釋放 Lv2 消耗。', 'source': ['rAthena db/re/skill_db.yml WL_SUMMONWB', 'rAthena src/map/skills/mage/summonfireball.cpp']}"
+    },
+    "summon_rule_2229": {
+      "pass": true,
+      "detail": "{'handler': 'elemental_sphere_summon', 'sphereElement': 'Earth', 'sphereSkillId': 2229, 'maxElementalSpheres': 5, 'summonAmount': [1, 5], 'replaceAllAtLevel': 2, 'durationMs': [120000, 160000], 'spCost': [10, 12], 'runtimeAdaptation': '恢復 rAthena Renewal 正式地屬性球：Lv1 在空槽召喚 1 顆，最多 5 顆；Lv2 清除原有元素球並以 5 顆地屬性球覆蓋。球分別持續 120／160 秒，可供屬性漩渦與釋放 Lv2 消耗。', 'source': ['rAthena db/re/skill_db.yml WL_SUMMONSTONE', 'rAthena src/map/skills/mage/summonfireball.cpp']}"
+    },
+    "release_partial_declared": {
+      "pass": true,
+      "detail": ""
+    },
+    "syntax_warlock_elemental_sphere_runtime": {
+      "pass": true,
+      "detail": ""
+    },
+    "syntax_combat_formula_runtime": {
+      "pass": true,
+      "detail": ""
+    },
+    "syntax_world_monster_test_runtime": {
+      "pass": true,
+      "detail": ""
+    },
+    "syntax_skill_engine": {
+      "pass": true,
+      "detail": ""
+    },
+    "syntax_quick_slots": {
+      "pass": true,
+      "detail": ""
+    },
+    "run_test_warlock_spheres_coelacanth_0.9.82IJ": {
+      "pass": true,
+      "detail": "{\n  \"version\": \"0.9.82IJ\",\n  \"passed\": 26,\n  \"total\": 26,\n  \"results\": [\n    {\n      \"name\": \"initial sphere count\",\n      \"pass\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"summon fire lv1\",\n      \"pass\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"lv1 adds one\",\n      \"pass\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"summon wind lv1\",\n      \"pass\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"summon water lv1\",\n      \"pass\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"summon earth lv1\",\n      \"pass\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"ordered four spheres\",\n      \"pass\": true,\n      \"detail\": \"火 → 風 → 水 → 地\"\n    },\n    {\n      \"name\": \"fifth sphere\",\n      \"pass\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"tetra cast\",\n      \"pass\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"tetra consumes all remaining four\",\n      \"pass\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"tetra newest-first and oldest discarded\",\n      \"pass\": true,\n      \"detail\": \"Fire,Earth,Water,Wind\"\n    },\n    {\n      \"name\": \"summon water lv2\",\n      \"pass\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"lv2 creates five\",\n      \"pass\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"lv2 all water\",\n      \"pass\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"release lv2 cast\",\n      \"pass\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"release consumes all spheres\",\n      \"pass\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"release fired five water hits\",\n      \"pass\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"violent identity forced 2190\",\n      \"pass\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"violent does not ignore magic\",\n      \"pass\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"violent ignores melee\",\n      \"pass\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"violent magic damage not forced to one\",\n      \"pass\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"violent melee forced to one\",\n      \"pass\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"mutant identity forced 2189\",\n      \"pass\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"mutant ignores magic\",\n      \"pass\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"violent stale magicImmune bypassed in renewal pipeline\",\n      \"pass\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"mutant authoritative magic immunity enforced in renewal pipeline\",\n      \"pass\": true,\n      \"detail\": \"\"\n    }\n  ]\n}\n"
+    },
+    "run_test_0.9.82II_runtime_recovery": {
+      "pass": true,
+      "detail": "{\n  \"pass\": true,\n  \"checks\": {\n    \"scheduler_recovers_after_throw\": true,\n    \"scheduler_has_finally\": true,\n    \"status_recovery_export\": true,\n    \"startup_no_automatic_retaliation\": true,\n    \"manual_click_preserved\": true,\n    \"chain_by_official_id\": true,\n    \"chain_by_skill_key\": true,\n    \"chain_bonus_key_alias\": true,\n    \"chain_numeric_id\": true\n  },\n  \"failed\": []\n}\n[AutoBattle 0.9.82II] controller tick recovered after error Error: synthetic status render interruption\n    at global.runAutoBattleControllerTick (/mnt/data/work_ij/tools/test_0.9.82II_runtime_recovery.js:6:272)\n    at Timeout._onTimeout (evalmachine.<anonymous>:13:7)\n    at listOnTimeout (node:internal/timers:588:17)\n    at process.processTimers (node:internal/timers:523:7)\n"
+    },
+    "run_test_hotfix_0.9.82II": {
+      "pass": true,
+      "detail": "{\n  \"title\": \"RO_WEB 0.9.82II Regression\",\n  \"version\": \"0.9.82II\",\n  \"passed\": 6,\n  \"failed\": 0,\n  \"tests\": [\n    {\n      \"name\": \"status window uses frozen combat snapshot and scheduler wake/watchdog\",\n      \"pass\": true\n    },\n    {\n      \"name\": \"incorrect speculative alchemist skill-selector persistence was removed\",\n      \"pass\": true\n    },\n    {\n      \"name\": \"town logs exact stop message only when auto battle was active\",\n      \"pass\": true\n    },\n    {\n      \"name\": \"MVP arena uses Violent Coelacanth 2190 instead of magic-immune Mutant 2189\",\n      \"pass\": true\n    },\n    {\n      \"name\": \"combat formula distinguishes coelacanth immunities and Boitata Fire3 / DamageTaken 10\",\n      \"pass\": true\n    },\n    {\n      \"name\": \"refine warning covers +7 blessing stage and +14 to +15 unavailable stage\",\n      \"pass\": true\n    }\n  ]\n}\n"
+    },
+    "run_test_skill_effect_runtime_0.9.82II": {
+      "pass": true,
+      "detail": "[V92 SkillEffect] ready: 55 active skills / 454 effects; passive guard enabled.\n{\n  \"pass\": true,\n  \"checks\": {\n    \"ready\": true,\n    \"self_test\": true,\n    \"version\": true,\n    \"exact_instance_events\": true,\n    \"exact_entity_position\": true,\n    \"not_first_same_species\": true,\n    \"stale_dom_never_overrides_entity\": true,\n    \"player_move_keeps_world_snapshot\": true,\n    \"ambiguous_species_queues\": true,\n    \"ambiguous_species_no_wrong_spawn\": true,\n    \"ambiguous_reject_diagnostic\": true\n  },\n  \"failed\": [],\n  \"diagnostics\": {\n    \"begins\": 2,\n    \"commits\": 2,\n    \"hits\": 1,\n    \"skippedPassive\": 0,\n    \"playedEvents\": 9,\n    \"loadedEffects\": 9,\n    \"loadFailures\": 0,\n    \"clearedLifecycles\": 0,\n    \"fixedGroundAnchors\": 9,\n    \"liveCasterAnchors\": 0,\n    \"liveTargetAnchors\": 0,\n    \"projectileAnchors\": 0,\n    \"targetPayloadsCaptured\": 3,\n    \"targetPayloadMisses\": 2,\n    \"pendingGroundQueued\": 9,\n    \"pendingGroundFlushed\": 0,\n    \"skippedGroundWithoutTarget\": 0,\n    \"repairedGroundAnchors\": 9,\n    \"authoritativeGroundPayloads\": 21,\n    \"authoritativeGroundMisses\": 20,\n    \"forcedGroundRelocations\": 9,\n    \"exactTargetEntityHits\": 24,\n    \"ambiguousTargetIdentityRejects\": 24,\n    \"invalidTargetElementRejects\": 0,\n    \"activeInstances\": 0,\n    \"activeLifecycles\": 0,\n    \"pendingGroundEvents\": 9\n  }\n}\n[V92 SkillEffect] ground event waiting for target payload {\n  skillId: 5341,\n  trigger: 'CAST_BEGIN',\n  phase: 'CAST',\n  targetIdentity: '1002'\n}\n[V92 SkillEffect] ground event waiting for target payload {\n  skillId: 5341,\n  trigger: 'CAST_BEGIN',\n  phase: 'CAST_BOTTOM',\n  targetIdentity: '1002'\n}\n[V92 SkillEffect] ground event waiting for target payload {\n  skillId: 5341,\n  trigger: 'CAST_COMPLETE',\n  phase: 'START',\n  targetIdentity: '1002'\n}\n[V92 SkillEffect] ground event waiting for target payload {\n  skillId: 5341,\n  trigger: 'CAST_COMPLETE',\n  phase: 'START_BOTTOM',\n  targetIdentity: '1002'\n}\n[V92 SkillEffect] ground event waiting for target payload {\n  skillId: 5341,\n  trigger: 'GROUND_SPAWN',\n  phase: 'BOTTOM',\n  targetIdentity: '1002'\n}\n[V92 SkillEffect] ground event waiting for target payload {\n  skillId: 5341,\n  trigger: 'DAMAGE_COMMIT',\n  phase: 'MAIN',\n  targetIdentity: '1002'\n}\n[V92 SkillEffect] ground event waiting for target payload {\n  skillId: 5341,\n  trigger: 'DAMAGE_COMMIT',\n  phase: 'MAIN',\n  targetIdentity: '1002'\n}\n[V92 SkillEffect] ground event waiting for target payload {\n  skillId: 5341,\n  trigger: 'DAMAGE_COMMIT',\n  phase: 'MAIN',\n  targetIdentity: '1002'\n}\n[V92 SkillEffect] ground event waiting for target payload {\n  skillId: 5341,\n  trigger: 'DAMAGE_COMMIT',\n  phase: 'MAIN',\n  targetIdentity: '1002'\n}\n"
+    }
+  },
+  "errors": [],
+  "summary": {
+    "passed": 62,
+    "total": 62
+  }
+}

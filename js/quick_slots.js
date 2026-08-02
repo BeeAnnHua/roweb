@@ -337,7 +337,7 @@ const RO_WEB_TARGETED_SKILL_HANDLERS = new Set([
   "magic_multihit","magic_damage","misc_damage","chain_magic","combo_sequence",
   "inspect_monster","steal_item","steal_zeny","ground_damage","ground_protection","ground_debuff",
   "falcon_detect","falcon_spring_trap","trap_detonator","warg_sensitive_keen",
-  "dispel","debuff","monster_debuff","soul_exchange"
+  "dispel","debuff","monster_debuff","soul_exchange","tetra_vortex","elemental_release"
 ]);
 
 function quickSlotSkillNeedsFieldTarget(skill, runtimeProfile = null, level = null) {
@@ -403,6 +403,21 @@ function quickSlotCastSkill(skillId, options = {}) {
   }
 
   if (!quickSlotEnsureSkillTargetRange(skill, learnedLevel, runtimeProfile)) return false;
+
+  if (runtimeHandler === "elemental_sphere_summon") {
+    castElementalSphereSummonSkill(skill, getSkillLevel(skill.id));
+    return;
+  }
+  if (runtimeHandler === "tetra_vortex") {
+    if (!quickSlotEnsureFieldMonster()) return;
+    castTetraVortexSkill(skill, getSkillLevel(skill.id));
+    return;
+  }
+  if (runtimeHandler === "elemental_release") {
+    if (!quickSlotEnsureFieldMonster()) return;
+    castElementalReleaseSkill(skill, getSkillLevel(skill.id));
+    return;
+  }
 
   if (["physical_attack", "physical_attack_size_hits", "physical_attack_formula", "physical_charge", "magic_multihit", "magic_damage", "misc_damage"].includes(runtimeHandler)) {
     if (quickSlotSkillNeedsFieldTarget(skill, runtimeProfile, learnedLevel) && !quickSlotEnsureFieldMonster()) return false;
