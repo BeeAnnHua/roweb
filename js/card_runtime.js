@@ -110,7 +110,7 @@
   }
   function eaclassMask() {
     const tier=currentJobTier();
-    if(tier>=4)return 8;
+    if(tier>=4)return 12; // EAJL_THIRD | EAJL_FOURTH：四轉繼承三轉職系條件。
     if(tier>=3)return 4;
     return 0;
   }
@@ -944,7 +944,7 @@
 
 
   window.CardRuntime = {
-    version:"0.9.82IL", init, invalidate, getSources, getMergedSource, getCardRecord:id=>(init(),DATA.effects[String(id)]||null), getEnchantRecord:id=>(init(),DATA.enchants[String(id)]||null),
+    version:"0.9.82IL1", init, invalidate, getSources, getMergedSource, getCardRecord:id=>(init(),DATA.effects[String(id)]||null), getEnchantRecord:id=>(init(),DATA.enchants[String(id)]||null),
     getComboRecords:()=> (init(),DATA.combos), getSocketCandidates, socketCard, isCardCompatible, removeAllCardsFromEquipped,
     onNormalAttack,onPlayerDamaged,onSkillUsed,onMonsterDefeated,rollExtraDrops,getExpRate,getSkillDamageRate,getSkillSpCostModifier,getItemRecoveryRate,tickPeriodicEffects,
     getBuildCounts:()=>({cards:Object.keys(DATA.effects).length,equipmentScripts:Object.keys(DATA.equipment).length,enchantScripts:Object.keys(DATA.enchants).length,combos:DATA.combos.length,dropSources:Object.values(DATA.drops).reduce((n,x)=>n+(x?.length||0),0)}),

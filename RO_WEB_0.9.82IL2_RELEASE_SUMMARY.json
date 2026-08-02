@@ -1,0 +1,39 @@
+{
+  "version": "0.9.82IL2",
+  "baseVersion": "0.9.82IL1R",
+  "title": "Moroc Slave Taiwan Gacha and Quick-slot Completion",
+  "item": {
+    "id": 420236,
+    "name": "魔王夢羅克的忠誠僕人",
+    "chanceBasisPoints": 10,
+    "chancePercent": 0.1,
+    "slot": "headLow",
+    "slots": 0,
+    "requiredLevel": 100,
+    "refineable": false
+  },
+  "probabilityAudit": {
+    "specialBasisPoints": 1774,
+    "ordinaryBasisPoints": 8226,
+    "totalBasisPoints": 10000,
+    "ordinaryPerItemBasisPoints": 822.6
+  },
+  "quickSlot": {
+    "itemId": 9512,
+    "eligible": true,
+    "manualSources": [
+      "item-info",
+      "quick-slot",
+      "quick-slot-key",
+      "inventory-slot",
+      "batch-open-ui"
+    ]
+  },
+  "changes": [
+    "將正確物品 420236 加入新轉蛋，單件絕對機率 0.1%。",
+    "接入頭下部位、圖示、要求等級、MDEF/P.ATK/S.MATK、種族攻防及九組搭配效果。",
+    "依台灣道具說明修正阿哈特搭配為全體型物理/魔法傷害+15%。",
+    "9512 光輝天翼轉蛋新增明確 quickSlotEligible 合約，背包詳情與批量開啟頁皆可配置快捷欄。",
+    "十種精煉材料平均分配剩餘 82.26%，各 8.226%；總機率維持 100%。"
+  ]
+}

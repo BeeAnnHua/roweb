@@ -18,6 +18,12 @@ function getQuickSlotIconForBasicAttack() {
   return weapon?.icon || "images/items/1101.webp";
 }
 
+function isQuickSlotItemEligible(item) {
+  if (!item) return false;
+  if (item.quickSlotEligible === false) return false;
+  return String(item.type || "") === "consume" || item.quickSlotEligible === true;
+}
+
 function sanitizeQuickSlot(slot) {
   if (!slot || slot.type === "empty") return { type: "empty" };
 
@@ -43,7 +49,7 @@ function sanitizeQuickSlot(slot) {
   if (slot.type === "item") {
     const item = typeof getItemData === "function" ? getItemData(slot.id) : null;
     const inv = typeof findInventoryItemById === "function" ? findInventoryItemById(slot.id) : null;
-    if (!item || item.type !== "consume") return { type: "empty" };
+    if (!isQuickSlotItemEligible(item)) return { type: "empty" };
     const count = Math.max(0, Number(inv?.count || 0));
     return {
       type: "item",
@@ -98,8 +104,8 @@ function assignQuickSlot(index, data, options = {}) {
     player.quickSlots[index] = { type: "skill", id: skill.id };
   } else if (data.type === "item") {
     const item = typeof getItemData === "function" ? getItemData(data.id) : null;
-    if (!item || item.type !== "consume") {
-      addBattleLog("目前只有消耗品可以放入快捷欄。");
+    if (!isQuickSlotItemEligible(item)) {
+      addBattleLog("目前只有可使用的消耗品可以放入快捷欄。");
       return false;
     }
     player.quickSlots[index] = { type: "item", id: item.id };

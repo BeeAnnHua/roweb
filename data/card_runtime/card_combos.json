@@ -9260,9 +9260,9 @@
       "Ahat_Card",
       "Moroc_Slave_TW"
     ],
-    "scriptRaw": "bonus2 bAddRace,RC_All,15;\nbonus2 bMagicAddRace,RC_All,15;\n",
-    "compiledScript": "bonus2(\"bAddRace\", RC_All, 15);\nbonus2(\"bMagicAddRace\", RC_All, 15);\n",
-    "source": "rAthena Renewal 2026-06-08 item_combos.yml"
+    "scriptRaw": "bonus2 bAddSize,Size_All,15;\nbonus2 bMagicAddSize,Size_All,15;\n",
+    "compiledScript": "bonus2(\"bAddSize\", Size_All, 15);\nbonus2(\"bMagicAddSize\", Size_All, 15);\n",
+    "source": "Taiwan item description (rd.fharr / itemInfo_UTF8.lub); corrected Ahat combo to all-size"
   },
   {
     "id": "card_combo_0608",
@@ -9277,7 +9277,7 @@
     ],
     "scriptRaw": "bonus2 bAddRace,RC_All,15;\nbonus2 bMagicAddRace,RC_All,15;\n",
     "compiledScript": "bonus2(\"bAddRace\", RC_All, 15);\nbonus2(\"bMagicAddRace\", RC_All, 15);\n",
-    "source": "rAthena Renewal 2026-06-08 item_combos.yml"
+    "source": "Taiwan item description (rd.fharr / itemInfo_UTF8.lub)"
   },
   {
     "id": "card_combo_0609",
@@ -9292,7 +9292,7 @@
     ],
     "scriptRaw": "bonus bMaxHPrate,50;\nbonus2 bAddRace,RC_All,40;\n",
     "compiledScript": "bonus(\"bMaxHPrate\", 50);\nbonus2(\"bAddRace\", RC_All, 40);\n",
-    "source": "rAthena Renewal 2026-06-08 item_combos.yml"
+    "source": "Taiwan item description (rd.fharr / itemInfo_UTF8.lub)"
   },
   {
     "id": "card_combo_0610",
@@ -12256,5 +12256,95 @@
     "scriptRaw": "bonus bLuk,4;\nbonus bCritAtkRate,5;",
     "compiledScript": "bonus(\"bLuk\", 4);\nbonus(\"bCritAtkRate\", 5);",
     "source": "rAthena Renewal 2026-06-08 + RO_WEB 0.9.82IL Taiwan completion"
+  },
+  {
+    "id": "card_combo_il2_900830",
+    "rowIndex": 900830,
+    "requiredItemIds": [
+      4910,
+      420236
+    ],
+    "requiredAegisNames": [
+      "Force3",
+      "Moroc_Slave_TW"
+    ],
+    "scriptRaw": "bonus bShortAtkRate,20;\nbonus2 bSubRace,RC_All,-15;\n",
+    "compiledScript": "bonus(\"bShortAtkRate\", 20);\nbonus2(\"bSubRace\", RC_All, -15);\n",
+    "source": "rAthena Renewal 2026-06-08 item_combos.yml + Taiwan item description"
+  },
+  {
+    "id": "card_combo_il2_900831",
+    "rowIndex": 900831,
+    "requiredItemIds": [
+      4913,
+      420236
+    ],
+    "requiredAegisNames": [
+      "Intellect3",
+      "Moroc_Slave_TW"
+    ],
+    "scriptRaw": "bonus2 bMagicAtkEle,Ele_All,20;\nbonus2 bSubRace,RC_All,-15;\n",
+    "compiledScript": "bonus2(\"bMagicAtkEle\", Ele_All, 20);\nbonus2(\"bSubRace\", RC_All, -15);\n",
+    "source": "rAthena Renewal 2026-06-08 item_combos.yml + Taiwan item description"
+  },
+  {
+    "id": "card_combo_il2_900832",
+    "rowIndex": 900832,
+    "requiredItemIds": [
+      4916,
+      420236
+    ],
+    "requiredAegisNames": [
+      "Swiftness3",
+      "Moroc_Slave_TW"
+    ],
+    "scriptRaw": "bonus bDelayrate,-10;\nbonus bMaxHPrate,-20;\n",
+    "compiledScript": "bonus(\"bDelayrate\", -10);\nbonus(\"bMaxHPrate\", -20);\n",
+    "source": "rAthena Renewal 2026-06-08 item_combos.yml + Taiwan item description"
+  },
+  {
+    "id": "card_combo_il2_900833",
+    "rowIndex": 900833,
+    "requiredItemIds": [
+      4922,
+      420236
+    ],
+    "requiredAegisNames": [
+      "Artful3",
+      "Moroc_Slave_TW"
+    ],
+    "scriptRaw": "bonus bLongAtkRate,20;\nbonus2 bSubRace,RC_All,-15;\n",
+    "compiledScript": "bonus(\"bLongAtkRate\", 20);\nbonus2(\"bSubRace\", RC_All, -15);\n",
+    "source": "rAthena Renewal 2026-06-08 item_combos.yml + Taiwan item description"
+  },
+  {
+    "id": "card_combo_il2_900834",
+    "rowIndex": 900834,
+    "requiredItemIds": [
+      4919,
+      420236
+    ],
+    "requiredAegisNames": [
+      "Tough3",
+      "Moroc_Slave_TW"
+    ],
+    "scriptRaw": "bonus bMaxHPrate,30;\nbonus bAspdRate,-50;\n",
+    "compiledScript": "bonus(\"bMaxHPrate\", 30);\nbonus(\"bAspdRate\", -50);\n",
+    "source": "rAthena Renewal 2026-06-08 item_combos.yml + Taiwan item description"
+  },
+  {
+    "id": "card_combo_il2_900835",
+    "rowIndex": 900835,
+    "requiredItemIds": [
+      4925,
+      420236
+    ],
+    "requiredAegisNames": [
+      "Fortune3",
+      "Moroc_Slave_TW"
+    ],
+    "scriptRaw": "bonus bCritAtkRate,20;\nbonus bHealPower,20;\nbonus bDelayrate,10;\n",
+    "compiledScript": "bonus(\"bCritAtkRate\", 20);\nbonus(\"bHealPower\", 20);\nbonus(\"bDelayrate\", 10);\n",
+    "source": "rAthena Renewal 2026-06-08 item_combos.yml + Taiwan item description"
   }
 ]

@@ -5,7 +5,7 @@
 //=======================================
 (function(){
   "use strict";
-  const VERSION="0.9.82IL";
+  const VERSION="0.9.82IL1";
   const num=(v,f=0)=>Number.isFinite(Number(v))?Number(v):f;
   const text=v=>String(v??"").trim();
   const scriptOf=item=>text(item?.scriptRaw||item?.Script||item?.script);
@@ -52,7 +52,28 @@
     window.addBattleLog?.(`使用了 ${item.name}，完成雙角甲蟲變身${equippedIds.includes("400511")?"；女王甲蟲頭盔套裝效果持續5分鐘":""}。`);
     return {handled:true,applied:true,consumed:true};
   }
+
+  function applyScarabaSummonBook(item,stack=null){
+    if(String(item?.id)!=="12806"||!window.player)return null;
+    const target=stack||inventoryStack(item.id);
+    if(!target||num(target.count)<=0){window.addBattleLog?.(`背包裡沒有 ${item.name}。`);return {handled:true,applied:false};}
+    if(!removeOne(item,target))return {handled:true,applied:false};
+    player.activeBuffs=player.activeBuffs&&typeof player.activeBuffs==="object"?player.activeBuffs:{};
+    for(const [key,buff] of Object.entries(player.activeBuffs)){
+      if(buff?.effects?.virtualSummonType)delete player.activeBuffs[key];
+    }
+    const now=Date.now();
+    player.activeBuffs.scaraba_mercenary_12806={
+      id:"scaraba_mercenary_12806",name:"甲蟲傭兵",level:1,sourceType:"consumable",sourceItemId:12806,
+      effects:{virtualSummonType:"ScarabaMercenary",virtualSummonFamily:"mercenary",virtualSummonLevel:1},
+      exclusiveBuffGroup:"virtual_summon_partner",startedAt:now,activatedAt:now,expiresAt:now+1800000
+    };
+    window.markConsumableItemUsed?.(item);window.invalidateCardRuntime?.();window.recalculatePlayerStats?.();window.updatePlayerUI?.();window.updateInventoryUI?.();window.updateVirtualSummonUI?.(true);window.saveGame?.({reason:"scaraba-summon-book",itemId:12806});
+    window.addBattleLog?.("使用了甲蟲召喚書；甲蟲傭兵將以協助模式戰鬥30分鐘。","summon");
+    return {handled:true,applied:true,consumed:true,summonType:"ScarabaMercenary",durationMs:1800000};
+  }
   function apply(item,stack=null){
+    const summonBook=applyScarabaSummonBook(item,stack);if(summonBook)return summonBook;
     const special=applyHornScarabaScroll(item,stack);if(special)return special;
     const audit=analyze(item);if(!audit.script)return {handled:false,audit};
     if(audit.unsupported.length){window.addBattleLog?.(`${item.name} 的官方效果包含目前尚未接入的機制（${audit.unsupported.join("、")}），本次不會消耗道具。`);return {handled:true,applied:false,blocked:true,audit};}

@@ -405,7 +405,17 @@
       if (window.ItemBatchOpenRuntime?.canBatchOpen?.(data)) {
         primary.hidden = true;
         picker.hidden = false;
-        window.ItemBatchOpenRuntime.renderControls(picker, data, { instance, context });
+        picker.innerHTML = '';
+        const batchHost = document.createElement('div');
+        batchHost.className = 'item-detail-batch-open-host';
+        picker.appendChild(batchHost);
+        window.ItemBatchOpenRuntime.renderControls(batchHost, data, { instance, context });
+        const quickHost = document.createElement('div');
+        quickHost.className = 'item-detail-batch-quick-host';
+        picker.appendChild(quickHost);
+        if (typeof window.renderQuickSlotPicker === 'function') {
+          window.renderQuickSlotPicker(quickHost, { type: 'item', id: data.id }, { onAssigned: () => closeItemDetailModal() });
+        }
         return;
       }
       primary.hidden = false;

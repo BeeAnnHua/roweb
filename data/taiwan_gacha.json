@@ -1,6 +1,6 @@
 {
   "schema": "ro_web_taiwan_gacha_v1",
-  "version": "0.9.82IL",
+  "version": "0.9.82IL3",
   "mapId": "geffenia_mvp_arena_3x3_region_camera",
   "gachaItemId": 9512,
   "mapExclusiveDropChanceBasisPoints": 100,
@@ -29,7 +29,7 @@
     },
     {
       "id": "taiwan_featured_equipment",
-      "chanceBasisPoints": 60,
+      "chanceBasisPoints": 70,
       "tier": "purple",
       "bannerLabel": "每件 0.1% 紫色大獎",
       "chanceMode": "per_reward_absolute",
@@ -69,12 +69,18 @@
           "quantity": 1,
           "weight": 1,
           "chanceBasisPoints": 10
+        },
+        {
+          "itemId": 420236,
+          "quantity": 1,
+          "weight": 1,
+          "chanceBasisPoints": 10
         }
       ]
     },
     {
       "id": "mvp_cards",
-      "chanceBasisPoints": 3,
+      "chanceBasisPoints": 4,
       "tier": "gold",
       "bannerLabel": "每張 0.01% 金色大獎",
       "chanceMode": "per_reward_absolute",
@@ -96,6 +102,12 @@
           "quantity": 1,
           "weight": 1,
           "chanceBasisPoints": 1
+        },
+        {
+          "itemId": 27321,
+          "quantity": 1,
+          "weight": 1,
+          "chanceBasisPoints": 1
         }
       ]
     },
@@ -113,9 +125,24 @@
           "chanceBasisPoints": 500
         }
       ]
+    },
+    {
+      "id": "scaraba_summon_scroll",
+      "chanceBasisPoints": 1000,
+      "tier": "none",
+      "bannerLabel": "10% 甲蟲召喚書",
+      "chanceMode": "per_reward_absolute",
+      "rewards": [
+        {
+          "itemId": 12806,
+          "quantity": 1,
+          "weight": 1,
+          "chanceBasisPoints": 1000
+        }
+      ]
     }
   ],
-  "ordinaryFillBasisPoints": 9237,
+  "ordinaryFillBasisPoints": 8226,
   "ordinaryRewards": [
     {
       "itemId": 7620,
@@ -169,10 +196,10 @@
     }
   ],
   "probabilityAudit": {
-    "specialBasisPoints": 763,
-    "ordinaryBasisPoints": 9237,
+    "specialBasisPoints": 1774,
+    "ordinaryBasisPoints": 8226,
     "totalBasisPoints": 10000,
-    "ordinaryPerItemBasisPoints": 923.7
+    "ordinaryPerItemBasisPoints": 822.6
   },
-  "sourceNote": "User-approved Taiwan gacha pool; itemInfo_UTF8.lub and rAthena Renewal 2026-06-08 effects."
+  "sourceNote": "0.9.82IL3: corrected MVP card identity; gacha reward is 27321 DespairGodMorocc_Card at 0.01%, while existing 300084 is restored to Dry_Rafflesia_H_Card."
 }

@@ -1438,5 +1438,15 @@
     "compiledScript": "bonus(\"bAtkRate\", 7);\nbonus(\"bMatkRate\", 7);\n",
     "sourcePath": "RO_WEB 0.9.82FZ gacha equipment",
     "sourceType": "equipment"
+  },
+  "420236": {
+    "id": 420236,
+    "name": "魔王夢羅克的忠誠僕人",
+    "aegisName": "Moroc_Slave_TW",
+    "scriptRaw": "bonus bPAtk,5;\nbonus bSMatk,5;\nbonus2 bAddRace,RC_DemiHuman,5;\nbonus2 bAddRace,RC_Player_Human,5;\nbonus2 bAddRace,RC_Player_Doram,5;\nbonus2 bAddRace,RC_Angel,5;\nbonus2 bMagicAddRace,RC_DemiHuman,5;\nbonus2 bMagicAddRace,RC_Player_Human,5;\nbonus2 bMagicAddRace,RC_Player_Doram,5;\nbonus2 bMagicAddRace,RC_Angel,5;\nbonus2 bSubRace,RC_DemiHuman,3;\nbonus2 bSubRace,RC_Player_Human,3;\nbonus2 bSubRace,RC_Player_Doram,3;\nbonus2 bSubRace,RC_Angel,3;",
+    "compiledScript": "bonus(\"bPAtk\", 5);\nbonus(\"bSMatk\", 5);\nbonus2(\"bAddRace\", RC_DemiHuman, 5);\nbonus2(\"bAddRace\", RC_Player_Human, 5);\nbonus2(\"bAddRace\", RC_Angel, 5);\nbonus2(\"bMagicAddRace\", RC_DemiHuman, 5);\nbonus2(\"bMagicAddRace\", RC_Player_Human, 5);\nbonus2(\"bMagicAddRace\", RC_Angel, 5);\nbonus2(\"bSubRace\", RC_DemiHuman, 3);\nbonus2(\"bSubRace\", RC_Player_Human, 3);\nbonus2(\"bSubRace\", RC_Angel, 3);",
+    "sourcePath": "data/equipment/headgear/low.json",
+    "sourceType": "equipment",
+    "runtimeAdaptation": "RO_WEB normalizes Player_Human and Player_Doram to one Player key; compiled runtime keeps one +5/+3 entry to avoid alias double-counting while covering both player races."
   }
 }

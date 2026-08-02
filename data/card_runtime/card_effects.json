@@ -38408,17 +38408,17 @@
       "Shoes": true
     },
     "description": [
-      "使用緊急治療時, 5秒內變身為絕望之神夢羅克。",
-      "ATK+10%、MHP - 50%。",
-      "對天使型、人類型、玩家人類型敵人的物理傷害+30%。"
+      "ATK+10%、MHP-50%。",
+      "對天使型、人類型、玩家人類型敵人的物理傷害+30%。",
+      "RO_WEB 僅套用能力效果，不切換絕望之神夢羅克變身外觀。"
     ],
-    "icon": "images/items/card_mvp.webp",
+    "icon": "images/items/27321.webp",
     "slotCount": 0,
     "slots": 0,
     "buyPrice": 20,
     "sellPrice": 10,
-    "scriptRaw": "bonus bAtkRate,10;\nbonus bMaxHPrate,-50;\nbonus2 bAddRace,RC_DemiHuman,30;\nbonus2 bAddRace,RC_Player_Human,30;\nbonus2 bAddRace,RC_Angel,30;\nautobonus3 \"{ }\",1000,5000,\"NV_FIRSTAID\",\"{ active_transform 3097,5000; }\";\n/* unknown transformation rates */\n",
-    "compiledScript": "bonus(\"bAtkRate\", 10);\nbonus(\"bMaxHPrate\", -50);\nbonus2(\"bAddRace\", RC_DemiHuman, 30);\nbonus2(\"bAddRace\", RC_Player_Human, 30);\nbonus2(\"bAddRace\", RC_Angel, 30);\nautobonus3(\"{ }\", 1000, 5000, \"NV_FIRSTAID\", \"{ active_transform 3097,5000; }\");\n",
+    "scriptRaw": "bonus bAtkRate,10;\nbonus bMaxHPrate,-50;\nbonus2 bAddRace,RC_DemiHuman,30;\nbonus2 bAddRace,RC_Player_Human,30;\nbonus2 bAddRace,RC_Angel,30;\n",
+    "compiledScript": "bonus(\"bAtkRate\", 10);\nbonus(\"bMaxHPrate\", -50);\nbonus2(\"bAddRace\", RC_DemiHuman, 30);\nbonus2(\"bAddRace\", RC_Player_Human, 30);\nbonus2(\"bAddRace\", RC_Angel, 30);\n",
     "dropSources": [
       {
         "monsterId": 3097,
@@ -38431,12 +38431,13 @@
       }
     ],
     "isMvpCard": true,
-    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub",
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + user-approved no-appearance-transform rule",
     "cardVisualTier": "mvp",
     "isBossCard": true,
     "cardTierSourceMonsterIds": [
       3097
-    ]
+    ],
+    "visualTransformDisabled": true
   },
   "27322": {
     "id": 27322,

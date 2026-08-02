@@ -1,14 +1,28 @@
-# RO_WEB 0.9.82IL
+# 0.9.82IL3 current baseline
+- Taiwan gacha MVP reward is 27321 DespairGodMorocc_Card at 0.01%.
+- 300084 remains Dry_Rafflesia_H_Card and must never be repurposed as Nightmare King.
+- 27321 numerical effects are enabled; appearance transformation is intentionally disabled.
+- 9512 remains quick-slot eligible.
 
-最新正式基準：光輝天翼台灣裝備轉蛋。
+# 0.9.82IL2 current baseline
+- Taiwan gacha exact item 420236 Moroc_Slave_TW at 0.1%.
+- 9512 Taiwan gacha is quick-slot eligible and manual-use protected.
+- Do not restore mistaken item 400379.
 
-- 基準來源：0.9.82IK FULL。
-- 葛坡尼亞 MVP 試煉場每隻 MVP 獨立 1% 掉落 9512 光輝天翼轉蛋；原 14848 MVP 幸運轉蛋完整保留。
-- 轉蛋內部單一 10,000 基點母池，總和固定 100%。
-- 六件台灣裝備與相關卡片、支援裝備、魔神精髓、封印女王甲蟲卡、雙角甲蟲卷軸均已接入 item index、部位資料、CardRuntime／ConsumableRuntime 與圖片。
-- 關鍵 Runtime：`js/taiwan_gacha_runtime.js`、`js/card_runtime.js`、`js/consumable_runtime.js`、`js/battle.js`。
-- 驗證：`tools/test_taiwan_gacha_0.9.82IL.js`，104 項全部通過。
-- 後續版本一律以 0.9.82IL 為正式基準。
+# RO_WEB 0.9.82IL1
+- 0.9.82IL1R：已移除誤加入的 400379；420236 尚未在本修訂加入。
+
+最新正式基準：光輝天翼台灣裝備轉蛋完整修正版。
+
+- 基準來源：0.9.82IL。
+- 葛坡尼亞 MVP 試煉場每隻 MVP 仍獨立 1% 掉落 9512；原 14848 MVP 幸運轉蛋完整保留且可同時掉落。
+- 內部單一 10,000 基點母池：兩張使徒卡各 1%、七件裝備各 0.1%、四張 MVP 卡各 0.01%、鐵匠的祝福 5%、甲蟲召喚書 10%、十種精煉材料各 8.226%。
+- 天地樹＋潘利爾支援妖術師／元素支配者與咒術士／禁咒魔導士。
+- 9512 批量開啟介面仍提供快捷欄配置，並通過實際 assign/useItem 路徑測試。
+- 關鍵 Runtime：`js/taiwan_gacha_runtime.js`、`js/card_runtime.js`、`js/consumable_runtime.js`、`js/item_instance_ui.js`、`js/battle.js`。
+- 驗證：`tools/test_taiwan_gacha_0.9.82IL1.js`，158 項全部通過。
+- 延後項目：瘋狂兔寶寶 +12 的受傷斷詠免疫，待全域斷詠系統完成後啟用；資料標記已保留。
+- 後續版本一律以 0.9.82IL1 為正式基準。
 
 # RO_WEB 0.9.82IB
 

@@ -1080,6 +1080,9 @@ function monsterAttackPlayer(options = {}) {
   }
 
   player.hp -= monsterDamage;
+  // IL1：先用「受擊前已存在」的反射狀態處理本次傷害，再觸發受擊型裝備。
+  // 避免瘋狂兔寶寶剛由本次魔法觸發魔法鏡，就反射同一發攻擊。
+  applyActivePhysicalReflect(currentMonster, monsterDamage, { magic:monsterAttackType.includes("magic"), rangeCells:monsterRangeCells });
   window.CardRuntime?.onPlayerDamaged?.(currentMonster,monsterDamage,{magic:monsterAttackType.includes("magic"),rangeCells:monsterRangeCells});
   let crescentElbowResult = null;
   if (player.hp > 0 && monsterRangeCells <= 1 && typeof tryCrescentElbowCounter === "function") {
@@ -1106,7 +1109,6 @@ function monsterAttackPlayer(options = {}) {
       offsetY:-4
     });
   }
-  applyActivePhysicalReflect(currentMonster, monsterDamage, { magic:monsterAttackType.includes("magic"), rangeCells:monsterRangeCells });
   if (crescentElbowResult?.triggered && Number(currentMonster.currentHp || 0) <= 0) {
     if (player.hp <= 0) { updatePlayerUI(); persistMonsterAttackState(); playerDead(); return; }
     defeatMonster(); return;

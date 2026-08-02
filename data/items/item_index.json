@@ -39938,11 +39938,11 @@
       "shoes"
     ],
     "description": [
-      "使用緊急治療時, 5秒內變身為絕望之神夢羅克。",
-      "ATK+10%、MHP - 50%。",
-      "對天使型、人類型、玩家人類型敵人的物理傷害+30%。"
+      "ATK+10%、MHP-50%。",
+      "對天使型、人類型、玩家人類型敵人的物理傷害+30%。",
+      "RO_WEB 僅套用能力效果，不切換絕望之神夢羅克變身外觀。"
     ],
-    "icon": "images/items/card_mvp.webp",
+    "icon": "images/items/27321.webp",
     "slotCount": 0,
     "slots": 0,
     "buyPrice": 20,
@@ -39950,7 +39950,8 @@
     "isMvpCard": true,
     "isBossCard": true,
     "cardVisualTier": "mvp",
-    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub"
+    "dataSource": "rAthena Renewal 2026-06-08 + 中文 ETC + user-approved no-appearance-transform rule",
+    "visualTransformDisabled": true
   },
   "27322": {
     "id": 27322,
@@ -47331,7 +47332,7 @@
     "icon": "images/items/9512.webp",
     "description": [
       "來自降臨天使的羽翼，讓信徒們從中看到了永恆之輝。",
-      "僅能由玩家手動開啟；支援指定數量批量開啟。",
+      "可放入快捷欄使用，也支援指定數量批量開啟；僅接受玩家手動操作。",
       "重量：1"
     ],
     "weight": 1,
@@ -47340,7 +47341,8 @@
     "slotCount": 0,
     "slots": 0,
     "ClassNum": 0,
-    "dataSource": "台灣 itemInfo_UTF8.lub + RO_WEB 0.9.82IL custom gacha"
+    "dataSource": "台灣 itemInfo_UTF8.lub + RO_WEB 0.9.82IL custom gacha",
+    "quickSlotEligible": true
   },
   "410254": {
     "id": 410254,
@@ -48058,5 +48060,89 @@
     "slots": 0,
     "ClassNum": 0,
     "dataSource": "台灣 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08"
+  },
+  "12806": {
+    "id": 12806,
+    "officialId": 12806,
+    "name": "甲蟲召喚書",
+    "type": "consume",
+    "category": "consumable",
+    "subCategory": "summon_scroll",
+    "icon": "images/items/12806.webp",
+    "description": [
+      "可以召喚甲蟲傭兵協助戰鬥。",
+      "RO_WEB 採輕量協助模式：沒有獨立 HP／SP／EXP，也不會被怪物攻擊；持續 30 分鐘。",
+      "重量：1"
+    ],
+    "weight": 1,
+    "slotCount": 0,
+    "slots": 0,
+    "scriptRaw": "mercenary_create 2378,1800000;",
+    "manualUseOnly": false,
+    "autoUse": false,
+    "dataSource": "台灣 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 + RO_WEB assist summon adaptation"
+  },
+  "420236": {
+    "id": 420236,
+    "officialId": 420236,
+    "name": "魔王夢羅克的忠誠僕人",
+    "type": "equipment",
+    "category": "armor",
+    "subCategory": "headLow",
+    "slot": "headLow",
+    "atk": 0,
+    "def": 0,
+    "mdef": 1,
+    "slots": 0,
+    "cards": [],
+    "requiredLevel": 100,
+    "description": [
+      "MDEF+1，P.ATK+5、S.MATK+5。",
+      "對人類型、玩家人類型、玩家喵族型、天使型敵人的物理與魔法傷害+5%。",
+      "受到人類型、玩家人類型、玩家喵族型、天使型敵人的傷害-3%。",
+      "搭配魔神的武力精髓3：近距離物理傷害+20%，受到全種族傷害+15%。",
+      "搭配魔神的智慧精髓3：全屬性魔法傷害+20%，受到全種族傷害+15%。",
+      "搭配魔神的速度精髓3：技能後延遲-10%，MHP-20%。",
+      "搭配魔神的集中精髓3：遠距離物理傷害+20%，受到全種族傷害+15%。",
+      "搭配魔神的體力精髓3：MHP+30%，攻擊後延遲+50%。",
+      "搭配魔神的幸運精髓3：暴擊傷害+20%、治癒量+20%，技能後延遲+10%。",
+      "搭配魔神使徒許乃任卡片：對全種族的物理與魔法傷害+15%。",
+      "搭配魔神使徒阿哈特卡片：對全體型的物理與魔法傷害+15%。",
+      "搭配絕望之神夢羅克卡片：MHP+50%，對全種族的物理傷害+40%。",
+      "位置：頭下；無插槽；不可精煉；重量：10；防具等級：1；要求等級：100；全職業。"
+    ],
+    "icon": "images/items/420236.webp",
+    "slotCount": 0,
+    "ClassNum": 1440,
+    "aegisName": "Moroc_Slave_TW",
+    "dbType": "Armor",
+    "armorLevel": 1,
+    "viewId": 1440,
+    "locations": {
+      "Head_Low": true
+    },
+    "scriptRaw": "bonus bPAtk,5;\nbonus bSMatk,5;\nbonus2 bAddRace,RC_DemiHuman,5;\nbonus2 bAddRace,RC_Player_Human,5;\nbonus2 bAddRace,RC_Player_Doram,5;\nbonus2 bAddRace,RC_Angel,5;\nbonus2 bMagicAddRace,RC_DemiHuman,5;\nbonus2 bMagicAddRace,RC_Player_Human,5;\nbonus2 bMagicAddRace,RC_Player_Doram,5;\nbonus2 bMagicAddRace,RC_Angel,5;\nbonus2 bSubRace,RC_DemiHuman,3;\nbonus2 bSubRace,RC_Player_Human,3;\nbonus2 bSubRace,RC_Player_Doram,3;\nbonus2 bSubRace,RC_Angel,3;",
+    "dataSource": "rd.fharr item 420236 + itemInfo_UTF8.lub + rAthena Renewal 2026-06-08",
+    "Id": 420236,
+    "Name": "魔王夢羅克的忠誠僕人",
+    "AegisName": "Moroc_Slave_TW",
+    "Type": "Armor",
+    "Attack": 0,
+    "Defense": 0,
+    "MagicDefense": 1,
+    "Slots": 0,
+    "Locations": {
+      "Head_Low": true
+    },
+    "ArmorLevel": 1,
+    "EquipLevelMin": 100,
+    "equipLevelMin": 100,
+    "Weight": 100,
+    "weight": 10,
+    "refineable": false,
+    "Refineable": false,
+    "View": 1440,
+    "Script": "bonus bPAtk,5;\nbonus bSMatk,5;\nbonus2 bAddRace,RC_DemiHuman,5;\nbonus2 bAddRace,RC_Player_Human,5;\nbonus2 bAddRace,RC_Player_Doram,5;\nbonus2 bAddRace,RC_Angel,5;\nbonus2 bMagicAddRace,RC_DemiHuman,5;\nbonus2 bMagicAddRace,RC_Player_Human,5;\nbonus2 bMagicAddRace,RC_Player_Doram,5;\nbonus2 bMagicAddRace,RC_Angel,5;\nbonus2 bSubRace,RC_DemiHuman,3;\nbonus2 bSubRace,RC_Player_Human,3;\nbonus2 bSubRace,RC_Player_Doram,3;\nbonus2 bSubRace,RC_Angel,3;",
+    "runtimeAdaptation": "RO_WEB 將玩家人類與玩家喵族統一為 Player 類別；Runtime 僅計算一次，避免同義類別重複加成。"
   }
 }

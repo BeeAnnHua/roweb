@@ -1,5 +1,5 @@
 {
-  "version": "0.9.82DD",
+  "version": "0.9.82IL1",
   "schema": "ro_web_virtual_summons_v1",
   "mode": "assist_only",
   "rules": {
@@ -17,7 +17,8 @@
       "faw",
       "abr",
       "independent_plant",
-      "marine_sphere"
+      "marine_sphere",
+      "mercenary"
     ],
     "independentSummonsCanCoexist": true
   },
@@ -365,6 +366,23 @@
       "atkMaxFlat": 2200,
       "officialMobId": 20837,
       "sourceNote": "RA Infinity adds 1400 minimum and 2000 maximum ATK above the shared ABR formula; +200/+140 shared base constants are included in RO_WEB flat values."
+    },
+    "ScarabaMercenary": {
+      "displayName": "甲蟲傭兵",
+      "family": "mercenary",
+      "categoryLabel": "傭兵召喚",
+      "roleLabel": "近距離物理",
+      "element": "Earth",
+      "elementLabel": "地屬性",
+      "damageType": "physical",
+      "attackRangeType": "short",
+      "attackIntervalMs": 2500,
+      "attackRatioByLevel": [
+        100
+      ],
+      "actionName": "甲蟲突擊",
+      "officialMobId": 2378,
+      "sourceNote": "rAthena Scaraba Scroll mercenary_create 2378,1800000; adapted to RO_WEB assist-only summon constitution."
     }
   },
   "uiText": {
