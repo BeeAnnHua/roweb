@@ -1,3 +1,29 @@
+# RO_WEB 0.9.82IH — Acidified Authoritative Monster Foot Anchor Fix
+
+- 修正 0.9.82IG 實機仍可能把強酸禁地綁在玩家腳底的問題。
+- 根因：事件 payload／target.position 在自動戰鬥流程中可能仍是施術者座標或過期座標，但舊 Runtime 會將它標成有效 GROUND_WORLD_SNAPSHOT，HIT_CONFIRM 也只修補缺失快照，不覆寫錯誤快照。
+- 強酸禁地 5340／5341／5342 改以目標怪物 DOM 腳底為最高優先權威座標；其次才使用世界實體 position。
+- HIT_CONFIRM 強制重定位最近 3 秒內所有強酸禁地 CAST／BOTTOM／START／MAIN／HIT 實例。
+- 一般 BUFF、TARGET、PROJECTILE 規則不變。
+
+# RO_WEB 0.9.82IG — Acidified All-Phase Target Ground Anchor Fix
+
+- 依實機截圖確認：怪物腳下的主要地面圓環已正確，但 CAST／CAST_BOTTOM 黑色星芒仍因 Manifest 標記為 CASTER 而跟隨玩家。
+- 將 5340 強酸禁地（水）、5341 強酸禁地（地）、5342 強酸禁地（風）的全部 29 個非清理事件改為目標地面世界座標快照。
+- Runtime 新增強酸禁地專用優先規則，即使舊資料仍寫 CASTER_BODY／CASTER_FOOT，也不得回到玩家座標。
+- 缺少目標座標時繼續等待權威 HIT_CONFIRM，不使用玩家或畫面中心 fallback。
+- 一般 BUFF／架式／光環仍跟隨玩家；其他 TARGET／PROJECTILE 規則不變。
+
+# RO_WEB 0.9.82IF — V92 Target Coordinate Event Payload Fix
+
+- 修正強酸禁地（水／地／風）地面特效仍落在玩家附近固定偏移的問題。
+- 技能開始、正式結算與命中事件現在會攜帶目標怪物 ID 與世界座標快照。
+- 地面事件在載入 Effect JSON 前即鎖定目標座標，不再因非同步載入或 currentMonster 變動而掉回玩家座標。
+- 正式世界怪物會以 `_instanceId` 回查即時實體，支援 `position`、`worldX/worldY`、`_element` 與傷害座標快取。
+- 地面特效缺少目標座標時不再 fallback 到玩家；會暫存等待 HIT_CONFIRM，收到真實目標後補播。
+- 強酸禁地的 GROUND_SPAWN／DAMAGE_COMMIT／HIT_CONFIRM 共用同一個目標世界座標基準。
+- BUFF／架式／光環仍跟隨玩家；一般 TARGET 特效仍跟隨怪物；投射物規則不變。
+
 ## 0.9.82IE — V92 地面特效世界座標快照修正
 
 - 修正強酸禁地（水／地／風）特效以玩家座標加固定偏移渲染，玩家行走時特效會一起移動。
@@ -170,3 +196,11 @@
 - 不修改角色資料、貨幣數值、掉落率、精煉、升階、附魔或存檔格式。
 
 歷史詳細報告請參閱：`HISTORY_UPDATE_AUDIT_LOG_THROUGH_0.9.82HL.txt`。
+
+## 0.9.82II — Exact Monster Instance Anchor / Auto Battle Recovery / Chain Lightning Runtime Fix
+
+- 強酸禁地地面錨點不再以同種怪物的 `mobId/id` 模糊回查；只接受正式怪物實例或唯一 instance identity。
+- 正式世界怪物 `entity.position` 優先於 DOM；失效、離場、零尺寸或 instance 不符的 DOM 不再作座標來源。
+- 自動掛機 tick 即使發生單次 Runtime／UI 例外也會在 `finally` 重新排程；素質欄開關均執行 scheduler recovery。
+- 關閉自動掛機時不再因主動怪攻擊自動啟動玩家連續反擊；手動點怪仍正常。
+- 連鎖電擊及其 `WL_CHAINLIGHTNING_ATK` 別名固定解析至 Skill 2214 `chain_magic`。

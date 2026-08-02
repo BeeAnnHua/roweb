@@ -1,5 +1,5 @@
 // ================================================================
-// RO_WEB 0.9.82IE / V92 Active Skill Effect Runtime
+// RO_WEB 0.9.82II / V92 Active Skill Effect Runtime
 // - V91.6 Ready Library: 55 active skills / 454 browser-safe effects
 // - RO_WEB runtime handler is authoritative; passive/pending/disabled skills
 //   are never scheduled even if a visual asset exists.
@@ -8,7 +8,7 @@
 (() => {
   'use strict';
 
-  const VERSION = '0.9.82IE';
+  const VERSION = '0.9.82II';
   const BASE = './assets/skill_effects/v92/';
   const MANIFEST_URL = `${BASE}V92_RUNTIME_TIMELINE_MANIFEST.json`;
   const EFFECT_MANIFEST_URL = `${BASE}V92_EFFECT_MANIFEST.json`;
@@ -39,6 +39,8 @@
     timers: new Set(),
     latestCast: new Map(),
     lastHit: new Map(),
+    latestTarget: new Map(),
+    pendingGroundEvents: new Map(),
     canvases: null,
     raf: 0,
     lastMapIdentity: '',
@@ -48,7 +50,12 @@
       begins: 0, commits: 0, hits: 0, skippedPassive: 0,
       playedEvents: 0, loadedEffects: 0, loadFailures: 0,
       clearedLifecycles: 0, fixedGroundAnchors: 0,
-      liveCasterAnchors: 0, liveTargetAnchors: 0, projectileAnchors: 0
+      liveCasterAnchors: 0, liveTargetAnchors: 0, projectileAnchors: 0,
+      targetPayloadsCaptured: 0, targetPayloadMisses: 0,
+      pendingGroundQueued: 0, pendingGroundFlushed: 0,
+      skippedGroundWithoutTarget: 0, repairedGroundAnchors: 0,
+      authoritativeGroundPayloads: 0, authoritativeGroundMisses: 0, forcedGroundRelocations: 0,
+      exactTargetEntityHits: 0, ambiguousTargetIdentityRejects: 0, invalidTargetElementRejects: 0
     }
   };
 
@@ -222,6 +229,7 @@
   }
 
   function elementForTarget(targetObject) {
+    if (targetObject?._element instanceof Element) return targetObject._element;
     if (targetObject?.element instanceof Element) return targetObject.element;
     if (targetObject?.domElement instanceof Element) return targetObject.domElement;
     const id = targetObject?.elementId || targetObject?.domId;
@@ -229,7 +237,7 @@
     const current = currentMonsterObject();
     const targetId = targetObject?.runtimeId ?? targetObject?.id ?? targetObject?.mobId;
     const currentId = current?.runtimeId ?? current?.id ?? current?.mobId;
-    if (!targetObject || targetObject === current || (targetId != null && currentId != null && String(targetId) === String(currentId))) {
+    if (targetObject && (targetObject === current || (targetId != null && currentId != null && String(targetId) === String(currentId)))) {
       return document.getElementById('monster-sprite');
     }
     return null;
@@ -248,12 +256,193 @@
     };
   }
 
+  function finitePair(value) {
+    if (!value || typeof value !== 'object') return null;
+    const x = Number(value.x ?? value.worldX);
+    const y = Number(value.y ?? value.worldY);
+    return Number.isFinite(x) && Number.isFinite(y) ? { x, y } : null;
+  }
+
+  function targetStrongIdentity(value) {
+    if (!value || typeof value !== 'object') return '';
+    return String(value._instanceId ?? value.runtimeId ?? value.instanceId ?? '');
+  }
+
+  function targetSpeciesIdentity(value) {
+    if (!value || typeof value !== 'object') return '';
+    return String(value.mobId ?? value.id ?? '');
+  }
+
+  function targetIdentity(value) {
+    return targetStrongIdentity(value) || targetSpeciesIdentity(value);
+  }
+
+  function isFormalMonsterEntity(value) {
+    return Boolean(value && typeof value === 'object' && (value._worldTestEntity === true || value._worldMonsterEntity === true));
+  }
+
+  function collectTargetResolutionSources() {
+    const sources = [], seen = new Set();
+    const add = row => { if (row && typeof row === 'object' && !seen.has(row)) { seen.add(row); sources.push(row); } };
+    try { if (typeof collectLiveCombatEnemies === 'function') (collectLiveCombatEnemies({ includeDead: true, activeOnly: false }) || []).forEach(add); } catch (_) {}
+    try { if (typeof getWorldMonsterTestEntities === 'function') (getWorldMonsterTestEntities({ includeDead: true, activeOnly: false }) || []).forEach(add); } catch (_) {}
+    try { if (Array.isArray(window.activeMonsters)) window.activeMonsters.forEach(add); } catch (_) {}
+    try { if (Array.isArray(window.mapMonsters)) window.mapMonsters.forEach(add); } catch (_) {}
+    try { add(currentMonsterObject()); } catch (_) {}
+    return sources;
+  }
+
+  // 0.9.82II: Never identify a streamed monster by species ID when several
+  // instances can coexist. IH could resolve a lightweight target with mobId/id
+  // to the first same-species entity, which explains effects jumping to a remote
+  // corner. Exact instance IDs or the original formal entity object are required.
+  function resolveLiveTargetObject(value) {
+    if (!value || typeof value !== 'object') return null;
+    if (isFormalMonsterEntity(value)) { state.diagnostics.exactTargetEntityHits++; return value; }
+    if (value._element instanceof Element && value._element?.dataset?.instanceId) return value;
+    const sources = collectTargetResolutionSources();
+    const strong = targetStrongIdentity(value);
+    if (strong) {
+      const matches = sources.filter(row => targetStrongIdentity(row) === strong);
+      if (matches.length === 1) { state.diagnostics.exactTargetEntityHits++; return matches[0]; }
+      if (matches.length > 1) state.diagnostics.ambiguousTargetIdentityRejects++;
+      return matches.length === 1 ? matches[0] : value;
+    }
+    // A direct object with a finite position is safer than an ambiguous species lookup.
+    if (finitePair(value.position) || finitePair(value.worldPosition) || finitePair(value._worldPosition)) return value;
+    const species = targetSpeciesIdentity(value);
+    if (!species) return value;
+    const matches = sources.filter(row => targetSpeciesIdentity(row) === species);
+    if (matches.length === 1) return matches[0];
+    if (matches.length > 1) state.diagnostics.ambiguousTargetIdentityRejects++;
+    return value;
+  }
+
   function finiteWorldPosition(value) {
     if (!value || typeof value !== 'object') return null;
-    const source = value.position && typeof value.position === 'object' ? value.position : value;
-    const x = Number(source.x ?? source.worldX);
-    const y = Number(source.y ?? source.worldY);
-    return Number.isFinite(x) && Number.isFinite(y) ? { x, y } : null;
+    const live = resolveLiveTargetObject(value) || value;
+    const candidates = [
+      live.position,
+      live.worldPosition,
+      live._worldPosition,
+      live,
+      live._damageNumberAnchorWorld
+    ];
+    for (const candidate of candidates) {
+      const pair = finitePair(candidate);
+      if (pair) return pair;
+    }
+    return null;
+  }
+
+  function worldPositionFromElement(element, foot = true) {
+    const c = state.canvases || ensureCanvases();
+    if (!c || !element) return null;
+    const canvasPoint = anchorFromElement(element, foot);
+    let camera = { x: 0, y: 0 };
+    try { if (typeof getMapCameraOffset === 'function') camera = getMapCameraOffset() || camera; } catch (_) {}
+    return {
+      x: Number(canvasPoint.x || 0) + Number(camera.x || 0),
+      y: Number(canvasPoint.y || 0) + Number(camera.y || 0)
+    };
+  }
+
+  function captureTargetPayload(targetObject, explicitWorldPosition = null) {
+    const liveTarget = resolveLiveTargetObject(targetObject || currentMonsterObject());
+    let worldPosition = finitePair(explicitWorldPosition) || finiteWorldPosition(liveTarget);
+    let source = worldPosition ? (finitePair(explicitWorldPosition) ? 'EVENT_PAYLOAD' : 'TARGET_OBJECT') : '';
+    if (!worldPosition) {
+      const element = elementForTarget(liveTarget);
+      worldPosition = worldPositionFromElement(element, true);
+      if (worldPosition) source = 'TARGET_ELEMENT';
+    }
+    if (worldPosition) state.diagnostics.targetPayloadsCaptured++;
+    else state.diagnostics.targetPayloadMisses++;
+    return {
+      targetObject: liveTarget || targetObject || null,
+      targetWorldPosition: worldPosition ? { x: Number(worldPosition.x), y: Number(worldPosition.y) } : null,
+      targetIdentity: targetIdentity(liveTarget || targetObject),
+      targetPayloadSource: source || 'MISSING'
+    };
+  }
+
+
+  function isPlayerLikeTarget(value) {
+    const playerObject = currentPlayerObject();
+    if (!value || typeof value !== 'object') return false;
+    if (value === playerObject || value?.isPlayer === true || value?.entityType === 'player') return true;
+    const identity = targetIdentity(value);
+    return identity === 'player' || (identity && identity === targetIdentity(playerObject));
+  }
+
+  function isUsableTargetElement(element, targetObject) {
+    if (!element || !(element instanceof Element) || !element.isConnected) return false;
+    if (element.id === 'player-sprite' || element.closest?.('#player-sprite')) return false;
+    const field = state.canvases?.field || document.getElementById('battle-field');
+    if (!field || !field.contains(element)) return false;
+    const rect = element.getBoundingClientRect?.();
+    const fieldRect = field.getBoundingClientRect?.();
+    if (!rect || !fieldRect || rect.width <= 0 || rect.height <= 0) return false;
+    const instanceId = String(element.dataset?.instanceId || '');
+    const targetInstanceId = targetStrongIdentity(targetObject);
+    if (instanceId && targetInstanceId && instanceId !== targetInstanceId) return false;
+    return rect.right >= fieldRect.left && rect.left <= fieldRect.right && rect.bottom >= fieldRect.top && rect.top <= fieldRect.bottom;
+  }
+
+  // 0.9.82II: The formal monster entity position is the authoritative world-foot
+  // coordinate (the monster renderer itself subtracts its atlas anchor from it).
+  // Prefer the event-time snapshot for that exact entity, then its live position.
+  // A DOM rect is only a final, validated fallback; detached/offscreen/same-species
+  // elements must never send the effect to the upper-left corner.
+  function captureAuthoritativeGroundPayload(targetObject, explicitWorldPosition = null) {
+    const inputTarget = targetObject || currentMonsterObject();
+    const liveTarget = resolveLiveTargetObject(inputTarget);
+    if (!liveTarget || isPlayerLikeTarget(liveTarget)) {
+      state.diagnostics.authoritativeGroundMisses++;
+      return { targetObject: null, targetWorldPosition: null, targetIdentity: '', targetPayloadSource: 'MISSING_OR_PLAYER' };
+    }
+
+    let worldPosition = null;
+    let source = '';
+    const explicit = finitePair(explicitWorldPosition);
+    const directFormalTarget = isFormalMonsterEntity(inputTarget) && inputTarget === liveTarget;
+    if (explicit && directFormalTarget) {
+      worldPosition = explicit;
+      source = 'EXACT_ENTITY_EVENT_SNAPSHOT';
+    }
+    if (!worldPosition) {
+      const position = finitePair(liveTarget.position) || finitePair(liveTarget.worldPosition) || finitePair(liveTarget._worldPosition);
+      if (position) { worldPosition = position; source = 'EXACT_TARGET_ENTITY_POSITION'; }
+    }
+    if (!worldPosition && explicit && targetStrongIdentity(liveTarget)) {
+      worldPosition = explicit;
+      source = 'EXACT_ID_EVENT_SNAPSHOT';
+    }
+    if (!worldPosition) {
+      const damageAnchor = finitePair(liveTarget._damageNumberAnchorWorld);
+      if (damageAnchor) {
+        worldPosition = { x: damageAnchor.x, y: damageAnchor.y + 76 };
+        source = 'TARGET_DAMAGE_ANCHOR_TO_FOOT';
+      }
+    }
+    if (!worldPosition) {
+      const element = elementForTarget(liveTarget);
+      if (isUsableTargetElement(element, liveTarget)) {
+        worldPosition = worldPositionFromElement(element, true);
+        if (worldPosition) source = 'VALIDATED_TARGET_ELEMENT_FOOT_WORLD';
+      } else if (element) {
+        state.diagnostics.invalidTargetElementRejects++;
+      }
+    }
+
+    if (worldPosition) state.diagnostics.authoritativeGroundPayloads++;
+    else state.diagnostics.authoritativeGroundMisses++;
+    return {
+      targetObject: liveTarget,
+      targetWorldPosition: worldPosition ? { x:Number(worldPosition.x), y:Number(worldPosition.y) } : null,
+      targetIdentity: targetIdentity(liveTarget),
+      targetPayloadSource: source || 'MISSING'
+    };
   }
 
   function anchorFromWorldPosition(worldPosition, foot = true, kind = 'monster') {
@@ -296,24 +485,102 @@
 
   function shouldSnapshotGroundAnchor(skillEntry, event) {
     const target = String(event?.target || '');
-    // CASTER anchors are authoritative for buffs/stances/auras even when a legacy
-    // manifest happens to use a ground-like trigger name.
+    const skillId = Number(skillEntry?.skillId || 0);
+
+    // 0.9.82IH: RO_WEB's acidified zones are target-point attacks rather than
+    // persistent caster auras. Every visual phase for 5340/5341/5342, including
+    // CAST and CAST_BOTTOM, must be frozen at the selected monster's foot point.
+    // This check intentionally runs before the generic CASTER_* exception.
+    if (GROUND_SNAPSHOT_SKILL_IDS.has(skillId) && event?.trigger !== 'SKILL_END' && !event?.cleanup_only) {
+      return true;
+    }
+
+    // CASTER anchors remain authoritative for ordinary buffs/stances/auras.
     if (target.startsWith('CASTER_') || target === 'PROJECTILE_PATH') return false;
     if (target === 'GROUND_CELL' || GROUND_SNAPSHOT_TRIGGERS.has(String(event?.trigger || ''))) return true;
-    if (!GROUND_SNAPSHOT_SKILL_IDS.has(Number(skillEntry?.skillId || 0))) return false;
-    return target.startsWith('TARGET_');
+    return false;
   }
 
-  function captureGroundAnchor(skillEntry, event, targetObject) {
+  function captureGroundAnchor(skillEntry, event, targetObject, explicitWorldPosition = null) {
     if (!shouldSnapshotGroundAnchor(skillEntry, event)) return null;
-    const resolvedTarget = targetObject || currentMonsterObject();
-    const worldPosition = finiteWorldPosition(resolvedTarget);
-    if (worldPosition) return { policy: 'GROUND_WORLD_SNAPSHOT', worldPosition };
-    const element = elementForTarget(resolvedTarget);
-    if (element) return { policy: 'GROUND_CANVAS_SNAPSHOT', canvasPosition: anchorFromElement(element, true) };
-    const casterWorld = finiteWorldPosition(currentPlayerObject());
-    if (casterWorld) return { policy: 'GROUND_WORLD_FALLBACK_CASTER', worldPosition: casterWorld };
-    return { policy: 'GROUND_CANVAS_FALLBACK_CENTER', canvasPosition: anchorFromElement(document.getElementById('player-sprite'), true) };
+    const payload = GROUND_SNAPSHOT_SKILL_IDS.has(Number(skillEntry?.skillId || 0))
+      ? captureAuthoritativeGroundPayload(targetObject, explicitWorldPosition)
+      : captureTargetPayload(targetObject, explicitWorldPosition);
+    if (payload.targetWorldPosition) {
+      return {
+        policy: 'GROUND_WORLD_SNAPSHOT',
+        worldPosition: { ...payload.targetWorldPosition },
+        targetIdentity: payload.targetIdentity,
+        payloadSource: payload.targetPayloadSource
+      };
+    }
+    return null;
+  }
+
+  function pendingGroundKey(skillEntry, event, context = {}) {
+    return [
+      Number(skillEntry?.skillId || 0),
+      String(context.token || 'no-token'),
+      String(event?.trigger || ''),
+      String(event?.phase || ''),
+      String(event?.full_effect || event?.min_effect || '')
+    ].join(':');
+  }
+
+  function queuePendingGroundEvent(skillEntry, event, context = {}) {
+    const key = pendingGroundKey(skillEntry, event, context);
+    state.pendingGroundEvents.set(key, {
+      key, skillEntry, event,
+      context: { ...context },
+      queuedAt: Date.now(),
+      expiresAt: Date.now() + 2500
+    });
+    state.diagnostics.pendingGroundQueued++;
+  }
+
+  function flushPendingGroundEvents(skillId, payload) {
+    if (!payload?.targetWorldPosition) return 0;
+    let flushed = 0;
+    for (const [key, pending] of [...state.pendingGroundEvents.entries()]) {
+      if (Number(pending.skillEntry?.skillId || 0) !== Number(skillId || 0)) continue;
+      state.pendingGroundEvents.delete(key);
+      flushed++;
+      playEvent(pending.skillEntry, pending.event, {
+        ...pending.context,
+        target: payload.targetObject,
+        targetWorldPosition: payload.targetWorldPosition,
+        targetIdentity: payload.targetIdentity,
+        __pendingGroundFlush: true
+      });
+    }
+    state.diagnostics.pendingGroundFlushed += flushed;
+    return flushed;
+  }
+
+  function repairRecentGroundAnchors(skillId, payload) {
+    if (!payload?.targetWorldPosition) return 0;
+    const now = Date.now();
+    let repaired = 0;
+    for (const instance of state.instances) {
+      if (Number(instance.skillId || 0) !== Number(skillId || 0)) continue;
+      if (!shouldSnapshotGroundAnchor({ skillId: instance.skillId }, instance.event || {})) continue;
+      if (now - Number(instance.startAt || 0) > 3000) continue;
+      const current = instance.fixedAnchor?.worldPosition;
+      const forceRelocate = GROUND_SNAPSHOT_SKILL_IDS.has(Number(skillId || 0));
+      const needsRepair = forceRelocate || !current || instance.fixedAnchor?.policy !== 'GROUND_WORLD_SNAPSHOT';
+      if (!needsRepair) continue;
+      instance.targetObject = payload.targetObject || instance.targetObject;
+      instance.fixedAnchor = {
+        policy: 'GROUND_WORLD_SNAPSHOT',
+        worldPosition: { ...payload.targetWorldPosition },
+        targetIdentity: payload.targetIdentity,
+        payloadSource: payload.targetPayloadSource || 'HIT_CONFIRM_REPAIR'
+      };
+      repaired++;
+      if (forceRelocate) state.diagnostics.forcedGroundRelocations++;
+    }
+    state.diagnostics.repairedGroundAnchors += repaired;
+    return repaired;
   }
 
   function eventAnchor(instance, now) {
@@ -548,19 +815,51 @@
     }
     const effectId = chooseEffectId(event);
     if (!effectId) return;
+
+    // 0.9.82IH: capture the combat target payload before any asynchronous effect
+    // loading. The old flow waited for JSON/PNG metadata first; by then currentMonster
+    // could have changed or the commit context could have lost its world position.
+    const groundRequired = shouldSnapshotGroundAnchor(skillEntry, event);
+    const payload = GROUND_SNAPSHOT_SKILL_IDS.has(Number(skillEntry?.skillId || 0)) && groundRequired
+      ? captureAuthoritativeGroundPayload(context.target, context.targetWorldPosition)
+      : captureTargetPayload(context.target, context.targetWorldPosition);
+    const fixedAnchor = captureGroundAnchor(
+      skillEntry,
+      event,
+      payload.targetObject,
+      payload.targetWorldPosition
+    );
+    if (groundRequired && !fixedAnchor) {
+      if (!context.__pendingGroundFlush) queuePendingGroundEvent(skillEntry, event, {
+        ...context,
+        target: payload.targetObject,
+        targetIdentity: payload.targetIdentity
+      });
+      else state.diagnostics.skippedGroundWithoutTarget++;
+      console.warn('[V92 SkillEffect] ground event waiting for target payload', {
+        skillId: skillEntry.skillId,
+        trigger: event.trigger,
+        phase: event.phase,
+        targetIdentity: payload.targetIdentity || null
+      });
+      return;
+    }
+
     const effect = await loadEffect(effectId);
     if (!effect || !isEligible(skillEntry.skillId)) return;
     const effectDuration = Math.max(1, Number(effect.durationSeconds || 0) * 1000);
     const eventDuration = Math.max(1, Number(event.duration_ms || effectDuration));
     const loop = event.trigger === 'LOOP_START' || String(event.phase || '').startsWith('LOOP');
     const instanceId = `${skillEntry.skillId}:${effectId}:${Date.now()}:${Math.random().toString(36).slice(2)}`;
-    const targetObject = context.target || currentMonsterObject();
-    const fixedAnchor = captureGroundAnchor(skillEntry, event, targetObject);
     if (fixedAnchor) state.diagnostics.fixedGroundAnchors++;
     const instance = {
       instanceId, skillId: skillEntry.skillId, skillKey: skillEntry.skillKey,
-      effectId, effect, event, targetObject, fixedAnchor,
-      startAt: Date.now(), castToken: context.token || null, visualDurationMs: loop ? eventDuration : Math.min(eventDuration, Math.max(effectDuration, 100)),
+      effectId, effect, event,
+      targetObject: payload.targetObject,
+      targetIdentity: payload.targetIdentity,
+      fixedAnchor,
+      startAt: Date.now(), castToken: context.token || null,
+      visualDurationMs: loop ? eventDuration : Math.min(eventDuration, Math.max(effectDuration, 100)),
       endAt: loop ? Date.now() + eventDuration : 0, loop
     };
     state.instances.push(instance);
@@ -574,9 +873,17 @@
   }
 
   function runTriggerGroup(skillEntry, triggerSet, context = {}) {
+    const payload = captureTargetPayload(context.target, context.targetWorldPosition);
+    const frozenContext = {
+      ...context,
+      target: payload.targetObject,
+      targetWorldPosition: payload.targetWorldPosition,
+      targetIdentity: payload.targetIdentity,
+      targetPayloadSource: payload.targetPayloadSource
+    };
     for (const event of skillEntry.events || []) {
       if (!triggerSet.has(event.trigger)) continue;
-      schedule(() => playEvent(skillEntry, event, context), event.offset_ms || 0);
+      schedule(() => playEvent(skillEntry, event, frozenContext), event.offset_ms || 0);
     }
   }
 
@@ -586,9 +893,23 @@
     const entry = state.skills.get(id);
     if (!entry) return null;
     const token = context.token || `${id}:${Date.now()}:${Math.random().toString(36).slice(2)}`;
-    state.latestCast.set(id, { token, startedAt: Date.now(), level, target: context.target || currentMonsterObject() });
+    const beginTarget = context.target || currentMonsterObject();
+    const payload = GROUND_SNAPSHOT_SKILL_IDS.has(id)
+      ? captureAuthoritativeGroundPayload(beginTarget, context.targetWorldPosition)
+      : captureTargetPayload(beginTarget, context.targetWorldPosition);
+    state.latestCast.set(id, {
+      token, startedAt: Date.now(), level,
+      target: payload.targetObject,
+      targetWorldPosition: payload.targetWorldPosition,
+      targetIdentity: payload.targetIdentity
+    });
+    if (payload.targetWorldPosition) state.latestTarget.set(id, payload);
     state.diagnostics.begins++;
-    runTriggerGroup(entry, BEGIN_TRIGGERS, { ...context, target: context.target || currentMonsterObject(), token, level });
+    runTriggerGroup(entry, BEGIN_TRIGGERS, {
+      ...context, target: payload.targetObject,
+      targetWorldPosition: payload.targetWorldPosition,
+      token, level
+    });
     return token;
   }
 
@@ -599,9 +920,21 @@
     if (!entry) return false;
     if (!state.latestCast.has(id)) onSkillBegin(skill, level, context);
     const cast = state.latestCast.get(id) || {};
-    const target = context.target || cast.target || currentMonsterObject();
+    const remembered = state.latestTarget.get(id) || {};
+    const commitTarget = context.target || cast.target || remembered.targetObject || currentMonsterObject();
+    const commitWorldPosition = context.targetWorldPosition || cast.targetWorldPosition || remembered.targetWorldPosition;
+    const payload = GROUND_SNAPSHOT_SKILL_IDS.has(id)
+      ? captureAuthoritativeGroundPayload(commitTarget, commitWorldPosition)
+      : captureTargetPayload(commitTarget, commitWorldPosition);
+    if (payload.targetWorldPosition) state.latestTarget.set(id, payload);
     state.diagnostics.commits++;
-    runTriggerGroup(entry, COMMIT_TRIGGERS, { ...context, target, level, token: cast.token });
+    runTriggerGroup(entry, COMMIT_TRIGGERS, {
+      ...context,
+      target: payload.targetObject,
+      targetWorldPosition: payload.targetWorldPosition,
+      targetIdentity: payload.targetIdentity,
+      level, token: cast.token
+    });
     schedule(() => state.latestCast.delete(id), 2000);
     return true;
   }
@@ -611,13 +944,26 @@
     const id = skillIdOf(skillOrId);
     const entry = state.skills.get(id);
     if (!entry) return false;
-    const targetKey = String(target?.runtimeId ?? target?.id ?? target?.mobId ?? 'main');
+    const payload = GROUND_SNAPSHOT_SKILL_IDS.has(id)
+      ? captureAuthoritativeGroundPayload(target || currentMonsterObject(), context.targetWorldPosition)
+      : captureTargetPayload(target || currentMonsterObject(), context.targetWorldPosition);
+    const targetKey = String(payload.targetIdentity || 'main');
     const key = `${id}:${targetKey}`;
     const now = Date.now();
     if (now - Number(state.lastHit.get(key) || 0) < 30) return false;
     state.lastHit.set(key, now);
+    if (payload.targetWorldPosition) {
+      state.latestTarget.set(id, payload);
+      repairRecentGroundAnchors(id, payload);
+      flushPendingGroundEvents(id, payload);
+    }
     state.diagnostics.hits++;
-    runTriggerGroup(entry, HIT_TRIGGERS, { ...context, target: target || currentMonsterObject() });
+    runTriggerGroup(entry, HIT_TRIGGERS, {
+      ...context,
+      target: payload.targetObject,
+      targetWorldPosition: payload.targetWorldPosition,
+      targetIdentity: payload.targetIdentity
+    });
     return true;
   }
 
@@ -638,6 +984,8 @@
     state.lifecycle.clear();
     state.latestCast.clear();
     state.lastHit.clear();
+    state.latestTarget.clear();
+    state.pendingGroundEvents.clear();
     if (state.canvases) {
       clearCanvas(state.canvases.backCtx, state.canvases);
       clearCanvas(state.canvases.frontCtx, state.canvases);
@@ -674,6 +1022,13 @@
     for (const [key, ids] of state.lifecycle.entries()) {
       if (!ids?.size) state.lifecycle.delete(key);
     }
+    const now = Date.now();
+    for (const [key, pending] of state.pendingGroundEvents.entries()) {
+      if (Number(pending.expiresAt || 0) <= now) {
+        state.pendingGroundEvents.delete(key);
+        state.diagnostics.skippedGroundWithoutTarget++;
+      }
+    }
   }
 
   async function init() {
@@ -692,7 +1047,7 @@
           version: VERSION, ready: true, skills: state.skills.size, effects: state.effects.size,
           passiveCandidatesExcluded: Number(manifest.scope?.excludedPassiveOrDisabledSkills || 0),
           localizationWriteback: false,
-          anchorPolicy: 'CASTER_LIVE_TARGET_LIVE_GROUND_WORLD_SNAPSHOT'
+          anchorPolicy: 'ACIDIFIED_EXACT_INSTANCE_ENTITY_FOOT_SNAPSHOT_CASTER_BUFFS_LIVE_TARGET_HITS_LIVE'
         };
         console.info(`[V92 SkillEffect] ready: ${state.skills.size} active skills / ${state.effects.size} effects; passive guard enabled.`);
         return true;
@@ -726,7 +1081,7 @@
     }
     return {
       pass: errors.length === 0, errors, skills: state.skills.size, effects: state.effects.size,
-      anchorPolicy: 'CASTER_LIVE_TARGET_LIVE_GROUND_WORLD_SNAPSHOT',
+      anchorPolicy: 'ACIDIFIED_EXACT_INSTANCE_ENTITY_FOOT_SNAPSHOT_CASTER_BUFFS_LIVE_TARGET_HITS_LIVE',
       groundSnapshotSkills: [...GROUND_SNAPSHOT_SKILL_IDS],
       diagnostics: { ...state.diagnostics }
     };
@@ -738,7 +1093,40 @@
     clearAll, selfTest,
     get ready() { return state.ready; },
     get status() { return window.RO_WEB_SKILL_EFFECT_RUNTIME_STATUS || { version: VERSION, ready: state.ready }; },
-    get diagnostics() { return { ...state.diagnostics, activeInstances: state.instances.length, activeLifecycles: state.lifecycle.size }; },
+    get diagnostics() {
+      return {
+        ...state.diagnostics,
+        activeInstances: state.instances.length,
+        activeLifecycles: state.lifecycle.size,
+        pendingGroundEvents: state.pendingGroundEvents.size
+      };
+    },
+    captureTargetPayload(target, explicitWorldPosition = null) {
+      const payload = captureTargetPayload(target, explicitWorldPosition);
+      return {
+        targetIdentity: payload.targetIdentity,
+        targetWorldPosition: payload.targetWorldPosition ? { ...payload.targetWorldPosition } : null,
+        targetPayloadSource: payload.targetPayloadSource
+      };
+    },
+    debugSnapshot() {
+      return {
+        pendingGroundEvents: state.pendingGroundEvents.size,
+        latestTargets: [...state.latestTarget.entries()].map(([skillId, payload]) => ({
+          skillId,
+          targetIdentity: payload.targetIdentity,
+          targetWorldPosition: payload.targetWorldPosition ? { ...payload.targetWorldPosition } : null
+        })),
+        instances: state.instances.map(instance => ({
+          skillId: instance.skillId,
+          effectId: instance.effectId,
+          trigger: instance.event?.trigger,
+          phase: instance.event?.phase,
+          targetIdentity: instance.targetIdentity,
+          fixedAnchor: instance.fixedAnchor ? JSON.parse(JSON.stringify(instance.fixedAnchor)) : null
+        }))
+      };
+    },
     resolveAnchorPolicy(skillId, event) {
       const entry = state.skills.get(Number(skillId)) || { skillId: Number(skillId) };
       if (shouldSnapshotGroundAnchor(entry, event || {})) return 'GROUND_WORLD_SNAPSHOT';

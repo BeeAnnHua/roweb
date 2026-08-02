@@ -124,14 +124,30 @@ function requestStatusUIUpdate(options = {}) {
 }
 
 function handleStatusWindowVisibilityChange(isOpen) {
+  const autoRunning = typeof isAutoBattleRunning === "function" && isAutoBattleRunning();
   if (!isOpen) {
     cancelScheduledStatusUIUpdate();
+    if (autoRunning && typeof recoverAutoBattleScheduler === "function") recoverAutoBattleScheduler("status_window_close");
+    else if (autoRunning && typeof wakeAutoBattleScheduler === "function") wakeAutoBattleScheduler("status_window_close");
     return false;
   }
   ensureStatusControlInteractionBinding();
-  const rendered = requestStatusUIUpdate({ force: true, reason: "status_window_open" });
-  if (typeof wakeAutoBattleScheduler === "function") wakeAutoBattleScheduler("status_window_open");
-  return rendered;
+  if (!autoRunning) return requestStatusUIUpdate({ force: true, reason: "status_window_open" });
+
+  // 0.9.82II：先讓戰鬥排程取得一個執行機會，再於下一動畫幀建立一次
+  // 素質快照；無論渲染成功或例外，最後都重建掛機 scheduler。
+  if (typeof recoverAutoBattleScheduler === "function") recoverAutoBattleScheduler("status_window_open_before_render");
+  else if (typeof wakeAutoBattleScheduler === "function") wakeAutoBattleScheduler("status_window_open_before_render");
+  const schedule = window.requestAnimationFrame || (fn => setTimeout(fn, 16));
+  schedule(() => {
+    try { requestStatusUIUpdate({ force: true, reason: "status_window_open_deferred" }); }
+    catch (error) { console.error('[Status 0.9.82II] deferred render failed', error); }
+    finally {
+      if (typeof recoverAutoBattleScheduler === "function") recoverAutoBattleScheduler("status_window_open_after_render");
+      else if (typeof wakeAutoBattleScheduler === "function") wakeAutoBattleScheduler("status_window_open_after_render");
+    }
+  });
+  return true;
 }
 
 async function loadStatusData() {

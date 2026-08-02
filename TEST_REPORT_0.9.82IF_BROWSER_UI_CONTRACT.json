@@ -1,0 +1,28 @@
+{
+  "title": "RO_WEB 0.9.82IF Chromium UI / Runtime Contract",
+  "pass": true,
+  "checks": {
+    "death_no_blur": true,
+    "death_bottom_aligned": true,
+    "death_dialog_compact": true,
+    "death_overlay_translucent": true,
+    "fixed_fly_layout": true,
+    "fixed_seconds_width": true,
+    "fixed_fly_runtime_present": true,
+    "global_boss_scan_present": true,
+    "utility_wake_during_long_cast": true,
+    "position_preserves_fixed_settings": true,
+    "converter_bypasses_generic_runtime": true,
+    "status_watchdog": true,
+    "town_no_retaliation_suppression": true
+  },
+  "computedStyles": {
+    "backdrop": "none",
+    "placeItems": "end center",
+    "background": "linear-gradient(rgba(3, 2, 3, 0.08), rgba(3, 2, 3, 0.22) 58%, rgba(3, 2, 3, 0.42))",
+    "dialogWidth": "390px",
+    "dialogBottom": "8px",
+    "fixedDisplay": "flex",
+    "secondsWidth": "72px"
+  }
+}

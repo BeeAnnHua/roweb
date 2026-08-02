@@ -38,6 +38,9 @@ let autoBattleWatchdogTimer = null;
 let autoBattleLastTickAt = 0;
 let autoBattleNextDueAt = 0;
 let autoBattleWakeReason = "";
+let autoBattleScheduleGeneration = 0;
+let autoBattleLastControllerErrorAt = 0;
+let autoBattleMutationBlockedSince = 0;
 let manualAttackTimer = null;
 let manualAttackRunning = false;
 let manualAttackTarget = null;
@@ -231,13 +234,25 @@ function scheduleAutoBattleTick(delayMs = null) {
   if (!autoBattleRunning) return false;
   const delay = delayMs === null ? getAutoBattleNextDelayMs() : Math.max(AUTO_BATTLE_MIN_SCHEDULE_MS, Number(delayMs || 0));
   if (autoBattleTimer) clearTimeout(autoBattleTimer);
+  const generation = ++autoBattleScheduleGeneration;
   autoBattleNextDueAt = Date.now() + delay;
   autoBattleTimer = setTimeout(() => {
+    if (generation !== autoBattleScheduleGeneration) return;
     autoBattleTimer = null;
     autoBattleNextDueAt = 0;
     if (!autoBattleRunning) return;
-    runAutoBattleControllerTick();
-    scheduleAutoBattleTick(getAutoBattleNextDelayMs());
+    try {
+      runAutoBattleControllerTick();
+    } catch (error) {
+      autoBattleLastControllerErrorAt = Date.now();
+      console.error('[AutoBattle 0.9.82II] controller tick recovered after error', error);
+    } finally {
+      // Always restore the scheduler. A status-window DOM rebuild or any one-off
+      // runtime exception must not permanently freeze auto battle until retoggled.
+      if (autoBattleRunning && generation === autoBattleScheduleGeneration) {
+        scheduleAutoBattleTick(getAutoBattleNextDelayMs());
+      }
+    }
   }, delay);
   return true;
 }
@@ -263,7 +278,12 @@ function startAutoBattleWatchdog() {
     const now = Date.now();
     const dueExpired = !autoBattleTimer || (autoBattleNextDueAt > 0 && now > autoBattleNextDueAt + 420);
     const tickStale = now - Number(autoBattleLastTickAt || 0) > 900;
-    if ((dueExpired || tickStale) && window.RO_WEB_PLAYER_BUILD_MUTATION !== true) {
+    if (window.RO_WEB_PLAYER_BUILD_MUTATION === true) {
+      if (!autoBattleMutationBlockedSince) autoBattleMutationBlockedSince = now;
+      return;
+    }
+    autoBattleMutationBlockedSince = 0;
+    if (dueExpired || tickStale) {
       autoBattleWakeReason = "watchdog";
       scheduleAutoBattleTick(AUTO_BATTLE_MIN_SCHEDULE_MS);
     }
@@ -275,6 +295,18 @@ function wakeAutoBattleScheduler(reason = "external_ui") {
   autoBattleWakeReason = String(reason || "external_ui");
   autoBattleLastTickAt = Date.now();
   return scheduleAutoBattleTick(AUTO_BATTLE_MIN_SCHEDULE_MS);
+}
+
+function recoverAutoBattleScheduler(reason = "recovery") {
+  if (!autoBattleRunning || !player || player.currentCity || Number(player.hp || 0) <= 0) return false;
+  autoBattleWakeReason = String(reason || "recovery");
+  // A generation bump invalidates a stale callback left behind by a large DOM rebuild.
+  if (autoBattleTimer) { clearTimeout(autoBattleTimer); autoBattleTimer = null; }
+  autoBattleNextDueAt = 0;
+  autoBattleLastTickAt = Date.now();
+  scheduleAutoBattleTick(AUTO_BATTLE_MIN_SCHEDULE_MS);
+  startAutoBattleWatchdog();
+  return true;
 }
 
 function isAutoBattleRunning() {
@@ -321,6 +353,7 @@ window.getAutoBattleNextDelayMs = getAutoBattleNextDelayMs;
 window.runAutoBattleControllerTick = runAutoBattleControllerTick;
 window.isAutoBattleRunning = isAutoBattleRunning;
 window.wakeAutoBattleScheduler = wakeAutoBattleScheduler;
+window.recoverAutoBattleScheduler = recoverAutoBattleScheduler;
 window.startAutoBattleWatchdog = startAutoBattleWatchdog;
 window.stopAutoBattleWatchdog = stopAutoBattleWatchdog;
 
@@ -501,6 +534,7 @@ function stopAutoBattle(options = {}) {
   if (options.keepResumePending !== true) window.RO_WEB_AUTO_BATTLE_RESUME_PENDING = false;
   const wasRunning = Boolean(autoBattleRunning || autoBattleTimer || spawnTimer);
   autoBattleRunning = false;
+  autoBattleScheduleGeneration += 1;
   updateAutoBattleQuickToggleState();
   stopAutoBattleWatchdog();
   autoBattleNextDueAt = 0;

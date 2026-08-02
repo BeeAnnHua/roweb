@@ -1,0 +1,16 @@
+{
+  "version": "0.9.82IG",
+  "title": "Acidified All-Phase Target Ground Anchor Fix",
+  "base": "0.9.82IF",
+  "changes": [
+    "Move all 29 non-cleanup events for skills 5340/5341/5342 to target ground world snapshots.",
+    "Give acidified-zone snapshot policy priority over generic CASTER anchor policy.",
+    "Keep no-caster-fallback pending HIT_CONFIRM behavior."
+  ],
+  "expectedVisual": "No acidified-zone layer remains attached to the player; every phase appears at the selected monster foot point.",
+  "v92": {
+    "skills": 55,
+    "effects": 454,
+    "passiveGate": true
+  }
+}

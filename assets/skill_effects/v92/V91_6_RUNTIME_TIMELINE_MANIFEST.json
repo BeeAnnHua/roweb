@@ -3187,180 +3187,191 @@
           "offset_ms": 0,
           "nominal_at_ms": 0,
           "phase": "CAST",
-          "target": "CASTER_BODY",
+          "target": "GROUND_CELL",
           "full_effect": "acidified_zone_water_cast_decb8e2dadb4",
           "min_effect": null,
           "fallback": "MIN_TO_FULL",
           "duration_ms": 900,
-          "runtime_condition": "Begin when RO_WEB starts the variable/fixed cast state.",
+          "runtime_condition": "RO_WEB adaptation: snapshot the selected monster foot world position when this event fires; never follow the caster or moving target afterward.",
           "source_effect_ids": [
             "acidified_zone_water_cast_decb8e2dadb4"
           ],
           "lifecycle_key": "",
-          "cleanup_only": false
+          "cleanup_only": false,
+          "original_target": "CASTER_BODY"
         },
         {
           "trigger": "CAST_BEGIN",
           "offset_ms": 0,
           "nominal_at_ms": 0,
           "phase": "CAST_BOTTOM",
-          "target": "CASTER_FOOT",
+          "target": "GROUND_CELL",
           "full_effect": "acidified_zone_water_cast_bottom_2c328c0803ee",
           "min_effect": null,
           "fallback": "MIN_TO_FULL",
           "duration_ms": 983,
-          "runtime_condition": "Begin when RO_WEB starts the variable/fixed cast state.",
+          "runtime_condition": "RO_WEB adaptation: snapshot the selected monster foot world position when this event fires; never follow the caster or moving target afterward.",
           "source_effect_ids": [
             "acidified_zone_water_cast_bottom_2c328c0803ee"
           ],
           "lifecycle_key": "",
-          "cleanup_only": false
+          "cleanup_only": false,
+          "original_target": "CASTER_FOOT"
         },
         {
           "trigger": "CAST_COMPLETE",
           "offset_ms": 0,
           "nominal_at_ms": 2500,
           "phase": "START",
-          "target": "TARGET_BODY",
+          "target": "GROUND_CELL",
           "full_effect": "acidified_zone_water_a_start_980f4966ae84",
           "min_effect": "min_acidified_zone_water_a_start_d6fc41f8fab0",
           "fallback": "NONE",
           "duration_ms": 200,
-          "runtime_condition": "Play at cast completion immediately before/with skill resolution.",
+          "runtime_condition": "RO_WEB adaptation: snapshot the selected monster foot world position when this event fires; never follow the caster or moving target afterward.",
           "source_effect_ids": [
             "acidified_zone_water_a_start_980f4966ae84",
             "min_acidified_zone_water_a_start_d6fc41f8fab0"
           ],
           "lifecycle_key": "",
-          "cleanup_only": false
+          "cleanup_only": false,
+          "original_target": "TARGET_BODY"
         },
         {
           "trigger": "CAST_COMPLETE",
           "offset_ms": 0,
           "nominal_at_ms": 2500,
           "phase": "START_BOTTOM",
-          "target": "TARGET_FOOT",
+          "target": "GROUND_CELL",
           "full_effect": "acidified_zone_water_a_start_bottom_e44de829baa8",
           "min_effect": null,
           "fallback": "MIN_TO_FULL",
           "duration_ms": 167,
-          "runtime_condition": "Play at cast completion immediately before/with skill resolution.",
+          "runtime_condition": "RO_WEB adaptation: snapshot the selected monster foot world position when this event fires; never follow the caster or moving target afterward.",
           "source_effect_ids": [
             "acidified_zone_water_a_start_bottom_e44de829baa8"
           ],
           "lifecycle_key": "",
-          "cleanup_only": false
+          "cleanup_only": false,
+          "original_target": "TARGET_FOOT"
         },
         {
           "trigger": "GROUND_SPAWN",
           "offset_ms": 0,
           "nominal_at_ms": 2500,
           "phase": "BOTTOM",
-          "target": "TARGET_FOOT",
+          "target": "GROUND_CELL",
           "full_effect": "acidified_zone_water_b_bottom_b91de463e486",
           "min_effect": "min_acidified_zone_water_b_bottom_01d6adc4d78b",
           "fallback": "NONE",
           "duration_ms": 650,
-          "runtime_condition": "Spawn at the runtime target/caster foot when the skill commits.",
+          "runtime_condition": "RO_WEB adaptation: snapshot the selected monster foot world position when this event fires; never follow the caster or moving target afterward.",
           "source_effect_ids": [
             "acidified_zone_water_b_bottom_b91de463e486",
             "min_acidified_zone_water_b_bottom_01d6adc4d78b"
           ],
           "lifecycle_key": "",
-          "cleanup_only": false
+          "cleanup_only": false,
+          "original_target": "TARGET_FOOT"
         },
         {
           "trigger": "DAMAGE_COMMIT",
           "offset_ms": 0,
           "nominal_at_ms": 2500,
           "phase": "MAIN",
-          "target": "TARGET_BODY",
+          "target": "GROUND_CELL",
           "full_effect": "acidified_zone_water_b_7c312863250a",
           "min_effect": "min_acidified_zone_water_b_21fc4c8d7371",
           "fallback": "NONE",
           "duration_ms": 650,
-          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "runtime_condition": "RO_WEB adaptation: snapshot the selected monster foot world position when this event fires; never follow the caster or moving target afterward.",
           "source_effect_ids": [
             "acidified_zone_water_b_7c312863250a",
             "min_acidified_zone_water_b_21fc4c8d7371"
           ],
           "lifecycle_key": "",
-          "cleanup_only": false
+          "cleanup_only": false,
+          "original_target": "TARGET_BODY"
         },
         {
           "trigger": "DAMAGE_COMMIT",
           "offset_ms": 0,
           "nominal_at_ms": 2500,
           "phase": "MAIN",
-          "target": "TARGET_BODY",
+          "target": "GROUND_CELL",
           "full_effect": "acidified_zone_water_c_9f0c800f335a",
           "min_effect": "min_acidified_zone_water_c_8048edeb3fdf",
           "fallback": "NONE",
           "duration_ms": 417,
-          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "runtime_condition": "RO_WEB adaptation: snapshot the selected monster foot world position when this event fires; never follow the caster or moving target afterward.",
           "source_effect_ids": [
             "acidified_zone_water_c_9f0c800f335a",
             "min_acidified_zone_water_c_8048edeb3fdf"
           ],
           "lifecycle_key": "",
-          "cleanup_only": false
+          "cleanup_only": false,
+          "original_target": "TARGET_BODY"
         },
         {
           "trigger": "DAMAGE_COMMIT",
           "offset_ms": 0,
           "nominal_at_ms": 2500,
           "phase": "MAIN",
-          "target": "TARGET_BODY",
+          "target": "GROUND_CELL",
           "full_effect": "acidified_zone_water_c_c83b48ca8c89",
           "min_effect": "min_acidified_zone_water_c_bfd1ef941665",
           "fallback": "NONE",
           "duration_ms": 417,
-          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "runtime_condition": "RO_WEB adaptation: snapshot the selected monster foot world position when this event fires; never follow the caster or moving target afterward.",
           "source_effect_ids": [
             "acidified_zone_water_c_c83b48ca8c89",
             "min_acidified_zone_water_c_bfd1ef941665"
           ],
           "lifecycle_key": "",
-          "cleanup_only": false
+          "cleanup_only": false,
+          "original_target": "TARGET_BODY"
         },
         {
           "trigger": "DAMAGE_COMMIT",
           "offset_ms": 0,
           "nominal_at_ms": 2500,
           "phase": "MAIN",
-          "target": "TARGET_BODY",
+          "target": "GROUND_CELL",
           "full_effect": "acidified_zone_water_water_aab7355d5771",
           "min_effect": "min_acidified_zone_water_water_4f344d665266",
           "fallback": "NONE",
           "duration_ms": 1400,
-          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "runtime_condition": "RO_WEB adaptation: snapshot the selected monster foot world position when this event fires; never follow the caster or moving target afterward.",
           "source_effect_ids": [
             "acidified_zone_water_water_aab7355d5771",
             "min_acidified_zone_water_water_4f344d665266"
           ],
           "lifecycle_key": "",
-          "cleanup_only": false
+          "cleanup_only": false,
+          "original_target": "TARGET_BODY"
         },
         {
           "trigger": "HIT_CONFIRM",
           "offset_ms": 250,
           "nominal_at_ms": 2750,
           "phase": "HIT",
-          "target": "TARGET_BODY",
+          "target": "GROUND_CELL",
           "full_effect": "acidified_zone_water_hit_fac72739c471",
           "min_effect": "min_acidified_zone_water_hit_a8dca36785cd",
           "fallback": "NONE",
           "duration_ms": 500,
-          "runtime_condition": "Play on each runtime hit confirmation; preview adds nominal travel only for ranged targets.",
+          "runtime_condition": "RO_WEB adaptation: snapshot the selected monster foot world position when this event fires; never follow the caster or moving target afterward.",
           "source_effect_ids": [
             "acidified_zone_water_hit_fac72739c471",
             "min_acidified_zone_water_hit_a8dca36785cd"
           ],
           "lifecycle_key": "",
-          "cleanup_only": false
+          "cleanup_only": false,
+          "original_target": "TARGET_BODY"
         }
       ],
-      "gateState": "PASS"
+      "gateState": "PASS",
+      "runtimeAnchorAdaptation": "ACIDIFIED_ALL_PHASE_TARGET_GROUND_SNAPSHOT"
     },
     {
       "skillId": 5341,
@@ -3408,178 +3419,189 @@
           "offset_ms": 0,
           "nominal_at_ms": 0,
           "phase": "CAST",
-          "target": "CASTER_BODY",
+          "target": "GROUND_CELL",
           "full_effect": "acidified_zone_ground_cast_664773431561",
           "min_effect": null,
           "fallback": "MIN_TO_FULL",
           "duration_ms": 900,
-          "runtime_condition": "Begin when RO_WEB starts the variable/fixed cast state.",
+          "runtime_condition": "RO_WEB adaptation: snapshot the selected monster foot world position when this event fires; never follow the caster or moving target afterward.",
           "source_effect_ids": [
             "acidified_zone_ground_cast_664773431561"
           ],
           "lifecycle_key": "",
-          "cleanup_only": false
+          "cleanup_only": false,
+          "original_target": "CASTER_BODY"
         },
         {
           "trigger": "CAST_BEGIN",
           "offset_ms": 0,
           "nominal_at_ms": 0,
           "phase": "CAST_BOTTOM",
-          "target": "CASTER_FOOT",
+          "target": "GROUND_CELL",
           "full_effect": "acidified_zone_ground_cast_bottom_4baae623c81f",
           "min_effect": null,
           "fallback": "MIN_TO_FULL",
           "duration_ms": 983,
-          "runtime_condition": "Begin when RO_WEB starts the variable/fixed cast state.",
+          "runtime_condition": "RO_WEB adaptation: snapshot the selected monster foot world position when this event fires; never follow the caster or moving target afterward.",
           "source_effect_ids": [
             "acidified_zone_ground_cast_bottom_4baae623c81f"
           ],
           "lifecycle_key": "",
-          "cleanup_only": false
+          "cleanup_only": false,
+          "original_target": "CASTER_FOOT"
         },
         {
           "trigger": "CAST_COMPLETE",
           "offset_ms": 0,
           "nominal_at_ms": 2500,
           "phase": "START",
-          "target": "TARGET_BODY",
+          "target": "GROUND_CELL",
           "full_effect": "acidified_zone_ground_a_start_060cc4184c32",
           "min_effect": "min_acidified_zone_ground_a_start_f4e823b3cc5f",
           "fallback": "NONE",
           "duration_ms": 250,
-          "runtime_condition": "Play at cast completion immediately before/with skill resolution.",
+          "runtime_condition": "RO_WEB adaptation: snapshot the selected monster foot world position when this event fires; never follow the caster or moving target afterward.",
           "source_effect_ids": [
             "acidified_zone_ground_a_start_060cc4184c32",
             "min_acidified_zone_ground_a_start_f4e823b3cc5f"
           ],
           "lifecycle_key": "",
-          "cleanup_only": false
+          "cleanup_only": false,
+          "original_target": "TARGET_BODY"
         },
         {
           "trigger": "CAST_COMPLETE",
           "offset_ms": 0,
           "nominal_at_ms": 2500,
           "phase": "START_BOTTOM",
-          "target": "TARGET_FOOT",
+          "target": "GROUND_CELL",
           "full_effect": "acidified_zone_ground_a_start_bottom_4fc05d682a03",
           "min_effect": null,
           "fallback": "MIN_TO_FULL",
           "duration_ms": 200,
-          "runtime_condition": "Play at cast completion immediately before/with skill resolution.",
+          "runtime_condition": "RO_WEB adaptation: snapshot the selected monster foot world position when this event fires; never follow the caster or moving target afterward.",
           "source_effect_ids": [
             "acidified_zone_ground_a_start_bottom_4fc05d682a03"
           ],
           "lifecycle_key": "",
-          "cleanup_only": false
+          "cleanup_only": false,
+          "original_target": "TARGET_FOOT"
         },
         {
           "trigger": "GROUND_SPAWN",
           "offset_ms": 0,
           "nominal_at_ms": 2500,
           "phase": "BOTTOM",
-          "target": "TARGET_FOOT",
+          "target": "GROUND_CELL",
           "full_effect": "acidified_zone_ground_b_bottom_722a371965e6",
           "min_effect": null,
           "fallback": "MIN_TO_FULL",
           "duration_ms": 650,
-          "runtime_condition": "Spawn at the runtime target/caster foot when the skill commits.",
+          "runtime_condition": "RO_WEB adaptation: snapshot the selected monster foot world position when this event fires; never follow the caster or moving target afterward.",
           "source_effect_ids": [
             "acidified_zone_ground_b_bottom_722a371965e6"
           ],
           "lifecycle_key": "",
-          "cleanup_only": false
+          "cleanup_only": false,
+          "original_target": "TARGET_FOOT"
         },
         {
           "trigger": "DAMAGE_COMMIT",
           "offset_ms": 0,
           "nominal_at_ms": 2500,
           "phase": "MAIN",
-          "target": "TARGET_BODY",
+          "target": "GROUND_CELL",
           "full_effect": "acidified_zone_ground_a_8cf126006e1f",
           "min_effect": null,
           "fallback": "MIN_TO_FULL",
           "duration_ms": 983,
-          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "runtime_condition": "RO_WEB adaptation: snapshot the selected monster foot world position when this event fires; never follow the caster or moving target afterward.",
           "source_effect_ids": [
             "acidified_zone_ground_a_8cf126006e1f"
           ],
           "lifecycle_key": "",
-          "cleanup_only": false
+          "cleanup_only": false,
+          "original_target": "TARGET_BODY"
         },
         {
           "trigger": "DAMAGE_COMMIT",
           "offset_ms": 0,
           "nominal_at_ms": 2500,
           "phase": "MAIN",
-          "target": "TARGET_BODY",
+          "target": "GROUND_CELL",
           "full_effect": "acidified_zone_ground_b_983e4ae5a03d",
           "min_effect": "min_acidified_zone_ground_b_f3c5ee806ae8",
           "fallback": "NONE",
           "duration_ms": 650,
-          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "runtime_condition": "RO_WEB adaptation: snapshot the selected monster foot world position when this event fires; never follow the caster or moving target afterward.",
           "source_effect_ids": [
             "acidified_zone_ground_b_983e4ae5a03d",
             "min_acidified_zone_ground_b_f3c5ee806ae8"
           ],
           "lifecycle_key": "",
-          "cleanup_only": false
+          "cleanup_only": false,
+          "original_target": "TARGET_BODY"
         },
         {
           "trigger": "DAMAGE_COMMIT",
           "offset_ms": 0,
           "nominal_at_ms": 2500,
           "phase": "MAIN",
-          "target": "TARGET_BODY",
+          "target": "GROUND_CELL",
           "full_effect": "acidified_zone_ground_c_f2e01137c045",
           "min_effect": "min_acidified_zone_ground_c_f913a87a3fd2",
           "fallback": "NONE",
           "duration_ms": 417,
-          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "runtime_condition": "RO_WEB adaptation: snapshot the selected monster foot world position when this event fires; never follow the caster or moving target afterward.",
           "source_effect_ids": [
             "acidified_zone_ground_c_f2e01137c045",
             "min_acidified_zone_ground_c_f913a87a3fd2"
           ],
           "lifecycle_key": "",
-          "cleanup_only": false
+          "cleanup_only": false,
+          "original_target": "TARGET_BODY"
         },
         {
           "trigger": "DAMAGE_COMMIT",
           "offset_ms": 0,
           "nominal_at_ms": 2500,
           "phase": "MAIN",
-          "target": "TARGET_BODY",
+          "target": "GROUND_CELL",
           "full_effect": "acidified_zone_ground_water_7807afecd8f4",
           "min_effect": "min_acidified_zone_ground_water_546df7f80375",
           "fallback": "NONE",
           "duration_ms": 1400,
-          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "runtime_condition": "RO_WEB adaptation: snapshot the selected monster foot world position when this event fires; never follow the caster or moving target afterward.",
           "source_effect_ids": [
             "acidified_zone_ground_water_7807afecd8f4",
             "min_acidified_zone_ground_water_546df7f80375"
           ],
           "lifecycle_key": "",
-          "cleanup_only": false
+          "cleanup_only": false,
+          "original_target": "TARGET_BODY"
         },
         {
           "trigger": "HIT_CONFIRM",
           "offset_ms": 250,
           "nominal_at_ms": 2750,
           "phase": "HIT",
-          "target": "TARGET_BODY",
+          "target": "GROUND_CELL",
           "full_effect": "acidified_zone_ground_hit_4edf08d68f2e",
           "min_effect": "min_acidified_zone_ground_hit_ffb0d59d37fa",
           "fallback": "NONE",
           "duration_ms": 500,
-          "runtime_condition": "Play on each runtime hit confirmation; preview adds nominal travel only for ranged targets.",
+          "runtime_condition": "RO_WEB adaptation: snapshot the selected monster foot world position when this event fires; never follow the caster or moving target afterward.",
           "source_effect_ids": [
             "acidified_zone_ground_hit_4edf08d68f2e",
             "min_acidified_zone_ground_hit_ffb0d59d37fa"
           ],
           "lifecycle_key": "",
-          "cleanup_only": false
+          "cleanup_only": false,
+          "original_target": "TARGET_BODY"
         }
       ],
-      "gateState": "PASS"
+      "gateState": "PASS",
+      "runtimeAnchorAdaptation": "ACIDIFIED_ALL_PHASE_TARGET_GROUND_SNAPSHOT"
     },
     {
       "skillId": 5342,
@@ -3627,162 +3649,172 @@
           "offset_ms": 0,
           "nominal_at_ms": 0,
           "phase": "CAST",
-          "target": "CASTER_BODY",
+          "target": "GROUND_CELL",
           "full_effect": "acidified_zone_wind_cast_5310f2c72b97",
           "min_effect": null,
           "fallback": "MIN_TO_FULL",
           "duration_ms": 900,
-          "runtime_condition": "Begin when RO_WEB starts the variable/fixed cast state.",
+          "runtime_condition": "RO_WEB adaptation: snapshot the selected monster foot world position when this event fires; never follow the caster or moving target afterward.",
           "source_effect_ids": [
             "acidified_zone_wind_cast_5310f2c72b97"
           ],
           "lifecycle_key": "",
-          "cleanup_only": false
+          "cleanup_only": false,
+          "original_target": "CASTER_BODY"
         },
         {
           "trigger": "CAST_BEGIN",
           "offset_ms": 0,
           "nominal_at_ms": 0,
           "phase": "CAST_BOTTOM",
-          "target": "CASTER_FOOT",
+          "target": "GROUND_CELL",
           "full_effect": "acidified_zone_wind_cast_bottom_d89f8f1e0642",
           "min_effect": "min_acidified_zone_wind_cast_bottom_68d391be03f9",
           "fallback": "NONE",
           "duration_ms": 983,
-          "runtime_condition": "Begin when RO_WEB starts the variable/fixed cast state.",
+          "runtime_condition": "RO_WEB adaptation: snapshot the selected monster foot world position when this event fires; never follow the caster or moving target afterward.",
           "source_effect_ids": [
             "acidified_zone_wind_cast_bottom_d89f8f1e0642",
             "min_acidified_zone_wind_cast_bottom_68d391be03f9"
           ],
           "lifecycle_key": "",
-          "cleanup_only": false
+          "cleanup_only": false,
+          "original_target": "CASTER_FOOT"
         },
         {
           "trigger": "CAST_COMPLETE",
           "offset_ms": 0,
           "nominal_at_ms": 2500,
           "phase": "START",
-          "target": "TARGET_BODY",
+          "target": "GROUND_CELL",
           "full_effect": "acidified_zone_wind_a_start_96c0c38338f8",
           "min_effect": "min_acidified_zone_wind_a_start_4cfd669d11af",
           "fallback": "NONE",
           "duration_ms": 167,
-          "runtime_condition": "Play at cast completion immediately before/with skill resolution.",
+          "runtime_condition": "RO_WEB adaptation: snapshot the selected monster foot world position when this event fires; never follow the caster or moving target afterward.",
           "source_effect_ids": [
             "acidified_zone_wind_a_start_96c0c38338f8",
             "min_acidified_zone_wind_a_start_4cfd669d11af"
           ],
           "lifecycle_key": "",
-          "cleanup_only": false
+          "cleanup_only": false,
+          "original_target": "TARGET_BODY"
         },
         {
           "trigger": "CAST_COMPLETE",
           "offset_ms": 0,
           "nominal_at_ms": 2500,
           "phase": "START_BOTTOM",
-          "target": "TARGET_FOOT",
+          "target": "GROUND_CELL",
           "full_effect": "acidified_zone_wind_a_start_bottom_c3890c5acc3b",
           "min_effect": null,
           "fallback": "MIN_TO_FULL",
           "duration_ms": 167,
-          "runtime_condition": "Play at cast completion immediately before/with skill resolution.",
+          "runtime_condition": "RO_WEB adaptation: snapshot the selected monster foot world position when this event fires; never follow the caster or moving target afterward.",
           "source_effect_ids": [
             "acidified_zone_wind_a_start_bottom_c3890c5acc3b"
           ],
           "lifecycle_key": "",
-          "cleanup_only": false
+          "cleanup_only": false,
+          "original_target": "TARGET_FOOT"
         },
         {
           "trigger": "GROUND_SPAWN",
           "offset_ms": 0,
           "nominal_at_ms": 2500,
           "phase": "BOTTOM",
-          "target": "TARGET_FOOT",
+          "target": "GROUND_CELL",
           "full_effect": "acidified_zone_wind_b_bottom_b87ce30aa68e",
           "min_effect": "min_acidified_zone_wind_b_bottom_34ecb81135a8",
           "fallback": "NONE",
           "duration_ms": 650,
-          "runtime_condition": "Spawn at the runtime target/caster foot when the skill commits.",
+          "runtime_condition": "RO_WEB adaptation: snapshot the selected monster foot world position when this event fires; never follow the caster or moving target afterward.",
           "source_effect_ids": [
             "acidified_zone_wind_b_bottom_b87ce30aa68e",
             "min_acidified_zone_wind_b_bottom_34ecb81135a8"
           ],
           "lifecycle_key": "",
-          "cleanup_only": false
+          "cleanup_only": false,
+          "original_target": "TARGET_FOOT"
         },
         {
           "trigger": "DAMAGE_COMMIT",
           "offset_ms": 0,
           "nominal_at_ms": 2500,
           "phase": "MAIN",
-          "target": "TARGET_BODY",
+          "target": "GROUND_CELL",
           "full_effect": "acidified_zone_wind_b_1a22ad3530a5",
           "min_effect": "min_acidified_zone_wind_b_88a4f6a494df",
           "fallback": "NONE",
           "duration_ms": 650,
-          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "runtime_condition": "RO_WEB adaptation: snapshot the selected monster foot world position when this event fires; never follow the caster or moving target afterward.",
           "source_effect_ids": [
             "acidified_zone_wind_b_1a22ad3530a5",
             "min_acidified_zone_wind_b_88a4f6a494df"
           ],
           "lifecycle_key": "",
-          "cleanup_only": false
+          "cleanup_only": false,
+          "original_target": "TARGET_BODY"
         },
         {
           "trigger": "DAMAGE_COMMIT",
           "offset_ms": 0,
           "nominal_at_ms": 2500,
           "phase": "MAIN",
-          "target": "TARGET_BODY",
+          "target": "GROUND_CELL",
           "full_effect": "acidified_zone_wind_c_833b109bef85",
           "min_effect": null,
           "fallback": "MIN_TO_FULL",
           "duration_ms": 417,
-          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "runtime_condition": "RO_WEB adaptation: snapshot the selected monster foot world position when this event fires; never follow the caster or moving target afterward.",
           "source_effect_ids": [
             "acidified_zone_wind_c_833b109bef85"
           ],
           "lifecycle_key": "",
-          "cleanup_only": false
+          "cleanup_only": false,
+          "original_target": "TARGET_BODY"
         },
         {
           "trigger": "DAMAGE_COMMIT",
           "offset_ms": 0,
           "nominal_at_ms": 2500,
           "phase": "MAIN",
-          "target": "TARGET_BODY",
+          "target": "GROUND_CELL",
           "full_effect": "acidified_zone_wind_water_c05c561d9425",
           "min_effect": "min_acidified_zone_wind_water_27354fdd1fa5",
           "fallback": "NONE",
           "duration_ms": 1400,
-          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "runtime_condition": "RO_WEB adaptation: snapshot the selected monster foot world position when this event fires; never follow the caster or moving target afterward.",
           "source_effect_ids": [
             "acidified_zone_wind_water_c05c561d9425",
             "min_acidified_zone_wind_water_27354fdd1fa5"
           ],
           "lifecycle_key": "",
-          "cleanup_only": false
+          "cleanup_only": false,
+          "original_target": "TARGET_BODY"
         },
         {
           "trigger": "HIT_CONFIRM",
           "offset_ms": 250,
           "nominal_at_ms": 2750,
           "phase": "HIT",
-          "target": "TARGET_BODY",
+          "target": "GROUND_CELL",
           "full_effect": "acidified_zone_wind_hit_a73fac771d1b",
           "min_effect": "min_acidified_zone_wind_hit_0093bcc5d422",
           "fallback": "NONE",
           "duration_ms": 500,
-          "runtime_condition": "Play on each runtime hit confirmation; preview adds nominal travel only for ranged targets.",
+          "runtime_condition": "RO_WEB adaptation: snapshot the selected monster foot world position when this event fires; never follow the caster or moving target afterward.",
           "source_effect_ids": [
             "acidified_zone_wind_hit_a73fac771d1b",
             "min_acidified_zone_wind_hit_0093bcc5d422"
           ],
           "lifecycle_key": "",
-          "cleanup_only": false
+          "cleanup_only": false,
+          "original_target": "TARGET_BODY"
         }
       ],
-      "gateState": "PASS"
+      "gateState": "PASS",
+      "runtimeAnchorAdaptation": "ACIDIFIED_ALL_PHASE_TARGET_GROUND_SNAPSHOT"
     },
     {
       "skillId": 5351,
@@ -6294,5 +6326,17 @@
     "reviewAndBlockedExcluded": 0,
     "deploymentRequiresGatePass": true,
     "webJsonCompatibilityRequired": true
+  },
+  "runtimeAdaptations": {
+    "acidifiedZoneAnchorPolicy": {
+      "skillIds": [
+        5340,
+        5341,
+        5342
+      ],
+      "policy": "ALL_VISUAL_PHASES_TARGET_GROUND_WORLD_SNAPSHOT",
+      "reason": "RO_WEB acidified zones resolve directly on the selected monster; no caster-following visual is allowed.",
+      "fallback": "WAIT_FOR_AUTHORITATIVE_TARGET_PAYLOAD; NEVER_CASTER"
+    }
   }
 }

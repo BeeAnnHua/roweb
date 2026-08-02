@@ -1382,15 +1382,11 @@ function worldMonsterAttackPlayer(entity) {
     if (typeof updateMonsterUI === "function") updateMonsterUI();
   }
 
-  // HS：未開掛機時，主動怪第一次攻擊玩家會啟動手動普通攻擊反擊。
-  // 已手動鎖定其他目標時保留玩家選擇，不讓旁邊怪物搶走鎖定。
-  if (!autoRunning && Number(player.hp || 0) > 0 && typeof requestManualRetaliationAgainstMonster === "function") {
-    const hadOtherManualTarget = manualRunningBefore && manualTargetBefore && manualTargetBefore !== entity
-      && Number(manualTargetBefore.currentHp ?? manualTargetBefore.hp ?? 0) > 0 && !manualTargetBefore._deathHandled;
-    const hadOtherSelectedTarget = previousStillValid;
-    if (!hadOtherManualTarget && !hadOtherSelectedTarget) {
-      requestManualRetaliationAgainstMonster(entity, { announce: true });
-    }
+  // 0.9.82II：未開啟自動掛機時，主動怪可以攻擊玩家，但不得自動啟動
+  // 玩家連續反擊。這避免重新載入／進圖後按鈕未亮卻自行打怪；玩家仍可
+  // 手動點擊怪物開始普通攻擊，或明確開啟自動掛機。
+  if (!autoRunning && !manualRunningBefore && !previousStillValid && player && player.state === "Attacking") {
+    player.state = "Idle";
   }
 }
 

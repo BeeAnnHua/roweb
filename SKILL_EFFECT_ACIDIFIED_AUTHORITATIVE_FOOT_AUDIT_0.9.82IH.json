@@ -1,0 +1,37 @@
+{
+  "schema": "ro-web-0.9.82IH-acidified-authoritative-foot-audit-1.0",
+  "version": "0.9.82IH",
+  "baseVersion": "0.9.82IG",
+  "skills": [
+    {
+      "skillId": 5340,
+      "skillKey": "BO_ACIDIFIED_ZONE_WATER"
+    },
+    {
+      "skillId": 5341,
+      "skillKey": "BO_ACIDIFIED_ZONE_GROUND"
+    },
+    {
+      "skillId": 5342,
+      "skillKey": "BO_ACIDIFIED_ZONE_WIND"
+    }
+  ],
+  "authoritativeOrder": [
+    "TARGET_ELEMENT_FOOT_WORLD",
+    "TARGET_ENTITY_POSITION",
+    "TARGET_DAMAGE_ANCHOR_TO_FOOT",
+    "EVENT_PAYLOAD_LAST_RESORT"
+  ],
+  "rejected": [
+    "PLAYER_OBJECT_AS_GROUND_TARGET",
+    "PLAYER_ELEMENT_AS_GROUND_TARGET",
+    "CASTER_PAYLOAD_AS_PRIMARY_GROUND_SOURCE"
+  ],
+  "hitConfirmPolicy": "FORCE_RELOCATE_ALL_RECENT_ACIDIFIED_PHASES_WITHIN_3000MS",
+  "manifestPolicy": "ALL_29_NON_CLEANUP_EVENTS_REMAIN_GROUND_CELL",
+  "expectedBehavior": {
+    "playerMoves": "effect_remains_at_original_monster_ground_point",
+    "monsterMoves": "effect_remains_at_snapshot_point",
+    "cameraMoves": "world_point_is_reprojected_to_screen"
+  }
+}

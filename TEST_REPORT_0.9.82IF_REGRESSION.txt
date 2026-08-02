@@ -1,0 +1,11 @@
+RO_WEB 0.9.82IF Regression
+================================================================
+Result: PASS
+Passed: 6
+Failed: 0
+PASS - status window uses frozen combat snapshot and scheduler wake/watchdog
+PASS - incorrect speculative alchemist skill-selector persistence was removed
+PASS - town logs exact stop message only when auto battle was active
+PASS - MVP arena uses Violent Coelacanth 2190 instead of magic-immune Mutant 2189
+PASS - combat formula distinguishes coelacanth immunities and Boitata Fire3 / DamageTaken 10
+PASS - refine warning covers +7 blessing stage and +14 to +15 unavailable stage

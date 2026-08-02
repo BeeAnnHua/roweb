@@ -25,11 +25,46 @@ function getLevelValue(value, level, fallback = 0) {
   return Number(value ?? fallback);
 }
 
+let roRuntimeProfileKeyIndex = null;
+function rebuildRuntimeProfileKeyIndex() {
+  const index = new Map();
+  for (const [id, row] of Object.entries(skillsData?.runtimeProfiles || {})) {
+    const keys = [row?.skillKey, row?.key, row?.runtimeProfile?.skillKey, skillsData?.skillIndex?.[id]?.key, skillsData?.skillIndex?.[id]?.skillKey]
+      .filter(Boolean).map(value => String(value).toUpperCase());
+    for (const key of keys) if (!index.has(key)) index.set(key, String(id));
+  }
+  roRuntimeProfileKeyIndex = index;
+  return index;
+}
+
+function resolveSkillRuntimeProfileRow(skillOrId) {
+  const profiles = skillsData?.runtimeProfiles || {};
+  if (skillOrId && typeof skillOrId === "object") {
+    const key = String(skillOrId.skillKey ?? skillOrId.key ?? skillOrId.runtimeKey ?? "").toUpperCase();
+    // Chain Lightning's public skill key is authoritative. Some copied/quick-slot
+    // objects carry a local id or WL_CHAINLIGHTNING_ATK bonus key; both must resolve
+    // to the castable WL_CHAINLIGHTNING profile (2214), not a different handler.
+    if (key === "WL_CHAINLIGHTNING" || key === "WL_CHAINLIGHTNING_ATK") return profiles["2214"] || null;
+    const candidates = [skillOrId.officialId, skillOrId.skillId, skillOrId.id]
+      .map(value => String(value ?? "")).filter(Boolean);
+    for (const id of candidates) if (profiles[id]) return profiles[id];
+    if (key) {
+      const index = roRuntimeProfileKeyIndex || rebuildRuntimeProfileKeyIndex();
+      const id = index.get(key);
+      if (id && profiles[id]) return profiles[id];
+    }
+    return null;
+  }
+  return profiles[String(skillOrId ?? "")] || null;
+}
+
 function getSkillRuntimeProfile(skillOrId) {
-  const id = String(typeof skillOrId === "object" ? (skillOrId.officialId ?? skillOrId.id) : skillOrId);
-  const row = skillsData?.runtimeProfiles?.[id] || null;
+  const row = resolveSkillRuntimeProfileRow(skillOrId);
   return row?.runtimeProfile || row;
 }
+
+window.getSkillRuntimeProfile = getSkillRuntimeProfile;
+window.resolveSkillRuntimeProfileRow = resolveSkillRuntimeProfileRow;
 
 function isSkillRuntimeReady(skillOrId) {
   const profile = getSkillRuntimeProfile(skillOrId);
@@ -1096,6 +1131,56 @@ function getRuntimeSkillCastBeginLockMs(skill, level = 1) {
   return getRuntimeSkillCastBeginLockProfile(skill, level).lockMs;
 }
 
+
+function getSkillEffectTargetWorldPosition(target) {
+  if (!target || typeof target !== "object") return null;
+  const candidates = [
+    target.position,
+    target.worldPosition,
+    target._worldPosition,
+    target,
+    target._damageNumberAnchorWorld
+  ];
+  for (const candidate of candidates) {
+    if (!candidate || typeof candidate !== "object") continue;
+    const x = Number(candidate.x ?? candidate.worldX);
+    const y = Number(candidate.y ?? candidate.worldY);
+    if (Number.isFinite(x) && Number.isFinite(y)) return { x, y };
+  }
+  const element = target._element || target.element || target.domElement || null;
+  if (element?.getBoundingClientRect) {
+    const field = document.getElementById?.("battle-field");
+    const rect = element.getBoundingClientRect();
+    const fieldRect = field?.getBoundingClientRect?.();
+    if (fieldRect && rect.width > 0 && rect.height > 0) {
+      let camera = { x:0, y:0 };
+      try { if (typeof getMapCameraOffset === "function") camera = getMapCameraOffset() || camera; } catch (_) {}
+      const sx = Number(field?.clientWidth || fieldRect.width || 1280) / Math.max(1, Number(fieldRect.width || 1280));
+      const sy = Number(field?.clientHeight || fieldRect.height || 720) / Math.max(1, Number(fieldRect.height || 720));
+      return {
+        x:(rect.left - fieldRect.left + rect.width * .5) * sx + Number(camera.x || 0),
+        y:(rect.top - fieldRect.top + rect.height * .86) * sy + Number(camera.y || 0)
+      };
+    }
+  }
+  return null;
+}
+
+function buildSkillEffectTargetContext(target, options = {}) {
+  const resolved = target || options.target || options.primaryTarget || (typeof currentMonster !== "undefined" ? currentMonster : null);
+  const explicit = options.targetWorldPosition;
+  const explicitX = Number(explicit?.x ?? explicit?.worldX);
+  const explicitY = Number(explicit?.y ?? explicit?.worldY);
+  const targetWorldPosition = Number.isFinite(explicitX) && Number.isFinite(explicitY)
+    ? { x:explicitX, y:explicitY }
+    : getSkillEffectTargetWorldPosition(resolved);
+  return {
+    target:resolved || null,
+    targetWorldPosition,
+    targetIdentity:String(resolved?._instanceId ?? resolved?.runtimeId ?? resolved?.instanceId ?? resolved?.mobId ?? resolved?.id ?? "")
+  };
+}
+
 function beginRuntimeSkillTiming(skill, level = 1, options = {}) {
   const state = ensureRuntimeSkillTimingState();
   if (!state || !skill || getRuntimeSkillUiType(skill) === "passive") return null;
@@ -1116,10 +1201,11 @@ function beginRuntimeSkillTiming(skill, level = 1, options = {}) {
   const timingResult = { token, skillId, startedAt: now, lockMs, lockUntil: now + lockMs };
   // 0.9.82IB / V92：只有 RO_WEB Runtime 仍為可執行主動技能時，才送出特效開始事件。
   // SkillEffectRuntimeV92 會再次檢查 handler/passive/executionEnabled，避免改造被動技能誤播放。
+  const effectTarget = buildSkillEffectTargetContext(options.target || options.primaryTarget, options);
   window.SkillEffectRuntimeV92?.onSkillBegin?.(skill, level, {
     ...options,
-    token,
-    target: options.target || (typeof currentMonster !== "undefined" ? currentMonster : null)
+    ...effectTarget,
+    token
   });
   return timingResult;
 }
@@ -1171,7 +1257,7 @@ function getRuntimeSkillDelayText(block) {
   return `技能暫時無法使用，剩餘 ${seconds} 秒`;
 }
 
-function commitRuntimeSkillTiming(skill, level = 1) {
+function commitRuntimeSkillTiming(skill, level = 1, options = {}) {
   const state = ensureRuntimeSkillTimingState();
   if (!state || !skill) return null;
   const timing = getRuntimeSkillTimingProfile(skill, level);
@@ -1179,14 +1265,16 @@ function commitRuntimeSkillTiming(skill, level = 1) {
   const skillId = String(skill?.officialId ?? skill?.id ?? 0);
   const hadCastHandoff = consumeRuntimeCastTimingHandoff(skill);
   const existingBegin = state.castBeginTokens?.[skillId] || null;
-  if (!hadCastHandoff && !existingBegin && getRuntimeSkillUiType(skill) !== "passive") beginRuntimeSkillTiming(skill, level, { now });
+  if (!hadCastHandoff && !existingBegin && getRuntimeSkillUiType(skill) !== "passive") beginRuntimeSkillTiming(skill, level, { ...options, now });
   if (state.castBeginTokens?.[skillId]) delete state.castBeginTokens[skillId];
   if (Number(timing.cooldownMs || 0) > 0) state.skillCooldownUntil[skillId] = Math.max(Number(state.skillCooldownUntil[skillId] || 0), now + Number(timing.cooldownMs));
   if (Number(timing.afterCastActDelayMs || 0) > 0) state.globalDelayUntil = Math.max(Number(state.globalDelayUntil || 0), now + Number(timing.afterCastActDelayMs));
   if (Number(timing.afterCastWalkDelayMs || 0) > 0) state.walkDelayUntil = Math.max(Number(state.walkDelayUntil || 0), now + Number(timing.afterCastWalkDelayMs));
   // 0.9.82IB / V92：成本扣除與技能正式結算時送出 Runtime commit。
+  const effectTarget = buildSkillEffectTargetContext(options.target || options.primaryTarget, options);
   window.SkillEffectRuntimeV92?.onSkillCommit?.(skill, level, {
-    target: typeof currentMonster !== "undefined" ? currentMonster : null,
+    ...options,
+    ...effectTarget,
     timing
   });
   return timing;
@@ -1311,7 +1399,9 @@ function beginRuntimeSkillCast(skill, level = 1, onComplete = null) {
   if (!precheck.ok) return typeof reportPendingRuntime === "function" ? reportPendingRuntime(skill, precheck.reason) : false;
   const timing = getRuntimeAdjustedCastTime(skill, level);
   if (Number(timing.totalMs || 0) <= 0) { onComplete(); return true; }
-  const timingToken = beginRuntimeSkillTiming(skill, level);
+  const castTarget = (typeof currentMonster !== 'undefined' ? currentMonster : null);
+  const castTargetContext = buildSkillEffectTargetContext(castTarget, { target: castTarget, primaryTarget: castTarget });
+  const timingToken = beginRuntimeSkillTiming(skill, level, castTargetContext);
   const allowMovement = canMoveWhileRuntimeCasting();
   const startedAt = Date.now();
   const state = {
@@ -1327,6 +1417,9 @@ function beginRuntimeSkillCast(skill, level = 1, onComplete = null) {
     allowMovement,
     onComplete,
     timingToken,
+    target: castTargetContext.target,
+    targetWorldPosition: castTargetContext.targetWorldPosition,
+    targetIdentity: castTargetContext.targetIdentity,
     timerId: null
   };
   if (typeof window !== "undefined") window.RO_WEB_CAST_STATE = state;
@@ -1526,7 +1619,7 @@ function paySkillCost(skill, level, options = {}) {
   if (hpCost > 0) player.hp = Math.max(1, Number(player.hp || 1) - hpCost);
   if (zenyCost > 0) player.zeny = Math.max(0, Number(player.zeny || 0) - zenyCost);
   consumeMemorizeChargeOnMagicCast(skill);
-  commitRuntimeSkillTiming(skill, level);
+  commitRuntimeSkillTiming(skill, level, options);
   window.CardRuntime?.onSkillUsed?.(skill, typeof currentMonster!=="undefined" ? currentMonster : null);
   const animationAlreadyPlayed = consumeRuntimeCastAnimationHandoff(skill);
   if (options.skipAnimation !== true && !animationAlreadyPlayed) playRuntimeSkillActionMotion(skill, level, options);
@@ -4730,7 +4823,8 @@ function applyRuntimeCalculatedDamage(target, calculatedDamage, options = {}) {
     window.SkillEffectRuntimeV92?.onSkillHit?.(Number(options.skillId), target, {
       dealt,
       calculatedDamage: calculated,
-      additional: options.additional === true || options.triggeredByNormalAttack === true
+      additional: options.additional === true || options.triggeredByNormalAttack === true,
+      targetWorldPosition: getSkillEffectTargetWorldPosition(target)
     });
   }
   if (calculated > 0 && options.showNumber !== false && typeof showDamageNumber === "function") showDamageNumber(calculated, {
@@ -5013,7 +5107,12 @@ function castPeriodicGroundAttackSkill(skill, requestedLevel = null, options = {
   const resource = applyRuntimeResourceCost(profile, level, skill);
   if (!resource.ok) { window.GroundEffectManager.remove(effectId); addBattleLog(`${skill.name} 所需戰鬥資源不足。`); return false; }
   options.consumedResource = resource.used;
-  paySkillCost(skill, level);
+  paySkillCost(skill, level, {
+    ...options,
+    target: currentMonster,
+    primaryTarget: currentMonster,
+    targetWorldPosition: { x:baseX, y:baseY }
+  });
   addBattleLog(`施放 ${skill.name} Lv${level}：${spec.radiusCells * 2 + 1}×${spec.radiusCells * 2 + 1} 範圍，預計 ${spec.maxTicks} 波。`);
   updatePlayerUI(); saveGame(); return true;
 }
@@ -5083,7 +5182,12 @@ function castAttackSkill(skill, requestedLevel = null, options = {}) {
   options.preCastResource=profile?.resourceCost?.type&&window.CombatResourceManager?Number(window.CombatResourceManager.get(profile.resourceCost.type)||0):0;
   const resource=applyRuntimeResourceCost(profile, level, skill); if(!resource.ok){addBattleLog(`${skill.name} 所需戰鬥資源不足。`);return false;}
   options.consumedResource=resource.used;
-  paySkillCost(skill, level);
+  paySkillCost(skill, level, {
+    ...options,
+    target: currentMonster,
+    primaryTarget: currentMonster,
+    targetWorldPosition: getSkillEffectTargetWorldPosition(currentMonster)
+  });
   if (profile.moveAdjacentToTarget && typeof movePlayerAdjacentToMonster === "function") movePlayerAdjacentToMonster(currentMonster);
   let totalDamage = 0, hitTargets = 0, missedTargets = 0;
   for (const target of targets) {
@@ -5133,7 +5237,7 @@ function castAttackSkill(skill, requestedLevel = null, options = {}) {
       if (target.currentHp <= 0) break;
     }
     if(dealt>0&&window.StatusManager?.onDamage)window.StatusManager.onDamage(target,dealt,{source:player,skillId:Number(skill?.officialId??skill?.id)});
-    if(dealt>0)window.SkillEffectRuntimeV92?.onSkillHit?.(skill,target,{dealt,calculatedDamage});
+    if(dealt>0)window.SkillEffectRuntimeV92?.onSkillHit?.(skill,target,{dealt,calculatedDamage,targetWorldPosition:getSkillEffectTargetWorldPosition(target)});
     if(dealt>0&&target===currentMonster&&Array.isArray(profile.consumePrimaryTargetStatusesOnHit)&&target?.runtimeState?.statuses){for(const statusName of profile.consumePrimaryTargetStatusesOnHit){const key=window.StatusManager?.normalize?window.StatusManager.normalize(statusName):String(statusName).toLowerCase().replace(/[ _-]/g,"");delete target.runtimeState.statuses[key];delete target.runtimeState[key];}}
     if (hitMeta.statusProcMode !== "per_hit") applyAttackRuntimeStatus(profile,level,target);
     if (elementalActionSpec) applyElementalActionRuntimeStatus(target, elementalActionSpec);

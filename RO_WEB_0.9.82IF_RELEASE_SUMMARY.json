@@ -1,0 +1,28 @@
+{
+  "schema": "ro-web-release-summary-0.9.82IF-1.0",
+  "version": "0.9.82IF",
+  "baseVersion": "0.9.82IE",
+  "title": "V92 Target Coordinate Event Payload Fix",
+  "summary": [
+    "強酸禁地三系不再使用玩家附近固定偏移。",
+    "技能事件攜帶目標怪物 ID 與世界座標。",
+    "地面事件在非同步載入特效前鎖定目標世界座標。",
+    "缺少目標座標時不再 fallback 到玩家，改等待真實 HIT_CONFIRM。",
+    "BUFF/架式/光環仍跟隨玩家；一般目標特效與投射物規則不變。"
+  ],
+  "runtime": {
+    "activeSkills": 55,
+    "effects": 454,
+    "passiveGatePreserved": true
+  },
+  "validation": {
+    "targetPayloadVm": "24/24",
+    "skillEffectIntegration": "32/32",
+    "regression": "6/6",
+    "chromiumUiContract": "13/13",
+    "deepHealth": {
+      "errors": 0,
+      "warnings": 0
+    }
+  }
+}

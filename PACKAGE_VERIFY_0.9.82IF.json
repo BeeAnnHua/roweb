@@ -1,0 +1,84 @@
+{
+  "schema": "ro-web-package-verify-0.9.82IF-1.0",
+  "version": "0.9.82IF",
+  "baseVersion": "0.9.82IE",
+  "title": "V92 Target Coordinate Event Payload Fix",
+  "project": {
+    "fileCount": 11742,
+    "totalBytesBeforeZip": 357473388
+  },
+  "runtime": {
+    "activeSkillEffects": 55,
+    "deployedEffects": 454,
+    "passiveGatePreserved": true,
+    "anchorPolicy": "CASTER_LIVE_TARGET_LIVE_GROUND_TARGET_PAYLOAD_SNAPSHOT"
+  },
+  "fix": {
+    "targetIdentityPayload": true,
+    "targetWorldPositionPayload": true,
+    "captureBeforeAsyncEffectLoad": true,
+    "liveWorldMonsterIdentityResolution": true,
+    "groundCasterFallbackRemoved": true,
+    "pendingGroundWaitsForHitConfirm": true,
+    "acidifiedZoneSkillIds": [
+      5340,
+      5341,
+      5342
+    ],
+    "buffCasterCoordinatesLive": true,
+    "ordinaryTargetCoordinatesLive": true,
+    "projectileEndpointsLive": true
+  },
+  "tests": {
+    "targetPayloadVm": "24/24 PASS",
+    "skillEffectIntegration": "32/32 PASS",
+    "runtimeVm": "PASS",
+    "regression": "6/6 PASS",
+    "chromiumUiContract": "13/13 PASS",
+    "deepHealth": "0 errors / 0 warnings",
+    "strictEffectJson": "454/454",
+    "candidatePassiveIntersection": 0,
+    "zipCrc": "PASS",
+    "freshExtract": "11742/11742 identical"
+  },
+  "artifacts": [
+    "SKILL_EFFECT_TARGET_PAYLOAD_AUDIT_0.9.82IF.json",
+    "RO_WEB_0.9.82IF_RELEASE_SUMMARY.json",
+    "TEST_REPORT_0.9.82IF_TARGET_PAYLOAD_VM.json",
+    "TEST_REPORT_0.9.82IF_SKILL_EFFECT_RUNTIME.json",
+    "TEST_REPORT_0.9.82IF_BROWSER_UI_CONTRACT.json",
+    "TEST_REPORT_0.9.82IF_REGRESSION.json",
+    "DEEP_HEALTH_0.9.82IF.json",
+    "TEST_REPORT_0.9.82IF_PACKAGE_FRESH_EXTRACT.json",
+    "INCREMENTAL_MANIFEST_0.9.82IF.json"
+  ],
+  "changedFiles": [
+    "CHANGELOG.md",
+    "README.md",
+    "index.html",
+    "js/game.js",
+    "js/player.js",
+    "js/skill_engine.js",
+    "js/skill_effect_runtime_v92.js",
+    "DEEP_HEALTH_0.9.82IF.json",
+    "RO_WEB_0.9.82IF_RELEASE_SUMMARY.json",
+    "SKILL_EFFECT_TARGET_PAYLOAD_AUDIT_0.9.82IF.json",
+    "TEST_REPORT_0.9.82IF_BROWSER_UI_CONTRACT.json",
+    "TEST_REPORT_0.9.82IF_BROWSER_UI_CONTRACT.txt",
+    "TEST_REPORT_0.9.82IF_REGRESSION.json",
+    "TEST_REPORT_0.9.82IF_REGRESSION.txt",
+    "TEST_REPORT_0.9.82IF_SKILL_EFFECT_RUNTIME.json",
+    "TEST_REPORT_0.9.82IF_SKILL_EFFECT_RUNTIME.txt",
+    "TEST_REPORT_0.9.82IF_TARGET_PAYLOAD_VM.json",
+    "TEST_REPORT_0.9.82IF_TARGET_PAYLOAD_VM.txt",
+    "TEST_REPORT_0.9.82IF_PACKAGE_FRESH_EXTRACT.json",
+    "INCREMENTAL_MANIFEST_0.9.82IF.json",
+    "PACKAGE_VERIFY_0.9.82IF.json",
+    "UPDATE_FILES_0.9.82IF.txt",
+    "tools/deep_health_check_0.9.82IF.py",
+    "tools/test_browser_ui_contract_0.9.82IF.py",
+    "tools/test_hotfix_0.9.82IF.js",
+    "tools/test_skill_effect_integration_0.9.82IF.py",
+    "tools/test_skill_effect_runtime_0.9.82IF.js"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "version": "0.9.82IH",
+  "title": "Acidified Authoritative Monster Foot Anchor Fix",
+  "baseVersion": "0.9.82IG",
+  "changes": [
+    "Strong Acid Zone 5340/5341/5342 resolves ground anchors from the selected monster DOM foot before any explicit event payload or stale entity coordinate.",
+    "HIT_CONFIRM force-relocates every recent Acidified visual phase, even when an earlier incorrect snapshot was already marked valid.",
+    "Generic and periodic attack skill cost/commit flows now pass target, primaryTarget, targetIdentity and targetWorldPosition explicitly.",
+    "Long cast begin captures the selected monster target context.",
+    "No caster or viewport-center fallback is allowed for Acidified ground phases."
+  ],
+  "retained": [
+    "V92 55 active skills / 454 deployed effects",
+    "Passive skill gate",
+    "0.9.82ID-IG auto battle, refine, monster attribute, converter and death UI fixes"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "schema": "ro-web-incremental-manifest-1.0",
+  "fromVersion": "0.9.82IF",
+  "toVersion": "0.9.82IG",
+  "changedFiles": [
+    "CHANGELOG.md",
+    "README.md",
+    "assets/skill_effects/v92/V91_6_RUNTIME_TIMELINE_MANIFEST.json",
+    "assets/skill_effects/v92/V92_RUNTIME_TIMELINE_MANIFEST.json",
+    "index.html",
+    "js/game.js",
+    "js/player.js",
+    "js/skill_effect_runtime_v92.js"
+  ],
+  "addedFiles": [
+    "RO_WEB_0.9.82IG_RELEASE_SUMMARY.json",
+    "SKILL_EFFECT_ACIDIFIED_ALL_PHASE_ANCHOR_AUDIT_0.9.82IG.json",
+    "TEST_REPORT_0.9.82IG_SKILL_EFFECT_RUNTIME.json",
+    "TEST_REPORT_0.9.82IG_SKILL_EFFECT_RUNTIME.txt",
+    "tools/test_skill_effect_integration_0.9.82IG.py",
+    "tools/test_skill_effect_runtime_0.9.82IG.js",
+    "UPDATE_FILES_0.9.82IG.txt",
+    "INCREMENTAL_MANIFEST_0.9.82IG.json",
+    "PACKAGE_VERIFY_0.9.82IG.json"
+  ],
+  "deletedFiles": [],
+  "notes": "Acidified zones 5340/5341/5342: all visual phases use target ground world snapshots."
+}
