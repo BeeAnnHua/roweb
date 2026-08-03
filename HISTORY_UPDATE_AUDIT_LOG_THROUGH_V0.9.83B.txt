@@ -1,3 +1,65 @@
+RO_WEB CONSOLIDATED UPDATE / TEST HISTORY THROUGH V0.9.83B
+Generated: 2026-08-03 (UTC+08:00)
+
+This is the single consolidated update/test history file. No standalone TEST_REPORT_* or UPDATE_FILES_* files remain at the project root.
+
+==================== RELEASE: RO_WEB V0.9.83B ====================
+BASELINE
+- Built from RO_WEB V0.9.83A newcomer support disposal/storage full package.
+- Page title, save app version and all index cache-bust query strings are unified at 0.9.83B.
+
+FOUR CHARACTER SLOT ARCHITECTURE
+- Default account slot limit: 4; maximum reserved limit: 12.
+- Account profile uses ro_web_account_profile_v1.
+- Character saves use ro_web_character_save_v1_<characterId>, with character-specific minute backup and IndexedDB IDs.
+- Existing single-character localStorage save migrates into slot 1 while retaining the legacy rollback copy.
+- IndexedDB-only legacy migration forces a reload before gameplay so player.js binds the final character save keys rather than the pending key.
+- Character deletion removes only that character save / backup / IndexedDB rows. Other characters and account-shared storage are untouched.
+- New characters store accountId, characterId, slotIndex, revision, createdAt, updatedAt and lastPlayedAt.
+
+CLOUD-READY CONTRACT
+- CharacterSlotsRuntime.registerCloudAdapter() bridges the account adapter to ROWebSaveManager.
+- Supported player-save adapter methods: loadCandidates/load, saveEnvelope/save, and optional deleteCharacter.
+- The UI and local schema do not hard-code the future backend provider.
+
+LOGIN / CHARACTER SELECT UI
+- User-provided login artwork was cropped and converted to images/ui/character_select_background.webp (1920x1080 WebP).
+- Desktop layout: 4 character cards; mobile layout: 2x2.
+- Character cards show name, job, Base/Job levels, location, last-played time, and the current top-left Idle portrait path.
+- Portrait resolution prefers the saved playerPortrait source, then characterAtlas / Job Key, then same-gender novice fallback.
+- Only the selected card uses a lightweight idle float/aura animation.
+
+CHANGED / ADDED RUNTIME FILES
+- index.html
+- css/style.css
+- js/character_slots_runtime.js
+- js/player.js
+- js/game.js
+- images/ui/character_select_background.webp
+- AI_START_HERE.md
+- CHANGELOG.md
+- README.md
+
+V0.9.83B VERIFICATION
+- Character slot runtime unit tests: PASS.
+- Architecture checks: 16/16 PASS.
+- Character selector browser UI checks: 6/6 PASS.
+- Character Idle manifest / background checks: 90/90 portraits + background PASS.
+- Newcomer support regression: 584/584 PASS.
+- Newcomer equipment / enchant effects: 62 equipment + 7 enchants, 0 failures.
+- Sell / decompose / storage runtime: 18/18 PASS.
+- Lv100 -> Lv130 -> Lv160 browser chain and NPC claim: 5/5 PASS.
+- Taiwan gacha IL4 regression: 111/111 PASS.
+- Baseline regression: 21/21 PASS.
+- JavaScript syntax: 55/55 PASS.
+- JSON parse: 2557/2557 PASS.
+
+KNOWN DESIGN DECISIONS
+- Four slots are local-first. A future backend can raise slotLimit without redesigning the UI.
+- Account-shared warehouse remains shared and is not copied into character saves.
+- Character cards use the same static Idle image shown in the upper-left character panel; this avoids storing large screenshots in cloud data.
+
+==================== PRIOR CONSOLIDATED HISTORY THROUGH V0.9.83A ====================
 RO_WEB CONSOLIDATED UPDATE / TEST HISTORY THROUGH V0.9.83A
 Generated: 2026-08-03 (UTC+08:00)
 
@@ -56362,3 +56424,733 @@ TOOLS
 
 ROOT REPORT CLEANUP
 - All root TEST_REPORT_* and UPDATE_FILES_* files are merged into HISTORY_UPDATE_AUDIT_LOG_THROUGH_0.9.82IL4.txt, then removed from the root directory.
+
+==================== MERGED ROOT REPORT: TEST_REPORT_0.9.82IL3_CARD_IDENTITY.json ====================
+{
+  "version": "0.9.82IL3",
+  "suite": "despair-morroc-card-identity-correction",
+  "passed": 16,
+  "failed": 4,
+  "checks": [
+    {
+      "name": "version IL3",
+      "passed": false,
+      "detail": "0.9.82IL4"
+    },
+    {
+      "name": "27321 gacha exactly once",
+      "passed": true,
+      "detail": "[{\"itemId\":4509,\"quantity\":1,\"weight\":1,\"chanceBasisPoints\":1},{\"itemId\":4507,\"quantity\":1,\"weight\":1,\"chanceBasisPoints\":1},{\"itemId\":4148,\"quantity\":1,\"weight\":1,\"chanceBasisPoints\":1},{\"itemId\":27321,\"quantity\":1,\"weight\":1,\"chanceBasisPoints\":1}]"
+    },
+    {
+      "name": "27321 chance 0.01%",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "300084 absent from gacha",
+      "passed": true,
+      "detail": "[{\"itemId\":4509,\"quantity\":1,\"weight\":1,\"chanceBasisPoints\":1},{\"itemId\":4507,\"quantity\":1,\"weight\":1,\"chanceBasisPoints\":1},{\"itemId\":4148,\"quantity\":1,\"weight\":1,\"chanceBasisPoints\":1},{\"itemId\":27321,\"quantity\":1,\"weight\":1,\"chanceBasisPoints\":1}]"
+    },
+    {
+      "name": "gacha total 100%",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "300084 identity restored",
+      "passed": true,
+      "detail": "{\"id\":300084,\"officialId\":300084,\"name\":\"夢魘干扁草精卡片\",\"type\":\"card\",\"category\":\"card\",\"subCategory\":\"monster_card\",\"cardTarget\":[\"garment\"],\"description\":[\"對聖屬性攻擊的抗性+30%，\",\"Flee+5。\"],\"icon\":\"images/items/card_normal.webp\",\"slotCount\":0,\"slots\":0,\"buyPrice\":20,\"sellPrice\":10,\"isMvpCard\":false,\"isBossCard\":false,\"cardVisualTier\":\"normal\",\"dataSource\":\"rAthena Renewal 2026-06-08 + 中文 ETC + itemInfo_UTF8.lub\"}"
+    },
+    {
+      "name": "300084 garment card",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "300084 original effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "300084 drop restored",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "300084 client identity restored",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "27321 identity",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "27321 shoe card",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "27321 numerical effects",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "27321 no appearance transform",
+      "passed": false,
+      "detail": ""
+    },
+    {
+      "name": "27321 no-transform marker",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "9512 quick slot remains enabled",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "index IL3 cache",
+      "passed": false,
+      "detail": ""
+    },
+    {
+      "name": "27321 runtime ATK/MHP",
+      "passed": true,
+      "detail": "{\"id\":27321,\"name\":\"絕望之神夢羅克卡片\",\"sourceType\":\"card\",\"sourceId\":27321,\"atkRate\":10,\"maxHpRate\":-50,\"physicalRaceDamage\":{\"DemiHuman\":30,\"Player\":30,\"Angel\":30},\"autoBonuses\":[{\"trigger\":\"skill\",\"script\":\"{ }\",\"rate\":1000,\"durationMs\":5000,\"skill\":\"NV_FIRSTAID\",\"otherScript\":\"{ showscript \\\"絕望之神夢羅克卡片發動：5秒內進入夢羅克變身狀態（本作僅顯示系統訊息，不切換外觀）。\\\"; }\"}]}"
+    },
+    {
+      "name": "27321 runtime race damage",
+      "passed": true,
+      "detail": "{\"DemiHuman\":30,\"Player\":30,\"Angel\":30}"
+    },
+    {
+      "name": "27321 runtime has no transform proc",
+      "passed": false,
+      "detail": "[{\"trigger\":\"skill\",\"script\":\"{ }\",\"rate\":1000,\"durationMs\":5000,\"skill\":\"NV_FIRSTAID\",\"otherScript\":\"{ showscript \\\"絕望之神夢羅克卡片發動：5秒內進入夢羅克變身狀態（本作僅顯示系統訊息，不切換外觀）。\\\"; }\"}]"
+    }
+  ]
+}
+
+==================== MERGED ROOT REPORT: TEST_REPORT_0.9.82IL4_TAIWAN_GACHA_FULL_EFFECTS.json ====================
+{
+  "version": "0.9.82IL4",
+  "suite": "taiwan-gacha-full-equipment-card-runtime-audit",
+  "passed": 110,
+  "failed": 1,
+  "checks": [
+    {
+      "name": "version IL4",
+      "passed": true,
+      "detail": "0.9.82IL4"
+    },
+    {
+      "name": "gacha total 100%",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "9512 quick-slot eligible",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "9512 manual use only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "400379 remains absent",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "300084 not in gacha",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "300084 original identity restored",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "apostle card odds exact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "featured equipment odds exact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "MVP card odds exact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "support reward odds exact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "ordinary material pool exact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "item 410254 exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "icon 410254 exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "item 420199 exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "icon 420199 exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "item 400511 exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "icon 400511 exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "item 490088 exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "icon 490088 exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "item 400401 exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "icon 400401 exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "item 28902 exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "icon 28902 exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "item 420236 exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "icon 420236 exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "item 27323 exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "icon 27323 exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "item 27322 exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "icon 27322 exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "item 4509 exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "icon 4509 exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "item 4507 exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "icon 4507 exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "item 4148 exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "icon 4148 exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "item 27321 exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "icon 27321 exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "item 9512 exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "icon 9512 exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "item 12806 exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "icon 12806 exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "equipment runtime 410254",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "equipment runtime 420199",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "equipment runtime 400511",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "equipment runtime 490088",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "equipment runtime 400401",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "equipment runtime 28902",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "equipment runtime 420236",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "card runtime 27323",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "card runtime 27322",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "card runtime 4509",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "card runtime 4507",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "card runtime 4148",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "card runtime 27321",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "410254 base-stat tiers",
+      "passed": true,
+      "detail": "{\"id\":410254,\"name\":\"古代夢羅克貴族首飾\",\"sourceType\":\"equipment\",\"sourceId\":410254,\"atkFlat\":24,\"matkFlat\":24}"
+    },
+    {
+      "name": "420199 base cast effects",
+      "passed": true,
+      "detail": "{\"id\":420199,\"name\":\"幽魅火球\",\"sourceType\":\"equipment\",\"sourceId\":420199,\"variableCastReductionRate\":8,\"afterCastDelayReductionRate\":5,\"fixedCastReductionMs\":100}"
+    },
+    {
+      "name": "400511 +13 thresholds",
+      "passed": true,
+      "detail": "{\"id\":400511,\"name\":\"女王甲蟲頭盔\",\"sourceType\":\"equipment\",\"sourceId\":400511,\"powFlat\":3,\"conFlat\":3,\"crtFlat\":3,\"atkFlat\":120,\"criFlat\":24,\"critAtkRate\":40,\"atkRate\":10,\"afterCastDelayReductionRate\":10,\"longDamageRate\":15,\"shortDamageRate\":15,\"physicalRaceDamage\":{\"All\":15},\"fixedCastReductionMs\":500}"
+    },
+    {
+      "name": "490088 base effects",
+      "passed": true,
+      "detail": "{\"id\":490088,\"name\":\"絕望的連通之環\",\"sourceType\":\"equipment\",\"sourceId\":490088,\"atkRate\":5,\"matkRate\":5}"
+    },
+    {
+      "name": "400401 +13 thresholds",
+      "passed": true,
+      "detail": "{\"id\":400401,\"name\":\"天地樹的信仰\",\"sourceType\":\"equipment\",\"sourceId\":400401,\"matkFlat\":120,\"magicAttackElementDamage\":{\"All\":28},\"matkRate\":10,\"afterCastDelayReductionRate\":10,\"magicRaceDamage\":{\"All\":15},\"magicElementDamage\":{\"All\":15},\"fixedCastReductionMs\":500}"
+    },
+    {
+      "name": "28902 +12 values",
+      "passed": true,
+      "detail": "{\"id\":28902,\"name\":\"瘋狂兔寶寶\",\"sourceType\":\"equipment\",\"sourceId\":28902,\"atkRate\":5,\"matkRate\":5,\"shortPhysicalReflectRate\":10,\"autoSpellProcs\":[{\"trigger\":\"hit\",\"skill\":\"NPC_MAGICMIRROR\",\"level\":8,\"rate\":1000,\"attackFlags\":2,\"targetFlags\":0,\"extra\":[]}],\"atkFlat\":20,\"matkFlat\":20,\"criFlat\":10,\"noCastCancel\":1}"
+    },
+    {
+      "name": "420236 base P.ATK/S.MATK",
+      "passed": true,
+      "detail": "{\"id\":420236,\"name\":\"魔王夢羅克的忠誠僕人\",\"sourceType\":\"equipment\",\"sourceId\":420236,\"pAtk\":5,\"sMatk\":5,\"physicalRaceDamage\":{\"DemiHuman\":5,\"Player\":5,\"Angel\":5},\"magicRaceDamage\":{\"DemiHuman\":5,\"Player\":5,\"Angel\":5},\"raceResist\":{\"DemiHuman\":3,\"Player\":3,\"Angel\":3}}"
+    },
+    {
+      "name": "420236 base race modifiers",
+      "passed": true,
+      "detail": "{\"id\":420236,\"name\":\"魔王夢羅克的忠誠僕人\",\"sourceType\":\"equipment\",\"sourceId\":420236,\"pAtk\":5,\"sMatk\":5,\"physicalRaceDamage\":{\"DemiHuman\":5,\"Player\":5,\"Angel\":5},\"magicRaceDamage\":{\"DemiHuman\":5,\"Player\":5,\"Angel\":5},\"raceResist\":{\"DemiHuman\":3,\"Player\":3,\"Angel\":3}}"
+    },
+    {
+      "name": "27323 MHP+5%",
+      "passed": true,
+      "detail": "{\"id\":27323,\"name\":\"魔神使徒許乃任卡片\",\"sourceType\":\"card\",\"sourceId\":27323,\"maxHpRate\":5}"
+    },
+    {
+      "name": "27322 MSP+5%",
+      "passed": true,
+      "detail": "{\"id\":27322,\"name\":\"魔神使徒阿哈特卡片\",\"sourceType\":\"card\",\"sourceId\":27322,\"maxSpRate\":5}"
+    },
+    {
+      "name": "4509 refine +9",
+      "passed": true,
+      "detail": "{\"id\":4509,\"name\":\"黃金女王甲蟲卡片\",\"sourceType\":\"card\",\"sourceId\":4509,\"intFlat\":3,\"raceResist\":{\"Insect\":15}}"
+    },
+    {
+      "name": "4507 race2/drop wiring",
+      "passed": true,
+      "detail": "{\"id\":4507,\"name\":\"女王甲蟲卡片\",\"sourceType\":\"card\",\"sourceId\":4507,\"physicalRace2Damage\":{\"RC2_SCARABA\":30},\"extraDrops\":[{\"kind\":\"item\",\"itemId\":12806,\"conditionRace\":null,\"rate\":50,\"extra\":[]}]}"
+    },
+    {
+      "name": "4148 SP cost -30%",
+      "passed": true,
+      "detail": "{\"id\":4148,\"name\":\"法老王卡片\",\"sourceType\":\"card\",\"sourceId\":4148,\"spCostRate\":-30}"
+    },
+    {
+      "name": "27321 numeric effects",
+      "passed": true,
+      "detail": "{\"id\":27321,\"name\":\"絕望之神夢羅克卡片\",\"sourceType\":\"card\",\"sourceId\":27321,\"atkRate\":10,\"maxHpRate\":-50,\"physicalRaceDamage\":{\"DemiHuman\":30,\"Player\":30,\"Angel\":30},\"autoBonuses\":[{\"trigger\":\"skill\",\"script\":\"{ }\",\"rate\":1000,\"durationMs\":5000,\"skill\":\"NV_FIRSTAID\",\"otherScript\":\"{ showscript \\\"絕望之神夢羅克卡片發動：5秒內進入夢羅克變身狀態（本作僅顯示系統訊息，不切換外觀）。\\\"; }\"}]}"
+    },
+    {
+      "name": "27321 system-only trigger compiled",
+      "passed": true,
+      "detail": "[{\"trigger\":\"skill\",\"script\":\"{ }\",\"rate\":1000,\"durationMs\":5000,\"skill\":\"NV_FIRSTAID\",\"otherScript\":\"{ showscript \\\"絕望之神夢羅克卡片發動：5秒內進入夢羅克變身狀態（本作僅顯示系統訊息，不切換外觀）。\\\"; }\"}]"
+    },
+    {
+      "name": "410254 + Pharaoh actual combo",
+      "passed": true,
+      "detail": "{\"id\":\"card_runtime_total\",\"name\":\"卡片與套裝總和\",\"sourceType\":\"cardTotal\",\"atkFlat\":24,\"matkFlat\":24,\"spCostRate\":-30,\"intravision\":1,\"afterCastDelayReductionRate\":15,\"physicalElementDamage\":{\"All\":25},\"magicElementDamage\":{\"All\":25},\"comboMatchMode\":\"item_id\"}"
+    },
+    {
+      "name": "410254 + Marduk actual combo",
+      "passed": true,
+      "detail": "{\"id\":\"card_runtime_total\",\"name\":\"卡片與套裝總和\",\"sourceType\":\"cardTotal\",\"atkFlat\":24,\"matkFlat\":24,\"statusResist\":{\"Eff_Silence\":10000},\"afterCastDelayReductionRate\":8,\"physicalElementDamage\":{\"All\":12},\"magicElementDamage\":{\"All\":12},\"comboMatchMode\":\"item_id\"}"
+    },
+    {
+      "name": "420199 + New Wave actual combo",
+      "passed": true,
+      "detail": "{\"id\":\"card_runtime_total\",\"name\":\"卡片與套裝總和\",\"sourceType\":\"cardTotal\",\"afterCastDelayReductionRate\":15,\"variableCastReductionRate\":8,\"fixedCastReductionMs\":200,\"physicalRaceDamage\":{\"All\":14},\"magicRaceDamage\":{\"All\":14},\"atkFlat\":120,\"matkFlat\":120,\"atkRate\":8,\"matkRate\":8,\"critAtkRate\":14,\"comboMatchMode\":\"item_id\"}"
+    },
+    {
+      "name": "420199 + slotted New Wave actual combo",
+      "passed": true,
+      "detail": "{\"id\":\"card_runtime_total\",\"name\":\"卡片與套裝總和\",\"sourceType\":\"cardTotal\",\"afterCastDelayReductionRate\":10,\"variableCastReductionRate\":8,\"fixedCastReductionMs\":150,\"physicalRaceDamage\":{\"All\":7},\"magicRaceDamage\":{\"All\":7},\"atkFlat\":60,\"matkFlat\":60,\"atkRate\":4,\"matkRate\":4,\"critAtkRate\":7,\"comboMatchMode\":\"item_id\"}"
+    },
+    {
+      "name": "400511 + Gold Queen actual combo",
+      "passed": true,
+      "detail": "{\"id\":\"card_runtime_total\",\"name\":\"卡片與套裝總和\",\"sourceType\":\"cardTotal\",\"powFlat\":3,\"conFlat\":3,\"crtFlat\":3,\"atkFlat\":120,\"criFlat\":24,\"critAtkRate\":170,\"atkRate\":10,\"afterCastDelayReductionRate\":10,\"longDamageRate\":15,\"shortDamageRate\":15,\"physicalRaceDamage\":{\"All\":15},\"fixedCastReductionMs\":500,\"intFlat\":3,\"raceResist\":{\"Insect\":15},\"pAtk\":20,\"comboMatchMode\":\"item_id\"}"
+    },
+    {
+      "name": "400511 + Queen card actual combo",
+      "passed": true,
+      "detail": "{\"id\":\"card_runtime_total\",\"name\":\"卡片與套裝總和\",\"sourceType\":\"cardTotal\",\"powFlat\":3,\"conFlat\":3,\"crtFlat\":3,\"atkFlat\":120,\"criFlat\":24,\"critAtkRate\":40,\"atkRate\":10,\"afterCastDelayReductionRate\":10,\"longDamageRate\":15,\"shortDamageRate\":15,\"physicalRaceDamage\":{\"All\":15},\"fixedCastReductionMs\":500,\"physicalRace2Damage\":{\"RC2_SCARABA\":30},\"extraDrops\":[{\"kind\":\"item\",\"itemId\":12806,\"conditionRace\":null,\"rate\":50,\"extra\":[]}],\"physicalClassDamage\":{\"Boss\":35},\"comboMatchMode\":\"item_id\"}"
+    },
+    {
+      "name": "400511 + sealed Queen card actual combo",
+      "passed": true,
+      "detail": "{\"id\":\"card_runtime_total\",\"name\":\"卡片與套裝總和\",\"sourceType\":\"cardTotal\",\"powFlat\":3,\"conFlat\":3,\"crtFlat\":3,\"atkFlat\":120,\"criFlat\":24,\"critAtkRate\":40,\"atkRate\":10,\"afterCastDelayReductionRate\":10,\"longDamageRate\":15,\"shortDamageRate\":15,\"physicalRaceDamage\":{\"All\":15},\"fixedCastReductionMs\":500,\"extraDrops\":[{\"kind\":\"item\",\"itemId\":12806,\"conditionRace\":null,\"rate\":30,\"extra\":[]}],\"physicalRace2Damage\":{\"RC2_SCARABA\":15},\"physicalClassDamage\":{\"Boss\":30},\"comboMatchMode\":\"item_id\"}"
+    },
+    {
+      "name": "490088 + both apostles actual combos",
+      "passed": true,
+      "detail": "{\"id\":\"card_runtime_total\",\"name\":\"卡片與套裝總和\",\"sourceType\":\"cardTotal\",\"atkRate\":5,\"matkRate\":5,\"maxHpRate\":25,\"maxSpRate\":25,\"comboMatchMode\":\"item_id\"}"
+    },
+    {
+      "name": "490088 essence 4910 actual combo",
+      "passed": true,
+      "detail": "{\"id\":\"card_runtime_total\",\"name\":\"卡片與套裝總和\",\"sourceType\":\"cardTotal\",\"atkRate\":10,\"matkRate\":5,\"strFlat\":4,\"comboMatchMode\":\"item_id\"}"
+    },
+    {
+      "name": "490088 essence 4913 actual combo",
+      "passed": true,
+      "detail": "{\"id\":\"card_runtime_total\",\"name\":\"卡片與套裝總和\",\"sourceType\":\"cardTotal\",\"atkRate\":5,\"matkRate\":10,\"intFlat\":4,\"comboMatchMode\":\"item_id\"}"
+    },
+    {
+      "name": "490088 essence 4916 actual combo",
+      "passed": true,
+      "detail": "{\"id\":\"card_runtime_total\",\"name\":\"卡片與套裝總和\",\"sourceType\":\"cardTotal\",\"atkRate\":5,\"matkRate\":5,\"agiFlat\":4,\"aspdRate\":5,\"comboMatchMode\":\"item_id\"}"
+    },
+    {
+      "name": "490088 essence 4919 actual combo",
+      "passed": true,
+      "detail": "{\"id\":\"card_runtime_total\",\"name\":\"卡片與套裝總和\",\"sourceType\":\"cardTotal\",\"atkRate\":5,\"matkRate\":5,\"vitFlat\":4,\"maxHpRate\":5,\"comboMatchMode\":\"item_id\"}"
+    },
+    {
+      "name": "490088 essence 4922 actual combo",
+      "passed": true,
+      "detail": "{\"id\":\"card_runtime_total\",\"name\":\"卡片與套裝總和\",\"sourceType\":\"cardTotal\",\"atkRate\":5,\"matkRate\":5,\"dexFlat\":4,\"variableCastReductionRate\":5,\"comboMatchMode\":\"item_id\"}"
+    },
+    {
+      "name": "490088 essence 4925 actual combo",
+      "passed": true,
+      "detail": "{\"id\":\"card_runtime_total\",\"name\":\"卡片與套裝總和\",\"sourceType\":\"cardTotal\",\"atkRate\":5,\"matkRate\":5,\"lukFlat\":4,\"critAtkRate\":5,\"comboMatchMode\":\"item_id\"}"
+    },
+    {
+      "name": "420236 Force3 + Shnaim combos",
+      "passed": true,
+      "detail": "{\"id\":\"card_runtime_total\",\"name\":\"卡片與套裝總和\",\"sourceType\":\"cardTotal\",\"pAtk\":5,\"sMatk\":5,\"physicalRaceDamage\":{\"DemiHuman\":5,\"Player\":5,\"Angel\":5,\"All\":15},\"magicRaceDamage\":{\"DemiHuman\":5,\"Player\":5,\"Angel\":5,\"All\":15},\"raceResist\":{\"DemiHuman\":3,\"Player\":3,\"Angel\":3,\"All\":-15},\"maxHpRate\":5,\"comboMatchMode\":\"item_id\",\"shortDamageRate\":20}"
+    },
+    {
+      "name": "420236 essence 4910 actual combo",
+      "passed": true,
+      "detail": "{\"id\":\"card_runtime_total\",\"name\":\"卡片與套裝總和\",\"sourceType\":\"cardTotal\",\"pAtk\":5,\"sMatk\":5,\"physicalRaceDamage\":{\"DemiHuman\":5,\"Player\":5,\"Angel\":5},\"magicRaceDamage\":{\"DemiHuman\":5,\"Player\":5,\"Angel\":5},\"raceResist\":{\"DemiHuman\":3,\"Player\":3,\"Angel\":3,\"All\":-15},\"shortDamageRate\":20,\"comboMatchMode\":\"item_id\"}"
+    },
+    {
+      "name": "420236 essence 4913 actual combo",
+      "passed": true,
+      "detail": "{\"id\":\"card_runtime_total\",\"name\":\"卡片與套裝總和\",\"sourceType\":\"cardTotal\",\"pAtk\":5,\"sMatk\":5,\"physicalRaceDamage\":{\"DemiHuman\":5,\"Player\":5,\"Angel\":5},\"magicRaceDamage\":{\"DemiHuman\":5,\"Player\":5,\"Angel\":5},\"raceResist\":{\"DemiHuman\":3,\"Player\":3,\"Angel\":3,\"All\":-15},\"magicAttackElementDamage\":{\"All\":20},\"comboMatchMode\":\"item_id\"}"
+    },
+    {
+      "name": "420236 essence 4916 actual combo",
+      "passed": true,
+      "detail": "{\"id\":\"card_runtime_total\",\"name\":\"卡片與套裝總和\",\"sourceType\":\"cardTotal\",\"pAtk\":5,\"sMatk\":5,\"physicalRaceDamage\":{\"DemiHuman\":5,\"Player\":5,\"Angel\":5},\"magicRaceDamage\":{\"DemiHuman\":5,\"Player\":5,\"Angel\":5},\"raceResist\":{\"DemiHuman\":3,\"Player\":3,\"Angel\":3},\"afterCastDelayReductionRate\":10,\"maxHpRate\":-20,\"comboMatchMode\":\"item_id\"}"
+    },
+    {
+      "name": "420236 essence 4919 actual combo",
+      "passed": true,
+      "detail": "{\"id\":\"card_runtime_total\",\"name\":\"卡片與套裝總和\",\"sourceType\":\"cardTotal\",\"pAtk\":5,\"sMatk\":5,\"physicalRaceDamage\":{\"DemiHuman\":5,\"Player\":5,\"Angel\":5},\"magicRaceDamage\":{\"DemiHuman\":5,\"Player\":5,\"Angel\":5},\"raceResist\":{\"DemiHuman\":3,\"Player\":3,\"Angel\":3},\"maxHpRate\":30,\"aspdRate\":-50,\"comboMatchMode\":\"item_id\"}"
+    },
+    {
+      "name": "420236 essence 4922 actual combo",
+      "passed": true,
+      "detail": "{\"id\":\"card_runtime_total\",\"name\":\"卡片與套裝總和\",\"sourceType\":\"cardTotal\",\"pAtk\":5,\"sMatk\":5,\"physicalRaceDamage\":{\"DemiHuman\":5,\"Player\":5,\"Angel\":5},\"magicRaceDamage\":{\"DemiHuman\":5,\"Player\":5,\"Angel\":5},\"raceResist\":{\"DemiHuman\":3,\"Player\":3,\"Angel\":3,\"All\":-15},\"longDamageRate\":20,\"comboMatchMode\":\"item_id\"}"
+    },
+    {
+      "name": "420236 essence 4925 actual combo",
+      "passed": true,
+      "detail": "{\"id\":\"card_runtime_total\",\"name\":\"卡片與套裝總和\",\"sourceType\":\"cardTotal\",\"pAtk\":5,\"sMatk\":5,\"physicalRaceDamage\":{\"DemiHuman\":5,\"Player\":5,\"Angel\":5},\"magicRaceDamage\":{\"DemiHuman\":5,\"Player\":5,\"Angel\":5},\"raceResist\":{\"DemiHuman\":3,\"Player\":3,\"Angel\":3},\"critAtkRate\":20,\"healPowerRate\":20,\"afterCastDelayReductionRate\":-10,\"comboMatchMode\":\"item_id\"}"
+    },
+    {
+      "name": "420236 Ahat all-size combo",
+      "passed": true,
+      "detail": "{\"id\":\"card_runtime_total\",\"name\":\"卡片與套裝總和\",\"sourceType\":\"cardTotal\",\"pAtk\":5,\"sMatk\":5,\"physicalRaceDamage\":{\"DemiHuman\":5,\"Player\":5,\"Angel\":5},\"magicRaceDamage\":{\"DemiHuman\":5,\"Player\":5,\"Angel\":5},\"raceResist\":{\"DemiHuman\":3,\"Player\":3,\"Angel\":3},\"maxSpRate\":5,\"sizeDamage\":{\"All\":15},\"magicSizeDamage\":{\"All\":15},\"comboMatchMode\":\"item_id\"}"
+    },
+    {
+      "name": "420236 + 27321 actual combo",
+      "passed": true,
+      "detail": "{\"id\":\"card_runtime_total\",\"name\":\"卡片與套裝總和\",\"sourceType\":\"cardTotal\",\"pAtk\":5,\"sMatk\":5,\"physicalRaceDamage\":{\"DemiHuman\":35,\"Player\":35,\"Angel\":35,\"All\":40},\"magicRaceDamage\":{\"DemiHuman\":5,\"Player\":5,\"Angel\":5},\"raceResist\":{\"DemiHuman\":3,\"Player\":3,\"Angel\":3},\"atkRate\":10,\"maxHpRate\":0,\"autoBonuses\":[{\"trigger\":\"skill\",\"script\":\"{ }\",\"rate\":1000,\"durationMs\":5000,\"skill\":\"NV_FIRSTAID\",\"otherScript\":\"{ showscript \\\"絕望之神夢羅克卡片發動：5秒內進入夢羅克變身狀態（本作僅顯示系統訊息，不切換外觀）。\\\"; }\"}],\"comboMatchMode\":\"item_id\"}"
+    },
+    {
+      "name": "400401 sorcerer grants Comet",
+      "passed": true,
+      "detail": "{\"id\":\"card_runtime_total\",\"name\":\"卡片與套裝總和\",\"sourceType\":\"cardTotal\",\"matkFlat\":235,\"magicAttackElementDamage\":{\"All\":28},\"matkRate\":10,\"afterCastDelayReductionRate\":10,\"magicRaceDamage\":{\"All\":15},\"magicElementDamage\":{\"All\":15},\"fixedCastReductionMs\":700,\"fixedCastReductionRate\":70,\"sMatk\":20,\"skillDamageRate\":{\"WL_COMET\":42},\"grantedSkills\":{\"WL_COMET\":3},\"spCostRate\":30,\"comboMatchMode\":\"item_id\"}"
+    },
+    {
+      "name": "400401 elemental_master grants Comet",
+      "passed": true,
+      "detail": "{\"id\":\"card_runtime_total\",\"name\":\"卡片與套裝總和\",\"sourceType\":\"cardTotal\",\"matkFlat\":235,\"magicAttackElementDamage\":{\"All\":28},\"matkRate\":10,\"afterCastDelayReductionRate\":10,\"magicRaceDamage\":{\"All\":15},\"magicElementDamage\":{\"All\":15},\"fixedCastReductionMs\":700,\"fixedCastReductionRate\":70,\"sMatk\":20,\"skillDamageRate\":{\"WL_COMET\":42},\"grantedSkills\":{\"WL_COMET\":3},\"spCostRate\":30,\"comboMatchMode\":\"item_id\"}"
+    },
+    {
+      "name": "400401 warlock Comet cooldown",
+      "passed": true,
+      "detail": "{\"id\":\"card_runtime_total\",\"name\":\"卡片與套裝總和\",\"sourceType\":\"cardTotal\",\"matkFlat\":235,\"magicAttackElementDamage\":{\"All\":28},\"matkRate\":10,\"afterCastDelayReductionRate\":10,\"magicRaceDamage\":{\"All\":15},\"magicElementDamage\":{\"All\":15},\"fixedCastReductionMs\":700,\"fixedCastReductionRate\":70,\"sMatk\":20,\"skillDamageRate\":{\"WL_COMET\":42},\"skillCooldownReductionMs\":{\"WL_COMET\":20000},\"comboMatchMode\":\"item_id\"}"
+    },
+    {
+      "name": "400401 arch_mage Comet cooldown",
+      "passed": true,
+      "detail": "{\"id\":\"card_runtime_total\",\"name\":\"卡片與套裝總和\",\"sourceType\":\"cardTotal\",\"matkFlat\":235,\"magicAttackElementDamage\":{\"All\":28},\"matkRate\":10,\"afterCastDelayReductionRate\":10,\"magicRaceDamage\":{\"All\":15},\"magicElementDamage\":{\"All\":15},\"fixedCastReductionMs\":700,\"fixedCastReductionRate\":70,\"sMatk\":20,\"skillDamageRate\":{\"WL_COMET\":42},\"skillCooldownReductionMs\":{\"WL_COMET\":20000},\"comboMatchMode\":\"item_id\"}"
+    },
+    {
+      "name": "28902 10% trigger creates 2-sec 60% mirror",
+      "passed": true,
+      "detail": "{\"mad_bunny_magic_mirror_1785756119349_0.5\":{\"expiresAt\":1785756121349,\"source\":{\"id\":\"mad_bunny_magic_mirror_1785756119349_0.5\",\"name\":\"瘋狂兔寶寶－魔法鏡\",\"sourceType\":\"equipmentTemp\",\"sourceId\":28902,\"magicReflectChancePercent\":60}}}"
+    },
+    {
+      "name": "28902 system log",
+      "passed": true,
+      "detail": "瘋狂兔寶寶發動魔法鏡：2秒內啟動60%魔法反射。"
+    },
+    {
+      "name": "27321 First Aid system log",
+      "passed": true,
+      "detail": "絕望之神夢羅克卡片發動：5秒內進入夢羅克變身狀態（本作僅顯示系統訊息，不切換外觀）。"
+    },
+    {
+      "name": "27321 never creates visual transform",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "400511 + Horn Scaraba scroll 5-minute combo",
+      "passed": true,
+      "detail": "{\"id\":\"queen_scaraba_scroll_combo\",\"name\":\"女王甲蟲頭盔－雙角甲蟲變身\",\"sourceType\":\"consumable\",\"sourceItemId\":22750,\"startedAt\":1785756119356,\"activatedAt\":1785756119356,\"expiresAt\":1785756419356,\"effects\":{\"sizeDamage\":{\"All\":5},\"magicSizeDamage\":{\"All\":5}}}"
+    },
+    {
+      "name": "4507 extra-drop path awards 12806",
+      "passed": true,
+      "detail": "[{\"id\":12806,\"qty\":1}]"
+    },
+    {
+      "name": "all featured emitted effects have consumers",
+      "passed": true,
+      "detail": "{\"ok\":true,\"emitted\":[\"afterCastDelayReductionRate\",\"agiFlat\",\"aspdRate\",\"atkFlat\",\"atkRate\",\"autoBonuses\",\"autoSpellProcs\",\"conFlat\",\"criFlat\",\"critAtkRate\",\"crtFlat\",\"dexFlat\",\"elementResist\",\"extraDrops\",\"fixedCastReductionMs\",\"grantedSkills\",\"healPowerRate\",\"intFlat\",\"intravision\",\"longDamageRate\",\"lukFlat\",\"magicAttackElementDamage\",\"magicElementDamage\",\"magicRaceDamage\",\"magicSizeDamage\",\"matkFlat\",\"matkRate\",\"maxHpRate\",\"maxSpRate\",\"noCastCancel\",\"pAtk\",\"physicalClassDamage\",\"physicalElementDamage\",\"physicalRace2Damage\",\"physicalRaceDamage\",\"powFlat\",\"raceResist\",\"sMatk\",\"shortDamageRate\",\"shortPhysicalReflectRate\",\"sizeDamage\",\"skillSpCostRate\",\"spCostRate\",\"statusResist\",\"strFlat\",\"variableCastReductionRate\",\"vitFlat\"],\"missing\":[],\"rawBonuses\":[],\"runtimeErrors\":[]}"
+    },
+    {
+      "name": "map-exclusive drop is MVP-only and 1%",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "independent old/new drop hooks",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "quick-slot manual sources accepted",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "quick-slot picker exposed",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "9512 actual quick-slot assignment",
+      "passed": true,
+      "detail": "{\"type\":\"item\",\"id\":9512}"
+    },
+    {
+      "name": "9512 actual number-key activation",
+      "passed": true,
+      "detail": "[{\"id\":9512,\"opt\":{\"source\":\"quick-slot-key\",\"userInitiated\":true}}]"
+    },
+    {
+      "name": "index cache IL4",
+      "passed": false,
+      "detail": ""
+    }
+  ],
+  "coverage": {
+    "ok": true,
+    "emitted": [
+      "afterCastDelayReductionRate",
+      "agiFlat",
+      "aspdRate",
+      "atkFlat",
+      "atkRate",
+      "autoBonuses",
+      "autoSpellProcs",
+      "conFlat",
+      "criFlat",
+      "critAtkRate",
+      "crtFlat",
+      "dexFlat",
+      "elementResist",
+      "extraDrops",
+      "fixedCastReductionMs",
+      "grantedSkills",
+      "healPowerRate",
+      "intFlat",
+      "intravision",
+      "longDamageRate",
+      "lukFlat",
+      "magicAttackElementDamage",
+      "magicElementDamage",
+      "magicRaceDamage",
+      "magicSizeDamage",
+      "matkFlat",
+      "matkRate",
+      "maxHpRate",
+      "maxSpRate",
+      "noCastCancel",
+      "pAtk",
+      "physicalClassDamage",
+      "physicalElementDamage",
+      "physicalRace2Damage",
+      "physicalRaceDamage",
+      "powFlat",
+      "raceResist",
+      "sMatk",
+      "shortDamageRate",
+      "shortPhysicalReflectRate",
+      "sizeDamage",
+      "skillSpCostRate",
+      "spCostRate",
+      "statusResist",
+      "strFlat",
+      "variableCastReductionRate",
+      "vitFlat"
+    ],
+    "missing": [],
+    "rawBonuses": [],
+    "runtimeErrors": []
+  }
+}

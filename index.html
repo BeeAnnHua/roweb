@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RO_WEB V0.9.83A</title>
+  <title>RO_WEB V0.9.83B</title>
   <meta name="description" content="&#8203;">
   <meta property="og:type" content="website">
   <meta property="og:title" content="RO_WEB">
@@ -13,11 +13,60 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="RO_WEB">
   <meta name="twitter:description" content="&#8203;">
-  <link rel="icon" type="image/png" href="images/ui/icons/icon_gold_64.png?v=0.9.83A">
-  <link rel="stylesheet" href="css/style.css?v=0.9.83A">
+  <link rel="icon" type="image/png" href="images/ui/icons/icon_gold_64.png?v=0.9.83B">
+  <link rel="preload" as="image" type="image/webp" href="images/ui/character_select_background.webp?v=0.9.83B">
+  <link rel="stylesheet" href="css/style.css?v=0.9.83B">
 </head>
 
 <body class="ro-black-gold-theme">
+
+  <section id="characterSelectOverlay" class="character-select-overlay" aria-label="角色選擇" hidden>
+    <div class="character-select-backdrop" aria-hidden="true"></div>
+    <div class="character-select-shell">
+      <header class="character-select-header">
+        <div class="character-select-brand">
+          <span class="character-select-emblem" aria-hidden="true">R</span>
+          <div><h1>RO_WEB</h1><p>選擇冒險者</p></div>
+        </div>
+        <div class="character-select-account-state">
+          <span id="characterCloudStatus">本機存檔</span>
+          <b id="characterSlotCount">0 / 4</b>
+        </div>
+      </header>
+      <main>
+        <div id="characterSlotGrid" class="character-slot-grid" aria-live="polite"></div>
+        <p id="characterSelectMessage" class="character-select-message">請選擇角色，或建立新的冒險者。</p>
+      </main>
+      <footer class="character-select-footer">
+        <span>目前為本機角色資料；已預留帳號、角色 ID、修訂序號與雲端同步介面。</span>
+        <small>V0.9.83B</small>
+      </footer>
+    </div>
+  </section>
+
+  <section id="characterCreateModal" class="character-create-overlay" role="dialog" aria-modal="true" aria-labelledby="characterCreateTitle" hidden onclick="if(event.target===this) closeCharacterCreateDialog()">
+    <div class="character-create-dialog">
+      <header>
+        <div><h2 id="characterCreateTitle">建立新角色</h2><p>輸入角色名稱並選擇初學者外觀。</p></div>
+        <button type="button" aria-label="關閉" onclick="closeCharacterCreateDialog()">×</button>
+      </header>
+      <label class="character-create-name-label" for="characterCreateName">角色名稱（1～12 字）</label>
+      <input id="characterCreateName" class="character-create-name" type="text" maxlength="24" autocomplete="off" spellcheck="false" placeholder="請輸入角色名稱" onkeydown="if(event.key==='Enter'){event.preventDefault();confirmCharacterCreate()}">
+      <div class="character-create-genders" role="group" aria-label="初學者性別">
+        <button type="button" data-create-gender="male" class="is-selected" aria-pressed="true" onclick="selectCharacterCreateGender('male')">
+          <img src="assets/characters/novice/male/idle.png?v=0.9.83B" alt="男性初學者"><strong>男性</strong>
+        </button>
+        <button type="button" data-create-gender="female" aria-pressed="false" onclick="selectCharacterCreateGender('female')">
+          <img src="assets/characters/novice/female/idle.png?v=0.9.83B" alt="女性初學者"><strong>女性</strong>
+        </button>
+      </div>
+      <p id="characterCreateMessage" class="character-create-message" aria-live="polite"></p>
+      <div class="character-create-actions">
+        <button type="button" onclick="closeCharacterCreateDialog()">取消</button>
+        <button type="button" class="character-create-confirm" onclick="confirmCharacterCreate()">建立角色</button>
+      </div>
+    </div>
+  </section>
   <div id="game-root">
     <div id="battle-field">
       <div id="right-hud-shell" class="right-hud-shell">
@@ -50,7 +99,7 @@
       <section id="player-info" class="fixed-panel character-card">
         <h2>角色資訊</h2>
         <div class="profile-row">
-          <div class="portrait-placeholder"><img id="playerPortrait" src="assets/characters/novice/male/idle.png?v=0.9.83A" alt="角色頭像"></div>
+          <div class="portrait-placeholder"><img id="playerPortrait" src="assets/characters/novice/male/idle.png?v=0.9.83B" alt="角色頭像"></div>
           <div>
             <div class="name-line player-id-line desktop-player-id-line"><span id="playerName">載入中</span><button id="playerIdEditButton" type="button" onclick="openPlayerIdEditor()">更改ID</button></div>
             <div class="mobile-player-id-stack" aria-label="手機版角色名稱">
@@ -69,7 +118,7 @@
 
       <div id="player-sprite" class="battle-sprite player-sprite">
         <div class="sprite-label">LV.<span id="battlePlayerLevel">0</span> <span id="battlePlayerName">冒險者</span></div>
-        <img id="playerImage" src="assets/characters/novice/male/idle.png?v=0.9.83A" alt="player">
+        <img id="playerImage" src="assets/characters/novice/male/idle.png?v=0.9.83B" alt="player">
         <div class="slash-effect" id="slashEffect"></div>
       </div>
 
@@ -89,6 +138,7 @@
           <b>系統訊息</b>
           <div class="battle-log-save-actions">
             <button id="manualSaveButton" type="button" onclick="manualSaveGame()">存檔</button>
+            <button type="button" onclick="returnToCharacterSelection()">角色</button>
             <button type="button" onclick="resetGameSave()">清存檔</button>
           </div>
         </div>
@@ -567,7 +617,7 @@
   <section id="enchantStoneInfoWindow" class="enchant-stone-info-window hidden-window" role="dialog" aria-modal="false" aria-labelledby="enchantStoneInfoTitle" hidden>
     <div class="enchant-stone-info-card">
       <button type="button" class="enchant-stone-info-close" aria-label="關閉附魔資訊" onclick="closeEnchantStoneInfo()">×</button>
-      <img id="enchantStoneInfoIcon" src="images/items/311342.webp?v=0.9.83A" alt="附魔圖示">
+      <img id="enchantStoneInfoIcon" src="images/items/311342.webp?v=0.9.83B" alt="附魔圖示">
       <div><small id="enchantStoneInfoGroup">附魔資訊</small><h3 id="enchantStoneInfoTitle">雪花魔力</h3><p id="enchantStoneInfoDescription">左鍵點擊附魔石或中央洞位即可查看完整資訊。</p></div>
     </div>
   </section>
@@ -702,12 +752,12 @@
       </div>
       <div class="character-gender-options" role="group" aria-label="角色性別">
         <button class="character-gender-option" type="button" data-character-gender="male" aria-pressed="false" onclick="selectCharacterGender('male')">
-          <span class="character-gender-preview"><img src="assets/characters/novice/male/idle.png?v=0.9.83A" alt="男性初學者"></span>
+          <span class="character-gender-preview"><img src="assets/characters/novice/male/idle.png?v=0.9.83B" alt="男性初學者"></span>
           <strong>男性初學者</strong>
           <span>使用男性人物動畫</span>
         </button>
         <button class="character-gender-option" type="button" data-character-gender="female" aria-pressed="false" onclick="selectCharacterGender('female')">
-          <span class="character-gender-preview"><img src="assets/characters/novice/female/idle.png?v=0.9.83A" alt="女性初學者"></span>
+          <span class="character-gender-preview"><img src="assets/characters/novice/female/idle.png?v=0.9.83B" alt="女性初學者"></span>
           <strong>女性初學者</strong>
           <span>使用女性人物動畫</span>
         </button>
@@ -724,7 +774,7 @@
       <p class="player-death-help">請選擇復活方式。離開此畫面前，自動掛機與手動戰鬥都會保持停止。</p>
       <div class="player-death-actions">
         <button id="deathReviveTokenButton" type="button" class="player-death-action player-death-token" onclick="useDeathReviveToken()">
-          <img src="images/items/7621.webp?v=0.9.83A" alt="">
+          <img src="images/items/7621.webp?v=0.9.83B" alt="">
           <span><strong>原地復活</strong><small>消耗 1 個原地復活之證</small></span>
           <b id="deathReviveTokenCount">持有 0 個</b>
         </button>
@@ -736,58 +786,59 @@
     </div>
   </section>
 
-  <script src="./js/data_bundle.js?v=0.9.83A"></script>
-  <script src="./js/modifier_key_runtime.js?v=0.9.83A"></script>
-  <script src="./js/ui_theme_runtime.js?v=0.9.83A"></script>
-  <script src="./js/equipment_job_map_bundle.js?v=0.9.83A"></script>
-  <script src="./js/player.js?v=0.9.83A"></script>
-  <script src="./js/item_instance_ui.js?v=0.9.83A"></script>
-  <script src="./js/newcomer_support_runtime.js?v=0.9.83A"></script>
-  <script src="./js/storage_runtime.js?v=0.9.83A"></script>
-  <script src="./js/rare_item_announcement_runtime.js?v=0.9.83A"></script>
-  <script src="./js/refine_runtime.js?v=0.9.83A"></script>
-  <script src="./js/enchant_grade_runtime.js?v=0.9.83A"></script>
-  <script src="./js/mvp_gacha_runtime.js?v=0.9.83A"></script>
-  <script src="./js/taiwan_gacha_runtime.js?v=0.9.83A"></script>
-  <script src="./js/item_box_runtime.js?v=0.9.83A"></script>
-  <script src="./js/item_batch_open_runtime.js?v=0.9.83A"></script>
-  <script src="./js/consumable_runtime.js?v=0.9.83A"></script>
-  <script src="./js/card_runtime.js?v=0.9.83A"></script>
-  <script src="./js/effect_runtime.js?v=0.9.83A"></script>
-  <script src="./js/position_engine.js?v=0.9.83A"></script>
-  <script src="./js/job_constitution.js?v=0.9.83A"></script>
-  <script src="./js/job.js?v=0.9.83A"></script>
-  <script src="./js/extra_skill_runtime.js?v=0.9.83A"></script>
-  <script src="./js/combat_mechanics_runtime.js?v=0.9.83A"></script>
-  <script src="./js/combat_formula_runtime.js?v=0.9.83A"></script>
-  <script src="./js/ra_renewal_damage_pipeline.js?v=0.9.83A"></script>
-  <script src="./js/combat_damage_pipeline.js?v=0.9.83A"></script>
-  <script src="./js/combat_resource_manager.js?v=0.9.83A"></script>
-  <script src="./js/skill_engine.js?v=0.9.83A"></script>
-  <script src="./js/warlock_elemental_sphere_runtime.js?v=0.9.83A"></script>
-  <script src="./js/skill_effect_runtime_v92.js?v=0.9.83A"></script>
-  <script src="./js/status_system.js?v=0.9.83A"></script>
-  <script src="./js/stats.js?v=0.9.83A"></script>
-  <script src="./js/loot.js?v=0.9.83A"></script>
-  <script src="./js/auto_battle.js?v=0.9.83A"></script>
-  <script src="./js/death_revival_runtime.js?v=0.9.83A"></script>
-  <script src="./js/player_atlas_runtime.js?v=0.9.83A"></script>
-  <script src="./js/character_gender.js?v=0.9.83A"></script>
-  <script src="./js/battle.js?v=0.9.83A"></script>
-  <script src="./js/monster_atlas_runtime.js?v=0.9.83A"></script>
-  <script src="./js/effect_visual_runtime.js?v=0.9.83A"></script>
-  <script src="./js/world_monster_test_runtime.js?v=0.9.83A"></script>
-  <script src="./js/virtual_summon.js?v=0.9.83A"></script>
-  <script src="./js/homunculus.js?v=0.9.83A"></script>
-  <script src="./js/homunculus_skill_runtime.js?v=0.9.83A"></script>
-  <script src="./js/homunculus_s_skill_runtime.js?v=0.9.83A"></script>
-  <script src="./js/map.js?v=0.9.83A"></script>
-  <script src="./js/enchant_platform_runtime.js?v=0.9.83A"></script>
-  <script src="./js/enchant_material_exchange_runtime.js?v=0.9.83A"></script>
-  <script src="./js/town.js?v=0.9.83A"></script>
-  <script src="./js/ui.js?v=0.9.83A"></script>
-  <script src="./js/quick_slots.js?v=0.9.83A"></script>
-  <script src="./js/game.js?v=0.9.83A"></script>
+  <script src="./js/data_bundle.js?v=0.9.83B"></script>
+  <script src="./js/modifier_key_runtime.js?v=0.9.83B"></script>
+  <script src="./js/ui_theme_runtime.js?v=0.9.83B"></script>
+  <script src="./js/equipment_job_map_bundle.js?v=0.9.83B"></script>
+  <script src="./js/character_slots_runtime.js?v=0.9.83B"></script>
+  <script src="./js/player.js?v=0.9.83B"></script>
+  <script src="./js/item_instance_ui.js?v=0.9.83B"></script>
+  <script src="./js/newcomer_support_runtime.js?v=0.9.83B"></script>
+  <script src="./js/storage_runtime.js?v=0.9.83B"></script>
+  <script src="./js/rare_item_announcement_runtime.js?v=0.9.83B"></script>
+  <script src="./js/refine_runtime.js?v=0.9.83B"></script>
+  <script src="./js/enchant_grade_runtime.js?v=0.9.83B"></script>
+  <script src="./js/mvp_gacha_runtime.js?v=0.9.83B"></script>
+  <script src="./js/taiwan_gacha_runtime.js?v=0.9.83B"></script>
+  <script src="./js/item_box_runtime.js?v=0.9.83B"></script>
+  <script src="./js/item_batch_open_runtime.js?v=0.9.83B"></script>
+  <script src="./js/consumable_runtime.js?v=0.9.83B"></script>
+  <script src="./js/card_runtime.js?v=0.9.83B"></script>
+  <script src="./js/effect_runtime.js?v=0.9.83B"></script>
+  <script src="./js/position_engine.js?v=0.9.83B"></script>
+  <script src="./js/job_constitution.js?v=0.9.83B"></script>
+  <script src="./js/job.js?v=0.9.83B"></script>
+  <script src="./js/extra_skill_runtime.js?v=0.9.83B"></script>
+  <script src="./js/combat_mechanics_runtime.js?v=0.9.83B"></script>
+  <script src="./js/combat_formula_runtime.js?v=0.9.83B"></script>
+  <script src="./js/ra_renewal_damage_pipeline.js?v=0.9.83B"></script>
+  <script src="./js/combat_damage_pipeline.js?v=0.9.83B"></script>
+  <script src="./js/combat_resource_manager.js?v=0.9.83B"></script>
+  <script src="./js/skill_engine.js?v=0.9.83B"></script>
+  <script src="./js/warlock_elemental_sphere_runtime.js?v=0.9.83B"></script>
+  <script src="./js/skill_effect_runtime_v92.js?v=0.9.83B"></script>
+  <script src="./js/status_system.js?v=0.9.83B"></script>
+  <script src="./js/stats.js?v=0.9.83B"></script>
+  <script src="./js/loot.js?v=0.9.83B"></script>
+  <script src="./js/auto_battle.js?v=0.9.83B"></script>
+  <script src="./js/death_revival_runtime.js?v=0.9.83B"></script>
+  <script src="./js/player_atlas_runtime.js?v=0.9.83B"></script>
+  <script src="./js/character_gender.js?v=0.9.83B"></script>
+  <script src="./js/battle.js?v=0.9.83B"></script>
+  <script src="./js/monster_atlas_runtime.js?v=0.9.83B"></script>
+  <script src="./js/effect_visual_runtime.js?v=0.9.83B"></script>
+  <script src="./js/world_monster_test_runtime.js?v=0.9.83B"></script>
+  <script src="./js/virtual_summon.js?v=0.9.83B"></script>
+  <script src="./js/homunculus.js?v=0.9.83B"></script>
+  <script src="./js/homunculus_skill_runtime.js?v=0.9.83B"></script>
+  <script src="./js/homunculus_s_skill_runtime.js?v=0.9.83B"></script>
+  <script src="./js/map.js?v=0.9.83B"></script>
+  <script src="./js/enchant_platform_runtime.js?v=0.9.83B"></script>
+  <script src="./js/enchant_material_exchange_runtime.js?v=0.9.83B"></script>
+  <script src="./js/town.js?v=0.9.83B"></script>
+  <script src="./js/ui.js?v=0.9.83B"></script>
+  <script src="./js/quick_slots.js?v=0.9.83B"></script>
+  <script src="./js/game.js?v=0.9.83B"></script>
 </body>
 
 </html>

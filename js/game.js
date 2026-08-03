@@ -13,7 +13,7 @@ let expTables = null;
 let clientItemDisplayData = null;
 let currentMap = null;
 
-const RO_WEB_VERSION = "0.9.82IK";
+const RO_WEB_VERSION = "0.9.83B";
 
 function normalizeDataPath(path) {
   return String(path || "")
@@ -110,8 +110,12 @@ function validateStartupData() {
 }
 
 async function initGame() {
-  window.RO_WEB_BOOT_STATE.status = "loading";
+  window.RO_WEB_BOOT_STATE.status = "character_select";
   window.RO_WEB_BOOT_STATE.startedAt = Date.now();
+  if (window.CharacterSlotsRuntime?.ensureActiveCharacterSelection) {
+    await window.CharacterSlotsRuntime.ensureActiveCharacterSelection();
+  }
+  window.RO_WEB_BOOT_STATE.status = "loading";
   addBattleLog("遊戲啟動中...");
 
   await loadServerConfig();

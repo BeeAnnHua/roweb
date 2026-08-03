@@ -1,3 +1,13 @@
+# V0.9.83B current baseline
+
+- Default account slot limit: 4; configurable up to 12 through `CharacterSlotsRuntime.setSlotLimit()` or a future cloud account profile.
+- Account profile key: `ro_web_account_profile_v1`; per-character saves use `ro_web_character_save_v1_<characterId>` and matching backup / IndexedDB IDs.
+- Existing single-character localStorage saves migrate to slot 1 while retaining the legacy rollback copy. IndexedDB-only migration intentionally reloads before gameplay so `player.js` binds the final character save keys.
+- Account-shared storage remains outside character deletion. Character inventory, equipment, skills, map, quick slots and newcomer progression remain per-character.
+- Cloud contract: `registerCloudAdapter()` bridges account save plus the player remote save adapter (`loadCandidates/load`, `saveEnvelope/save`, optional `deleteCharacter`).
+- Character selector background: `images/ui/character_select_background.webp` (1920×1080). Current top-left Idle portrait path is captured into the character summary; `characterAtlas` and Job Key provide fallback resolution.
+- Do not remove V0.9.83A newcomer equipment disposal/storage rules or the V0.9.82IL4 Taiwan gacha runtime.
+
 # V0.9.83A current baseline
 
 新人銜接裝備支援處分規則修正版，以 V0.9.83 為基準。62 件支援裝備可販售、可分解，但 `noStorage=true`，禁止存入帳號共用倉庫；三階段箱子本身仍禁止販售、分解與存倉。箱子固定採 100→130→160 接力；NPC 只補發第一階段箱，每個人物限一次。
