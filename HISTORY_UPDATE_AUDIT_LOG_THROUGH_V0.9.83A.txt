@@ -1,3 +1,89 @@
+RO_WEB CONSOLIDATED UPDATE / TEST HISTORY THROUGH V0.9.83A
+Generated: 2026-08-03 (UTC+08:00)
+
+This is the single consolidated history file. No standalone TEST_REPORT_* or UPDATE_FILES_* files remain at the project root.
+
+==================== RELEASE: RO_WEB V0.9.83A ====================
+BASELINE
+- Built from RO_WEB V0.9.83 newcomer support chain full package.
+- Save schema, cache busting, runtime and page title are unified at 0.9.83A.
+
+DISPOSAL / STORAGE POLICY
+- All 62 newcomer support equipment items remain character-bound.
+- Equipment is sell-enabled: noSell=false, positive sellPrice, and an actual item-detail 「販售」 action removes the exact instance, credits Zeny, saves, refreshes UI and writes a system log.
+- Equipment is decompose-enabled: noDecompose=false and the existing quantity-safe decomposition transaction is used.
+- Equipment remains account-storage blocked: noStorage=true; the real storage deposit path rejects the item without removing it.
+- The three chain boxes remain protected from sale, decomposition and account storage so the 100→130→160 handoff cannot be accidentally destroyed.
+
+FULL APPLICATION AUDIT
+- 62/62 support equipment records are indexed, have icons, compiled equipment Runtime records and positive sale values.
+- 26/26 profession-filtered booster weapons are present.
+- 16/16 Base Lv.100 armor items, 10/10 Illusion items and 10/10 Automatic items are present.
+- 7/7 booster weapon enchant choices have icons and compiled enchant Runtime records.
+- Actual CardRuntime evaluation at granted refine/enchant state: 62 equipment + 7 enchants, 0 failures and 0 unhandled raw bonus paths.
+- New character grant, Prontera legacy-character NPC claim, per-character one-time flag and 100→130→160 chain transaction all pass.
+
+TEST SUMMARY
+- Static newcomer data/runtime checks: 584/584 PASS.
+- Browser-style box-chain/NPC simulation: 5/5 PASS.
+- Actual sell/decompose/storage transaction checks: 18/18 PASS.
+- Newcomer equipment/enchant Runtime effects: 69 targets, 0 failures.
+- V0.9.83A baseline regression: 21/21 PASS; JavaScript syntax 54/54 PASS.
+- 0.9.82IL4 Taiwan gacha regression: 111/111 PASS.
+- JSON parse: 2555/2555 PASS.
+- Support/reference/enchant image coverage: 77/77 present, missing 0.
+
+
+
+==================== RELEASE: RO_WEB V0.9.83 ====================
+BASELINE
+- Built from RO_WEB 0.9.82IL4 full package.
+- Functional payload difference excluding this history-file rename: 32 changed files, 85 added files, 0 removed files.
+- Package-level difference including the history-file rename: 32 changed files, 86 added files, 1 removed file.
+
+NEWCOMER SUPPORT CHAIN
+- New characters automatically receive item 101538 「蹦級箱」.
+- Existing characters may claim the first box from 「新人裝備支援員」 at Prontera Central Plaza.
+- Initial NPC claim is stored per character and is limited to one time.
+- The NPC only supplies the first box; later stages are delivered through a box chain:
+  1. Base Lv.100: consume 101538 and receive 1000994 「幻象裝備兌換券」.
+  2. Base Lv.130: consume 1000994 and receive 1000985 「全自動裝備兌換券」.
+  3. Base Lv.160: consume 1000985 and complete the chain.
+- Level or prerequisite failure does not consume the current box.
+- Each stage has an independent per-character completion flag and transaction rollback protection.
+- A safe missing-box repair path restores only the currently pending box and never resets completed progress.
+
+SUPPORTED CONTENT
+- Classic six major job families only; expansion jobs are deferred.
+- 26 supported third/fourth job keys and 26 unique job-filtered booster weapons.
+- Base Lv.100: choose one class-compatible booster weapon and one of four booster armor sets; the first three armor pieces are fixed at +10.
+- Booster weapon supports the official slot 3 / slot 2 enchant selection: 7 choices in total.
+- Base Lv.130: choose a +10 bound Illusion physical or magic set.
+- Base Lv.160: choose a +11 bound Automatic physical or magic set.
+- 62 support equipment records and 77 required item/enchant icons were integrated.
+- All support equipment is character-bound and cannot be sold, decomposed, or stored in account storage.
+
+TEST SUMMARY
+- V0.9.83 static/data contracts: 520 / 520 passed.
+- Browser chain and NPC behavior: 5 / 5 passed.
+- 0.9.82IL4 Taiwan gacha full regression: 111 / 111 passed.
+- IK / IJ / II baseline regression wrapper: 21 / 21 passed.
+- Box equipment runtime audit: 514 unique rewards; runtime errors 0; unhandled bonus items 0; failures 0.
+- JavaScript syntax: 852 / 852 passed.
+- JSON parsing: 2555 / 2555 passed.
+- Root standalone TEST_REPORT_* / UPDATE_FILES_* count: 0.
+
+KEY FILES
+- data/newcomer_support.json
+- js/newcomer_support_runtime.js
+- tools/build_newcomer_support_v0_9_83.py
+- tools/build_data_bundle_v0_9_83.py
+- tools/test_v0_9_83_newcomer_support.py
+- tools/test_v0_9_83_chain_browser.py
+- tools/test_v0_9_83_il4_regression.js
+- tools/test_v0_9_83_baseline_regression.py
+
+==================== PREVIOUS CONSOLIDATED HISTORY ====================
 RO_WEB 歷史更新／測試／更新報告整併紀錄
 整併版本：0.9.82IL4
 收錄範圍：完整保留既有歷史整併檔，追加目前根目錄全部 TEST_REPORT_* 與 UPDATE_FILES_*

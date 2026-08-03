@@ -1,4 +1,210 @@
 {
+  "560006": {
+    "id": 560006,
+    "officialId": 560006,
+    "name": "修羅爆氣散彈身彈指虎",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "knuckle",
+    "slot": "weapon",
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "description": [
+      "^ff0000該道具無法與其他帳號進行交易。^000000",
+      "為了幫助冒險家成長而準備的拳套。",
+      "^000088一般精煉不可^000000",
+      "ATK+2%。",
+      "精煉每+1時，ATK+3。",
+      "BaseLv每+15時，ATK+3(上限為Lv195)。",
+      "精煉+7時，且蓄氣每+Lv1時，遠距離物理傷害+2%。",
+      "精煉+9時，MSP+10%，爆氣散彈、修羅身彈傷害+25%。",
+      "精煉+11時，技能後延遲-10%，對全體型敵人的物理傷害+15%。",
+      "精煉+13時，爆氣散彈、修羅身彈傷害再+15%。",
+      "系列 : ^777777拳套^000000 攻擊 : ^777777190^000000",
+      "武器等級 : ^7777774^000000",
+      "要求等級 : ^777777100^000000",
+      "裝備 : ^777777修羅系列^000000"
+    ],
+    "icon": "images/items/560006.webp",
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 78,
+    "characterBound": true,
+    "supportEquipment": true,
+    "noStorage": true,
+    "noDecompose": false,
+    "noSell": false,
+    "dataSource": "itemInfo_UTF8.lub + rAthena Renewal 2026-06-08; RO_WEB V0.9.83 newcomer support",
+    "Id": 560006,
+    "Name": "修羅爆氣散彈身彈指虎",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 0,
+    "AegisName": "PS_B_Knuckle",
+    "aegisName": "PS_B_Knuckle",
+    "Type": "Weapon",
+    "dbType": "Weapon",
+    "SubType": "Knuckle",
+    "dbSubType": "Knuckle",
+    "Attack": 190,
+    "atk": 190,
+    "Range": 1,
+    "range": 1,
+    "WeaponLevel": 4,
+    "weaponLevel": 4,
+    "EquipLevelMin": 100,
+    "equipLevelMin": 100,
+    "Jobs": {
+      "Monk": true
+    },
+    "equipJobs": {
+      "Monk": true
+    },
+    "Classes": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "equipClasses": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "Locations": {
+      "Right_Hand": true
+    },
+    "locations": {
+      "Right_Hand": true
+    },
+    "Refineable": true,
+    "refineable": true,
+    "Script": ".@r = getrefine();\nbonus bAtkRate,2;\nbonus bBaseAtk,(3*.@r)+3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   bonus bLongAtkRate,2*getskilllv(\"MO_CALLSPIRITS\");\n}\nif (.@r>=9) {\n   bonus bMaxSPrate,10;\n   bonus2 bSkillAtk,\"SR_KNUCKLEARROW\",25;\n   bonus2 bSkillAtk,\"SR_RAMPAGEBLASTER\",25;\n}\nif (.@r>=11) {\n   bonus2 bAddSize,Size_All,15;\n   bonus bDelayrate,-10;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"SR_KNUCKLEARROW\",15;\n   bonus2 bSkillAtk,\"SR_RAMPAGEBLASTER\",15;\n}\n",
+    "scriptRaw": ".@r = getrefine();\nbonus bAtkRate,2;\nbonus bBaseAtk,(3*.@r)+3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   bonus bLongAtkRate,2*getskilllv(\"MO_CALLSPIRITS\");\n}\nif (.@r>=9) {\n   bonus bMaxSPrate,10;\n   bonus2 bSkillAtk,\"SR_KNUCKLEARROW\",25;\n   bonus2 bSkillAtk,\"SR_RAMPAGEBLASTER\",25;\n}\nif (.@r>=11) {\n   bonus2 bAddSize,Size_All,15;\n   bonus bDelayrate,-10;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"SR_KNUCKLEARROW\",15;\n   bonus2 bSkillAtk,\"SR_RAMPAGEBLASTER\",15;\n}\n",
+    "Trade": {
+      "NoDrop": true,
+      "NoTrade": true,
+      "NoCart": true,
+      "NoStorage": true,
+      "NoGuildStorage": true,
+      "NoMail": true,
+      "NoAuction": true
+    },
+    "trade": {
+      "NoDrop": true,
+      "NoTrade": true,
+      "NoCart": true,
+      "NoStorage": true,
+      "NoGuildStorage": true,
+      "NoMail": true,
+      "NoAuction": true
+    },
+    "requiredLevel": 100,
+    "handed": 1,
+    "weaponType": "knuckle",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bAtkRate\", 2);\nbonus(\"bBaseAtk\", (3*v.r)+3*(min(BaseLevel,195)/15));\nif (v.r>=7) {\n   bonus(\"bLongAtkRate\", 2*getskilllv(\"MO_CALLSPIRITS\"));\n}\nif (v.r>=9) {\n   bonus(\"bMaxSPrate\", 10);\n   bonus2(\"bSkillAtk\", \"SR_KNUCKLEARROW\", 25);\n   bonus2(\"bSkillAtk\", \"SR_RAMPAGEBLASTER\", 25);\n}\nif (v.r>=11) {\n   bonus2(\"bAddSize\", Size_All, 15);\n   bonus(\"bDelayrate\", -10);\n}\nif (v.r>=13) {\n   bonus2(\"bSkillAtk\", \"SR_KNUCKLEARROW\", 15);\n   bonus2(\"bSkillAtk\", \"SR_RAMPAGEBLASTER\", 15);\n}\n",
+    "supportStage": 100
+  },
+  "560007": {
+    "id": 560007,
+    "officialId": 560007,
+    "name": "修羅天羅地網虎砲拳套",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "knuckle",
+    "slot": "weapon",
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "description": [
+      "^ff0000該道具無法與其他帳號進行交易。^000000",
+      "為了幫助冒險家成長而準備的拳套。",
+      "^000088一般精煉不可^000000",
+      "ATK+2%。",
+      "精煉每+1時，MHP+250、MSP+20。",
+      "BaseLv每+15時，ATK+1%(上限為Lv195)。",
+      "精煉+7時，且連環全身掌每+Lv1時，MHP+2%。",
+      "精煉+9時，ATK再+5%，天羅地網、虎砲傷害+25%。",
+      "精煉+11時，虎砲技能冷卻時間-1秒，近距離物理傷害+15%。",
+      "精煉+13時，天羅地網、虎砲傷害再+15%。",
+      "系列 : ^777777拳套^000000 攻擊 : ^777777190^000000",
+      "武器等級 : ^7777774^000000",
+      "要求等級 : ^777777100^000000",
+      "裝備 : ^777777修羅系列^000000"
+    ],
+    "icon": "images/items/560007.webp",
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 78,
+    "characterBound": true,
+    "supportEquipment": true,
+    "noStorage": true,
+    "noDecompose": false,
+    "noSell": false,
+    "dataSource": "itemInfo_UTF8.lub + rAthena Renewal 2026-06-08; RO_WEB V0.9.83 newcomer support",
+    "Id": 560007,
+    "Name": "修羅天羅地網虎砲拳套",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 0,
+    "AegisName": "CP_B_Knuckle",
+    "aegisName": "CP_B_Knuckle",
+    "Type": "Weapon",
+    "dbType": "Weapon",
+    "SubType": "Knuckle",
+    "dbSubType": "Knuckle",
+    "Attack": 190,
+    "atk": 190,
+    "Range": 1,
+    "range": 1,
+    "WeaponLevel": 4,
+    "weaponLevel": 4,
+    "EquipLevelMin": 100,
+    "equipLevelMin": 100,
+    "Jobs": {
+      "Monk": true
+    },
+    "equipJobs": {
+      "Monk": true
+    },
+    "Classes": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "equipClasses": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "Locations": {
+      "Right_Hand": true
+    },
+    "locations": {
+      "Right_Hand": true
+    },
+    "Refineable": true,
+    "refineable": true,
+    "Script": ".@r = getrefine();\nbonus bAtkRate,2+(min(BaseLevel,195)/15);\nbonus bMaxHP,250*.@r;\nbonus bMaxSP,20*.@r;\nif (.@r>=7) {\n   bonus bMaxHPrate,2*getskilllv(\"MO_CHAINCOMBO\");\n}\nif (.@r>=9) {\n   bonus bAtkRate,5;\n   bonus2 bSkillAtk,\"SR_SKYNETBLOW\",25;\n   bonus2 bSkillAtk,\"SR_TIGERCANNON\",25;\n}\nif (.@r>=11) {\n   bonus bShortAtkRate,15;\n   bonus2 bSkillCooldown,\"SR_TIGERCANNON\",-1000;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"SR_SKYNETBLOW\",15;\n   bonus2 bSkillAtk,\"SR_TIGERCANNON\",15;\n}\n",
+    "scriptRaw": ".@r = getrefine();\nbonus bAtkRate,2+(min(BaseLevel,195)/15);\nbonus bMaxHP,250*.@r;\nbonus bMaxSP,20*.@r;\nif (.@r>=7) {\n   bonus bMaxHPrate,2*getskilllv(\"MO_CHAINCOMBO\");\n}\nif (.@r>=9) {\n   bonus bAtkRate,5;\n   bonus2 bSkillAtk,\"SR_SKYNETBLOW\",25;\n   bonus2 bSkillAtk,\"SR_TIGERCANNON\",25;\n}\nif (.@r>=11) {\n   bonus bShortAtkRate,15;\n   bonus2 bSkillCooldown,\"SR_TIGERCANNON\",-1000;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"SR_SKYNETBLOW\",15;\n   bonus2 bSkillAtk,\"SR_TIGERCANNON\",15;\n}\n",
+    "Trade": {
+      "NoDrop": true,
+      "NoTrade": true,
+      "NoCart": true,
+      "NoStorage": true,
+      "NoGuildStorage": true,
+      "NoMail": true,
+      "NoAuction": true
+    },
+    "trade": {
+      "NoDrop": true,
+      "NoTrade": true,
+      "NoCart": true,
+      "NoStorage": true,
+      "NoGuildStorage": true,
+      "NoMail": true,
+      "NoAuction": true
+    },
+    "requiredLevel": 100,
+    "handed": 1,
+    "weaponType": "knuckle",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bAtkRate\", 2+(min(BaseLevel,195)/15));\nbonus(\"bMaxHP\", 250*v.r);\nbonus(\"bMaxSP\", 20*v.r);\nif (v.r>=7) {\n   bonus(\"bMaxHPrate\", 2*getskilllv(\"MO_CHAINCOMBO\"));\n}\nif (v.r>=9) {\n   bonus(\"bAtkRate\", 5);\n   bonus2(\"bSkillAtk\", \"SR_SKYNETBLOW\", 25);\n   bonus2(\"bSkillAtk\", \"SR_TIGERCANNON\", 25);\n}\nif (v.r>=11) {\n   bonus(\"bShortAtkRate\", 15);\n   bonus2(\"bSkillCooldown\", \"SR_TIGERCANNON\", -1000);\n}\nif (v.r>=13) {\n   bonus2(\"bSkillAtk\", \"SR_SKYNETBLOW\", 15);\n   bonus2(\"bSkillAtk\", \"SR_TIGERCANNON\", 15);\n}\n",
+    "supportStage": 100
+  },
   "560037": {
     "id": 560037,
     "officialId": 560037,

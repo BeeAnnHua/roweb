@@ -20949,6 +20949,24 @@ input.ro-number-input[type="number"]::-webkit-outer-spin-button{-webkit-appearan
   .map-monster-drop-unpin{min-width:64px!important}
 }
 
+/* V0.9.83A — newcomer support equipment can be sold from item details. */
+.item-detail-sell-action {
+  position:absolute;
+  top:39px;
+  right:143px;
+  z-index:3;
+  min-width:58px;
+  height:27px;
+  padding:0 9px;
+  border:1px solid #7ea65a;
+  border-radius:6px;
+  background:linear-gradient(#314d22,#14230e);
+  color:#e3ffc9;
+  font-size:11px;
+  font-weight:900;
+}
+.item-detail-sell-action:disabled { opacity:.46; filter:grayscale(.55); }
+
 /* ============================================================
    RO_WEB 0.9.82GU — safe quantity-selectable item decomposition
    ============================================================ */
@@ -21053,6 +21071,7 @@ input.ro-number-input[type="number"]::-webkit-outer-spin-button{-webkit-appearan
   color:#ffd6c9;
 }
 @media (max-width:700px) {
+  .item-detail-sell-action { top:37px; right:139px; }
   .item-detail-decompose-action { top:37px; right:74px; }
   .inventory-decompose-amount-row { grid-template-columns:1fr; gap:6px; }
   .inventory-decompose-actions { flex-direction:column-reverse; }

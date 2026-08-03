@@ -1,4 +1,212 @@
 {
+  "580010": {
+    "id": 580010,
+    "officialId": 580010,
+    "name": "浪姬舞者重金屬音樂殘響舞蹈鞭",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "whip",
+    "slot": "weapon",
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "description": [
+      "^ff0000該道具無法與其他帳號進行交易。^000000",
+      "為了幫助冒險家成長而準備的鞭子。",
+      "^000088一般精煉不可^000000",
+      "MATK+2%，MATK+180。",
+      "精煉每+1時，MATK+3。",
+      "BaseLv每+15時，MATK+1%(上限為Lv195)。",
+      "精煉+7時，且練習舞蹈每+Lv1時，全屬性魔法傷害+2%。",
+      "精煉+9時，重金屬音樂技能冷卻時間-2秒，殘響、重金屬音樂傷害+25%。",
+      "精煉+11時，殘響固定詠唱-0.5秒，全屬性魔法傷害+15%。",
+      "精煉+13時，殘響、重金屬音樂傷害再+15%。",
+      "系列 : ^777777鞭子^000000 攻擊 : ^777777150^000000",
+      "武器等級 : ^7777774^000000",
+      "要求等級 : ^777777100^000000",
+      "裝備 : ^777777浪姬舞者系列^000000"
+    ],
+    "icon": "images/items/580010.webp",
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 14,
+    "characterBound": true,
+    "supportEquipment": true,
+    "noStorage": true,
+    "noDecompose": false,
+    "noSell": false,
+    "dataSource": "itemInfo_UTF8.lub + rAthena Renewal 2026-06-08; RO_WEB V0.9.83 newcomer support",
+    "Id": 580010,
+    "Name": "浪姬舞者重金屬音樂殘響舞蹈鞭",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 0,
+    "AegisName": "MV_B_Whip",
+    "aegisName": "MV_B_Whip",
+    "Type": "Weapon",
+    "dbType": "Weapon",
+    "SubType": "Whip",
+    "dbSubType": "Whip",
+    "Attack": 150,
+    "atk": 150,
+    "MagicAttack": 180,
+    "matk": 180,
+    "Range": 2,
+    "range": 2,
+    "WeaponLevel": 4,
+    "weaponLevel": 4,
+    "EquipLevelMin": 100,
+    "equipLevelMin": 100,
+    "Jobs": {
+      "BardDancer": true
+    },
+    "equipJobs": {
+      "BardDancer": true
+    },
+    "Classes": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "equipClasses": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "Locations": {
+      "Right_Hand": true
+    },
+    "locations": {
+      "Right_Hand": true
+    },
+    "Refineable": true,
+    "refineable": true,
+    "Script": ".@r = getrefine();\nbonus bMatkRate,2+(min(BaseLevel,195)/15);\nbonus bMatk,3*.@r;\nif (.@r>=7) {\n   bonus2 bMagicAtkEle,Ele_All,2*getskilllv(\"DC_DANCINGLESSON\");\n}\nif (.@r>=9) {\n   bonus2 bSkillCooldown,\"WM_METALICSOUND\",-2000;\n   bonus2 bSkillAtk,\"WM_METALICSOUND\",25;\n   bonus2 bSkillAtk,\"WM_REVERBERATION\",25;\n}\nif (.@r>=11) {\n   bonus2 bSkillFixedCast,\"WM_REVERBERATION\",-500;\n   bonus2 bMagicAtkEle,Ele_All,15;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"WM_METALICSOUND\",15;\n   bonus2 bSkillAtk,\"WM_REVERBERATION\",15;\n}\n",
+    "scriptRaw": ".@r = getrefine();\nbonus bMatkRate,2+(min(BaseLevel,195)/15);\nbonus bMatk,3*.@r;\nif (.@r>=7) {\n   bonus2 bMagicAtkEle,Ele_All,2*getskilllv(\"DC_DANCINGLESSON\");\n}\nif (.@r>=9) {\n   bonus2 bSkillCooldown,\"WM_METALICSOUND\",-2000;\n   bonus2 bSkillAtk,\"WM_METALICSOUND\",25;\n   bonus2 bSkillAtk,\"WM_REVERBERATION\",25;\n}\nif (.@r>=11) {\n   bonus2 bSkillFixedCast,\"WM_REVERBERATION\",-500;\n   bonus2 bMagicAtkEle,Ele_All,15;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"WM_METALICSOUND\",15;\n   bonus2 bSkillAtk,\"WM_REVERBERATION\",15;\n}\n",
+    "Trade": {
+      "NoDrop": true,
+      "NoTrade": true,
+      "NoCart": true,
+      "NoStorage": true,
+      "NoGuildStorage": true,
+      "NoMail": true,
+      "NoAuction": true
+    },
+    "trade": {
+      "NoDrop": true,
+      "NoTrade": true,
+      "NoCart": true,
+      "NoStorage": true,
+      "NoGuildStorage": true,
+      "NoMail": true,
+      "NoAuction": true
+    },
+    "requiredLevel": 100,
+    "handed": 1,
+    "weaponType": "whip",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bMatkRate\", 2+(min(BaseLevel,195)/15));\nbonus(\"bMatk\", 3*v.r);\nif (v.r>=7) {\n   bonus2(\"bMagicAtkEle\", Ele_All, 2*getskilllv(\"DC_DANCINGLESSON\"));\n}\nif (v.r>=9) {\n   bonus2(\"bSkillCooldown\", \"WM_METALICSOUND\", -2000);\n   bonus2(\"bSkillAtk\", \"WM_METALICSOUND\", 25);\n   bonus2(\"bSkillAtk\", \"WM_REVERBERATION\", 25);\n}\nif (v.r>=11) {\n   bonus2(\"bSkillFixedCast\", \"WM_REVERBERATION\", -500);\n   bonus2(\"bMagicAtkEle\", Ele_All, 15);\n}\nif (v.r>=13) {\n   bonus2(\"bSkillAtk\", \"WM_METALICSOUND\", 15);\n   bonus2(\"bSkillAtk\", \"WM_REVERBERATION\", 15);\n}\n",
+    "supportStage": 100
+  },
+  "580024": {
+    "id": 580024,
+    "officialId": 580024,
+    "name": "浪姬舞者大暴雨銳鞭",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "whip",
+    "slot": "weapon",
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "description": [
+      "^ff0000該道具無法與其他帳號進行交易。^000000",
+      "為了幫助冒險家成長而準備的鞭子。",
+      "^000088一般精煉不可^000000",
+      "ATK+2%。",
+      "精煉每+1時，ATK+3。",
+      "BaseLv每+15時，ATK+3(上限為Lv195)。",
+      "精煉+7時，且練習舞蹈每+Lv1時，遠距離物理傷害+2%。",
+      "精煉+9時，大暴雨技能冷卻時間-1秒，大暴雨傷害+25%。",
+      "精煉+11時，大暴雨技能冷卻時間再-1秒，對全體型敵人的物理傷害+15%。",
+      "精煉+13時，大暴雨傷害再+15%。",
+      "系列 : ^777777鞭子^000000 攻擊 : ^777777150^000000",
+      "武器等級 : ^7777774^000000",
+      "要求等級 : ^777777100^000000",
+      "裝備 : ^777777浪姬舞者系列^000000"
+    ],
+    "icon": "images/items/580024.webp",
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 14,
+    "characterBound": true,
+    "supportEquipment": true,
+    "noStorage": true,
+    "noDecompose": false,
+    "noSell": false,
+    "dataSource": "itemInfo_UTF8.lub + rAthena Renewal 2026-06-08; RO_WEB V0.9.83 newcomer support",
+    "Id": 580024,
+    "Name": "浪姬舞者大暴雨銳鞭",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 0,
+    "AegisName": "RS_B_Whip",
+    "aegisName": "RS_B_Whip",
+    "Type": "Weapon",
+    "dbType": "Weapon",
+    "SubType": "Whip",
+    "dbSubType": "Whip",
+    "Attack": 150,
+    "atk": 150,
+    "Range": 2,
+    "range": 2,
+    "WeaponLevel": 4,
+    "weaponLevel": 4,
+    "EquipLevelMin": 100,
+    "equipLevelMin": 100,
+    "Jobs": {
+      "BardDancer": true
+    },
+    "equipJobs": {
+      "BardDancer": true
+    },
+    "Classes": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "equipClasses": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "Locations": {
+      "Right_Hand": true
+    },
+    "locations": {
+      "Right_Hand": true
+    },
+    "Refineable": true,
+    "refineable": true,
+    "Script": ".@r = getrefine();\nbonus bAtkRate,2;\nbonus bBaseAtk,3*.@r;\nbonus bBaseAtk,3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   bonus bLongAtkRate,2*getskilllv(\"DC_DANCINGLESSON\");\n   if (.@r>=9) {\n      bonus2 bSkillCooldown,\"WM_SEVERE_RAINSTORM\",-1000;\n      bonus2 bSkillAtk,\"WM_SEVERE_RAINSTORM_MELEE\",25;\n      if (.@r>=11) {\n         bonus2 bAddSize,Size_All,15;\n         bonus2 bSkillCooldown,\"WM_SEVERE_RAINSTORM\",-1000;\n         if (.@r>=13) {\n            bonus2 bSkillAtk,\"WM_SEVERE_RAINSTORM_MELEE\",15;\n         }\n      }\n   }\n}\n",
+    "scriptRaw": ".@r = getrefine();\nbonus bAtkRate,2;\nbonus bBaseAtk,3*.@r;\nbonus bBaseAtk,3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   bonus bLongAtkRate,2*getskilllv(\"DC_DANCINGLESSON\");\n   if (.@r>=9) {\n      bonus2 bSkillCooldown,\"WM_SEVERE_RAINSTORM\",-1000;\n      bonus2 bSkillAtk,\"WM_SEVERE_RAINSTORM_MELEE\",25;\n      if (.@r>=11) {\n         bonus2 bAddSize,Size_All,15;\n         bonus2 bSkillCooldown,\"WM_SEVERE_RAINSTORM\",-1000;\n         if (.@r>=13) {\n            bonus2 bSkillAtk,\"WM_SEVERE_RAINSTORM_MELEE\",15;\n         }\n      }\n   }\n}\n",
+    "Trade": {
+      "NoDrop": true,
+      "NoTrade": true,
+      "NoCart": true,
+      "NoStorage": true,
+      "NoGuildStorage": true,
+      "NoMail": true,
+      "NoAuction": true
+    },
+    "trade": {
+      "NoDrop": true,
+      "NoTrade": true,
+      "NoCart": true,
+      "NoStorage": true,
+      "NoGuildStorage": true,
+      "NoMail": true,
+      "NoAuction": true
+    },
+    "requiredLevel": 100,
+    "handed": 1,
+    "weaponType": "whip",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bAtkRate\", 2);\nbonus(\"bBaseAtk\", 3*v.r);\nbonus(\"bBaseAtk\", 3*(min(BaseLevel,195)/15));\nif (v.r>=7) {\n   bonus(\"bLongAtkRate\", 2*getskilllv(\"DC_DANCINGLESSON\"));\n   if (v.r>=9) {\n      bonus2(\"bSkillCooldown\", \"WM_SEVERE_RAINSTORM\", -1000);\n      bonus2(\"bSkillAtk\", \"WM_SEVERE_RAINSTORM_MELEE\", 25);\n      if (v.r>=11) {\n         bonus2(\"bAddSize\", Size_All, 15);\n         bonus2(\"bSkillCooldown\", \"WM_SEVERE_RAINSTORM\", -1000);\n         if (v.r>=13) {\n            bonus2(\"bSkillAtk\", \"WM_SEVERE_RAINSTORM_MELEE\", 15);\n         }\n      }\n   }\n}\n",
+    "supportStage": 100
+  },
   "580033": {
     "id": 580033,
     "officialId": 580033,

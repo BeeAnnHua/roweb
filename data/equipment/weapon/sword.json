@@ -1090,6 +1090,214 @@
     "Refineable": true,
     "Script": "bonus bDef,5;\nbonus bUnbreakableWeapon;"
   },
+  "500015": {
+    "id": 500015,
+    "officialId": 500015,
+    "name": "皇家禁衛隊威壓創世之劍",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "sword",
+    "slot": "weapon",
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "description": [
+      "^ff0000該道具無法與其他帳號進行交易。^000000",
+      "為了幫助冒險家成長而準備的單手劍。",
+      "^000088一般精煉不可^000000",
+      "MATK+2%，MATK+180。",
+      "精煉每+1時，MATK+3。",
+      "BaseLv每+15時，MATK+3(上限為Lv195)。",
+      "精煉+7時，且信任每+Lv1時，聖屬性魔法傷害+1%。",
+      "精煉+9時，變動詠唱-10%，神之威壓、創世之光傷害+25%。",
+      "精煉+11時，對全體型敵人的魔法傷害+15%，聖屬性魔法傷害再+15%。",
+      "精煉+13時，神之威壓、創世之光傷害再+15%。",
+      "系列 : ^777777單手劍^000000 攻擊 : ^777777150^000000",
+      "武器等級 : ^7777774^000000",
+      "要求等級 : ^777777100^000000",
+      "裝備 : ^777777皇家禁衛隊系列^000000"
+    ],
+    "icon": "images/items/500015.webp",
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 42,
+    "characterBound": true,
+    "supportEquipment": true,
+    "noStorage": true,
+    "noDecompose": false,
+    "noSell": false,
+    "dataSource": "itemInfo_UTF8.lub + rAthena Renewal 2026-06-08; RO_WEB V0.9.83 newcomer support",
+    "Id": 500015,
+    "Name": "皇家禁衛隊威壓創世之劍",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 0,
+    "AegisName": "PG_B_Sword",
+    "aegisName": "PG_B_Sword",
+    "Type": "Weapon",
+    "dbType": "Weapon",
+    "SubType": "1hSword",
+    "dbSubType": "1hSword",
+    "Attack": 150,
+    "atk": 150,
+    "MagicAttack": 180,
+    "matk": 180,
+    "Range": 1,
+    "range": 1,
+    "WeaponLevel": 4,
+    "weaponLevel": 4,
+    "EquipLevelMin": 100,
+    "equipLevelMin": 100,
+    "Jobs": {
+      "Crusader": true
+    },
+    "equipJobs": {
+      "Crusader": true
+    },
+    "Classes": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "equipClasses": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "Locations": {
+      "Right_Hand": true
+    },
+    "locations": {
+      "Right_Hand": true
+    },
+    "Refineable": true,
+    "refineable": true,
+    "Script": ".@r = getrefine();\nbonus bMatkRate,2;\nbonus bMatk,3*.@r;\nbonus bMatk,3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   bonus2 bMagicAtkEle,Ele_Holy,getskilllv(\"CR_TRUST\");\n}\nif (.@r>=9) {\n   bonus bVariableCastrate,-10;\n   bonus2 bSkillAtk,\"LG_RAYOFGENESIS\",25;\n   bonus2 bSkillAtk,\"PA_PRESSURE\",25;\n}\nif (.@r>=11) {\n   bonus2 bMagicAddSize,Size_All,15;\n   bonus2 bMagicAtkEle,Ele_Holy,15;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"LG_RAYOFGENESIS\",15;\n   bonus2 bSkillAtk,\"PA_PRESSURE\",15;\n}\n",
+    "scriptRaw": ".@r = getrefine();\nbonus bMatkRate,2;\nbonus bMatk,3*.@r;\nbonus bMatk,3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   bonus2 bMagicAtkEle,Ele_Holy,getskilllv(\"CR_TRUST\");\n}\nif (.@r>=9) {\n   bonus bVariableCastrate,-10;\n   bonus2 bSkillAtk,\"LG_RAYOFGENESIS\",25;\n   bonus2 bSkillAtk,\"PA_PRESSURE\",25;\n}\nif (.@r>=11) {\n   bonus2 bMagicAddSize,Size_All,15;\n   bonus2 bMagicAtkEle,Ele_Holy,15;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"LG_RAYOFGENESIS\",15;\n   bonus2 bSkillAtk,\"PA_PRESSURE\",15;\n}\n",
+    "Trade": {
+      "NoDrop": true,
+      "NoTrade": true,
+      "NoCart": true,
+      "NoStorage": true,
+      "NoGuildStorage": true,
+      "NoMail": true,
+      "NoAuction": true
+    },
+    "trade": {
+      "NoDrop": true,
+      "NoTrade": true,
+      "NoCart": true,
+      "NoStorage": true,
+      "NoGuildStorage": true,
+      "NoMail": true,
+      "NoAuction": true
+    },
+    "requiredLevel": 100,
+    "handed": 1,
+    "weaponType": "sword",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bMatkRate\", 2);\nbonus(\"bMatk\", 3*v.r);\nbonus(\"bMatk\", 3*(min(BaseLevel,195)/15));\nif (v.r>=7) {\n   bonus2(\"bMagicAtkEle\", Ele_Holy, getskilllv(\"CR_TRUST\"));\n}\nif (v.r>=9) {\n   bonus(\"bVariableCastrate\", -10);\n   bonus2(\"bSkillAtk\", \"LG_RAYOFGENESIS\", 25);\n   bonus2(\"bSkillAtk\", \"PA_PRESSURE\", 25);\n}\nif (v.r>=11) {\n   bonus2(\"bMagicAddSize\", Size_All, 15);\n   bonus2(\"bMagicAtkEle\", Ele_Holy, 15);\n}\nif (v.r>=13) {\n   bonus2(\"bSkillAtk\", \"LG_RAYOFGENESIS\", 15);\n   bonus2(\"bSkillAtk\", \"PA_PRESSURE\", 15);\n}\n",
+    "supportStage": 100
+  },
+  "500016": {
+    "id": 500016,
+    "officialId": 500016,
+    "name": "基因學者地獄植物龍捲風長劍",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "sword",
+    "slot": "weapon",
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "description": [
+      "^ff0000該道具無法與其他帳號進行交易。^000000",
+      "為了幫助冒險家成長而準備的單手劍。",
+      "^000088一般精煉不可^000000",
+      "ATK+2%。",
+      "精煉每+1時，ATK+3。",
+      "BaseLv每+15時，ATK+3(上限為Lv195)。",
+      "精煉+7時，且單手劍使用熟練度每+Lv1時，近距離物理傷害+2%。",
+      "精煉+9時，技能後延遲-5%，地獄植物、手推車龍捲風傷害+25%。",
+      "精煉+11時，技能後延遲再-10%，對全體型敵人的物理傷害+20%。",
+      "精煉+13時，地獄植物、手推車龍捲風傷害再+15%。",
+      "系列 : ^777777單手劍^000000 攻擊 : ^777777190^000000",
+      "武器等級 : ^7777774^000000",
+      "要求等級 : ^777777100^000000",
+      "裝備 : ^777777基因學者系列^000000"
+    ],
+    "icon": "images/items/500016.webp",
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 42,
+    "characterBound": true,
+    "supportEquipment": true,
+    "noStorage": true,
+    "noDecompose": false,
+    "noSell": false,
+    "dataSource": "itemInfo_UTF8.lub + rAthena Renewal 2026-06-08; RO_WEB V0.9.83 newcomer support",
+    "Id": 500016,
+    "Name": "基因學者地獄植物龍捲風長劍",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 0,
+    "AegisName": "HS_T_Sword",
+    "aegisName": "HS_T_Sword",
+    "Type": "Weapon",
+    "dbType": "Weapon",
+    "SubType": "1hSword",
+    "dbSubType": "1hSword",
+    "Attack": 190,
+    "atk": 190,
+    "Range": 1,
+    "range": 1,
+    "WeaponLevel": 4,
+    "weaponLevel": 4,
+    "EquipLevelMin": 100,
+    "equipLevelMin": 100,
+    "Jobs": {
+      "Alchemist": true
+    },
+    "equipJobs": {
+      "Alchemist": true
+    },
+    "Classes": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "equipClasses": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "Locations": {
+      "Right_Hand": true
+    },
+    "locations": {
+      "Right_Hand": true
+    },
+    "Refineable": true,
+    "refineable": true,
+    "Script": ".@r = getrefine();\nbonus bAtkRate,2;\nbonus bBaseAtk,3*.@r;\nbonus bBaseAtk,3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   bonus bShortAtkRate,2*getskilllv(\"GN_TRAINING_SWORD\");\n}\nif (.@r>=9) {\n   bonus bDelayrate,-5;\n   bonus2 bSkillAtk,\"GN_CART_TORNADO\",25;\n   bonus2 bSkillAtk,\"GN_HELLS_PLANT\",25;\n}\nif (.@r>=11) {\n   bonus2 bAddSize,Size_All,20;\n   bonus bDelayrate,-10;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"GN_CART_TORNADO\",15;\n   bonus2 bSkillAtk,\"GN_HELLS_PLANT\",15;\n}\n",
+    "scriptRaw": ".@r = getrefine();\nbonus bAtkRate,2;\nbonus bBaseAtk,3*.@r;\nbonus bBaseAtk,3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   bonus bShortAtkRate,2*getskilllv(\"GN_TRAINING_SWORD\");\n}\nif (.@r>=9) {\n   bonus bDelayrate,-5;\n   bonus2 bSkillAtk,\"GN_CART_TORNADO\",25;\n   bonus2 bSkillAtk,\"GN_HELLS_PLANT\",25;\n}\nif (.@r>=11) {\n   bonus2 bAddSize,Size_All,20;\n   bonus bDelayrate,-10;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"GN_CART_TORNADO\",15;\n   bonus2 bSkillAtk,\"GN_HELLS_PLANT\",15;\n}\n",
+    "Trade": {
+      "NoDrop": true,
+      "NoTrade": true,
+      "NoCart": true,
+      "NoStorage": true,
+      "NoGuildStorage": true,
+      "NoMail": true,
+      "NoAuction": true
+    },
+    "trade": {
+      "NoDrop": true,
+      "NoTrade": true,
+      "NoCart": true,
+      "NoStorage": true,
+      "NoGuildStorage": true,
+      "NoMail": true,
+      "NoAuction": true
+    },
+    "requiredLevel": 100,
+    "handed": 1,
+    "weaponType": "sword",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bAtkRate\", 2);\nbonus(\"bBaseAtk\", 3*v.r);\nbonus(\"bBaseAtk\", 3*(min(BaseLevel,195)/15));\nif (v.r>=7) {\n   bonus(\"bShortAtkRate\", 2*getskilllv(\"GN_TRAINING_SWORD\"));\n}\nif (v.r>=9) {\n   bonus(\"bDelayrate\", -5);\n   bonus2(\"bSkillAtk\", \"GN_CART_TORNADO\", 25);\n   bonus2(\"bSkillAtk\", \"GN_HELLS_PLANT\", 25);\n}\nif (v.r>=11) {\n   bonus2(\"bAddSize\", Size_All, 20);\n   bonus(\"bDelayrate\", -10);\n}\nif (v.r>=13) {\n   bonus2(\"bSkillAtk\", \"GN_CART_TORNADO\", 15);\n   bonus2(\"bSkillAtk\", \"GN_HELLS_PLANT\", 15);\n}\n",
+    "supportStage": 100
+  },
   "500054": {
     "id": 500054,
     "officialId": 500054,
@@ -1225,6 +1433,110 @@
     "gradable": true,
     "Gradable": true,
     "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱"
+  },
+  "600012": {
+    "id": 600012,
+    "officialId": 600012,
+    "name": "盧恩騎士爆裂衝擊波雙手劍",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "sword",
+    "slot": "weapon",
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "description": [
+      "^ff0000該道具無法與其他帳號進行交易。^000000",
+      "為了幫助冒險家成長而準備的雙手劍。",
+      "^000088一般精煉不可^000000",
+      "CRI+15。",
+      "精煉每+1時，ATK+3。",
+      "BaseLv每+15時，ATK+3(上限為Lv195)。",
+      "精煉+7時，且雙手劍攻擊速度增加每+Lv1時，攻擊速度增加(攻擊後延遲-1%)。",
+      "精煉+9時，暴擊傷害+10%，風壓飛刃、致命爆裂、音速衝擊波傷害+25%。",
+      "一般近距離物理攻擊時，有較高機率以習得等級來觸發自動念咒音速衝擊波。",
+      "精煉+11時，CRI再+15，對全體型敵人的物理傷害+15%。",
+      "精煉+13時，風壓飛刃、致命爆裂、音速衝擊波傷害再+15%。",
+      "系列 : ^777777雙手劍^000000 攻擊 : ^777777250^000000",
+      "武器等級 : ^7777774^000000",
+      "要求等級 : ^777777100^000000",
+      "裝備 : ^777777盧恩騎士系列^000000"
+    ],
+    "icon": "images/items/600012.webp",
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 49,
+    "characterBound": true,
+    "supportEquipment": true,
+    "noStorage": true,
+    "noDecompose": false,
+    "noSell": false,
+    "dataSource": "itemInfo_UTF8.lub + rAthena Renewal 2026-06-08; RO_WEB V0.9.83 newcomer support",
+    "Id": 600012,
+    "Name": "盧恩騎士爆裂衝擊波雙手劍",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 0,
+    "AegisName": "IW_B_T_Sword",
+    "aegisName": "IW_B_T_Sword",
+    "Type": "Weapon",
+    "dbType": "Weapon",
+    "SubType": "2hSword",
+    "dbSubType": "2hSword",
+    "Attack": 250,
+    "atk": 250,
+    "Range": 1,
+    "range": 1,
+    "WeaponLevel": 4,
+    "weaponLevel": 4,
+    "EquipLevelMin": 100,
+    "equipLevelMin": 100,
+    "Jobs": {
+      "Knight": true
+    },
+    "equipJobs": {
+      "Knight": true
+    },
+    "Classes": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "equipClasses": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "Locations": {
+      "Both_Hand": true
+    },
+    "locations": {
+      "Both_Hand": true
+    },
+    "Refineable": true,
+    "refineable": true,
+    "Script": ".@r = getrefine();\nbonus bCritical,15;\nbonus bBaseAtk,3*.@r+3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   bonus bAspdRate,getskilllv(\"KN_TWOHANDQUICKEN\");\n}\nif (.@r>=9) {\n   bonus bCritAtkRate,10;\n   bonus2 bSkillAtk,\"RK_IGNITIONBREAK\",25;\n   bonus2 bSkillAtk,\"RK_SONICWAVE\",25;\n   bonus2 bSkillAtk,\"RK_WINDCUTTER\",25;\n   bonus3 bAutoSpell,\"RK_SONICWAVE\",getskilllv(\"RK_SONICWAVE\"),1;\n}\nif (.@r>=11) {\n   bonus2 bAddSize,Size_All,15;\n   bonus bCritical,15;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"RK_IGNITIONBREAK\",15;\n   bonus2 bSkillAtk,\"RK_SONICWAVE\",15;\n   bonus2 bSkillAtk,\"RK_WINDCUTTER\",15;\n}\n",
+    "scriptRaw": ".@r = getrefine();\nbonus bCritical,15;\nbonus bBaseAtk,3*.@r+3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   bonus bAspdRate,getskilllv(\"KN_TWOHANDQUICKEN\");\n}\nif (.@r>=9) {\n   bonus bCritAtkRate,10;\n   bonus2 bSkillAtk,\"RK_IGNITIONBREAK\",25;\n   bonus2 bSkillAtk,\"RK_SONICWAVE\",25;\n   bonus2 bSkillAtk,\"RK_WINDCUTTER\",25;\n   bonus3 bAutoSpell,\"RK_SONICWAVE\",getskilllv(\"RK_SONICWAVE\"),1;\n}\nif (.@r>=11) {\n   bonus2 bAddSize,Size_All,15;\n   bonus bCritical,15;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"RK_IGNITIONBREAK\",15;\n   bonus2 bSkillAtk,\"RK_SONICWAVE\",15;\n   bonus2 bSkillAtk,\"RK_WINDCUTTER\",15;\n}\n",
+    "Trade": {
+      "NoDrop": true,
+      "NoTrade": true,
+      "NoCart": true,
+      "NoStorage": true,
+      "NoGuildStorage": true,
+      "NoMail": true,
+      "NoAuction": true
+    },
+    "trade": {
+      "NoDrop": true,
+      "NoTrade": true,
+      "NoCart": true,
+      "NoStorage": true,
+      "NoGuildStorage": true,
+      "NoMail": true,
+      "NoAuction": true
+    },
+    "requiredLevel": 100,
+    "handed": 2,
+    "weaponType": "sword",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bCritical\", 15);\nbonus(\"bBaseAtk\", 3*v.r+3*(min(BaseLevel,195)/15));\nif (v.r>=7) {\n   bonus(\"bAspdRate\", getskilllv(\"KN_TWOHANDQUICKEN\"));\n}\nif (v.r>=9) {\n   bonus(\"bCritAtkRate\", 10);\n   bonus2(\"bSkillAtk\", \"RK_IGNITIONBREAK\", 25);\n   bonus2(\"bSkillAtk\", \"RK_SONICWAVE\", 25);\n   bonus2(\"bSkillAtk\", \"RK_WINDCUTTER\", 25);\n   bonus3(\"bAutoSpell\", \"RK_SONICWAVE\", getskilllv(\"RK_SONICWAVE\"), 1);\n}\nif (v.r>=11) {\n   bonus2(\"bAddSize\", Size_All, 15);\n   bonus(\"bCritical\", 15);\n}\nif (v.r>=13) {\n   bonus2(\"bSkillAtk\", \"RK_IGNITIONBREAK\", 15);\n   bonus2(\"bSkillAtk\", \"RK_SONICWAVE\", 15);\n   bonus2(\"bSkillAtk\", \"RK_WINDCUTTER\", 15);\n}\n",
+    "supportStage": 100
   },
   "600030": {
     "id": 600030,

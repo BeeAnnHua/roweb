@@ -1,4 +1,32 @@
 {
+  "4836": {
+    "id": 4836,
+    "name": "名弓Lv.5",
+    "aegisName": "Expert_Archer5",
+    "scriptRaw": "bonus bLongAtkRate,10;\n",
+    "compiledScript": "bonus(\"bLongAtkRate\", 10);\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "遠距離物理傷害+10%。",
+    "playerSlots": [
+      2
+    ],
+    "icon": "images/items/4836.webp"
+  },
+  "4844": {
+    "id": 4844,
+    "name": "尖銳Lv.5",
+    "aegisName": "Sharp5",
+    "scriptRaw": "bonus bCritical,15;\nbonus bHit,6;\n",
+    "compiledScript": "bonus(\"bCritical\", 15);\nbonus(\"bHit\", 6);\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "CRI+15, HIT+6.",
+    "playerSlots": [
+      3
+    ],
+    "icon": "images/items/4844.webp"
+  },
   "311192": {
     "id": 311192,
     "name": "雪花魔力（龍之氣息）",
@@ -1855,6 +1883,76 @@
       3,
       4
     ]
+  },
+  "311388": {
+    "id": 311388,
+    "name": "暴力5Lv",
+    "aegisName": "Expert_Fighter5",
+    "scriptRaw": "bonus bShortAtkRate,10;\n",
+    "compiledScript": "bonus(\"bShortAtkRate\", 10);\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "近距離物理傷害+10%。",
+    "playerSlots": [
+      2
+    ],
+    "icon": "images/items/311388.webp"
+  },
+  "311393": {
+    "id": 311393,
+    "name": "INT 5Lv",
+    "aegisName": "Expert_Magician5",
+    "scriptRaw": "bonus2 bMagicAtkEle,Ele_All,10;\n",
+    "compiledScript": "bonus2(\"bMagicAtkEle\", Ele_All, 10);\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "全屬性魔法傷害+10%。",
+    "playerSlots": [
+      2
+    ],
+    "icon": "images/items/311393.webp"
+  },
+  "311394": {
+    "id": 311394,
+    "name": "攻擊後延遲5Lv",
+    "aegisName": "Attack_Delay_5",
+    "scriptRaw": "bonus bAspdRate,10;\nbonus bAspd,1;\n",
+    "compiledScript": "bonus(\"bAspdRate\", 10);\nbonus(\"bAspd\", 1);\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "攻擊速度增加(攻擊後延遲-10%)。\nASPD+1。",
+    "playerSlots": [
+      3
+    ],
+    "icon": "images/items/311394.webp"
+  },
+  "311399": {
+    "id": 311399,
+    "name": "HIT 5Lv",
+    "aegisName": "Hit_Plus5",
+    "scriptRaw": "bonus bPerfectHitAddRate,15;\nbonus bHit,25;\n",
+    "compiledScript": "bonus(\"bPerfectHitAddRate\", 15);\nbonus(\"bHit\", 25);\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "HIT+25，誘導攻擊機率+15%。",
+    "playerSlots": [
+      3
+    ],
+    "icon": "images/items/311399.webp"
+  },
+  "311404": {
+    "id": 311404,
+    "name": "Cast 5Lv",
+    "aegisName": "Caster5",
+    "scriptRaw": "bonus bVariableCastrate,-10;\n",
+    "compiledScript": "bonus(\"bVariableCastrate\", -10);\n",
+    "sourceType": "enchant",
+    "sourcePath": "rAthena db/re/item_db_etc.yml",
+    "effectText": "變動詠唱-10%。",
+    "playerSlots": [
+      3
+    ],
+    "icon": "images/items/311404.webp"
   },
   "311443": {
     "id": 311443,

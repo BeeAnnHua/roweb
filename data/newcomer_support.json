@@ -1,0 +1,559 @@
+{
+  "version": "0.9.83A",
+  "packageId": 101538,
+  "stageBoxIds": {
+    "100": 101538,
+    "130": 1000994,
+    "160": 1000985
+  },
+  "nextStageBoxIds": {
+    "100": 1000994,
+    "130": 1000985,
+    "160": null
+  },
+  "chainPolicy": "100→130→160；後續箱由前一階段自動發放。",
+  "newCharacterAutoGrant": true,
+  "legacyNpcClaim": true,
+  "perCharacterClaimFlag": "newcomerSupportClaimedV1",
+  "progressField": "newcomerSupportProgressV1",
+  "supportedPolicy": "六大職業系列三轉／四轉；擴充職業暫緩。",
+  "jobRoutes": {
+    "rune_knight": {
+      "route": "rune_knight",
+      "jobName": "盧恩騎士",
+      "tier": 3,
+      "weapons": [
+        600012,
+        630008
+      ]
+    },
+    "dragon_knight": {
+      "route": "rune_knight",
+      "jobName": "龍騎士",
+      "tier": 4,
+      "weapons": [
+        600012,
+        630008
+      ]
+    },
+    "royal_guard": {
+      "route": "royal_guard",
+      "jobName": "皇家禁衛隊",
+      "tier": 3,
+      "weapons": [
+        530005,
+        500015
+      ]
+    },
+    "imperial_guard": {
+      "route": "royal_guard",
+      "jobName": "帝國聖衛軍",
+      "tier": 4,
+      "weapons": [
+        530005,
+        500015
+      ]
+    },
+    "mechanic": {
+      "route": "mechanic",
+      "jobName": "機械工匠",
+      "tier": 3,
+      "weapons": [
+        620003,
+        590008
+      ]
+    },
+    "meister": {
+      "route": "mechanic",
+      "jobName": "機甲神匠",
+      "tier": 4,
+      "weapons": [
+        620003,
+        590008
+      ]
+    },
+    "genetic": {
+      "route": "genetic",
+      "jobName": "基因學者",
+      "tier": 3,
+      "weapons": [
+        590009,
+        500016
+      ]
+    },
+    "biolo": {
+      "route": "genetic",
+      "jobName": "生命締造者",
+      "tier": 4,
+      "weapons": [
+        590009,
+        500016
+      ]
+    },
+    "guillotine_cross": {
+      "route": "guillotine_cross",
+      "jobName": "十字斬首者",
+      "tier": 3,
+      "weapons": [
+        610013,
+        610028
+      ]
+    },
+    "shadow_cross": {
+      "route": "guillotine_cross",
+      "jobName": "暗影十字",
+      "tier": 4,
+      "weapons": [
+        610013,
+        610028
+      ]
+    },
+    "shadow_chaser": {
+      "route": "shadow_chaser",
+      "jobName": "魅影追蹤者",
+      "tier": 3,
+      "weapons": [
+        700014,
+        510018
+      ]
+    },
+    "abyss_chaser": {
+      "route": "shadow_chaser",
+      "jobName": "深淵追跡者",
+      "tier": 4,
+      "weapons": [
+        700014,
+        510018
+      ]
+    },
+    "warlock": {
+      "route": "warlock",
+      "jobName": "咒術士",
+      "tier": 3,
+      "weapons": [
+        640009,
+        640010
+      ]
+    },
+    "arch_mage": {
+      "route": "warlock",
+      "jobName": "禁咒魔導士",
+      "tier": 4,
+      "weapons": [
+        640009,
+        640010
+      ]
+    },
+    "sorcerer": {
+      "route": "sorcerer",
+      "jobName": "妖術師",
+      "tier": 3,
+      "weapons": [
+        540009,
+        550010
+      ]
+    },
+    "elemental_master": {
+      "route": "sorcerer",
+      "jobName": "元素支配者",
+      "tier": 4,
+      "weapons": [
+        540009,
+        550010
+      ]
+    },
+    "arch_bishop": {
+      "route": "arch_bishop",
+      "jobName": "大主教",
+      "tier": 3,
+      "weapons": [
+        550011,
+        590010
+      ]
+    },
+    "cardinal": {
+      "route": "arch_bishop",
+      "jobName": "樞機主教",
+      "tier": 4,
+      "weapons": [
+        550011,
+        590010
+      ]
+    },
+    "sura": {
+      "route": "sura",
+      "jobName": "修羅",
+      "tier": 3,
+      "weapons": [
+        560006,
+        560007
+      ]
+    },
+    "inquisitor": {
+      "route": "sura",
+      "jobName": "聖裁者",
+      "tier": 4,
+      "weapons": [
+        560006,
+        560007
+      ]
+    },
+    "ranger": {
+      "route": "ranger",
+      "jobName": "遊俠",
+      "tier": 3,
+      "weapons": [
+        700015,
+        700016
+      ]
+    },
+    "windhawk": {
+      "route": "ranger",
+      "jobName": "風鷹狩獵者",
+      "tier": 4,
+      "weapons": [
+        700015,
+        700016
+      ]
+    },
+    "minstrel": {
+      "route": "minstrel",
+      "jobName": "宮廷樂師",
+      "tier": 3,
+      "weapons": [
+        570024,
+        570010
+      ]
+    },
+    "troubadour": {
+      "route": "minstrel",
+      "jobName": "天籟頌者",
+      "tier": 4,
+      "weapons": [
+        570024,
+        570010
+      ]
+    },
+    "wanderer": {
+      "route": "wanderer",
+      "jobName": "浪姬舞者",
+      "tier": 3,
+      "weapons": [
+        580024,
+        580010
+      ]
+    },
+    "trouvere": {
+      "route": "wanderer",
+      "jobName": "樂之舞靈",
+      "tier": 4,
+      "weapons": [
+        580024,
+        580010
+      ]
+    }
+  },
+  "fourthToThird": {
+    "dragon_knight": "rune_knight",
+    "imperial_guard": "royal_guard",
+    "meister": "mechanic",
+    "biolo": "genetic",
+    "shadow_cross": "guillotine_cross",
+    "abyss_chaser": "shadow_chaser",
+    "arch_mage": "warlock",
+    "elemental_master": "sorcerer",
+    "cardinal": "arch_bishop",
+    "inquisitor": "sura",
+    "windhawk": "ranger",
+    "troubadour": "minstrel",
+    "trouvere": "wanderer"
+  },
+  "weaponRoutes": {
+    "rune_knight": [
+      600012,
+      630008
+    ],
+    "royal_guard": [
+      530005,
+      500015
+    ],
+    "mechanic": [
+      620003,
+      590008
+    ],
+    "genetic": [
+      590009,
+      500016
+    ],
+    "guillotine_cross": [
+      610013,
+      610028
+    ],
+    "shadow_chaser": [
+      700014,
+      510018
+    ],
+    "warlock": [
+      640009,
+      640010
+    ],
+    "sorcerer": [
+      540009,
+      550010
+    ],
+    "arch_bishop": [
+      550011,
+      590010
+    ],
+    "sura": [
+      560006,
+      560007
+    ],
+    "ranger": [
+      700015,
+      700016
+    ],
+    "minstrel": [
+      570024,
+      570010
+    ],
+    "wanderer": [
+      580024,
+      580010
+    ]
+  },
+  "weaponEnchantOptions": {
+    "slot3": [
+      {
+        "id": 4844,
+        "name": "尖銳Lv.5",
+        "slot": 3,
+        "role": "暴擊",
+        "icon": "images/items/4844.webp",
+        "effectText": "CRI+15, HIT+6."
+      },
+      {
+        "id": 311399,
+        "name": "HIT 5Lv",
+        "slot": 3,
+        "role": "命中",
+        "icon": "images/items/311399.webp",
+        "effectText": "HIT+25，誘導攻擊機率+15%。"
+      },
+      {
+        "id": 311394,
+        "name": "攻擊後延遲5Lv",
+        "slot": 3,
+        "role": "攻速",
+        "icon": "images/items/311394.webp",
+        "effectText": "攻擊速度增加(攻擊後延遲-10%)。\nASPD+1。"
+      },
+      {
+        "id": 311404,
+        "name": "Cast 5Lv",
+        "slot": 3,
+        "role": "詠唱",
+        "icon": "images/items/311404.webp",
+        "effectText": "變動詠唱-10%。"
+      }
+    ],
+    "slot2": [
+      {
+        "id": 311388,
+        "name": "暴力5Lv",
+        "slot": 2,
+        "role": "近距離物理",
+        "icon": "images/items/311388.webp",
+        "effectText": "近距離物理傷害+10%。"
+      },
+      {
+        "id": 4836,
+        "name": "名弓Lv.5",
+        "slot": 2,
+        "role": "遠距離物理",
+        "icon": "images/items/4836.webp",
+        "effectText": "遠距離物理傷害+10%。"
+      },
+      {
+        "id": 311393,
+        "name": "INT 5Lv",
+        "slot": 2,
+        "role": "魔法",
+        "icon": "images/items/311393.webp",
+        "effectText": "全屬性魔法傷害+10%。"
+      }
+    ]
+  },
+  "stages": {
+    "100": {
+      "baseLevel": 100,
+      "requireTier": 3,
+      "voucherIcon": "images/items/1000253.webp",
+      "armorBoxIcon": "images/items/101423.webp",
+      "armorRefineBoxIcon": "images/items/100043.webp",
+      "armorRefine": 10,
+      "armorSets": {
+        "attack": {
+          "name": "攻擊蹦級套裝",
+          "style": "近距離物理／暴擊",
+          "items": [
+            450001,
+            480000,
+            470000,
+            490004
+          ],
+          "recommended": [
+            "rune_knight",
+            "royal_guard",
+            "mechanic",
+            "genetic",
+            "guillotine_cross",
+            "shadow_chaser",
+            "arch_bishop",
+            "sura"
+          ]
+        },
+        "range": {
+          "name": "廣域蹦級套裝",
+          "style": "遠距離物理",
+          "items": [
+            450004,
+            480003,
+            470003,
+            490007
+          ],
+          "recommended": [
+            "royal_guard",
+            "mechanic",
+            "genetic",
+            "shadow_chaser",
+            "ranger",
+            "minstrel",
+            "wanderer"
+          ]
+        },
+        "elemental": {
+          "name": "元素蹦級套裝",
+          "style": "水／風／地／火／無屬性魔法",
+          "items": [
+            450002,
+            480001,
+            470001,
+            490005
+          ],
+          "recommended": [
+            "warlock",
+            "sorcerer"
+          ]
+        },
+        "resistance": {
+          "name": "反抗蹦級套裝",
+          "style": "念／聖／暗／不死／毒屬性魔法",
+          "items": [
+            450003,
+            480002,
+            470002,
+            490006
+          ],
+          "recommended": [
+            "warlock",
+            "sorcerer",
+            "arch_bishop"
+          ]
+        }
+      }
+    },
+    "130": {
+      "baseLevel": 130,
+      "voucherIcon": "images/items/1000994.webp",
+      "refineBoxIcon": "images/items/100341.webp",
+      "sets": {
+        "physical": {
+          "name": "幻象物理 A 型套裝",
+          "style": "物理",
+          "items": [
+            450147,
+            480062,
+            470054,
+            490072,
+            490073
+          ],
+          "refines": [
+            10,
+            10,
+            10,
+            0,
+            0
+          ]
+        },
+        "magic": {
+          "name": "幻象魔法 B 型套裝",
+          "style": "魔法",
+          "items": [
+            450148,
+            480063,
+            470055,
+            490074,
+            490075
+          ],
+          "refines": [
+            10,
+            10,
+            10,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "160": {
+      "baseLevel": 160,
+      "voucherIcon": "images/items/1000985.webp",
+      "refineBoxIcon": "images/items/101455.webp",
+      "sets": {
+        "physical": {
+          "name": "全自動物理 A 型套裝",
+          "style": "物理",
+          "items": [
+            450218,
+            480185,
+            470125,
+            490214,
+            490215
+          ],
+          "refines": [
+            11,
+            11,
+            11,
+            0,
+            0
+          ]
+        },
+        "magic": {
+          "name": "全自動魔法 B 型套裝",
+          "style": "魔法",
+          "items": [
+            450219,
+            480186,
+            470126,
+            490216,
+            490217
+          ],
+          "refines": [
+            11,
+            11,
+            11,
+            0,
+            0
+          ]
+        }
+      }
+    }
+  },
+  "binding": {
+    "characterBound": true,
+    "noStorage": true,
+    "noDecompose": false,
+    "noSell": false
+  }
+}

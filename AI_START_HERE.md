@@ -1,3 +1,7 @@
+# V0.9.83A current baseline
+
+新人銜接裝備支援處分規則修正版，以 V0.9.83 為基準。62 件支援裝備可販售、可分解，但 `noStorage=true`，禁止存入帳號共用倉庫；三階段箱子本身仍禁止販售、分解與存倉。箱子固定採 100→130→160 接力；NPC 只補發第一階段箱，每個人物限一次。
+
 # 0.9.82IL4 current baseline
 - Taiwan gacha item 9512 is quick-slot eligible and batch-open capable.
 - All featured equipment/cards are runtime audited.

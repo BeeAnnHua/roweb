@@ -178,7 +178,8 @@ function getNpcTypeText(type) {
     storage: "倉庫",
     enchant_grade: "裝備升階",
     enchant_platform: "裝備附魔",
-    enchant_material_exchange: "附魔材料兌換"
+    enchant_material_exchange: "附魔材料兌換",
+    newcomer_support: "新人裝備支援"
   };
   return map[type] || type || "NPC";
 }
@@ -193,6 +194,7 @@ function getNpcActionText(npc) {
   if (npc.type === "enchant_grade") return "裝備升階";
   if (npc.type === "enchant_platform") return "開啟附魔平台";
   if (npc.type === "enchant_material_exchange") return "瀏覽材料兌換";
+  if (npc.type === "newcomer_support") return "領取新人裝備";
   return "交談";
 }
 
@@ -265,6 +267,15 @@ function interactNpc(npcId) {
     }
     return;
   }
+  if (npc.type === "newcomer_support") {
+    if (window.NewcomerSupportRuntime?.claimFromNpc) {
+      window.NewcomerSupportRuntime.claimFromNpc(npc);
+    } else {
+      addBattleLog(npc.name + "：新人裝備支援系統尚未載入。");
+    }
+    return;
+  }
+
   if (npc.type === "gender_change") {
     if (typeof openCharacterGenderSelection === "function") {
       openCharacterGenderSelection({ required: false, source: npc.name });

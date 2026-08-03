@@ -243,6 +243,8 @@
       const instanceId=String(key).slice(9);
       const found=findInventoryEquipment(instanceId);
       if(!found){setStorageMessage("找不到這件背包裝備。",true);return false;}
+      const foundData=itemDataOf(found.row);
+      if(found.row.characterBound||found.row.noStorage||foundData?.characterBound||foundData?.noStorage){setStorageMessage("新人支援裝備不可存入帳號共用倉庫。",true);return false;}
       if(found.row.locked){setStorageMessage("鎖定中的裝備不能存入倉庫。",true);return false;}
       if(storage.items.length>=STORAGE_CAPACITY){setStorageMessage("帳號倉庫已滿。",true);return false;}
       const item=normalizeStorageItem(found.row);
@@ -251,6 +253,8 @@
       setStorageMessage(`已存入 ${compactName(item,itemDataOf(item))}。`);
     }else{
       const id=String(key).replace(/^stack:/,"");
+      const stackData=typeof getItemData==="function"?getItemData(id):null;
+      if(stackData?.characterBound||stackData?.noStorage){setStorageMessage("新人支援道具不可存入帳號共用倉庫。",true);return false;}
       const total=getInventoryRows().find(x=>x.key===`stack:${id}`)?.count||0;
       const qty=Math.min(total,Math.max(1,Math.floor(Number(amount||1))));
       if(!qty){setStorageMessage("背包中沒有這項物品。",true);return false;}

@@ -1,4 +1,107 @@
 {
+  "530005": {
+    "id": 530005,
+    "officialId": 530005,
+    "name": "皇家禁衛隊放逐加農砲單手矛",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "spear",
+    "slot": "weapon",
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "description": [
+      "^ff0000該道具無法與其他帳號進行交易。^000000",
+      "為了幫助冒險家成長而準備的單手矛。",
+      "^000088一般精煉不可^000000",
+      "ATK+2%。",
+      "精煉每+1時，ATK+3。",
+      "BaseLv每+15時，ATK+3(上限為Lv195)。",
+      "精煉+7時，且長矛加速術每+Lv1時，攻擊速度增加(攻擊後延遲-1%)。",
+      "精煉+9時，ASPD+1、支配烙印、放逐攻擊、加農砲攻擊傷害+25%。",
+      "精煉+11時，對全體型敵人的物理傷害+15%，近/遠距離物理傷害+15%。",
+      "精煉+13時，支配烙印、放逐攻擊、加農砲攻擊傷害再+15%。",
+      "系列 : ^777777單手矛^000000 攻擊 : ^777777200^000000",
+      "武器等級 : ^7777774^000000",
+      "要求等級 : ^777777100^000000",
+      "裝備 : ^777777皇家禁衛隊系列^000000"
+    ],
+    "icon": "images/items/530005.webp",
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 4,
+    "characterBound": true,
+    "supportEquipment": true,
+    "noStorage": true,
+    "noDecompose": false,
+    "noSell": false,
+    "dataSource": "itemInfo_UTF8.lub + rAthena Renewal 2026-06-08; RO_WEB V0.9.83 newcomer support",
+    "Id": 530005,
+    "Name": "皇家禁衛隊放逐加農砲單手矛",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 0,
+    "AegisName": "BC_B_Spear",
+    "aegisName": "BC_B_Spear",
+    "Type": "Weapon",
+    "dbType": "Weapon",
+    "SubType": "1hSpear",
+    "dbSubType": "1hSpear",
+    "Attack": 200,
+    "atk": 200,
+    "Range": 3,
+    "range": 3,
+    "WeaponLevel": 4,
+    "weaponLevel": 4,
+    "EquipLevelMin": 100,
+    "equipLevelMin": 100,
+    "Jobs": {
+      "Crusader": true
+    },
+    "equipJobs": {
+      "Crusader": true
+    },
+    "Classes": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "equipClasses": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "Locations": {
+      "Right_Hand": true
+    },
+    "locations": {
+      "Right_Hand": true
+    },
+    "Refineable": true,
+    "refineable": true,
+    "Script": ".@r = getrefine();\nbonus bAtkRate,2;\nbonus bBaseAtk,3*.@r;\nbonus bBaseAtk,3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   bonus bAspdRate,getskilllv(\"CR_SPEARQUICKEN\");\n}\nif (.@r>=9) {\n   bonus bAspd,1;\n   bonus2 bSkillAtk,\"LG_OVERBRAND\",25;\n   bonus2 bSkillAtk,\"LG_BANISHINGPOINT\",25;\n   bonus2 bSkillAtk,\"LG_CANNONSPEAR\",25;\n}\nif (.@r>=11) {\n   bonus2 bAddSize,Size_All,15;\n   bonus bLongAtkRate,15;\n   bonus bShortAtkRate,15;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"LG_OVERBRAND\",15;\n   bonus2 bSkillAtk,\"LG_BANISHINGPOINT\",15;\n   bonus2 bSkillAtk,\"LG_CANNONSPEAR\",15;\n}\n",
+    "scriptRaw": ".@r = getrefine();\nbonus bAtkRate,2;\nbonus bBaseAtk,3*.@r;\nbonus bBaseAtk,3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   bonus bAspdRate,getskilllv(\"CR_SPEARQUICKEN\");\n}\nif (.@r>=9) {\n   bonus bAspd,1;\n   bonus2 bSkillAtk,\"LG_OVERBRAND\",25;\n   bonus2 bSkillAtk,\"LG_BANISHINGPOINT\",25;\n   bonus2 bSkillAtk,\"LG_CANNONSPEAR\",25;\n}\nif (.@r>=11) {\n   bonus2 bAddSize,Size_All,15;\n   bonus bLongAtkRate,15;\n   bonus bShortAtkRate,15;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"LG_OVERBRAND\",15;\n   bonus2 bSkillAtk,\"LG_BANISHINGPOINT\",15;\n   bonus2 bSkillAtk,\"LG_CANNONSPEAR\",15;\n}\n",
+    "Trade": {
+      "NoDrop": true,
+      "NoTrade": true,
+      "NoCart": true,
+      "NoStorage": true,
+      "NoGuildStorage": true,
+      "NoMail": true,
+      "NoAuction": true
+    },
+    "trade": {
+      "NoDrop": true,
+      "NoTrade": true,
+      "NoCart": true,
+      "NoStorage": true,
+      "NoGuildStorage": true,
+      "NoMail": true,
+      "NoAuction": true
+    },
+    "requiredLevel": 100,
+    "handed": 1,
+    "weaponType": "spear",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bAtkRate\", 2);\nbonus(\"bBaseAtk\", 3*v.r);\nbonus(\"bBaseAtk\", 3*(min(BaseLevel,195)/15));\nif (v.r>=7) {\n   bonus(\"bAspdRate\", getskilllv(\"CR_SPEARQUICKEN\"));\n}\nif (v.r>=9) {\n   bonus(\"bAspd\", 1);\n   bonus2(\"bSkillAtk\", \"LG_OVERBRAND\", 25);\n   bonus2(\"bSkillAtk\", \"LG_BANISHINGPOINT\", 25);\n   bonus2(\"bSkillAtk\", \"LG_CANNONSPEAR\", 25);\n}\nif (v.r>=11) {\n   bonus2(\"bAddSize\", Size_All, 15);\n   bonus(\"bLongAtkRate\", 15);\n   bonus(\"bShortAtkRate\", 15);\n}\nif (v.r>=13) {\n   bonus2(\"bSkillAtk\", \"LG_OVERBRAND\", 15);\n   bonus2(\"bSkillAtk\", \"LG_BANISHINGPOINT\", 15);\n   bonus2(\"bSkillAtk\", \"LG_CANNONSPEAR\", 15);\n}\n",
+    "supportStage": 100
+  },
   "530034": {
     "id": 530034,
     "officialId": 530034,
@@ -64,6 +167,109 @@
     "gradable": true,
     "Gradable": true,
     "dataSource": "台服 itemInfo_UTF8.lub + rAthena Renewal 2026-06-08 item_db_equip.yml; RO_WEB 0.9.82GV 黯淡冰晶武器箱"
+  },
+  "630008": {
+    "id": 630008,
+    "officialId": 630008,
+    "name": "盧恩騎士百矛龍息雙手矛",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "spear",
+    "slot": "weapon",
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "description": [
+      "^ff0000該道具無法與其他帳號進行交易。^000000",
+      "為了幫助冒險家成長而準備的雙手矛。",
+      "^000088一般精煉不可^000000",
+      "ATK+2%。",
+      "精煉每+1時，MHP+250、MSP+20。",
+      "BaseLv每+15時，ATK+1%(上限為Lv195)。",
+      "精煉+7時，且龍駕馭每+Lv1時，技能後延遲-3%。",
+      "精煉+9時，變動詠唱-10%，龍之氣息、龍之氣息- 水 、百矛穿刺傷害+25%。",
+      "精煉+11時，百矛穿刺技能冷卻時間-2秒，遠距離物理傷害+15%。",
+      "精煉+13時，龍之氣息、龍之氣息- 水 、百矛穿刺傷害再+15%。",
+      "系列 : ^777777雙手矛^000000 攻擊 : ^777777250^000000",
+      "武器等級 : ^7777774^000000",
+      "要求等級 : ^777777100^000000",
+      "裝備 : ^777777盧恩騎士系列^000000"
+    ],
+    "icon": "images/items/630008.webp",
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 52,
+    "characterBound": true,
+    "supportEquipment": true,
+    "noStorage": true,
+    "noDecompose": false,
+    "noSell": false,
+    "dataSource": "itemInfo_UTF8.lub + rAthena Renewal 2026-06-08; RO_WEB V0.9.83 newcomer support",
+    "Id": 630008,
+    "Name": "盧恩騎士百矛龍息雙手矛",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 0,
+    "AegisName": "HB_B_T_Spear",
+    "aegisName": "HB_B_T_Spear",
+    "Type": "Weapon",
+    "dbType": "Weapon",
+    "SubType": "2hSpear",
+    "dbSubType": "2hSpear",
+    "Attack": 250,
+    "atk": 250,
+    "Range": 3,
+    "range": 3,
+    "WeaponLevel": 4,
+    "weaponLevel": 4,
+    "EquipLevelMin": 100,
+    "equipLevelMin": 100,
+    "Jobs": {
+      "Knight": true
+    },
+    "equipJobs": {
+      "Knight": true
+    },
+    "Classes": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "equipClasses": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "Locations": {
+      "Both_Hand": true
+    },
+    "locations": {
+      "Both_Hand": true
+    },
+    "Refineable": true,
+    "refineable": true,
+    "Script": ".@r = getrefine();\nbonus bAtkRate,2+(min(BaseLevel,195)/15);\nbonus bMaxHP,250*.@r;\nbonus bMaxSP,20*.@r;\nif (.@r>=7) {\n   bonus bDelayrate,-3*getskilllv(\"RK_DRAGONTRAINING\");\n}\nif (.@r>=9) {\n   bonus bVariableCastrate,-10;\n   bonus2 bSkillAtk,\"RK_DRAGONBREATH_WATER\",25;\n   bonus2 bSkillAtk,\"RK_HUNDREDSPEAR\",25;\n   bonus2 bSkillAtk,\"RK_DRAGONBREATH\",25;\n}\nif (.@r>=11) {\n   bonus bLongAtkRate,15;\n   bonus2 bSkillCooldown,\"RK_HUNDREDSPEAR\",-2000;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"RK_DRAGONBREATH_WATER\",15;\n   bonus2 bSkillAtk,\"RK_HUNDREDSPEAR\",15;\n   bonus2 bSkillAtk,\"RK_DRAGONBREATH\",15;\n}\n",
+    "scriptRaw": ".@r = getrefine();\nbonus bAtkRate,2+(min(BaseLevel,195)/15);\nbonus bMaxHP,250*.@r;\nbonus bMaxSP,20*.@r;\nif (.@r>=7) {\n   bonus bDelayrate,-3*getskilllv(\"RK_DRAGONTRAINING\");\n}\nif (.@r>=9) {\n   bonus bVariableCastrate,-10;\n   bonus2 bSkillAtk,\"RK_DRAGONBREATH_WATER\",25;\n   bonus2 bSkillAtk,\"RK_HUNDREDSPEAR\",25;\n   bonus2 bSkillAtk,\"RK_DRAGONBREATH\",25;\n}\nif (.@r>=11) {\n   bonus bLongAtkRate,15;\n   bonus2 bSkillCooldown,\"RK_HUNDREDSPEAR\",-2000;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"RK_DRAGONBREATH_WATER\",15;\n   bonus2 bSkillAtk,\"RK_HUNDREDSPEAR\",15;\n   bonus2 bSkillAtk,\"RK_DRAGONBREATH\",15;\n}\n",
+    "Trade": {
+      "NoDrop": true,
+      "NoTrade": true,
+      "NoCart": true,
+      "NoStorage": true,
+      "NoGuildStorage": true,
+      "NoMail": true,
+      "NoAuction": true
+    },
+    "trade": {
+      "NoDrop": true,
+      "NoTrade": true,
+      "NoCart": true,
+      "NoStorage": true,
+      "NoGuildStorage": true,
+      "NoMail": true,
+      "NoAuction": true
+    },
+    "requiredLevel": 100,
+    "handed": 2,
+    "weaponType": "spear",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bAtkRate\", 2+(min(BaseLevel,195)/15));\nbonus(\"bMaxHP\", 250*v.r);\nbonus(\"bMaxSP\", 20*v.r);\nif (v.r>=7) {\n   bonus(\"bDelayrate\", -3*getskilllv(\"RK_DRAGONTRAINING\"));\n}\nif (v.r>=9) {\n   bonus(\"bVariableCastrate\", -10);\n   bonus2(\"bSkillAtk\", \"RK_DRAGONBREATH_WATER\", 25);\n   bonus2(\"bSkillAtk\", \"RK_HUNDREDSPEAR\", 25);\n   bonus2(\"bSkillAtk\", \"RK_DRAGONBREATH\", 25);\n}\nif (v.r>=11) {\n   bonus(\"bLongAtkRate\", 15);\n   bonus2(\"bSkillCooldown\", \"RK_HUNDREDSPEAR\", -2000);\n}\nif (v.r>=13) {\n   bonus2(\"bSkillAtk\", \"RK_DRAGONBREATH_WATER\", 15);\n   bonus2(\"bSkillAtk\", \"RK_HUNDREDSPEAR\", 15);\n   bonus2(\"bSkillAtk\", \"RK_DRAGONBREATH\", 15);\n}\n",
+    "supportStage": 100
   },
   "630019": {
     "id": 630019,

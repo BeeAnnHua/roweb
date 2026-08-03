@@ -1358,6 +1358,70 @@
     "sourcePath": "data/equipment/headgear/low.json",
     "sourceType": "equipment"
   },
+  "420236": {
+    "id": 420236,
+    "name": "魔王夢羅克的忠誠僕人",
+    "aegisName": "Moroc_Slave_TW",
+    "scriptRaw": "bonus bPAtk,5;\nbonus bSMatk,5;\nbonus2 bAddRace,RC_DemiHuman,5;\nbonus2 bAddRace,RC_Player_Human,5;\nbonus2 bAddRace,RC_Player_Doram,5;\nbonus2 bAddRace,RC_Angel,5;\nbonus2 bMagicAddRace,RC_DemiHuman,5;\nbonus2 bMagicAddRace,RC_Player_Human,5;\nbonus2 bMagicAddRace,RC_Player_Doram,5;\nbonus2 bMagicAddRace,RC_Angel,5;\nbonus2 bSubRace,RC_DemiHuman,3;\nbonus2 bSubRace,RC_Player_Human,3;\nbonus2 bSubRace,RC_Player_Doram,3;\nbonus2 bSubRace,RC_Angel,3;",
+    "compiledScript": "bonus(\"bPAtk\", 5);\nbonus(\"bSMatk\", 5);\nbonus2(\"bAddRace\", RC_DemiHuman, 5);\nbonus2(\"bAddRace\", RC_Player_Human, 5);\nbonus2(\"bAddRace\", RC_Angel, 5);\nbonus2(\"bMagicAddRace\", RC_DemiHuman, 5);\nbonus2(\"bMagicAddRace\", RC_Player_Human, 5);\nbonus2(\"bMagicAddRace\", RC_Angel, 5);\nbonus2(\"bSubRace\", RC_DemiHuman, 3);\nbonus2(\"bSubRace\", RC_Player_Human, 3);\nbonus2(\"bSubRace\", RC_Angel, 3);",
+    "sourcePath": "data/equipment/headgear/low.json",
+    "sourceType": "equipment",
+    "runtimeAdaptation": "RO_WEB normalizes Player_Human and Player_Doram to one Player key; compiled runtime keeps one +5/+3 entry to avoid alias double-counting while covering both player races."
+  },
+  "450001": {
+    "id": 450001,
+    "name": "攻擊蹦級鎧甲",
+    "aegisName": "Atker_Plate",
+    "scriptRaw": "bonus bBaseAtk,100;\nbonus bDelayrate,-5;\n.@r = getrefine();\nif (.@r>=2) {\n   bonus bAtkRate,.@r/2;\n}\nif (.@r>=3) {\n   bonus bCritAtkRate,.@r/3;\n}\nif (.@r>=7) {\n   bonus bBaseAtk,50;\n}\nif (.@r>=9) {\n   bonus bDelayrate,-5;\n}\n",
+    "compiledScript": "bonus(\"bBaseAtk\", 100);\nbonus(\"bDelayrate\", -5);\nv.r = getrefine();\nif (v.r>=2) {\n   bonus(\"bAtkRate\", v.r/2);\n}\nif (v.r>=3) {\n   bonus(\"bCritAtkRate\", v.r/3);\n}\nif (v.r>=7) {\n   bonus(\"bBaseAtk\", 50);\n}\nif (v.r>=9) {\n   bonus(\"bDelayrate\", -5);\n}\n",
+    "sourcePath": "data/equipment/armor/body.json",
+    "sourceType": "equipment"
+  },
+  "450002": {
+    "id": 450002,
+    "name": "元素蹦級外袍",
+    "aegisName": "Ele_Robe",
+    "scriptRaw": "bonus bMatk,100;\nbonus bVariableCastrate,-5;\n.@r = getrefine();\nif (.@r>=2) {\n   bonus bMatkRate,.@r/2;\n}\nif (.@r>=3) {\n   bonus bVariableCastrate,.@r/3*-1;\n}\nif (.@r>=7) {\n   bonus bMatk,50;\n}\nif (.@r>=9) {\n   bonus bVariableCastrate,-5;\n}\n",
+    "compiledScript": "bonus(\"bMatk\", 100);\nbonus(\"bVariableCastrate\", -5);\nv.r = getrefine();\nif (v.r>=2) {\n   bonus(\"bMatkRate\", v.r/2);\n}\nif (v.r>=3) {\n   bonus(\"bVariableCastrate\", v.r/3*-1);\n}\nif (v.r>=7) {\n   bonus(\"bMatk\", 50);\n}\nif (v.r>=9) {\n   bonus(\"bVariableCastrate\", -5);\n}\n",
+    "sourcePath": "data/equipment/armor/body.json",
+    "sourceType": "equipment"
+  },
+  "450003": {
+    "id": 450003,
+    "name": "反抗蹦級外袍",
+    "aegisName": "Defn_Robe",
+    "scriptRaw": "bonus bMatk,100;\nbonus bVariableCastrate,-5;\n.@r = getrefine();\nif (.@r>=2) {\n   bonus bMatkRate,.@r/2;\n}\nif (.@r>=3) {\n   bonus bVariableCastrate,.@r/3*-1;\n}\nif (.@r>=7) {\n   bonus bMatk,50;\n}\nif (.@r>=9) {\n   bonus bVariableCastrate,-5;\n}\n",
+    "compiledScript": "bonus(\"bMatk\", 100);\nbonus(\"bVariableCastrate\", -5);\nv.r = getrefine();\nif (v.r>=2) {\n   bonus(\"bMatkRate\", v.r/2);\n}\nif (v.r>=3) {\n   bonus(\"bVariableCastrate\", v.r/3*-1);\n}\nif (v.r>=7) {\n   bonus(\"bMatk\", 50);\n}\nif (v.r>=9) {\n   bonus(\"bVariableCastrate\", -5);\n}\n",
+    "sourcePath": "data/equipment/armor/body.json",
+    "sourceType": "equipment"
+  },
+  "450004": {
+    "id": 450004,
+    "name": "廣域蹦級外袍",
+    "aegisName": "Ran_Suits",
+    "scriptRaw": "bonus bBaseAtk,100;\nbonus bDelayrate,-5;\n.@r = getrefine();\nif (.@r>=2) {\n   bonus bAspdRate,.@r/2;\n}\nif (.@r>=3) {\n   bonus bLongAtkRate,.@r/3;\n}\nif (.@r>=7) {\n   bonus bBaseAtk,50;\n}\nif (.@r>=9) {\n   bonus bDelayrate,-5;\n}\n",
+    "compiledScript": "bonus(\"bBaseAtk\", 100);\nbonus(\"bDelayrate\", -5);\nv.r = getrefine();\nif (v.r>=2) {\n   bonus(\"bAspdRate\", v.r/2);\n}\nif (v.r>=3) {\n   bonus(\"bLongAtkRate\", v.r/3);\n}\nif (v.r>=7) {\n   bonus(\"bBaseAtk\", 50);\n}\nif (v.r>=9) {\n   bonus(\"bDelayrate\", -5);\n}\n",
+    "sourcePath": "data/equipment/armor/body.json",
+    "sourceType": "equipment"
+  },
+  "450147": {
+    "id": 450147,
+    "name": "幻象機甲A型(歸屬)",
+    "aegisName": "E_Illusion_Armor_A",
+    "scriptRaw": ".@r = getrefine();\nbonus bBaseAtk,100+10*(.@r/2);\nif (.@r>=7) {\n   bonus bAspdRate,10;\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bBaseAtk\", 100+10*(v.r/2));\nif (v.r>=7) {\n   bonus(\"bAspdRate\", 10);\n}\n",
+    "sourcePath": "data/equipment/armor/body.json",
+    "sourceType": "equipment"
+  },
+  "450148": {
+    "id": 450148,
+    "name": "幻象機甲B型(歸屬)",
+    "aegisName": "E_Illusion_Armor_B",
+    "scriptRaw": ".@r = getrefine();\nbonus bMatk,100+10*(.@r/2);\nif (.@r>=7) {\n   bonus bVariableCastrate,-10;\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bMatk\", 100+10*(v.r/2));\nif (v.r>=7) {\n   bonus(\"bVariableCastrate\", -10);\n}\n",
+    "sourcePath": "data/equipment/armor/body.json",
+    "sourceType": "equipment"
+  },
   "450175": {
     "id": 450175,
     "name": "時光超越湧現鎧甲",
@@ -1365,6 +1429,24 @@
     "scriptRaw": ".@r = getrefine();\nbonus bMdef,10;\nbonus bBaseAtk,30;\nbonus bMatk,30;\nbonus bAtkRate,2*(.@r/3);\nbonus bMatkRate,2*(.@r/3);\nif (.@r>=7) {\n   bonus bBaseAtk,50;\n   bonus bMatk,50;\n}\nif (.@r>=9) {\n   bonus2 bIgnoreDefRaceRate,RC_Brute,30;\n   bonus2 bIgnoreDefRaceRate,RC_Demon,30;\n   bonus2 bIgnoreMdefRaceRate,RC_Brute,30;\n   bonus2 bIgnoreMdefRaceRate,RC_Demon,30;\n}\nif (.@r>=11) {\n   bonus2 bAddEle,Ele_All,10;\n   bonus2 bMagicAddEle,Ele_All,10;\n}\n",
     "compiledScript": "v.r = getrefine();\nbonus(\"bMdef\", 10);\nbonus(\"bBaseAtk\", 30);\nbonus(\"bMatk\", 30);\nbonus(\"bAtkRate\", 2*(v.r/3));\nbonus(\"bMatkRate\", 2*(v.r/3));\nif (v.r>=7) {\n   bonus(\"bBaseAtk\", 50);\n   bonus(\"bMatk\", 50);\n}\nif (v.r>=9) {\n   bonus2(\"bIgnoreDefRaceRate\", RC_Brute, 30);\n   bonus2(\"bIgnoreDefRaceRate\", RC_Demon, 30);\n   bonus2(\"bIgnoreMdefRaceRate\", RC_Brute, 30);\n   bonus2(\"bIgnoreMdefRaceRate\", RC_Demon, 30);\n}\nif (v.r>=11) {\n   bonus2(\"bAddEle\", Ele_All, 10);\n   bonus2(\"bMagicAddEle\", Ele_All, 10);\n}\n",
     "sourcePath": "RO_WEB 0.9.82FZ gacha equipment",
+    "sourceType": "equipment"
+  },
+  "450218": {
+    "id": 450218,
+    "name": "全自動機甲A型(歸屬)",
+    "aegisName": "E_Auto_Armor_A",
+    "scriptRaw": ".@r = getrefine();\nbonus bBaseAtk,125+10*(.@r/2);\nif (.@r>=7) {\n   bonus bAspdRate,15;\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bBaseAtk\", 125+10*(v.r/2));\nif (v.r>=7) {\n   bonus(\"bAspdRate\", 15);\n}\n",
+    "sourcePath": "data/equipment/armor/body.json",
+    "sourceType": "equipment"
+  },
+  "450219": {
+    "id": 450219,
+    "name": "全自動機甲B型(歸屬)",
+    "aegisName": "E_Auto_Armor_B",
+    "scriptRaw": ".@r = getrefine();\nbonus bMatk,125+10*(.@r/2);\nif (.@r>=7) {\n   bonus bVariableCastrate,-15;\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bMatk\", 125+10*(v.r/2));\nif (v.r>=7) {\n   bonus(\"bVariableCastrate\", -15);\n}\n",
+    "sourcePath": "data/equipment/armor/body.json",
     "sourceType": "equipment"
   },
   "450299": {
@@ -1376,6 +1458,78 @@
     "sourcePath": "RO_WEB 0.9.82FZ gacha equipment",
     "sourceType": "equipment"
   },
+  "470000": {
+    "id": 470000,
+    "name": "攻擊蹦級重靴",
+    "aegisName": "Atker_Greave",
+    "scriptRaw": "bonus bBaseAtk,20;\nbonus bFlee,20;\n.@r = getrefine();\nif (.@r>=3) {\n   bonus bMaxHPrate,.@r/3;\n}\nif (.@r>=7) {\n   bonus bMaxHPrate,5;\n}\nif (.@r>=9) {\n   bonus bFixedCast,-500;\n}\n",
+    "compiledScript": "bonus(\"bBaseAtk\", 20);\nbonus(\"bFlee\", 20);\nv.r = getrefine();\nif (v.r>=3) {\n   bonus(\"bMaxHPrate\", v.r/3);\n}\nif (v.r>=7) {\n   bonus(\"bMaxHPrate\", 5);\n}\nif (v.r>=9) {\n   bonus(\"bFixedCast\", -500);\n}\n",
+    "sourcePath": "data/equipment/armor/shoes.json",
+    "sourceType": "equipment"
+  },
+  "470001": {
+    "id": 470001,
+    "name": "元素蹦級機能鞋",
+    "aegisName": "Ele_Shoes",
+    "scriptRaw": "bonus bMatk,20;\nbonus bFlee,20;\n.@r = getrefine();\nif (.@r>=3) {\n   bonus bMaxHP,.@r/3*400;\n}\nif (.@r>=7) {\n   bonus bMaxHP,1800;\n}\nif (.@r>=9) {\n   bonus bFixedCast,-500;\n}\n",
+    "compiledScript": "bonus(\"bMatk\", 20);\nbonus(\"bFlee\", 20);\nv.r = getrefine();\nif (v.r>=3) {\n   bonus(\"bMaxHP\", v.r/3*400);\n}\nif (v.r>=7) {\n   bonus(\"bMaxHP\", 1800);\n}\nif (v.r>=9) {\n   bonus(\"bFixedCast\", -500);\n}\n",
+    "sourcePath": "data/equipment/armor/shoes.json",
+    "sourceType": "equipment"
+  },
+  "470002": {
+    "id": 470002,
+    "name": "反抗蹦級機能鞋",
+    "aegisName": "Defn_Shoes",
+    "scriptRaw": "bonus bMatk,20;\nbonus bFlee,20;\n.@r = getrefine();\nif (.@r>=3) {\n   bonus bMaxHP,.@r/3*400;\n}\nif (.@r>=7) {\n   bonus bMaxHP,1800;\n}\nif (.@r>=9) {\n   bonus bFixedCast,-500;\n}\n",
+    "compiledScript": "bonus(\"bMatk\", 20);\nbonus(\"bFlee\", 20);\nv.r = getrefine();\nif (v.r>=3) {\n   bonus(\"bMaxHP\", v.r/3*400);\n}\nif (v.r>=7) {\n   bonus(\"bMaxHP\", 1800);\n}\nif (v.r>=9) {\n   bonus(\"bFixedCast\", -500);\n}\n",
+    "sourcePath": "data/equipment/armor/shoes.json",
+    "sourceType": "equipment"
+  },
+  "470003": {
+    "id": 470003,
+    "name": "廣域蹦級長靴",
+    "aegisName": "Ran_Boots",
+    "scriptRaw": "bonus bBaseAtk,20;\nbonus bHit,15;\n.@r = getrefine();\nif (.@r>=3) {\n   bonus bMaxSP,.@r/3*50;\n}\nif (.@r>=7) {\n   bonus bMaxSP,300;\n}\nif (.@r>=9) {\n   bonus bFixedCast,-500;\n}\n",
+    "compiledScript": "bonus(\"bBaseAtk\", 20);\nbonus(\"bHit\", 15);\nv.r = getrefine();\nif (v.r>=3) {\n   bonus(\"bMaxSP\", v.r/3*50);\n}\nif (v.r>=7) {\n   bonus(\"bMaxSP\", 300);\n}\nif (v.r>=9) {\n   bonus(\"bFixedCast\", -500);\n}\n",
+    "sourcePath": "data/equipment/armor/shoes.json",
+    "sourceType": "equipment"
+  },
+  "470054": {
+    "id": 470054,
+    "name": "幻象戰靴A型(歸屬)",
+    "aegisName": "E_Illusion_Leg_A",
+    "scriptRaw": ".@r = getrefine();\nbonus bMaxSP,200+20*(.@r/2);\nif (.@r>=7) {\n   bonus bLongAtkRate,5;\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bMaxSP\", 200+20*(v.r/2));\nif (v.r>=7) {\n   bonus(\"bLongAtkRate\", 5);\n}\n",
+    "sourcePath": "data/equipment/armor/shoes.json",
+    "sourceType": "equipment"
+  },
+  "470055": {
+    "id": 470055,
+    "name": "幻象戰靴B型(歸屬)",
+    "aegisName": "E_Illusion_Leg_B",
+    "scriptRaw": ".@r = getrefine();\nbonus bMaxSP,200+20*(.@r/2);\nif (.@r>=7) {\n   bonus2 bMagicAtkEle,Ele_All,5;\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bMaxSP\", 200+20*(v.r/2));\nif (v.r>=7) {\n   bonus2(\"bMagicAtkEle\", Ele_All, 5);\n}\n",
+    "sourcePath": "data/equipment/armor/shoes.json",
+    "sourceType": "equipment"
+  },
+  "470125": {
+    "id": 470125,
+    "name": "全自動戰靴A型(歸屬)",
+    "aegisName": "E_Auto_Leg_A",
+    "scriptRaw": ".@r = getrefine();\nbonus bMaxSP,250+20*(.@r/2);\nif (.@r>=7) {\n   bonus bLongAtkRate,7;\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bMaxSP\", 250+20*(v.r/2));\nif (v.r>=7) {\n   bonus(\"bLongAtkRate\", 7);\n}\n",
+    "sourcePath": "data/equipment/armor/shoes.json",
+    "sourceType": "equipment"
+  },
+  "470126": {
+    "id": 470126,
+    "name": "全自動戰靴B型(歸屬)",
+    "aegisName": "E_Auto_Leg_B",
+    "scriptRaw": ".@r = getrefine();\nbonus bMaxSP,250+20*(.@r/2);\nif (.@r>=7) {\n   bonus2 bMagicAtkEle,Ele_All,7;\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bMaxSP\", 250+20*(v.r/2));\nif (v.r>=7) {\n   bonus2(\"bMagicAtkEle\", Ele_All, 7);\n}\n",
+    "sourcePath": "data/equipment/armor/shoes.json",
+    "sourceType": "equipment"
+  },
   "470183": {
     "id": 470183,
     "name": "時光超越者之靴-LT",
@@ -1383,6 +1537,60 @@
     "scriptRaw": ".@r = getrefine();\n.@g = getenchantgrade();\nbonus bAllStats,2;\nbonus bMdef,15;\nbonus bMaxHPrate,15;\nbonus bMaxSPrate,5;\nif (.@r>=10) {\n   if (readparam(bStr)>=108)\n       bonus bBaseAtk,80;\n   if (readparam(bAgi)>=108)\n       bonus bAspd,2;\n   if (readparam(bVit)>=108)\n       bonus bMaxHPrate,10;\n   if (readparam(bInt)>=108)\n       bonus bMatk,80;\n   if (readparam(bDex)>=108) {\n       bonus bFixedCast,-500;\n       bonus bLongAtkRate,10;\n   }\n   if (readparam(bLuk)>=108)\n       bonus bCritAtkRate,35;\n}\nif (.@r>=13) {\n   if (readparam(bPow)>=60)\n       bonus2 bAddSize,Size_All,15;\n   if (readparam(bSta)>=60) {\n       bonus bDelayrate,-5;\n       bonus bPAtk,15;\n   }\n   if (readparam(bWis)>=60) {\n       bonus bDelayrate,-5;\n       bonus bSMatk,15;\n   }\n   if (readparam(bSpl)>=60)\n       bonus2 bMagicAddSize,Size_All,15;\n   if (readparam(bCon)>=60)\n       bonus bAspdRate,10;\n   if (readparam(bCrt)>=60) {\n       bonus bFixedCast,-200;\n       bonus bCritAtkRate,10;\n   }\n}\nif (.@g>=ENCHANTGRADE_D) {\n   bonus bRes,30;\n   bonus bMRes,30;\n}\nif (.@g>=ENCHANTGRADE_C) {\n   bonus bBaseAtk,50;\n   bonus bMatk,50;\n}\nif (.@g>=ENCHANTGRADE_B) {\n   bonus2 bAddRace,RC_All,15;\n   bonus2 bMagicAddRace,RC_All,15;\n}\nif (.@g>=ENCHANTGRADE_A) {\n   bonus bPAtk,7;\n   bonus bSMatk,7;\n}\n",
     "compiledScript": "v.r = getrefine();\nv.g = getenchantgrade();\nbonus(\"bAllStats\", 2);\nbonus(\"bMdef\", 15);\nbonus(\"bMaxHPrate\", 15);\nbonus(\"bMaxSPrate\", 5);\nif (v.r>=10) {\n   if (readparam(bStr)>=108)\n       bonus(\"bBaseAtk\", 80);\n   if (readparam(bAgi)>=108)\n       bonus(\"bAspd\", 2);\n   if (readparam(bVit)>=108)\n       bonus(\"bMaxHPrate\", 10);\n   if (readparam(bInt)>=108)\n       bonus(\"bMatk\", 80);\n   if (readparam(bDex)>=108) {\n       bonus(\"bFixedCast\", -500);\n       bonus(\"bLongAtkRate\", 10);\n   }\n   if (readparam(bLuk)>=108)\n       bonus(\"bCritAtkRate\", 35);\n}\nif (v.r>=13) {\n   if (readparam(bPow)>=60)\n       bonus2(\"bAddSize\", Size_All, 15);\n   if (readparam(bSta)>=60) {\n       bonus(\"bDelayrate\", -5);\n       bonus(\"bPAtk\", 15);\n   }\n   if (readparam(bWis)>=60) {\n       bonus(\"bDelayrate\", -5);\n       bonus(\"bSMatk\", 15);\n   }\n   if (readparam(bSpl)>=60)\n       bonus2(\"bMagicAddSize\", Size_All, 15);\n   if (readparam(bCon)>=60)\n       bonus(\"bAspdRate\", 10);\n   if (readparam(bCrt)>=60) {\n       bonus(\"bFixedCast\", -200);\n       bonus(\"bCritAtkRate\", 10);\n   }\n}\nif (v.g>=ENCHANTGRADE_D) {\n   bonus(\"bRes\", 30);\n   bonus(\"bMRes\", 30);\n}\nif (v.g>=ENCHANTGRADE_C) {\n   bonus(\"bBaseAtk\", 50);\n   bonus(\"bMatk\", 50);\n}\nif (v.g>=ENCHANTGRADE_B) {\n   bonus2(\"bAddRace\", RC_All, 15);\n   bonus2(\"bMagicAddRace\", RC_All, 15);\n}\nif (v.g>=ENCHANTGRADE_A) {\n   bonus(\"bPAtk\", 7);\n   bonus(\"bSMatk\", 7);\n}\n",
     "sourcePath": "RO_WEB 0.9.82FZ gacha equipment",
+    "sourceType": "equipment"
+  },
+  "480000": {
+    "id": 480000,
+    "name": "攻擊蹦級斗篷",
+    "aegisName": "Atker_Manteau",
+    "scriptRaw": "bonus bAspdRate,5;\n.@r = getrefine();\nif (.@r>=3) {\n   bonus bCritical,.@r/3*2;\n}\nif (.@r>=7) {\n   bonus bCritAtkRate,5;\n}\nif (.@r>=9) {\n   bonus bDelayrate,-10;\n}\n",
+    "compiledScript": "bonus(\"bAspdRate\", 5);\nv.r = getrefine();\nif (v.r>=3) {\n   bonus(\"bCritical\", v.r/3*2);\n}\nif (v.r>=7) {\n   bonus(\"bCritAtkRate\", 5);\n}\nif (v.r>=9) {\n   bonus(\"bDelayrate\", -10);\n}\n",
+    "sourcePath": "data/equipment/armor/garment.json",
+    "sourceType": "equipment"
+  },
+  "480001": {
+    "id": 480001,
+    "name": "元素蹦級披肩",
+    "aegisName": "Ele_Muffler",
+    "scriptRaw": "bonus bVariableCastrate,-5;\n.@r = getrefine();\nif (.@r>=3) {\n   bonus bMatk,.@r/3*4;\n}\nif (.@r>=7) {\n   bonus2 bMagicAtkEle,Ele_Fire,5;\n   bonus2 bMagicAtkEle,Ele_Wind,5;\n   bonus2 bMagicAtkEle,Ele_Water,5;\n   bonus2 bMagicAtkEle,Ele_Earth,5;\n   bonus2 bMagicAtkEle,Ele_Neutral,5;\n}\nif (.@r>=9) {\n   bonus bDelayrate,-10;\n}\n",
+    "compiledScript": "bonus(\"bVariableCastrate\", -5);\nv.r = getrefine();\nif (v.r>=3) {\n   bonus(\"bMatk\", v.r/3*4);\n}\nif (v.r>=7) {\n   bonus2(\"bMagicAtkEle\", Ele_Fire, 5);\n   bonus2(\"bMagicAtkEle\", Ele_Wind, 5);\n   bonus2(\"bMagicAtkEle\", Ele_Water, 5);\n   bonus2(\"bMagicAtkEle\", Ele_Earth, 5);\n   bonus2(\"bMagicAtkEle\", Ele_Neutral, 5);\n}\nif (v.r>=9) {\n   bonus(\"bDelayrate\", -10);\n}\n",
+    "sourcePath": "data/equipment/armor/garment.json",
+    "sourceType": "equipment"
+  },
+  "480002": {
+    "id": 480002,
+    "name": "反抗蹦級披肩",
+    "aegisName": "Defn_Muffler",
+    "scriptRaw": "bonus bVariableCastrate,-5;\n.@r = getrefine();\nif (.@r>=3) {\n   bonus bMatk,.@r/3*4;\n}\nif (.@r>=7) {\n   bonus2 bMagicAtkEle,Ele_Undead,5;\n   bonus2 bMagicAtkEle,Ele_Poison,5;\n   bonus2 bMagicAtkEle,Ele_Dark,5;\n   bonus2 bMagicAtkEle,Ele_Ghost,5;\n   bonus2 bMagicAtkEle,Ele_Holy,5;\n}\nif (.@r>=9) {\n   bonus bDelayrate,-10;\n}\n",
+    "compiledScript": "bonus(\"bVariableCastrate\", -5);\nv.r = getrefine();\nif (v.r>=3) {\n   bonus(\"bMatk\", v.r/3*4);\n}\nif (v.r>=7) {\n   bonus2(\"bMagicAtkEle\", Ele_Undead, 5);\n   bonus2(\"bMagicAtkEle\", Ele_Poison, 5);\n   bonus2(\"bMagicAtkEle\", Ele_Dark, 5);\n   bonus2(\"bMagicAtkEle\", Ele_Ghost, 5);\n   bonus2(\"bMagicAtkEle\", Ele_Holy, 5);\n}\nif (v.r>=9) {\n   bonus(\"bDelayrate\", -10);\n}\n",
+    "sourcePath": "data/equipment/armor/garment.json",
+    "sourceType": "equipment"
+  },
+  "480003": {
+    "id": 480003,
+    "name": "廣域蹦級斗篷",
+    "aegisName": "Ran_Manteau",
+    "scriptRaw": "bonus bVariableCastrate,-5;\n.@r = getrefine();\nif (.@r>=3) {\n   bonus bBaseAtk,.@r/3*2;\n}\nif (.@r>=7) {\n   bonus bLongAtkRate,5;\n}\nif (.@r>=9) {\n   bonus bDelayrate,-10;\n}\n",
+    "compiledScript": "bonus(\"bVariableCastrate\", -5);\nv.r = getrefine();\nif (v.r>=3) {\n   bonus(\"bBaseAtk\", v.r/3*2);\n}\nif (v.r>=7) {\n   bonus(\"bLongAtkRate\", 5);\n}\nif (v.r>=9) {\n   bonus(\"bDelayrate\", -10);\n}\n",
+    "sourcePath": "data/equipment/armor/garment.json",
+    "sourceType": "equipment"
+  },
+  "480062": {
+    "id": 480062,
+    "name": "幻象推進翼A型(歸屬)",
+    "aegisName": "E_Illusion_Engine_A",
+    "scriptRaw": ".@r = getrefine();\nbonus bMaxHP,1000+100*(.@r/2);\nif (.@r>=7) {\n   bonus bAspdRate,5;\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bMaxHP\", 1000+100*(v.r/2));\nif (v.r>=7) {\n   bonus(\"bAspdRate\", 5);\n}\n",
+    "sourcePath": "data/equipment/armor/garment.json",
+    "sourceType": "equipment"
+  },
+  "480063": {
+    "id": 480063,
+    "name": "幻象推進翼B型(歸屬)",
+    "aegisName": "E_Illusion_Engine_B",
+    "scriptRaw": ".@r = getrefine();\nbonus bMaxHP,1000+100*(.@r/2);\nif (.@r>=7) {\n   bonus bVariableCastrate,-5;\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bMaxHP\", 1000+100*(v.r/2));\nif (v.r>=7) {\n   bonus(\"bVariableCastrate\", -5);\n}\n",
+    "sourcePath": "data/equipment/armor/garment.json",
     "sourceType": "equipment"
   },
   "480076": {
@@ -1394,6 +1602,24 @@
     "sourcePath": "RO_WEB 0.9.82FZ gacha equipment",
     "sourceType": "equipment"
   },
+  "480185": {
+    "id": 480185,
+    "name": "全自動推進翼A型(歸屬)",
+    "aegisName": "E_Auto_Engine_A",
+    "scriptRaw": ".@r = getrefine();\nbonus bMaxHP,1500+100*(.@r/2);\nif (.@r>=7) {\n   bonus bAspdRate,7;\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bMaxHP\", 1500+100*(v.r/2));\nif (v.r>=7) {\n   bonus(\"bAspdRate\", 7);\n}\n",
+    "sourcePath": "data/equipment/armor/garment.json",
+    "sourceType": "equipment"
+  },
+  "480186": {
+    "id": 480186,
+    "name": "全自動推進翼B型(歸屬)",
+    "aegisName": "E_Auto_Engine_B",
+    "scriptRaw": ".@r = getrefine();\nbonus bMaxHP,1500+100*(.@r/2);\nif (.@r>=7) {\n   bonus bVariableCastrate,-7;\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bMaxHP\", 1500+100*(v.r/2));\nif (v.r>=7) {\n   bonus(\"bVariableCastrate\", -7);\n}\n",
+    "sourcePath": "data/equipment/armor/garment.json",
+    "sourceType": "equipment"
+  },
   "480312": {
     "id": 480312,
     "name": "時光超越者斗篷-LT",
@@ -1403,6 +1629,42 @@
     "sourcePath": "RO_WEB 0.9.82FZ gacha equipment",
     "sourceType": "equipment"
   },
+  "490004": {
+    "id": 490004,
+    "name": "攻擊蹦級戒指",
+    "aegisName": "Atker_Ring",
+    "scriptRaw": "bonus bAspdRate,10;\nbonus bVariableCastrate,-10;\nbonus bMaxHPrate,3;\nbonus bCritAtkRate,5;\n",
+    "compiledScript": "bonus(\"bAspdRate\", 10);\nbonus(\"bVariableCastrate\", -10);\nbonus(\"bMaxHPrate\", 3);\nbonus(\"bCritAtkRate\", 5);\n",
+    "sourcePath": "data/equipment/armor/accessory_h1.json",
+    "sourceType": "equipment"
+  },
+  "490005": {
+    "id": 490005,
+    "name": "元素蹦級耳環",
+    "aegisName": "Ele_Earing",
+    "scriptRaw": "bonus bAspdRate,10;\nbonus bVariableCastrate,-10;\nbonus bMaxSPrate,3;\nbonus2 bMagicAtkEle,Ele_Fire,5;\nbonus2 bMagicAtkEle,Ele_Wind,5;\nbonus2 bMagicAtkEle,Ele_Water,5;\nbonus2 bMagicAtkEle,Ele_Earth,5;\nbonus2 bMagicAtkEle,Ele_Neutral,5;\n",
+    "compiledScript": "bonus(\"bAspdRate\", 10);\nbonus(\"bVariableCastrate\", -10);\nbonus(\"bMaxSPrate\", 3);\nbonus2(\"bMagicAtkEle\", Ele_Fire, 5);\nbonus2(\"bMagicAtkEle\", Ele_Wind, 5);\nbonus2(\"bMagicAtkEle\", Ele_Water, 5);\nbonus2(\"bMagicAtkEle\", Ele_Earth, 5);\nbonus2(\"bMagicAtkEle\", Ele_Neutral, 5);\n",
+    "sourcePath": "data/equipment/armor/accessory_h1.json",
+    "sourceType": "equipment"
+  },
+  "490006": {
+    "id": 490006,
+    "name": "反抗蹦級耳環",
+    "aegisName": "Defn_Earing",
+    "scriptRaw": "bonus bAspdRate,10;\nbonus bVariableCastrate,-10;\nbonus bMaxSPrate,3;\nbonus2 bMagicAtkEle,Ele_Undead,5;\nbonus2 bMagicAtkEle,Ele_Poison,5;\nbonus2 bMagicAtkEle,Ele_Dark,5;\nbonus2 bMagicAtkEle,Ele_Ghost,5;\nbonus2 bMagicAtkEle,Ele_Holy,5;\n",
+    "compiledScript": "bonus(\"bAspdRate\", 10);\nbonus(\"bVariableCastrate\", -10);\nbonus(\"bMaxSPrate\", 3);\nbonus2(\"bMagicAtkEle\", Ele_Undead, 5);\nbonus2(\"bMagicAtkEle\", Ele_Poison, 5);\nbonus2(\"bMagicAtkEle\", Ele_Dark, 5);\nbonus2(\"bMagicAtkEle\", Ele_Ghost, 5);\nbonus2(\"bMagicAtkEle\", Ele_Holy, 5);\n",
+    "sourcePath": "data/equipment/armor/accessory_h1.json",
+    "sourceType": "equipment"
+  },
+  "490007": {
+    "id": 490007,
+    "name": "廣域蹦級別針",
+    "aegisName": "Ran_Brooch",
+    "scriptRaw": "bonus bAspdRate,10;\nbonus bVariableCastrate,-10;\nbonus bMaxHPrate,3;\nbonus bLongAtkRate,2;\n",
+    "compiledScript": "bonus(\"bAspdRate\", 10);\nbonus(\"bVariableCastrate\", -10);\nbonus(\"bMaxHPrate\", 3);\nbonus(\"bLongAtkRate\", 2);\n",
+    "sourcePath": "data/equipment/armor/accessory_h1.json",
+    "sourceType": "equipment"
+  },
   "490030": {
     "id": 490030,
     "name": "時光超越者之戒",
@@ -1410,6 +1672,42 @@
     "scriptRaw": "bonus bAllStats,1;\n",
     "compiledScript": "bonus(\"bAllStats\", 1);\n",
     "sourcePath": "RO_WEB 0.9.82FZ gacha equipment",
+    "sourceType": "equipment"
+  },
+  "490072": {
+    "id": 490072,
+    "name": "幻象助推器R(歸屬)",
+    "aegisName": "E_Illusion_B_R",
+    "scriptRaw": "bonus bAtkRate,5;\n",
+    "compiledScript": "bonus(\"bAtkRate\", 5);\n",
+    "sourcePath": "data/equipment/armor/accessory_h2.json",
+    "sourceType": "equipment"
+  },
+  "490073": {
+    "id": 490073,
+    "name": "幻象助推器L(歸屬)",
+    "aegisName": "E_Illusion_B_L",
+    "scriptRaw": "bonus bAtkRate,5;\n",
+    "compiledScript": "bonus(\"bAtkRate\", 5);\n",
+    "sourcePath": "data/equipment/armor/accessory_h1.json",
+    "sourceType": "equipment"
+  },
+  "490074": {
+    "id": 490074,
+    "name": "幻象戰鬥晶片R(歸屬)",
+    "aegisName": "E_Illusion_BC_R",
+    "scriptRaw": "bonus bMatkRate,5;\n",
+    "compiledScript": "bonus(\"bMatkRate\", 5);\n",
+    "sourcePath": "data/equipment/armor/accessory_h2.json",
+    "sourceType": "equipment"
+  },
+  "490075": {
+    "id": 490075,
+    "name": "幻象戰鬥晶片L(歸屬)",
+    "aegisName": "E_Illusion_BC_L",
+    "scriptRaw": "bonus bMatkRate,5;\n",
+    "compiledScript": "bonus(\"bMatkRate\", 5);\n",
+    "sourcePath": "data/equipment/armor/accessory_h1.json",
     "sourceType": "equipment"
   },
   "490088": {
@@ -1430,6 +1728,42 @@
     "sourcePath": "RO_WEB 0.9.82FZ gacha equipment",
     "sourceType": "equipment"
   },
+  "490214": {
+    "id": 490214,
+    "name": "全自動助推器R(歸屬)",
+    "aegisName": "E_Auto_B_R",
+    "scriptRaw": "bonus bAtkRate,5;\nbonus bMaxHPrate,5;\n",
+    "compiledScript": "bonus(\"bAtkRate\", 5);\nbonus(\"bMaxHPrate\", 5);\n",
+    "sourcePath": "data/equipment/armor/accessory_h2.json",
+    "sourceType": "equipment"
+  },
+  "490215": {
+    "id": 490215,
+    "name": "全自動助推器L(歸屬)",
+    "aegisName": "E_Auto_B_L",
+    "scriptRaw": "bonus bAtkRate,5;\nbonus bMaxSPrate,5;\n",
+    "compiledScript": "bonus(\"bAtkRate\", 5);\nbonus(\"bMaxSPrate\", 5);\n",
+    "sourcePath": "data/equipment/armor/accessory_h1.json",
+    "sourceType": "equipment"
+  },
+  "490216": {
+    "id": 490216,
+    "name": "全自動戰鬥晶片R(歸屬)",
+    "aegisName": "E_Auto_BC_R",
+    "scriptRaw": "bonus bMatkRate,5;\nbonus bMaxHPrate,5;\n",
+    "compiledScript": "bonus(\"bMatkRate\", 5);\nbonus(\"bMaxHPrate\", 5);\n",
+    "sourcePath": "data/equipment/armor/accessory_h2.json",
+    "sourceType": "equipment"
+  },
+  "490217": {
+    "id": 490217,
+    "name": "全自動戰鬥晶片L(歸屬)",
+    "aegisName": "E_Auto_BC_L",
+    "scriptRaw": "bonus bMatkRate,5;\nbonus bMaxSPrate,5;\n",
+    "compiledScript": "bonus(\"bMatkRate\", 5);\nbonus(\"bMaxSPrate\", 5);\n",
+    "sourcePath": "data/equipment/armor/accessory_h1.json",
+    "sourceType": "equipment"
+  },
   "490404": {
     "id": 490404,
     "name": "時光超越者之戒-LT",
@@ -1439,14 +1773,238 @@
     "sourcePath": "RO_WEB 0.9.82FZ gacha equipment",
     "sourceType": "equipment"
   },
-  "420236": {
-    "id": 420236,
-    "name": "魔王夢羅克的忠誠僕人",
-    "aegisName": "Moroc_Slave_TW",
-    "scriptRaw": "bonus bPAtk,5;\nbonus bSMatk,5;\nbonus2 bAddRace,RC_DemiHuman,5;\nbonus2 bAddRace,RC_Player_Human,5;\nbonus2 bAddRace,RC_Player_Doram,5;\nbonus2 bAddRace,RC_Angel,5;\nbonus2 bMagicAddRace,RC_DemiHuman,5;\nbonus2 bMagicAddRace,RC_Player_Human,5;\nbonus2 bMagicAddRace,RC_Player_Doram,5;\nbonus2 bMagicAddRace,RC_Angel,5;\nbonus2 bSubRace,RC_DemiHuman,3;\nbonus2 bSubRace,RC_Player_Human,3;\nbonus2 bSubRace,RC_Player_Doram,3;\nbonus2 bSubRace,RC_Angel,3;",
-    "compiledScript": "bonus(\"bPAtk\", 5);\nbonus(\"bSMatk\", 5);\nbonus2(\"bAddRace\", RC_DemiHuman, 5);\nbonus2(\"bAddRace\", RC_Player_Human, 5);\nbonus2(\"bAddRace\", RC_Angel, 5);\nbonus2(\"bMagicAddRace\", RC_DemiHuman, 5);\nbonus2(\"bMagicAddRace\", RC_Player_Human, 5);\nbonus2(\"bMagicAddRace\", RC_Angel, 5);\nbonus2(\"bSubRace\", RC_DemiHuman, 3);\nbonus2(\"bSubRace\", RC_Player_Human, 3);\nbonus2(\"bSubRace\", RC_Angel, 3);",
-    "sourcePath": "data/equipment/headgear/low.json",
-    "sourceType": "equipment",
-    "runtimeAdaptation": "RO_WEB normalizes Player_Human and Player_Doram to one Player key; compiled runtime keeps one +5/+3 entry to avoid alias double-counting while covering both player races."
+  "500015": {
+    "id": 500015,
+    "name": "皇家禁衛隊威壓創世之劍",
+    "aegisName": "PG_B_Sword",
+    "scriptRaw": ".@r = getrefine();\nbonus bMatkRate,2;\nbonus bMatk,3*.@r;\nbonus bMatk,3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   bonus2 bMagicAtkEle,Ele_Holy,getskilllv(\"CR_TRUST\");\n}\nif (.@r>=9) {\n   bonus bVariableCastrate,-10;\n   bonus2 bSkillAtk,\"LG_RAYOFGENESIS\",25;\n   bonus2 bSkillAtk,\"PA_PRESSURE\",25;\n}\nif (.@r>=11) {\n   bonus2 bMagicAddSize,Size_All,15;\n   bonus2 bMagicAtkEle,Ele_Holy,15;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"LG_RAYOFGENESIS\",15;\n   bonus2 bSkillAtk,\"PA_PRESSURE\",15;\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bMatkRate\", 2);\nbonus(\"bMatk\", 3*v.r);\nbonus(\"bMatk\", 3*(min(BaseLevel,195)/15));\nif (v.r>=7) {\n   bonus2(\"bMagicAtkEle\", Ele_Holy, getskilllv(\"CR_TRUST\"));\n}\nif (v.r>=9) {\n   bonus(\"bVariableCastrate\", -10);\n   bonus2(\"bSkillAtk\", \"LG_RAYOFGENESIS\", 25);\n   bonus2(\"bSkillAtk\", \"PA_PRESSURE\", 25);\n}\nif (v.r>=11) {\n   bonus2(\"bMagicAddSize\", Size_All, 15);\n   bonus2(\"bMagicAtkEle\", Ele_Holy, 15);\n}\nif (v.r>=13) {\n   bonus2(\"bSkillAtk\", \"LG_RAYOFGENESIS\", 15);\n   bonus2(\"bSkillAtk\", \"PA_PRESSURE\", 15);\n}\n",
+    "sourcePath": "data/equipment/weapon/sword.json",
+    "sourceType": "equipment"
+  },
+  "500016": {
+    "id": 500016,
+    "name": "基因學者地獄植物龍捲風長劍",
+    "aegisName": "HS_T_Sword",
+    "scriptRaw": ".@r = getrefine();\nbonus bAtkRate,2;\nbonus bBaseAtk,3*.@r;\nbonus bBaseAtk,3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   bonus bShortAtkRate,2*getskilllv(\"GN_TRAINING_SWORD\");\n}\nif (.@r>=9) {\n   bonus bDelayrate,-5;\n   bonus2 bSkillAtk,\"GN_CART_TORNADO\",25;\n   bonus2 bSkillAtk,\"GN_HELLS_PLANT\",25;\n}\nif (.@r>=11) {\n   bonus2 bAddSize,Size_All,20;\n   bonus bDelayrate,-10;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"GN_CART_TORNADO\",15;\n   bonus2 bSkillAtk,\"GN_HELLS_PLANT\",15;\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bAtkRate\", 2);\nbonus(\"bBaseAtk\", 3*v.r);\nbonus(\"bBaseAtk\", 3*(min(BaseLevel,195)/15));\nif (v.r>=7) {\n   bonus(\"bShortAtkRate\", 2*getskilllv(\"GN_TRAINING_SWORD\"));\n}\nif (v.r>=9) {\n   bonus(\"bDelayrate\", -5);\n   bonus2(\"bSkillAtk\", \"GN_CART_TORNADO\", 25);\n   bonus2(\"bSkillAtk\", \"GN_HELLS_PLANT\", 25);\n}\nif (v.r>=11) {\n   bonus2(\"bAddSize\", Size_All, 20);\n   bonus(\"bDelayrate\", -10);\n}\nif (v.r>=13) {\n   bonus2(\"bSkillAtk\", \"GN_CART_TORNADO\", 15);\n   bonus2(\"bSkillAtk\", \"GN_HELLS_PLANT\", 15);\n}\n",
+    "sourcePath": "data/equipment/weapon/sword.json",
+    "sourceType": "equipment"
+  },
+  "510018": {
+    "id": 510018,
+    "name": "魅影追蹤者暗詠致命威脅短劍",
+    "aegisName": "MF_B_Dagger",
+    "scriptRaw": ".@r = getrefine();\nbonus bMatkRate,2;\nbonus bAtkRate,2;\nbonus bMatk,3*(.@r+(min(BaseLevel,195)/15));\nbonus bBaseAtk,3*(.@r+(min(BaseLevel,195)/15));\nif (.@r>=7) {\n   bonus bDelayrate,-1*getskilllv(\"RG_BACKSTAP\");\n   bonus2 bMagicAtkEle,Ele_Neutral,getskilllv(\"RG_PLAGIARISM\");\n}\nif (.@r>=9) {\n   bonus bAspd,1;\n   bonus2 bSkillAtk,\"SC_FATALMENACE\",25;\n}\nif (.@r>=11) {\n   bonus2 bAddSize,Size_All,15;\n   bonus2 bMagicAddSize,Size_All,15;\n   bonus bShortAtkRate,15;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"SO_PSYCHIC_WAVE\",15;\n   bonus2 bSkillAtk,\"SC_FATALMENACE\",15;\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bMatkRate\", 2);\nbonus(\"bAtkRate\", 2);\nbonus(\"bMatk\", 3*(v.r+(min(BaseLevel,195)/15)));\nbonus(\"bBaseAtk\", 3*(v.r+(min(BaseLevel,195)/15)));\nif (v.r>=7) {\n   bonus(\"bDelayrate\", -1*getskilllv(\"RG_BACKSTAP\"));\n   bonus2(\"bMagicAtkEle\", Ele_Neutral, getskilllv(\"RG_PLAGIARISM\"));\n}\nif (v.r>=9) {\n   bonus(\"bAspd\", 1);\n   bonus2(\"bSkillAtk\", \"SC_FATALMENACE\", 25);\n}\nif (v.r>=11) {\n   bonus2(\"bAddSize\", Size_All, 15);\n   bonus2(\"bMagicAddSize\", Size_All, 15);\n   bonus(\"bShortAtkRate\", 15);\n}\nif (v.r>=13) {\n   bonus2(\"bSkillAtk\", \"SO_PSYCHIC_WAVE\", 15);\n   bonus2(\"bSkillAtk\", \"SC_FATALMENACE\", 15);\n}\n",
+    "sourcePath": "data/equipment/weapon/dagger.json",
+    "sourceType": "equipment"
+  },
+  "530005": {
+    "id": 530005,
+    "name": "皇家禁衛隊放逐加農砲單手矛",
+    "aegisName": "BC_B_Spear",
+    "scriptRaw": ".@r = getrefine();\nbonus bAtkRate,2;\nbonus bBaseAtk,3*.@r;\nbonus bBaseAtk,3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   bonus bAspdRate,getskilllv(\"CR_SPEARQUICKEN\");\n}\nif (.@r>=9) {\n   bonus bAspd,1;\n   bonus2 bSkillAtk,\"LG_OVERBRAND\",25;\n   bonus2 bSkillAtk,\"LG_BANISHINGPOINT\",25;\n   bonus2 bSkillAtk,\"LG_CANNONSPEAR\",25;\n}\nif (.@r>=11) {\n   bonus2 bAddSize,Size_All,15;\n   bonus bLongAtkRate,15;\n   bonus bShortAtkRate,15;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"LG_OVERBRAND\",15;\n   bonus2 bSkillAtk,\"LG_BANISHINGPOINT\",15;\n   bonus2 bSkillAtk,\"LG_CANNONSPEAR\",15;\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bAtkRate\", 2);\nbonus(\"bBaseAtk\", 3*v.r);\nbonus(\"bBaseAtk\", 3*(min(BaseLevel,195)/15));\nif (v.r>=7) {\n   bonus(\"bAspdRate\", getskilllv(\"CR_SPEARQUICKEN\"));\n}\nif (v.r>=9) {\n   bonus(\"bAspd\", 1);\n   bonus2(\"bSkillAtk\", \"LG_OVERBRAND\", 25);\n   bonus2(\"bSkillAtk\", \"LG_BANISHINGPOINT\", 25);\n   bonus2(\"bSkillAtk\", \"LG_CANNONSPEAR\", 25);\n}\nif (v.r>=11) {\n   bonus2(\"bAddSize\", Size_All, 15);\n   bonus(\"bLongAtkRate\", 15);\n   bonus(\"bShortAtkRate\", 15);\n}\nif (v.r>=13) {\n   bonus2(\"bSkillAtk\", \"LG_OVERBRAND\", 15);\n   bonus2(\"bSkillAtk\", \"LG_BANISHINGPOINT\", 15);\n   bonus2(\"bSkillAtk\", \"LG_CANNONSPEAR\", 15);\n}\n",
+    "sourcePath": "data/equipment/weapon/spear.json",
+    "sourceType": "equipment"
+  },
+  "540009": {
+    "id": 540009,
+    "name": "妖術師元素箭魔法書",
+    "aegisName": "SB_B_Book",
+    "scriptRaw": ".@r = getrefine();\nbonus bUnbreakableWeapon;\nbonus bMatkRate,2;\nbonus bMatk,(3*.@r)+3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   .@val = getskilllv(\"SA_AUTOSPELL\");\n   bonus2 bMagicAtkEle,Ele_Fire,.@val;\n   bonus2 bMagicAtkEle,Ele_Earth,.@val;\n   bonus2 bMagicAtkEle,Ele_Water,.@val;\n   bonus2 bMagicAtkEle,Ele_Wind,.@val;\n}\nif (.@r>=9) {\n   bonus bAspd,1;\n   bonus2 bSkillAtk,\"WZ_HEAVENDRIVE\",25;\n   bonus2 bSkillAtk,\"WZ_EARTHSPIKE\",25;\n   bonus2 bSkillAtk,\"MG_LIGHTNINGBOLT\",25;\n}\nif (.@r>=11) {\n   bonus2 bMagicAtkEle,Ele_Fire,15;\n   bonus2 bMagicAtkEle,Ele_Earth,15;\n   bonus2 bMagicAtkEle,Ele_Water,15;\n   bonus2 bMagicAtkEle,Ele_Wind,15;\n   bonus bAspd,1;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"WZ_HEAVENDRIVE\",15;\n   bonus2 bSkillAtk,\"WZ_EARTHSPIKE\",15;\n   bonus2 bSkillAtk,\"MG_LIGHTNINGBOLT\",15;\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bUnbreakableWeapon\");\nbonus(\"bMatkRate\", 2);\nbonus(\"bMatk\", (3*v.r)+3*(min(BaseLevel,195)/15));\nif (v.r>=7) {\n   v.val = getskilllv(\"SA_AUTOSPELL\");\n   bonus2(\"bMagicAtkEle\", Ele_Fire, v.val);\n   bonus2(\"bMagicAtkEle\", Ele_Earth, v.val);\n   bonus2(\"bMagicAtkEle\", Ele_Water, v.val);\n   bonus2(\"bMagicAtkEle\", Ele_Wind, v.val);\n}\nif (v.r>=9) {\n   bonus(\"bAspd\", 1);\n   bonus2(\"bSkillAtk\", \"WZ_HEAVENDRIVE\", 25);\n   bonus2(\"bSkillAtk\", \"WZ_EARTHSPIKE\", 25);\n   bonus2(\"bSkillAtk\", \"MG_LIGHTNINGBOLT\", 25);\n}\nif (v.r>=11) {\n   bonus2(\"bMagicAtkEle\", Ele_Fire, 15);\n   bonus2(\"bMagicAtkEle\", Ele_Earth, 15);\n   bonus2(\"bMagicAtkEle\", Ele_Water, 15);\n   bonus2(\"bMagicAtkEle\", Ele_Wind, 15);\n   bonus(\"bAspd\", 1);\n}\nif (v.r>=13) {\n   bonus2(\"bSkillAtk\", \"WZ_HEAVENDRIVE\", 15);\n   bonus2(\"bSkillAtk\", \"WZ_EARTHSPIKE\", 15);\n   bonus2(\"bSkillAtk\", \"MG_LIGHTNINGBOLT\", 15);\n}\n",
+    "sourcePath": "data/equipment/weapon/book.json",
+    "sourceType": "equipment"
+  },
+  "550010": {
+    "id": 550010,
+    "name": "妖術師四大魔法權杖",
+    "aegisName": "ES_B_Stick",
+    "scriptRaw": ".@r = getrefine();\nbonus bUnbreakableWeapon;\nbonus bMatkRate,2;\nbonus bMatk,(3*.@r)+3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   .@val = getskilllv(\"SA_LANDPROTECTOR\");\n   bonus2 bMagicAtkEle,Ele_Neutral,.@val;\n   bonus2 bMagicAtkEle,Ele_Earth,.@val;\n   bonus2 bMagicAtkEle,Ele_Water,.@val;\n   bonus2 bMagicAtkEle,Ele_Wind,.@val;\n   bonus2 bMagicAtkEle,Ele_Poison,.@val;\n}\nif (.@r>=9) {\n   bonus bVariableCastrate,-10;\n   bonus2 bSkillAtk,\"SO_DIAMONDDUST\",25;\n   bonus2 bSkillAtk,\"SO_VARETYR_SPEAR\",25;\n   bonus2 bSkillAtk,\"SO_PSYCHIC_WAVE\",25;\n   bonus2 bSkillAtk,\"SO_EARTHGRAVE\",25;\n   bonus2 bSkillAtk,\"SO_POISON_BUSTER\",25;\n}\nif (.@r>=11) {\n   bonus2 bMagicAddSize,Size_All,15;\n   bonus2 bMagicAtkEle,Ele_Neutral,15;\n   bonus2 bMagicAtkEle,Ele_Earth,15;\n   bonus2 bMagicAtkEle,Ele_Water,15;\n   bonus2 bMagicAtkEle,Ele_Wind,15;\n   bonus2 bMagicAtkEle,Ele_Poison,15;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"SO_DIAMONDDUST\",15;\n   bonus2 bSkillAtk,\"SO_VARETYR_SPEAR\",15;\n   bonus2 bSkillAtk,\"SO_PSYCHIC_WAVE\",15;\n   bonus2 bSkillAtk,\"SO_EARTHGRAVE\",15;\n   bonus2 bSkillAtk,\"SO_POISON_BUSTER\",15;\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bUnbreakableWeapon\");\nbonus(\"bMatkRate\", 2);\nbonus(\"bMatk\", (3*v.r)+3*(min(BaseLevel,195)/15));\nif (v.r>=7) {\n   v.val = getskilllv(\"SA_LANDPROTECTOR\");\n   bonus2(\"bMagicAtkEle\", Ele_Neutral, v.val);\n   bonus2(\"bMagicAtkEle\", Ele_Earth, v.val);\n   bonus2(\"bMagicAtkEle\", Ele_Water, v.val);\n   bonus2(\"bMagicAtkEle\", Ele_Wind, v.val);\n   bonus2(\"bMagicAtkEle\", Ele_Poison, v.val);\n}\nif (v.r>=9) {\n   bonus(\"bVariableCastrate\", -10);\n   bonus2(\"bSkillAtk\", \"SO_DIAMONDDUST\", 25);\n   bonus2(\"bSkillAtk\", \"SO_VARETYR_SPEAR\", 25);\n   bonus2(\"bSkillAtk\", \"SO_PSYCHIC_WAVE\", 25);\n   bonus2(\"bSkillAtk\", \"SO_EARTHGRAVE\", 25);\n   bonus2(\"bSkillAtk\", \"SO_POISON_BUSTER\", 25);\n}\nif (v.r>=11) {\n   bonus2(\"bMagicAddSize\", Size_All, 15);\n   bonus2(\"bMagicAtkEle\", Ele_Neutral, 15);\n   bonus2(\"bMagicAtkEle\", Ele_Earth, 15);\n   bonus2(\"bMagicAtkEle\", Ele_Water, 15);\n   bonus2(\"bMagicAtkEle\", Ele_Wind, 15);\n   bonus2(\"bMagicAtkEle\", Ele_Poison, 15);\n}\nif (v.r>=13) {\n   bonus2(\"bSkillAtk\", \"SO_DIAMONDDUST\", 15);\n   bonus2(\"bSkillAtk\", \"SO_VARETYR_SPEAR\", 15);\n   bonus2(\"bSkillAtk\", \"SO_PSYCHIC_WAVE\", 15);\n   bonus2(\"bSkillAtk\", \"SO_EARTHGRAVE\", 15);\n   bonus2(\"bSkillAtk\", \"SO_POISON_BUSTER\", 15);\n}\n",
+    "sourcePath": "data/equipment/weapon/staff.json",
+    "sourceType": "equipment"
+  },
+  "550011": {
+    "id": 550011,
+    "name": "大主教十字驅魔謳歌權杖",
+    "aegisName": "AN_B_Wand",
+    "scriptRaw": ".@r = getrefine();\nbonus bUnbreakableWeapon;\nbonus bMatkRate,2;\nbonus bMatk,(3*.@r)+3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   bonus2 bMagicAtkEle,Ele_Holy,getskilllv(\"HP_MEDITATIO\");\n}\nif (.@r>=9) {\n   bonus bVariableCastrate,-10;\n   bonus2 bSkillAtk,\"PR_MAGNUS\",25;\n   bonus2 bSkillAtk,\"AB_ADORAMUS\",25;\n}\nif (.@r>=11) {\n   bonus2 bMagicAddSize,Size_All,15;\n   bonus2 bMagicAtkEle,Ele_Holy,15;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"PR_MAGNUS\",15;\n   bonus2 bSkillAtk,\"AB_ADORAMUS\",15;\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bUnbreakableWeapon\");\nbonus(\"bMatkRate\", 2);\nbonus(\"bMatk\", (3*v.r)+3*(min(BaseLevel,195)/15));\nif (v.r>=7) {\n   bonus2(\"bMagicAtkEle\", Ele_Holy, getskilllv(\"HP_MEDITATIO\"));\n}\nif (v.r>=9) {\n   bonus(\"bVariableCastrate\", -10);\n   bonus2(\"bSkillAtk\", \"PR_MAGNUS\", 25);\n   bonus2(\"bSkillAtk\", \"AB_ADORAMUS\", 25);\n}\nif (v.r>=11) {\n   bonus2(\"bMagicAddSize\", Size_All, 15);\n   bonus2(\"bMagicAtkEle\", Ele_Holy, 15);\n}\nif (v.r>=13) {\n   bonus2(\"bSkillAtk\", \"PR_MAGNUS\", 15);\n   bonus2(\"bSkillAtk\", \"AB_ADORAMUS\", 15);\n}\n",
+    "sourcePath": "data/equipment/weapon/staff.json",
+    "sourceType": "equipment"
+  },
+  "560006": {
+    "id": 560006,
+    "name": "修羅爆氣散彈身彈指虎",
+    "aegisName": "PS_B_Knuckle",
+    "scriptRaw": ".@r = getrefine();\nbonus bAtkRate,2;\nbonus bBaseAtk,(3*.@r)+3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   bonus bLongAtkRate,2*getskilllv(\"MO_CALLSPIRITS\");\n}\nif (.@r>=9) {\n   bonus bMaxSPrate,10;\n   bonus2 bSkillAtk,\"SR_KNUCKLEARROW\",25;\n   bonus2 bSkillAtk,\"SR_RAMPAGEBLASTER\",25;\n}\nif (.@r>=11) {\n   bonus2 bAddSize,Size_All,15;\n   bonus bDelayrate,-10;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"SR_KNUCKLEARROW\",15;\n   bonus2 bSkillAtk,\"SR_RAMPAGEBLASTER\",15;\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bAtkRate\", 2);\nbonus(\"bBaseAtk\", (3*v.r)+3*(min(BaseLevel,195)/15));\nif (v.r>=7) {\n   bonus(\"bLongAtkRate\", 2*getskilllv(\"MO_CALLSPIRITS\"));\n}\nif (v.r>=9) {\n   bonus(\"bMaxSPrate\", 10);\n   bonus2(\"bSkillAtk\", \"SR_KNUCKLEARROW\", 25);\n   bonus2(\"bSkillAtk\", \"SR_RAMPAGEBLASTER\", 25);\n}\nif (v.r>=11) {\n   bonus2(\"bAddSize\", Size_All, 15);\n   bonus(\"bDelayrate\", -10);\n}\nif (v.r>=13) {\n   bonus2(\"bSkillAtk\", \"SR_KNUCKLEARROW\", 15);\n   bonus2(\"bSkillAtk\", \"SR_RAMPAGEBLASTER\", 15);\n}\n",
+    "sourcePath": "data/equipment/weapon/knuckle.json",
+    "sourceType": "equipment"
+  },
+  "560007": {
+    "id": 560007,
+    "name": "修羅天羅地網虎砲拳套",
+    "aegisName": "CP_B_Knuckle",
+    "scriptRaw": ".@r = getrefine();\nbonus bAtkRate,2+(min(BaseLevel,195)/15);\nbonus bMaxHP,250*.@r;\nbonus bMaxSP,20*.@r;\nif (.@r>=7) {\n   bonus bMaxHPrate,2*getskilllv(\"MO_CHAINCOMBO\");\n}\nif (.@r>=9) {\n   bonus bAtkRate,5;\n   bonus2 bSkillAtk,\"SR_SKYNETBLOW\",25;\n   bonus2 bSkillAtk,\"SR_TIGERCANNON\",25;\n}\nif (.@r>=11) {\n   bonus bShortAtkRate,15;\n   bonus2 bSkillCooldown,\"SR_TIGERCANNON\",-1000;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"SR_SKYNETBLOW\",15;\n   bonus2 bSkillAtk,\"SR_TIGERCANNON\",15;\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bAtkRate\", 2+(min(BaseLevel,195)/15));\nbonus(\"bMaxHP\", 250*v.r);\nbonus(\"bMaxSP\", 20*v.r);\nif (v.r>=7) {\n   bonus(\"bMaxHPrate\", 2*getskilllv(\"MO_CHAINCOMBO\"));\n}\nif (v.r>=9) {\n   bonus(\"bAtkRate\", 5);\n   bonus2(\"bSkillAtk\", \"SR_SKYNETBLOW\", 25);\n   bonus2(\"bSkillAtk\", \"SR_TIGERCANNON\", 25);\n}\nif (v.r>=11) {\n   bonus(\"bShortAtkRate\", 15);\n   bonus2(\"bSkillCooldown\", \"SR_TIGERCANNON\", -1000);\n}\nif (v.r>=13) {\n   bonus2(\"bSkillAtk\", \"SR_SKYNETBLOW\", 15);\n   bonus2(\"bSkillAtk\", \"SR_TIGERCANNON\", 15);\n}\n",
+    "sourcePath": "data/equipment/weapon/knuckle.json",
+    "sourceType": "equipment"
+  },
+  "570010": {
+    "id": 570010,
+    "name": "宮廷樂師重金屬音樂殘響小提琴",
+    "aegisName": "MV_B_Violin",
+    "scriptRaw": ".@r = getrefine();\nbonus bMatkRate,2+(min(BaseLevel,195)/15);\nbonus bMatk,3*.@r;\nif (.@r>=7) {\n   bonus2 bMagicAtkEle,Ele_All,2*getskilllv(\"BA_MUSICALLESSON\");\n}\nif (.@r>=9) {\n   bonus2 bSkillCooldown,\"WM_METALICSOUND\",-2000;\n   bonus2 bSkillAtk,\"WM_METALICSOUND\",25;\n   bonus2 bSkillAtk,\"WM_REVERBERATION\",25;\n}\nif (.@r>=11) {\n   bonus2 bSkillFixedCast,\"WM_REVERBERATION\",-500;\n   bonus2 bMagicAtkEle,Ele_All,15;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"WM_METALICSOUND\",15;\n   bonus2 bSkillAtk,\"WM_REVERBERATION\",15;\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bMatkRate\", 2+(min(BaseLevel,195)/15));\nbonus(\"bMatk\", 3*v.r);\nif (v.r>=7) {\n   bonus2(\"bMagicAtkEle\", Ele_All, 2*getskilllv(\"BA_MUSICALLESSON\"));\n}\nif (v.r>=9) {\n   bonus2(\"bSkillCooldown\", \"WM_METALICSOUND\", -2000);\n   bonus2(\"bSkillAtk\", \"WM_METALICSOUND\", 25);\n   bonus2(\"bSkillAtk\", \"WM_REVERBERATION\", 25);\n}\nif (v.r>=11) {\n   bonus2(\"bSkillFixedCast\", \"WM_REVERBERATION\", -500);\n   bonus2(\"bMagicAtkEle\", Ele_All, 15);\n}\nif (v.r>=13) {\n   bonus2(\"bSkillAtk\", \"WM_METALICSOUND\", 15);\n   bonus2(\"bSkillAtk\", \"WM_REVERBERATION\", 15);\n}\n",
+    "sourcePath": "data/equipment/weapon/instrument.json",
+    "sourceType": "equipment"
+  },
+  "570024": {
+    "id": 570024,
+    "name": "宮廷樂師大暴雨提琴",
+    "aegisName": "RS_B_Violin",
+    "scriptRaw": ".@r = getrefine();\nbonus bAtkRate,2;\nbonus bBaseAtk,3*.@r;\nbonus bBaseAtk,3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   bonus bLongAtkRate,2*getskilllv(\"BA_MUSICALLESSON\");\n   if (.@r>=9) {\n      bonus2 bSkillCooldown,\"WM_SEVERE_RAINSTORM\",-1000;\n      bonus2 bSkillAtk,\"WM_SEVERE_RAINSTORM_MELEE\",25;\n      if (.@r>=11) {\n         bonus2 bAddSize,Size_All,15;\n         bonus2 bSkillCooldown,\"WM_SEVERE_RAINSTORM\",-1000;\n         if (.@r>=13) {\n            bonus2 bSkillAtk,\"WM_SEVERE_RAINSTORM_MELEE\",15;\n         }\n      }\n   }\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bAtkRate\", 2);\nbonus(\"bBaseAtk\", 3*v.r);\nbonus(\"bBaseAtk\", 3*(min(BaseLevel,195)/15));\nif (v.r>=7) {\n   bonus(\"bLongAtkRate\", 2*getskilllv(\"BA_MUSICALLESSON\"));\n   if (v.r>=9) {\n      bonus2(\"bSkillCooldown\", \"WM_SEVERE_RAINSTORM\", -1000);\n      bonus2(\"bSkillAtk\", \"WM_SEVERE_RAINSTORM_MELEE\", 25);\n      if (v.r>=11) {\n         bonus2(\"bAddSize\", Size_All, 15);\n         bonus2(\"bSkillCooldown\", \"WM_SEVERE_RAINSTORM\", -1000);\n         if (v.r>=13) {\n            bonus2(\"bSkillAtk\", \"WM_SEVERE_RAINSTORM_MELEE\", 15);\n         }\n      }\n   }\n}\n",
+    "sourcePath": "data/equipment/weapon/instrument.json",
+    "sourceType": "equipment"
+  },
+  "580010": {
+    "id": 580010,
+    "name": "浪姬舞者重金屬音樂殘響舞蹈鞭",
+    "aegisName": "MV_B_Whip",
+    "scriptRaw": ".@r = getrefine();\nbonus bMatkRate,2+(min(BaseLevel,195)/15);\nbonus bMatk,3*.@r;\nif (.@r>=7) {\n   bonus2 bMagicAtkEle,Ele_All,2*getskilllv(\"DC_DANCINGLESSON\");\n}\nif (.@r>=9) {\n   bonus2 bSkillCooldown,\"WM_METALICSOUND\",-2000;\n   bonus2 bSkillAtk,\"WM_METALICSOUND\",25;\n   bonus2 bSkillAtk,\"WM_REVERBERATION\",25;\n}\nif (.@r>=11) {\n   bonus2 bSkillFixedCast,\"WM_REVERBERATION\",-500;\n   bonus2 bMagicAtkEle,Ele_All,15;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"WM_METALICSOUND\",15;\n   bonus2 bSkillAtk,\"WM_REVERBERATION\",15;\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bMatkRate\", 2+(min(BaseLevel,195)/15));\nbonus(\"bMatk\", 3*v.r);\nif (v.r>=7) {\n   bonus2(\"bMagicAtkEle\", Ele_All, 2*getskilllv(\"DC_DANCINGLESSON\"));\n}\nif (v.r>=9) {\n   bonus2(\"bSkillCooldown\", \"WM_METALICSOUND\", -2000);\n   bonus2(\"bSkillAtk\", \"WM_METALICSOUND\", 25);\n   bonus2(\"bSkillAtk\", \"WM_REVERBERATION\", 25);\n}\nif (v.r>=11) {\n   bonus2(\"bSkillFixedCast\", \"WM_REVERBERATION\", -500);\n   bonus2(\"bMagicAtkEle\", Ele_All, 15);\n}\nif (v.r>=13) {\n   bonus2(\"bSkillAtk\", \"WM_METALICSOUND\", 15);\n   bonus2(\"bSkillAtk\", \"WM_REVERBERATION\", 15);\n}\n",
+    "sourcePath": "data/equipment/weapon/whip.json",
+    "sourceType": "equipment"
+  },
+  "580024": {
+    "id": 580024,
+    "name": "浪姬舞者大暴雨銳鞭",
+    "aegisName": "RS_B_Whip",
+    "scriptRaw": ".@r = getrefine();\nbonus bAtkRate,2;\nbonus bBaseAtk,3*.@r;\nbonus bBaseAtk,3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   bonus bLongAtkRate,2*getskilllv(\"DC_DANCINGLESSON\");\n   if (.@r>=9) {\n      bonus2 bSkillCooldown,\"WM_SEVERE_RAINSTORM\",-1000;\n      bonus2 bSkillAtk,\"WM_SEVERE_RAINSTORM_MELEE\",25;\n      if (.@r>=11) {\n         bonus2 bAddSize,Size_All,15;\n         bonus2 bSkillCooldown,\"WM_SEVERE_RAINSTORM\",-1000;\n         if (.@r>=13) {\n            bonus2 bSkillAtk,\"WM_SEVERE_RAINSTORM_MELEE\",15;\n         }\n      }\n   }\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bAtkRate\", 2);\nbonus(\"bBaseAtk\", 3*v.r);\nbonus(\"bBaseAtk\", 3*(min(BaseLevel,195)/15));\nif (v.r>=7) {\n   bonus(\"bLongAtkRate\", 2*getskilllv(\"DC_DANCINGLESSON\"));\n   if (v.r>=9) {\n      bonus2(\"bSkillCooldown\", \"WM_SEVERE_RAINSTORM\", -1000);\n      bonus2(\"bSkillAtk\", \"WM_SEVERE_RAINSTORM_MELEE\", 25);\n      if (v.r>=11) {\n         bonus2(\"bAddSize\", Size_All, 15);\n         bonus2(\"bSkillCooldown\", \"WM_SEVERE_RAINSTORM\", -1000);\n         if (v.r>=13) {\n            bonus2(\"bSkillAtk\", \"WM_SEVERE_RAINSTORM_MELEE\", 15);\n         }\n      }\n   }\n}\n",
+    "sourcePath": "data/equipment/weapon/whip.json",
+    "sourceType": "equipment"
+  },
+  "590008": {
+    "id": 590008,
+    "name": "機械工匠飛拳加農砲鐵鎚",
+    "aegisName": "AK_B_Mace",
+    "scriptRaw": ".@r = getrefine();\nbonus bUnbreakableWeapon;\nbonus bAtkRate,2;\nbonus bBaseAtk,3*.@r+3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   bonus bLongAtkRate,2*getskilllv(\"NC_MADOLICENCE\");\n}\nif (.@r>=9) {\n   bonus bVariableCastrate,-10;\n   bonus2 bSkillAtk,\"NC_BOOSTKNUCKLE\",25;\n   bonus2 bSkillAtk,\"NC_ARMSCANNON\",25;\n   bonus2 bSkillAtk,\"NC_VULCANARM\",25;\n}\nif (.@r>=11) {\n   bonus2 bAddSize,Size_All,20;\n   bonus bDelayrate,-10;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"NC_BOOSTKNUCKLE\",15;\n   bonus2 bSkillAtk,\"NC_ARMSCANNON\",15;\n   bonus2 bSkillAtk,\"NC_VULCANARM\",15;\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bUnbreakableWeapon\");\nbonus(\"bAtkRate\", 2);\nbonus(\"bBaseAtk\", 3*v.r+3*(min(BaseLevel,195)/15));\nif (v.r>=7) {\n   bonus(\"bLongAtkRate\", 2*getskilllv(\"NC_MADOLICENCE\"));\n}\nif (v.r>=9) {\n   bonus(\"bVariableCastrate\", -10);\n   bonus2(\"bSkillAtk\", \"NC_BOOSTKNUCKLE\", 25);\n   bonus2(\"bSkillAtk\", \"NC_ARMSCANNON\", 25);\n   bonus2(\"bSkillAtk\", \"NC_VULCANARM\", 25);\n}\nif (v.r>=11) {\n   bonus2(\"bAddSize\", Size_All, 20);\n   bonus(\"bDelayrate\", -10);\n}\nif (v.r>=13) {\n   bonus2(\"bSkillAtk\", \"NC_BOOSTKNUCKLE\", 15);\n   bonus2(\"bSkillAtk\", \"NC_ARMSCANNON\", 15);\n   bonus2(\"bSkillAtk\", \"NC_VULCANARM\", 15);\n}\n",
+    "sourcePath": "data/equipment/weapon/mace.json",
+    "sourceType": "equipment"
+  },
+  "590009": {
+    "id": 590009,
+    "name": "基因學者強酸火煙加農砲木錘",
+    "aegisName": "AC_B_Club",
+    "scriptRaw": ".@r = getrefine();\nbonus bUnbreakableWeapon;\nbonus bAtkRate,2;\nbonus bBaseAtk,3*.@r+3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   bonus bLongAtkRate,2*getskilllv(\"AM_LEARNINGPOTION\");\n}\nif (.@r>=9) {\n   bonus bVariableCastrate,-10;\n   bonus2 bSkillAtk,\"CR_ACIDDEMONSTRATION\",25;\n   bonus2 bSkillAtk,\"GN_CARTCANNON\",25;\n}\nif (.@r>=11) {\n   bonus2 bAddSize,Size_All,20;\n   bonus bDelayrate,-10;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"CR_ACIDDEMONSTRATION\",15;\n   bonus2 bSkillAtk,\"GN_CARTCANNON\",15;\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bUnbreakableWeapon\");\nbonus(\"bAtkRate\", 2);\nbonus(\"bBaseAtk\", 3*v.r+3*(min(BaseLevel,195)/15));\nif (v.r>=7) {\n   bonus(\"bLongAtkRate\", 2*getskilllv(\"AM_LEARNINGPOTION\"));\n}\nif (v.r>=9) {\n   bonus(\"bVariableCastrate\", -10);\n   bonus2(\"bSkillAtk\", \"CR_ACIDDEMONSTRATION\", 25);\n   bonus2(\"bSkillAtk\", \"GN_CARTCANNON\", 25);\n}\nif (v.r>=11) {\n   bonus2(\"bAddSize\", Size_All, 20);\n   bonus(\"bDelayrate\", -10);\n}\nif (v.r>=13) {\n   bonus2(\"bSkillAtk\", \"CR_ACIDDEMONSTRATION\", 15);\n   bonus2(\"bSkillAtk\", \"GN_CARTCANNON\", 15);\n}\n",
+    "sourcePath": "data/equipment/weapon/mace.json",
+    "sourceType": "equipment"
+  },
+  "590010": {
+    "id": 590010,
+    "name": "大主教二道聖光審判錘",
+    "aegisName": "DD_B_Mace",
+    "scriptRaw": ".@r = getrefine();\nbonus bUnbreakableWeapon;\nbonus bMatkRate,2;\nbonus bAtkRate,2;\nbonus bMatk,(3*.@r)+3*(min(BaseLevel,195)/15);\nbonus bBaseAtk,3*.@r+3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   bonus2 bMagicAtkEle,Ele_Holy,getskilllv(\"HP_MEDITATIO\");\n   bonus bShortAtkRate,getskilllv(\"HP_MEDITATIO\");\n}\nif (.@r>=9) {\n   bonus bVariableCastrate,-10;\n   bonus bDelayrate,-10;\n   bonus2 bSkillAtk,\"AB_DUPLELIGHT_MELEE\",25;\n   bonus2 bSkillAtk,\"AB_DUPLELIGHT_MAGIC\",25;\n   bonus2 bSkillAtk,\"AB_JUDEX\",25;\n}\nif (.@r>=11) {\n   bonus2 bMagicAddSize,Size_All,15;\n   bonus2 bMagicAtkEle,Ele_Holy,15;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"AB_DUPLELIGHT_MELEE\",15;\n   bonus2 bSkillAtk,\"AB_DUPLELIGHT_MAGIC\",15;\n   bonus2 bSkillAtk,\"AB_JUDEX\",15;\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bUnbreakableWeapon\");\nbonus(\"bMatkRate\", 2);\nbonus(\"bAtkRate\", 2);\nbonus(\"bMatk\", (3*v.r)+3*(min(BaseLevel,195)/15));\nbonus(\"bBaseAtk\", 3*v.r+3*(min(BaseLevel,195)/15));\nif (v.r>=7) {\n   bonus2(\"bMagicAtkEle\", Ele_Holy, getskilllv(\"HP_MEDITATIO\"));\n   bonus(\"bShortAtkRate\", getskilllv(\"HP_MEDITATIO\"));\n}\nif (v.r>=9) {\n   bonus(\"bVariableCastrate\", -10);\n   bonus(\"bDelayrate\", -10);\n   bonus2(\"bSkillAtk\", \"AB_DUPLELIGHT_MELEE\", 25);\n   bonus2(\"bSkillAtk\", \"AB_DUPLELIGHT_MAGIC\", 25);\n   bonus2(\"bSkillAtk\", \"AB_JUDEX\", 25);\n}\nif (v.r>=11) {\n   bonus2(\"bMagicAddSize\", Size_All, 15);\n   bonus2(\"bMagicAtkEle\", Ele_Holy, 15);\n}\nif (v.r>=13) {\n   bonus2(\"bSkillAtk\", \"AB_DUPLELIGHT_MELEE\", 15);\n   bonus2(\"bSkillAtk\", \"AB_DUPLELIGHT_MAGIC\", 15);\n   bonus2(\"bSkillAtk\", \"AB_JUDEX\", 15);\n}\n",
+    "sourcePath": "data/equipment/weapon/mace.json",
+    "sourceType": "equipment"
+  },
+  "600012": {
+    "id": 600012,
+    "name": "盧恩騎士爆裂衝擊波雙手劍",
+    "aegisName": "IW_B_T_Sword",
+    "scriptRaw": ".@r = getrefine();\nbonus bCritical,15;\nbonus bBaseAtk,3*.@r+3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   bonus bAspdRate,getskilllv(\"KN_TWOHANDQUICKEN\");\n}\nif (.@r>=9) {\n   bonus bCritAtkRate,10;\n   bonus2 bSkillAtk,\"RK_IGNITIONBREAK\",25;\n   bonus2 bSkillAtk,\"RK_SONICWAVE\",25;\n   bonus2 bSkillAtk,\"RK_WINDCUTTER\",25;\n   bonus3 bAutoSpell,\"RK_SONICWAVE\",getskilllv(\"RK_SONICWAVE\"),1;\n}\nif (.@r>=11) {\n   bonus2 bAddSize,Size_All,15;\n   bonus bCritical,15;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"RK_IGNITIONBREAK\",15;\n   bonus2 bSkillAtk,\"RK_SONICWAVE\",15;\n   bonus2 bSkillAtk,\"RK_WINDCUTTER\",15;\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bCritical\", 15);\nbonus(\"bBaseAtk\", 3*v.r+3*(min(BaseLevel,195)/15));\nif (v.r>=7) {\n   bonus(\"bAspdRate\", getskilllv(\"KN_TWOHANDQUICKEN\"));\n}\nif (v.r>=9) {\n   bonus(\"bCritAtkRate\", 10);\n   bonus2(\"bSkillAtk\", \"RK_IGNITIONBREAK\", 25);\n   bonus2(\"bSkillAtk\", \"RK_SONICWAVE\", 25);\n   bonus2(\"bSkillAtk\", \"RK_WINDCUTTER\", 25);\n   bonus3(\"bAutoSpell\", \"RK_SONICWAVE\", getskilllv(\"RK_SONICWAVE\"), 1);\n}\nif (v.r>=11) {\n   bonus2(\"bAddSize\", Size_All, 15);\n   bonus(\"bCritical\", 15);\n}\nif (v.r>=13) {\n   bonus2(\"bSkillAtk\", \"RK_IGNITIONBREAK\", 15);\n   bonus2(\"bSkillAtk\", \"RK_SONICWAVE\", 15);\n   bonus2(\"bSkillAtk\", \"RK_WINDCUTTER\", 15);\n}\n",
+    "sourcePath": "data/equipment/weapon/sword.json",
+    "sourceType": "equipment"
+  },
+  "610013": {
+    "id": 610013,
+    "name": "十字斬首者迴旋十字刀刃拳刃",
+    "aegisName": "RC_B_Katar",
+    "scriptRaw": ".@r = getrefine();\nbonus bCritical,15;\nbonus bBaseAtk,3*.@r+3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   bonus bShortAtkRate,getskilllv(\"ASC_KATAR\")*2;\n}\nif (.@r>=9) {\n   bonus bDelayrate,-5;\n   bonus2 bSkillAtk,\"GC_CROSSIMPACT\",25;\n   bonus2 bSkillAtk,\"GC_ROLLINGCUTTER\",25;\n}\nif (.@r>=11) {\n   bonus2 bAddSize,Size_All,15;\n   bonus bDelayrate,-10;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"GC_CROSSIMPACT\",15;\n   bonus2 bSkillAtk,\"GC_ROLLINGCUTTER\",15;\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bCritical\", 15);\nbonus(\"bBaseAtk\", 3*v.r+3*(min(BaseLevel,195)/15));\nif (v.r>=7) {\n   bonus(\"bShortAtkRate\", getskilllv(\"ASC_KATAR\")*2);\n}\nif (v.r>=9) {\n   bonus(\"bDelayrate\", -5);\n   bonus2(\"bSkillAtk\", \"GC_CROSSIMPACT\", 25);\n   bonus2(\"bSkillAtk\", \"GC_ROLLINGCUTTER\", 25);\n}\nif (v.r>=11) {\n   bonus2(\"bAddSize\", Size_All, 15);\n   bonus(\"bDelayrate\", -10);\n}\nif (v.r>=13) {\n   bonus2(\"bSkillAtk\", \"GC_CROSSIMPACT\", 15);\n   bonus2(\"bSkillAtk\", \"GC_ROLLINGCUTTER\", 15);\n}\n",
+    "sourcePath": "data/equipment/weapon/katar.json",
+    "sourceType": "equipment"
+  },
+  "610028": {
+    "id": 610028,
+    "name": "十字斬首者反擊斬黑暗瞬間拳刃",
+    "aegisName": "CA_B_Katar",
+    "scriptRaw": ".@r = getrefine();\nbonus bAtkRate,2;\nbonus bBaseAtk,3*.@r;\nbonus bBaseAtk,3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   bonus bDelayrate,-(getskilllv(\"AS_KATAR\")/2);\n   if (.@r>=9) {\n      bonus bShortAtkRate,10;\n      bonus2 bSkillAtk,\"ASC_METEORASSAULT\",25;\n      bonus2 bSkillAtk,\"GC_COUNTERSLASH\",25;\n      if (.@r>=11) {\n         bonus2 bAddSize,Size_All,15;\n         bonus bDelayrate,-10;\n         if (.@r>=13) {\n            bonus2 bSkillAtk,\"ASC_METEORASSAULT\",15;\n            bonus2 bSkillAtk,\"GC_COUNTERSLASH\",15;\n         }\n      }\n   }\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bAtkRate\", 2);\nbonus(\"bBaseAtk\", 3*v.r);\nbonus(\"bBaseAtk\", 3*(min(BaseLevel,195)/15));\nif (v.r>=7) {\n   bonus(\"bDelayrate\", -(getskilllv(\"AS_KATAR\")/2));\n   if (v.r>=9) {\n      bonus(\"bShortAtkRate\", 10);\n      bonus2(\"bSkillAtk\", \"ASC_METEORASSAULT\", 25);\n      bonus2(\"bSkillAtk\", \"GC_COUNTERSLASH\", 25);\n      if (v.r>=11) {\n         bonus2(\"bAddSize\", Size_All, 15);\n         bonus(\"bDelayrate\", -10);\n         if (v.r>=13) {\n            bonus2(\"bSkillAtk\", \"ASC_METEORASSAULT\", 15);\n            bonus2(\"bSkillAtk\", \"GC_COUNTERSLASH\", 15);\n         }\n      }\n   }\n}\n",
+    "sourcePath": "data/equipment/weapon/katar.json",
+    "sourceType": "equipment"
+  },
+  "620003": {
+    "id": 620003,
+    "name": "機械工匠揮斧重擊颶風斧",
+    "aegisName": "PT_B_Axe",
+    "scriptRaw": ".@r = getrefine();\nbonus bUnbreakableWeapon;\nbonus bAtkRate,2;\nbonus bBaseAtk,3*.@r+3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   bonus bShortAtkRate,getskilllv(\"BS_WEAPONRESEARCH\");\n}\nif (.@r>=9) {\n   bonus2 bSkillCooldown,\"NC_AXETORNADO\",-1000;\n   bonus2 bSkillAtk,\"NC_AXETORNADO\",25;\n   bonus2 bSkillAtk,\"NC_POWERSWING\",25;\n}\nif (.@r>=11) {\n   bonus2 bAddSize,Size_All,20;\n   bonus bDelayrate,-10;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"NC_AXETORNADO\",15;\n   bonus2 bSkillAtk,\"NC_POWERSWING\",15;\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bUnbreakableWeapon\");\nbonus(\"bAtkRate\", 2);\nbonus(\"bBaseAtk\", 3*v.r+3*(min(BaseLevel,195)/15));\nif (v.r>=7) {\n   bonus(\"bShortAtkRate\", getskilllv(\"BS_WEAPONRESEARCH\"));\n}\nif (v.r>=9) {\n   bonus2(\"bSkillCooldown\", \"NC_AXETORNADO\", -1000);\n   bonus2(\"bSkillAtk\", \"NC_AXETORNADO\", 25);\n   bonus2(\"bSkillAtk\", \"NC_POWERSWING\", 25);\n}\nif (v.r>=11) {\n   bonus2(\"bAddSize\", Size_All, 20);\n   bonus(\"bDelayrate\", -10);\n}\nif (v.r>=13) {\n   bonus2(\"bSkillAtk\", \"NC_AXETORNADO\", 15);\n   bonus2(\"bSkillAtk\", \"NC_POWERSWING\", 15);\n}\n",
+    "sourcePath": "data/equipment/weapon/axe.json",
+    "sourceType": "equipment"
+  },
+  "630008": {
+    "id": 630008,
+    "name": "盧恩騎士百矛龍息雙手矛",
+    "aegisName": "HB_B_T_Spear",
+    "scriptRaw": ".@r = getrefine();\nbonus bAtkRate,2+(min(BaseLevel,195)/15);\nbonus bMaxHP,250*.@r;\nbonus bMaxSP,20*.@r;\nif (.@r>=7) {\n   bonus bDelayrate,-3*getskilllv(\"RK_DRAGONTRAINING\");\n}\nif (.@r>=9) {\n   bonus bVariableCastrate,-10;\n   bonus2 bSkillAtk,\"RK_DRAGONBREATH_WATER\",25;\n   bonus2 bSkillAtk,\"RK_HUNDREDSPEAR\",25;\n   bonus2 bSkillAtk,\"RK_DRAGONBREATH\",25;\n}\nif (.@r>=11) {\n   bonus bLongAtkRate,15;\n   bonus2 bSkillCooldown,\"RK_HUNDREDSPEAR\",-2000;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"RK_DRAGONBREATH_WATER\",15;\n   bonus2 bSkillAtk,\"RK_HUNDREDSPEAR\",15;\n   bonus2 bSkillAtk,\"RK_DRAGONBREATH\",15;\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bAtkRate\", 2+(min(BaseLevel,195)/15));\nbonus(\"bMaxHP\", 250*v.r);\nbonus(\"bMaxSP\", 20*v.r);\nif (v.r>=7) {\n   bonus(\"bDelayrate\", -3*getskilllv(\"RK_DRAGONTRAINING\"));\n}\nif (v.r>=9) {\n   bonus(\"bVariableCastrate\", -10);\n   bonus2(\"bSkillAtk\", \"RK_DRAGONBREATH_WATER\", 25);\n   bonus2(\"bSkillAtk\", \"RK_HUNDREDSPEAR\", 25);\n   bonus2(\"bSkillAtk\", \"RK_DRAGONBREATH\", 25);\n}\nif (v.r>=11) {\n   bonus(\"bLongAtkRate\", 15);\n   bonus2(\"bSkillCooldown\", \"RK_HUNDREDSPEAR\", -2000);\n}\nif (v.r>=13) {\n   bonus2(\"bSkillAtk\", \"RK_DRAGONBREATH_WATER\", 15);\n   bonus2(\"bSkillAtk\", \"RK_HUNDREDSPEAR\", 15);\n   bonus2(\"bSkillAtk\", \"RK_DRAGONBREATH\", 15);\n}\n",
+    "sourcePath": "data/equipment/weapon/spear.json",
+    "sourceType": "equipment"
+  },
+  "640009": {
+    "id": 640009,
+    "name": "咒術士碧血地牛雙手杖",
+    "aegisName": "CS_B_Staff",
+    "scriptRaw": ".@r = getrefine();\nbonus bUnbreakableWeapon;\nbonus bMatkRate,2;\nbonus bMatk,(3*.@r)+3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   bonus2 bMagicAtkEle,Ele_Earth,getskilllv(\"HW_MAGICPOWER\");\n   bonus2 bMagicAtkEle,Ele_Fire,getskilllv(\"HW_MAGICPOWER\");\n   bonus2 bMagicAtkEle,Ele_Neutral,getskilllv(\"HW_MAGICPOWER\");\n}\nif (.@r>=9) {\n   bonus bVariableCastrate,-10;\n   bonus2 bSkillAtk,\"WL_EARTHSTRAIN\",25;\n   bonus2 bSkillAtk,\"WL_CRIMSONROCK\",25;\n   bonus2 bSkillAtk,\"WL_COMET\",25;\n}\nif (.@r>=11) {\n   bonus2 bMagicAddSize,Size_All,15;\n   bonus2 bMagicAtkEle,Ele_Earth,15;\n   bonus2 bMagicAtkEle,Ele_Fire,15;\n   bonus2 bMagicAtkEle,Ele_Neutral,15;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"WL_EARTHSTRAIN\",15;\n   bonus2 bSkillAtk,\"WL_CRIMSONROCK\",15;\n   bonus2 bSkillAtk,\"WL_COMET\",15;\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bUnbreakableWeapon\");\nbonus(\"bMatkRate\", 2);\nbonus(\"bMatk\", (3*v.r)+3*(min(BaseLevel,195)/15));\nif (v.r>=7) {\n   bonus2(\"bMagicAtkEle\", Ele_Earth, getskilllv(\"HW_MAGICPOWER\"));\n   bonus2(\"bMagicAtkEle\", Ele_Fire, getskilllv(\"HW_MAGICPOWER\"));\n   bonus2(\"bMagicAtkEle\", Ele_Neutral, getskilllv(\"HW_MAGICPOWER\"));\n}\nif (v.r>=9) {\n   bonus(\"bVariableCastrate\", -10);\n   bonus2(\"bSkillAtk\", \"WL_EARTHSTRAIN\", 25);\n   bonus2(\"bSkillAtk\", \"WL_CRIMSONROCK\", 25);\n   bonus2(\"bSkillAtk\", \"WL_COMET\", 25);\n}\nif (v.r>=11) {\n   bonus2(\"bMagicAddSize\", Size_All, 15);\n   bonus2(\"bMagicAtkEle\", Ele_Earth, 15);\n   bonus2(\"bMagicAtkEle\", Ele_Fire, 15);\n   bonus2(\"bMagicAtkEle\", Ele_Neutral, 15);\n}\nif (v.r>=13) {\n   bonus2(\"bSkillAtk\", \"WL_EARTHSTRAIN\", 15);\n   bonus2(\"bSkillAtk\", \"WL_CRIMSONROCK\", 15);\n   bonus2(\"bSkillAtk\", \"WL_COMET\", 15);\n}\n",
+    "sourcePath": "data/equipment/weapon/staff.json",
+    "sourceType": "equipment"
+  },
+  "640010": {
+    "id": 640010,
+    "name": "咒術士凍僵連鎖閃電雙手杖",
+    "aegisName": "CJ_B_Staff",
+    "scriptRaw": ".@r = getrefine();\nbonus bUnbreakableWeapon;\nbonus bMatkRate,2;\nbonus bMatk,(3*.@r)+3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   bonus2 bMagicAtkEle,Ele_Water,getskilllv(\"HW_MAGICPOWER\");\n   bonus2 bMagicAtkEle,Ele_Wind,getskilllv(\"HW_MAGICPOWER\");\n   bonus2 bMagicAtkEle,Ele_Ghost,getskilllv(\"HW_MAGICPOWER\");\n}\nif (.@r>=9) {\n   bonus bDelayrate,-10;\n   bonus2 bSkillAtk,\"WL_CHAINLIGHTNING_ATK\",25;\n   bonus2 bSkillAtk,\"WL_JACKFROST\",25;\n   bonus2 bSkillAtk,\"WL_SOULEXPANSION\",25;\n}\nif (.@r>=11) {\n   bonus2 bMagicAddSize,Size_All,15;\n   bonus2 bMagicAtkEle,Ele_Water,15;\n   bonus2 bMagicAtkEle,Ele_Wind,15;\n   bonus2 bMagicAtkEle,Ele_Ghost,15;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"WL_CHAINLIGHTNING_ATK\",15;\n   bonus2 bSkillAtk,\"WL_JACKFROST\",15;\n   bonus2 bSkillAtk,\"WL_SOULEXPANSION\",15;\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bUnbreakableWeapon\");\nbonus(\"bMatkRate\", 2);\nbonus(\"bMatk\", (3*v.r)+3*(min(BaseLevel,195)/15));\nif (v.r>=7) {\n   bonus2(\"bMagicAtkEle\", Ele_Water, getskilllv(\"HW_MAGICPOWER\"));\n   bonus2(\"bMagicAtkEle\", Ele_Wind, getskilllv(\"HW_MAGICPOWER\"));\n   bonus2(\"bMagicAtkEle\", Ele_Ghost, getskilllv(\"HW_MAGICPOWER\"));\n}\nif (v.r>=9) {\n   bonus(\"bDelayrate\", -10);\n   bonus2(\"bSkillAtk\", \"WL_CHAINLIGHTNING_ATK\", 25);\n   bonus2(\"bSkillAtk\", \"WL_JACKFROST\", 25);\n   bonus2(\"bSkillAtk\", \"WL_SOULEXPANSION\", 25);\n}\nif (v.r>=11) {\n   bonus2(\"bMagicAddSize\", Size_All, 15);\n   bonus2(\"bMagicAtkEle\", Ele_Water, 15);\n   bonus2(\"bMagicAtkEle\", Ele_Wind, 15);\n   bonus2(\"bMagicAtkEle\", Ele_Ghost, 15);\n}\nif (v.r>=13) {\n   bonus2(\"bSkillAtk\", \"WL_CHAINLIGHTNING_ATK\", 15);\n   bonus2(\"bSkillAtk\", \"WL_JACKFROST\", 15);\n   bonus2(\"bSkillAtk\", \"WL_SOULEXPANSION\", 15);\n}\n",
+    "sourcePath": "data/equipment/weapon/staff.json",
+    "sourceType": "equipment"
+  },
+  "700014": {
+    "id": 700014,
+    "name": "魅影追蹤者三角虛擊炸彈弩弓",
+    "aegisName": "TB_B_Bow",
+    "scriptRaw": ".@r = getrefine();\nbonus bAtkRate,2;\nbonus bBaseAtk,3*.@r+3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   bonus bDelayrate,-1*(getskilllv(\"AC_VULTURE\")/2);\n}\nif (.@r>=9) {\n   bonus bVariableCastrate,-10;\n   bonus2 bSkillAtk,\"SC_TRIANGLESHOT\",25;\n   bonus2 bSkillAtk,\"SC_FEINTBOMB\",25;\n}\nif (.@r>=11) {\n   bonus2 bAddSize,Size_All,15;\n   bonus bLongAtkRate,15;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"SC_TRIANGLESHOT\",25;\n   bonus2 bSkillAtk,\"SC_FEINTBOMB\",25;\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bAtkRate\", 2);\nbonus(\"bBaseAtk\", 3*v.r+3*(min(BaseLevel,195)/15));\nif (v.r>=7) {\n   bonus(\"bDelayrate\", -1*(getskilllv(\"AC_VULTURE\")/2));\n}\nif (v.r>=9) {\n   bonus(\"bVariableCastrate\", -10);\n   bonus2(\"bSkillAtk\", \"SC_TRIANGLESHOT\", 25);\n   bonus2(\"bSkillAtk\", \"SC_FEINTBOMB\", 25);\n}\nif (v.r>=11) {\n   bonus2(\"bAddSize\", Size_All, 15);\n   bonus(\"bLongAtkRate\", 15);\n}\nif (v.r>=13) {\n   bonus2(\"bSkillAtk\", \"SC_TRIANGLESHOT\", 25);\n   bonus2(\"bSkillAtk\", \"SC_FEINTBOMB\", 25);\n}\n",
+    "sourcePath": "data/equipment/weapon/bow.json",
+    "sourceType": "equipment"
+  },
+  "700015": {
+    "id": 700015,
+    "name": "遊俠箭雨風暴神弓",
+    "aegisName": "AS_B_Bow",
+    "scriptRaw": ".@r = getrefine();\nbonus bAtkRate,2;\nbonus bBaseAtk,3*.@r+3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   bonus bLongAtkRate,getskilllv(\"AC_OWL\");\n}\nif (.@r>=9) {\n   bonus bMaxSPrate,10;\n   bonus2 bSkillAtk,\"RA_ARROWSTORM\",25;\n}\nif (.@r>=11) {\n   bonus2 bSkillCooldown,\"RA_ARROWSTORM\",-700;\n   bonus2 bAddSize,Size_All,15;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"RA_ARROWSTORM\",15;\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bAtkRate\", 2);\nbonus(\"bBaseAtk\", 3*v.r+3*(min(BaseLevel,195)/15));\nif (v.r>=7) {\n   bonus(\"bLongAtkRate\", getskilllv(\"AC_OWL\"));\n}\nif (v.r>=9) {\n   bonus(\"bMaxSPrate\", 10);\n   bonus2(\"bSkillAtk\", \"RA_ARROWSTORM\", 25);\n}\nif (v.r>=11) {\n   bonus2(\"bSkillCooldown\", \"RA_ARROWSTORM\", -700);\n   bonus2(\"bAddSize\", Size_All, 15);\n}\nif (v.r>=13) {\n   bonus2(\"bSkillAtk\", \"RA_ARROWSTORM\", 15);\n}\n",
+    "sourcePath": "data/equipment/weapon/bow.json",
+    "sourceType": "equipment"
+  },
+  "700016": {
+    "id": 700016,
+    "name": "遊俠銳利射擊瞄準標靶穿心弓",
+    "aegisName": "SB_B_Bow",
+    "scriptRaw": ".@r = getrefine();\nbonus bAtkRate,2;\nbonus bBaseAtk,3*.@r+3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   bonus bLongAtkRate,getskilllv(\"AC_VULTURE\");\n}\nif (.@r>=9) {\n   bonus bDelayrate,-10;\n   bonus2 bSkillAtk,\"RA_AIMEDBOLT\",25;\n   bonus2 bSkillAtk,\"SN_SHARPSHOOTING\",25;\n}\nif (.@r>=11) {\n   bonus2 bAddSize,Size_All,15;\n   bonus bAtkRate,10;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"RA_AIMEDBOLT\",15;\n   bonus2 bSkillAtk,\"SN_SHARPSHOOTING\",15;\n}\n",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bAtkRate\", 2);\nbonus(\"bBaseAtk\", 3*v.r+3*(min(BaseLevel,195)/15));\nif (v.r>=7) {\n   bonus(\"bLongAtkRate\", getskilllv(\"AC_VULTURE\"));\n}\nif (v.r>=9) {\n   bonus(\"bDelayrate\", -10);\n   bonus2(\"bSkillAtk\", \"RA_AIMEDBOLT\", 25);\n   bonus2(\"bSkillAtk\", \"SN_SHARPSHOOTING\", 25);\n}\nif (v.r>=11) {\n   bonus2(\"bAddSize\", Size_All, 15);\n   bonus(\"bAtkRate\", 10);\n}\nif (v.r>=13) {\n   bonus2(\"bSkillAtk\", \"RA_AIMEDBOLT\", 15);\n   bonus2(\"bSkillAtk\", \"SN_SHARPSHOOTING\", 15);\n}\n",
+    "sourcePath": "data/equipment/weapon/bow.json",
+    "sourceType": "equipment"
   }
 }

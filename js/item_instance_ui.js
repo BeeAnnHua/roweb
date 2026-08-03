@@ -1,5 +1,5 @@
 //=======================================
-// ItemInstanceUI v0.9.82HM
+// ItemInstanceUI v0.9.83A
 // RO client-style equipment names, item/card detail modal, and instance-safe equip flow.
 //=======================================
 (function () {
@@ -77,6 +77,12 @@
       broken: Boolean(source.broken || source.isBroken),
       cards: normalizeCardIds(source.cards ?? source.cardIds ?? source.socketedCards),
       enchants: normalizeEnchantRows(source.enchants ?? source.randomOptions ?? source.options),
+      characterBound: Boolean(source.characterBound ?? data?.characterBound),
+      supportEquipment: Boolean(source.supportEquipment ?? data?.supportEquipment),
+      supportStage: Number(source.supportStage ?? data?.supportStage ?? 0) || null,
+      noStorage: Boolean(source.noStorage ?? data?.noStorage),
+      noDecompose: Boolean(source.noDecompose ?? data?.noDecompose),
+      noSell: Boolean(source.noSell ?? data?.noSell),
       createdAt: Number(source.createdAt || Date.now())
     };
   }
@@ -319,12 +325,83 @@
   function resetItemDetailActions() {
     const actions = document.getElementById('item-detail-actions');
     const primary = document.getElementById('item-detail-primary-action');
+    const sell = document.getElementById('item-detail-sell-action');
     const decompose = document.getElementById('item-detail-decompose-action');
     const picker = document.getElementById('item-detail-quick-picker');
     if (actions) actions.hidden = true;
     if (primary) { primary.hidden = true; primary.disabled = false; primary.onclick = null; primary.title = ''; }
+    if (sell) { sell.hidden = true; sell.disabled = false; sell.onclick = null; sell.title = ''; }
     if (decompose) { decompose.hidden = true; decompose.disabled = false; decompose.onclick = null; decompose.title = ''; }
     if (picker) { picker.hidden = true; picker.innerHTML = ''; }
+  }
+
+  function getSupportEquipmentSellPrice(data) {
+    const base = Number(data?.sellPrice ?? data?.Sell ?? 0);
+    const bonus = typeof window.getInventoryDecomposeSellBonusRate === 'function'
+      ? Math.max(0, Number(window.getInventoryDecomposeSellBonusRate() || 0))
+      : 0;
+    return Math.max(1, Math.floor(base * (100 + bonus) / 100));
+  }
+
+  function sellSupportEquipmentInstance(instanceOrId) {
+    if (!Array.isArray(player?.inventory)) return { ok:false, reason:'背包尚未載入。' };
+    const inventoryItem = findInventoryInstance(instanceOrId);
+    if (!inventoryItem) return { ok:false, reason:'背包中找不到這件裝備。' };
+    const data = getBaseItemData(inventoryItem);
+    if (!data || !isEquipmentData(data)) return { ok:false, reason:'這不是可販售的裝備。' };
+    if (!(inventoryItem.supportEquipment === true || data.supportEquipment === true)) return { ok:false, reason:'此販售入口僅供新人支援裝備使用。' };
+    if (inventoryItem.locked) return { ok:false, reason:'鎖定中的裝備無法販售。' };
+    if (inventoryItem.noSell === true || data.noSell === true) return { ok:false, reason:'此裝備禁止販售。' };
+    const index = player.inventory.indexOf(inventoryItem);
+    if (index < 0) return { ok:false, reason:'背包中找不到這件裝備。' };
+    const sellPrice = getSupportEquipmentSellPrice(data);
+    const zenyBefore = Number(player.zeny || 0);
+    player.inventory.splice(index, 1);
+    player.zeny = zenyBefore + sellPrice;
+    try {
+      const saved = typeof saveGame === 'function' ? saveGame() : true;
+      if (saved === false) throw new Error('support_sell_save_failed');
+      if (typeof updatePlayerUI === 'function') updatePlayerUI();
+      if (typeof updateInventoryUI === 'function') updateInventoryUI();
+      if (typeof addBattleLog === 'function') addBattleLog(`已販售 ${buildCompactItemName(inventoryItem, data)}，獲得 ${sellPrice.toLocaleString()} Zeny。`);
+      return { ok:true, itemId:Number(data.id), sellPrice, name:data.name };
+    } catch (error) {
+      player.inventory.splice(Math.min(index, player.inventory.length), 0, inventoryItem);
+      player.zeny = zenyBefore;
+      try { if (typeof saveGame === 'function') saveGame(); } catch (_) {}
+      if (typeof updatePlayerUI === 'function') updatePlayerUI();
+      if (typeof updateInventoryUI === 'function') updateInventoryUI();
+      return { ok:false, reason:'販售失敗，已自動回復裝備與 Zeny。', error };
+    }
+  }
+
+  function configureSupportEquipmentSellAction(data, instance, context = {}) {
+    const actions = document.getElementById('item-detail-actions');
+    const sell = document.getElementById('item-detail-sell-action');
+    if (!actions || !sell || !data || context.source !== 'inventory' || !isEquipmentData(data)) return;
+    let inventoryItem = context.inventoryItem && typeof context.inventoryItem === 'object' ? context.inventoryItem : null;
+    if (!inventoryItem || !player?.inventory?.includes(inventoryItem)) inventoryItem = findInventoryInstance(instance) || findInventoryInstance(data.id);
+    const isSupport = Boolean(inventoryItem && (inventoryItem.supportEquipment === true || data.supportEquipment === true));
+    if (!isSupport) return;
+    const eligible = Boolean(inventoryItem && !inventoryItem.locked && inventoryItem.noSell !== true && data.noSell !== true);
+    const sellPrice = getSupportEquipmentSellPrice(data);
+    actions.hidden = false;
+    sell.hidden = false;
+    sell.disabled = !eligible;
+    sell.textContent = '販售';
+    sell.title = eligible ? `販售可獲得 ${sellPrice.toLocaleString()} Zeny` : '此裝備已鎖定或禁止販售。';
+    sell.onclick = async () => {
+      if (!eligible) return;
+      const itemName = buildCompactItemName(inventoryItem, data);
+      const message = `確定販售 ${itemName}？\n將獲得 ${sellPrice.toLocaleString()} Zeny，裝備上的卡片與附魔也會一併消失。`;
+      const confirmed = window.ROGoldUI?.confirm
+        ? await window.ROGoldUI.confirm(message, { title:'販售新人支援裝備', confirmText:'確定販售', danger:true })
+        : window.confirm(message);
+      if (!confirmed) return;
+      const result = sellSupportEquipmentInstance(inventoryItem);
+      if (!result.ok && typeof addBattleLog === 'function') addBattleLog(result.reason || '販售失敗。');
+      if (result.ok) closeItemDetailModal();
+    };
   }
 
   function configureItemDecomposeAction(data, instance, context = {}) {
@@ -373,6 +450,7 @@
     const primary = document.getElementById('item-detail-primary-action');
     const picker = document.getElementById('item-detail-quick-picker');
     if (!actions || !primary || !picker || !data) return;
+    configureSupportEquipmentSellAction(data, instance, context);
     configureItemDecomposeAction(data, instance, context);
     // 0.9.82GH：倉庫中的物品只能查看資料；不可直接穿戴、使用或加入快捷欄。
     if (context.source === 'storage') return;
@@ -421,7 +499,11 @@
       primary.hidden = false;
       primary.textContent = '使用';
       primary.onclick = () => {
-        original.useItem?.(data.id);
+        if (window.NewcomerSupportRuntime?.BOX_STAGE_BY_ID?.[Number(data.id)]) {
+          window.NewcomerSupportRuntime.openForBox?.(Number(data.id));
+        } else {
+          window.useItem?.(data.id);
+        }
         closeItemDetailModal();
       };
       picker.hidden = false;
@@ -897,6 +979,8 @@
     showItemDetail,
     renderCardDetail,
     closeItemDetailModal,
-    findInventoryInstance
+    findInventoryInstance,
+    getSupportEquipmentSellPrice,
+    sellSupportEquipmentInstance
   });
 })();

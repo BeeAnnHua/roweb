@@ -1,4 +1,318 @@
 {
+  "590008": {
+    "id": 590008,
+    "officialId": 590008,
+    "name": "機械工匠飛拳加農砲鐵鎚",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "mace",
+    "slot": "weapon",
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "description": [
+      "^ff0000該道具無法與其他帳號進行交易。^000000",
+      "為了幫助冒險家成長而準備的鈍器。",
+      "^000088一般精煉不可^000000",
+      "不可破壞。",
+      "ATK+2%。",
+      "精煉每+1時，ATK+3。",
+      "BaseLv每+15時，ATK+3(上限為Lv195)。",
+      "精煉+7時，且魔導機甲執照每+Lv1時，遠距離物理傷害+2%。",
+      "精煉+9時，變動詠唱-10%，火神砲、噴射飛拳、加農砲傷害+25%。",
+      "精煉+11時，技能後延遲-10%，對全體型敵人的物理傷害+20%。",
+      "精煉+13時，火神砲、噴射飛拳、加農砲傷害再+15%。",
+      "系列 : ^777777鈍器^000000 攻擊 : ^777777400^000000",
+      "武器等級 : ^7777774^000000",
+      "要求等級 : ^777777100^000000",
+      "裝備 : ^777777機械工匠系列^000000"
+    ],
+    "icon": "images/items/590008.webp",
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 62,
+    "characterBound": true,
+    "supportEquipment": true,
+    "noStorage": true,
+    "noDecompose": false,
+    "noSell": false,
+    "dataSource": "itemInfo_UTF8.lub + rAthena Renewal 2026-06-08; RO_WEB V0.9.83 newcomer support",
+    "Id": 590008,
+    "Name": "機械工匠飛拳加農砲鐵鎚",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 0,
+    "AegisName": "AK_B_Mace",
+    "aegisName": "AK_B_Mace",
+    "Type": "Weapon",
+    "dbType": "Weapon",
+    "SubType": "Mace",
+    "dbSubType": "Mace",
+    "Attack": 400,
+    "atk": 400,
+    "Range": 1,
+    "range": 1,
+    "WeaponLevel": 4,
+    "weaponLevel": 4,
+    "EquipLevelMin": 100,
+    "equipLevelMin": 100,
+    "Jobs": {
+      "Blacksmith": true
+    },
+    "equipJobs": {
+      "Blacksmith": true
+    },
+    "Classes": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "equipClasses": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "Locations": {
+      "Right_Hand": true
+    },
+    "locations": {
+      "Right_Hand": true
+    },
+    "Refineable": true,
+    "refineable": true,
+    "Script": ".@r = getrefine();\nbonus bUnbreakableWeapon;\nbonus bAtkRate,2;\nbonus bBaseAtk,3*.@r+3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   bonus bLongAtkRate,2*getskilllv(\"NC_MADOLICENCE\");\n}\nif (.@r>=9) {\n   bonus bVariableCastrate,-10;\n   bonus2 bSkillAtk,\"NC_BOOSTKNUCKLE\",25;\n   bonus2 bSkillAtk,\"NC_ARMSCANNON\",25;\n   bonus2 bSkillAtk,\"NC_VULCANARM\",25;\n}\nif (.@r>=11) {\n   bonus2 bAddSize,Size_All,20;\n   bonus bDelayrate,-10;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"NC_BOOSTKNUCKLE\",15;\n   bonus2 bSkillAtk,\"NC_ARMSCANNON\",15;\n   bonus2 bSkillAtk,\"NC_VULCANARM\",15;\n}\n",
+    "scriptRaw": ".@r = getrefine();\nbonus bUnbreakableWeapon;\nbonus bAtkRate,2;\nbonus bBaseAtk,3*.@r+3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   bonus bLongAtkRate,2*getskilllv(\"NC_MADOLICENCE\");\n}\nif (.@r>=9) {\n   bonus bVariableCastrate,-10;\n   bonus2 bSkillAtk,\"NC_BOOSTKNUCKLE\",25;\n   bonus2 bSkillAtk,\"NC_ARMSCANNON\",25;\n   bonus2 bSkillAtk,\"NC_VULCANARM\",25;\n}\nif (.@r>=11) {\n   bonus2 bAddSize,Size_All,20;\n   bonus bDelayrate,-10;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"NC_BOOSTKNUCKLE\",15;\n   bonus2 bSkillAtk,\"NC_ARMSCANNON\",15;\n   bonus2 bSkillAtk,\"NC_VULCANARM\",15;\n}\n",
+    "Trade": {
+      "NoDrop": true,
+      "NoTrade": true,
+      "NoCart": true,
+      "NoStorage": true,
+      "NoGuildStorage": true,
+      "NoMail": true,
+      "NoAuction": true
+    },
+    "trade": {
+      "NoDrop": true,
+      "NoTrade": true,
+      "NoCart": true,
+      "NoStorage": true,
+      "NoGuildStorage": true,
+      "NoMail": true,
+      "NoAuction": true
+    },
+    "requiredLevel": 100,
+    "handed": 1,
+    "weaponType": "mace",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bUnbreakableWeapon\");\nbonus(\"bAtkRate\", 2);\nbonus(\"bBaseAtk\", 3*v.r+3*(min(BaseLevel,195)/15));\nif (v.r>=7) {\n   bonus(\"bLongAtkRate\", 2*getskilllv(\"NC_MADOLICENCE\"));\n}\nif (v.r>=9) {\n   bonus(\"bVariableCastrate\", -10);\n   bonus2(\"bSkillAtk\", \"NC_BOOSTKNUCKLE\", 25);\n   bonus2(\"bSkillAtk\", \"NC_ARMSCANNON\", 25);\n   bonus2(\"bSkillAtk\", \"NC_VULCANARM\", 25);\n}\nif (v.r>=11) {\n   bonus2(\"bAddSize\", Size_All, 20);\n   bonus(\"bDelayrate\", -10);\n}\nif (v.r>=13) {\n   bonus2(\"bSkillAtk\", \"NC_BOOSTKNUCKLE\", 15);\n   bonus2(\"bSkillAtk\", \"NC_ARMSCANNON\", 15);\n   bonus2(\"bSkillAtk\", \"NC_VULCANARM\", 15);\n}\n",
+    "supportStage": 100
+  },
+  "590009": {
+    "id": 590009,
+    "officialId": 590009,
+    "name": "基因學者強酸火煙加農砲木錘",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "mace",
+    "slot": "weapon",
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "description": [
+      "^ff0000該道具無法與其他帳號進行交易。^000000",
+      "為了幫助冒險家成長而準備的鈍器。",
+      "^000088一般精煉不可^000000",
+      "不可破壞。",
+      "ATK+2%。",
+      "精煉每+1時，ATK+3。",
+      "BaseLv每+15時，ATK+3(上限為Lv195)。",
+      "精煉+7時，且知識藥水每+Lv1時，遠距離物理傷害+2%。",
+      "精煉+9時，變動詠唱-10%，強酸火煙瓶投擲、手推車加農砲傷害+25%。",
+      "精煉+11時，技能後延遲-10%，對全體型敵人的物理傷害+20%。",
+      "精煉+13時、強酸火煙瓶投擲、手推車加農砲傷害再+15%。",
+      "系列 : ^777777鈍器^000000 攻擊 : ^777777190^000000",
+      "武器等級 : ^7777774^000000",
+      "要求等級 : ^777777100^000000",
+      "裝備 : ^777777基因學者系列^000000"
+    ],
+    "icon": "images/items/590009.webp",
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 62,
+    "characterBound": true,
+    "supportEquipment": true,
+    "noStorage": true,
+    "noDecompose": false,
+    "noSell": false,
+    "dataSource": "itemInfo_UTF8.lub + rAthena Renewal 2026-06-08; RO_WEB V0.9.83 newcomer support",
+    "Id": 590009,
+    "Name": "基因學者強酸火煙加農砲木錘",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 0,
+    "AegisName": "AC_B_Club",
+    "aegisName": "AC_B_Club",
+    "Type": "Weapon",
+    "dbType": "Weapon",
+    "SubType": "Mace",
+    "dbSubType": "Mace",
+    "Attack": 190,
+    "atk": 190,
+    "Range": 1,
+    "range": 1,
+    "WeaponLevel": 4,
+    "weaponLevel": 4,
+    "EquipLevelMin": 100,
+    "equipLevelMin": 100,
+    "Jobs": {
+      "Alchemist": true
+    },
+    "equipJobs": {
+      "Alchemist": true
+    },
+    "Classes": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "equipClasses": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "Locations": {
+      "Right_Hand": true
+    },
+    "locations": {
+      "Right_Hand": true
+    },
+    "Refineable": true,
+    "refineable": true,
+    "Script": ".@r = getrefine();\nbonus bUnbreakableWeapon;\nbonus bAtkRate,2;\nbonus bBaseAtk,3*.@r+3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   bonus bLongAtkRate,2*getskilllv(\"AM_LEARNINGPOTION\");\n}\nif (.@r>=9) {\n   bonus bVariableCastrate,-10;\n   bonus2 bSkillAtk,\"CR_ACIDDEMONSTRATION\",25;\n   bonus2 bSkillAtk,\"GN_CARTCANNON\",25;\n}\nif (.@r>=11) {\n   bonus2 bAddSize,Size_All,20;\n   bonus bDelayrate,-10;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"CR_ACIDDEMONSTRATION\",15;\n   bonus2 bSkillAtk,\"GN_CARTCANNON\",15;\n}\n",
+    "scriptRaw": ".@r = getrefine();\nbonus bUnbreakableWeapon;\nbonus bAtkRate,2;\nbonus bBaseAtk,3*.@r+3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   bonus bLongAtkRate,2*getskilllv(\"AM_LEARNINGPOTION\");\n}\nif (.@r>=9) {\n   bonus bVariableCastrate,-10;\n   bonus2 bSkillAtk,\"CR_ACIDDEMONSTRATION\",25;\n   bonus2 bSkillAtk,\"GN_CARTCANNON\",25;\n}\nif (.@r>=11) {\n   bonus2 bAddSize,Size_All,20;\n   bonus bDelayrate,-10;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"CR_ACIDDEMONSTRATION\",15;\n   bonus2 bSkillAtk,\"GN_CARTCANNON\",15;\n}\n",
+    "Trade": {
+      "NoDrop": true,
+      "NoTrade": true,
+      "NoCart": true,
+      "NoStorage": true,
+      "NoGuildStorage": true,
+      "NoMail": true,
+      "NoAuction": true
+    },
+    "trade": {
+      "NoDrop": true,
+      "NoTrade": true,
+      "NoCart": true,
+      "NoStorage": true,
+      "NoGuildStorage": true,
+      "NoMail": true,
+      "NoAuction": true
+    },
+    "requiredLevel": 100,
+    "handed": 1,
+    "weaponType": "mace",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bUnbreakableWeapon\");\nbonus(\"bAtkRate\", 2);\nbonus(\"bBaseAtk\", 3*v.r+3*(min(BaseLevel,195)/15));\nif (v.r>=7) {\n   bonus(\"bLongAtkRate\", 2*getskilllv(\"AM_LEARNINGPOTION\"));\n}\nif (v.r>=9) {\n   bonus(\"bVariableCastrate\", -10);\n   bonus2(\"bSkillAtk\", \"CR_ACIDDEMONSTRATION\", 25);\n   bonus2(\"bSkillAtk\", \"GN_CARTCANNON\", 25);\n}\nif (v.r>=11) {\n   bonus2(\"bAddSize\", Size_All, 20);\n   bonus(\"bDelayrate\", -10);\n}\nif (v.r>=13) {\n   bonus2(\"bSkillAtk\", \"CR_ACIDDEMONSTRATION\", 15);\n   bonus2(\"bSkillAtk\", \"GN_CARTCANNON\", 15);\n}\n",
+    "supportStage": 100
+  },
+  "590010": {
+    "id": 590010,
+    "officialId": 590010,
+    "name": "大主教二道聖光審判錘",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "mace",
+    "slot": "weapon",
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "description": [
+      "^ff0000該道具無法與其他帳號進行交易。^000000",
+      "為了幫助冒險家成長而準備的鈍器。",
+      "^000088一般精煉不可^000000",
+      "不可破壞。",
+      "ATK+2%，MATK+2%，MATK+160。",
+      "精煉每+1時，ATK+3、MATK+3。",
+      "BaseLv每+15時，ATK+3、MATK+3(上限為Lv195)。",
+      "精煉+7時，且冥想每+Lv1時，近距離物理傷害、聖屬性魔法傷害+1%。",
+      "精煉+9時，變動詠唱、技能後延遲-10%，審判、二道聖光傷害+25%。",
+      "精煉+11時，對全體型敵人的魔法傷害+15%，聖屬性魔法傷害再+15%。",
+      "精煉+13時，審判、二道聖光傷害再+15%。",
+      "系列 : ^777777鈍器^000000 攻擊 : ^777777190^000000",
+      "武器等級 : ^7777774^000000",
+      "要求等級 : ^777777100^000000",
+      "裝備 : ^777777大主教系列^000000"
+    ],
+    "icon": "images/items/590010.webp",
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 62,
+    "characterBound": true,
+    "supportEquipment": true,
+    "noStorage": true,
+    "noDecompose": false,
+    "noSell": false,
+    "dataSource": "itemInfo_UTF8.lub + rAthena Renewal 2026-06-08; RO_WEB V0.9.83 newcomer support",
+    "Id": 590010,
+    "Name": "大主教二道聖光審判錘",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 0,
+    "AegisName": "DD_B_Mace",
+    "aegisName": "DD_B_Mace",
+    "Type": "Weapon",
+    "dbType": "Weapon",
+    "SubType": "Mace",
+    "dbSubType": "Mace",
+    "Attack": 190,
+    "atk": 190,
+    "MagicAttack": 160,
+    "matk": 160,
+    "Range": 1,
+    "range": 1,
+    "WeaponLevel": 4,
+    "weaponLevel": 4,
+    "EquipLevelMin": 100,
+    "equipLevelMin": 100,
+    "Jobs": {
+      "Priest": true
+    },
+    "equipJobs": {
+      "Priest": true
+    },
+    "Classes": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "equipClasses": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "Locations": {
+      "Right_Hand": true
+    },
+    "locations": {
+      "Right_Hand": true
+    },
+    "Refineable": true,
+    "refineable": true,
+    "Script": ".@r = getrefine();\nbonus bUnbreakableWeapon;\nbonus bMatkRate,2;\nbonus bAtkRate,2;\nbonus bMatk,(3*.@r)+3*(min(BaseLevel,195)/15);\nbonus bBaseAtk,3*.@r+3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   bonus2 bMagicAtkEle,Ele_Holy,getskilllv(\"HP_MEDITATIO\");\n   bonus bShortAtkRate,getskilllv(\"HP_MEDITATIO\");\n}\nif (.@r>=9) {\n   bonus bVariableCastrate,-10;\n   bonus bDelayrate,-10;\n   bonus2 bSkillAtk,\"AB_DUPLELIGHT_MELEE\",25;\n   bonus2 bSkillAtk,\"AB_DUPLELIGHT_MAGIC\",25;\n   bonus2 bSkillAtk,\"AB_JUDEX\",25;\n}\nif (.@r>=11) {\n   bonus2 bMagicAddSize,Size_All,15;\n   bonus2 bMagicAtkEle,Ele_Holy,15;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"AB_DUPLELIGHT_MELEE\",15;\n   bonus2 bSkillAtk,\"AB_DUPLELIGHT_MAGIC\",15;\n   bonus2 bSkillAtk,\"AB_JUDEX\",15;\n}\n",
+    "scriptRaw": ".@r = getrefine();\nbonus bUnbreakableWeapon;\nbonus bMatkRate,2;\nbonus bAtkRate,2;\nbonus bMatk,(3*.@r)+3*(min(BaseLevel,195)/15);\nbonus bBaseAtk,3*.@r+3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   bonus2 bMagicAtkEle,Ele_Holy,getskilllv(\"HP_MEDITATIO\");\n   bonus bShortAtkRate,getskilllv(\"HP_MEDITATIO\");\n}\nif (.@r>=9) {\n   bonus bVariableCastrate,-10;\n   bonus bDelayrate,-10;\n   bonus2 bSkillAtk,\"AB_DUPLELIGHT_MELEE\",25;\n   bonus2 bSkillAtk,\"AB_DUPLELIGHT_MAGIC\",25;\n   bonus2 bSkillAtk,\"AB_JUDEX\",25;\n}\nif (.@r>=11) {\n   bonus2 bMagicAddSize,Size_All,15;\n   bonus2 bMagicAtkEle,Ele_Holy,15;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"AB_DUPLELIGHT_MELEE\",15;\n   bonus2 bSkillAtk,\"AB_DUPLELIGHT_MAGIC\",15;\n   bonus2 bSkillAtk,\"AB_JUDEX\",15;\n}\n",
+    "Trade": {
+      "NoDrop": true,
+      "NoTrade": true,
+      "NoCart": true,
+      "NoStorage": true,
+      "NoGuildStorage": true,
+      "NoMail": true,
+      "NoAuction": true
+    },
+    "trade": {
+      "NoDrop": true,
+      "NoTrade": true,
+      "NoCart": true,
+      "NoStorage": true,
+      "NoGuildStorage": true,
+      "NoMail": true,
+      "NoAuction": true
+    },
+    "requiredLevel": 100,
+    "handed": 1,
+    "weaponType": "mace",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bUnbreakableWeapon\");\nbonus(\"bMatkRate\", 2);\nbonus(\"bAtkRate\", 2);\nbonus(\"bMatk\", (3*v.r)+3*(min(BaseLevel,195)/15));\nbonus(\"bBaseAtk\", 3*v.r+3*(min(BaseLevel,195)/15));\nif (v.r>=7) {\n   bonus2(\"bMagicAtkEle\", Ele_Holy, getskilllv(\"HP_MEDITATIO\"));\n   bonus(\"bShortAtkRate\", getskilllv(\"HP_MEDITATIO\"));\n}\nif (v.r>=9) {\n   bonus(\"bVariableCastrate\", -10);\n   bonus(\"bDelayrate\", -10);\n   bonus2(\"bSkillAtk\", \"AB_DUPLELIGHT_MELEE\", 25);\n   bonus2(\"bSkillAtk\", \"AB_DUPLELIGHT_MAGIC\", 25);\n   bonus2(\"bSkillAtk\", \"AB_JUDEX\", 25);\n}\nif (v.r>=11) {\n   bonus2(\"bMagicAddSize\", Size_All, 15);\n   bonus2(\"bMagicAtkEle\", Ele_Holy, 15);\n}\nif (v.r>=13) {\n   bonus2(\"bSkillAtk\", \"AB_DUPLELIGHT_MELEE\", 15);\n   bonus2(\"bSkillAtk\", \"AB_DUPLELIGHT_MAGIC\", 15);\n   bonus2(\"bSkillAtk\", \"AB_JUDEX\", 15);\n}\n",
+    "supportStage": 100
+  },
   "590047": {
     "id": 590047,
     "officialId": 590047,

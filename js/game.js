@@ -128,6 +128,9 @@ async function initGame() {
   await loadClientItemDisplayData();
   await loadExpData();
   await loadPlayerData();
+  if (window.NewcomerSupportRuntime?.grantForNewCharacter) {
+    window.NewcomerSupportRuntime.grantForNewCharacter();
+  }
   if (typeof ensureInitialCharacterGenderSelection === "function") {
     await ensureInitialCharacterGenderSelection();
   }

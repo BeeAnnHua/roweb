@@ -534,6 +534,315 @@
     "EquipLevelMin": 33,
     "Refineable": true
   },
+  "700014": {
+    "id": 700014,
+    "officialId": 700014,
+    "name": "魅影追蹤者三角虛擊炸彈弩弓",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "bow",
+    "slot": "weapon",
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "description": [
+      "^ff0000該道具無法與其他帳號進行交易。^000000",
+      "為了幫助冒險家成長而準備的弓。",
+      "^000088一般精煉不可^000000",
+      "ATK+2%。",
+      "精煉每+1時，ATK+3。",
+      "BaseLv每+15時，ATK+3(上限為Lv195)。",
+      "精煉+7時，且蒼鷹之眼每+Lv2時，技能後延遲-1%。",
+      "精煉+9時，變動詠唱-10%，三角射擊、虛擊炸彈傷害+25%。",
+      "精煉+11時，對全體型敵人的物理傷害+15%，遠距離物理傷害+15%。",
+      "精煉+13時，三角射擊、虛擊炸彈傷害+25%。",
+      "系列 : ^777777弓^000000 攻擊 : ^777777210^000000",
+      "武器等級 : ^7777774^000000",
+      "要求等級 : ^777777100^000000",
+      "裝備 : ^777777魅影追蹤者系列^000000"
+    ],
+    "icon": "images/items/700014.webp",
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 73,
+    "characterBound": true,
+    "supportEquipment": true,
+    "noStorage": true,
+    "noDecompose": false,
+    "noSell": false,
+    "dataSource": "itemInfo_UTF8.lub + rAthena Renewal 2026-06-08; RO_WEB V0.9.83 newcomer support",
+    "Id": 700014,
+    "Name": "魅影追蹤者三角虛擊炸彈弩弓",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 0,
+    "AegisName": "TB_B_Bow",
+    "aegisName": "TB_B_Bow",
+    "Type": "Weapon",
+    "dbType": "Weapon",
+    "SubType": "Bow",
+    "dbSubType": "Bow",
+    "Attack": 210,
+    "atk": 210,
+    "Range": 5,
+    "range": 5,
+    "WeaponLevel": 4,
+    "weaponLevel": 4,
+    "EquipLevelMin": 100,
+    "equipLevelMin": 100,
+    "Jobs": {
+      "Rogue": true
+    },
+    "equipJobs": {
+      "Rogue": true
+    },
+    "Classes": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "equipClasses": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "Locations": {
+      "Both_Hand": true
+    },
+    "locations": {
+      "Both_Hand": true
+    },
+    "Refineable": true,
+    "refineable": true,
+    "Script": ".@r = getrefine();\nbonus bAtkRate,2;\nbonus bBaseAtk,3*.@r+3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   bonus bDelayrate,-1*(getskilllv(\"AC_VULTURE\")/2);\n}\nif (.@r>=9) {\n   bonus bVariableCastrate,-10;\n   bonus2 bSkillAtk,\"SC_TRIANGLESHOT\",25;\n   bonus2 bSkillAtk,\"SC_FEINTBOMB\",25;\n}\nif (.@r>=11) {\n   bonus2 bAddSize,Size_All,15;\n   bonus bLongAtkRate,15;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"SC_TRIANGLESHOT\",25;\n   bonus2 bSkillAtk,\"SC_FEINTBOMB\",25;\n}\n",
+    "scriptRaw": ".@r = getrefine();\nbonus bAtkRate,2;\nbonus bBaseAtk,3*.@r+3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   bonus bDelayrate,-1*(getskilllv(\"AC_VULTURE\")/2);\n}\nif (.@r>=9) {\n   bonus bVariableCastrate,-10;\n   bonus2 bSkillAtk,\"SC_TRIANGLESHOT\",25;\n   bonus2 bSkillAtk,\"SC_FEINTBOMB\",25;\n}\nif (.@r>=11) {\n   bonus2 bAddSize,Size_All,15;\n   bonus bLongAtkRate,15;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"SC_TRIANGLESHOT\",25;\n   bonus2 bSkillAtk,\"SC_FEINTBOMB\",25;\n}\n",
+    "Trade": {
+      "NoDrop": true,
+      "NoTrade": true,
+      "NoCart": true,
+      "NoStorage": true,
+      "NoGuildStorage": true,
+      "NoMail": true,
+      "NoAuction": true
+    },
+    "trade": {
+      "NoDrop": true,
+      "NoTrade": true,
+      "NoCart": true,
+      "NoStorage": true,
+      "NoGuildStorage": true,
+      "NoMail": true,
+      "NoAuction": true
+    },
+    "requiredLevel": 100,
+    "handed": 2,
+    "weaponType": "bow",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bAtkRate\", 2);\nbonus(\"bBaseAtk\", 3*v.r+3*(min(BaseLevel,195)/15));\nif (v.r>=7) {\n   bonus(\"bDelayrate\", -1*(getskilllv(\"AC_VULTURE\")/2));\n}\nif (v.r>=9) {\n   bonus(\"bVariableCastrate\", -10);\n   bonus2(\"bSkillAtk\", \"SC_TRIANGLESHOT\", 25);\n   bonus2(\"bSkillAtk\", \"SC_FEINTBOMB\", 25);\n}\nif (v.r>=11) {\n   bonus2(\"bAddSize\", Size_All, 15);\n   bonus(\"bLongAtkRate\", 15);\n}\nif (v.r>=13) {\n   bonus2(\"bSkillAtk\", \"SC_TRIANGLESHOT\", 25);\n   bonus2(\"bSkillAtk\", \"SC_FEINTBOMB\", 25);\n}\n",
+    "supportStage": 100
+  },
+  "700015": {
+    "id": 700015,
+    "officialId": 700015,
+    "name": "遊俠箭雨風暴神弓",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "bow",
+    "slot": "weapon",
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "description": [
+      "^ff0000該道具無法與其他帳號進行交易。^000000",
+      "為了幫助冒險家成長而準備的弓。",
+      "^000088一般精煉不可^000000",
+      "ATK+2%。",
+      "精煉每+1時，ATK+3。",
+      "BaseLv每+15時，ATK+3(上限為Lv195)。",
+      "精煉+7時，且鶚梟之眼每+Lv1時，遠距離物理傷害+1%。",
+      "精煉+9時，MSP+10%，箭雨風暴傷害+25%。",
+      "精煉+11時，箭雨風暴技能冷卻時間-0.7秒，對全體型敵人的物理傷害+15%。",
+      "精煉+13時，箭雨風暴傷害再+15%。",
+      "系列 : ^777777弓^000000 攻擊 : ^777777205^000000",
+      "武器等級 : ^7777774^000000",
+      "要求等級 : ^777777100^000000",
+      "裝備 : ^777777遊俠系列^000000"
+    ],
+    "icon": "images/items/700015.webp",
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 73,
+    "characterBound": true,
+    "supportEquipment": true,
+    "noStorage": true,
+    "noDecompose": false,
+    "noSell": false,
+    "dataSource": "itemInfo_UTF8.lub + rAthena Renewal 2026-06-08; RO_WEB V0.9.83 newcomer support",
+    "Id": 700015,
+    "Name": "遊俠箭雨風暴神弓",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 0,
+    "AegisName": "AS_B_Bow",
+    "aegisName": "AS_B_Bow",
+    "Type": "Weapon",
+    "dbType": "Weapon",
+    "SubType": "Bow",
+    "dbSubType": "Bow",
+    "Attack": 205,
+    "atk": 205,
+    "Range": 5,
+    "range": 5,
+    "WeaponLevel": 4,
+    "weaponLevel": 4,
+    "EquipLevelMin": 100,
+    "equipLevelMin": 100,
+    "Jobs": {
+      "Hunter": true
+    },
+    "equipJobs": {
+      "Hunter": true
+    },
+    "Classes": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "equipClasses": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "Locations": {
+      "Both_Hand": true
+    },
+    "locations": {
+      "Both_Hand": true
+    },
+    "Refineable": true,
+    "refineable": true,
+    "Script": ".@r = getrefine();\nbonus bAtkRate,2;\nbonus bBaseAtk,3*.@r+3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   bonus bLongAtkRate,getskilllv(\"AC_OWL\");\n}\nif (.@r>=9) {\n   bonus bMaxSPrate,10;\n   bonus2 bSkillAtk,\"RA_ARROWSTORM\",25;\n}\nif (.@r>=11) {\n   bonus2 bSkillCooldown,\"RA_ARROWSTORM\",-700;\n   bonus2 bAddSize,Size_All,15;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"RA_ARROWSTORM\",15;\n}\n",
+    "scriptRaw": ".@r = getrefine();\nbonus bAtkRate,2;\nbonus bBaseAtk,3*.@r+3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   bonus bLongAtkRate,getskilllv(\"AC_OWL\");\n}\nif (.@r>=9) {\n   bonus bMaxSPrate,10;\n   bonus2 bSkillAtk,\"RA_ARROWSTORM\",25;\n}\nif (.@r>=11) {\n   bonus2 bSkillCooldown,\"RA_ARROWSTORM\",-700;\n   bonus2 bAddSize,Size_All,15;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"RA_ARROWSTORM\",15;\n}\n",
+    "Trade": {
+      "NoDrop": true,
+      "NoTrade": true,
+      "NoCart": true,
+      "NoStorage": true,
+      "NoGuildStorage": true,
+      "NoMail": true,
+      "NoAuction": true
+    },
+    "trade": {
+      "NoDrop": true,
+      "NoTrade": true,
+      "NoCart": true,
+      "NoStorage": true,
+      "NoGuildStorage": true,
+      "NoMail": true,
+      "NoAuction": true
+    },
+    "requiredLevel": 100,
+    "handed": 2,
+    "weaponType": "bow",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bAtkRate\", 2);\nbonus(\"bBaseAtk\", 3*v.r+3*(min(BaseLevel,195)/15));\nif (v.r>=7) {\n   bonus(\"bLongAtkRate\", getskilllv(\"AC_OWL\"));\n}\nif (v.r>=9) {\n   bonus(\"bMaxSPrate\", 10);\n   bonus2(\"bSkillAtk\", \"RA_ARROWSTORM\", 25);\n}\nif (v.r>=11) {\n   bonus2(\"bSkillCooldown\", \"RA_ARROWSTORM\", -700);\n   bonus2(\"bAddSize\", Size_All, 15);\n}\nif (v.r>=13) {\n   bonus2(\"bSkillAtk\", \"RA_ARROWSTORM\", 15);\n}\n",
+    "supportStage": 100
+  },
+  "700016": {
+    "id": 700016,
+    "officialId": 700016,
+    "name": "遊俠銳利射擊瞄準標靶穿心弓",
+    "type": "equipment",
+    "category": "weapon",
+    "subCategory": "bow",
+    "slot": "weapon",
+    "buyPrice": 20,
+    "sellPrice": 10,
+    "description": [
+      "^ff0000該道具無法與其他帳號進行交易。^000000",
+      "為了幫助冒險家成長而準備的弓。",
+      "^000088一般精煉不可^000000",
+      "ATK+2%。",
+      "精煉每+1時，ATK+3。",
+      "BaseLv每+15時，ATK+3(上限為Lv195)。",
+      "精煉+7時，且蒼鷹之眼每+Lv1時，遠距離物理傷害+1%。",
+      "精煉+9時，技能後延遲-10%，銳利射擊、瞄準標靶傷害+25%。",
+      "精煉+11時，對全體型敵人的物理傷害+15%，ATK再+10%。",
+      "精煉+13時，銳利射擊、瞄準標靶傷害再+15%。",
+      "系列 : ^777777弓^000000 攻擊 : ^777777200^000000",
+      "武器等級 : ^7777774^000000",
+      "要求等級 : ^777777100^000000",
+      "裝備 : ^777777遊俠系列^000000"
+    ],
+    "icon": "images/items/700016.webp",
+    "slots": 0,
+    "slotCount": 0,
+    "ClassNum": 73,
+    "characterBound": true,
+    "supportEquipment": true,
+    "noStorage": true,
+    "noDecompose": false,
+    "noSell": false,
+    "dataSource": "itemInfo_UTF8.lub + rAthena Renewal 2026-06-08; RO_WEB V0.9.83 newcomer support",
+    "Id": 700016,
+    "Name": "遊俠銳利射擊瞄準標靶穿心弓",
+    "Buy": 20,
+    "Sell": 10,
+    "Slots": 0,
+    "AegisName": "SB_B_Bow",
+    "aegisName": "SB_B_Bow",
+    "Type": "Weapon",
+    "dbType": "Weapon",
+    "SubType": "Bow",
+    "dbSubType": "Bow",
+    "Attack": 200,
+    "atk": 200,
+    "Range": 5,
+    "range": 5,
+    "WeaponLevel": 4,
+    "weaponLevel": 4,
+    "EquipLevelMin": 100,
+    "equipLevelMin": 100,
+    "Jobs": {
+      "Hunter": true
+    },
+    "equipJobs": {
+      "Hunter": true
+    },
+    "Classes": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "equipClasses": {
+      "All_Third": true,
+      "Fourth": true
+    },
+    "Locations": {
+      "Both_Hand": true
+    },
+    "locations": {
+      "Both_Hand": true
+    },
+    "Refineable": true,
+    "refineable": true,
+    "Script": ".@r = getrefine();\nbonus bAtkRate,2;\nbonus bBaseAtk,3*.@r+3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   bonus bLongAtkRate,getskilllv(\"AC_VULTURE\");\n}\nif (.@r>=9) {\n   bonus bDelayrate,-10;\n   bonus2 bSkillAtk,\"RA_AIMEDBOLT\",25;\n   bonus2 bSkillAtk,\"SN_SHARPSHOOTING\",25;\n}\nif (.@r>=11) {\n   bonus2 bAddSize,Size_All,15;\n   bonus bAtkRate,10;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"RA_AIMEDBOLT\",15;\n   bonus2 bSkillAtk,\"SN_SHARPSHOOTING\",15;\n}\n",
+    "scriptRaw": ".@r = getrefine();\nbonus bAtkRate,2;\nbonus bBaseAtk,3*.@r+3*(min(BaseLevel,195)/15);\nif (.@r>=7) {\n   bonus bLongAtkRate,getskilllv(\"AC_VULTURE\");\n}\nif (.@r>=9) {\n   bonus bDelayrate,-10;\n   bonus2 bSkillAtk,\"RA_AIMEDBOLT\",25;\n   bonus2 bSkillAtk,\"SN_SHARPSHOOTING\",25;\n}\nif (.@r>=11) {\n   bonus2 bAddSize,Size_All,15;\n   bonus bAtkRate,10;\n}\nif (.@r>=13) {\n   bonus2 bSkillAtk,\"RA_AIMEDBOLT\",15;\n   bonus2 bSkillAtk,\"SN_SHARPSHOOTING\",15;\n}\n",
+    "Trade": {
+      "NoDrop": true,
+      "NoTrade": true,
+      "NoCart": true,
+      "NoStorage": true,
+      "NoGuildStorage": true,
+      "NoMail": true,
+      "NoAuction": true
+    },
+    "trade": {
+      "NoDrop": true,
+      "NoTrade": true,
+      "NoCart": true,
+      "NoStorage": true,
+      "NoGuildStorage": true,
+      "NoMail": true,
+      "NoAuction": true
+    },
+    "requiredLevel": 100,
+    "handed": 2,
+    "weaponType": "bow",
+    "compiledScript": "v.r = getrefine();\nbonus(\"bAtkRate\", 2);\nbonus(\"bBaseAtk\", 3*v.r+3*(min(BaseLevel,195)/15));\nif (v.r>=7) {\n   bonus(\"bLongAtkRate\", getskilllv(\"AC_VULTURE\"));\n}\nif (v.r>=9) {\n   bonus(\"bDelayrate\", -10);\n   bonus2(\"bSkillAtk\", \"RA_AIMEDBOLT\", 25);\n   bonus2(\"bSkillAtk\", \"SN_SHARPSHOOTING\", 25);\n}\nif (v.r>=11) {\n   bonus2(\"bAddSize\", Size_All, 15);\n   bonus(\"bAtkRate\", 10);\n}\nif (v.r>=13) {\n   bonus2(\"bSkillAtk\", \"RA_AIMEDBOLT\", 15);\n   bonus2(\"bSkillAtk\", \"SN_SHARPSHOOTING\", 15);\n}\n",
+    "supportStage": 100
+  },
   "700059": {
     "id": 700059,
     "officialId": 700059,
