@@ -22292,7 +22292,7 @@ body.player-death-modal-open #player-sprite{pointer-events:none!important}
 @keyframes roweb-warlock-sphere-pulse{from{filter:brightness(.82)}to{filter:brightness(1.35)}}
 
 /* =====================================================
-   V0.9.83B 四角色欄位／登入大廳
+   V0.9.83C 四角色欄位／登入大廳
    背景圖預留：之後可在 .character-select-backdrop 加入正式圖片。
    ===================================================== */
 body.character-select-open {
@@ -22331,7 +22331,7 @@ body.character-select-open #game-root {
   z-index: -2;
   background:
     linear-gradient(115deg, rgba(12, 8, 4, .56), rgba(5, 5, 8, .28) 48%, rgba(12, 8, 4, .52)),
-    url("../images/ui/character_select_background.webp?v=0.9.83B") center 48% / cover no-repeat,
+    url("../images/ui/character_select_background.webp?v=0.9.83C") center 48% / cover no-repeat,
     linear-gradient(135deg, #161005 0%, #080705 48%, #1a1105 100%);
   background-position: center 48%;
   background-size: cover;
@@ -22399,12 +22399,20 @@ body.character-select-open #game-root {
   height: 56px;
   display: grid;
   place-items: center;
-  border: 1px solid #d8ae59;
+  border: 0;
   border-radius: 16px;
   color: #1b1206;
   font: 900 30px/1 Georgia, serif;
-  background: linear-gradient(145deg, #f5d98d, #a77021);
+  background: transparent;
   box-shadow: 0 0 28px rgba(221, 169, 64, .25);
+  overflow: visible;
+}
+
+.character-select-sakura {
+  width: 56px;
+  height: 56px;
+  display: block;
+  filter: drop-shadow(0 2px 2px rgba(92, 34, 45, .35));
 }
 
 .character-select-brand h1,
@@ -22414,7 +22422,7 @@ body.character-select-open #game-root {
 
 .character-select-brand h1 {
   color: #f4d98c;
-  letter-spacing: .12em;
+  letter-spacing: .08em;
   font-size: clamp(24px, 3vw, 36px);
 }
 
@@ -22889,6 +22897,10 @@ body.character-select-open #game-root {
     height: 44px;
     border-radius: 12px;
     font-size: 23px;
+  }
+  .character-select-sakura {
+    width: 44px;
+    height: 44px;
   }
   .character-select-brand h1 {
     font-size: 22px;

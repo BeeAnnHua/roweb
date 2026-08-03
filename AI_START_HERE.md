@@ -1,4 +1,4 @@
-# V0.9.83B current baseline
+# V0.9.83C current baseline
 
 - Default account slot limit: 4; configurable up to 12 through `CharacterSlotsRuntime.setSlotLimit()` or a future cloud account profile.
 - Account profile key: `ro_web_account_profile_v1`; per-character saves use `ro_web_character_save_v1_<characterId>` and matching backup / IndexedDB IDs.
