@@ -1,4 +1,11 @@
-# V0.9.83C current baseline
+# V0.9.83C2 current baseline
+
+- WM_SEVERE_RAINSTORM / Skill 2418 must accept Bow, Musical/Instrument, and Whip. Do not narrow this list.
+- `getRuntimeRequiredWeaponTypes()` contains an authoritative 2418 compatibility lock; weapon normalization also accepts rAthena-style `W_MUSICAL` / `W_WHIP` aliases and equipment-instance fallback.
+- RO_WEB keeps Severe Rainstorm arrow metadata but does not consume arrows.
+
+- Historical root reports are compacted into `RO_WEB_HISTORY_RECORDS_THROUGH_V0.9.83C.zip`; use `tools/restore_history_records.py` only when a legacy audit requires the original files.
+- Current concise release metadata: `CURRENT_RELEASE_SUMMARY_V0.9.83C2.json`.
 
 - Default account slot limit: 4; configurable up to 12 through `CharacterSlotsRuntime.setSlotLimit()` or a future cloud account profile.
 - Account profile key: `ro_web_account_profile_v1`; per-character saves use `ro_web_character_save_v1_<characterId>` and matching backup / IndexedDB IDs.
@@ -52,7 +59,7 @@
 
 - 以 V91.6 完整 Ready Library 接入 55 招可執行主動技能、454 個 Effect JSON、2395 張 PNG。
 - RO_WEB Runtime handler 是唯一權威：`passive`、`pending`、空 handler 或 `executionEnabled!=true` 一律不掛載特效。
-- 216 招目前被動技能已完整記錄於 `SKILL_EFFECT_PASSIVE_EXCLUSION_AUDIT_0.9.82IB.json`；本次 55 招候選與被動清單交集為 0。
+- 216 招目前被動技能已完整記錄於 the archived `SKILL_EFFECT_PASSIVE_EXCLUSION_AUDIT_0.9.82IB.json`；本次 55 招候選與被動清單交集為 0。
 - 事件接入：SKILL_BEGIN、CAST_BEGIN、CAST_COMPLETE、PROJECTILE_LAUNCH、GROUND_SPAWN、DAMAGE_COMMIT、HIT_CONFIRM、LOOP_START、SKILL_END。
 - BACK／FRONT 雙 Canvas 讓 Bottom／Ground／Shadow 位於人物後方，Hit／Projectile 位於人物前方；HUD 不受影響。
 - 桌機優先 Full，手機／低核心裝置優先 Min，Full／Min 雙向 fallback。

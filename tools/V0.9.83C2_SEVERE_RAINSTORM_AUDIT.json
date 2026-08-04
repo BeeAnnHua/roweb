@@ -1,0 +1,44 @@
+{
+  "version": "V0.9.83C2",
+  "skillId": 2418,
+  "skillKey": "WM_SEVERE_RAINSTORM",
+  "name": "大暴雨",
+  "reference": {
+    "rAthenaSource": "db/re/skill_db.yml",
+    "allowedWeapons": [
+      "Bow",
+      "Musical",
+      "Whip"
+    ]
+  },
+  "runtime": {
+    "allowedWeapons": [
+      "bow",
+      "instrument",
+      "whip"
+    ],
+    "authoritativeOverride": true,
+    "aliasesAdded": [
+      "W_BOW",
+      "W_MUSICAL",
+      "W_WHIP",
+      "MusicalInstrument"
+    ],
+    "equipmentInstanceFallback": true,
+    "ammoPolicy": "metadata_only_no_consumption"
+  },
+  "tests": {
+    "weaponCastCasesPassed": [
+      "Bow",
+      "Musical",
+      "Whip",
+      "W_MUSICAL",
+      "W_WHIP"
+    ],
+    "invalidWeaponBlocked": "Dagger",
+    "javascriptSyntaxFiles": 55,
+    "jsonFilesParsed": 1984,
+    "focusedRuntimeTest": "PASS"
+  },
+  "recordCompactionPreserved": true
+}

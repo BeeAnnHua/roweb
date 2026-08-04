@@ -418,11 +418,26 @@ function applyCounterReflect(monster = currentMonster, incomingDamage = 0) {
   return damage;
 }
 
+function inferRuntimeWeaponTypeFromItem(item = null, fallback = "other") {
+  if (!item || typeof item !== "object") return String(fallback || "other");
+  const raw = item.dbSubType || item.SubType || item.subType || item.weaponType || item.subCategory || item.category || "";
+  if (String(raw || "").trim()) return String(raw);
+  const name = String(item.name || item.Name || item.displayName || "");
+  if (/鞭|whip/i.test(name)) return "whip";
+  if (/樂器|提琴|吉他|琵琶|instrument|musical/i.test(name)) return "instrument";
+  if (/弓|bow/i.test(name)) return "bow";
+  return String(fallback || "other");
+}
+
 function getEquippedWeaponTypeRuntime() {
-  const weaponId = player?.equipment?.weapon;
-  if (!weaponId) return "fist";
-  const item = typeof getItemData === "function" ? getItemData(weaponId) : null;
-  return String(item?.dbSubType || item?.SubType || item?.subType || item?.weaponType || "other");
+  const equippedRef = player?.equipment?.weapon;
+  const instance = player?.equipmentInstances?.weapon || null;
+  const instanceItemId = instance?.itemId ?? instance?.id ?? instance?.baseItemId ?? null;
+  const item = typeof getItemData === "function"
+    ? (getItemData(equippedRef) || getItemData(instanceItemId))
+    : null;
+  if (!equippedRef && !instanceItemId && !item) return "fist";
+  return normalizeRuntimeWeaponType(inferRuntimeWeaponTypeFromItem(item || instance, player?.weaponType || "other"));
 }
 
 // 0.9.82FO: rAthena uses 1hSword / 2hSword while the RO_WEB runtime
@@ -444,8 +459,10 @@ function normalizeRuntimeWeaponType(value) {
     twohandspear: "twohandspear", "2hspear": "twohandspear", twohandedspear: "twohandspear",
     staff: "staff", onehandstaff: "onehandstaff", "1hstaff": "onehandstaff",
     twohandstaff: "twohandstaff", "2hstaff": "twohandstaff", twohandedstaff: "twohandstaff",
-    bow: "bow", katar: "katar", book: "book", knuckle: "knuckle",
-    instrument: "instrument", musical: "instrument", whip: "whip",
+    bow: "bow", wbow: "bow", katar: "katar", book: "book", knuckle: "knuckle",
+    instrument: "instrument", musical: "instrument", musicalinstrument: "instrument",
+    winstrument: "instrument", wmusical: "instrument", instrumentweapon: "instrument",
+    whip: "whip", wwhip: "whip", onehandwhip: "whip", whipweapon: "whip",
     gun: "gun", revolver: "revolver", rifle: "rifle", shotgun: "shotgun",
     gatling: "gatling", grenade: "grenade", huuma: "huuma", shuriken: "shuriken"
   };
@@ -475,6 +492,16 @@ function matchesRuntimeWeaponType(actualType, requiredType) {
 function matchesAnyRuntimeWeaponType(actualType, requiredTypes = []) {
   return (requiredTypes || []).some(required => matchesRuntimeWeaponType(actualType, required));
 }
+
+// V0.9.83C2: rAthena Renewal WM_SEVERE_RAINSTORM explicitly accepts
+// Bow / Musical / Whip. Keep this authoritative override so stale cached or
+// future cloud profiles cannot accidentally make Wanderer whips unusable.
+function getRuntimeRequiredWeaponTypes(skill = null, profile = null) {
+  const sid = Number(skill?.officialId ?? skill?.id ?? profile?.skillId ?? 0);
+  if (sid === 2418) return ["bow", "instrument", "whip"];
+  return Array.isArray(profile?.weaponTypes) ? profile.weaponTypes : [];
+}
+window.getRuntimeRequiredWeaponTypes = getRuntimeRequiredWeaponTypes;
 window.normalizeRuntimeWeaponType = normalizeRuntimeWeaponType;
 window.matchesRuntimeWeaponType = matchesRuntimeWeaponType;
 window.matchesAnyRuntimeWeaponType = matchesAnyRuntimeWeaponType;
@@ -1577,9 +1604,10 @@ function canCastSkill(skill, requestedLevel = null, expectedHandlers = null, opt
     if (Number(active[profile.requiredSelfBuffEffect] || 0) <= 0) return { ok: false, reason: profile.requiredSelfBuffMessage || `缺少 ${profile.requiredSelfBuffEffect} 狀態` };
   }
   // RO_WEB: ignore Hiding/combo/stance activation prerequisites; preserve combat result only.
-  if (Array.isArray(profile.weaponTypes) && profile.weaponTypes.length > 0) {
+  const requiredWeaponTypes = getRuntimeRequiredWeaponTypes(skill, profile);
+  if (requiredWeaponTypes.length > 0) {
     const wt = getEquippedWeaponTypeRuntime();
-    if (!matchesAnyRuntimeWeaponType(wt, profile.weaponTypes)) return { ok: false, reason: "目前武器類型不符合技能需求" };
+    if (!matchesAnyRuntimeWeaponType(wt, requiredWeaponTypes)) return { ok: false, reason: "目前武器類型不符合技能需求" };
   }
   const spCost = getRuntimeSkillSpCost(skill, level);
   const hpCost = Math.max(0, Number(getLevelValue(profile.hpCost, level, 0)));

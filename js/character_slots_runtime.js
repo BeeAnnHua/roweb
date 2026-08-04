@@ -1,12 +1,12 @@
 //=======================================
-// 四角色欄位／帳號資料 Runtime V0.9.83C
+// 四角色欄位／帳號資料 Runtime V0.9.83C2
 // - 本機先行，保留雲端帳號／角色 API 契約
 // - 舊單角色存檔自動遷移至第 1 格
 //=======================================
 (function () {
   "use strict";
 
-  const VERSION = "0.9.83C";
+  const VERSION = "0.9.83C2";
   const ACCOUNT_KEY = "ro_web_account_profile_v1";
   const LEGACY_SAVE_KEY = "ro_web_save_v0_9_19_ui_scroll_quickbar";
   const SLOT_SAVE_PREFIX = "ro_web_character_save_v1_";

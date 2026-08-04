@@ -22316,10 +22316,12 @@
         "consumeAmmo": false,
         "source": [
           "rAthena db/re/skill_db.yml WM_SEVERE_RAINSTORM",
-          "rAthena src/map/skills/archer/severerainstorm.cpp"
+          "rAthena src/map/skills/archer/severerainstorm.cpp",
+          "V0.9.83C2 explicit Bow/Musical/Whip compatibility lock"
         ],
-        "runtimeAdaptation": "在目前目標位置建立半徑5格箭雨，持續3.4秒並每0.3秒造成一次武器屬性遠距離物理傷害。每次倍率＝［100×Lv＋DEX÷300＋AGI÷200；樂器或鞭子再＋20×Lv］×BaseLv÷100%。箭矢不消耗。",
-        "duration": 3400
+        "runtimeAdaptation": "可使用弓、樂器或鞭子施放。在目前目標位置建立半徑5格箭雨，持續3.4秒並每0.3秒造成一次武器屬性遠距離物理傷害。每次倍率＝［100×Lv＋DEX÷300＋AGI÷200；樂器或鞭子再＋20×Lv］×BaseLv÷100%。RO_WEB 不消耗箭矢。",
+        "duration": 3400,
+        "weaponRequirementDisplay": "弓／樂器／鞭子"
       },
       "reviewReason": null,
       "humanReviewRequired": false,

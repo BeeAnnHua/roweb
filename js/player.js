@@ -4,7 +4,7 @@
 
 let player = null;
 const LEGACY_SAVE_KEY = "ro_web_save_v0_9_19_ui_scroll_quickbar";
-// V0.9.83C：每個角色使用獨立存檔 key；舊單角色 key 由 CharacterSlotsRuntime 遷移至第 1 格。
+// V0.9.83C2：每個角色使用獨立存檔 key；舊單角色 key 由 CharacterSlotsRuntime 遷移至第 1 格。
 const SAVE_KEY = window.CharacterSlotsRuntime?.getActiveSaveKey?.() || LEGACY_SAVE_KEY;
 const SAVE_MINUTE_BACKUP_KEY = window.CharacterSlotsRuntime?.getActiveBackupKey?.() || `${SAVE_KEY}_minute_backup_v1`;
 const SAVE_LEASE_KEY = `${SAVE_KEY}_writer_lease_v2`;
@@ -14,7 +14,7 @@ const SAVE_LEASE_HEARTBEAT_MS = 5 * 1000;
 const SAVE_LEASE_STALE_MS = 20 * 1000;
 const RO_WEB_SAVE_SCHEMA = "ro_web_player_save_v2";
 const RO_WEB_SAVE_FORMAT_VERSION = 2;
-const RO_WEB_SAVE_APP_VERSION = "0.9.83C";
+const RO_WEB_SAVE_APP_VERSION = "0.9.83C2";
 const RO_WEB_SAVE_DB_NAME = "ro_web_offline_save_v1";
 const RO_WEB_SAVE_DB_VERSION = 1;
 const RO_WEB_SAVE_DB_STORE = "player_saves";
@@ -610,7 +610,7 @@ async function loadPlayerData() {
     if (localCandidates.length || indexedDbCandidates.length || remoteCandidates.length) addBattleLog("所有存檔驗證失敗，使用預設角色資料。");
   }
 
-  // V0.9.83C：新角色的名稱／性別由角色欄位建立畫面提供；舊角色仍依存檔推斷。
+  // V0.9.83C2：新角色的名稱／性別由角色欄位建立畫面提供；舊角色仍依存檔推斷。
   if (loadedSavedPlayer) {
     player.gender = inferLegacyCharacterGender(loadedSavedPlayer) || "male";
     player.genderChosen = true;
@@ -795,7 +795,7 @@ function normalizePlayerData() {
   player.baseAtk = getFinitePlayerNumber(player.baseAtk ?? player.atk, 5, 0);
   player.baseDef = getFinitePlayerNumber(player.baseDef ?? player.def, 1, 0);
 
-  // V0.9.83C：角色識別欄位固定寫入快照，供本機多角色與未來雲端後台共用。
+  // V0.9.83C2：角色識別欄位固定寫入快照，供本機多角色與未來雲端後台共用。
   window.CharacterSlotsRuntime?.normalizePlayerIdentity?.(player);
 
   // Runtime modules use window.player as their shared combat source/target reference.
@@ -1253,7 +1253,7 @@ function performResetGameSave(mode) {
     RO_WEB_PENDING_SAVE_TIMER = null;
   }
 
-  // V0.9.83C：只刪角色時清空目前欄位並返回角色選擇；帳號倉庫與其他角色不受影響。
+  // V0.9.83C2：只刪角色時清空目前欄位並返回角色選擇；帳號倉庫與其他角色不受影響。
   if (!deleteAll && window.CharacterSlotsRuntime?.clearActiveCharacterSave) {
     try {
       if (typeof clearBattleTimersAndMonster === "function") clearBattleTimersAndMonster({ clearMonster: true });
