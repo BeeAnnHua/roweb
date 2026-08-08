@@ -1,0 +1,323 @@
+{
+  "schema": "ro-effect-str-1.1",
+  "source": "texture/effect/new_d_machine/new_d_machine/min_new_d_machine.str",
+  "version": 148,
+  "fps": 60,
+  "frameCount": 59,
+  "durationSeconds": 0.983333,
+  "layers": [
+    {
+      "textures": [],
+      "keyframes": []
+    },
+    {
+      "textures": [
+        "m_shield_00.bmp",
+        "m_shield_01.bmp",
+        "m_shield_02.bmp",
+        "m_shield_03.bmp",
+        "m_shield_04.bmp",
+        "m_shield_05.bmp",
+        "m_shield_06.bmp",
+        "m_shield_07.bmp",
+        "m_shield_08.bmp",
+        "m_shield_09.bmp",
+        "m_shield_10.bmp",
+        "m_shield_11.bmp",
+        "m_shield_12.bmp",
+        "m_shield_13.bmp",
+        "m_shield_14.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 0,
+          "type": 0,
+          "position": [
+            324.0,
+            252.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -96.0,
+            96.0,
+            96.0,
+            -96.0,
+            -96.0,
+            -96.0,
+            96.0,
+            96.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            120.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 0,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 59,
+          "type": 0,
+          "position": [
+            324.0,
+            252.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -96.0,
+            96.0,
+            96.0,
+            -96.0,
+            -96.0,
+            -96.0,
+            96.0,
+            96.0
+          ],
+          "textureId": 14.0,
+          "animationType": 3,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            120.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    }
+  ],
+  "effectId": "min_new_d_machine_ff32b6757c7e",
+  "classification": "READY_MIN",
+  "variant": "MIN",
+  "role": "MAIN",
+  "scope": {
+    "profession": "new_d_machine",
+    "skillGroup": "new_d_machine"
+  },
+  "dependencies": [
+    {
+      "declared": "m_shield_00.bmp",
+      "resolved": "texture/effect/new_d_machine/new_d_machine/m_shield_00.bmp",
+      "missing": false,
+      "hash": "94ec9d4c5583b843d63c5efc26d225216b267e29717dba6d163e53711aa5e8cd",
+      "png": "textures/94/94ec9d4c5583b843d63c5efc26d225216b267e29717dba6d163e53711aa5e8cd.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 26378
+    },
+    {
+      "declared": "m_shield_01.bmp",
+      "resolved": "texture/effect/new_d_machine/new_d_machine/m_shield_01.bmp",
+      "missing": false,
+      "hash": "a2ea4a56f610cdc2d6e64eb454fa1b18af5ed4fe1b57bc81c9933022f4612d22",
+      "png": "textures/a2/a2ea4a56f610cdc2d6e64eb454fa1b18af5ed4fe1b57bc81c9933022f4612d22.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 26405
+    },
+    {
+      "declared": "m_shield_02.bmp",
+      "resolved": "texture/effect/new_d_machine/new_d_machine/m_shield_02.bmp",
+      "missing": false,
+      "hash": "d003d11eff535eee05e3e66e25ca4140e56db1365db52fb1bac1ace86ad263c2",
+      "png": "textures/d0/d003d11eff535eee05e3e66e25ca4140e56db1365db52fb1bac1ace86ad263c2.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 26539
+    },
+    {
+      "declared": "m_shield_03.bmp",
+      "resolved": "texture/effect/new_d_machine/new_d_machine/m_shield_03.bmp",
+      "missing": false,
+      "hash": "8b8a665a7f41b9139c98edcb127d3e61a8a5d64ba83060b60e3444ba70656692",
+      "png": "textures/8b/8b8a665a7f41b9139c98edcb127d3e61a8a5d64ba83060b60e3444ba70656692.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 26845
+    },
+    {
+      "declared": "m_shield_04.bmp",
+      "resolved": "texture/effect/new_d_machine/new_d_machine/m_shield_04.bmp",
+      "missing": false,
+      "hash": "158fe6b1e61f4e1d81c206873d3ec9814ec4f3baf493ef50ecee9cbb447b7750",
+      "png": "textures/15/158fe6b1e61f4e1d81c206873d3ec9814ec4f3baf493ef50ecee9cbb447b7750.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 26619
+    },
+    {
+      "declared": "m_shield_05.bmp",
+      "resolved": "texture/effect/new_d_machine/new_d_machine/m_shield_05.bmp",
+      "missing": false,
+      "hash": "265ee59882fb8cf770fffda6ab1d57925a0e9133123ed60dae9d54ef4284f65d",
+      "png": "textures/26/265ee59882fb8cf770fffda6ab1d57925a0e9133123ed60dae9d54ef4284f65d.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 26974
+    },
+    {
+      "declared": "m_shield_06.bmp",
+      "resolved": "texture/effect/new_d_machine/new_d_machine/m_shield_06.bmp",
+      "missing": false,
+      "hash": "9ac5dffb325f4982fd5b1797c499d05676cb9a5a323121cdc9d207f3cfab68a3",
+      "png": "textures/9a/9ac5dffb325f4982fd5b1797c499d05676cb9a5a323121cdc9d207f3cfab68a3.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 26755
+    },
+    {
+      "declared": "m_shield_07.bmp",
+      "resolved": "texture/effect/new_d_machine/new_d_machine/m_shield_07.bmp",
+      "missing": false,
+      "hash": "b1c88348685e65ac13ed9d063e9203fc3cc91a8bbee021b0c6b26e2ee1f0e5d9",
+      "png": "textures/b1/b1c88348685e65ac13ed9d063e9203fc3cc91a8bbee021b0c6b26e2ee1f0e5d9.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 26507
+    },
+    {
+      "declared": "m_shield_08.bmp",
+      "resolved": "texture/effect/new_d_machine/new_d_machine/m_shield_08.bmp",
+      "missing": false,
+      "hash": "d747f01782821d27b47a9ca2b6ec8211b5237c59eec1dcf23d8051b419894659",
+      "png": "textures/d7/d747f01782821d27b47a9ca2b6ec8211b5237c59eec1dcf23d8051b419894659.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 26379
+    },
+    {
+      "declared": "m_shield_09.bmp",
+      "resolved": "texture/effect/new_d_machine/new_d_machine/m_shield_09.bmp",
+      "missing": false,
+      "hash": "271fc1b4caedf9c21d9561262b1803c9857ff4db55189d1f7e2a6a3a8161b0c7",
+      "png": "textures/27/271fc1b4caedf9c21d9561262b1803c9857ff4db55189d1f7e2a6a3a8161b0c7.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 26222
+    },
+    {
+      "declared": "m_shield_10.bmp",
+      "resolved": "texture/effect/new_d_machine/new_d_machine/m_shield_10.bmp",
+      "missing": false,
+      "hash": "79b9a33ed7622a3d4618cd4a19e30ffe99f7c852370ea54415d38c29ab7a9de2",
+      "png": "textures/79/79b9a33ed7622a3d4618cd4a19e30ffe99f7c852370ea54415d38c29ab7a9de2.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 26201
+    },
+    {
+      "declared": "m_shield_11.bmp",
+      "resolved": "texture/effect/new_d_machine/new_d_machine/m_shield_11.bmp",
+      "missing": false,
+      "hash": "3509c28ff766bfc5bffa1096b11d322d272a2f09bb3b9eed9fa51c53594ef2b0",
+      "png": "textures/35/3509c28ff766bfc5bffa1096b11d322d272a2f09bb3b9eed9fa51c53594ef2b0.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 26295
+    },
+    {
+      "declared": "m_shield_12.bmp",
+      "resolved": "texture/effect/new_d_machine/new_d_machine/m_shield_12.bmp",
+      "missing": false,
+      "hash": "4d7a35457d207b63da15f77741fc88e38d9b3b22d1e1b6ae111889bf3d5f6ef0",
+      "png": "textures/4d/4d7a35457d207b63da15f77741fc88e38d9b3b22d1e1b6ae111889bf3d5f6ef0.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 26375
+    },
+    {
+      "declared": "m_shield_13.bmp",
+      "resolved": "texture/effect/new_d_machine/new_d_machine/m_shield_13.bmp",
+      "missing": false,
+      "hash": "e698d0a298e6b33ffd11b7356b0fbe4905c1340473c1a40a7f8e6c45f446b9dc",
+      "png": "textures/e6/e698d0a298e6b33ffd11b7356b0fbe4905c1340473c1a40a7f8e6c45f446b9dc.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 26150
+    },
+    {
+      "declared": "m_shield_14.bmp",
+      "resolved": "texture/effect/new_d_machine/new_d_machine/m_shield_14.bmp",
+      "missing": false,
+      "hash": "cb28b7e33d1c162ab014929a50b7afac8d97fefe6349c2889f965532cccba0c3",
+      "png": "textures/cb/cb28b7e33d1c162ab014929a50b7afac8d97fefe6349c2889f965532cccba0c3.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 26346
+    }
+  ],
+  "assetPathMode": "library-root-relative",
+  "renderer": {
+    "mode": "V81 approximate-2d",
+    "notes": "Timeline/layers/textures/color/rotation supported; perspective and exact GL blends approximated."
+  }
+}

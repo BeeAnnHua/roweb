@@ -1,0 +1,251 @@
+{
+  "schema": "ro-effect-str-1.1",
+  "source": "texture/effect/mineffect/new_hellinferno/new_hellinferno_bottom/new_hellinferno_bottom.str",
+  "version": 148,
+  "fps": 60,
+  "frameCount": 62,
+  "durationSeconds": 1.033333,
+  "layers": [
+    {
+      "textures": [],
+      "keyframes": []
+    },
+    {
+      "textures": [
+        "hel_crack_1.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 0,
+          "type": 0,
+          "position": [
+            320.0,
+            310.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -96.0,
+            96.0,
+            96.0,
+            -96.0,
+            -69.0,
+            -69.0,
+            69.0,
+            69.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 0,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            30.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 5,
+          "type": 0,
+          "position": [
+            320.0,
+            310.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -96.0,
+            96.0,
+            96.0,
+            -96.0,
+            -69.0,
+            -69.0,
+            69.0,
+            69.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            150.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 5,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -2.6315789222717285
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 62,
+          "type": 0,
+          "position": [
+            320.0,
+            310.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -96.0,
+            96.0,
+            96.0,
+            -96.0,
+            -69.0,
+            -69.0,
+            69.0,
+            69.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    }
+  ],
+  "effectId": "new_hellinferno_bottom_a78d21991e15",
+  "classification": "READY_FULL",
+  "variant": "FULL",
+  "role": "BOTTOM",
+  "scope": {
+    "profession": "mineffect",
+    "skillGroup": "new_hellinferno"
+  },
+  "dependencies": [
+    {
+      "declared": "hel_crack_1.bmp",
+      "resolved": "texture/effect/mineffect/new_hellinferno/new_hellinferno_bottom/hel_crack_1.bmp",
+      "missing": false,
+      "hash": "2ee7ecbce83361d5d6c0467789bbf77511224a4897a2381102218fcdaca85128",
+      "png": "textures/2e/2ee7ecbce83361d5d6c0467789bbf77511224a4897a2381102218fcdaca85128.png",
+      "width": 128,
+      "height": 124,
+      "bytes": 22537
+    }
+  ],
+  "assetPathMode": "library-root-relative",
+  "renderer": {
+    "mode": "V81 approximate-2d",
+    "notes": "Timeline/layers/textures/color/rotation supported; perspective and exact GL blends approximated."
+  }
+}

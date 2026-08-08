@@ -1,0 +1,7354 @@
+{
+  "schema": "ro-effect-str-1.1",
+  "source": "texture/effect/new_triangleshot/new_triangleshot/new_triangleshot.str",
+  "version": 148,
+  "fps": 60,
+  "frameCount": 74,
+  "durationSeconds": 1.233333,
+  "layers": [
+    {
+      "textures": [],
+      "keyframes": []
+    },
+    {
+      "textures": [
+        "tri_arrow_flame_01.tga",
+        "tri_arrow_flame_02.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 0,
+          "type": 0,
+          "position": [
+            320.0,
+            -300.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -32.0,
+            32.0,
+            32.0,
+            -32.0,
+            -456.0,
+            -456.0,
+            56.0,
+            56.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 0.5,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 0,
+          "type": 1,
+          "position": [
+            0.0,
+            62.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 0.5,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 10,
+          "type": 0,
+          "position": [
+            320.0,
+            320.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -32.0,
+            32.0,
+            32.0,
+            -32.0,
+            -456.0,
+            -456.0,
+            56.0,
+            56.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "tri_arrow.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 0,
+          "type": 0,
+          "position": [
+            320.0,
+            -300.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -16.0,
+            16.0,
+            16.0,
+            -16.0,
+            -223.0,
+            -223.0,
+            33.0,
+            33.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 0,
+          "type": 1,
+          "position": [
+            0.0,
+            62.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            -13.327731132507324,
+            -13.327731132507324,
+            1.9722697734832764,
+            1.9722697734832764
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 10,
+          "type": 0,
+          "position": [
+            320.0,
+            320.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -16.0,
+            16.0,
+            16.0,
+            -16.0,
+            -356.2773132324219,
+            -356.2773132324219,
+            52.72269821166992,
+            52.72269821166992
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 2,
+          "destBlend": 1,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "tri_arrow_flame_dot_01.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 10,
+          "type": 0,
+          "position": [
+            320.0,
+            300.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -16.0,
+            16.0,
+            16.0,
+            -16.0,
+            -456.0,
+            -456.0,
+            56.0,
+            56.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 0.5,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 10,
+          "type": 1,
+          "position": [
+            0.0,
+            -18.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            -0.6000000238418579,
+            -0.6000000238418579,
+            -0.6000000238418579,
+            -0.6000000238418579
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 0.5,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 20,
+          "type": 0,
+          "position": [
+            320.0,
+            120.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -16.0,
+            16.0,
+            16.0,
+            -16.0,
+            -462.0,
+            -462.0,
+            50.0,
+            50.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 0.5,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 20,
+          "type": 1,
+          "position": [
+            0.0,
+            -12.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            -0.4000000059604645,
+            -0.4000000059604645,
+            -0.4000000059604645,
+            -0.4000000059604645
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 0.5,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -25.5
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 30,
+          "type": 0,
+          "position": [
+            320.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -16.0,
+            16.0,
+            16.0,
+            -16.0,
+            -466.0,
+            -466.0,
+            46.0,
+            46.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "tri_arrow_flame_dot_02.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 10,
+          "type": 0,
+          "position": [
+            320.0,
+            300.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -16.0,
+            16.0,
+            16.0,
+            -16.0,
+            -233.0,
+            -233.0,
+            23.0,
+            23.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 10,
+          "type": 1,
+          "position": [
+            0.0,
+            -4.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            -9.319999694824219,
+            -9.319999694824219,
+            0.9200000166893005,
+            0.9200000166893005
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -10.199999809265137
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 35,
+          "type": 0,
+          "position": [
+            320.0,
+            200.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -16.0,
+            16.0,
+            16.0,
+            -16.0,
+            -466.0,
+            -466.0,
+            46.0,
+            46.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "tri_arrow_flame_01.tga",
+        "tri_arrow_flame_02.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 13,
+          "type": 0,
+          "position": [
+            418.0,
+            -314.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -32.0,
+            32.0,
+            32.0,
+            -32.0,
+            -456.0,
+            -456.0,
+            56.0,
+            56.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 25.600000381469727,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 13,
+          "type": 1,
+          "position": [
+            -9.800000190734863,
+            63.400001525878906
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 23,
+          "type": 0,
+          "position": [
+            320.0,
+            320.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -32.0,
+            32.0,
+            32.0,
+            -32.0,
+            -456.0,
+            -456.0,
+            56.0,
+            56.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 25.600000381469727,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "tri_arrow.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 13,
+          "type": 0,
+          "position": [
+            418.0,
+            -314.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -16.0,
+            16.0,
+            16.0,
+            -16.0,
+            -223.0,
+            -223.0,
+            33.0,
+            33.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 0.5,
+          "rotation": 25.600000381469727,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 13,
+          "type": 1,
+          "position": [
+            -9.800000190734863,
+            63.400001525878906
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            -13.327731132507324,
+            -13.327731132507324,
+            1.9722697734832764,
+            1.9722697734832764
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 0.5,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 23,
+          "type": 0,
+          "position": [
+            320.0,
+            320.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -16.0,
+            16.0,
+            16.0,
+            -16.0,
+            -356.2773132324219,
+            -356.2773132324219,
+            52.72269821166992,
+            52.72269821166992
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 25.600000381469727,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 2,
+          "destBlend": 1,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "tri_arrow_flame_dot_01.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 23,
+          "type": 0,
+          "position": [
+            320.0,
+            260.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -16.0,
+            16.0,
+            16.0,
+            -16.0,
+            -466.0,
+            -466.0,
+            46.0,
+            46.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 25.600000381469727,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 23,
+          "type": 1,
+          "position": [
+            2.700000047683716,
+            -18.399999618530273
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 33,
+          "type": 0,
+          "position": [
+            347.0,
+            76.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -16.0,
+            16.0,
+            16.0,
+            -16.0,
+            -466.0,
+            -466.0,
+            46.0,
+            46.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 25.600000381469727,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 33,
+          "type": 1,
+          "position": [
+            2.299999952316284,
+            -14.600000381469727
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -25.5
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 43,
+          "type": 0,
+          "position": [
+            370.0,
+            -70.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -16.0,
+            16.0,
+            16.0,
+            -16.0,
+            -466.0,
+            -466.0,
+            46.0,
+            46.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 25.600000381469727,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "tri_arrow_flame_dot_02.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 23,
+          "type": 0,
+          "position": [
+            320.0,
+            290.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -16.0,
+            16.0,
+            16.0,
+            -16.0,
+            -233.0,
+            -233.0,
+            23.0,
+            23.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 25.600000381469727,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 23,
+          "type": 1,
+          "position": [
+            0.8999999761581421,
+            -6.699999809265137
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 33,
+          "type": 0,
+          "position": [
+            329.0,
+            223.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -16.0,
+            16.0,
+            16.0,
+            -16.0,
+            -233.0,
+            -233.0,
+            23.0,
+            23.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 25.600000381469727,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 33,
+          "type": 1,
+          "position": [
+            1.7000000476837158,
+            -11.100000381469727
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -25.5
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 43,
+          "type": 0,
+          "position": [
+            346.0,
+            112.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -16.0,
+            16.0,
+            16.0,
+            -16.0,
+            -233.0,
+            -233.0,
+            23.0,
+            23.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 25.600000381469727,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "tri_arrow_flame_01.tga",
+        "tri_arrow_flame_02.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 26,
+          "type": 0,
+          "position": [
+            290.0,
+            -118.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -32.0,
+            32.0,
+            32.0,
+            -32.0,
+            -456.0,
+            -456.0,
+            56.0,
+            56.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 0.5,
+          "rotation": -14.222200393676758,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 26,
+          "type": 1,
+          "position": [
+            3.0,
+            43.79999923706055
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 0.5,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 36,
+          "type": 0,
+          "position": [
+            320.0,
+            320.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -32.0,
+            32.0,
+            32.0,
+            -32.0,
+            -456.0,
+            -456.0,
+            56.0,
+            56.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": -14.222200393676758,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "tri_arrow.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 26,
+          "type": 0,
+          "position": [
+            290.0,
+            -118.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -16.0,
+            16.0,
+            16.0,
+            -16.0,
+            -223.0,
+            -223.0,
+            33.0,
+            33.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": -11.377799987792969,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 26,
+          "type": 1,
+          "position": [
+            3.0,
+            43.79999923706055
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            -13.327731132507324,
+            -13.327731132507324,
+            1.9722697734832764,
+            1.9722697734832764
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 36,
+          "type": 0,
+          "position": [
+            320.0,
+            320.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -16.0,
+            16.0,
+            16.0,
+            -16.0,
+            -356.2773132324219,
+            -356.2773132324219,
+            52.72269821166992,
+            52.72269821166992
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": -11.377799987792969,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 2,
+          "destBlend": 1,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "tri_arrow_flame_dot_01.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 36,
+          "type": 0,
+          "position": [
+            313.0,
+            156.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -16.0,
+            16.0,
+            16.0,
+            -16.0,
+            -466.0,
+            -466.0,
+            46.0,
+            46.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": -14.222200393676758,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 36,
+          "type": 1,
+          "position": [
+            -0.699999988079071,
+            -10.300000190734863
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 46,
+          "type": 0,
+          "position": [
+            306.0,
+            53.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -16.0,
+            16.0,
+            16.0,
+            -16.0,
+            -466.0,
+            -466.0,
+            46.0,
+            46.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": -14.222200393676758,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 46,
+          "type": 1,
+          "position": [
+            -1.0,
+            -16.5
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -25.5
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 56,
+          "type": 0,
+          "position": [
+            296.0,
+            -112.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -16.0,
+            16.0,
+            16.0,
+            -16.0,
+            -466.0,
+            -466.0,
+            46.0,
+            46.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": -14.222200393676758,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "tri_arrow_flame_dot_02.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 36,
+          "type": 0,
+          "position": [
+            320.0,
+            290.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -16.0,
+            16.0,
+            16.0,
+            -16.0,
+            -233.0,
+            -233.0,
+            23.0,
+            23.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": -14.222200393676758,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 36,
+          "type": 1,
+          "position": [
+            -0.800000011920929,
+            -9.399999618530273
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            51.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 41,
+          "type": 0,
+          "position": [
+            316.0,
+            243.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -16.0,
+            16.0,
+            16.0,
+            -16.0,
+            -233.0,
+            -233.0,
+            23.0,
+            23.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": -14.222200393676758,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 41,
+          "type": 1,
+          "position": [
+            -0.6153846383094788,
+            -9.269230842590332
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -9.807692527770996
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 67,
+          "type": 0,
+          "position": [
+            300.0,
+            2.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -16.0,
+            16.0,
+            16.0,
+            -16.0,
+            -233.0,
+            -233.0,
+            23.0,
+            23.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": -14.222200393676758,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "blank_box.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 0,
+          "type": 0,
+          "position": [
+            320.0,
+            240.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -8.0,
+            8.0,
+            8.0,
+            -8.0,
+            -8.0,
+            -8.0,
+            8.0,
+            8.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 0,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 4,
+          "type": 0,
+          "position": [
+            320.0,
+            240.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -8.0,
+            8.0,
+            8.0,
+            -8.0,
+            -8.0,
+            -8.0,
+            8.0,
+            8.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "tri_explosion_1.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 10,
+          "type": 0,
+          "position": [
+            320.0,
+            310.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -64.0,
+            64.0,
+            64.0,
+            -64.0,
+            -224.0,
+            -224.0,
+            32.0,
+            32.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 10,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            -6.400000095367432,
+            6.400000095367432,
+            6.400000095367432,
+            -6.400000095367432,
+            -22.399999618530273,
+            -22.399999618530273,
+            3.200000047683716,
+            3.200000047683716
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 15,
+          "type": 0,
+          "position": [
+            320.0,
+            310.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -96.0,
+            96.0,
+            96.0,
+            -96.0,
+            -336.0,
+            -336.0,
+            48.0,
+            48.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 15,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            -4.5714287757873535,
+            4.5714287757873535,
+            4.5714287757873535,
+            -4.5714287757873535,
+            -16.0,
+            -16.0,
+            2.2857143878936768,
+            2.2857143878936768
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -36.42856979370117
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 22,
+          "type": 0,
+          "position": [
+            320.0,
+            310.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -128.0,
+            128.0,
+            128.0,
+            -128.0,
+            -448.0,
+            -448.0,
+            64.0,
+            64.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "tri_explosion.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 10,
+          "type": 0,
+          "position": [
+            320.0,
+            300.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -108.0,
+            112.0,
+            112.0,
+            -108.0,
+            -135.0,
+            -135.0,
+            35.0,
+            35.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 10,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            -10.800000190734863,
+            11.199999809265137,
+            11.199999809265137,
+            -10.800000190734863,
+            -13.5,
+            -13.5,
+            3.5,
+            3.5
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -25.5
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 20,
+          "type": 0,
+          "position": [
+            320.0,
+            300.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -216.0,
+            224.0,
+            224.0,
+            -216.0,
+            -270.0,
+            -270.0,
+            70.0,
+            70.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "tri_explosion.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 10,
+          "type": 0,
+          "position": [
+            320.0,
+            300.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -108.0,
+            112.0,
+            112.0,
+            -108.0,
+            -135.0,
+            -135.0,
+            35.0,
+            35.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 10,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            -6.479998588562012,
+            6.720001220703125,
+            6.720001220703125,
+            -6.479998588562012,
+            -8.100000381469727,
+            -8.100000381469727,
+            2.0999999046325684,
+            2.0999999046325684
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 15,
+          "type": 0,
+          "position": [
+            320.0,
+            300.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -140.39999389648438,
+            145.60000610351562,
+            145.60000610351562,
+            -140.39999389648438,
+            -175.5,
+            -175.5,
+            45.5,
+            45.5
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 15,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            -6.480001926422119,
+            6.719998359680176,
+            6.719998359680176,
+            -6.480001926422119,
+            -8.100000381469727,
+            -8.100000381469727,
+            2.0999999046325684,
+            2.0999999046325684
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -51.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 20,
+          "type": 0,
+          "position": [
+            320.0,
+            300.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -172.8000030517578,
+            179.1999969482422,
+            179.1999969482422,
+            -172.8000030517578,
+            -216.0,
+            -216.0,
+            56.0,
+            56.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "tri_explosion_2.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 23,
+          "type": 0,
+          "position": [
+            320.0,
+            310.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -64.0,
+            64.0,
+            64.0,
+            -64.0,
+            -224.0,
+            -224.0,
+            32.0,
+            32.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 23,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            -6.400000095367432,
+            6.400000095367432,
+            6.400000095367432,
+            -6.400000095367432,
+            -22.399999618530273,
+            -22.399999618530273,
+            3.200000047683716,
+            3.200000047683716
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 28,
+          "type": 0,
+          "position": [
+            320.0,
+            310.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -96.0,
+            96.0,
+            96.0,
+            -96.0,
+            -336.0,
+            -336.0,
+            48.0,
+            48.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 28,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            -4.5714287757873535,
+            4.5714287757873535,
+            4.5714287757873535,
+            -4.5714287757873535,
+            -16.0,
+            -16.0,
+            2.2857143878936768,
+            2.2857143878936768
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -36.42856979370117
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 35,
+          "type": 0,
+          "position": [
+            320.0,
+            310.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -128.0,
+            128.0,
+            128.0,
+            -128.0,
+            -448.0,
+            -448.0,
+            64.0,
+            64.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "tri_explosion.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 23,
+          "type": 0,
+          "position": [
+            320.0,
+            300.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            108.0,
+            -112.0,
+            -112.0,
+            108.0,
+            -135.0,
+            -135.0,
+            35.0,
+            35.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 23,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            10.800000190734863,
+            -11.199999809265137,
+            -11.199999809265137,
+            10.800000190734863,
+            -13.5,
+            -13.5,
+            3.5,
+            3.5
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -25.5
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 33,
+          "type": 0,
+          "position": [
+            320.0,
+            300.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            216.0,
+            -224.0,
+            -224.0,
+            216.0,
+            -270.0,
+            -270.0,
+            70.0,
+            70.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "tri_explosion.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 23,
+          "type": 0,
+          "position": [
+            320.0,
+            300.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            108.0,
+            -112.0,
+            -112.0,
+            108.0,
+            -135.0,
+            -135.0,
+            35.0,
+            35.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 23,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            6.479998588562012,
+            -6.720001220703125,
+            -6.720001220703125,
+            6.479998588562012,
+            -8.100000381469727,
+            -8.100000381469727,
+            2.0999999046325684,
+            2.0999999046325684
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 28,
+          "type": 0,
+          "position": [
+            320.0,
+            300.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            140.39999389648438,
+            -145.60000610351562,
+            -145.60000610351562,
+            140.39999389648438,
+            -175.5,
+            -175.5,
+            45.5,
+            45.5
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 28,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            6.480001926422119,
+            -6.719998359680176,
+            -6.719998359680176,
+            6.480001926422119,
+            -8.100000381469727,
+            -8.100000381469727,
+            2.0999999046325684,
+            2.0999999046325684
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -51.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 33,
+          "type": 0,
+          "position": [
+            320.0,
+            300.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            172.8000030517578,
+            -179.1999969482422,
+            -179.1999969482422,
+            172.8000030517578,
+            -216.0,
+            -216.0,
+            56.0,
+            56.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "tri_explosion_1.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 36,
+          "type": 0,
+          "position": [
+            320.0,
+            310.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -64.0,
+            64.0,
+            64.0,
+            -64.0,
+            -224.0,
+            -224.0,
+            32.0,
+            32.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 36,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            -6.400000095367432,
+            6.400000095367432,
+            6.400000095367432,
+            -6.400000095367432,
+            -22.399999618530273,
+            -22.399999618530273,
+            3.200000047683716,
+            3.200000047683716
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 41,
+          "type": 0,
+          "position": [
+            320.0,
+            310.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -96.0,
+            96.0,
+            96.0,
+            -96.0,
+            -336.0,
+            -336.0,
+            48.0,
+            48.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 41,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            -4.5714287757873535,
+            4.5714287757873535,
+            4.5714287757873535,
+            -4.5714287757873535,
+            -16.0,
+            -16.0,
+            2.2857143878936768,
+            2.2857143878936768
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -36.42856979370117
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 48,
+          "type": 0,
+          "position": [
+            320.0,
+            310.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -128.0,
+            128.0,
+            128.0,
+            -128.0,
+            -448.0,
+            -448.0,
+            64.0,
+            64.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "tri_explosion.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 36,
+          "type": 0,
+          "position": [
+            320.0,
+            300.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            108.0,
+            -112.0,
+            -112.0,
+            108.0,
+            -135.0,
+            -135.0,
+            35.0,
+            35.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 36,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            10.800000190734863,
+            -11.199999809265137,
+            -11.199999809265137,
+            10.800000190734863,
+            -13.5,
+            -13.5,
+            3.5,
+            3.5
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -25.5
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 46,
+          "type": 0,
+          "position": [
+            320.0,
+            300.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            216.0,
+            -224.0,
+            -224.0,
+            216.0,
+            -270.0,
+            -270.0,
+            70.0,
+            70.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "tri_explosion.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 36,
+          "type": 0,
+          "position": [
+            320.0,
+            300.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -108.0,
+            112.0,
+            112.0,
+            -108.0,
+            -135.0,
+            -135.0,
+            35.0,
+            35.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 36,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            -6.479998588562012,
+            6.720001220703125,
+            6.720001220703125,
+            -6.479998588562012,
+            -8.100000381469727,
+            -8.100000381469727,
+            2.0999999046325684,
+            2.0999999046325684
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 41,
+          "type": 0,
+          "position": [
+            320.0,
+            300.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -140.39999389648438,
+            145.60000610351562,
+            145.60000610351562,
+            -140.39999389648438,
+            -175.5,
+            -175.5,
+            45.5,
+            45.5
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 41,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            -6.480001926422119,
+            6.719998359680176,
+            6.719998359680176,
+            -6.480001926422119,
+            -8.100000381469727,
+            -8.100000381469727,
+            2.0999999046325684,
+            2.0999999046325684
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -51.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 46,
+          "type": 0,
+          "position": [
+            320.0,
+            300.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -172.8000030517578,
+            179.1999969482422,
+            179.1999969482422,
+            -172.8000030517578,
+            -216.0,
+            -216.0,
+            56.0,
+            56.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "blank_box.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 0,
+          "type": 0,
+          "position": [
+            320.0,
+            240.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -8.0,
+            8.0,
+            8.0,
+            -8.0,
+            -8.0,
+            -8.0,
+            8.0,
+            8.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 0,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 4,
+          "type": 0,
+          "position": [
+            320.0,
+            240.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -8.0,
+            8.0,
+            8.0,
+            -8.0,
+            -8.0,
+            -8.0,
+            8.0,
+            8.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "part_a_00.tga",
+        "part_a_01.tga",
+        "part_a_02.tga",
+        "part_a_03.tga",
+        "part_a_04.tga",
+        "part_a_05.tga",
+        "part_a_06.tga",
+        "part_a_07.tga",
+        "part_a_08.tga",
+        "part_a_09.tga",
+        "part_a_10.tga",
+        "part_a_11.tga",
+        "part_a_12.tga",
+        "part_a_13.tga",
+        "part_a_14.tga",
+        "part_a_15.tga",
+        "part_a_16.tga",
+        "part_a_17.tga",
+        "part_a_18.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 10,
+          "type": 0,
+          "position": [
+            320.0,
+            304.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -32.0,
+            32.0,
+            32.0,
+            -32.0,
+            -32.0,
+            -32.0,
+            32.0,
+            32.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 10,
+          "type": 1,
+          "position": [
+            -3.142857074737549,
+            -3.107142925262451
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.8035714030265808,
+            -0.8035714030265808,
+            -0.8035714030265808,
+            0.8035714030265808,
+            0.8035714030265808,
+            0.8035714030265808,
+            -0.8035714030265808,
+            -0.8035714030265808
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": -3.8095250129699707,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 38,
+          "type": 0,
+          "position": [
+            232.0,
+            217.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -9.5,
+            9.5,
+            9.5,
+            -9.5,
+            -9.5,
+            -9.5,
+            9.5,
+            9.5
+          ],
+          "textureId": 15.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": -106.66670227050781,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "part_a_00.tga",
+        "part_a_01.tga",
+        "part_a_02.tga",
+        "part_a_03.tga",
+        "part_a_04.tga",
+        "part_a_05.tga",
+        "part_a_06.tga",
+        "part_a_07.tga",
+        "part_a_08.tga",
+        "part_a_09.tga",
+        "part_a_10.tga",
+        "part_a_11.tga",
+        "part_a_12.tga",
+        "part_a_13.tga",
+        "part_a_14.tga",
+        "part_a_15.tga",
+        "part_a_16.tga",
+        "part_a_17.tga",
+        "part_a_18.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 10,
+          "type": 0,
+          "position": [
+            320.0,
+            304.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -16.0,
+            16.0,
+            16.0,
+            -16.0,
+            -16.0,
+            -16.0,
+            16.0,
+            16.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 10,
+          "type": 1,
+          "position": [
+            3.84375,
+            -4.84375
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.203125,
+            -0.203125,
+            -0.203125,
+            0.203125,
+            0.203125,
+            0.203125,
+            -0.203125,
+            -0.203125
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": -3.333334445953369,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -7.96875
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 42,
+          "type": 0,
+          "position": [
+            443.0,
+            149.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -9.5,
+            9.5,
+            9.5,
+            -9.5,
+            -9.5,
+            -9.5,
+            9.5,
+            9.5
+          ],
+          "textureId": 15.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": -106.66670227050781,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "part_a_00.tga",
+        "part_a_01.tga",
+        "part_a_02.tga",
+        "part_a_03.tga",
+        "part_a_04.tga",
+        "part_a_05.tga",
+        "part_a_06.tga",
+        "part_a_07.tga",
+        "part_a_08.tga",
+        "part_a_09.tga",
+        "part_a_10.tga",
+        "part_a_11.tga",
+        "part_a_12.tga",
+        "part_a_13.tga",
+        "part_a_14.tga",
+        "part_a_15.tga",
+        "part_a_16.tga",
+        "part_a_17.tga",
+        "part_a_18.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 10,
+          "type": 0,
+          "position": [
+            320.0,
+            304.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -16.0,
+            16.0,
+            16.0,
+            -16.0,
+            -16.0,
+            -16.0,
+            16.0,
+            16.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 10,
+          "type": 1,
+          "position": [
+            -9.142857551574707,
+            -3.761904716491699
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.3095238208770752,
+            -0.3095238208770752,
+            -0.3095238208770752,
+            0.3095238208770752,
+            0.3095238208770752,
+            0.3095238208770752,
+            -0.3095238208770752,
+            -0.3095238208770752
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": -5.079366683959961,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -12.142857551574707
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 31,
+          "type": 0,
+          "position": [
+            128.0,
+            225.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -9.5,
+            9.5,
+            9.5,
+            -9.5,
+            -9.5,
+            -9.5,
+            9.5,
+            9.5
+          ],
+          "textureId": 15.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": -106.66670227050781,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "part_a_00.tga",
+        "part_a_01.tga",
+        "part_a_02.tga",
+        "part_a_03.tga",
+        "part_a_04.tga",
+        "part_a_05.tga",
+        "part_a_06.tga",
+        "part_a_07.tga",
+        "part_a_08.tga",
+        "part_a_09.tga",
+        "part_a_10.tga",
+        "part_a_11.tga",
+        "part_a_12.tga",
+        "part_a_13.tga",
+        "part_a_14.tga",
+        "part_a_15.tga",
+        "part_a_16.tga",
+        "part_a_17.tga",
+        "part_a_18.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 10,
+          "type": 0,
+          "position": [
+            320.0,
+            304.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -16.0,
+            16.0,
+            16.0,
+            -16.0,
+            -16.0,
+            -16.0,
+            16.0,
+            16.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 10,
+          "type": 1,
+          "position": [
+            5.55555534362793,
+            -3.5
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.3611111044883728,
+            -0.3611111044883728,
+            -0.3611111044883728,
+            0.3611111044883728,
+            0.3611111044883728,
+            0.3611111044883728,
+            -0.3611111044883728,
+            -0.3611111044883728
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": -5.925928115844727,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -14.166666984558105
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 28,
+          "type": 0,
+          "position": [
+            420.0,
+            241.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -9.5,
+            9.5,
+            9.5,
+            -9.5,
+            -9.5,
+            -9.5,
+            9.5,
+            9.5
+          ],
+          "textureId": 15.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": -106.66670227050781,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "part_b_00.tga",
+        "part_b_01.tga",
+        "part_b_02.tga",
+        "part_b_03.tga",
+        "part_b_04.tga",
+        "part_b_05.tga",
+        "part_b_06.tga",
+        "part_b_07.tga",
+        "part_b_08.tga",
+        "part_b_09.tga",
+        "part_b_10.tga",
+        "part_b_11.tga",
+        "part_b_12.tga",
+        "part_b_13.tga",
+        "part_b_14.tga",
+        "part_b_15.tga",
+        "part_b_16.tga",
+        "part_b_17.tga",
+        "part_b_18.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 10,
+          "type": 0,
+          "position": [
+            320.0,
+            310.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -16.0,
+            16.0,
+            16.0,
+            -16.0,
+            -16.0,
+            -16.0,
+            16.0,
+            16.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 10,
+          "type": 1,
+          "position": [
+            -3.777777671813965,
+            -6.111111164093018
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.12962962687015533,
+            -0.12962962687015533,
+            -0.12962962687015533,
+            0.12962962687015533,
+            0.12962962687015533,
+            0.12962962687015533,
+            -0.12962962687015533,
+            -0.12962962687015533
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -9.44444465637207
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 37,
+          "type": 0,
+          "position": [
+            218.0,
+            145.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -12.5,
+            12.5,
+            12.5,
+            -12.5,
+            -12.5,
+            -12.5,
+            12.5,
+            12.5
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "part_b_00.tga",
+        "part_b_01.tga",
+        "part_b_02.tga",
+        "part_b_03.tga",
+        "part_b_04.tga",
+        "part_b_05.tga",
+        "part_b_06.tga",
+        "part_b_07.tga",
+        "part_b_08.tga",
+        "part_b_09.tga",
+        "part_b_10.tga",
+        "part_b_11.tga",
+        "part_b_12.tga",
+        "part_b_13.tga",
+        "part_b_14.tga",
+        "part_b_15.tga",
+        "part_b_16.tga",
+        "part_b_17.tga",
+        "part_b_18.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 10,
+          "type": 0,
+          "position": [
+            320.0,
+            310.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -16.0,
+            16.0,
+            16.0,
+            -16.0,
+            -16.0,
+            -16.0,
+            16.0,
+            16.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 10,
+          "type": 1,
+          "position": [
+            -10.047618865966797,
+            -5.4285712242126465
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.1666666716337204,
+            -0.1666666716337204,
+            -0.1666666716337204,
+            0.1666666716337204,
+            0.1666666716337204,
+            0.1666666716337204,
+            -0.1666666716337204,
+            -0.1666666716337204
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 31,
+          "type": 0,
+          "position": [
+            109.0,
+            196.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -12.5,
+            12.5,
+            12.5,
+            -12.5,
+            -12.5,
+            -12.5,
+            12.5,
+            12.5
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "part_b_00.tga",
+        "part_b_01.tga",
+        "part_b_02.tga",
+        "part_b_03.tga",
+        "part_b_04.tga",
+        "part_b_05.tga",
+        "part_b_06.tga",
+        "part_b_07.tga",
+        "part_b_08.tga",
+        "part_b_09.tga",
+        "part_b_10.tga",
+        "part_b_11.tga",
+        "part_b_12.tga",
+        "part_b_13.tga",
+        "part_b_14.tga",
+        "part_b_15.tga",
+        "part_b_16.tga",
+        "part_b_17.tga",
+        "part_b_18.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 10,
+          "type": 0,
+          "position": [
+            320.0,
+            310.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -16.0,
+            16.0,
+            16.0,
+            -16.0,
+            -16.0,
+            -16.0,
+            16.0,
+            16.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 10,
+          "type": 1,
+          "position": [
+            7.222222328186035,
+            -0.40740740299224854
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.12962962687015533,
+            -0.12962962687015533,
+            -0.12962962687015533,
+            0.12962962687015533,
+            0.12962962687015533,
+            0.12962962687015533,
+            -0.12962962687015533,
+            -0.12962962687015533
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -9.44444465637207
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 37,
+          "type": 0,
+          "position": [
+            515.0,
+            299.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -12.5,
+            12.5,
+            12.5,
+            -12.5,
+            -12.5,
+            -12.5,
+            12.5,
+            12.5
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "part_a_00.tga",
+        "part_a_01.tga",
+        "part_a_02.tga",
+        "part_a_03.tga",
+        "part_a_04.tga",
+        "part_a_05.tga",
+        "part_a_06.tga",
+        "part_a_07.tga",
+        "part_a_08.tga",
+        "part_a_09.tga",
+        "part_a_10.tga",
+        "part_a_11.tga",
+        "part_a_12.tga",
+        "part_a_13.tga",
+        "part_a_14.tga",
+        "part_a_15.tga",
+        "part_a_16.tga",
+        "part_a_17.tga",
+        "part_a_18.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 23,
+          "type": 0,
+          "position": [
+            320.0,
+            304.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -32.0,
+            32.0,
+            32.0,
+            -32.0,
+            -32.0,
+            -32.0,
+            32.0,
+            32.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 23,
+          "type": 1,
+          "position": [
+            -2.357142925262451,
+            -8.107142448425293
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.8035714030265808,
+            -0.8035714030265808,
+            -0.8035714030265808,
+            0.8035714030265808,
+            0.8035714030265808,
+            0.8035714030265808,
+            -0.8035714030265808,
+            -0.8035714030265808
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": -3.8095250129699707,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -9.107142448425293
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 51,
+          "type": 0,
+          "position": [
+            254.0,
+            77.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -9.5,
+            9.5,
+            9.5,
+            -9.5,
+            -9.5,
+            -9.5,
+            9.5,
+            9.5
+          ],
+          "textureId": 15.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": -106.66670227050781,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "part_a_00.tga",
+        "part_a_01.tga",
+        "part_a_02.tga",
+        "part_a_03.tga",
+        "part_a_04.tga",
+        "part_a_05.tga",
+        "part_a_06.tga",
+        "part_a_07.tga",
+        "part_a_08.tga",
+        "part_a_09.tga",
+        "part_a_10.tga",
+        "part_a_11.tga",
+        "part_a_12.tga",
+        "part_a_13.tga",
+        "part_a_14.tga",
+        "part_a_15.tga",
+        "part_a_16.tga",
+        "part_a_17.tga",
+        "part_a_18.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 23,
+          "type": 0,
+          "position": [
+            320.0,
+            304.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -16.0,
+            16.0,
+            16.0,
+            -16.0,
+            -16.0,
+            -16.0,
+            16.0,
+            16.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 23,
+          "type": 1,
+          "position": [
+            -8.0625,
+            -0.90625
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.203125,
+            -0.203125,
+            -0.203125,
+            0.203125,
+            0.203125,
+            0.203125,
+            -0.203125,
+            -0.203125
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": -3.333334445953369,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -7.96875
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 55,
+          "type": 0,
+          "position": [
+            62.0,
+            275.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -9.5,
+            9.5,
+            9.5,
+            -9.5,
+            -9.5,
+            -9.5,
+            9.5,
+            9.5
+          ],
+          "textureId": 15.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": -106.66670227050781,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "part_a_00.tga",
+        "part_a_01.tga",
+        "part_a_02.tga",
+        "part_a_03.tga",
+        "part_a_04.tga",
+        "part_a_05.tga",
+        "part_a_06.tga",
+        "part_a_07.tga",
+        "part_a_08.tga",
+        "part_a_09.tga",
+        "part_a_10.tga",
+        "part_a_11.tga",
+        "part_a_12.tga",
+        "part_a_13.tga",
+        "part_a_14.tga",
+        "part_a_15.tga",
+        "part_a_16.tga",
+        "part_a_17.tga",
+        "part_a_18.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 23,
+          "type": 0,
+          "position": [
+            320.0,
+            304.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -16.0,
+            16.0,
+            16.0,
+            -16.0,
+            -16.0,
+            -16.0,
+            16.0,
+            16.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 23,
+          "type": 1,
+          "position": [
+            1.9047619104385376,
+            -5.38095235824585
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.3095238208770752,
+            -0.3095238208770752,
+            -0.3095238208770752,
+            0.3095238208770752,
+            0.3095238208770752,
+            0.3095238208770752,
+            -0.3095238208770752,
+            -0.3095238208770752
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": -5.079366683959961,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 44,
+          "type": 0,
+          "position": [
+            360.0,
+            191.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -9.5,
+            9.5,
+            9.5,
+            -9.5,
+            -9.5,
+            -9.5,
+            9.5,
+            9.5
+          ],
+          "textureId": 15.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": -106.66670227050781,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "part_a_00.tga",
+        "part_a_01.tga",
+        "part_a_02.tga",
+        "part_a_03.tga",
+        "part_a_04.tga",
+        "part_a_05.tga",
+        "part_a_06.tga",
+        "part_a_07.tga",
+        "part_a_08.tga",
+        "part_a_09.tga",
+        "part_a_10.tga",
+        "part_a_11.tga",
+        "part_a_12.tga",
+        "part_a_13.tga",
+        "part_a_14.tga",
+        "part_a_15.tga",
+        "part_a_16.tga",
+        "part_a_17.tga",
+        "part_a_18.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 23,
+          "type": 0,
+          "position": [
+            320.0,
+            304.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -16.0,
+            16.0,
+            16.0,
+            -16.0,
+            -16.0,
+            -16.0,
+            16.0,
+            16.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 23,
+          "type": 1,
+          "position": [
+            -4.611111164093018,
+            1.2777777910232544
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.3611111044883728,
+            -0.3611111044883728,
+            -0.3611111044883728,
+            0.3611111044883728,
+            0.3611111044883728,
+            0.3611111044883728,
+            -0.3611111044883728,
+            -0.3611111044883728
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": -5.925928115844727,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -14.166666984558105
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 41,
+          "type": 0,
+          "position": [
+            237.0,
+            327.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -9.5,
+            9.5,
+            9.5,
+            -9.5,
+            -9.5,
+            -9.5,
+            9.5,
+            9.5
+          ],
+          "textureId": 15.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": -106.66670227050781,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "part_a_00.tga",
+        "part_a_01.tga",
+        "part_a_02.tga",
+        "part_a_03.tga",
+        "part_a_04.tga",
+        "part_a_05.tga",
+        "part_a_06.tga",
+        "part_a_07.tga",
+        "part_a_08.tga",
+        "part_a_09.tga",
+        "part_a_10.tga",
+        "part_a_11.tga",
+        "part_a_12.tga",
+        "part_a_13.tga",
+        "part_a_14.tga",
+        "part_a_15.tga",
+        "part_a_16.tga",
+        "part_a_17.tga",
+        "part_a_18.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 23,
+          "type": 0,
+          "position": [
+            320.0,
+            304.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -16.0,
+            16.0,
+            16.0,
+            -16.0,
+            -16.0,
+            -16.0,
+            16.0,
+            16.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 23,
+          "type": 1,
+          "position": [
+            -5.1052632331848145,
+            -1.105263113975525
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.34210526943206787,
+            -0.34210526943206787,
+            -0.34210526943206787,
+            0.34210526943206787,
+            0.34210526943206787,
+            0.34210526943206787,
+            -0.34210526943206787,
+            -0.34210526943206787
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": -5.614037036895752,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -13.421052932739258
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 42,
+          "type": 0,
+          "position": [
+            223.0,
+            283.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -9.5,
+            9.5,
+            9.5,
+            -9.5,
+            -9.5,
+            -9.5,
+            9.5,
+            9.5
+          ],
+          "textureId": 15.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": -106.66670227050781,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "part_b_00.tga",
+        "part_b_01.tga",
+        "part_b_02.tga",
+        "part_b_03.tga",
+        "part_b_04.tga",
+        "part_b_05.tga",
+        "part_b_06.tga",
+        "part_b_07.tga",
+        "part_b_08.tga",
+        "part_b_09.tga",
+        "part_b_10.tga",
+        "part_b_11.tga",
+        "part_b_12.tga",
+        "part_b_13.tga",
+        "part_b_14.tga",
+        "part_b_15.tga",
+        "part_b_16.tga",
+        "part_b_17.tga",
+        "part_b_18.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 23,
+          "type": 0,
+          "position": [
+            320.0,
+            310.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -16.0,
+            16.0,
+            16.0,
+            -16.0,
+            -16.0,
+            -16.0,
+            16.0,
+            16.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 23,
+          "type": 1,
+          "position": [
+            6.125,
+            -1.71875
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.109375,
+            -0.109375,
+            -0.109375,
+            0.109375,
+            0.109375,
+            0.109375,
+            -0.109375,
+            -0.109375
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -7.96875
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 55,
+          "type": 0,
+          "position": [
+            516.0,
+            255.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -12.5,
+            12.5,
+            12.5,
+            -12.5,
+            -12.5,
+            -12.5,
+            12.5,
+            12.5
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "part_b_00.tga",
+        "part_b_01.tga",
+        "part_b_02.tga",
+        "part_b_03.tga",
+        "part_b_04.tga",
+        "part_b_05.tga",
+        "part_b_06.tga",
+        "part_b_07.tga",
+        "part_b_08.tga",
+        "part_b_09.tga",
+        "part_b_10.tga",
+        "part_b_11.tga",
+        "part_b_12.tga",
+        "part_b_13.tga",
+        "part_b_14.tga",
+        "part_b_15.tga",
+        "part_b_16.tga",
+        "part_b_17.tga",
+        "part_b_18.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 23,
+          "type": 0,
+          "position": [
+            320.0,
+            310.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -16.0,
+            16.0,
+            16.0,
+            -16.0,
+            -16.0,
+            -16.0,
+            16.0,
+            16.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 23,
+          "type": 1,
+          "position": [
+            -4.484848499298096,
+            -2.5151515007019043
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.10606060922145844,
+            -0.10606060922145844,
+            -0.10606060922145844,
+            0.10606060922145844,
+            0.10606060922145844,
+            0.10606060922145844,
+            -0.10606060922145844,
+            -0.10606060922145844
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 56,
+          "type": 0,
+          "position": [
+            172.0,
+            227.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -12.5,
+            12.5,
+            12.5,
+            -12.5,
+            -12.5,
+            -12.5,
+            12.5,
+            12.5
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "part_a_00.tga",
+        "part_a_01.tga",
+        "part_a_02.tga",
+        "part_a_03.tga",
+        "part_a_04.tga",
+        "part_a_05.tga",
+        "part_a_06.tga",
+        "part_a_07.tga",
+        "part_a_08.tga",
+        "part_a_09.tga",
+        "part_a_10.tga",
+        "part_a_11.tga",
+        "part_a_12.tga",
+        "part_a_13.tga",
+        "part_a_14.tga",
+        "part_a_15.tga",
+        "part_a_16.tga",
+        "part_a_17.tga",
+        "part_a_18.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 36,
+          "type": 0,
+          "position": [
+            320.0,
+            304.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -16.0,
+            16.0,
+            16.0,
+            -16.0,
+            -16.0,
+            -16.0,
+            16.0,
+            16.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 36,
+          "type": 1,
+          "position": [
+            4.315789699554443,
+            -11.473684310913086
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.34210526943206787,
+            -0.34210526943206787,
+            -0.34210526943206787,
+            0.34210526943206787,
+            0.34210526943206787,
+            0.34210526943206787,
+            -0.34210526943206787,
+            -0.34210526943206787
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": -5.614037036895752,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -13.421052932739258
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 55,
+          "type": 0,
+          "position": [
+            402.0,
+            86.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -9.5,
+            9.5,
+            9.5,
+            -9.5,
+            -9.5,
+            -9.5,
+            9.5,
+            9.5
+          ],
+          "textureId": 15.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": -106.66670227050781,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "part_b_00.tga",
+        "part_b_01.tga",
+        "part_b_02.tga",
+        "part_b_03.tga",
+        "part_b_04.tga",
+        "part_b_05.tga",
+        "part_b_06.tga",
+        "part_b_07.tga",
+        "part_b_08.tga",
+        "part_b_09.tga",
+        "part_b_10.tga",
+        "part_b_11.tga",
+        "part_b_12.tga",
+        "part_b_13.tga",
+        "part_b_14.tga",
+        "part_b_15.tga",
+        "part_b_16.tga",
+        "part_b_17.tga",
+        "part_b_18.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 36,
+          "type": 0,
+          "position": [
+            320.0,
+            310.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -16.0,
+            16.0,
+            16.0,
+            -16.0,
+            -16.0,
+            -16.0,
+            16.0,
+            16.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 36,
+          "type": 1,
+          "position": [
+            2.848484754562378,
+            -7.909090995788574
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.10606060922145844,
+            -0.10606060922145844,
+            -0.10606060922145844,
+            0.10606060922145844,
+            0.10606060922145844,
+            0.10606060922145844,
+            -0.10606060922145844,
+            -0.10606060922145844
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -7.7272725105285645
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 69,
+          "type": 0,
+          "position": [
+            414.0,
+            49.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -12.5,
+            12.5,
+            12.5,
+            -12.5,
+            -12.5,
+            -12.5,
+            12.5,
+            12.5
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "part_b_00.tga",
+        "part_b_01.tga",
+        "part_b_02.tga",
+        "part_b_03.tga",
+        "part_b_04.tga",
+        "part_b_05.tga",
+        "part_b_06.tga",
+        "part_b_07.tga",
+        "part_b_08.tga",
+        "part_b_09.tga",
+        "part_b_10.tga",
+        "part_b_11.tga",
+        "part_b_12.tga",
+        "part_b_13.tga",
+        "part_b_14.tga",
+        "part_b_15.tga",
+        "part_b_16.tga",
+        "part_b_17.tga",
+        "part_b_18.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 36,
+          "type": 0,
+          "position": [
+            320.0,
+            310.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -32.0,
+            32.0,
+            32.0,
+            -32.0,
+            -32.0,
+            -32.0,
+            32.0,
+            32.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 36,
+          "type": 1,
+          "position": [
+            6.25,
+            -9.916666984558105
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            1.625,
+            -1.625,
+            -1.625,
+            1.625,
+            1.625,
+            1.625,
+            -1.625,
+            -1.625
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -21.25
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 48,
+          "type": 0,
+          "position": [
+            395.0,
+            191.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -12.5,
+            12.5,
+            12.5,
+            -12.5,
+            -12.5,
+            -12.5,
+            12.5,
+            12.5
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "part_b_00.tga",
+        "part_b_01.tga",
+        "part_b_02.tga",
+        "part_b_03.tga",
+        "part_b_04.tga",
+        "part_b_05.tga",
+        "part_b_06.tga",
+        "part_b_07.tga",
+        "part_b_08.tga",
+        "part_b_09.tga",
+        "part_b_10.tga",
+        "part_b_11.tga",
+        "part_b_12.tga",
+        "part_b_13.tga",
+        "part_b_14.tga",
+        "part_b_15.tga",
+        "part_b_16.tga",
+        "part_b_17.tga",
+        "part_b_18.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 36,
+          "type": 0,
+          "position": [
+            320.0,
+            310.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -16.0,
+            16.0,
+            16.0,
+            -16.0,
+            -16.0,
+            -16.0,
+            16.0,
+            16.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 36,
+          "type": 1,
+          "position": [
+            4.8947367668151855,
+            -3.71052622795105
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.09210526198148727,
+            -0.09210526198148727,
+            -0.09210526198148727,
+            0.09210526198148727,
+            0.09210526198148727,
+            0.09210526198148727,
+            -0.09210526198148727,
+            -0.09210526198148727
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -6.710526466369629
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 74,
+          "type": 0,
+          "position": [
+            506.0,
+            169.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -12.5,
+            12.5,
+            12.5,
+            -12.5,
+            -12.5,
+            -12.5,
+            12.5,
+            12.5
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "part_b_00.tga",
+        "part_b_01.tga",
+        "part_b_02.tga",
+        "part_b_03.tga",
+        "part_b_04.tga",
+        "part_b_05.tga",
+        "part_b_06.tga",
+        "part_b_07.tga",
+        "part_b_08.tga",
+        "part_b_09.tga",
+        "part_b_10.tga",
+        "part_b_11.tga",
+        "part_b_12.tga",
+        "part_b_13.tga",
+        "part_b_14.tga",
+        "part_b_15.tga",
+        "part_b_16.tga",
+        "part_b_17.tga",
+        "part_b_18.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 36,
+          "type": 0,
+          "position": [
+            320.0,
+            310.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -32.0,
+            32.0,
+            32.0,
+            -32.0,
+            -32.0,
+            -32.0,
+            32.0,
+            32.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 36,
+          "type": 1,
+          "position": [
+            0.699999988079071,
+            -5.5333333015441895
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.6499999761581421,
+            -0.6499999761581421,
+            -0.6499999761581421,
+            0.6499999761581421,
+            0.6499999761581421,
+            0.6499999761581421,
+            -0.6499999761581421,
+            -0.6499999761581421
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 66,
+          "type": 0,
+          "position": [
+            341.0,
+            144.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -12.5,
+            12.5,
+            12.5,
+            -12.5,
+            -12.5,
+            -12.5,
+            12.5,
+            12.5
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "part_b_00.tga",
+        "part_b_01.tga",
+        "part_b_02.tga",
+        "part_b_03.tga",
+        "part_b_04.tga",
+        "part_b_05.tga",
+        "part_b_06.tga",
+        "part_b_07.tga",
+        "part_b_08.tga",
+        "part_b_09.tga",
+        "part_b_10.tga",
+        "part_b_11.tga",
+        "part_b_12.tga",
+        "part_b_13.tga",
+        "part_b_14.tga",
+        "part_b_15.tga",
+        "part_b_16.tga",
+        "part_b_17.tga",
+        "part_b_18.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 36,
+          "type": 0,
+          "position": [
+            320.0,
+            310.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -16.0,
+            16.0,
+            16.0,
+            -16.0,
+            -16.0,
+            -16.0,
+            16.0,
+            16.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            255.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 36,
+          "type": 1,
+          "position": [
+            4.157894611358643,
+            1.0263158082962036
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.09210526198148727,
+            -0.09210526198148727,
+            -0.09210526198148727,
+            0.09210526198148727,
+            0.09210526198148727,
+            0.09210526198148727,
+            -0.09210526198148727,
+            -0.09210526198148727
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -6.710526466369629
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 74,
+          "type": 0,
+          "position": [
+            478.0,
+            349.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -12.5,
+            12.5,
+            12.5,
+            -12.5,
+            -12.5,
+            -12.5,
+            12.5,
+            12.5
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    }
+  ],
+  "effectId": "new_triangleshot_8f4422a5755a",
+  "classification": "READY_FULL",
+  "variant": "FULL",
+  "role": "MAIN",
+  "scope": {
+    "profession": "new_triangleshot",
+    "skillGroup": "new_triangleshot"
+  },
+  "dependencies": [
+    {
+      "declared": "tri_arrow_flame_01.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/tri_arrow_flame_01.tga",
+      "missing": false,
+      "hash": "6986ab2fcb75ea5f463585e4545b9ebffaf7f2c73e94ce46f47a65b94d3a4cd9",
+      "png": "textures/69/6986ab2fcb75ea5f463585e4545b9ebffaf7f2c73e94ce46f47a65b94d3a4cd9.png",
+      "width": 64,
+      "height": 512,
+      "bytes": 33896
+    },
+    {
+      "declared": "tri_arrow_flame_02.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/tri_arrow_flame_02.tga",
+      "missing": false,
+      "hash": "adaeee24ed1368fb6fabd5a0b6e6f1500d790444fc861c9f7fbecda06749ef46",
+      "png": "textures/ad/adaeee24ed1368fb6fabd5a0b6e6f1500d790444fc861c9f7fbecda06749ef46.png",
+      "width": 64,
+      "height": 512,
+      "bytes": 37525
+    },
+    {
+      "declared": "tri_arrow.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/tri_arrow.tga",
+      "missing": false,
+      "hash": "892bb7aaea9bc32266988cd16606394bd8aa7443fba647a7432b9b9fa29efed0",
+      "png": "textures/89/892bb7aaea9bc32266988cd16606394bd8aa7443fba647a7432b9b9fa29efed0.png",
+      "width": 32,
+      "height": 256,
+      "bytes": 5464
+    },
+    {
+      "declared": "tri_arrow_flame_dot_01.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/tri_arrow_flame_dot_01.tga",
+      "missing": false,
+      "hash": "cd999a04448a4c0de91dd81ac6335187bae75c4c6ccdd5e6cf6939d06ac39b60",
+      "png": "textures/cd/cd999a04448a4c0de91dd81ac6335187bae75c4c6ccdd5e6cf6939d06ac39b60.png",
+      "width": 32,
+      "height": 512,
+      "bytes": 14595
+    },
+    {
+      "declared": "tri_arrow_flame_dot_02.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/tri_arrow_flame_dot_02.tga",
+      "missing": false,
+      "hash": "aaa58929ef0da102f512863f231609e44ae4229df452df106d70198498b580aa",
+      "png": "textures/aa/aaa58929ef0da102f512863f231609e44ae4229df452df106d70198498b580aa.png",
+      "width": 32,
+      "height": 256,
+      "bytes": 5826
+    },
+    {
+      "declared": "blank_box.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/blank_box.tga",
+      "missing": false,
+      "hash": "4299b2c0df19f34fda02f9b182e7e7f8dfbf9c5a36328496aa94dd120cffa0e2",
+      "png": "textures/42/4299b2c0df19f34fda02f9b182e7e7f8dfbf9c5a36328496aa94dd120cffa0e2.png",
+      "width": 16,
+      "height": 16,
+      "bytes": 93
+    },
+    {
+      "declared": "tri_explosion_1.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/tri_explosion_1.tga",
+      "missing": false,
+      "hash": "93f04eb3e8ed72d251811cd4279201091682287f6a25b647875859b1e4bdfe1a",
+      "png": "textures/93/93f04eb3e8ed72d251811cd4279201091682287f6a25b647875859b1e4bdfe1a.png",
+      "width": 128,
+      "height": 256,
+      "bytes": 50025
+    },
+    {
+      "declared": "tri_explosion.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/tri_explosion.tga",
+      "missing": false,
+      "hash": "fda932d75f6801bf5ee7ce4aaadff800c27934ff9f747286f2528a765b2174cf",
+      "png": "textures/fd/fda932d75f6801bf5ee7ce4aaadff800c27934ff9f747286f2528a765b2174cf.png",
+      "width": 220,
+      "height": 170,
+      "bytes": 67417
+    },
+    {
+      "declared": "tri_explosion_2.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/tri_explosion_2.tga",
+      "missing": false,
+      "hash": "31b6d867534eec1e3da5b49c424259f476984fa56b893f8b10e46e3e5a845253",
+      "png": "textures/31/31b6d867534eec1e3da5b49c424259f476984fa56b893f8b10e46e3e5a845253.png",
+      "width": 128,
+      "height": 256,
+      "bytes": 50592
+    },
+    {
+      "declared": "part_a_00.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/part_a_00.tga",
+      "missing": false,
+      "hash": "eeddddfe651801126c0aad585470f4c428e1f0a1ec5f40ea75c9ad28b65f3645",
+      "png": "textures/ee/eeddddfe651801126c0aad585470f4c428e1f0a1ec5f40ea75c9ad28b65f3645.png",
+      "width": 32,
+      "height": 32,
+      "bytes": 936
+    },
+    {
+      "declared": "part_a_01.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/part_a_01.tga",
+      "missing": false,
+      "hash": "72abe10454f4a7f49a78b5cc62f800122f683af52229b4582aa3c334f1b59b21",
+      "png": "textures/72/72abe10454f4a7f49a78b5cc62f800122f683af52229b4582aa3c334f1b59b21.png",
+      "width": 32,
+      "height": 32,
+      "bytes": 900
+    },
+    {
+      "declared": "part_a_02.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/part_a_02.tga",
+      "missing": false,
+      "hash": "74ffa5ee29a59cfb2b920bffca73471e7b94df554d337666ce303cc07c8c8727",
+      "png": "textures/74/74ffa5ee29a59cfb2b920bffca73471e7b94df554d337666ce303cc07c8c8727.png",
+      "width": 32,
+      "height": 32,
+      "bytes": 940
+    },
+    {
+      "declared": "part_a_03.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/part_a_03.tga",
+      "missing": false,
+      "hash": "5f231314064202edf7a18afb92cfc2ba3b564b54b4baa03392db6d6f74b087e4",
+      "png": "textures/5f/5f231314064202edf7a18afb92cfc2ba3b564b54b4baa03392db6d6f74b087e4.png",
+      "width": 32,
+      "height": 32,
+      "bytes": 880
+    },
+    {
+      "declared": "part_a_04.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/part_a_04.tga",
+      "missing": false,
+      "hash": "d37152e54f71a6d559322612cea4da419a2363e2229252fd83281bf0a5ad1635",
+      "png": "textures/d3/d37152e54f71a6d559322612cea4da419a2363e2229252fd83281bf0a5ad1635.png",
+      "width": 32,
+      "height": 32,
+      "bytes": 884
+    },
+    {
+      "declared": "part_a_05.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/part_a_05.tga",
+      "missing": false,
+      "hash": "8ea32257e2bcd15e1802f2564294faf1938a72ebe9054ae7efc7c491dcfcd33b",
+      "png": "textures/8e/8ea32257e2bcd15e1802f2564294faf1938a72ebe9054ae7efc7c491dcfcd33b.png",
+      "width": 32,
+      "height": 32,
+      "bytes": 900
+    },
+    {
+      "declared": "part_a_06.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/part_a_06.tga",
+      "missing": false,
+      "hash": "06ce41bd60c57cdcf4b1f1ffce27b740f27128329a7d44475c6cdb3df38d6cb5",
+      "png": "textures/06/06ce41bd60c57cdcf4b1f1ffce27b740f27128329a7d44475c6cdb3df38d6cb5.png",
+      "width": 32,
+      "height": 32,
+      "bytes": 872
+    },
+    {
+      "declared": "part_a_07.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/part_a_07.tga",
+      "missing": false,
+      "hash": "d28334fbc4ccd1358747fc218150d5f80f3ccd5b58d2db8d0fa035c38d076870",
+      "png": "textures/d2/d28334fbc4ccd1358747fc218150d5f80f3ccd5b58d2db8d0fa035c38d076870.png",
+      "width": 32,
+      "height": 32,
+      "bytes": 821
+    },
+    {
+      "declared": "part_a_08.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/part_a_08.tga",
+      "missing": false,
+      "hash": "a9b19a0e4561db3368eedc1c95ff765a62c16de7315a47a2cb124d4669a273c0",
+      "png": "textures/a9/a9b19a0e4561db3368eedc1c95ff765a62c16de7315a47a2cb124d4669a273c0.png",
+      "width": 32,
+      "height": 32,
+      "bytes": 716
+    },
+    {
+      "declared": "part_a_09.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/part_a_09.tga",
+      "missing": false,
+      "hash": "6648bcd9f6a43fbcbfe12064df0218aba0a9919d497020c7a28ea38443ab9ac4",
+      "png": "textures/66/6648bcd9f6a43fbcbfe12064df0218aba0a9919d497020c7a28ea38443ab9ac4.png",
+      "width": 32,
+      "height": 32,
+      "bytes": 687
+    },
+    {
+      "declared": "part_a_10.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/part_a_10.tga",
+      "missing": false,
+      "hash": "4017514f9a171c214838d080873aab208a1f2ffd246d7a14ffa4c7343a4bd1c6",
+      "png": "textures/40/4017514f9a171c214838d080873aab208a1f2ffd246d7a14ffa4c7343a4bd1c6.png",
+      "width": 32,
+      "height": 32,
+      "bytes": 528
+    },
+    {
+      "declared": "part_a_11.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/part_a_11.tga",
+      "missing": false,
+      "hash": "53fbbcc9e4f5cb8a307afdeb98efd87ea65793c7976083f8030f067beaf285fb",
+      "png": "textures/53/53fbbcc9e4f5cb8a307afdeb98efd87ea65793c7976083f8030f067beaf285fb.png",
+      "width": 32,
+      "height": 32,
+      "bytes": 587
+    },
+    {
+      "declared": "part_a_12.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/part_a_12.tga",
+      "missing": false,
+      "hash": "a1fe23fc06cacde43b1fbd1cdf78020d580489b315f7c94385c70ae1bae47819",
+      "png": "textures/a1/a1fe23fc06cacde43b1fbd1cdf78020d580489b315f7c94385c70ae1bae47819.png",
+      "width": 32,
+      "height": 32,
+      "bytes": 663
+    },
+    {
+      "declared": "part_a_13.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/part_a_13.tga",
+      "missing": false,
+      "hash": "35481f3dd94db80f5efc2d3af0fa94e9c07bd463fb0b4ca8fe6316d01a593d47",
+      "png": "textures/35/35481f3dd94db80f5efc2d3af0fa94e9c07bd463fb0b4ca8fe6316d01a593d47.png",
+      "width": 32,
+      "height": 32,
+      "bytes": 716
+    },
+    {
+      "declared": "part_a_14.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/part_a_14.tga",
+      "missing": false,
+      "hash": "27ab283a1027c5ef93d0375a8e9906e77e39d6e34e91df49e19bca814c06597c",
+      "png": "textures/27/27ab283a1027c5ef93d0375a8e9906e77e39d6e34e91df49e19bca814c06597c.png",
+      "width": 32,
+      "height": 32,
+      "bytes": 811
+    },
+    {
+      "declared": "part_a_15.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/part_a_15.tga",
+      "missing": false,
+      "hash": "594e5cbc5a76034b3c9914bcfa5de370953a18a28fcbc77ac16864efb0570c38",
+      "png": "textures/59/594e5cbc5a76034b3c9914bcfa5de370953a18a28fcbc77ac16864efb0570c38.png",
+      "width": 32,
+      "height": 32,
+      "bytes": 859
+    },
+    {
+      "declared": "part_a_16.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/part_a_16.tga",
+      "missing": false,
+      "hash": "062c9dcea307c82afa568bbd48b4a87e2c281910885d5a384e5ccecc34f6a4b9",
+      "png": "textures/06/062c9dcea307c82afa568bbd48b4a87e2c281910885d5a384e5ccecc34f6a4b9.png",
+      "width": 32,
+      "height": 32,
+      "bytes": 890
+    },
+    {
+      "declared": "part_a_17.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/part_a_17.tga",
+      "missing": false,
+      "hash": "355d149cbdd97bed98d0fb7c7cf160796fd766a57fd418992f4730a5b02edafb",
+      "png": "textures/35/355d149cbdd97bed98d0fb7c7cf160796fd766a57fd418992f4730a5b02edafb.png",
+      "width": 32,
+      "height": 32,
+      "bytes": 898
+    },
+    {
+      "declared": "part_a_18.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/part_a_18.tga",
+      "missing": false,
+      "hash": "eeddddfe651801126c0aad585470f4c428e1f0a1ec5f40ea75c9ad28b65f3645",
+      "png": "textures/ee/eeddddfe651801126c0aad585470f4c428e1f0a1ec5f40ea75c9ad28b65f3645.png",
+      "width": 32,
+      "height": 32,
+      "bytes": 936
+    },
+    {
+      "declared": "part_b_00.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/part_b_00.tga",
+      "missing": false,
+      "hash": "16dd3df3886469531f491465be7bcd897c706b7cc4763c3c22a55324cfbcb499",
+      "png": "textures/16/16dd3df3886469531f491465be7bcd897c706b7cc4763c3c22a55324cfbcb499.png",
+      "width": 32,
+      "height": 32,
+      "bytes": 496
+    },
+    {
+      "declared": "part_b_01.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/part_b_01.tga",
+      "missing": false,
+      "hash": "5b57ab2daf030959304be4885bc3e7ca179ae36065ab5a0a8c533660adc5900f",
+      "png": "textures/5b/5b57ab2daf030959304be4885bc3e7ca179ae36065ab5a0a8c533660adc5900f.png",
+      "width": 32,
+      "height": 32,
+      "bytes": 470
+    },
+    {
+      "declared": "part_b_02.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/part_b_02.tga",
+      "missing": false,
+      "hash": "f78e713c93043620938a0b5deb2050b4822f7071ef649860b21bac4d694dc363",
+      "png": "textures/f7/f78e713c93043620938a0b5deb2050b4822f7071ef649860b21bac4d694dc363.png",
+      "width": 32,
+      "height": 32,
+      "bytes": 436
+    },
+    {
+      "declared": "part_b_03.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/part_b_03.tga",
+      "missing": false,
+      "hash": "653b80719d2d7c3c81cb3488596a9402f5fe815fd9e3958d99de383e25827c90",
+      "png": "textures/65/653b80719d2d7c3c81cb3488596a9402f5fe815fd9e3958d99de383e25827c90.png",
+      "width": 32,
+      "height": 32,
+      "bytes": 523
+    },
+    {
+      "declared": "part_b_04.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/part_b_04.tga",
+      "missing": false,
+      "hash": "234fc57206724ed5ad211e5fcbb72693fed99b3b1e546cf45e53e6793b361a48",
+      "png": "textures/23/234fc57206724ed5ad211e5fcbb72693fed99b3b1e546cf45e53e6793b361a48.png",
+      "width": 32,
+      "height": 32,
+      "bytes": 611
+    },
+    {
+      "declared": "part_b_05.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/part_b_05.tga",
+      "missing": false,
+      "hash": "4aef48026105202a675058976eb4496c71d9940b57e66d5992d0251297e999ec",
+      "png": "textures/4a/4aef48026105202a675058976eb4496c71d9940b57e66d5992d0251297e999ec.png",
+      "width": 32,
+      "height": 32,
+      "bytes": 724
+    },
+    {
+      "declared": "part_b_06.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/part_b_06.tga",
+      "missing": false,
+      "hash": "116ed7c053ca6017047a14ecaf802595b9f7764114faffdfc62242490c95d372",
+      "png": "textures/11/116ed7c053ca6017047a14ecaf802595b9f7764114faffdfc62242490c95d372.png",
+      "width": 32,
+      "height": 32,
+      "bytes": 756
+    },
+    {
+      "declared": "part_b_07.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/part_b_07.tga",
+      "missing": false,
+      "hash": "3a60779beab6b781b4c2fdb919a09cc9ace70e32a1eea7bad579becbd5812cf6",
+      "png": "textures/3a/3a60779beab6b781b4c2fdb919a09cc9ace70e32a1eea7bad579becbd5812cf6.png",
+      "width": 32,
+      "height": 32,
+      "bytes": 786
+    },
+    {
+      "declared": "part_b_08.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/part_b_08.tga",
+      "missing": false,
+      "hash": "5fc2213e78047d3c8e3137c42d8f3c4f0ff1d5d957fcad16f7a71d11ba4a317a",
+      "png": "textures/5f/5fc2213e78047d3c8e3137c42d8f3c4f0ff1d5d957fcad16f7a71d11ba4a317a.png",
+      "width": 32,
+      "height": 32,
+      "bytes": 718
+    },
+    {
+      "declared": "part_b_09.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/part_b_09.tga",
+      "missing": false,
+      "hash": "336000597c7fac7c4cb1987cf32997f28cb4c2b8dfe1ef350d87b2022bad5b8d",
+      "png": "textures/33/336000597c7fac7c4cb1987cf32997f28cb4c2b8dfe1ef350d87b2022bad5b8d.png",
+      "width": 32,
+      "height": 32,
+      "bytes": 794
+    },
+    {
+      "declared": "part_b_10.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/part_b_10.tga",
+      "missing": false,
+      "hash": "03708c0809fa3323d788ae0b3afbeb1aa00985702e785e89ad78cdbbd8354292",
+      "png": "textures/03/03708c0809fa3323d788ae0b3afbeb1aa00985702e785e89ad78cdbbd8354292.png",
+      "width": 32,
+      "height": 32,
+      "bytes": 757
+    },
+    {
+      "declared": "part_b_11.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/part_b_11.tga",
+      "missing": false,
+      "hash": "63130240b27a70e97de64e9f753e122e9047e5c818562d6ed597251f34fc0fc2",
+      "png": "textures/63/63130240b27a70e97de64e9f753e122e9047e5c818562d6ed597251f34fc0fc2.png",
+      "width": 32,
+      "height": 32,
+      "bytes": 757
+    },
+    {
+      "declared": "part_b_12.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/part_b_12.tga",
+      "missing": false,
+      "hash": "de7e8a3adfcedc6c112c5871ccbb0978216013c6fc02e4a50e03417d4e42d2fc",
+      "png": "textures/de/de7e8a3adfcedc6c112c5871ccbb0978216013c6fc02e4a50e03417d4e42d2fc.png",
+      "width": 32,
+      "height": 32,
+      "bytes": 717
+    },
+    {
+      "declared": "part_b_13.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/part_b_13.tga",
+      "missing": false,
+      "hash": "2e698cb87248cedf95df244b76f60928fc021b1f390d69226caa1ef14b3a4b60",
+      "png": "textures/2e/2e698cb87248cedf95df244b76f60928fc021b1f390d69226caa1ef14b3a4b60.png",
+      "width": 32,
+      "height": 32,
+      "bytes": 657
+    },
+    {
+      "declared": "part_b_14.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/part_b_14.tga",
+      "missing": false,
+      "hash": "43a6d52f5660178acd6e58a62bd69d20df4750a49306211b52a11ae7ee53fff4",
+      "png": "textures/43/43a6d52f5660178acd6e58a62bd69d20df4750a49306211b52a11ae7ee53fff4.png",
+      "width": 32,
+      "height": 32,
+      "bytes": 629
+    },
+    {
+      "declared": "part_b_15.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/part_b_15.tga",
+      "missing": false,
+      "hash": "06c7a910284277751b0ec234a69141a9581f7024a6e5d116bf8b438f0c52696d",
+      "png": "textures/06/06c7a910284277751b0ec234a69141a9581f7024a6e5d116bf8b438f0c52696d.png",
+      "width": 32,
+      "height": 32,
+      "bytes": 566
+    },
+    {
+      "declared": "part_b_16.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/part_b_16.tga",
+      "missing": false,
+      "hash": "6a1ac05b86c3b1ae5f7e1686c054db935466e8c5712dd562326a403ba8d8a1a1",
+      "png": "textures/6a/6a1ac05b86c3b1ae5f7e1686c054db935466e8c5712dd562326a403ba8d8a1a1.png",
+      "width": 32,
+      "height": 32,
+      "bytes": 494
+    },
+    {
+      "declared": "part_b_17.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/part_b_17.tga",
+      "missing": false,
+      "hash": "0eb66412e24343d36fbc9afaf1d013b680b87a54fdb9e82d4e2a528b611a5800",
+      "png": "textures/0e/0eb66412e24343d36fbc9afaf1d013b680b87a54fdb9e82d4e2a528b611a5800.png",
+      "width": 32,
+      "height": 32,
+      "bytes": 504
+    },
+    {
+      "declared": "part_b_18.tga",
+      "resolved": "texture/effect/new_triangleshot/new_triangleshot/part_b_18.tga",
+      "missing": false,
+      "hash": "16dd3df3886469531f491465be7bcd897c706b7cc4763c3c22a55324cfbcb499",
+      "png": "textures/16/16dd3df3886469531f491465be7bcd897c706b7cc4763c3c22a55324cfbcb499.png",
+      "width": 32,
+      "height": 32,
+      "bytes": 496
+    }
+  ],
+  "assetPathMode": "library-root-relative",
+  "renderer": {
+    "mode": "V81 approximate-2d",
+    "notes": "Timeline/layers/textures/color/rotation supported; perspective and exact GL blends approximated."
+  }
+}

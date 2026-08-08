@@ -1,0 +1,606 @@
+{
+  "schema": "ro-effect-str-1.1",
+  "source": "texture/effect/mineffect/new_armscannon/new_armscannon_cast/new_armscannon_cast.str",
+  "version": 148,
+  "fps": 60,
+  "frameCount": 33,
+  "durationSeconds": 0.55,
+  "layers": [
+    {
+      "textures": [],
+      "keyframes": []
+    },
+    {
+      "textures": [
+        "cannon_spark_4.tga",
+        "cannon_spark_1.tga",
+        "cannon_spark_5.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 0,
+          "type": 0,
+          "position": [
+            310.0,
+            298.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -38.0,
+            38.0,
+            38.0,
+            -38.0,
+            -60.0,
+            -60.0,
+            60.0,
+            60.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": -28.444400787353516,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            128.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 0,
+          "type": 1,
+          "position": [
+            -4.300000190734863,
+            -7.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            -5.150000095367432,
+            5.150000095367432,
+            5.150000095367432,
+            -5.150000095367432,
+            -8.0,
+            -8.0,
+            8.0,
+            8.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": -5.688889503479004,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -12.800000190734863
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 10,
+          "type": 0,
+          "position": [
+            267.0,
+            228.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -89.5,
+            89.5,
+            89.5,
+            -89.5,
+            -140.0,
+            -140.0,
+            140.0,
+            140.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": -85.33329772949219,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "cannon_spark_1.tga",
+        "cannon_spark_2.tga",
+        "cannon_spark_3.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 8,
+          "type": 0,
+          "position": [
+            320.0,
+            280.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -44.5,
+            44.5,
+            44.5,
+            -44.5,
+            -70.0,
+            -70.0,
+            70.0,
+            70.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            128.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 8,
+          "type": 1,
+          "position": [
+            1.8181818723678589,
+            -10.181818008422852
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            -2.3181817531585693,
+            2.3181817531585693,
+            2.3181817531585693,
+            -2.3181817531585693,
+            -3.6363637447357178,
+            -3.6363637447357178,
+            3.6363637447357178,
+            3.6363637447357178
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 2.5858545303344727,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -11.636363983154297
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 19,
+          "type": 0,
+          "position": [
+            340.0,
+            168.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -70.0,
+            70.0,
+            70.0,
+            -70.0,
+            -110.0,
+            -110.0,
+            110.0,
+            110.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 28.444400787353516,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "cannon_spark_4.tga",
+        "cannon_spark_1.tga",
+        "cannon_spark_5.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 18,
+          "type": 0,
+          "position": [
+            356.0,
+            289.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -38.0,
+            38.0,
+            38.0,
+            -38.0,
+            -60.0,
+            -60.0,
+            60.0,
+            60.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 28.444400787353516,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            128.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 18,
+          "type": 1,
+          "position": [
+            6.5,
+            -11.75
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            -7.25,
+            7.25,
+            7.25,
+            -7.25,
+            -11.25,
+            -11.25,
+            11.25,
+            11.25
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 7.111112117767334,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -16.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 26,
+          "type": 0,
+          "position": [
+            408.0,
+            195.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -96.0,
+            96.0,
+            96.0,
+            -96.0,
+            -150.0,
+            -150.0,
+            150.0,
+            150.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 85.33329772949219,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "cannon_spark_3.tga",
+        "cannon_spark_5.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 24,
+          "type": 0,
+          "position": [
+            309.0,
+            290.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -32.0,
+            32.0,
+            32.0,
+            -32.0,
+            -50.0,
+            -50.0,
+            50.0,
+            50.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": -56.88890075683594,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            128.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 24,
+          "type": 1,
+          "position": [
+            -3.555555582046509,
+            -20.55555534362793
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            -6.388888835906982,
+            6.388888835906982,
+            6.388888835906982,
+            -6.388888835906982,
+            -10.0,
+            -10.0,
+            10.0,
+            10.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": 3.1605000495910645,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -14.222222328186035
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 33,
+          "type": 0,
+          "position": [
+            277.0,
+            105.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -89.5,
+            89.5,
+            89.5,
+            -89.5,
+            -140.0,
+            -140.0,
+            140.0,
+            140.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 1.0,
+          "rotation": -28.444400787353516,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    }
+  ],
+  "effectId": "new_armscannon_cast_075f4ba8fce8",
+  "classification": "READY_FULL",
+  "variant": "FULL",
+  "role": "CAST",
+  "scope": {
+    "profession": "mineffect",
+    "skillGroup": "new_armscannon"
+  },
+  "dependencies": [
+    {
+      "declared": "cannon_spark_4.tga",
+      "resolved": "texture/effect/mineffect/new_armscannon/new_armscannon_cast/cannon_spark_4.tga",
+      "missing": false,
+      "hash": "85679e3a71dd281c327ddff4b866a09d5bfc84abcfc0cb6c388ad83df2457b05",
+      "png": "textures/85/85679e3a71dd281c327ddff4b866a09d5bfc84abcfc0cb6c388ad83df2457b05.png",
+      "width": 128,
+      "height": 200,
+      "bytes": 12212
+    },
+    {
+      "declared": "cannon_spark_1.tga",
+      "resolved": "texture/effect/mineffect/new_armscannon/new_armscannon_cast/cannon_spark_1.tga",
+      "missing": false,
+      "hash": "53a2fd743537e2638c735fbbf2bbadd8f3b130edcbcd2bca6ce447d41141091e",
+      "png": "textures/53/53a2fd743537e2638c735fbbf2bbadd8f3b130edcbcd2bca6ce447d41141091e.png",
+      "width": 128,
+      "height": 200,
+      "bytes": 12774
+    },
+    {
+      "declared": "cannon_spark_5.tga",
+      "resolved": "texture/effect/mineffect/new_armscannon/new_armscannon_cast/cannon_spark_5.tga",
+      "missing": false,
+      "hash": "6cdd4d4960bcdd4e98ce3aa01be46ff8d666899c82f61cb5aea3a5f88072f765",
+      "png": "textures/6c/6cdd4d4960bcdd4e98ce3aa01be46ff8d666899c82f61cb5aea3a5f88072f765.png",
+      "width": 128,
+      "height": 200,
+      "bytes": 13518
+    },
+    {
+      "declared": "cannon_spark_2.tga",
+      "resolved": "texture/effect/mineffect/new_armscannon/new_armscannon_cast/cannon_spark_2.tga",
+      "missing": false,
+      "hash": "5c97bafce4a3023ce0594f54e9b79d50b62eb3b59880257933251fcf28e58583",
+      "png": "textures/5c/5c97bafce4a3023ce0594f54e9b79d50b62eb3b59880257933251fcf28e58583.png",
+      "width": 128,
+      "height": 200,
+      "bytes": 15796
+    },
+    {
+      "declared": "cannon_spark_3.tga",
+      "resolved": "texture/effect/mineffect/new_armscannon/new_armscannon_cast/cannon_spark_3.tga",
+      "missing": false,
+      "hash": "8d6459d90f6bafeb0678789e6841cf9dbfe8675291c090607fb4b84fdbf04b06",
+      "png": "textures/8d/8d6459d90f6bafeb0678789e6841cf9dbfe8675291c090607fb4b84fdbf04b06.png",
+      "width": 128,
+      "height": 200,
+      "bytes": 13227
+    }
+  ],
+  "assetPathMode": "library-root-relative",
+  "renderer": {
+    "mode": "V81 approximate-2d",
+    "notes": "Timeline/layers/textures/color/rotation supported; perspective and exact GL blends approximated."
+  }
+}

@@ -1,0 +1,394 @@
+{
+  "schema": "ro-effect-str-1.1",
+  "source": "texture/effect/mineffect/new_spellfist/new_spellfist_fire/new_spellfist_fire.str",
+  "version": 148,
+  "fps": 60,
+  "frameCount": 51,
+  "durationSeconds": 0.85,
+  "layers": [
+    {
+      "textures": [],
+      "keyframes": []
+    },
+    {
+      "textures": [
+        "spe_helix_00.bmp",
+        "spe_helix_01.bmp",
+        "spe_helix_02.bmp",
+        "spe_helix_03.bmp",
+        "spe_helix_04.bmp",
+        "spe_helix_05.bmp",
+        "spe_helix_06.bmp",
+        "spe_helix_07.bmp",
+        "spe_helix_08.bmp",
+        "spe_helix_09.bmp",
+        "spe_helix_10.bmp",
+        "spe_helix_11.bmp",
+        "spe_helix_12.bmp",
+        "spe_helix_13.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 0,
+          "type": 0,
+          "position": [
+            320.0,
+            240.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -100.0,
+            100.0,
+            100.0,
+            -100.0,
+            -148.0,
+            -148.0,
+            148.0,
+            148.0
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.2857142984867096,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            150.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 0,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.2857142984867096,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -1.1111111640930176
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 45,
+          "type": 0,
+          "position": [
+            320.0,
+            240.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -100.0,
+            100.0,
+            100.0,
+            -100.0,
+            -148.0,
+            -148.0,
+            148.0,
+            148.0
+          ],
+          "textureId": 12.0,
+          "animationType": 2,
+          "animationDelta": 0.2857142984867096,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            100.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 45,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.2857142984867096,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -16.66666603088379
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 51,
+          "type": 0,
+          "position": [
+            320.0,
+            240.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -100.0,
+            100.0,
+            100.0,
+            -100.0,
+            -148.0,
+            -148.0,
+            148.0,
+            148.0
+          ],
+          "textureId": 13.0,
+          "animationType": 2,
+          "animationDelta": 0.2857142984867096,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    }
+  ],
+  "effectId": "new_spellfist_fire_9b4a13ed753d",
+  "classification": "READY_FULL",
+  "variant": "FULL",
+  "role": "MAIN",
+  "scope": {
+    "profession": "mineffect",
+    "skillGroup": "new_spellfist"
+  },
+  "dependencies": [
+    {
+      "declared": "spe_helix_00.bmp",
+      "resolved": "texture/effect/mineffect/new_spellfist/new_spellfist_fire/spe_helix_00.bmp",
+      "missing": false,
+      "hash": "9b0ef6c5ed9ce91c3a88f493c56e9b40eff74efb59c8ed934fc32b35d44f1cd8",
+      "png": "textures/9b/9b0ef6c5ed9ce91c3a88f493c56e9b40eff74efb59c8ed934fc32b35d44f1cd8.png",
+      "width": 150,
+      "height": 222,
+      "bytes": 19070
+    },
+    {
+      "declared": "spe_helix_01.bmp",
+      "resolved": "texture/effect/mineffect/new_spellfist/new_spellfist_fire/spe_helix_01.bmp",
+      "missing": false,
+      "hash": "46009807cbd2115a150d94a2a36f8202531c1e8c7003b12fc52e313b27cf92e0",
+      "png": "textures/46/46009807cbd2115a150d94a2a36f8202531c1e8c7003b12fc52e313b27cf92e0.png",
+      "width": 150,
+      "height": 222,
+      "bytes": 20299
+    },
+    {
+      "declared": "spe_helix_02.bmp",
+      "resolved": "texture/effect/mineffect/new_spellfist/new_spellfist_fire/spe_helix_02.bmp",
+      "missing": false,
+      "hash": "20827a15fd0e80b11b846bdbace0593c5929873b5d24dc39818f1d52ea3a056e",
+      "png": "textures/20/20827a15fd0e80b11b846bdbace0593c5929873b5d24dc39818f1d52ea3a056e.png",
+      "width": 150,
+      "height": 222,
+      "bytes": 24491
+    },
+    {
+      "declared": "spe_helix_03.bmp",
+      "resolved": "texture/effect/mineffect/new_spellfist/new_spellfist_fire/spe_helix_03.bmp",
+      "missing": false,
+      "hash": "6648fd1626aa6282f253ebf9af0240530940c824f47e099525287dbd0b5360c0",
+      "png": "textures/66/6648fd1626aa6282f253ebf9af0240530940c824f47e099525287dbd0b5360c0.png",
+      "width": 150,
+      "height": 222,
+      "bytes": 26952
+    },
+    {
+      "declared": "spe_helix_04.bmp",
+      "resolved": "texture/effect/mineffect/new_spellfist/new_spellfist_fire/spe_helix_04.bmp",
+      "missing": false,
+      "hash": "de7e8610a9c7d192a42ff84d643e3922b003ebc552b246c955d03211ec0624c4",
+      "png": "textures/de/de7e8610a9c7d192a42ff84d643e3922b003ebc552b246c955d03211ec0624c4.png",
+      "width": 150,
+      "height": 222,
+      "bytes": 27497
+    },
+    {
+      "declared": "spe_helix_05.bmp",
+      "resolved": "texture/effect/mineffect/new_spellfist/new_spellfist_fire/spe_helix_05.bmp",
+      "missing": false,
+      "hash": "11d35f6bfc7958a4cdbe6af6f417e6f9634149a596fa35cc589dd92abf88089f",
+      "png": "textures/11/11d35f6bfc7958a4cdbe6af6f417e6f9634149a596fa35cc589dd92abf88089f.png",
+      "width": 150,
+      "height": 222,
+      "bytes": 27692
+    },
+    {
+      "declared": "spe_helix_06.bmp",
+      "resolved": "texture/effect/mineffect/new_spellfist/new_spellfist_fire/spe_helix_06.bmp",
+      "missing": false,
+      "hash": "ebe1572b021b87773ccfb2005fd746f59818649f2670dc4ca0eef3e0c8bf3920",
+      "png": "textures/eb/ebe1572b021b87773ccfb2005fd746f59818649f2670dc4ca0eef3e0c8bf3920.png",
+      "width": 150,
+      "height": 222,
+      "bytes": 27103
+    },
+    {
+      "declared": "spe_helix_07.bmp",
+      "resolved": "texture/effect/mineffect/new_spellfist/new_spellfist_fire/spe_helix_07.bmp",
+      "missing": false,
+      "hash": "5c4eed31cabb750aff36b52454237f6e18d0047ac35cfde787d200698b5ceaca",
+      "png": "textures/5c/5c4eed31cabb750aff36b52454237f6e18d0047ac35cfde787d200698b5ceaca.png",
+      "width": 150,
+      "height": 222,
+      "bytes": 19526
+    },
+    {
+      "declared": "spe_helix_08.bmp",
+      "resolved": "texture/effect/mineffect/new_spellfist/new_spellfist_fire/spe_helix_08.bmp",
+      "missing": false,
+      "hash": "01ac0fc9d8ca3a4b3c92056a34c27fe870843949c5ebb295b36bf2697a2a9715",
+      "png": "textures/01/01ac0fc9d8ca3a4b3c92056a34c27fe870843949c5ebb295b36bf2697a2a9715.png",
+      "width": 150,
+      "height": 222,
+      "bytes": 13242
+    },
+    {
+      "declared": "spe_helix_09.bmp",
+      "resolved": "texture/effect/mineffect/new_spellfist/new_spellfist_fire/spe_helix_09.bmp",
+      "missing": false,
+      "hash": "67cc8f2576839689b3a1eada408ee35a364cd428b3b9886f96ff4ddfc6026abf",
+      "png": "textures/67/67cc8f2576839689b3a1eada408ee35a364cd428b3b9886f96ff4ddfc6026abf.png",
+      "width": 150,
+      "height": 222,
+      "bytes": 7578
+    },
+    {
+      "declared": "spe_helix_10.bmp",
+      "resolved": "texture/effect/mineffect/new_spellfist/new_spellfist_fire/spe_helix_10.bmp",
+      "missing": false,
+      "hash": "f8127df2152cbf6da7273999d8df756741c5ed63ba2357e814e99fe8194fa97b",
+      "png": "textures/f8/f8127df2152cbf6da7273999d8df756741c5ed63ba2357e814e99fe8194fa97b.png",
+      "width": 150,
+      "height": 222,
+      "bytes": 4344
+    },
+    {
+      "declared": "spe_helix_11.bmp",
+      "resolved": "texture/effect/mineffect/new_spellfist/new_spellfist_fire/spe_helix_11.bmp",
+      "missing": false,
+      "hash": "0e81a119b07255fae12d0248e93eb0a2ccc44f86aadd13622b0eb77d4109564a",
+      "png": "textures/0e/0e81a119b07255fae12d0248e93eb0a2ccc44f86aadd13622b0eb77d4109564a.png",
+      "width": 150,
+      "height": 222,
+      "bytes": 4302
+    },
+    {
+      "declared": "spe_helix_12.bmp",
+      "resolved": "texture/effect/mineffect/new_spellfist/new_spellfist_fire/spe_helix_12.bmp",
+      "missing": false,
+      "hash": "45b0d4bc91a5c56d35f5ceb9dce5b15d6194de8d9b7e9888f27e2379da364350",
+      "png": "textures/45/45b0d4bc91a5c56d35f5ceb9dce5b15d6194de8d9b7e9888f27e2379da364350.png",
+      "width": 150,
+      "height": 222,
+      "bytes": 3708
+    },
+    {
+      "declared": "spe_helix_13.bmp",
+      "resolved": "texture/effect/mineffect/new_spellfist/new_spellfist_fire/spe_helix_13.bmp",
+      "missing": false,
+      "hash": "1790984dfd7cee2eae51a7e34ed6806c47a3028265c49908f784c87900be0266",
+      "png": "textures/17/1790984dfd7cee2eae51a7e34ed6806c47a3028265c49908f784c87900be0266.png",
+      "width": 150,
+      "height": 222,
+      "bytes": 3389
+    }
+  ],
+  "assetPathMode": "library-root-relative",
+  "renderer": {
+    "mode": "V81 approximate-2d",
+    "notes": "Timeline/layers/textures/color/rotation supported; perspective and exact GL blends approximated."
+  }
+}

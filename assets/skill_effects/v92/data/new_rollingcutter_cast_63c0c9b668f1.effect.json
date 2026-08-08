@@ -1,0 +1,501 @@
+{
+  "schema": "ro-effect-str-1.1",
+  "source": "texture/effect/mineffect/new_rollingcutter/new_rollingcutter/new_rollingcutter_cast.str",
+  "version": 148,
+  "fps": 60,
+  "frameCount": 29,
+  "durationSeconds": 0.483333,
+  "layers": [
+    {
+      "textures": [],
+      "keyframes": []
+    },
+    {
+      "textures": [
+        "cut_blade_00.tga",
+        "cut_blade_01.tga",
+        "cut_blade_02.tga",
+        "cut_blade_03.tga",
+        "cut_blade_04.tga",
+        "cut_blade_05.tga",
+        "cut_blade_06.tga",
+        "cut_blade_07.tga",
+        "cut_blade_08.tga",
+        "cut_blade_09.tga",
+        "cut_blade_10.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 0,
+          "type": 0,
+          "position": [
+            320.0,
+            270.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -102.0,
+            102.0,
+            102.0,
+            -102.0,
+            -81.5,
+            -81.5,
+            81.5,
+            81.5
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 0.5,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            128.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 0,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 0.5,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 21,
+          "type": 0,
+          "position": [
+            320.0,
+            270.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -102.0,
+            102.0,
+            102.0,
+            -102.0,
+            -81.5,
+            -81.5,
+            81.5,
+            81.5
+          ],
+          "textureId": 8.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            128.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 21,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            -4.25,
+            4.25,
+            4.25,
+            -4.25,
+            -3.375,
+            -3.375,
+            3.375,
+            3.375
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -16.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 29,
+          "type": 0,
+          "position": [
+            320.0,
+            270.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -136.0,
+            136.0,
+            136.0,
+            -136.0,
+            -108.5,
+            -108.5,
+            108.5,
+            108.5
+          ],
+          "textureId": 8.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "cut_ex_01.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 0,
+          "type": 0,
+          "position": [
+            320.0,
+            306.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -78.0,
+            78.0,
+            78.0,
+            -78.0,
+            -92.0,
+            -92.0,
+            36.0,
+            36.0
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            128.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 0,
+          "type": 1,
+          "position": [
+            -0.06666667014360428,
+            -2.4000000953674316
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            -9.866666793823242,
+            9.866666793823242,
+            9.866666793823242,
+            -9.866666793823242,
+            -9.774999618530273,
+            -9.774999618530273,
+            3.825000047683716,
+            3.825000047683716
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -8.533333778381348
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 15,
+          "type": 0,
+          "position": [
+            319.0,
+            270.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -226.0,
+            226.0,
+            226.0,
+            -226.0,
+            -238.625,
+            -238.625,
+            93.375,
+            93.375
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    }
+  ],
+  "effectId": "new_rollingcutter_cast_63c0c9b668f1",
+  "classification": "READY_FULL",
+  "variant": "FULL",
+  "role": "CAST",
+  "scope": {
+    "profession": "mineffect",
+    "skillGroup": "new_rollingcutter"
+  },
+  "dependencies": [
+    {
+      "declared": "cut_blade_00.tga",
+      "resolved": "texture/effect/mineffect/new_rollingcutter/new_rollingcutter/cut_blade_00.tga",
+      "missing": false,
+      "hash": "d0a8006a6ffd26bda819a5527f6cf7d0ddfca5f2952a59e43d2f2b99a1742948",
+      "png": "textures/d0/d0a8006a6ffd26bda819a5527f6cf7d0ddfca5f2952a59e43d2f2b99a1742948.png",
+      "width": 128,
+      "height": 102,
+      "bytes": 18503
+    },
+    {
+      "declared": "cut_blade_01.tga",
+      "resolved": "texture/effect/mineffect/new_rollingcutter/new_rollingcutter/cut_blade_01.tga",
+      "missing": false,
+      "hash": "5a15521345161cd973fadc284ab5dd78fb6e77c5f68a85545f4a69b96cdaad68",
+      "png": "textures/5a/5a15521345161cd973fadc284ab5dd78fb6e77c5f68a85545f4a69b96cdaad68.png",
+      "width": 128,
+      "height": 102,
+      "bytes": 21554
+    },
+    {
+      "declared": "cut_blade_02.tga",
+      "resolved": "texture/effect/mineffect/new_rollingcutter/new_rollingcutter/cut_blade_02.tga",
+      "missing": false,
+      "hash": "d7e1c83e6729409e62d1eb084850e00313dbc7e3fd682ae0d879e50f3b8e1c71",
+      "png": "textures/d7/d7e1c83e6729409e62d1eb084850e00313dbc7e3fd682ae0d879e50f3b8e1c71.png",
+      "width": 128,
+      "height": 102,
+      "bytes": 20295
+    },
+    {
+      "declared": "cut_blade_03.tga",
+      "resolved": "texture/effect/mineffect/new_rollingcutter/new_rollingcutter/cut_blade_03.tga",
+      "missing": false,
+      "hash": "b85f8e3cf99d2c8beae01e6ff9407323c30cb27a75a66c6ddbd2d11da5c4c7b7",
+      "png": "textures/b8/b85f8e3cf99d2c8beae01e6ff9407323c30cb27a75a66c6ddbd2d11da5c4c7b7.png",
+      "width": 128,
+      "height": 102,
+      "bytes": 21055
+    },
+    {
+      "declared": "cut_blade_04.tga",
+      "resolved": "texture/effect/mineffect/new_rollingcutter/new_rollingcutter/cut_blade_04.tga",
+      "missing": false,
+      "hash": "e13adbc7629d7b4d4d5ad16ed59a4256ab091a65525eecdd09c5fabdee5e2eee",
+      "png": "textures/e1/e13adbc7629d7b4d4d5ad16ed59a4256ab091a65525eecdd09c5fabdee5e2eee.png",
+      "width": 128,
+      "height": 102,
+      "bytes": 21118
+    },
+    {
+      "declared": "cut_blade_05.tga",
+      "resolved": "texture/effect/mineffect/new_rollingcutter/new_rollingcutter/cut_blade_05.tga",
+      "missing": false,
+      "hash": "21487d37578c67a39f7cfd32de50eb1a9f5854c7e7ee5bb42d76eda0e31b680f",
+      "png": "textures/21/21487d37578c67a39f7cfd32de50eb1a9f5854c7e7ee5bb42d76eda0e31b680f.png",
+      "width": 128,
+      "height": 102,
+      "bytes": 19919
+    },
+    {
+      "declared": "cut_blade_06.tga",
+      "resolved": "texture/effect/mineffect/new_rollingcutter/new_rollingcutter/cut_blade_06.tga",
+      "missing": false,
+      "hash": "630de31883f79159e31a8e97284ea69e39691a0dcca6ccb31d4e20c9e8cd4ca4",
+      "png": "textures/63/630de31883f79159e31a8e97284ea69e39691a0dcca6ccb31d4e20c9e8cd4ca4.png",
+      "width": 128,
+      "height": 102,
+      "bytes": 18369
+    },
+    {
+      "declared": "cut_blade_07.tga",
+      "resolved": "texture/effect/mineffect/new_rollingcutter/new_rollingcutter/cut_blade_07.tga",
+      "missing": false,
+      "hash": "4ed64ccefc10b55003b6a1ae8f0cef24714b43bb596d4346eb2a4a2fcdfe2b7d",
+      "png": "textures/4e/4ed64ccefc10b55003b6a1ae8f0cef24714b43bb596d4346eb2a4a2fcdfe2b7d.png",
+      "width": 128,
+      "height": 102,
+      "bytes": 16316
+    },
+    {
+      "declared": "cut_blade_08.tga",
+      "resolved": "texture/effect/mineffect/new_rollingcutter/new_rollingcutter/cut_blade_08.tga",
+      "missing": false,
+      "hash": "233ad33ea55a61bea2a89241618f44be6e3649c020092d06ae86c6bfc9fb2300",
+      "png": "textures/23/233ad33ea55a61bea2a89241618f44be6e3649c020092d06ae86c6bfc9fb2300.png",
+      "width": 128,
+      "height": 102,
+      "bytes": 14282
+    },
+    {
+      "declared": "cut_blade_09.tga",
+      "resolved": "texture/effect/mineffect/new_rollingcutter/new_rollingcutter/cut_blade_09.tga",
+      "missing": false,
+      "hash": "978af0f67cae49c81fbb227e1a304d838ffdc295ad0da30c811d39fdf4035360",
+      "png": "textures/97/978af0f67cae49c81fbb227e1a304d838ffdc295ad0da30c811d39fdf4035360.png",
+      "width": 128,
+      "height": 102,
+      "bytes": 11369
+    },
+    {
+      "declared": "cut_blade_10.tga",
+      "resolved": "texture/effect/mineffect/new_rollingcutter/new_rollingcutter/cut_blade_10.tga",
+      "missing": false,
+      "hash": "24bfc06dfbbe46fd5cdb35f9455e13687074a358951d97b8df205e4d494dfaf7",
+      "png": "textures/24/24bfc06dfbbe46fd5cdb35f9455e13687074a358951d97b8df205e4d494dfaf7.png",
+      "width": 128,
+      "height": 102,
+      "bytes": 3098
+    },
+    {
+      "declared": "cut_ex_01.tga",
+      "resolved": "texture/effect/mineffect/new_rollingcutter/new_rollingcutter/cut_ex_01.tga",
+      "missing": false,
+      "hash": "b9b4c7642a6edc742d7c5555a267392c520d1bff9abee97efa5f43af544b41e5",
+      "png": "textures/b9/b9b4c7642a6edc742d7c5555a267392c520d1bff9abee97efa5f43af544b41e5.png",
+      "width": 156,
+      "height": 128,
+      "bytes": 24822
+    }
+  ],
+  "assetPathMode": "library-root-relative",
+  "renderer": {
+    "mode": "V81 approximate-2d",
+    "notes": "Timeline/layers/textures/color/rotation supported; perspective and exact GL blends approximated."
+  }
+}

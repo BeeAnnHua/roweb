@@ -1,6 +1,6 @@
 // ================================================================
-// RO_WEB 0.9.82II / V92 Active Skill Effect Runtime
-// - V91.6 Ready Library: 55 active skills / 454 browser-safe effects
+// RO_WEB 0.9.83D / V92 base + V93 PASS Delta Skill Effect Runtime
+// - V92 base + V93 PASS delta: 97 active skills / 772 browser-safe effects
 // - RO_WEB runtime handler is authoritative; passive/pending/disabled skills
 //   are never scheduled even if a visual asset exists.
 // - No skill name or description writeback.
@@ -8,7 +8,7 @@
 (() => {
   'use strict';
 
-  const VERSION = '0.9.82II';
+  const VERSION = '0.9.83D';
   const BASE = './assets/skill_effects/v92/';
   const MANIFEST_URL = `${BASE}V92_RUNTIME_TIMELINE_MANIFEST.json`;
   const EFFECT_MANIFEST_URL = `${BASE}V92_EFFECT_MANIFEST.json`;
@@ -1049,7 +1049,7 @@
           localizationWriteback: false,
           anchorPolicy: 'ACIDIFIED_EXACT_INSTANCE_ENTITY_FOOT_SNAPSHOT_CASTER_BUFFS_LIVE_TARGET_HITS_LIVE'
         };
-        console.info(`[V92 SkillEffect] ready: ${state.skills.size} active skills / ${state.effects.size} effects; passive guard enabled.`);
+        console.info(`[V92+V93 SkillEffect] ready: ${state.skills.size} active skills / ${state.effects.size} effects; V93 target-placement policy enabled.`);
         return true;
       })
       .catch(error => {

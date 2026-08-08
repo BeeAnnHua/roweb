@@ -1,0 +1,350 @@
+{
+  "schema": "ro-effect-str-1.1",
+  "source": "texture/effect/fatal_shadow_crow/fatal_shadow_crow_bottom/min_fatal_shadow_crow_bottom.str",
+  "version": 148,
+  "fps": 60,
+  "frameCount": 40,
+  "durationSeconds": 0.666667,
+  "layers": [
+    {
+      "textures": [],
+      "keyframes": []
+    },
+    {
+      "textures": [
+        "fat_bottom_00.tga",
+        "fat_bottom_01.tga",
+        "fat_bottom_02.tga",
+        "fat_bottom_03.tga",
+        "fat_bottom_04.tga",
+        "fat_bottom_05.tga",
+        "fat_bottom_06.tga",
+        "fat_bottom_07.tga",
+        "fat_bottom_08.tga",
+        "fat_bottom_09.tga"
+      ],
+      "keyframes": [
+        {
+          "frame": 0,
+          "type": 0,
+          "position": [
+            320.0,
+            305.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -96.0,
+            96.0,
+            96.0,
+            -96.0,
+            -86.80000305175781,
+            -86.80000305175781,
+            86.80000305175781,
+            86.80000305175781
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            150.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 0,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            -0.3999999463558197,
+            0.3999999463558197,
+            0.3999999463558197,
+            -0.3999999463558197,
+            -0.23705875873565674,
+            -0.23705875873565674,
+            0.23705875873565674,
+            0.23705875873565674
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 34,
+          "type": 0,
+          "position": [
+            320.0,
+            305.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -109.5999984741211,
+            109.5999984741211,
+            109.5999984741211,
+            -109.5999984741211,
+            -94.86000061035156,
+            -94.86000061035156,
+            94.86000061035156,
+            94.86000061035156
+          ],
+          "textureId": 8.0,
+          "animationType": 2,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            150.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 34,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            -0.4000002443790436,
+            0.4000002443790436,
+            0.4000002443790436,
+            -0.4000002443790436,
+            -0.20666630566120148,
+            -0.20666630566120148,
+            0.20666630566120148,
+            0.20666630566120148
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -25.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 40,
+          "type": 0,
+          "position": [
+            320.0,
+            305.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -112.0,
+            112.0,
+            112.0,
+            -112.0,
+            -96.0999984741211,
+            -96.0999984741211,
+            96.0999984741211,
+            96.0999984741211
+          ],
+          "textureId": 9.0,
+          "animationType": 2,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 6,
+          "multiTexturePreset": 0
+        }
+      ]
+    }
+  ],
+  "effectId": "min_fatal_shadow_crow_bottom_552fc2cf88ee",
+  "classification": "READY_MIN",
+  "variant": "MIN",
+  "role": "BOTTOM",
+  "scope": {
+    "profession": "fatal_shadow_crow",
+    "skillGroup": "fatal_shadow_crow_bottom"
+  },
+  "dependencies": [
+    {
+      "declared": "fat_bottom_00.tga",
+      "resolved": "texture/effect/fatal_shadow_crow/fatal_shadow_crow_bottom/fat_bottom_00.tga",
+      "missing": false,
+      "hash": "412f8e7da07e7e9ab5bfda17c3d9409cb3bfe969a57c52a8f32f70cf126901d4",
+      "png": "textures/41/412f8e7da07e7e9ab5bfda17c3d9409cb3bfe969a57c52a8f32f70cf126901d4.png",
+      "width": 64,
+      "height": 62,
+      "bytes": 6594
+    },
+    {
+      "declared": "fat_bottom_01.tga",
+      "resolved": "texture/effect/fatal_shadow_crow/fatal_shadow_crow_bottom/fat_bottom_01.tga",
+      "missing": false,
+      "hash": "28610bf621d3cd1a48ceaa59c4e6e6e3795edf5070b2bae4d9e1db1a42c4db1c",
+      "png": "textures/28/28610bf621d3cd1a48ceaa59c4e6e6e3795edf5070b2bae4d9e1db1a42c4db1c.png",
+      "width": 64,
+      "height": 62,
+      "bytes": 6662
+    },
+    {
+      "declared": "fat_bottom_02.tga",
+      "resolved": "texture/effect/fatal_shadow_crow/fatal_shadow_crow_bottom/fat_bottom_02.tga",
+      "missing": false,
+      "hash": "284e9a4b71fe3439a14f6aa6ba1e9c24a89963d90d25070bbc564e98468285f4",
+      "png": "textures/28/284e9a4b71fe3439a14f6aa6ba1e9c24a89963d90d25070bbc564e98468285f4.png",
+      "width": 64,
+      "height": 62,
+      "bytes": 6508
+    },
+    {
+      "declared": "fat_bottom_03.tga",
+      "resolved": "texture/effect/fatal_shadow_crow/fatal_shadow_crow_bottom/fat_bottom_03.tga",
+      "missing": false,
+      "hash": "4b448aa1245163858536556a64d6d401817aba8919226220968debe17f152a3b",
+      "png": "textures/4b/4b448aa1245163858536556a64d6d401817aba8919226220968debe17f152a3b.png",
+      "width": 64,
+      "height": 62,
+      "bytes": 6476
+    },
+    {
+      "declared": "fat_bottom_04.tga",
+      "resolved": "texture/effect/fatal_shadow_crow/fatal_shadow_crow_bottom/fat_bottom_04.tga",
+      "missing": false,
+      "hash": "8b1798142f5b15e7bcd5413402dc87dc8257b2d08c32784c12973390260dcb12",
+      "png": "textures/8b/8b1798142f5b15e7bcd5413402dc87dc8257b2d08c32784c12973390260dcb12.png",
+      "width": 64,
+      "height": 62,
+      "bytes": 6155
+    },
+    {
+      "declared": "fat_bottom_05.tga",
+      "resolved": "texture/effect/fatal_shadow_crow/fatal_shadow_crow_bottom/fat_bottom_05.tga",
+      "missing": false,
+      "hash": "1ba69a1eb7a7662fa62cfa54050bb309e2973a0af010c5bb9b88f319930d3e50",
+      "png": "textures/1b/1ba69a1eb7a7662fa62cfa54050bb309e2973a0af010c5bb9b88f319930d3e50.png",
+      "width": 64,
+      "height": 62,
+      "bytes": 5874
+    },
+    {
+      "declared": "fat_bottom_06.tga",
+      "resolved": "texture/effect/fatal_shadow_crow/fatal_shadow_crow_bottom/fat_bottom_06.tga",
+      "missing": false,
+      "hash": "8d13485846e40867316702aad921886e3bad47e98789b26ffb5db8109b5d1ea8",
+      "png": "textures/8d/8d13485846e40867316702aad921886e3bad47e98789b26ffb5db8109b5d1ea8.png",
+      "width": 64,
+      "height": 62,
+      "bytes": 5984
+    },
+    {
+      "declared": "fat_bottom_07.tga",
+      "resolved": "texture/effect/fatal_shadow_crow/fatal_shadow_crow_bottom/fat_bottom_07.tga",
+      "missing": false,
+      "hash": "3b557b1646867f2a1ffc15754d91cb8c71f1c0e91388f16ac2842c9414ee38df",
+      "png": "textures/3b/3b557b1646867f2a1ffc15754d91cb8c71f1c0e91388f16ac2842c9414ee38df.png",
+      "width": 64,
+      "height": 62,
+      "bytes": 6420
+    },
+    {
+      "declared": "fat_bottom_08.tga",
+      "resolved": "texture/effect/fatal_shadow_crow/fatal_shadow_crow_bottom/fat_bottom_08.tga",
+      "missing": false,
+      "hash": "153a7e8325e65ec29d178e98457751661b52671d4304358adf535903c5400ce3",
+      "png": "textures/15/153a7e8325e65ec29d178e98457751661b52671d4304358adf535903c5400ce3.png",
+      "width": 64,
+      "height": 62,
+      "bytes": 6571
+    },
+    {
+      "declared": "fat_bottom_09.tga",
+      "resolved": "texture/effect/fatal_shadow_crow/fatal_shadow_crow_bottom/fat_bottom_09.tga",
+      "missing": false,
+      "hash": "9577d27ac938d15c36bb5f1b002664b00e6e26fcf14a21b83b46d180bbfa3e18",
+      "png": "textures/95/9577d27ac938d15c36bb5f1b002664b00e6e26fcf14a21b83b46d180bbfa3e18.png",
+      "width": 64,
+      "height": 62,
+      "bytes": 6840
+    }
+  ],
+  "assetPathMode": "library-root-relative",
+  "renderer": {
+    "mode": "V81 approximate-2d",
+    "notes": "Timeline/layers/textures/color/rotation supported; perspective and exact GL blends approximated."
+  }
+}

@@ -1,9 +1,9 @@
 {
-  "schema": "ro-web-skill-effect-runtime-v92-1.0",
-  "version": "0.9.82IB",
-  "generator": "RO_WEB V92 Active Skill Effect Runtime Integration",
-  "createdUnix": 1785644075,
-  "sourceManifest": "V91_6_RUNTIME_TIMELINE_MANIFEST.json",
+  "schema": "ro-web-skill-effect-runtime-v93-delta-1.0",
+  "version": "0.9.83D",
+  "generator": "RO_WEB V0.9.83D V93 PASS Delta Integration",
+  "createdUnix": 1786194582,
+  "sourceManifest": "V92_BASE + V93/V91.6 PASS-only Ready Library",
   "passiveExclusionPolicy": {
     "authority": "RO_WEB runtime_generated_all.json",
     "rules": [
@@ -6329,13 +6329,4958 @@
         }
       ],
       "gateState": "PASS"
+    },
+    {
+      "skillId": 83,
+      "skillKey": "WZ_METEOR",
+      "displayNameReference": "隕石術",
+      "localizationWritePolicy": "IDENTITY_ONLY_NO_LOCALIZATION_OVERWRITE",
+      "allowNameWriteback": false,
+      "allowDescriptionWriteback": false,
+      "eventAdapter": "RO_WEB_SKILL_EFFECT_EVENTS_V1",
+      "runtimeContract": {
+        "skill_id": 83,
+        "skill_key": "WZ_METEOR",
+        "variable_cast_db_ms": 6300,
+        "fixed_cast_db_ms": 1500,
+        "release_preview_ms": 7800,
+        "after_cast_act_delay_db_ms": 1000,
+        "after_cast_walk_delay_db_ms": 0,
+        "after_cast_walk_delay_preview_ms": 300,
+        "cooldown_db_ms": 7000,
+        "action_motion": "ATTACK",
+        "action_lock_rule": "max(100ms, runtime cast total, ASPD action lock, 140ms attack throughput floor)",
+        "min_skill_delay_limit_ms": 100,
+        "performance_floor_ms": 140,
+        "handler": "magic_damage",
+        "execution_enabled": true,
+        "target_origin": "target",
+        "target_shape": "circle",
+        "target_radius": 3,
+        "damage_hit_count": 7,
+        "visual_hit_count": 7,
+        "duration_ms": 10000,
+        "runtime_adaptation": "對目標及周圍 7×7 降下 2～7 顆隕石，每顆造成 125% MATK 的火屬性魔法傷害；每次命中有 3%～30% 機率使敵人暈眩 4.5 秒。",
+        "persistent_ground_allowed": true,
+        "source_version": "roweb.zip"
+      },
+      "events": [
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 7800,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "meteor1_6a4c909d4b21",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 1600,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "meteor1_6a4c909d4b21",
+            "meteor2_a4bdd1cfa350",
+            "meteor3_0ca211d99c04",
+            "meteor4_7cc7f3ad7b81"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 7800,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "meteor1_f07d8cff2135",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 1600,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "meteor1_f07d8cff2135"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 7800,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "meteor2_5472996b7dc1",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 1600,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "meteor2_5472996b7dc1"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 7800,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "meteor3_fc72fbad7f0a",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 1600,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "meteor3_fc72fbad7f0a"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 7800,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "su_cn_meteor0_48ed4103c663",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 1667,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "su_cn_meteor0_48ed4103c663"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        }
+      ],
+      "gateState": "PASS",
+      "deploymentPlacementPolicy": "DAMAGE_OR_DEBUFF_TARGET_MONSTER"
+    },
+    {
+      "skillId": 387,
+      "skillKey": "WS_CARTBOOST",
+      "displayNameReference": "手推車加速",
+      "localizationWritePolicy": "IDENTITY_ONLY_NO_LOCALIZATION_OVERWRITE",
+      "allowNameWriteback": false,
+      "allowDescriptionWriteback": false,
+      "eventAdapter": "RO_WEB_SKILL_EFFECT_EVENTS_V1",
+      "runtimeContract": {
+        "skill_id": 387,
+        "skill_key": "WS_CARTBOOST",
+        "variable_cast_db_ms": 0,
+        "fixed_cast_db_ms": 0,
+        "release_preview_ms": 0,
+        "after_cast_act_delay_db_ms": 0,
+        "after_cast_walk_delay_db_ms": 0,
+        "after_cast_walk_delay_preview_ms": 300,
+        "cooldown_db_ms": 0,
+        "action_motion": "CAST",
+        "action_lock_rule": "max(100ms, runtime cast total, ASPD action lock, 140ms attack throughput floor)",
+        "min_skill_delay_limit_ms": 100,
+        "performance_floor_ms": 0,
+        "handler": "buff",
+        "execution_enabled": true,
+        "target_origin": "self",
+        "target_shape": "",
+        "target_radius": null,
+        "damage_hit_count": 1,
+        "visual_hit_count": 1,
+        "duration_ms": 60000,
+        "runtime_adaptation": "對自身施放，持續 60 秒；移動速度提高 20%，並解除目前可辨識的移動緩速狀態。",
+        "persistent_ground_allowed": false,
+        "source_version": "roweb.zip"
+      },
+      "events": [
+        {
+          "trigger": "GROUND_SPAWN",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "BOTTOM",
+          "target": "CASTER_FOOT",
+          "full_effect": "new_cartboost_bottom_79ef0c586b57",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 833,
+          "runtime_condition": "Spawn at the runtime target/caster foot when the skill commits.",
+          "source_effect_ids": [
+            "new_cartboost_bottom_79ef0c586b57",
+            "new_cartboost_bottom_f054c5a38d0f"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "MAIN",
+          "target": "CASTER_BODY",
+          "full_effect": "new_cartboost_85b400dcd5ea",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 1017,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_cartboost_85b400dcd5ea",
+            "new_cartboost_d5a10704571d"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        }
+      ],
+      "gateState": "PASS",
+      "deploymentPlacementPolicy": "SELF_CASTER"
+    },
+    {
+      "skillId": 2006,
+      "skillKey": "RK_IGNITIONBREAK",
+      "displayNameReference": "致命爆裂",
+      "localizationWritePolicy": "IDENTITY_ONLY_NO_LOCALIZATION_OVERWRITE",
+      "allowNameWriteback": false,
+      "allowDescriptionWriteback": false,
+      "eventAdapter": "RO_WEB_SKILL_EFFECT_EVENTS_V1",
+      "runtimeContract": {
+        "skill_id": 2006,
+        "skill_key": "RK_IGNITIONBREAK",
+        "variable_cast_db_ms": 1000,
+        "fixed_cast_db_ms": 0,
+        "release_preview_ms": 1000,
+        "after_cast_act_delay_db_ms": 0,
+        "after_cast_walk_delay_db_ms": 0,
+        "after_cast_walk_delay_preview_ms": 300,
+        "cooldown_db_ms": 2000,
+        "action_motion": "ATTACK",
+        "action_lock_rule": "max(100ms, runtime cast total, ASPD action lock, 140ms attack throughput floor)",
+        "min_skill_delay_limit_ms": 100,
+        "performance_floor_ms": 140,
+        "handler": "physical_attack",
+        "execution_enabled": true,
+        "target_origin": "self",
+        "target_shape": "",
+        "target_radius": null,
+        "damage_hit_count": 1,
+        "visual_hit_count": 1,
+        "duration_ms": 0,
+        "runtime_adaptation": "對目標及周圍 7×7 造成火屬性物理傷害。傷害倍率 每級 450%，Lv5 共 2250%。",
+        "persistent_ground_allowed": false,
+        "source_version": "roweb.zip"
+      },
+      "events": [
+        {
+          "trigger": "CAST_BEGIN",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "CAST",
+          "target": "CASTER_BODY",
+          "full_effect": "new_ignitionbreak_cast_ec83bcd9dc43",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 983,
+          "runtime_condition": "Begin when RO_WEB starts the variable/fixed cast state.",
+          "source_effect_ids": [
+            "new_ignitionbreak_cast_ec83bcd9dc43"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "GROUND_SPAWN",
+          "offset_ms": 0,
+          "nominal_at_ms": 1000,
+          "phase": "BOTTOM",
+          "target": "TARGET_FOOT",
+          "full_effect": "new_ignitionbreak_bottom_5cf1891093dd",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 1667,
+          "runtime_condition": "Spawn at the runtime target/caster foot when the skill commits.",
+          "source_effect_ids": [
+            "new_ignitionbreak_bottom_5cf1891093dd",
+            "new_ignitionbreak_bottom_e280891d5850"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 1000,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_ignitionbreak_2eaf9ea82ae9",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 1667,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_ignitionbreak_2eaf9ea82ae9",
+            "new_ignitionbreak_ebdb6508daaf"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        }
+      ],
+      "gateState": "PASS",
+      "deploymentPlacementPolicy": "DAMAGE_OR_DEBUFF_TARGET_MONSTER"
+    },
+    {
+      "skillId": 2032,
+      "skillKey": "GC_POISONSMOKE",
+      "displayNameReference": "毒霧",
+      "localizationWritePolicy": "IDENTITY_ONLY_NO_LOCALIZATION_OVERWRITE",
+      "allowNameWriteback": false,
+      "allowDescriptionWriteback": false,
+      "eventAdapter": "RO_WEB_SKILL_EFFECT_EVENTS_V1",
+      "runtimeContract": {
+        "skill_id": 2032,
+        "skill_key": "GC_POISONSMOKE",
+        "variable_cast_db_ms": 0,
+        "fixed_cast_db_ms": 2000,
+        "release_preview_ms": 2000,
+        "after_cast_act_delay_db_ms": 2000,
+        "after_cast_walk_delay_db_ms": 0,
+        "after_cast_walk_delay_preview_ms": 300,
+        "cooldown_db_ms": 0,
+        "action_motion": "CAST",
+        "action_lock_rule": "max(100ms, runtime cast total, ASPD action lock, 140ms attack throughput floor)",
+        "min_skill_delay_limit_ms": 100,
+        "performance_floor_ms": 0,
+        "handler": "ground_debuff",
+        "execution_enabled": true,
+        "target_origin": "target",
+        "target_shape": "circle",
+        "target_radius": 2,
+        "damage_hit_count": 1,
+        "visual_hit_count": 1,
+        "duration_ms": 18000,
+        "runtime_adaptation": "直接在目標位置展開毒霧，每 2 秒對範圍內敵人施加中毒，持續時間隨技能等級增加。",
+        "persistent_ground_allowed": true,
+        "source_version": "roweb.zip"
+      },
+      "events": [
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 2000,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_poisonsmoke_1_3c7e23e1ca13",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 1000,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_poisonsmoke_1_3c7e23e1ca13",
+            "new_poisonsmoke_1_8b3e1b924ca6",
+            "new_poisonsmoke_2_065490b4bcb4",
+            "new_poisonsmoke_2_8aefab3bb858"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        }
+      ],
+      "gateState": "PASS",
+      "deploymentPlacementPolicy": "DAMAGE_OR_DEBUFF_TARGET_MONSTER"
+    },
+    {
+      "skillId": 2036,
+      "skillKey": "GC_ROLLINGCUTTER",
+      "displayNameReference": "迴旋刀刃",
+      "localizationWritePolicy": "IDENTITY_ONLY_NO_LOCALIZATION_OVERWRITE",
+      "allowNameWriteback": false,
+      "allowDescriptionWriteback": false,
+      "eventAdapter": "RO_WEB_SKILL_EFFECT_EVENTS_V1",
+      "runtimeContract": {
+        "skill_id": 2036,
+        "skill_key": "GC_ROLLINGCUTTER",
+        "variable_cast_db_ms": 0,
+        "fixed_cast_db_ms": 0,
+        "release_preview_ms": 0,
+        "after_cast_act_delay_db_ms": 200,
+        "after_cast_walk_delay_db_ms": 0,
+        "after_cast_walk_delay_preview_ms": 300,
+        "cooldown_db_ms": 0,
+        "action_motion": "ATTACK",
+        "action_lock_rule": "max(100ms, runtime cast total, ASPD action lock, 140ms attack throughput floor)",
+        "min_skill_delay_limit_ms": 100,
+        "performance_floor_ms": 140,
+        "handler": "physical_attack",
+        "execution_enabled": true,
+        "target_origin": "self",
+        "target_shape": "circle",
+        "target_radius": [
+          1,
+          1,
+          2,
+          2,
+          3
+        ],
+        "damage_hit_count": 1,
+        "visual_hit_count": 1,
+        "duration_ms": 10000,
+        "runtime_adaptation": "以拳刃攻擊自身周圍的敵人。每次成功施放獲得 1 層迴旋充能，最多 10 層；不要求角色播放持續旋轉特效。",
+        "persistent_ground_allowed": false,
+        "source_version": "roweb.zip"
+      },
+      "events": [
+        {
+          "trigger": "SKILL_BEGIN",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "CAST",
+          "target": "CASTER_BODY",
+          "full_effect": "new_rollingcutter_cast_63c0c9b668f1",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 483,
+          "runtime_condition": "Instant skill: play prepare/cast layers when the skill attempt begins.",
+          "source_effect_ids": [
+            "new_rollingcutter_cast_63c0c9b668f1"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_rollingcutter_66d9668d759b",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 10000,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_rollingcutter_66d9668d759b",
+            "new_rollingcutter_count_01_172a1d27667d",
+            "new_rollingcutter_count_02_b310ca3928ad",
+            "new_rollingcutter_count_03_30ba8334bd33",
+            "new_rollingcutter_count_04_3aae1d5e9067",
+            "new_rollingcutter_count_05_5983b7f2d2ae",
+            "new_rollingcutter_count_06_a980fd0c342b",
+            "new_rollingcutter_count_07_67ffd8d4cd75",
+            "new_rollingcutter_count_08_defcb13ab8d9",
+            "new_rollingcutter_count_09_0b6b02208545",
+            "new_rollingcutter_count_10_d2063ff53001"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_rollingcutter_count_01_9f6f8439b02d",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 10000,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_rollingcutter_count_01_9f6f8439b02d"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_rollingcutter_count_02_7b50a57c8c50",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 10000,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_rollingcutter_count_02_7b50a57c8c50"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_rollingcutter_count_03_a2c1b000d4fa",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 10000,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_rollingcutter_count_03_a2c1b000d4fa"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_rollingcutter_count_04_c8e69aab540c",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 10000,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_rollingcutter_count_04_c8e69aab540c"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_rollingcutter_count_05_4dcbfc5f29f7",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 10000,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_rollingcutter_count_05_4dcbfc5f29f7"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_rollingcutter_count_06_cb6e8191185f",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 10000,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_rollingcutter_count_06_cb6e8191185f"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_rollingcutter_count_07_01b3f839f724",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 10000,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_rollingcutter_count_07_01b3f839f724"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_rollingcutter_count_08_3a98d9ea07dc",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 10000,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_rollingcutter_count_08_3a98d9ea07dc"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_rollingcutter_count_09_06c92fe3b014",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 10000,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_rollingcutter_count_09_06c92fe3b014"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_rollingcutter_count_10_498ebd6cb694",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 10000,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_rollingcutter_count_10_498ebd6cb694"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        }
+      ],
+      "gateState": "PASS",
+      "deploymentPlacementPolicy": "DAMAGE_OR_DEBUFF_TARGET_MONSTER"
+    },
+    {
+      "skillId": 2040,
+      "skillKey": "AB_ADORAMUS",
+      "displayNameReference": "謳歌",
+      "localizationWritePolicy": "IDENTITY_ONLY_NO_LOCALIZATION_OVERWRITE",
+      "allowNameWriteback": false,
+      "allowDescriptionWriteback": false,
+      "eventAdapter": "RO_WEB_SKILL_EFFECT_EVENTS_V1",
+      "runtimeContract": {
+        "skill_id": 2040,
+        "skill_key": "AB_ADORAMUS",
+        "variable_cast_db_ms": 2000,
+        "fixed_cast_db_ms": 500,
+        "release_preview_ms": 2500,
+        "after_cast_act_delay_db_ms": 500,
+        "after_cast_walk_delay_db_ms": 0,
+        "after_cast_walk_delay_preview_ms": 300,
+        "cooldown_db_ms": 2500,
+        "action_motion": "ATTACK",
+        "action_lock_rule": "max(100ms, runtime cast total, ASPD action lock, 140ms attack throughput floor)",
+        "min_skill_delay_limit_ms": 100,
+        "performance_floor_ms": 140,
+        "handler": "magic_damage",
+        "execution_enabled": true,
+        "target_origin": "target",
+        "target_shape": "circle",
+        "target_radius": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          5,
+          5,
+          5,
+          5
+        ],
+        "damage_hit_count": 1,
+        "visual_hit_count": 10,
+        "duration_ms": 17000,
+        "runtime_adaptation": "以強烈聖光攻擊目標周圍敵人，造成聖屬性魔法傷害，並嘗試使敵人陷入黑暗與敏捷降低。藍色魔力礦石不檢查、不消耗。",
+        "persistent_ground_allowed": false,
+        "source_version": "roweb.zip"
+      },
+      "events": [
+        {
+          "trigger": "GROUND_SPAWN",
+          "offset_ms": 0,
+          "nominal_at_ms": 2500,
+          "phase": "BOTTOM",
+          "target": "TARGET_FOOT",
+          "full_effect": "new_adoramus_bottom_53a396d8423b",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 583,
+          "runtime_condition": "Spawn at the runtime target/caster foot when the skill commits.",
+          "source_effect_ids": [
+            "new_adoramus_bottom_53a396d8423b",
+            "new_adoramus_bottom_ac6ac617cf5f"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 2500,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_adoramus_19a1b221e461",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 917,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_adoramus_19a1b221e461",
+            "new_adoramus_8e7570923aaf"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        }
+      ],
+      "gateState": "PASS",
+      "deploymentPlacementPolicy": "DAMAGE_OR_DEBUFF_TARGET_MONSTER"
+    },
+    {
+      "skillId": 2204,
+      "skillKey": "WL_JACKFROST",
+      "displayNameReference": "凍僵術",
+      "localizationWritePolicy": "IDENTITY_ONLY_NO_LOCALIZATION_OVERWRITE",
+      "allowNameWriteback": false,
+      "allowDescriptionWriteback": false,
+      "eventAdapter": "RO_WEB_SKILL_EFFECT_EVENTS_V1",
+      "runtimeContract": {
+        "skill_id": 2204,
+        "skill_key": "WL_JACKFROST",
+        "variable_cast_db_ms": 4000,
+        "fixed_cast_db_ms": 1000,
+        "release_preview_ms": 5000,
+        "after_cast_act_delay_db_ms": 500,
+        "after_cast_walk_delay_db_ms": 0,
+        "after_cast_walk_delay_preview_ms": 300,
+        "cooldown_db_ms": 4000,
+        "action_motion": "ATTACK",
+        "action_lock_rule": "max(100ms, runtime cast total, ASPD action lock, 140ms attack throughput floor)",
+        "min_skill_delay_limit_ms": 100,
+        "performance_floor_ms": 140,
+        "handler": "magic_damage",
+        "execution_enabled": true,
+        "target_origin": "target",
+        "target_shape": "circle",
+        "target_radius": [
+          3,
+          3,
+          4,
+          4,
+          5
+        ],
+        "damage_hit_count": 1,
+        "visual_hit_count": 5,
+        "duration_ms": 32500,
+        "runtime_adaptation": "依 Renewal 公式對指定敵人及周圍造成水屬性魔法傷害；結霜目標使用較高倍率。官方 5 段為傷害顯示，總倍率不重複乘算。SP 消耗延後統一處理。",
+        "persistent_ground_allowed": false,
+        "source_version": "roweb.zip"
+      },
+      "events": [
+        {
+          "trigger": "CAST_BEGIN",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "CAST",
+          "target": "CASTER_BODY",
+          "full_effect": "new_jackfrost_cast_0f92f97516f7",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 1167,
+          "runtime_condition": "Begin when RO_WEB starts the variable/fixed cast state.",
+          "source_effect_ids": [
+            "new_jackfrost_cast_0f92f97516f7",
+            "new_jackfrost_cast_9c1d47e4aa22"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 5000,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_jackfrost_00_53340c93592c",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 1200,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_jackfrost_00_53340c93592c",
+            "new_jackfrost_00_f220755b3de3",
+            "new_jackfrost_01_7130f8858b6d",
+            "new_jackfrost_01_9cd2c09423b2",
+            "new_jackfrost_02_5b31cb03fc91",
+            "new_jackfrost_02_fa580c830835",
+            "new_jackfrost_frost_71c6d31ad849"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 5000,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_jackfrost_frost_0624c332dc58",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 1200,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_jackfrost_frost_0624c332dc58"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        }
+      ],
+      "gateState": "PASS",
+      "deploymentPlacementPolicy": "DAMAGE_OR_DEBUFF_TARGET_MONSTER"
+    },
+    {
+      "skillId": 2212,
+      "skillKey": "WL_HELLINFERNO",
+      "displayNameReference": "地獄火焰",
+      "localizationWritePolicy": "IDENTITY_ONLY_NO_LOCALIZATION_OVERWRITE",
+      "allowNameWriteback": false,
+      "allowDescriptionWriteback": false,
+      "eventAdapter": "RO_WEB_SKILL_EFFECT_EVENTS_V1",
+      "runtimeContract": {
+        "skill_id": 2212,
+        "skill_key": "WL_HELLINFERNO",
+        "variable_cast_db_ms": 3000,
+        "fixed_cast_db_ms": 1000,
+        "release_preview_ms": 4000,
+        "after_cast_act_delay_db_ms": 500,
+        "after_cast_walk_delay_db_ms": 0,
+        "after_cast_walk_delay_preview_ms": 300,
+        "cooldown_db_ms": 3000,
+        "action_motion": "ATTACK",
+        "action_lock_rule": "max(100ms, runtime cast total, ASPD action lock, 140ms attack throughput floor)",
+        "min_skill_delay_limit_ms": 100,
+        "performance_floor_ms": 140,
+        "handler": "magic_damage",
+        "execution_enabled": true,
+        "target_origin": "target",
+        "target_shape": "circle",
+        "target_radius": [
+          1,
+          1,
+          1,
+          2,
+          2
+        ],
+        "damage_hit_count": 1,
+        "visual_hit_count": 4,
+        "duration_ms": 0,
+        "runtime_adaptation": "依 Renewal 分別結算火屬性 400%×Lv 與暗屬性 600%×Lv 魔法傷害後相加；暗屬性階段顯示 3 段。Lv1～3 為 3×3，Lv4～5 為 5×5。",
+        "persistent_ground_allowed": false,
+        "source_version": "roweb.zip"
+      },
+      "events": [
+        {
+          "trigger": "CAST_BEGIN",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "CAST_BOTTOM",
+          "target": "CASTER_FOOT",
+          "full_effect": "new_hellinferno_cast_bottom_a42374d52fc8",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 983,
+          "runtime_condition": "Begin when RO_WEB starts the variable/fixed cast state.",
+          "source_effect_ids": [
+            "new_hellinferno_cast_bottom_a42374d52fc8",
+            "new_hellinferno_cast_bottom_f2081ad8bea6"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "PROJECTILE_LAUNCH",
+          "offset_ms": 0,
+          "nominal_at_ms": 4000,
+          "phase": "PROJECTILE",
+          "target": "PROJECTILE_PATH",
+          "full_effect": "new_hellinferno_sub_0bd29adb2889",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 333,
+          "runtime_condition": "Launch at cast completion; travel is owned by runtime target geometry.",
+          "source_effect_ids": [
+            "new_hellinferno_sub_0bd29adb2889",
+            "new_hellinferno_sub_e5af2bb7bfc9"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "GROUND_SPAWN",
+          "offset_ms": 0,
+          "nominal_at_ms": 4000,
+          "phase": "BOTTOM",
+          "target": "TARGET_FOOT",
+          "full_effect": "new_hellinferno_bottom_a78d21991e15",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 1033,
+          "runtime_condition": "Spawn at the runtime target/caster foot when the skill commits.",
+          "source_effect_ids": [
+            "new_hellinferno_bottom_a78d21991e15",
+            "new_hellinferno_bottom_f9a5413457c4",
+            "new_hellinferno_sub_bottom_d1f30dad8878"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "GROUND_SPAWN",
+          "offset_ms": 0,
+          "nominal_at_ms": 4000,
+          "phase": "BOTTOM",
+          "target": "TARGET_FOOT",
+          "full_effect": "new_hellinferno_sub_bottom_ecc40e673f93",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 583,
+          "runtime_condition": "Spawn at the runtime target/caster foot when the skill commits.",
+          "source_effect_ids": [
+            "new_hellinferno_sub_bottom_ecc40e673f93"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 4000,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_hellinferno_cbd2b07f5e09",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 1000,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_hellinferno_cbd2b07f5e09",
+            "new_hellinferno_ec9b01cafd8b"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        }
+      ],
+      "gateState": "PASS",
+      "deploymentPlacementPolicy": "DAMAGE_OR_DEBUFF_TARGET_MONSTER"
+    },
+    {
+      "skillId": 2233,
+      "skillKey": "RA_ARROWSTORM",
+      "displayNameReference": "箭雨風暴",
+      "localizationWritePolicy": "IDENTITY_ONLY_NO_LOCALIZATION_OVERWRITE",
+      "allowNameWriteback": false,
+      "allowDescriptionWriteback": false,
+      "eventAdapter": "RO_WEB_SKILL_EFFECT_EVENTS_V1",
+      "runtimeContract": {
+        "skill_id": 2233,
+        "skill_key": "RA_ARROWSTORM",
+        "variable_cast_db_ms": 2000,
+        "fixed_cast_db_ms": 300,
+        "release_preview_ms": 2300,
+        "after_cast_act_delay_db_ms": 0,
+        "after_cast_walk_delay_db_ms": 0,
+        "after_cast_walk_delay_preview_ms": 300,
+        "cooldown_db_ms": 3200,
+        "action_motion": "ATTACK",
+        "action_lock_rule": "max(100ms, runtime cast total, ASPD action lock, 140ms attack throughput floor)",
+        "min_skill_delay_limit_ms": 100,
+        "performance_floor_ms": 140,
+        "handler": "physical_attack_formula",
+        "execution_enabled": true,
+        "target_origin": "target",
+        "target_shape": "circle",
+        "target_radius": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          3,
+          3,
+          3,
+          3,
+          4
+        ],
+        "damage_hit_count": 1,
+        "visual_hit_count": 3,
+        "duration_ms": 0,
+        "runtime_adaptation": "弓限定；對目標周圍半徑 2／3／4 格造成 3 段視覺傷害。一般倍率（200+180×Lv）×BaseLv÷100%；微風恐懼期間改為（200+250×Lv）×BaseLv÷100%。箭矢不消耗。",
+        "persistent_ground_allowed": false,
+        "source_version": "roweb.zip"
+      },
+      "events": [
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 2300,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "arrowstorm_2250da4dc00c",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 1500,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "arrowstorm_2250da4dc00c"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 2300,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_arrowstorm_00_36d37e8fc700",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 833,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_arrowstorm_00_36d37e8fc700",
+            "new_arrowstorm_01_b55d98197f17"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 2300,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_arrowstorm_00_3ea5213c7f78",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 2000,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_arrowstorm_00_3ea5213c7f78"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 2300,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_arrowstorm_01_fa4675dbc44a",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 2000,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_arrowstorm_01_fa4675dbc44a"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        }
+      ],
+      "gateState": "PASS",
+      "deploymentPlacementPolicy": "DAMAGE_OR_DEBUFF_TARGET_MONSTER"
+    },
+    {
+      "skillId": 2236,
+      "skillKey": "RA_AIMEDBOLT",
+      "displayNameReference": "瞄準標靶",
+      "localizationWritePolicy": "IDENTITY_ONLY_NO_LOCALIZATION_OVERWRITE",
+      "allowNameWriteback": false,
+      "allowDescriptionWriteback": false,
+      "eventAdapter": "RO_WEB_SKILL_EFFECT_EVENTS_V1",
+      "runtimeContract": {
+        "skill_id": 2236,
+        "skill_key": "RA_AIMEDBOLT",
+        "variable_cast_db_ms": 2000,
+        "fixed_cast_db_ms": 1000,
+        "release_preview_ms": 3000,
+        "after_cast_act_delay_db_ms": 2000,
+        "after_cast_walk_delay_db_ms": 0,
+        "after_cast_walk_delay_preview_ms": 300,
+        "cooldown_db_ms": 1000,
+        "action_motion": "ATTACK",
+        "action_lock_rule": "max(100ms, runtime cast total, ASPD action lock, 140ms attack throughput floor)",
+        "min_skill_delay_limit_ms": 100,
+        "performance_floor_ms": 140,
+        "handler": "physical_attack_formula",
+        "execution_enabled": true,
+        "target_origin": "target",
+        "target_shape": "single",
+        "target_radius": 0,
+        "damage_hit_count": 1,
+        "visual_hit_count": 5,
+        "duration_ms": 0,
+        "runtime_adaptation": "弓限定單體 5 段視覺傷害。一般倍率（500+20×Lv）×BaseLv÷100%；微風恐懼期間改為（800+35×Lv）×BaseLv÷100%。箭矢不消耗。",
+        "persistent_ground_allowed": false,
+        "source_version": "roweb.zip"
+      },
+      "events": [
+        {
+          "trigger": "CAST_BEGIN",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "CAST_BOTTOM",
+          "target": "CASTER_FOOT",
+          "full_effect": "new_aimedbolt_cast_bottom_3ce41088ebdb",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 1783,
+          "runtime_condition": "Begin when RO_WEB starts the variable/fixed cast state.",
+          "source_effect_ids": [
+            "new_aimedbolt_cast_bottom_3ce41088ebdb",
+            "new_aimedbolt_cast_bottom_a4e980e3f935"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 3000,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_aimedbolt_attack_01clock_11ea741c7dd4",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 750,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_aimedbolt_attack_01clock_11ea741c7dd4"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 3000,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_aimedbolt_attack_01clock_5b37dc43374a",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 717,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_aimedbolt_attack_01clock_5b37dc43374a",
+            "new_aimedbolt_attack_05clock_92a9ae550981",
+            "new_aimedbolt_attack_07clock_2afb48bc75f4",
+            "new_aimedbolt_attack_11clock_69f22e871ffd",
+            "new_aimedbolt_end_d52f3d342786"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 3000,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_aimedbolt_attack_05clock_b5fdf636e4e4",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 750,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_aimedbolt_attack_05clock_b5fdf636e4e4"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 3000,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_aimedbolt_attack_07clock_fa8cdea8ffe4",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 750,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_aimedbolt_attack_07clock_fa8cdea8ffe4"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 3000,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_aimedbolt_attack_11clock_7ea8dee2d6c9",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 750,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_aimedbolt_attack_11clock_7ea8dee2d6c9"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 3000,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_aimedbolt_end_6889a617ffc5",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 2000,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_aimedbolt_end_6889a617ffc5"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "LOOP_START",
+          "offset_ms": 0,
+          "nominal_at_ms": 3000,
+          "phase": "LOOP",
+          "target": "TARGET_BODY",
+          "full_effect": "new_aimedbolt_target_loop_968c65fdc1f3",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 667,
+          "runtime_condition": "Start only when runtime creates a persistent buff/ground unit.",
+          "source_effect_ids": [
+            "new_aimedbolt_target_loop_968c65fdc1f3"
+          ],
+          "lifecycle_key": "skill:2236:LOOP:new_aimedbolt",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "LOOP_START",
+          "offset_ms": 0,
+          "nominal_at_ms": 3000,
+          "phase": "LOOP",
+          "target": "TARGET_BODY",
+          "full_effect": "new_aimedbolt_target_loop_f0bf8a864c0d",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 667,
+          "runtime_condition": "Start only when runtime creates a persistent buff/ground unit.",
+          "source_effect_ids": [
+            "new_aimedbolt_target_loop_f0bf8a864c0d"
+          ],
+          "lifecycle_key": "skill:2236:LOOP:new_aimedbolt_target",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "SKILL_END",
+          "offset_ms": 667,
+          "nominal_at_ms": 3667,
+          "phase": "END",
+          "target": "TARGET_BODY",
+          "full_effect": null,
+          "min_effect": null,
+          "fallback": "NONE",
+          "duration_ms": 0,
+          "runtime_condition": "Stop the linked persistent visual when its status/unit duration ends or is removed early; also clear it on toggle-off, death, map change, job change, character switch, or Runtime reset.",
+          "source_effect_ids": [
+            "new_aimedbolt_target_loop_968c65fdc1f3"
+          ],
+          "lifecycle_key": "skill:2236:LOOP:new_aimedbolt",
+          "cleanup_only": true
+        },
+        {
+          "trigger": "SKILL_END",
+          "offset_ms": 667,
+          "nominal_at_ms": 3667,
+          "phase": "END",
+          "target": "TARGET_BODY",
+          "full_effect": null,
+          "min_effect": null,
+          "fallback": "NONE",
+          "duration_ms": 0,
+          "runtime_condition": "Stop the linked persistent visual when its status/unit duration ends or is removed early; also clear it on toggle-off, death, map change, job change, character switch, or Runtime reset.",
+          "source_effect_ids": [
+            "new_aimedbolt_target_loop_f0bf8a864c0d"
+          ],
+          "lifecycle_key": "skill:2236:LOOP:new_aimedbolt_target",
+          "cleanup_only": true
+        }
+      ],
+      "gateState": "PASS",
+      "deploymentPlacementPolicy": "DAMAGE_OR_DEBUFF_TARGET_MONSTER"
+    },
+    {
+      "skillId": 2258,
+      "skillKey": "NC_VULCANARM",
+      "displayNameReference": "火神砲",
+      "localizationWritePolicy": "IDENTITY_ONLY_NO_LOCALIZATION_OVERWRITE",
+      "allowNameWriteback": false,
+      "allowDescriptionWriteback": false,
+      "eventAdapter": "RO_WEB_SKILL_EFFECT_EVENTS_V1",
+      "runtimeContract": {
+        "skill_id": 2258,
+        "skill_key": "NC_VULCANARM",
+        "variable_cast_db_ms": 200,
+        "fixed_cast_db_ms": 0,
+        "release_preview_ms": 200,
+        "after_cast_act_delay_db_ms": 100,
+        "after_cast_walk_delay_db_ms": 0,
+        "after_cast_walk_delay_preview_ms": 300,
+        "cooldown_db_ms": 0,
+        "action_motion": "ATTACK",
+        "action_lock_rule": "max(100ms, runtime cast total, ASPD action lock, 140ms attack throughput floor)",
+        "min_skill_delay_limit_ms": 100,
+        "performance_floor_ms": 140,
+        "handler": "physical_attack_formula",
+        "execution_enabled": true,
+        "target_origin": "target",
+        "target_shape": "circle",
+        "target_radius": 2,
+        "damage_hit_count": 1,
+        "visual_hit_count": 1,
+        "duration_ms": 0,
+        "runtime_adaptation": "Directly attacks the selected enemy and the surrounding 5x5 area. Mado state and Vulcan Bullet consumption are disabled by RO_WEB decision; SP cost remains deferred. RO_WEB 決定版：此技能維持目前實裝效果，可直接使用，不檢查魔導機甲狀態、不消耗燃料或機甲彈藥；人物動畫沿用目前職業人物素材。",
+        "persistent_ground_allowed": false,
+        "source_version": "roweb.zip"
+      },
+      "events": [
+        {
+          "trigger": "PROJECTILE_LAUNCH",
+          "offset_ms": 0,
+          "nominal_at_ms": 200,
+          "phase": "PROJECTILE",
+          "target": "PROJECTILE_PATH",
+          "full_effect": "new_vulcanarm_shothole_4c8c0c67a0a6",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 1133,
+          "runtime_condition": "Launch at cast completion; travel is owned by runtime target geometry.",
+          "source_effect_ids": [
+            "new_vulcanarm_shothole_4c8c0c67a0a6"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "PROJECTILE_LAUNCH",
+          "offset_ms": 0,
+          "nominal_at_ms": 200,
+          "phase": "PROJECTILE",
+          "target": "PROJECTILE_PATH",
+          "full_effect": "new_vulcanarm_shothole_dae2f375b252",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 1133,
+          "runtime_condition": "Launch at cast completion; travel is owned by runtime target geometry.",
+          "source_effect_ids": [
+            "new_vulcanarm_shothole_dae2f375b252"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "GROUND_SPAWN",
+          "offset_ms": 0,
+          "nominal_at_ms": 200,
+          "phase": "BOTTOM",
+          "target": "TARGET_FOOT",
+          "full_effect": "new_vulcanarm_bottom_3772be2ef759",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 267,
+          "runtime_condition": "Spawn at the runtime target/caster foot when the skill commits.",
+          "source_effect_ids": [
+            "new_vulcanarm_bottom_3772be2ef759",
+            "new_vulcanarm_bottom_5e4aa0aebb65"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 200,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_vulcanarm_d32bcd2e20fa",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 333,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_vulcanarm_d32bcd2e20fa",
+            "new_vulcanarm_dc87a2f58d71"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        }
+      ],
+      "gateState": "PASS",
+      "deploymentPlacementPolicy": "DAMAGE_OR_DEBUFF_TARGET_MONSTER"
+    },
+    {
+      "skillId": 2261,
+      "skillKey": "NC_ARMSCANNON",
+      "displayNameReference": "加農砲",
+      "localizationWritePolicy": "IDENTITY_ONLY_NO_LOCALIZATION_OVERWRITE",
+      "allowNameWriteback": false,
+      "allowDescriptionWriteback": false,
+      "eventAdapter": "RO_WEB_SKILL_EFFECT_EVENTS_V1",
+      "runtimeContract": {
+        "skill_id": 2261,
+        "skill_key": "NC_ARMSCANNON",
+        "variable_cast_db_ms": 2000,
+        "fixed_cast_db_ms": 500,
+        "release_preview_ms": 2500,
+        "after_cast_act_delay_db_ms": 500,
+        "after_cast_walk_delay_db_ms": 0,
+        "after_cast_walk_delay_preview_ms": 300,
+        "cooldown_db_ms": 350,
+        "action_motion": "ATTACK",
+        "action_lock_rule": "max(100ms, runtime cast total, ASPD action lock, 140ms attack throughput floor)",
+        "min_skill_delay_limit_ms": 100,
+        "performance_floor_ms": 140,
+        "handler": "physical_attack_formula",
+        "execution_enabled": true,
+        "target_origin": "target",
+        "target_shape": "circle",
+        "target_radius": [
+          1,
+          1,
+          2,
+          2,
+          3
+        ],
+        "damage_hit_count": 1,
+        "visual_hit_count": 1,
+        "duration_ms": 0,
+        "runtime_adaptation": "Directly attacks the selected enemy and the surrounding 3x3/5x5/7x7 area. Cannonball, Mado fuel and Mado-state requirements are disabled by RO_WEB decision; SP cost remains deferred. RO_WEB 決定版：此技能維持目前實裝效果，可直接使用，不檢查魔導機甲狀態、不消耗燃料或機甲彈藥；人物動畫沿用目前職業人物素材。",
+        "persistent_ground_allowed": false,
+        "source_version": "roweb.zip"
+      },
+      "events": [
+        {
+          "trigger": "CAST_BEGIN",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "CAST",
+          "target": "CASTER_BODY",
+          "full_effect": "new_armscannon_cast_075f4ba8fce8",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 667,
+          "runtime_condition": "Begin when RO_WEB starts the variable/fixed cast state.",
+          "source_effect_ids": [
+            "new_armscannon_cast_075f4ba8fce8",
+            "new_armscannon_cast_c7dd06f0e779"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "CAST_BEGIN",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "CAST_BOTTOM",
+          "target": "CASTER_FOOT",
+          "full_effect": "new_armscannon_cast_bottom_6c6cee6456e6",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 917,
+          "runtime_condition": "Begin when RO_WEB starts the variable/fixed cast state.",
+          "source_effect_ids": [
+            "new_armscannon_cast_bottom_6c6cee6456e6",
+            "new_armscannon_cast_bottom_857f7218eff0"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "GROUND_SPAWN",
+          "offset_ms": 0,
+          "nominal_at_ms": 2500,
+          "phase": "BOTTOM",
+          "target": "TARGET_FOOT",
+          "full_effect": "armscannon_explosion_bottom_6c4f20f07d77",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 917,
+          "runtime_condition": "Spawn at the runtime target/caster foot when the skill commits.",
+          "source_effect_ids": [
+            "armscannon_explosion_bottom_6c4f20f07d77"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "GROUND_SPAWN",
+          "offset_ms": 0,
+          "nominal_at_ms": 2500,
+          "phase": "BOTTOM",
+          "target": "TARGET_FOOT",
+          "full_effect": "armscannon_explosion_bottom_b35703e76c6d",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 917,
+          "runtime_condition": "Spawn at the runtime target/caster foot when the skill commits.",
+          "source_effect_ids": [
+            "armscannon_explosion_bottom_b35703e76c6d"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "GROUND_SPAWN",
+          "offset_ms": 0,
+          "nominal_at_ms": 2500,
+          "phase": "BOTTOM",
+          "target": "TARGET_FOOT",
+          "full_effect": "new_armscannon_explosion_bottom_223328fa90c0",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 1083,
+          "runtime_condition": "Spawn at the runtime target/caster foot when the skill commits.",
+          "source_effect_ids": [
+            "new_armscannon_explosion_bottom_223328fa90c0"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 2500,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "armscannon_explosion_8584f1e96699",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 833,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "armscannon_explosion_8584f1e96699"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 2500,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "armscannon_explosion_b4444c7abdf2",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 833,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "armscannon_explosion_b4444c7abdf2",
+            "new_armscannon_01_807f1fd824d8",
+            "new_armscannon_05_49648581be98",
+            "new_armscannon_07_58c244c49d61",
+            "new_armscannon_11_f89171c76493"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 2500,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_armscannon_01_clock_down_4a50f22e3926",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 1500,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_armscannon_01_clock_down_4a50f22e3926"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 2500,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_armscannon_01_clock_up_aa8b4aab6736",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 867,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_armscannon_01_clock_up_aa8b4aab6736",
+            "new_armscannon_01_up_8c9df960d193"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 2500,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_armscannon_01_down_e175aefa365e",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 617,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_armscannon_01_down_e175aefa365e"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 2500,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_armscannon_01_up_21333fe78864",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 617,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_armscannon_01_up_21333fe78864"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 2500,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_armscannon_05_clock_down_0ecf3eaee8e3",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 800,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_armscannon_05_clock_down_0ecf3eaee8e3",
+            "new_armscannon_05_down_b2d1fd3f93d4"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 2500,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_armscannon_05_clock_up_d60180aa623a",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 1500,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_armscannon_05_clock_up_d60180aa623a",
+            "new_armscannon_05_up_0cde4a4552ce"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 2500,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_armscannon_05_down_f5415aa78ae9",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 617,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_armscannon_05_down_f5415aa78ae9"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 2500,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_armscannon_05_up_74d5c4602c92",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 617,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_armscannon_05_up_74d5c4602c92"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 2500,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_armscannon_07_clock_down_6a3bd4b04317",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 800,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_armscannon_07_clock_down_6a3bd4b04317",
+            "new_armscannon_07_down_bb75d36a201f"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 2500,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_armscannon_07_clock_up_6f61a0e9ca15",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 1500,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_armscannon_07_clock_up_6f61a0e9ca15",
+            "new_armscannon_07_up_3b8c1799f6be"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 2500,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_armscannon_07_down_4c1fb5f5a092",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 617,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_armscannon_07_down_4c1fb5f5a092"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 2500,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_armscannon_07_up_9d0dda7a146b",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 617,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_armscannon_07_up_9d0dda7a146b"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 2500,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_armscannon_11_clock_down_2462f6efe2db",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 933,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_armscannon_11_clock_down_2462f6efe2db",
+            "new_armscannon_11_down_9111c1d0a98e"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 2500,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_armscannon_11_clock_up_13da660a2f02",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 800,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_armscannon_11_clock_up_13da660a2f02",
+            "new_armscannon_11_up_ec3bf6c17a5a"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 2500,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_armscannon_11_down_175690b8c6dd",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 617,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_armscannon_11_down_175690b8c6dd"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 2500,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_armscannon_11_up_3624925d6de4",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 617,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_armscannon_11_up_3624925d6de4"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 2500,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_armscannon_explosion_679e49dcccef",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 833,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_armscannon_explosion_679e49dcccef"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        }
+      ],
+      "gateState": "PASS",
+      "deploymentPlacementPolicy": "DAMAGE_OR_DEBUFF_TARGET_MONSTER"
+    },
+    {
+      "skillId": 2279,
+      "skillKey": "NC_POWERSWING",
+      "displayNameReference": "揮斧重擊",
+      "localizationWritePolicy": "IDENTITY_ONLY_NO_LOCALIZATION_OVERWRITE",
+      "allowNameWriteback": false,
+      "allowDescriptionWriteback": false,
+      "eventAdapter": "RO_WEB_SKILL_EFFECT_EVENTS_V1",
+      "runtimeContract": {
+        "skill_id": 2279,
+        "skill_key": "NC_POWERSWING",
+        "variable_cast_db_ms": 0,
+        "fixed_cast_db_ms": 0,
+        "release_preview_ms": 0,
+        "after_cast_act_delay_db_ms": 1000,
+        "after_cast_walk_delay_db_ms": 0,
+        "after_cast_walk_delay_preview_ms": 300,
+        "cooldown_db_ms": 0,
+        "action_motion": "ATTACK",
+        "action_lock_rule": "max(100ms, runtime cast total, ASPD action lock, 140ms attack throughput floor)",
+        "min_skill_delay_limit_ms": 100,
+        "performance_floor_ms": 140,
+        "handler": "physical_attack_formula",
+        "execution_enabled": true,
+        "target_origin": "attack",
+        "target_shape": "",
+        "target_radius": null,
+        "damage_hit_count": 1,
+        "visual_hit_count": 1,
+        "duration_ms": 2000,
+        "runtime_adaptation": "以強力揮擊攻擊單一敵人，物理倍率為（300＋技能等級×100＋（STR＋DEX）÷2）%，再依 Base Lv 修正；有 10% 機率使敵人暈眩 2 秒。",
+        "persistent_ground_allowed": false,
+        "source_version": "roweb.zip"
+      },
+      "events": [
+        {
+          "trigger": "GROUND_SPAWN",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "BOTTOM",
+          "target": "TARGET_FOOT",
+          "full_effect": "new_powerswing_bottom_0b48758d25eb",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 983,
+          "runtime_condition": "Spawn at the runtime target/caster foot when the skill commits.",
+          "source_effect_ids": [
+            "new_powerswing_bottom_0b48758d25eb",
+            "new_powerswing_bottom_67c221a2fd5d"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_powerswing_01_clock_d2da80962678",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 983,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_powerswing_01_clock_d2da80962678",
+            "new_powerswing_05_clock_3971bc14b48e",
+            "new_powerswing_07_clock_09931cad4844",
+            "new_powerswing_11_clock_f7be82318d8c"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_powerwing_01_clock_28f248a31352",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 983,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_powerwing_01_clock_28f248a31352"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_powerwing_05_clock_5ec124b7f2be",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 983,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_powerwing_05_clock_5ec124b7f2be"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_powerwing_07_clock_34677626c889",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 983,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_powerwing_07_clock_34677626c889"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_powerwing_11_clock_2b897063f846",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 983,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_powerwing_11_clock_2b897063f846"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "powerswing_ab912f31d97c",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 1300,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "powerswing_ab912f31d97c"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        }
+      ],
+      "gateState": "PASS",
+      "deploymentPlacementPolicy": "DAMAGE_OR_DEBUFF_TARGET_MONSTER"
+    },
+    {
+      "skillId": 2280,
+      "skillKey": "NC_AXETORNADO",
+      "displayNameReference": "戰斧颶風",
+      "localizationWritePolicy": "IDENTITY_ONLY_NO_LOCALIZATION_OVERWRITE",
+      "allowNameWriteback": false,
+      "allowDescriptionWriteback": false,
+      "eventAdapter": "RO_WEB_SKILL_EFFECT_EVENTS_V1",
+      "runtimeContract": {
+        "skill_id": 2280,
+        "skill_key": "NC_AXETORNADO",
+        "variable_cast_db_ms": 0,
+        "fixed_cast_db_ms": 0,
+        "release_preview_ms": 0,
+        "after_cast_act_delay_db_ms": 500,
+        "after_cast_walk_delay_db_ms": 0,
+        "after_cast_walk_delay_preview_ms": 300,
+        "cooldown_db_ms": 4000,
+        "action_motion": "ATTACK",
+        "action_lock_rule": "max(100ms, runtime cast total, ASPD action lock, 140ms attack throughput floor)",
+        "min_skill_delay_limit_ms": 100,
+        "performance_floor_ms": 140,
+        "handler": "physical_attack_formula",
+        "execution_enabled": true,
+        "target_origin": "self",
+        "target_shape": "circle",
+        "target_radius": [
+          2,
+          2,
+          3,
+          3,
+          3
+        ],
+        "damage_hit_count": 1,
+        "visual_hit_count": 6,
+        "duration_ms": 0,
+        "runtime_adaptation": "以自身為中心揮舞戰斧形成颶風，Lv1～2 攻擊半徑 2 格、Lv3～5 攻擊半徑 3 格。物理倍率為（100＋技能等級×180＋VIT×2）%，再依 Base Lv 修正；顯示為 6 段命中但總傷害只計算一次。必須裝備斧類武器。",
+        "persistent_ground_allowed": false,
+        "source_version": "roweb.zip"
+      },
+      "events": [
+        {
+          "trigger": "GROUND_SPAWN",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "BOTTOM",
+          "target": "TARGET_FOOT",
+          "full_effect": "new_axetornado_bottom_328e380bb963",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 483,
+          "runtime_condition": "Spawn at the runtime target/caster foot when the skill commits.",
+          "source_effect_ids": [
+            "new_axetornado_bottom_328e380bb963",
+            "new_axetornado_bottom_8b692bacf332"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_axetornado_76c4126b7351",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 1833,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_axetornado_76c4126b7351",
+            "new_axetornado_9417f23f5e38"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        }
+      ],
+      "gateState": "PASS",
+      "deploymentPlacementPolicy": "DAMAGE_OR_DEBUFF_TARGET_MONSTER"
+    },
+    {
+      "skillId": 2285,
+      "skillKey": "SC_REPRODUCE",
+      "displayNameReference": "繁殖",
+      "localizationWritePolicy": "IDENTITY_ONLY_NO_LOCALIZATION_OVERWRITE",
+      "allowNameWriteback": false,
+      "allowDescriptionWriteback": false,
+      "eventAdapter": "RO_WEB_SKILL_EFFECT_EVENTS_V1",
+      "runtimeContract": {
+        "skill_id": 2285,
+        "skill_key": "SC_REPRODUCE",
+        "variable_cast_db_ms": 0,
+        "fixed_cast_db_ms": 0,
+        "release_preview_ms": 0,
+        "after_cast_act_delay_db_ms": 1000,
+        "after_cast_walk_delay_db_ms": 0,
+        "after_cast_walk_delay_preview_ms": 300,
+        "cooldown_db_ms": 0,
+        "action_motion": "CAST",
+        "action_lock_rule": "max(100ms, runtime cast total, ASPD action lock, 140ms attack throughput floor)",
+        "min_skill_delay_limit_ms": 100,
+        "performance_floor_ms": 0,
+        "handler": "skill_copy_selector",
+        "execution_enabled": true,
+        "target_origin": "self",
+        "target_shape": "",
+        "target_radius": null,
+        "damage_hit_count": 1,
+        "visual_hit_count": 1,
+        "duration_ms": 300000,
+        "runtime_adaptation": "開啟可繁殖技能清單，選擇一項可執行的 RA 合法技能加入「其他技能」。取得等級由繁殖等級決定且不超過目標技能上限；新技能會覆蓋原繁殖欄位。",
+        "persistent_ground_allowed": false,
+        "source_version": "roweb.zip"
+      },
+      "events": [
+        {
+          "trigger": "GROUND_SPAWN",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "BOTTOM",
+          "target": "CASTER_FOOT",
+          "full_effect": "new_reproduce_bottom_7507063c9395",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 1000,
+          "runtime_condition": "Spawn at the runtime target/caster foot when the skill commits.",
+          "source_effect_ids": [
+            "new_reproduce_bottom_7507063c9395",
+            "new_reproduce_bottom_a47f10440ff3"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "MAIN",
+          "target": "CASTER_BODY",
+          "full_effect": "new_reproduce_13ef1b635862",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 1817,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_reproduce_13ef1b635862",
+            "new_reproduce_3fcc637aa142"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        }
+      ],
+      "gateState": "PASS",
+      "deploymentPlacementPolicy": "SELF_CASTER"
+    },
+    {
+      "skillId": 2286,
+      "skillKey": "SC_AUTOSHADOWSPELL",
+      "displayNameReference": "自動魅影念咒",
+      "localizationWritePolicy": "IDENTITY_ONLY_NO_LOCALIZATION_OVERWRITE",
+      "allowNameWriteback": false,
+      "allowDescriptionWriteback": false,
+      "eventAdapter": "RO_WEB_SKILL_EFFECT_EVENTS_V1",
+      "runtimeContract": {
+        "skill_id": 2286,
+        "skill_key": "SC_AUTOSHADOWSPELL",
+        "variable_cast_db_ms": 4000,
+        "fixed_cast_db_ms": 2000,
+        "release_preview_ms": 6000,
+        "after_cast_act_delay_db_ms": 0,
+        "after_cast_walk_delay_db_ms": 0,
+        "after_cast_walk_delay_preview_ms": 300,
+        "cooldown_db_ms": 0,
+        "action_motion": "CAST",
+        "action_lock_rule": "max(100ms, runtime cast total, ASPD action lock, 140ms attack throughput floor)",
+        "min_skill_delay_limit_ms": 100,
+        "performance_floor_ms": 0,
+        "handler": "buff",
+        "execution_enabled": true,
+        "target_origin": "self",
+        "target_shape": "",
+        "target_radius": null,
+        "damage_hit_count": 1,
+        "visual_hit_count": 1,
+        "duration_ms": 300000,
+        "runtime_adaptation": "啟動自動魅影念咒。近距離普通攻擊命中時，有機率自動施放目前抄襲或繁殖欄中最新取得的可執行攻擊技能。自動施放等級取「複製技能等級」與「（本技能等級＋5）÷2 無條件捨去」的較小值，消耗該技能正常 SP 的 2/3。Lv1～9 發動率為 30－2×技能等級%，Lv10 為 15%；同時每級 MATK +5。",
+        "persistent_ground_allowed": false,
+        "source_version": "roweb.zip"
+      },
+      "events": [
+        {
+          "trigger": "GROUND_SPAWN",
+          "offset_ms": 0,
+          "nominal_at_ms": 6000,
+          "phase": "BOTTOM",
+          "target": "CASTER_FOOT",
+          "full_effect": "new_autoshadowspell_bottom_9ad6341b1bba",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 1000,
+          "runtime_condition": "Spawn at the runtime target/caster foot when the skill commits.",
+          "source_effect_ids": [
+            "new_autoshadowspell_bottom_9ad6341b1bba",
+            "new_autoshadowspell_bottom_cb921c272252"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 6000,
+          "phase": "MAIN",
+          "target": "CASTER_BODY",
+          "full_effect": "new_autoshadowspell_4f2bb0df3e10",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 1250,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_autoshadowspell_4f2bb0df3e10",
+            "new_autoshadowspell_badb6eeb9a5d"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        }
+      ],
+      "gateState": "PASS",
+      "deploymentPlacementPolicy": "SELF_CASTER"
+    },
+    {
+      "skillId": 2288,
+      "skillKey": "SC_TRIANGLESHOT",
+      "displayNameReference": "三角射擊",
+      "localizationWritePolicy": "IDENTITY_ONLY_NO_LOCALIZATION_OVERWRITE",
+      "allowNameWriteback": false,
+      "allowDescriptionWriteback": false,
+      "eventAdapter": "RO_WEB_SKILL_EFFECT_EVENTS_V1",
+      "runtimeContract": {
+        "skill_id": 2288,
+        "skill_key": "SC_TRIANGLESHOT",
+        "variable_cast_db_ms": 0,
+        "fixed_cast_db_ms": 0,
+        "release_preview_ms": 0,
+        "after_cast_act_delay_db_ms": 350,
+        "after_cast_walk_delay_db_ms": 0,
+        "after_cast_walk_delay_preview_ms": 300,
+        "cooldown_db_ms": 200,
+        "action_motion": "ATTACK",
+        "action_lock_rule": "max(100ms, runtime cast total, ASPD action lock, 140ms attack throughput floor)",
+        "min_skill_delay_limit_ms": 100,
+        "performance_floor_ms": 140,
+        "handler": "physical_attack_formula",
+        "execution_enabled": true,
+        "target_origin": "attack",
+        "target_shape": "",
+        "target_radius": null,
+        "damage_hit_count": 1,
+        "visual_hit_count": 3,
+        "duration_ms": 0,
+        "runtime_adaptation": "裝備弓時對敵人發動三連射擊，傷害依技能等級、AGI 與 BaseLv 計算；不檢查、不消耗箭矢。",
+        "persistent_ground_allowed": false,
+        "source_version": "roweb.zip"
+      },
+      "events": [
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_triangleshot_05c519017820",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 1233,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_triangleshot_05c519017820",
+            "new_triangleshot_8f4422a5755a",
+            "new_triangleshot_arrow_5842f664092b"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_triangleshot_arrow_ec13e52dff1e",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 500,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_triangleshot_arrow_ec13e52dff1e"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "SHOT_BOTTOM",
+          "target": "TARGET_FOOT",
+          "full_effect": "new_triangleshot_bottom_6b1fd4975ac3",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 850,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_triangleshot_bottom_6b1fd4975ac3",
+            "new_triangleshot_bottom_b1acf746a873"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        }
+      ],
+      "gateState": "PASS",
+      "deploymentPlacementPolicy": "DAMAGE_OR_DEBUFF_TARGET_MONSTER"
+    },
+    {
+      "skillId": 2307,
+      "skillKey": "LG_CANNONSPEAR",
+      "displayNameReference": "加農砲攻擊",
+      "localizationWritePolicy": "IDENTITY_ONLY_NO_LOCALIZATION_OVERWRITE",
+      "allowNameWriteback": false,
+      "allowDescriptionWriteback": false,
+      "eventAdapter": "RO_WEB_SKILL_EFFECT_EVENTS_V1",
+      "runtimeContract": {
+        "skill_id": 2307,
+        "skill_key": "LG_CANNONSPEAR",
+        "variable_cast_db_ms": 0,
+        "fixed_cast_db_ms": 0,
+        "release_preview_ms": 0,
+        "after_cast_act_delay_db_ms": 0,
+        "after_cast_walk_delay_db_ms": 0,
+        "after_cast_walk_delay_preview_ms": 300,
+        "cooldown_db_ms": 1700,
+        "action_motion": "ATTACK",
+        "action_lock_rule": "max(100ms, runtime cast total, ASPD action lock, 140ms attack throughput floor)",
+        "min_skill_delay_limit_ms": 100,
+        "performance_floor_ms": 140,
+        "handler": "physical_attack_formula",
+        "execution_enabled": true,
+        "target_origin": "target",
+        "target_shape": "line",
+        "target_radius": 3,
+        "damage_hit_count": 1,
+        "visual_hit_count": 1,
+        "duration_ms": 0,
+        "runtime_adaptation": "對目標及周圍 7×7 造成物理傷害。需要裝備長矛。",
+        "persistent_ground_allowed": false,
+        "source_version": "roweb.zip"
+      },
+      "events": [
+        {
+          "trigger": "GROUND_SPAWN",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "BOTTOM",
+          "target": "TARGET_FOOT",
+          "full_effect": "new_cannonspear_bottom_80436348c6bf",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 500,
+          "runtime_condition": "Spawn at the runtime target/caster foot when the skill commits.",
+          "source_effect_ids": [
+            "new_cannonspear_bottom_80436348c6bf"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_cannonspear_01_45f0e815f89f",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 333,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_cannonspear_01_45f0e815f89f",
+            "new_cannonspear_03_fbfcc46560df",
+            "new_cannonspear_05_9cde6ce9caaf",
+            "new_cannonspear_06_78d33d6eedeb",
+            "new_cannonspear_07_2df871cf111b",
+            "new_cannonspear_09_b532684a6922",
+            "new_cannonspear_11_59a56dbeea57",
+            "new_cannonspear_12_bdbe4f0a16aa"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        }
+      ],
+      "gateState": "PASS",
+      "deploymentPlacementPolicy": "DAMAGE_OR_DEBUFF_TARGET_MONSTER"
+    },
+    {
+      "skillId": 2323,
+      "skillKey": "LG_EARTHDRIVE",
+      "displayNameReference": "大地毀滅",
+      "localizationWritePolicy": "IDENTITY_ONLY_NO_LOCALIZATION_OVERWRITE",
+      "allowNameWriteback": false,
+      "allowDescriptionWriteback": false,
+      "eventAdapter": "RO_WEB_SKILL_EFFECT_EVENTS_V1",
+      "runtimeContract": {
+        "skill_id": 2323,
+        "skill_key": "LG_EARTHDRIVE",
+        "variable_cast_db_ms": 1000,
+        "fixed_cast_db_ms": 0,
+        "release_preview_ms": 1000,
+        "after_cast_act_delay_db_ms": 1000,
+        "after_cast_walk_delay_db_ms": 0,
+        "after_cast_walk_delay_preview_ms": 300,
+        "cooldown_db_ms": 6500,
+        "action_motion": "ATTACK",
+        "action_lock_rule": "max(100ms, runtime cast total, ASPD action lock, 140ms attack throughput floor)",
+        "min_skill_delay_limit_ms": 100,
+        "performance_floor_ms": 140,
+        "handler": "physical_attack_formula",
+        "execution_enabled": true,
+        "target_origin": "self",
+        "target_shape": "circle",
+        "target_radius": 2,
+        "damage_hit_count": -5,
+        "visual_hit_count": -5,
+        "duration_ms": 15000,
+        "runtime_adaptation": "對目標及周圍 5×5 造成地屬性物理傷害。需要裝備盾牌。",
+        "persistent_ground_allowed": false,
+        "source_version": "roweb.zip"
+      },
+      "events": [
+        {
+          "trigger": "GROUND_SPAWN",
+          "offset_ms": 0,
+          "nominal_at_ms": 1000,
+          "phase": "BOTTOM",
+          "target": "TARGET_FOOT",
+          "full_effect": "new_earthdrive_bottom_2ed82b7ae5a8",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 2150,
+          "runtime_condition": "Spawn at the runtime target/caster foot when the skill commits.",
+          "source_effect_ids": [
+            "new_earthdrive_bottom_2ed82b7ae5a8",
+            "new_earthdrive_bottom_edb859e7b216"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 1000,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_earthdrive_367370688141",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 1500,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_earthdrive_367370688141",
+            "new_earthdrive_d60254d361da"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "HIT_CONFIRM",
+          "offset_ms": 0,
+          "nominal_at_ms": 1000,
+          "phase": "HIT",
+          "target": "TARGET_BODY",
+          "full_effect": "new_earthdrive_target_34af4ea16ce9",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 283,
+          "runtime_condition": "Play on each runtime hit confirmation; preview adds nominal travel only for ranged targets.",
+          "source_effect_ids": [
+            "new_earthdrive_target_34af4ea16ce9",
+            "new_earthdrive_target_3aacfd99aeac"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        }
+      ],
+      "gateState": "PASS",
+      "deploymentPlacementPolicy": "DAMAGE_OR_DEBUFF_TARGET_MONSTER"
+    },
+    {
+      "skillId": 2329,
+      "skillKey": "SR_FALLENEMPIRE",
+      "displayNameReference": "大纏崩墜",
+      "localizationWritePolicy": "IDENTITY_ONLY_NO_LOCALIZATION_OVERWRITE",
+      "allowNameWriteback": false,
+      "allowDescriptionWriteback": false,
+      "eventAdapter": "RO_WEB_SKILL_EFFECT_EVENTS_V1",
+      "runtimeContract": {
+        "skill_id": 2329,
+        "skill_key": "SR_FALLENEMPIRE",
+        "variable_cast_db_ms": 0,
+        "fixed_cast_db_ms": 0,
+        "release_preview_ms": 0,
+        "after_cast_act_delay_db_ms": 0,
+        "after_cast_walk_delay_db_ms": 0,
+        "after_cast_walk_delay_preview_ms": 300,
+        "cooldown_db_ms": 0,
+        "action_motion": "ATTACK",
+        "action_lock_rule": "max(100ms, runtime cast total, ASPD action lock, 140ms attack throughput floor)",
+        "min_skill_delay_limit_ms": 100,
+        "performance_floor_ms": 140,
+        "handler": "physical_attack_formula",
+        "execution_enabled": true,
+        "target_origin": "self",
+        "target_shape": "",
+        "target_radius": null,
+        "damage_hit_count": 2,
+        "visual_hit_count": 2,
+        "duration_ms": 2500,
+        "runtime_adaptation": "消耗氣彈對敵人造成 2 Hit 近距離物理傷害。命中後短時間內施放虎砲可獲得連技傷害加成；可直接施放，不需要前置連技。",
+        "persistent_ground_allowed": false,
+        "source_version": "roweb.zip"
+      },
+      "events": [
+        {
+          "trigger": "GROUND_SPAWN",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "BOTTOM",
+          "target": "TARGET_FOOT",
+          "full_effect": "new_fallenempire_bottom_c8b43860c276",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 500,
+          "runtime_condition": "Spawn at the runtime target/caster foot when the skill commits.",
+          "source_effect_ids": [
+            "new_fallenempire_bottom_c8b43860c276",
+            "new_fallenempire_bottom_fe706df3afe5"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_fallenempire_005199ad6e7e",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 833,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_fallenempire_005199ad6e7e",
+            "new_fallenempire_bffbf53efee2"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "HIT_CONFIRM",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "HIT",
+          "target": "TARGET_BODY",
+          "full_effect": "new_fallenempire_hit_26cb97259acc",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 217,
+          "runtime_condition": "Play on each runtime hit confirmation; preview adds nominal travel only for ranged targets.",
+          "source_effect_ids": [
+            "new_fallenempire_hit_26cb97259acc",
+            "new_fallenempire_hit_62cdd1e2bdf3"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        }
+      ],
+      "gateState": "PASS",
+      "deploymentPlacementPolicy": "DAMAGE_OR_DEBUFF_TARGET_MONSTER"
+    },
+    {
+      "skillId": 2332,
+      "skillKey": "SR_RAMPAGEBLASTER",
+      "displayNameReference": "爆氣散彈",
+      "localizationWritePolicy": "IDENTITY_ONLY_NO_LOCALIZATION_OVERWRITE",
+      "allowNameWriteback": false,
+      "allowDescriptionWriteback": false,
+      "eventAdapter": "RO_WEB_SKILL_EFFECT_EVENTS_V1",
+      "runtimeContract": {
+        "skill_id": 2332,
+        "skill_key": "SR_RAMPAGEBLASTER",
+        "variable_cast_db_ms": 0,
+        "fixed_cast_db_ms": 0,
+        "release_preview_ms": 0,
+        "after_cast_act_delay_db_ms": 1000,
+        "after_cast_walk_delay_db_ms": 0,
+        "after_cast_walk_delay_preview_ms": 300,
+        "cooldown_db_ms": 10000,
+        "action_motion": "ATTACK",
+        "action_lock_rule": "max(100ms, runtime cast total, ASPD action lock, 140ms attack throughput floor)",
+        "min_skill_delay_limit_ms": 100,
+        "performance_floor_ms": 140,
+        "handler": "physical_attack_formula",
+        "execution_enabled": true,
+        "target_origin": "self",
+        "target_shape": "circle",
+        "target_radius": 3,
+        "damage_hit_count": 1,
+        "visual_hit_count": 1,
+        "duration_ms": 0,
+        "runtime_adaptation": "消耗 3 顆氣彈，對自身周圍 3 格內所有敵人造成物理傷害。目標若帶有地雷震標記，會套用更高的傷害公式。",
+        "persistent_ground_allowed": false,
+        "source_version": "roweb.zip"
+      },
+      "events": [
+        {
+          "trigger": "GROUND_SPAWN",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "BOTTOM",
+          "target": "TARGET_FOOT",
+          "full_effect": "new_rampageblaster_bottom_8cdd1b7b6174",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 500,
+          "runtime_condition": "Spawn at the runtime target/caster foot when the skill commits.",
+          "source_effect_ids": [
+            "new_rampageblaster_bottom_8cdd1b7b6174",
+            "new_rampageblaster_bottom_e1bdb6735469"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_rampageblaster_2c74be5fb1ff",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 417,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_rampageblaster_2c74be5fb1ff",
+            "new_rampageblaster_exp_3b73285472bd"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        }
+      ],
+      "gateState": "PASS",
+      "deploymentPlacementPolicy": "DAMAGE_OR_DEBUFF_TARGET_MONSTER"
+    },
+    {
+      "skillId": 2445,
+      "skillKey": "SO_SPELLFIST",
+      "displayNameReference": "魔力拳",
+      "localizationWritePolicy": "IDENTITY_ONLY_NO_LOCALIZATION_OVERWRITE",
+      "allowNameWriteback": false,
+      "allowDescriptionWriteback": false,
+      "eventAdapter": "RO_WEB_SKILL_EFFECT_EVENTS_V1",
+      "runtimeContract": {
+        "skill_id": 2445,
+        "skill_key": "SO_SPELLFIST",
+        "variable_cast_db_ms": 0,
+        "fixed_cast_db_ms": 0,
+        "release_preview_ms": 0,
+        "after_cast_act_delay_db_ms": 1000,
+        "after_cast_walk_delay_db_ms": 0,
+        "after_cast_walk_delay_preview_ms": 300,
+        "cooldown_db_ms": 0,
+        "action_motion": "CAST",
+        "action_lock_rule": "max(100ms, runtime cast total, ASPD action lock, 140ms attack throughput floor)",
+        "min_skill_delay_limit_ms": 100,
+        "performance_floor_ms": 0,
+        "handler": "buff",
+        "execution_enabled": true,
+        "target_origin": "self",
+        "target_shape": "",
+        "target_radius": null,
+        "damage_hit_count": 1,
+        "visual_hit_count": 1,
+        "duration_ms": 180000,
+        "runtime_adaptation": "施放時自動選擇已學會且等級最高的冰箭術、火箭術或雷擊術。效果期間普通攻擊命中時追加一次近距離魔法傷害，倍率為「20×魔力拳等級＋100×箭術等級」%；持續 45～180 秒，不消耗每擊 SP 或技能 SP。",
+        "persistent_ground_allowed": false,
+        "source_version": "roweb.zip"
+      },
+      "events": [
+        {
+          "trigger": "GROUND_SPAWN",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "BOTTOM",
+          "target": "CASTER_FOOT",
+          "full_effect": "new_spellfist_fire_bottom_5545e961bd79",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 933,
+          "runtime_condition": "Spawn at the runtime target/caster foot when the skill commits.",
+          "source_effect_ids": [
+            "new_spellfist_fire_bottom_5545e961bd79",
+            "new_spellfist_water_bottom_be80d1c545e7"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "GROUND_SPAWN",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "BOTTOM",
+          "target": "CASTER_FOOT",
+          "full_effect": "new_spellfist_fire_bottom_a004de97e488",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 933,
+          "runtime_condition": "Spawn at the runtime target/caster foot when the skill commits.",
+          "source_effect_ids": [
+            "new_spellfist_fire_bottom_a004de97e488"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "GROUND_SPAWN",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "BOTTOM",
+          "target": "CASTER_FOOT",
+          "full_effect": "new_spellfist_water_bottom_a792b78e5b83",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 933,
+          "runtime_condition": "Spawn at the runtime target/caster foot when the skill commits.",
+          "source_effect_ids": [
+            "new_spellfist_water_bottom_a792b78e5b83"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "MAIN",
+          "target": "CASTER_BODY",
+          "full_effect": "new_spellfist_fire_6147989a0374",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 850,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_spellfist_fire_6147989a0374"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "MAIN",
+          "target": "CASTER_BODY",
+          "full_effect": "new_spellfist_fire_9b4a13ed753d",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 850,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_spellfist_fire_9b4a13ed753d",
+            "new_spellfist_water_3d2235f64800",
+            "new_spellfist_wind_f80dfa9b38a2"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "MAIN",
+          "target": "CASTER_BODY",
+          "full_effect": "new_spellfist_water_ae4b2f63d46c",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 583,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_spellfist_water_ae4b2f63d46c"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "MAIN",
+          "target": "CASTER_BODY",
+          "full_effect": "new_spellfist_wind_bcf6e9e0d66c",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 750,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_spellfist_wind_bcf6e9e0d66c"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        }
+      ],
+      "gateState": "PASS",
+      "deploymentPlacementPolicy": "SELF_CASTER"
+    },
+    {
+      "skillId": 2447,
+      "skillKey": "SO_DIAMONDDUST",
+      "displayNameReference": "鑽石星塵",
+      "localizationWritePolicy": "IDENTITY_ONLY_NO_LOCALIZATION_OVERWRITE",
+      "allowNameWriteback": false,
+      "allowDescriptionWriteback": false,
+      "eventAdapter": "RO_WEB_SKILL_EFFECT_EVENTS_V1",
+      "runtimeContract": {
+        "skill_id": 2447,
+        "skill_key": "SO_DIAMONDDUST",
+        "variable_cast_db_ms": 7000,
+        "fixed_cast_db_ms": 800,
+        "release_preview_ms": 7800,
+        "after_cast_act_delay_db_ms": 1000,
+        "after_cast_walk_delay_db_ms": 0,
+        "after_cast_walk_delay_preview_ms": 300,
+        "cooldown_db_ms": 5000,
+        "action_motion": "ATTACK",
+        "action_lock_rule": "max(100ms, runtime cast total, ASPD action lock, 140ms attack throughput floor)",
+        "min_skill_delay_limit_ms": 100,
+        "performance_floor_ms": 140,
+        "handler": "magic_damage",
+        "execution_enabled": true,
+        "target_origin": "target",
+        "target_shape": "circle",
+        "target_radius": [
+          3,
+          3,
+          3,
+          4,
+          4
+        ],
+        "damage_hit_count": 1,
+        "visual_hit_count": 5,
+        "duration_ms": 500,
+        "runtime_adaptation": "依 RA Renewal 公式讀取 INT、BaseLv 與水屬性附加等級；結晶化對怪物實裝每秒最大 HP 2% 非致死傷害、風魔法易傷與火屬性解除。",
+        "persistent_ground_allowed": true,
+        "source_version": "roweb.zip"
+      },
+      "events": [
+        {
+          "trigger": "CAST_BEGIN",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "CAST",
+          "target": "CASTER_BODY",
+          "full_effect": "new_diamonddust_cast_e622b4b62153",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 667,
+          "runtime_condition": "Begin when RO_WEB starts the variable/fixed cast state.",
+          "source_effect_ids": [
+            "new_diamonddust_cast_e622b4b62153",
+            "new_diamonddust_cast_fdcb2abfabce"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "GROUND_SPAWN",
+          "offset_ms": 0,
+          "nominal_at_ms": 7800,
+          "phase": "BOTTOM",
+          "target": "TARGET_FOOT",
+          "full_effect": "new_diamonddust_bottom_6f340c6443f3",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 1650,
+          "runtime_condition": "Spawn at the runtime target/caster foot when the skill commits.",
+          "source_effect_ids": [
+            "new_diamonddust_bottom_6f340c6443f3",
+            "new_diamonddust_bottom_6f49adc31c7e"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 7800,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_diamonddust_42c702c8c906",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 1533,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_diamonddust_42c702c8c906",
+            "new_diamonddust_d231ff644641"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        }
+      ],
+      "gateState": "PASS",
+      "deploymentPlacementPolicy": "DAMAGE_OR_DEBUFF_TARGET_MONSTER"
+    },
+    {
+      "skillId": 2476,
+      "skillKey": "GN_CART_TORNADO",
+      "displayNameReference": "手推車龍捲風",
+      "localizationWritePolicy": "IDENTITY_ONLY_NO_LOCALIZATION_OVERWRITE",
+      "allowNameWriteback": false,
+      "allowDescriptionWriteback": false,
+      "eventAdapter": "RO_WEB_SKILL_EFFECT_EVENTS_V1",
+      "runtimeContract": {
+        "skill_id": 2476,
+        "skill_key": "GN_CART_TORNADO",
+        "variable_cast_db_ms": 0,
+        "fixed_cast_db_ms": 0,
+        "release_preview_ms": 0,
+        "after_cast_act_delay_db_ms": 1000,
+        "after_cast_walk_delay_db_ms": 0,
+        "after_cast_walk_delay_preview_ms": 300,
+        "cooldown_db_ms": 2000,
+        "action_motion": "ATTACK",
+        "action_lock_rule": "max(100ms, runtime cast total, ASPD action lock, 140ms attack throughput floor)",
+        "min_skill_delay_limit_ms": 100,
+        "performance_floor_ms": 140,
+        "handler": "physical_attack_formula",
+        "execution_enabled": true,
+        "target_origin": "self",
+        "target_shape": "square",
+        "target_radius": 2,
+        "damage_hit_count": 1,
+        "visual_hit_count": 3,
+        "duration_ms": 5000,
+        "runtime_adaptation": "RO_WEB has no cart-weight system. Always calculate with the full cart load; Cart Remodeling increases the assumed maximum load and adds its official +50% damage and +4 HIT per level.",
+        "persistent_ground_allowed": false,
+        "source_version": "roweb.zip"
+      },
+      "events": [
+        {
+          "trigger": "GROUND_SPAWN",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "BOTTOM",
+          "target": "TARGET_FOOT",
+          "full_effect": "new_carttornado_bottom_c37cb8f42a7d",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 617,
+          "runtime_condition": "Spawn at the runtime target/caster foot when the skill commits.",
+          "source_effect_ids": [
+            "new_cart_tornado_bottom_a1ab64c66f86",
+            "new_carttornado_bottom_c37cb8f42a7d"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_carttornado_59e58fd6dd2d",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 1000,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_cart_tornado_6f32d607e8bb",
+            "new_carttornado_59e58fd6dd2d"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        }
+      ],
+      "gateState": "PASS",
+      "deploymentPlacementPolicy": "DAMAGE_OR_DEBUFF_TARGET_MONSTER"
+    },
+    {
+      "skillId": 2492,
+      "skillKey": "GN_MANDRAGORA",
+      "displayNameReference": "曼陀羅魔花的尖叫",
+      "localizationWritePolicy": "IDENTITY_ONLY_NO_LOCALIZATION_OVERWRITE",
+      "allowNameWriteback": false,
+      "allowDescriptionWriteback": false,
+      "eventAdapter": "RO_WEB_SKILL_EFFECT_EVENTS_V1",
+      "runtimeContract": {
+        "skill_id": 2492,
+        "skill_key": "GN_MANDRAGORA",
+        "variable_cast_db_ms": 1000,
+        "fixed_cast_db_ms": 0,
+        "release_preview_ms": 1000,
+        "after_cast_act_delay_db_ms": 500,
+        "after_cast_walk_delay_db_ms": 0,
+        "after_cast_walk_delay_preview_ms": 300,
+        "cooldown_db_ms": 10000,
+        "action_motion": "CAST",
+        "action_lock_rule": "max(100ms, runtime cast total, ASPD action lock, 140ms attack throughput floor)",
+        "min_skill_delay_limit_ms": 100,
+        "performance_floor_ms": 0,
+        "handler": "debuff",
+        "execution_enabled": true,
+        "target_origin": "target",
+        "target_shape": "circle",
+        "target_radius": [
+          5,
+          6,
+          6,
+          7,
+          7
+        ],
+        "damage_hit_count": 1,
+        "visual_hit_count": 1,
+        "duration_ms": 30000,
+        "runtime_adaptation": "直接對敵人及周圍施加弱化，依技能公式判定成功率並降低 INT、增加固定詠唱與扣除 SP；Boss 免疫。不消耗曼陀羅花盆。",
+        "persistent_ground_allowed": false,
+        "source_version": "roweb.zip"
+      },
+      "events": [
+        {
+          "trigger": "CAST_BEGIN",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "CAST",
+          "target": "CASTER_BODY",
+          "full_effect": "new_mandragora_cast_184dbcd89bac",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 833,
+          "runtime_condition": "Begin when RO_WEB starts the variable/fixed cast state.",
+          "source_effect_ids": [
+            "new_mandragora_cast_184dbcd89bac",
+            "new_mandragora_cast_3f90e932e864"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "GROUND_SPAWN",
+          "offset_ms": 0,
+          "nominal_at_ms": 1000,
+          "phase": "BOTTOM",
+          "target": "TARGET_FOOT",
+          "full_effect": "new_mandragora_bottom_2bef46ec149b",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 667,
+          "runtime_condition": "Spawn at the runtime target/caster foot when the skill commits.",
+          "source_effect_ids": [
+            "new_mandragora_bottom_2bef46ec149b",
+            "new_mandragora_bottom_8bccc5d9c50d"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 1000,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_mandragora_54bbbe8a5a7c",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 917,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_mandragora_54bbbe8a5a7c",
+            "new_mandragora_7c44bed29fe4"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        }
+      ],
+      "gateState": "PASS",
+      "deploymentPlacementPolicy": "DAMAGE_OR_DEBUFF_TARGET_MONSTER"
+    },
+    {
+      "skillId": 5004,
+      "skillKey": "RK_DRAGONBREATH_WATER",
+      "displayNameReference": "龍之氣息-水",
+      "localizationWritePolicy": "IDENTITY_ONLY_NO_LOCALIZATION_OVERWRITE",
+      "allowNameWriteback": false,
+      "allowDescriptionWriteback": false,
+      "eventAdapter": "RO_WEB_SKILL_EFFECT_EVENTS_V1",
+      "runtimeContract": {
+        "skill_id": 5004,
+        "skill_key": "RK_DRAGONBREATH_WATER",
+        "variable_cast_db_ms": 2000,
+        "fixed_cast_db_ms": 500,
+        "release_preview_ms": 2500,
+        "after_cast_act_delay_db_ms": 2000,
+        "after_cast_walk_delay_db_ms": 0,
+        "after_cast_walk_delay_preview_ms": 300,
+        "cooldown_db_ms": 0,
+        "action_motion": "ATTACK",
+        "action_lock_rule": "max(100ms, runtime cast total, ASPD action lock, 140ms attack throughput floor)",
+        "min_skill_delay_limit_ms": 100,
+        "performance_floor_ms": 140,
+        "handler": "physical_attack_formula",
+        "execution_enabled": true,
+        "target_origin": "ground",
+        "target_shape": "",
+        "target_radius": null,
+        "damage_hit_count": 1,
+        "visual_hit_count": 1,
+        "duration_ms": 40000,
+        "runtime_adaptation": "必須騎乘龍坐騎。向指定區域噴吐寒氣，依自身 HP、SP、BaseLv 與龍駕馭等級造成水屬性物理傷害並有機率冰凍。",
+        "persistent_ground_allowed": false,
+        "source_version": "roweb.zip"
+      },
+      "events": [
+        {
+          "trigger": "GROUND_SPAWN",
+          "offset_ms": 0,
+          "nominal_at_ms": 2500,
+          "phase": "BOTTOM",
+          "target": "TARGET_FOOT",
+          "full_effect": "new_dragonbreath_water_bomb_bottom_4c9e673fff8b",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 1667,
+          "runtime_condition": "Spawn at the runtime target/caster foot when the skill commits.",
+          "source_effect_ids": [
+            "new_dragonbreath_water_bomb_bottom_4c9e673fff8b"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 2500,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_dragonbreath_water_01_clock_8e529fd2d90e",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 1667,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_dragonbreath_water_01_clock_8e529fd2d90e"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 2500,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_dragonbreath_water_01_e61760a7ea63",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 833,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_dragonbreath_water_01_e61760a7ea63",
+            "new_dragonbreath_water_05_9579deda3722",
+            "new_dragonbreath_water_07_96682f7fb97d",
+            "new_dragonbreath_water_11_ab9aa76c97a8",
+            "new_dragonbreath_water_bomb_d6392d1b1342"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 2500,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_dragonbreath_water_05_clock_1d56c3c2f28f",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 1667,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_dragonbreath_water_05_clock_1d56c3c2f28f"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 2500,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_dragonbreath_water_07_clock_646bb1ec7caa",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 1667,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_dragonbreath_water_07_clock_646bb1ec7caa"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 2500,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_dragonbreath_water_11_clock_9f84e2e73cf6",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 1667,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_dragonbreath_water_11_clock_9f84e2e73cf6"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 2500,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "new_dragonbreath_water_bomb_0687d9d5aa13",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 1667,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "new_dragonbreath_water_bomb_0687d9d5aa13"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        }
+      ],
+      "gateState": "PASS",
+      "deploymentPlacementPolicy": "DAMAGE_OR_DEBUFF_TARGET_MONSTER"
+    },
+    {
+      "skillId": 5217,
+      "skillKey": "AG_MYSTERY_ILLUSION",
+      "displayNameReference": "神秘幻滅",
+      "localizationWritePolicy": "IDENTITY_ONLY_NO_LOCALIZATION_OVERWRITE",
+      "allowNameWriteback": false,
+      "allowDescriptionWriteback": false,
+      "eventAdapter": "RO_WEB_SKILL_EFFECT_EVENTS_V1",
+      "runtimeContract": {
+        "skill_id": 5217,
+        "skill_key": "AG_MYSTERY_ILLUSION",
+        "variable_cast_db_ms": 4000,
+        "fixed_cast_db_ms": 1500,
+        "release_preview_ms": 5500,
+        "after_cast_act_delay_db_ms": 750,
+        "after_cast_walk_delay_db_ms": 0,
+        "after_cast_walk_delay_preview_ms": 300,
+        "cooldown_db_ms": 4000,
+        "action_motion": "ATTACK",
+        "action_lock_rule": "max(100ms, runtime cast total, ASPD action lock, 140ms attack throughput floor)",
+        "min_skill_delay_limit_ms": 100,
+        "performance_floor_ms": 140,
+        "handler": "ground_damage",
+        "execution_enabled": true,
+        "target_origin": "target",
+        "target_shape": "circle",
+        "target_radius": [
+          4,
+          4,
+          5,
+          5,
+          6
+        ],
+        "damage_hit_count": 1,
+        "visual_hit_count": 1,
+        "duration_ms": 4000,
+        "runtime_adaptation": "在目標位置建立固定暗屬性幻滅區域，持續 4 秒，每 0.3 秒依公式造成一次暗屬性魔法傷害。",
+        "persistent_ground_allowed": true,
+        "source_version": "roweb.zip"
+      },
+      "events": [
+        {
+          "trigger": "CAST_BEGIN",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "CAST",
+          "target": "CASTER_BODY",
+          "full_effect": "mystery_illusion_cast_81d9523ad354",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 583,
+          "runtime_condition": "Begin when RO_WEB starts the variable/fixed cast state.",
+          "source_effect_ids": [
+            "mystery_illusion_cast_81d9523ad354"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "CAST_BEGIN",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "CAST_BOTTOM",
+          "target": "CASTER_FOOT",
+          "full_effect": "mystery_illusion_cast_bottom_015598183a1b",
+          "min_effect": "min_mystery_illusion_cast_bottom_48a23ac762aa",
+          "fallback": "NONE",
+          "duration_ms": 583,
+          "runtime_condition": "Begin when RO_WEB starts the variable/fixed cast state.",
+          "source_effect_ids": [
+            "min_mystery_illusion_cast_bottom_48a23ac762aa",
+            "mystery_illusion_cast_bottom_015598183a1b"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "GROUND_SPAWN",
+          "offset_ms": 0,
+          "nominal_at_ms": 5500,
+          "phase": "BOTTOM",
+          "target": "TARGET_FOOT",
+          "full_effect": "mystery_illusion_bottom_ccc82602c5d9",
+          "min_effect": "min_mystery_illusion_bottom_69167ae1a027",
+          "fallback": "NONE",
+          "duration_ms": 833,
+          "runtime_condition": "Spawn at the runtime target/caster foot when the skill commits.",
+          "source_effect_ids": [
+            "min_mystery_illusion_bottom_69167ae1a027",
+            "mystery_illusion_bottom_ccc82602c5d9"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 5500,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "mystery_illusion_1e483d975fb6",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 833,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "mystery_illusion_1e483d975fb6"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "HIT_CONFIRM",
+          "offset_ms": 250,
+          "nominal_at_ms": 5750,
+          "phase": "HIT",
+          "target": "TARGET_BODY",
+          "full_effect": "mystery_illusion_hit_b6eb087fd2fb",
+          "min_effect": "min_mystery_illusion_hit_91696462a9ba",
+          "fallback": "NONE",
+          "duration_ms": 833,
+          "runtime_condition": "Play on each runtime hit confirmation; preview adds nominal travel only for ranged targets.",
+          "source_effect_ids": [
+            "min_mystery_illusion_hit_91696462a9ba",
+            "mystery_illusion_hit_b6eb087fd2fb"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        }
+      ],
+      "gateState": "PASS",
+      "deploymentPlacementPolicy": "DAMAGE_OR_DEBUFF_TARGET_MONSTER"
+    },
+    {
+      "skillId": 5220,
+      "skillKey": "AG_SOUL_VC_STRIKE",
+      "displayNameReference": "靈魂連擊",
+      "localizationWritePolicy": "IDENTITY_ONLY_NO_LOCALIZATION_OVERWRITE",
+      "allowNameWriteback": false,
+      "allowDescriptionWriteback": false,
+      "eventAdapter": "RO_WEB_SKILL_EFFECT_EVENTS_V1",
+      "runtimeContract": {
+        "skill_id": 5220,
+        "skill_key": "AG_SOUL_VC_STRIKE",
+        "variable_cast_db_ms": 3000,
+        "fixed_cast_db_ms": 1000,
+        "release_preview_ms": 4000,
+        "after_cast_act_delay_db_ms": 500,
+        "after_cast_walk_delay_db_ms": 0,
+        "after_cast_walk_delay_preview_ms": 300,
+        "cooldown_db_ms": 700,
+        "action_motion": "ATTACK",
+        "action_lock_rule": "max(100ms, runtime cast total, ASPD action lock, 140ms attack throughput floor)",
+        "min_skill_delay_limit_ms": 100,
+        "performance_floor_ms": 140,
+        "handler": "magic_damage",
+        "execution_enabled": true,
+        "target_origin": "target",
+        "target_shape": "circle",
+        "target_radius": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "damage_hit_count": 7,
+        "visual_hit_count": 7,
+        "duration_ms": 0,
+        "runtime_adaptation": "對指定敵人及周圍 3×3～11×11 造成 3／4／5／6／7 段念屬性魔法傷害，每段倍率為（300×技能等級＋3×SPL）×BaseLv÷100%。不消耗 SP。",
+        "persistent_ground_allowed": false,
+        "source_version": "roweb.zip"
+      },
+      "events": [
+        {
+          "trigger": "CAST_BEGIN",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "CAST",
+          "target": "CASTER_BODY",
+          "full_effect": "soul_vc_strike_cast_a9885c44a832",
+          "min_effect": "min_soul_vc_strike_cast_6348d44413df",
+          "fallback": "NONE",
+          "duration_ms": 667,
+          "runtime_condition": "Begin when RO_WEB starts the variable/fixed cast state.",
+          "source_effect_ids": [
+            "min_soul_vc_strike_cast_6348d44413df",
+            "soul_vc_strike_cast_a9885c44a832"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "CAST_BEGIN",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "CAST_BOTTOM",
+          "target": "CASTER_FOOT",
+          "full_effect": "soul_vc_strike_cast_bottom_2e270d75d7a6",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 667,
+          "runtime_condition": "Begin when RO_WEB starts the variable/fixed cast state.",
+          "source_effect_ids": [
+            "soul_vc_strike_cast_bottom_2e270d75d7a6"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "HIT_CONFIRM",
+          "offset_ms": 250,
+          "nominal_at_ms": 4250,
+          "phase": "HIT",
+          "target": "TARGET_BODY",
+          "full_effect": "soul_vc_strike_hit_ddaffbbd103f",
+          "min_effect": "min_soul_vc_strike_hit_6c6c8267ec45",
+          "fallback": "NONE",
+          "duration_ms": 833,
+          "runtime_condition": "Play on each runtime hit confirmation; preview adds nominal travel only for ranged targets.",
+          "source_effect_ids": [
+            "min_soul_vc_strike_hit_6c6c8267ec45",
+            "soul_vc_strike_hit_ddaffbbd103f"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        }
+      ],
+      "gateState": "PASS",
+      "deploymentPlacementPolicy": "DAMAGE_OR_DEBUFF_TARGET_MONSTER"
+    },
+    {
+      "skillId": 5273,
+      "skillKey": "CD_ARBITRIUM",
+      "displayNameReference": "制裁謳歌",
+      "localizationWritePolicy": "IDENTITY_ONLY_NO_LOCALIZATION_OVERWRITE",
+      "allowNameWriteback": false,
+      "allowDescriptionWriteback": false,
+      "eventAdapter": "RO_WEB_SKILL_EFFECT_EVENTS_V1",
+      "runtimeContract": {
+        "skill_id": 5273,
+        "skill_key": "CD_ARBITRIUM",
+        "variable_cast_db_ms": 4000,
+        "fixed_cast_db_ms": 1500,
+        "release_preview_ms": 5500,
+        "after_cast_act_delay_db_ms": 500,
+        "after_cast_walk_delay_db_ms": 0,
+        "after_cast_walk_delay_preview_ms": 300,
+        "cooldown_db_ms": 750,
+        "action_motion": "ATTACK",
+        "action_lock_rule": "max(100ms, runtime cast total, ASPD action lock, 140ms attack throughput floor)",
+        "min_skill_delay_limit_ms": 100,
+        "performance_floor_ms": 140,
+        "handler": "magic_damage",
+        "execution_enabled": true,
+        "target_origin": "target",
+        "target_shape": "circle",
+        "target_radius": 4,
+        "damage_hit_count": 2,
+        "visual_hit_count": 2,
+        "duration_ms": 20000,
+        "runtime_adaptation": "以聖屬性魔法仲裁目標周圍敵人，造成 2 Hit 傷害並附加深度沉默 20 秒。傷害依技能等級、SPL、忠誠信念與 Base Lv 計算。",
+        "persistent_ground_allowed": false,
+        "source_version": "roweb.zip"
+      },
+      "events": [
+        {
+          "trigger": "CAST_BEGIN",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "CAST",
+          "target": "CASTER_BODY",
+          "full_effect": "arbitrium_cast_aaa5123bd595",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 833,
+          "runtime_condition": "Begin when RO_WEB starts the variable/fixed cast state.",
+          "source_effect_ids": [
+            "arbitrium_cast_aaa5123bd595"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "CAST_BEGIN",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "CAST_BOTTOM",
+          "target": "CASTER_FOOT",
+          "full_effect": "arbitrium_cast_bottom_fc3767db7dd1",
+          "min_effect": "min_arbitrium_cast_bottom_927e376b2744",
+          "fallback": "NONE",
+          "duration_ms": 850,
+          "runtime_condition": "Begin when RO_WEB starts the variable/fixed cast state.",
+          "source_effect_ids": [
+            "arbitrium_cast_bottom_fc3767db7dd1",
+            "min_arbitrium_cast_bottom_927e376b2744"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "GROUND_SPAWN",
+          "offset_ms": 0,
+          "nominal_at_ms": 5500,
+          "phase": "BOTTOM",
+          "target": "TARGET_FOOT",
+          "full_effect": "arbitrium_bottom_055ecda22f1e",
+          "min_effect": "min_arbitrium_bottom_6bb14b4273ec",
+          "fallback": "NONE",
+          "duration_ms": 2167,
+          "runtime_condition": "Spawn at the runtime target/caster foot when the skill commits.",
+          "source_effect_ids": [
+            "arbitrium_bottom_055ecda22f1e",
+            "min_arbitrium_bottom_6bb14b4273ec"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 5500,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "arbitrium_ea700d6b12eb",
+          "min_effect": "min_arbitrium_9cf879555947",
+          "fallback": "NONE",
+          "duration_ms": 2167,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "arbitrium_ea700d6b12eb",
+            "min_arbitrium_9cf879555947"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "HIT_CONFIRM",
+          "offset_ms": 250,
+          "nominal_at_ms": 5750,
+          "phase": "HIT",
+          "target": "TARGET_BODY",
+          "full_effect": "arbitrium_hit_369c273f3155",
+          "min_effect": "min_arbitrium_hit_b39fd4f47c9b",
+          "fallback": "NONE",
+          "duration_ms": 283,
+          "runtime_condition": "Play on each runtime hit confirmation; preview adds nominal travel only for ranged targets.",
+          "source_effect_ids": [
+            "arbitrium_hit_369c273f3155",
+            "min_arbitrium_hit_b39fd4f47c9b"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        }
+      ],
+      "gateState": "PASS",
+      "deploymentPlacementPolicy": "DAMAGE_OR_DEBUFF_TARGET_MONSTER"
+    },
+    {
+      "skillId": 5282,
+      "skillKey": "CD_BENEDICTUM",
+      "displayNameReference": "祝福讚歌",
+      "localizationWritePolicy": "IDENTITY_ONLY_NO_LOCALIZATION_OVERWRITE",
+      "allowNameWriteback": false,
+      "allowDescriptionWriteback": false,
+      "eventAdapter": "RO_WEB_SKILL_EFFECT_EVENTS_V1",
+      "runtimeContract": {
+        "skill_id": 5282,
+        "skill_key": "CD_BENEDICTUM",
+        "variable_cast_db_ms": 0,
+        "fixed_cast_db_ms": 1000,
+        "release_preview_ms": 1000,
+        "after_cast_act_delay_db_ms": 700,
+        "after_cast_walk_delay_db_ms": 0,
+        "after_cast_walk_delay_preview_ms": 300,
+        "cooldown_db_ms": 250,
+        "action_motion": "CAST",
+        "action_lock_rule": "max(100ms, runtime cast total, ASPD action lock, 140ms attack throughput floor)",
+        "min_skill_delay_limit_ms": 100,
+        "performance_floor_ms": 0,
+        "handler": "buff",
+        "execution_enabled": true,
+        "target_origin": "self",
+        "target_shape": "",
+        "target_radius": null,
+        "damage_hit_count": 1,
+        "visual_hit_count": 1,
+        "duration_ms": 240000,
+        "runtime_adaptation": "只對自身施放，持續 120～240 秒。每級 POW／CON／CRT 各 +2，Lv5 各 +10。",
+        "persistent_ground_allowed": false,
+        "source_version": "roweb.zip"
+      },
+      "events": [
+        {
+          "trigger": "CAST_BEGIN",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "CAST",
+          "target": "CASTER_BODY",
+          "full_effect": "benedictum_cast_e4ee76a39b4b",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 1500,
+          "runtime_condition": "Begin when RO_WEB starts the variable/fixed cast state.",
+          "source_effect_ids": [
+            "benedictum_cast_e4ee76a39b4b"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "CAST_BEGIN",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "CAST_BOTTOM",
+          "target": "CASTER_FOOT",
+          "full_effect": "benedictum_cast_bottom_7bd30dde0b77",
+          "min_effect": "min_benedictum_cast_bottom_cba25ccd987f",
+          "fallback": "NONE",
+          "duration_ms": 1500,
+          "runtime_condition": "Begin when RO_WEB starts the variable/fixed cast state.",
+          "source_effect_ids": [
+            "benedictum_cast_bottom_7bd30dde0b77",
+            "min_benedictum_cast_bottom_cba25ccd987f"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 1000,
+          "phase": "MAIN",
+          "target": "CASTER_BODY",
+          "full_effect": "benedictum_68f071274256",
+          "min_effect": "min_benedictum_66aebe32422e",
+          "fallback": "NONE",
+          "duration_ms": 2083,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "benedictum_68f071274256",
+            "min_benedictum_66aebe32422e"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        }
+      ],
+      "gateState": "PASS",
+      "deploymentPlacementPolicy": "SELF_CASTER"
+    },
+    {
+      "skillId": 5283,
+      "skillKey": "CD_PETITIO",
+      "displayNameReference": "聖光打擊",
+      "localizationWritePolicy": "IDENTITY_ONLY_NO_LOCALIZATION_OVERWRITE",
+      "allowNameWriteback": false,
+      "allowDescriptionWriteback": false,
+      "eventAdapter": "RO_WEB_SKILL_EFFECT_EVENTS_V1",
+      "runtimeContract": {
+        "skill_id": 5283,
+        "skill_key": "CD_PETITIO",
+        "variable_cast_db_ms": 0,
+        "fixed_cast_db_ms": 0,
+        "release_preview_ms": 0,
+        "after_cast_act_delay_db_ms": 500,
+        "after_cast_walk_delay_db_ms": 0,
+        "after_cast_walk_delay_preview_ms": 300,
+        "cooldown_db_ms": 500,
+        "action_motion": "ATTACK",
+        "action_lock_rule": "max(100ms, runtime cast total, ASPD action lock, 140ms attack throughput floor)",
+        "min_skill_delay_limit_ms": 100,
+        "performance_floor_ms": 140,
+        "handler": "physical_attack_formula",
+        "execution_enabled": true,
+        "target_origin": "self",
+        "target_shape": "circle",
+        "target_radius": [
+          1,
+          1,
+          1,
+          1,
+          2,
+          2,
+          2,
+          2,
+          3,
+          3
+        ],
+        "damage_hit_count": 1,
+        "visual_hit_count": 1,
+        "duration_ms": 0,
+        "runtime_adaptation": "鈍器、雙手鈍器或書本限定。對周圍敵人造成可暴擊的物理傷害，傷害依技能等級、POW、鈍器與書本精熟及 Base Lv 計算。",
+        "persistent_ground_allowed": false,
+        "source_version": "roweb.zip"
+      },
+      "events": [
+        {
+          "trigger": "GROUND_SPAWN",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "BOTTOM",
+          "target": "TARGET_FOOT",
+          "full_effect": "petitio_bottom_3741ff979935",
+          "min_effect": "min_petitio_bottom_0f83d290781b",
+          "fallback": "NONE",
+          "duration_ms": 1350,
+          "runtime_condition": "Spawn at the runtime target/caster foot when the skill commits.",
+          "source_effect_ids": [
+            "min_petitio_bottom_0f83d290781b",
+            "petitio_bottom_3741ff979935"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "petitio_ac2d4c50cd3d",
+          "min_effect": "min_petitio_bb6070345712",
+          "fallback": "NONE",
+          "duration_ms": 833,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "min_petitio_bb6070345712",
+            "petitio_ac2d4c50cd3d"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        }
+      ],
+      "gateState": "PASS",
+      "deploymentPlacementPolicy": "DAMAGE_OR_DEBUFF_TARGET_MONSTER"
+    },
+    {
+      "skillId": 5294,
+      "skillKey": "SHC_FATAL_SHADOW_CROW",
+      "displayNameReference": "致命影爪",
+      "localizationWritePolicy": "IDENTITY_ONLY_NO_LOCALIZATION_OVERWRITE",
+      "allowNameWriteback": false,
+      "allowDescriptionWriteback": false,
+      "eventAdapter": "RO_WEB_SKILL_EFFECT_EVENTS_V1",
+      "runtimeContract": {
+        "skill_id": 5294,
+        "skill_key": "SHC_FATAL_SHADOW_CROW",
+        "variable_cast_db_ms": 500,
+        "fixed_cast_db_ms": 500,
+        "release_preview_ms": 1000,
+        "after_cast_act_delay_db_ms": 0,
+        "after_cast_walk_delay_db_ms": 0,
+        "after_cast_walk_delay_preview_ms": 300,
+        "cooldown_db_ms": 60000,
+        "action_motion": "ATTACK",
+        "action_lock_rule": "max(100ms, runtime cast total, ASPD action lock, 140ms attack throughput floor)",
+        "min_skill_delay_limit_ms": 100,
+        "performance_floor_ms": 140,
+        "handler": "physical_charge",
+        "execution_enabled": true,
+        "target_origin": "target",
+        "target_shape": "circle",
+        "target_radius": 3,
+        "damage_hit_count": 1,
+        "visual_hit_count": 1,
+        "duration_ms": 20000,
+        "runtime_adaptation": "衝向目標並攻擊周圍敵人，對人形與龍族造成額外傷害，同時附加暗黑利爪狀態。",
+        "persistent_ground_allowed": false,
+        "source_version": "roweb.zip"
+      },
+      "events": [
+        {
+          "trigger": "GROUND_SPAWN",
+          "offset_ms": 0,
+          "nominal_at_ms": 1000,
+          "phase": "BOTTOM",
+          "target": "TARGET_FOOT",
+          "full_effect": "fatal_shadow_crow_bottom_649613c42ec2",
+          "min_effect": "min_fatal_shadow_crow_bottom_552fc2cf88ee",
+          "fallback": "NONE",
+          "duration_ms": 667,
+          "runtime_condition": "Spawn at the runtime target/caster foot when the skill commits.",
+          "source_effect_ids": [
+            "fatal_shadow_crow_bottom_649613c42ec2",
+            "min_fatal_shadow_crow_bottom_552fc2cf88ee"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 1000,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "fatal_shadow_crow_e2220a6ee557",
+          "min_effect": "min_fatal_shadow_crow_0fc6aaee0fe9",
+          "fallback": "NONE",
+          "duration_ms": 617,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "fatal_shadow_crow_e2220a6ee557",
+            "min_fatal_shadow_crow_0fc6aaee0fe9"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "HIT_CONFIRM",
+          "offset_ms": 250,
+          "nominal_at_ms": 1250,
+          "phase": "HIT",
+          "target": "TARGET_BODY",
+          "full_effect": "fatal_shadow_crow_hit_d0468206c553",
+          "min_effect": "min_fatal_shadow_crow_hit_8e3715695bfc",
+          "fallback": "NONE",
+          "duration_ms": 317,
+          "runtime_condition": "Play on each runtime hit confirmation; preview adds nominal travel only for ranged targets.",
+          "source_effect_ids": [
+            "fatal_shadow_crow_hit_d0468206c553",
+            "min_fatal_shadow_crow_hit_8e3715695bfc"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        }
+      ],
+      "gateState": "PASS",
+      "deploymentPlacementPolicy": "DAMAGE_OR_DEBUFF_TARGET_MONSTER"
+    },
+    {
+      "skillId": 5299,
+      "skillKey": "MT_D_MACHINE",
+      "displayNameReference": "啟動防禦裝置(",
+      "localizationWritePolicy": "IDENTITY_ONLY_NO_LOCALIZATION_OVERWRITE",
+      "allowNameWriteback": false,
+      "allowDescriptionWriteback": false,
+      "eventAdapter": "RO_WEB_SKILL_EFFECT_EVENTS_V1",
+      "runtimeContract": {
+        "skill_id": 5299,
+        "skill_key": "MT_D_MACHINE",
+        "variable_cast_db_ms": 0,
+        "fixed_cast_db_ms": 0,
+        "release_preview_ms": 0,
+        "after_cast_act_delay_db_ms": 0,
+        "after_cast_walk_delay_db_ms": 0,
+        "after_cast_walk_delay_preview_ms": 300,
+        "cooldown_db_ms": 0,
+        "action_motion": "CAST",
+        "action_lock_rule": "max(100ms, runtime cast total, ASPD action lock, 140ms attack throughput floor)",
+        "min_skill_delay_limit_ms": 100,
+        "performance_floor_ms": 0,
+        "handler": "buff",
+        "execution_enabled": true,
+        "target_origin": "self",
+        "target_shape": "",
+        "target_radius": null,
+        "damage_hit_count": 1,
+        "visual_hit_count": 1,
+        "duration_ms": 240000,
+        "runtime_adaptation": "啟動防禦裝置模式：DEF／MDEF +5%，持續時間依技能等級 80～240 秒；與啟動攻擊裝置互斥，再次切換會解除另一模式。",
+        "persistent_ground_allowed": false,
+        "source_version": "roweb.zip"
+      },
+      "events": [
+        {
+          "trigger": "SKILL_BEGIN",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "CAST",
+          "target": "CASTER_BODY",
+          "full_effect": "new_d_machine_cast_07ff9e9bbef4",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 983,
+          "runtime_condition": "Instant skill: play prepare/cast layers when the skill attempt begins.",
+          "source_effect_ids": [
+            "new_d_machine_cast_07ff9e9bbef4"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "SKILL_BEGIN",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "CAST_BOTTOM",
+          "target": "CASTER_FOOT",
+          "full_effect": "new_d_machine_cast_bottom_d65921917f3b",
+          "min_effect": "min_new_d_machine_cast_bottom_cdc2cdf127d9",
+          "fallback": "NONE",
+          "duration_ms": 983,
+          "runtime_condition": "Instant skill: play prepare/cast layers when the skill attempt begins.",
+          "source_effect_ids": [
+            "min_new_d_machine_cast_bottom_cdc2cdf127d9",
+            "new_d_machine_cast_bottom_d65921917f3b"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "CAST_COMPLETE",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "START",
+          "target": "CASTER_BODY",
+          "full_effect": "new_d_machine_start_1a151960ec88",
+          "min_effect": "min_new_d_machine_start_9cd133566d61",
+          "fallback": "NONE",
+          "duration_ms": 933,
+          "runtime_condition": "Play at cast completion immediately before/with skill resolution.",
+          "source_effect_ids": [
+            "min_new_d_machine_start_9cd133566d61",
+            "new_d_machine_start_1a151960ec88"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "MAIN",
+          "target": "CASTER_BODY",
+          "full_effect": "new_d_machine_end_7a8ee49b50ec",
+          "min_effect": "min_new_d_machine_end_235dddc2f324",
+          "fallback": "NONE",
+          "duration_ms": 933,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "min_new_d_machine_end_235dddc2f324",
+            "new_d_machine_end_7a8ee49b50ec"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "MAIN",
+          "target": "CASTER_BODY",
+          "full_effect": "new_d_machine_ee18ed5a6d38",
+          "min_effect": "min_new_d_machine_ff32b6757c7e",
+          "fallback": "NONE",
+          "duration_ms": 983,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "min_new_d_machine_ff32b6757c7e",
+            "new_d_machine_ee18ed5a6d38"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        }
+      ],
+      "gateState": "PASS",
+      "deploymentPlacementPolicy": "SELF_CASTER"
+    },
+    {
+      "skillId": 5319,
+      "skillKey": "ABC_ABYSS_STRIKE",
+      "displayNameReference": "終結深淵攻擊",
+      "localizationWritePolicy": "IDENTITY_ONLY_NO_LOCALIZATION_OVERWRITE",
+      "allowNameWriteback": false,
+      "allowDescriptionWriteback": false,
+      "eventAdapter": "RO_WEB_SKILL_EFFECT_EVENTS_V1",
+      "runtimeContract": {
+        "skill_id": 5319,
+        "skill_key": "ABC_ABYSS_STRIKE",
+        "variable_cast_db_ms": 4000,
+        "fixed_cast_db_ms": 1000,
+        "release_preview_ms": 5000,
+        "after_cast_act_delay_db_ms": 500,
+        "after_cast_walk_delay_db_ms": 0,
+        "after_cast_walk_delay_preview_ms": 300,
+        "cooldown_db_ms": 700,
+        "action_motion": "ATTACK",
+        "action_lock_rule": "max(100ms, runtime cast total, ASPD action lock, 140ms attack throughput floor)",
+        "min_skill_delay_limit_ms": 100,
+        "performance_floor_ms": 140,
+        "handler": "magic_damage",
+        "execution_enabled": true,
+        "target_origin": "target",
+        "target_shape": "circle",
+        "target_radius": 4,
+        "damage_hit_count": 1,
+        "visual_hit_count": 1,
+        "duration_ms": 100,
+        "runtime_adaptation": "在目標位置引爆火屬性深淵魔法，攻擊 9×9 範圍內所有敵人。傷害為（2650×技能等級 + 10×SPL）%；對惡魔或天使種族額外增加 200×技能等級%，並依 BaseLv 修正。",
+        "persistent_ground_allowed": true,
+        "source_version": "roweb.zip"
+      },
+      "events": [
+        {
+          "trigger": "CAST_BEGIN",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "CAST",
+          "target": "CASTER_BODY",
+          "full_effect": "abyss_strike_cast_be728e8229e9",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 550,
+          "runtime_condition": "Begin when RO_WEB starts the variable/fixed cast state.",
+          "source_effect_ids": [
+            "abyss_strike_cast_be728e8229e9"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "CAST_BEGIN",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "CAST_BOTTOM",
+          "target": "CASTER_FOOT",
+          "full_effect": "abyss_strike_cast_bottom_4d9e5e6188a2",
+          "min_effect": "min_abyss_strike_cast_bottom_0b6f31d38723",
+          "fallback": "NONE",
+          "duration_ms": 1000,
+          "runtime_condition": "Begin when RO_WEB starts the variable/fixed cast state.",
+          "source_effect_ids": [
+            "abyss_strike_cast_bottom_4d9e5e6188a2",
+            "min_abyss_strike_cast_bottom_0b6f31d38723"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "GROUND_SPAWN",
+          "offset_ms": 0,
+          "nominal_at_ms": 5000,
+          "phase": "BOTTOM",
+          "target": "TARGET_FOOT",
+          "full_effect": "abyss_strike_bottom_ee936da226d4",
+          "min_effect": "min_abyss_strike_bottom_ee47ab58c91e",
+          "fallback": "NONE",
+          "duration_ms": 983,
+          "runtime_condition": "Spawn at the runtime target/caster foot when the skill commits.",
+          "source_effect_ids": [
+            "abyss_strike_bottom_ee936da226d4",
+            "abyss_strike_ground_bottom_acb8dc7f705c",
+            "min_abyss_strike_bottom_ee47ab58c91e",
+            "min_abyss_strike_ground_bottom_8f514494ed0c"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 5000,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "abyss_strike_6cad746f3688",
+          "min_effect": "min_abyss_strike_ef6c8c7d31e0",
+          "fallback": "NONE",
+          "duration_ms": 983,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "abyss_strike_6cad746f3688",
+            "abyss_strike_ground_4e9d91d773b3",
+            "min_abyss_strike_ef6c8c7d31e0",
+            "min_abyss_strike_ground_377901b2f535"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "HIT_CONFIRM",
+          "offset_ms": 250,
+          "nominal_at_ms": 5250,
+          "phase": "HIT",
+          "target": "TARGET_BODY",
+          "full_effect": "abyss_strike_hit_e29dc627ba65",
+          "min_effect": "min_abyss_strike_hit_987fbbf9715e",
+          "fallback": "NONE",
+          "duration_ms": 383,
+          "runtime_condition": "Play on each runtime hit confirmation; preview adds nominal travel only for ranged targets.",
+          "source_effect_ids": [
+            "abyss_strike_hit_e29dc627ba65",
+            "min_abyss_strike_hit_987fbbf9715e"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        }
+      ],
+      "gateState": "PASS",
+      "deploymentPlacementPolicy": "DAMAGE_OR_DEBUFF_TARGET_MONSTER"
+    },
+    {
+      "skillId": 5333,
+      "skillKey": "WH_SWIFTTRAP",
+      "displayNameReference": "急速陷阱",
+      "localizationWritePolicy": "IDENTITY_ONLY_NO_LOCALIZATION_OVERWRITE",
+      "allowNameWriteback": false,
+      "allowDescriptionWriteback": false,
+      "eventAdapter": "RO_WEB_SKILL_EFFECT_EVENTS_V1",
+      "runtimeContract": {
+        "skill_id": 5333,
+        "skill_key": "WH_SWIFTTRAP",
+        "variable_cast_db_ms": 1000,
+        "fixed_cast_db_ms": 1000,
+        "release_preview_ms": 2000,
+        "after_cast_act_delay_db_ms": 500,
+        "after_cast_walk_delay_db_ms": 0,
+        "after_cast_walk_delay_preview_ms": 300,
+        "cooldown_db_ms": 2500,
+        "action_motion": "ATTACK",
+        "action_lock_rule": "max(100ms, runtime cast total, ASPD action lock, 140ms attack throughput floor)",
+        "min_skill_delay_limit_ms": 100,
+        "performance_floor_ms": 140,
+        "handler": "ground_damage",
+        "execution_enabled": true,
+        "target_origin": "target",
+        "target_shape": "circle",
+        "target_radius": [
+          1,
+          1,
+          2,
+          2,
+          3
+        ],
+        "damage_hit_count": 1,
+        "visual_hit_count": 1,
+        "duration_ms": 5000,
+        "runtime_adaptation": "在目前目標位置設置風屬性持續傷害區域，每0.5秒攻擊一次。倍率與高階陷阱強化規則同四轉屬性陷阱；不消耗特殊合金陷阱。",
+        "persistent_ground_allowed": true,
+        "source_version": "roweb.zip"
+      },
+      "events": [
+        {
+          "trigger": "CAST_BEGIN",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "CAST",
+          "target": "CASTER_BODY",
+          "full_effect": "swifttrap_cast_b757dfe05a3d",
+          "min_effect": "min_swifttrap_cast_7d078944a509",
+          "fallback": "NONE",
+          "duration_ms": 2083,
+          "runtime_condition": "Begin when RO_WEB starts the variable/fixed cast state.",
+          "source_effect_ids": [
+            "min_swifttrap_cast_7d078944a509",
+            "swifttrap_cast_b757dfe05a3d"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "GROUND_SPAWN",
+          "offset_ms": 0,
+          "nominal_at_ms": 2000,
+          "phase": "BOTTOM",
+          "target": "TARGET_FOOT",
+          "full_effect": "swifttrap_bottom_82dcdc4e3b4c",
+          "min_effect": "min_swifttrap_bottom_d8e665c0e1fa",
+          "fallback": "NONE",
+          "duration_ms": 1000,
+          "runtime_condition": "Spawn at the runtime target/caster foot when the skill commits.",
+          "source_effect_ids": [
+            "min_swifttrap_bottom_d8e665c0e1fa",
+            "swifttrap_bottom_82dcdc4e3b4c"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 2000,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "swifttrap_e20c3106c4ec",
+          "min_effect": "min_swifttrap_60782b5f5ce6",
+          "fallback": "NONE",
+          "duration_ms": 1000,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "min_swifttrap_60782b5f5ce6",
+            "swifttrap_e20c3106c4ec"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "HIT_CONFIRM",
+          "offset_ms": 250,
+          "nominal_at_ms": 2250,
+          "phase": "HIT",
+          "target": "TARGET_BODY",
+          "full_effect": "swifttrap_hit_1d159fd200f1",
+          "min_effect": "min_swifttrap_hit_462933cfc8cc",
+          "fallback": "NONE",
+          "duration_ms": 417,
+          "runtime_condition": "Play on each runtime hit confirmation; preview adds nominal travel only for ranged targets.",
+          "source_effect_ids": [
+            "min_swifttrap_hit_462933cfc8cc",
+            "swifttrap_hit_1d159fd200f1"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        }
+      ],
+      "gateState": "PASS",
+      "deploymentPlacementPolicy": "DAMAGE_OR_DEBUFF_TARGET_MONSTER"
+    },
+    {
+      "skillId": 5347,
+      "skillKey": "BO_RESEARCHREPORT",
+      "displayNameReference": "研究報告",
+      "localizationWritePolicy": "IDENTITY_ONLY_NO_LOCALIZATION_OVERWRITE",
+      "allowNameWriteback": false,
+      "allowDescriptionWriteback": false,
+      "eventAdapter": "RO_WEB_SKILL_EFFECT_EVENTS_V1",
+      "runtimeContract": {
+        "skill_id": 5347,
+        "skill_key": "BO_RESEARCHREPORT",
+        "variable_cast_db_ms": 2000,
+        "fixed_cast_db_ms": 500,
+        "release_preview_ms": 2500,
+        "after_cast_act_delay_db_ms": 500,
+        "after_cast_walk_delay_db_ms": 0,
+        "after_cast_walk_delay_preview_ms": 300,
+        "cooldown_db_ms": 60000,
+        "action_motion": "CAST",
+        "action_lock_rule": "max(100ms, runtime cast total, ASPD action lock, 140ms attack throughput floor)",
+        "min_skill_delay_limit_ms": 100,
+        "performance_floor_ms": 0,
+        "handler": "buff",
+        "execution_enabled": true,
+        "target_origin": "self",
+        "target_shape": "",
+        "target_radius": null,
+        "damage_hit_count": 1,
+        "visual_hit_count": 1,
+        "duration_ms": 150000,
+        "runtime_adaptation": "對自身施放研究報告 150 秒。效果期間強酸禁地傷害 +50%；攻擊無形或植物族時，在此基礎上再 +50%。同時強化爆炸炸藥、混亂的荊棘與星塵炸裂的專用公式。",
+        "persistent_ground_allowed": false,
+        "source_version": "roweb.zip"
+      },
+      "events": [
+        {
+          "trigger": "CAST_BEGIN",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "CAST",
+          "target": "CASTER_BODY",
+          "full_effect": "researchreport_cast_af884a27f1d7",
+          "min_effect": "min_researchreport_cast_b30252f69599",
+          "fallback": "NONE",
+          "duration_ms": 700,
+          "runtime_condition": "Begin when RO_WEB starts the variable/fixed cast state.",
+          "source_effect_ids": [
+            "min_researchreport_cast_b30252f69599",
+            "researchreport_cast_af884a27f1d7"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "CAST_BEGIN",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "CAST_BOTTOM",
+          "target": "CASTER_FOOT",
+          "full_effect": "researchreport_cast_bottom_081d3cd75c86",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 700,
+          "runtime_condition": "Begin when RO_WEB starts the variable/fixed cast state.",
+          "source_effect_ids": [
+            "researchreport_cast_bottom_081d3cd75c86"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 2500,
+          "phase": "MAIN",
+          "target": "CASTER_BODY",
+          "full_effect": "researchreport_6ba24f7f347b",
+          "min_effect": "min_researchreport_8732ed25b89b",
+          "fallback": "NONE",
+          "duration_ms": 1200,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "min_researchreport_8732ed25b89b",
+            "researchreport_6ba24f7f347b"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        }
+      ],
+      "gateState": "PASS",
+      "deploymentPlacementPolicy": "SELF_CASTER"
+    },
+    {
+      "skillId": 5361,
+      "skillKey": "TR_MUSICAL_INTERLUDE",
+      "displayNameReference": "音樂劇插曲",
+      "localizationWritePolicy": "IDENTITY_ONLY_NO_LOCALIZATION_OVERWRITE",
+      "allowNameWriteback": false,
+      "allowDescriptionWriteback": false,
+      "eventAdapter": "RO_WEB_SKILL_EFFECT_EVENTS_V1",
+      "runtimeContract": {
+        "skill_id": 5361,
+        "skill_key": "TR_MUSICAL_INTERLUDE",
+        "variable_cast_db_ms": 1000,
+        "fixed_cast_db_ms": 1000,
+        "release_preview_ms": 2000,
+        "after_cast_act_delay_db_ms": 0,
+        "after_cast_walk_delay_db_ms": 0,
+        "after_cast_walk_delay_preview_ms": 300,
+        "cooldown_db_ms": 10000,
+        "action_motion": "CAST",
+        "action_lock_rule": "max(100ms, runtime cast total, ASPD action lock, 140ms attack throughput floor)",
+        "min_skill_delay_limit_ms": 100,
+        "performance_floor_ms": 0,
+        "handler": "buff",
+        "execution_enabled": true,
+        "target_origin": "self",
+        "target_shape": "",
+        "target_radius": null,
+        "damage_hit_count": 1,
+        "visual_hit_count": 1,
+        "duration_ms": 180000,
+        "runtime_adaptation": "官方隊伍效果改為Self Only；RES增加5＋5×技能等級，Lv5為+30。持續1～5分鐘，可與其他歌唱Buff共存，自然回魔不停止。",
+        "persistent_ground_allowed": false,
+        "source_version": "roweb.zip"
+      },
+      "events": [
+        {
+          "trigger": "CAST_BEGIN",
+          "offset_ms": 0,
+          "nominal_at_ms": 0,
+          "phase": "CAST",
+          "target": "CASTER_BODY",
+          "full_effect": "musical_interlude_cast_e25a70662342",
+          "min_effect": "min_musical_interlude_cast_15b9ab23d9a2",
+          "fallback": "NONE",
+          "duration_ms": 1000,
+          "runtime_condition": "Begin when RO_WEB starts the variable/fixed cast state.",
+          "source_effect_ids": [
+            "min_musical_interlude_cast_15b9ab23d9a2",
+            "musical_interlude_cast_e25a70662342"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 2000,
+          "phase": "MAIN",
+          "target": "CASTER_BODY",
+          "full_effect": "musical_interlude_384f1a2f3128",
+          "min_effect": "min_musical_interlude_efbdf1fb8cb3",
+          "fallback": "NONE",
+          "duration_ms": 1333,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "min_musical_interlude_efbdf1fb8cb3",
+            "musical_interlude_384f1a2f3128"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        }
+      ],
+      "gateState": "PASS",
+      "deploymentPlacementPolicy": "SELF_CASTER"
+    },
+    {
+      "skillId": 5455,
+      "skillKey": "HN_METEOR_STORM_BUSTER",
+      "displayNameReference": "隕石術猛擊",
+      "localizationWritePolicy": "IDENTITY_ONLY_NO_LOCALIZATION_OVERWRITE",
+      "allowNameWriteback": false,
+      "allowDescriptionWriteback": false,
+      "eventAdapter": "RO_WEB_SKILL_EFFECT_EVENTS_V1",
+      "runtimeContract": {
+        "skill_id": 5455,
+        "skill_key": "HN_METEOR_STORM_BUSTER",
+        "variable_cast_db_ms": 4000,
+        "fixed_cast_db_ms": 1500,
+        "release_preview_ms": 5500,
+        "after_cast_act_delay_db_ms": 300,
+        "after_cast_walk_delay_db_ms": 0,
+        "after_cast_walk_delay_preview_ms": 300,
+        "cooldown_db_ms": 3000,
+        "action_motion": "ATTACK",
+        "action_lock_rule": "max(100ms, runtime cast total, ASPD action lock, 140ms attack throughput floor)",
+        "min_skill_delay_limit_ms": 100,
+        "performance_floor_ms": 140,
+        "handler": "ground_damage",
+        "execution_enabled": true,
+        "target_origin": "target",
+        "target_shape": "circle",
+        "target_radius": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          4,
+          4,
+          4
+        ],
+        "damage_hit_count": 1,
+        "visual_hit_count": 1,
+        "duration_ms": 2500,
+        "runtime_adaptation": "落下初擊倍率＝（300＋320×Lv＋5×自學魔法Lv×Lv＋3×SPL）×BaseLv÷100%，再受自學魔法每級+1%增幅；後續爆炸倍率＝（450＋160×Lv＋5×自學魔法Lv×Lv＋3×SPL）×BaseLv÷100%。初擊半徑2格、持續區域半徑3～4格，每0.5秒攻擊並有3×Lv%機率暈眩0.5秒。突破規矩期間傷害再增加50%。",
+        "persistent_ground_allowed": true,
+        "source_version": "roweb.zip"
+      },
+      "events": [
+        {
+          "trigger": "GROUND_SPAWN",
+          "offset_ms": 0,
+          "nominal_at_ms": 5500,
+          "phase": "BOTTOM",
+          "target": "TARGET_FOOT",
+          "full_effect": "meteor_storm_buster_bottom_5319ea048405",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 3150,
+          "runtime_condition": "Spawn at the runtime target/caster foot when the skill commits.",
+          "source_effect_ids": [
+            "meteor_storm_buster_bottom_5319ea048405",
+            "meteor_storm_buster_meteor_bottom_4aedb29980a4"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 5500,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "meteor_storm_buster_c939a0b1fb43",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 3150,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "meteor_storm_buster_c939a0b1fb43",
+            "meteor_storm_buster_meteor_608968a33e00"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        }
+      ],
+      "gateState": "PASS",
+      "deploymentPlacementPolicy": "DAMAGE_OR_DEBUFF_TARGET_MONSTER"
+    },
+    {
+      "skillId": 5458,
+      "skillKey": "HN_HELLS_DRIVE",
+      "displayNameReference": "地獄毀滅",
+      "localizationWritePolicy": "IDENTITY_ONLY_NO_LOCALIZATION_OVERWRITE",
+      "allowNameWriteback": false,
+      "allowDescriptionWriteback": false,
+      "eventAdapter": "RO_WEB_SKILL_EFFECT_EVENTS_V1",
+      "runtimeContract": {
+        "skill_id": 5458,
+        "skill_key": "HN_HELLS_DRIVE",
+        "variable_cast_db_ms": 1200,
+        "fixed_cast_db_ms": 1000,
+        "release_preview_ms": 2200,
+        "after_cast_act_delay_db_ms": 1000,
+        "after_cast_walk_delay_db_ms": 0,
+        "after_cast_walk_delay_preview_ms": 300,
+        "cooldown_db_ms": 2500,
+        "action_motion": "ATTACK",
+        "action_lock_rule": "max(100ms, runtime cast total, ASPD action lock, 140ms attack throughput floor)",
+        "min_skill_delay_limit_ms": 100,
+        "performance_floor_ms": 140,
+        "handler": "magic_damage",
+        "execution_enabled": true,
+        "target_origin": "self",
+        "target_shape": "circle",
+        "target_radius": [
+          1,
+          1,
+          1,
+          2,
+          2,
+          2,
+          3,
+          3,
+          3,
+          4
+        ],
+        "damage_hit_count": 1,
+        "visual_hit_count": 3,
+        "duration_ms": 0,
+        "runtime_adaptation": "倍率＝（1700＋900×Lv＋4×自學魔法Lv×Lv＋3×SPL）×BaseLv÷100%，再受自學魔法每級+1%增幅。以玩家為中心攻擊半徑1～4格，顯示3段地屬性魔法傷害。突破規矩期間傷害再增加70%。",
+        "persistent_ground_allowed": false,
+        "source_version": "roweb.zip"
+      },
+      "events": [
+        {
+          "trigger": "GROUND_SPAWN",
+          "offset_ms": 0,
+          "nominal_at_ms": 2200,
+          "phase": "BOTTOM",
+          "target": "TARGET_FOOT",
+          "full_effect": "hells_drive_bottom_8da3dbf3889a",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 1483,
+          "runtime_condition": "Spawn at the runtime target/caster foot when the skill commits.",
+          "source_effect_ids": [
+            "hells_drive_bottom_8da3dbf3889a"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 2200,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "hells_drive_00_1fbb8b755daf",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 1283,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "hells_drive_00_1fbb8b755daf",
+            "hells_drive_01_fdc6b82a8a7c",
+            "hells_drive_02_1b37cfd8b4a7"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        }
+      ],
+      "gateState": "PASS",
+      "deploymentPlacementPolicy": "DAMAGE_OR_DEBUFF_TARGET_MONSTER"
+    },
+    {
+      "skillId": 5459,
+      "skillKey": "HN_GROUND_GRAVITATION",
+      "displayNameReference": "地面重力",
+      "localizationWritePolicy": "IDENTITY_ONLY_NO_LOCALIZATION_OVERWRITE",
+      "allowNameWriteback": false,
+      "allowDescriptionWriteback": false,
+      "eventAdapter": "RO_WEB_SKILL_EFFECT_EVENTS_V1",
+      "runtimeContract": {
+        "skill_id": 5459,
+        "skill_key": "HN_GROUND_GRAVITATION",
+        "variable_cast_db_ms": 5000,
+        "fixed_cast_db_ms": 1500,
+        "release_preview_ms": 6500,
+        "after_cast_act_delay_db_ms": 2000,
+        "after_cast_walk_delay_db_ms": 0,
+        "after_cast_walk_delay_preview_ms": 300,
+        "cooldown_db_ms": 5000,
+        "action_motion": "ATTACK",
+        "action_lock_rule": "max(100ms, runtime cast total, ASPD action lock, 140ms attack throughput floor)",
+        "min_skill_delay_limit_ms": 100,
+        "performance_floor_ms": 140,
+        "handler": "ground_damage",
+        "execution_enabled": true,
+        "target_origin": "self",
+        "target_shape": "circle",
+        "target_radius": [
+          2,
+          2,
+          2,
+          2,
+          3,
+          3,
+          3,
+          3,
+          4,
+          4
+        ],
+        "damage_hit_count": 1,
+        "visual_hit_count": 1,
+        "duration_ms": 5000,
+        "runtime_adaptation": "初擊倍率＝（3000＋1500×Lv＋4×自學魔法Lv×Lv＋5×SPL）×BaseLv÷100%；重力場倍率＝（800＋700×Lv＋2×自學魔法Lv×Lv＋2×SPL）×BaseLv÷100%，再受自學魔法每級+1%增幅。以玩家為中心維持5秒、每0.5秒攻擊一次；目標5秒內受到全部傷害+10%、移動速度降低20%。突破規矩期間傷害再增加50%。",
+        "persistent_ground_allowed": true,
+        "source_version": "roweb.zip"
+      },
+      "events": [
+        {
+          "trigger": "CAST_COMPLETE",
+          "offset_ms": 0,
+          "nominal_at_ms": 6500,
+          "phase": "START",
+          "target": "TARGET_BODY",
+          "full_effect": "ground_gravitation_start_33d84cff862a",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 283,
+          "runtime_condition": "Play at cast completion immediately before/with skill resolution.",
+          "source_effect_ids": [
+            "ground_gravitation_start_33d84cff862a"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "GROUND_SPAWN",
+          "offset_ms": 0,
+          "nominal_at_ms": 6500,
+          "phase": "BOTTOM",
+          "target": "TARGET_FOOT",
+          "full_effect": "ground_gravitation_bottom_start_6043eb1df7ad",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 283,
+          "runtime_condition": "Spawn at the runtime target/caster foot when the skill commits.",
+          "source_effect_ids": [
+            "ground_gravitation_bottom_start_6043eb1df7ad"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "LOOP_START",
+          "offset_ms": 0,
+          "nominal_at_ms": 6500,
+          "phase": "LOOP",
+          "target": "TARGET_BODY",
+          "full_effect": "ground_gravitation_bottom_loop_4291ddc7bd66",
+          "min_effect": null,
+          "fallback": "MIN_TO_FULL",
+          "duration_ms": 5000,
+          "runtime_condition": "Start only when runtime creates a persistent buff/ground unit.",
+          "source_effect_ids": [
+            "ground_gravitation_bottom_loop_4291ddc7bd66",
+            "ground_gravitation_loop_55be921cf8fa"
+          ],
+          "lifecycle_key": "skill:5459:LOOP:hn_ground_gravitation",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "SKILL_END",
+          "offset_ms": 5000,
+          "nominal_at_ms": 11500,
+          "phase": "END",
+          "target": "CASTER_BODY",
+          "full_effect": null,
+          "min_effect": null,
+          "fallback": "NONE",
+          "duration_ms": 0,
+          "runtime_condition": "Stop the linked persistent visual when its status/unit duration ends or is removed early; also clear it on toggle-off, death, map change, job change, character switch, or Runtime reset.",
+          "source_effect_ids": [
+            "ground_gravitation_bottom_loop_4291ddc7bd66",
+            "ground_gravitation_loop_55be921cf8fa"
+          ],
+          "lifecycle_key": "skill:5459:LOOP:hn_ground_gravitation",
+          "cleanup_only": true
+        }
+      ],
+      "gateState": "PASS",
+      "deploymentPlacementPolicy": "DAMAGE_OR_DEBUFF_TARGET_MONSTER"
+    },
+    {
+      "skillId": 6001,
+      "skillKey": "DK_DRAGONIC_BREATH",
+      "displayNameReference": "天龍氣息",
+      "localizationWritePolicy": "IDENTITY_ONLY_NO_LOCALIZATION_OVERWRITE",
+      "allowNameWriteback": false,
+      "allowDescriptionWriteback": false,
+      "eventAdapter": "RO_WEB_SKILL_EFFECT_EVENTS_V1",
+      "runtimeContract": {
+        "skill_id": 6001,
+        "skill_key": "DK_DRAGONIC_BREATH",
+        "variable_cast_db_ms": 2000,
+        "fixed_cast_db_ms": 500,
+        "release_preview_ms": 2500,
+        "after_cast_act_delay_db_ms": 150,
+        "after_cast_walk_delay_db_ms": 0,
+        "after_cast_walk_delay_preview_ms": 300,
+        "cooldown_db_ms": 500,
+        "action_motion": "ATTACK",
+        "action_lock_rule": "max(100ms, runtime cast total, ASPD action lock, 140ms attack throughput floor)",
+        "min_skill_delay_limit_ms": 100,
+        "performance_floor_ms": 140,
+        "handler": "physical_attack_formula",
+        "execution_enabled": true,
+        "target_origin": "target",
+        "target_shape": "circle",
+        "target_radius": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          4,
+          4,
+          4,
+          4,
+          4
+        ],
+        "damage_hit_count": 1,
+        "visual_hit_count": 2,
+        "duration_ms": 0,
+        "runtime_adaptation": "必須騎乘龍坐騎。釋放天龍氣息攻擊目標周圍敵人；物理傷害可套用目前武器／肯貝特屬性。",
+        "persistent_ground_allowed": false,
+        "source_version": "roweb.zip"
+      },
+      "events": [
+        {
+          "trigger": "GROUND_SPAWN",
+          "offset_ms": 0,
+          "nominal_at_ms": 2500,
+          "phase": "BOTTOM",
+          "target": "TARGET_FOOT",
+          "full_effect": "dragonic_breath_bottom_26c1301c8e55",
+          "min_effect": "min_dragonic_breath_bottom_9e23a4889185",
+          "fallback": "NONE",
+          "duration_ms": 750,
+          "runtime_condition": "Spawn at the runtime target/caster foot when the skill commits.",
+          "source_effect_ids": [
+            "dragonic_breath_bottom_26c1301c8e55",
+            "min_dragonic_breath_bottom_9e23a4889185"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 2500,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "dragonic_breath_4e6f776946bb",
+          "min_effect": "min_dragonic_breath_ba33297f0769",
+          "fallback": "NONE",
+          "duration_ms": 750,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "dragonic_breath_4e6f776946bb",
+            "min_dragonic_breath_ba33297f0769"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "HIT_CONFIRM",
+          "offset_ms": 250,
+          "nominal_at_ms": 2750,
+          "phase": "HIT",
+          "target": "TARGET_BODY",
+          "full_effect": "dragonic_breath_hit_5048dc031955",
+          "min_effect": "min_dragonic_breath_hit_accc7ecbb487",
+          "fallback": "NONE",
+          "duration_ms": 550,
+          "runtime_condition": "Play on each runtime hit confirmation; preview adds nominal travel only for ranged targets.",
+          "source_effect_ids": [
+            "dragonic_breath_hit_5048dc031955",
+            "min_dragonic_breath_hit_accc7ecbb487"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        }
+      ],
+      "gateState": "PASS",
+      "deploymentPlacementPolicy": "DAMAGE_OR_DEBUFF_TARGET_MONSTER"
+    },
+    {
+      "skillId": 6002,
+      "skillKey": "MT_SPARK_BLASTER",
+      "displayNameReference": "閃光衝擊波",
+      "localizationWritePolicy": "IDENTITY_ONLY_NO_LOCALIZATION_OVERWRITE",
+      "allowNameWriteback": false,
+      "allowDescriptionWriteback": false,
+      "eventAdapter": "RO_WEB_SKILL_EFFECT_EVENTS_V1",
+      "runtimeContract": {
+        "skill_id": 6002,
+        "skill_key": "MT_SPARK_BLASTER",
+        "variable_cast_db_ms": 1500,
+        "fixed_cast_db_ms": 500,
+        "release_preview_ms": 2000,
+        "after_cast_act_delay_db_ms": 250,
+        "after_cast_walk_delay_db_ms": 0,
+        "after_cast_walk_delay_preview_ms": 300,
+        "cooldown_db_ms": 500,
+        "action_motion": "ATTACK",
+        "action_lock_rule": "max(100ms, runtime cast total, ASPD action lock, 140ms attack throughput floor)",
+        "min_skill_delay_limit_ms": 100,
+        "performance_floor_ms": 140,
+        "handler": "physical_attack_formula",
+        "execution_enabled": true,
+        "target_origin": "target",
+        "target_shape": "circle",
+        "target_radius": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          4,
+          4,
+          4,
+          4,
+          4
+        ],
+        "damage_hit_count": 2,
+        "visual_hit_count": 2,
+        "duration_ms": 0,
+        "runtime_adaptation": "RO_WEB 決定版：此技能維持目前實裝效果，可直接使用，不檢查魔導機甲狀態、不消耗燃料或機甲彈藥；人物動畫沿用目前職業人物素材。",
+        "persistent_ground_allowed": false,
+        "source_version": "roweb.zip"
+      },
+      "events": [
+        {
+          "trigger": "GROUND_SPAWN",
+          "offset_ms": 0,
+          "nominal_at_ms": 2000,
+          "phase": "BOTTOM",
+          "target": "TARGET_FOOT",
+          "full_effect": "spark_blaster_bottom_3b9a1676d703",
+          "min_effect": "min_spark_blaster_bottom_eaf5100ed567",
+          "fallback": "NONE",
+          "duration_ms": 767,
+          "runtime_condition": "Spawn at the runtime target/caster foot when the skill commits.",
+          "source_effect_ids": [
+            "min_spark_blaster_bottom_eaf5100ed567",
+            "spark_blaster_bottom_3b9a1676d703"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        },
+        {
+          "trigger": "DAMAGE_COMMIT",
+          "offset_ms": 0,
+          "nominal_at_ms": 2000,
+          "phase": "MAIN",
+          "target": "TARGET_BODY",
+          "full_effect": "spark_blaster_1193a95a0572",
+          "min_effect": "min_spark_blaster_ee54510e8dcc",
+          "fallback": "NONE",
+          "duration_ms": 783,
+          "runtime_condition": "Play at the authoritative damage/support commit event.",
+          "source_effect_ids": [
+            "min_spark_blaster_ee54510e8dcc",
+            "spark_blaster_1193a95a0572"
+          ],
+          "lifecycle_key": "",
+          "cleanup_only": false
+        }
+      ],
+      "gateState": "PASS",
+      "deploymentPlacementPolicy": "DAMAGE_OR_DEBUFF_TARGET_MONSTER"
     }
   ],
   "scope": {
-    "sourceCandidateSkills": 55,
-    "deployedActiveSkills": 55,
+    "sourceCandidateSkills": 155,
+    "baseDeployedActiveSkills": 55,
+    "deltaGatePassSkills": 42,
+    "deltaGateReviewExcludedSkills": 58,
+    "deployedActiveSkills": 97,
     "excludedPassiveOrDisabledSkills": 0,
-    "deployedEffects": 454,
+    "baseEffects": 454,
+    "deltaEffects": 318,
+    "deployedEffects": 772,
     "missingEffectReferences": 0
   },
   "runtimeAdaptations": {
@@ -6348,6 +11293,18 @@
       "policy": "ALL_VISUAL_PHASES_TARGET_GROUND_WORLD_SNAPSHOT",
       "reason": "RO_WEB acidified zones resolve directly on the selected monster; no caster-following visual is allowed.",
       "fallback": "WAIT_FOR_AUTHORITATIVE_TARGET_PAYLOAD; NEVER_CASTER"
+    },
+    "v0983dPlacementPolicy": {
+      "scope": "V93_DELTA_42_PASS_SKILLS",
+      "policy": "DAMAGE_DEBUFF_IMPACT_ON_SELECTED_MONSTER__SELF_BUFF_UTILITY_ON_CASTER",
+      "castPreparation": "CASTER",
+      "projectile": "PROJECTILE_PATH",
+      "damageImpactMainHit": "TARGET_BODY",
+      "damageGroundBottom": "TARGET_FOOT_AT_EVENT_SNAPSHOT",
+      "selfBuffMain": "CASTER_BODY",
+      "selfBuffBottom": "CASTER_FOOT",
+      "normalizedEventCount": 35,
+      "note": "User-approved placement rule from the previously successful RO_WEB skill-effect integration."
     }
   }
 }

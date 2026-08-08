@@ -1,0 +1,339 @@
+{
+  "schema": "ro-effect-str-1.1",
+  "source": "texture/effect/new_d_machine/new_d_machine_start_end/min_new_d_machine_start.str",
+  "version": 148,
+  "fps": 60,
+  "frameCount": 56,
+  "durationSeconds": 0.933333,
+  "layers": [
+    {
+      "textures": [],
+      "keyframes": []
+    },
+    {
+      "textures": [
+        "m_shield_end_11.bmp",
+        "m_shield_end_10.bmp",
+        "m_shield_end_09.bmp",
+        "m_shield_end_08.bmp",
+        "m_shield_end_07.bmp",
+        "m_shield_end_05.bmp",
+        "m_shield_end_03.bmp",
+        "m_shield_end_01.bmp",
+        "m_shield_end_00.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 0,
+          "type": 0,
+          "position": [
+            324.0,
+            252.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -96.0,
+            96.0,
+            96.0,
+            -96.0,
+            -96.0,
+            -96.0,
+            96.0,
+            96.0
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.1666666716337204,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 0,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.1666666716337204,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            30.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 6,
+          "type": 0,
+          "position": [
+            324.0,
+            252.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -96.0,
+            96.0,
+            96.0,
+            -96.0,
+            -96.0,
+            -96.0,
+            96.0,
+            96.0
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.1666666716337204,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            180.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 6,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.1666666716337204,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 56,
+          "type": 0,
+          "position": [
+            324.0,
+            252.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -96.0,
+            96.0,
+            96.0,
+            -96.0,
+            -96.0,
+            -96.0,
+            96.0,
+            96.0
+          ],
+          "textureId": 8.0,
+          "animationType": 2,
+          "animationDelta": 0.1666666716337204,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            180.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    }
+  ],
+  "effectId": "min_new_d_machine_start_9cd133566d61",
+  "classification": "READY_MIN",
+  "variant": "MIN",
+  "role": "START",
+  "scope": {
+    "profession": "new_d_machine",
+    "skillGroup": "new_d_machine_start_end"
+  },
+  "dependencies": [
+    {
+      "declared": "m_shield_end_11.bmp",
+      "resolved": "texture/effect/new_d_machine/new_d_machine_start_end/m_shield_end_11.bmp",
+      "missing": false,
+      "hash": "252626d7d6cb90f4eb8b9261b7cd0e9275a1f7ddfd9028f5d58c13f8106dd450",
+      "png": "textures/25/252626d7d6cb90f4eb8b9261b7cd0e9275a1f7ddfd9028f5d58c13f8106dd450.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 13887
+    },
+    {
+      "declared": "m_shield_end_10.bmp",
+      "resolved": "texture/effect/new_d_machine/new_d_machine_start_end/m_shield_end_10.bmp",
+      "missing": false,
+      "hash": "67f2a5bf6ddd58c65988357a2185759b784888eeba0a10169431f1848099be29",
+      "png": "textures/67/67f2a5bf6ddd58c65988357a2185759b784888eeba0a10169431f1848099be29.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 14547
+    },
+    {
+      "declared": "m_shield_end_09.bmp",
+      "resolved": "texture/effect/new_d_machine/new_d_machine_start_end/m_shield_end_09.bmp",
+      "missing": false,
+      "hash": "e10315a4c914c807afa61526bbf9a3730ee0832e95f84864f5e09afeb4bbd9c6",
+      "png": "textures/e1/e10315a4c914c807afa61526bbf9a3730ee0832e95f84864f5e09afeb4bbd9c6.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 17424
+    },
+    {
+      "declared": "m_shield_end_08.bmp",
+      "resolved": "texture/effect/new_d_machine/new_d_machine_start_end/m_shield_end_08.bmp",
+      "missing": false,
+      "hash": "520130ef056c2139e87460c530878cd32b9a4132e2845d1eb9271e7f398a4c4b",
+      "png": "textures/52/520130ef056c2139e87460c530878cd32b9a4132e2845d1eb9271e7f398a4c4b.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 18958
+    },
+    {
+      "declared": "m_shield_end_07.bmp",
+      "resolved": "texture/effect/new_d_machine/new_d_machine_start_end/m_shield_end_07.bmp",
+      "missing": false,
+      "hash": "0832370e79211650faf2d7aeaa178f43bfcb03145eff5143958fbef89ff37293",
+      "png": "textures/08/0832370e79211650faf2d7aeaa178f43bfcb03145eff5143958fbef89ff37293.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 20099
+    },
+    {
+      "declared": "m_shield_end_05.bmp",
+      "resolved": "texture/effect/new_d_machine/new_d_machine_start_end/m_shield_end_05.bmp",
+      "missing": false,
+      "hash": "c9b0e2730188d6dcb0018aa37a0b91e6a8519e75b784aec4984d36dc89f0cea9",
+      "png": "textures/c9/c9b0e2730188d6dcb0018aa37a0b91e6a8519e75b784aec4984d36dc89f0cea9.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 22363
+    },
+    {
+      "declared": "m_shield_end_03.bmp",
+      "resolved": "texture/effect/new_d_machine/new_d_machine_start_end/m_shield_end_03.bmp",
+      "missing": false,
+      "hash": "272d715707257179efe5d40428e5839eb74c49a480fbd08b5a6dacb3f7c06040",
+      "png": "textures/27/272d715707257179efe5d40428e5839eb74c49a480fbd08b5a6dacb3f7c06040.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 23297
+    },
+    {
+      "declared": "m_shield_end_01.bmp",
+      "resolved": "texture/effect/new_d_machine/new_d_machine_start_end/m_shield_end_01.bmp",
+      "missing": false,
+      "hash": "979e84ca0c93392c37d53310cdc1beb06abc7f4befae79ab16e6bd1f7e6a8af4",
+      "png": "textures/97/979e84ca0c93392c37d53310cdc1beb06abc7f4befae79ab16e6bd1f7e6a8af4.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 23943
+    },
+    {
+      "declared": "m_shield_end_00.bmp",
+      "resolved": "texture/effect/new_d_machine/new_d_machine_start_end/m_shield_end_00.bmp",
+      "missing": false,
+      "hash": "791e53eba7bbcafa9b4e71a41969c01fa92ca6bca548d55defe670b7b7c67051",
+      "png": "textures/79/791e53eba7bbcafa9b4e71a41969c01fa92ca6bca548d55defe670b7b7c67051.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 23368
+    }
+  ],
+  "assetPathMode": "library-root-relative",
+  "renderer": {
+    "mode": "V81 approximate-2d",
+    "notes": "Timeline/layers/textures/color/rotation supported; perspective and exact GL blends approximated."
+  }
+}

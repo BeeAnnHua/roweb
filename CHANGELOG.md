@@ -1,3 +1,11 @@
+## V0.9.83D — V93 42 招 PASS 技能特效增量整合
+
+- 基準：V0.9.83C2；不重包完整 200MB，預設交付增量 Patch。
+- V93 Gate PASS 42 招／318 個 browser-safe 特效加入既有 V92 Runtime；58 招 REVIEW 全數排除。
+- 沿用成功定位規則：傷害／Debuff 的命中、主體、地面衝擊特效固定在所選怪物；自身 Buff／自用技能固定在施法者。施法準備仍在施法者，飛行段仍走 projectile path。
+- 新增 318 effect JSON；1369 個貼圖依賴中 62 個與既有 V92 完全相同並直接共用，實際只新增 1307 張。
+- 不修改技能公式、SP、冷卻、傷害、名稱、說明與存檔 schema。
+
 ## V0.9.83C2 — 詩舞「大暴雨」三武器相容修正
 - 依 rAthena Renewal，WM_SEVERE_RAINSTORM（Skill ID 2418）可使用弓、樂器與鞭子施放。
 - 修正／強化武器類型解析，支援 Whip、Musical、Instrument、W_WHIP、W_MUSICAL 與裝備實例來源。

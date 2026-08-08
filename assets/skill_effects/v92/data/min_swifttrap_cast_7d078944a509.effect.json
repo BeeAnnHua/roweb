@@ -1,0 +1,883 @@
+{
+  "schema": "ro-effect-str-1.1",
+  "source": "texture/effect/swifttrap/swifttrap_cast/min_swifttrap_cast.str",
+  "version": 148,
+  "fps": 60,
+  "frameCount": 125,
+  "durationSeconds": 2.083333,
+  "layers": [
+    {
+      "textures": [],
+      "keyframes": []
+    },
+    {
+      "textures": [
+        "swi_wind_01.bmp",
+        "swi_wind_03.bmp",
+        "swi_wind_04.bmp",
+        "swi_wind_05.bmp",
+        "swi_wind_07.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 0,
+          "type": 0,
+          "position": [
+            320.0,
+            240.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -60.0,
+            60.0,
+            60.0,
+            -60.0,
+            -62.0,
+            -62.0,
+            62.0,
+            62.0
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.20000000298023224,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            100.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 0,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.37037035822868347,
+            -0.37037035822868347,
+            -0.37037035822868347,
+            0.37037035822868347,
+            0.37037035822868347,
+            0.37037035822868347,
+            -0.37037035822868347,
+            -0.37037035822868347
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.20000000298023224,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -1.4814814329147339
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 27,
+          "type": 0,
+          "position": [
+            320.0,
+            240.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -50.0,
+            50.0,
+            50.0,
+            -50.0,
+            -52.0,
+            -52.0,
+            52.0,
+            52.0
+          ],
+          "textureId": 4.0,
+          "animationType": 2,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            60.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "swi_wind_01.bmp",
+        "swi_wind_03.bmp",
+        "swi_wind_04.bmp",
+        "swi_wind_05.bmp",
+        "swi_wind_07.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 15,
+          "type": 0,
+          "position": [
+            331.0,
+            264.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -75.0,
+            75.0,
+            75.0,
+            -75.0,
+            -78.0,
+            -78.0,
+            78.0,
+            78.0
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.20000000298023224,
+          "rotation": 512.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            100.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 15,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.9259259104728699,
+            -0.9259259104728699,
+            -0.9259259104728699,
+            0.9259259104728699,
+            0.9629629850387573,
+            0.9629629850387573,
+            -0.9629629850387573,
+            -0.9629629850387573
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.20000000298023224,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -1.4814814329147339
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 42,
+          "type": 0,
+          "position": [
+            331.0,
+            264.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -50.0,
+            50.0,
+            50.0,
+            -50.0,
+            -52.0,
+            -52.0,
+            52.0,
+            52.0
+          ],
+          "textureId": 4.0,
+          "animationType": 2,
+          "animationDelta": 0.25,
+          "rotation": 512.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            60.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "swi_wind_01.bmp",
+        "swi_wind_03.bmp",
+        "swi_wind_04.bmp",
+        "swi_wind_05.bmp",
+        "swi_wind_07.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 35,
+          "type": 0,
+          "position": [
+            318.0,
+            261.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -60.0,
+            60.0,
+            60.0,
+            -60.0,
+            -62.0,
+            -62.0,
+            62.0,
+            62.0
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.20000000298023224,
+          "rotation": -142.22219848632812,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            120.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 35,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.37037035822868347,
+            -0.37037035822868347,
+            -0.37037035822868347,
+            0.37037035822868347,
+            0.37037035822868347,
+            0.37037035822868347,
+            -0.37037035822868347,
+            -0.37037035822868347
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.20000000298023224,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -1.4814814329147339
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 62,
+          "type": 0,
+          "position": [
+            318.0,
+            261.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -50.0,
+            50.0,
+            50.0,
+            -50.0,
+            -52.0,
+            -52.0,
+            52.0,
+            52.0
+          ],
+          "textureId": 4.0,
+          "animationType": 2,
+          "animationDelta": 0.25,
+          "rotation": -142.22219848632812,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            80.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "swi_wind_01.bmp",
+        "swi_wind_03.bmp",
+        "swi_wind_04.bmp",
+        "swi_wind_05.bmp",
+        "swi_wind_07.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 55,
+          "type": 0,
+          "position": [
+            319.0,
+            248.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            60.0,
+            -60.0,
+            -60.0,
+            60.0,
+            -62.0,
+            -62.0,
+            62.0,
+            62.0
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.20000000298023224,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            90.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 55,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            -0.3125,
+            0.3125,
+            0.3125,
+            -0.3125,
+            0.3125,
+            0.3125,
+            -0.3125,
+            -0.3125
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.20000000298023224,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -1.25
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 87,
+          "type": 0,
+          "position": [
+            319.0,
+            248.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            50.0,
+            -50.0,
+            -50.0,
+            50.0,
+            -52.0,
+            -52.0,
+            52.0,
+            52.0
+          ],
+          "textureId": 4.0,
+          "animationType": 2,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            50.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "swi_wind_01.bmp",
+        "swi_wind_03.bmp",
+        "swi_wind_04.bmp",
+        "swi_wind_05.bmp",
+        "swi_wind_07.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 75,
+          "type": 0,
+          "position": [
+            314.0,
+            268.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -60.0,
+            60.0,
+            60.0,
+            -60.0,
+            62.0,
+            62.0,
+            -62.0,
+            -62.0
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.20000000298023224,
+          "rotation": 341.33331298828125,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            120.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 75,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.37037035822868347,
+            -0.37037035822868347,
+            -0.37037035822868347,
+            0.37037035822868347,
+            -0.37037035822868347,
+            -0.37037035822868347,
+            0.37037035822868347,
+            0.37037035822868347
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.20000000298023224,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -1.4814814329147339
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 102,
+          "type": 0,
+          "position": [
+            314.0,
+            268.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -50.0,
+            50.0,
+            50.0,
+            -50.0,
+            52.0,
+            52.0,
+            -52.0,
+            -52.0
+          ],
+          "textureId": 4.0,
+          "animationType": 2,
+          "animationDelta": 0.25,
+          "rotation": 341.33331298828125,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            80.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    },
+    {
+      "textures": [
+        "swi_wind_01.bmp",
+        "swi_wind_03.bmp",
+        "swi_wind_04.bmp",
+        "swi_wind_05.bmp",
+        "swi_wind_07.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 97,
+          "type": 0,
+          "position": [
+            326.0,
+            246.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -50.0,
+            50.0,
+            50.0,
+            -50.0,
+            -52.0,
+            -52.0,
+            52.0,
+            52.0
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.20000000298023224,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            100.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 97,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 2,
+          "animationDelta": 0.20000000298023224,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -1.7857142686843872
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 125,
+          "type": 0,
+          "position": [
+            326.0,
+            246.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -50.0,
+            50.0,
+            50.0,
+            -50.0,
+            -52.0,
+            -52.0,
+            52.0,
+            52.0
+          ],
+          "textureId": 4.0,
+          "animationType": 2,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            50.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    }
+  ],
+  "effectId": "min_swifttrap_cast_7d078944a509",
+  "classification": "READY_MIN",
+  "variant": "MIN",
+  "role": "CAST",
+  "scope": {
+    "profession": "swifttrap",
+    "skillGroup": "swifttrap_cast"
+  },
+  "dependencies": [
+    {
+      "declared": "swi_wind_01.bmp",
+      "resolved": "texture/effect/swifttrap/swifttrap_cast/swi_wind_01.bmp",
+      "missing": false,
+      "hash": "cd5f530421829ff5b06af1c197af14811d7b78744757909913dab38d8929416e",
+      "png": "textures/cd/cd5f530421829ff5b06af1c197af14811d7b78744757909913dab38d8929416e.png",
+      "width": 100,
+      "height": 104,
+      "bytes": 5680
+    },
+    {
+      "declared": "swi_wind_03.bmp",
+      "resolved": "texture/effect/swifttrap/swifttrap_cast/swi_wind_03.bmp",
+      "missing": false,
+      "hash": "74dcb252552cfd7e56434027bab5880a2d1e1ed8e056a320a6c173c0b96e47f9",
+      "png": "textures/74/74dcb252552cfd7e56434027bab5880a2d1e1ed8e056a320a6c173c0b96e47f9.png",
+      "width": 100,
+      "height": 104,
+      "bytes": 7689
+    },
+    {
+      "declared": "swi_wind_04.bmp",
+      "resolved": "texture/effect/swifttrap/swifttrap_cast/swi_wind_04.bmp",
+      "missing": false,
+      "hash": "fd41a5ca4ac79508e1e9299688350acfb85961a231ff9bd4eb62058dd69401d1",
+      "png": "textures/fd/fd41a5ca4ac79508e1e9299688350acfb85961a231ff9bd4eb62058dd69401d1.png",
+      "width": 100,
+      "height": 104,
+      "bytes": 7894
+    },
+    {
+      "declared": "swi_wind_05.bmp",
+      "resolved": "texture/effect/swifttrap/swifttrap_cast/swi_wind_05.bmp",
+      "missing": false,
+      "hash": "76b043c69081a8c229ec2fc8d1f4be4e495410696468c09126ed5ab157522f96",
+      "png": "textures/76/76b043c69081a8c229ec2fc8d1f4be4e495410696468c09126ed5ab157522f96.png",
+      "width": 100,
+      "height": 104,
+      "bytes": 7249
+    },
+    {
+      "declared": "swi_wind_07.bmp",
+      "resolved": "texture/effect/swifttrap/swifttrap_cast/swi_wind_07.bmp",
+      "missing": false,
+      "hash": "a46c2a96509624a5fa1fabc3186388cb0b733b56f5f2ae96c4788f8121b065e4",
+      "png": "textures/a4/a46c2a96509624a5fa1fabc3186388cb0b733b56f5f2ae96c4788f8121b065e4.png",
+      "width": 100,
+      "height": 104,
+      "bytes": 5999
+    }
+  ],
+  "assetPathMode": "library-root-relative",
+  "renderer": {
+    "mode": "V81 approximate-2d",
+    "notes": "Timeline/layers/textures/color/rotation supported; perspective and exact GL blends approximated."
+  }
+}

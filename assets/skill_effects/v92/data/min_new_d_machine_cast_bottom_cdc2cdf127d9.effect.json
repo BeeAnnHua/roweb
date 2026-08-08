@@ -1,0 +1,323 @@
+{
+  "schema": "ro-effect-str-1.1",
+  "source": "texture/effect/new_d_machine/new_d_machine_cast_bottom/min_new_d_machine_cast_bottom.str",
+  "version": 148,
+  "fps": 60,
+  "frameCount": 59,
+  "durationSeconds": 0.983333,
+  "layers": [
+    {
+      "textures": [],
+      "keyframes": []
+    },
+    {
+      "textures": [
+        "cast_m_00.bmp",
+        "cast_m_01.bmp",
+        "cast_m_02.bmp",
+        "cast_m_03.bmp",
+        "cast_m_04.bmp",
+        "cast_m_05.bmp",
+        "cast_m_06.bmp",
+        "cast_m_07.bmp",
+        "cast_m_08.bmp",
+        "cast_m_09.bmp",
+        "cast_m_10.bmp",
+        "cast_m_11.bmp",
+        "cast_m_12.bmp",
+        "cast_m_13.bmp",
+        "cast_m_14.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 0,
+          "type": 0,
+          "position": [
+            321.0,
+            303.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -70.0,
+            70.0,
+            70.0,
+            -70.0,
+            -57.0,
+            -57.0,
+            57.0,
+            57.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            170.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 0,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "textureId": 0.0,
+          "animationType": 3,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 59,
+          "type": 0,
+          "position": [
+            321.0,
+            303.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -70.0,
+            70.0,
+            70.0,
+            -70.0,
+            -57.0,
+            -57.0,
+            57.0,
+            57.0
+          ],
+          "textureId": 14.0,
+          "animationType": 3,
+          "animationDelta": 0.25,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            170.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    }
+  ],
+  "effectId": "min_new_d_machine_cast_bottom_cdc2cdf127d9",
+  "classification": "READY_MIN",
+  "variant": "MIN",
+  "role": "CAST_BOTTOM",
+  "scope": {
+    "profession": "new_d_machine",
+    "skillGroup": "new_d_machine_cast_bottom"
+  },
+  "dependencies": [
+    {
+      "declared": "cast_m_00.bmp",
+      "resolved": "texture/effect/new_d_machine/new_d_machine_cast_bottom/cast_m_00.bmp",
+      "missing": false,
+      "hash": "1e016be69c048d621f61db2f72d6e023257a11462094ce9c1f78a809365884aa",
+      "png": "textures/1e/1e016be69c048d621f61db2f72d6e023257a11462094ce9c1f78a809365884aa.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 23684
+    },
+    {
+      "declared": "cast_m_01.bmp",
+      "resolved": "texture/effect/new_d_machine/new_d_machine_cast_bottom/cast_m_01.bmp",
+      "missing": false,
+      "hash": "3412ffb3c48c73614b3cd0c9cc592be07b132e064dfe4542064e11250a82c6a7",
+      "png": "textures/34/3412ffb3c48c73614b3cd0c9cc592be07b132e064dfe4542064e11250a82c6a7.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 24263
+    },
+    {
+      "declared": "cast_m_02.bmp",
+      "resolved": "texture/effect/new_d_machine/new_d_machine_cast_bottom/cast_m_02.bmp",
+      "missing": false,
+      "hash": "6ad4beb54855a7ea0fec22c472a6dd890d8c9e0e049e8ea80276246e22525c30",
+      "png": "textures/6a/6ad4beb54855a7ea0fec22c472a6dd890d8c9e0e049e8ea80276246e22525c30.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 24387
+    },
+    {
+      "declared": "cast_m_03.bmp",
+      "resolved": "texture/effect/new_d_machine/new_d_machine_cast_bottom/cast_m_03.bmp",
+      "missing": false,
+      "hash": "e2f7e4bfb850f05bed5e70cb5b84836de9697238be976eda2d767757bbde1cc3",
+      "png": "textures/e2/e2f7e4bfb850f05bed5e70cb5b84836de9697238be976eda2d767757bbde1cc3.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 24368
+    },
+    {
+      "declared": "cast_m_04.bmp",
+      "resolved": "texture/effect/new_d_machine/new_d_machine_cast_bottom/cast_m_04.bmp",
+      "missing": false,
+      "hash": "3cf438dfe21557ded3fec8c2fd5718f8fa8fc10dd8879b1800dccbadd53d72f9",
+      "png": "textures/3c/3cf438dfe21557ded3fec8c2fd5718f8fa8fc10dd8879b1800dccbadd53d72f9.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 24274
+    },
+    {
+      "declared": "cast_m_05.bmp",
+      "resolved": "texture/effect/new_d_machine/new_d_machine_cast_bottom/cast_m_05.bmp",
+      "missing": false,
+      "hash": "261c38ddf88052cecfbe93d7a5ac3f09a38340b73002cb650ec62ad41aa4523f",
+      "png": "textures/26/261c38ddf88052cecfbe93d7a5ac3f09a38340b73002cb650ec62ad41aa4523f.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 23838
+    },
+    {
+      "declared": "cast_m_06.bmp",
+      "resolved": "texture/effect/new_d_machine/new_d_machine_cast_bottom/cast_m_06.bmp",
+      "missing": false,
+      "hash": "c9fab6fa41a484115162d2db69cdd2fb2dea3adfa89bce763a02c74012ebca60",
+      "png": "textures/c9/c9fab6fa41a484115162d2db69cdd2fb2dea3adfa89bce763a02c74012ebca60.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 23487
+    },
+    {
+      "declared": "cast_m_07.bmp",
+      "resolved": "texture/effect/new_d_machine/new_d_machine_cast_bottom/cast_m_07.bmp",
+      "missing": false,
+      "hash": "0ab1edb90c78b47063a2862777413ec73023ad3b80225519361129122641ae75",
+      "png": "textures/0a/0ab1edb90c78b47063a2862777413ec73023ad3b80225519361129122641ae75.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 23532
+    },
+    {
+      "declared": "cast_m_08.bmp",
+      "resolved": "texture/effect/new_d_machine/new_d_machine_cast_bottom/cast_m_08.bmp",
+      "missing": false,
+      "hash": "7141f29ee4af1404e8aa722c2d04bdf65419cf053b222230ad61e400e1a4b22e",
+      "png": "textures/71/7141f29ee4af1404e8aa722c2d04bdf65419cf053b222230ad61e400e1a4b22e.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 23282
+    },
+    {
+      "declared": "cast_m_09.bmp",
+      "resolved": "texture/effect/new_d_machine/new_d_machine_cast_bottom/cast_m_09.bmp",
+      "missing": false,
+      "hash": "2b2120bd58787dde2147bb8ef1c2d294ed89522775a80917ba389bd2042f2202",
+      "png": "textures/2b/2b2120bd58787dde2147bb8ef1c2d294ed89522775a80917ba389bd2042f2202.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 23053
+    },
+    {
+      "declared": "cast_m_10.bmp",
+      "resolved": "texture/effect/new_d_machine/new_d_machine_cast_bottom/cast_m_10.bmp",
+      "missing": false,
+      "hash": "1d0424095bb7d7a23572894c567f5136542c34dee329b65f899f6fc974dcc790",
+      "png": "textures/1d/1d0424095bb7d7a23572894c567f5136542c34dee329b65f899f6fc974dcc790.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 22682
+    },
+    {
+      "declared": "cast_m_11.bmp",
+      "resolved": "texture/effect/new_d_machine/new_d_machine_cast_bottom/cast_m_11.bmp",
+      "missing": false,
+      "hash": "e875777d6f54913102b8b17c7ddd38e1f2e434400d1c31f13f8a90f5861d6a19",
+      "png": "textures/e8/e875777d6f54913102b8b17c7ddd38e1f2e434400d1c31f13f8a90f5861d6a19.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 21796
+    },
+    {
+      "declared": "cast_m_12.bmp",
+      "resolved": "texture/effect/new_d_machine/new_d_machine_cast_bottom/cast_m_12.bmp",
+      "missing": false,
+      "hash": "28e1e02a809558b4a7ffae03dc83cee532fe18b1ec3d1072fe60e4ffd998507f",
+      "png": "textures/28/28e1e02a809558b4a7ffae03dc83cee532fe18b1ec3d1072fe60e4ffd998507f.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 21678
+    },
+    {
+      "declared": "cast_m_13.bmp",
+      "resolved": "texture/effect/new_d_machine/new_d_machine_cast_bottom/cast_m_13.bmp",
+      "missing": false,
+      "hash": "34e0b95ff406b4c216fe00b5d8dd7b3ac03e581a570a64ad9772e4b1430d4198",
+      "png": "textures/34/34e0b95ff406b4c216fe00b5d8dd7b3ac03e581a570a64ad9772e4b1430d4198.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 21674
+    },
+    {
+      "declared": "cast_m_14.bmp",
+      "resolved": "texture/effect/new_d_machine/new_d_machine_cast_bottom/cast_m_14.bmp",
+      "missing": false,
+      "hash": "157871489a230b27bd11684d7ebb8c57b0202de41ec74bb27adeb85f4984378a",
+      "png": "textures/15/157871489a230b27bd11684d7ebb8c57b0202de41ec74bb27adeb85f4984378a.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 21925
+    }
+  ],
+  "assetPathMode": "library-root-relative",
+  "renderer": {
+    "mode": "V81 approximate-2d",
+    "notes": "Timeline/layers/textures/color/rotation supported; perspective and exact GL blends approximated."
+  }
+}

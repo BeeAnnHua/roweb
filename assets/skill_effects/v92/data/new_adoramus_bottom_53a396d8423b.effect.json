@@ -1,0 +1,251 @@
+{
+  "schema": "ro-effect-str-1.1",
+  "source": "texture/effect/mineffect/new_adoramus/new_adoramus_bottom/new_adoramus_bottom.str",
+  "version": 148,
+  "fps": 60,
+  "frameCount": 30,
+  "durationSeconds": 0.5,
+  "layers": [
+    {
+      "textures": [],
+      "keyframes": []
+    },
+    {
+      "textures": [
+        "ado_circle_00.bmp"
+      ],
+      "keyframes": [
+        {
+          "frame": 0,
+          "type": 0,
+          "position": [
+            320.0,
+            305.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -32.0,
+            32.0,
+            32.0,
+            -32.0,
+            -24.5,
+            -24.5,
+            24.5,
+            24.5
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            180.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 0,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            -14.833333015441895,
+            14.833333015441895,
+            14.833333015441895,
+            -14.833333015441895,
+            -11.333333015441895,
+            -11.333333015441895,
+            11.333333015441895,
+            11.333333015441895
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -26.66666603088379
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 3,
+          "type": 0,
+          "position": [
+            320.0,
+            305.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -76.5,
+            76.5,
+            76.5,
+            -76.5,
+            -58.5,
+            -58.5,
+            58.5,
+            58.5
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            100.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 3,
+          "type": 1,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "xy": [
+            -0.7222222089767456,
+            0.7222222089767456,
+            0.7222222089767456,
+            -0.7222222089767456,
+            -0.5555555820465088,
+            -0.5555555820465088,
+            0.5555555820465088,
+            0.5555555820465088
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            -3.7037036418914795
+          ],
+          "sourceBlend": 0,
+          "destBlend": 0,
+          "multiTexturePreset": 0
+        },
+        {
+          "frame": 30,
+          "type": 0,
+          "position": [
+            320.0,
+            305.0
+          ],
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "xy": [
+            -96.0,
+            96.0,
+            96.0,
+            -96.0,
+            -73.5,
+            -73.5,
+            73.5,
+            73.5
+          ],
+          "textureId": 0.0,
+          "animationType": 0,
+          "animationDelta": 0.0,
+          "rotation": 0.0,
+          "color": [
+            255.0,
+            255.0,
+            255.0,
+            0.0
+          ],
+          "sourceBlend": 5,
+          "destBlend": 7,
+          "multiTexturePreset": 0
+        }
+      ]
+    }
+  ],
+  "effectId": "new_adoramus_bottom_53a396d8423b",
+  "classification": "READY_FULL",
+  "variant": "FULL",
+  "role": "BOTTOM",
+  "scope": {
+    "profession": "mineffect",
+    "skillGroup": "new_adoramus"
+  },
+  "dependencies": [
+    {
+      "declared": "ado_circle_00.bmp",
+      "resolved": "texture/effect/mineffect/new_adoramus/new_adoramus_bottom/ado_circle_00.bmp",
+      "missing": false,
+      "hash": "96d15f8882d73e1e02979ed1e2e4a54fa65788e2cbb8b3452ee74954753cf2c7",
+      "png": "textures/96/96d15f8882d73e1e02979ed1e2e4a54fa65788e2cbb8b3452ee74954753cf2c7.png",
+      "width": 128,
+      "height": 98,
+      "bytes": 17966
+    }
+  ],
+  "assetPathMode": "library-root-relative",
+  "renderer": {
+    "mode": "V81 approximate-2d",
+    "notes": "Timeline/layers/textures/color/rotation supported; perspective and exact GL blends approximated."
+  }
+}
