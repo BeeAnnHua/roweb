@@ -1,0 +1,76 @@
+{
+  "version": "V0.9.83E3",
+  "base": "V0.9.83E2",
+  "change": "Generic12 BUFF timed_status quick-slot casts are now self-centered and no longer require a selected monster when the skill is self-origin.",
+  "generic12": {
+    "mappedActiveSkills": 617,
+    "buffSupportSkills": 263,
+    "buffTimedStatusSkills": 11,
+    "buffTimedStatusSelfOrigin": 11,
+    "sharedEffects": 0
+  },
+  "fixedTimedStatusSkills": [
+    {
+      "skillId": 308,
+      "skillKey": "BD_ETERNALCHAOS",
+      "name": "永遠的混沌"
+    },
+    {
+      "skillId": 318,
+      "skillKey": "BA_FROSTJOKER",
+      "name": "冷笑話"
+    },
+    {
+      "skillId": 326,
+      "skillKey": "DC_SCREAM",
+      "name": "驚聲尖叫"
+    },
+    {
+      "skillId": 328,
+      "skillKey": "DC_DONTFORGETME",
+      "name": "勿忘我"
+    },
+    {
+      "skillId": 2209,
+      "skillKey": "WL_STASIS",
+      "name": "魔力凍結"
+    },
+    {
+      "skillId": 2420,
+      "skillKey": "WM_VOICEOFSIREN",
+      "name": "塞壬之音"
+    },
+    {
+      "skillId": 2429,
+      "skillKey": "WM_SOUND_OF_DESTRUCTION",
+      "name": "毀滅之聲"
+    },
+    {
+      "skillId": 2430,
+      "skillKey": "WM_SATURDAY_NIGHT_FEVER",
+      "name": "狂歡週末夜"
+    },
+    {
+      "skillId": 2432,
+      "skillKey": "WM_MELODYOFSINK",
+      "name": "消沈旋律"
+    },
+    {
+      "skillId": 2433,
+      "skillKey": "WM_BEYOND_OF_WARCRY",
+      "name": "戰嚎的彼端"
+    },
+    {
+      "skillId": 5328,
+      "skillKey": "WH_CALAMITYGALE",
+      "name": "憤怒暴風"
+    }
+  ],
+  "rules": [
+    "Quick-slot Generic12 BUFF timed_status skills use the caster as the cast origin and skip monster-distance/auto-approach checks.",
+    "Self-centered AoE status skills still affect valid nearby combat targets; they are not converted into a single-target self buff.",
+    "Official Skill Self + SplashArea is used when a runtime profile has no hand-written targeting block.",
+    "Enemy-target timed_status skills still require a valid current monster.",
+    "The 12 Generic12 effect assets and 617 skill mappings are unchanged."
+  ]
+}

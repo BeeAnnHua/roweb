@@ -338,6 +338,33 @@ function quickSlotNormalAttack() {
 }
 
 
+const RO_WEB_GENERIC12_MAP_PATH = "assets/skill_effects/v92/GENERIC12_SKILL_MAP.json";
+let RO_WEB_GENERIC12_QUICKSLOT_CACHE = null;
+
+function getQuickSlotGeneric12Category(skill) {
+  const skillId = Number(skill?.officialId ?? skill?.id ?? 0);
+  if (!skillId) return "";
+  if (!RO_WEB_GENERIC12_QUICKSLOT_CACHE) {
+    RO_WEB_GENERIC12_QUICKSLOT_CACHE = new Map();
+    const bundled = window.RO_WEB_DATA?.[RO_WEB_GENERIC12_MAP_PATH];
+    for (const row of bundled?.skills || []) {
+      RO_WEB_GENERIC12_QUICKSLOT_CACHE.set(Number(row.skillId || 0), String(row.category || "").toUpperCase());
+    }
+  }
+  return RO_WEB_GENERIC12_QUICKSLOT_CACHE.get(skillId) || "";
+}
+
+// V0.9.83E2：快捷欄的輔助技能採「自身優先」。
+// Generic12 的 BUFF 類在 RO_WEB 單人玩法中預設直接對玩家施放，避免因舊 TargetType=Support/Ground
+// 再次觸發怪物距離檢查。真正需要敵方作為位移目的地的 snap_to_target 例外保留。
+function quickSlotShouldDefaultSupportToSelf(skill, runtimeProfile = null) {
+  const profile = runtimeProfile || (typeof getSkillRuntimeProfile === "function" ? getSkillRuntimeProfile(skill) : null) || {};
+  if (getQuickSlotGeneric12Category(skill) !== "BUFF") return false;
+  const handler = String(profile.handler || "");
+  if (handler === "movement" && String(profile.movementType || "").toLowerCase() === "snap_to_target") return false;
+  return true;
+}
+
 const RO_WEB_TARGETED_SKILL_HANDLERS = new Set([
   "physical_attack","physical_attack_size_hits","physical_attack_formula","physical_charge",
   "magic_multihit","magic_damage","misc_damage","chain_magic","combo_sequence",
@@ -349,6 +376,7 @@ const RO_WEB_TARGETED_SKILL_HANDLERS = new Set([
 function quickSlotSkillNeedsFieldTarget(skill, runtimeProfile = null, level = null) {
   const profile = runtimeProfile || (typeof getSkillRuntimeProfile === "function" ? getSkillRuntimeProfile(skill) : null) || {};
   const learnedLevel = Math.max(1, Number(level || (typeof getSkillLevel === "function" ? getSkillLevel(skill?.id) : 1) || 1));
+  if (quickSlotShouldDefaultSupportToSelf(skill, profile)) return false;
   const handler = String(profile.handler || "");
   if (["physical_attack","physical_attack_size_hits","physical_attack_formula","physical_charge","magic_multihit","magic_damage","misc_damage"].includes(handler)
       && typeof runtimeSkillRequiresPrimaryTarget === "function") {
@@ -362,11 +390,12 @@ function quickSlotSkillNeedsFieldTarget(skill, runtimeProfile = null, level = nu
 
 function quickSlotEnsureSkillTargetRange(skill, level, runtimeProfile = null) {
   const needsTarget = quickSlotSkillNeedsFieldTarget(skill, runtimeProfile, level);
-  if (needsTarget && !quickSlotEnsureFieldMonster()) return false;
+  if (!needsTarget) return true;
+  if (!quickSlotEnsureFieldMonster()) return false;
   const profile = runtimeProfile || (typeof getSkillRuntimeProfile === "function" ? getSkillRuntimeProfile(skill) : null) || {};
   const needsRange = typeof runtimeSkillRequiresPrimaryTargetRange === "function"
     ? runtimeSkillRequiresPrimaryTargetRange(skill, profile, level)
-    : needsTarget;
+    : true;
   if (!needsRange) return true;
   const rangePx = typeof getSkillRangePx === "function" ? Number(getSkillRangePx(skill, level)) : null;
   if (!Number.isFinite(rangePx) || typeof canAttackMonsterByRange !== "function" || canAttackMonsterByRange(currentMonster, rangePx)) return true;
@@ -379,6 +408,8 @@ function quickSlotEnsureSkillTargetRange(skill, level, runtimeProfile = null) {
 }
 window.quickSlotSkillNeedsFieldTarget = quickSlotSkillNeedsFieldTarget;
 window.quickSlotEnsureSkillTargetRange = quickSlotEnsureSkillTargetRange;
+window.quickSlotShouldDefaultSupportToSelf = quickSlotShouldDefaultSupportToSelf;
+window.getQuickSlotGeneric12Category = getQuickSlotGeneric12Category;
 
 function quickSlotCastSkill(skillId, options = {}) {
   const skill = typeof getSkillDataById === "function" ? getSkillDataById(skillId) : null;
@@ -463,9 +494,17 @@ function quickSlotCastSkill(skillId, options = {}) {
   if (runtimeHandler === "skill_copy_selector") { castSkillCopySelector(skill, getSkillLevel(skill.id)); return; }
   if (runtimeHandler === "follow_area") { castFollowAreaSkill(skill, getSkillLevel(skill.id)); return; }
   if (runtimeHandler === "ground_damage") { if (!quickSlotEnsureFieldMonster()) return; castGroundDamageSkill(skill, getSkillLevel(skill.id)); return; }
-  if (runtimeHandler === "ground_protection") { if (!quickSlotEnsureFieldMonster()) return; castGroundProtectionSkill(skill, getSkillLevel(skill.id)); return; }
+  if (runtimeHandler === "ground_protection") {
+    if (quickSlotShouldDefaultSupportToSelf(skill, runtimeProfile)) {
+      castGroundProtectionSkill(skill, getSkillLevel(skill.id), { quickSlotSelfTarget: true });
+      return;
+    }
+    if (!quickSlotEnsureFieldMonster()) return;
+    castGroundProtectionSkill(skill, getSkillLevel(skill.id));
+    return;
+  }
   if (runtimeHandler === "buff") {
-    castBuffSkill(skill, getSkillLevel(skill.id));
+    castBuffSkill(skill, getSkillLevel(skill.id), { quickSlotSelfTarget: quickSlotShouldDefaultSupportToSelf(skill, runtimeProfile) });
     return;
   }
   if (runtimeHandler === "ground_debuff") {
@@ -486,8 +525,9 @@ function quickSlotCastSkill(skillId, options = {}) {
     return;
   }
   if (runtimeHandler === "timed_status") {
-    if (!quickSlotEnsureFieldMonster()) return;
-    castTimedStatusSkill(skill, getSkillLevel(skill.id));
+    const quickSlotSelfTarget = quickSlotShouldDefaultSupportToSelf(skill, runtimeProfile);
+    if (!quickSlotSelfTarget && !quickSlotEnsureFieldMonster()) return;
+    castTimedStatusSkill(skill, getSkillLevel(skill.id), { quickSlotSelfTarget });
     return;
   }
   if (runtimeHandler === "dispel") {
@@ -520,7 +560,8 @@ function quickSlotCastSkill(skillId, options = {}) {
     const resolvedMount = typeof resolvePlayerMountType === "function"
       ? resolvePlayerMountType(runtimeProfile.mountType || "peco")
       : String(runtimeProfile.mountType || "peco");
-    togglePlayerMount(resolvedMount);
+    const changed = togglePlayerMount(resolvedMount);
+    if (changed !== false) window.SkillEffectRuntimeV92?.emitDirect?.(skill, Math.max(1, Number(getSkillLevel(skill.id) || 1)), { source:"mount_unlock" });
     return;
   }
   addBattleLog(skill.name + " 目前不能放在快捷欄使用。 ");

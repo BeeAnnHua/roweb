@@ -648,8 +648,9 @@ function openVirtualSummonWindow() {
   if(node) node.classList.remove("hidden-window");
   updateVirtualSummonUI(true);
 }
-function castSummonControlSkill() {
+function castSummonControlSkill(skill = null, requestedLevel = 1) {
   openVirtualSummonWindow();
+  if (skill) window.SkillEffectRuntimeV92?.emitDirect?.(skill, Math.max(1, Number(requestedLevel || 1)), { source:"summon_control" });
   const rows = getUnifiedSummonUiModel();
   if (!rows.length && typeof addBattleLog === "function") addBattleLog(virtualSummonData?.uiText?.noSummon || "目前沒有可控制的召喚物。", "summon");
   return true;

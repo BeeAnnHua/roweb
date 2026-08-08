@@ -255,6 +255,7 @@ function castHomunculusManagerSkill(skill, requestedLevel = null, options = {}) 
     : { ok: true };
   if (!check.ok) return typeof reportPendingRuntime === "function" ? reportPendingRuntime(skill, check.reason) : false;
   openHomunculusWindow();
+  window.SkillEffectRuntimeV92?.emitDirect?.(skill, Math.max(1, Number(requestedLevel || 1)), { source:"homunculus_manager" });
   return true;
 }
 

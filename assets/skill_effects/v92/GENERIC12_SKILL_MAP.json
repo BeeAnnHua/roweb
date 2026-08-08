@@ -1,0 +1,7608 @@
+{
+  "version": "0.9.83E1",
+  "schema": "ro-web-generic-12-map-1.1",
+  "selectedEffects": [
+    {
+      "tier": "T12",
+      "category": "MELEE",
+      "code": "M2",
+      "effectId": "chul_ho_battering_hit_e9fe12da3e55"
+    },
+    {
+      "tier": "T12",
+      "category": "RANGED",
+      "code": "R1",
+      "effectId": "crescivebolt_hit_5c4efdfa5d59"
+    },
+    {
+      "tier": "T12",
+      "category": "MAGIC",
+      "code": "G1",
+      "effectId": "psychic_stream_hit_9a965bdad335"
+    },
+    {
+      "tier": "T12",
+      "category": "BUFF",
+      "code": "B6",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d"
+    },
+    {
+      "tier": "T3",
+      "category": "MELEE",
+      "code": "M6",
+      "effectId": "powerful_swing_hit_f071af650158"
+    },
+    {
+      "tier": "T3",
+      "category": "RANGED",
+      "code": "R4",
+      "effectId": "chasing_shot_hit_5bb1152d60f8"
+    },
+    {
+      "tier": "T3",
+      "category": "MAGIC",
+      "code": "G2",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3"
+    },
+    {
+      "tier": "T3",
+      "category": "BUFF",
+      "code": "B2",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6"
+    },
+    {
+      "tier": "T4",
+      "category": "MELEE",
+      "code": "M3",
+      "effectId": "hackandslash_hit_0ee46c623a35"
+    },
+    {
+      "tier": "T4",
+      "category": "RANGED",
+      "code": "R5",
+      "effectId": "energy_cannonade_hit_781e7112bcab"
+    },
+    {
+      "tier": "T4",
+      "category": "MAGIC",
+      "code": "G6",
+      "effectId": "abyss_flame_hit_d6b938025d8e"
+    },
+    {
+      "tier": "T4",
+      "category": "BUFF",
+      "code": "B3",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb"
+    }
+  ],
+  "skillCount": 617,
+  "skills": [
+    {
+      "skillId": 5,
+      "skillKey": "SM_BASH",
+      "name": "狂擊",
+      "tier": "T12",
+      "category": "MELEE",
+      "effectId": "chul_ho_battering_hit_e9fe12da3e55",
+      "handler": "physical_attack",
+      "jobs": [
+        "supernovice",
+        "swordman"
+      ]
+    },
+    {
+      "skillId": 6,
+      "skillKey": "SM_PROVOKE",
+      "name": "挑釁",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "monster_debuff",
+      "jobs": [
+        "supernovice",
+        "swordman"
+      ]
+    },
+    {
+      "skillId": 7,
+      "skillKey": "SM_MAGNUM",
+      "name": "怒爆",
+      "tier": "T12",
+      "category": "MELEE",
+      "effectId": "chul_ho_battering_hit_e9fe12da3e55",
+      "handler": "physical_attack",
+      "jobs": [
+        "supernovice",
+        "swordman"
+      ]
+    },
+    {
+      "skillId": 8,
+      "skillKey": "SM_ENDURE",
+      "name": "霸體",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "supernovice",
+        "swordman"
+      ]
+    },
+    {
+      "skillId": 11,
+      "skillKey": "MG_NAPALMBEAT",
+      "name": "心靈爆破",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "magic_damage",
+      "jobs": [
+        "mage",
+        "supernovice"
+      ]
+    },
+    {
+      "skillId": 13,
+      "skillKey": "MG_SOULSTRIKE",
+      "name": "聖靈召喚",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "magic_damage",
+      "jobs": [
+        "mage",
+        "supernovice"
+      ]
+    },
+    {
+      "skillId": 14,
+      "skillKey": "MG_COLDBOLT",
+      "name": "冰箭術",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "magic_damage",
+      "jobs": [
+        "mage",
+        "supernovice"
+      ]
+    },
+    {
+      "skillId": 15,
+      "skillKey": "MG_FROSTDIVER",
+      "name": "冰凍術",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "magic_damage",
+      "jobs": [
+        "mage",
+        "supernovice"
+      ]
+    },
+    {
+      "skillId": 16,
+      "skillKey": "MG_STONECURSE",
+      "name": "石化術",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "timed_status",
+      "jobs": [
+        "mage",
+        "supernovice"
+      ]
+    },
+    {
+      "skillId": 17,
+      "skillKey": "MG_FIREBALL",
+      "name": "火球術",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "magic_damage",
+      "jobs": [
+        "mage",
+        "supernovice"
+      ]
+    },
+    {
+      "skillId": 18,
+      "skillKey": "MG_FIREWALL",
+      "name": "火焰之壁",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "magic_damage",
+      "jobs": [
+        "mage",
+        "supernovice"
+      ]
+    },
+    {
+      "skillId": 19,
+      "skillKey": "MG_FIREBOLT",
+      "name": "火箭術",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "magic_damage",
+      "jobs": [
+        "mage",
+        "supernovice"
+      ]
+    },
+    {
+      "skillId": 20,
+      "skillKey": "MG_LIGHTNINGBOLT",
+      "name": "雷擊術",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "magic_damage",
+      "jobs": [
+        "mage",
+        "supernovice"
+      ]
+    },
+    {
+      "skillId": 21,
+      "skillKey": "MG_THUNDERSTORM",
+      "name": "雷爆術",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "magic_damage",
+      "jobs": [
+        "mage",
+        "supernovice"
+      ]
+    },
+    {
+      "skillId": 25,
+      "skillKey": "AL_PNEUMA",
+      "name": "光之障壁",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "acolyte",
+        "supernovice"
+      ]
+    },
+    {
+      "skillId": 26,
+      "skillKey": "AL_TELEPORT",
+      "name": "瞬間移動",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "teleport",
+      "jobs": [
+        "acolyte",
+        "supernovice"
+      ]
+    },
+    {
+      "skillId": 28,
+      "skillKey": "AL_HEAL",
+      "name": "治癒術",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "heal",
+      "jobs": [
+        "acolyte",
+        "crusader",
+        "supernovice"
+      ]
+    },
+    {
+      "skillId": 29,
+      "skillKey": "AL_INCAGI",
+      "name": "加速術",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "acolyte",
+        "supernovice"
+      ]
+    },
+    {
+      "skillId": 30,
+      "skillKey": "AL_DECAGI",
+      "name": "緩速術",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "debuff",
+      "jobs": [
+        "acolyte",
+        "supernovice"
+      ]
+    },
+    {
+      "skillId": 32,
+      "skillKey": "AL_CRUCIS",
+      "name": "天使之光",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "debuff",
+      "jobs": [
+        "acolyte",
+        "supernovice"
+      ]
+    },
+    {
+      "skillId": 33,
+      "skillKey": "AL_ANGELUS",
+      "name": "天使之障壁",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "acolyte",
+        "supernovice"
+      ]
+    },
+    {
+      "skillId": 34,
+      "skillKey": "AL_BLESSING",
+      "name": "天使之賜福",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "acolyte",
+        "supernovice"
+      ]
+    },
+    {
+      "skillId": 35,
+      "skillKey": "AL_CURE",
+      "name": "治療術",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "acolyte",
+        "crusader",
+        "supernovice"
+      ]
+    },
+    {
+      "skillId": 42,
+      "skillKey": "MC_MAMMONITE",
+      "name": "金錢攻擊",
+      "tier": "T12",
+      "category": "MELEE",
+      "effectId": "chul_ho_battering_hit_e9fe12da3e55",
+      "handler": "physical_attack",
+      "jobs": [
+        "merchant",
+        "supernovice"
+      ]
+    },
+    {
+      "skillId": 45,
+      "skillKey": "AC_CONCENTRATION",
+      "name": "心神凝聚",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "archer",
+        "supernovice"
+      ]
+    },
+    {
+      "skillId": 46,
+      "skillKey": "AC_DOUBLE",
+      "name": "二連矢",
+      "tier": "T12",
+      "category": "RANGED",
+      "effectId": "crescivebolt_hit_5c4efdfa5d59",
+      "handler": "physical_attack",
+      "jobs": [
+        "archer",
+        "rogue"
+      ]
+    },
+    {
+      "skillId": 47,
+      "skillKey": "AC_SHOWER",
+      "name": "箭雨",
+      "tier": "T12",
+      "category": "RANGED",
+      "effectId": "crescivebolt_hit_5c4efdfa5d59",
+      "handler": "physical_attack",
+      "jobs": [
+        "archer"
+      ]
+    },
+    {
+      "skillId": 50,
+      "skillKey": "TF_STEAL",
+      "name": "偷竊",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "steal_item",
+      "jobs": [
+        "supernovice",
+        "thief"
+      ]
+    },
+    {
+      "skillId": 52,
+      "skillKey": "TF_POISON",
+      "name": "施毒",
+      "tier": "T12",
+      "category": "MELEE",
+      "effectId": "chul_ho_battering_hit_e9fe12da3e55",
+      "handler": "physical_attack",
+      "jobs": [
+        "supernovice",
+        "thief"
+      ]
+    },
+    {
+      "skillId": 53,
+      "skillKey": "TF_DETOXIFY",
+      "name": "解毒",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "supernovice",
+        "thief"
+      ]
+    },
+    {
+      "skillId": 56,
+      "skillKey": "KN_PIERCE",
+      "name": "連刺攻擊",
+      "tier": "T12",
+      "category": "MELEE",
+      "effectId": "chul_ho_battering_hit_e9fe12da3e55",
+      "handler": "physical_attack_size_hits",
+      "jobs": [
+        "knight"
+      ]
+    },
+    {
+      "skillId": 57,
+      "skillKey": "KN_BRANDISHSPEAR",
+      "name": "騎乘攻擊",
+      "tier": "T12",
+      "category": "MELEE",
+      "effectId": "chul_ho_battering_hit_e9fe12da3e55",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "knight"
+      ]
+    },
+    {
+      "skillId": 58,
+      "skillKey": "KN_SPEARSTAB",
+      "name": "長矛刺擊",
+      "tier": "T12",
+      "category": "MELEE",
+      "effectId": "chul_ho_battering_hit_e9fe12da3e55",
+      "handler": "physical_attack",
+      "jobs": [
+        "knight"
+      ]
+    },
+    {
+      "skillId": 59,
+      "skillKey": "KN_SPEARBOOMERANG",
+      "name": "投擲長矛攻擊",
+      "tier": "T12",
+      "category": "MELEE",
+      "effectId": "chul_ho_battering_hit_e9fe12da3e55",
+      "handler": "physical_attack",
+      "jobs": [
+        "knight"
+      ]
+    },
+    {
+      "skillId": 60,
+      "skillKey": "KN_TWOHANDQUICKEN",
+      "name": "雙手劍攻擊速度增加",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "knight"
+      ]
+    },
+    {
+      "skillId": 61,
+      "skillKey": "KN_AUTOCOUNTER",
+      "name": "反擊",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "counter_stance",
+      "jobs": [
+        "knight"
+      ]
+    },
+    {
+      "skillId": 62,
+      "skillKey": "KN_BOWLINGBASH",
+      "name": "怪物互擊",
+      "tier": "T12",
+      "category": "MELEE",
+      "effectId": "chul_ho_battering_hit_e9fe12da3e55",
+      "handler": "physical_attack",
+      "jobs": [
+        "knight"
+      ]
+    },
+    {
+      "skillId": 63,
+      "skillKey": "KN_RIDING",
+      "name": "騎乘術",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "mount_unlock",
+      "jobs": [
+        "crusader",
+        "knight"
+      ]
+    },
+    {
+      "skillId": 66,
+      "skillKey": "PR_IMPOSITIO",
+      "name": "神威祈福",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "priest",
+        "super_novice_e"
+      ]
+    },
+    {
+      "skillId": 67,
+      "skillKey": "PR_SUFFRAGIUM",
+      "name": "犧牲祈福",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "priest"
+      ]
+    },
+    {
+      "skillId": 68,
+      "skillKey": "PR_ASPERSIO",
+      "name": "撒水祈福",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "priest",
+        "super_novice_e"
+      ]
+    },
+    {
+      "skillId": 69,
+      "skillKey": "PR_BENEDICTIO",
+      "name": "聖之祈福",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "priest"
+      ]
+    },
+    {
+      "skillId": 70,
+      "skillKey": "PR_SANCTUARY",
+      "name": "光耀之堂",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "sanctuary_area",
+      "jobs": [
+        "priest",
+        "super_novice_e"
+      ]
+    },
+    {
+      "skillId": 71,
+      "skillKey": "PR_SLOWPOISON",
+      "name": "緩毒術",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "high_priest",
+        "priest"
+      ]
+    },
+    {
+      "skillId": 72,
+      "skillKey": "PR_STRECOVERY",
+      "name": "痊癒術",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "priest",
+        "super_novice_e"
+      ]
+    },
+    {
+      "skillId": 73,
+      "skillKey": "PR_KYRIE",
+      "name": "霸邪之陣",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "priest"
+      ]
+    },
+    {
+      "skillId": 74,
+      "skillKey": "PR_MAGNIFICAT",
+      "name": "聖母之頌歌",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "priest",
+        "super_novice_e"
+      ]
+    },
+    {
+      "skillId": 75,
+      "skillKey": "PR_GLORIA",
+      "name": "幸運之頌歌",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "priest",
+        "super_novice_e"
+      ]
+    },
+    {
+      "skillId": 76,
+      "skillKey": "PR_LEXDIVINA",
+      "name": "沉默之術",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "debuff",
+      "jobs": [
+        "priest"
+      ]
+    },
+    {
+      "skillId": 77,
+      "skillKey": "PR_TURNUNDEAD",
+      "name": "轉生術",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "magic_damage",
+      "jobs": [
+        "priest"
+      ]
+    },
+    {
+      "skillId": 78,
+      "skillKey": "PR_LEXAETERNA",
+      "name": "天使之怒",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "debuff",
+      "jobs": [
+        "priest"
+      ]
+    },
+    {
+      "skillId": 79,
+      "skillKey": "PR_MAGNUS",
+      "name": "十字驅魔攻擊",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "magic_damage",
+      "jobs": [
+        "priest"
+      ]
+    },
+    {
+      "skillId": 80,
+      "skillKey": "WZ_FIREPILLAR",
+      "name": "火柱攻擊",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "magic_damage",
+      "jobs": [
+        "super_novice_e",
+        "wizard"
+      ]
+    },
+    {
+      "skillId": 81,
+      "skillKey": "WZ_SIGHTRASHER",
+      "name": "火之獵殺",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "magic_damage",
+      "jobs": [
+        "super_novice_e",
+        "wizard"
+      ]
+    },
+    {
+      "skillId": 83,
+      "skillKey": "WZ_METEOR",
+      "name": "隕石術",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "magic_damage",
+      "jobs": [
+        "super_novice_e",
+        "wizard"
+      ]
+    },
+    {
+      "skillId": 84,
+      "skillKey": "WZ_JUPITEL",
+      "name": "雷鳴術",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "magic_damage",
+      "jobs": [
+        "super_novice_e",
+        "wizard"
+      ]
+    },
+    {
+      "skillId": 85,
+      "skillKey": "WZ_VERMILION",
+      "name": "怒雷強擊",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "magic_damage",
+      "jobs": [
+        "super_novice_e",
+        "wizard"
+      ]
+    },
+    {
+      "skillId": 86,
+      "skillKey": "WZ_WATERBALL",
+      "name": "水球術",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "magic_damage",
+      "jobs": [
+        "super_novice_e",
+        "wizard"
+      ]
+    },
+    {
+      "skillId": 88,
+      "skillKey": "WZ_FROSTNOVA",
+      "name": "霜凍之術",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "magic_damage",
+      "jobs": [
+        "super_novice_e",
+        "wizard"
+      ]
+    },
+    {
+      "skillId": 89,
+      "skillKey": "WZ_STORMGUST",
+      "name": "暴風雪",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "magic_damage",
+      "jobs": [
+        "super_novice_e",
+        "wizard"
+      ]
+    },
+    {
+      "skillId": 90,
+      "skillKey": "WZ_EARTHSPIKE",
+      "name": "地震術",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "magic_damage",
+      "jobs": [
+        "sage",
+        "super_novice_e",
+        "wizard"
+      ]
+    },
+    {
+      "skillId": 91,
+      "skillKey": "WZ_HEAVENDRIVE",
+      "name": "崩裂術",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "magic_damage",
+      "jobs": [
+        "sage",
+        "super_novice_e",
+        "wizard"
+      ]
+    },
+    {
+      "skillId": 92,
+      "skillKey": "WZ_QUAGMIRE",
+      "name": "泥沼地",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "timed_status",
+      "jobs": [
+        "super_novice_e",
+        "wizard"
+      ]
+    },
+    {
+      "skillId": 110,
+      "skillKey": "BS_HAMMERFALL",
+      "name": "大地之擊",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "debuff",
+      "jobs": [
+        "blacksmith"
+      ]
+    },
+    {
+      "skillId": 111,
+      "skillKey": "BS_ADRENALINE",
+      "name": "速度激發",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "blacksmith"
+      ]
+    },
+    {
+      "skillId": 112,
+      "skillKey": "BS_WEAPONPERFECT",
+      "name": "無視體型攻擊",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "blacksmith"
+      ]
+    },
+    {
+      "skillId": 113,
+      "skillKey": "BS_OVERTHRUST",
+      "name": "凶砍",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "blacksmith"
+      ]
+    },
+    {
+      "skillId": 114,
+      "skillKey": "BS_MAXIMIZE",
+      "name": "武器值最大化",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "blacksmith"
+      ]
+    },
+    {
+      "skillId": 115,
+      "skillKey": "HT_SKIDTRAP",
+      "name": "滑動陷阱",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "ground_debuff",
+      "jobs": [
+        "hunter",
+        "super_novice_e"
+      ]
+    },
+    {
+      "skillId": 116,
+      "skillKey": "HT_LANDMINE",
+      "name": "地雷陷阱",
+      "tier": "T12",
+      "category": "MELEE",
+      "effectId": "chul_ho_battering_hit_e9fe12da3e55",
+      "handler": "ground_damage",
+      "jobs": [
+        "hunter",
+        "super_novice_e"
+      ]
+    },
+    {
+      "skillId": 117,
+      "skillKey": "HT_ANKLESNARE",
+      "name": "定位陷阱",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "ground_debuff",
+      "jobs": [
+        "hunter"
+      ]
+    },
+    {
+      "skillId": 119,
+      "skillKey": "HT_SANDMAN",
+      "name": "睡魔陷阱",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "ground_debuff",
+      "jobs": [
+        "hunter"
+      ]
+    },
+    {
+      "skillId": 120,
+      "skillKey": "HT_FLASHER",
+      "name": "強光陷阱",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "ground_debuff",
+      "jobs": [
+        "hunter"
+      ]
+    },
+    {
+      "skillId": 121,
+      "skillKey": "HT_FREEZINGTRAP",
+      "name": "霜凍陷阱",
+      "tier": "T12",
+      "category": "RANGED",
+      "effectId": "crescivebolt_hit_5c4efdfa5d59",
+      "handler": "ground_damage",
+      "jobs": [
+        "hunter"
+      ]
+    },
+    {
+      "skillId": 122,
+      "skillKey": "HT_BLASTMINE",
+      "name": "定時爆炸陷阱",
+      "tier": "T12",
+      "category": "MELEE",
+      "effectId": "chul_ho_battering_hit_e9fe12da3e55",
+      "handler": "ground_damage",
+      "jobs": [
+        "hunter"
+      ]
+    },
+    {
+      "skillId": 123,
+      "skillKey": "HT_CLAYMORETRAP",
+      "name": "爆散陷阱",
+      "tier": "T12",
+      "category": "MELEE",
+      "effectId": "chul_ho_battering_hit_e9fe12da3e55",
+      "handler": "ground_damage",
+      "jobs": [
+        "hunter"
+      ]
+    },
+    {
+      "skillId": 127,
+      "skillKey": "HT_FALCON",
+      "name": "馴鷹術",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "falcon_toggle",
+      "jobs": [
+        "hunter"
+      ]
+    },
+    {
+      "skillId": 129,
+      "skillKey": "HT_BLITZBEAT",
+      "name": "閃電衝擊",
+      "tier": "T12",
+      "category": "RANGED",
+      "effectId": "crescivebolt_hit_5c4efdfa5d59",
+      "handler": "misc_damage",
+      "jobs": [
+        "hunter"
+      ]
+    },
+    {
+      "skillId": 130,
+      "skillKey": "HT_DETECTING",
+      "name": "獵鷹尋敵",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "falcon_detect",
+      "jobs": [
+        "hunter"
+      ]
+    },
+    {
+      "skillId": 131,
+      "skillKey": "HT_SPRINGTRAP",
+      "name": "爆破陷阱",
+      "tier": "T12",
+      "category": "MELEE",
+      "effectId": "chul_ho_battering_hit_e9fe12da3e55",
+      "handler": "falcon_spring_trap",
+      "jobs": [
+        "hunter"
+      ]
+    },
+    {
+      "skillId": 136,
+      "skillKey": "AS_SONICBLOW",
+      "name": "音速投擲",
+      "tier": "T12",
+      "category": "MELEE",
+      "effectId": "chul_ho_battering_hit_e9fe12da3e55",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "assassin"
+      ]
+    },
+    {
+      "skillId": 137,
+      "skillKey": "AS_GRIMTOOTH",
+      "name": "無影之牙",
+      "tier": "T12",
+      "category": "MELEE",
+      "effectId": "chul_ho_battering_hit_e9fe12da3e55",
+      "handler": "physical_attack",
+      "jobs": [
+        "assassin"
+      ]
+    },
+    {
+      "skillId": 138,
+      "skillKey": "AS_ENCHANTPOISON",
+      "name": "塗毒",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "assassin",
+        "super_novice_e"
+      ]
+    },
+    {
+      "skillId": 142,
+      "skillKey": "NV_FIRSTAID",
+      "name": "緊急治療",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "heal_fixed",
+      "jobs": [
+        "novice"
+      ]
+    },
+    {
+      "skillId": 143,
+      "skillKey": "NV_TRICKDEAD",
+      "name": "裝死",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": []
+    },
+    {
+      "skillId": 148,
+      "skillKey": "AC_CHARGEARROW",
+      "name": "衝鋒箭",
+      "tier": "T12",
+      "category": "RANGED",
+      "effectId": "crescivebolt_hit_5c4efdfa5d59",
+      "handler": "physical_attack",
+      "jobs": [
+        "archer"
+      ]
+    },
+    {
+      "skillId": 149,
+      "skillKey": "TF_SPRINKLESAND",
+      "name": "噴砂",
+      "tier": "T12",
+      "category": "MELEE",
+      "effectId": "chul_ho_battering_hit_e9fe12da3e55",
+      "handler": "physical_attack",
+      "jobs": [
+        "thief"
+      ]
+    },
+    {
+      "skillId": 150,
+      "skillKey": "TF_BACKSLIDING",
+      "name": "後退迴避",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "movement",
+      "jobs": [
+        "thief"
+      ]
+    },
+    {
+      "skillId": 153,
+      "skillKey": "MC_CARTREVOLUTION",
+      "name": "手推車攻擊",
+      "tier": "T12",
+      "category": "MELEE",
+      "effectId": "chul_ho_battering_hit_e9fe12da3e55",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "merchant"
+      ]
+    },
+    {
+      "skillId": 155,
+      "skillKey": "MC_LOUD",
+      "name": "大聲吶喊",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "merchant"
+      ]
+    },
+    {
+      "skillId": 156,
+      "skillKey": "AL_HOLYLIGHT",
+      "name": "神聖之光",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "magic_damage",
+      "jobs": [
+        "acolyte"
+      ]
+    },
+    {
+      "skillId": 157,
+      "skillKey": "MG_ENERGYCOAT",
+      "name": "能量外套",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "mage"
+      ]
+    },
+    {
+      "skillId": 211,
+      "skillKey": "RG_STEALCOIN",
+      "name": "偷錢",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "steal_zeny",
+      "jobs": [
+        "rogue",
+        "super_novice_e"
+      ]
+    },
+    {
+      "skillId": 212,
+      "skillKey": "RG_BACKSTAP",
+      "name": "背刺",
+      "tier": "T12",
+      "category": "MELEE",
+      "effectId": "chul_ho_battering_hit_e9fe12da3e55",
+      "handler": "physical_charge",
+      "jobs": [
+        "rogue",
+        "super_novice_e"
+      ]
+    },
+    {
+      "skillId": 214,
+      "skillKey": "RG_RAID",
+      "name": "潛擊",
+      "tier": "T12",
+      "category": "MELEE",
+      "effectId": "chul_ho_battering_hit_e9fe12da3e55",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "rogue",
+        "super_novice_e"
+      ]
+    },
+    {
+      "skillId": 215,
+      "skillKey": "RG_STRIPWEAPON",
+      "name": "卸除武器",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "monster_debuff",
+      "jobs": [
+        "rogue"
+      ]
+    },
+    {
+      "skillId": 216,
+      "skillKey": "RG_STRIPSHIELD",
+      "name": "卸除盾牌",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "monster_debuff",
+      "jobs": [
+        "rogue"
+      ]
+    },
+    {
+      "skillId": 217,
+      "skillKey": "RG_STRIPARMOR",
+      "name": "卸除鎧甲",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "monster_debuff",
+      "jobs": [
+        "rogue"
+      ]
+    },
+    {
+      "skillId": 218,
+      "skillKey": "RG_STRIPHELM",
+      "name": "卸除頭盔",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "monster_debuff",
+      "jobs": [
+        "rogue"
+      ]
+    },
+    {
+      "skillId": 225,
+      "skillKey": "RG_PLAGIARISM",
+      "name": "抄襲",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "skill_copy_selector",
+      "jobs": [
+        "rogue"
+      ]
+    },
+    {
+      "skillId": 229,
+      "skillKey": "AM_DEMONSTRATION",
+      "name": "火煙瓶投擲",
+      "tier": "T12",
+      "category": "RANGED",
+      "effectId": "crescivebolt_hit_5c4efdfa5d59",
+      "handler": "ground_damage",
+      "jobs": [
+        "alchemist"
+      ]
+    },
+    {
+      "skillId": 230,
+      "skillKey": "AM_ACIDTERROR",
+      "name": "強酸攻擊",
+      "tier": "T12",
+      "category": "RANGED",
+      "effectId": "crescivebolt_hit_5c4efdfa5d59",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "alchemist"
+      ]
+    },
+    {
+      "skillId": 233,
+      "skillKey": "AM_SPHEREMINE",
+      "name": "氣泡蟲召喚",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "independent_summon",
+      "jobs": [
+        "alchemist"
+      ]
+    },
+    {
+      "skillId": 243,
+      "skillKey": "AM_CALLHOMUN",
+      "name": "生命體召喚",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "homunculus_manager",
+      "jobs": [
+        "alchemist"
+      ]
+    },
+    {
+      "skillId": 244,
+      "skillKey": "AM_REST",
+      "name": "安息",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "homunculus_rest",
+      "jobs": [
+        "alchemist"
+      ]
+    },
+    {
+      "skillId": 249,
+      "skillKey": "CR_AUTOGUARD",
+      "name": "自動防禦",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "crusader",
+        "super_novice_e"
+      ]
+    },
+    {
+      "skillId": 250,
+      "skillKey": "CR_SHIELDCHARGE",
+      "name": "盾擊",
+      "tier": "T12",
+      "category": "MELEE",
+      "effectId": "chul_ho_battering_hit_e9fe12da3e55",
+      "handler": "physical_attack",
+      "jobs": [
+        "crusader",
+        "super_novice_e"
+      ]
+    },
+    {
+      "skillId": 251,
+      "skillKey": "CR_SHIELDBOOMERANG",
+      "name": "迴旋盾擊",
+      "tier": "T12",
+      "category": "RANGED",
+      "effectId": "crescivebolt_hit_5c4efdfa5d59",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "crusader",
+        "super_novice_e"
+      ]
+    },
+    {
+      "skillId": 252,
+      "skillKey": "CR_REFLECTSHIELD",
+      "name": "反射盾",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "crusader"
+      ]
+    },
+    {
+      "skillId": 253,
+      "skillKey": "CR_HOLYCROSS",
+      "name": "聖十字攻擊",
+      "tier": "T12",
+      "category": "MELEE",
+      "effectId": "chul_ho_battering_hit_e9fe12da3e55",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "crusader",
+        "super_novice_e"
+      ]
+    },
+    {
+      "skillId": 254,
+      "skillKey": "CR_GRANDCROSS",
+      "name": "聖十字審判",
+      "tier": "T12",
+      "category": "RANGED",
+      "effectId": "crescivebolt_hit_5c4efdfa5d59",
+      "handler": "misc_damage",
+      "jobs": [
+        "crusader"
+      ]
+    },
+    {
+      "skillId": 255,
+      "skillKey": "CR_DEVOTION",
+      "name": "犧牲",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "crusader"
+      ]
+    },
+    {
+      "skillId": 257,
+      "skillKey": "CR_DEFENDER",
+      "name": "光之盾",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "crusader"
+      ]
+    },
+    {
+      "skillId": 258,
+      "skillKey": "CR_SPEARQUICKEN",
+      "name": "長矛加速術",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "crusader"
+      ]
+    },
+    {
+      "skillId": 261,
+      "skillKey": "MO_CALLSPIRITS",
+      "name": "蓄氣",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "spirit_resource",
+      "jobs": [
+        "monk",
+        "super_novice_e"
+      ]
+    },
+    {
+      "skillId": 262,
+      "skillKey": "MO_ABSORBSPIRITS",
+      "name": "吸氣",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "spirit_absorb",
+      "jobs": [
+        "monk",
+        "super_novice_e"
+      ]
+    },
+    {
+      "skillId": 264,
+      "skillKey": "MO_BODYRELOCATION",
+      "name": "弓身彈影",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "movement",
+      "jobs": [
+        "monk"
+      ]
+    },
+    {
+      "skillId": 266,
+      "skillKey": "MO_INVESTIGATE",
+      "name": "浸透勁",
+      "tier": "T12",
+      "category": "MELEE",
+      "effectId": "chul_ho_battering_hit_e9fe12da3e55",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "monk"
+      ]
+    },
+    {
+      "skillId": 267,
+      "skillKey": "MO_FINGEROFFENSIVE",
+      "name": "彈指神通",
+      "tier": "T12",
+      "category": "RANGED",
+      "effectId": "crescivebolt_hit_5c4efdfa5d59",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "monk"
+      ]
+    },
+    {
+      "skillId": 268,
+      "skillKey": "MO_STEELBODY",
+      "name": "金剛不壞",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "monk"
+      ]
+    },
+    {
+      "skillId": 270,
+      "skillKey": "MO_EXPLOSIONSPIRITS",
+      "name": "爆氣",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "monk",
+        "super_novice_e"
+      ]
+    },
+    {
+      "skillId": 271,
+      "skillKey": "MO_EXTREMITYFIST",
+      "name": "阿修羅霸凰拳",
+      "tier": "T12",
+      "category": "MELEE",
+      "effectId": "chul_ho_battering_hit_e9fe12da3e55",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "monk"
+      ]
+    },
+    {
+      "skillId": 272,
+      "skillKey": "MO_CHAINCOMBO",
+      "name": "連環全身掌",
+      "tier": "T12",
+      "category": "MELEE",
+      "effectId": "chul_ho_battering_hit_e9fe12da3e55",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "monk"
+      ]
+    },
+    {
+      "skillId": 273,
+      "skillKey": "MO_COMBOFINISH",
+      "name": "猛龍誇強",
+      "tier": "T12",
+      "category": "MELEE",
+      "effectId": "chul_ho_battering_hit_e9fe12da3e55",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "monk"
+      ]
+    },
+    {
+      "skillId": 276,
+      "skillKey": "SA_MAGICROD",
+      "name": "魔法懲罰",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "sage"
+      ]
+    },
+    {
+      "skillId": 279,
+      "skillKey": "SA_AUTOSPELL",
+      "name": "自動念咒",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "sage"
+      ]
+    },
+    {
+      "skillId": 280,
+      "skillKey": "SA_FLAMELAUNCHER",
+      "name": "火屬性附加",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "sage"
+      ]
+    },
+    {
+      "skillId": 281,
+      "skillKey": "SA_FROSTWEAPON",
+      "name": "水屬性附加",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "sage"
+      ]
+    },
+    {
+      "skillId": 282,
+      "skillKey": "SA_LIGHTNINGLOADER",
+      "name": "風屬性附加",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "sage"
+      ]
+    },
+    {
+      "skillId": 283,
+      "skillKey": "SA_SEISMICWEAPON",
+      "name": "地屬性附加",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "sage"
+      ]
+    },
+    {
+      "skillId": 285,
+      "skillKey": "SA_VOLCANO",
+      "name": "火元素領域",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "sage"
+      ]
+    },
+    {
+      "skillId": 286,
+      "skillKey": "SA_DELUGE",
+      "name": "水元素領域",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "sage"
+      ]
+    },
+    {
+      "skillId": 287,
+      "skillKey": "SA_VIOLENTGALE",
+      "name": "風元素領域",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "sage"
+      ]
+    },
+    {
+      "skillId": 288,
+      "skillKey": "SA_LANDPROTECTOR",
+      "name": "地元素領域",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "ground_protection",
+      "jobs": [
+        "sage"
+      ]
+    },
+    {
+      "skillId": 289,
+      "skillKey": "SA_DISPELL",
+      "name": "魔法效果解除",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "dispel",
+      "jobs": [
+        "sage"
+      ]
+    },
+    {
+      "skillId": 304,
+      "skillKey": "BD_ADAPTATION",
+      "name": "臨機應變",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "bard",
+        "dancer"
+      ]
+    },
+    {
+      "skillId": 305,
+      "skillKey": "BD_ENCORE",
+      "name": "安可",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "bard",
+        "dancer"
+      ]
+    },
+    {
+      "skillId": 306,
+      "skillKey": "BD_LULLABY",
+      "name": "搖籃曲",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "bard",
+        "dancer"
+      ]
+    },
+    {
+      "skillId": 307,
+      "skillKey": "BD_RICHMANKIM",
+      "name": "經驗值倍增",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "bard",
+        "dancer"
+      ]
+    },
+    {
+      "skillId": 308,
+      "skillKey": "BD_ETERNALCHAOS",
+      "name": "永遠的混沌",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "timed_status",
+      "jobs": [
+        "bard",
+        "dancer"
+      ]
+    },
+    {
+      "skillId": 309,
+      "skillKey": "BD_DRUMBATTLEFIELD",
+      "name": "戰鼓震天",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "bard",
+        "dancer"
+      ]
+    },
+    {
+      "skillId": 310,
+      "skillKey": "BD_RINGNIBELUNGEN",
+      "name": "尼貝隆根之戒指",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "bard",
+        "dancer"
+      ]
+    },
+    {
+      "skillId": 311,
+      "skillKey": "BD_ROKISWEIL",
+      "name": "洛奇的悲鳴",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "bard",
+        "dancer"
+      ]
+    },
+    {
+      "skillId": 312,
+      "skillKey": "BD_INTOABYSS",
+      "name": "觸媒之所",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "bard",
+        "dancer"
+      ]
+    },
+    {
+      "skillId": 313,
+      "skillKey": "BD_SIEGFRIED",
+      "name": "不死神齊格弗里德",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "bard",
+        "dancer"
+      ]
+    },
+    {
+      "skillId": 316,
+      "skillKey": "BA_MUSICALSTRIKE",
+      "name": "樂器攻擊",
+      "tier": "T12",
+      "category": "RANGED",
+      "effectId": "crescivebolt_hit_5c4efdfa5d59",
+      "handler": "physical_attack",
+      "jobs": [
+        "bard"
+      ]
+    },
+    {
+      "skillId": 317,
+      "skillKey": "BA_DISSONANCE",
+      "name": "不諧和音",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "bard"
+      ]
+    },
+    {
+      "skillId": 318,
+      "skillKey": "BA_FROSTJOKER",
+      "name": "冷笑話",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "timed_status",
+      "jobs": [
+        "bard"
+      ]
+    },
+    {
+      "skillId": 319,
+      "skillKey": "BA_WHISTLE",
+      "name": "吹口哨",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "bard"
+      ]
+    },
+    {
+      "skillId": 320,
+      "skillKey": "BA_ASSASSINCROSS",
+      "name": "刺客的黃昏",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "bard"
+      ]
+    },
+    {
+      "skillId": 321,
+      "skillKey": "BA_POEMBRAGI",
+      "name": "布萊奇之詩",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "bard"
+      ]
+    },
+    {
+      "skillId": 322,
+      "skillKey": "BA_APPLEIDUN",
+      "name": "伊登的蘋果",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "bard"
+      ]
+    },
+    {
+      "skillId": 324,
+      "skillKey": "DC_THROWARROW",
+      "name": "纏箭投擲",
+      "tier": "T12",
+      "category": "RANGED",
+      "effectId": "crescivebolt_hit_5c4efdfa5d59",
+      "handler": "physical_attack",
+      "jobs": [
+        "dancer"
+      ]
+    },
+    {
+      "skillId": 325,
+      "skillKey": "DC_UGLYDANCE",
+      "name": "醜陋之舞",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "dancer"
+      ]
+    },
+    {
+      "skillId": 326,
+      "skillKey": "DC_SCREAM",
+      "name": "驚聲尖叫",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "timed_status",
+      "jobs": [
+        "dancer"
+      ]
+    },
+    {
+      "skillId": 327,
+      "skillKey": "DC_HUMMING",
+      "name": "哼唱之音",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "dancer"
+      ]
+    },
+    {
+      "skillId": 328,
+      "skillKey": "DC_DONTFORGETME",
+      "name": "勿忘我",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "timed_status",
+      "jobs": [
+        "dancer"
+      ]
+    },
+    {
+      "skillId": 329,
+      "skillKey": "DC_FORTUNEKISS",
+      "name": "女神之吻",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "dancer"
+      ]
+    },
+    {
+      "skillId": 330,
+      "skillKey": "DC_SERVICEFORYOU",
+      "name": "為您服務",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "dancer"
+      ]
+    },
+    {
+      "skillId": 355,
+      "skillKey": "LK_AURABLADE",
+      "name": "靈氣劍",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "lord_knight"
+      ]
+    },
+    {
+      "skillId": 356,
+      "skillKey": "LK_PARRYING",
+      "name": "雙劍挌擋",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "lord_knight"
+      ]
+    },
+    {
+      "skillId": 357,
+      "skillKey": "LK_CONCENTRATION",
+      "name": "集中攻擊",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "lord_knight"
+      ]
+    },
+    {
+      "skillId": 358,
+      "skillKey": "LK_TENSIONRELAX",
+      "name": "極速回復",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "lord_knight"
+      ]
+    },
+    {
+      "skillId": 359,
+      "skillKey": "LK_BERSERK",
+      "name": "狂怒之槍",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "lord_knight"
+      ]
+    },
+    {
+      "skillId": 361,
+      "skillKey": "HP_ASSUMPTIO",
+      "name": "聖母之祈福",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "high_priest"
+      ]
+    },
+    {
+      "skillId": 362,
+      "skillKey": "HP_BASILICA",
+      "name": "神聖殿堂",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "high_priest"
+      ]
+    },
+    {
+      "skillId": 365,
+      "skillKey": "HW_MAGICCRASHER",
+      "name": "魔擊術",
+      "tier": "T12",
+      "category": "RANGED",
+      "effectId": "crescivebolt_hit_5c4efdfa5d59",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "high_wizard",
+        "super_novice_e"
+      ]
+    },
+    {
+      "skillId": 366,
+      "skillKey": "HW_MAGICPOWER",
+      "name": "魔力增幅",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "high_wizard"
+      ]
+    },
+    {
+      "skillId": 367,
+      "skillKey": "PA_PRESSURE",
+      "name": "神之威壓",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "magic_damage",
+      "jobs": [
+        "paladin"
+      ]
+    },
+    {
+      "skillId": 368,
+      "skillKey": "PA_SACRIFICE",
+      "name": "捨命攻擊",
+      "tier": "T12",
+      "category": "MELEE",
+      "effectId": "chul_ho_battering_hit_e9fe12da3e55",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "paladin"
+      ]
+    },
+    {
+      "skillId": 369,
+      "skillKey": "PA_GOSPEL",
+      "name": "聖音",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "paladin"
+      ]
+    },
+    {
+      "skillId": 370,
+      "skillKey": "CH_PALMSTRIKE",
+      "name": "猛虎硬爬山",
+      "tier": "T12",
+      "category": "MELEE",
+      "effectId": "chul_ho_battering_hit_e9fe12da3e55",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "champion"
+      ]
+    },
+    {
+      "skillId": 371,
+      "skillKey": "CH_TIGERFIST",
+      "name": "伏虎拳",
+      "tier": "T12",
+      "category": "MELEE",
+      "effectId": "chul_ho_battering_hit_e9fe12da3e55",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "champion"
+      ]
+    },
+    {
+      "skillId": 372,
+      "skillKey": "CH_CHAINCRUSH",
+      "name": "氣絕崩擊",
+      "tier": "T12",
+      "category": "MELEE",
+      "effectId": "chul_ho_battering_hit_e9fe12da3e55",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "champion"
+      ]
+    },
+    {
+      "skillId": 374,
+      "skillKey": "PF_SOULCHANGE",
+      "name": "心神互換",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "soul_exchange",
+      "jobs": [
+        "professor"
+      ]
+    },
+    {
+      "skillId": 378,
+      "skillKey": "ASC_EDP",
+      "name": "致命塗毒",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "assassin_cross"
+      ]
+    },
+    {
+      "skillId": 379,
+      "skillKey": "ASC_BREAKER",
+      "name": "心靈震波",
+      "tier": "T12",
+      "category": "RANGED",
+      "effectId": "crescivebolt_hit_5c4efdfa5d59",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "assassin_cross"
+      ]
+    },
+    {
+      "skillId": 380,
+      "skillKey": "SN_SIGHT",
+      "name": "狙殺瞄準",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "sniper"
+      ]
+    },
+    {
+      "skillId": 381,
+      "skillKey": "SN_FALCONASSAULT",
+      "name": "獵鷹突擊",
+      "tier": "T12",
+      "category": "RANGED",
+      "effectId": "crescivebolt_hit_5c4efdfa5d59",
+      "handler": "misc_damage",
+      "jobs": [
+        "sniper"
+      ]
+    },
+    {
+      "skillId": 382,
+      "skillKey": "SN_SHARPSHOOTING",
+      "name": "銳利射擊",
+      "tier": "T12",
+      "category": "RANGED",
+      "effectId": "crescivebolt_hit_5c4efdfa5d59",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "sniper"
+      ]
+    },
+    {
+      "skillId": 383,
+      "skillKey": "SN_WINDWALK",
+      "name": "風之步",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "sniper"
+      ]
+    },
+    {
+      "skillId": 384,
+      "skillKey": "WS_MELTDOWN",
+      "name": "野蠻凶砍",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "whitesmith"
+      ]
+    },
+    {
+      "skillId": 387,
+      "skillKey": "WS_CARTBOOST",
+      "name": "手推車加速",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "whitesmith"
+      ]
+    },
+    {
+      "skillId": 390,
+      "skillKey": "ST_REJECTSWORD",
+      "name": "霸王魂",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "stalker"
+      ]
+    },
+    {
+      "skillId": 394,
+      "skillKey": "CG_ARROWVULCAN",
+      "name": "奧義箭亂舞",
+      "tier": "T12",
+      "category": "RANGED",
+      "effectId": "crescivebolt_hit_5c4efdfa5d59",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "clown",
+        "gypsy"
+      ]
+    },
+    {
+      "skillId": 397,
+      "skillKey": "LK_SPIRALPIERCE",
+      "name": "螺旋擊刺",
+      "tier": "T12",
+      "category": "RANGED",
+      "effectId": "crescivebolt_hit_5c4efdfa5d59",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "lord_knight"
+      ]
+    },
+    {
+      "skillId": 398,
+      "skillKey": "LK_HEADCRUSH",
+      "name": "傷害增壓",
+      "tier": "T12",
+      "category": "RANGED",
+      "effectId": "crescivebolt_hit_5c4efdfa5d59",
+      "handler": "physical_attack",
+      "jobs": [
+        "lord_knight"
+      ]
+    },
+    {
+      "skillId": 399,
+      "skillKey": "LK_JOINTBEAT",
+      "name": "巧打",
+      "tier": "T12",
+      "category": "RANGED",
+      "effectId": "crescivebolt_hit_5c4efdfa5d59",
+      "handler": "physical_attack",
+      "jobs": [
+        "lord_knight"
+      ]
+    },
+    {
+      "skillId": 400,
+      "skillKey": "HW_NAPALMVULCAN",
+      "name": "念力連擊",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "magic_damage",
+      "jobs": [
+        "high_wizard"
+      ]
+    },
+    {
+      "skillId": 401,
+      "skillKey": "CH_SOULCOLLECT",
+      "name": "狂蓄氣",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "spirit_resource",
+      "jobs": [
+        "champion",
+        "super_novice_e"
+      ]
+    },
+    {
+      "skillId": 403,
+      "skillKey": "PF_MEMORIZE",
+      "name": "速讀術",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "professor"
+      ]
+    },
+    {
+      "skillId": 404,
+      "skillKey": "PF_FOGWALL",
+      "name": "薄霧牆",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "timed_status",
+      "jobs": [
+        "professor"
+      ]
+    },
+    {
+      "skillId": 405,
+      "skillKey": "PF_SPIDERWEB",
+      "name": "易燃之網",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "timed_status",
+      "jobs": [
+        "professor"
+      ]
+    },
+    {
+      "skillId": 406,
+      "skillKey": "ASC_METEORASSAULT",
+      "name": "黑暗瞬間",
+      "tier": "T12",
+      "category": "MELEE",
+      "effectId": "chul_ho_battering_hit_e9fe12da3e55",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "assassin_cross"
+      ]
+    },
+    {
+      "skillId": 459,
+      "skillKey": "BS_ADRENALINE2",
+      "name": "所有速度激發",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "blacksmith"
+      ]
+    },
+    {
+      "skillId": 467,
+      "skillKey": "SL_STIN",
+      "name": "艾斯提",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "magic_damage",
+      "jobs": [
+        "soul_linker"
+      ]
+    },
+    {
+      "skillId": 468,
+      "skillKey": "SL_STUN",
+      "name": "艾斯敦",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "magic_damage",
+      "jobs": [
+        "soul_linker"
+      ]
+    },
+    {
+      "skillId": 469,
+      "skillKey": "SL_SMA",
+      "name": "艾斯麻",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "magic_damage",
+      "jobs": [
+        "soul_linker"
+      ]
+    },
+    {
+      "skillId": 475,
+      "skillKey": "ST_PRESERVE",
+      "name": "自由保護",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "stalker"
+      ]
+    },
+    {
+      "skillId": 476,
+      "skillKey": "ST_FULLSTRIP",
+      "name": "所有卸除",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "monster_debuff",
+      "jobs": [
+        "stalker"
+      ]
+    },
+    {
+      "skillId": 478,
+      "skillKey": "CR_SLIMPITCHER",
+      "name": "纖細藥水投擲",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "heal",
+      "jobs": [
+        "creator"
+      ]
+    },
+    {
+      "skillId": 480,
+      "skillKey": "PA_SHIELDCHAIN",
+      "name": "連續盾擊",
+      "tier": "T12",
+      "category": "MELEE",
+      "effectId": "chul_ho_battering_hit_e9fe12da3e55",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "paladin"
+      ]
+    },
+    {
+      "skillId": 482,
+      "skillKey": "PF_DOUBLECASTING",
+      "name": "雙倍投擲",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "professor"
+      ]
+    },
+    {
+      "skillId": 484,
+      "skillKey": "HW_GRAVITATION",
+      "name": "重力原野",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "magic_damage",
+      "jobs": [
+        "high_wizard"
+      ]
+    },
+    {
+      "skillId": 485,
+      "skillKey": "WS_CARTTERMINATION",
+      "name": "手推車終結技",
+      "tier": "T12",
+      "category": "MELEE",
+      "effectId": "chul_ho_battering_hit_e9fe12da3e55",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "whitesmith"
+      ]
+    },
+    {
+      "skillId": 486,
+      "skillKey": "WS_OVERTHRUSTMAX",
+      "name": "凶砍最大值",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "whitesmith"
+      ]
+    },
+    {
+      "skillId": 490,
+      "skillKey": "CR_ACIDDEMONSTRATION",
+      "name": "強酸火煙瓶投擲",
+      "tier": "T12",
+      "category": "RANGED",
+      "effectId": "crescivebolt_hit_5c4efdfa5d59",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "creator"
+      ]
+    },
+    {
+      "skillId": 495,
+      "skillKey": "KN_ONEHAND",
+      "name": "單手劍攻擊速度增加",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "knight"
+      ]
+    },
+    {
+      "skillId": 499,
+      "skillKey": "HT_POWER",
+      "name": "動物猛擊",
+      "tier": "T12",
+      "category": "RANGED",
+      "effectId": "crescivebolt_hit_5c4efdfa5d59",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "hunter"
+      ]
+    },
+    {
+      "skillId": 523,
+      "skillKey": "NJ_SYURIKEN",
+      "name": "投擲飛鏢",
+      "tier": "T12",
+      "category": "RANGED",
+      "effectId": "crescivebolt_hit_5c4efdfa5d59",
+      "handler": "physical_attack",
+      "jobs": [
+        "ninja"
+      ]
+    },
+    {
+      "skillId": 1001,
+      "skillKey": "KN_CHARGEATK",
+      "name": "衝鋒攻擊",
+      "tier": "T12",
+      "category": "RANGED",
+      "effectId": "crescivebolt_hit_5c4efdfa5d59",
+      "handler": "physical_charge",
+      "jobs": [
+        "knight"
+      ]
+    },
+    {
+      "skillId": 1002,
+      "skillKey": "CR_SHRINK",
+      "name": "退縮",
+      "tier": "T12",
+      "category": "BUFF",
+      "effectId": "new_holy_shield_loop_0cd5b29bd79d",
+      "handler": "buff",
+      "jobs": [
+        "crusader"
+      ]
+    },
+    {
+      "skillId": 1004,
+      "skillKey": "AS_VENOMKNIFE",
+      "name": "毒刃",
+      "tier": "T12",
+      "category": "RANGED",
+      "effectId": "crescivebolt_hit_5c4efdfa5d59",
+      "handler": "physical_attack",
+      "jobs": [
+        "assassin"
+      ]
+    },
+    {
+      "skillId": 1005,
+      "skillKey": "RG_CLOSECONFINE",
+      "name": "緊密的約束",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "debuff",
+      "jobs": [
+        "rogue"
+      ]
+    },
+    {
+      "skillId": 1008,
+      "skillKey": "SA_ELEMENTWATER",
+      "name": "元素更換(水)",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "timed_status",
+      "jobs": [
+        "sage"
+      ]
+    },
+    {
+      "skillId": 1009,
+      "skillKey": "HT_PHANTASMIC",
+      "name": "幻影箭",
+      "tier": "T12",
+      "category": "RANGED",
+      "effectId": "crescivebolt_hit_5c4efdfa5d59",
+      "handler": "physical_attack",
+      "jobs": [
+        "hunter"
+      ]
+    },
+    {
+      "skillId": 1010,
+      "skillKey": "BA_PANGVOICE",
+      "name": "陣痛之聲",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "timed_status",
+      "jobs": [
+        "bard"
+      ]
+    },
+    {
+      "skillId": 1011,
+      "skillKey": "DC_WINKCHARM",
+      "name": "眨眼之誘",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "timed_status",
+      "jobs": [
+        "dancer"
+      ]
+    },
+    {
+      "skillId": 1016,
+      "skillKey": "MO_BALKYOUNG",
+      "name": "發勁",
+      "tier": "T12",
+      "category": "MELEE",
+      "effectId": "chul_ho_battering_hit_e9fe12da3e55",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "monk"
+      ]
+    },
+    {
+      "skillId": 1017,
+      "skillKey": "SA_ELEMENTGROUND",
+      "name": "元素更換(地)",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "timed_status",
+      "jobs": [
+        "sage"
+      ]
+    },
+    {
+      "skillId": 1018,
+      "skillKey": "SA_ELEMENTFIRE",
+      "name": "元素更換(火)",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "timed_status",
+      "jobs": [
+        "sage"
+      ]
+    },
+    {
+      "skillId": 1019,
+      "skillKey": "SA_ELEMENTWIND",
+      "name": "元素更換(風)",
+      "tier": "T12",
+      "category": "MAGIC",
+      "effectId": "psychic_stream_hit_9a965bdad335",
+      "handler": "timed_status",
+      "jobs": [
+        "sage"
+      ]
+    },
+    {
+      "skillId": 2001,
+      "skillKey": "RK_ENCHANTBLADE",
+      "name": "魔力劍",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "rune_knight"
+      ]
+    },
+    {
+      "skillId": 2002,
+      "skillKey": "RK_SONICWAVE",
+      "name": "音速衝擊波",
+      "tier": "T3",
+      "category": "RANGED",
+      "effectId": "chasing_shot_hit_5bb1152d60f8",
+      "handler": "physical_attack",
+      "jobs": [
+        "rune_knight"
+      ]
+    },
+    {
+      "skillId": 2003,
+      "skillKey": "RK_DEATHBOUND",
+      "name": "死亡反彈",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "counter_stance",
+      "jobs": [
+        "rune_knight"
+      ]
+    },
+    {
+      "skillId": 2004,
+      "skillKey": "RK_HUNDREDSPEAR",
+      "name": "百矛穿刺",
+      "tier": "T3",
+      "category": "RANGED",
+      "effectId": "chasing_shot_hit_5bb1152d60f8",
+      "handler": "physical_attack",
+      "jobs": [
+        "rune_knight"
+      ]
+    },
+    {
+      "skillId": 2005,
+      "skillKey": "RK_WINDCUTTER",
+      "name": "風壓飛刃",
+      "tier": "T3",
+      "category": "MELEE",
+      "effectId": "powerful_swing_hit_f071af650158",
+      "handler": "physical_attack",
+      "jobs": [
+        "rune_knight"
+      ]
+    },
+    {
+      "skillId": 2006,
+      "skillKey": "RK_IGNITIONBREAK",
+      "name": "致命爆裂",
+      "tier": "T3",
+      "category": "MELEE",
+      "effectId": "powerful_swing_hit_f071af650158",
+      "handler": "physical_attack",
+      "jobs": [
+        "rune_knight"
+      ]
+    },
+    {
+      "skillId": 2008,
+      "skillKey": "RK_DRAGONBREATH",
+      "name": "龍之氣息",
+      "tier": "T3",
+      "category": "RANGED",
+      "effectId": "chasing_shot_hit_5bb1152d60f8",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "rune_knight"
+      ]
+    },
+    {
+      "skillId": 2009,
+      "skillKey": "RK_DRAGONHOWLING",
+      "name": "龍之咆哮",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "debuff",
+      "jobs": [
+        "rune_knight"
+      ]
+    },
+    {
+      "skillId": 2020,
+      "skillKey": "RK_PHANTOMTHRUST",
+      "name": "幻象突刺",
+      "tier": "T3",
+      "category": "RANGED",
+      "effectId": "chasing_shot_hit_5bb1152d60f8",
+      "handler": "physical_attack",
+      "jobs": [
+        "rune_knight"
+      ]
+    },
+    {
+      "skillId": 2021,
+      "skillKey": "GC_VENOMIMPRESS",
+      "name": "毒耐性弱化",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "debuff",
+      "jobs": [
+        "guillotine_cross"
+      ]
+    },
+    {
+      "skillId": 2022,
+      "skillKey": "GC_CROSSIMPACT",
+      "name": "十字斬",
+      "tier": "T3",
+      "category": "RANGED",
+      "effectId": "chasing_shot_hit_5bb1152d60f8",
+      "handler": "physical_charge",
+      "jobs": [
+        "guillotine_cross"
+      ]
+    },
+    {
+      "skillId": 2023,
+      "skillKey": "GC_DARKILLUSION",
+      "name": "黑色幻影",
+      "tier": "T3",
+      "category": "MELEE",
+      "effectId": "powerful_swing_hit_f071af650158",
+      "handler": "physical_charge",
+      "jobs": [
+        "guillotine_cross"
+      ]
+    },
+    {
+      "skillId": 2028,
+      "skillKey": "GC_WEAPONBLOCKING",
+      "name": "武器抵禦",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "guillotine_cross"
+      ]
+    },
+    {
+      "skillId": 2029,
+      "skillKey": "GC_COUNTERSLASH",
+      "name": "反擊斬",
+      "tier": "T3",
+      "category": "MELEE",
+      "effectId": "powerful_swing_hit_f071af650158",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "guillotine_cross"
+      ]
+    },
+    {
+      "skillId": 2030,
+      "skillKey": "GC_WEAPONCRUSH",
+      "name": "卸除武裝",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "monster_debuff",
+      "jobs": [
+        "guillotine_cross"
+      ]
+    },
+    {
+      "skillId": 2031,
+      "skillKey": "GC_VENOMPRESSURE",
+      "name": "劇毒強制賦予",
+      "tier": "T3",
+      "category": "MELEE",
+      "effectId": "powerful_swing_hit_f071af650158",
+      "handler": "physical_attack",
+      "jobs": [
+        "guillotine_cross"
+      ]
+    },
+    {
+      "skillId": 2032,
+      "skillKey": "GC_POISONSMOKE",
+      "name": "毒霧",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "ground_debuff",
+      "jobs": [
+        "guillotine_cross"
+      ]
+    },
+    {
+      "skillId": 2034,
+      "skillKey": "GC_PHANTOMMENACE",
+      "name": "惡靈威脅",
+      "tier": "T3",
+      "category": "MELEE",
+      "effectId": "powerful_swing_hit_f071af650158",
+      "handler": "physical_attack",
+      "jobs": [
+        "guillotine_cross"
+      ]
+    },
+    {
+      "skillId": 2036,
+      "skillKey": "GC_ROLLINGCUTTER",
+      "name": "迴旋刀刃",
+      "tier": "T3",
+      "category": "MELEE",
+      "effectId": "powerful_swing_hit_f071af650158",
+      "handler": "physical_attack",
+      "jobs": [
+        "guillotine_cross"
+      ]
+    },
+    {
+      "skillId": 2037,
+      "skillKey": "GC_CROSSRIPPERSLASHER",
+      "name": "迴旋十字斬",
+      "tier": "T3",
+      "category": "RANGED",
+      "effectId": "chasing_shot_hit_5bb1152d60f8",
+      "handler": "physical_attack",
+      "jobs": [
+        "guillotine_cross"
+      ]
+    },
+    {
+      "skillId": 2038,
+      "skillKey": "AB_JUDEX",
+      "name": "審判",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "magic_damage",
+      "jobs": [
+        "arch_bishop"
+      ]
+    },
+    {
+      "skillId": 2040,
+      "skillKey": "AB_ADORAMUS",
+      "name": "謳歌",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "magic_damage",
+      "jobs": [
+        "arch_bishop"
+      ]
+    },
+    {
+      "skillId": 2041,
+      "skillKey": "AB_CLEMENTIA",
+      "name": "慈悲術",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "arch_bishop"
+      ]
+    },
+    {
+      "skillId": 2042,
+      "skillKey": "AB_CANTO",
+      "name": "純白百合花",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "arch_bishop"
+      ]
+    },
+    {
+      "skillId": 2043,
+      "skillKey": "AB_CHEAL",
+      "name": "燦爛聖光",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "heal",
+      "jobs": [
+        "arch_bishop"
+      ]
+    },
+    {
+      "skillId": 2044,
+      "skillKey": "AB_EPICLESIS",
+      "name": "聖靈降臨祈禱",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "arch_bishop"
+      ]
+    },
+    {
+      "skillId": 2045,
+      "skillKey": "AB_PRAEFATIO",
+      "name": "感恩歌",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "arch_bishop"
+      ]
+    },
+    {
+      "skillId": 2046,
+      "skillKey": "AB_ORATIO",
+      "name": "祈禱文",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "debuff",
+      "jobs": [
+        "arch_bishop"
+      ]
+    },
+    {
+      "skillId": 2047,
+      "skillKey": "AB_LAUDAAGNUS",
+      "name": "羔羊歌頌",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "arch_bishop"
+      ]
+    },
+    {
+      "skillId": 2048,
+      "skillKey": "AB_LAUDARAMUS",
+      "name": "折枝讚頌",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "arch_bishop"
+      ]
+    },
+    {
+      "skillId": 2050,
+      "skillKey": "AB_RENOVATIO",
+      "name": "淨化",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "arch_bishop"
+      ]
+    },
+    {
+      "skillId": 2051,
+      "skillKey": "AB_HIGHNESSHEAL",
+      "name": "高階治癒術",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "heal",
+      "jobs": [
+        "arch_bishop"
+      ]
+    },
+    {
+      "skillId": 2053,
+      "skillKey": "AB_EXPIATIO",
+      "name": "贖罪",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "arch_bishop"
+      ]
+    },
+    {
+      "skillId": 2054,
+      "skillKey": "AB_DUPLELIGHT",
+      "name": "二道聖光",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "arch_bishop"
+      ]
+    },
+    {
+      "skillId": 2201,
+      "skillKey": "WL_WHITEIMPRISON",
+      "name": "白色監獄",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "timed_status",
+      "jobs": [
+        "warlock"
+      ]
+    },
+    {
+      "skillId": 2202,
+      "skillKey": "WL_SOULEXPANSION",
+      "name": "靈魂爆炸",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "magic_damage",
+      "jobs": [
+        "warlock"
+      ]
+    },
+    {
+      "skillId": 2203,
+      "skillKey": "WL_FROSTMISTY",
+      "name": "寒冰濃霧",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "magic_damage",
+      "jobs": [
+        "warlock"
+      ]
+    },
+    {
+      "skillId": 2204,
+      "skillKey": "WL_JACKFROST",
+      "name": "凍僵術",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "magic_damage",
+      "jobs": [
+        "warlock"
+      ]
+    },
+    {
+      "skillId": 2205,
+      "skillKey": "WL_MARSHOFABYSS",
+      "name": "深淵沼地",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "timed_status",
+      "jobs": [
+        "warlock"
+      ]
+    },
+    {
+      "skillId": 2206,
+      "skillKey": "WL_RECOGNIZEDSPELL",
+      "name": "魔法省悟",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "warlock"
+      ]
+    },
+    {
+      "skillId": 2207,
+      "skillKey": "WL_SIENNAEXECRATE",
+      "name": "石化詛咒",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "timed_status",
+      "jobs": [
+        "warlock"
+      ]
+    },
+    {
+      "skillId": 2209,
+      "skillKey": "WL_STASIS",
+      "name": "魔力凍結",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "timed_status",
+      "jobs": [
+        "warlock"
+      ]
+    },
+    {
+      "skillId": 2210,
+      "skillKey": "WL_DRAINLIFE",
+      "name": "吸星大法",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "magic_damage",
+      "jobs": [
+        "warlock"
+      ]
+    },
+    {
+      "skillId": 2211,
+      "skillKey": "WL_CRIMSONROCK",
+      "name": "碧血隕石",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "magic_damage",
+      "jobs": [
+        "warlock"
+      ]
+    },
+    {
+      "skillId": 2212,
+      "skillKey": "WL_HELLINFERNO",
+      "name": "地獄火焰",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "magic_damage",
+      "jobs": [
+        "warlock"
+      ]
+    },
+    {
+      "skillId": 2213,
+      "skillKey": "WL_COMET",
+      "name": "毀滅慧星",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "magic_damage",
+      "jobs": [
+        "warlock"
+      ]
+    },
+    {
+      "skillId": 2214,
+      "skillKey": "WL_CHAINLIGHTNING",
+      "name": "連鎖電擊",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "chain_magic",
+      "jobs": [
+        "warlock"
+      ]
+    },
+    {
+      "skillId": 2216,
+      "skillKey": "WL_EARTHSTRAIN",
+      "name": "地牛翻身",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "magic_damage",
+      "jobs": [
+        "warlock"
+      ]
+    },
+    {
+      "skillId": 2217,
+      "skillKey": "WL_TETRAVORTEX",
+      "name": "屬性漩渦",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "tetra_vortex",
+      "jobs": [
+        "warlock"
+      ]
+    },
+    {
+      "skillId": 2222,
+      "skillKey": "WL_SUMMONFB",
+      "name": "召喚火焰球",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "elemental_sphere_summon",
+      "jobs": [
+        "warlock"
+      ]
+    },
+    {
+      "skillId": 2223,
+      "skillKey": "WL_SUMMONBL",
+      "name": "召喚雷電球",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "elemental_sphere_summon",
+      "jobs": [
+        "warlock"
+      ]
+    },
+    {
+      "skillId": 2224,
+      "skillKey": "WL_SUMMONWB",
+      "name": "召喚水球",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "elemental_sphere_summon",
+      "jobs": [
+        "warlock"
+      ]
+    },
+    {
+      "skillId": 2229,
+      "skillKey": "WL_SUMMONSTONE",
+      "name": "召喚石塊",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "elemental_sphere_summon",
+      "jobs": [
+        "warlock"
+      ]
+    },
+    {
+      "skillId": 2230,
+      "skillKey": "WL_RELEASE",
+      "name": "釋放",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "elemental_release",
+      "jobs": [
+        "warlock"
+      ]
+    },
+    {
+      "skillId": 2233,
+      "skillKey": "RA_ARROWSTORM",
+      "name": "箭雨風暴",
+      "tier": "T3",
+      "category": "RANGED",
+      "effectId": "chasing_shot_hit_5bb1152d60f8",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "ranger"
+      ]
+    },
+    {
+      "skillId": 2234,
+      "skillKey": "RA_FEARBREEZE",
+      "name": "微風恐懼",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "ranger"
+      ]
+    },
+    {
+      "skillId": 2236,
+      "skillKey": "RA_AIMEDBOLT",
+      "name": "瞄準標靶",
+      "tier": "T3",
+      "category": "RANGED",
+      "effectId": "chasing_shot_hit_5bb1152d60f8",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "ranger"
+      ]
+    },
+    {
+      "skillId": 2237,
+      "skillKey": "RA_DETONATOR",
+      "name": "雷管",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "trap_detonator",
+      "jobs": [
+        "ranger"
+      ]
+    },
+    {
+      "skillId": 2238,
+      "skillKey": "RA_ELECTRICSHOCKER",
+      "name": "電擊陷阱",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "ground_debuff",
+      "jobs": [
+        "ranger"
+      ]
+    },
+    {
+      "skillId": 2239,
+      "skillKey": "RA_CLUSTERBOMB",
+      "name": "榴霰彈",
+      "tier": "T3",
+      "category": "MELEE",
+      "effectId": "powerful_swing_hit_f071af650158",
+      "handler": "ground_damage",
+      "jobs": [
+        "ranger"
+      ]
+    },
+    {
+      "skillId": 2240,
+      "skillKey": "RA_WUGMASTERY",
+      "name": "召狼術",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "warg_toggle",
+      "jobs": [
+        "ranger"
+      ]
+    },
+    {
+      "skillId": 2242,
+      "skillKey": "RA_WUGDASH",
+      "name": "疾狼術",
+      "tier": "T3",
+      "category": "MELEE",
+      "effectId": "powerful_swing_hit_f071af650158",
+      "handler": "physical_charge",
+      "jobs": [
+        "ranger"
+      ]
+    },
+    {
+      "skillId": 2243,
+      "skillKey": "RA_WUGSTRIKE",
+      "name": "狼突擊",
+      "tier": "T3",
+      "category": "MELEE",
+      "effectId": "powerful_swing_hit_f071af650158",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "ranger"
+      ]
+    },
+    {
+      "skillId": 2244,
+      "skillKey": "RA_WUGBITE",
+      "name": "狼咬",
+      "tier": "T3",
+      "category": "MELEE",
+      "effectId": "powerful_swing_hit_f071af650158",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "ranger"
+      ]
+    },
+    {
+      "skillId": 2246,
+      "skillKey": "RA_SENSITIVEKEEN",
+      "name": "敏銳嗅覺",
+      "tier": "T3",
+      "category": "MELEE",
+      "effectId": "powerful_swing_hit_f071af650158",
+      "handler": "warg_sensitive_keen",
+      "jobs": [
+        "ranger"
+      ]
+    },
+    {
+      "skillId": 2247,
+      "skillKey": "RA_CAMOUFLAGE",
+      "name": "偽裝戰術",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "ranger"
+      ]
+    },
+    {
+      "skillId": 2249,
+      "skillKey": "RA_MAGENTATRAP",
+      "name": "紫紅陷阱",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "ground_debuff",
+      "jobs": [
+        "ranger"
+      ]
+    },
+    {
+      "skillId": 2250,
+      "skillKey": "RA_COBALTTRAP",
+      "name": "深藍陷阱",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "ground_debuff",
+      "jobs": [
+        "ranger"
+      ]
+    },
+    {
+      "skillId": 2251,
+      "skillKey": "RA_MAIZETRAP",
+      "name": "淺黃陷阱",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "ground_debuff",
+      "jobs": [
+        "ranger"
+      ]
+    },
+    {
+      "skillId": 2252,
+      "skillKey": "RA_VERDURETRAP",
+      "name": "青翠陷阱",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "ground_debuff",
+      "jobs": [
+        "ranger"
+      ]
+    },
+    {
+      "skillId": 2253,
+      "skillKey": "RA_FIRINGTRAP",
+      "name": "燃燒陷阱",
+      "tier": "T3",
+      "category": "MELEE",
+      "effectId": "powerful_swing_hit_f071af650158",
+      "handler": "ground_damage",
+      "jobs": [
+        "ranger"
+      ]
+    },
+    {
+      "skillId": 2254,
+      "skillKey": "RA_ICEBOUNDTRAP",
+      "name": "冰封陷阱",
+      "tier": "T3",
+      "category": "MELEE",
+      "effectId": "powerful_swing_hit_f071af650158",
+      "handler": "ground_damage",
+      "jobs": [
+        "ranger"
+      ]
+    },
+    {
+      "skillId": 2256,
+      "skillKey": "NC_BOOSTKNUCKLE",
+      "name": "噴射飛拳",
+      "tier": "T3",
+      "category": "RANGED",
+      "effectId": "chasing_shot_hit_5bb1152d60f8",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "mechanic"
+      ]
+    },
+    {
+      "skillId": 2257,
+      "skillKey": "NC_PILEBUNKER",
+      "name": "衝擊椎",
+      "tier": "T3",
+      "category": "MELEE",
+      "effectId": "powerful_swing_hit_f071af650158",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "mechanic"
+      ]
+    },
+    {
+      "skillId": 2258,
+      "skillKey": "NC_VULCANARM",
+      "name": "火神砲",
+      "tier": "T3",
+      "category": "RANGED",
+      "effectId": "chasing_shot_hit_5bb1152d60f8",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "mechanic"
+      ]
+    },
+    {
+      "skillId": 2259,
+      "skillKey": "NC_FLAMELAUNCHER",
+      "name": "火焰噴射器",
+      "tier": "T3",
+      "category": "RANGED",
+      "effectId": "chasing_shot_hit_5bb1152d60f8",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "mechanic"
+      ]
+    },
+    {
+      "skillId": 2260,
+      "skillKey": "NC_COLDSLOWER",
+      "name": "液體冷卻彈",
+      "tier": "T3",
+      "category": "RANGED",
+      "effectId": "chasing_shot_hit_5bb1152d60f8",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "mechanic"
+      ]
+    },
+    {
+      "skillId": 2261,
+      "skillKey": "NC_ARMSCANNON",
+      "name": "加農砲",
+      "tier": "T3",
+      "category": "RANGED",
+      "effectId": "chasing_shot_hit_5bb1152d60f8",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "mechanic"
+      ]
+    },
+    {
+      "skillId": 2262,
+      "skillKey": "NC_ACCELERATION",
+      "name": "魔導機甲加速",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "mechanic"
+      ]
+    },
+    {
+      "skillId": 2263,
+      "skillKey": "NC_HOVERING",
+      "name": "懸停",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "mechanic"
+      ]
+    },
+    {
+      "skillId": 2264,
+      "skillKey": "NC_F_SIDESLIDE",
+      "name": "大步前進",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "movement",
+      "jobs": [
+        "mechanic"
+      ]
+    },
+    {
+      "skillId": 2265,
+      "skillKey": "NC_B_SIDESLIDE",
+      "name": "大步後退",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "movement",
+      "jobs": [
+        "mechanic"
+      ]
+    },
+    {
+      "skillId": 2267,
+      "skillKey": "NC_SELFDESTRUCTION",
+      "name": "自我摧毀",
+      "tier": "T3",
+      "category": "RANGED",
+      "effectId": "chasing_shot_hit_5bb1152d60f8",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "mechanic"
+      ]
+    },
+    {
+      "skillId": 2270,
+      "skillKey": "NC_INFRAREDSCAN",
+      "name": "紅外線掃瞄",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "debuff",
+      "jobs": [
+        "mechanic"
+      ]
+    },
+    {
+      "skillId": 2271,
+      "skillKey": "NC_ANALYZE",
+      "name": "解析",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "debuff",
+      "jobs": [
+        "mechanic"
+      ]
+    },
+    {
+      "skillId": 2272,
+      "skillKey": "NC_MAGNETICFIELD",
+      "name": "磁場",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "debuff",
+      "jobs": [
+        "mechanic"
+      ]
+    },
+    {
+      "skillId": 2273,
+      "skillKey": "NC_NEUTRALBARRIER",
+      "name": "中性防護罩",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "mechanic"
+      ]
+    },
+    {
+      "skillId": 2274,
+      "skillKey": "NC_STEALTHFIELD",
+      "name": "隱形力場",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "mechanic"
+      ]
+    },
+    {
+      "skillId": 2278,
+      "skillKey": "NC_AXEBOOMERANG",
+      "name": "迴旋斧",
+      "tier": "T3",
+      "category": "MELEE",
+      "effectId": "powerful_swing_hit_f071af650158",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "mechanic"
+      ]
+    },
+    {
+      "skillId": 2279,
+      "skillKey": "NC_POWERSWING",
+      "name": "揮斧重擊",
+      "tier": "T3",
+      "category": "MELEE",
+      "effectId": "powerful_swing_hit_f071af650158",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "mechanic"
+      ]
+    },
+    {
+      "skillId": 2280,
+      "skillKey": "NC_AXETORNADO",
+      "name": "戰斧颶風",
+      "tier": "T3",
+      "category": "MELEE",
+      "effectId": "powerful_swing_hit_f071af650158",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "mechanic"
+      ]
+    },
+    {
+      "skillId": 2281,
+      "skillKey": "NC_SILVERSNIPER",
+      "name": "FAW銀光狙擊手",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "virtual_summon",
+      "jobs": [
+        "mechanic"
+      ]
+    },
+    {
+      "skillId": 2282,
+      "skillKey": "NC_MAGICDECOY",
+      "name": "FAW魔法傀儡",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "virtual_summon",
+      "jobs": [
+        "mechanic"
+      ]
+    },
+    {
+      "skillId": 2283,
+      "skillKey": "NC_DISJOINT",
+      "name": "FAW解體",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "virtual_summon_dismiss",
+      "jobs": [
+        "mechanic"
+      ]
+    },
+    {
+      "skillId": 2284,
+      "skillKey": "SC_FATALMENACE",
+      "name": "致命威脅",
+      "tier": "T3",
+      "category": "MELEE",
+      "effectId": "powerful_swing_hit_f071af650158",
+      "handler": "physical_attack",
+      "jobs": [
+        "shadow_chaser"
+      ]
+    },
+    {
+      "skillId": 2285,
+      "skillKey": "SC_REPRODUCE",
+      "name": "繁殖",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "skill_copy_selector",
+      "jobs": [
+        "shadow_chaser"
+      ]
+    },
+    {
+      "skillId": 2286,
+      "skillKey": "SC_AUTOSHADOWSPELL",
+      "name": "自動魅影念咒",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "shadow_chaser"
+      ]
+    },
+    {
+      "skillId": 2287,
+      "skillKey": "SC_SHADOWFORM",
+      "name": "魅影形態",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "shadow_chaser"
+      ]
+    },
+    {
+      "skillId": 2288,
+      "skillKey": "SC_TRIANGLESHOT",
+      "name": "三角射擊",
+      "tier": "T3",
+      "category": "RANGED",
+      "effectId": "chasing_shot_hit_5bb1152d60f8",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "shadow_chaser"
+      ]
+    },
+    {
+      "skillId": 2290,
+      "skillKey": "SC_INVISIBILITY",
+      "name": "透明術",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "shadow_chaser"
+      ]
+    },
+    {
+      "skillId": 2304,
+      "skillKey": "SC_FEINTBOMB",
+      "name": "虛擊炸彈",
+      "tier": "T3",
+      "category": "MELEE",
+      "effectId": "powerful_swing_hit_f071af650158",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "shadow_chaser"
+      ]
+    },
+    {
+      "skillId": 2307,
+      "skillKey": "LG_CANNONSPEAR",
+      "name": "加農砲攻擊",
+      "tier": "T3",
+      "category": "RANGED",
+      "effectId": "chasing_shot_hit_5bb1152d60f8",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "royal_guard"
+      ]
+    },
+    {
+      "skillId": 2308,
+      "skillKey": "LG_BANISHINGPOINT",
+      "name": "放逐攻擊",
+      "tier": "T3",
+      "category": "RANGED",
+      "effectId": "chasing_shot_hit_5bb1152d60f8",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "royal_guard"
+      ]
+    },
+    {
+      "skillId": 2310,
+      "skillKey": "LG_SHIELDPRESS",
+      "name": "重壓盾擊",
+      "tier": "T3",
+      "category": "MELEE",
+      "effectId": "powerful_swing_hit_f071af650158",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "royal_guard"
+      ]
+    },
+    {
+      "skillId": 2311,
+      "skillKey": "LG_REFLECTDAMAGE",
+      "name": "聖冕加護",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "royal_guard"
+      ]
+    },
+    {
+      "skillId": 2312,
+      "skillKey": "LG_PINPOINTATTACK",
+      "name": "精準攻擊",
+      "tier": "T3",
+      "category": "RANGED",
+      "effectId": "chasing_shot_hit_5bb1152d60f8",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "royal_guard"
+      ]
+    },
+    {
+      "skillId": 2313,
+      "skillKey": "LG_FORCEOFVANGUARD",
+      "name": "先鋒部隊",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "royal_guard"
+      ]
+    },
+    {
+      "skillId": 2314,
+      "skillKey": "LG_RAGEBURST",
+      "name": "憤怒突擊",
+      "tier": "T3",
+      "category": "MELEE",
+      "effectId": "powerful_swing_hit_f071af650158",
+      "handler": "physical_attack",
+      "jobs": [
+        "royal_guard"
+      ]
+    },
+    {
+      "skillId": 2315,
+      "skillKey": "LG_SHIELDSPELL",
+      "name": "盾咒",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "royal_guard"
+      ]
+    },
+    {
+      "skillId": 2316,
+      "skillKey": "LG_EXEEDBREAK",
+      "name": "強化衝擊",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "royal_guard"
+      ]
+    },
+    {
+      "skillId": 2317,
+      "skillKey": "LG_OVERBRAND",
+      "name": "支配烙印",
+      "tier": "T3",
+      "category": "MELEE",
+      "effectId": "powerful_swing_hit_f071af650158",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "royal_guard"
+      ]
+    },
+    {
+      "skillId": 2318,
+      "skillKey": "LG_PRESTIGE",
+      "name": "威信",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "royal_guard"
+      ]
+    },
+    {
+      "skillId": 2319,
+      "skillKey": "LG_BANDING",
+      "name": "聚集",
+      "tier": "T3",
+      "category": "MELEE",
+      "effectId": "powerful_swing_hit_f071af650158",
+      "handler": "physical_attack",
+      "jobs": [
+        "royal_guard"
+      ]
+    },
+    {
+      "skillId": 2320,
+      "skillKey": "LG_MOONSLASHER",
+      "name": "半月斬",
+      "tier": "T3",
+      "category": "MELEE",
+      "effectId": "powerful_swing_hit_f071af650158",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "royal_guard"
+      ]
+    },
+    {
+      "skillId": 2321,
+      "skillKey": "LG_RAYOFGENESIS",
+      "name": "創世之光",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "magic_damage",
+      "jobs": [
+        "royal_guard"
+      ]
+    },
+    {
+      "skillId": 2322,
+      "skillKey": "LG_PIETY",
+      "name": "虔誠",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "royal_guard"
+      ]
+    },
+    {
+      "skillId": 2323,
+      "skillKey": "LG_EARTHDRIVE",
+      "name": "大地毀滅",
+      "tier": "T3",
+      "category": "MELEE",
+      "effectId": "powerful_swing_hit_f071af650158",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "royal_guard"
+      ]
+    },
+    {
+      "skillId": 2324,
+      "skillKey": "LG_HESPERUSLIT",
+      "name": "黃昏星之光",
+      "tier": "T3",
+      "category": "MELEE",
+      "effectId": "powerful_swing_hit_f071af650158",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "royal_guard"
+      ]
+    },
+    {
+      "skillId": 2325,
+      "skillKey": "LG_INSPIRATION",
+      "name": "靈感",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "royal_guard"
+      ]
+    },
+    {
+      "skillId": 2326,
+      "skillKey": "SR_DRAGONCOMBO",
+      "name": "雙龍腳",
+      "tier": "T3",
+      "category": "MELEE",
+      "effectId": "powerful_swing_hit_f071af650158",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "sura"
+      ]
+    },
+    {
+      "skillId": 2327,
+      "skillKey": "SR_SKYNETBLOW",
+      "name": "天羅地網",
+      "tier": "T3",
+      "category": "MELEE",
+      "effectId": "powerful_swing_hit_f071af650158",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "sura"
+      ]
+    },
+    {
+      "skillId": 2328,
+      "skillKey": "SR_EARTHSHAKER",
+      "name": "地雷震",
+      "tier": "T3",
+      "category": "MELEE",
+      "effectId": "powerful_swing_hit_f071af650158",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "sura"
+      ]
+    },
+    {
+      "skillId": 2329,
+      "skillKey": "SR_FALLENEMPIRE",
+      "name": "大纏崩墜",
+      "tier": "T3",
+      "category": "MELEE",
+      "effectId": "powerful_swing_hit_f071af650158",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "sura"
+      ]
+    },
+    {
+      "skillId": 2330,
+      "skillKey": "SR_TIGERCANNON",
+      "name": "虎砲",
+      "tier": "T3",
+      "category": "MELEE",
+      "effectId": "powerful_swing_hit_f071af650158",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "sura"
+      ]
+    },
+    {
+      "skillId": 2332,
+      "skillKey": "SR_RAMPAGEBLASTER",
+      "name": "爆氣散彈",
+      "tier": "T3",
+      "category": "MELEE",
+      "effectId": "powerful_swing_hit_f071af650158",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "sura"
+      ]
+    },
+    {
+      "skillId": 2333,
+      "skillKey": "SR_CRESCENTELBOW",
+      "name": "破碎柱",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "sura"
+      ]
+    },
+    {
+      "skillId": 2335,
+      "skillKey": "SR_LIGHTNINGWALK",
+      "name": "閃電步",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "sura"
+      ]
+    },
+    {
+      "skillId": 2336,
+      "skillKey": "SR_KNUCKLEARROW",
+      "name": "修羅身彈",
+      "tier": "T3",
+      "category": "MELEE",
+      "effectId": "powerful_swing_hit_f071af650158",
+      "handler": "physical_charge",
+      "jobs": [
+        "sura"
+      ]
+    },
+    {
+      "skillId": 2337,
+      "skillKey": "SR_WINDMILL",
+      "name": "旋風腿",
+      "tier": "T3",
+      "category": "MELEE",
+      "effectId": "powerful_swing_hit_f071af650158",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "sura"
+      ]
+    },
+    {
+      "skillId": 2338,
+      "skillKey": "SR_RAISINGDRAGON",
+      "name": "潛龍昇天",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "sura"
+      ]
+    },
+    {
+      "skillId": 2340,
+      "skillKey": "SR_ASSIMILATEPOWER",
+      "name": "吸氣攻",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "spirit_assimilate",
+      "jobs": [
+        "sura"
+      ]
+    },
+    {
+      "skillId": 2343,
+      "skillKey": "SR_GATEOFHELL",
+      "name": "羅剎破凰擊",
+      "tier": "T3",
+      "category": "RANGED",
+      "effectId": "chasing_shot_hit_5bb1152d60f8",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "sura"
+      ]
+    },
+    {
+      "skillId": 2344,
+      "skillKey": "SR_GENTLETOUCH_QUIET",
+      "name": "點穴-默",
+      "tier": "T3",
+      "category": "MELEE",
+      "effectId": "powerful_swing_hit_f071af650158",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "sura"
+      ]
+    },
+    {
+      "skillId": 2345,
+      "skillKey": "SR_GENTLETOUCH_CURE",
+      "name": "點穴-快",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "heal",
+      "jobs": [
+        "sura"
+      ]
+    },
+    {
+      "skillId": 2346,
+      "skillKey": "SR_GENTLETOUCH_ENERGYGAIN",
+      "name": "點穴-球",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "sura"
+      ]
+    },
+    {
+      "skillId": 2347,
+      "skillKey": "SR_GENTLETOUCH_CHANGE",
+      "name": "點穴-反",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "sura"
+      ]
+    },
+    {
+      "skillId": 2348,
+      "skillKey": "SR_GENTLETOUCH_REVITALIZE",
+      "name": "點穴-活",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "sura"
+      ]
+    },
+    {
+      "skillId": 2350,
+      "skillKey": "WA_SWING_DANCE",
+      "name": "搖擺舞",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "wanderer"
+      ]
+    },
+    {
+      "skillId": 2351,
+      "skillKey": "WA_SYMPHONY_OF_LOVER",
+      "name": "戀人交響樂",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "wanderer"
+      ]
+    },
+    {
+      "skillId": 2352,
+      "skillKey": "WA_MOONLIT_SERENADE",
+      "name": "月光小夜曲",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "wanderer"
+      ]
+    },
+    {
+      "skillId": 2381,
+      "skillKey": "MI_RUSH_WINDMILL",
+      "name": "朝風車突擊",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "minstrel"
+      ]
+    },
+    {
+      "skillId": 2382,
+      "skillKey": "MI_ECHOSONG",
+      "name": "回音之歌",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "minstrel"
+      ]
+    },
+    {
+      "skillId": 2383,
+      "skillKey": "MI_HARMONIZE",
+      "name": "和聲演奏",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "minstrel"
+      ]
+    },
+    {
+      "skillId": 2413,
+      "skillKey": "WM_METALICSOUND",
+      "name": "重金屬音樂",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "magic_damage",
+      "jobs": [
+        "minstrel",
+        "wanderer"
+      ]
+    },
+    {
+      "skillId": 2414,
+      "skillKey": "WM_REVERBERATION",
+      "name": "殘響",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "magic_damage",
+      "jobs": [
+        "minstrel",
+        "wanderer"
+      ]
+    },
+    {
+      "skillId": 2418,
+      "skillKey": "WM_SEVERE_RAINSTORM",
+      "name": "大暴雨",
+      "tier": "T3",
+      "category": "RANGED",
+      "effectId": "chasing_shot_hit_5bb1152d60f8",
+      "handler": "ground_damage",
+      "jobs": [
+        "minstrel",
+        "wanderer"
+      ]
+    },
+    {
+      "skillId": 2419,
+      "skillKey": "WM_POEMOFNETHERWORLD",
+      "name": "絕望之歌",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "ground_debuff",
+      "jobs": [
+        "minstrel",
+        "wanderer"
+      ]
+    },
+    {
+      "skillId": 2420,
+      "skillKey": "WM_VOICEOFSIREN",
+      "name": "塞壬之音",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "timed_status",
+      "jobs": [
+        "minstrel",
+        "wanderer"
+      ]
+    },
+    {
+      "skillId": 2421,
+      "skillKey": "WM_DEADHILLHERE",
+      "name": "死亡峽谷",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "minstrel",
+        "wanderer"
+      ]
+    },
+    {
+      "skillId": 2422,
+      "skillKey": "WM_LULLABY_DEEPSLEEP",
+      "name": "沉睡搖籃曲",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "timed_status",
+      "jobs": [
+        "minstrel",
+        "wanderer"
+      ]
+    },
+    {
+      "skillId": 2423,
+      "skillKey": "WM_SIRCLEOFNATURE",
+      "name": "循環的大自然之音",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "minstrel",
+        "wanderer"
+      ]
+    },
+    {
+      "skillId": 2424,
+      "skillKey": "WM_RANDOMIZESPELL",
+      "name": "不確定要素的語言",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "minstrel",
+        "wanderer"
+      ]
+    },
+    {
+      "skillId": 2425,
+      "skillKey": "WM_GLOOMYDAY",
+      "name": "羞怯一天的憂鬱",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "timed_status",
+      "jobs": [
+        "minstrel",
+        "wanderer"
+      ]
+    },
+    {
+      "skillId": 2426,
+      "skillKey": "WM_GREAT_ECHO",
+      "name": "巨大共鳴",
+      "tier": "T3",
+      "category": "RANGED",
+      "effectId": "chasing_shot_hit_5bb1152d60f8",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "minstrel",
+        "wanderer"
+      ]
+    },
+    {
+      "skillId": 2427,
+      "skillKey": "WM_SONG_OF_MANA",
+      "name": "魔力之歌",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "minstrel",
+        "wanderer"
+      ]
+    },
+    {
+      "skillId": 2428,
+      "skillKey": "WM_DANCE_WITH_WUG",
+      "name": "與狼共舞",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "minstrel",
+        "wanderer"
+      ]
+    },
+    {
+      "skillId": 2429,
+      "skillKey": "WM_SOUND_OF_DESTRUCTION",
+      "name": "毀滅之聲",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "timed_status",
+      "jobs": [
+        "minstrel",
+        "wanderer"
+      ]
+    },
+    {
+      "skillId": 2430,
+      "skillKey": "WM_SATURDAY_NIGHT_FEVER",
+      "name": "狂歡週末夜",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "timed_status",
+      "jobs": [
+        "minstrel",
+        "wanderer"
+      ]
+    },
+    {
+      "skillId": 2431,
+      "skillKey": "WM_LERADS_DEW",
+      "name": "雷拉多露水",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "minstrel",
+        "wanderer"
+      ]
+    },
+    {
+      "skillId": 2432,
+      "skillKey": "WM_MELODYOFSINK",
+      "name": "消沈旋律",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "timed_status",
+      "jobs": [
+        "minstrel",
+        "wanderer"
+      ]
+    },
+    {
+      "skillId": 2433,
+      "skillKey": "WM_BEYOND_OF_WARCRY",
+      "name": "戰嚎的彼端",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "timed_status",
+      "jobs": [
+        "minstrel",
+        "wanderer"
+      ]
+    },
+    {
+      "skillId": 2434,
+      "skillKey": "WM_UNLIMITED_HUMMING_VOICE",
+      "name": "無限哼唱聲",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "minstrel",
+        "wanderer"
+      ]
+    },
+    {
+      "skillId": 2443,
+      "skillKey": "SO_FIREWALK",
+      "name": "火焰步",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "sorcerer"
+      ]
+    },
+    {
+      "skillId": 2444,
+      "skillKey": "SO_ELECTRICWALK",
+      "name": "電流步",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "sorcerer"
+      ]
+    },
+    {
+      "skillId": 2445,
+      "skillKey": "SO_SPELLFIST",
+      "name": "魔力拳",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "sorcerer"
+      ]
+    },
+    {
+      "skillId": 2446,
+      "skillKey": "SO_EARTHGRAVE",
+      "name": "大地墳場",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "magic_damage",
+      "jobs": [
+        "sorcerer"
+      ]
+    },
+    {
+      "skillId": 2447,
+      "skillKey": "SO_DIAMONDDUST",
+      "name": "鑽石星塵",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "magic_damage",
+      "jobs": [
+        "sorcerer"
+      ]
+    },
+    {
+      "skillId": 2448,
+      "skillKey": "SO_POISON_BUSTER",
+      "name": "劇毒猛擊",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "magic_damage",
+      "jobs": [
+        "sorcerer"
+      ]
+    },
+    {
+      "skillId": 2449,
+      "skillKey": "SO_PSYCHIC_WAVE",
+      "name": "超自然波",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "ground_damage",
+      "jobs": [
+        "sorcerer"
+      ]
+    },
+    {
+      "skillId": 2450,
+      "skillKey": "SO_CLOUD_KILL",
+      "name": "雲殺",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "ground_damage",
+      "jobs": [
+        "sorcerer"
+      ]
+    },
+    {
+      "skillId": 2451,
+      "skillKey": "SO_STRIKING",
+      "name": "打擊強化",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "sorcerer"
+      ]
+    },
+    {
+      "skillId": 2452,
+      "skillKey": "SO_WARMER",
+      "name": "加熱術",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "sorcerer"
+      ]
+    },
+    {
+      "skillId": 2453,
+      "skillKey": "SO_VACUUM_EXTREME",
+      "name": "極限空虛",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "timed_status",
+      "jobs": [
+        "sorcerer"
+      ]
+    },
+    {
+      "skillId": 2454,
+      "skillKey": "SO_VARETYR_SPEAR",
+      "name": "聖槍刺擊",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "magic_damage",
+      "jobs": [
+        "sorcerer"
+      ]
+    },
+    {
+      "skillId": 2455,
+      "skillKey": "SO_ARRULLO",
+      "name": "搖籃曲",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "timed_status",
+      "jobs": [
+        "sorcerer"
+      ]
+    },
+    {
+      "skillId": 2456,
+      "skillKey": "SO_EL_CONTROL",
+      "name": "精靈控制",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "summon_control",
+      "jobs": [
+        "sorcerer"
+      ]
+    },
+    {
+      "skillId": 2457,
+      "skillKey": "SO_SUMMON_AGNI",
+      "name": "召喚火元素",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "sorcerer"
+      ]
+    },
+    {
+      "skillId": 2458,
+      "skillKey": "SO_SUMMON_AQUA",
+      "name": "召喚水精靈阿奎亞",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "sorcerer"
+      ]
+    },
+    {
+      "skillId": 2459,
+      "skillKey": "SO_SUMMON_VENTUS",
+      "name": "召喚風精靈梵圖斯",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "sorcerer"
+      ]
+    },
+    {
+      "skillId": 2460,
+      "skillKey": "SO_SUMMON_TERA",
+      "name": "召喚地精靈泰拉",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "sorcerer"
+      ]
+    },
+    {
+      "skillId": 2461,
+      "skillKey": "SO_EL_ACTION",
+      "name": "精靈激發",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "magic_damage",
+      "jobs": [
+        "sorcerer"
+      ]
+    },
+    {
+      "skillId": 2464,
+      "skillKey": "SO_EL_CURE",
+      "name": "精靈治癒",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "heal",
+      "jobs": [
+        "sorcerer"
+      ]
+    },
+    {
+      "skillId": 2465,
+      "skillKey": "SO_FIRE_INSIGNIA",
+      "name": "火之紋章",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "sorcerer"
+      ]
+    },
+    {
+      "skillId": 2466,
+      "skillKey": "SO_WATER_INSIGNIA",
+      "name": "水之紋章",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "sorcerer"
+      ]
+    },
+    {
+      "skillId": 2467,
+      "skillKey": "SO_WIND_INSIGNIA",
+      "name": "風之紋章",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "sorcerer"
+      ]
+    },
+    {
+      "skillId": 2468,
+      "skillKey": "SO_EARTH_INSIGNIA",
+      "name": "地之紋章",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "sorcerer"
+      ]
+    },
+    {
+      "skillId": 2476,
+      "skillKey": "GN_CART_TORNADO",
+      "name": "手推車龍捲風",
+      "tier": "T3",
+      "category": "MELEE",
+      "effectId": "powerful_swing_hit_f071af650158",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "genetic"
+      ]
+    },
+    {
+      "skillId": 2477,
+      "skillKey": "GN_CARTCANNON",
+      "name": "手推車加農砲",
+      "tier": "T3",
+      "category": "RANGED",
+      "effectId": "chasing_shot_hit_5bb1152d60f8",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "genetic"
+      ]
+    },
+    {
+      "skillId": 2478,
+      "skillKey": "GN_CARTBOOST",
+      "name": "手推車加速",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "genetic"
+      ]
+    },
+    {
+      "skillId": 2479,
+      "skillKey": "GN_THORNS_TRAP",
+      "name": "荊棘陷阱",
+      "tier": "T3",
+      "category": "RANGED",
+      "effectId": "chasing_shot_hit_5bb1152d60f8",
+      "handler": "ground_damage",
+      "jobs": [
+        "genetic"
+      ]
+    },
+    {
+      "skillId": 2480,
+      "skillKey": "GN_BLOOD_SUCKER",
+      "name": "吸血植物",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "genetic"
+      ]
+    },
+    {
+      "skillId": 2481,
+      "skillKey": "GN_SPORE_EXPLOSION",
+      "name": "爆炸孢子",
+      "tier": "T3",
+      "category": "RANGED",
+      "effectId": "chasing_shot_hit_5bb1152d60f8",
+      "handler": "ground_damage",
+      "jobs": [
+        "genetic"
+      ]
+    },
+    {
+      "skillId": 2482,
+      "skillKey": "GN_WALLOFTHORN",
+      "name": "荊棘之壁",
+      "tier": "T3",
+      "category": "RANGED",
+      "effectId": "chasing_shot_hit_5bb1152d60f8",
+      "handler": "ground_damage",
+      "jobs": [
+        "genetic"
+      ]
+    },
+    {
+      "skillId": 2483,
+      "skillKey": "GN_CRAZYWEED",
+      "name": "瘋狂野草",
+      "tier": "T3",
+      "category": "RANGED",
+      "effectId": "chasing_shot_hit_5bb1152d60f8",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "genetic"
+      ]
+    },
+    {
+      "skillId": 2485,
+      "skillKey": "GN_DEMONIC_FIRE",
+      "name": "惡魔火焰",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "ground_damage",
+      "jobs": [
+        "genetic"
+      ]
+    },
+    {
+      "skillId": 2490,
+      "skillKey": "GN_HELLS_PLANT",
+      "name": "地獄植物",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "independent_summon",
+      "jobs": [
+        "genetic"
+      ]
+    },
+    {
+      "skillId": 2492,
+      "skillKey": "GN_MANDRAGORA",
+      "name": "曼陀羅魔花的尖叫",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "debuff",
+      "jobs": [
+        "genetic"
+      ]
+    },
+    {
+      "skillId": 2515,
+      "skillKey": "AB_SECRAMENT",
+      "name": "聖典",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "arch_bishop"
+      ]
+    },
+    {
+      "skillId": 2517,
+      "skillKey": "SR_HOWLINGOFLION",
+      "name": "獅子吼",
+      "tier": "T3",
+      "category": "MELEE",
+      "effectId": "powerful_swing_hit_f071af650158",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "sura"
+      ]
+    },
+    {
+      "skillId": 2518,
+      "skillKey": "SR_RIDEINLIGHTNING",
+      "name": "雷光彈",
+      "tier": "T3",
+      "category": "RANGED",
+      "effectId": "chasing_shot_hit_5bb1152d60f8",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "sura"
+      ]
+    },
+    {
+      "skillId": 5001,
+      "skillKey": "GC_DARKCROW",
+      "name": "致命爪痕",
+      "tier": "T3",
+      "category": "MELEE",
+      "effectId": "powerful_swing_hit_f071af650158",
+      "handler": "physical_attack",
+      "jobs": [
+        "guillotine_cross"
+      ]
+    },
+    {
+      "skillId": 5002,
+      "skillKey": "RA_UNLIMIT",
+      "name": "菁英狙擊",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "ranger"
+      ]
+    },
+    {
+      "skillId": 5003,
+      "skillKey": "GN_ILLUSIONDOPING",
+      "name": "幻覺禁藥",
+      "tier": "T3",
+      "category": "RANGED",
+      "effectId": "chasing_shot_hit_5bb1152d60f8",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "genetic"
+      ]
+    },
+    {
+      "skillId": 5004,
+      "skillKey": "RK_DRAGONBREATH_WATER",
+      "name": "龍之氣息-水",
+      "tier": "T3",
+      "category": "RANGED",
+      "effectId": "chasing_shot_hit_5bb1152d60f8",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "rune_knight"
+      ]
+    },
+    {
+      "skillId": 5006,
+      "skillKey": "NC_MAGMA_ERUPTION",
+      "name": "岩漿噴發",
+      "tier": "T3",
+      "category": "MELEE",
+      "effectId": "powerful_swing_hit_f071af650158",
+      "handler": "ground_damage",
+      "jobs": [
+        "mechanic"
+      ]
+    },
+    {
+      "skillId": 5007,
+      "skillKey": "WM_FRIGG_SONG",
+      "name": "豐年頌",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "minstrel",
+        "wanderer"
+      ]
+    },
+    {
+      "skillId": 5008,
+      "skillKey": "SO_ELEMENTAL_SHIELD",
+      "name": "精靈結界",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "sorcerer"
+      ]
+    },
+    {
+      "skillId": 5009,
+      "skillKey": "SR_FLASHCOMBO",
+      "name": "閃光連擊",
+      "tier": "T3",
+      "category": "MELEE",
+      "effectId": "powerful_swing_hit_f071af650158",
+      "handler": "combo_sequence",
+      "jobs": [
+        "sura"
+      ]
+    },
+    {
+      "skillId": 5011,
+      "skillKey": "AB_OFFERTORIUM",
+      "name": "奉獻頌",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "arch_bishop"
+      ]
+    },
+    {
+      "skillId": 5012,
+      "skillKey": "WL_TELEKINESIS_INTENSE",
+      "name": "終極念力",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "warlock"
+      ]
+    },
+    {
+      "skillId": 5013,
+      "skillKey": "LG_KINGS_GRACE",
+      "name": "王的恩典",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "royal_guard"
+      ]
+    },
+    {
+      "skillId": 5014,
+      "skillKey": "ALL_FULL_THROTTLE",
+      "name": "烈火戰車",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "arch_bishop",
+        "genetic",
+        "guillotine_cross",
+        "mechanic",
+        "minstrel",
+        "ranger",
+        "royal_guard",
+        "rune_knight",
+        "shadow_chaser",
+        "sorcerer",
+        "sura",
+        "wanderer",
+        "warlock"
+      ]
+    },
+    {
+      "skillId": 5072,
+      "skillKey": "AB_VITUPERATUM",
+      "name": "天罰",
+      "tier": "T3",
+      "category": "MAGIC",
+      "effectId": "destructive_hurricane_hit_94b1cffb33e3",
+      "handler": "debuff",
+      "jobs": [
+        "arch_bishop"
+      ]
+    },
+    {
+      "skillId": 5076,
+      "skillKey": "NV_HELPANGEL",
+      "name": "救援天使!",
+      "tier": "T3",
+      "category": "BUFF",
+      "effectId": "new_guardianshield_buff_start_304693bc2cb6",
+      "handler": "buff",
+      "jobs": [
+        "super_novice_e"
+      ]
+    },
+    {
+      "skillId": 5201,
+      "skillKey": "DK_SERVANTWEAPON",
+      "name": "死侍武器",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "dragon_knight"
+      ]
+    },
+    {
+      "skillId": 5203,
+      "skillKey": "DK_SERVANT_W_SIGN",
+      "name": "死侍武器-標記",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "debuff",
+      "jobs": [
+        "dragon_knight"
+      ]
+    },
+    {
+      "skillId": 5204,
+      "skillKey": "DK_SERVANT_W_PHANTOM",
+      "name": "死侍武器-瞬幻",
+      "tier": "T4",
+      "category": "RANGED",
+      "effectId": "energy_cannonade_hit_781e7112bcab",
+      "handler": "physical_attack",
+      "jobs": [
+        "dragon_knight"
+      ]
+    },
+    {
+      "skillId": 5205,
+      "skillKey": "DK_SERVANT_W_DEMOL",
+      "name": "死侍武器-破滅",
+      "tier": "T4",
+      "category": "MELEE",
+      "effectId": "hackandslash_hit_0ee46c623a35",
+      "handler": "physical_attack",
+      "jobs": [
+        "dragon_knight"
+      ]
+    },
+    {
+      "skillId": 5206,
+      "skillKey": "DK_CHARGINGPIERCE",
+      "name": "蓄力刺擊",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "dragon_knight"
+      ]
+    },
+    {
+      "skillId": 5208,
+      "skillKey": "DK_HACKANDSLASHER",
+      "name": "橫揮斬",
+      "tier": "T4",
+      "category": "MELEE",
+      "effectId": "hackandslash_hit_0ee46c623a35",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "dragon_knight"
+      ]
+    },
+    {
+      "skillId": 5210,
+      "skillKey": "DK_DRAGONIC_AURA",
+      "name": "天龍光環",
+      "tier": "T4",
+      "category": "RANGED",
+      "effectId": "energy_cannonade_hit_781e7112bcab",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "dragon_knight"
+      ]
+    },
+    {
+      "skillId": 5211,
+      "skillKey": "DK_MADNESS_CRUSHER",
+      "name": "狂暴粉碎",
+      "tier": "T4",
+      "category": "RANGED",
+      "effectId": "energy_cannonade_hit_781e7112bcab",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "dragon_knight"
+      ]
+    },
+    {
+      "skillId": 5212,
+      "skillKey": "DK_VIGOR",
+      "name": "活力之源",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "dragon_knight"
+      ]
+    },
+    {
+      "skillId": 5213,
+      "skillKey": "DK_STORMSLASH",
+      "name": "風暴斬擊",
+      "tier": "T4",
+      "category": "MELEE",
+      "effectId": "hackandslash_hit_0ee46c623a35",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "dragon_knight"
+      ]
+    },
+    {
+      "skillId": 5214,
+      "skillKey": "AG_DEADLY_PROJECTION",
+      "name": "致命放射",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "magic_damage",
+      "jobs": [
+        "arch_mage"
+      ]
+    },
+    {
+      "skillId": 5215,
+      "skillKey": "AG_DESTRUCTIVE_HURRICANE",
+      "name": "毀滅颶風",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "magic_damage",
+      "jobs": [
+        "arch_mage"
+      ]
+    },
+    {
+      "skillId": 5216,
+      "skillKey": "AG_RAIN_OF_CRYSTAL",
+      "name": "冰晶飛瀑",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "ground_damage",
+      "jobs": [
+        "arch_mage"
+      ]
+    },
+    {
+      "skillId": 5217,
+      "skillKey": "AG_MYSTERY_ILLUSION",
+      "name": "神秘幻滅",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "ground_damage",
+      "jobs": [
+        "arch_mage"
+      ]
+    },
+    {
+      "skillId": 5218,
+      "skillKey": "AG_VIOLENT_QUAKE",
+      "name": "震裂術",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "ground_damage",
+      "jobs": [
+        "arch_mage"
+      ]
+    },
+    {
+      "skillId": 5220,
+      "skillKey": "AG_SOUL_VC_STRIKE",
+      "name": "靈魂連擊",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "magic_damage",
+      "jobs": [
+        "arch_mage"
+      ]
+    },
+    {
+      "skillId": 5221,
+      "skillKey": "AG_STRANTUM_TREMOR",
+      "name": "地層震動",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "ground_damage",
+      "jobs": [
+        "arch_mage"
+      ]
+    },
+    {
+      "skillId": 5222,
+      "skillKey": "AG_ALL_BLOOM",
+      "name": "萬紫千紅",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "ground_damage",
+      "jobs": [
+        "arch_mage"
+      ]
+    },
+    {
+      "skillId": 5225,
+      "skillKey": "AG_CRYSTAL_IMPACT",
+      "name": "水晶波爆",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "magic_damage",
+      "jobs": [
+        "arch_mage"
+      ]
+    },
+    {
+      "skillId": 5227,
+      "skillKey": "AG_TORNADO_STORM",
+      "name": "龍捲風暴",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "ground_damage",
+      "jobs": [
+        "arch_mage"
+      ]
+    },
+    {
+      "skillId": 5229,
+      "skillKey": "AG_FLORAL_FLARE_ROAD",
+      "name": "焰火之徑",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "ground_damage",
+      "jobs": [
+        "arch_mage"
+      ]
+    },
+    {
+      "skillId": 5230,
+      "skillKey": "AG_ASTRAL_STRIKE",
+      "name": "星際突襲",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "ground_damage",
+      "jobs": [
+        "arch_mage"
+      ]
+    },
+    {
+      "skillId": 5232,
+      "skillKey": "AG_CLIMAX",
+      "name": "魔力巔峰",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "arch_mage"
+      ]
+    },
+    {
+      "skillId": 5233,
+      "skillKey": "AG_ROCK_DOWN",
+      "name": "巨石降臨",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "magic_damage",
+      "jobs": [
+        "arch_mage"
+      ]
+    },
+    {
+      "skillId": 5234,
+      "skillKey": "AG_STORM_CANNON",
+      "name": "暴風加農砲",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "magic_damage",
+      "jobs": [
+        "arch_mage"
+      ]
+    },
+    {
+      "skillId": 5235,
+      "skillKey": "AG_CRIMSON_ARROW",
+      "name": "豔紅魔矢",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "magic_damage",
+      "jobs": [
+        "arch_mage"
+      ]
+    },
+    {
+      "skillId": 5237,
+      "skillKey": "AG_FROZEN_SLASH",
+      "name": "冰刃斬擊",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "magic_damage",
+      "jobs": [
+        "arch_mage"
+      ]
+    },
+    {
+      "skillId": 5238,
+      "skillKey": "IQ_POWERFUL_FAITH",
+      "name": "堅毅信念",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "inquisitor"
+      ]
+    },
+    {
+      "skillId": 5239,
+      "skillKey": "IQ_FIRM_FAITH",
+      "name": "堅定信念",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "inquisitor"
+      ]
+    },
+    {
+      "skillId": 5241,
+      "skillKey": "IQ_OLEUM_SANCTUM",
+      "name": "聖油洗禮",
+      "tier": "T4",
+      "category": "MELEE",
+      "effectId": "hackandslash_hit_0ee46c623a35",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "inquisitor"
+      ]
+    },
+    {
+      "skillId": 5242,
+      "skillKey": "IQ_SINCERE_FAITH",
+      "name": "真誠信念",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "inquisitor"
+      ]
+    },
+    {
+      "skillId": 5243,
+      "skillKey": "IQ_MASSIVE_F_BLASTER",
+      "name": "焰魔散彈",
+      "tier": "T4",
+      "category": "MELEE",
+      "effectId": "hackandslash_hit_0ee46c623a35",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "inquisitor"
+      ]
+    },
+    {
+      "skillId": 5244,
+      "skillKey": "IQ_EXPOSION_BLASTER",
+      "name": "爆破衝擊",
+      "tier": "T4",
+      "category": "MELEE",
+      "effectId": "hackandslash_hit_0ee46c623a35",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "inquisitor"
+      ]
+    },
+    {
+      "skillId": 5245,
+      "skillKey": "IQ_FIRST_BRAND",
+      "name": "第一擊:烙印",
+      "tier": "T4",
+      "category": "MELEE",
+      "effectId": "hackandslash_hit_0ee46c623a35",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "inquisitor"
+      ]
+    },
+    {
+      "skillId": 5246,
+      "skillKey": "IQ_FIRST_FAITH_POWER",
+      "name": "首章:信仰之力",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "inquisitor"
+      ]
+    },
+    {
+      "skillId": 5247,
+      "skillKey": "IQ_JUDGE",
+      "name": "次章:審判者",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "inquisitor"
+      ]
+    },
+    {
+      "skillId": 5248,
+      "skillKey": "IQ_SECOND_FLAME",
+      "name": "第二擊:火焰滅絕",
+      "tier": "T4",
+      "category": "MELEE",
+      "effectId": "hackandslash_hit_0ee46c623a35",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "inquisitor"
+      ]
+    },
+    {
+      "skillId": 5249,
+      "skillKey": "IQ_SECOND_FAITH",
+      "name": "第二擊:信念",
+      "tier": "T4",
+      "category": "MELEE",
+      "effectId": "hackandslash_hit_0ee46c623a35",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "inquisitor"
+      ]
+    },
+    {
+      "skillId": 5250,
+      "skillKey": "IQ_SECOND_JUDGEMENT",
+      "name": "第二擊:審判",
+      "tier": "T4",
+      "category": "MELEE",
+      "effectId": "hackandslash_hit_0ee46c623a35",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "inquisitor"
+      ]
+    },
+    {
+      "skillId": 5251,
+      "skillKey": "IQ_THIRD_PUNISH",
+      "name": "第三擊:懲治",
+      "tier": "T4",
+      "category": "MELEE",
+      "effectId": "hackandslash_hit_0ee46c623a35",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "inquisitor"
+      ]
+    },
+    {
+      "skillId": 5252,
+      "skillKey": "IQ_THIRD_FLAME_BOMB",
+      "name": "第三擊:火焰彈",
+      "tier": "T4",
+      "category": "MELEE",
+      "effectId": "hackandslash_hit_0ee46c623a35",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "inquisitor"
+      ]
+    },
+    {
+      "skillId": 5253,
+      "skillKey": "IQ_THIRD_CONSECRATION",
+      "name": "第三擊:淨化",
+      "tier": "T4",
+      "category": "MELEE",
+      "effectId": "hackandslash_hit_0ee46c623a35",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "inquisitor"
+      ]
+    },
+    {
+      "skillId": 5254,
+      "skillKey": "IQ_THIRD_EXOR_FLAME",
+      "name": "最終章:驅魔火焰",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "inquisitor"
+      ]
+    },
+    {
+      "skillId": 5255,
+      "skillKey": "IG_GUARD_STANCE",
+      "name": "防禦架式",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "imperial_guard"
+      ]
+    },
+    {
+      "skillId": 5256,
+      "skillKey": "IG_GUARDIAN_SHIELD",
+      "name": "守護神盾",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "imperial_guard"
+      ]
+    },
+    {
+      "skillId": 5257,
+      "skillKey": "IG_REBOUND_SHIELD",
+      "name": "回彈神盾",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "imperial_guard"
+      ]
+    },
+    {
+      "skillId": 5260,
+      "skillKey": "IG_ATTACK_STANCE",
+      "name": "攻擊架式",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "imperial_guard"
+      ]
+    },
+    {
+      "skillId": 5261,
+      "skillKey": "IG_ULTIMATE_SACRIFICE",
+      "name": "終極犧牲",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "imperial_guard"
+      ]
+    },
+    {
+      "skillId": 5262,
+      "skillKey": "IG_HOLY_SHIELD",
+      "name": "抗性聖盾",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "imperial_guard"
+      ]
+    },
+    {
+      "skillId": 5263,
+      "skillKey": "IG_GRAND_JUDGEMENT",
+      "name": "末日審判",
+      "tier": "T4",
+      "category": "RANGED",
+      "effectId": "energy_cannonade_hit_781e7112bcab",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "imperial_guard"
+      ]
+    },
+    {
+      "skillId": 5264,
+      "skillKey": "IG_JUDGEMENT_CROSS",
+      "name": "交錯審判",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "magic_damage",
+      "jobs": [
+        "imperial_guard"
+      ]
+    },
+    {
+      "skillId": 5265,
+      "skillKey": "IG_SHIELD_SHOOTING",
+      "name": "盾牌投擲",
+      "tier": "T4",
+      "category": "RANGED",
+      "effectId": "energy_cannonade_hit_781e7112bcab",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "imperial_guard"
+      ]
+    },
+    {
+      "skillId": 5266,
+      "skillKey": "IG_OVERSLASH",
+      "name": "瞬間斬擊",
+      "tier": "T4",
+      "category": "MELEE",
+      "effectId": "hackandslash_hit_0ee46c623a35",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "imperial_guard"
+      ]
+    },
+    {
+      "skillId": 5267,
+      "skillKey": "IG_CROSS_RAIN",
+      "name": "聖十字雨",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "magic_damage",
+      "jobs": [
+        "imperial_guard"
+      ]
+    },
+    {
+      "skillId": 5268,
+      "skillKey": "CD_REPARATIO",
+      "name": "聖光治癒",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "heal",
+      "jobs": [
+        "cardinal"
+      ]
+    },
+    {
+      "skillId": 5269,
+      "skillKey": "CD_MEDIALE_VOTUM",
+      "name": "治癒誓言",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "cardinal"
+      ]
+    },
+    {
+      "skillId": 5271,
+      "skillKey": "CD_ARGUTUS_VITA",
+      "name": "光耀天命",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "cardinal"
+      ]
+    },
+    {
+      "skillId": 5272,
+      "skillKey": "CD_ARGUTUS_TELUM",
+      "name": "神聖防護",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "cardinal"
+      ]
+    },
+    {
+      "skillId": 5273,
+      "skillKey": "CD_ARBITRIUM",
+      "name": "制裁謳歌",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "magic_damage",
+      "jobs": [
+        "cardinal"
+      ]
+    },
+    {
+      "skillId": 5275,
+      "skillKey": "CD_PRESENS_ACIES",
+      "name": "爆裂聖光",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "cardinal"
+      ]
+    },
+    {
+      "skillId": 5277,
+      "skillKey": "CD_EFFLIGO",
+      "name": "破壞擊",
+      "tier": "T4",
+      "category": "MELEE",
+      "effectId": "hackandslash_hit_0ee46c623a35",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "cardinal"
+      ]
+    },
+    {
+      "skillId": 5278,
+      "skillKey": "CD_COMPETENTIA",
+      "name": "神聖權能",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "cardinal"
+      ]
+    },
+    {
+      "skillId": 5279,
+      "skillKey": "CD_PNEUMATICUS_PROCELLA",
+      "name": "驅魔風暴",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "ground_damage",
+      "jobs": [
+        "cardinal"
+      ]
+    },
+    {
+      "skillId": 5280,
+      "skillKey": "CD_DILECTIO_HEAL",
+      "name": "博愛治癒",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "heal",
+      "jobs": [
+        "cardinal"
+      ]
+    },
+    {
+      "skillId": 5281,
+      "skillKey": "CD_RELIGIO",
+      "name": "全心奉獻",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "cardinal"
+      ]
+    },
+    {
+      "skillId": 5282,
+      "skillKey": "CD_BENEDICTUM",
+      "name": "祝福讚歌",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "cardinal"
+      ]
+    },
+    {
+      "skillId": 5283,
+      "skillKey": "CD_PETITIO",
+      "name": "聖光打擊",
+      "tier": "T4",
+      "category": "MELEE",
+      "effectId": "hackandslash_hit_0ee46c623a35",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "cardinal"
+      ]
+    },
+    {
+      "skillId": 5284,
+      "skillKey": "CD_FRAMEN",
+      "name": "聖靈鎮魂",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "magic_damage",
+      "jobs": [
+        "cardinal"
+      ]
+    },
+    {
+      "skillId": 5285,
+      "skillKey": "SHC_SHADOW_EXCEED",
+      "name": "魅影強化",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "shadow_cross"
+      ]
+    },
+    {
+      "skillId": 5286,
+      "skillKey": "SHC_DANCING_KNIFE",
+      "name": "舞動血刃",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "follow_area",
+      "jobs": [
+        "shadow_cross"
+      ]
+    },
+    {
+      "skillId": 5287,
+      "skillKey": "SHC_SAVAGE_IMPACT",
+      "name": "野蠻衝擊",
+      "tier": "T4",
+      "category": "RANGED",
+      "effectId": "energy_cannonade_hit_781e7112bcab",
+      "handler": "physical_charge",
+      "jobs": [
+        "shadow_cross"
+      ]
+    },
+    {
+      "skillId": 5289,
+      "skillKey": "SHC_ETERNAL_SLASH",
+      "name": "永恆斬擊",
+      "tier": "T4",
+      "category": "MELEE",
+      "effectId": "hackandslash_hit_0ee46c623a35",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "shadow_cross"
+      ]
+    },
+    {
+      "skillId": 5290,
+      "skillKey": "SHC_POTENT_VENOM",
+      "name": "強效毒液",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "shadow_cross"
+      ]
+    },
+    {
+      "skillId": 5291,
+      "skillKey": "SHC_SHADOW_STAB",
+      "name": "暗影刺擊",
+      "tier": "T4",
+      "category": "MELEE",
+      "effectId": "hackandslash_hit_0ee46c623a35",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "shadow_cross"
+      ]
+    },
+    {
+      "skillId": 5292,
+      "skillKey": "SHC_IMPACT_CRATER",
+      "name": "神力撞擊",
+      "tier": "T4",
+      "category": "MELEE",
+      "effectId": "hackandslash_hit_0ee46c623a35",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "shadow_cross"
+      ]
+    },
+    {
+      "skillId": 5293,
+      "skillKey": "SHC_ENCHANTING_SHADOW",
+      "name": "迷惑魅影",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "shadow_cross"
+      ]
+    },
+    {
+      "skillId": 5294,
+      "skillKey": "SHC_FATAL_SHADOW_CROW",
+      "name": "致命影爪",
+      "tier": "T4",
+      "category": "RANGED",
+      "effectId": "energy_cannonade_hit_781e7112bcab",
+      "handler": "physical_charge",
+      "jobs": [
+        "shadow_cross"
+      ]
+    },
+    {
+      "skillId": 5295,
+      "skillKey": "MT_AXE_STOMP",
+      "name": "戰斧踏滅",
+      "tier": "T4",
+      "category": "MELEE",
+      "effectId": "hackandslash_hit_0ee46c623a35",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "meister"
+      ]
+    },
+    {
+      "skillId": 5296,
+      "skillKey": "MT_RUSH_QUAKE",
+      "name": "衝擊撼動",
+      "tier": "T4",
+      "category": "RANGED",
+      "effectId": "energy_cannonade_hit_781e7112bcab",
+      "handler": "physical_charge",
+      "jobs": [
+        "meister"
+      ]
+    },
+    {
+      "skillId": 5298,
+      "skillKey": "MT_A_MACHINE",
+      "name": "啟動攻擊裝置",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "meister"
+      ]
+    },
+    {
+      "skillId": 5299,
+      "skillKey": "MT_D_MACHINE",
+      "name": "啟動防禦裝置(",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "meister"
+      ]
+    },
+    {
+      "skillId": 5302,
+      "skillKey": "MT_SUMMON_ABR_BATTLE_WARIOR",
+      "name": "ABR-決戰勇士",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "virtual_summon",
+      "jobs": [
+        "meister"
+      ]
+    },
+    {
+      "skillId": 5303,
+      "skillKey": "MT_SUMMON_ABR_DUAL_CANNON",
+      "name": "ABR-雙子加農砲",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "virtual_summon",
+      "jobs": [
+        "meister"
+      ]
+    },
+    {
+      "skillId": 5304,
+      "skillKey": "MT_SUMMON_ABR_MOTHER_NET",
+      "name": "ABR-天網聖母",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "virtual_summon",
+      "jobs": [
+        "meister"
+      ]
+    },
+    {
+      "skillId": 5305,
+      "skillKey": "MT_SUMMON_ABR_INFINITY",
+      "name": "ABR-無限戰火",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "virtual_summon",
+      "jobs": [
+        "meister"
+      ]
+    },
+    {
+      "skillId": 5313,
+      "skillKey": "ABC_STRIP_SHADOW",
+      "name": "卸除影子",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "monster_debuff",
+      "jobs": [
+        "abyss_chaser"
+      ]
+    },
+    {
+      "skillId": 5314,
+      "skillKey": "ABC_ABYSS_DAGGER",
+      "name": "深淵匕首",
+      "tier": "T4",
+      "category": "MELEE",
+      "effectId": "hackandslash_hit_0ee46c623a35",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "abyss_chaser"
+      ]
+    },
+    {
+      "skillId": 5315,
+      "skillKey": "ABC_UNLUCKY_RUSH",
+      "name": "不幸衝擊",
+      "tier": "T4",
+      "category": "MELEE",
+      "effectId": "hackandslash_hit_0ee46c623a35",
+      "handler": "physical_charge",
+      "jobs": [
+        "abyss_chaser"
+      ]
+    },
+    {
+      "skillId": 5316,
+      "skillKey": "ABC_CHAIN_REACTION_SHOT",
+      "name": "連鎖射擊",
+      "tier": "T4",
+      "category": "RANGED",
+      "effectId": "energy_cannonade_hit_781e7112bcab",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "abyss_chaser"
+      ]
+    },
+    {
+      "skillId": 5317,
+      "skillKey": "ABC_FROM_THE_ABYSS",
+      "name": "萬丈深淵",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "abyss_chaser"
+      ]
+    },
+    {
+      "skillId": 5318,
+      "skillKey": "ABC_ABYSS_SLAYER",
+      "name": "深淵殺手",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "abyss_chaser"
+      ]
+    },
+    {
+      "skillId": 5319,
+      "skillKey": "ABC_ABYSS_STRIKE",
+      "name": "終結深淵攻擊",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "magic_damage",
+      "jobs": [
+        "abyss_chaser"
+      ]
+    },
+    {
+      "skillId": 5320,
+      "skillKey": "ABC_DEFT_STAB",
+      "name": "靈巧刺擊",
+      "tier": "T4",
+      "category": "MELEE",
+      "effectId": "hackandslash_hit_0ee46c623a35",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "abyss_chaser"
+      ]
+    },
+    {
+      "skillId": 5321,
+      "skillKey": "ABC_ABYSS_SQUARE",
+      "name": "深淵墳場",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "ground_damage",
+      "jobs": [
+        "abyss_chaser"
+      ]
+    },
+    {
+      "skillId": 5322,
+      "skillKey": "ABC_FRENZY_SHOT",
+      "name": "狂暴射擊",
+      "tier": "T4",
+      "category": "RANGED",
+      "effectId": "energy_cannonade_hit_781e7112bcab",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "abyss_chaser"
+      ]
+    },
+    {
+      "skillId": 5324,
+      "skillKey": "WH_WIND_SIGN",
+      "name": "八風標記",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "timed_status",
+      "jobs": [
+        "windhawk"
+      ]
+    },
+    {
+      "skillId": 5326,
+      "skillKey": "WH_HAWKRUSH",
+      "name": "獵鷹奇襲",
+      "tier": "T4",
+      "category": "RANGED",
+      "effectId": "energy_cannonade_hit_781e7112bcab",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "windhawk"
+      ]
+    },
+    {
+      "skillId": 5327,
+      "skillKey": "WH_HAWK_M",
+      "name": "獵鷹精熟",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "falcon_toggle",
+      "jobs": [
+        "windhawk"
+      ]
+    },
+    {
+      "skillId": 5328,
+      "skillKey": "WH_CALAMITYGALE",
+      "name": "憤怒暴風",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "timed_status",
+      "jobs": [
+        "windhawk"
+      ]
+    },
+    {
+      "skillId": 5329,
+      "skillKey": "WH_HAWKBOOMERANG",
+      "name": "獵鷹狙擊",
+      "tier": "T4",
+      "category": "RANGED",
+      "effectId": "energy_cannonade_hit_781e7112bcab",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "windhawk"
+      ]
+    },
+    {
+      "skillId": 5330,
+      "skillKey": "WH_GALESTORM",
+      "name": "毀滅風暴",
+      "tier": "T4",
+      "category": "RANGED",
+      "effectId": "energy_cannonade_hit_781e7112bcab",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "windhawk"
+      ]
+    },
+    {
+      "skillId": 5331,
+      "skillKey": "WH_DEEPBLINDTRAP",
+      "name": "深盲陷阱",
+      "tier": "T4",
+      "category": "RANGED",
+      "effectId": "energy_cannonade_hit_781e7112bcab",
+      "handler": "ground_damage",
+      "jobs": [
+        "windhawk"
+      ]
+    },
+    {
+      "skillId": 5332,
+      "skillKey": "WH_SOLIDTRAP",
+      "name": "磐石陷阱",
+      "tier": "T4",
+      "category": "RANGED",
+      "effectId": "energy_cannonade_hit_781e7112bcab",
+      "handler": "ground_damage",
+      "jobs": [
+        "windhawk"
+      ]
+    },
+    {
+      "skillId": 5333,
+      "skillKey": "WH_SWIFTTRAP",
+      "name": "急速陷阱",
+      "tier": "T4",
+      "category": "RANGED",
+      "effectId": "energy_cannonade_hit_781e7112bcab",
+      "handler": "ground_damage",
+      "jobs": [
+        "windhawk"
+      ]
+    },
+    {
+      "skillId": 5334,
+      "skillKey": "WH_CRESCIVE_BOLT",
+      "name": "漸進狙擊",
+      "tier": "T4",
+      "category": "RANGED",
+      "effectId": "energy_cannonade_hit_781e7112bcab",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "windhawk"
+      ]
+    },
+    {
+      "skillId": 5335,
+      "skillKey": "WH_FLAMETRAP",
+      "name": "火焰陷阱",
+      "tier": "T4",
+      "category": "RANGED",
+      "effectId": "energy_cannonade_hit_781e7112bcab",
+      "handler": "ground_damage",
+      "jobs": [
+        "windhawk"
+      ]
+    },
+    {
+      "skillId": 5338,
+      "skillKey": "BO_THE_WHOLE_PROTECTION",
+      "name": "全面化學保護",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "biolo"
+      ]
+    },
+    {
+      "skillId": 5339,
+      "skillKey": "BO_ADVANCE_PROTECTION",
+      "name": "全影化學保護",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "biolo"
+      ]
+    },
+    {
+      "skillId": 5340,
+      "skillKey": "BO_ACIDIFIED_ZONE_WATER",
+      "name": "強酸禁地(水)",
+      "tier": "T4",
+      "category": "RANGED",
+      "effectId": "energy_cannonade_hit_781e7112bcab",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "biolo"
+      ]
+    },
+    {
+      "skillId": 5341,
+      "skillKey": "BO_ACIDIFIED_ZONE_GROUND",
+      "name": "強酸禁地(地)",
+      "tier": "T4",
+      "category": "RANGED",
+      "effectId": "energy_cannonade_hit_781e7112bcab",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "biolo"
+      ]
+    },
+    {
+      "skillId": 5342,
+      "skillKey": "BO_ACIDIFIED_ZONE_WIND",
+      "name": "強酸禁地(風)",
+      "tier": "T4",
+      "category": "RANGED",
+      "effectId": "energy_cannonade_hit_781e7112bcab",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "biolo"
+      ]
+    },
+    {
+      "skillId": 5343,
+      "skillKey": "BO_ACIDIFIED_ZONE_FIRE",
+      "name": "強酸禁地(火)",
+      "tier": "T4",
+      "category": "RANGED",
+      "effectId": "energy_cannonade_hit_781e7112bcab",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "biolo"
+      ]
+    },
+    {
+      "skillId": 5344,
+      "skillKey": "BO_WOODENWARRIOR",
+      "name": "召喚神木戰士",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "virtual_summon",
+      "jobs": [
+        "biolo"
+      ]
+    },
+    {
+      "skillId": 5345,
+      "skillKey": "BO_WOODEN_FAIRY",
+      "name": "召喚神木妖精",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "virtual_summon",
+      "jobs": [
+        "biolo"
+      ]
+    },
+    {
+      "skillId": 5346,
+      "skillKey": "BO_CREEPER",
+      "name": "召喚爬行者",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "virtual_summon",
+      "jobs": [
+        "biolo"
+      ]
+    },
+    {
+      "skillId": 5347,
+      "skillKey": "BO_RESEARCHREPORT",
+      "name": "研究報告",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "biolo"
+      ]
+    },
+    {
+      "skillId": 5348,
+      "skillKey": "BO_HELLTREE",
+      "name": "召喚地獄樹",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "virtual_summon",
+      "jobs": [
+        "biolo"
+      ]
+    },
+    {
+      "skillId": 5350,
+      "skillKey": "TR_RETROSPECTION",
+      "name": "美聲回顧",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "troubadour",
+        "trouvere"
+      ]
+    },
+    {
+      "skillId": 5351,
+      "skillKey": "TR_MYSTIC_SYMPHONY",
+      "name": "神秘交響曲",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "troubadour",
+        "trouvere"
+      ]
+    },
+    {
+      "skillId": 5352,
+      "skillKey": "TR_KVASIR_SONATA",
+      "name": "克瓦希爾奏鳴曲",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "troubadour",
+        "trouvere"
+      ]
+    },
+    {
+      "skillId": 5353,
+      "skillKey": "TR_ROSEBLOSSOM",
+      "name": "玫瑰箭矢",
+      "tier": "T4",
+      "category": "RANGED",
+      "effectId": "energy_cannonade_hit_781e7112bcab",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "troubadour",
+        "trouvere"
+      ]
+    },
+    {
+      "skillId": 5355,
+      "skillKey": "TR_RHYTHMSHOOTING",
+      "name": "節奏射擊",
+      "tier": "T4",
+      "category": "RANGED",
+      "effectId": "energy_cannonade_hit_781e7112bcab",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "troubadour",
+        "trouvere"
+      ]
+    },
+    {
+      "skillId": 5356,
+      "skillKey": "TR_METALIC_FURY",
+      "name": "金屬狂怒",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "magic_damage",
+      "jobs": [
+        "troubadour",
+        "trouvere"
+      ]
+    },
+    {
+      "skillId": 5357,
+      "skillKey": "TR_SOUNDBLEND",
+      "name": "混聲烙印",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "magic_damage",
+      "jobs": [
+        "troubadour",
+        "trouvere"
+      ]
+    },
+    {
+      "skillId": 5358,
+      "skillKey": "TR_GEF_NOCTURN",
+      "name": "葛帔尼亞夜曲",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "troubadour",
+        "trouvere"
+      ]
+    },
+    {
+      "skillId": 5359,
+      "skillKey": "TR_ROKI_CAPRICCIO",
+      "name": "洛基奏鳴曲",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "troubadour",
+        "trouvere"
+      ]
+    },
+    {
+      "skillId": 5360,
+      "skillKey": "TR_AIN_RHAPSODY",
+      "name": "礦工狂想曲",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "troubadour",
+        "trouvere"
+      ]
+    },
+    {
+      "skillId": 5361,
+      "skillKey": "TR_MUSICAL_INTERLUDE",
+      "name": "音樂劇插曲",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "troubadour",
+        "trouvere"
+      ]
+    },
+    {
+      "skillId": 5362,
+      "skillKey": "TR_JAWAII_SERENADE",
+      "name": "暮色小夜曲",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "troubadour",
+        "trouvere"
+      ]
+    },
+    {
+      "skillId": 5363,
+      "skillKey": "TR_NIPELHEIM_REQUIEM",
+      "name": "亡靈鎮魂歌",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "troubadour",
+        "trouvere"
+      ]
+    },
+    {
+      "skillId": 5364,
+      "skillKey": "TR_PRON_MARCH",
+      "name": "普隆德拉進行曲",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "troubadour",
+        "trouvere"
+      ]
+    },
+    {
+      "skillId": 5366,
+      "skillKey": "EM_SPELL_ENCHANTING",
+      "name": "咒力賦予",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "elemental_master"
+      ]
+    },
+    {
+      "skillId": 5369,
+      "skillKey": "EM_DIAMOND_STORM",
+      "name": "鑽石風暴",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "magic_damage",
+      "jobs": [
+        "elemental_master"
+      ]
+    },
+    {
+      "skillId": 5370,
+      "skillKey": "EM_LIGHTNING_LAND",
+      "name": "雷霆陣地",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "ground_damage",
+      "jobs": [
+        "elemental_master"
+      ]
+    },
+    {
+      "skillId": 5371,
+      "skillKey": "EM_VENOM_SWAMP",
+      "name": "毒液沼澤",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "ground_damage",
+      "jobs": [
+        "elemental_master"
+      ]
+    },
+    {
+      "skillId": 5372,
+      "skillKey": "EM_CONFLAGRATION",
+      "name": "灼熱岩漿",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "ground_damage",
+      "jobs": [
+        "elemental_master"
+      ]
+    },
+    {
+      "skillId": 5373,
+      "skillKey": "EM_TERRA_DRIVE",
+      "name": "大地驅動",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "magic_damage",
+      "jobs": [
+        "elemental_master"
+      ]
+    },
+    {
+      "skillId": 5375,
+      "skillKey": "EM_SUMMON_ELEMENTAL_ARDOR",
+      "name": "召喚元素:阿爾多雷",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "elemental_master"
+      ]
+    },
+    {
+      "skillId": 5376,
+      "skillKey": "EM_SUMMON_ELEMENTAL_DILUVIO",
+      "name": "召喚元素:迪盧比奧",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "elemental_master"
+      ]
+    },
+    {
+      "skillId": 5377,
+      "skillKey": "EM_SUMMON_ELEMENTAL_PROCELLA",
+      "name": "召喚元素:普羅賽拉",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "elemental_master"
+      ]
+    },
+    {
+      "skillId": 5378,
+      "skillKey": "EM_SUMMON_ELEMENTAL_TERREMOTUS",
+      "name": "召喚元素:泰雷莫圖斯",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "elemental_master"
+      ]
+    },
+    {
+      "skillId": 5379,
+      "skillKey": "EM_SUMMON_ELEMENTAL_SERPENS",
+      "name": "召喚元素:塞爾彭斯",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "elemental_master"
+      ]
+    },
+    {
+      "skillId": 5380,
+      "skillKey": "EM_ELEMENTAL_BUSTER",
+      "name": "元素破壞",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "magic_damage",
+      "jobs": [
+        "elemental_master"
+      ]
+    },
+    {
+      "skillId": 5451,
+      "skillKey": "HN_DOUBLEBOWLINGBASH",
+      "name": "雙重怪物互擊",
+      "tier": "T4",
+      "category": "MELEE",
+      "effectId": "hackandslash_hit_0ee46c623a35",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "hyper_novice"
+      ]
+    },
+    {
+      "skillId": 5452,
+      "skillKey": "HN_MEGA_SONIC_BLOW",
+      "name": "巨型音速投擲",
+      "tier": "T4",
+      "category": "MELEE",
+      "effectId": "hackandslash_hit_0ee46c623a35",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "hyper_novice"
+      ]
+    },
+    {
+      "skillId": 5453,
+      "skillKey": "HN_SHIELD_CHAIN_RUSH",
+      "name": "連續盾擊衝撞",
+      "tier": "T4",
+      "category": "RANGED",
+      "effectId": "energy_cannonade_hit_781e7112bcab",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "hyper_novice"
+      ]
+    },
+    {
+      "skillId": 5454,
+      "skillKey": "HN_SPIRAL_PIERCE_MAX",
+      "name": "螺旋擊刺Max",
+      "tier": "T4",
+      "category": "RANGED",
+      "effectId": "energy_cannonade_hit_781e7112bcab",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "hyper_novice"
+      ]
+    },
+    {
+      "skillId": 5455,
+      "skillKey": "HN_METEOR_STORM_BUSTER",
+      "name": "隕石術猛擊",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "ground_damage",
+      "jobs": [
+        "hyper_novice"
+      ]
+    },
+    {
+      "skillId": 5456,
+      "skillKey": "HN_JUPITEL_THUNDER_STORM",
+      "name": "雷鳴術風暴",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "magic_damage",
+      "jobs": [
+        "hyper_novice"
+      ]
+    },
+    {
+      "skillId": 5457,
+      "skillKey": "HN_JACK_FROST_NOVA",
+      "name": "新霜凍術",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "ground_damage",
+      "jobs": [
+        "hyper_novice"
+      ]
+    },
+    {
+      "skillId": 5458,
+      "skillKey": "HN_HELLS_DRIVE",
+      "name": "地獄毀滅",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "magic_damage",
+      "jobs": [
+        "hyper_novice"
+      ]
+    },
+    {
+      "skillId": 5459,
+      "skillKey": "HN_GROUND_GRAVITATION",
+      "name": "地面重力",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "ground_damage",
+      "jobs": [
+        "hyper_novice"
+      ]
+    },
+    {
+      "skillId": 5460,
+      "skillKey": "HN_NAPALM_VULCAN_STRIKE",
+      "name": "念力連擊攻擊",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "magic_damage",
+      "jobs": [
+        "hyper_novice"
+      ]
+    },
+    {
+      "skillId": 5461,
+      "skillKey": "HN_BREAKINGLIMIT",
+      "name": "突破極限",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "hyper_novice"
+      ]
+    },
+    {
+      "skillId": 5462,
+      "skillKey": "HN_RULEBREAK",
+      "name": "突破規矩",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "hyper_novice"
+      ]
+    },
+    {
+      "skillId": 5505,
+      "skillKey": "HN_OVERCOMING_CRISIS",
+      "name": "征服危機",
+      "tier": "T4",
+      "category": "BUFF",
+      "effectId": "new_grand_judgement_buff_78301d0d9dbb",
+      "handler": "buff",
+      "jobs": [
+        "hyper_novice"
+      ]
+    },
+    {
+      "skillId": 6001,
+      "skillKey": "DK_DRAGONIC_BREATH",
+      "name": "天龍氣息",
+      "tier": "T4",
+      "category": "RANGED",
+      "effectId": "energy_cannonade_hit_781e7112bcab",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "dragon_knight"
+      ]
+    },
+    {
+      "skillId": 6002,
+      "skillKey": "MT_SPARK_BLASTER",
+      "name": "閃光衝擊波",
+      "tier": "T4",
+      "category": "RANGED",
+      "effectId": "energy_cannonade_hit_781e7112bcab",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "meister"
+      ]
+    },
+    {
+      "skillId": 6003,
+      "skillKey": "MT_TRIPLE_LASER",
+      "name": "三連雷射",
+      "tier": "T4",
+      "category": "RANGED",
+      "effectId": "energy_cannonade_hit_781e7112bcab",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "meister"
+      ]
+    },
+    {
+      "skillId": 6004,
+      "skillKey": "MT_MIGHTY_SMASH",
+      "name": "強力粉碎",
+      "tier": "T4",
+      "category": "MELEE",
+      "effectId": "hackandslash_hit_0ee46c623a35",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "meister"
+      ]
+    },
+    {
+      "skillId": 6005,
+      "skillKey": "BO_EXPLOSIVE_POWDER",
+      "name": "爆炸炸藥",
+      "tier": "T4",
+      "category": "MELEE",
+      "effectId": "hackandslash_hit_0ee46c623a35",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "biolo"
+      ]
+    },
+    {
+      "skillId": 6006,
+      "skillKey": "BO_MAYHEMIC_THORNS",
+      "name": "混亂的荊棘",
+      "tier": "T4",
+      "category": "RANGED",
+      "effectId": "energy_cannonade_hit_781e7112bcab",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "biolo"
+      ]
+    },
+    {
+      "skillId": 6502,
+      "skillKey": "DK_DRAGONIC_PIERCE",
+      "name": "神龍貫刺",
+      "tier": "T4",
+      "category": "RANGED",
+      "effectId": "energy_cannonade_hit_781e7112bcab",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "dragon_knight"
+      ]
+    },
+    {
+      "skillId": 6503,
+      "skillKey": "IG_RADIANT_SPEAR",
+      "name": "光輝刺擊",
+      "tier": "T4",
+      "category": "RANGED",
+      "effectId": "energy_cannonade_hit_781e7112bcab",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "imperial_guard"
+      ]
+    },
+    {
+      "skillId": 6504,
+      "skillKey": "IG_IMPERIAL_CROSS",
+      "name": "帝國十字斬",
+      "tier": "T4",
+      "category": "MELEE",
+      "effectId": "hackandslash_hit_0ee46c623a35",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "imperial_guard"
+      ]
+    },
+    {
+      "skillId": 6505,
+      "skillKey": "IG_IMPERIAL_PRESSURE",
+      "name": "霸權震域",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "magic_damage",
+      "jobs": [
+        "imperial_guard"
+      ]
+    },
+    {
+      "skillId": 6506,
+      "skillKey": "MT_RUSH_STRIKE",
+      "name": "衝鋒斬擊",
+      "tier": "T4",
+      "category": "RANGED",
+      "effectId": "energy_cannonade_hit_781e7112bcab",
+      "handler": "physical_charge",
+      "jobs": [
+        "meister"
+      ]
+    },
+    {
+      "skillId": 6507,
+      "skillKey": "MT_POWERFUL_SWING",
+      "name": "爆發橫掃",
+      "tier": "T4",
+      "category": "MELEE",
+      "effectId": "hackandslash_hit_0ee46c623a35",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "meister"
+      ]
+    },
+    {
+      "skillId": 6508,
+      "skillKey": "MT_ENERGY_CANNONADE",
+      "name": "能量轟炸",
+      "tier": "T4",
+      "category": "RANGED",
+      "effectId": "energy_cannonade_hit_781e7112bcab",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "meister"
+      ]
+    },
+    {
+      "skillId": 6509,
+      "skillKey": "BO_MYSTERY_POWDER",
+      "name": "神秘粉末",
+      "tier": "T4",
+      "category": "MELEE",
+      "effectId": "hackandslash_hit_0ee46c623a35",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "biolo"
+      ]
+    },
+    {
+      "skillId": 6510,
+      "skillKey": "BO_DUST_EXPLOSION",
+      "name": "星塵炸裂",
+      "tier": "T4",
+      "category": "MELEE",
+      "effectId": "hackandslash_hit_0ee46c623a35",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "biolo"
+      ]
+    },
+    {
+      "skillId": 6511,
+      "skillKey": "SHC_CROSS_SLASH",
+      "name": "十字斬擊",
+      "tier": "T4",
+      "category": "MELEE",
+      "effectId": "hackandslash_hit_0ee46c623a35",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "shadow_cross"
+      ]
+    },
+    {
+      "skillId": 6512,
+      "skillKey": "ABC_HIT_AND_SLIDING",
+      "name": "突擊滑行",
+      "tier": "T4",
+      "category": "MELEE",
+      "effectId": "hackandslash_hit_0ee46c623a35",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "abyss_chaser"
+      ]
+    },
+    {
+      "skillId": 6513,
+      "skillKey": "ABC_CHASING_BREAK",
+      "name": "追擊突斷",
+      "tier": "T4",
+      "category": "MELEE",
+      "effectId": "hackandslash_hit_0ee46c623a35",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "abyss_chaser"
+      ]
+    },
+    {
+      "skillId": 6514,
+      "skillKey": "ABC_CHASING_SHOT",
+      "name": "追襲射擊",
+      "tier": "T4",
+      "category": "RANGED",
+      "effectId": "energy_cannonade_hit_781e7112bcab",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "abyss_chaser"
+      ]
+    },
+    {
+      "skillId": 6515,
+      "skillKey": "ABC_ABYSS_FLAME",
+      "name": "深淵之焰",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "magic_damage",
+      "jobs": [
+        "abyss_chaser"
+      ]
+    },
+    {
+      "skillId": 6517,
+      "skillKey": "EM_PSYCHIC_STREAM",
+      "name": "心靈波流",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "magic_damage",
+      "jobs": [
+        "elemental_master"
+      ]
+    },
+    {
+      "skillId": 6518,
+      "skillKey": "CD_DIVINUS_FLOS",
+      "name": "神聖花雨",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "magic_damage",
+      "jobs": [
+        "cardinal"
+      ]
+    },
+    {
+      "skillId": 6519,
+      "skillKey": "IQ_BLAZING_FLAME_BLAST",
+      "name": "烈焰爆彈",
+      "tier": "T4",
+      "category": "RANGED",
+      "effectId": "energy_cannonade_hit_781e7112bcab",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "inquisitor"
+      ]
+    },
+    {
+      "skillId": 6520,
+      "skillKey": "WH_WILD_WALK",
+      "name": "狂野疾行",
+      "tier": "T4",
+      "category": "RANGED",
+      "effectId": "energy_cannonade_hit_781e7112bcab",
+      "handler": "physical_attack_formula",
+      "jobs": [
+        "windhawk"
+      ]
+    },
+    {
+      "skillId": 6521,
+      "skillKey": "TR_RHYTHMICAL_WAVE",
+      "name": "節奏戰波",
+      "tier": "T4",
+      "category": "MAGIC",
+      "effectId": "abyss_flame_hit_d6b938025d8e",
+      "handler": "magic_damage",
+      "jobs": [
+        "troubadour",
+        "trouvere"
+      ]
+    }
+  ]
+}

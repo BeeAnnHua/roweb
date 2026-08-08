@@ -2843,14 +2843,17 @@ function createPropertyWalkTrailAt(position = null) {
   return true;
 }
 
-function castGroundProtectionSkill(skill, requestedLevel = null) {
+function castGroundProtectionSkill(skill, requestedLevel = null, options = {}) {
   const check=canCastSkill(skill,requestedLevel,["ground_protection"]);if(!check.ok)return reportPendingRuntime(skill,check.reason);
-  if(!currentMonster||!window.GroundEffectManager)return false;
-  const {level,profile}=check;paySkillCost(skill,level);
-  const x=Number(currentMonster?.position?.x??currentMonster?.worldX??0),y=Number(currentMonster?.position?.y??currentMonster?.worldY??0),radius=Number(getLevelValue(profile.targeting?.radius,level,3)),duration=Math.max(1000,Number(getLevelValue(profile.duration,level,120000)));
+  if(!window.GroundEffectManager)return false;
+  const {level,profile}=check;
+  const origin=options.quickSlotSelfTarget===true?player:currentMonster;
+  if(!origin)return false;
+  paySkillCost(skill,level);
+  const x=Number(origin?.position?.x??origin?.worldX??origin?.x??0),y=Number(origin?.position?.y??origin?.worldY??origin?.y??0),radius=Number(getLevelValue(profile.targeting?.radius,level,3)),duration=Math.max(1000,Number(getLevelValue(profile.duration,level,120000)));
   const id=window.GroundEffectManager.create({id:`land_protector_${skill.id}_${Date.now()}`,x,y,shape:"square",rangeCells:radius,durationMs:duration,blocksGroundMagic:true,ignoreLandProtector:true,sourceSkillId:skill.id});
   if(!id){addBattleLog(`${skill.name}無法在目前位置建立。`);return false;}
-  addBattleLog(`施放 ${skill.name} Lv${level}：建立 ${radius*2+1}×${radius*2+1} 地面魔法防護區，持續 ${Math.floor(duration/1000)} 秒。`);
+  addBattleLog(`施放 ${skill.name} Lv${level}：在${options.quickSlotSelfTarget===true?"自身":"目標"}位置建立 ${radius*2+1}×${radius*2+1} 地面魔法防護區，持續 ${Math.floor(duration/1000)} 秒。`);
   updatePlayerUI();updateMonsterUI();saveGame();return true;
 }
 
@@ -3113,8 +3116,10 @@ function castBuffSkill(skill, requestedLevel = null, options = {}) {
       const key=String(id),buff=player.activeBuffs?.[key]||player.activeBuffs?.[id];
       if(!buff)continue;if(typeof clearSustainedPerformanceAura==="function")clearSustainedPerformanceAura(buff);delete player.activeBuffs[key];delete player.activeBuffs[id];removed++;
     }
-    const statuses=currentMonster?.runtimeState?.statuses||{};
-    for(const name of (profile.clearTargetStatuses||[])){const key=String(name).toLowerCase().replace(/[ _-]/g,"");if(statuses[key]||currentMonster?.runtimeState?.[key])removed++;delete statuses[key];if(currentMonster?.runtimeState)delete currentMonster.runtimeState[key];}
+    if(options.quickSlotSelfTarget!==true){
+      const statuses=currentMonster?.runtimeState?.statuses||{};
+      for(const name of (profile.clearTargetStatuses||[])){const key=String(name).toLowerCase().replace(/[ _-]/g,"");if(statuses[key]||currentMonster?.runtimeState?.[key])removed++;delete statuses[key];if(currentMonster?.runtimeState)delete currentMonster.runtimeState[key];}
+    }
     if(typeof recalculatePlayerStats==="function")recalculatePlayerStats();if(typeof updateMonsterUI==="function")updateMonsterUI();updatePlayerUI();saveGame();
     if(!options.silent&&typeof addBattleLog==="function")addBattleLog(`${skill.name}成功，解除 ${removed} 個合唱效果。`);
     return true;
@@ -3152,7 +3157,11 @@ function castBuffSkill(skill, requestedLevel = null, options = {}) {
       if (!options.silent && typeof addBattleLog === "function") addBattleLog(`${skill.name}：沒有可以重播的上一首演奏。`);
       return false;
     }
-    if (lastProfile.handler === "timed_status" && !currentMonster && lastProfile.affectsSelf !== true) {
+    const replayNeedsPrimaryTarget = lastProfile.handler === "timed_status"
+      && typeof runtimeSkillRequiresPrimaryTarget === "function"
+      ? runtimeSkillRequiresPrimaryTarget(lastSkill, lastProfile, lastLevel)
+      : (lastProfile.handler === "timed_status" && lastProfile.affectsSelf !== true);
+    if (lastProfile.handler === "timed_status" && replayNeedsPrimaryTarget && !currentMonster) {
       if (!options.silent && typeof addBattleLog === "function") addBattleLog(`${skill.name}：上一首演奏需要目前戰鬥目標。`);
       return false;
     }
@@ -3605,14 +3614,21 @@ function castTimedStatusSkill(skill, requestedLevel = null, options = {}) {
   const check = canCastSkill(skill, requestedLevel, ["timed_status"], options);
   if (!check.ok) return reportPendingRuntime(skill, check.reason);
   const { level, profile } = check;
-  if ((!currentMonster && profile.affectsSelf !== true && profile.sustainedPerformance !== true) || !window.StatusManager) return false;
+  const effectiveTargeting = typeof getRuntimeEffectiveTargeting === "function"
+    ? getRuntimeEffectiveTargeting(skill, profile, level)
+    : (profile.targeting || null);
+  const selfOrigin = String(effectiveTargeting?.origin || "").toLowerCase() === "self";
+  // V0.9.83E3: Self-origin timed status / chorus skills are centered on the caster.
+  // They must be castable from a quick slot even when no primary monster has been selected.
+  // Enemy-target timed statuses still require currentMonster exactly as before.
+  if ((!currentMonster && !selfOrigin && profile.affectsSelf !== true && profile.sustainedPerformance !== true) || !window.StatusManager) return false;
   const statusSpec = profile.status && typeof profile.status === "object" ? profile.status : { type: profile.status };
   const statusName = statusSpec.type || profile.statusType;
   if (!statusName) return reportPendingRuntime(skill, "Timed Status 缺少狀態名稱");
 
-  const targets = profile.targeting && typeof resolveRuntimeSkillTargets === "function"
-    ? resolveRuntimeSkillTargets(profile, currentMonster, level)
-    : [currentMonster];
+  const targets = typeof resolveRuntimeSkillTargets === "function"
+    ? resolveRuntimeSkillTargets(profile, currentMonster, level, skill)
+    : (currentMonster ? [currentMonster] : []);
   let chance = Number(getLevelValue(statusSpec.baseChance ?? profile.statusChancePercent, level, 100));
   const jobLevel=Math.max(1,Number(player?.jobLevel||1));
   if(profile.statusChanceFormula==="renewal_white_imprison")chance=40+10*level+Math.floor(jobLevel/4);

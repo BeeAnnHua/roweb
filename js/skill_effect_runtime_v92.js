@@ -1,14 +1,15 @@
 // ================================================================
-// RO_WEB 0.9.83D / V92 base + V93 PASS Delta Skill Effect Runtime
-// - V92 base + V93 PASS delta: 97 active skills / 772 browser-safe effects
-// - RO_WEB runtime handler is authoritative; passive/pending/disabled skills
-//   are never scheduled even if a visual asset exists.
-// - No skill name or description writeback.
+// RO_WEB V0.9.83E1 / Generic 12 Shared Skill Effect Runtime
+// - 3 progression tiers x 4 categories = 12 shared effects only.
+// - Offensive visuals anchor to the runtime target/monster.
+// - Buff/support visuals anchor to the caster/player.
+// - Passive/pending/disabled skills are never scheduled.
+// - Legacy per-skill effect assets have been retired.
 // ================================================================
 (() => {
   'use strict';
 
-  const VERSION = '0.9.83D';
+  const VERSION = '0.9.83E1';
   const BASE = './assets/skill_effects/v92/';
   const MANIFEST_URL = `${BASE}V92_RUNTIME_TIMELINE_MANIFEST.json`;
   const EFFECT_MANIFEST_URL = `${BASE}V92_EFFECT_MANIFEST.json`;
@@ -20,7 +21,7 @@
   // 0.9.82IE：地面特效座標政策。GROUND_CELL／GROUND_SPAWN 在事件觸發瞬間
   // 取得目標腳下的世界座標快照；強酸禁地三系的所有目標端視覺也視為
   // 地面爆發，固定於命中瞬間的位置，不再跟隨玩家或怪物移動。
-  const GROUND_SNAPSHOT_SKILL_IDS = new Set([5340, 5341, 5342]);
+  const GROUND_SNAPSHOT_SKILL_IDS = new Set();
   const GROUND_SNAPSHOT_TRIGGERS = new Set(['GROUND_SPAWN']);
 
   const state = {
@@ -164,7 +165,7 @@
     }).catch(error => {
       state.effectData.delete(effectId);
       state.diagnostics.loadFailures++;
-      console.warn('[V92 SkillEffect] effect load failed', effectId, error);
+      console.warn('[Generic12 SkillEffect] effect load failed', effectId, error);
       return null;
     });
     state.effectData.set(effectId, promise);
@@ -836,7 +837,7 @@
         targetIdentity: payload.targetIdentity
       });
       else state.diagnostics.skippedGroundWithoutTarget++;
-      console.warn('[V92 SkillEffect] ground event waiting for target payload', {
+      console.warn('[Generic12 SkillEffect] ground event waiting for target payload', {
         skillId: skillEntry.skillId,
         trigger: event.trigger,
         phase: event.phase,
@@ -967,6 +968,23 @@
     return true;
   }
 
+  function emitDirect(skill, level = 1, context = {}) {
+    if (!state.ready || !isEligible(skill)) return false;
+    const id = skillIdOf(skill);
+    const entry = state.skills.get(id);
+    if (!entry) return false;
+    const target = context.target || context.primaryTarget || currentMonsterObject();
+    const payload = captureTargetPayload(target, context.targetWorldPosition);
+    const token = context.token || `${id}:${Date.now()}:direct`;
+    state.diagnostics.begins++;
+    state.diagnostics.commits++;
+    runTriggerGroup(entry, COMMIT_TRIGGERS, {
+      ...context, target: payload.targetObject, targetWorldPosition: payload.targetWorldPosition,
+      targetIdentity: payload.targetIdentity, level, token
+    });
+    return true;
+  }
+
   function onSkillEnd(skillOrId, reason = 'runtime_end') {
     const id = skillIdOf(skillOrId);
     const entry = state.skills.get(id);
@@ -1046,17 +1064,17 @@
         window.RO_WEB_SKILL_EFFECT_RUNTIME_STATUS = {
           version: VERSION, ready: true, skills: state.skills.size, effects: state.effects.size,
           passiveCandidatesExcluded: Number(manifest.scope?.excludedPassiveOrDisabledSkills || 0),
-          localizationWriteback: false,
-          anchorPolicy: 'ACIDIFIED_EXACT_INSTANCE_ENTITY_FOOT_SNAPSHOT_CASTER_BUFFS_LIVE_TARGET_HITS_LIVE'
+          localizationWriteback: false, genericSharedEffects: true, genericEffectCount: 12,
+          anchorPolicy: 'GENERIC12_TARGET_DAMAGE_CASTER_BUFF'
         };
-        console.info(`[V92+V93 SkillEffect] ready: ${state.skills.size} active skills / ${state.effects.size} effects; V93 target-placement policy enabled.`);
+        console.info(`[Generic12 SkillEffect] ready: ${state.skills.size} active skills / ${state.effects.size} effects; passive guard enabled.`);
         return true;
       })
       .catch(error => {
         state.loadError = String(error?.stack || error);
         state.diagnostics.loadFailures++;
         window.RO_WEB_SKILL_EFFECT_RUNTIME_STATUS = { version: VERSION, ready: false, error: state.loadError };
-        console.error('[V92 SkillEffect] init failed', error);
+        console.error('[Generic12 SkillEffect] init failed', error);
         return false;
       });
     return state.loading;
@@ -1081,7 +1099,7 @@
     }
     return {
       pass: errors.length === 0, errors, skills: state.skills.size, effects: state.effects.size,
-      anchorPolicy: 'ACIDIFIED_EXACT_INSTANCE_ENTITY_FOOT_SNAPSHOT_CASTER_BUFFS_LIVE_TARGET_HITS_LIVE',
+      anchorPolicy: 'GENERIC12_TARGET_DAMAGE_CASTER_BUFF',
       groundSnapshotSkills: [...GROUND_SNAPSHOT_SKILL_IDS],
       diagnostics: { ...state.diagnostics }
     };
@@ -1089,7 +1107,7 @@
 
   const api = {
     version: VERSION,
-    init, isEligible, onSkillBegin, onSkillCommit, onSkillHit, onSkillEnd,
+    init, isEligible, onSkillBegin, onSkillCommit, onSkillHit, onSkillEnd, emitDirect,
     clearAll, selfTest,
     get ready() { return state.ready; },
     get status() { return window.RO_WEB_SKILL_EFFECT_RUNTIME_STATUS || { version: VERSION, ready: state.ready }; },

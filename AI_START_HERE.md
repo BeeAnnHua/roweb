@@ -1,11 +1,11 @@
-# V0.9.83D current baseline
+# V0.9.83C2 current baseline
 
 - WM_SEVERE_RAINSTORM / Skill 2418 must accept Bow, Musical/Instrument, and Whip. Do not narrow this list.
 - `getRuntimeRequiredWeaponTypes()` contains an authoritative 2418 compatibility lock; weapon normalization also accepts rAthena-style `W_MUSICAL` / `W_WHIP` aliases and equipment-instance fallback.
 - RO_WEB keeps Severe Rainstorm arrow metadata but does not consume arrows.
 
 - Historical root reports are compacted into `RO_WEB_HISTORY_RECORDS_THROUGH_V0.9.83C.zip`; use `tools/restore_history_records.py` only when a legacy audit requires the original files.
-- Current concise release metadata: `CURRENT_RELEASE_SUMMARY_V0.9.83D.json`.
+- Current concise release metadata: `CURRENT_RELEASE_SUMMARY_V0.9.83C2.json`.
 
 - Default account slot limit: 4; configurable up to 12 through `CharacterSlotsRuntime.setSlotLimit()` or a future cloud account profile.
 - Account profile key: `ro_web_account_profile_v1`; per-character saves use `ro_web_character_save_v1_<characterId>` and matching backup / IndexedDB IDs.

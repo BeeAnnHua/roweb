@@ -1,0 +1,293 @@
+{
+  "version": "V0.9.83E2",
+  "pass": true,
+  "errors": [],
+  "buffMappedSkills": 263,
+  "quickSlotDefaultSelf": 262,
+  "targetDependentExceptions": 1,
+  "exceptionSkillIds": [
+    264
+  ],
+  "js": {
+    "total": 859,
+    "bad": []
+  },
+  "json": {
+    "total": 2021,
+    "bad": []
+  },
+  "spotChecks": {
+    "29": "加速術 -> self, no monster distance check",
+    "33": "天使之障壁 -> self, no monster distance check",
+    "34": "天使之賜福 -> self, no monster distance check",
+    "70": "光耀之堂 -> player position",
+    "288": "地元素領域 -> player position from quick slot",
+    "264": "弓身彈影 -> target-dependent movement retained"
+  },
+  "package": {
+    "file": "RO_WEB_V0.9.83E2_QUICKSLOT_SUPPORT_SELF_CAST_PATCH.zip",
+    "sizeBytes": 109495,
+    "fileCount": 7,
+    "sha256": "dbbbd8716307959e97a4d9aa68590c768a1d6693bce4b8af6b22ed19bc2b4061"
+  },
+  "previousE1BuffSkillsTouchingMonsterDistanceGate": 33,
+  "falseDistanceGateCasesFixed": 32,
+  "fixedCases": [
+    {
+      "skillId": 25,
+      "skillKey": "AL_PNEUMA",
+      "name": "光之障壁",
+      "handler": "buff",
+      "targetType": "ground",
+      "targetPolicy": "self"
+    },
+    {
+      "skillId": 28,
+      "skillKey": "AL_HEAL",
+      "name": "治癒術",
+      "handler": "heal",
+      "targetType": "support",
+      "targetPolicy": ""
+    },
+    {
+      "skillId": 29,
+      "skillKey": "AL_INCAGI",
+      "name": "加速術",
+      "handler": "buff",
+      "targetType": "support",
+      "targetPolicy": "self"
+    },
+    {
+      "skillId": 34,
+      "skillKey": "AL_BLESSING",
+      "name": "天使之賜福",
+      "handler": "buff",
+      "targetType": "support",
+      "targetPolicy": "self"
+    },
+    {
+      "skillId": 35,
+      "skillKey": "AL_CURE",
+      "name": "治療術",
+      "handler": "buff",
+      "targetType": "support",
+      "targetPolicy": "self"
+    },
+    {
+      "skillId": 53,
+      "skillKey": "TF_DETOXIFY",
+      "name": "解毒",
+      "handler": "buff",
+      "targetType": "support",
+      "targetPolicy": "self"
+    },
+    {
+      "skillId": 63,
+      "skillKey": "KN_RIDING",
+      "name": "騎乘術",
+      "handler": "mount_unlock",
+      "targetType": "",
+      "targetPolicy": ""
+    },
+    {
+      "skillId": 69,
+      "skillKey": "PR_BENEDICTIO",
+      "name": "聖之祈福",
+      "handler": "buff",
+      "targetType": "ground",
+      "targetPolicy": "self"
+    },
+    {
+      "skillId": 70,
+      "skillKey": "PR_SANCTUARY",
+      "name": "光耀之堂",
+      "handler": "sanctuary_area",
+      "targetType": "ground",
+      "targetPolicy": "self_ground"
+    },
+    {
+      "skillId": 71,
+      "skillKey": "PR_SLOWPOISON",
+      "name": "緩毒術",
+      "handler": "buff",
+      "targetType": "support",
+      "targetPolicy": "self"
+    },
+    {
+      "skillId": 72,
+      "skillKey": "PR_STRECOVERY",
+      "name": "痊癒術",
+      "handler": "buff",
+      "targetType": "support",
+      "targetPolicy": "self"
+    },
+    {
+      "skillId": 73,
+      "skillKey": "PR_KYRIE",
+      "name": "霸邪之陣",
+      "handler": "buff",
+      "targetType": "support",
+      "targetPolicy": "self"
+    },
+    {
+      "skillId": 127,
+      "skillKey": "HT_FALCON",
+      "name": "馴鷹術",
+      "handler": "falcon_toggle",
+      "targetType": "",
+      "targetPolicy": ""
+    },
+    {
+      "skillId": 138,
+      "skillKey": "AS_ENCHANTPOISON",
+      "name": "塗毒",
+      "handler": "buff",
+      "targetType": "support",
+      "targetPolicy": "self"
+    },
+    {
+      "skillId": 225,
+      "skillKey": "RG_PLAGIARISM",
+      "name": "抄襲",
+      "handler": "skill_copy_selector",
+      "targetType": "",
+      "targetPolicy": ""
+    },
+    {
+      "skillId": 255,
+      "skillKey": "CR_DEVOTION",
+      "name": "犧牲",
+      "handler": "buff",
+      "targetType": "support",
+      "targetPolicy": "self"
+    },
+    {
+      "skillId": 285,
+      "skillKey": "SA_VOLCANO",
+      "name": "火元素領域",
+      "handler": "buff",
+      "targetType": "ground",
+      "targetPolicy": "self"
+    },
+    {
+      "skillId": 286,
+      "skillKey": "SA_DELUGE",
+      "name": "水元素領域",
+      "handler": "buff",
+      "targetType": "ground",
+      "targetPolicy": "self"
+    },
+    {
+      "skillId": 287,
+      "skillKey": "SA_VIOLENTGALE",
+      "name": "風元素領域",
+      "handler": "buff",
+      "targetType": "ground",
+      "targetPolicy": "self"
+    },
+    {
+      "skillId": 288,
+      "skillKey": "SA_LANDPROTECTOR",
+      "name": "地元素領域",
+      "handler": "ground_protection",
+      "targetType": "ground",
+      "targetPolicy": "ground_enemy_position"
+    },
+    {
+      "skillId": 361,
+      "skillKey": "HP_ASSUMPTIO",
+      "name": "聖母之祈福",
+      "handler": "buff",
+      "targetType": "support",
+      "targetPolicy": "self"
+    },
+    {
+      "skillId": 2051,
+      "skillKey": "AB_HIGHNESSHEAL",
+      "name": "高階治癒術",
+      "handler": "heal",
+      "targetType": "support",
+      "targetPolicy": "self"
+    },
+    {
+      "skillId": 2053,
+      "skillKey": "AB_EXPIATIO",
+      "name": "贖罪",
+      "handler": "buff",
+      "targetType": "support",
+      "targetPolicy": "self"
+    },
+    {
+      "skillId": 2322,
+      "skillKey": "LG_PIETY",
+      "name": "虔誠",
+      "handler": "buff",
+      "targetType": "support",
+      "targetPolicy": "self"
+    },
+    {
+      "skillId": 2345,
+      "skillKey": "SR_GENTLETOUCH_CURE",
+      "name": "點穴-快",
+      "handler": "heal",
+      "targetType": "support",
+      "targetPolicy": "self"
+    },
+    {
+      "skillId": 2383,
+      "skillKey": "MI_HARMONIZE",
+      "name": "和聲演奏",
+      "handler": "buff",
+      "targetType": "support",
+      "targetPolicy": "self"
+    },
+    {
+      "skillId": 2421,
+      "skillKey": "WM_DEADHILLHERE",
+      "name": "死亡峽谷",
+      "handler": "buff",
+      "targetType": "support",
+      "targetPolicy": ""
+    },
+    {
+      "skillId": 2424,
+      "skillKey": "WM_RANDOMIZESPELL",
+      "name": "不確定要素的語言",
+      "handler": "buff",
+      "targetType": "attack",
+      "targetPolicy": ""
+    },
+    {
+      "skillId": 2451,
+      "skillKey": "SO_STRIKING",
+      "name": "打擊強化",
+      "handler": "buff",
+      "targetType": "support",
+      "targetPolicy": "self"
+    },
+    {
+      "skillId": 2480,
+      "skillKey": "GN_BLOOD_SUCKER",
+      "name": "吸血植物",
+      "handler": "buff",
+      "targetType": "support",
+      "targetPolicy": ""
+    },
+    {
+      "skillId": 2515,
+      "skillKey": "AB_SECRAMENT",
+      "name": "聖典",
+      "handler": "buff",
+      "targetType": "support",
+      "targetPolicy": "self"
+    },
+    {
+      "skillId": 5366,
+      "skillKey": "EM_SPELL_ENCHANTING",
+      "name": "咒力賦予",
+      "handler": "buff",
+      "targetType": "support",
+      "targetPolicy": "self"
+    }
+  ]
+}
