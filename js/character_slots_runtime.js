@@ -6,7 +6,7 @@
 (function () {
   "use strict";
 
-  const VERSION = "0.9.85I";
+  const VERSION = "0.9.85L";
   const ACCOUNT_KEY = "ro_web_account_profile_v1";
   const LEGACY_SAVE_KEY = "ro_web_save_v0_9_19_ui_scroll_quickbar";
   const SLOT_SAVE_PREFIX = "ro_web_character_save_v1_";
@@ -17,6 +17,7 @@
   const ACCOUNT_SCHEMA = "ro_web_account_profile_v1";
   const CHARACTER_SCHEMA = "ro_web_character_slot_v1";
   const LOCAL_MIGRATION_BACKUP_KEY = "ro_web_account_profile_local_backup_v1";
+  const NEW_CLOUD_CHARACTER_BOOTSTRAP_KEY = "ro_web_new_cloud_character_bootstrap_v1";
 
   let account = null;
   let selectionResolver = null;
@@ -740,6 +741,9 @@
     account.activeCharacterId = characterId;
     saveAccount();
     setEntryToken(characterId);
+    if (cloudRow?.character_id) {
+      try { sessionStorage.setItem(NEW_CLOUD_CHARACTER_BOOTSTRAP_KEY, String(characterId)); } catch (_) {}
+    }
     closeCreateDialog();
     location.reload();
     return true;

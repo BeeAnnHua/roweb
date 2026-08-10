@@ -13,7 +13,7 @@ let expTables = null;
 let clientItemDisplayData = null;
 let currentMap = null;
 
-const RO_WEB_VERSION = "0.9.85J";
+const RO_WEB_VERSION = "0.9.85L";
 
 function normalizeDataPath(path) {
   return String(path || "")
@@ -163,7 +163,28 @@ async function initGame() {
   await loadItemData();
   await loadClientItemDisplayData(); loadProgress(69,"正在讀取道具資料…");
   await loadExpData();
-  await loadPlayerData(); loadProgress(78,"正在同步角色存檔…");
+  try {
+    await loadPlayerData();
+  } catch (error) {
+    const code = String(error?.code || "");
+    if (code.startsWith("RO_CLOUD_")) {
+      console.error("Cloud character bootstrap blocked:", error);
+      window.RO_WEB_BOOT_STATE.status = "cloud_character_blocked";
+      window.RO_WEB_BOOT_STATE.errors.push(`${code}: ${String(error?.message || error)}`);
+      loadProgress(69, "雲端角色資料讀取失敗，已停止進入遊戲");
+      window.ROWebLoadingScreen?.setProgress?.(69, "雲端角色資料讀取失敗，已保護角色進度");
+      const message = `${String(error?.message || "雲端角色資料讀取失敗。")}\n\n系統已禁止載入 Lv1 預設角色與寫回雲端，因此原角色資料不會被這次登入覆蓋。\n\n按「確定」返回角色選擇後可重新嘗試。`;
+      window.alert(message);
+      try {
+        sessionStorage.removeItem("ro_web_character_entry_v1");
+        sessionStorage.setItem("ro_web_force_character_selector_v1", "1");
+      } catch (_) {}
+      location.reload();
+      return;
+    }
+    throw error;
+  }
+  loadProgress(78,"正在同步角色存檔…");
   if (window.NewcomerSupportRuntime?.grantForNewCharacter) {
     window.NewcomerSupportRuntime.grantForNewCharacter();
   }

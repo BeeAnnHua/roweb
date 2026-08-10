@@ -8,7 +8,7 @@
 (function () {
   "use strict";
 
-  const VERSION = "0.9.85G";
+  const VERSION = "0.9.85L";
   const SUPABASE_URL = "https://ecbnsobcjxnrwqlefjci.supabase.co";
   const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_LrQiZeOESpuGnt-hL6m0VQ_zXqn8ehS";
   const SELECTED_ACCOUNT_KEY = "roweb_cloud_selected_account_v1";
@@ -57,6 +57,8 @@
     if (/RO_CHARACTER_SLOT_LIMIT_EXCEEDED|RO_INVALID_TARGET_SLOT/i.test(raw)) return "角色格位置超出帳號上限。";
     if (/RO_ACCOUNT_NOT_FOUND/i.test(raw)) return "找不到目前的遊戲帳號。";
     if (/RO_CLOUD_CONFLICT/i.test(raw)) return "雲端已有較新的進度，已停止覆寫。請重新進入角色後再存檔。";
+    if (/RO_CHARACTER_SAVE_PERMISSION_DENIED|RO_ACCOUNT_PERMISSION_DENIED/i.test(raw)) return "目前帳號沒有權限更新這個角色的雲端存檔。";
+    if (/RO_CHARACTER_NOT_FOUND/i.test(raw)) return "找不到目前選中的雲端角色。";
     return raw;
   }
 
@@ -595,24 +597,17 @@
         throw new Error("RO_CLOUD_CONFLICT_NEWER_REMOTE");
       }
 
-      const p = envelope?.player || {};
-      const patch = {
-        name: String(p.name || "冒險者").trim().slice(0, 24) || "冒險者",
-        job_id: Number.isFinite(Number(p.jobId)) ? Number(p.jobId) : null,
-        job_name: String(p.job || "初學者").slice(0, 80),
-        base_level: Math.max(1, Number(p.baseLevel || 1)),
-        job_level: Math.max(1, Number(p.jobLevel || 1)),
-        map_name: String(p.map || "").slice(0, 120) || null,
-        save_data: envelope
-      };
-      const { data, error } = await client
-        .from("ro_characters")
-        .update(patch)
-        .eq("account_id", currentAccount.account_id)
-        .eq("character_id", characterId)
-        .select("character_id,slot_index,name,job_name,base_level,job_level,map_name,save_data,revision,updated_at")
-        .single();
+      // V0.9.85L：ro_characters 不再由瀏覽器直接 UPDATE。
+      // 透過 SECURITY DEFINER RPC 驗證 auth.uid() 確實擁有目前 account_id，
+      // 並且 character_id 確實隸屬該帳號後才允許寫入。
+      // 這樣跨瀏覽器／跨裝置首次同步本機正確進度時，不需要開放整張角色表的 UPDATE 權限。
+      const { data, error } = await client.rpc("ro_save_character", {
+        p_account_id: currentAccount.account_id,
+        p_character_id: characterId,
+        p_save_data: envelope
+      });
       if (error) throw error;
+      if (!data || typeof data !== "object") throw new Error("RO_CHARACTER_SAVE_RPC_EMPTY");
       const index = currentCharacters.findIndex(row => String(row.character_id) === characterId);
       if (index >= 0 && data) currentCharacters[index] = { ...currentCharacters[index], ...data };
       emitCloudStatus("synced", { saveVersion:localVersion, characterId });

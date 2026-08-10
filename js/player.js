@@ -14,7 +14,7 @@ const SAVE_LEASE_HEARTBEAT_MS = 5 * 1000;
 const SAVE_LEASE_STALE_MS = 20 * 1000;
 const RO_WEB_SAVE_SCHEMA = "ro_web_player_save_v2";
 const RO_WEB_SAVE_FORMAT_VERSION = 2;
-const RO_WEB_SAVE_APP_VERSION = "0.9.85H";
+const RO_WEB_SAVE_APP_VERSION = "0.9.85L";
 const RO_WEB_SAVE_DB_NAME = "ro_web_offline_save_v1";
 const RO_WEB_SAVE_DB_VERSION = 1;
 const RO_WEB_SAVE_DB_STORE = "player_saves";
@@ -78,6 +78,67 @@ const RO_WEB_SAVE_STATE = {
   lastManualCloudVerified: null
 };
 window.RO_WEB_SAVE_STATE = RO_WEB_SAVE_STATE;
+
+
+// V0.9.85K：跨瀏覽器／跨裝置雲端角色保護。
+// 雲端角色必須先成功確認目前 character_id 的 Supabase 存檔狀態，才允許進遊戲與寫回。
+const RO_WEB_CLOUD_BOOTSTRAP_STATE = {
+  required:false,
+  remoteReadOk:false,
+  authorizedToSave:false,
+  establishedCharacter:false,
+  characterId:"",
+  accountId:"",
+  lastError:""
+};
+window.RO_WEB_CLOUD_BOOTSTRAP_STATE = RO_WEB_CLOUD_BOOTSTRAP_STATE;
+
+function getCloudBootstrapProfile() {
+  const account = window.CharacterSlotsRuntime?.getAccount?.() || {};
+  const slot = window.CharacterSlotsRuntime?.getActiveCharacter?.() || null;
+  const summary = slot?.summary || {};
+  const cloud = account?.cloud?.enabled === true || String(account?.cloud?.provider || "").toLowerCase() === "supabase";
+  const jobName = String(summary.jobName || "").trim().toLowerCase();
+  const noviceNames = new Set(["", "初學者", "初心者", "novice"]);
+  const established = Boolean(slot && (
+    slot.initialized === true
+    || Number(summary.baseLevel || 1) > 1
+    || Number(summary.jobLevel || 1) > 1
+    || !noviceNames.has(jobName)
+  ));
+  const characterId = String(slot?.characterId || "");
+  let justCreated = false;
+  try { justCreated = Boolean(characterId && sessionStorage.getItem("ro_web_new_cloud_character_bootstrap_v1") === characterId); } catch (_) {}
+  return {
+    cloud,
+    slot,
+    established,
+    justCreated,
+    accountId:String(account?.accountId || ""),
+    characterId
+  };
+}
+
+function resetCloudBootstrapGuard() {
+  const profile = getCloudBootstrapProfile();
+  RO_WEB_CLOUD_BOOTSTRAP_STATE.required = Boolean(profile.cloud && profile.characterId);
+  RO_WEB_CLOUD_BOOTSTRAP_STATE.remoteReadOk = false;
+  RO_WEB_CLOUD_BOOTSTRAP_STATE.authorizedToSave = !RO_WEB_CLOUD_BOOTSTRAP_STATE.required;
+  RO_WEB_CLOUD_BOOTSTRAP_STATE.establishedCharacter = Boolean(profile.established);
+  RO_WEB_CLOUD_BOOTSTRAP_STATE.characterId = profile.characterId;
+  RO_WEB_CLOUD_BOOTSTRAP_STATE.accountId = profile.accountId;
+  RO_WEB_CLOUD_BOOTSTRAP_STATE.lastError = "";
+  return profile;
+}
+
+function cloudBootstrapError(code, message, cause = null) {
+  const error = new Error(String(message || code || "RO_CLOUD_BOOTSTRAP_FAILED"));
+  error.code = String(code || "RO_CLOUD_BOOTSTRAP_FAILED");
+  if (cause) error.cause = cause;
+  RO_WEB_CLOUD_BOOTSTRAP_STATE.lastError = error.message;
+  RO_WEB_CLOUD_BOOTSTRAP_STATE.authorizedToSave = false;
+  return error;
+}
 
 function getCurrentSaveBinding() {
   const context = window.CharacterSlotsRuntime?.getActiveContext?.() || {};
@@ -291,8 +352,14 @@ async function writeIndexedDbPlayerSaveEnvelope(text, envelope) {
 }
 
 async function readRemotePlayerSaveCandidates() {
+  const profile = getCloudBootstrapProfile();
   const adapter = RO_WEB_REMOTE_SAVE_ADAPTER;
-  if (!adapter) return [];
+  if (!adapter) {
+    if (profile.cloud && profile.characterId) {
+      throw cloudBootstrapError("RO_CLOUD_ADAPTER_MISSING", "雲端角色服務尚未完成初始化，已停止載入以保護角色資料。");
+    }
+    return [];
+  }
   try {
     const characterContext = window.CharacterSlotsRuntime?.getRemoteContext?.() || {};
     const requestContext = { ...characterContext, saveKey: SAVE_KEY, playerId: player?.name || "" };
@@ -300,8 +367,21 @@ async function readRemotePlayerSaveCandidates() {
       ? await adapter.loadCandidates(requestContext)
       : (typeof adapter.load === "function" ? await adapter.load(requestContext) : null);
     const rows = Array.isArray(result) ? result : (result ? [result] : []);
-    return rows.map(row => parsePlayerSaveCandidate(row?.text ?? row, "remote")).filter(Boolean);
+    const candidates = rows.map(row => parsePlayerSaveCandidate(row?.text ?? row, "remote")).filter(Boolean);
+    if (profile.cloud && profile.characterId) {
+      RO_WEB_CLOUD_BOOTSTRAP_STATE.remoteReadOk = true;
+    }
+    return candidates;
   } catch (error) {
+    if (profile.cloud && profile.characterId) {
+      if (String(error?.code || "").startsWith("RO_CLOUD_")) throw error;
+      console.error("雲端角色存檔讀取失敗，已禁止使用預設 Lv1 資料：", error);
+      throw cloudBootstrapError(
+        "RO_CLOUD_LOAD_FAILED",
+        "雲端角色資料讀取失敗。為保護角色進度，本次不會使用 Lv1 預設資料，也不會寫回雲端。請確認網路後重新嘗試。",
+        error
+      );
+    }
     console.warn("後端存檔讀取失敗，繼續使用離線存檔：", error);
     return [];
   }
@@ -685,6 +765,7 @@ window.confirmPlayerIdChange = confirmPlayerIdChange;
 //=======================================
 async function loadPlayerData() {
   rebindActiveCharacterSaveContext({ reason:"before-player-load" });
+  const cloudProfile = resetCloudBootstrapGuard();
   player = await loadJson("./data/player_default.json", {});
   if (!player || typeof player !== "object" || Array.isArray(player)) {
     throw new Error("player_default.json 無法載入或格式錯誤");
@@ -704,6 +785,37 @@ async function loadPlayerData() {
     ...remoteCandidates
   ]);
   const loadedSavedPlayer = loadedCandidate?.player || null;
+
+  let needsCloudRecoverySync = false;
+  if (cloudProfile.cloud && cloudProfile.characterId) {
+    if (!RO_WEB_CLOUD_BOOTSTRAP_STATE.remoteReadOk) {
+      throw cloudBootstrapError("RO_CLOUD_NOT_VERIFIED", "尚未確認雲端角色資料，已停止載入。請重新嘗試。");
+    }
+    const localOnlyCandidates = [...localCandidates, ...indexedDbCandidates].filter(Boolean);
+    const newestLocal = chooseNewestPlayerSaveCandidate(localOnlyCandidates);
+    const newestRemote = chooseNewestPlayerSaveCandidate(remoteCandidates);
+
+    if (!newestRemote) {
+      // 雲端沒有完整 save_data 時，只有兩種情況可以繼續：
+      // 1) 這個分頁剛建立的新角色；2) 目前瀏覽器握有有效舊進度，可用來修復雲端。
+      if (!newestLocal && !cloudProfile.justCreated) {
+        throw cloudBootstrapError(
+          "RO_CLOUD_SAVE_REQUIRED",
+          "雲端尚未找到這個角色的完整進度。若此角色曾經遊玩過，請先回到原本有正確角色資料的裝置／瀏覽器進入角色並完成一次雲端同步；本裝置已停止建立 Lv1 預設角色。"
+        );
+      }
+      needsCloudRecoverySync = true;
+    } else if (newestLocal && comparePlayerSaveCandidates(newestLocal, newestRemote) > 0) {
+      // 本機有比雲端更新且身份一致的快照：先把它驗證寫回雲端，
+      // 再讓玩家進場，確保下一台裝置一定讀得到同一進度。
+      needsCloudRecoverySync = true;
+    }
+
+    if (cloudProfile.established && !loadedSavedPlayer) {
+      throw cloudBootstrapError("RO_CLOUD_SAVE_REQUIRED", "雲端角色已有進度，但完整存檔尚未成功讀取；已停止使用 Lv1 預設角色資料。");
+    }
+    RO_WEB_CLOUD_BOOTSTRAP_STATE.authorizedToSave = Boolean(loadedSavedPlayer || cloudProfile.justCreated);
+  }
 
   if (loadedSavedPlayer) {
     player = { ...player, ...loadedSavedPlayer };
@@ -749,6 +861,25 @@ async function loadPlayerData() {
   fixEquippedItemsInInventoryOnce();
   normalizeEquipmentHandConflicts({ silent: true });
   recalculatePlayerStats();
+
+  if (cloudProfile.cloud && cloudProfile.characterId && needsCloudRecoverySync) {
+    // 允許這一次受控寫入，用目前已驗證身份的角色資料建立／修復雲端完整存檔。
+    RO_WEB_CLOUD_BOOTSTRAP_STATE.authorizedToSave = true;
+    const synced = await saveGameAndWait({ reason:"cloud-bootstrap-recovery", forceWriter:true, durableDelayMs:0 });
+    if (!synced || RO_WEB_SAVE_STATE.lastRemoteSaveOk === false || RO_WEB_SAVE_STATE.lastManualCloudVerified === false) {
+      RO_WEB_CLOUD_BOOTSTRAP_STATE.authorizedToSave = false;
+      const remoteDetail = String(RO_WEB_SAVE_STATE.lastRemoteError || "").trim();
+      throw cloudBootstrapError(
+        "RO_CLOUD_BOOTSTRAP_SYNC_FAILED",
+        `角色資料已在本機找到，但尚未成功驗證寫入雲端。為避免不同裝置出現不同進度，本次已停止進入遊戲；請確認網路後重試。${remoteDetail ? `\n雲端回應：${remoteDetail}` : ""}`
+      );
+    }
+    try {
+      if (sessionStorage.getItem("ro_web_new_cloud_character_bootstrap_v1") === cloudProfile.characterId) {
+        sessionStorage.removeItem("ro_web_new_cloud_character_bootstrap_v1");
+      }
+    } catch (_) {}
+  }
 
   // 若最新資料來自備份／IndexedDB／後端，啟動後主檔會立刻被修復成同一份最新內容。
   if (loadedCandidate && loadedCandidate.source !== "main") RO_WEB_SAVE_DIRTY = true;
@@ -1028,6 +1159,14 @@ function markGameSaveDirty(reason = "change") {
 function saveGame(reasonOrOptions = "manual") {
   if (window.RO_WEB_RESETTING_SAVE || RO_WEB_SAVE_IN_PROGRESS) return false;
   const options = normalizeSaveOptions(reasonOrOptions);
+  if (RO_WEB_CLOUD_BOOTSTRAP_STATE.required && !RO_WEB_CLOUD_BOOTSTRAP_STATE.authorizedToSave) {
+    if (!window.RO_WEB_CLOUD_BOOTSTRAP_SAVE_BLOCK_REPORTED && typeof addBattleLog === "function") {
+      addBattleLog("雲端角色資料尚未完成驗證，本次存檔已阻止，避免以預設 Lv1 資料覆蓋雲端角色。");
+      window.RO_WEB_CLOUD_BOOTSTRAP_SAVE_BLOCK_REPORTED = true;
+    }
+    console.warn("Cloud bootstrap guard blocked save", { ...RO_WEB_CLOUD_BOOTSTRAP_STATE, reason:options.reason });
+    return false;
+  }
   const ownsWriter = options.forceWriter ? claimSaveWriterLease(true) : isCurrentSaveWriter();
   if (!ownsWriter) {
     if (!window.RO_WEB_SAVE_CONFLICT_REPORTED && typeof addBattleLog === "function") {
