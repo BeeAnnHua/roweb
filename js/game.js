@@ -13,7 +13,7 @@ let expTables = null;
 let clientItemDisplayData = null;
 let currentMap = null;
 
-const RO_WEB_VERSION = "0.9.86N";
+const RO_WEB_VERSION = "0.9.86O";
 
 function normalizeDataPath(path) {
   return String(path || "")
@@ -182,7 +182,18 @@ async function initGame() {
       location.reload();
       return;
     }
-    throw error;
+    console.error("V0.9.86O character startup failed:", error);
+    window.RO_WEB_BOOT_STATE.status = "character_startup_error";
+    window.RO_WEB_BOOT_STATE.errors.push(`${String(error?.code || "RO_CHARACTER_STARTUP_ERROR")}: ${String(error?.message || error)}`);
+    loadProgress(69, "角色舊存檔相容性檢查失敗");
+    const detail = String(error?.message || error || "未知錯誤");
+    window.alert(`角色登入在舊存檔相容性檢查時停止。\n\n${detail}\n\n角色雲端資料與原始 Legacy 備份都不會因此被刪除。請把這個訊息截圖回報；按「確定」會回到角色選擇。`);
+    try {
+      sessionStorage.removeItem("ro_web_character_entry_v1");
+      sessionStorage.setItem("ro_web_force_character_selector_v1", "1");
+    } catch (_) {}
+    location.reload();
+    return;
   }
   loadProgress(78,"正在同步角色存檔…");
   if (window.NewcomerSupportRuntime?.grantForNewCharacter) {

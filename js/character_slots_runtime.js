@@ -6,7 +6,7 @@
 (function () {
   "use strict";
 
-  const VERSION = "0.9.86N";
+  const VERSION = "0.9.86O";
   const ACCOUNT_KEY = "ro_web_account_profile_v1";
   const LEGACY_SAVE_KEY = "ro_web_save_v0_9_19_ui_scroll_quickbar";
   const SLOT_SAVE_PREFIX = "ro_web_character_save_v1_";

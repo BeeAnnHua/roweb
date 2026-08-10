@@ -14,7 +14,7 @@ const SAVE_LEASE_HEARTBEAT_MS = 5 * 1000;
 const SAVE_LEASE_STALE_MS = 20 * 1000;
 const RO_WEB_SAVE_SCHEMA = "ro_web_player_save_v2";
 const RO_WEB_SAVE_FORMAT_VERSION = 2;
-const RO_WEB_SAVE_APP_VERSION = "0.9.85Q";
+const RO_WEB_SAVE_APP_VERSION = "0.9.86O";
 const RO_WEB_SAVE_DB_NAME = "ro_web_offline_save_v1";
 const RO_WEB_SAVE_DB_VERSION = 1;
 const RO_WEB_SAVE_DB_STORE = "player_saves";
@@ -933,11 +933,25 @@ async function loadPlayerData() {
   // 暫存技能配點不應該跟著存檔保存；避免關閉技能窗/重新整理後看起來像已配點。
   if (player && player.pendingSkillAdds) delete player.pendingSkillAdds;
 
-  normalizePlayerData();
-  if (typeof syncEquipmentGrantedSkills === "function") syncEquipmentGrantedSkills();
-  fixEquippedItemsInInventoryOnce();
-  normalizeEquipmentHandConflicts({ silent: true });
-  recalculatePlayerStats();
+  try {
+    normalizePlayerData();
+    if (typeof syncEquipmentGrantedSkills === "function") syncEquipmentGrantedSkills();
+    fixEquippedItemsInInventoryOnce();
+    normalizeEquipmentHandConflicts({ silent: true });
+    recalculatePlayerStats();
+  } catch (error) {
+    console.error("V0.9.86O Legacy/Player normalize failed:", error, {
+      characterId: cloudProfile?.characterId || player?.characterId || "",
+      name: player?.name || "",
+      job: player?.job || player?.jobKey || "",
+      baseLevel: player?.baseLevel || 0,
+      inventoryType: Array.isArray(player?.inventory) ? "array" : typeof player?.inventory
+    });
+    const wrapped = new Error(`舊角色資料升級失敗：${String(error?.message || error || "unknown")}`);
+    wrapped.code = "RO_LEGACY_PLAYER_NORMALIZE_FAILED";
+    wrapped.cause = error;
+    throw wrapped;
+  }
 
   if (cloudProfile.cloud && cloudProfile.characterId && needsCloudRecoverySync) {
     // 允許這一次受控寫入，用目前已驗證身份的角色資料建立／修復雲端完整存檔。
@@ -976,16 +990,80 @@ function getPlainPlayerObject(value, fallback = {}) {
   return value && typeof value === "object" && !Array.isArray(value) ? value : { ...fallback };
 }
 
+// V0.9.86O：Legacy Rescue 登入相容層。
+// 早期背包曾使用固定槽位陣列（空格為 null），也有 id->count / items 包裝物件格式。
+// V0.9.86N 直接讀 item.id，遇到 null 會讓高等舊角色在 Loading 階段中斷。
+// 這裡只做結構升級，不刪除有效物品，也不碰原始瀏覽器救援檔。
+function normalizeLegacyInventoryRows(rawValue) {
+  const rows = [];
+  const append = (raw, hintedId = null) => {
+    if (raw === null || raw === undefined || raw === false || raw === "") return;
+    if (typeof raw !== "object" || Array.isArray(raw)) {
+      const primitiveId = normalizeItemId(hintedId ?? raw);
+      if (primitiveId === null || primitiveId === undefined || primitiveId === "") return;
+      const primitiveCount = hintedId != null && Number.isFinite(Number(raw)) ? Math.max(0, Number(raw)) : 1;
+      if (primitiveCount > 0) rows.push({ id: primitiveId, count: primitiveCount, locked: false });
+      return;
+    }
+    const id = normalizeItemId(raw.id ?? raw.itemId ?? raw.item_id ?? hintedId);
+    if (id === null || id === undefined || id === "") return;
+    const countValue = raw.count ?? raw.amount ?? raw.qty ?? raw.quantity ?? raw.num ?? 1;
+    const count = Number.isFinite(Number(countValue)) ? Math.max(0, Number(countValue)) : 1;
+    if (count <= 0) return;
+    rows.push({ ...raw, id, count, locked: Boolean(raw.locked) });
+  };
+  if (Array.isArray(rawValue)) {
+    rawValue.forEach(item => append(item));
+    return rows;
+  }
+  if (rawValue && typeof rawValue === "object") {
+    if (Array.isArray(rawValue.items)) {
+      rawValue.items.forEach(item => append(item));
+      return rows;
+    }
+    if (Array.isArray(rawValue.slots)) {
+      rawValue.slots.forEach(item => append(item));
+      return rows;
+    }
+    Object.entries(rawValue).forEach(([key, value]) => {
+      if (["version", "capacity", "size", "max", "updatedAt"].includes(String(key))) return;
+      append(value, key);
+    });
+  }
+  return rows;
+}
+
+function migrateLegacyLearnedSkillsShape() {
+  if (!player || (player.learnedSkills && typeof player.learnedSkills === "object" && !Array.isArray(player.learnedSkills))) return;
+  const source = player.skills && typeof player.skills === "object" && !Array.isArray(player.skills) ? player.skills : null;
+  if (!source) return;
+  const migrated = {};
+  Object.entries(source).forEach(([key, value]) => {
+    const level = value && typeof value === "object" ? Number(value.level ?? value.lv ?? value.skillLevel ?? 0) : Number(value || 0);
+    if (Number.isFinite(level) && level > 0) migrated[String(key)] = Math.floor(level);
+  });
+  if (Object.keys(migrated).length) player.learnedSkills = migrated;
+}
+
+function migrateLegacyQuickSlotsShape() {
+  if (!player || Array.isArray(player.quickSlots)) return;
+  const legacy = Array.isArray(player.quickbar) ? player.quickbar : (Array.isArray(player.hotkeys) ? player.hotkeys : null);
+  if (legacy) player.quickSlots = legacy.slice(0, 10);
+}
+
 function normalizePlayerData() {
   if (!player || typeof player !== "object" || Array.isArray(player)) return;
 
-  const rawInventory = Array.isArray(player.inventory) ? player.inventory : [];
+  const rawInventory = normalizeLegacyInventoryRows(player.inventory);
   player.inventory = rawInventory.map(item => ({
-    ...item,
-    id: normalizeItemId(item.id),
-    count: Number(item.count || 0),
-    locked: Boolean(item.locked)
-  })).filter(item => item.count > 0);
+    ...(item && typeof item === "object" ? item : {}),
+    id: normalizeItemId(item?.id),
+    count: Number(item?.count || 0),
+    locked: Boolean(item?.locked)
+  })).filter(item => item.id !== null && item.id !== undefined && item.id !== "" && item.count > 0);
+
+  migrateLegacyLearnedSkillsShape();
+  migrateLegacyQuickSlotsShape();
 
   player.equipment = {
     ...DEFAULT_EQUIPMENT,

@@ -1,3 +1,18 @@
+# V0.9.86O current baseline
+
+## V0.9.86O — Legacy 已復原角色登入相容修正
+
+- 基準：V0.9.86N / `roweb(4).zip`。
+- 修正早期固定槽位背包含 `null` 空格時，`normalizePlayerData()` 讀取 `item.id` 造成角色 Loading 中斷。
+- 相容舊 `inventory` object / `items` / `slots`、`itemId`、`amount`、`qty`、`quantity` 格式。
+- 基本遷移舊 `skills -> learnedSkills`、`quickbar/hotkeys -> quickSlots`。
+- `index.html` 本地 JS cache key 全部刷新為 `?v=0.9.86O`，確保原瀏覽器真正載入最新 `player.js` / `skill_engine.js` 等 Runtime。
+- 角色資料升級若仍失敗，顯示具體錯誤並安全返回角色選擇，不再只停在 Loading。
+- 不需新增 SQL；沿用 `V0.9.86I_LEGACY_BROWSER_CHARACTER_RESCUE.sql`。
+- 原始 localStorage / IndexedDB Legacy 存檔與既有 Supabase 角色均不刪除。
+
+---
+
 # V0.9.86N current baseline
 
 ## V0.9.86N — 未命名角色歷史快照去重
