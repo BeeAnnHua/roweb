@@ -1,0 +1,13 @@
+V0.9.86R MERGE CHECK
+===================
+Source baseline: roweb(5).zip / V0.9.86Q
+
+[PASS] VIP fields remain in cloud_save_runtime.js
+[PASS] VIP list/badge logic remains in cloud_account.js
+[PASS] vip_runtime.js remains referenced by index.html
+[PASS] multi-character runtime remains referenced
+[PASS] AFK stability runtime is actually loaded by index.html
+[PASS] durable selected-account mirror added
+[PASS] transient cloud retry loop added
+[PASS] sign-out clears durable selected account
+[PASS] no Supabase SQL changes in V0.9.86R

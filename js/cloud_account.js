@@ -1,6 +1,6 @@
 (function(){
   "use strict";
-  const VERSION="0.9.86Q";
+  const VERSION="0.9.86R";
   const SUPABASE_URL="https://ecbnsobcjxnrwqlefjci.supabase.co";
   const SUPABASE_PUBLISHABLE_KEY="sb_publishable_LrQiZeOESpuGnt-hL6m0VQ_zXqn8ehS";
   const SELECTED_ACCOUNT_KEY="roweb_cloud_selected_account_v1";
@@ -64,10 +64,17 @@
   }
   function setSelectedAccount(value){
     const text=String(value||"");
-    try{localStorage.setItem(SELECTED_ACCOUNT_KEY,text);return true}catch(_){}
-    try{sessionStorage.setItem(SELECTED_ACCOUNT_KEY,text);return true}catch(_){return false}
+    let saved=false;
+    try{localStorage.setItem(SELECTED_ACCOUNT_KEY,text);saved=true}catch(_){}
+    if(!saved){try{sessionStorage.setItem(SELECTED_ACCOUNT_KEY,text);saved=true}catch(_){}}
+    try{Promise.resolve(window.ROWebAuthStorage?.setItem?.(SELECTED_ACCOUNT_KEY,text)).catch(()=>{})}catch(_){}
+    return saved;
   }
-  function clearSelectedAccount(){try{localStorage.removeItem(SELECTED_ACCOUNT_KEY)}catch(_){}try{sessionStorage.removeItem(SELECTED_ACCOUNT_KEY)}catch(_){}}
+  function clearSelectedAccount(){
+    try{localStorage.removeItem(SELECTED_ACCOUNT_KEY)}catch(_){}
+    try{sessionStorage.removeItem(SELECTED_ACCOUNT_KEY)}catch(_){}
+    try{Promise.resolve(window.ROWebAuthStorage?.removeItem?.(SELECTED_ACCOUNT_KEY)).catch(()=>{})}catch(_){}
+  }
   function pending(){return readJson(PENDING_KEY,null)}
   function readSessionJson(key,fallback=null){try{return JSON.parse(sessionStorage.getItem(key)||"null")||fallback}catch(_){return fallback}}
   function writeSessionJson(key,value){try{sessionStorage.setItem(key,JSON.stringify(value));return true}catch(_){return false}}

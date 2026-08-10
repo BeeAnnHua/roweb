@@ -8,7 +8,7 @@
 (function () {
   "use strict";
 
-  const VERSION = "0.9.86Q";
+  const VERSION = "0.9.86R";
   const SUPABASE_URL = "https://ecbnsobcjxnrwqlefjci.supabase.co";
   const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_LrQiZeOESpuGnt-hL6m0VQ_zXqn8ehS";
   const SELECTED_ACCOUNT_KEY = "roweb_cloud_selected_account_v1";
@@ -93,11 +93,54 @@
     }
   }
 
+  // V0.9.86R: mirror selected RO account to IndexedDB-backed auth storage.
+  async function selectedAccountIdDurable() {
+    const fast = selectedAccountId();
+    if (fast) return fast;
+    try {
+      const durable = await window.ROWebAuthStorage?.getItem?.(SELECTED_ACCOUNT_KEY);
+      return String(durable || "");
+    } catch (_) { return ""; }
+  }
+
+  function isTransientCloudError(error) {
+    const raw = String(error?.message || error || "");
+    const name = String(error?.name || "");
+    const statusRaw = error?.status ?? error?.statusCode;
+    const status = statusRaw == null ? NaN : Number(statusRaw);
+    const hasStatus = Number.isFinite(status);
+    return /Failed to fetch|NetworkError|Load failed|fetch failed|ERR_NETWORK|ERR_INTERNET_DISCONNECTED|timeout|timed out|network request failed/i.test(raw)
+      || /AuthRetryableFetchError/i.test(name)
+      || (hasStatus && (status === 0 || status === 408 || status === 425 || status === 429 || status >= 500));
+  }
+
+  function waitForCloudRetry(ms) {
+    const delay = Math.max(250, Number(ms || 1000));
+    return new Promise(resolve => {
+      let done = false;
+      const finish = () => {
+        if (done) return;
+        done = true;
+        window.removeEventListener("online", onOnline);
+        clearTimeout(timer);
+        resolve();
+      };
+      const onOnline = () => finish();
+      const timer = setTimeout(finish, delay);
+      window.addEventListener("online", onOnline, { once:true });
+    });
+  }
+
+  function reportAfkCloudEvent(type, detail = {}) {
+    try { window.ROWebAfkStabilityRuntime?.noteCloudEvent?.(type, detail); } catch (_) {}
+  }
+
   function rememberAccount(account) {
     if (!account?.account_id) return false;
     const selected = String(account.account_id);
     try { localStorage.setItem(SELECTED_ACCOUNT_KEY, selected); }
     catch (_) { try { sessionStorage.setItem(SELECTED_ACCOUNT_KEY, selected); } catch (_) {} }
+    try { Promise.resolve(window.ROWebAuthStorage?.setItem?.(SELECTED_ACCOUNT_KEY, selected)).catch(() => {}); } catch (_) {}
     const email = String(currentSession?.user?.email || "").trim();
     const name = String(account.account_name || "").trim().toLowerCase();
     if (email && name) {
@@ -1636,7 +1679,7 @@
       return null;
     }
 
-    const wantedId = selectedAccountId();
+    const wantedId = await selectedAccountIdDurable();
     let chosen = accounts.find(row => String(row.account_id) === wantedId) || null;
     if (!chosen && accounts.length === 1) chosen = accounts[0];
     if (!chosen) {
@@ -1679,24 +1722,44 @@
       console.error("Cloud Runtime 初始化失敗。");
       return false;
     }
-    try {
-      emitCloudStatus("connecting");
-      const session = await getSession();
-      if (!session?.user?.id) {
-        location.replace("cloud_account.html?return=index.html");
-        return false;
+
+    // V0.9.86R AFK reconnect policy:
+    // temporary network / Supabase failures retry in place instead of forcing account center.
+    let attempt = 0;
+    for (;;) {
+      try {
+        emitCloudStatus(attempt ? "reconnecting" : "connecting", { attempt });
+        const session = await getSession();
+        if (!session?.user?.id) {
+          reportAfkCloudEvent("auth_session_missing", { attempt });
+          location.replace("cloud_account.html?return=index.html");
+          return false;
+        }
+        const ok = await bindCurrentAccount();
+        if (!ok) return false;
+        await offerLocalMigration(false);
+        emitCloudStatus("ready", { attempt });
+        reportAfkCloudEvent("cloud_ready", { attempt, accountId:currentAccount?.account_id || "" });
+        return true;
+      } catch (error) {
+        emitCloudStatus("error", { error, attempt });
+        console.error("雲端帳號初始化失敗：", error);
+        if (!isTransientCloudError(error)) {
+          reportAfkCloudEvent("cloud_fatal", { attempt, error:String(error?.message || error) });
+          const message = encodeURIComponent(friendlyError(error));
+          location.replace(`cloud_account.html?error=${message}&return=index.html`);
+          return false;
+        }
+
+        attempt += 1;
+        const delay = Math.min(15000, 900 * Math.pow(1.7, Math.min(attempt - 1, 6)));
+        reportAfkCloudEvent("cloud_retry", { attempt, delay, error:String(error?.message || error) });
+        try {
+          window.ROWebLoadingScreen?.show?.({ progress:6, label:`雲端連線暫時中斷，正在自動重連（第 ${attempt} 次）…` });
+          window.ROWebLoadingScreen?.setProgress?.(6, `雲端連線暫時中斷，正在自動重連（第 ${attempt} 次）…`);
+        } catch (_) {}
+        await waitForCloudRetry(delay);
       }
-      const ok = await bindCurrentAccount();
-      if (!ok) return false;
-      await offerLocalMigration(false);
-      emitCloudStatus("ready");
-      return true;
-    } catch (error) {
-      emitCloudStatus("error", { error });
-      console.error("雲端帳號初始化失敗：", error);
-      const message = encodeURIComponent(friendlyError(error));
-      location.replace(`cloud_account.html?error=${message}&return=index.html`);
-      return false;
     }
   }
 
@@ -1867,6 +1930,7 @@
     try { await client?.auth?.signOut(); } catch (_) {}
     try { localStorage.removeItem(SELECTED_ACCOUNT_KEY); } catch (_) {}
     try { sessionStorage.removeItem(SELECTED_ACCOUNT_KEY); } catch (_) {}
+    try { await window.ROWebAuthStorage?.removeItem?.(SELECTED_ACCOUNT_KEY); } catch (_) {}
     location.replace("cloud_account.html");
   }
 

@@ -1,3 +1,17 @@
+# V0.9.86R current baseline
+
+## V0.9.86R — VIP Q 保留 + 掛機穩定性 / 異常重啟診斷
+
+- 基準：已實測 VIP 成功的 `roweb(5).zip` / V0.9.86Q。
+- **完整保留 VIP V1**：Base EXP +50%、Job EXP +50%、一般掉寶 +50%、VIP 最多 8H 離線收益、GM CENTER VIP 管理與 VIP 聊天身份。
+- 完整保留 V0.9.86P 多角色 Entry Hand-off 與 V0.9.86O Legacy 角色相容。
+- 選中的 RO Account ID 除 localStorage/sessionStorage 外，再鏡像到 IndexedDB-backed `ROWebAuthStorage`。
+- 啟動時遇到 Failed to fetch / NetworkError / timeout / 429 / 5xx 等暫時性雲端錯誤，不再直接送回帳號中心；留在 Loading 自動重連。
+- 新增 `js/afk_stability_runtime.js`：每 15 秒記錄極小的本機診斷 heartbeat；並嘗試同步鏡像 IndexedDB，避免 localStorage 容量不足時完全失去 crash 前資料。
+- 本版 **不新增 SQL**；已成功執行的 V0.9.86Q VIP SQL 不需重跑。
+
+---
+
 # V0.9.86Q current baseline
 
 ## V0.9.86Q — VIP V1 正式福利
