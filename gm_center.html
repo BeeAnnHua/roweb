@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
   <title>GM CENTER｜彼岸花仙境</title>
-  <link rel="icon" type="image/svg+xml" href="images/ui/brand/sakura_emblem.svg?v=0.9.85C">
-  <link rel="stylesheet" href="css/gm_center.css?v=0.9.85C">
+  <link rel="icon" type="image/svg+xml" href="images/ui/brand/sakura_emblem.svg?v=0.9.86G">
+  <link rel="stylesheet" href="css/gm_center.css?v=0.9.86G">
 </head>
 <body>
   <main class="gm-shell">
     <header class="gm-header">
-      <div class="gm-brand"><img src="images/ui/brand/sakura_emblem.svg?v=0.9.85C" alt=""><div><small>彼岸花仙境</small><h1>GM CENTER</h1></div></div>
+      <div class="gm-brand"><img src="images/ui/brand/sakura_emblem.svg?v=0.9.86G" alt=""><div><small>彼岸花仙境</small><h1>GM CENTER</h1></div></div>
       <div class="gm-account"><span id="gmIdentity">權限驗證中…</span><button id="backGameButton" type="button">返回遊戲</button></div>
     </header>
 
@@ -52,6 +52,23 @@
           <div class="gm-inline"><input id="playerSearch" type="search" placeholder="Player ID / 遊戲帳號"><button id="searchPlayerButton" type="button">搜尋</button></div>
           <div id="playerResults" class="gm-player-results"><div class="gm-empty">輸入條件查詢玩家。</div></div>
         </section>
+        <section class="gm-panel gm-vip-panel">
+          <div class="gm-panel-title"><div><small>VIP MEMBERSHIP</small><h2>VIP 會員設定</h2></div><span class="gm-vip-tag">◆ VIP</span></div>
+          <div class="gm-inline"><input id="vipPlayerId" type="number" min="100001" step="1" placeholder="Player ID"><button id="vipLoadButton" type="button">讀取</button></div>
+          <div id="vipSummary" class="gm-vip-summary"><span>尚未選擇玩家。</span></div>
+          <label>會員期限
+            <select id="vipDuration">
+              <option value="permanent">永久 VIP</option>
+              <option value="7">7 天</option>
+              <option value="30" selected>30 天</option>
+              <option value="90">90 天</option>
+              <option value="custom">自訂日期</option>
+            </select>
+          </label>
+          <label id="vipCustomWrap" hidden>自訂到期時間<input id="vipUntil" type="datetime-local"></label>
+          <div class="gm-vip-actions"><button id="vipEnableButton" type="button">設定 VIP</button><button id="vipDisableButton" type="button" class="gm-danger-button">取消 VIP</button></div>
+          <p class="gm-vip-note">目前 VIP 僅啟用會員身分與聊天紫紅流光特效，不提供能力值、倍率或掉寶加成。取得方式日後再接活動／月卡／商城。</p>
+        </section>
         <section class="gm-panel">
           <div class="gm-panel-title"><div><small>AUDIT</small><h2>最近寄送</h2></div><button id="refreshHistoryButton" type="button">更新</button></div>
           <div id="mailHistory" class="gm-history"><div class="gm-empty">讀取中…</div></div>
@@ -61,6 +78,6 @@
   </main>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/auth_storage_runtime.js?v=0.9.86C"></script>
-  <script src="js/gm_center.js?v=0.9.86C"></script>
+  <script src="js/gm_center.js?v=0.9.86G"></script>
 </body>
 </html>

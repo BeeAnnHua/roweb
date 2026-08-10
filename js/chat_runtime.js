@@ -1,5 +1,5 @@
 // ============================================================
-// 彼岸花仙境 / RO_WEB V0.9.86F
+// 彼岸花仙境 / RO_WEB V0.9.86G
 // 低流量延遲聊天：玩家頻道 + 世界聊天 + 私信 + 玩家資訊 + 封鎖
 // - 不使用 Supabase Realtime / WebSocket
 // - 只以 message_id 增量輪詢
@@ -8,7 +8,7 @@
 (function(){
   'use strict';
 
-  const VERSION = '0.9.86F';
+  const VERSION = '0.9.86G';
   const MAX_RENDERED = 80;
   const MAX_MESSAGE_LENGTH = 120;
   const ACTIVE_POLL_MS = 10000;
@@ -37,6 +37,7 @@
   const nowMs = () => Date.now();
   const number = (value, fallback=0) => Number.isFinite(Number(value)) ? Number(value) : fallback;
   const text = (value, fallback='') => String(value ?? fallback);
+  const bool = value => value === true || value === 1 || value === '1' || String(value ?? '').toLowerCase() === 'true';
 
   function client(){
     return window.ROWebCloudRuntime?.getClient?.() || window.ROWebSupabaseClient || null;
@@ -93,6 +94,8 @@
       senderBaseLevel:Math.max(1,number(raw.sender_base_level ?? raw.senderBaseLevel,1)),
       senderJobName:text(raw.sender_job_name ?? raw.senderJobName, '初學者'),
       senderRole:text(raw.sender_role ?? raw.senderRole, 'player').toLowerCase(),
+      senderIsVip:bool(raw.sender_is_vip ?? raw.senderIsVip),
+      senderVipLevel:Math.max(0,number(raw.sender_vip_level ?? raw.senderVipLevel,0)),
       recipientPlayerId:number(raw.recipient_player_id ?? raw.recipientPlayerId,0),
       body:text(raw.body,'').trim(),
       createdAt:raw.created_at ?? raw.createdAt ?? new Date().toISOString()
@@ -106,6 +109,8 @@
       baseLevel:row.senderBaseLevel,
       jobName:row.senderJobName,
       role:row.senderRole,
+      isVip:row.senderIsVip,
+      vipLevel:row.senderVipLevel,
       characterId:row.senderCharacterId
     };
   }
@@ -135,7 +140,11 @@
     }
 
     const isGm = row.senderRole === 'gm';
+    const isVip = row.senderIsVip === true;
     if (isGm) line.classList.add('is-gm');
+    if (isVip) line.classList.add('is-vip');
+
+    line.append(time, channel);
 
     if (isGm) {
       const gmMark = document.createElement('span');
@@ -143,14 +152,21 @@
       gmMark.textContent = 'GM';
       gmMark.setAttribute('aria-label', '遊戲管理員');
       gmMark.title = '遊戲管理員';
-      line.append(time, channel, gmMark);
-    } else {
-      line.append(time, channel);
+      line.append(gmMark);
+    }
+    if (isVip) {
+      const vipMark = document.createElement('span');
+      vipMark.className = 'player-chat-vip-mark';
+      vipMark.textContent = 'VIP';
+      vipMark.setAttribute('aria-label', 'VIP會員');
+      vipMark.title = row.senderVipLevel > 1 ? `VIP會員 Lv.${row.senderVipLevel}` : 'VIP會員';
+      line.append(vipMark);
     }
 
     const name = document.createElement('span');
-    name.className = `player-chat-name${isGm ? ' name-gm' : ''}`;
+    name.className = `player-chat-name${isGm ? ' name-gm' : ''}${isVip ? ' name-vip' : ''}`;
     name.textContent = row.senderName;
+    name.dataset.name = row.senderName;
     name.title = `查看 ${row.senderName} 的玩家資訊`;
     name.setAttribute('role', 'button');
     name.tabIndex = 0;
@@ -347,7 +363,7 @@
         return schedulePoll(650);
       }
     } catch (error) {
-      console.warn('V0.9.86F 玩家聊天輪詢暫時失敗：', error);
+      console.warn('V0.9.86G 玩家聊天輪詢暫時失敗：', error);
       if (!state.initializedRows) showEmpty('聊天服務連線中，稍後會自動重試。');
     } finally {
       state.polling = false;
@@ -365,7 +381,21 @@
     $('playerChatProfileLevel').textContent = `Base Lv.${profile.baseLevel || 1}`;
     $('playerChatProfileJob').textContent = profile.jobName || '初學者';
     const profileName = $('playerChatProfileName');
-    if (profileName) profileName.classList.toggle('is-gm', profile.role === 'gm');
+    if (profileName) {
+      profileName.classList.toggle('is-gm', profile.role === 'gm');
+      profileName.classList.toggle('is-vip', profile.isVip === true);
+    }
+    const badgeHost = $('playerChatProfileBadges');
+    if (badgeHost) {
+      badgeHost.replaceChildren();
+      if (profile.role === 'gm') {
+        const gm = document.createElement('span'); gm.className = 'player-profile-badge badge-gm'; gm.textContent = '✦ GM'; badgeHost.appendChild(gm);
+      }
+      if (profile.isVip === true) {
+        const vip = document.createElement('span'); vip.className = 'player-profile-badge badge-vip'; vip.textContent = '◆ VIP'; badgeHost.appendChild(vip);
+      }
+      badgeHost.hidden = !badgeHost.children.length;
+    }
     const self = String(profile.playerId) === String(state.account?.player_id || '');
     const whisper = $('playerChatWhisperButton');
     const block = $('playerChatBlockButton');

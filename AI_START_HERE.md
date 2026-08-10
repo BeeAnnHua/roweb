@@ -1,4 +1,4 @@
-# V0.9.86F current baseline
+# V0.9.86G current baseline
 
 - Adds the first low-traffic social chat layer on top of the user-tested V0.9.85Q/P cloud baseline.
 - Bottom chat panel defaults to `玩家頻道`; `系統信息` preserves the original combat/buff/drop/save log.
@@ -181,3 +181,12 @@
 - Repairs/reinstalls the server-verified `sender_role` chat snapshot via `supabase/V0.9.86F_GM_CHAT_IDENTITY_REPAIR.sql`.
 - GM chat identity is intentionally role-based (`ro_accounts.account_role = gm`), not inferred from reserved Player IDs.
 - Stronger visual-only GM badge and gold flowing name effect; no extra polling or network traffic.
+
+## V0.9.86G additions
+- Cumulative on V0.9.86F/E/B: keep IndexedDB Auth Session storage, duplicate-signup/resend protection, low-traffic chat, whispers, block list and GM server-verified identity.
+- GM chat names are now solid readable gold. The badge keeps its glow/sweep; the name itself is never transparent.
+- VIP membership is independent from `account_role`: `ro_accounts.is_vip / vip_level / vip_started_at / vip_until`. V0.9.86G enables cosmetic identity only; there are no stat/EXP/drop bonuses.
+- Chat `ro_chat_send` snapshots effective VIP identity into the same message row and `ro_chat_poll` returns it in the existing low-traffic poll. No additional chat request is introduced.
+- VIP chat cosmetics: `◆ VIP` purple/rose badge + readable magenta glow name. GM+VIP can coexist; GM gold remains the authority identity.
+- GM CENTER gains temporary manual VIP management (permanent / 7 / 30 / 90 days / custom expiry). Future acquisition can later be wired to shop/event/month-card logic without rewriting chat.
+- Run `supabase/V0.9.86G_VIP_MEMBERSHIP_CHAT_IDENTITY.sql` once in Supabase SQL Editor before testing VIP. It is cumulative with F chat identity repair.

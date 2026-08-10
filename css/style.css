@@ -24024,3 +24024,159 @@ body.roweb-loading-open{overflow:hidden!important}
   .player-chat-gm-mark { min-width:26px; height:14px; padding:0 4px; margin-right:3px; font-size:8px; line-height:12px; }
   .player-chat-name.name-gm { max-width:80px; }
 }
+
+/* ============================================================
+   RO_WEB V0.9.86G — readable GM gold + VIP membership cosmetics
+   Pure CSS cosmetics: zero extra chat polling / network traffic.
+   ============================================================ */
+.player-chat-name.name-gm {
+  color:#ffe88a !important;
+  -webkit-text-fill-color:#ffe88a !important;
+  background:none !important;
+  filter:none !important;
+  text-shadow:
+    0 1px 1px #000,
+    0 0 2px rgba(255,245,183,.95),
+    0 0 5px rgba(255,188,45,.78),
+    0 0 10px rgba(255,130,0,.28);
+  animation:roChatGmReadablePulse 1.8s ease-in-out infinite !important;
+}
+.player-chat-name.name-gm:hover,
+.player-chat-name.name-gm:focus-visible {
+  color:#fff8c5 !important;
+  -webkit-text-fill-color:#fff8c5 !important;
+  text-shadow:0 0 3px #fff7cc,0 0 8px rgba(255,199,69,.96),0 0 13px rgba(255,132,0,.42);
+}
+@keyframes roChatGmReadablePulse {
+  0%,100% { text-shadow:0 1px 1px #000,0 0 2px rgba(255,245,183,.92),0 0 5px rgba(255,188,45,.64),0 0 9px rgba(255,130,0,.20); }
+  50% { text-shadow:0 1px 1px #000,0 0 3px rgba(255,255,221,1),0 0 8px rgba(255,205,68,.96),0 0 14px rgba(255,133,0,.38); }
+}
+
+.player-chat-vip-mark {
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  height:16px;
+  min-width:31px;
+  margin:0 5px 0 1px;
+  padding:0 5px 0 4px;
+  border:1px solid rgba(255,126,220,.95);
+  border-radius:5px;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 24% 18%,rgba(255,255,255,.28),transparent 35%),
+    linear-gradient(180deg,#8c2d79 0%,#551c67 45%,#25102f 100%);
+  color:#ffd9f8;
+  font:900 9px/14px Arial,'Microsoft JhengHei',sans-serif;
+  letter-spacing:.55px;
+  vertical-align:top;
+  text-shadow:0 0 3px #ffb8ef,0 0 7px rgba(226,70,255,.72),0 1px 1px #000;
+  box-shadow:inset 0 0 6px rgba(255,195,245,.22),0 0 5px rgba(255,83,211,.58),0 0 11px rgba(160,58,255,.23);
+  animation:roChatVipBadgePulse 2.2s ease-in-out infinite;
+}
+.player-chat-vip-mark::before {
+  content:'◆';
+  margin-right:2px;
+  color:#fff0fc;
+  font-size:7px;
+  text-shadow:0 0 5px #ffbdf1;
+}
+.player-chat-vip-mark::after {
+  content:'';
+  position:absolute;
+  top:-6px;
+  left:-13px;
+  width:7px;
+  height:27px;
+  transform:skewX(-22deg);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.9),transparent);
+  animation:roChatVipBadgeSweep 2.9s ease-in-out infinite;
+  pointer-events:none;
+}
+.player-chat-name.name-vip:not(.name-gm) {
+  color:#ffb2ed !important;
+  -webkit-text-fill-color:#ffb2ed !important;
+  background:none !important;
+  font-weight:950;
+  letter-spacing:.18px;
+  text-shadow:0 1px 1px #000,0 0 3px rgba(255,179,239,.94),0 0 7px rgba(216,65,255,.64),0 0 12px rgba(255,61,159,.22);
+  animation:roChatVipNamePulse 2.05s ease-in-out infinite;
+}
+.player-chat-name.name-vip:not(.name-gm):hover,
+.player-chat-name.name-vip:not(.name-gm):focus-visible {
+  color:#ffe2f8 !important;
+  -webkit-text-fill-color:#ffe2f8 !important;
+  text-shadow:0 0 3px #fff1fc,0 0 9px rgba(255,112,226,.94),0 0 14px rgba(183,72,255,.46);
+  text-decoration-color:#ff9ce8;
+}
+.player-chat-line.is-vip:not(.is-gm)::before {
+  content:'';
+  position:absolute;
+  left:-5px;
+  top:3px;
+  bottom:3px;
+  width:2px;
+  border-radius:2px;
+  background:linear-gradient(180deg,transparent,#ff70d6 27%,#e9a3ff 52%,#9d62ff 76%,transparent);
+  box-shadow:0 0 5px rgba(242,83,255,.48);
+  opacity:.72;
+  pointer-events:none;
+}
+.player-chat-line.is-vip { position:relative; }
+.player-chat-line.is-vip .player-chat-colon { color:#f5c1ec; }
+
+.player-chat-profile-title { display:flex; align-items:center; gap:7px; min-width:0; margin-top:2px; }
+.player-chat-profile-title h3 { min-width:0; margin:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.player-chat-profile-badges { display:inline-flex; align-items:center; gap:4px; flex:0 0 auto; }
+.player-chat-profile-badges[hidden] { display:none !important; }
+.player-profile-badge {
+  display:inline-flex;
+  align-items:center;
+  height:18px;
+  padding:0 6px;
+  border-radius:5px;
+  font:900 9px/16px Arial,'Microsoft JhengHei',sans-serif;
+  letter-spacing:.5px;
+}
+.player-profile-badge.badge-gm {
+  border:1px solid #ffd65b;
+  background:linear-gradient(#82530b,#291503);
+  color:#fff1a5;
+  text-shadow:0 0 5px rgba(255,197,51,.9);
+  box-shadow:0 0 7px rgba(255,170,22,.32);
+}
+.player-profile-badge.badge-vip {
+  border:1px solid #f276d2;
+  background:linear-gradient(#7b286d,#29112f);
+  color:#ffd9f6;
+  text-shadow:0 0 5px rgba(255,111,223,.9);
+  box-shadow:0 0 7px rgba(215,70,255,.28);
+}
+#playerChatProfileName.is-gm,
+#playerChatProfileName.is-vip { color:#ffe5a1; text-shadow:0 1px 2px #000; }
+#playerChatProfileName.is-gm::before { content:none !important; }
+
+@keyframes roChatVipBadgePulse {
+  0%,100% { box-shadow:inset 0 0 6px rgba(255,195,245,.18),0 0 4px rgba(255,83,211,.42),0 0 8px rgba(160,58,255,.14); }
+  50% { box-shadow:inset 0 0 7px rgba(255,222,250,.32),0 0 8px rgba(255,95,220,.78),0 0 14px rgba(160,58,255,.32); }
+}
+@keyframes roChatVipBadgeSweep {
+  0%,55% { left:-13px; opacity:0; }
+  63% { opacity:1; }
+  80%,100% { left:36px; opacity:0; }
+}
+@keyframes roChatVipNamePulse {
+  0%,100% { text-shadow:0 1px 1px #000,0 0 3px rgba(255,179,239,.84),0 0 6px rgba(216,65,255,.52),0 0 10px rgba(255,61,159,.16); }
+  50% { text-shadow:0 1px 1px #000,0 0 4px rgba(255,224,248,1),0 0 9px rgba(231,83,255,.88),0 0 15px rgba(255,65,174,.34); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .player-chat-name.name-gm,
+  .player-chat-name.name-vip,
+  .player-chat-vip-mark { animation:none !important; }
+  .player-chat-vip-mark::after { animation:none !important; }
+}
+@media (max-width:760px) {
+  .player-chat-vip-mark { min-width:27px; height:14px; padding:0 4px; margin-right:3px; font-size:8px; line-height:12px; }
+  .player-chat-name.name-vip { max-width:80px; }
+}
