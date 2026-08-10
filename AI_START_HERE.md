@@ -1,4 +1,4 @@
-# V0.9.86E current baseline
+# V0.9.86F current baseline
 
 - Adds the first low-traffic social chat layer on top of the user-tested V0.9.85Q/P cloud baseline.
 - Bottom chat panel defaults to `玩家頻道`; `系統信息` preserves the original combat/buff/drop/save log.
@@ -174,3 +174,10 @@
 - Adds `已註冊但尚未驗證？重新寄送驗證碼`, which calls Supabase `auth.resend({type:"signup"})` directly. This is the recovery path for an existing unconfirmed Email, including another browser/device.
 - Successful resend clears the OTP input and explicitly tells the player to use only the newest email code.
 - This release needs no new SQL.
+
+
+## V0.9.86F additions
+- Cumulative on V0.9.86E. Keeps resend/signup protection, IndexedDB Auth Session storage, low-traffic chat, whispers and GM cosmetics.
+- Repairs/reinstalls the server-verified `sender_role` chat snapshot via `supabase/V0.9.86F_GM_CHAT_IDENTITY_REPAIR.sql`.
+- GM chat identity is intentionally role-based (`ro_accounts.account_role = gm`), not inferred from reserved Player IDs.
+- Stronger visual-only GM badge and gold flowing name effect; no extra polling or network traffic.

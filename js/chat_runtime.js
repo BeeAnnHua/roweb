@@ -1,5 +1,5 @@
 // ============================================================
-// 彼岸花仙境 / RO_WEB V0.9.86C
+// 彼岸花仙境 / RO_WEB V0.9.86F
 // 低流量延遲聊天：玩家頻道 + 世界聊天 + 私信 + 玩家資訊 + 封鎖
 // - 不使用 Supabase Realtime / WebSocket
 // - 只以 message_id 增量輪詢
@@ -8,7 +8,7 @@
 (function(){
   'use strict';
 
-  const VERSION = '0.9.86C';
+  const VERSION = '0.9.86F';
   const MAX_RENDERED = 80;
   const MAX_MESSAGE_LENGTH = 120;
   const ACTIVE_POLL_MS = 10000;
@@ -141,6 +141,7 @@
       const gmMark = document.createElement('span');
       gmMark.className = 'player-chat-gm-mark';
       gmMark.textContent = 'GM';
+      gmMark.setAttribute('aria-label', '遊戲管理員');
       gmMark.title = '遊戲管理員';
       line.append(time, channel, gmMark);
     } else {
@@ -346,7 +347,7 @@
         return schedulePoll(650);
       }
     } catch (error) {
-      console.warn('V0.9.86C 玩家聊天輪詢暫時失敗：', error);
+      console.warn('V0.9.86F 玩家聊天輪詢暫時失敗：', error);
       if (!state.initializedRows) showEmpty('聊天服務連線中，稍後會自動重試。');
     } finally {
       state.polling = false;
