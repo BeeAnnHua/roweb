@@ -1,0 +1,22 @@
+V0.9.85F TEST / CHANGE REPORT
+
+ROOT CAUSE
+- player.js originally captured SAVE_KEY / backup key / IndexedDB IDs while the browser still held the previously used local account profile.
+- Supabase selected/bound the new RO account later during initGame().
+- Therefore a new Player ID could compare its remote row with the previous character's local/IndexedDB candidate and load/save the wrong snapshot.
+
+FIXES
+1. Dynamic save binding after Supabase account bind.
+2. Explicit account/character identity mismatch rejection for browser candidates.
+3. Cloud write guard against cross-account/cross-character contexts.
+4. Account Center / sign-out / switch-account always force character selector.
+5. Manual save moved from chat toolbar to gear account menu.
+6. Chat toolbar Character and Clear Save buttons removed.
+7. Gear save/switch/sign-out flush account shared storage as well as character save.
+
+SUPABASE SQL
+- None required.
+
+STATIC VALIDATION
+- node --check: player.js / game.js / cloud_save_runtime.js / cloud_account.js / account_menu_runtime.js
+- index.html cache keys updated for all modified runtime files.

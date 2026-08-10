@@ -1,0 +1,33 @@
+{
+  "project": "彼岸花仙境 / RO_WEB",
+  "version": "V0.9.84B",
+  "base": "V0.9.83E3 + V0.9.84A Supabase registration verification",
+  "release_type": "incremental_patch",
+  "features": [
+    "formal_player_cloud_account_ui",
+    "email_otp_registration_and_password_recovery",
+    "12_character_slots_per_game_account",
+    "character_slot_move_and_swap",
+    "local_browser_character_to_supabase_migration",
+    "remote_character_save_adapter",
+    "per_account_shared_storage_cloud_sync",
+    "player_facing_debug_information_removed"
+  ],
+  "safety": {
+    "local_character_save_deleted_after_migration": false,
+    "indexeddb_backup_preserved": true,
+    "remote_newer_save_overwrite_guard": true
+  },
+  "cloud_tables": {
+    "accounts": "public.ro_accounts",
+    "characters": "public.ro_characters",
+    "character_save": "ro_characters.save_data",
+    "shared_storage": "ro_accounts.shared_save.account_storage"
+  },
+  "player_account_rules": {
+    "accounts_per_email": 5,
+    "slots_per_account": 12,
+    "reserved_gm_player_ids": "100001-100009",
+    "normal_player_id_start": 100010
+  }
+}

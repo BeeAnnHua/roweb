@@ -22962,3 +22962,676 @@ body.character-select-open #game-root {
     max-width: 82%;
   }
 }
+
+
+/* =====================================================
+   V0.9.84B 雲端帳號 / 12 角色格 / 角色移位
+   ===================================================== */
+.character-select-backdrop{
+  background:
+    linear-gradient(115deg,rgba(12,8,4,.56),rgba(5,5,8,.28) 48%,rgba(12,8,4,.52)),
+    url("../images/ui/character_select_background.webp?v=0.9.84B") center 48%/cover no-repeat,
+    linear-gradient(135deg,#161005 0%,#080705 48%,#1a1105 100%);
+}
+
+.character-select-shell{
+  width:min(1280px,100%);
+  max-height:96vh;
+  gap:14px;
+}
+
+.character-select-account-state{
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+
+.character-select-account-state button{
+  min-height:31px;
+  padding:6px 10px;
+  border:1px solid rgba(215,174,89,.32);
+  border-radius:999px;
+  color:#cfbb8b;
+  background:rgba(0,0,0,.28);
+  font:700 12px/1.2 "Microsoft JhengHei","PingFang TC",sans-serif;
+  cursor:pointer;
+}
+.character-select-account-state button:hover{
+  color:#f1d58b;
+  border-color:rgba(231,190,96,.66);
+  background:rgba(92,63,15,.24);
+}
+.character-select-account-state button[hidden]{display:none!important}
+
+.character-slot-grid{
+  grid-template-columns:repeat(6,minmax(0,1fr));
+  gap:12px;
+  min-height:0;
+}
+
+.character-slot-card{
+  min-height:300px;
+  border-radius:14px;
+}
+
+.character-slot-portrait{
+  height:135px;
+  padding:24px 8px 2px;
+}
+
+.character-slot-portrait img{
+  max-height:112px;
+}
+
+.character-slot-info{
+  padding:11px 9px 8px;
+}
+
+.character-slot-info h3{
+  font-size:16px;
+}
+
+.character-slot-info p{
+  margin-top:3px;
+  font-size:12px;
+}
+
+.character-slot-levels{
+  gap:5px;
+  margin:8px 0;
+}
+
+.character-slot-levels span{
+  padding:4px 5px;
+  font-size:10px;
+}
+
+.character-slot-info small{
+  font-size:10px;
+}
+
+.character-slot-actions{
+  grid-template-columns:1fr 1fr;
+  gap:6px;
+  padding:8px;
+}
+.character-slot-actions .character-slot-enter{
+  grid-column:1 / -1;
+}
+.character-slot-actions button{
+  min-height:31px;
+  padding:5px 7px;
+  font-size:11px;
+}
+.character-slot-move{
+  color:#d8c38d;
+  border:1px solid rgba(205,165,76,.38);
+  background:rgba(92,62,15,.22);
+}
+.character-slot-plus{
+  width:58px;
+  height:58px;
+  font-size:34px;
+}
+.character-slot-create strong{font-size:14px}
+.character-slot-create small{font-size:10px}
+
+/* 角色移位 */
+body.character-move-open{overflow:hidden}
+.character-move-overlay,
+.cloud-migration-overlay{
+  position:fixed;
+  inset:0;
+  z-index:50050;
+  display:grid;
+  place-items:center;
+  padding:18px;
+  background:rgba(0,0,0,.76);
+  backdrop-filter:blur(8px);
+}
+.character-move-overlay[hidden],
+.cloud-migration-overlay[hidden]{display:none!important}
+
+.character-move-dialog{
+  width:min(700px,100%);
+  padding:22px;
+  border:1px solid rgba(226,184,94,.62);
+  border-radius:18px;
+  color:#ebdab0;
+  background:linear-gradient(155deg,#21190d,#0d0c09 72%);
+  box-shadow:0 28px 80px rgba(0,0,0,.72),inset 0 1px rgba(255,255,255,.06);
+}
+.character-move-dialog header{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:14px;
+  margin-bottom:16px;
+}
+.character-move-dialog h2,
+.character-move-dialog p{margin:0}
+.character-move-dialog h2{color:#f1d58a}
+.character-move-dialog header p{margin-top:5px;color:#99896b;font-size:12px}
+.character-move-close{
+  width:34px;height:34px;border:1px solid rgba(221,180,91,.32);border-radius:50%;
+  color:#ceb782;background:rgba(0,0,0,.26);cursor:pointer;
+}
+.character-move-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:9px;
+}
+.character-move-slot{
+  min-height:76px;
+  display:grid;
+  gap:3px;
+  align-content:center;
+  padding:8px;
+  border:1px solid rgba(205,165,76,.28);
+  border-radius:10px;
+  color:#c9b789;
+  background:rgba(0,0,0,.28);
+  cursor:pointer;
+}
+.character-move-slot b{color:#e6ca82;font-size:12px}
+.character-move-slot span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px}
+.character-move-slot small{color:#7f735c;font-size:10px}
+.character-move-slot.is-occupied{border-color:rgba(202,143,47,.5);background:rgba(89,56,11,.22)}
+.character-move-slot.is-current{border-color:#e2b85d;background:rgba(213,164,66,.12)}
+.character-move-slot:disabled{opacity:.55;cursor:default}
+
+/* 本機 -> 雲端移轉 */
+body.cloud-migration-open{overflow:hidden}
+.cloud-migration-dialog{
+  width:min(540px,100%);
+  padding:26px;
+  text-align:center;
+  border:1px solid rgba(226,184,94,.62);
+  border-radius:20px;
+  color:#ebdab0;
+  background:linear-gradient(155deg,#21190d,#0d0c09 72%);
+  box-shadow:0 28px 90px rgba(0,0,0,.76),inset 0 1px rgba(255,255,255,.06);
+}
+.cloud-migration-emblem{
+  width:58px;height:58px;display:grid;place-items:center;margin:0 auto 13px;
+  border-radius:17px;color:#402707;font-size:30px;background:linear-gradient(#f8e8ad,#d6a53d);
+  box-shadow:0 0 26px rgba(224,174,71,.26);
+}
+.cloud-migration-dialog h2{margin:0;color:#f1d58a}
+.cloud-migration-dialog p{margin:12px 0;color:#c5b58e;line-height:1.7}
+.cloud-migration-dialog small{display:block;margin-top:13px;color:#81755f;line-height:1.55}
+.cloud-migration-actions{display:flex;gap:10px;margin-top:18px}
+.cloud-migration-actions button{
+  flex:1;min-height:42px;border-radius:10px;font-weight:900;cursor:pointer;
+}
+.cloud-migration-primary{border:1px solid #e3bc63;color:#1e1405;background:linear-gradient(180deg,#f2d27e,#b67a25)}
+.cloud-migration-secondary{border:1px solid rgba(190,154,85,.28);color:#c2aa7e;background:rgba(0,0,0,.28)}
+.cloud-migration-status{display:none;margin-top:14px;padding:10px;border-radius:9px;font-size:12px;white-space:pre-wrap}
+.cloud-migration-status.show{display:block;border:1px solid rgba(211,174,88,.28);background:rgba(0,0,0,.24)}
+.cloud-migration-status.ok{color:#9aefb2;border-color:rgba(78,192,112,.38)}
+.cloud-migration-status.err{color:#ffaaa3;border-color:rgba(230,95,86,.45)}
+
+@media(max-width:1120px){
+  .character-slot-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+@media(max-width:760px){
+  .character-slot-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .character-select-account-state{max-width:46%}
+  .character-select-account-state button{font-size:10px;padding:5px 7px}
+  .character-move-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:480px){
+  .character-move-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .cloud-migration-actions{flex-direction:column}
+}
+
+/* ============================================================
+   V0.9.84C - Cloud sync status indicator
+   ============================================================ */
+#characterCloudStatus[data-sync-state="syncing"],
+#characterCloudStatus[data-sync-state="connecting"]{color:#f1d58a;border-color:rgba(221,179,83,.42);}
+#characterCloudStatus[data-sync-state="synced"]{color:#9ee9ad;border-color:rgba(82,190,112,.40);}
+#characterCloudStatus[data-sync-state="pending"]{color:#ffd487;border-color:rgba(232,174,73,.48);}
+#characterCloudStatus[data-sync-state="conflict"],
+#characterCloudStatus[data-sync-state="error"]{color:#ffaaa3;border-color:rgba(230,95,86,.46);}
+
+/* ============================================================
+   RO_WEB V0.9.85B - Account Mailbox / GM Center entry
+   ============================================================ */
+.mail-quick-button{position:relative}
+.mail-unread-badge{position:absolute;right:-7px;top:-8px;min-width:18px;height:18px;padding:0 4px;border-radius:10px;background:#b82d22;color:#fff;font-size:10px;line-height:18px;text-align:center;border:1px solid #ffd0b8;box-shadow:0 2px 7px #0009}
+#mail-window{width:760px;max-width:calc(100vw - 20px)}
+.mail-window-body{padding:0!important;overflow:hidden!important;background:linear-gradient(180deg,rgba(27,18,9,.98),rgba(10,7,5,.98))}
+.mail-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;border-bottom:1px solid #725427;background:#171008}
+.mail-toolbar>div:first-child{display:grid;gap:2px}.mail-toolbar b{color:#ffe298}.mail-toolbar small{color:#a79267;font-size:11px}.mail-toolbar-actions{display:flex;gap:7px}.mail-toolbar select,.mail-toolbar button{border:1px solid #8a6730;border-radius:6px;background:#21170d;color:#f9e5b5;padding:6px 8px}
+.mail-layout{display:grid;grid-template-columns:250px minmax(0,1fr);min-height:400px;max-height:500px}.mail-list{overflow:auto;border-right:1px solid #5d431f;background:#0e0a06}.mail-row{width:100%;display:grid;gap:4px;padding:10px 11px;border:0;border-bottom:1px solid #382714;background:transparent;color:#cbb98e;text-align:left}.mail-row:hover{background:#24180c}.mail-row.is-active{background:linear-gradient(90deg,#4b3213,#20150a);box-shadow:inset 3px 0 #e2ac3d}.mail-row.is-unread b{color:#fff0ae}.mail-row-top{display:flex;align-items:center;justify-content:space-between;gap:6px}.mail-row-top b{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px}.mail-row>span:not(.mail-row-top){font-size:11px;color:#ab9569}.mail-row small{font-size:10px;color:#75674f}.mail-reward-dot{flex:0 0 auto;border:1px solid #99722f;border-radius:10px;color:#ffd979;padding:1px 5px;font-size:9px}.mail-detail{overflow:auto;padding:16px;background:radial-gradient(circle at 100% 0,#3b260d33,transparent 35%)}.mail-detail-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;padding-bottom:12px;border-bottom:1px solid #5a411f}.mail-detail-head small{color:#a78c57}.mail-detail-head h3{margin:4px 0 0;color:#ffe49a;font-size:19px}.mail-detail-head time{font-size:11px;color:#7f7158}.mail-detail-body{min-height:110px;padding:15px 2px;color:#e0cfaa;line-height:1.75;word-break:break-word}.mail-attachment-title{margin:6px 0 7px;color:#e7c36a;font-weight:900}.mail-attachments{display:grid;gap:7px}.mail-attachment{display:grid;grid-template-columns:38px 1fr auto;align-items:center;gap:9px;border:1px solid #513b1e;border-radius:8px;background:#100c08;padding:7px 9px}.mail-attachment img{width:34px;height:34px;object-fit:contain}.mail-attachment span{display:grid}.mail-attachment b{color:#f5dea7}.mail-attachment small{color:#817256;font-size:10px}.mail-attachment strong{color:#ffd875}.mail-zeny-icon{width:34px;height:34px;border-radius:50%;display:grid!important;place-items:center;background:#d7a62c;color:#271807;font-weight:1000;font-size:18px;border:2px solid #ffe59b}.mail-detail-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:14px;padding-top:12px;border-top:1px solid #4c381e}.mail-detail-foot>span{font-size:11px;color:#8e7e5f}.mail-detail-foot button{border:1px solid #c18d2e;border-radius:7px;background:linear-gradient(#745017,#2c1b08);color:#ffe9a6;padding:8px 14px;font-weight:900}.mail-detail-foot button:disabled{opacity:.48;cursor:default}.mail-status{min-height:31px;padding:8px 12px;border-top:1px solid #51391b;background:#0d0906;color:#a89469;font-size:11px}.mail-empty{margin:12px;padding:18px;border:1px dashed #4a381f;border-radius:8px;color:#776b53;text-align:center}.mail-detail-empty{margin-top:80px}
+@media(max-width:760px){#mail-window{width:min(96vw,680px)}.mail-layout{grid-template-columns:190px minmax(0,1fr);min-height:330px;max-height:430px}.mail-toolbar{align-items:flex-start}.mail-toolbar-actions{flex-direction:column}.mail-detail{padding:11px}.mail-detail-head{display:grid}.mail-detail-head time{order:-1}.mail-attachment{grid-template-columns:32px 1fr auto}.mail-attachment img,.mail-zeny-icon{width:30px;height:30px}.mail-detail-foot{align-items:stretch;flex-direction:column}.mail-detail-foot button{width:100%}}
+@media(max-width:520px){.mail-layout{grid-template-columns:145px minmax(0,1fr)}.mail-row{padding:8px}.mail-row-top{display:grid}.mail-reward-dot{justify-self:start}.mail-toolbar>div:first-child small{max-width:150px}.mail-detail-body{font-size:12px}}
+
+/* V0.9.85B: never expose GM entry while hidden. */
+#gmCenterButton[hidden]{display:none!important;}
+
+/* ============================================================
+   RO_WEB V0.9.85C - 4x3 quick menu + mailbox operations
+   ============================================================ */
+#rightHudCollapsible,
+#right-hud-shell #top-bar,
+#right-hud-shell #quick-buttons {
+  width: 344px !important;
+}
+#right-hud-shell #quick-buttons {
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  grid-auto-rows: 34px !important;
+  gap: 6px !important;
+}
+#right-hud-shell #quick-buttons > button {
+  font-size: 12px !important;
+  letter-spacing: 0 !important;
+  text-overflow: clip !important;
+}
+#right-hud-shell #quick-buttons > .quick-coming-soon {
+  opacity: .88;
+}
+#right-hud-shell #quick-buttons > .quick-coming-soon::after {
+  content: "";
+}
+
+.mail-toolbar-actions {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.mail-toolbar-actions button:disabled {
+  opacity: .48;
+  cursor: default;
+}
+#mailClaimAllButton {
+  border-color: #b68b38;
+  color: #ffe59a;
+  background: linear-gradient(#614419,#281a09);
+}
+#mailDeleteReadButton {
+  border-color: #7f4b32;
+  color: #f0c5a7;
+  background: linear-gradient(#4d291d,#21110c);
+}
+#mailGmCenterButton {
+  border-color: #d0a542;
+  color: #fff0ad;
+  background: linear-gradient(#7b571e,#2f1d08);
+  font-weight: 900;
+}
+#mailGmCenterButton[hidden] { display: none !important; }
+.mail-reward-dot.is-claimed {
+  border-color: #557150;
+  color: #b9d8a7;
+  background: rgba(63,92,55,.2);
+}
+.mail-reward-dot.is-expired {
+  border-color: #6b5147;
+  color: #a48a7f;
+  background: rgba(88,62,50,.18);
+}
+.mail-attachments.is-claimed {
+  opacity: .62;
+  filter: saturate(.7);
+}
+.mail-detail-foot button.is-claimed,
+.mail-detail-foot button.is-claimed:disabled {
+  opacity: .72;
+  border-color: #5e7553;
+  color: #c7ddb5;
+  background: linear-gradient(#385034,#1b2818);
+}
+
+@media (max-width: 900px), (pointer: coarse) {
+  #rightHudCollapsible,
+  #right-hud-shell #top-bar,
+  #right-hud-shell #quick-buttons {
+    width: 288px !important;
+  }
+  #right-hud-shell #quick-buttons {
+    grid-template-columns: repeat(4, minmax(0,1fr)) !important;
+    gap: 5px !important;
+  }
+  #right-hud-shell #quick-buttons > button {
+    font-size: 11px !important;
+    padding-left: 2px !important;
+    padding-right: 2px !important;
+  }
+}
+@media (orientation: portrait) and (max-width: 520px) {
+  #rightHudCollapsible,
+  #right-hud-shell #top-bar,
+  #right-hud-shell #quick-buttons {
+    width: 248px !important;
+  }
+  #right-hud-shell #quick-buttons {
+    grid-template-columns: repeat(4, minmax(0,1fr)) !important;
+    gap: 4px !important;
+  }
+  #right-hud-shell #quick-buttons > button {
+    font-size: 10px !important;
+  }
+}
+
+/* ============================================================
+   RO_WEB V0.9.85E - persistent account gear + black/gold HUD fold control
+   - Gear and fold buttons always stay outside the collapsible HUD.
+   - Removes platform emoji styling from the fold arrow.
+   ============================================================ */
+#right-hud-shell .right-hud-action-row {
+  position: relative !important;
+  gap: 7px !important;
+}
+#rightHudAccountButton,
+#rightHudCollapseToggle.right-hud-icon-button {
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex: 0 0 40px !important;
+  width: 40px !important;
+  min-width: 40px !important;
+  max-width: 40px !important;
+  height: 40px !important;
+  min-height: 40px !important;
+  max-height: 40px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 1px solid #a9792d !important;
+  border-radius: 50% !important;
+  color: #f5d27a !important;
+  background:
+    radial-gradient(circle at 38% 28%, rgba(255,221,126,.16), transparent 27%),
+    linear-gradient(180deg, #3b2812 0%, #1e1308 54%, #0d0804 100%) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,235,173,.22),
+    inset 0 -2px 5px rgba(0,0,0,.52),
+    0 2px 7px rgba(0,0,0,.72) !important;
+  text-shadow: 0 1px 2px #000 !important;
+  cursor: pointer !important;
+  overflow: hidden !important;
+  transform: none !important;
+  transition: border-color .15s ease, color .15s ease, filter .15s ease, box-shadow .15s ease, transform .1s ease !important;
+}
+#rightHudAccountButton::after,
+#rightHudCollapseToggle.right-hud-icon-button::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 3px !important;
+  border: 1px solid rgba(255,221,126,.12) !important;
+  border-radius: 50% !important;
+  pointer-events: none !important;
+}
+#rightHudAccountButton:hover,
+#rightHudAccountButton:focus-visible,
+#rightHudCollapseToggle.right-hud-icon-button:hover,
+#rightHudCollapseToggle.right-hud-icon-button:focus-visible,
+#rightHudAccountButton.is-open {
+  filter: brightness(1.16) !important;
+  color: #fff0a8 !important;
+  border-color: #d5a441 !important;
+  box-shadow: inset 0 1px 0 rgba(255,240,190,.28), 0 0 9px rgba(211,154,43,.42), 0 2px 7px rgba(0,0,0,.72) !important;
+}
+#rightHudAccountButton:active,
+#rightHudCollapseToggle.right-hud-icon-button:active {
+  transform: scale(.94) !important;
+}
+#rightHudAccountButton .right-hud-gear-icon {
+  position: relative !important;
+  z-index: 2 !important;
+  display: block !important;
+  font-family: "Segoe UI Symbol", "Arial Unicode MS", sans-serif !important;
+  font-size: 21px !important;
+  line-height: 1 !important;
+  color: currentColor !important;
+  filter: drop-shadow(0 1px 1px #000) !important;
+  transform: translateY(-.5px) !important;
+  pointer-events: none !important;
+}
+#rightHudCollapseToggle .right-hud-toggle-icon {
+  position: relative !important;
+  z-index: 2 !important;
+  display: block !important;
+  width: 12px !important;
+  height: 12px !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+  filter: none !important;
+  transform: none !important;
+  pointer-events: none !important;
+}
+#rightHudCollapseToggle .right-hud-toggle-icon::before {
+  content: "" !important;
+  position: absolute !important;
+  left: 1px !important;
+  top: 3px !important;
+  width: 8px !important;
+  height: 8px !important;
+  border-right: 2px solid #f5d27a !important;
+  border-bottom: 2px solid #f5d27a !important;
+  transform: rotate(-135deg) !important;
+  filter: drop-shadow(0 1px 1px #000) !important;
+  transition: transform .18s ease, border-color .15s ease !important;
+}
+#right-hud-shell.is-collapsed #rightHudCollapseToggle .right-hud-toggle-icon::before {
+  top: 0 !important;
+  transform: rotate(45deg) !important;
+}
+#rightHudCollapseToggle:hover .right-hud-toggle-icon::before,
+#rightHudCollapseToggle:focus-visible .right-hud-toggle-icon::before {
+  border-color: #fff0a8 !important;
+}
+
+#rightHudAccountMenu[hidden] { display: none !important; }
+#rightHudAccountMenu {
+  box-sizing: border-box !important;
+  position: absolute !important;
+  top: calc(100% + 7px) !important;
+  right: 0 !important;
+  z-index: 20 !important;
+  width: 312px !important;
+  max-width: calc(100vw - 18px) !important;
+  overflow: hidden !important;
+  border: 1px solid #a77b31 !important;
+  border-radius: 11px !important;
+  color: #e7d5ad !important;
+  background:
+    radial-gradient(circle at 100% 0, rgba(177,121,36,.16), transparent 33%),
+    linear-gradient(180deg, rgba(31,20,10,.985), rgba(11,7,4,.99)) !important;
+  box-shadow: inset 0 1px 0 rgba(255,226,147,.14), 0 9px 28px rgba(0,0,0,.72) !important;
+  backdrop-filter: none !important;
+  pointer-events: auto !important;
+  animation: ro-account-menu-in .14s ease-out !important;
+}
+@keyframes ro-account-menu-in {
+  from { opacity: 0; transform: translateY(-5px) scale(.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.right-hud-account-menu-head {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 10px !important;
+  padding: 11px 12px 10px !important;
+  border-bottom: 1px solid #4c3518 !important;
+  background: linear-gradient(180deg, rgba(83,55,19,.4), rgba(29,18,8,.15)) !important;
+}
+.right-hud-account-menu-head > div { display: grid !important; gap: 2px !important; }
+.right-hud-account-menu-head small { color: #8f7952 !important; font-size: 9px !important; letter-spacing: 1.2px !important; }
+.right-hud-account-menu-head b { color: #ffe29a !important; font-size: 15px !important; letter-spacing: .8px !important; }
+.right-hud-account-role {
+  min-width: 50px !important;
+  padding: 3px 7px !important;
+  border: 1px solid #665231 !important;
+  border-radius: 10px !important;
+  color: #a99a79 !important;
+  background: rgba(17,12,7,.74) !important;
+  font-size: 9px !important;
+  font-weight: 900 !important;
+  letter-spacing: 1px !important;
+  text-align: center !important;
+}
+.right-hud-account-role.is-gm { border-color: #b38838 !important; color: #ffe28c !important; box-shadow: 0 0 7px rgba(194,138,38,.2) !important; }
+.right-hud-account-identity {
+  display: grid !important;
+  gap: 0 !important;
+  padding: 5px 12px !important;
+}
+.right-hud-account-identity > div {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  min-height: 34px !important;
+  border-bottom: 1px solid rgba(106,78,37,.32) !important;
+}
+.right-hud-account-identity > div:last-child { border-bottom: 0 !important; }
+.right-hud-account-identity span { color: #8e7d5d !important; font-size: 10px !important; white-space: nowrap !important; }
+.right-hud-account-identity span small { color: #655943 !important; font-size: 8px !important; margin-left: 3px !important; }
+.right-hud-account-identity b {
+  min-width: 0 !important;
+  max-width: 180px !important;
+  overflow: hidden !important;
+  color: #f5dfab !important;
+  font-size: 12px !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  text-align: right !important;
+}
+.right-hud-account-actions {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 6px !important;
+  padding: 8px 10px 10px !important;
+  border-top: 1px solid #3c2a14 !important;
+}
+.right-hud-account-actions > button {
+  box-sizing: border-box !important;
+  display: grid !important;
+  grid-template-columns: 28px 1fr !important;
+  grid-template-rows: auto auto !important;
+  align-items: center !important;
+  column-gap: 8px !important;
+  width: 100% !important;
+  min-height: 46px !important;
+  padding: 6px 9px !important;
+  border: 1px solid #634a24 !important;
+  border-radius: 7px !important;
+  color: #d9c69b !important;
+  background: linear-gradient(180deg, rgba(54,36,16,.92), rgba(25,16,8,.96)) !important;
+  box-shadow: inset 0 1px rgba(255,226,146,.06) !important;
+  cursor: pointer !important;
+  text-align: left !important;
+}
+.right-hud-account-actions > button > span {
+  grid-row: 1 / span 2 !important;
+  display: grid !important;
+  place-items: center !important;
+  width: 26px !important;
+  height: 26px !important;
+  border: 1px solid #725629 !important;
+  border-radius: 50% !important;
+  color: #e7bd5c !important;
+  background: #171006 !important;
+  font-size: 13px !important;
+}
+.right-hud-account-actions > button b { align-self: end !important; color: #f1dba4 !important; font-size: 12px !important; line-height: 1.1 !important; }
+.right-hud-account-actions > button small { align-self: start !important; color: #74674e !important; font-size: 9px !important; line-height: 1.15 !important; }
+.right-hud-account-actions > button:hover,
+.right-hud-account-actions > button:focus-visible { border-color: #b08436 !important; filter: brightness(1.12) !important; }
+.right-hud-account-actions > button.is-danger { border-color: #5d3827 !important; }
+.right-hud-account-actions > button.is-danger > span { border-color: #70422c !important; color: #d99d76 !important; }
+.right-hud-account-actions > button.is-danger:hover { border-color: #9c5c39 !important; }
+#rightHudAccountMenu > footer {
+  padding: 7px 10px 8px !important;
+  border-top: 1px solid #3a2814 !important;
+  color: #665941 !important;
+  background: rgba(8,5,3,.6) !important;
+  font-size: 9px !important;
+  line-height: 1.45 !important;
+  text-align: center !important;
+}
+
+@media (max-width: 900px), (pointer: coarse) {
+  #rightHudAccountButton,
+  #rightHudCollapseToggle.right-hud-icon-button {
+    flex-basis: 38px !important;
+    width: 38px !important;
+    min-width: 38px !important;
+    max-width: 38px !important;
+    height: 38px !important;
+    min-height: 38px !important;
+    max-height: 38px !important;
+  }
+  #rightHudAccountButton .right-hud-gear-icon { font-size: 20px !important; }
+  #rightHudAccountMenu { width: 286px !important; }
+}
+@media (orientation: portrait) and (max-width: 520px) {
+  #right-hud-shell .right-hud-action-row { gap: 5px !important; }
+  #rightHudAccountMenu { width: min(286px, calc(100vw - 14px)) !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #rightHudAccountMenu { animation: none !important; }
+}
+
+
+/* ============================================================
+   RO_WEB V0.9.85I - RO-style loading screen + mailbox red dot
+   ============================================================ */
+.roweb-loading-screen[hidden]{display:none!important}
+.roweb-loading-screen{
+  position:fixed;inset:0;z-index:2147483000;display:grid;place-items:center;overflow:hidden;
+  background:#080604;opacity:0;pointer-events:none;transition:opacity .18s ease;
+}
+.roweb-loading-screen.is-visible{opacity:1;pointer-events:all}
+.roweb-loading-backdrop{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(180deg,rgba(8,5,2,.20),rgba(5,3,2,.42)),
+    radial-gradient(circle at 50% 46%,rgba(255,220,139,.08),transparent 38%),
+    url("../images/ui/character_select_background.webp?v=0.9.85I") center 48%/cover no-repeat;
+  transform:scale(1.015);
+}
+.roweb-loading-backdrop::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(0,0,0,.34),transparent 23%,transparent 77%,rgba(0,0,0,.34));
+  box-shadow:inset 0 0 120px rgba(0,0,0,.62);
+}
+.roweb-loading-card{
+  position:relative;z-index:1;width:min(520px,calc(100vw - 40px));padding:24px 28px 20px;
+  border:1px solid rgba(219,170,67,.70);border-radius:16px;text-align:center;
+  background:linear-gradient(180deg,rgba(25,17,8,.91),rgba(10,7,4,.94));
+  box-shadow:0 24px 70px rgba(0,0,0,.62),inset 0 1px rgba(255,232,166,.12);
+  backdrop-filter:blur(7px);
+}
+.roweb-loading-emblem{width:58px;height:58px;filter:drop-shadow(0 4px 14px rgba(239,190,76,.28))}
+.roweb-loading-title{margin-top:5px;color:#ffe29a;font-size:25px;font-weight:1000;letter-spacing:.12em;text-shadow:0 2px 8px #000}
+.roweb-loading-label{margin:9px 0 13px;color:#d8c79f;font-size:13px;letter-spacing:.04em}
+.roweb-loading-track{
+  position:relative;height:18px;padding:3px;border:1px solid #aa7928;border-radius:4px;
+  background:#080603;box-shadow:inset 0 0 9px #000,0 0 0 1px rgba(255,219,128,.08);
+  overflow:hidden;
+}
+.roweb-loading-track::before{
+  content:"";position:absolute;inset:3px;background:repeating-linear-gradient(90deg,transparent 0 24px,rgba(0,0,0,.22) 24px 26px);z-index:2;pointer-events:none;
+}
+.roweb-loading-track>span{
+  position:relative;display:block;width:0;height:100%;border-radius:2px;
+  background:linear-gradient(180deg,#fff0a4 0%,#e7b33e 43%,#a66b16 100%);
+  box-shadow:0 0 12px rgba(244,188,61,.45);transition:width .08s linear;
+}
+.roweb-loading-percent{margin-top:8px;color:#ffe8ad;font:800 13px Consolas,"Microsoft JhengHei",sans-serif;letter-spacing:.08em}
+.roweb-loading-card>small{display:block;margin-top:4px;color:#8b7751;font-size:9px;letter-spacing:.28em}
+body.roweb-loading-open{overflow:hidden!important}
+
+/* Mail notification: dot only, tucked into the button corner. */
+.mail-quick-button{position:relative}
+.mail-unread-badge{
+  right:4px!important;top:4px!important;width:9px!important;min-width:9px!important;height:9px!important;padding:0!important;
+  border-radius:50%!important;background:#e33a2d!important;border:1px solid #ffd29d!important;
+  line-height:0!important;font-size:0!important;box-shadow:0 0 0 2px rgba(31,17,6,.82),0 0 7px rgba(255,63,44,.75)!important;
+}
+@media(max-width:620px){
+  .roweb-loading-card{width:min(440px,calc(100vw - 22px));padding:20px 18px 17px}
+  .roweb-loading-title{font-size:21px}.roweb-loading-emblem{width:50px;height:50px}
+}

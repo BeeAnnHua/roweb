@@ -13,7 +13,7 @@ let expTables = null;
 let clientItemDisplayData = null;
 let currentMap = null;
 
-const RO_WEB_VERSION = "0.9.83C2";
+const RO_WEB_VERSION = "0.9.85J";
 
 function normalizeDataPath(path) {
   return String(path || "")
@@ -110,28 +110,60 @@ function validateStartupData() {
 }
 
 async function initGame() {
-  window.RO_WEB_BOOT_STATE.status = "character_select";
+  const loadProgress=(value,label)=>window.ROWebLoadingScreen?.setProgress?.(value,label);
+  window.ROWebLoadingScreen?.show?.({ progress:4, label:"正在驗證遊戲帳號…" });
+  window.RO_WEB_BOOT_STATE.status = "cloud_auth";
   window.RO_WEB_BOOT_STATE.startedAt = Date.now();
+
+  if (window.ROWebCloudRuntime?.ensureReady) {
+    // V0.9.85J: keep the RO-style loading bar visibly alive while Supabase
+    // validates the session/account/character list. The real gate is still
+    // ensureReady(); these staged values are presentation only and never
+    // advance beyond the next verified checkpoint (12%).
+    const cloudStageTimers = [
+      [140, 6,  "正在驗證登入狀態…"],
+      [380, 8,  "正在讀取遊戲帳號…"],
+      [720, 9,  "正在同步角色列表…"],
+      [1150,10, "正在檢查雲端存檔…"],
+      [1800,11, "正在完成帳號驗證…"]
+    ].map(([delay,value,label]) => setTimeout(() => loadProgress(value,label), delay));
+    try {
+      const cloudReady = await window.ROWebCloudRuntime.ensureReady();
+      if (!cloudReady) return;
+    } finally {
+      cloudStageTimers.forEach(timer => clearTimeout(timer));
+    }
+  }
+  loadProgress(12,"雲端帳號驗證完成");
+
+  // V0.9.85G: Supabase account binding happens after player.js is parsed.
+  // Rebind browser save/IndexedDB keys now, before character selection or player loading,
+  // so another RO account previously used in the same browser can never bleed into this one.
+  window.ROWebSaveManager?.rebindActiveCharacter?.({ reason:"cloud-account-ready" });
+
+  window.RO_WEB_BOOT_STATE.status = "character_select";
   if (window.CharacterSlotsRuntime?.ensureActiveCharacterSelection) {
     await window.CharacterSlotsRuntime.ensureActiveCharacterSelection();
   }
+  window.ROWebLoadingScreen?.show?.({ progress:16, label:"正在準備冒險資料…" });
   window.RO_WEB_BOOT_STATE.status = "loading";
   addBattleLog("遊戲啟動中...");
 
-  await loadServerConfig();
-  await loadJobData();
-  await loadSkillData();
+  await loadServerConfig(); loadProgress(22,"正在讀取伺服器設定…");
+  await loadJobData(); loadProgress(29,"正在讀取職業資料…");
+  await loadSkillData(); loadProgress(37,"正在讀取技能資料…");
   if (typeof loadVirtualSummonData === "function") await loadVirtualSummonData();
   if (typeof loadJobConstitutionData === "function") await loadJobConstitutionData();
   if (typeof loadStatusData === "function") await loadStatusData();
   if (window.CombatFormulaRuntime?.load) await window.CombatFormulaRuntime.load();
-  await loadMonsterData();
+  loadProgress(44,"正在建立戰鬥資料…");
+  await loadMonsterData(); loadProgress(51,"正在讀取怪物資料…");
   await loadMapData();
-  await loadTownData();
+  await loadTownData(); loadProgress(60,"正在讀取地圖與城鎮…");
   await loadItemData();
-  await loadClientItemDisplayData();
+  await loadClientItemDisplayData(); loadProgress(69,"正在讀取道具資料…");
   await loadExpData();
-  await loadPlayerData();
+  await loadPlayerData(); loadProgress(78,"正在同步角色存檔…");
   if (window.NewcomerSupportRuntime?.grantForNewCharacter) {
     window.NewcomerSupportRuntime.grantForNewCharacter();
   }
@@ -146,6 +178,7 @@ async function initGame() {
   setInitialMap();
   if (typeof initPositionEngine === "function") initPositionEngine();
   if (typeof initROStudioPlayerAtlasRuntime === "function") await initROStudioPlayerAtlasRuntime();
+  loadProgress(86,"正在建立角色動畫…");
   if (typeof initROStudioMonsterAtlasRuntime === "function") initROStudioMonsterAtlasRuntime();
   if (typeof initWorldMonsterFieldTestRuntime === "function") await initWorldMonsterFieldTestRuntime();
   if (player?.currentCity && typeof getCityData === "function" && typeof updateTownBackground === "function") {
@@ -171,6 +204,7 @@ async function initGame() {
     ["virtualSummon", () => typeof updateVirtualSummonUI === "function" && updateVirtualSummonUI()],
     ["homunculus", () => typeof updateHomunculusUI === "function" && updateHomunculusUI()]
   ];
+  loadProgress(93,"正在建立遊戲介面…");
   for (const [name, step] of uiSteps) {
     try { step(); }
     catch (error) {
@@ -183,7 +217,9 @@ async function initGame() {
   addBattleLog(`歡迎來到 RO_WEB Alpha ${RO_WEB_VERSION}！`);
   window.RO_WEB_BOOT_STATE.status = window.RO_WEB_BOOT_STATE.errors.length ? "ready_with_warnings" : "ready";
   window.RO_WEB_BOOT_STATE.finishedAt = Date.now();
+  loadProgress(100,"載入完成，歡迎回來！");
   window.dispatchEvent(new CustomEvent("ro-web-ready", { detail: { ...window.RO_WEB_BOOT_STATE } }));
+  window.ROWebLoadingScreen?.complete?.("載入完成，歡迎回來！");
 }
 
 function normalizeMonsterAegisForCardSource(value) {

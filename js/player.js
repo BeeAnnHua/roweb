@@ -5,21 +5,21 @@
 let player = null;
 const LEGACY_SAVE_KEY = "ro_web_save_v0_9_19_ui_scroll_quickbar";
 // V0.9.83C2：每個角色使用獨立存檔 key；舊單角色 key 由 CharacterSlotsRuntime 遷移至第 1 格。
-const SAVE_KEY = window.CharacterSlotsRuntime?.getActiveSaveKey?.() || LEGACY_SAVE_KEY;
-const SAVE_MINUTE_BACKUP_KEY = window.CharacterSlotsRuntime?.getActiveBackupKey?.() || `${SAVE_KEY}_minute_backup_v1`;
-const SAVE_LEASE_KEY = `${SAVE_KEY}_writer_lease_v2`;
-const SAVE_PERSIST_REQUEST_KEY = `${SAVE_KEY}_persist_requested_v2`;
+let SAVE_KEY = window.CharacterSlotsRuntime?.getActiveSaveKey?.() || LEGACY_SAVE_KEY;
+let SAVE_MINUTE_BACKUP_KEY = window.CharacterSlotsRuntime?.getActiveBackupKey?.() || `${SAVE_KEY}_minute_backup_v1`;
+let SAVE_LEASE_KEY = `${SAVE_KEY}_writer_lease_v2`;
+let SAVE_PERSIST_REQUEST_KEY = `${SAVE_KEY}_persist_requested_v2`;
 const SAVE_MINUTE_BACKUP_INTERVAL_MS = 60 * 1000;
 const SAVE_LEASE_HEARTBEAT_MS = 5 * 1000;
 const SAVE_LEASE_STALE_MS = 20 * 1000;
 const RO_WEB_SAVE_SCHEMA = "ro_web_player_save_v2";
 const RO_WEB_SAVE_FORMAT_VERSION = 2;
-const RO_WEB_SAVE_APP_VERSION = "0.9.83C2";
+const RO_WEB_SAVE_APP_VERSION = "0.9.85H";
 const RO_WEB_SAVE_DB_NAME = "ro_web_offline_save_v1";
 const RO_WEB_SAVE_DB_VERSION = 1;
 const RO_WEB_SAVE_DB_STORE = "player_saves";
-const RO_WEB_SAVE_DB_PRIMARY_ID = window.CharacterSlotsRuntime?.getActiveIndexedDbId?.("primary") || "player-primary";
-const RO_WEB_SAVE_DB_BACKUP_ID = window.CharacterSlotsRuntime?.getActiveIndexedDbId?.("backup") || "player-backup";
+let RO_WEB_SAVE_DB_PRIMARY_ID = window.CharacterSlotsRuntime?.getActiveIndexedDbId?.("primary") || "player-primary";
+let RO_WEB_SAVE_DB_BACKUP_ID = window.CharacterSlotsRuntime?.getActiveIndexedDbId?.("backup") || "player-backup";
 let RO_WEB_MINUTE_BACKUP_TIMER = null;
 let RO_WEB_SAVE_LEASE_TIMER = null;
 let RO_WEB_PENDING_SAVE_TIMER = null;
@@ -55,7 +55,7 @@ function createSaveSessionId() {
   return id;
 }
 
-const RO_WEB_SAVE_SESSION_ID = createSaveSessionId();
+let RO_WEB_SAVE_SESSION_ID = createSaveSessionId();
 const RO_WEB_SAVE_SESSION_STARTED_AT = Date.now();
 const RO_WEB_SAVE_STATE = {
   schema: RO_WEB_SAVE_SCHEMA,
@@ -70,9 +70,84 @@ const RO_WEB_SAVE_STATE = {
   dirty: false,
   writer: false,
   conflict: false,
-  lastError: ""
+  lastError: "",
+  lastRemoteSaveOk: null,
+  lastRemoteSaveAt: 0,
+  lastRemoteSaveVersion: 0,
+  lastRemoteError: "",
+  lastManualCloudVerified: null
 };
 window.RO_WEB_SAVE_STATE = RO_WEB_SAVE_STATE;
+
+function getCurrentSaveBinding() {
+  const context = window.CharacterSlotsRuntime?.getActiveContext?.() || {};
+  const saveKey = String(context.saveKey || window.CharacterSlotsRuntime?.getActiveSaveKey?.() || LEGACY_SAVE_KEY);
+  const backupKey = String(context.backupKey || window.CharacterSlotsRuntime?.getActiveBackupKey?.() || `${saveKey}_minute_backup_v1`);
+  const primaryId = String(context.indexedDbPrimaryId || window.CharacterSlotsRuntime?.getActiveIndexedDbId?.("primary") || "player-primary");
+  const backupId = String(context.indexedDbBackupId || window.CharacterSlotsRuntime?.getActiveIndexedDbId?.("backup") || "player-backup");
+  return {
+    accountId:String(context.accountId || ""),
+    characterId:String(context.characterId || ""),
+    saveKey, backupKey, primaryId, backupId
+  };
+}
+
+function rebindActiveCharacterSaveContext(options = {}) {
+  const next = getCurrentSaveBinding();
+  const changed = SAVE_KEY !== next.saveKey
+    || SAVE_MINUTE_BACKUP_KEY !== next.backupKey
+    || RO_WEB_SAVE_DB_PRIMARY_ID !== next.primaryId
+    || RO_WEB_SAVE_DB_BACKUP_ID !== next.backupId;
+  if (!changed) return { changed:false, ...next };
+
+  // This is called after Supabase binds the selected RO account but before player data loads.
+  // Drop any queued work that belongs to the previously cached browser character.
+  if (RO_WEB_PENDING_SAVE_TIMER) { clearTimeout(RO_WEB_PENDING_SAVE_TIMER); RO_WEB_PENDING_SAVE_TIMER = null; }
+  if (RO_WEB_DURABLE_SAVE_TIMER) { clearTimeout(RO_WEB_DURABLE_SAVE_TIMER); RO_WEB_DURABLE_SAVE_TIMER = null; }
+  RO_WEB_PENDING_DURABLE_SAVE = null;
+  try { stopSaveWriterLeaseHeartbeat?.(); } catch (_) {}
+
+  SAVE_KEY = next.saveKey;
+  SAVE_MINUTE_BACKUP_KEY = next.backupKey;
+  SAVE_LEASE_KEY = `${SAVE_KEY}_writer_lease_v2`;
+  SAVE_PERSIST_REQUEST_KEY = `${SAVE_KEY}_persist_requested_v2`;
+  RO_WEB_SAVE_DB_PRIMARY_ID = next.primaryId;
+  RO_WEB_SAVE_DB_BACKUP_ID = next.backupId;
+  RO_WEB_SAVE_SESSION_ID = createSaveSessionId();
+  RO_WEB_SAVE_SEQUENCE = 0;
+  RO_WEB_LAST_SAVE_ENVELOPE = null;
+  RO_WEB_LAST_SAVE_TEXT = "";
+  RO_WEB_SAVE_STATE.sessionId = RO_WEB_SAVE_SESSION_ID;
+  RO_WEB_SAVE_STATE.saveVersion = 0;
+  RO_WEB_SAVE_STATE.loadedSource = "unloaded";
+  RO_WEB_SAVE_STATE.lastRemoteSaveOk = null;
+  RO_WEB_SAVE_STATE.lastRemoteError = "";
+  RO_WEB_SAVE_STATE.binding = { ...next, reboundAt:Date.now(), reason:String(options.reason || "active-character-change") };
+  return { changed:true, ...next };
+}
+
+function candidateMatchesActiveCharacter(candidate, options = {}) {
+  if (!candidate) return false;
+  const binding = getCurrentSaveBinding();
+  const candidateAccountId = String(candidate.accountId || candidate.player?.accountId || "");
+  const candidateCharacterId = String(candidate.characterId || candidate.player?.characterId || "");
+
+  // Remote rows are queried by exact account_id + character_id on Supabase. If an older
+  // corrupted row still carries explicit identity metadata, reject a mismatch; identity-less
+  // legacy remote rows remain valid because the database row itself is already scoped.
+  if (options.remote === true || candidate.source === "remote") {
+    if (binding.characterId && candidateCharacterId && candidateCharacterId !== binding.characterId) return false;
+    if (binding.accountId && candidateAccountId && candidateAccountId !== binding.accountId) return false;
+    return true;
+  }
+  if (!binding.characterId) return true;
+  if (candidateCharacterId && candidateCharacterId !== binding.characterId) return false;
+  if (binding.accountId && candidateAccountId && candidateAccountId !== binding.accountId) return false;
+
+  // Identity-less legacy candidates are allowed only because SAVE_KEY / IndexedDB IDs are
+  // rebound to the exact active character before loading. Explicit mismatches are always blocked.
+  return true;
+}
 
 function hashPlayerSaveText(text) {
   let hash = 0x811c9dc5;
@@ -108,6 +183,8 @@ function parsePlayerSaveCandidate(raw, source = "unknown") {
       sessionId: wrapped ? String(parsed.sessionId || "") : "",
       reason: wrapped ? String(parsed.reason || "legacy") : "legacy-main",
       schema: wrapped ? String(parsed.schema || "legacy-wrapper") : "legacy-plain",
+      accountId: String((wrapped ? parsed.accountId : candidatePlayer.accountId) || candidatePlayer.accountId || ""),
+      characterId: String((wrapped ? parsed.characterId : candidatePlayer.characterId) || candidatePlayer.characterId || ""),
       rawText: typeof raw === "string" ? raw : JSON.stringify(parsed)
     };
   } catch (error) {
@@ -134,8 +211,12 @@ function chooseNewestPlayerSaveCandidate(candidates) {
 function readLocalPlayerSaveCandidates() {
   const candidates = [];
   try {
-    candidates.push(parsePlayerSaveCandidate(localStorage.getItem(SAVE_KEY), "main"));
-    candidates.push(parsePlayerSaveCandidate(localStorage.getItem(SAVE_MINUTE_BACKUP_KEY), "backup"));
+    const main = parsePlayerSaveCandidate(localStorage.getItem(SAVE_KEY), "main");
+    const backup = parsePlayerSaveCandidate(localStorage.getItem(SAVE_MINUTE_BACKUP_KEY), "backup");
+    if (candidateMatchesActiveCharacter(main)) candidates.push(main);
+    else if (main) console.warn("忽略不屬於目前角色的本機主存檔：", { expected:getCurrentSaveBinding(), found:{ accountId:main.accountId, characterId:main.characterId } });
+    if (candidateMatchesActiveCharacter(backup)) candidates.push(backup);
+    else if (backup) console.warn("忽略不屬於目前角色的本機備份：", { expected:getCurrentSaveBinding(), found:{ accountId:backup.accountId, characterId:backup.characterId } });
   } catch (error) {
     console.warn("無法讀取瀏覽器主存檔／備份：", error);
   }
@@ -175,7 +256,9 @@ async function readIndexedDbPlayerSaveCandidates() {
     request.onsuccess = () => {
       const rows = (Array.isArray(request.result) ? request.result : [])
         .filter(row => row?.id === RO_WEB_SAVE_DB_PRIMARY_ID || row?.id === RO_WEB_SAVE_DB_BACKUP_ID);
-      resolve(rows.map(row => parsePlayerSaveCandidate(row?.text, row?.id === RO_WEB_SAVE_DB_PRIMARY_ID ? "indexeddb-primary" : "indexeddb-backup")).filter(Boolean));
+      resolve(rows
+        .map(row => parsePlayerSaveCandidate(row?.text, row?.id === RO_WEB_SAVE_DB_PRIMARY_ID ? "indexeddb-primary" : "indexeddb-backup"))
+        .filter(candidate => candidateMatchesActiveCharacter(candidate)));
     };
     request.onerror = () => { console.warn("讀取 IndexedDB 存檔失敗：", request.error); resolve([]); };
   });
@@ -246,9 +329,28 @@ function flushDurablePlayerSave() {
           if (typeof adapter.saveEnvelope === "function") await adapter.saveEnvelope(envelope, saveContext);
           else if (typeof adapter.save === "function") await adapter.save(envelope, saveContext);
           remoteOk = true;
+          RO_WEB_SAVE_STATE.lastRemoteSaveOk = true;
+          RO_WEB_SAVE_STATE.lastRemoteSaveAt = Date.now();
+          RO_WEB_SAVE_STATE.lastRemoteSaveVersion = Number(envelope.saveVersion || 0);
+          RO_WEB_SAVE_STATE.lastRemoteError = "";
+          window.RO_WEB_CLOUD_SAVE_ERROR_REPORTED = false;
         } catch (error) {
+          RO_WEB_SAVE_STATE.lastRemoteSaveOk = false;
+          RO_WEB_SAVE_STATE.lastRemoteSaveAt = Date.now();
+          RO_WEB_SAVE_STATE.lastRemoteSaveVersion = Number(envelope.saveVersion || 0);
+          RO_WEB_SAVE_STATE.lastRemoteError = String(error?.message || error || "remote save failed");
           console.warn("後端存檔同步失敗；本機耐久存檔仍保留：", error);
+          if (!window.RO_WEB_CLOUD_SAVE_ERROR_REPORTED && typeof addBattleLog === "function") {
+            const raw = String(error?.message || error || "");
+            addBattleLog(/RO_CLOUD_CONFLICT/i.test(raw)
+              ? "雲端偵測到較新的角色進度，已停止用這個分頁覆寫；請回角色選擇後重新進入角色。"
+              : "本機進度已保存，但這次雲端同步未完成；網路恢復後再按一次存檔即可重試。");
+            window.RO_WEB_CLOUD_SAVE_ERROR_REPORTED = true;
+          }
         }
+      } else {
+        RO_WEB_SAVE_STATE.lastRemoteSaveOk = null;
+        RO_WEB_SAVE_STATE.lastRemoteError = "";
       }
       RO_WEB_SAVE_STATE.lastDurableSaveOk = Boolean(idbOk || remoteOk);
       RO_WEB_SAVE_STATE.lastDurableSaveVersion = Number(envelope.saveVersion || 0);
@@ -488,8 +590,8 @@ window.inferLegacyCharacterGender = inferLegacyCharacterGender;
 
 
 //=======================================
-// 玩家 ID（0.9.82GF）
-// 僅作為顯示名稱與全服公告名稱；離線版不進行跨玩家唯一性驗證。
+// 角色名稱（歷史內部函式仍沿用 PlayerId 命名）
+// 作為目前角色的顯示名稱與遊戲公告名稱。
 //=======================================
 function sanitizePlayerId(value) {
   return String(value ?? "")
@@ -506,8 +608,8 @@ function getPlayerIdCodePointLength(value) {
 function validatePlayerId(value) {
   const normalized = sanitizePlayerId(value);
   const length = getPlayerIdCodePointLength(normalized);
-  if (!normalized) return { ok:false, value:"", error:"請輸入玩家 ID。" };
-  if (length > 12) return { ok:false, value:normalized, error:"玩家 ID 最多 12 個字。" };
+  if (!normalized) return { ok:false, value:"", error:"請輸入角色名稱。" };
+  if (length > 12) return { ok:false, value:normalized, error:"角色名稱最多 12 個字。" };
   return { ok:true, value:normalized, error:"" };
 }
 
@@ -536,7 +638,7 @@ function closePlayerIdEditor() {
   return true;
 }
 
-function confirmPlayerIdChange() {
+async function confirmPlayerIdChange() {
   if (!player) return false;
   const input = document.getElementById("playerIdInput");
   const message = document.getElementById("playerIdMessage");
@@ -547,12 +649,23 @@ function confirmPlayerIdChange() {
     return false;
   }
   const previous = sanitizePlayerId(player.name);
+  if (previous === result.value) { closePlayerIdEditor(); return true; }
   player.name = result.value;
   player.playerIdVersion = 1;
   updatePlayerUI();
-  saveGame();
+  if (message) { message.textContent = "名稱同步中…"; message.classList.remove("is-error"); }
+  const saved = typeof window.saveGameAndWait === "function"
+    ? await window.saveGameAndWait({ reason:"character-rename", forceWriter:true, durableDelayMs:0 })
+    : Boolean(saveGame({ reason:"character-rename", forceWriter:true }));
+  if (!saved) {
+    player.name = previous || "冒險者";
+    updatePlayerUI();
+    if (message) { message.textContent = "角色名稱尚未成功保存，請確認網路後再試一次。"; message.classList.add("is-error"); }
+    return false;
+  }
+  window.ROWebAccountMenu?.refresh?.();
   if (typeof addBattleLog === "function") {
-    addBattleLog(previous ? `玩家 ID 已由 ${previous} 更改為 ${result.value}。` : `玩家 ID 已設定為 ${result.value}。`);
+    addBattleLog(previous ? `角色名稱已由 ${previous} 更改為 ${result.value}。` : `角色名稱已設定為 ${result.value}。`);
   }
   closePlayerIdEditor();
   return true;
@@ -571,6 +684,7 @@ window.confirmPlayerIdChange = confirmPlayerIdChange;
 // 先讀取預設角色資料，再用 localStorage 存檔覆蓋
 //=======================================
 async function loadPlayerData() {
+  rebindActiveCharacterSaveContext({ reason:"before-player-load" });
   player = await loadJson("./data/player_default.json", {});
   if (!player || typeof player !== "object" || Array.isArray(player)) {
     throw new Error("player_default.json 無法載入或格式錯誤");
@@ -1014,12 +1128,26 @@ async function saveGameAndWait(reasonOrOptions = "manual") {
     && Number(candidate.savedAt) === Number(expected.savedAt)
     && candidate.checksum === expected.checksum
   );
-  const ok = Boolean(local || durable);
-  RO_WEB_SAVE_STATE.lastManualSaveVerified = ok;
+  const localOk = Boolean(local || durable);
+  let cloudVerified = null;
+  const adapter = RO_WEB_REMOTE_SAVE_ADAPTER;
+  if (adapter) {
+    try {
+      const characterContext = window.CharacterSlotsRuntime?.getRemoteContext?.() || {};
+      if (typeof adapter.verifyEnvelope === "function") {
+        cloudVerified = await adapter.verifyEnvelope(expected, { ...characterContext, saveKey:SAVE_KEY });
+      } else {
+        cloudVerified = Boolean(RO_WEB_SAVE_STATE.lastRemoteSaveOk
+          && Number(RO_WEB_SAVE_STATE.lastRemoteSaveVersion || 0) === Number(expected.saveVersion || 0));
+      }
+    } catch (_) { cloudVerified = false; }
+  }
+  RO_WEB_SAVE_STATE.lastManualSaveVerified = localOk;
+  RO_WEB_SAVE_STATE.lastManualCloudVerified = cloudVerified;
   RO_WEB_SAVE_STATE.lastManualSaveAt = Date.now();
   RO_WEB_SAVE_STATE.lastManualSaveVersion = Number(expected.saveVersion || 0);
-  if (!ok) reportSaveFailure("存檔驗證失敗：主存檔與耐久存檔都沒有讀回最新進度。", null);
-  return ok;
+  if (!localOk) reportSaveFailure("存檔驗證失敗：主存檔與耐久存檔都沒有讀回最新進度。", null);
+  return localOk;
 }
 
 function updateManualSaveButtonState(state, text) {
@@ -1038,11 +1166,17 @@ function manualSaveGame() {
       if (typeof addBattleLog === "function") {
         const pendingInfo = RO_WEB_SAVE_STATE.lastPreparedRewardBatch;
         const preparedText = Number(pendingInfo?.opened || 0) > 0 ? `，並完成 ${Number(pendingInfo.opened).toLocaleString()} 次待處理箱子／轉蛋` : "";
+        const cloudState = RO_WEB_SAVE_STATE.lastManualCloudVerified;
         addBattleLog(ok
-          ? `存檔完成：已驗證最新角色資料${preparedText}。`
+          ? (cloudState === true
+              ? `存檔完成：本機與雲端皆已同步最新角色資料${preparedText}。`
+              : (cloudState === false
+                  ? `本機存檔完成${preparedText}，但雲端同步尚未完成；請保持網路連線後再按一次存檔。`
+                  : `存檔完成：已驗證最新角色資料${preparedText}。`))
           : "存檔失敗：未能驗證最新資料，請勿重新整理並檢查瀏覽器儲存空間。");
       }
-      updateManualSaveButtonState(ok ? "success" : "error", ok ? "已存檔" : "失敗");
+      const cloudPending = ok && RO_WEB_SAVE_STATE.lastManualCloudVerified === false;
+      updateManualSaveButtonState(ok ? (cloudPending ? "pending" : "success") : "error", ok ? (cloudPending ? "本機已存" : "已存檔") : "失敗");
       window.setTimeout(() => updateManualSaveButtonState("idle", "存檔"), 1600);
       return ok;
     })
@@ -1128,7 +1262,10 @@ window.ROWebSaveManager = Object.freeze({
   flush: flushPendingGameSave,
   clearDurable: clearIndexedDbPlayerSaves,
   flushDurable: flushDurablePlayerSave,
-  registerRemoteAdapter: registerRemoteSaveAdapter
+  registerRemoteAdapter: registerRemoteSaveAdapter,
+  rebindActiveCharacter: rebindActiveCharacterSaveContext,
+  getBinding: getCurrentSaveBinding,
+  candidateMatchesActiveCharacter
 });
 
 if (typeof window.addEventListener === "function") {

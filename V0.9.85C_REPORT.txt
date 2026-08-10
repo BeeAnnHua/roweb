@@ -1,0 +1,39 @@
+RO_WEB V0.9.85C 精簡測試 / 更新報告
+====================================
+基準：使用者 2026-08-10 上傳 roweb(目前最新版)(1).zip（已含 V0.9.85B）
+
+完成項目
+1. 右上功能列固定 4 欄 x 3 列，共 12 個玩家功能按鈕。
+2. 按鈕順序與名稱：
+   第一行 人物背包 / 裝備欄目 / 地圖傳送 / 城鎮傳送
+   第二行 素質配點 / 技能配點 / 拍賣行 / 活動
+   第三行 信箱 / 統計 / 召喚物 / 掛機設定
+3. 拍賣行、活動僅預留按鈕，點擊顯示尚未開放。
+4. 原獨立大型「掛機」開始/停止按鈕保留；掛機設定沿用 auto-combat-panel。
+5. GM 從玩家 12 格功能列完全移除。
+6. GM CENTER 改放信箱工具列，且必須經 Supabase ro_gm_can_access(current account_id) 驗證才顯示。
+7. 單封附件成功 finalize 後立即顯示「已領取」、停用按鈕並降低附件亮度。
+8. 郵件列表會顯示 附件 / 已領取 / 已過期 狀態。
+9. 新增「一鍵領取」：逐封領取，每封仍使用既有 local receipt + 雲端 saveAndWait + finalize 防重複流程；任一封存檔驗證失敗即停止後續領取。
+10. 新增「刪除已讀」：後端只刪除已讀且安全可刪郵件；已讀但仍有任何未領附件的郵件永遠保留。
+11. 修正 V0.9.85B 歡迎信字面 \\n 顯示問題；現有 welcome mail SQL 更新，新帳號 trigger 也改用真正換行。
+12. 信箱摘要增加「可領 X 封」。
+
+Supabase 新增
+- public.ro_gm_can_access(uuid)
+- public.ro_mail_delete_read(uuid)
+- 更新 public.ro_mail_create_account_welcome()
+
+靜態驗證
+- index.html 快捷按鈕數量：12，順序/target 驗證通過。
+- 主功能列不存在 gmCenterButton：通過。
+- mailGmCenterButton 預設 hidden：通過。
+- mailClaimAllButton / mailDeleteReadButton：存在。
+- node --check js/mail_runtime.js：通過。
+- node --check js/gm_center.js：通過。
+- node --check js/game.js：通過。
+- SQL dollar-quote / RPC 名稱靜態結構：通過。
+
+限制
+- 本環境無法連到你的正式 Supabase，因此 V0.9.85C SQL 需由你在 Supabase SQL Editor 實際 Run 後做實機測試。
+- 本環境 Chromium 對 localhost 被平台策略阻擋，因此未做瀏覽器像素級 screenshot 測試；CSS 最終 override 已固定 desktop/coarse/portrait 均為 4 欄。

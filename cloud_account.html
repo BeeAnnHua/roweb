@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>彼岸花仙境｜帳號中心</title>
+  <link rel="icon" type="image/svg+xml" href="images/ui/brand/sakura_emblem.svg?v=0.9.84C">
+  <style>
+    :root{color-scheme:dark;--panel:rgba(15,13,9,.91);--panel2:rgba(28,21,11,.89);--gold:#efd487;--line:rgba(222,180,88,.36);--text:#f6ecd3;--muted:#b7aa8d;--ok:#92efad;--bad:#ffaaa3}
+    *{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:"Microsoft JhengHei","PingFang TC",Arial,sans-serif;background:#080705;color:var(--text)}
+    body{min-height:100vh}.bg{position:fixed;inset:0;z-index:-2;background:linear-gradient(115deg,rgba(12,8,4,.28),rgba(5,5,8,.12) 48%,rgba(12,8,4,.26)),url("images/ui/character_select_background.webp?v=0.9.85I") center 48%/cover no-repeat,#090804}
+    .bg:after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 110px rgba(0,0,0,.68);background:linear-gradient(to bottom,rgba(0,0,0,.14),transparent 26%,transparent 74%,rgba(0,0,0,.34))}
+    .wrap{width:min(720px,calc(100% - 28px));margin:auto;padding:clamp(22px,6vh,70px) 0 40px}
+    .brand{display:flex;align-items:center;gap:14px;margin-bottom:17px;text-shadow:0 3px 18px #000}.brand img{width:58px;height:58px;filter:drop-shadow(0 0 13px rgba(225,177,73,.35))}
+    .brand h1{margin:0;color:#f6dc94;font-size:clamp(28px,5vw,38px);letter-spacing:.08em}.brand p{margin:5px 0 0;color:#c7b488;font-size:13px;letter-spacing:.14em}
+    .card{border:1px solid var(--line);border-radius:20px;overflow:hidden;background:linear-gradient(150deg,var(--panel2),var(--panel));box-shadow:0 30px 90px rgba(0,0,0,.56);backdrop-filter:blur(9px)}
+    .tabs{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid rgba(255,255,255,.07)}.tabs button{border:0;border-right:1px solid rgba(255,255,255,.06);border-radius:0;background:rgba(0,0,0,.17);color:#9f9276;padding:15px 8px;font-weight:900;cursor:pointer}
+    .tabs button.active{color:#f4d98d;background:rgba(210,158,53,.09);box-shadow:inset 0 -2px #d7a947}
+    .panel{display:none;padding:24px}.panel.active{display:block}.panel h2{margin:0 0 8px;color:#f5dc99}.panel>p{margin:0 0 17px;color:var(--muted);font-size:13px;line-height:1.7}
+    label{display:block;margin:14px 0 7px;color:#ead9ab;font-size:13px;font-weight:800}input{width:100%;border:1px solid rgba(209,179,105,.34);border-radius:10px;background:rgba(4,4,5,.72);padding:12px 13px;color:#fff;font-size:16px;outline:none}
+    input:focus{border-color:#d3a84a;box-shadow:0 0 0 3px rgba(211,168,74,.10)}.hint{font-size:12px;color:#9f9582;margin-top:6px;line-height:1.55}.security{margin:18px 0 14px;padding:12px 13px;border:1px solid rgba(206,167,74,.23);border-radius:10px;background:rgba(61,44,12,.18);font-size:12px;color:#d4c49e;line-height:1.7}
+    .actions{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}.actions button,.primary,.secondary{flex:1;min-width:150px;border:1px solid #775c26;border-radius:10px;background:linear-gradient(#493718,#2a1f0d);color:#f6dc91;padding:12px 14px;font-weight:900;cursor:pointer}.secondary{border-color:#49443b;background:rgba(22,21,19,.82);color:#cfc6b3}
+    button:disabled{opacity:.5;cursor:not-allowed}.status{display:none;margin:16px 24px 24px;padding:12px 13px;border-radius:10px;font-size:13px;line-height:1.65;white-space:pre-wrap}.status.show{display:block}.status.ok{border:1px solid rgba(80,193,115,.45);background:rgba(35,102,55,.18);color:var(--ok)}.status.err{border:1px solid rgba(230,95,86,.45);background:rgba(112,29,23,.20);color:var(--bad)}.status.info{border:1px solid rgba(205,170,87,.34);background:rgba(88,64,19,.18);color:#e4d1a2}
+    .otp{font:800 28px Consolas,monospace;letter-spacing:9px;text-align:center;padding-left:20px}.hidden{display:none!important}
+    .account-list{display:grid;gap:10px;margin-top:16px}.account-card{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px;border:1px solid rgba(218,178,89,.25);border-radius:12px;background:rgba(0,0,0,.24)}.account-card h3{margin:0;color:#f0d58c}.account-card p{margin:4px 0 0;color:#9f937b;font-size:12px}.account-card button{min-width:115px;border:1px solid #765a24;border-radius:9px;background:linear-gradient(#473515,#281d0b);color:#f6dc91;padding:9px 12px;font-weight:900;cursor:pointer}
+    .success{padding:18px;border:1px solid rgba(78,192,112,.38);border-radius:13px;background:rgba(23,80,41,.18)}.success h3{margin:0 0 14px;color:#a9efbc}.success-grid{display:grid;grid-template-columns:120px 1fr;gap:9px 13px;font-size:14px}.success-grid b{color:#e8d19a}
+    .account-owner{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 16px;padding:12px 14px;border:1px solid rgba(219,180,91,.20);border-radius:11px;background:rgba(0,0,0,.18);color:#c9b993;font-size:12px}.account-owner strong{color:#f0d58c;font-size:13px}
+    .security-box{margin-top:20px;padding:16px;border:1px solid rgba(218,178,89,.22);border-radius:13px;background:rgba(0,0,0,.18)}.security-box h3{margin:0;color:#f0d58c}.security-box>p{margin:6px 0 0;color:#9f937b;font-size:12px;line-height:1.6}.security-box details{margin-top:12px;border-top:1px solid rgba(255,255,255,.07);padding-top:12px}.security-box summary{cursor:pointer;color:#e1c77e;font-weight:800}.security-box .actions{margin-top:14px}
+    .footer{text-align:center;margin-top:14px;color:#8f846e;font-size:11px;text-shadow:0 2px 8px #000}.link{border:0;background:none;color:#d8bc78;padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+    .account-loading[hidden]{display:none!important}.account-loading{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:linear-gradient(180deg,rgba(8,5,2,.20),rgba(5,3,2,.42)),url("images/ui/character_select_background.webp?v=0.9.85I") center 48%/cover no-repeat}.account-loading-box{width:min(500px,calc(100vw - 34px));padding:23px 25px 19px;text-align:center;border:1px solid rgba(219,170,67,.72);border-radius:16px;background:rgba(14,9,5,.91);box-shadow:0 25px 75px #000b;backdrop-filter:blur(7px)}.account-loading-box img{width:55px;height:55px}.account-loading-title{margin:4px 0 8px;color:#ffe29a;font-size:23px;font-weight:1000;letter-spacing:.12em}.account-loading-label{color:#d5c49d;font-size:13px}.account-loading-track{height:18px;margin-top:13px;padding:3px;border:1px solid #aa7928;border-radius:4px;background:#080603;overflow:hidden}.account-loading-track span{display:block;height:100%;width:0;border-radius:2px;background:linear-gradient(180deg,#fff0a4,#e7b33e 45%,#a66b16);transition:width .12s ease}.account-loading-percent{margin-top:7px;color:#ffe8ad;font:800 13px Consolas,monospace}
+        @media(max-width:560px){.wrap{width:calc(100% - 14px);padding-top:14px}.panel{padding:17px}.status{margin:14px 17px 17px}.account-card,.account-owner{align-items:flex-start;flex-direction:column}.account-card button{width:100%}.tabs button{font-size:12px}.otp{letter-spacing:6px}.success-grid{grid-template-columns:1fr;gap:3px}.success-grid b{margin-top:8px}}
+  </style>
+</head>
+<body>
+  <div class="bg" aria-hidden="true"></div>
+  <section id="accountLoading" class="account-loading" hidden role="status" aria-live="polite">
+    <div class="account-loading-box">
+      <img src="images/ui/brand/sakura_emblem.svg?v=0.9.85I" alt="">
+      <div class="account-loading-title">彼岸花仙境</div>
+      <div id="accountLoadingLabel" class="account-loading-label">正在登入…</div>
+      <div class="account-loading-track"><span id="accountLoadingFill"></span></div>
+      <div id="accountLoadingPercent" class="account-loading-percent">0%</div>
+    </div>
+  </section>
+  <main class="wrap">
+    <header class="brand"><img src="images/ui/brand/sakura_emblem.svg?v=0.9.84C" alt=""><div><h1>彼岸花仙境</h1><p>帳號中心</p></div></header>
+    <section class="card">
+      <nav class="tabs" id="tabs">
+        <button type="button" data-tab="login" class="active">登入</button>
+        <button type="button" data-tab="register">註冊帳號</button>
+        <button type="button" data-tab="recovery">忘記密碼</button>
+      </nav>
+
+      <section class="panel active" id="panelLogin">
+        <h2>登入遊戲</h2>
+        <p>使用遊戲帳號或綁定 Email 登入。若是第一次在新裝置登入，可先使用綁定 Email；成功一次後此裝置即可記住遊戲帳號。</p>
+        <label for="loginId">遊戲帳號 / Email</label>
+        <input id="loginId" autocomplete="username" spellcheck="false" placeholder="遊戲帳號或綁定 Email">
+        <label for="loginPassword">密碼</label>
+        <input id="loginPassword" type="password" autocomplete="current-password" placeholder="請輸入密碼">
+        <div class="actions"><button id="loginBtn" type="button">登入</button></div>
+      </section>
+
+      <section class="panel" id="panelRegister">
+        <div id="registerForm">
+          <h2>建立遊戲帳號</h2>
+          <p>完成 Email 驗證後即可建立《彼岸花仙境》遊戲帳號。每個 Email 最多可擁有 5 個遊戲帳號。</p>
+          <label for="accountName">遊戲帳號</label>
+          <input id="accountName" maxlength="20" autocomplete="username" spellcheck="false" placeholder="4～20 碼英數字或底線">
+          <div class="hint">帳號不分大小寫且不可重複。</div>
+          <label for="email">Email</label>
+          <input id="email" type="email" autocomplete="email" placeholder="請輸入可收驗證碼的 Email">
+          <div class="hint">支援一般有效 Email，例如 Gmail、Yahoo、QQ、163、126 等。</div>
+          <label for="password">密碼</label>
+          <input id="password" type="password" minlength="8" autocomplete="new-password" placeholder="至少 8 碼">
+          <label for="password2">再次確認密碼</label>
+          <input id="password2" type="password" minlength="8" autocomplete="new-password" placeholder="再次輸入相同密碼">
+          <div class="security">🔐 帳號安全提醒：請勿使用與 Email、銀行、社群平台或其他重要服務相同的密碼。建議為《彼岸花仙境》設定一組獨立密碼。</div>
+          <div class="actions"><button id="sendOtpBtn" type="button">寄送 6 位數驗證碼</button></div>
+        </div>
+
+        <div id="otpForm" class="hidden">
+          <h2>Email 驗證</h2>
+          <p>驗證碼已寄到 <strong id="otpEmail"></strong>。若沒有看到，請同時檢查垃圾郵件、廣告郵件或其他郵件分類。</p>
+          <label for="otp">6 位數驗證碼</label>
+          <input id="otp" class="otp" inputmode="numeric" maxlength="6" autocomplete="one-time-code" placeholder="000000">
+          <div class="actions"><button id="verifyBtn" type="button">完成驗證</button><button id="resendBtn" class="secondary" type="button" disabled>60 秒後可重寄</button></div>
+          <div class="actions"><button id="backRegisterBtn" class="secondary" type="button">返回修改資料</button></div>
+        </div>
+
+        <div id="registerSuccess" class="hidden">
+          <div class="success">
+            <h3>✅ 帳號註冊成功</h3>
+            <div class="success-grid"><b>遊戲帳號</b><span id="successAccount">-</span><b>Player ID</b><span id="successPlayerId">-</span><b>Email</b><span>驗證完成</span></div>
+          </div>
+          <div class="actions"><button id="enterAfterRegisterBtn" type="button">進入遊戲</button></div>
+        </div>
+      </section>
+
+      <section class="panel" id="panelRecovery">
+        <div id="recoveryRequest">
+          <h2>忘記密碼</h2>
+          <p>輸入綁定 Email，我們會寄送 6 位數密碼重設驗證碼。</p>
+          <label for="recoveryEmail">Email</label>
+          <input id="recoveryEmail" type="email" autocomplete="email" placeholder="綁定 Email">
+          <div class="actions"><button id="sendRecoveryBtn" type="button">寄送重設驗證碼</button></div>
+        </div>
+        <div id="recoveryVerify" class="hidden">
+          <h2>設定新密碼</h2>
+          <p>驗證碼已寄到 <strong id="recoveryOtpEmail"></strong>。若沒有看到，請檢查垃圾郵件或廣告郵件分類。</p>
+          <label for="recoveryOtp">6 位數驗證碼</label>
+          <input id="recoveryOtp" class="otp" inputmode="numeric" maxlength="6" autocomplete="one-time-code" placeholder="000000">
+          <label for="newPassword">新密碼</label>
+          <input id="newPassword" type="password" minlength="8" autocomplete="new-password" placeholder="至少 8 碼">
+          <label for="newPassword2">再次確認新密碼</label>
+          <input id="newPassword2" type="password" minlength="8" autocomplete="new-password" placeholder="再次輸入相同密碼">
+          <div class="actions"><button id="verifyRecoveryBtn" type="button">確認重設密碼</button><button id="resendRecoveryBtn" class="secondary" type="button" disabled>60 秒後可重寄</button></div>
+          <div class="actions"><button id="backRecoveryBtn" class="secondary" type="button">返回修改 Email</button></div>
+        </div>
+      </section>
+
+      <section class="panel" id="panelAccounts">
+        <h2>選擇遊戲帳號</h2>
+        <div class="account-owner"><span>目前登入 Email</span><strong id="accountOwnerEmail">-</strong></div>
+        <p id="accountCountText">選擇要進入的遊戲帳號。</p>
+        <div id="accountList" class="account-list"></div>
+        <div id="addAccountBox" class="hidden">
+          <label for="extraAccountName">新增遊戲帳號</label>
+          <input id="extraAccountName" maxlength="20" spellcheck="false" placeholder="4～20 碼英數字或底線">
+          <div class="actions"><button id="createExtraAccountBtn" type="button">建立新遊戲帳號</button></div>
+        </div>
+        <div class="actions"><button id="toggleAddAccountBtn" class="secondary" type="button">新增遊戲帳號</button><button id="signOutBtn" class="secondary" type="button">登出</button></div>
+
+        <div class="security-box">
+          <h3>帳號安全</h3>
+          <p>修改密碼時需輸入目前密碼；完成後不需要額外輸入 Email 驗證碼。</p>
+          <details id="changePasswordDetails">
+            <summary>修改密碼</summary>
+            <label for="currentPassword">目前密碼</label>
+            <input id="currentPassword" type="password" autocomplete="current-password" placeholder="請輸入目前密碼">
+            <label for="accountNewPassword">新密碼</label>
+            <input id="accountNewPassword" type="password" minlength="8" autocomplete="new-password" placeholder="至少 8 碼">
+            <label for="accountNewPassword2">再次確認新密碼</label>
+            <input id="accountNewPassword2" type="password" minlength="8" autocomplete="new-password" placeholder="再次輸入相同密碼">
+            <div class="actions"><button id="changePasswordBtn" type="button">確認修改密碼</button></div>
+          </details>
+        </div>
+      </section>
+
+      <div id="status" class="status" aria-live="polite"></div>
+    </section>
+    <div class="footer">若驗證信沒有出現在收件匣，請記得檢查垃圾郵件或廣告郵件分類。</div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/cloud_account.js?v=0.9.85I"></script>
+</body>
+</html>

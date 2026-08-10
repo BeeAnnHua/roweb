@@ -1,13 +1,22 @@
 //=======================================
-// 帳號共用倉庫 Runtime v0.9.82GN
+// 帳號共用倉庫 Runtime v0.9.84C
 // 獨立於角色 SAVE_KEY；只刪除角色時完整保留。
 //=======================================
 (function () {
   "use strict";
 
-  const STORAGE_KEY = window.RO_WEB_ACCOUNT_STORAGE_KEY || "ro_web_account_storage_v1";
+  const LEGACY_STORAGE_KEY = window.RO_WEB_ACCOUNT_STORAGE_KEY || "ro_web_account_storage_v1";
   const STORAGE_CAPACITY = 200;
   let accountStorage = null;
+  let loadedStorageKey = "";
+
+  function getStorageKey() {
+    const account = window.CharacterSlotsRuntime?.getAccount?.();
+    if (account?.cloud?.enabled && account?.accountId) {
+      return `ro_web_account_storage_v2_${String(account.accountId)}`;
+    }
+    return LEGACY_STORAGE_KEY;
+  }
   let activeNpc = null;
   let activeCategory = "consume";
 
@@ -62,23 +71,39 @@
   }
 
   function loadAccountStorage() {
-    if (accountStorage) return accountStorage;
+    const key = getStorageKey();
+    if (accountStorage && loadedStorageKey === key) return accountStorage;
     let raw = null;
     try {
-      const text = localStorage.getItem(STORAGE_KEY);
+      const text = localStorage.getItem(key);
       raw = text ? JSON.parse(text) : null;
     } catch (error) {
       console.warn("讀取帳號倉庫失敗：", error);
     }
+    loadedStorageKey = key;
     accountStorage = normalizeAccountStorage(raw);
     return accountStorage;
+  }
+
+  function replaceAccountStorage(raw, options = {}) {
+    accountStorage = normalizeAccountStorage(raw);
+    loadedStorageKey = getStorageKey();
+    if (options.persist !== false) {
+      try { localStorage.setItem(loadedStorageKey, JSON.stringify(accountStorage)); } catch (_) {}
+    }
+    return clone(accountStorage);
   }
 
   function saveAccountStorage() {
     const storage = loadAccountStorage();
     storage.updatedAt = Date.now();
+    const key = getStorageKey();
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(storage));
+      localStorage.setItem(key, JSON.stringify(storage));
+      loadedStorageKey = key;
+      window.ROWebCloudRuntime?.saveSharedStorage?.(clone(storage)).catch?.(error => {
+        console.warn("雲端帳號倉庫同步失敗：", error);
+      });
       return true;
     } catch (error) {
       console.error("儲存帳號倉庫失敗：", error);
@@ -324,8 +349,9 @@
   }
 
   Object.assign(window,{
-    RO_WEB_ACCOUNT_STORAGE_KEY:STORAGE_KEY,
-    loadAccountStorage,saveAccountStorage,normalizeAccountStorage,storageSlotsUsed,
+    RO_WEB_ACCOUNT_STORAGE_KEY:LEGACY_STORAGE_KEY,
+    getAccountStorageKey:getStorageKey,
+    loadAccountStorage,saveAccountStorage,replaceAccountStorage,normalizeAccountStorage,storageSlotsUsed,
     openStorageWindow,closeStorageWindow,renderStorageWindow,depositStorageItem,withdrawStorageItem,
     setStorageCategory,getStorageCategory:()=>activeCategory,getAccountStorageSnapshot:()=>clone(loadAccountStorage())
   });

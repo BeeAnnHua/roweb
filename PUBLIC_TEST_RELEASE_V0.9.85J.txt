@@ -1,0 +1,19 @@
+彼岸花仙境 / RO_WEB V0.9.85J PUBLIC TEST BASELINE
+
+公開前靜態檢查（2026-08-10）
+- 62 個 JavaScript 檔案：語法檢查通過
+- index.html / cloud_account.html / gm_center.html：本地資源引用無缺檔
+- CSS url()：本地資源引用無缺檔
+- 大小寫路徑衝突：0
+- 整包：約 334 MB
+- 最大單一檔案：約 38 MB（js/data_bundle.js）
+- 未發現 .env / 私鑰 / SMTP 密碼 / Supabase service_role / sb_secret
+- 前端使用 Supabase Publishable Key（瀏覽器端公開金鑰）
+- 已加入 .nojekyll，供 GitHub Pages 直接以靜態檔案方式發佈
+
+公開測試建議：
+1. 先保留這份完整 V0.9.85J 作為新的唯一完整基準。
+2. GitHub Pages 上線後，以實際 HTTPS 網址重測：登入 -> 遊戲帳號 -> 角色選擇 -> 進入遊戲 -> 存檔 -> 登出 -> 再登入。
+3. 再以第二瀏覽器或手機登入同一帳號，確認雲端角色、背包與倉庫一致。
+4. 一般玩家確認看不到 GM CENTER；GM 帳號再做一次指定 Player ID 的小額寄送測試。
+5. 公測期間先不要刪除 Supabase 舊 migration / RPC，避免破壞已驗證的信箱與角色流程。

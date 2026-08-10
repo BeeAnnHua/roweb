@@ -1,3 +1,60 @@
+# V0.9.85J PUBLIC TEST BASELINE
+
+- Public-test baseline confirmed from the user-tested V0.9.85J package on 2026-08-10.
+- Core cloud flow verified in live testing: Email login, RO account selection, 12 character slots, cloud save/load, same-browser account switching isolation, mailbox, GM CENTER delivery, one-time attachment claiming, and RO-style loading screen.
+- V0.9.85G fixed legacy local-character migration being reused across different RO accounts.
+- V0.9.85I finalized immediate mailbox claim UI, unread red-dot notification, account/login background, and 0-100% loading presentation.
+- V0.9.85J keeps the loading bar moving while waiting for Supabase account/session readiness.
+- No additional Supabase SQL migration is required after the already-applied V0.9.85C mailbox operations migration.
+- Browser code uses the Supabase Publishable Key only. Never add a service_role key, sb_secret key, SMTP password, or other server secret to this public repository.
+
+# V0.9.85F current baseline
+
+- Critical cloud isolation fix for multiple RO accounts / characters used in the same browser. `player.js` save bindings are rebound after Supabase selects the current `account_id`, before any character data is loaded.
+- localStorage / IndexedDB candidates with explicit `accountId` or `characterId` that do not match the currently selected cloud character are rejected.
+- Cloud save writes additionally block cross-account / cross-character context mismatches before updating `ro_characters`.
+- Switching RO account, signing out, or pressing `進入遊戲` from Account Center always forces the 12-slot character selector first; never auto-enter the previously used character.
+- The chat/system log toolbar no longer contains `存檔 / 角色 / 清存檔`. Manual save moved into the persistent gear account menu. Character deletion remains only in the 12-slot selector.
+- Gear-menu manual save and account leave flow also flush account shared storage, keeping warehouse sync attached to the current `account_id`.
+- No Supabase SQL migration is required for V0.9.85F.
+
+# V0.9.85C current baseline
+
+- Builds on the user-tested V0.9.85B mailbox baseline.
+- Right HUD player menu is fixed to 4 columns x 3 rows: 人物背包 / 裝備欄目 / 地圖傳送 / 城鎮傳送; 素質配點 / 技能配點 / 拍賣行 / 活動; 信箱 / 統計 / 召喚物 / 掛機設定.
+- 拍賣行 and 活動 are placeholder buttons only; do not attach gameplay systems until explicitly requested.
+- The independent large 掛機 start/stop toggle remains below the 12-button menu; 掛機設定 opens the existing auto-combat settings panel.
+- GM is no longer a player quick-menu slot. GM CENTER is exposed only inside the mailbox toolbar after `ro_gm_can_access(current_account_id)` succeeds.
+- Mail claim UI immediately becomes disabled `已領取` after finalization; claimed mail is visibly marked in the list.
+- Mail toolbar adds 一鍵領取 and 刪除已讀. Delete-read must preserve every read mail that still has an unclaimed item/Zeny/Blue Gem/Red Gem reward.
+- `supabase/V0.9.85C_MAIL_UI_OPERATIONS.sql` adds `ro_gm_can_access`, `ro_mail_delete_read`, and fixes literal `\n` welcome-mail text into real line breaks. Run it as a new SQL Editor query after V0.9.85B.
+- Keep V0.9.84C Auth / 5 accounts / Player ID / 12 character slots / cloud-save behavior unchanged.
+
+# V0.9.85B current baseline
+
+- Adds account-level in-game mailbox and GM CENTER on top of V0.9.84C.
+- Supabase migration: `supabase/V0.9.85B_MAIL_GM_CENTER.sql`. It is cumulative and can upgrade V0.9.85A or install the mailbox for the first time.
+- Player mailbox is account-scoped; attachment rewards are delivered to the currently active character.
+- Attachment claim uses a local `mailClaimReceipts` idempotency journal and finalizes server claim only after cloud save verification.
+- Mail attachments support up to 5 item types plus Zeny, Blue Gem and Red Gem currencies.
+- Existing and future active RO accounts receive one system welcome mail, `信箱系統正式開通！`, containing Red Gem x100. `system_key=mail_open_welcome_v1` prevents duplicate welcome rewards.
+- GM CENTER is authorized against the currently selected RO `account_id`, not merely the Auth Email. A normal Player account must never inherit GM rights from another account under the same Email.
+- Normal Player accounts must not render the GM quick button. Backend RPC still independently enforces `account_role='gm'` and active status.
+- GM targets are managed by Player ID (for example 100010); do not expose or require Supabase Auth UID for routine GM operations.
+- V0.9.84C Auth / 5 accounts / Player ID / 12 character slots / cloud-save behavior remains authoritative and must not regress.
+
+# V0.9.84C current baseline
+
+- Supabase cloud account flow is active: Email OTP registration, password recovery, up to 5 RO accounts per Auth Email.
+- Player IDs 100001~100009 are reserved for GM/test; normal registration sequence starts at 100010.
+- Each RO account has 12 character slots. Character identity is permanent `character_id`; slot movement only changes `slot_index` and supports move/swap.
+- Cloud character saves live in `public.ro_characters.save_data`; account shared storage lives in `public.ro_accounts.shared_save.account_storage`.
+- LocalStorage + IndexedDB remain safety copies. Cloud sync errors must never delete local progress. Remote-newer saves are protected from being overwritten.
+- Character selector cloud badge is live: sync / synced / pending / conflict / error. Manual save verifies the local durable copy and reports cloud verification separately.
+- `cloud_register_test.html` is retired and redirects to the player-facing account page.
+- Account Center now supports logged-in password changes using current password + new password; no extra OTP is requested for this action.
+- New-device pure game-account-name login still requires a future server-side account resolver. Do not expose player Email through a public RPC just to implement username login.
+
 # V0.9.83C2 current baseline
 
 - WM_SEVERE_RAINSTORM / Skill 2418 must accept Bow, Musical/Instrument, and Whip. Do not narrow this list.
@@ -7,7 +64,7 @@
 - Historical root reports are compacted into `RO_WEB_HISTORY_RECORDS_THROUGH_V0.9.83C.zip`; use `tools/restore_history_records.py` only when a legacy audit requires the original files.
 - Current concise release metadata: `CURRENT_RELEASE_SUMMARY_V0.9.83C2.json`.
 
-- Default account slot limit: 4; configurable up to 12 through `CharacterSlotsRuntime.setSlotLimit()` or a future cloud account profile.
+- Default and maximum account slot limit: 12. Cloud `slot_limit` is authoritative and the selector renders SLOT 1~12.
 - Account profile key: `ro_web_account_profile_v1`; per-character saves use `ro_web_character_save_v1_<characterId>` and matching backup / IndexedDB IDs.
 - Existing single-character localStorage saves migrate to slot 1 while retaining the legacy rollback copy. IndexedDB-only migration intentionally reloads before gameplay so `player.js` binds the final character save keys.
 - Account-shared storage remains outside character deletion. Character inventory, equipment, skills, map, quick slots and newcomer progression remain per-character.

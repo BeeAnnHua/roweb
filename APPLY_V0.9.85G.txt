@@ -1,0 +1,23 @@
+V0.9.85G — 帳號切換 / 舊本機遷移隔離修正
+
+安裝：
+1. 覆蓋 Patch 內 index.html、cloud_account.html、js/ 對應檔案。
+2. 不需要執行 Supabase SQL。
+3. 重新整理頁面即可；本版已把核心 JS ?v=cacheKey 更新為 0.9.85G。
+
+修正：
+- 修正切換 Email / Player ID 後又跳出「偵測到本機角色資料」並重複匯入角色的問題。
+- 新版本機遷移備份在第一次綁定雲端時就鎖定唯一 targetAccountId；不可跨 Player ID 使用。
+- 舊 V1 遷移備份因沒有安全的目標 account_id，從 0.9.85G 起不再自動匯入。
+- 舊本機角色備份成功遷移一次後即 consumed；永久不再對第二個帳號提供。
+- 已有雲端角色的帳號不再自動觸發本機角色遷移。
+- 只允許真正 local-only、acct_* 的舊帳號資料作為遷移來源；Supabase 雲端帳號資料絕不當成遷移來源。
+- 修正 V0.9.85F 核心 JS cacheKey 未同步更新的問題，避免瀏覽器正常重新整理時仍使用舊版 player/cloud runtime。
+- Account Center「目前綁定 Email」改為「目前登入 Email」，避免誤解。
+
+Email / 遊戲帳號說明：
+- Account Center 只會列出「目前登入 Email」底下的 1～5 個遊戲帳號。
+- 若 GM01 是用另一個 Email 註冊，必須先登出目前 Email，再登入 GM01 所屬 Email；兩個 Email 不會出現在同一個 1/5 清單。
+
+注意：
+- 0.9.85F 以前已經被錯誤複製到 Supabase 的重複角色，本版只停止繼續複製，不會自動刪除既有角色。

@@ -1,0 +1,20 @@
+彼岸花仙境 / RO_WEB V0.9.85A Patch
+=====================================
+基準：V0.9.84C roweb(註冊網頁完成版)
+
+【1】先做 Supabase
+Supabase Dashboard -> SQL Editor
+執行：supabase/V0.9.85A_MAIL_GM_CENTER.sql
+
+【2】再覆蓋遊戲檔
+把 Patch 內 roweb(目前最新版) 資料夾內容覆蓋到你的最新版同名資料夾。
+
+【3】啟動
+請用原本 HTTP server / GitHub Pages 測試，不要改掉 V0.9.84C 的雲端登入設定。
+
+【4】第一輪測試
+GM01 / 100001：應看到 GM 按鈕。
+一般玩家 / 100010：只能看到信箱，不應看到 GM 按鈕。
+GM CENTER 寄信給 100010，再由 100010 收信、領附件、重新整理確認不可重複領取。
+
+完整說明：docs/V0.9.85A_MAIL_GM_CENTER.md

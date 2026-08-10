@@ -1,21 +1,22 @@
 //=======================================
-// 四角色欄位／帳號資料 Runtime V0.9.83C2
+// 十二角色欄位／帳號資料 Runtime V0.9.85I
 // - 本機先行，保留雲端帳號／角色 API 契約
 // - 舊單角色存檔自動遷移至第 1 格
 //=======================================
 (function () {
   "use strict";
 
-  const VERSION = "0.9.83C2";
+  const VERSION = "0.9.85I";
   const ACCOUNT_KEY = "ro_web_account_profile_v1";
   const LEGACY_SAVE_KEY = "ro_web_save_v0_9_19_ui_scroll_quickbar";
   const SLOT_SAVE_PREFIX = "ro_web_character_save_v1_";
   const SESSION_ENTRY_KEY = "ro_web_character_entry_v1";
   const FORCE_SELECTOR_KEY = "ro_web_force_character_selector_v1";
-  const DEFAULT_SLOT_LIMIT = 4;
+  const DEFAULT_SLOT_LIMIT = 12;
   const MAX_SLOT_LIMIT = 12;
   const ACCOUNT_SCHEMA = "ro_web_account_profile_v1";
   const CHARACTER_SCHEMA = "ro_web_character_slot_v1";
+  const LOCAL_MIGRATION_BACKUP_KEY = "ro_web_account_profile_local_backup_v1";
 
   let account = null;
   let selectionResolver = null;
@@ -174,7 +175,7 @@
       version: 1,
       appVersion: VERSION,
       accountId: String(source.accountId || randomId("acct")),
-      slotLimit: Math.min(MAX_SLOT_LIMIT, Math.max(1, Math.floor(Number(source.slotLimit || DEFAULT_SLOT_LIMIT)))),
+      slotLimit: Math.min(MAX_SLOT_LIMIT, Math.max(DEFAULT_SLOT_LIMIT, Math.floor(Number(source.slotLimit || DEFAULT_SLOT_LIMIT)))),
       characters: []
     };
     const occupied = new Set();
@@ -458,6 +459,29 @@
     return `assets/characters/novice/${gender}/idle.png?v=${VERSION}`;
   }
 
+  function cloudStatusLabel() {
+    if (!account?.cloud?.enabled) return { text:"本機存檔", state:"local", title:"目前使用本機存檔" };
+    const sync = window.RO_WEB_CLOUD_SYNC_STATE || {};
+    const state = String(sync.status || "ready");
+    if (state === "syncing") return { text:"同步中…", state, title:"正在同步角色進度到雲端" };
+    if (state === "synced") return { text:"雲端同步完成", state, title:"最新角色進度已同步到雲端" };
+    if (state === "pending") return { text:"雲端待同步", state, title:"本機存檔已保留；雲端同步尚未完成" };
+    if (state === "conflict") return { text:"同步衝突", state, title:"偵測到較新的雲端進度，已阻止舊資料覆寫" };
+    if (state === "error") return { text:"雲端連線異常", state, title:"目前無法連線到雲端存檔服務" };
+    if (state === "connecting") return { text:"連線中…", state, title:"正在連線雲端存檔服務" };
+    return { text:"雲端同步", state:"ready", title:"角色進度已啟用雲端同步" };
+  }
+
+  function updateCloudStatusIndicator() {
+    const cloudNode = document.getElementById("characterCloudStatus");
+    if (!cloudNode) return false;
+    const info = cloudStatusLabel();
+    cloudNode.textContent = info.text;
+    cloudNode.dataset.syncState = info.state;
+    cloudNode.title = info.title;
+    return true;
+  }
+
   function formatLocation(summary = {}) {
     const locationNames = {
       prontera:"普隆德拉", geffen:"吉芬", payon:"斐揚", alberta:"艾爾貝塔",
@@ -515,6 +539,7 @@
         </div>
         <div class="character-slot-actions">
           <button type="button" class="character-slot-enter">進入遊戲</button>
+          <button type="button" class="character-slot-move">移動位置</button>
           <button type="button" class="character-slot-delete">刪除</button>
         </div>`;
       const portraitImage = card.querySelector(".character-slot-portrait img");
@@ -530,6 +555,7 @@
         renderCharacterSlots();
       });
       card.querySelector(".character-slot-enter")?.addEventListener("click", () => enterCharacter(slot.characterId));
+      card.querySelector(".character-slot-move")?.addEventListener("click", () => openMoveCharacterDialog(slot.characterId));
       card.querySelector(".character-slot-delete")?.addEventListener("click", () => requestDeleteCharacter(slot.characterId));
       grid.appendChild(card);
     }
@@ -537,12 +563,20 @@
     const count = account.characters.length;
     const countNode = document.getElementById("characterSlotCount");
     if (countNode) countNode.textContent = `${count} / ${account.slotLimit}`;
-    const cloudNode = document.getElementById("characterCloudStatus");
-    if (cloudNode) cloudNode.textContent = account.cloud?.enabled ? "雲端同步" : "本機存檔";
+    updateCloudStatusIndicator();
+    const identityNode = document.getElementById("characterAccountIdentity");
+    if (identityNode) {
+      const label = String(account.cloud?.accountName || "").trim();
+      const playerId = Number(account.cloud?.playerId || 0);
+      identityNode.textContent = label ? `${label}${playerId ? ` · ${playerId}` : ""}` : "本機角色";
+    }
+    const importButton = document.getElementById("characterImportLocalButton");
+    if (importButton) importButton.hidden = !Boolean(window.ROWebCloudRuntime?.hasPendingLocalMigration?.());
     return true;
   }
 
   function showSelector() {
+    window.ROWebLoadingScreen?.hide?.({ immediate:true });
     const overlay = document.getElementById("characterSelectOverlay");
     const root = document.getElementById("game-root");
     if (overlay) overlay.hidden = false;
@@ -592,6 +626,7 @@
   function enterCharacter(characterId) {
     const slot = findCharacter(characterId);
     if (!slot) { setStatusMessage("找不到指定角色。", true); return false; }
+    window.ROWebLoadingScreen?.show?.({ reset:true, progress:8, label:`正在載入「${sanitizeName(slot.summary?.name || slot.seed?.name || "角色") }」…` });
     account.activeCharacterId = slot.characterId;
     saveAccount();
     setEntryToken(slot.characterId);
@@ -649,7 +684,7 @@
     return document.querySelector("[data-create-gender].is-selected")?.dataset?.createGender || "male";
   }
 
-  function confirmCreateCharacter() {
+  async function confirmCreateCharacter() {
     const message = document.getElementById("characterCreateMessage");
     const result = validateCharacterName(document.getElementById("characterCreateName")?.value);
     if (!result.ok) {
@@ -666,16 +701,37 @@
       if (message) message.textContent = "這個角色欄位已被使用。";
       return false;
     }
-    const characterId = randomId("char");
+
     const createdAt = now();
     const seed = { name:result.value, gender:normalizeGender(selectedCreateGender()), createdAt };
+    let characterId = randomId("char");
+    let cloudRow = null;
+
+    if (cloudAdapter && typeof cloudAdapter.createCharacter === "function") {
+      try {
+        if (message) message.textContent = "正在建立雲端角色...";
+        cloudRow = await cloudAdapter.createCharacter({
+          slotIndex,
+          name: result.value,
+          gender: seed.gender,
+          createdAt
+        });
+        if (!cloudRow?.character_id) throw new Error("雲端沒有回傳角色 ID。");
+        characterId = String(cloudRow.character_id);
+      } catch (error) {
+        console.error("雲端角色建立失敗：", error);
+        if (message) message.textContent = `建立角色失敗：${error?.message || error}`;
+        return false;
+      }
+    }
+
     const slot = normalizeCharacterSlot({
       characterId,
       slotIndex,
       createdAt,
       updatedAt:createdAt,
       initialized:false,
-      revision:0,
+      revision:Number(cloudRow?.revision || 0),
       seed,
       summary:{ ...seed, jobKey:"novice", jobName:"初學者", baseLevel:1, jobLevel:1, currentCity:"prontera", lastPlayedAt:0 }
     }, slotIndex);
@@ -759,6 +815,7 @@
   }
 
   async function returnToCharacterSelection() {
+    window.ROWebLoadingScreen?.show?.({ reset:true, progress:8, label:"正在返回角色選擇…" });
     try {
       if (typeof window.saveGameAndWait === "function") await window.saveGameAndWait({ reason:"return-character-select", forceWriter:true });
       else if (typeof window.saveGame === "function") window.saveGame({ reason:"return-character-select", forceWriter:true });
@@ -771,6 +828,229 @@
     return true;
   }
 
+
+  function readLocalMigrationBackup() {
+    return readJson(LOCAL_MIGRATION_BACKUP_KEY, null);
+  }
+
+  function writeLocalMigrationBackup(value) {
+    return writeJson(LOCAL_MIGRATION_BACKUP_KEY, value);
+  }
+
+  function isLegacyLocalAccountForMigration(value) {
+    if (!value || typeof value !== "object") return false;
+    if (value.cloud?.enabled === true || String(value.cloud?.provider || "").toLowerCase() === "supabase") return false;
+    if (!Array.isArray(value.characters) || !value.characters.length) return false;
+    // 本機舊帳號的 accountId 由 randomId("acct") 產生；Supabase account_id 是 UUID。
+    // 只允許真正的舊本機資料進入一次性遷移流程，禁止把另一個雲端帳號誤當成來源。
+    const id = String(value.accountId || "");
+    return !id || id.startsWith("acct_");
+  }
+
+  function stashLocalAccountForMigration(targetAccountId = "") {
+    if (!isLegacyLocalAccountForMigration(account)) return false;
+    const existing = readLocalMigrationBackup();
+    if (existing?.account?.characters?.length) return false;
+    return writeLocalMigrationBackup({
+      schema:"ro_web_local_migration_backup_v2",
+      createdAt:now(),
+      account:clone(account),
+      targetAccountId:String(targetAccountId || ""),
+      migratedToAccountId:"",
+      migratedAt:0,
+      consumed:false,
+      mapping:[]
+    });
+  }
+
+  function getLocalMigrationCandidate(options = {}) {
+    const backup = readLocalMigrationBackup();
+    if (!backup?.account?.characters?.length) return null;
+    if (!isLegacyLocalAccountForMigration(backup.account)) return null;
+    const completed = backup.consumed === true || Number(backup.migratedAt || 0) > 0 || Boolean(String(backup.migratedToAccountId || ""));
+    if (completed && options.includeCompleted !== true) return null;
+    return clone(backup);
+  }
+
+  function markLocalMigrationComplete(accountId, mapping = []) {
+    const backup = readLocalMigrationBackup();
+    if (!backup) return false;
+    backup.migratedToAccountId = String(accountId || "");
+    backup.migratedAt = now();
+    backup.consumed = true;
+    backup.mapping = Array.isArray(mapping) ? clone(mapping) : [];
+    return writeLocalMigrationBackup(backup);
+  }
+
+  function normalizeCloudCharacterRow(row, index = 0) {
+    if (!row || typeof row !== "object") return null;
+    const characterId = String(row.character_id || "").trim();
+    if (!characterId) return null;
+    const saveData = row.save_data && typeof row.save_data === "object" ? row.save_data : {};
+    const savedPlayer = saveData.player && typeof saveData.player === "object" ? saveData.player : null;
+    const createdAt = Number(new Date(row.created_at || 0).getTime() || now());
+    const updatedAt = Number(new Date(row.updated_at || 0).getTime() || createdAt);
+    const hasSave = Boolean(savedPlayer && Object.keys(savedPlayer).length);
+    const gender = normalizeGender(savedPlayer?.gender || saveData?.seed?.gender || "male");
+    const name = sanitizeName(row.name || savedPlayer?.name || "冒險者") || "冒險者";
+    return normalizeCharacterSlot({
+      characterId,
+      slotIndex:Math.max(0, Number(row.slot_index || index + 1) - 1),
+      createdAt,
+      updatedAt,
+      revision:Number(row.revision || saveData.saveVersion || 0),
+      initialized:hasSave,
+      seed:hasSave ? null : { name, gender, createdAt },
+      summary:{
+        name,
+        gender,
+        jobKey:String(savedPlayer?.jobKey || "novice"),
+        jobName:String(row.job_name || savedPlayer?.job || "初學者"),
+        baseLevel:Number(row.base_level || savedPlayer?.baseLevel || 1),
+        jobLevel:Number(row.job_level || savedPlayer?.jobLevel || 1),
+        currentCity:String(savedPlayer?.currentCity || "prontera"),
+        map:String(row.map_name || savedPlayer?.map || ""),
+        characterAtlas:String(savedPlayer?.characterAtlas || ""),
+        portraitSrc:String(savedPlayer?.portraitSrc || ""),
+        lastPlayedAt:Number(saveData.savedAt || updatedAt),
+        updatedAt
+      }
+    }, index);
+  }
+
+  function bindCloudAccount(cloudAccount, cloudCharacters = []) {
+    if (!cloudAccount?.account_id) return false;
+    if (!account?.cloud?.enabled && account?.characters?.length) stashLocalAccountForMigration(cloudAccount.account_id);
+
+    const createdAt = Number(new Date(cloudAccount.created_at || 0).getTime() || now());
+    const next = {
+      schema:ACCOUNT_SCHEMA,
+      version:1,
+      appVersion:VERSION,
+      accountId:String(cloudAccount.account_id),
+      slotLimit:Math.min(MAX_SLOT_LIMIT, Math.max(DEFAULT_SLOT_LIMIT, Number(cloudAccount.slot_limit || DEFAULT_SLOT_LIMIT))),
+      activeCharacterId:"",
+      createdAt,
+      updatedAt:Number(new Date(cloudAccount.updated_at || 0).getTime() || now()),
+      cloud:{
+        enabled:true,
+        provider:"supabase",
+        lastSyncAt:now(),
+        status:"synced",
+        playerId:Number(cloudAccount.player_id || 0),
+        accountName:String(cloudAccount.account_name || ""),
+        userId:String(cloudAccount.user_id || "")
+      },
+      characters:(Array.isArray(cloudCharacters) ? cloudCharacters : [])
+        .map((row,index) => normalizeCloudCharacterRow(row,index))
+        .filter(Boolean)
+        .sort((a,b) => a.slotIndex - b.slotIndex),
+      legacyMigration:null
+    };
+
+    const previousActive = String(account?.activeCharacterId || "");
+    next.activeCharacterId = next.characters.some(row => row.characterId === previousActive)
+      ? previousActive
+      : (next.characters[0]?.characterId || "");
+
+    account = normalizeAccount(next);
+    account.cloud = { ...next.cloud };
+    saveAccount();
+    bootstrapCharacterId = String(account.activeCharacterId || "");
+    renderCharacterSlots();
+    return true;
+  }
+
+  async function moveCharacterToSlot(characterId, targetSlotIndex) {
+    const slot = findCharacter(characterId);
+    if (!slot) return false;
+    const targetIndex = Math.max(0, Math.min(account.slotLimit - 1, Math.floor(Number(targetSlotIndex))));
+    if (targetIndex === slot.slotIndex) return true;
+
+    const target = account.characters.find(row => row.slotIndex === targetIndex) || null;
+
+    if (cloudAdapter && typeof cloudAdapter.moveCharacterToSlot === "function") {
+      try {
+        await cloudAdapter.moveCharacterToSlot(String(slot.characterId), targetIndex);
+      } catch (error) {
+        console.error("雲端角色移位失敗：", error);
+        setStatusMessage(`角色位置調整失敗：${error?.message || error}`, true);
+        return false;
+      }
+    }
+
+    const oldIndex = slot.slotIndex;
+    slot.slotIndex = targetIndex;
+    if (target) target.slotIndex = oldIndex;
+    account.characters.sort((a,b) => a.slotIndex - b.slotIndex);
+    saveAccount();
+    renderCharacterSlots();
+    setStatusMessage(target ? `已交換 SLOT ${oldIndex + 1} 與 SLOT ${targetIndex + 1}。` : `已移動到 SLOT ${targetIndex + 1}。`, false);
+    return true;
+  }
+
+  function ensureMoveDialog() {
+    let modal = document.getElementById("characterMoveModal");
+    if (modal) return modal;
+    modal = document.createElement("section");
+    modal.id = "characterMoveModal";
+    modal.className = "character-move-overlay";
+    modal.hidden = true;
+    modal.innerHTML = `
+      <div class="character-move-dialog" role="dialog" aria-modal="true" aria-labelledby="characterMoveTitle">
+        <header>
+          <div><h2 id="characterMoveTitle">調整角色位置</h2><p>選擇要移動到的角色格；已有角色時會直接交換位置。</p></div>
+          <button type="button" class="character-move-close" aria-label="關閉">×</button>
+        </header>
+        <div id="characterMoveGrid" class="character-move-grid"></div>
+        <p id="characterMoveMessage" class="character-move-message"></p>
+      </div>`;
+    document.body.appendChild(modal);
+    modal.addEventListener("click", event => { if (event.target === modal) closeMoveCharacterDialog(); });
+    modal.querySelector(".character-move-close")?.addEventListener("click", closeMoveCharacterDialog);
+    return modal;
+  }
+
+  let moveCharacterId = "";
+
+  function openMoveCharacterDialog(characterId) {
+    const slot = findCharacter(characterId);
+    if (!slot) return false;
+    moveCharacterId = String(characterId);
+    const modal = ensureMoveDialog();
+    const grid = modal.querySelector("#characterMoveGrid");
+    if (!grid) return false;
+    grid.textContent = "";
+    const byIndex = new Map(account.characters.map(row => [row.slotIndex, row]));
+    for (let index = 0; index < account.slotLimit; index += 1) {
+      const occupant = byIndex.get(index) || null;
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "character-move-slot";
+      if (index === slot.slotIndex) button.classList.add("is-current");
+      if (occupant && occupant.characterId !== slot.characterId) button.classList.add("is-occupied");
+      const name = occupant ? sanitizeName(occupant.summary?.name || occupant.seed?.name || "冒險者") : "空角色格";
+      button.innerHTML = `<b>SLOT ${index + 1}</b><span>${escapeHtml(name)}</span>${index === slot.slotIndex ? "<small>目前位置</small>" : (occupant ? "<small>交換</small>" : "<small>移動</small>")}`;
+      button.disabled = index === slot.slotIndex;
+      button.addEventListener("click", async () => {
+        const ok = await moveCharacterToSlot(moveCharacterId, index);
+        if (ok) closeMoveCharacterDialog();
+      });
+      grid.appendChild(button);
+    }
+    modal.hidden = false;
+    document.body?.classList.add("character-move-open");
+    return true;
+  }
+
+  function closeMoveCharacterDialog() {
+    const modal = document.getElementById("characterMoveModal");
+    if (modal) modal.hidden = true;
+    document.body?.classList.remove("character-move-open");
+    moveCharacterId = "";
+    return true;
+  }
+
   function registerCloudAdapter(adapter) {
     cloudAdapter = adapter && typeof adapter === "object" ? adapter : null;
     window.RO_WEB_CHARACTER_CLOUD_ADAPTER = cloudAdapter;
@@ -778,10 +1058,14 @@
     // loadCandidates/load + saveEnvelope/save；後台接上後不必改角色選擇 UI。
     window.RO_WEB_REMOTE_SAVE_ADAPTER = cloudAdapter;
     window.ROWebSaveManager?.registerRemoteAdapter?.(cloudAdapter);
-    if (account) {
-      account.cloud.enabled = Boolean(cloudAdapter);
-      account.cloud.provider = String(cloudAdapter?.provider || (cloudAdapter ? "custom" : "local"));
-      account.cloud.status = cloudAdapter ? "adapter-ready" : "local-only";
+
+    // 重要：只「註冊」雲端 adapter 時，不可把尚未綁定帳號的本機角色
+    // 標成 cloud.enabled=true。否則 bindCloudAccount() 會誤以為它本來就
+    // 是雲端帳號，跳過第一次的本機角色備份/轉移偵測。
+    // 真正的 cloud.enabled 狀態只由 bindCloudAccount() 在取得 Supabase
+    // account_id 後設定。
+    if (!cloudAdapter && account?.cloud?.enabled !== true) {
+      account.cloud = { ...account.cloud, enabled:false, provider:"local", status:"local-only" };
       saveAccount();
     }
     return Boolean(cloudAdapter);
@@ -797,13 +1081,17 @@
   }
 
   function setSlotLimit(value) {
-    const next = Math.min(MAX_SLOT_LIMIT, Math.max(1, Math.floor(Number(value || DEFAULT_SLOT_LIMIT))));
+    const next = Math.min(MAX_SLOT_LIMIT, Math.max(DEFAULT_SLOT_LIMIT, Math.floor(Number(value || DEFAULT_SLOT_LIMIT))));
     const highestOccupied = Math.max(-1, ...account.characters.map(slot => slot.slotIndex));
     if (next <= highestOccupied) return false;
     account.slotLimit = next;
     saveAccount();
     renderCharacterSlots();
     return true;
+  }
+
+  if (typeof window.addEventListener === "function") {
+    window.addEventListener("ro-web-cloud-sync-state", () => updateCloudStatusIndicator());
   }
 
   loadAccount();
@@ -825,6 +1113,7 @@
     ensureActiveCharacterSelection,
     migrateLegacyIndexedDbIfNeeded,
     renderCharacterSlots,
+    updateCloudStatusIndicator,
     enterCharacter,
     openCreateDialog,
     closeCreateDialog,
@@ -839,6 +1128,12 @@
     updateActiveCharacterSummary,
     validateCharacterName,
     setSlotLimit,
+    bindCloudAccount,
+    getLocalMigrationCandidate,
+    markLocalMigrationComplete,
+    moveCharacterToSlot,
+    openMoveCharacterDialog,
+    closeMoveCharacterDialog,
     registerCloudAdapter,
     syncAccountToCloud,
     getCloudAdapter:() => cloudAdapter,
@@ -852,6 +1147,8 @@
     closeCharacterCreateDialog:closeCreateDialog,
     selectCharacterCreateGender:selectCreateGender,
     confirmCharacterCreate:confirmCreateCharacter,
+    openMoveCharacterDialog,
+    closeMoveCharacterDialog,
     returnToCharacterSelection
   });
 })();

@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>彼岸花仙境 V0.9.83E3</title>
+  <title>彼岸花仙境 V0.9.85J</title>
   <meta name="description" content="&#8203;">
   <meta property="og:type" content="website">
   <meta property="og:title" content="彼岸花仙境">
@@ -13,12 +13,24 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="彼岸花仙境">
   <meta name="twitter:description" content="&#8203;">
-  <link rel="icon" type="image/svg+xml" href="images/ui/brand/sakura_emblem.svg?v=0.9.83E3">
-  <link rel="preload" as="image" type="image/webp" href="images/ui/character_select_background.webp?v=0.9.83E3">
-  <link rel="stylesheet" href="css/style.css?v=0.9.83E3">
+  <link rel="icon" type="image/svg+xml" href="images/ui/brand/sakura_emblem.svg?v=0.9.84C">
+  <link rel="preload" as="image" type="image/webp" href="images/ui/character_select_background.webp?v=0.9.84C">
+  <link rel="stylesheet" href="css/style.css?v=0.9.85I">
 </head>
 
 <body class="ro-black-gold-theme">
+
+  <section id="rowebLoadingScreen" class="roweb-loading-screen is-visible" role="status" aria-live="polite" aria-label="遊戲載入中">
+    <div class="roweb-loading-backdrop" aria-hidden="true"></div>
+    <div class="roweb-loading-card">
+      <img class="roweb-loading-emblem" src="images/ui/brand/sakura_emblem.svg?v=0.9.85I" alt="">
+      <div class="roweb-loading-title">彼岸花仙境</div>
+      <div id="rowebLoadingLabel" class="roweb-loading-label">正在連線至彼岸花仙境…</div>
+      <div class="roweb-loading-track" aria-hidden="true"><span id="rowebLoadingFill"></span></div>
+      <div id="rowebLoadingPercent" class="roweb-loading-percent">0%</div>
+      <small>RO WEB</small>
+    </div>
+  </section>
 
   <section id="characterSelectOverlay" class="character-select-overlay" aria-label="角色選擇" hidden>
     <div class="character-select-backdrop" aria-hidden="true"></div>
@@ -26,13 +38,17 @@
       <header class="character-select-header">
         <div class="character-select-brand">
           <span class="character-select-emblem" aria-hidden="true">
-            <img class="character-select-sakura" src="images/ui/brand/sakura_emblem.svg?v=0.9.83E3" alt="">
+            <img class="character-select-sakura" src="images/ui/brand/sakura_emblem.svg?v=0.9.84C" alt="">
           </span>
           <div><h1>彼岸花仙境</h1><p>選擇冒險者</p></div>
         </div>
         <div class="character-select-account-state">
-          <span id="characterCloudStatus">本機存檔</span>
-          <b id="characterSlotCount">0 / 4</b>
+          <span id="characterAccountIdentity">雲端帳號</span>
+          <span id="characterCloudStatus">雲端同步</span>
+          <b id="characterSlotCount">0 / 12</b>
+          <button id="characterImportLocalButton" type="button" hidden onclick="ROWebCloudRuntime?.offerLocalMigration?.(true)">匯入本機</button>
+          <button type="button" onclick="ROWebCloudRuntime?.openAccountCenter?.()">切換帳號</button>
+          <button type="button" onclick="ROWebCloudRuntime?.signOut?.()">登出</button>
         </div>
       </header>
       <main>
@@ -40,8 +56,8 @@
         <p id="characterSelectMessage" class="character-select-message">請選擇角色，或建立新的冒險者。</p>
       </main>
       <footer class="character-select-footer">
-        <span>目前為本機角色資料；已預留帳號、角色 ID、修訂序號與雲端同步介面。</span>
-        <small>V0.9.83E3</small>
+        <span>角色進度已啟用雲端同步；本機仍保留離線安全備份。</span>
+        <small>V0.9.85J</small>
       </footer>
     </div>
   </section>
@@ -79,23 +95,45 @@
             <div class="currency-item gem-red"><img src="images/ui/icons/icon_red_gem_64.png" alt="Red Gem"><span id="redGem">0</span></div>
           </div>
           <div id="quick-buttons">
-            <button class="ui-toggle" data-target="inventory-window">背包</button>
-            <button class="ui-toggle" data-target="skill-window">技能</button>
-            <button class="ui-toggle" data-target="map-window">地圖</button>
-            <button class="ui-toggle" data-target="town-window">城鎮</button>
-            <button class="ui-toggle" data-target="status-window">素質</button>
-            <button class="ui-toggle" data-target="equipment-window">裝備</button>
-            <button class="ui-toggle" data-target="auto-combat-panel">戰鬥</button>
-            <button class="ui-toggle" data-target="virtual-summon-window">召喚</button>
+            <button class="ui-toggle" data-target="inventory-window">人物背包</button>
+            <button class="ui-toggle" data-target="equipment-window">裝備欄目</button>
+            <button class="ui-toggle" data-target="map-window">地圖傳送</button>
+            <button class="ui-toggle" data-target="town-window">城鎮傳送</button>
+            <button class="ui-toggle" data-target="status-window">素質配點</button>
+            <button class="ui-toggle" data-target="skill-window">技能配點</button>
+            <button class="quick-coming-soon" type="button" onclick="window.ROGoldUI?.alert?.('拍賣行目前尚未開放。',{title:'功能預告'})">拍賣行</button>
+            <button class="quick-coming-soon" type="button" onclick="window.ROGoldUI?.alert?.('活動功能目前尚未開放。',{title:'功能預告'})">活動</button>
+            <button id="mailQuickButton" class="ui-toggle mail-quick-button" data-target="mail-window">信箱<span id="mailUnreadBadge" class="mail-unread-badge" hidden>0</span></button>
             <button class="ui-toggle" data-target="hunting-stats-panel">統計</button>
+            <button class="ui-toggle" data-target="virtual-summon-window">召喚物</button>
+            <button class="ui-toggle" data-target="auto-combat-panel">掛機設定</button>
           </div>
         </div>
         <div class="right-hud-action-row">
-          <button id="rightHudCollapseToggle" class="right-hud-collapse-toggle" type="button" aria-expanded="true" aria-label="收合右上功能列" title="收合右上功能列" onclick="toggleRightHudCollapse()"><span class="right-hud-toggle-icon" aria-hidden="true">🔼</span></button>
+          <button id="rightHudAccountButton" class="right-hud-icon-button right-hud-account-button" type="button" aria-expanded="false" aria-haspopup="dialog" aria-controls="rightHudAccountMenu" aria-label="遊戲設定" title="遊戲設定"><span class="right-hud-gear-icon" aria-hidden="true">⚙</span></button>
+          <button id="rightHudCollapseToggle" class="right-hud-collapse-toggle right-hud-icon-button" type="button" aria-expanded="true" aria-label="收合右上功能列" title="收合右上功能列" onclick="toggleRightHudCollapse()"><span class="right-hud-toggle-icon" aria-hidden="true"></span></button>
           <button id="autoBattleQuickToggle" class="auto-battle-quick-toggle auto-battle-standalone" type="button" onclick="toggleAutoBattleQuick()" aria-pressed="false" title="開始自動掛機">
             <span class="auto-battle-energy-icon" aria-hidden="true">✦</span><span class="auto-battle-label">掛機</span>
           </button>
         </div>
+        <section id="rightHudAccountMenu" class="right-hud-account-menu" role="dialog" aria-label="遊戲設定" hidden>
+          <header class="right-hud-account-menu-head">
+            <div><small>角色與帳號</small><b>遊戲設定</b></div>
+            <span id="accountMenuRole" class="right-hud-account-role">PLAYER</span>
+          </header>
+          <div class="right-hud-account-identity">
+            <div><span>玩家 UID <small>Player ID</small></span><b id="accountMenuPlayerId">—</b></div>
+            <div><span>角色名稱</span><b id="accountMenuCharacterName">尚未進入角色</b></div>
+            <div><span>遊戲帳號</span><b id="accountMenuAccountName">—</b></div>
+          </div>
+          <div class="right-hud-account-actions">
+            <button type="button" onclick="ROWebAccountMenu?.renameCharacter?.()"><span aria-hidden="true">✎</span><b>更改角色名稱</b><small>修改目前角色顯示名稱</small></button>
+            <button type="button" onclick="ROWebAccountMenu?.switchCharacter?.()"><span aria-hidden="true">♟</span><b>切換人物</b><small>返回角色選擇</small></button>
+            <button type="button" onclick="ROWebAccountMenu?.switchAccount?.()"><span aria-hidden="true">⇄</span><b>切換帳號</b><small>選擇其他 Player ID</small></button>
+            <button type="button" class="is-danger" onclick="ROWebAccountMenu?.signOut?.()"><span aria-hidden="true">↪</span><b>登出帳號</b><small>安全同步後登出</small></button>
+          </div>
+          <footer>角色與帳號相關設定集中於此；後續兌換碼與其他功能可繼續擴充。</footer>
+        </section>
       </div>
 
       <section id="player-info" class="fixed-panel character-card">
@@ -103,11 +141,10 @@
         <div class="profile-row">
           <div class="portrait-placeholder"><img id="playerPortrait" src="assets/characters/novice/male/idle.png?v=0.9.83E3" alt="角色頭像"></div>
           <div>
-            <div class="name-line player-id-line desktop-player-id-line"><span id="playerName">載入中</span><button id="playerIdEditButton" type="button" onclick="openPlayerIdEditor()">更改ID</button></div>
+            <div class="name-line player-id-line desktop-player-id-line"><span id="playerName">載入中</span></div>
             <div class="mobile-player-id-stack" aria-label="手機版角色名稱">
               <div id="mobilePlayerJob" class="mobile-player-job">初學者</div>
               <div class="mobile-player-id-row"><span class="mobile-player-id-prefix">ID：</span><span id="mobilePlayerId">未設定</span></div>
-              <button id="mobilePlayerIdEditButton" type="button" onclick="openPlayerIdEditor()">更改ID</button>
             </div>
             <div class="level-line"><span id="playerJob" hidden>載入中</span>Base Lv.<span id="baseLevel">0</span> / Job Lv.<span id="jobLevel">0</span></div>
             <div class="status-line hp-line">HP <span id="hp">0 / 0</span></div>
@@ -158,6 +195,27 @@
         <div class="quick-slot empty"><span>8</span></div>
         <div class="quick-slot empty"><span>9</span></div>
         <div class="quick-slot empty"><span>0</span></div>
+      </section>
+
+      <section id="mail-window" class="game-window draggable-window hidden-window mail-window" data-default-x="620" data-default-y="92">
+        <div class="window-title drag-handle">遊戲內信箱 <button class="window-close" data-target="mail-window">×</button></div>
+        <div class="window-body mail-window-body">
+          <div class="mail-toolbar">
+            <div><b>彼岸花郵件</b><small id="mailSummary">讀取中…</small></div>
+            <div class="mail-toolbar-actions">
+              <select id="mailFilter" aria-label="郵件篩選"><option value="all">全部郵件</option><option value="unread">未讀</option><option value="reward">可領附件</option></select>
+              <button id="mailClaimAllButton" type="button">一鍵領取</button>
+              <button id="mailDeleteReadButton" class="mail-delete-read" type="button">刪除已讀</button>
+              <button id="mailRefreshButton" type="button">更新</button>
+              <button id="mailGmCenterButton" class="mail-gm-center" type="button" hidden>GM CENTER</button>
+            </div>
+          </div>
+          <div class="mail-layout">
+            <div id="mailList" class="mail-list"><div class="mail-empty">正在讀取信箱…</div></div>
+            <div id="mailDetail" class="mail-detail"><div class="mail-empty mail-detail-empty">請從左側選擇郵件。</div></div>
+          </div>
+          <div id="mailStatus" class="mail-status" aria-live="polite">帳號信箱與目前角色雲端存檔同步。</div>
+        </div>
       </section>
 
       <section id="inventory-window" class="game-window draggable-window hidden-window" data-default-x="930" data-default-y="148">
@@ -728,13 +786,13 @@
     <div class="player-id-dialog">
       <div class="player-id-header">
         <div>
-          <b id="playerIdTitle">更改玩家 ID</b>
-          <p>輸入後會顯示在職業名稱旁，並用於轉蛋大獎與 MVP 卡片公告。</p>
+          <b id="playerIdTitle">更改角色名稱</b>
+          <p>角色名稱會顯示於角色資訊、戰鬥名稱與遊戲公告中。</p>
         </div>
         <button type="button" aria-label="關閉" onclick="closePlayerIdEditor()">×</button>
       </div>
-      <label class="player-id-input-label" for="playerIdInput">玩家 ID（1～12 字）</label>
-      <input id="playerIdInput" class="player-id-input" type="text" maxlength="24" autocomplete="off" spellcheck="false" placeholder="請輸入玩家 ID" onkeydown="if(event.key==='Enter'){event.preventDefault();confirmPlayerIdChange()}">
+      <label class="player-id-input-label" for="playerIdInput">角色名稱（1～12 字）</label>
+      <input id="playerIdInput" class="player-id-input" type="text" maxlength="24" autocomplete="off" spellcheck="false" placeholder="請輸入角色名稱" onkeydown="if(event.key==='Enter'){event.preventDefault();confirmPlayerIdChange()}">
       <p id="playerIdMessage" class="player-id-message" aria-live="polite"></p>
       <div class="player-id-actions">
         <button type="button" class="player-id-confirm" onclick="confirmPlayerIdChange()">確認更改</button>
@@ -788,15 +846,19 @@
     </div>
   </section>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="./js/data_bundle.js?v=0.9.83E3"></script>
   <script src="./js/modifier_key_runtime.js?v=0.9.83E3"></script>
   <script src="./js/ui_theme_runtime.js?v=0.9.83E3"></script>
   <script src="./js/equipment_job_map_bundle.js?v=0.9.83E3"></script>
-  <script src="./js/character_slots_runtime.js?v=0.9.83E3"></script>
-  <script src="./js/player.js?v=0.9.83E3"></script>
+  <script src="./js/loading_screen_runtime.js?v=0.9.85I"></script>
+  <script src="./js/character_slots_runtime.js?v=0.9.85I"></script>
+  <script src="./js/cloud_save_runtime.js?v=0.9.85G"></script>
+  <script src="./js/player.js?v=0.9.85H"></script>
   <script src="./js/item_instance_ui.js?v=0.9.83E3"></script>
+  <script src="./js/mail_runtime.js?v=0.9.85I"></script>
   <script src="./js/newcomer_support_runtime.js?v=0.9.83E3"></script>
-  <script src="./js/storage_runtime.js?v=0.9.83E3"></script>
+  <script src="./js/storage_runtime.js?v=0.9.84C"></script>
   <script src="./js/rare_item_announcement_runtime.js?v=0.9.83E3"></script>
   <script src="./js/refine_runtime.js?v=0.9.83E3"></script>
   <script src="./js/enchant_grade_runtime.js?v=0.9.83E3"></script>
@@ -838,9 +900,10 @@
   <script src="./js/enchant_platform_runtime.js?v=0.9.83E3"></script>
   <script src="./js/enchant_material_exchange_runtime.js?v=0.9.83E3"></script>
   <script src="./js/town.js?v=0.9.83E3"></script>
-  <script src="./js/ui.js?v=0.9.83E3"></script>
+  <script src="./js/ui.js?v=0.9.85E"></script>
+  <script src="./js/account_menu_runtime.js?v=0.9.85I"></script>
   <script src="./js/quick_slots.js?v=0.9.83E3"></script>
-  <script src="./js/game.js?v=0.9.83E3"></script>
+  <script src="./js/game.js?v=0.9.85J"></script>
 </body>
 
 </html>

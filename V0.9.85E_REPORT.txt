@@ -1,0 +1,13 @@
+V0.9.85E ACCOUNT GEAR / BLACK GOLD HUD CONTROL
+Status: READY FOR USER TEST
+Supabase SQL: NOT REQUIRED
+Changed files:
+- index.html
+- css/style.css
+- js/account_menu_runtime.js
+
+Safety:
+- No account schema changes.
+- No mailbox database changes.
+- Existing V0.9.85D mailbox runtime remains untouched.
+- Character switching uses CharacterSlotsRuntime.returnToCharacterSelection(), which saves before reload.

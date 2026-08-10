@@ -1,0 +1,155 @@
+{
+  "version": "0.9.84C",
+  "pass": true,
+  "summary": {
+    "passed": 36,
+    "total": 36
+  },
+  "checks": {
+    "release_version_index": {
+      "pass": true,
+      "detail": ""
+    },
+    "cache_cloud_save_runtime.js": {
+      "pass": true,
+      "detail": "cloud_save_runtime.js"
+    },
+    "cache_character_slots_runtime.js": {
+      "pass": true,
+      "detail": "character_slots_runtime.js"
+    },
+    "cache_player.js": {
+      "pass": true,
+      "detail": "player.js"
+    },
+    "cache_storage_runtime.js": {
+      "pass": true,
+      "detail": "storage_runtime.js"
+    },
+    "cache_game.js": {
+      "pass": true,
+      "detail": "game.js"
+    },
+    "cache_cloud_account.js": {
+      "pass": true,
+      "detail": ""
+    },
+    "account_background_shared": {
+      "pass": true,
+      "detail": ""
+    },
+    "player_ui_hides_supabase_uid": {
+      "pass": true,
+      "detail": ""
+    },
+    "player_ui_hides_role": {
+      "pass": true,
+      "detail": ""
+    },
+    "legacy_register_redirect": {
+      "pass": true,
+      "detail": ""
+    },
+    "recovery_resend_ui": {
+      "pass": true,
+      "detail": ""
+    },
+    "password_change_current_password": {
+      "pass": true,
+      "detail": ""
+    },
+    "password_change_ui": {
+      "pass": true,
+      "detail": ""
+    },
+    "five_account_limit_ui": {
+      "pass": true,
+      "detail": ""
+    },
+    "12_slot_runtime": {
+      "pass": true,
+      "detail": ""
+    },
+    "slot_move_rpc": {
+      "pass": true,
+      "detail": ""
+    },
+    "cloud_state_event": {
+      "pass": true,
+      "detail": ""
+    },
+    "cloud_state_syncing": {
+      "pass": true,
+      "detail": ""
+    },
+    "cloud_state_synced": {
+      "pass": true,
+      "detail": ""
+    },
+    "cloud_state_pending": {
+      "pass": true,
+      "detail": ""
+    },
+    "cloud_state_conflict": {
+      "pass": true,
+      "detail": ""
+    },
+    "cloud_state_error": {
+      "pass": true,
+      "detail": ""
+    },
+    "remote_verify_function": {
+      "pass": true,
+      "detail": ""
+    },
+    "manual_remote_verification_state": {
+      "pass": true,
+      "detail": ""
+    },
+    "remote_newer_conflict_guard": {
+      "pass": true,
+      "detail": ""
+    },
+    "local_safety_copy_message": {
+      "pass": true,
+      "detail": ""
+    },
+    "release_summary_version": {
+      "pass": true,
+      "detail": "V0.9.84C"
+    },
+    "syntax_cloud_account.js": {
+      "pass": true,
+      "detail": ""
+    },
+    "syntax_cloud_save_runtime.js": {
+      "pass": true,
+      "detail": ""
+    },
+    "syntax_character_slots_runtime.js": {
+      "pass": true,
+      "detail": ""
+    },
+    "syntax_player.js": {
+      "pass": true,
+      "detail": ""
+    },
+    "syntax_storage_runtime.js": {
+      "pass": true,
+      "detail": ""
+    },
+    "syntax_game.js": {
+      "pass": true,
+      "detail": ""
+    },
+    "syntax_cloud_register_test.js": {
+      "pass": true,
+      "detail": ""
+    },
+    "account_dom_ids_complete": {
+      "pass": true,
+      "detail": "[]"
+    }
+  },
+  "errors": []
+}
