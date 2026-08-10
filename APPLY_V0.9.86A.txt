@@ -1,0 +1,19 @@
+彼岸花仙境 / RO_WEB V0.9.86A 低流量聊天安裝
+
+1. 先到 Supabase -> SQL Editor -> New query。
+2. 將 supabase/V0.9.86A_LOW_TRAFFIC_CHAT.sql 全部貼上並 Run。
+3. 看到 Success. No rows returned 後，再把 Patch 內遊戲檔覆蓋目前最新版 RO_WEB。
+4. Ctrl+F5 強制重新整理。
+5. 建議用兩個不同 Player ID / 兩個瀏覽器測試：
+   - 玩家頻道世界聊天互相可見。
+   - 點玩家名字可看 Player ID / Base Lv / 職業。
+   - 私信只在雙方聊天中可見。
+   - 封鎖後隱藏對方世界訊息，且拒收對方私信。
+   - 切到「系統信息」後，原本打怪傷害 / Buff / 掉落 / 存檔訊息仍正常。
+
+流量策略：
+- 不使用 Supabase Realtime / WebSocket。
+- message_id 增量讀取；世界 + 私信共用一次輪詢。
+- 前景 10 / 20 / 30 秒自適應；背景分頁 60 秒。
+- 單次最多 20 則增量（首次 30 則），單則最多 120 字。
+- 世界保留 48 小時；私信保留 7 天。

@@ -1,0 +1,27 @@
+RO_WEB V0.9.86A
+低流量玩家聊天 / 私信第一版
+
+新增：
+- 玩家頻道 / 系統信息雙頁籤，預設玩家頻道。
+- 世界聊天；底部輸入框 + 發送按鈕。
+- 私信：點玩家名稱 -> 玩家資訊 -> 私信。
+- 玩家資訊快照：角色名稱、Player ID、Base Lv、職業。
+- 封鎖 / 解除封鎖玩家；封鎖後世界訊息過濾、私信拒收。
+- 系統信息完整保留既有戰鬥 / 技能 / Buff / 掉落 / 存檔 log。
+- 玩家頻道未讀小紅點（目前停在系統信息時收到新聊天）。
+
+低流量：
+- 不使用 Supabase Realtime/WebSocket。
+- 世界 + 私信共用 ro_chat_poll 單一路徑。
+- 只抓最後 message_id 之後的新訊息。
+- 10/20/30 秒自適應輪詢；背景 60 秒。
+- 玩家詳細資訊不持續查詢；直接使用發言當下安全快照。
+
+Supabase：
+- 新增 ro_chat_messages / ro_chat_blocks。
+- 新增 ro_chat_send / ro_chat_poll / ro_chat_is_blocked / ro_chat_set_block RPC。
+- Browser 不直接 SELECT/INSERT/UPDATE/DELETE 聊天資料表。
+- SQL：supabase/V0.9.86A_LOW_TRAFFIC_CHAT.sql
+
+預留：
+- announcement / party / guild 訊息類型已保留，V0.9.86A 尚未開放玩家自行發送。

@@ -1,6 +1,6 @@
 (function(){
   "use strict";
-  const VERSION="0.9.85I";
+  const VERSION="0.9.86B";
   const SUPABASE_URL="https://ecbnsobcjxnrwqlefjci.supabase.co";
   const SUPABASE_PUBLISHABLE_KEY="sb_publishable_LrQiZeOESpuGnt-hL6m0VQ_zXqn8ehS";
   const SELECTED_ACCOUNT_KEY="roweb_cloud_selected_account_v1";
@@ -10,7 +10,7 @@
 
   const sdk=window.supabase;
   if(!sdk?.createClient) return;
-  const client=sdk.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+  const client=sdk.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,storage:window.ROWebAuthStorage||window.localStorage}});
   const el=id=>document.getElementById(id);
   let accountLoadingTimer=0;
   function setAccountLoading(value,label=""){
@@ -46,11 +46,26 @@
   function clearStatus(){const n=el("status");if(n){n.textContent="";n.className="status";}}
   function validName(v){return /^[A-Za-z0-9_]{4,20}$/.test(String(v||"").trim());}
   function validEmail(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(v||"").trim());}
-  function readJson(key,fallback={}){try{return JSON.parse(localStorage.getItem(key)||"null")||fallback}catch(_){return fallback}}
-  function writeJson(key,v){try{localStorage.setItem(key,JSON.stringify(v));return true}catch(_){return false}}
+  function readJson(key,fallback={}){
+    let raw=null;
+    try{raw=localStorage.getItem(key)}catch(_){}
+    if(raw==null){try{raw=sessionStorage.getItem(key)}catch(_){}}
+    try{return JSON.parse(raw||"null")||fallback}catch(_){return fallback}
+  }
+  function writeJson(key,v){
+    const text=JSON.stringify(v);
+    try{localStorage.setItem(key,text);return true}catch(_){}
+    try{sessionStorage.setItem(key,text);return true}catch(_){return false}
+  }
+  function setSelectedAccount(value){
+    const text=String(value||"");
+    try{localStorage.setItem(SELECTED_ACCOUNT_KEY,text);return true}catch(_){}
+    try{sessionStorage.setItem(SELECTED_ACCOUNT_KEY,text);return true}catch(_){return false}
+  }
+  function clearSelectedAccount(){try{localStorage.removeItem(SELECTED_ACCOUNT_KEY)}catch(_){}try{sessionStorage.removeItem(SELECTED_ACCOUNT_KEY)}catch(_){}}
   function pending(){return readJson(PENDING_KEY,null)}
   function savePending(v){writeJson(PENDING_KEY,v)}
-  function clearPending(){try{localStorage.removeItem(PENDING_KEY)}catch(_){}}
+  function clearPending(){try{localStorage.removeItem(PENDING_KEY)}catch(_){}try{sessionStorage.removeItem(PENDING_KEY)}catch(_){}}
   function aliases(){return readJson(LOGIN_HINT_KEY,{})}
   function saveAlias(name,email){const a=aliases();a[String(name||"").trim().toLowerCase()]=String(email||"").trim();writeJson(LOGIN_HINT_KEY,a)}
   function rememberAccounts(rows,email){for(const row of rows||[])saveAlias(row.account_name,email)}
@@ -71,6 +86,7 @@
     if(/User already registered/i.test(raw))return"此 Email 已經註冊。請切換到「登入」，登入後即可新增其他遊戲帳號。";
     if(/same password|different from the old/i.test(raw))return"新密碼請勿與目前密碼相同。";
     if(/current password|current_password/i.test(raw))return"目前密碼不正確。";
+    if(/RO_AUTH_STORAGE_UNAVAILABLE|QuotaExceeded|exceeded the quota|setItem.*Storage/i.test(raw))return"瀏覽器登入儲存空間不足。遊戲已改用耐久儲存；請重新整理後再試。若仍失敗，請勿清除角色資料，先聯絡管理員協助。";
     return raw;
   }
 
@@ -118,7 +134,7 @@
       card.querySelector("button").onclick=()=>{
         showAccountLoading("正在進入角色選擇…");
         forceCharacterSelectorNext();
-        localStorage.setItem(SELECTED_ACCOUNT_KEY,String(row.account_id));
+        setSelectedAccount(row.account_id);
         setTimeout(()=>setAccountLoading(42,"正在綁定遊戲帳號…"),70);
         setTimeout(()=>setAccountLoading(78,"正在載入雲端角色…"),140);
         setTimeout(()=>setAccountLoading(100,"準備完成"),205);
@@ -195,7 +211,7 @@
 
   function registrationSuccess(row,user){
     saveAlias(row.account_name,user.email);
-    localStorage.setItem(SELECTED_ACCOUNT_KEY,String(row.account_id));
+    setSelectedAccount(row.account_id);
     el("successAccount").textContent=String(row.account_name);
     el("successPlayerId").textContent=String(row.player_id);
     el("otpForm").classList.add("hidden");el("registerForm").classList.add("hidden");el("registerSuccess").classList.remove("hidden");
@@ -310,7 +326,7 @@
     el("sendRecoveryBtn").onclick=sendRecovery;el("verifyRecoveryBtn").onclick=verifyRecovery;el("resendRecoveryBtn").onclick=resendRecovery;el("backRecoveryBtn").onclick=resetRecoveryForm;
     el("toggleAddAccountBtn").onclick=()=>el("addAccountBox").classList.toggle("hidden");
     el("createExtraAccountBtn").onclick=createExtra;el("changePasswordBtn").onclick=changePassword;
-    el("signOutBtn").onclick=async()=>{forceCharacterSelectorNext();await client.auth.signOut();localStorage.removeItem(SELECTED_ACCOUNT_KEY);showPanel("login");setStatus("已登出。","ok")};
+    el("signOutBtn").onclick=async()=>{forceCharacterSelectorNext();await client.auth.signOut();clearSelectedAccount();showPanel("login");setStatus("已登出。","ok")};
     for(const id of ["otp","recoveryOtp"])el(id).addEventListener("input",e=>e.target.value=String(e.target.value||"").replace(/\D/g,"").slice(0,6));
     for(const id of ["loginPassword","password2","newPassword2","accountNewPassword2"])el(id)?.addEventListener("keydown",event=>{if(event.key!=="Enter")return;if(id==="loginPassword")login();else if(id==="password2")sendOtp();else if(id==="newPassword2")verifyRecovery();else changePassword();});
     restore();

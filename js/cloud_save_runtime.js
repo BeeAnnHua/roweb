@@ -8,7 +8,7 @@
 (function () {
   "use strict";
 
-  const VERSION = "0.9.85Q";
+  const VERSION = "0.9.86B";
   const SUPABASE_URL = "https://ecbnsobcjxnrwqlefjci.supabase.co";
   const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_LrQiZeOESpuGnt-hL6m0VQ_zXqn8ehS";
   const SELECTED_ACCOUNT_KEY = "roweb_cloud_selected_account_v1";
@@ -80,13 +80,20 @@
   }
 
   function selectedAccountId() {
-    try { return String(localStorage.getItem(SELECTED_ACCOUNT_KEY) || ""); }
-    catch (_) { return ""; }
+    try {
+      return String(localStorage.getItem(SELECTED_ACCOUNT_KEY)
+        || sessionStorage.getItem(SELECTED_ACCOUNT_KEY)
+        || "");
+    } catch (_) {
+      try { return String(sessionStorage.getItem(SELECTED_ACCOUNT_KEY) || ""); } catch (_) { return ""; }
+    }
   }
 
   function rememberAccount(account) {
     if (!account?.account_id) return false;
-    try { localStorage.setItem(SELECTED_ACCOUNT_KEY, String(account.account_id)); } catch (_) {}
+    const selected = String(account.account_id);
+    try { localStorage.setItem(SELECTED_ACCOUNT_KEY, selected); }
+    catch (_) { try { sessionStorage.setItem(SELECTED_ACCOUNT_KEY, selected); } catch (_) {} }
     const email = String(currentSession?.user?.email || "").trim();
     const name = String(account.account_name || "").trim().toLowerCase();
     if (email && name) {
@@ -118,7 +125,8 @@
       auth: {
         persistSession: true,
         autoRefreshToken: true,
-        detectSessionInUrl: true
+        detectSessionInUrl: true,
+        storage: window.ROWebAuthStorage || window.localStorage
       }
     });
     window.ROWebSupabaseClient = client;
@@ -900,6 +908,7 @@
     forceCharacterSelectorNext();
     try { await client?.auth?.signOut(); } catch (_) {}
     try { localStorage.removeItem(SELECTED_ACCOUNT_KEY); } catch (_) {}
+    try { sessionStorage.removeItem(SELECTED_ACCOUNT_KEY); } catch (_) {}
     location.replace("cloud_account.html");
   }
 

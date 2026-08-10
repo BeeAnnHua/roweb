@@ -1,11 +1,11 @@
 (function(){
   "use strict";
-  const VERSION="0.9.85C";
+  const VERSION="0.9.86B";
   const SUPABASE_URL="https://ecbnsobcjxnrwqlefjci.supabase.co";
   const SUPABASE_PUBLISHABLE_KEY="sb_publishable_LrQiZeOESpuGnt-hL6m0VQ_zXqn8ehS";
   const SELECTED_ACCOUNT_KEY="roweb_cloud_selected_account_v1";
   const sdk=window.supabase;
-  const client=sdk?.createClient?.(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+  const client=sdk?.createClient?.(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,storage:window.ROWebAuthStorage||window.localStorage}});
   const el=id=>document.getElementById(id);
   const esc=value=>String(value??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
   let gmAccount=null;
@@ -21,7 +21,7 @@
     const user=data?.session?.user;if(!user){location.replace(`cloud_account.html?return=${encodeURIComponent('gm_center.html')}`);return false;}
     const {data:accounts,error:aerr}=await client.from("ro_accounts").select("account_id,player_id,account_name,account_role,account_status,is_test,user_id").eq("user_id",user.id).order("player_id",{ascending:true});
     if(aerr)throw aerr;
-    const selected=String(localStorage.getItem(SELECTED_ACCOUNT_KEY)||"");
+    let selected="";try{selected=String(localStorage.getItem(SELECTED_ACCOUNT_KEY)||sessionStorage.getItem(SELECTED_ACCOUNT_KEY)||"")}catch(_){try{selected=String(sessionStorage.getItem(SELECTED_ACCOUNT_KEY)||"")}catch(__){}}
     gmAccount=(accounts||[]).find(a=>String(a.account_id)===selected)||null;
     if(gmAccount){
       const {data:allowed,error:permError}=await client.rpc("ro_gm_can_access",{p_gm_account_id:String(gmAccount.account_id)});

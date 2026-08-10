@@ -23635,3 +23635,220 @@ body.roweb-loading-open{overflow:hidden!important}
   .roweb-loading-card{width:min(440px,calc(100vw - 22px));padding:20px 18px 17px}
   .roweb-loading-title{font-size:21px}.roweb-loading-emblem{width:50px;height:50px}
 }
+
+/* ============================================================
+   RO_WEB V0.9.86B — Low Traffic Player Chat / Auth Storage Safety
+   世界聊天 + 私信共用增量輪詢；系統紀錄保留原 battle-log-list。
+   ============================================================ */
+#battle-log.chat-panel {
+  height: 174px !important;
+  grid-template-rows: 30px minmax(0, 1fr) 36px !important;
+}
+#battle-log .battle-log-toolbar {
+  height: 30px !important;
+  padding: 3px 8px 2px !important;
+  justify-content: flex-start !important;
+  gap: 5px !important;
+}
+.battle-log-tab {
+  position: relative;
+  min-width: 76px;
+  height: 24px;
+  padding: 0 12px;
+  border: 1px solid rgba(164,116,43,.72);
+  border-radius: 6px 6px 3px 3px;
+  background: linear-gradient(180deg, rgba(54,35,18,.88), rgba(20,12,7,.92));
+  color: #cdb98a;
+  font: 800 11px/22px 'Microsoft JhengHei',system-ui,sans-serif;
+  text-shadow: 0 1px 2px #000;
+  cursor: pointer;
+  pointer-events: auto;
+}
+.battle-log-tab:hover { border-color:#d9a94e; color:#ffe2a0; }
+.battle-log-tab.is-active {
+  border-color:#d4a348;
+  background: linear-gradient(180deg,#604019,#2a180a);
+  color:#ffe3a0;
+  box-shadow: inset 0 0 9px rgba(255,210,105,.12), 0 0 7px rgba(210,151,48,.12);
+}
+.battle-log-tab-dot {
+  display:none;
+  position:absolute;
+  right:5px;
+  top:4px;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:#ff3c38;
+  box-shadow:0 0 5px rgba(255,45,45,.9);
+}
+.battle-log-tab-dot.show { display:block; }
+
+#player-chat-list,
+#battle-log-list {
+  grid-row:2 !important;
+  min-height:0 !important;
+}
+#player-chat-list {
+  position:relative;
+  overflow-y:auto;
+  overflow-x:hidden;
+  padding:4px 8px 5px 10px;
+  color:#f5e5b9;
+  font-size:12px;
+  line-height:19px;
+  scrollbar-width:thin;
+  scrollbar-color:#caa047 rgba(26,12,4,.78);
+}
+#player-chat-list::-webkit-scrollbar { width:8px; }
+#player-chat-list::-webkit-scrollbar-track { background:rgba(26,12,4,.72); border-left:1px solid rgba(203,156,58,.25); }
+#player-chat-list::-webkit-scrollbar-thumb { background:linear-gradient(180deg,#ffe091,#b47921); border:2px solid rgba(28,12,4,.88); border-radius:999px; }
+#player-chat-list .player-chat-line { min-height:19px; white-space:normal; overflow-wrap:anywhere; }
+.player-chat-time { margin-right:4px; color:rgba(255,236,178,.62); font-size:10px; }
+.player-chat-channel { margin-right:4px; font-weight:900; }
+.player-chat-channel.channel-world { color:#88d8ff; }
+.player-chat-channel.channel-whisper { color:#f0a8ff; }
+.player-chat-channel.channel-announcement { color:#ffe06d; }
+.player-chat-channel.channel-party { color:#8eff9d; }
+.player-chat-channel.channel-guild { color:#78d9ff; }
+.player-chat-name {
+  display:inline-block;
+  max-width:118px;
+  margin:0 1px 0 0;
+  padding:0;
+  border:0 !important;
+  border-radius:0 !important;
+  outline:none;
+  background:none !important;
+  box-shadow:none !important;
+  color:#ffe6a0;
+  font:900 12px/19px 'Microsoft JhengHei',system-ui,sans-serif;
+  vertical-align:bottom;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  cursor:pointer;
+  text-shadow:0 1px 2px #000;
+}
+.player-chat-name:hover,.player-chat-name:focus-visible { color:#fff2c1; text-decoration:underline; text-underline-offset:2px; }
+/* Future cosmetic hooks: no extra network traffic is required for name effects. */
+.player-chat-name.name-gm { color:#ffe073; }
+.player-chat-name.name-vip { color:#ef9cff; }
+.player-chat-line.is-self .player-chat-name { color:#ffd36c; }
+.player-chat-colon,.player-chat-text { color:#f5e5b9; }
+.player-chat-empty { padding:18px 8px; color:#9f8d68; text-align:center; }
+
+.player-chat-composer {
+  grid-row:3;
+  display:flex;
+  align-items:center;
+  gap:5px;
+  min-width:0;
+  margin:2px 8px 4px;
+  padding:0;
+}
+.player-chat-composer input {
+  min-width:0;
+  flex:1 1 auto;
+  height:29px;
+  box-sizing:border-box;
+  padding:0 9px;
+  border:1px solid rgba(182,132,51,.82);
+  border-radius:6px;
+  outline:none;
+  background:rgba(12,8,5,.86);
+  color:#fff0c6;
+  font-size:11px;
+  box-shadow:inset 0 0 8px rgba(0,0,0,.55);
+}
+.player-chat-composer input:focus { border-color:#e1b65a; box-shadow:inset 0 0 8px rgba(0,0,0,.55),0 0 7px rgba(227,177,75,.15); }
+#playerChatSendButton {
+  flex:0 0 52px;
+  height:29px;
+  border:1px solid #c39035;
+  border-radius:6px;
+  background:linear-gradient(#543817,#221307);
+  color:#ffe5a1;
+  font-size:11px;
+  font-weight:900;
+  cursor:pointer;
+}
+#playerChatSendButton:hover:not(:disabled) { filter:brightness(1.14); }
+#playerChatSendButton:disabled { opacity:.48; cursor:default; }
+.player-chat-target-chip {
+  flex:0 0 auto;
+  max-width:132px;
+  height:27px;
+  display:flex;
+  align-items:center;
+  gap:4px;
+  padding:0 4px 0 7px;
+  border:1px solid rgba(189,124,206,.7);
+  border-radius:999px;
+  background:rgba(59,28,62,.88);
+  color:#f2bfff;
+  font-size:10px;
+}
+.player-chat-target-chip[hidden] { display:none !important; }
+.player-chat-target-chip span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.player-chat-target-chip button { width:18px; height:18px; padding:0; border:0; border-radius:50%; background:rgba(0,0,0,.28); color:#f7d6ff; cursor:pointer; }
+
+#battle-log.is-player-chat #battle-log-list,
+#battle-log.is-player-chat #position-coordinate-ui,
+#battle-log.is-player-chat #battle-log-new-notice { display:none !important; }
+#battle-log.is-player-chat #player-chat-list,
+#battle-log.is-player-chat .player-chat-composer { display:block; }
+#battle-log.is-player-chat .player-chat-composer { display:flex; }
+#battle-log.is-system-log #player-chat-list,
+#battle-log.is-system-log .player-chat-composer { display:none !important; }
+#battle-log.is-system-log #battle-log-list { display:block !important; }
+
+.player-chat-profile-overlay {
+  position:fixed;
+  inset:0;
+  z-index:31050;
+  display:grid;
+  place-items:center;
+  padding:12px;
+  background:rgba(0,0,0,.48);
+  backdrop-filter:blur(2px);
+}
+.player-chat-profile-overlay[hidden] { display:none !important; }
+.player-chat-profile-card {
+  width:min(330px,calc(100vw - 24px));
+  overflow:hidden;
+  border:1px solid #b98634;
+  border-radius:11px;
+  background:linear-gradient(180deg,#2d1c0c,#100a05 72%);
+  color:#ead7aa;
+  box-shadow:0 18px 48px rgba(0,0,0,.78),inset 0 0 20px rgba(255,194,72,.05);
+}
+.player-chat-profile-card header { display:flex; align-items:center; justify-content:space-between; padding:11px 12px 8px; border-bottom:1px solid rgba(201,151,62,.35); }
+.player-chat-profile-card header small { color:#9d7a44; font-size:9px; letter-spacing:.16em; }
+.player-chat-profile-card h3 { margin:2px 0 0; color:#ffe2a0; font-size:18px; }
+#playerChatProfileClose { width:28px; height:28px; border:1px solid #8e682f; border-radius:7px; background:#24150a; color:#e8ca87; font-size:18px; cursor:pointer; }
+.player-chat-profile-row { display:flex; justify-content:space-between; gap:12px; padding:9px 13px; border-bottom:1px solid rgba(160,116,49,.16); font-size:11px; }
+.player-chat-profile-row span { color:#9f8b62; }
+.player-chat-profile-row b { color:#f0d595; text-align:right; }
+.player-chat-profile-actions { display:grid; grid-template-columns:1fr 1fr; gap:7px; padding:12px 12px 6px; }
+.player-chat-profile-actions button { height:33px; border:1px solid #b98334; border-radius:7px; background:linear-gradient(#4a3015,#1d1108); color:#ffe0a0; font-weight:900; cursor:pointer; }
+.player-chat-profile-actions button.is-danger { border-color:#914c32; color:#f4c0a4; }
+.player-chat-profile-actions button:disabled { opacity:.42; cursor:default; }
+.player-chat-profile-card > p { margin:3px 12px 12px; color:#7f7156; font-size:9px; line-height:1.45; }
+
+@media (max-width:900px),(pointer:coarse) {
+  #battle-log.chat-panel { height:148px !important; grid-template-rows:27px minmax(0,1fr) 33px !important; }
+  #battle-log .battle-log-toolbar { height:27px !important; padding:2px 6px 1px !important; }
+  .battle-log-tab { min-width:68px; height:22px; padding:0 9px; font-size:10px; line-height:20px; }
+  #player-chat-list { padding:2px 6px 3px 8px; font-size:10px; line-height:16px; }
+  .player-chat-time { font-size:9px; }
+  .player-chat-name { font-size:10px; line-height:16px; }
+  .player-chat-composer { margin:1px 6px 3px; gap:4px; }
+  .player-chat-composer input,#playerChatSendButton { height:27px; font-size:10px; }
+  #playerChatSendButton { flex-basis:46px; }
+  .player-chat-target-chip { max-width:100px; height:25px; font-size:9px; }
+}
+
+@media (max-width:720px){
+  .player-chat-name{max-width:86px;}
+}
