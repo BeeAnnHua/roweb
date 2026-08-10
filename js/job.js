@@ -127,7 +127,10 @@ function getRate(rateKey) {
 }
 
 function applyRate(value, rateKey) {
-  return Math.max(0, Math.floor(Number(value || 0) * getRate(rateKey)));
+  const rated = Math.max(0, Math.floor(Number(value || 0) * getRate(rateKey)));
+  return window.VIPRuntime?.applyLiveBonus
+    ? window.VIPRuntime.applyLiveBonus(rated, rateKey)
+    : rated;
 }
 
 function getJobData(jobKey = player?.jobKey) {

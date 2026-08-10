@@ -1,3 +1,10 @@
+## V0.9.86Q
+- VIP V1：Base EXP +50%、Job EXP +50%、掉寶率 +50%，Zeny 線上倍率維持原值。
+- 新增 Player ID 帳號共用的最多 8 小時離線掛機收益；Supabase 伺服器時間驗證、one-shot 防重領，不增加常駐心跳流量。
+- 離線收益使用最後野外地圖與等級附近普通怪做安全虛擬結算，排除 MVP／卡片／轉蛋／特殊限定掉落，並設背包物品上限。
+- 右上帳號設定新增 VIP 狀態與期限；登入後顯示離線收益摘要。
+- 新增一次性 SQL：`V0.9.86Q_VIP_V1_OFFLINE_REWARD.sql`。
+
 ## V0.9.83C2 — 詩舞「大暴雨」三武器相容修正
 - 依 rAthena Renewal，WM_SEVERE_RAINSTORM（Skill ID 2418）可使用弓、樂器與鞭子施放。
 - 修正／強化武器類型解析，支援 Whip、Musical、Instrument、W_WHIP、W_MUSICAL 與裝備實例來源。

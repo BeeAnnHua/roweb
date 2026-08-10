@@ -1,0 +1,43 @@
+彼岸花仙境 RO_WEB V0.9.86Q｜VIP V1 安裝說明
+================================================
+
+基準：V0.9.86P（已驗證 SLOT 1/2/3/4 均可正常登入）
+
+【1】先執行 Supabase SQL（本版必要）
+請在 Supabase SQL Editor 執行：
+  supabase/V0.9.86Q_VIP_V1_OFFLINE_REWARD.sql
+
+SQL 只新增：
+- ro_accounts.vip_offline_claimed_at
+- ro_vip_claim_offline_window(account_id, character_id)
+- 更新 ro_gm_set_vip() 的 VIP 重新啟用時間判斷
+
+不會刪除角色、不會刪除背包、不會重建 ro_characters。
+
+【2】再把 Patch ZIP 內容覆蓋到目前 V0.9.86P 專案根目錄
+保留原本其他檔案即可。
+
+【3】GitHub Pages 更新後測試
+建議用 GM CENTER 先把測試 Player ID 設成 7 天 VIP，然後：
+A. 進遊戲右上齒輪，確認顯示 VIP 與期限。
+B. 殺 1 隻怪，確認 Base / Job EXP 比一般玩家多 50%。
+C. 用原始掉率未封頂的怪測試掉寶；VIP 最終掉率為原最終值 ×1.5，最高仍 100%。
+D. 離線至少 5 分鐘後重新登入第一隻角色，應顯示「VIP 離線掛機收益」。
+E. 收益顯示後立刻切換另一角色，不應再次領到同一段離線時間。
+
+VIP V1 規則：
+- Base EXP +50%
+- Job EXP +50%
+- 掉寶率 +50%
+- 線上 Zeny：不加成
+- 離線掛機：同一 Player ID 共用，最多 8 小時
+- 離線安全結算：每 60 秒 1 次虛擬擊殺，最多 480 次
+- 依最後野外地圖與角色等級附近普通怪結算
+- 離線 Zeny：照原倍率結算，不套 VIP Zeny 加成
+- 離線一般掉落：排除 MVP/Boss、卡片、轉蛋、地圖限定特殊掉落
+- 離線單次一般物品總量最多 500；同一物品最多 99
+
+注意：
+- 本版不需要重跑 V0.9.86I 角色救援 SQL。
+- 不要清除 localStorage / IndexedDB。
+- V0.9.86P 多角色 Entry Token 修正必須保留，本 Patch 是「從 P 升級到 Q」。

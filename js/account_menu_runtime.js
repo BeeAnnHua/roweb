@@ -8,7 +8,7 @@
 (function(){
   "use strict";
 
-  const VERSION = "0.9.85P";
+  const VERSION = "0.9.86Q";
   const $ = id => document.getElementById(id);
 
   function text(value, fallback = "—") {
@@ -27,7 +27,9 @@
       playerId: text(cloud.player_id, "—"),
       accountName: text(cloud.account_name, "—"),
       characterName,
-      role: text(cloud.account_role, "player")
+      role: text(cloud.account_role, "player"),
+      vipActive: window.VIPRuntime?.isActive?.(cloud) === true,
+      vipText: window.VIPRuntime?.formatExpiry?.(cloud) || "非 VIP"
     };
   }
 
@@ -40,6 +42,10 @@
       const isGm = String(data.role).toLowerCase() === "gm";
       $("accountMenuRole").textContent = isGm ? "GM" : "PLAYER";
       $("accountMenuRole").classList.toggle("is-gm", isGm);
+    }
+    if ($("accountMenuVip")) {
+      $("accountMenuVip").textContent = data.vipActive ? data.vipText : "未啟用";
+      $("accountMenuVip").classList.toggle("is-vip", data.vipActive);
     }
     return data;
   }

@@ -13,7 +13,7 @@ let expTables = null;
 let clientItemDisplayData = null;
 let currentMap = null;
 
-const RO_WEB_VERSION = "0.9.86P";
+const RO_WEB_VERSION = "0.9.86Q";
 
 function normalizeDataPath(path) {
   return String(path || "")
@@ -196,6 +196,10 @@ async function initGame() {
     return;
   }
   loadProgress(78,"正在同步角色存檔…");
+  if (window.VIPRuntime?.claimAndGrantOfflineRewards) {
+    loadProgress(81,"正在結算 VIP 離線收益…");
+    await window.VIPRuntime.claimAndGrantOfflineRewards();
+  }
   if (window.NewcomerSupportRuntime?.grantForNewCharacter) {
     window.NewcomerSupportRuntime.grantForNewCharacter();
   }

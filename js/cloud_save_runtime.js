@@ -8,7 +8,7 @@
 (function () {
   "use strict";
 
-  const VERSION = "0.9.86O";
+  const VERSION = "0.9.86Q";
   const SUPABASE_URL = "https://ecbnsobcjxnrwqlefjci.supabase.co";
   const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_LrQiZeOESpuGnt-hL6m0VQ_zXqn8ehS";
   const SELECTED_ACCOUNT_KEY = "roweb_cloud_selected_account_v1";
@@ -150,7 +150,7 @@
     if (!currentSession?.user?.id) return [];
     const { data, error } = await client
       .from("ro_accounts")
-      .select("account_id,user_id,player_id,account_name,account_role,account_status,is_test,slot_limit,shared_save,created_at,updated_at")
+      .select("account_id,user_id,player_id,account_name,account_role,account_status,is_test,slot_limit,shared_save,is_vip,vip_level,vip_started_at,vip_until,created_at,updated_at")
       .eq("user_id", currentSession.user.id)
       .order("player_id", { ascending: true });
     if (error) throw error;

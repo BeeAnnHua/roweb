@@ -1,3 +1,20 @@
+# V0.9.86Q current baseline
+
+## V0.9.86Q — VIP V1 正式福利
+
+- 基準：已驗證四隻角色均可登入的 V0.9.86P。
+- VIP 與 GM 權限維持完全分離；沿用 `ro_accounts.is_vip / vip_level / vip_until`。
+- 線上福利：Base EXP +50%、Job EXP +50%、一般掉寶總倍率 +50%；Zeny 線上倍率本版不加成。
+- 倍率採乘算：例如伺服器 Base EXP 100x，VIP 為 150x。掉寶最終仍封頂 100%。
+- VIP 離線掛機採登入一次性結算，不背景跑怪；單一 Player ID 共用最多 8 小時，避免 12 角色各領 8H。
+- 離線秒數由 Supabase `now()` + 該帳號最近角色 `updated_at` 驗證，並由 `vip_offline_claimed_at` 防重複領取，不依賴玩家電腦時間。
+- 離線 V1 安全模型：每 60 秒 1 次虛擬擊殺，最多 480 次；依最後野外地圖與角色等級附近的普通怪結算 Base/Job EXP、原倍率 Zeny、一般掉落。
+- 離線排除 MVP / Boss、卡片、轉蛋、地圖限定特殊掉落；單次一般物品總量上限 500、同一物品最多 99，避免高測試倍率一次灌入過多背包資料。
+- 新增 `supabase/V0.9.86Q_VIP_V1_OFFLINE_REWARD.sql`；本版需執行一次。
+- 右上遊戲設定顯示 VIP 狀態／期限；登入後若有離線收益會顯示 VIP 收益結算視窗。
+
+---
+
 # V0.9.86O current baseline
 
 ## V0.9.86O — Legacy 已復原角色登入相容修正

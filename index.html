@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>彼岸花仙境 V0.9.86O</title>
+  <title>彼岸花仙境 V0.9.86Q</title>
   <meta name="description" content="&#8203;">
   <meta property="og:type" content="website">
   <meta property="og:title" content="彼岸花仙境">
@@ -15,7 +15,7 @@
   <meta name="twitter:description" content="&#8203;">
   <link rel="icon" type="image/svg+xml" href="images/ui/brand/sakura_emblem.svg?v=0.9.84C">
   <link rel="preload" as="image" type="image/webp" href="images/ui/character_select_background.webp?v=0.9.84C">
-  <link rel="stylesheet" href="css/style.css?v=0.9.86G">
+  <link rel="stylesheet" href="css/style.css?v=0.9.86Q">
 </head>
 
 <body class="ro-black-gold-theme">
@@ -57,7 +57,7 @@
       </main>
       <footer class="character-select-footer">
         <span>角色進度已啟用雲端同步；本機仍保留離線安全備份。</span>
-        <small>V0.9.86O</small>
+        <small>V0.9.86Q</small>
       </footer>
     </div>
   </section>
@@ -125,6 +125,7 @@
             <div><span>玩家 UID <small>Player ID</small></span><b id="accountMenuPlayerId">—</b></div>
             <div><span>角色名稱</span><b id="accountMenuCharacterName">尚未進入角色</b></div>
             <div><span>遊戲帳號</span><b id="accountMenuAccountName">—</b></div>
+            <div><span>VIP 會員</span><b id="accountMenuVip">未啟用</b></div>
           </div>
           <div class="right-hud-account-actions">
             <button id="accountMenuSaveButton" type="button" onclick="ROWebAccountMenu?.saveNow?.()"><span aria-hidden="true">▣</span><b>手動存檔</b><small>同步目前角色與帳號倉庫</small></button>
@@ -866,65 +867,66 @@
   </section>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="./js/auth_storage_runtime.js?v=0.9.86O"></script>
-  <script src="./js/data_bundle.js?v=0.9.86O"></script>
-  <script src="./js/modifier_key_runtime.js?v=0.9.86O"></script>
-  <script src="./js/ui_theme_runtime.js?v=0.9.86O"></script>
-  <script src="./js/equipment_job_map_bundle.js?v=0.9.86O"></script>
-  <script src="./js/loading_screen_runtime.js?v=0.9.86O"></script>
-  <script src="./js/character_slots_runtime.js?v=0.9.86P"></script>
-  <script src="./js/cloud_save_runtime.js?v=0.9.86O"></script>
-  <script src="./js/player.js?v=0.9.86O"></script>
-  <script src="./js/item_instance_ui.js?v=0.9.86O"></script>
-  <script src="./js/mail_runtime.js?v=0.9.86O"></script>
-  <script src="./js/newcomer_support_runtime.js?v=0.9.86O"></script>
-  <script src="./js/storage_runtime.js?v=0.9.86O"></script>
-  <script src="./js/rare_item_announcement_runtime.js?v=0.9.86O"></script>
-  <script src="./js/refine_runtime.js?v=0.9.86O"></script>
-  <script src="./js/enchant_grade_runtime.js?v=0.9.86O"></script>
-  <script src="./js/mvp_gacha_runtime.js?v=0.9.86O"></script>
-  <script src="./js/taiwan_gacha_runtime.js?v=0.9.86O"></script>
-  <script src="./js/item_box_runtime.js?v=0.9.86O"></script>
-  <script src="./js/item_batch_open_runtime.js?v=0.9.86O"></script>
-  <script src="./js/consumable_runtime.js?v=0.9.86O"></script>
-  <script src="./js/card_runtime.js?v=0.9.86O"></script>
-  <script src="./js/effect_runtime.js?v=0.9.86O"></script>
-  <script src="./js/position_engine.js?v=0.9.86O"></script>
-  <script src="./js/job_constitution.js?v=0.9.86O"></script>
-  <script src="./js/job.js?v=0.9.86O"></script>
-  <script src="./js/extra_skill_runtime.js?v=0.9.86O"></script>
-  <script src="./js/combat_mechanics_runtime.js?v=0.9.86O"></script>
-  <script src="./js/combat_formula_runtime.js?v=0.9.86O"></script>
-  <script src="./js/ra_renewal_damage_pipeline.js?v=0.9.86O"></script>
-  <script src="./js/combat_damage_pipeline.js?v=0.9.86O"></script>
-  <script src="./js/combat_resource_manager.js?v=0.9.86O"></script>
-  <script src="./js/skill_engine.js?v=0.9.86O"></script>
-  <script src="./js/warlock_elemental_sphere_runtime.js?v=0.9.86O"></script>
-  <script src="./js/skill_effect_runtime_v92.js?v=0.9.86O"></script>
-  <script src="./js/status_system.js?v=0.9.86O"></script>
-  <script src="./js/stats.js?v=0.9.86O"></script>
-  <script src="./js/loot.js?v=0.9.86O"></script>
-  <script src="./js/auto_battle.js?v=0.9.86O"></script>
-  <script src="./js/death_revival_runtime.js?v=0.9.86O"></script>
-  <script src="./js/player_atlas_runtime.js?v=0.9.86O"></script>
-  <script src="./js/character_gender.js?v=0.9.86O"></script>
-  <script src="./js/battle.js?v=0.9.86O"></script>
-  <script src="./js/monster_atlas_runtime.js?v=0.9.86O"></script>
-  <script src="./js/effect_visual_runtime.js?v=0.9.86O"></script>
-  <script src="./js/world_monster_test_runtime.js?v=0.9.86O"></script>
-  <script src="./js/virtual_summon.js?v=0.9.86O"></script>
-  <script src="./js/homunculus.js?v=0.9.86O"></script>
-  <script src="./js/homunculus_skill_runtime.js?v=0.9.86O"></script>
-  <script src="./js/homunculus_s_skill_runtime.js?v=0.9.86O"></script>
-  <script src="./js/map.js?v=0.9.86O"></script>
-  <script src="./js/enchant_platform_runtime.js?v=0.9.86O"></script>
-  <script src="./js/enchant_material_exchange_runtime.js?v=0.9.86O"></script>
-  <script src="./js/town.js?v=0.9.86O"></script>
-  <script src="./js/ui.js?v=0.9.86O"></script>
-  <script src="./js/account_menu_runtime.js?v=0.9.86O"></script>
-  <script src="./js/quick_slots.js?v=0.9.86O"></script>
-  <script src="./js/chat_runtime.js?v=0.9.86O"></script>
-  <script src="./js/game.js?v=0.9.86P"></script>
+  <script src="./js/auth_storage_runtime.js?v=0.9.86Q"></script>
+  <script src="./js/data_bundle.js?v=0.9.86Q"></script>
+  <script src="./js/modifier_key_runtime.js?v=0.9.86Q"></script>
+  <script src="./js/ui_theme_runtime.js?v=0.9.86Q"></script>
+  <script src="./js/equipment_job_map_bundle.js?v=0.9.86Q"></script>
+  <script src="./js/loading_screen_runtime.js?v=0.9.86Q"></script>
+  <script src="./js/character_slots_runtime.js?v=0.9.86Q"></script>
+  <script src="./js/cloud_save_runtime.js?v=0.9.86Q"></script>
+  <script src="./js/vip_runtime.js?v=0.9.86Q"></script>
+  <script src="./js/player.js?v=0.9.86Q"></script>
+  <script src="./js/item_instance_ui.js?v=0.9.86Q"></script>
+  <script src="./js/mail_runtime.js?v=0.9.86Q"></script>
+  <script src="./js/newcomer_support_runtime.js?v=0.9.86Q"></script>
+  <script src="./js/storage_runtime.js?v=0.9.86Q"></script>
+  <script src="./js/rare_item_announcement_runtime.js?v=0.9.86Q"></script>
+  <script src="./js/refine_runtime.js?v=0.9.86Q"></script>
+  <script src="./js/enchant_grade_runtime.js?v=0.9.86Q"></script>
+  <script src="./js/mvp_gacha_runtime.js?v=0.9.86Q"></script>
+  <script src="./js/taiwan_gacha_runtime.js?v=0.9.86Q"></script>
+  <script src="./js/item_box_runtime.js?v=0.9.86Q"></script>
+  <script src="./js/item_batch_open_runtime.js?v=0.9.86Q"></script>
+  <script src="./js/consumable_runtime.js?v=0.9.86Q"></script>
+  <script src="./js/card_runtime.js?v=0.9.86Q"></script>
+  <script src="./js/effect_runtime.js?v=0.9.86Q"></script>
+  <script src="./js/position_engine.js?v=0.9.86Q"></script>
+  <script src="./js/job_constitution.js?v=0.9.86Q"></script>
+  <script src="./js/job.js?v=0.9.86Q"></script>
+  <script src="./js/extra_skill_runtime.js?v=0.9.86Q"></script>
+  <script src="./js/combat_mechanics_runtime.js?v=0.9.86Q"></script>
+  <script src="./js/combat_formula_runtime.js?v=0.9.86Q"></script>
+  <script src="./js/ra_renewal_damage_pipeline.js?v=0.9.86Q"></script>
+  <script src="./js/combat_damage_pipeline.js?v=0.9.86Q"></script>
+  <script src="./js/combat_resource_manager.js?v=0.9.86Q"></script>
+  <script src="./js/skill_engine.js?v=0.9.86Q"></script>
+  <script src="./js/warlock_elemental_sphere_runtime.js?v=0.9.86Q"></script>
+  <script src="./js/skill_effect_runtime_v92.js?v=0.9.86Q"></script>
+  <script src="./js/status_system.js?v=0.9.86Q"></script>
+  <script src="./js/stats.js?v=0.9.86Q"></script>
+  <script src="./js/loot.js?v=0.9.86Q"></script>
+  <script src="./js/auto_battle.js?v=0.9.86Q"></script>
+  <script src="./js/death_revival_runtime.js?v=0.9.86Q"></script>
+  <script src="./js/player_atlas_runtime.js?v=0.9.86Q"></script>
+  <script src="./js/character_gender.js?v=0.9.86Q"></script>
+  <script src="./js/battle.js?v=0.9.86Q"></script>
+  <script src="./js/monster_atlas_runtime.js?v=0.9.86Q"></script>
+  <script src="./js/effect_visual_runtime.js?v=0.9.86Q"></script>
+  <script src="./js/world_monster_test_runtime.js?v=0.9.86Q"></script>
+  <script src="./js/virtual_summon.js?v=0.9.86Q"></script>
+  <script src="./js/homunculus.js?v=0.9.86Q"></script>
+  <script src="./js/homunculus_skill_runtime.js?v=0.9.86Q"></script>
+  <script src="./js/homunculus_s_skill_runtime.js?v=0.9.86Q"></script>
+  <script src="./js/map.js?v=0.9.86Q"></script>
+  <script src="./js/enchant_platform_runtime.js?v=0.9.86Q"></script>
+  <script src="./js/enchant_material_exchange_runtime.js?v=0.9.86Q"></script>
+  <script src="./js/town.js?v=0.9.86Q"></script>
+  <script src="./js/ui.js?v=0.9.86Q"></script>
+  <script src="./js/account_menu_runtime.js?v=0.9.86Q"></script>
+  <script src="./js/quick_slots.js?v=0.9.86Q"></script>
+  <script src="./js/chat_runtime.js?v=0.9.86Q"></script>
+  <script src="./js/game.js?v=0.9.86Q"></script>
 </body>
 
 </html>

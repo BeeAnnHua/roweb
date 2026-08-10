@@ -24180,3 +24180,99 @@ body.roweb-loading-open{overflow:hidden!important}
   .player-chat-vip-mark { min-width:27px; height:14px; padding:0 4px; margin-right:3px; font-size:8px; line-height:12px; }
   .player-chat-name.name-vip { max-width:80px; }
 }
+
+
+/* ============================================================
+   V0.9.86Q VIP V1
+   ============================================================ */
+#accountMenuVip.is-vip {
+  color: #ffabd8 !important;
+  text-shadow: 0 0 8px rgba(255,91,180,.34) !important;
+}
+body.vip-offline-open { overflow: hidden !important; }
+.vip-offline-overlay[hidden] { display: none !important; }
+.vip-offline-overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 2147482800 !important;
+  display: grid !important;
+  place-items: center !important;
+  padding: 16px !important;
+  background: rgba(7,3,8,.78) !important;
+  backdrop-filter: blur(5px) !important;
+}
+.vip-offline-card {
+  box-sizing: border-box !important;
+  width: min(520px, calc(100vw - 24px)) !important;
+  max-height: min(680px, calc(100vh - 24px)) !important;
+  overflow: auto !important;
+  padding: 22px !important;
+  border: 1px solid #bd668f !important;
+  border-radius: 18px !important;
+  color: #f4e7ef !important;
+  background:
+    radial-gradient(circle at 50% 0, rgba(213,70,143,.24), transparent 34%),
+    linear-gradient(180deg, #27131f 0%, #110a0f 58%, #090609 100%) !important;
+  box-shadow: inset 0 1px rgba(255,225,239,.12), 0 24px 70px rgba(0,0,0,.72), 0 0 32px rgba(190,55,126,.16) !important;
+  text-align: center !important;
+}
+.vip-offline-crown {
+  display: inline-block !important;
+  padding: 5px 12px !important;
+  border: 1px solid rgba(255,133,194,.58) !important;
+  border-radius: 999px !important;
+  color: #ffc3e2 !important;
+  background: rgba(105,27,65,.38) !important;
+  font-size: 11px !important;
+  font-weight: 900 !important;
+  letter-spacing: 1.5px !important;
+}
+.vip-offline-card h2 { margin: 10px 0 4px !important; color: #ffe6f3 !important; font-size: 24px !important; }
+.vip-offline-meta { margin: 0 0 14px !important; color: #b99aaa !important; font-size: 11px !important; }
+.vip-offline-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2,minmax(0,1fr)) !important;
+  gap: 8px !important;
+  margin: 12px 0 !important;
+}
+.vip-offline-grid > div {
+  display: grid !important;
+  gap: 4px !important;
+  padding: 10px !important;
+  border: 1px solid rgba(163,89,126,.46) !important;
+  border-radius: 10px !important;
+  background: rgba(32,13,24,.68) !important;
+}
+.vip-offline-grid span { color: #997a8a !important; font-size: 10px !important; }
+.vip-offline-grid b { color: #ffd4ea !important; font-size: 16px !important; }
+.vip-offline-items {
+  margin: 12px 0 !important;
+  padding: 10px 12px !important;
+  border: 1px solid rgba(124,74,99,.4) !important;
+  border-radius: 10px !important;
+  background: rgba(10,6,9,.54) !important;
+  text-align: left !important;
+}
+.vip-offline-items > strong { display:block !important; margin-bottom:5px !important; color:#eab5d0 !important; font-size:11px !important; }
+.vip-offline-items > div { display:flex !important; justify-content:space-between !important; gap:10px !important; padding:4px 0 !important; border-bottom:1px solid rgba(112,72,91,.22) !important; font-size:11px !important; }
+.vip-offline-items > div:last-of-type { border-bottom:0 !important; }
+.vip-offline-items > div span { min-width:0 !important; overflow:hidden !important; text-overflow:ellipsis !important; white-space:nowrap !important; color:#cdb7c2 !important; }
+.vip-offline-items > div b { color:#ffb7da !important; }
+.vip-offline-items small { display:block !important; padding-top:5px !important; color:#826b77 !important; font-size:9px !important; }
+.vip-offline-note { display:block !important; margin:10px 0 14px !important; color:#806a75 !important; font-size:9px !important; line-height:1.55 !important; }
+#vipOfflineClose {
+  width: 100% !important;
+  min-height: 42px !important;
+  border: 1px solid #c76998 !important;
+  border-radius: 10px !important;
+  color: #fff0f7 !important;
+  background: linear-gradient(180deg,#9d3f70,#692647) !important;
+  box-shadow: inset 0 1px rgba(255,230,243,.14), 0 7px 20px rgba(91,20,57,.28) !important;
+  font-weight: 900 !important;
+  cursor: pointer !important;
+}
+#vipOfflineClose:hover { filter: brightness(1.12) !important; }
+@media (max-width:520px) {
+  .vip-offline-card { padding:16px !important; border-radius:14px !important; }
+  .vip-offline-card h2 { font-size:20px !important; }
+}

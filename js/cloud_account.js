@@ -1,6 +1,6 @@
 (function(){
   "use strict";
-  const VERSION="0.9.86O";
+  const VERSION="0.9.86Q";
   const SUPABASE_URL="https://ecbnsobcjxnrwqlefjci.supabase.co";
   const SUPABASE_PUBLISHABLE_KEY="sb_publishable_LrQiZeOESpuGnt-hL6m0VQ_zXqn8ehS";
   const SELECTED_ACCOUNT_KEY="roweb_cloud_selected_account_v1";
@@ -172,7 +172,7 @@
     const {data:sessionData,error:sessionError}=await client.auth.getSession();
     if(sessionError)throw sessionError;
     const user=sessionData?.session?.user;if(!user)return[];
-    const {data,error}=await client.from("ro_accounts").select("account_id,player_id,account_name,account_role,account_status,is_test,slot_limit,user_id").eq("user_id",user.id).order("player_id",{ascending:true});
+    const {data,error}=await client.from("ro_accounts").select("account_id,player_id,account_name,account_role,account_status,is_test,slot_limit,user_id,is_vip,vip_level,vip_started_at,vip_until").eq("user_id",user.id).order("player_id",{ascending:true});
     if(error)throw error;
     rememberAccounts(data,user.email);
     return Array.isArray(data)?data:[];
@@ -191,7 +191,8 @@
     for(const row of rows){
       const card=document.createElement("article");card.className="account-card";
       const active=String(row.account_status||"active")==="active";
-      card.innerHTML=`<div><h3>${String(row.account_name).replace(/[<>&"]/g,"")}</h3><p>Player ID ${Number(row.player_id)} · ${active?"可登入":"目前不可登入"}</p></div><button type="button"${active?"":" disabled"}>進入遊戲</button>`;
+      const vipActive=row.is_vip===true&&(!row.vip_until||new Date(row.vip_until).getTime()>Date.now());
+      card.innerHTML=`<div><h3>${String(row.account_name).replace(/[<>&"]/g,"")}${vipActive?' <span style="color:#f09ad3;font-size:.7em">◆ VIP</span>':''}</h3><p>Player ID ${Number(row.player_id)} · ${active?"可登入":"目前不可登入"}${vipActive?' · VIP會員':''}</p></div><button type="button"${active?"":" disabled"}>進入遊戲</button>`;
       card.querySelector("button").onclick=()=>{
         showAccountLoading("正在進入角色選擇…");
         forceCharacterSelectorNext();
@@ -209,7 +210,7 @@
   }
 
   async function createRoAccount(accountName,user){
-    const {data,error}=await client.from("ro_accounts").insert({user_id:user.id,account_name:accountName,shared_save:{}}).select("account_id,player_id,account_name,account_role,account_status,is_test,slot_limit,user_id").single();
+    const {data,error}=await client.from("ro_accounts").insert({user_id:user.id,account_name:accountName,shared_save:{}}).select("account_id,player_id,account_name,account_role,account_status,is_test,slot_limit,user_id,is_vip,vip_level,vip_started_at,vip_until").single();
     if(error)throw error;
     saveAlias(data.account_name,user.email);
     return data;
