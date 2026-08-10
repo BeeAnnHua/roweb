@@ -6,11 +6,12 @@
 (function () {
   "use strict";
 
-  const VERSION = "0.9.86O";
+  const VERSION = "0.9.86P";
   const ACCOUNT_KEY = "ro_web_account_profile_v1";
   const LEGACY_SAVE_KEY = "ro_web_save_v0_9_19_ui_scroll_quickbar";
   const SLOT_SAVE_PREFIX = "ro_web_character_save_v1_";
   const SESSION_ENTRY_KEY = "ro_web_character_entry_v1";
+  const ENTRY_FALLBACK_KEY = "ro_web_character_entry_fallback_v1";
   const FORCE_SELECTOR_KEY = "ro_web_force_character_selector_v1";
   const DEFAULT_SLOT_LIMIT = 12;
   const MAX_SLOT_LIMIT = 12;
@@ -602,41 +603,80 @@
     document.body?.classList.remove("character-select-open");
   }
 
+  // V0.9.86P：角色進場 hand-off 不再只依賴 account.activeCharacterId。
+  // 部分舊瀏覽器資料量很大時，saveAccount() 可能無法及時把「剛點的 SLOT」寫回 localStorage；
+  // 雲端重新 bind 後便會回退到第一隻角色，造成 SLOT 1 能進、SLOT 2/3/4 永遠在 5~8% 被退回。
+  // Entry Token 才是玩家這一次明確點擊的角色，因此 bind/validation 都應以它為最高優先。
+  function readPendingEntryToken() {
+    let token = null;
+    try { token = JSON.parse(sessionStorage.getItem(SESSION_ENTRY_KEY) || "null"); } catch (_) {}
+    if (!token) {
+      try { token = JSON.parse(localStorage.getItem(ENTRY_FALLBACK_KEY) || "null"); } catch (_) {}
+    }
+    return token && typeof token === "object" ? token : null;
+  }
+
+  function clearPendingEntryToken() {
+    try { sessionStorage.removeItem(SESSION_ENTRY_KEY); } catch (_) {}
+    try { localStorage.removeItem(ENTRY_FALLBACK_KEY); } catch (_) {}
+  }
+
+  function pendingEntryCharacterForAccount(accountId, characters = null) {
+    const token = readPendingEntryToken();
+    const expiresAt = Number(token?.expiresAt || 0);
+    if (token?.oneShot !== true || expiresAt <= now()) return "";
+    if (String(token?.accountId || "") !== String(accountId || "")) return "";
+    const characterId = String(token?.characterId || "");
+    const rows = Array.isArray(characters) ? characters : account?.characters;
+    if (!characterId || !Array.isArray(rows)) return "";
+    const exists = rows.some(row => String(row?.characterId || row?.character_id || "") === characterId);
+    return exists ? characterId : "";
+  }
+
   function hasValidEntryToken() {
-    const active = activeCharacter();
-    if (!active) return false;
     try {
-      const token = JSON.parse(sessionStorage.getItem(SESSION_ENTRY_KEY) || "null");
+      const token = readPendingEntryToken();
       const forced = sessionStorage.getItem(FORCE_SELECTOR_KEY) === "1";
-      // V0.9.85O: character entry is a one-shot hand-off used only for the reload
-      // immediately after the player presses "進入遊戲". Consume it here so a later
-      // refresh/reopen can never auto-enter the last character. Legacy persistent
-      // tokens are rejected as well.
-      try { sessionStorage.removeItem(SESSION_ENTRY_KEY); } catch (_) {}
       const expiresAt = Number(token?.expiresAt || 0);
-      return !forced
+      const characterId = String(token?.characterId || "");
+      const valid = !forced
         && token?.oneShot === true
         && expiresAt > now()
-        && token?.characterId === active.characterId
-        && token?.accountId === account.accountId;
-    } catch (_) {
-      try { sessionStorage.removeItem(SESSION_ENTRY_KEY); } catch (_) {}
+        && String(token?.accountId || "") === String(account?.accountId || "")
+        && Boolean(findCharacter(characterId));
+
+      if (valid) {
+        // 玩家本次點擊的角色覆蓋任何由舊 Account Profile / 雲端排序造成的 active 回退。
+        account.activeCharacterId = characterId;
+        saveAccount(); // 寫入失敗也不影響本次 in-memory 選擇。
+        try { window.ROWebSaveManager?.rebindActiveCharacter?.({ reason:"entry-token-selected-character" }); } catch (_) {}
+      }
+
+      // one-shot：無論成功或失敗都在驗證後消耗，避免重新整理自動登入。
+      clearPendingEntryToken();
+      return valid;
+    } catch (error) {
+      console.warn("角色 Entry Token 驗證失敗：", error);
+      clearPendingEntryToken();
       return false;
     }
   }
 
   function setEntryToken(characterId) {
-    try {
-      const issuedAt = now();
-      sessionStorage.setItem(SESSION_ENTRY_KEY, JSON.stringify({
-        accountId:account.accountId,
-        characterId,
-        enteredAt:issuedAt,
-        expiresAt:issuedAt + 120000,
-        oneShot:true
-      }));
-      sessionStorage.removeItem(FORCE_SELECTOR_KEY);
-    } catch (_) {}
+    const issuedAt = now();
+    const token = {
+      accountId:String(account?.accountId || ""),
+      characterId:String(characterId || ""),
+      enteredAt:issuedAt,
+      expiresAt:issuedAt + 120000,
+      oneShot:true
+    };
+    const raw = JSON.stringify(token);
+    try { sessionStorage.setItem(SESSION_ENTRY_KEY, raw); } catch (_) {}
+    // localStorage 僅作 reload hand-off 備援；成功驗證後會立即刪除。
+    try { localStorage.setItem(ENTRY_FALLBACK_KEY, raw); } catch (_) {}
+    try { sessionStorage.removeItem(FORCE_SELECTOR_KEY); } catch (_) {}
+    return token;
   }
 
   async function ensureActiveCharacterSelection() {
@@ -979,9 +1019,10 @@
     };
 
     const previousActive = String(account?.activeCharacterId || "");
-    next.activeCharacterId = next.characters.some(row => row.characterId === previousActive)
-      ? previousActive
-      : (next.characters[0]?.characterId || "");
+    const pendingEntry = pendingEntryCharacterForAccount(next.accountId, next.characters);
+    next.activeCharacterId = pendingEntry
+      || (next.characters.some(row => row.characterId === previousActive) ? previousActive : "")
+      || (next.characters[0]?.characterId || "");
 
     account = normalizeAccount(next);
     account.cloud = { ...next.cloud };
