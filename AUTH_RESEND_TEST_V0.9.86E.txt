@@ -1,0 +1,25 @@
+V0.9.86E 建議測試
+
+A. 全新 Email
+1. 填寫遊戲帳號 / Email / 密碼。
+2. 按「寄送 6 位數驗證碼」。
+3. Supabase Auth Logs 應出現 /signup。
+4. 收取最新驗證碼並完成驗證。
+
+B. 同一瀏覽器的待驗證 Email
+1. 第一次 /signup 後返回修改資料。
+2. 不更換 Email，再按「寄送 6 位數驗證碼」。
+3. 畫面應提示「已阻止重複註冊」，而不是再次呼叫 /signup。
+4. 需要新碼時按「重新寄送驗證碼」；Auth Logs 應出現 /resend 200。
+
+C. 另一瀏覽器 / 已註冊但尚未驗證
+1. 填寫要建立的遊戲帳號與先前註冊 Email。
+2. 不需要再次建立相同 Auth 帳號；按「已註冊但尚未驗證？重新寄送驗證碼」。
+3. Auth Logs 應出現 /resend。
+4. 只使用最新一封郵件的 6 位數驗證碼。
+
+D. 診斷
+F12 Console：
+ROWebAuthDiagnostics.getResendLog()
+
+可確認該分頁實際重寄 Email、時間、結果與觸發來源。

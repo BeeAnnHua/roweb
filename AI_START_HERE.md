@@ -1,4 +1,4 @@
-# V0.9.86D current baseline
+# V0.9.86E current baseline
 
 - Adds the first low-traffic social chat layer on top of the user-tested V0.9.85Q/P cloud baseline.
 - Bottom chat panel defaults to `玩家頻道`; `系統信息` preserves the original combat/buff/drop/save log.
@@ -166,3 +166,11 @@
 - Signup resend is now tab-bound: each browser tab retains its own pending signup email/account and no longer relies only on the shared pending key.
 - Resend UI locks while the request is in flight, shows the masked destination email and completion time, and keeps a per-tab diagnostic log in `sessionStorage` (`roweb_cloud_resend_diag_v1`).
 - `window.ROWebAuthDiagnostics.getResendLog()` can be used during testing to confirm which email target each resend request used.
+
+
+## V0.9.86E additions
+- Cumulative on V0.9.86C/D: GM gold chat effect, low-traffic chat, IndexedDB auth storage and tab-bound resend diagnostics remain enabled.
+- Prevents repeated `signUp()` calls for the same locally pending Email. Once an Email is in the confirmation stage, the registration button returns to the OTP step instead of issuing another signup request.
+- Adds `已註冊但尚未驗證？重新寄送驗證碼`, which calls Supabase `auth.resend({type:"signup"})` directly. This is the recovery path for an existing unconfirmed Email, including another browser/device.
+- Successful resend clears the OTP input and explicitly tells the player to use only the newest email code.
+- This release needs no new SQL.

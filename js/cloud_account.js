@@ -1,6 +1,6 @@
 (function(){
   "use strict";
-  const VERSION="0.9.86D";
+  const VERSION="0.9.86E";
   const SUPABASE_URL="https://ecbnsobcjxnrwqlefjci.supabase.co";
   const SUPABASE_PUBLISHABLE_KEY="sb_publishable_LrQiZeOESpuGnt-hL6m0VQ_zXqn8ehS";
   const SELECTED_ACCOUNT_KEY="roweb_cloud_selected_account_v1";
@@ -43,6 +43,7 @@
   }
   let signupResendTimer=null;
   let recoveryResendTimer=null;
+  let signupSendInFlight=false;
   let signupResendInFlight=false;
   let recoveryResendInFlight=false;
 
@@ -81,7 +82,7 @@
     const source=(tab&&typeof tab==="object")?tab:((shared&&typeof shared==="object")?shared:{});
     const email=validEmail(uiEmail)?uiEmail:(validEmail(source.email)?String(source.email).trim():formEmail);
     const accountName=validName(formName)?formName:String(source.accountName||"").trim();
-    return {accountName,email,createdAt:Number(source.createdAt||0),source:tab?"tab":(shared?"shared":"ui")};
+    return {accountName,email,createdAt:Number(source.createdAt||0),lastSentAt:Number(source.lastSentAt||0),stage:String(source.stage||""),resendCount:Math.max(0,Number(source.resendCount||0)),source:tab?"tab":(shared?"shared":"ui")};
   }
   function saveTabSignupContext(v){if(v&&validEmail(v.email))writeSessionJson(SIGNUP_TAB_KEY,v)}
   function formatClock(ts=Date.now()){try{return new Intl.DateTimeFormat("zh-TW",{hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false}).format(new Date(ts))}catch(_){return new Date(ts).toLocaleTimeString()}}
@@ -94,6 +95,37 @@
     }catch(_){}
     try{console.info("[RO_WEB auth resend]",row)}catch(_){}
   }
+  function normalizeEmail(value){return String(value||"").trim().toLowerCase();}
+  function sameEmail(a,b){return validEmail(a)&&validEmail(b)&&normalizeEmail(a)===normalizeEmail(b);}
+  function signupCooldownSeconds(context){
+    const last=Number(context?.lastSentAt||context?.createdAt||0);
+    if(!last)return 0;
+    return Math.max(0,Math.ceil((60000-(Date.now()-last))/1000));
+  }
+  function persistSignupContext(context){
+    const next={
+      accountName:String(context?.accountName||"").trim(),
+      email:String(context?.email||"").trim(),
+      createdAt:Number(context?.createdAt||Date.now()),
+      lastSentAt:Number(context?.lastSentAt||0),
+      stage:String(context?.stage||"awaiting_email_confirmation"),
+      resendCount:Math.max(0,Number(context?.resendCount||0))
+    };
+    savePending(next);
+    return next;
+  }
+  function showSignupVerification(context,{respectCooldown=true}={}){
+    const next=persistSignupContext(context);
+    if(el("accountName"))el("accountName").value=next.accountName;
+    if(el("email"))el("email").value=next.email;
+    if(el("otpEmail"))el("otpEmail").textContent=next.email;
+    el("registerForm")?.classList.add("hidden");
+    el("otpForm")?.classList.remove("hidden");
+    const remain=respectCooldown?signupCooldownSeconds(next):0;
+    startCountdown("resendBtn","signup",remain);
+    return next;
+  }
+  function isInvalidOtpError(error){return /token.*expired|invalid.*token|expired|otp_expired/i.test(String(error?.message||error||""));}
   function aliases(){return readJson(LOGIN_HINT_KEY,{})}
   function saveAlias(name,email){const a=aliases();a[String(name||"").trim().toLowerCase()]=String(email||"").trim();writeJson(LOGIN_HINT_KEY,a)}
   function rememberAccounts(rows,email){for(const row of rows||[])saveAlias(row.account_name,email)}
@@ -125,12 +157,13 @@
     el("tabs").style.display=name==="accounts"?"none":"grid";
   }
 
-  function startCountdown(buttonId,type="signup"){
+  function startCountdown(buttonId,type="signup",seconds=60){
     if(type==="signup"&&signupResendTimer)clearInterval(signupResendTimer);
     if(type==="recovery"&&recoveryResendTimer)clearInterval(recoveryResendTimer);
-    let remain=60;const btn=el(buttonId);
+    let remain=Math.max(0,Math.ceil(Number(seconds)||0));const btn=el(buttonId);
     const paint=()=>{if(!btn)return;btn.disabled=remain>0;btn.textContent=remain>0?`${remain} 秒後可重寄`:"重新寄送驗證碼";};
     paint();
+    if(remain<=0){if(type==="signup")signupResendTimer=null;else recoveryResendTimer=null;return;}
     const timer=setInterval(()=>{remain-=1;paint();if(remain<=0){clearInterval(timer);if(type==="signup")signupResendTimer=null;else recoveryResendTimer=null}},1000);
     if(type==="signup")signupResendTimer=timer;else recoveryResendTimer=timer;
   }
@@ -204,6 +237,7 @@
   }
 
   async function sendOtp(){
+    if(signupSendInFlight)return;
     const accountName=String(el("accountName").value||"").trim();
     const email=String(el("email").value||"").trim();
     const password=String(el("password").value||"");
@@ -212,16 +246,54 @@
     if(!validEmail(email))return setStatus("請輸入有效 Email。","err");
     if(password.length<8)return setStatus("密碼至少需要 8 碼。","err");
     if(password!==password2)return setStatus("兩次輸入的密碼不一致。","err");
+
+    const existing=readSessionJson(SIGNUP_TAB_KEY,null)||pending();
+    if(existing&&sameEmail(existing.email,email)&&String(existing.stage||"")==="awaiting_email_confirmation"){
+      const context=showSignupVerification({
+        ...existing,
+        accountName,
+        email,
+        createdAt:Number(existing.createdAt||Date.now()),
+        lastSentAt:Number(existing.lastSentAt||existing.createdAt||0),
+        stage:"awaiting_email_confirmation"
+      });
+      setStatus(`此 Email 已在等待驗證，已阻止重複註冊。請使用最新收到的驗證碼；需要新碼時請按「重新寄送驗證碼」。${signupCooldownSeconds(context)>0?"":" 現在已可重新寄送。"}`,"info");
+      return;
+    }
+
+    const btn=el("sendOtpBtn");
+    signupSendInFlight=true;
+    if(btn){btn.disabled=true;btn.textContent="寄送中…";}
     try{
-      setStatus("正在寄送驗證碼…","info");
+      setStatus("正在建立註冊並寄送驗證碼…","info");
       const {data,error}=await client.auth.signUp({email,password});if(error)throw error;
-      savePending({accountName,email,createdAt:Date.now()});
-      el("otpEmail").textContent=email;
-      el("registerForm").classList.add("hidden");el("otpForm").classList.remove("hidden");
-      startCountdown("resendBtn","signup");
-      setStatus("驗證碼已寄出。請到 Email 收取 6 位數驗證碼。","ok");
-      if(data?.session?.user){const row=await createRoAccount(accountName,data.session.user);return registrationSuccess(row,data.session.user);}
+      const now=Date.now();
+      const context=showSignupVerification({accountName,email,createdAt:now,lastSentAt:now,stage:"awaiting_email_confirmation",resendCount:0});
+      setStatus("註冊／驗證請求已送出。新帳號請查看最新驗證信；若這個 Email 之前已註冊但尚未驗證，請勿再次註冊，改用「重新寄送驗證碼」。","ok");
+      recordResendDiagnostic({type:"signup_initial",email,result:"request_completed",at:now,hasUser:Boolean(data?.user),hasSession:Boolean(data?.session)});
+      if(data?.session?.user){const row=await createRoAccount(accountName,data.session.user);clearPending();return registrationSuccess(row,data.session.user);}
+      return context;
     }catch(e){setStatus(friendly(e),"err")}
+    finally{signupSendInFlight=false;if(btn){btn.disabled=false;btn.textContent="寄送 6 位數驗證碼";}}
+  }
+
+  async function resumePendingSignup(){
+    if(signupResendInFlight)return;
+    const accountName=String(el("accountName").value||"").trim();
+    const email=String(el("email").value||"").trim();
+    if(!validName(accountName))return setStatus("請先輸入要建立的遊戲帳號（4～20 碼英數字或底線）。","err");
+    if(!validEmail(email))return setStatus("請先輸入先前註冊、尚未完成驗證的 Email。","err");
+    const old=readSessionJson(SIGNUP_TAB_KEY,null)||pending()||{};
+    const context=showSignupVerification({
+      accountName,
+      email,
+      createdAt:sameEmail(old.email,email)?Number(old.createdAt||Date.now()):Date.now(),
+      lastSentAt:0,
+      stage:"awaiting_email_confirmation",
+      resendCount:sameEmail(old.email,email)?Number(old.resendCount||0):0
+    },{respectCooldown:false});
+    setStatus(`正在為 ${maskEmail(email)} 重新寄送既有註冊的驗證碼…`,"info");
+    return resendSignupConfirmation(context,"resume_existing_signup");
   }
 
   async function verifyOtp(){
@@ -234,7 +306,12 @@
       const {data,error}=await client.auth.verifyOtp({email,token,type:"email"});if(error)throw error;
       const user=data?.user||data?.session?.user;if(!user)throw new Error("驗證成功但沒有取得登入狀態。");
       const row=await createRoAccount(name,user);clearPending();registrationSuccess(row,user);
-    }catch(e){setStatus(friendly(e),"err")}
+    }catch(e){
+      if(isInvalidOtpError(e)){
+        if(el("otp"))el("otp").value="";
+        setStatus("驗證碼錯誤或已過期。若曾按過重新寄送，舊驗證碼可能已失效；請只使用最新一封郵件中的 6 位數驗證碼。","err");
+      }else setStatus(friendly(e),"err");
+    }
   }
 
   function registrationSuccess(row,user){
@@ -246,9 +323,9 @@
     setStatus("Email 驗證完成，遊戲帳號已建立。","ok");
   }
 
-  async function resend(){
+  async function resendSignupConfirmation(context,source="resend_button"){
     if(signupResendInFlight)return;
-    const p=signupContext();
+    const p=context&&typeof context==="object"?context:signupContext();
     const email=String(p?.email||"").trim();
     const name=String(p?.accountName||"").trim();
     if(!validEmail(email))return setStatus("找不到待驗證 Email。請返回註冊資料重新確認。","err");
@@ -256,21 +333,28 @@
     const btn=el("resendBtn");
     signupResendInFlight=true;
     if(btn){btn.disabled=true;btn.textContent="寄送中…";}
-    saveTabSignupContext({accountName:name,email,createdAt:Number(p?.createdAt||Date.now())});
-    setStatus(`正在重新寄送至 ${maskEmail(email)}…`,`info`);
+    const before=persistSignupContext({...p,accountName:name,email,stage:"awaiting_email_confirmation"});
+    setStatus(`正在重新寄送至 ${maskEmail(email)}…`,"info");
     const requestedAt=Date.now();
     try{
       const {data,error}=await client.auth.resend({type:"signup",email});
       if(error)throw error;
-      recordResendDiagnostic({type:"signup",email,result:"ok",at:Date.now(),requestedAt,hasUser:Boolean(data?.user)});
-      startCountdown("resendBtn","signup");
-      setStatus(`已重新寄送至 ${maskEmail(email)}（${formatClock()}）。請使用最新一封驗證碼；若數分鐘仍未收到，請確認 Email 地址與垃圾郵件。`,`ok`);
+      const sentAt=Date.now();
+      const next=persistSignupContext({...before,lastSentAt:sentAt,resendCount:Number(before.resendCount||0)+1,stage:"awaiting_email_confirmation"});
+      recordResendDiagnostic({type:"signup",source,email,result:"ok",at:sentAt,requestedAt,hasUser:Boolean(data?.user),resendCount:next.resendCount});
+      if(el("otp"))el("otp").value="";
+      startCountdown("resendBtn","signup",60);
+      setStatus(`已重新寄送至 ${maskEmail(email)}（${formatClock(sentAt)}）。請只使用最新一封郵件中的驗證碼；先前的驗證碼請勿再使用。`,`ok`);
+      return true;
     }catch(e){
-      recordResendDiagnostic({type:"signup",email,result:"error",message:String(e?.message||e),at:Date.now(),requestedAt});
+      recordResendDiagnostic({type:"signup",source,email,result:"error",message:String(e?.message||e),at:Date.now(),requestedAt});
       if(btn){btn.disabled=false;btn.textContent="重新寄送驗證碼";}
       setStatus(friendly(e),"err");
+      return false;
     }finally{signupResendInFlight=false;}
   }
+
+  async function resend(){return resendSignupConfirmation(signupContext(),"resend_button");}
 
   async function sendRecovery(){
     const email=String(el("recoveryEmail").value||"").trim();if(!validEmail(email))return setStatus("請輸入有效 Email。","err");
@@ -368,14 +452,14 @@
     if(p?.accountName&&p?.email){
       el("accountName").value=p.accountName;el("email").value=p.email;el("otpEmail").textContent=p.email;
       saveTabSignupContext(p);
-      showPanel("register");el("registerForm").classList.add("hidden");el("otpForm").classList.remove("hidden");startCountdown("resendBtn","signup");
+      showPanel("register");showSignupVerification(p);
     } else if(params.get("mode")==="register") showPanel("register");
     else if(params.get("mode")==="recovery") showPanel("recovery");
   }
 
   document.addEventListener("DOMContentLoaded",()=>{
     document.querySelectorAll("#tabs [data-tab]").forEach(b=>b.onclick=()=>showPanel(b.dataset.tab));
-    el("loginBtn").onclick=login;el("sendOtpBtn").onclick=sendOtp;el("verifyBtn").onclick=verifyOtp;el("resendBtn").onclick=resend;
+    el("loginBtn").onclick=login;el("sendOtpBtn").onclick=sendOtp;el("resumeSignupBtn").onclick=resumePendingSignup;el("verifyBtn").onclick=verifyOtp;el("resendBtn").onclick=resend;
     el("backRegisterBtn").onclick=()=>{el("otpForm").classList.add("hidden");el("registerForm").classList.remove("hidden");clearStatus()};
     el("enterAfterRegisterBtn").onclick=()=>{
       showAccountLoading("正在進入角色選擇…");

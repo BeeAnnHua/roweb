@@ -77,6 +77,8 @@
           <input id="password2" type="password" minlength="8" autocomplete="new-password" placeholder="再次輸入相同密碼">
           <div class="security">🔐 帳號安全提醒：請勿使用與 Email、銀行、社群平台或其他重要服務相同的密碼。建議為《彼岸花仙境》設定一組獨立密碼。</div>
           <div class="actions"><button id="sendOtpBtn" type="button">寄送 6 位數驗證碼</button></div>
+          <div class="actions"><button id="resumeSignupBtn" class="secondary" type="button">已註冊但尚未驗證？重新寄送驗證碼</button></div>
+          <div class="hint">如果這個 Email 之前已經註冊、但還沒完成驗證，請使用上方重新寄送功能，不要再次建立相同帳號。</div>
         </div>
 
         <div id="otpForm" class="hidden">
@@ -85,7 +87,7 @@
           <label for="otp">6 位數驗證碼</label>
           <input id="otp" class="otp" inputmode="numeric" maxlength="6" autocomplete="one-time-code" placeholder="000000">
           <div class="actions"><button id="verifyBtn" type="button">完成驗證</button><button id="resendBtn" class="secondary" type="button" disabled>60 秒後可重寄</button></div>
-          <div class="hint">重新寄送只會寄到上方顯示的 Email；成功後會顯示本次實際寄送時間。</div>
+          <div class="hint">重新寄送只會寄到上方顯示的 Email；成功後會顯示實際寄送時間。每次重寄後請只使用最新一封驗證信中的驗證碼。</div>
           <div class="actions"><button id="backRegisterBtn" class="secondary" type="button">返回修改資料</button></div>
         </div>
 
@@ -155,6 +157,6 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/auth_storage_runtime.js?v=0.9.86C"></script>
-  <script src="js/cloud_account.js?v=0.9.86D"></script>
+  <script src="js/cloud_account.js?v=0.9.86E"></script>
 </body>
 </html>
