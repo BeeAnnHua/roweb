@@ -8,7 +8,7 @@
 (function () {
   "use strict";
 
-  const VERSION = "0.9.86J";
+  const VERSION = "0.9.86K";
   const SUPABASE_URL = "https://ecbnsobcjxnrwqlefjci.supabase.co";
   const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_LrQiZeOESpuGnt-hL6m0VQ_zXqn8ehS";
   const SELECTED_ACCOUNT_KEY = "roweb_cloud_selected_account_v1";
@@ -457,7 +457,7 @@
   }
 
   // ============================================================
-  // V0.9.86J Legacy Browser Rescue
+  // V0.9.86K Legacy Browser Rescue + Shadow Trace
   // - Deep scan the current Origin before an empty cloud list replaces UI state.
   // - Never auto-attach identity-less / acct_* legacy saves to a Player ID.
   // - Candidates are shown for explicit confirmation, then restored through a
@@ -490,22 +490,83 @@
     };
   }
 
-  function collectLegacyAccountHints(value, hints, source = "profile") {
+  let lastLegacyShadowRecords = [];
+
+  function collectLegacyAccountHints(value, hints, source = "profile", hintRows = []) {
     if (!value || typeof value !== "object" || Array.isArray(value)) return;
     const accountValue = value?.account && typeof value.account === "object" ? value.account : value;
     const characters = Array.isArray(accountValue?.characters) ? accountValue.characters : [];
-    for (const row of characters) {
-      if (!row || typeof row !== "object") continue;
-      const id = String(row.characterId || "").trim();
-      if (!id) continue;
-      const summary = row.summary && typeof row.summary === "object" ? row.summary : (row.seed || {});
-      hints.set(id, {
+    characters.forEach((row, index) => {
+      if (!row || typeof row !== "object") return;
+      const summary = row.summary && typeof row.summary === "object"
+        ? row.summary
+        : (row.seed && typeof row.seed === "object" ? row.seed : row);
+      const id = String(row.characterId || row.character_id || summary?.characterId || summary?.character_id || "").trim();
+      const rawSlot = row.slotIndex ?? row.slot_index ?? summary?.slotIndex ?? summary?.slot_index ?? index;
+      const slotIndex = Math.max(0, Math.min(11, Number.isFinite(Number(rawSlot)) ? Number(rawSlot) : index));
+      const hint = {
         characterId:id,
-        slotIndex:Math.max(0, Math.min(11, Number(row.slotIndex || 0))),
-        name:String(summary?.name || row?.seed?.name || ""),
+        slotIndex,
+        name:String(summary?.name || row?.name || "").trim(),
+        job:String(summary?.job || summary?.jobName || summary?.job_name || row?.job || "").trim(),
+        baseLevel:Math.max(0, Number(summary?.baseLevel ?? summary?.base_level ?? row?.baseLevel ?? row?.base_level ?? 0)),
+        jobLevel:Math.max(0, Number(summary?.jobLevel ?? summary?.job_level ?? row?.jobLevel ?? row?.job_level ?? 0)),
+        savedAt:Math.max(0, Number(row?.updatedAt ?? row?.updated_at ?? summary?.updatedAt ?? summary?.updated_at ?? 0)),
         source:String(source || "profile")
-      });
+      };
+      if (id) hints.set(id, hint);
+      if (id || hint.name || hint.baseLevel > 0 || hint.jobLevel > 0 || hint.job) hintRows.push(hint);
+    });
+  }
+
+  function legacyShadowKey(row) {
+    const id = String(row?.characterId || "").trim();
+    if (id) return `id:${id}`;
+    return `slot:${Number(row?.slotIndex || 0)}|${String(row?.name || "").trim().toLowerCase()}|${String(row?.job || "").trim().toLowerCase()}`;
+  }
+
+  function extractLegacyShadowRecord(value, source = "legacy", preferredSlot = null, hintedCharacterId = "") {
+    let raw = value;
+    if (typeof raw === "string") {
+      try { raw = JSON.parse(raw); } catch (_) { return null; }
     }
+    if (!raw || typeof raw !== "object" || Array.isArray(raw)) return null;
+    const summary = raw.summary && typeof raw.summary === "object"
+      ? raw.summary
+      : (raw.seed && typeof raw.seed === "object" ? raw.seed : (raw.player && typeof raw.player === "object" ? raw.player : raw));
+    const characterId = String(raw.characterId || raw.character_id || summary?.characterId || summary?.character_id || hintedCharacterId || "").trim();
+    const name = String(summary?.name || raw?.name || "").trim();
+    const job = String(summary?.job || summary?.jobName || summary?.job_name || raw?.job || "").trim();
+    const baseLevel = Math.max(0, Number(summary?.baseLevel ?? summary?.base_level ?? raw?.baseLevel ?? raw?.base_level ?? 0));
+    const jobLevel = Math.max(0, Number(summary?.jobLevel ?? summary?.job_level ?? raw?.jobLevel ?? raw?.job_level ?? 0));
+    const slotIndex = legacyCandidateSlotHint(raw, preferredSlot ?? 0);
+    const hasIdentity = Boolean(characterId || name);
+    const hasCharacterShape = Boolean(characterId || job || baseLevel > 0 || jobLevel > 0 || /character|slot|profile|account/i.test(String(source || "")));
+    if (!hasIdentity || !hasCharacterShape) return null;
+    const playerForScore = raw.player && typeof raw.player === "object" ? raw.player : summary;
+    return {
+      characterId,
+      slotIndex:Math.max(0, Math.min(11, Number(slotIndex ?? preferredSlot ?? 0))),
+      name,
+      job,
+      baseLevel,
+      jobLevel,
+      savedAt:Math.max(0, Number(raw?.savedAt ?? raw?.updatedAt ?? raw?.updated_at ?? summary?.updatedAt ?? summary?.updated_at ?? 0)),
+      completeness:legacyPlayerCompletenessScore(playerForScore),
+      source:String(source || "legacy"),
+      traceSources:[]
+    };
+  }
+
+  function mergeLegacyShadow(map, record) {
+    if (!record) return;
+    const key = legacyShadowKey(record);
+    const previous = map.get(key);
+    if (!previous) { map.set(key, record); return; }
+    const traces = new Set([...(previous.traceSources || []), ...(record.traceSources || []), previous.source, record.source].filter(Boolean));
+    const prefer = (Number(record.completeness || 0) > Number(previous.completeness || 0))
+      || (Number(record.savedAt || 0) > Number(previous.savedAt || 0));
+    map.set(key, { ...(prefer ? previous : record), ...(prefer ? record : previous), traceSources:[...traces] });
   }
 
   function legacyIdentityKey(envelope, hintedCharacterId = "") {
@@ -649,11 +710,15 @@
   }
 
   async function findLegacyBrowserCandidates(cloudRows = []) {
+    lastLegacyShadowRecords = [];
     if (!currentAccount?.account_id) return [];
     const remoteIds = new Set((Array.isArray(cloudRows) ? cloudRows : []).map(row => String(row?.character_id || "")));
     const remoteNames = new Set((Array.isArray(cloudRows) ? cloudRows : []).map(row => String(row?.name || row?.save_data?.player?.name || "").trim().toLowerCase()).filter(Boolean));
     const hints = new Map();
+    const hintRows = [];
     const parsedLocal = [];
+    const rawTraceSources = [];
+    const shadowMap = new Map();
 
     const scanWebStorage = (storage, storageName) => {
       if (!storage) return;
@@ -663,13 +728,15 @@
           let text = "";
           try { text = storage.getItem(key) || ""; } catch (_) { continue; }
           if (!text || text.length > 25_000_000) continue;
+          const traceSource = `${storageName}:${key}`;
+          rawTraceSources.push({ source:traceSource, text });
           let value = null;
           try { value = JSON.parse(text); } catch (_) { continue; }
-          parsedLocal.push({ key, value, storageName });
-          collectLegacyAccountHints(value, hints, `${storageName}:${key}`);
+          parsedLocal.push({ key, value, storageName, text });
+          collectLegacyAccountHints(value, hints, traceSource, hintRows);
         }
       } catch (error) {
-        console.warn(`V0.9.86J ${storageName} Legacy 掃描失敗：`, error);
+        console.warn(`V0.9.86K ${storageName} Legacy 掃描失敗：`, error);
       }
     };
     scanWebStorage(window.localStorage, "localStorage");
@@ -711,22 +778,27 @@
         preferredSlot = hints.get(hintedCharacterId)?.slotIndex ?? null;
       }
       const rootSource = `${storageName}:${key}`;
+      const rootShadow = extractLegacyShadowRecord(value, rootSource, preferredSlot, hintedCharacterId);
+      if (rootShadow && rootShadow.completeness < 2) mergeLegacyShadow(shadowMap, rootShadow);
       accept(value, rootSource, hintedCharacterId, preferredSlot);
       if (value?.text) accept(value.text, `${rootSource}:text`, hintedCharacterId, preferredSlot);
       if (value?.save_data) accept(value.save_data, `${rootSource}:save_data`, hintedCharacterId, preferredSlot);
       if (value?.saveData) accept(value.saveData, `${rootSource}:saveData`, hintedCharacterId, preferredSlot);
 
-      // V0.9.86J: old account/profile formats often buried full player saves inside
+      // V0.9.86K: old account/profile formats often buried full player saves inside
       // arrays or migration/backup objects. Walk nested JSON, but only promote nested
       // raw-player objects when they look like a real full save (not a slot summary).
       walkLegacyNestedValues(value, (nested, path, nestedSlot) => {
         if (nested === value) return;
+        const nestedSource = `${rootSource}${path.replace(/^root/, "")}`;
+        const shadow = extractLegacyShadowRecord(nested, nestedSource, nestedSlot ?? preferredSlot, hintedCharacterId);
+        if (shadow && shadow.completeness < 2) mergeLegacyShadow(shadowMap, shadow);
         if (nested?.player && typeof nested.player === "object") {
-          accept(nested, `${rootSource}${path.replace(/^root/, "")}`, hintedCharacterId, nestedSlot ?? preferredSlot);
+          accept(nested, nestedSource, hintedCharacterId, nestedSlot ?? preferredSlot);
           return;
         }
         if (looksLikeLegacyPlayer(nested) && legacyPlayerCompletenessScore(nested) >= 2) {
-          accept(nested, `${rootSource}${path.replace(/^root/, "")}`, hintedCharacterId, nestedSlot ?? preferredSlot);
+          accept(nested, nestedSource, hintedCharacterId, nestedSlot ?? preferredSlot);
         }
       }, { rootPath:"root", preferredSlot, maxDepth:8, maxNodes:16000, maxArray:600 });
     }
@@ -739,6 +811,9 @@
       const hintedCharacterId = String(match?.[1] || "");
       const preferredSlot = hints.get(hintedCharacterId)?.slotIndex ?? null;
       const source = `IndexedDB:${item.dbName}/${item.storeName}/${rowId || "row"}`;
+      try { rawTraceSources.push({ source, text:typeof row === "string" ? row : JSON.stringify(row) }); } catch (_) {}
+      const rootShadow = extractLegacyShadowRecord(row, source, preferredSlot, hintedCharacterId);
+      if (rootShadow && rootShadow.completeness < 2) mergeLegacyShadow(shadowMap, rootShadow);
       if (typeof row === "string") accept(row, source, hintedCharacterId, preferredSlot);
       if (row?.text) accept(row.text, source, hintedCharacterId, preferredSlot);
       if (row?.value) accept(row.value, `${source}:value`, hintedCharacterId, preferredSlot);
@@ -748,19 +823,51 @@
       if (row?.player || looksLikeLegacyPlayer(row)) accept(row, source, hintedCharacterId, preferredSlot);
       walkLegacyNestedValues(row, (nested, path, nestedSlot) => {
         if (nested === row) return;
+        const nestedSource = `${source}${path.replace(/^root/, "")}`;
+        const shadow = extractLegacyShadowRecord(nested, nestedSource, nestedSlot ?? preferredSlot, hintedCharacterId);
+        if (shadow && shadow.completeness < 2) mergeLegacyShadow(shadowMap, shadow);
         if (nested?.player && typeof nested.player === "object") {
-          accept(nested, `${source}${path.replace(/^root/, "")}`, hintedCharacterId, nestedSlot ?? preferredSlot);
+          accept(nested, nestedSource, hintedCharacterId, nestedSlot ?? preferredSlot);
           return;
         }
         if (looksLikeLegacyPlayer(nested) && legacyPlayerCompletenessScore(nested) >= 2) {
-          accept(nested, `${source}${path.replace(/^root/, "")}`, hintedCharacterId, nestedSlot ?? preferredSlot);
+          accept(nested, nestedSource, hintedCharacterId, nestedSlot ?? preferredSlot);
         }
       }, { rootPath:"root", preferredSlot, maxDepth:8, maxNodes:16000, maxArray:600 });
     }
 
-    return [...best.values()]
+    const fullCandidates = [...best.values()]
       .sort((a,b) => (Number(a.preferredSlot) - Number(b.preferredSlot)) || (Number(b.savedAt) - Number(a.savedAt)))
       .slice(0, 12);
+
+    // V0.9.86K Shadow Trace: profile/slot summaries can survive even after their
+    // full character save is no longer referenced. Keep those as read-only clues.
+    for (const hint of hintRows) mergeLegacyShadow(shadowMap, { ...hint, completeness:0, traceSources:[hint.source] });
+    const fullIds = new Set(fullCandidates.map(row => String(row.sourceCharacterId || row.envelope?.characterId || row.player?.characterId || "").trim()).filter(Boolean));
+    const fullSlotNames = new Set(fullCandidates.map(row => `${Number(row.preferredSlot || 0)}|${String(row.player?.name || "").trim().toLowerCase()}`));
+    const remoteSlotNames = new Set((Array.isArray(cloudRows) ? cloudRows : []).map(row => `${Math.max(0, Number(row?.slot_index || 1) - 1)}|${String(row?.name || row?.save_data?.player?.name || "").trim().toLowerCase()}`));
+
+    const shadows = [];
+    for (const record of shadowMap.values()) {
+      const id = String(record.characterId || "").trim();
+      const slotName = `${Number(record.slotIndex || 0)}|${String(record.name || "").trim().toLowerCase()}`;
+      if ((id && (fullIds.has(id) || remoteIds.has(id))) || fullSlotNames.has(slotName) || remoteSlotNames.has(slotName)) continue;
+      const needles = [];
+      if (id) needles.push(id);
+      if (record.name && String(record.name).trim().length >= 2) needles.push(String(record.name).trim());
+      const traces = new Set([record.source, ...(record.traceSources || [])].filter(Boolean));
+      for (const item of rawTraceSources) {
+        const text = String(item?.text || "");
+        if (!text) continue;
+        if (needles.some(needle => text.includes(needle))) traces.add(String(item.source || ""));
+        if (traces.size >= 8) break;
+      }
+      shadows.push({ ...record, traceSources:[...traces].filter(Boolean).slice(0, 8) });
+    }
+    lastLegacyShadowRecords = shadows
+      .sort((a,b) => (Number(a.slotIndex) - Number(b.slotIndex)) || (Number(b.savedAt) - Number(a.savedAt)))
+      .slice(0, 12);
+    return fullCandidates;
   }
 
   function ensureLegacyRescueModal() {
@@ -771,7 +878,7 @@
       .cloud-legacy-rescue-overlay{position:fixed;inset:0;z-index:2147483150;display:grid;place-items:center;padding:16px;background:rgba(3,2,1,.82);backdrop-filter:blur(6px)}.cloud-legacy-rescue-overlay[hidden]{display:none!important}
       .cloud-legacy-rescue-dialog{width:min(760px,calc(100vw - 28px));max-height:min(720px,calc(100vh - 28px));overflow:auto;padding:24px;border:1px solid rgba(222,173,67,.82);border-radius:17px;background:linear-gradient(180deg,rgba(31,21,11,.985),rgba(12,8,5,.99));box-shadow:0 30px 100px #000e;color:#eadab7}
       .cloud-legacy-rescue-dialog h2{margin:0;color:#ffe49c;font-size:23px}.cloud-legacy-rescue-dialog>p{line-height:1.75;color:#d0bea0}.cloud-legacy-rescue-target{padding:10px 12px;border:1px solid rgba(212,164,60,.35);border-radius:9px;background:#0b0805;color:#ffe6a1;font-weight:900}
-      .cloud-legacy-rescue-list{display:grid;gap:9px;margin:14px 0}.cloud-legacy-rescue-item{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;padding:12px;border:1px solid rgba(177,131,46,.38);border-radius:10px;background:rgba(0,0,0,.25)}.cloud-legacy-rescue-item input{margin-top:5px;accent-color:#d8a638}.cloud-legacy-rescue-item b{color:#ffe3a0}.cloud-legacy-rescue-item small{display:block;margin-top:4px;color:#9f8e70;overflow-wrap:anywhere}.cloud-legacy-rescue-confirm{display:flex;gap:9px;align-items:flex-start;margin:12px 0;padding:11px;border:1px solid rgba(210,164,67,.28);border-radius:9px;background:#100b06}.cloud-legacy-rescue-confirm input{margin-top:4px;accent-color:#d8a638}
+      .cloud-legacy-rescue-list{display:grid;gap:9px;margin:14px 0}.cloud-legacy-shadow-section{margin:16px 0 8px;padding:12px;border:1px dashed rgba(255,178,64,.55);border-radius:11px;background:rgba(61,28,5,.25)}.cloud-legacy-shadow-section h3{margin:0 0 8px;color:#ffc96b;font-size:16px}.cloud-legacy-shadow-note{margin:0 0 10px;color:#cdb690;line-height:1.55}.cloud-legacy-shadow-list{display:grid;gap:8px}.cloud-legacy-shadow-item{padding:10px 11px;border:1px solid rgba(255,164,55,.28);border-radius:9px;background:rgba(10,7,4,.55)}.cloud-legacy-shadow-item b{color:#ffd28a}.cloud-legacy-shadow-item small{display:block;margin-top:4px;color:#a99779;overflow-wrap:anywhere}.cloud-legacy-rescue-item{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;padding:12px;border:1px solid rgba(177,131,46,.38);border-radius:10px;background:rgba(0,0,0,.25)}.cloud-legacy-rescue-item input{margin-top:5px;accent-color:#d8a638}.cloud-legacy-rescue-item b{color:#ffe3a0}.cloud-legacy-rescue-item small{display:block;margin-top:4px;color:#9f8e70;overflow-wrap:anywhere}.cloud-legacy-rescue-confirm{display:flex;gap:9px;align-items:flex-start;margin:12px 0;padding:11px;border:1px solid rgba(210,164,67,.28);border-radius:9px;background:#100b06}.cloud-legacy-rescue-confirm input{margin-top:4px;accent-color:#d8a638}
       .cloud-legacy-rescue-status{min-height:24px;white-space:pre-line;color:#d8c79f}.cloud-legacy-rescue-status.ok{color:#9ce4ad}.cloud-legacy-rescue-status.err{color:#ffb0a0}.cloud-legacy-rescue-actions{display:grid;grid-template-columns:1.2fr .8fr;gap:10px;margin-top:13px}.cloud-legacy-rescue-actions button{min-height:44px;border:1px solid #a97722;border-radius:8px;background:linear-gradient(#5b3d13,#2a1907);color:#ffe7a6;font-weight:900;cursor:pointer}.cloud-legacy-rescue-actions button:disabled{opacity:.45;cursor:default}@media(max-width:600px){.cloud-legacy-rescue-actions{grid-template-columns:1fr}.cloud-legacy-rescue-dialog{padding:18px}}`;
     document.head.appendChild(style);
     overlay = document.createElement("section");
@@ -784,6 +891,11 @@
         <p>雲端角色清單缺少這些角色，但目前瀏覽器仍找到有進度的舊存檔。這些資料不會自動綁定帳號，請確認角色確實屬於目前 Player ID 後再復原。</p>
         <div class="cloud-legacy-rescue-target"></div>
         <div class="cloud-legacy-rescue-list"></div>
+        <section class="cloud-legacy-shadow-section" hidden>
+          <h3>⚠ 不完整舊角色線索（僅追蹤，不會復原）</h3>
+          <p class="cloud-legacy-shadow-note">這些資料像角色索引／摘要，但目前還沒找到足夠完整的 player save。請先保留畫面，後續可依 Character ID 與來源反向追查。</p>
+          <div class="cloud-legacy-shadow-list"></div>
+        </section>
         <label class="cloud-legacy-rescue-confirm"><input type="checkbox"><span></span></label>
         <div class="cloud-legacy-rescue-status"></div>
         <div class="cloud-legacy-rescue-actions"><button type="button" class="cloud-legacy-rescue-primary">確認復原所選角色</button><button type="button" class="cloud-legacy-rescue-secondary">稍後處理</button></div>
@@ -832,7 +944,8 @@
   async function offerLegacyBrowserRescueIfNeeded(options = {}) {
     if (!currentAccount?.account_id || options.cloudWasEmpty !== true) return false;
     const candidates = await findLegacyBrowserCandidates(currentCharacters);
-    if (!candidates.length) return false;
+    const shadows = Array.isArray(lastLegacyShadowRecords) ? lastLegacyShadowRecords : [];
+    if (!candidates.length && !shadows.length) return false;
     const occupied = new Set((currentCharacters || []).map(row => Math.max(0, Number(row?.slot_index || 1) - 1)));
     const freeCount = Math.max(0, Math.min(12, Number(currentAccount.slot_limit || 12)) - occupied.size);
     if (!freeCount) return false;
@@ -841,7 +954,10 @@
     const overlay = ensureLegacyRescueModal();
     const target = overlay.querySelector(".cloud-legacy-rescue-target");
     const list = overlay.querySelector(".cloud-legacy-rescue-list");
-    const confirm = overlay.querySelector(".cloud-legacy-rescue-confirm input");
+    const shadowSection = overlay.querySelector(".cloud-legacy-shadow-section");
+    const shadowList = overlay.querySelector(".cloud-legacy-shadow-list");
+    const confirmLabel = overlay.querySelector(".cloud-legacy-rescue-confirm");
+    const confirm = confirmLabel.querySelector("input");
     const confirmText = overlay.querySelector(".cloud-legacy-rescue-confirm span");
     const status = overlay.querySelector(".cloud-legacy-rescue-status");
     const primary = overlay.querySelector(".cloud-legacy-rescue-primary");
@@ -872,12 +988,34 @@
       label.append(input, box);
       list.appendChild(label);
     });
+    shadowList.textContent = "";
+    shadowSection.hidden = !shadows.length;
+    shadows.forEach(shadow => {
+      const card = document.createElement("div");
+      card.className = "cloud-legacy-shadow-item";
+      const title = document.createElement("b");
+      const identity = document.createElement("small");
+      const trace = document.createElement("small");
+      const name = String(shadow.name || "名稱未知");
+      const job = String(shadow.job || "職業未知");
+      const base = Number(shadow.baseLevel || 0);
+      const jobLevel = Number(shadow.jobLevel || 0);
+      title.textContent = `SLOT ${Number(shadow.slotIndex || 0) + 1}｜${name}｜${job}${base > 0 ? `｜Base ${base}${jobLevel > 0 ? ` / Job ${jobLevel}` : ""}` : ""}`;
+      identity.textContent = `Character ID：${String(shadow.characterId || "未找到")}｜完整度 ${Number(shadow.completeness || 0)}（未達安全復原門檻）`;
+      trace.textContent = `追蹤來源：${(shadow.traceSources || [shadow.source]).filter(Boolean).slice(0, 5).join(" ｜ ") || "未知"}`;
+      card.append(title, identity, trace);
+      shadowList.appendChild(card);
+    });
+    confirmLabel.hidden = candidates.length === 0;
     confirm.checked = false;
-    status.textContent = candidates.length > freeCount ? `找到 ${candidates.length} 個候選，但目前只剩 ${freeCount} 個空角色格；請只勾選要復原的角色。` : `找到 ${candidates.length} 個有進度的舊版角色候選。`;
+    status.textContent = shadows.length
+      ? `找到 ${candidates.length} 個完整候選，另有 ${shadows.length} 個不完整角色線索。若缺少的角色出現在下方線索區，請先不要建立新角色，保留畫面繼續追查。`
+      : (candidates.length > freeCount ? `找到 ${candidates.length} 個候選，但目前只剩 ${freeCount} 個空角色格；請只勾選要復原的角色。` : `找到 ${candidates.length} 個有進度的舊版角色候選。`);
     status.className = "cloud-legacy-rescue-status";
     primary.disabled = true;
+    primary.hidden = candidates.length === 0;
     secondary.disabled = false;
-    confirm.onchange = () => { primary.disabled = !confirm.checked; };
+    confirm.onchange = () => { primary.disabled = !confirm.checked || candidates.length === 0; };
     overlay.hidden = false;
     const restoredKeys = new Set();
 
@@ -915,7 +1053,7 @@
           await new Promise(r => setTimeout(r, 650));
           finish(restored > 0);
         } catch (error) {
-          console.error("V0.9.86I Legacy 角色復原失敗：", error);
+          console.error("V0.9.86K Legacy 角色復原失敗：", error);
           status.textContent = `復原失敗：${friendlyError(error)}\n原始瀏覽器存檔沒有刪除，可以修正後再次嘗試。`;
           status.className = "cloud-legacy-rescue-status err";
           primary.disabled = false; secondary.disabled = false; confirm.disabled = false;

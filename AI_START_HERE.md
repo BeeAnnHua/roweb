@@ -1,3 +1,14 @@
+# V0.9.86K current baseline
+
+- Cumulative over V0.9.86H/I/J. Keep strict dual-store recovery, full Email display, generic deep Legacy scanning, and the existing authenticated I rescue RPC.
+- Adds a **Shadow Trace** layer for characters that survive only as old slot/profile summaries or incomplete records. These clues are read-only and are NEVER directly restored.
+- When a full candidate is missing, the rescue dialog now shows `SLOT / name / job / Base / Job / Character ID / completeness / trace sources` for incomplete legacy clues. This is intended to identify cases like an old SLOT 1 that flashed in the selector but no longer has a full player save candidate.
+- Reverse trace searches localStorage, sessionStorage and all already-scanned IndexedDB object-store rows for the missing Character ID/name, so later recovery work can target the exact legacy key/store instead of broad guessing.
+- Full recoverable candidates remain unchanged and are deduplicated separately from shadow clues. A shadow that matches an already-found full candidate or cloud character is hidden.
+- Shadow clues do not modify/delete browser storage, do not create cloud characters, and do not weaken cross-account UUID protections.
+- No new Supabase SQL is required beyond `V0.9.86I_LEGACY_BROWSER_CHARACTER_RESCUE.sql`.
+- For the current 100011 investigation: J already finds SLOT 2/3/4. K's purpose is to expose the missing SLOT 1/Crusader index/Character ID and its residual storage locations before any restore is attempted.
+
 # V0.9.86J current baseline
 
 - V0.9.86J keeps all V0.9.86H/I protections and expands Legacy Browser Rescue into a generic deep scanner for future players.
