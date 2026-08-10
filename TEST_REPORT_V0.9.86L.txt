@@ -1,0 +1,28 @@
+彼岸花仙境 V0.9.86L 測試報告
+========================================
+基準：使用者提供的最新完整 V0.9.86K（roweb123.zip）
+範圍：角色救援安全性／同步前快照／Character ID 精準追蹤
+
+PASS
+- cloud_save_runtime.js JavaScript syntax
+- character_slots_runtime.js JavaScript syntax
+- game.js JavaScript syntax
+- cloud_account.js JavaScript syntax
+- V0.9.86L cache/version references
+- Pre-Cloud Snapshot 呼叫順序位於第一次 Supabase fetchCharacters 之前
+- Rescue Vault key 存在：ro_web_precloud_rescue_vault_v1
+- writer_lease / persist_requested / session_id 控制鍵不再作為角色候選解析
+- 控制鍵可抽出底層 Character ID 作為唯讀 trace anchor
+- 跨 cloud UUID snapshot 防護存在
+- 角色 ID 殘留線索 UI 存在且不可直接復原
+- V0.9.86I authenticated Legacy Rescue SQL 保留於 Patch
+
+安全原則
+- 不自動建立／復原 trace-only 角色。
+- 不刪除 localStorage / sessionStorage / IndexedDB 原始資料。
+- 不將另一個 cloud UUID 的 selector/profile 快照綁到目前 Player ID。
+- SLOT 2 / 3 / 4 現有完整候選的 Legacy Rescue 路徑保留。
+
+SQL
+- 本版不新增 SQL。
+- 沿用已安裝的 V0.9.86I_LEGACY_BROWSER_CHARACTER_RESCUE.sql。

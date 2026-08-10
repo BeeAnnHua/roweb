@@ -8,12 +8,13 @@
 (function () {
   "use strict";
 
-  const VERSION = "0.9.86K";
+  const VERSION = "0.9.86L";
   const SUPABASE_URL = "https://ecbnsobcjxnrwqlefjci.supabase.co";
   const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_LrQiZeOESpuGnt-hL6m0VQ_zXqn8ehS";
   const SELECTED_ACCOUNT_KEY = "roweb_cloud_selected_account_v1";
   const LOGIN_HINT_KEY = "roweb_cloud_login_aliases_v1";
   const LOCAL_CHARACTER_SAVE_PREFIX = "ro_web_character_save_v1_";
+  const PRE_CLOUD_RESCUE_VAULT_KEY = "ro_web_precloud_rescue_vault_v1";
 
   const sdk = window.supabase;
   const slots = window.CharacterSlotsRuntime;
@@ -22,6 +23,7 @@
   let currentAccount = null;
   let currentCharacters = [];
   let pendingMigration = false;
+  let lastPreCloudSelectorSnapshot = null;
   const cloudSyncState = {
     status:"idle",
     lastSuccessAt:0,
@@ -457,6 +459,127 @@
   }
 
   // ============================================================
+  // V0.9.86L Pre-Cloud Selector Snapshot + Control-Key Trace
+  // - Preserve the small character index BEFORE an empty Supabase list can replace it.
+  // - Never copy full saves into the vault; it stores identity/slot/summary + save-key refs only.
+  // - writer lease/session/persist keys are trace anchors only, never character candidates.
+  // ============================================================
+  function legacyControlStorageInfo(key = "") {
+    const text = String(key || "");
+    const escapedPrefix = LOCAL_CHARACTER_SAVE_PREFIX.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const match = text.match(new RegExp(`^${escapedPrefix}(.+?)_(writer_lease_v\\d+|persist_requested_v\\d+|session_id_v\\d+)$`, "i"));
+    if (!match) return null;
+    const characterId = String(match[1] || "").trim();
+    return {
+      characterId: characterId && characterId.toLowerCase() !== "pending" ? characterId : "",
+      kind:String(match[2] || "control").toLowerCase()
+    };
+  }
+
+  function looksLikeLegacyControlNoise(value = "") {
+    return /(?:^|[_:\-/])(?:pending_)?(?:writer_lease|persist_requested|session_id)(?:_v\d+)?(?:$|[_:\-/])/i.test(String(value || ""));
+  }
+
+  function compactPreCloudCharacter(slot, index = 0) {
+    if (!slot || typeof slot !== "object") return null;
+    const summary = slot.summary && typeof slot.summary === "object"
+      ? slot.summary
+      : (slot.seed && typeof slot.seed === "object" ? slot.seed : {});
+    const characterId = String(slot.characterId || slot.character_id || "").trim();
+    if (!characterId || looksLikeLegacyControlNoise(characterId)) return null;
+    const slotIndex = Math.max(0, Math.min(11, Number.isFinite(Number(slot.slotIndex)) ? Number(slot.slotIndex) : index));
+    let hasMain = false;
+    let hasBackup = false;
+    try {
+      hasMain = Boolean(localStorage.getItem(`${LOCAL_CHARACTER_SAVE_PREFIX}${characterId}`));
+      hasBackup = Boolean(localStorage.getItem(`${LOCAL_CHARACTER_SAVE_PREFIX}${characterId}_minute_backup_v1`));
+    } catch (_) {}
+    return {
+      characterId,
+      slotIndex,
+      initialized:slot.initialized !== false,
+      revision:Math.max(0, Number(slot.revision || 0)),
+      createdAt:Math.max(0, Number(slot.createdAt || 0)),
+      updatedAt:Math.max(0, Number(slot.updatedAt || summary.updatedAt || 0)),
+      summary:{
+        name:String(summary.name || "").trim(),
+        gender:String(summary.gender || "").trim(),
+        jobKey:String(summary.jobKey || "").trim(),
+        jobName:String(summary.jobName || summary.job || "").trim(),
+        baseLevel:Math.max(0, Number(summary.baseLevel || 0)),
+        jobLevel:Math.max(0, Number(summary.jobLevel || 0)),
+        currentCity:String(summary.currentCity || "").trim(),
+        map:String(summary.map || "").trim(),
+        lastPlayedAt:Math.max(0, Number(summary.lastPlayedAt || 0)),
+        updatedAt:Math.max(0, Number(summary.updatedAt || slot.updatedAt || 0))
+      },
+      saveRefs:{
+        main:`${LOCAL_CHARACTER_SAVE_PREFIX}${characterId}`,
+        backup:`${LOCAL_CHARACTER_SAVE_PREFIX}${characterId}_minute_backup_v1`,
+        indexedPrimary:`character:${characterId}:primary`,
+        indexedBackup:`character:${characterId}:backup`,
+        hasMain,
+        hasBackup
+      }
+    };
+  }
+
+  function readPreCloudRescueVault() {
+    let value = readJson(PRE_CLOUD_RESCUE_VAULT_KEY, null);
+    if (value) return value;
+    try {
+      value = JSON.parse(sessionStorage.getItem(PRE_CLOUD_RESCUE_VAULT_KEY) || "null");
+    } catch (_) { value = null; }
+    return value && typeof value === "object" ? value : null;
+  }
+
+  function writePreCloudRescueVault(value) {
+    if (writeJson(PRE_CLOUD_RESCUE_VAULT_KEY, value)) return true;
+    try { sessionStorage.setItem(PRE_CLOUD_RESCUE_VAULT_KEY, JSON.stringify(value)); return true; }
+    catch (_) { return false; }
+  }
+
+  function capturePreCloudSelectorSnapshot(targetAccount = null, reason = "before-cloud-fetch") {
+    const sourceAccount = slots?.getAccount?.();
+    const targetAccountId = String(targetAccount?.account_id || "");
+    const sourceAccountId = String(sourceAccount?.accountId || "");
+    // Same-browser account switching must never preserve another cloud account's selector
+    // under the newly selected Player ID. Local acct_* data or the same cloud UUID is safe.
+    if (sourceAccount?.cloud?.enabled === true && targetAccountId && sourceAccountId && sourceAccountId !== targetAccountId) return null;
+    const sourceCharacters = Array.isArray(sourceAccount?.characters) ? sourceAccount.characters : [];
+    const characters = sourceCharacters.map((slot,index) => compactPreCloudCharacter(slot,index)).filter(Boolean);
+    if (!characters.length) return null;
+    const snapshot = {
+      schema:"ro_web_precloud_selector_snapshot_v1",
+      version:1,
+      capturedAt:Date.now(),
+      reason:String(reason || "before-cloud-fetch"),
+      targetAccountId,
+      targetPlayerId:Number(targetAccount?.player_id || 0),
+      targetAccountName:String(targetAccount?.account_name || ""),
+      sourceAccountId,
+      sourceCloudEnabled:sourceAccount?.cloud?.enabled === true,
+      sourceCloudPlayerId:Number(sourceAccount?.cloud?.playerId || 0),
+      characters
+    };
+    lastPreCloudSelectorSnapshot = snapshot;
+
+    const current = readPreCloudRescueVault();
+    const vault = current && typeof current === "object" ? current : {};
+    const snapshots = Array.isArray(vault.snapshots) ? vault.snapshots.slice() : [];
+    const fingerprint = `${snapshot.targetAccountId}|${snapshot.sourceAccountId}|${characters.map(row => `${row.slotIndex}:${row.characterId}`).join(",")}`;
+    const next = snapshots.filter(row => String(row?.fingerprint || "") !== fingerprint);
+    next.unshift({ ...snapshot, fingerprint });
+    const payload = {
+      schema:"ro_web_precloud_rescue_vault_v1",
+      version:1,
+      updatedAt:Date.now(),
+      snapshots:next.slice(0, 10)
+    };
+    writePreCloudRescueVault(payload);
+    return snapshot;
+  }
+
   // V0.9.86K Legacy Browser Rescue + Shadow Trace
   // - Deep scan the current Origin before an empty cloud list replaces UI state.
   // - Never auto-attach identity-less / acct_* legacy saves to a Player ID.
@@ -491,10 +614,14 @@
   }
 
   let lastLegacyShadowRecords = [];
+  let lastLegacyIdTraceRecords = [];
 
   function collectLegacyAccountHints(value, hints, source = "profile", hintRows = []) {
     if (!value || typeof value !== "object" || Array.isArray(value)) return;
     const accountValue = value?.account && typeof value.account === "object" ? value.account : value;
+    const hintedAccountId = String(accountValue?.accountId || accountValue?.account_id || "").trim();
+    const hintedCloudBound = accountValue?.cloud?.enabled === true || String(accountValue?.cloud?.provider || "").toLowerCase() === "supabase";
+    if (hintedCloudBound && isUuidText(hintedAccountId) && hintedAccountId !== String(currentAccount?.account_id || "")) return;
     const characters = Array.isArray(accountValue?.characters) ? accountValue.characters : [];
     characters.forEach((row, index) => {
       if (!row || typeof row !== "object") return;
@@ -526,6 +653,7 @@
   }
 
   function extractLegacyShadowRecord(value, source = "legacy", preferredSlot = null, hintedCharacterId = "") {
+    if (looksLikeLegacyControlNoise(source) || looksLikeLegacyControlNoise(hintedCharacterId)) return null;
     let raw = value;
     if (typeof raw === "string") {
       try { raw = JSON.parse(raw); } catch (_) { return null; }
@@ -540,8 +668,10 @@
     const baseLevel = Math.max(0, Number(summary?.baseLevel ?? summary?.base_level ?? raw?.baseLevel ?? raw?.base_level ?? 0));
     const jobLevel = Math.max(0, Number(summary?.jobLevel ?? summary?.job_level ?? raw?.jobLevel ?? raw?.job_level ?? 0));
     const slotIndex = legacyCandidateSlotHint(raw, preferredSlot ?? 0);
+    if (looksLikeLegacyControlNoise(characterId)) return null;
     const hasIdentity = Boolean(characterId || name);
-    const hasCharacterShape = Boolean(characterId || job || baseLevel > 0 || jobLevel > 0 || /character|slot|profile|account/i.test(String(source || "")));
+    const hasStructuredSummary = Boolean(raw.summary || raw.seed || raw.player);
+    const hasCharacterShape = Boolean(characterId || job || baseLevel > 0 || jobLevel > 0 || hasStructuredSummary);
     if (!hasIdentity || !hasCharacterShape) return null;
     const playerForScore = raw.player && typeof raw.player === "object" ? raw.player : summary;
     return {
@@ -711,6 +841,7 @@
 
   async function findLegacyBrowserCandidates(cloudRows = []) {
     lastLegacyShadowRecords = [];
+    lastLegacyIdTraceRecords = [];
     if (!currentAccount?.account_id) return [];
     const remoteIds = new Set((Array.isArray(cloudRows) ? cloudRows : []).map(row => String(row?.character_id || "")));
     const remoteNames = new Set((Array.isArray(cloudRows) ? cloudRows : []).map(row => String(row?.name || row?.save_data?.player?.name || "").trim().toLowerCase()).filter(Boolean));
@@ -719,6 +850,29 @@
     const parsedLocal = [];
     const rawTraceSources = [];
     const shadowMap = new Map();
+    const idTraceAnchors = new Map();
+
+    const addIdTraceAnchor = (characterId, source, kind = "control", seenAt = 0) => {
+      const id = String(characterId || "").trim();
+      if (!id || looksLikeLegacyControlNoise(id) || id.toLowerCase() === "pending") return;
+      const previous = idTraceAnchors.get(id) || { characterId:id, sources:new Set(), kinds:new Set(), seenAt:0 };
+      if (source) previous.sources.add(String(source));
+      if (kind) previous.kinds.add(String(kind));
+      previous.seenAt = Math.max(Number(previous.seenAt || 0), Number(seenAt || 0));
+      idTraceAnchors.set(id, previous);
+    };
+
+    if (lastPreCloudSelectorSnapshot?.characters?.length) {
+      collectLegacyAccountHints({ characters:lastPreCloudSelectorSnapshot.characters }, hints, `precloud-memory:${lastPreCloudSelectorSnapshot.reason || "snapshot"}`, hintRows);
+    }
+    const preCloudVault = readPreCloudRescueVault();
+    for (const snapshot of Array.isArray(preCloudVault?.snapshots) ? preCloudVault.snapshots : []) {
+      const targetId = String(snapshot?.targetAccountId || "");
+      const sourceId = String(snapshot?.sourceAccountId || "");
+      if (targetId && targetId !== String(currentAccount?.account_id || "")) continue;
+      if (snapshot?.sourceCloudEnabled === true && sourceId && targetId && sourceId !== targetId) continue;
+      collectLegacyAccountHints({ characters:Array.isArray(snapshot?.characters) ? snapshot.characters : [] }, hints, `precloud-vault:${Number(snapshot?.capturedAt || 0) || "unknown"}`, hintRows);
+    }
 
     const scanWebStorage = (storage, storageName) => {
       if (!storage) return;
@@ -730,13 +884,25 @@
           if (!text || text.length > 25_000_000) continue;
           const traceSource = `${storageName}:${key}`;
           rawTraceSources.push({ source:traceSource, text });
+          const control = legacyControlStorageInfo(key);
+          if (control) {
+            let seenAt = 0;
+            try {
+              const controlValue = JSON.parse(text);
+              seenAt = Math.max(0, Number(controlValue?.heartbeatAt || controlValue?.startedAt || 0));
+            } catch (_) {}
+            addIdTraceAnchor(control.characterId, traceSource, control.kind, seenAt);
+            // Control rows are not player/account data. Keep only the extracted Character ID
+            // as a trace anchor so `_writer_lease_v2` can never become a fake SLOT candidate.
+            continue;
+          }
           let value = null;
           try { value = JSON.parse(text); } catch (_) { continue; }
           parsedLocal.push({ key, value, storageName, text });
           collectLegacyAccountHints(value, hints, traceSource, hintRows);
         }
       } catch (error) {
-        console.warn(`V0.9.86K ${storageName} Legacy 掃描失敗：`, error);
+        console.warn(`V0.9.86L ${storageName} Legacy 掃描失敗：`, error);
       }
     };
     scanWebStorage(window.localStorage, "localStorage");
@@ -775,6 +941,8 @@
       let preferredSlot = null;
       if (key.startsWith(LOCAL_CHARACTER_SAVE_PREFIX)) {
         hintedCharacterId = key.slice(LOCAL_CHARACTER_SAVE_PREFIX.length).replace(/_minute_backup_v1$/, "");
+        if (looksLikeLegacyControlNoise(hintedCharacterId)) hintedCharacterId = "";
+        if (hintedCharacterId) addIdTraceAnchor(hintedCharacterId, `${storageName}:${key}`, key.endsWith("_minute_backup_v1") ? "backup" : "main-save", 0);
         preferredSlot = hints.get(hintedCharacterId)?.slotIndex ?? null;
       }
       const rootSource = `${storageName}:${key}`;
@@ -785,7 +953,7 @@
       if (value?.save_data) accept(value.save_data, `${rootSource}:save_data`, hintedCharacterId, preferredSlot);
       if (value?.saveData) accept(value.saveData, `${rootSource}:saveData`, hintedCharacterId, preferredSlot);
 
-      // V0.9.86K: old account/profile formats often buried full player saves inside
+      // V0.9.86L (carried from K): old account/profile formats often buried full player saves inside
       // arrays or migration/backup objects. Walk nested JSON, but only promote nested
       // raw-player objects when they look like a real full save (not a slot summary).
       walkLegacyNestedValues(value, (nested, path, nestedSlot) => {
@@ -809,6 +977,7 @@
       const rowId = String(row?.id || row?.key || "");
       const match = rowId.match(/^character:([^:]+):(primary|backup)$/i);
       const hintedCharacterId = String(match?.[1] || "");
+      if (hintedCharacterId) addIdTraceAnchor(hintedCharacterId, `IndexedDB:${item.dbName}/${item.storeName}/${rowId}`, `indexed-${String(match?.[2] || "row").toLowerCase()}`, Number(row?.savedAt || 0));
       const preferredSlot = hints.get(hintedCharacterId)?.slotIndex ?? null;
       const source = `IndexedDB:${item.dbName}/${item.storeName}/${rowId || "row"}`;
       try { rawTraceSources.push({ source, text:typeof row === "string" ? row : JSON.stringify(row) }); } catch (_) {}
@@ -840,7 +1009,7 @@
       .sort((a,b) => (Number(a.preferredSlot) - Number(b.preferredSlot)) || (Number(b.savedAt) - Number(a.savedAt)))
       .slice(0, 12);
 
-    // V0.9.86K Shadow Trace: profile/slot summaries can survive even after their
+    // V0.9.86L Shadow Trace: profile/slot summaries can survive even after their
     // full character save is no longer referenced. Keep those as read-only clues.
     for (const hint of hintRows) mergeLegacyShadow(shadowMap, { ...hint, completeness:0, traceSources:[hint.source] });
     const fullIds = new Set(fullCandidates.map(row => String(row.sourceCharacterId || row.envelope?.characterId || row.player?.characterId || "").trim()).filter(Boolean));
@@ -866,6 +1035,29 @@
     }
     lastLegacyShadowRecords = shadows
       .sort((a,b) => (Number(a.slotIndex) - Number(b.slotIndex)) || (Number(b.savedAt) - Number(a.savedAt)))
+      .slice(0, 12);
+
+    const shadowIds = new Set(lastLegacyShadowRecords.map(row => String(row?.characterId || "").trim()).filter(Boolean));
+    const idTraces = [];
+    for (const anchor of idTraceAnchors.values()) {
+      const id = String(anchor.characterId || "").trim();
+      if (!id || fullIds.has(id) || remoteIds.has(id) || shadowIds.has(id)) continue;
+      const traces = new Set([...(anchor.sources || [])].filter(Boolean));
+      for (const item of rawTraceSources) {
+        const sourceText = String(item?.source || "");
+        const text = String(item?.text || "");
+        if (sourceText.includes(id) || text.includes(id)) traces.add(sourceText);
+        if (traces.size >= 8) break;
+      }
+      idTraces.push({
+        characterId:id,
+        kinds:[...(anchor.kinds || [])].filter(Boolean),
+        seenAt:Number(anchor.seenAt || 0),
+        traceSources:[...traces].filter(Boolean).slice(0, 8)
+      });
+    }
+    lastLegacyIdTraceRecords = idTraces
+      .sort((a,b) => Number(b.seenAt || 0) - Number(a.seenAt || 0))
       .slice(0, 12);
     return fullCandidates;
   }
@@ -945,7 +1137,8 @@
     if (!currentAccount?.account_id || options.cloudWasEmpty !== true) return false;
     const candidates = await findLegacyBrowserCandidates(currentCharacters);
     const shadows = Array.isArray(lastLegacyShadowRecords) ? lastLegacyShadowRecords : [];
-    if (!candidates.length && !shadows.length) return false;
+    const idTraces = Array.isArray(lastLegacyIdTraceRecords) ? lastLegacyIdTraceRecords : [];
+    if (!candidates.length && !shadows.length && !idTraces.length) return false;
     const occupied = new Set((currentCharacters || []).map(row => Math.max(0, Number(row?.slot_index || 1) - 1)));
     const freeCount = Math.max(0, Math.min(12, Number(currentAccount.slot_limit || 12)) - occupied.size);
     if (!freeCount) return false;
@@ -1006,10 +1199,24 @@
       card.append(title, identity, trace);
       shadowList.appendChild(card);
     });
+    idTraces.forEach(traceRow => {
+      const card = document.createElement("div");
+      card.className = "cloud-legacy-shadow-item";
+      const title = document.createElement("b");
+      const identity = document.createElement("small");
+      const trace = document.createElement("small");
+      title.textContent = `角色 ID 殘留線索｜${String(traceRow.characterId || "未知")}`;
+      const seen = Number(traceRow.seenAt || 0) ? new Date(Number(traceRow.seenAt)).toLocaleString() : "時間未知";
+      identity.textContent = `僅從 writer lease / session / save key 取得 ID，不是角色存檔｜最後線索 ${seen}`;
+      trace.textContent = `反查來源：${(traceRow.traceSources || []).filter(Boolean).slice(0, 5).join(" ｜ ") || "只有控制鍵"}`;
+      card.append(title, identity, trace);
+      shadowList.appendChild(card);
+    });
+    shadowSection.hidden = !(shadows.length || idTraces.length);
     confirmLabel.hidden = candidates.length === 0;
     confirm.checked = false;
-    status.textContent = shadows.length
-      ? `找到 ${candidates.length} 個完整候選，另有 ${shadows.length} 個不完整角色線索。若缺少的角色出現在下方線索區，請先不要建立新角色，保留畫面繼續追查。`
+    status.textContent = (shadows.length || idTraces.length)
+      ? `找到 ${candidates.length} 個完整候選，另有 ${shadows.length} 個不完整角色摘要、${idTraces.length} 個角色 ID 殘留線索。控制鍵只用來追 ID，不會被當成角色復原。`
       : (candidates.length > freeCount ? `找到 ${candidates.length} 個候選，但目前只剩 ${freeCount} 個空角色格；請只勾選要復原的角色。` : `找到 ${candidates.length} 個有進度的舊版角色候選。`);
     status.className = "cloud-legacy-rescue-status";
     primary.disabled = true;
@@ -1053,7 +1260,7 @@
           await new Promise(r => setTimeout(r, 650));
           finish(restored > 0);
         } catch (error) {
-          console.error("V0.9.86K Legacy 角色復原失敗：", error);
+          console.error("V0.9.86L Legacy 角色復原失敗：", error);
           status.textContent = `復原失敗：${friendlyError(error)}\n原始瀏覽器存檔沒有刪除，可以修正後再次嘗試。`;
           status.className = "cloud-legacy-rescue-status err";
           primary.disabled = false; secondary.disabled = false; confirm.disabled = false;
@@ -1365,6 +1572,10 @@
   async function bindCurrentAccount() {
     currentAccount = await chooseAccount();
     if (!currentAccount) return false;
+    // V0.9.86L: freeze the selector's local character index BEFORE the first cloud fetch.
+    // If Supabase returns 0 rows, this small snapshot preserves the fleeting SLOT/name/ID
+    // clues that would otherwise disappear when bindCloudAccount() replaces the selector.
+    capturePreCloudSelectorSnapshot(currentAccount, "before-first-cloud-fetch");
     currentCharacters = await fetchCharacters(currentAccount.account_id);
     const cloudWasEmptyAtEntry = currentCharacters.length === 0;
     // V0.9.85N：若玩家曾誤刪雲端角色，但原裝置仍握有具完整身份的高等本機備份，

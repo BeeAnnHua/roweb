@@ -1,0 +1,21 @@
+彼岸花仙境 V0.9.86L — 同步前角色快照 / 精準 Character ID 追蹤（累積 H / I / J / K）
+
+安裝：
+1. 將本 Patch 內檔案覆蓋到目前 V0.9.86K 專案。
+2. GitHub Pages 更新完成後 Ctrl+F5。
+3. 本版不需要新增 SQL；沿用已執行的 supabase/V0.9.86I_LEGACY_BROWSER_CHARACTER_RESCUE.sql。
+
+本版重點：
+- 保留 H/I/J/K 全部救援能力與完整 Email 顯示。
+- Supabase 第一次抓角色前，先把目前 selector 的角色索引寫入小型 Rescue Vault；即使雲端回傳 0/12，也不會再把一閃而過的 SLOT/Character ID 線索完全洗掉。
+- writer_lease / persist_requested / session_id 不再顯示成假角色。
+- 這些控制鍵改成只提取真正的 Character ID，並反查 localStorage / sessionStorage / IndexedDB。
+- 任意物品名稱不再因為位於 account storage 就被誤判成角色殘影。
+- 所有 ID trace 都是唯讀，不會自動建立角色、不會寫入雲端。
+
+100011 測試：
+- SLOT 2 / 3 / 4 三個完整候選應繼續存在。
+- 下方不應再看到 Character ID 帶 `_writer_lease_v2` 的假 SLOT 1。
+- 若有舊角色控制鍵，應改顯示為「角色 ID 殘留線索｜char_xxx」，可用來追 SLOT 1 十字軍。
+- 若 Pre-Cloud Snapshot 抓到一閃而過的 SLOT 1，應顯示真正 SLOT / 名稱 / 職業 / Character ID 摘要。
+- 測試時仍不要勾選確認復原，先截圖完整候選與線索區。

@@ -1,3 +1,15 @@
+# V0.9.86L current baseline
+
+- Cumulative over V0.9.86H/I/J/K. Preserve dual-store recovery, full Email display, deep Legacy scanning, Shadow Trace, and the authenticated V0.9.86I rescue RPC.
+- Adds **Pre-Cloud Selector Snapshot**: immediately after the selected RO account is known and before the first Supabase character fetch, the current selector character index is copied into a small Rescue Vault (`ro_web_precloud_rescue_vault_v1`). The vault stores only slot / character ID / summary / save-key references, not full player saves.
+- This specifically protects the `1/12 -> 0/12` class of failure: if a local SLOT/name/Character ID is visible before an empty cloud list replaces the selector, its identity clue survives for later rescue.
+- Same-browser account switching safety: a pre-cloud snapshot is not captured when the currently displayed selector belongs to a different cloud UUID; cloud-bound profile hints from another UUID are also ignored.
+- `writer_lease_v2`, `persist_requested_v2`, and `session_id_v2` records are now **control-key noise**, never character/shadow candidates. This removes the fake `SLOT 1 | 名稱未知 | ..._writer_lease_v2` entries seen in K.
+- Control keys are still useful as **Character ID trace anchors**. L strips the control suffix, keeps only the underlying character ID, and reverse-searches localStorage/sessionStorage/IndexedDB for matching save/profile references. Trace-only IDs are displayed separately and can never be restored directly.
+- Shadow extraction is tightened so arbitrary account-storage items with only a `name` no longer appear as character clues.
+- No new Supabase SQL is required. Continue using the already-installed `V0.9.86I_LEGACY_BROWSER_CHARACTER_RESCUE.sql`.
+- For the current 100011 investigation, SLOT 2/3/4 full candidates must remain intact. Do not restore until SLOT 1/Crusader is identified or the user explicitly decides to proceed without it.
+
 # V0.9.86K current baseline
 
 - Cumulative over V0.9.86H/I/J. Keep strict dual-store recovery, full Email display, generic deep Legacy scanning, and the existing authenticated I rescue RPC.
