@@ -8,7 +8,7 @@
 (function(){
   "use strict";
 
-  const VERSION = "0.9.85I";
+  const VERSION = "0.9.85M";
   const $ = id => document.getElementById(id);
 
   function text(value, fallback = "—") {

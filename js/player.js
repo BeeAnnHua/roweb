@@ -269,6 +269,26 @@ function chooseNewestPlayerSaveCandidate(candidates) {
     .sort((a, b) => comparePlayerSaveCandidates(b, a))[0] || null;
 }
 
+function isEstablishedSaveCandidate(candidate) {
+  const p = candidate?.player;
+  if (!p || typeof p !== "object") return false;
+  const base = Math.max(1, Number(p.baseLevel || 1));
+  const jobLevel = Math.max(1, Number(p.jobLevel || 1));
+  const job = String(p.job || "").trim().toLowerCase();
+  const novice = new Set(["", "初學者", "初心者", "novice"]);
+  return base > 1 || jobLevel > 1 || !novice.has(job);
+}
+
+function isDefaultLikeSaveCandidate(candidate) {
+  const p = candidate?.player;
+  if (!p || typeof p !== "object") return true;
+  const base = Math.max(1, Number(p.baseLevel || 1));
+  const jobLevel = Math.max(1, Number(p.jobLevel || 1));
+  const job = String(p.job || "").trim().toLowerCase();
+  const novice = new Set(["", "初學者", "初心者", "novice"]);
+  return base <= 1 && jobLevel <= 1 && novice.has(job);
+}
+
 function readLocalPlayerSaveCandidates() {
   const candidates = [];
   try {
@@ -779,22 +799,42 @@ async function loadPlayerData() {
     readIndexedDbPlayerSaveCandidates(),
     readRemotePlayerSaveCandidates()
   ]);
-  const loadedCandidate = chooseNewestPlayerSaveCandidate([
-    ...localCandidates,
-    ...indexedDbCandidates,
-    ...remoteCandidates
-  ]);
+  const localOnlyCandidates = [...localCandidates, ...indexedDbCandidates].filter(Boolean);
+  const newestLocal = chooseNewestPlayerSaveCandidate(localOnlyCandidates);
+  const newestRemote = chooseNewestPlayerSaveCandidate(remoteCandidates);
+  let needsCloudRecoverySync = false;
+  let loadedCandidate = null;
+
+  if (cloudProfile.cloud && cloudProfile.characterId) {
+    // 雲端角色以遠端為權威；只有目前瀏覽器握有「明顯已建立進度」且
+    // 遠端缺失／像舊版錯誤 Lv1，或本機確實較新時，才進入受控修復流程。
+    const localEstablished = isEstablishedSaveCandidate(newestLocal);
+    const remoteDefaultLike = isDefaultLikeSaveCandidate(newestRemote);
+    if (newestRemote) {
+      const localClearlyNewer = Boolean(newestLocal && comparePlayerSaveCandidates(newestLocal, newestRemote) > 0);
+      const suspiciousRemoteRegression = Boolean(newestLocal && localEstablished && remoteDefaultLike);
+      if (suspiciousRemoteRegression || (localClearlyNewer && localEstablished)) {
+        loadedCandidate = newestLocal;
+        needsCloudRecoverySync = true;
+      } else {
+        loadedCandidate = newestRemote;
+      }
+    } else {
+      loadedCandidate = newestLocal || null;
+    }
+  } else {
+    loadedCandidate = chooseNewestPlayerSaveCandidate([
+      ...localCandidates,
+      ...indexedDbCandidates,
+      ...remoteCandidates
+    ]);
+  }
   const loadedSavedPlayer = loadedCandidate?.player || null;
 
-  let needsCloudRecoverySync = false;
   if (cloudProfile.cloud && cloudProfile.characterId) {
     if (!RO_WEB_CLOUD_BOOTSTRAP_STATE.remoteReadOk) {
       throw cloudBootstrapError("RO_CLOUD_NOT_VERIFIED", "尚未確認雲端角色資料，已停止載入。請重新嘗試。");
     }
-    const localOnlyCandidates = [...localCandidates, ...indexedDbCandidates].filter(Boolean);
-    const newestLocal = chooseNewestPlayerSaveCandidate(localOnlyCandidates);
-    const newestRemote = chooseNewestPlayerSaveCandidate(remoteCandidates);
-
     if (!newestRemote) {
       // 雲端沒有完整 save_data 時，只有兩種情況可以繼續：
       // 1) 這個分頁剛建立的新角色；2) 目前瀏覽器握有有效舊進度，可用來修復雲端。
@@ -804,10 +844,16 @@ async function loadPlayerData() {
           "雲端尚未找到這個角色的完整進度。若此角色曾經遊玩過，請先回到原本有正確角色資料的裝置／瀏覽器進入角色並完成一次雲端同步；本裝置已停止建立 Lv1 預設角色。"
         );
       }
+      if (newestLocal && !cloudProfile.justCreated && !isEstablishedSaveCandidate(newestLocal)) {
+        throw cloudBootstrapError(
+          "RO_CLOUD_SAVE_REQUIRED",
+          "這個瀏覽器只有 Lv1／未建立完成的本機暫存，不能拿來修復雲端角色。請回到仍保有正確高等角色進度的原裝置完成一次雲端同步。"
+        );
+      }
       needsCloudRecoverySync = true;
-    } else if (newestLocal && comparePlayerSaveCandidates(newestLocal, newestRemote) > 0) {
-      // 本機有比雲端更新且身份一致的快照：先把它驗證寫回雲端，
-      // 再讓玩家進場，確保下一台裝置一定讀得到同一進度。
+    } else if (loadedCandidate === newestLocal && newestLocal) {
+      // 本機握有明顯已建立的正確進度，且遠端較舊或疑似被舊版 Lv1 fallback 污染。
+      // 先受控修復雲端，再允許玩家進場。
       needsCloudRecoverySync = true;
     }
 

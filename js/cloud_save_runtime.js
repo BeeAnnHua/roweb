@@ -8,7 +8,7 @@
 (function () {
   "use strict";
 
-  const VERSION = "0.9.85L";
+  const VERSION = "0.9.85M";
   const SUPABASE_URL = "https://ecbnsobcjxnrwqlefjci.supabase.co";
   const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_LrQiZeOESpuGnt-hL6m0VQ_zXqn8ehS";
   const SELECTED_ACCOUNT_KEY = "roweb_cloud_selected_account_v1";
@@ -160,6 +160,35 @@
 
   function envelopeSavedAt(saveData) {
     return Math.max(0, Number(saveData?.savedAt || saveData?.updatedAt || 0));
+  }
+
+  function hashPlayerText(text) {
+    let hash = 0x811c9dc5;
+    const value = String(text || "");
+    for (let index = 0; index < value.length; index += 1) {
+      hash ^= value.charCodeAt(index);
+      hash = Math.imul(hash, 0x01000193);
+    }
+    return (`00000000${(hash >>> 0).toString(16)}`).slice(-8);
+  }
+
+  function inspectEnvelope(saveData, accountId = "", characterId = "") {
+    const raw = saveData && typeof saveData === "object" && !Array.isArray(saveData) ? saveData : null;
+    const player = raw?.player && typeof raw.player === "object" && !Array.isArray(raw.player) ? raw.player : null;
+    if (!raw || !player) return { valid:false, reason:"missing-player", player:null, version:envelopeVersion(raw), savedAt:envelopeSavedAt(raw), defaultLike:true, established:false };
+    const explicitAccountId = String(raw.accountId || player.accountId || "");
+    const explicitCharacterId = String(raw.characterId || player.characterId || "");
+    if (accountId && explicitAccountId && explicitAccountId !== String(accountId)) return { valid:false, reason:"account-mismatch", player, version:envelopeVersion(raw), savedAt:envelopeSavedAt(raw), defaultLike:false, established:false };
+    if (characterId && explicitCharacterId && explicitCharacterId !== String(characterId)) return { valid:false, reason:"character-mismatch", player, version:envelopeVersion(raw), savedAt:envelopeSavedAt(raw), defaultLike:false, established:false };
+    const checksum = String(raw.checksum || "");
+    if (checksum && checksum !== hashPlayerText(JSON.stringify(player))) return { valid:false, reason:"checksum-mismatch", player, version:envelopeVersion(raw), savedAt:envelopeSavedAt(raw), defaultLike:false, established:false };
+    const base = Math.max(1, Number(player.baseLevel || 1));
+    const jobLevel = Math.max(1, Number(player.jobLevel || 1));
+    const job = String(player.job || "").trim().toLowerCase();
+    const novice = new Set(["", "初學者", "初心者", "novice"]);
+    const established = base > 1 || jobLevel > 1 || !novice.has(job);
+    const defaultLike = base <= 1 && jobLevel <= 1 && novice.has(job);
+    return { valid:true, reason:"ok", player, version:envelopeVersion(raw), savedAt:envelopeSavedAt(raw), defaultLike, established };
   }
 
   function buildCharacterInsertFromLocal(slot, rawEnvelope, targetSlot) {
@@ -593,8 +622,22 @@
       const remoteVersion = envelopeVersion(remoteSave);
       const remoteAt = envelopeSavedAt(remoteSave);
       const localAt = envelopeSavedAt(envelope);
-      if (remoteVersion > localVersion || (remoteVersion === localVersion && remoteAt > localAt + 1500)) {
+      const remoteCheck = inspectEnvelope(remoteSave, accountId, characterId);
+      const localCheck = inspectEnvelope(envelope, accountId, characterId);
+      const remoteClaimsNewer = remoteVersion > localVersion || (remoteVersion === localVersion && remoteAt > localAt + 1500);
+      // V0.9.85M：舊版 Lv1 fallback 曾可能留下「版本號很新、內容卻是預設 Lv1」或 checksum/身份損壞的雲端資料。
+      // 這種資料不能只因 saveVersion 較大就永久阻止原裝置的正確高等角色修復。
+      const safeRepair = Boolean(localCheck.valid && localCheck.established && (
+        !remoteCheck.valid || remoteCheck.defaultLike
+      ));
+      if (remoteClaimsNewer && !safeRepair) {
         throw new Error("RO_CLOUD_CONFLICT_NEWER_REMOTE");
+      }
+      if (remoteClaimsNewer && safeRepair) {
+        console.warn("V0.9.85M：偵測到疑似舊版 Lv1/損壞雲端快照，允許目前已驗證高等角色修復雲端。", {
+          characterId, localVersion, remoteVersion, remoteReason:remoteCheck.reason, remoteDefaultLike:remoteCheck.defaultLike
+        });
+        emitCloudStatus("repairing", { saveVersion:localVersion, characterId, reason:"repair-suspicious-remote" });
       }
 
       // V0.9.85L：ro_characters 不再由瀏覽器直接 UPDATE。
