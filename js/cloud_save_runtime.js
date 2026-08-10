@@ -8,7 +8,7 @@
 (function () {
   "use strict";
 
-  const VERSION = "0.9.86M";
+  const VERSION = "0.9.86N";
   const SUPABASE_URL = "https://ecbnsobcjxnrwqlefjci.supabase.co";
   const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_LrQiZeOESpuGnt-hL6m0VQ_zXqn8ehS";
   const SELECTED_ACCOUNT_KEY = "roweb_cloud_selected_account_v1";
@@ -597,7 +597,7 @@
     const hasPlayerShape = "job" in value || "jobKey" in value || "jobId" in value || "inventory" in value || "equipment" in value || "zeny" in value || "currentCity" in value || "currentMap" in value;
     if (name) return Boolean(hasProgress || hasPlayerShape);
 
-    // V0.9.86M: very early RO_WEB saves could contain a fully progressed character
+    // V0.9.86N: very early RO_WEB saves could contain a fully progressed character
     // before the character-name field existed.  Do not require a name when the save
     // is structurally rich enough to distinguish it from summaries / writer leases.
     const completeness = legacyPlayerCompletenessScore(value);
@@ -731,6 +731,30 @@
     const bBase = Math.max(1, Number(b?.player?.baseLevel || 1));
     if (aBase !== bBase) return aBase - bBase;
     return Math.max(1, Number(a?.player?.jobLevel || 1)) - Math.max(1, Number(b?.player?.jobLevel || 1));
+  }
+
+  function collapseUnnamedLegacySnapshots(candidates = []) {
+    // V0.9.86N: early pre-name-system characters can have many primary/backup/history
+    // snapshots with different Character IDs. Showing every snapshot can crowd real named
+    // characters out of the rescue list. For unnamed characters, one slot can represent
+    // only one current character, so keep only the newest usable snapshot per SLOT.
+    const named = [];
+    const unnamedBySlot = new Map();
+    for (const candidate of Array.isArray(candidates) ? candidates : []) {
+      const name = String(candidate?.player?.name || '').trim();
+      if (name) { named.push(candidate); continue; }
+      const slot = Math.max(0, Math.min(11, Number(candidate?.preferredSlot || 0)));
+      const key = `slot:${slot}`;
+      const previous = unnamedBySlot.get(key);
+      if (!previous) { unnamedBySlot.set(key, candidate); continue; }
+      const currentSavedAt = Math.max(0, Number(candidate?.savedAt || 0));
+      const previousSavedAt = Math.max(0, Number(previous?.savedAt || 0));
+      if (currentSavedAt > previousSavedAt) { unnamedBySlot.set(key, candidate); continue; }
+      if (currentSavedAt === previousSavedAt && compareLegacyCandidates(candidate, previous) > 0) {
+        unnamedBySlot.set(key, candidate);
+      }
+    }
+    return [...named, ...unnamedBySlot.values()];
   }
 
   function sourceAccountAllowedForLegacyRescue(envelope) {
@@ -933,7 +957,7 @@
       const name = String(player?.name || "").trim();
       const completeness = legacyPlayerCompletenessScore(player);
       const unnamedLegacy = !name;
-      // V0.9.86M: allow a nameless pre-name-system character only when the save is
+      // V0.9.86N: allow a nameless pre-name-system character only when the save is
       // established AND structurally complete.  This keeps writer/session noise out.
       if (unnamedLegacy && completeness < 4) return false;
       if (name && remoteNames.has(name.toLowerCase())) return false;
@@ -1027,7 +1051,7 @@
       }, { rootPath:"root", preferredSlot, maxDepth:8, maxNodes:16000, maxArray:600 });
     }
 
-    const fullCandidates = [...best.values()]
+    const fullCandidates = collapseUnnamedLegacySnapshots([...best.values()])
       .sort((a,b) => (Number(a.preferredSlot) - Number(b.preferredSlot)) || (Number(b.savedAt) - Number(a.savedAt)))
       .slice(0, 12);
 
@@ -1317,7 +1341,7 @@
           await new Promise(r => setTimeout(r, 650));
           finish(restored > 0);
         } catch (error) {
-          console.error("V0.9.86M Legacy 角色復原失敗：", error);
+          console.error("V0.9.86N Legacy 角色復原失敗：", error);
           status.textContent = `復原失敗：${friendlyError(error)}\n原始瀏覽器存檔沒有刪除，可以修正後再次嘗試。`;
           status.className = "cloud-legacy-rescue-status err";
           primary.disabled = false; secondary.disabled = false; confirm.disabled = false;
