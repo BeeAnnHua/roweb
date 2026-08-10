@@ -3,7 +3,7 @@
 // ============================================================
 (function(){
   "use strict";
-  const VERSION="0.9.85I";
+  const VERSION="0.9.87A";
   const REFRESH_MS=60000;
   let mails=[];
   let selectedMailId="";
@@ -38,7 +38,10 @@
     return rows.map(row=>{
       const id=Number(row?.item_id||0), amount=Math.max(1,Number(row?.amount||1));
       const data=typeof window.getItemData==="function"?window.getItemData(id):null;
-      return {id,amount,name:String(data?.name||row?.name||`Item ${id}`),icon:String(data?.icon||`images/items/${id}.webp`)};
+      const instance=row?.instance_data&&typeof row.instance_data==="object"?row.instance_data:null;
+      let name=String(data?.name||row?.name||`Item ${id}`);
+      if(instance&&typeof window.buildCompactItemName==="function"){try{name=String(window.buildCompactItemName(instance,data)||name)}catch(_){}}
+      return {id,amount,name,icon:String(data?.icon||`images/items/${id}.webp`),instance};
     }).filter(row=>row.id>0);
   }
 
@@ -244,7 +247,13 @@
       for(const row of attachments){
         const id=Number(row.item_id), amount=Math.max(1,Math.floor(Number(row.amount||1)));
         const data=window.getItemData(id);
-        window.addItem(data,amount);
+        const instance=row?.instance_data&&typeof row.instance_data==="object"?row.instance_data:null;
+        if(instance){
+          const restored={...instance,id:Number(instance.id||id),count:1};
+          window.player.inventory=Array.isArray(window.player.inventory)?window.player.inventory:[];
+          const exact=typeof window.normalizeEquipmentInstance==="function"?window.normalizeEquipmentInstance(restored,data):restored;
+          window.player.inventory.push(exact);
+        }else window.addItem(data,amount);
       }
       const zeny=Math.max(0,Math.floor(Number(payload?.zeny||0)));
       const blueGem=Math.max(0,Math.floor(Number(payload?.blue_gem||0)));

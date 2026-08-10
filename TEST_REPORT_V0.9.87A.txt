@@ -1,0 +1,11 @@
+V0.9.87A static integration checks
+- auction_runtime.js: node --check PASS
+- mail_runtime.js: node --check PASS
+- auction.css present and referenced by index.html
+- auction_runtime.js referenced after item_instance_ui/mail runtime
+- V0.9.86R afk_stability_runtime preserved
+- VIP runtime preserved
+- No red-gem mandatory charge implemented
+- Restricted item list generated from current tradeRestricted / NoTrade / NoAuction data plus revival restricted IDs
+- Auction SQL contains 22 SECURITY DEFINER/helper functions and escrow/listing tables
+- Exact equipment instance_data mail delivery implemented

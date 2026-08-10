@@ -1,4 +1,23 @@
-# V0.9.86R current baseline
+# V0.9.87A current baseline
+
+## V0.9.87A — 拍賣交易所 V1（累積保留 VIP Q + 掛機穩定 R）
+
+- 基準：V0.9.86Q 完整包 + V0.9.86R 掛機穩定修正。
+- 新增 `supabase/V0.9.87A_AUCTION_HOUSE_V1.sql`：server-side escrow / reservation ledger。
+- 上架 24H；同一遊戲帳號同時最多 5 件。
+- 上架費依商品總價收 1 / 2 / 3 / 5 藍寶石；取消與到期不退。
+- 成交稅固定 5% Zeny；紅寶石 V1 不作必要手續費。
+- 上架採 pending → 玩家雲端存檔扣物／扣藍寶石 + one-shot receipt → finalize；避免只靠前端 UI 鎖定物品。
+- 購買採 reserved → 玩家雲端存檔扣 Zeny + purchase receipt → finalize；reservation timeout 亦必須驗證 receipt 才能自動成交。
+- 成交商品寄至買家遊戲信箱；賣家 95% Zeny 也由信箱交付。
+- 裝備附件使用 `instance_data` 原樣保存精煉、卡片、附魔與 instanceId；信箱 Runtime 已支援 exact instance restore。
+- 取消 / 到期商品由信箱退回；reservation 超時會檢查是否已付款，已付款則自動成交、未付款才解除保留。
+- 上架頁顯示最近 7 天成交件數、平均／最低／最高單價。
+- tradeRestricted / NoTrade / NoAuction 物品由前端與 SQL restricted table 雙重阻擋。
+- 右上原「拍賣行」預告按鈕已正式啟用。
+- `V0.9.86Q_VIP_V1_OFFLINE_REWARD.sql` 不需重跑；拍賣場只需新增執行 V0.9.87A SQL。
+
+## Previous baseline: V0.9.86R
 
 ## V0.9.86R — VIP Q 保留 + 掛機穩定性 / 異常重啟診斷
 
