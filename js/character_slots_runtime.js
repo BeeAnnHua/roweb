@@ -6,7 +6,7 @@
 (function () {
   "use strict";
 
-  const VERSION = "0.9.85O";
+  const VERSION = "0.9.86I";
   const ACCOUNT_KEY = "ro_web_account_profile_v1";
   const LEGACY_SAVE_KEY = "ro_web_save_v0_9_19_ui_scroll_quickbar";
   const SLOT_SAVE_PREFIX = "ro_web_character_save_v1_";
@@ -213,7 +213,11 @@
   }
 
   function migrateLegacySaveIfNeeded() {
-    if (!account || account.characters.length || account.legacyMigration?.completedAt) return false;
+    // V0.9.86I: once this browser profile is already bound to Supabase, do not recreate
+    // the old single-character legacy save on every reload. That old behavior caused a
+    // misleading 1/12 flash before the empty cloud list replaced the selector. Legacy
+    // data is now discovered by the dedicated rescue scanner in cloud_save_runtime.js.
+    if (!account || account.cloud?.enabled === true || account.characters.length || account.legacyMigration?.completedAt) return false;
     let main = null;
     let backup = null;
     try {
@@ -255,7 +259,9 @@
   }
 
   async function migrateLegacyIndexedDbIfNeeded() {
-    if (!account || account.characters.length || account.legacyMigration?.completedAt || !window.indexedDB?.open) return false;
+    // Same guard as localStorage legacy migration: cloud-bound profiles are read-only
+    // rescue sources, never silently re-migrated into a temporary local SLOT.
+    if (!account || account.cloud?.enabled === true || account.characters.length || account.legacyMigration?.completedAt || !window.indexedDB?.open) return false;
     return new Promise(resolve => {
       let request;
       try { request = indexedDB.open("ro_web_offline_save_v1", 1); }

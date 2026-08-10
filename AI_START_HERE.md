@@ -1,11 +1,20 @@
-# V0.9.86H current baseline
+# V0.9.86I current baseline
 
-- Cloud deleted-character recovery now scans BOTH localStorage and IndexedDB `ro_web_offline_save_v1/player_saves` before the cloud character list overwrites the local selector state.
-- Recovery remains identity-locked: a candidate must explicitly carry the currently selected Supabase `account_id` and its original UUID `characterId`, must not already exist in `ro_characters`, and must be an established non-default character. Identity-less legacy saves are never auto-attached to a cloud account.
-- IndexedDB scanning accepts current `character:<uuid>:primary|backup` rows and older row IDs only when the envelope itself has exact account/character identity. The newest saveVersion/savedAt wins across localStorage + IndexedDB.
-- Account Center now shows the full signed-in Email in the private account-selection screen. OTP/resend status messages may remain masked.
-- No Supabase SQL migration is required for V0.9.86H; it reuses the already-installed `ro_restore_character_from_local` RPC from V0.9.85N.
-- VIP offline farming / EXP/drop bonuses are intentionally NOT part of this repair patch.
+- Cumulative over V0.9.86H: keep strict deleted-character recovery across BOTH localStorage + IndexedDB and keep full Email display in the private Account Center.
+- Fixes the misleading legacy `1/12 -> 0/12` flash: once the browser account profile is already cloud-bound, the old single-character legacy key is no longer silently re-migrated on every reload. Legacy data is handled only by the rescue scanner.
+- If the selected cloud account entered with **0 cloud characters**, V0.9.86I deep-scans all JSON localStorage values plus RO/ROWEB/player/save/offline IndexedDB databases and all object stores for established legacy player saves. Current account-profile / migration-backup character IDs are used only as SLOT hints.
+- Deep rescue is manual, never automatic. The dialog lists every deduplicated candidate with name / job / Base / Job / save time / source and requires the player to explicitly confirm the current Player ID before restoring selected characters.
+- Cross-cloud safety remains strict: a save explicitly carrying a different Supabase UUID `accountId` is never offered/restored. Old local `acct_*`, non-UUID or identity-less saves may be restored only through the explicit-confirmation flow.
+- `supabase/V0.9.86I_LEGACY_BROWSER_CHARACTER_RESCUE.sql` installs the authenticated rescue RPC. It verifies Auth UID + target Player ID + slot ownership, rejects default Lv1 saves, creates a fresh character UUID, rebinds save/player identity to the selected cloud account, and never deletes the original browser copy.
+- Strict V0.9.85N recovery still runs first for exact accountId + original UUID backups; I deep rescue is the fallback for older local formats.
+- Account Center continues to show the full signed-in Email; OTP/resend status messages may remain masked.
+- VIP offline farming / EXP/drop bonuses remain intentionally deferred until this recovery issue is closed.
+
+# V0.9.86H baseline carried forward
+
+- Cloud deleted-character recovery scans BOTH localStorage and IndexedDB `ro_web_offline_save_v1/player_saves` before the cloud character list overwrites the local selector state.
+- Strict recovery is identity-locked: a candidate must explicitly carry the currently selected Supabase `account_id` and its original UUID `characterId`, must not already exist in `ro_characters`, and must be an established non-default character.
+- IndexedDB strict scanning accepts current `character:<uuid>:primary|backup` rows and older row IDs only when the envelope itself has exact account/character identity. The newest saveVersion/savedAt wins across localStorage + IndexedDB.
 
 # V0.9.86G current baseline
 

@@ -1,0 +1,43 @@
+彼岸花仙境 V0.9.86I — Legacy 深度角色救援 + 雲端空清單保護（累積 H）
+
+基準：使用者最新 roweb(3).zip / V0.9.86G，並累積帶入 V0.9.86H。
+
+本版目的：
+- 朋友 Player ID 100011 的 Supabase ro_characters 目前為 0；錄影顯示角色選擇頁曾短暫 1/12 後變 0/12。
+- V0.9.86I 不再只相信目前 account.characters，也不只掃嚴格 UUID 綁定備份；在「進入時雲端為 0 隻角色」的情況下，會先深度掃描瀏覽器舊資料，再讓空雲端清單綁定角色選擇頁。
+
+更新內容：
+1. 累積 V0.9.86H：嚴格救援同時掃 localStorage + IndexedDB，帳號中心顯示完整 Email。
+2. 修掉 1/12 -> 0/12 的假象來源：已 cloud-bound 的帳號不再每次 reload 把舊單角色 legacy key 暫時重新遷移成 SLOT 1。
+3. Legacy 深度掃描：
+   - 掃全部可解析 JSON 的 localStorage 值。
+   - 讀取 account profile / local migration backup 作為 characterId / SLOT 提示。
+   - 掃 ro_web_offline_save_v1，並在瀏覽器支援 indexedDB.databases() 時額外掃名稱含 RO_WEB/ROWEB/player/save/offline 的 IndexedDB database / object store。
+   - 同角色多份存檔以 saveVersion -> savedAt -> 等級取最新，最多列 12 個候選。
+4. 只有「本次進入 Supabase 時雲端角色數 = 0」才啟動 Legacy 深度救援，避免在正常有角色帳號中誤提示舊資料。
+5. 深度救援不自動寫雲端：先列出角色名稱、職業、Base/Job、存檔時間、來源；玩家必須勾選角色並勾選「確認屬於目前 Player ID」才能復原。
+6. 若舊 save 明確帶有另一個 Supabase UUID accountId，前端與 SQL 都阻擋跨雲端帳號復原。acct_* / 非 UUID / 無 identity 的舊本機存檔才進人工確認流程。
+7. 新 RPC 會為 Legacy 角色建立新的 character UUID，把 save_data/player 的 accountId + characterId 重綁到目前登入帳號；原始瀏覽器資料不刪除。
+8. 復原成功後會重新抓 Supabase 角色列表，並 best-effort 回寫新的 localStorage + IndexedDB 角色備份。
+9. VIP 離線掛機 / EXP / 掉寶加成仍不在本版，等角色救援確認後再做。
+
+Supabase 必做：
+1. SQL Editor -> New query。
+2. 貼上並執行：supabase/V0.9.86I_LEGACY_BROWSER_CHARACTER_RESCUE.sql
+3. 成功時 Results 會列出 installed_function = ro_restore_legacy_character_from_browser。
+4. 不要覆蓋舊 Query；新增一個 V0.9.86I Query 留存即可。
+
+GitHub：
+- SQL 成功後再覆蓋本 Patch 檔案到目前 repo。
+- Commit / Push，等待 GitHub Pages 更新。
+- 朋友使用原本同一台電腦、同一 Chrome Profile、https://beeannhua.github.io/roweb，Ctrl+F5 後登入 Player ID 100011。
+
+預期測試：
+A. 若舊存檔仍存在：會顯示「發現舊版本機角色候選」，可能一次列出 1～4 隻甚至更多候選；確認名稱/等級後再勾選復原。
+B. 如果只找到 1 隻：先只代表目前 Origin 找到一份完整角色存檔，不代表其他角色已被程式刪除；後續仍可再擴充舊格式掃描。
+C. 如果完全沒有候選：代表目前 Origin 的可解析 localStorage + 可掃 RO 相關 IndexedDB 沒找到 established save，下一步才查舊 Chrome Profile/其他 Origin/本機瀏覽器資料檔。
+
+重要：
+- 測試前不要在 100011 建立新角色。
+- 不要清除網站資料 / localStorage / IndexedDB。
+- 先確認候選角色名稱與等級屬於朋友，再按復原。

@@ -8,7 +8,7 @@
 (function () {
   "use strict";
 
-  const VERSION = "0.9.86H";
+  const VERSION = "0.9.86I";
   const SUPABASE_URL = "https://ecbnsobcjxnrwqlefjci.supabase.co";
   const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_LrQiZeOESpuGnt-hL6m0VQ_zXqn8ehS";
   const SELECTED_ACCOUNT_KEY = "roweb_cloud_selected_account_v1";
@@ -64,6 +64,8 @@
     if (/RO_RESTORE_SLOT_OCCUPIED/i.test(raw)) return "原角色欄位已被其他角色使用，請先整理角色欄位後再復原。";
     if (/RO_RESTORE_IDENTITY_MISMATCH/i.test(raw)) return "本機備份身分與目前帳號不一致，已停止復原。";
     if (/RO_RESTORE_SAVE_NOT_ESTABLISHED/i.test(raw)) return "本機只有未建立完成的 Lv1 暫存，不能用來復原雲端角色。";
+    if (/RO_LEGACY_RESTORE_CROSS_CLOUD_ACCOUNT_BLOCKED/i.test(raw)) return "這份備份屬於另一個雲端帳號，已禁止跨帳號復原。";
+    if (/RO_LEGACY_RESTORE_FAILED|RO_LEGACY_RESTORE_EMPTY/i.test(raw)) return "舊版角色復原失敗，本機原始資料仍保留。";
     return raw;
   }
 
@@ -454,6 +456,385 @@
     return restored > 0;
   }
 
+  // ============================================================
+  // V0.9.86I Legacy Browser Rescue
+  // - Deep scan the current Origin before an empty cloud list replaces UI state.
+  // - Never auto-attach identity-less / acct_* legacy saves to a Player ID.
+  // - Candidates are shown for explicit confirmation, then restored through a
+  //   server-side RPC that verifies the authenticated target account.
+  // ============================================================
+  function looksLikeLegacyPlayer(value) {
+    if (!value || typeof value !== "object" || Array.isArray(value)) return false;
+    if (value.player && typeof value.player === "object") return false;
+    const name = String(value.name || "").trim();
+    const hasProgress = Number(value.baseLevel || 0) > 0 || Number(value.jobLevel || 0) > 0;
+    const hasPlayerShape = "job" in value || "jobKey" in value || "inventory" in value || "equipment" in value || "zeny" in value || "currentCity" in value;
+    return Boolean(name && (hasProgress || hasPlayerShape));
+  }
+
+  function normalizeLegacyEnvelope(value, source = "legacy") {
+    let raw = value;
+    if (typeof raw === "string") {
+      try { raw = JSON.parse(raw); } catch (_) { return null; }
+    }
+    if (!raw || typeof raw !== "object" || Array.isArray(raw)) return null;
+    if (raw.player && typeof raw.player === "object" && !Array.isArray(raw.player)) return clone(raw);
+    if (!looksLikeLegacyPlayer(raw)) return null;
+    return {
+      schema:"ro_web_player_save_v2",
+      formatVersion:2,
+      saveVersion:Math.max(0, Number(raw.saveVersion || raw.revision || 0)),
+      savedAt:Math.max(0, Number(raw.savedAt || raw.updatedAt || raw.lastPlayedAt || Date.now())),
+      reason:`legacy-browser-rescue:${String(source || "legacy")}`,
+      player:clone(raw)
+    };
+  }
+
+  function collectLegacyAccountHints(value, hints, source = "profile") {
+    if (!value || typeof value !== "object" || Array.isArray(value)) return;
+    const accountValue = value?.account && typeof value.account === "object" ? value.account : value;
+    const characters = Array.isArray(accountValue?.characters) ? accountValue.characters : [];
+    for (const row of characters) {
+      if (!row || typeof row !== "object") continue;
+      const id = String(row.characterId || "").trim();
+      if (!id) continue;
+      const summary = row.summary && typeof row.summary === "object" ? row.summary : (row.seed || {});
+      hints.set(id, {
+        characterId:id,
+        slotIndex:Math.max(0, Math.min(11, Number(row.slotIndex || 0))),
+        name:String(summary?.name || row?.seed?.name || ""),
+        source:String(source || "profile")
+      });
+    }
+  }
+
+  function legacyIdentityKey(envelope, hintedCharacterId = "") {
+    const player = envelope?.player || {};
+    const explicitCharacterId = String(envelope?.characterId || player?.characterId || hintedCharacterId || "").trim();
+    if (explicitCharacterId) return `id:${explicitCharacterId}`;
+    const name = String(player?.name || "").trim().toLowerCase();
+    const createdAt = Number(player?.createdAt || envelope?.createdAt || 0);
+    const gender = String(player?.gender || "").toLowerCase();
+    return `legacy:${name}|${createdAt || "na"}|${gender || "na"}`;
+  }
+
+  function compareLegacyCandidates(a, b) {
+    const baseCompare = compareRecoveryEnvelope(a, b);
+    if (baseCompare) return baseCompare;
+    const aBase = Math.max(1, Number(a?.player?.baseLevel || 1));
+    const bBase = Math.max(1, Number(b?.player?.baseLevel || 1));
+    if (aBase !== bBase) return aBase - bBase;
+    return Math.max(1, Number(a?.player?.jobLevel || 1)) - Math.max(1, Number(b?.player?.jobLevel || 1));
+  }
+
+  function sourceAccountAllowedForLegacyRescue(envelope) {
+    const player = envelope?.player || {};
+    const sourceAccountId = String(envelope?.accountId || player?.accountId || "").trim();
+    if (!sourceAccountId) return true;
+    if (sourceAccountId === String(currentAccount?.account_id || "")) return true;
+    // A different UUID is another cloud account: never offer it as a legacy candidate.
+    if (isUuidText(sourceAccountId)) return false;
+    // Old local accounts use acct_*; other non-UUID legacy identifiers are also allowed
+    // only through the explicit confirmation dialog below.
+    return true;
+  }
+
+  async function readIndexedDbRowsForLegacyRescue() {
+    if (!window.indexedDB?.open) return [];
+    const names = new Set(["ro_web_offline_save_v1"]);
+    if (typeof indexedDB.databases === "function") {
+      try {
+        const databases = await indexedDB.databases();
+        for (const info of Array.isArray(databases) ? databases : []) {
+          const name = String(info?.name || "");
+          if (name && /(ro[_-]?web|roweb|player|save|offline)/i.test(name)) names.add(name);
+        }
+      } catch (_) {}
+    }
+
+    const output = [];
+    for (const dbName of names) {
+      const rows = await new Promise(resolve => {
+        let request;
+        try { request = indexedDB.open(dbName); }
+        catch (_) { resolve([]); return; }
+        request.onerror = () => resolve([]);
+        request.onblocked = () => resolve([]);
+        request.onsuccess = async () => {
+          const db = request.result;
+          const storeNames = Array.from(db.objectStoreNames || []);
+          if (!storeNames.length) { db.close(); resolve([]); return; }
+          const collected = [];
+          let pending = storeNames.length;
+          const done = () => { pending -= 1; if (pending <= 0) { try { db.close(); } catch (_) {} resolve(collected); } };
+          for (const storeName of storeNames) {
+            let tx;
+            try { tx = db.transaction(storeName, "readonly"); }
+            catch (_) { done(); continue; }
+            let getAll;
+            try { getAll = tx.objectStore(storeName).getAll(); }
+            catch (_) { done(); continue; }
+            getAll.onsuccess = () => {
+              const values = Array.isArray(getAll.result) ? getAll.result.slice(0, 500) : [];
+              for (const row of values) collected.push({ dbName, storeName, row });
+              done();
+            };
+            getAll.onerror = done;
+            tx.onabort = done;
+          }
+        };
+      });
+      output.push(...rows);
+    }
+    return output;
+  }
+
+  async function findLegacyBrowserCandidates(cloudRows = []) {
+    if (!currentAccount?.account_id) return [];
+    const remoteIds = new Set((Array.isArray(cloudRows) ? cloudRows : []).map(row => String(row?.character_id || "")));
+    const remoteNames = new Set((Array.isArray(cloudRows) ? cloudRows : []).map(row => String(row?.name || row?.save_data?.player?.name || "").trim().toLowerCase()).filter(Boolean));
+    const hints = new Map();
+    const parsedLocal = [];
+
+    try {
+      for (let index = 0; index < localStorage.length; index += 1) {
+        const key = String(localStorage.key(index) || "");
+        let text = "";
+        try { text = localStorage.getItem(key) || ""; } catch (_) { continue; }
+        if (!text || text.length > 25_000_000) continue;
+        let value = null;
+        try { value = JSON.parse(text); } catch (_) { continue; }
+        parsedLocal.push({ key, value });
+        collectLegacyAccountHints(value, hints, `localStorage:${key}`);
+      }
+    } catch (error) {
+      console.warn("V0.9.86I localStorage Legacy 掃描失敗：", error);
+    }
+
+    const best = new Map();
+    const accept = (rawValue, source, hintedCharacterId = "", preferredSlot = null) => {
+      const envelope = normalizeLegacyEnvelope(rawValue, source);
+      if (!envelope || !sourceAccountAllowedForLegacyRescue(envelope)) return false;
+      const check = inspectEnvelope(envelope, "", "", { allowLegacyJsonbReorder:true });
+      if (!check.valid || !check.established || check.defaultLike) return false;
+      const player = check.player || envelope.player;
+      const name = String(player?.name || "").trim();
+      if (!name || remoteNames.has(name.toLowerCase())) return false;
+      const explicitCharacterId = String(envelope?.characterId || player?.characterId || hintedCharacterId || "").trim();
+      if (explicitCharacterId && remoteIds.has(explicitCharacterId)) return false;
+      const hint = hints.get(explicitCharacterId) || null;
+      const candidate = {
+        key:legacyIdentityKey(envelope, hintedCharacterId),
+        source:String(source || "legacy"),
+        sourceAccountId:String(envelope?.accountId || player?.accountId || ""),
+        sourceCharacterId:explicitCharacterId,
+        envelope,
+        player,
+        version:check.version,
+        savedAt:check.savedAt || Number(player?.updatedAt || player?.lastPlayedAt || 0),
+        preferredSlot:Math.max(0, Math.min(11, Number(preferredSlot ?? hint?.slotIndex ?? envelope?.slotIndex ?? player?.slotIndex ?? 0)))
+      };
+      const previous = best.get(candidate.key);
+      if (!previous || compareLegacyCandidates(candidate, previous) > 0) best.set(candidate.key, candidate);
+      return true;
+    };
+
+    for (const { key, value } of parsedLocal) {
+      let hintedCharacterId = "";
+      let preferredSlot = null;
+      if (key.startsWith(LOCAL_CHARACTER_SAVE_PREFIX)) {
+        hintedCharacterId = key.slice(LOCAL_CHARACTER_SAVE_PREFIX.length).replace(/_minute_backup_v1$/, "");
+        preferredSlot = hints.get(hintedCharacterId)?.slotIndex ?? null;
+      }
+      accept(value, `localStorage:${key}`, hintedCharacterId, preferredSlot);
+      if (value?.text) accept(value.text, `localStorage:${key}:text`, hintedCharacterId, preferredSlot);
+      if (value?.save_data) accept(value.save_data, `localStorage:${key}:save_data`, hintedCharacterId, preferredSlot);
+      if (value?.saveData) accept(value.saveData, `localStorage:${key}:saveData`, hintedCharacterId, preferredSlot);
+    }
+
+    const indexedRows = await readIndexedDbRowsForLegacyRescue();
+    for (const item of indexedRows) {
+      const row = item?.row;
+      const rowId = String(row?.id || row?.key || "");
+      const match = rowId.match(/^character:([^:]+):(primary|backup)$/i);
+      const hintedCharacterId = String(match?.[1] || "");
+      const preferredSlot = hints.get(hintedCharacterId)?.slotIndex ?? null;
+      const source = `IndexedDB:${item.dbName}/${item.storeName}/${rowId || "row"}`;
+      if (typeof row === "string") accept(row, source, hintedCharacterId, preferredSlot);
+      if (row?.text) accept(row.text, source, hintedCharacterId, preferredSlot);
+      if (row?.value) accept(row.value, `${source}:value`, hintedCharacterId, preferredSlot);
+      if (row?.data) accept(row.data, `${source}:data`, hintedCharacterId, preferredSlot);
+      if (row?.save_data) accept(row.save_data, `${source}:save_data`, hintedCharacterId, preferredSlot);
+      if (row?.saveData) accept(row.saveData, `${source}:saveData`, hintedCharacterId, preferredSlot);
+      if (row?.player || looksLikeLegacyPlayer(row)) accept(row, source, hintedCharacterId, preferredSlot);
+    }
+
+    return [...best.values()]
+      .sort((a,b) => (Number(a.preferredSlot) - Number(b.preferredSlot)) || (Number(b.savedAt) - Number(a.savedAt)))
+      .slice(0, 12);
+  }
+
+  function ensureLegacyRescueModal() {
+    let overlay = document.getElementById("cloudLegacyRescueOverlay");
+    if (overlay) return overlay;
+    const style = document.createElement("style");
+    style.textContent = `
+      .cloud-legacy-rescue-overlay{position:fixed;inset:0;z-index:2147483150;display:grid;place-items:center;padding:16px;background:rgba(3,2,1,.82);backdrop-filter:blur(6px)}.cloud-legacy-rescue-overlay[hidden]{display:none!important}
+      .cloud-legacy-rescue-dialog{width:min(760px,calc(100vw - 28px));max-height:min(720px,calc(100vh - 28px));overflow:auto;padding:24px;border:1px solid rgba(222,173,67,.82);border-radius:17px;background:linear-gradient(180deg,rgba(31,21,11,.985),rgba(12,8,5,.99));box-shadow:0 30px 100px #000e;color:#eadab7}
+      .cloud-legacy-rescue-dialog h2{margin:0;color:#ffe49c;font-size:23px}.cloud-legacy-rescue-dialog>p{line-height:1.75;color:#d0bea0}.cloud-legacy-rescue-target{padding:10px 12px;border:1px solid rgba(212,164,60,.35);border-radius:9px;background:#0b0805;color:#ffe6a1;font-weight:900}
+      .cloud-legacy-rescue-list{display:grid;gap:9px;margin:14px 0}.cloud-legacy-rescue-item{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;padding:12px;border:1px solid rgba(177,131,46,.38);border-radius:10px;background:rgba(0,0,0,.25)}.cloud-legacy-rescue-item input{margin-top:5px;accent-color:#d8a638}.cloud-legacy-rescue-item b{color:#ffe3a0}.cloud-legacy-rescue-item small{display:block;margin-top:4px;color:#9f8e70;overflow-wrap:anywhere}.cloud-legacy-rescue-confirm{display:flex;gap:9px;align-items:flex-start;margin:12px 0;padding:11px;border:1px solid rgba(210,164,67,.28);border-radius:9px;background:#100b06}.cloud-legacy-rescue-confirm input{margin-top:4px;accent-color:#d8a638}
+      .cloud-legacy-rescue-status{min-height:24px;white-space:pre-line;color:#d8c79f}.cloud-legacy-rescue-status.ok{color:#9ce4ad}.cloud-legacy-rescue-status.err{color:#ffb0a0}.cloud-legacy-rescue-actions{display:grid;grid-template-columns:1.2fr .8fr;gap:10px;margin-top:13px}.cloud-legacy-rescue-actions button{min-height:44px;border:1px solid #a97722;border-radius:8px;background:linear-gradient(#5b3d13,#2a1907);color:#ffe7a6;font-weight:900;cursor:pointer}.cloud-legacy-rescue-actions button:disabled{opacity:.45;cursor:default}@media(max-width:600px){.cloud-legacy-rescue-actions{grid-template-columns:1fr}.cloud-legacy-rescue-dialog{padding:18px}}`;
+    document.head.appendChild(style);
+    overlay = document.createElement("section");
+    overlay.id = "cloudLegacyRescueOverlay";
+    overlay.className = "cloud-legacy-rescue-overlay";
+    overlay.hidden = true;
+    overlay.innerHTML = `
+      <div class="cloud-legacy-rescue-dialog" role="dialog" aria-modal="true" aria-labelledby="cloudLegacyRescueTitle">
+        <h2 id="cloudLegacyRescueTitle">發現舊版本機角色候選</h2>
+        <p>雲端角色清單缺少這些角色，但目前瀏覽器仍找到有進度的舊存檔。這些資料不會自動綁定帳號，請確認角色確實屬於目前 Player ID 後再復原。</p>
+        <div class="cloud-legacy-rescue-target"></div>
+        <div class="cloud-legacy-rescue-list"></div>
+        <label class="cloud-legacy-rescue-confirm"><input type="checkbox"><span></span></label>
+        <div class="cloud-legacy-rescue-status"></div>
+        <div class="cloud-legacy-rescue-actions"><button type="button" class="cloud-legacy-rescue-primary">確認復原所選角色</button><button type="button" class="cloud-legacy-rescue-secondary">稍後處理</button></div>
+      </div>`;
+    document.body.appendChild(overlay);
+    return overlay;
+  }
+
+  async function mirrorRecoveredLegacySave(row) {
+    if (!row?.character_id || !row?.save_data || !slots) return false;
+    const text = JSON.stringify(row.save_data);
+    try { localStorage.setItem(slots.getCharacterSaveKey(row.character_id), text); } catch (_) {}
+    if (window.indexedDB?.open) {
+      try {
+        await new Promise(resolve => {
+          const request = indexedDB.open("ro_web_offline_save_v1", 1);
+          request.onerror = () => resolve(false);
+          request.onsuccess = () => {
+            const db = request.result;
+            if (!db.objectStoreNames.contains("player_saves")) { db.close(); resolve(false); return; }
+            const tx = db.transaction("player_saves", "readwrite");
+            tx.objectStore("player_saves").put({ id:`character:${row.character_id}:primary`, text, savedAt:Number(row.save_data?.savedAt || Date.now()), saveVersion:Number(row.save_data?.saveVersion || 0) });
+            tx.oncomplete = () => { db.close(); resolve(true); };
+            tx.onerror = () => { db.close(); resolve(false); };
+            tx.onabort = () => { db.close(); resolve(false); };
+          };
+        });
+      } catch (_) {}
+    }
+    return true;
+  }
+
+  async function restoreLegacyBrowserCandidate(candidate, targetSlotZero) {
+    const { data, error } = await client.rpc("ro_restore_legacy_character_from_browser", {
+      p_account_id:String(currentAccount.account_id),
+      p_confirm_player_id:Number(currentAccount.player_id || 0),
+      p_slot_index:Number(targetSlotZero) + 1,
+      p_save_data:candidate.envelope
+    });
+    if (error) throw error;
+    if (!data || typeof data !== "object") throw new Error("RO_LEGACY_RESTORE_EMPTY");
+    await mirrorRecoveredLegacySave(data);
+    return data;
+  }
+
+  async function offerLegacyBrowserRescueIfNeeded(options = {}) {
+    if (!currentAccount?.account_id || options.cloudWasEmpty !== true) return false;
+    const candidates = await findLegacyBrowserCandidates(currentCharacters);
+    if (!candidates.length) return false;
+    const occupied = new Set((currentCharacters || []).map(row => Math.max(0, Number(row?.slot_index || 1) - 1)));
+    const freeCount = Math.max(0, Math.min(12, Number(currentAccount.slot_limit || 12)) - occupied.size);
+    if (!freeCount) return false;
+
+    window.ROWebLoadingScreen?.hide?.({ immediate:true });
+    const overlay = ensureLegacyRescueModal();
+    const target = overlay.querySelector(".cloud-legacy-rescue-target");
+    const list = overlay.querySelector(".cloud-legacy-rescue-list");
+    const confirm = overlay.querySelector(".cloud-legacy-rescue-confirm input");
+    const confirmText = overlay.querySelector(".cloud-legacy-rescue-confirm span");
+    const status = overlay.querySelector(".cloud-legacy-rescue-status");
+    const primary = overlay.querySelector(".cloud-legacy-rescue-primary");
+    const secondary = overlay.querySelector(".cloud-legacy-rescue-secondary");
+    target.textContent = `復原目標：${currentAccount.account_name}｜Player ID ${currentAccount.player_id}｜雲端目前 ${currentCharacters.length} / ${currentAccount.slot_limit || 12}`;
+    confirmText.textContent = `我確認勾選的角色確實屬於 Player ID ${currentAccount.player_id}，同意建立新的雲端角色 UUID。`;
+    list.textContent = "";
+    candidates.forEach((candidate, index) => {
+      const label = document.createElement("label");
+      label.className = "cloud-legacy-rescue-item";
+      const input = document.createElement("input");
+      input.type = "checkbox";
+      input.checked = index < freeCount;
+      input.dataset.index = String(index);
+      const box = document.createElement("div");
+      const base = Math.max(1, Number(candidate.player?.baseLevel || 1));
+      const jobLevel = Math.max(1, Number(candidate.player?.jobLevel || 1));
+      const name = String(candidate.player?.name || "冒險者");
+      const job = String(candidate.player?.job || "初學者");
+      const saved = Number(candidate.savedAt || 0) ? new Date(Number(candidate.savedAt)).toLocaleString() : "時間未知";
+      const title = document.createElement("b");
+      const meta = document.createElement("small");
+      const source = document.createElement("small");
+      title.textContent = `${name}｜${job}｜Base ${base} / Job ${jobLevel}`;
+      meta.textContent = `建議 SLOT ${Number(candidate.preferredSlot || 0) + 1}｜${saved}`;
+      source.textContent = String(candidate.source || "legacy");
+      box.append(title, meta, source);
+      label.append(input, box);
+      list.appendChild(label);
+    });
+    confirm.checked = false;
+    status.textContent = candidates.length > freeCount ? `找到 ${candidates.length} 個候選，但目前只剩 ${freeCount} 個空角色格；請只勾選要復原的角色。` : `找到 ${candidates.length} 個有進度的舊版角色候選。`;
+    status.className = "cloud-legacy-rescue-status";
+    primary.disabled = true;
+    secondary.disabled = false;
+    confirm.onchange = () => { primary.disabled = !confirm.checked; };
+    overlay.hidden = false;
+    const restoredKeys = new Set();
+
+    return new Promise(resolve => {
+      const finish = value => {
+        overlay.hidden = true;
+        confirm.onchange = null;
+        primary.onclick = null;
+        secondary.onclick = null;
+        window.ROWebLoadingScreen?.show?.({ progress:13, label:"正在重新同步角色列表…" });
+        resolve(value);
+      };
+      secondary.onclick = () => finish(false);
+      primary.onclick = async () => {
+        const selected = Array.from(list.querySelectorAll('input[type="checkbox"]:checked')).map(input => candidates[Number(input.dataset.index)]).filter(candidate => candidate && !restoredKeys.has(candidate.key));
+        if (!selected.length) { status.textContent = "請至少勾選一個要復原的角色。"; status.className = "cloud-legacy-rescue-status err"; return; }
+        primary.disabled = true; secondary.disabled = true; confirm.disabled = true;
+        let restored = 0;
+        try {
+          const liveRows = await fetchCharacters(currentAccount.account_id);
+          const liveOccupied = new Set(liveRows.map(row => Math.max(0, Number(row.slot_index || 1) - 1)));
+          for (const candidate of selected) {
+            const targetSlot = firstFreeSlot(liveOccupied, Number(candidate.preferredSlot || 0), Number(currentAccount.slot_limit || 12));
+            if (targetSlot < 0) break;
+            status.textContent = `正在復原 ${candidate.player?.name || "角色"}… (${restored + 1}/${selected.length})`;
+            const row = await restoreLegacyBrowserCandidate(candidate, targetSlot);
+            liveOccupied.add(targetSlot);
+            restoredKeys.add(candidate.key);
+            restored += 1;
+            currentCharacters.push(row);
+          }
+          currentCharacters = await fetchCharacters(currentAccount.account_id);
+          status.textContent = `已成功復原 ${restored} 個角色，正在重新載入雲端角色列表。`;
+          status.className = "cloud-legacy-rescue-status ok";
+          await new Promise(r => setTimeout(r, 650));
+          finish(restored > 0);
+        } catch (error) {
+          console.error("V0.9.86I Legacy 角色復原失敗：", error);
+          status.textContent = `復原失敗：${friendlyError(error)}\n原始瀏覽器存檔沒有刪除，可以修正後再次嘗試。`;
+          status.className = "cloud-legacy-rescue-status err";
+          primary.disabled = false; secondary.disabled = false; confirm.disabled = false;
+        }
+      };
+    });
+  }
+
   function buildCharacterInsertFromLocal(slot, rawEnvelope, targetSlot) {
     let envelope = null;
     try { envelope = typeof rawEnvelope === "string" ? JSON.parse(rawEnvelope) : rawEnvelope; } catch (_) {}
@@ -758,9 +1139,15 @@
     currentAccount = await chooseAccount();
     if (!currentAccount) return false;
     currentCharacters = await fetchCharacters(currentAccount.account_id);
+    const cloudWasEmptyAtEntry = currentCharacters.length === 0;
     // V0.9.85N：若玩家曾誤刪雲端角色，但原裝置仍握有具完整身份的高等本機備份，
     // 在覆寫本機角色清單之前先提供受控復原。新裝置／Lv1 暫存不會觸發此流程。
     await recoverDeletedCloudCharactersIfNeeded();
+    // V0.9.86I: strict account-bound recovery runs first. If old acct_* / identity-less
+    // saves still exist, deep-scan them BEFORE bindCloudAccount() can replace the local
+    // selector profile with an empty cloud list. Nothing is auto-attached: the player
+    // must explicitly confirm the current Player ID in the rescue dialog.
+    await offerLegacyBrowserRescueIfNeeded({ cloudWasEmpty:cloudWasEmptyAtEntry });
     slots?.bindCloudAccount?.(currentAccount, currentCharacters);
     window.ROWebSaveManager?.rebindActiveCharacter?.({ reason:"supabase-account-bound" });
     await syncSharedStorageFromCloudOrLocal();
