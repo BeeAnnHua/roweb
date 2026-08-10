@@ -1,0 +1,11 @@
+V0.9.85Q TEST / CHANGE REPORT
+- Root cause confirmed: legacy checksum hashes JSON.stringify(player), while PostgreSQL/Supabase jsonb can return equivalent objects with different key ordering.
+- Local storage remained valid because original property order was preserved.
+- Remote cloud saves could therefore be incorrectly discarded as checksum mismatch on another origin/device.
+- Added deterministic recursive key-sorted checksum v2.
+- Added legacy remote-jsonb compatibility for existing cloud saves only.
+- New saves write checksumVersion: 2.
+- cloud_save_runtime conflict inspection understands v2 and legacy jsonb reorder.
+- JS syntax: PASS (player.js, cloud_save_runtime.js, game.js).
+- Synthetic reordered-object checksum test: legacy differs; v2 stable checksum matches.
+- No Supabase SQL change required.

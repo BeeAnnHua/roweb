@@ -1,0 +1,14 @@
+彼岸花仙境 / RO_WEB V0.9.85Q
+跨裝置雲端存檔 checksum 相容修正
+
+安裝：
+1. 直接覆蓋 Patch 內檔案到目前 V0.9.85P 專案。
+2. 不需要執行任何新的 Supabase SQL。
+3. 本機 Ctrl+F5 後先進正確 Base234 角色，於齒輪按一次「手動存檔」。
+4. 上傳相同 Q 檔案到 GitHub Pages，再用另一瀏覽器／無痕／手機登入測試。
+
+修正重點：
+- 舊 checksum 使用 JSON.stringify(player)，Supabase jsonb 重新排列 object keys 後會誤判 checksum mismatch。
+- Q 版新增 checksumVersion=2 + canonical stable JSON checksum，不受 key order 影響。
+- 既有 Supabase 舊 checksum 遠端資料仍可相容讀取；下一次存檔自動升級 v2。
+- 本機存檔仍維持嚴格 checksum 驗證，不放寬跨帳號／跨角色安全規則。

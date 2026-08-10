@@ -8,7 +8,7 @@
 (function () {
   "use strict";
 
-  const VERSION = "0.9.85O";
+  const VERSION = "0.9.85Q";
   const SUPABASE_URL = "https://ecbnsobcjxnrwqlefjci.supabase.co";
   const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_LrQiZeOESpuGnt-hL6m0VQ_zXqn8ehS";
   const SELECTED_ACCOUNT_KEY = "roweb_cloud_selected_account_v1";
@@ -177,7 +177,19 @@
     return (`00000000${(hash >>> 0).toString(16)}`).slice(-8);
   }
 
-  function inspectEnvelope(saveData, accountId = "", characterId = "") {
+
+  function stablePlayerJsonStringify(value) {
+    if (value === null || typeof value !== "object") return JSON.stringify(value);
+    if (Array.isArray(value)) return `[${value.map(item => stablePlayerJsonStringify(item)).join(",")}]`;
+    const keys = Object.keys(value).sort();
+    return `{${keys.map(key => `${JSON.stringify(key)}:${stablePlayerJsonStringify(value[key])}`).join(",")}}`;
+  }
+
+  function hashPlayerStable(value) {
+    return hashPlayerText(stablePlayerJsonStringify(value));
+  }
+
+  function inspectEnvelope(saveData, accountId = "", characterId = "", options = {}) {
     const raw = saveData && typeof saveData === "object" && !Array.isArray(saveData) ? saveData : null;
     const player = raw?.player && typeof raw.player === "object" && !Array.isArray(raw.player) ? raw.player : null;
     if (!raw || !player) return { valid:false, reason:"missing-player", player:null, version:envelopeVersion(raw), savedAt:envelopeSavedAt(raw), defaultLike:true, established:false };
@@ -186,7 +198,15 @@
     if (accountId && explicitAccountId && explicitAccountId !== String(accountId)) return { valid:false, reason:"account-mismatch", player, version:envelopeVersion(raw), savedAt:envelopeSavedAt(raw), defaultLike:false, established:false };
     if (characterId && explicitCharacterId && explicitCharacterId !== String(characterId)) return { valid:false, reason:"character-mismatch", player, version:envelopeVersion(raw), savedAt:envelopeSavedAt(raw), defaultLike:false, established:false };
     const checksum = String(raw.checksum || "");
-    if (checksum && checksum !== hashPlayerText(JSON.stringify(player))) return { valid:false, reason:"checksum-mismatch", player, version:envelopeVersion(raw), savedAt:envelopeSavedAt(raw), defaultLike:false, established:false };
+    const checksumVersion = Math.max(0, Number(raw.checksumVersion || 0));
+    if (checksum) {
+      if (checksumVersion >= 2) {
+        if (checksum !== hashPlayerStable(player)) return { valid:false, reason:"checksum-mismatch", player, version:envelopeVersion(raw), savedAt:envelopeSavedAt(raw), defaultLike:false, established:false };
+      } else if (checksum !== hashPlayerText(JSON.stringify(player))) {
+        // 只有從 Supabase jsonb 重新讀回的舊 checksum 才允許 key-order 相容。
+        if (options.allowLegacyJsonbReorder !== true) return { valid:false, reason:"checksum-mismatch", player, version:envelopeVersion(raw), savedAt:envelopeSavedAt(raw), defaultLike:false, established:false };
+      }
+    }
     const base = Math.max(1, Number(player.baseLevel || 1));
     const jobLevel = Math.max(1, Number(player.jobLevel || 1));
     const job = String(player.job || "").trim().toLowerCase();
@@ -808,7 +828,7 @@
       const remoteVersion = envelopeVersion(remoteSave);
       const remoteAt = envelopeSavedAt(remoteSave);
       const localAt = envelopeSavedAt(envelope);
-      const remoteCheck = inspectEnvelope(remoteSave, accountId, characterId);
+      const remoteCheck = inspectEnvelope(remoteSave, accountId, characterId, { allowLegacyJsonbReorder:true });
       const localCheck = inspectEnvelope(envelope, accountId, characterId);
       const remoteClaimsNewer = remoteVersion > localVersion || (remoteVersion === localVersion && remoteAt > localAt + 1500);
       // V0.9.85M：舊版 Lv1 fallback 曾可能留下「版本號很新、內容卻是預設 Lv1」或 checksum/身份損壞的雲端資料。

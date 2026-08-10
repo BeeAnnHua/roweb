@@ -14,7 +14,7 @@ const SAVE_LEASE_HEARTBEAT_MS = 5 * 1000;
 const SAVE_LEASE_STALE_MS = 20 * 1000;
 const RO_WEB_SAVE_SCHEMA = "ro_web_player_save_v2";
 const RO_WEB_SAVE_FORMAT_VERSION = 2;
-const RO_WEB_SAVE_APP_VERSION = "0.9.85L";
+const RO_WEB_SAVE_APP_VERSION = "0.9.85Q";
 const RO_WEB_SAVE_DB_NAME = "ro_web_offline_save_v1";
 const RO_WEB_SAVE_DB_VERSION = 1;
 const RO_WEB_SAVE_DB_STORE = "player_saves";
@@ -220,6 +220,20 @@ function hashPlayerSaveText(text) {
   return (`00000000${(hash >>> 0).toString(16)}`).slice(-8);
 }
 
+// V0.9.85Q：Supabase jsonb 會重新排列物件欄位順序。
+// 舊 checksum 直接 hash JSON.stringify(player)，跨裝置從 jsonb 讀回時可能因 key order 改變而誤判損壞。
+// 新格式使用遞迴排序 key 的 canonical JSON，讓相同資料在任何瀏覽器／資料庫 round-trip 後得到同一 checksum。
+function stablePlayerJsonStringify(value) {
+  if (value === null || typeof value !== "object") return JSON.stringify(value);
+  if (Array.isArray(value)) return `[${value.map(item => stablePlayerJsonStringify(item)).join(",")}]`;
+  const keys = Object.keys(value).sort();
+  return `{${keys.map(key => `${JSON.stringify(key)}:${stablePlayerJsonStringify(value[key])}`).join(",")}}`;
+}
+
+function hashPlayerSaveStable(value) {
+  return hashPlayerSaveText(stablePlayerJsonStringify(value));
+}
+
 function parsePlayerSaveCandidate(raw, source = "unknown") {
   if (raw === null || raw === undefined || raw === "") return null;
   try {
@@ -230,15 +244,32 @@ function parsePlayerSaveCandidate(raw, source = "unknown") {
     if (!candidatePlayer || typeof candidatePlayer !== "object" || Array.isArray(candidatePlayer)) return null;
     const playerText = JSON.stringify(candidatePlayer);
     const expectedChecksum = wrapped ? String(parsed.checksum || "") : "";
-    const actualChecksum = hashPlayerSaveText(playerText);
-    if (expectedChecksum && expectedChecksum !== actualChecksum) {
-      throw new Error(`${source} checksum mismatch`);
+    const checksumVersion = wrapped ? Math.max(0, Number(parsed.checksumVersion || 0)) : 0;
+    const actualLegacyChecksum = hashPlayerSaveText(playerText);
+    const actualStableChecksum = hashPlayerSaveStable(candidatePlayer);
+    let legacyRemoteJsonbReorder = false;
+    if (expectedChecksum) {
+      if (checksumVersion >= 2) {
+        if (expectedChecksum !== actualStableChecksum) throw new Error(`${source} checksum mismatch`);
+      } else if (expectedChecksum !== actualLegacyChecksum) {
+        // 舊格式存在 Supabase jsonb 時，PostgreSQL 可能改變 object key order。
+        // 遠端 row 已由 account_id + character_id 精確限制，因此只對「舊版遠端 checksum」相容一次；
+        // 下一次存檔會自動升級成 checksumVersion=2 的 canonical checksum。
+        if (String(source || "") === "remote") {
+          legacyRemoteJsonbReorder = true;
+          console.warn("V0.9.85Q：接受舊版 Supabase jsonb 欄位重排後的遠端存檔；下次存檔將升級 checksum v2。", { source });
+        } else {
+          throw new Error(`${source} checksum mismatch`);
+        }
+      }
     }
     return {
       source: String(source || "unknown"),
       player: candidatePlayer,
       playerText,
-      checksum: expectedChecksum || actualChecksum,
+      checksum: expectedChecksum || (checksumVersion >= 2 ? actualStableChecksum : actualLegacyChecksum),
+      checksumVersion,
+      legacyRemoteJsonbReorder,
       saveVersion: Math.max(0, Math.floor(Number(parsed.saveVersion || parsed.sequence || 0))),
       savedAt: Math.max(0, Math.floor(Number(parsed.savedAt || parsed.updatedAt || 0))),
       sessionId: wrapped ? String(parsed.sessionId || "") : "",
@@ -1152,6 +1183,7 @@ function preparePendingRewardsForSave(reason = "save") {
 
 function createPlayerSaveEnvelope(snapshot, reason = "manual") {
   const playerText = JSON.stringify(snapshot);
+  const serializedPlayer = JSON.parse(playerText);
   const newest = getNewestLocalPlayerSaveCandidate();
   const nextVersion = Math.max(
     Number(RO_WEB_SAVE_SEQUENCE || 0),
@@ -1170,8 +1202,9 @@ function createPlayerSaveEnvelope(snapshot, reason = "manual") {
     savedAt: Date.now(),
     sessionId: RO_WEB_SAVE_SESSION_ID,
     reason: String(reason || "manual"),
-    checksum: hashPlayerSaveText(playerText),
-    player: JSON.parse(playerText)
+    checksumVersion: 2,
+    checksum: hashPlayerSaveStable(serializedPlayer),
+    player: serializedPlayer
   };
   return { envelope, text: JSON.stringify(envelope) };
 }
