@@ -8,11 +8,12 @@
 (function () {
   "use strict";
 
-  const VERSION = "0.9.85M";
+  const VERSION = "0.9.85O";
   const SUPABASE_URL = "https://ecbnsobcjxnrwqlefjci.supabase.co";
   const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_LrQiZeOESpuGnt-hL6m0VQ_zXqn8ehS";
   const SELECTED_ACCOUNT_KEY = "roweb_cloud_selected_account_v1";
   const LOGIN_HINT_KEY = "roweb_cloud_login_aliases_v1";
+  const LOCAL_CHARACTER_SAVE_PREFIX = "ro_web_character_save_v1_";
 
   const sdk = window.supabase;
   const slots = window.CharacterSlotsRuntime;
@@ -59,6 +60,10 @@
     if (/RO_CLOUD_CONFLICT/i.test(raw)) return "雲端已有較新的進度，已停止覆寫。請重新進入角色後再存檔。";
     if (/RO_CHARACTER_SAVE_PERMISSION_DENIED|RO_ACCOUNT_PERMISSION_DENIED/i.test(raw)) return "目前帳號沒有權限更新這個角色的雲端存檔。";
     if (/RO_CHARACTER_NOT_FOUND/i.test(raw)) return "找不到目前選中的雲端角色。";
+    if (/RO_RESTORE_CHARACTER_ALREADY_EXISTS/i.test(raw)) return "這個角色已經存在雲端，不需要再次復原。";
+    if (/RO_RESTORE_SLOT_OCCUPIED/i.test(raw)) return "原角色欄位已被其他角色使用，請先整理角色欄位後再復原。";
+    if (/RO_RESTORE_IDENTITY_MISMATCH/i.test(raw)) return "本機備份身分與目前帳號不一致，已停止復原。";
+    if (/RO_RESTORE_SAVE_NOT_ESTABLISHED/i.test(raw)) return "本機只有未建立完成的 Lv1 暫存，不能用來復原雲端角色。";
     return raw;
   }
 
@@ -189,6 +194,184 @@
     const established = base > 1 || jobLevel > 1 || !novice.has(job);
     const defaultLike = base <= 1 && jobLevel <= 1 && novice.has(job);
     return { valid:true, reason:"ok", player, version:envelopeVersion(raw), savedAt:envelopeSavedAt(raw), defaultLike, established };
+  }
+
+  function isUuidText(value) {
+    return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(String(value || ""));
+  }
+
+  function compareRecoveryEnvelope(a, b) {
+    if (!a) return -1;
+    if (!b) return 1;
+    if (Number(a.version || 0) !== Number(b.version || 0)) return Number(a.version || 0) - Number(b.version || 0);
+    return Number(a.savedAt || 0) - Number(b.savedAt || 0);
+  }
+
+  function findRecoverableLocalCharacters(cloudRows = []) {
+    if (!currentAccount?.account_id) return [];
+    const accountId = String(currentAccount.account_id);
+    const remoteIds = new Set((Array.isArray(cloudRows) ? cloudRows : []).map(row => String(row?.character_id || "")));
+    const occupiedSlots = new Set((Array.isArray(cloudRows) ? cloudRows : []).map(row => Math.max(1, Number(row?.slot_index || 1))));
+    const bestByCharacter = new Map();
+
+    try {
+      for (let index = 0; index < localStorage.length; index += 1) {
+        const key = String(localStorage.key(index) || "");
+        if (!key.startsWith(LOCAL_CHARACTER_SAVE_PREFIX)) continue;
+        const suffix = key.slice(LOCAL_CHARACTER_SAVE_PREFIX.length);
+        const characterId = suffix.replace(/_minute_backup_v1$/, "");
+        if (!isUuidText(characterId) || remoteIds.has(characterId)) continue;
+        const rawText = localStorage.getItem(key);
+        if (!rawText) continue;
+        let envelope = null;
+        try { envelope = JSON.parse(rawText); } catch (_) { continue; }
+        if (!envelope || typeof envelope !== "object" || Array.isArray(envelope)) continue;
+        const player = envelope?.player && typeof envelope.player === "object" && !Array.isArray(envelope.player) ? envelope.player : null;
+        if (!player) continue;
+        const envelopeAccountId = String(envelope.accountId || player.accountId || "");
+        const envelopeCharacterId = String(envelope.characterId || player.characterId || "");
+        // V0.9.85N recovery intentionally requires explicit identity. Identity-less legacy saves
+        // remain handled only by the older migration path and may not recreate a deleted cloud row.
+        if (envelopeAccountId !== accountId || envelopeCharacterId !== characterId) continue;
+        const check = inspectEnvelope(envelope, accountId, characterId);
+        if (!check.valid || !check.established) continue;
+        const slotIndexZero = Math.max(0, Math.floor(Number(envelope.slotIndex ?? player.slotIndex ?? 0)));
+        const candidate = {
+          characterId,
+          accountId,
+          envelope,
+          player,
+          version:check.version,
+          savedAt:check.savedAt,
+          preferredSlot:Math.min(11, slotIndexZero),
+          source:key.endsWith("_minute_backup_v1") ? "backup" : "main"
+        };
+        const previous = bestByCharacter.get(characterId);
+        if (!previous || compareRecoveryEnvelope(candidate, previous) > 0) bestByCharacter.set(characterId, candidate);
+      }
+    } catch (error) {
+      console.warn("掃描本機角色救援備份失敗：", error);
+    }
+
+    const freeSlotFor = preferredZero => {
+      const preferredOne = Math.max(1, Math.min(Number(currentAccount.slot_limit || 12), Number(preferredZero || 0) + 1));
+      if (!occupiedSlots.has(preferredOne)) return preferredOne;
+      const limit = Math.max(1, Math.min(12, Number(currentAccount.slot_limit || 12)));
+      for (let slot = 1; slot <= limit; slot += 1) if (!occupiedSlots.has(slot)) return slot;
+      return 0;
+    };
+
+    return [...bestByCharacter.values()]
+      .map(candidate => ({ ...candidate, targetSlot:freeSlotFor(candidate.preferredSlot) }))
+      .filter(candidate => candidate.targetSlot > 0)
+      .sort((a,b) => a.targetSlot - b.targetSlot);
+  }
+
+  function ensureLocalRecoveryModal() {
+    let overlay = document.getElementById("cloudLocalRecoveryOverlay");
+    if (overlay) return overlay;
+    const style = document.createElement("style");
+    style.textContent = `
+      .cloud-local-recovery-overlay{position:fixed;inset:0;z-index:2147483100;display:grid;place-items:center;background:rgba(3,2,1,.76);backdrop-filter:blur(5px)}
+      .cloud-local-recovery-overlay[hidden]{display:none!important}.cloud-local-recovery-dialog{width:min(560px,calc(100vw - 34px));padding:24px;border:1px solid rgba(219,170,67,.78);border-radius:17px;background:linear-gradient(180deg,rgba(30,20,10,.98),rgba(13,9,5,.98));box-shadow:0 28px 90px #000d;color:#e8d9b6;text-align:center}
+      .cloud-local-recovery-emblem{width:58px;height:58px;margin:0 auto 12px;display:grid;place-items:center;border-radius:15px;background:linear-gradient(#fff0ad,#d9a62e);color:#402800;font-size:31px;font-weight:1000;box-shadow:0 8px 25px #0008}.cloud-local-recovery-dialog h2{margin:0 0 10px;color:#ffe39a;font-size:23px}.cloud-local-recovery-dialog p{margin:8px 0;line-height:1.8}.cloud-local-recovery-character{margin:15px 0;padding:13px;border:1px solid rgba(194,139,36,.45);border-radius:10px;background:#090704;color:#ffe8ae}.cloud-local-recovery-status{min-height:22px;margin-top:10px;color:#d8c79f}.cloud-local-recovery-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px}.cloud-local-recovery-actions button{min-height:43px;border:1px solid #a97722;border-radius:8px;background:linear-gradient(#5a3b12,#291907);color:#ffe6a1;font-weight:900;cursor:pointer}.cloud-local-recovery-actions button:disabled{opacity:.45;cursor:default}.cloud-local-recovery-dialog small{display:block;margin-top:12px;color:#9f8c68}`;
+    document.head.appendChild(style);
+    overlay = document.createElement("section");
+    overlay.id = "cloudLocalRecoveryOverlay";
+    overlay.className = "cloud-local-recovery-overlay";
+    overlay.hidden = true;
+    overlay.innerHTML = `
+      <div class="cloud-local-recovery-dialog" role="dialog" aria-modal="true" aria-labelledby="cloudLocalRecoveryTitle">
+        <div class="cloud-local-recovery-emblem">✿</div>
+        <h2 id="cloudLocalRecoveryTitle">偵測到可復原的本機角色</h2>
+        <p>雲端已找不到這個角色，但目前裝置仍保存一份完整且身分相符的角色備份。</p>
+        <div class="cloud-local-recovery-character"></div>
+        <div class="cloud-local-recovery-status"></div>
+        <div class="cloud-local-recovery-actions">
+          <button type="button" class="cloud-local-recovery-primary">復原至雲端</button>
+          <button type="button" class="cloud-local-recovery-secondary">暫不復原</button>
+        </div>
+        <small>只會復原目前登入 Player ID 自己的角色；Lv1／身分不符的暫存不會被接受。</small>
+      </div>`;
+    document.body.appendChild(overlay);
+    return overlay;
+  }
+
+  function promptLocalRecovery(candidate) {
+    // V0.9.85O: the RO loading overlay intentionally sits above almost every UI.
+    // Local recovery is an interactive gate, so hide the loading screen while the
+    // player chooses. Otherwise ensureReady() waits forever behind an invisible dialog.
+    window.ROWebLoadingScreen?.hide?.({ immediate:true });
+    const overlay = ensureLocalRecoveryModal();
+    const character = overlay.querySelector(".cloud-local-recovery-character");
+    const status = overlay.querySelector(".cloud-local-recovery-status");
+    const primary = overlay.querySelector(".cloud-local-recovery-primary");
+    const secondary = overlay.querySelector(".cloud-local-recovery-secondary");
+    const base = Math.max(1, Number(candidate?.player?.baseLevel || 1));
+    const jobLevel = Math.max(1, Number(candidate?.player?.jobLevel || 1));
+    const name = String(candidate?.player?.name || "冒險者");
+    const job = String(candidate?.player?.job || "初學者");
+    character.textContent = `${name}｜${job}｜Base ${base} / Job ${jobLevel}｜復原至 SLOT ${candidate.targetSlot}`;
+    status.textContent = "";
+    primary.disabled = false;
+    secondary.disabled = false;
+    overlay.hidden = false;
+    return new Promise(resolve => {
+      const finish = value => {
+        overlay.hidden = true;
+        primary.onclick = null;
+        secondary.onclick = null;
+        window.ROWebLoadingScreen?.show?.({ progress:11, label:"正在完成帳號驗證…" });
+        resolve(value);
+      };
+      primary.onclick = () => { primary.disabled = true; secondary.disabled = true; status.textContent = "正在驗證並復原雲端角色…"; resolve({ action:"restore", overlay, status, primary, secondary, finish }); };
+      secondary.onclick = () => finish({ action:"skip" });
+    });
+  }
+
+  async function restoreLocalCharacterToCloud(candidate) {
+    const { data, error } = await client.rpc("ro_restore_character_from_local", {
+      p_account_id: currentAccount.account_id,
+      p_character_id: candidate.characterId,
+      p_slot_index: Number(candidate.targetSlot),
+      p_save_data: candidate.envelope
+    });
+    if (error) throw error;
+    if (!data || typeof data !== "object") throw new Error("RO_RESTORE_CHARACTER_EMPTY");
+    return data;
+  }
+
+  async function recoverDeletedCloudCharactersIfNeeded() {
+    const recoverable = findRecoverableLocalCharacters(currentCharacters);
+    if (!recoverable.length) return false;
+    let restored = 0;
+    for (const candidate of recoverable) {
+      const choice = await promptLocalRecovery(candidate);
+      if (!choice || choice.action !== "restore") continue;
+      try {
+        const row = await restoreLocalCharacterToCloud(candidate);
+        choice.status.textContent = "復原成功，正在重新同步角色列表…";
+        restored += 1;
+        const existingIndex = currentCharacters.findIndex(item => String(item.character_id) === String(row.character_id));
+        if (existingIndex >= 0) currentCharacters[existingIndex] = { ...currentCharacters[existingIndex], ...row };
+        else currentCharacters.push(row);
+        await new Promise(resolve => setTimeout(resolve, 350));
+        choice.finish({ action:"restored", row });
+      } catch (error) {
+        console.error("本機角色復原至雲端失敗：", error);
+        choice.status.textContent = `復原失敗：${friendlyError(error)}`;
+        choice.primary.disabled = false;
+        choice.secondary.disabled = false;
+        choice.primary.textContent = "重新嘗試";
+        await new Promise(resolve => {
+          choice.primary.onclick = () => { choice.finish({ action:"retry-page" }); resolve(); };
+          choice.secondary.onclick = () => { choice.finish({ action:"skip" }); resolve(); };
+        });
+        break;
+      }
+    }
+    if (restored > 0) currentCharacters = await fetchCharacters(currentAccount.account_id);
+    return restored > 0;
   }
 
   function buildCharacterInsertFromLocal(slot, rawEnvelope, targetSlot) {
@@ -495,6 +678,9 @@
     currentAccount = await chooseAccount();
     if (!currentAccount) return false;
     currentCharacters = await fetchCharacters(currentAccount.account_id);
+    // V0.9.85N：若玩家曾誤刪雲端角色，但原裝置仍握有具完整身份的高等本機備份，
+    // 在覆寫本機角色清單之前先提供受控復原。新裝置／Lv1 暫存不會觸發此流程。
+    await recoverDeletedCloudCharactersIfNeeded();
     slots?.bindCloudAccount?.(currentAccount, currentCharacters);
     window.ROWebSaveManager?.rebindActiveCharacter?.({ reason:"supabase-account-bound" });
     await syncSharedStorageFromCloudOrLocal();

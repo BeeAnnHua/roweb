@@ -1,0 +1,17 @@
+彼岸花仙境 / RO_WEB V0.9.85N
+雲端角色誤刪救援 + 跨裝置雲端復原
+
+安裝順序：
+1. Supabase -> SQL Editor -> New query
+2. 執行 supabase/V0.9.85N_CLOUD_CHARACTER_LOCAL_RECOVERY_RPC.sql
+3. 看到 Success. No rows returned 後，再覆蓋本 Patch 遊戲檔。
+4. Ctrl+F5。
+5. 必須先在「仍保有正確高等角色本機存檔」的原瀏覽器/原網址啟動。
+6. 若雲端角色已被刪除，系統會在角色清單被雲端覆寫前提示「偵測到可復原的本機角色」。
+7. 按「復原至雲端」，成功後應重新出現在角色選擇頁。
+8. 再到 GitHub Pages / 無痕 / Edge / 手機登入同帳號，應直接取得同一份角色進度。
+
+注意：
+- 本流程只接受明確綁定相同 account_id + character_id 的已建立角色。
+- Lv1/初心者暫存不會被拿來復原。
+- 不要在 Supabase Table Editor 手動刪除 ro_characters 來測試一般同步；角色選擇頁的「刪除」視為永久刪除。

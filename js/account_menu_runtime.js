@@ -1,6 +1,6 @@
 // ============================================================
 // 彼岸花仙境 / RO_WEB
-// V0.9.85E - Right HUD Account Menu
+// V0.9.85P - Right HUD Account Menu / manual save centralized in gear settings
 // - Persistent black/gold gear beside HUD fold button
 // - Shows current Player ID, account name and character name
 // - Safe character switch / account switch / sign out with save flush
@@ -8,7 +8,7 @@
 (function(){
   "use strict";
 
-  const VERSION = "0.9.85M";
+  const VERSION = "0.9.85P";
   const $ = id => document.getElementById(id);
 
   function text(value, fallback = "—") {

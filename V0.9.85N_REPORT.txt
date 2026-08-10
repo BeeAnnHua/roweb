@@ -1,0 +1,5 @@
+V0.9.85N
+- Added secure local-backup -> cloud character recreation RPC.
+- Detects identity-bound established local saves missing from current cloud row list before cloud binding overwrites local selector metadata.
+- Restores original character_id into an available slot after explicit player confirmation.
+- Keeps K/L/M cloud-first and Lv1 write-block protections intact.

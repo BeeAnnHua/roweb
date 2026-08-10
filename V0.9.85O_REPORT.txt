@@ -1,0 +1,6 @@
+V0.9.85O regression fix
+- Hidden recovery modal vs RO loading screen fixed.
+- Recovery modal z-index raised and loading overlay is suspended while user interaction is required.
+- Character entry session token is now one-shot + expiring and consumed on use.
+- Fresh reload/open returns to character selector by default.
+- No Supabase schema change.

@@ -6,7 +6,7 @@
 (function () {
   "use strict";
 
-  const VERSION = "0.9.85L";
+  const VERSION = "0.9.85O";
   const ACCOUNT_KEY = "ro_web_account_profile_v1";
   const LEGACY_SAVE_KEY = "ro_web_save_v0_9_19_ui_scroll_quickbar";
   const SLOT_SAVE_PREFIX = "ro_web_character_save_v1_";
@@ -602,13 +602,33 @@
     try {
       const token = JSON.parse(sessionStorage.getItem(SESSION_ENTRY_KEY) || "null");
       const forced = sessionStorage.getItem(FORCE_SELECTOR_KEY) === "1";
-      return !forced && token?.characterId === active.characterId && token?.accountId === account.accountId;
-    } catch (_) { return false; }
+      // V0.9.85O: character entry is a one-shot hand-off used only for the reload
+      // immediately after the player presses "進入遊戲". Consume it here so a later
+      // refresh/reopen can never auto-enter the last character. Legacy persistent
+      // tokens are rejected as well.
+      try { sessionStorage.removeItem(SESSION_ENTRY_KEY); } catch (_) {}
+      const expiresAt = Number(token?.expiresAt || 0);
+      return !forced
+        && token?.oneShot === true
+        && expiresAt > now()
+        && token?.characterId === active.characterId
+        && token?.accountId === account.accountId;
+    } catch (_) {
+      try { sessionStorage.removeItem(SESSION_ENTRY_KEY); } catch (_) {}
+      return false;
+    }
   }
 
   function setEntryToken(characterId) {
     try {
-      sessionStorage.setItem(SESSION_ENTRY_KEY, JSON.stringify({ accountId:account.accountId, characterId, enteredAt:now() }));
+      const issuedAt = now();
+      sessionStorage.setItem(SESSION_ENTRY_KEY, JSON.stringify({
+        accountId:account.accountId,
+        characterId,
+        enteredAt:issuedAt,
+        expiresAt:issuedAt + 120000,
+        oneShot:true
+      }));
       sessionStorage.removeItem(FORCE_SELECTOR_KEY);
     } catch (_) {}
   }
