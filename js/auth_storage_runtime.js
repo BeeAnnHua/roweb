@@ -1,5 +1,5 @@
 // ============================================================
-// 彼岸花仙境 / RO_WEB V0.9.86B
+// 彼岸花仙境 / RO_WEB V0.9.86C
 // Supabase Auth Storage Runtime
 // - Auth session is stored in IndexedDB instead of localStorage.
 // - Automatically migrates legacy sb-*-auth-token values on first read.
@@ -8,7 +8,7 @@
 (function () {
   "use strict";
 
-  const VERSION = "0.9.86B";
+  const VERSION = "0.9.86C";
   const DB_NAME = "ro_web_auth_session_v1";
   const DB_VERSION = 1;
   const STORE_NAME = "kv";

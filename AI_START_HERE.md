@@ -1,4 +1,4 @@
-# V0.9.86B current baseline
+# V0.9.86C current baseline
 
 - Adds the first low-traffic social chat layer on top of the user-tested V0.9.85Q/P cloud baseline.
 - Bottom chat panel defaults to `玩家頻道`; `系統信息` preserves the original combat/buff/drop/save log.
@@ -6,7 +6,7 @@
 - Chat is intentionally delayed and low bandwidth: no Supabase Realtime/WebSocket. One incremental `message_id` poll carries world + whispers together; foreground polling adapts between 10/20/30 seconds and background tabs use 60 seconds.
 - World messages are visible for 48 hours; whispers for 7 days. Old rows are cleaned opportunistically when someone sends a message, so no scheduled cleanup job is required.
 - `supabase/V0.9.86A_LOW_TRAFFIC_CHAT.sql` must be executed once in Supabase SQL Editor. Chat tables are not directly writable/readable by browser roles; player access goes through SECURITY DEFINER RPCs that verify the currently selected RO account/character.
-- `announcement / party / guild` message types are reserved in the schema for future social systems; V0.9.86B player sending is limited to `world` and `whisper`.
+- `announcement / party / guild` message types are reserved in the schema for future social systems; V0.9.86C player sending is limited to `world` and `whisper`.
 - Never add presence heartbeat polling for online counts by default; preserving low request/egress usage is a long-term chat requirement.
 
 # V0.9.85J PUBLIC TEST BASELINE
@@ -149,7 +149,13 @@
 - 後續版本一律以 0.9.82IA 為基準。
 
 
-## V0.9.86B additions
+## V0.9.86C additions
 - Supabase Auth sessions use IndexedDB via `js/auth_storage_runtime.js`, with one-time migration from legacy `sb-*-auth-token` localStorage keys. This prevents large local character backups from blocking login/OTP session persistence.
 - Selected RO account falls back to sessionStorage when localStorage is full. Existing role saves are not automatically deleted.
 - Chat player names are plain clickable text (no button chrome), with ellipsis for long names. Full name remains available via title/profile popup.
+
+## V0.9.86C additions
+- C is cumulative over V0.9.86B: keep IndexedDB Supabase Auth Session storage, quota-safe login fallbacks, and borderless clickable/truncated chat names.
+- Chat messages now include a server-verified `sender_role` snapshot; current cosmetic roles are `player` and `gm`.
+- GM chat identity uses a small `GM` gold badge plus gold animated name shine. The effect is CSS-only and adds no polling/request traffic.
+- Never infer GM from Player ID alone; authoritative GM identity remains `ro_accounts.account_role = 'gm'`.

@@ -1,5 +1,5 @@
 // ============================================================
-// 彼岸花仙境 / RO_WEB V0.9.86B
+// 彼岸花仙境 / RO_WEB V0.9.86C
 // 低流量延遲聊天：玩家頻道 + 世界聊天 + 私信 + 玩家資訊 + 封鎖
 // - 不使用 Supabase Realtime / WebSocket
 // - 只以 message_id 增量輪詢
@@ -8,7 +8,7 @@
 (function(){
   'use strict';
 
-  const VERSION = '0.9.86B';
+  const VERSION = '0.9.86C';
   const MAX_RENDERED = 80;
   const MAX_MESSAGE_LENGTH = 120;
   const ACTIVE_POLL_MS = 10000;
@@ -92,6 +92,7 @@
       senderName:text(raw.sender_name ?? raw.senderName, '冒險者'),
       senderBaseLevel:Math.max(1,number(raw.sender_base_level ?? raw.senderBaseLevel,1)),
       senderJobName:text(raw.sender_job_name ?? raw.senderJobName, '初學者'),
+      senderRole:text(raw.sender_role ?? raw.senderRole, 'player').toLowerCase(),
       recipientPlayerId:number(raw.recipient_player_id ?? raw.recipientPlayerId,0),
       body:text(raw.body,'').trim(),
       createdAt:raw.created_at ?? raw.createdAt ?? new Date().toISOString()
@@ -104,6 +105,7 @@
       name:row.senderName,
       baseLevel:row.senderBaseLevel,
       jobName:row.senderJobName,
+      role:row.senderRole,
       characterId:row.senderCharacterId
     };
   }
@@ -132,8 +134,21 @@
       channel.textContent = '[世界]';
     }
 
+    const isGm = row.senderRole === 'gm';
+    if (isGm) line.classList.add('is-gm');
+
+    if (isGm) {
+      const gmMark = document.createElement('span');
+      gmMark.className = 'player-chat-gm-mark';
+      gmMark.textContent = 'GM';
+      gmMark.title = '遊戲管理員';
+      line.append(time, channel, gmMark);
+    } else {
+      line.append(time, channel);
+    }
+
     const name = document.createElement('span');
-    name.className = 'player-chat-name';
+    name.className = `player-chat-name${isGm ? ' name-gm' : ''}`;
     name.textContent = row.senderName;
     name.title = `查看 ${row.senderName} 的玩家資訊`;
     name.setAttribute('role', 'button');
@@ -157,7 +172,7 @@
     body.className = 'player-chat-text';
     body.textContent = row.body;
 
-    line.append(time, channel, name, suffix, body);
+    line.append(name, suffix, body);
     return line;
   }
 
@@ -331,7 +346,7 @@
         return schedulePoll(650);
       }
     } catch (error) {
-      console.warn('V0.9.86B 玩家聊天輪詢暫時失敗：', error);
+      console.warn('V0.9.86C 玩家聊天輪詢暫時失敗：', error);
       if (!state.initializedRows) showEmpty('聊天服務連線中，稍後會自動重試。');
     } finally {
       state.polling = false;
@@ -348,6 +363,8 @@
     $('playerChatProfileId').textContent = `#${profile.playerId}`;
     $('playerChatProfileLevel').textContent = `Base Lv.${profile.baseLevel || 1}`;
     $('playerChatProfileJob').textContent = profile.jobName || '初學者';
+    const profileName = $('playerChatProfileName');
+    if (profileName) profileName.classList.toggle('is-gm', profile.role === 'gm');
     const self = String(profile.playerId) === String(state.account?.player_id || '');
     const whisper = $('playerChatWhisperButton');
     const block = $('playerChatBlockButton');

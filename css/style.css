@@ -23637,7 +23637,7 @@ body.roweb-loading-open{overflow:hidden!important}
 }
 
 /* ============================================================
-   RO_WEB V0.9.86B — Low Traffic Player Chat / Auth Storage Safety
+   RO_WEB V0.9.86C — Low Traffic Player Chat / Auth Storage Safety
    世界聊天 + 私信共用增量輪詢；系統紀錄保留原 battle-log-list。
    ============================================================ */
 #battle-log.chat-panel {
@@ -23851,4 +23851,93 @@ body.roweb-loading-open{overflow:hidden!important}
 
 @media (max-width:720px){
   .player-chat-name{max-width:86px;}
+}
+
+/* ============================================================
+   RO_WEB V0.9.86C — GM chat identity effect
+   Pure CSS cosmetics: zero extra polling / network requests.
+   ============================================================ */
+.player-chat-gm-mark {
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  height:15px;
+  min-width:22px;
+  box-sizing:border-box;
+  margin:1px 4px 0 0;
+  padding:0 4px;
+  border:1px solid rgba(255,214,92,.82);
+  border-radius:4px;
+  background:linear-gradient(180deg,rgba(108,67,8,.95),rgba(37,19,2,.98));
+  color:#fff1a6;
+  font:900 9px/13px Arial,'Microsoft JhengHei',sans-serif;
+  letter-spacing:.4px;
+  vertical-align:top;
+  text-shadow:0 0 4px rgba(255,205,61,.9),0 1px 1px #000;
+  box-shadow:inset 0 0 5px rgba(255,207,76,.18),0 0 5px rgba(255,182,31,.26);
+  overflow:hidden;
+}
+.player-chat-gm-mark::after {
+  content:'';
+  position:absolute;
+  top:-5px;
+  left:-12px;
+  width:7px;
+  height:25px;
+  transform:skewX(-22deg);
+  background:linear-gradient(90deg,transparent,rgba(255,255,226,.8),transparent);
+  animation:roChatGmBadgeSweep 3.1s ease-in-out infinite;
+  pointer-events:none;
+}
+.player-chat-name.name-gm {
+  position:relative;
+  max-width:108px;
+  color:#ffe173;
+  font-weight:900;
+  background:linear-gradient(100deg,#ffe16c 0%,#fffbd0 27%,#ffc443 48%,#fff8bb 69%,#e9a622 100%);
+  background-size:230% 100%;
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 0 2px rgba(255,193,49,.9)) drop-shadow(0 0 5px rgba(255,145,15,.34));
+  animation:roChatGmNameShine 2.8s linear infinite;
+}
+.player-chat-line.is-gm .player-chat-colon,
+.player-chat-line.is-gm .player-chat-text {
+  text-shadow:0 0 3px rgba(255,188,54,.13);
+}
+.player-chat-name.name-gm:hover,
+.player-chat-name.name-gm:focus-visible {
+  filter:drop-shadow(0 0 3px rgba(255,236,137,1)) drop-shadow(0 0 7px rgba(255,166,22,.52));
+  text-decoration:underline;
+  text-decoration-color:#ffe27a;
+  text-underline-offset:2px;
+}
+#playerChatProfileName.is-gm {
+  color:#ffe27c;
+  text-shadow:0 0 4px rgba(255,210,74,.9),0 0 10px rgba(255,155,25,.38);
+}
+#playerChatProfileName.is-gm::before {
+  content:'GM  ';
+  color:#ffd04d;
+  font-size:.7em;
+  letter-spacing:.7px;
+}
+@keyframes roChatGmNameShine {
+  0% { background-position:110% 50%; }
+  100% { background-position:-110% 50%; }
+}
+@keyframes roChatGmBadgeSweep {
+  0%,55% { left:-12px; opacity:0; }
+  63% { opacity:1; }
+  78%,100% { left:30px; opacity:0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .player-chat-name.name-gm,
+  .player-chat-gm-mark::after { animation:none !important; }
+}
+@media (max-width: 760px) {
+  .player-chat-gm-mark { min-width:19px; height:14px; margin-right:3px; padding:0 3px; font-size:8px; line-height:12px; }
+  .player-chat-name.name-gm { max-width:76px; }
 }
