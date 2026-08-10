@@ -1,0 +1,20 @@
+彼岸花仙境 V0.9.86J — Legacy 深度角色救援通用補強
+
+安裝：
+1. 將本 Patch 內檔案覆蓋到目前 V0.9.86I 專案。
+2. GitHub Pages 更新後 Ctrl+F5。
+3. V0.9.86J 不需要新增 SQL；沿用已執行的 V0.9.86I_LEGACY_BROWSER_CHARACTER_RESCUE.sql。
+   若新環境從未執行過 I SQL，Patch 仍附上 supabase/V0.9.86I_LEGACY_BROWSER_CHARACTER_RESCUE.sql 可供補跑。
+
+本版重點：
+- 保留 H/I：localStorage + IndexedDB、完整 Email 顯示、0/12 前救援、人工確認、跨帳號 UUID 阻擋。
+- 新增 sessionStorage 掃描。
+- 新增巢狀 JSON 深度掃描：migration/profile/backup/array 內藏的完整舊角色存檔也能找到。
+- 深度掃描有節點/深度上限，避免大型存檔卡死頁面。
+- 不把只有名稱/等級的 slot summary 當成可復原完整角色；避免製造殘缺角色。
+- 原始瀏覽器存檔不刪除。
+
+針對 Player ID 100011：
+- I 版已找到 SLOT 2 / SLOT 3 / SLOT 4 三隻。
+- J 版目標是再挖出可能埋在舊 profile/backup/單角色格式內的 SLOT 1（十字軍）。
+- 測試時先不要按復原，先確認候選是否由 3 隻增加為 4 隻，再決定是否復原。

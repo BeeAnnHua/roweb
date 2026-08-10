@@ -1,4 +1,14 @@
-# V0.9.86I current baseline
+# V0.9.86J current baseline
+
+- V0.9.86J keeps all V0.9.86H/I protections and expands Legacy Browser Rescue into a generic deep scanner for future players.
+- When a cloud account has 0 characters, rescue now scans localStorage **and sessionStorage**, plus all RO/ROWEB/player/save/offline IndexedDB databases.
+- It recursively inspects nested migration/profile/backup JSON up to bounded depth, so old full player saves buried inside legacy account objects or arrays can be discovered even when `account.characters` no longer references them.
+- Nested slot-summary objects are not promoted as recoverable characters: nested raw players need full-save signals (inventory/equipment/stats/etc.), while normal signed save envelopes keep the existing validation path.
+- Existing V0.9.86I candidates remain supported; recovery is still explicit-confirmation only, preserves originals, and blocks saves explicitly bound to another cloud UUID.
+- No new Supabase SQL is required beyond `V0.9.86I_LEGACY_BROWSER_CHARACTER_RESCUE.sql`.
+- Full login Email display from V0.9.86H/I remains included.
+
+# V0.9.86I previous baseline
 
 - Cumulative over V0.9.86H: keep strict deleted-character recovery across BOTH localStorage + IndexedDB and keep full Email display in the private Account Center.
 - Fixes the misleading legacy `1/12 -> 0/12` flash: once the browser account profile is already cloud-bound, the old single-character legacy key is no longer silently re-migrated on every reload. Legacy data is handled only by the rescue scanner.

@@ -8,7 +8,7 @@
 (function () {
   "use strict";
 
-  const VERSION = "0.9.86I";
+  const VERSION = "0.9.86J";
   const SUPABASE_URL = "https://ecbnsobcjxnrwqlefjci.supabase.co";
   const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_LrQiZeOESpuGnt-hL6m0VQ_zXqn8ehS";
   const SELECTED_ACCOUNT_KEY = "roweb_cloud_selected_account_v1";
@@ -457,7 +457,7 @@
   }
 
   // ============================================================
-  // V0.9.86I Legacy Browser Rescue
+  // V0.9.86J Legacy Browser Rescue
   // - Deep scan the current Origin before an empty cloud list replaces UI state.
   // - Never auto-attach identity-less / acct_* legacy saves to a Player ID.
   // - Candidates are shown for explicit confirmation, then restored through a
@@ -589,6 +589,65 @@
     return output;
   }
 
+  function legacyPlayerCompletenessScore(player) {
+    if (!player || typeof player !== "object" || Array.isArray(player)) return 0;
+    let score = 0;
+    if (Array.isArray(player.inventory) || (player.inventory && typeof player.inventory === "object")) score += 2;
+    if (player.equipment && typeof player.equipment === "object") score += 2;
+    if (player.stats && typeof player.stats === "object") score += 1;
+    if (player.skills && typeof player.skills === "object") score += 1;
+    if (player.quickSlots || player.quickbar || player.hotkeys) score += 1;
+    if ("zeny" in player || "baseExp" in player || "jobExp" in player) score += 1;
+    if (player.currentMap || player.currentCity || player.position) score += 1;
+    return score;
+  }
+
+  function legacyCandidateSlotHint(value, fallback = null) {
+    if (!value || typeof value !== "object") return fallback;
+    const raw = value.slotIndex ?? value.slot_index ?? value.characterSlot ?? value.character_slot ?? value.slot ?? fallback;
+    const n = Number(raw);
+    if (!Number.isFinite(n)) return fallback;
+    // Old profiles sometimes stored SLOT as 1..12 while runtime uses 0..11.
+    if (n >= 1 && n <= 12 && !("slotIndex" in value) && !("slot_index" in value)) return n - 1;
+    return Math.max(0, Math.min(11, n));
+  }
+
+  function walkLegacyNestedValues(root, visitor, options = {}) {
+    if (!root || typeof visitor !== "function") return;
+    const maxDepth = Math.max(1, Number(options.maxDepth || 7));
+    const maxNodes = Math.max(100, Number(options.maxNodes || 12000));
+    const maxArray = Math.max(20, Number(options.maxArray || 400));
+    const seen = new WeakSet();
+    let nodes = 0;
+    const walk = (value, path, depth, inheritedSlot = null) => {
+      if (++nodes > maxNodes || depth > maxDepth || value == null) return;
+      if (typeof value === "string") {
+        const text = value.trim();
+        if (text.length >= 2 && text.length <= 25_000_000 && (text[0] === "{" || text[0] === "[")) {
+          try { walk(JSON.parse(text), `${path}:json`, depth + 1, inheritedSlot); } catch (_) {}
+        }
+        return;
+      }
+      if (typeof value !== "object") return;
+      if (seen.has(value)) return;
+      seen.add(value);
+      const ownSlot = legacyCandidateSlotHint(value, inheritedSlot);
+      try { visitor(value, path, ownSlot); } catch (_) {}
+      if (Array.isArray(value)) {
+        const limit = Math.min(value.length, maxArray);
+        for (let i = 0; i < limit; i += 1) walk(value[i], `${path}[${i}]`, depth + 1, ownSlot);
+        return;
+      }
+      const entries = Object.entries(value);
+      for (const [key, child] of entries) {
+        if (child == null) continue;
+        if (/^(checksum|sprite|image|imageData|canvas|blob|binary|png|webp)$/i.test(String(key))) continue;
+        walk(child, `${path}.${String(key)}`, depth + 1, ownSlot);
+      }
+    };
+    walk(root, String(options.rootPath || "root"), 0, options.preferredSlot ?? null);
+  }
+
   async function findLegacyBrowserCandidates(cloudRows = []) {
     if (!currentAccount?.account_id) return [];
     const remoteIds = new Set((Array.isArray(cloudRows) ? cloudRows : []).map(row => String(row?.character_id || "")));
@@ -596,20 +655,25 @@
     const hints = new Map();
     const parsedLocal = [];
 
-    try {
-      for (let index = 0; index < localStorage.length; index += 1) {
-        const key = String(localStorage.key(index) || "");
-        let text = "";
-        try { text = localStorage.getItem(key) || ""; } catch (_) { continue; }
-        if (!text || text.length > 25_000_000) continue;
-        let value = null;
-        try { value = JSON.parse(text); } catch (_) { continue; }
-        parsedLocal.push({ key, value });
-        collectLegacyAccountHints(value, hints, `localStorage:${key}`);
+    const scanWebStorage = (storage, storageName) => {
+      if (!storage) return;
+      try {
+        for (let index = 0; index < storage.length; index += 1) {
+          const key = String(storage.key(index) || "");
+          let text = "";
+          try { text = storage.getItem(key) || ""; } catch (_) { continue; }
+          if (!text || text.length > 25_000_000) continue;
+          let value = null;
+          try { value = JSON.parse(text); } catch (_) { continue; }
+          parsedLocal.push({ key, value, storageName });
+          collectLegacyAccountHints(value, hints, `${storageName}:${key}`);
+        }
+      } catch (error) {
+        console.warn(`V0.9.86J ${storageName} Legacy 掃描失敗：`, error);
       }
-    } catch (error) {
-      console.warn("V0.9.86I localStorage Legacy 掃描失敗：", error);
-    }
+    };
+    scanWebStorage(window.localStorage, "localStorage");
+    scanWebStorage(window.sessionStorage, "sessionStorage");
 
     const best = new Map();
     const accept = (rawValue, source, hintedCharacterId = "", preferredSlot = null) => {
@@ -639,17 +703,32 @@
       return true;
     };
 
-    for (const { key, value } of parsedLocal) {
+    for (const { key, value, storageName = "localStorage" } of parsedLocal) {
       let hintedCharacterId = "";
       let preferredSlot = null;
       if (key.startsWith(LOCAL_CHARACTER_SAVE_PREFIX)) {
         hintedCharacterId = key.slice(LOCAL_CHARACTER_SAVE_PREFIX.length).replace(/_minute_backup_v1$/, "");
         preferredSlot = hints.get(hintedCharacterId)?.slotIndex ?? null;
       }
-      accept(value, `localStorage:${key}`, hintedCharacterId, preferredSlot);
-      if (value?.text) accept(value.text, `localStorage:${key}:text`, hintedCharacterId, preferredSlot);
-      if (value?.save_data) accept(value.save_data, `localStorage:${key}:save_data`, hintedCharacterId, preferredSlot);
-      if (value?.saveData) accept(value.saveData, `localStorage:${key}:saveData`, hintedCharacterId, preferredSlot);
+      const rootSource = `${storageName}:${key}`;
+      accept(value, rootSource, hintedCharacterId, preferredSlot);
+      if (value?.text) accept(value.text, `${rootSource}:text`, hintedCharacterId, preferredSlot);
+      if (value?.save_data) accept(value.save_data, `${rootSource}:save_data`, hintedCharacterId, preferredSlot);
+      if (value?.saveData) accept(value.saveData, `${rootSource}:saveData`, hintedCharacterId, preferredSlot);
+
+      // V0.9.86J: old account/profile formats often buried full player saves inside
+      // arrays or migration/backup objects. Walk nested JSON, but only promote nested
+      // raw-player objects when they look like a real full save (not a slot summary).
+      walkLegacyNestedValues(value, (nested, path, nestedSlot) => {
+        if (nested === value) return;
+        if (nested?.player && typeof nested.player === "object") {
+          accept(nested, `${rootSource}${path.replace(/^root/, "")}`, hintedCharacterId, nestedSlot ?? preferredSlot);
+          return;
+        }
+        if (looksLikeLegacyPlayer(nested) && legacyPlayerCompletenessScore(nested) >= 2) {
+          accept(nested, `${rootSource}${path.replace(/^root/, "")}`, hintedCharacterId, nestedSlot ?? preferredSlot);
+        }
+      }, { rootPath:"root", preferredSlot, maxDepth:8, maxNodes:16000, maxArray:600 });
     }
 
     const indexedRows = await readIndexedDbRowsForLegacyRescue();
@@ -667,6 +746,16 @@
       if (row?.save_data) accept(row.save_data, `${source}:save_data`, hintedCharacterId, preferredSlot);
       if (row?.saveData) accept(row.saveData, `${source}:saveData`, hintedCharacterId, preferredSlot);
       if (row?.player || looksLikeLegacyPlayer(row)) accept(row, source, hintedCharacterId, preferredSlot);
+      walkLegacyNestedValues(row, (nested, path, nestedSlot) => {
+        if (nested === row) return;
+        if (nested?.player && typeof nested.player === "object") {
+          accept(nested, `${source}${path.replace(/^root/, "")}`, hintedCharacterId, nestedSlot ?? preferredSlot);
+          return;
+        }
+        if (looksLikeLegacyPlayer(nested) && legacyPlayerCompletenessScore(nested) >= 2) {
+          accept(nested, `${source}${path.replace(/^root/, "")}`, hintedCharacterId, nestedSlot ?? preferredSlot);
+        }
+      }, { rootPath:"root", preferredSlot, maxDepth:8, maxNodes:16000, maxArray:600 });
     }
 
     return [...best.values()]
