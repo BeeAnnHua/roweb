@@ -1,4 +1,12 @@
-# V0.9.86L current baseline
+# V0.9.86M current baseline
+
+## V0.9.86M — 舊版未命名角色救援補強
+- 累積保留 V0.9.86H / I / J / K / L 的雙儲存、Legacy 深掃、殘影追蹤、同步前快照與完整 Email 顯示。
+- Legacy 完整候選不再硬性要求 `player.name`。對「舊版尚未有取名欄位」的角色，必須同時具備實際進度且 `legacyPlayerCompletenessScore >= 4` 才能成為候選，避免 writer/session/UI 資料誤判。
+- 未命名候選在救援視窗顯示為 `【未命名角色】`，並顯示完整度；正式復原前必須由玩家輸入 1–12 字角色名稱。
+- 輸入名稱會寫入待復原 envelope 的 `player.name` 後才呼叫既有 V0.9.86I RPC；不需要新增 SQL。
+- writer lease / pending writer lease / session / persist 控制鍵仍只作 Character ID 追蹤，不可成為角色候選。
+- 原始 localStorage / sessionStorage / IndexedDB 資料不刪除，跨 Supabase account UUID 安全阻擋維持。
 
 - Cumulative over V0.9.86H/I/J/K. Preserve dual-store recovery, full Email display, deep Legacy scanning, Shadow Trace, and the authenticated V0.9.86I rescue RPC.
 - Adds **Pre-Cloud Selector Snapshot**: immediately after the selected RO account is known and before the first Supabase character fetch, the current selector character index is copied into a small Rescue Vault (`ro_web_precloud_rescue_vault_v1`). The vault stores only slot / character ID / summary / save-key references, not full player saves.

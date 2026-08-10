@@ -8,7 +8,7 @@
 (function () {
   "use strict";
 
-  const VERSION = "0.9.86L";
+  const VERSION = "0.9.86M";
   const SUPABASE_URL = "https://ecbnsobcjxnrwqlefjci.supabase.co";
   const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_LrQiZeOESpuGnt-hL6m0VQ_zXqn8ehS";
   const SELECTED_ACCOUNT_KEY = "roweb_cloud_selected_account_v1";
@@ -590,9 +590,20 @@
     if (!value || typeof value !== "object" || Array.isArray(value)) return false;
     if (value.player && typeof value.player === "object") return false;
     const name = String(value.name || "").trim();
-    const hasProgress = Number(value.baseLevel || 0) > 0 || Number(value.jobLevel || 0) > 0;
-    const hasPlayerShape = "job" in value || "jobKey" in value || "inventory" in value || "equipment" in value || "zeny" in value || "currentCity" in value;
-    return Boolean(name && (hasProgress || hasPlayerShape));
+    const baseLevel = Number(value.baseLevel || 0);
+    const jobLevel = Number(value.jobLevel || 0);
+    const job = String(value.job || value.jobName || value.job_name || "").trim().toLowerCase();
+    const hasProgress = baseLevel > 0 || jobLevel > 0;
+    const hasPlayerShape = "job" in value || "jobKey" in value || "jobId" in value || "inventory" in value || "equipment" in value || "zeny" in value || "currentCity" in value || "currentMap" in value;
+    if (name) return Boolean(hasProgress || hasPlayerShape);
+
+    // V0.9.86M: very early RO_WEB saves could contain a fully progressed character
+    // before the character-name field existed.  Do not require a name when the save
+    // is structurally rich enough to distinguish it from summaries / writer leases.
+    const completeness = legacyPlayerCompletenessScore(value);
+    const novice = new Set(["", "初學者", "初心者", "novice"]);
+    const established = baseLevel > 1 || jobLevel > 1 || !novice.has(job);
+    return Boolean(established && hasPlayerShape && completeness >= 4);
   }
 
   function normalizeLegacyEnvelope(value, source = "legacy") {
@@ -706,7 +717,11 @@
     const name = String(player?.name || "").trim().toLowerCase();
     const createdAt = Number(player?.createdAt || envelope?.createdAt || 0);
     const gender = String(player?.gender || "").toLowerCase();
-    return `legacy:${name}|${createdAt || "na"}|${gender || "na"}`;
+    if (name) return `legacy:${name}|${createdAt || "na"}|${gender || "na"}`;
+    const job = String(player?.job || player?.jobKey || "unknown").trim().toLowerCase();
+    const baseLevel = Math.max(0, Number(player?.baseLevel || 0));
+    const jobLevel = Math.max(0, Number(player?.jobLevel || 0));
+    return `legacy-unnamed:${createdAt || "na"}|${job}|${baseLevel}|${jobLevel}|${hashPlayerStable(player)}`;
   }
 
   function compareLegacyCandidates(a, b) {
@@ -916,7 +931,12 @@
       if (!check.valid || !check.established || check.defaultLike) return false;
       const player = check.player || envelope.player;
       const name = String(player?.name || "").trim();
-      if (!name || remoteNames.has(name.toLowerCase())) return false;
+      const completeness = legacyPlayerCompletenessScore(player);
+      const unnamedLegacy = !name;
+      // V0.9.86M: allow a nameless pre-name-system character only when the save is
+      // established AND structurally complete.  This keeps writer/session noise out.
+      if (unnamedLegacy && completeness < 4) return false;
+      if (name && remoteNames.has(name.toLowerCase())) return false;
       const explicitCharacterId = String(envelope?.characterId || player?.characterId || hintedCharacterId || "").trim();
       if (explicitCharacterId && remoteIds.has(explicitCharacterId)) return false;
       const hint = hints.get(explicitCharacterId) || null;
@@ -929,7 +949,9 @@
         player,
         version:check.version,
         savedAt:check.savedAt || Number(player?.updatedAt || player?.lastPlayedAt || 0),
-        preferredSlot:Math.max(0, Math.min(11, Number(preferredSlot ?? hint?.slotIndex ?? envelope?.slotIndex ?? player?.slotIndex ?? 0)))
+        preferredSlot:Math.max(0, Math.min(11, Number(preferredSlot ?? hint?.slotIndex ?? envelope?.slotIndex ?? player?.slotIndex ?? 0))),
+        completeness,
+        unnamedLegacy
       };
       const previous = best.get(candidate.key);
       if (!previous || compareLegacyCandidates(candidate, previous) > 0) best.set(candidate.key, candidate);
@@ -1070,7 +1092,7 @@
       .cloud-legacy-rescue-overlay{position:fixed;inset:0;z-index:2147483150;display:grid;place-items:center;padding:16px;background:rgba(3,2,1,.82);backdrop-filter:blur(6px)}.cloud-legacy-rescue-overlay[hidden]{display:none!important}
       .cloud-legacy-rescue-dialog{width:min(760px,calc(100vw - 28px));max-height:min(720px,calc(100vh - 28px));overflow:auto;padding:24px;border:1px solid rgba(222,173,67,.82);border-radius:17px;background:linear-gradient(180deg,rgba(31,21,11,.985),rgba(12,8,5,.99));box-shadow:0 30px 100px #000e;color:#eadab7}
       .cloud-legacy-rescue-dialog h2{margin:0;color:#ffe49c;font-size:23px}.cloud-legacy-rescue-dialog>p{line-height:1.75;color:#d0bea0}.cloud-legacy-rescue-target{padding:10px 12px;border:1px solid rgba(212,164,60,.35);border-radius:9px;background:#0b0805;color:#ffe6a1;font-weight:900}
-      .cloud-legacy-rescue-list{display:grid;gap:9px;margin:14px 0}.cloud-legacy-shadow-section{margin:16px 0 8px;padding:12px;border:1px dashed rgba(255,178,64,.55);border-radius:11px;background:rgba(61,28,5,.25)}.cloud-legacy-shadow-section h3{margin:0 0 8px;color:#ffc96b;font-size:16px}.cloud-legacy-shadow-note{margin:0 0 10px;color:#cdb690;line-height:1.55}.cloud-legacy-shadow-list{display:grid;gap:8px}.cloud-legacy-shadow-item{padding:10px 11px;border:1px solid rgba(255,164,55,.28);border-radius:9px;background:rgba(10,7,4,.55)}.cloud-legacy-shadow-item b{color:#ffd28a}.cloud-legacy-shadow-item small{display:block;margin-top:4px;color:#a99779;overflow-wrap:anywhere}.cloud-legacy-rescue-item{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;padding:12px;border:1px solid rgba(177,131,46,.38);border-radius:10px;background:rgba(0,0,0,.25)}.cloud-legacy-rescue-item input{margin-top:5px;accent-color:#d8a638}.cloud-legacy-rescue-item b{color:#ffe3a0}.cloud-legacy-rescue-item small{display:block;margin-top:4px;color:#9f8e70;overflow-wrap:anywhere}.cloud-legacy-rescue-confirm{display:flex;gap:9px;align-items:flex-start;margin:12px 0;padding:11px;border:1px solid rgba(210,164,67,.28);border-radius:9px;background:#100b06}.cloud-legacy-rescue-confirm input{margin-top:4px;accent-color:#d8a638}
+      .cloud-legacy-rescue-list{display:grid;gap:9px;margin:14px 0}.cloud-legacy-shadow-section{margin:16px 0 8px;padding:12px;border:1px dashed rgba(255,178,64,.55);border-radius:11px;background:rgba(61,28,5,.25)}.cloud-legacy-shadow-section h3{margin:0 0 8px;color:#ffc96b;font-size:16px}.cloud-legacy-shadow-note{margin:0 0 10px;color:#cdb690;line-height:1.55}.cloud-legacy-shadow-list{display:grid;gap:8px}.cloud-legacy-shadow-item{padding:10px 11px;border:1px solid rgba(255,164,55,.28);border-radius:9px;background:rgba(10,7,4,.55)}.cloud-legacy-shadow-item b{color:#ffd28a}.cloud-legacy-shadow-item small{display:block;margin-top:4px;color:#a99779;overflow-wrap:anywhere}.cloud-legacy-rescue-item{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;padding:12px;border:1px solid rgba(177,131,46,.38);border-radius:10px;background:rgba(0,0,0,.25)}.cloud-legacy-rescue-item>input[type="checkbox"]{margin-top:5px;accent-color:#d8a638}.cloud-legacy-rescue-item b{color:#ffe3a0}.cloud-legacy-rescue-item small{display:block;margin-top:4px;color:#9f8e70;overflow-wrap:anywhere}.cloud-legacy-rescue-unnamed{margin-top:8px;padding:8px 9px;border:1px solid rgba(229,175,72,.34);border-radius:8px;background:rgba(91,55,8,.2);color:#f0d69a}.cloud-legacy-rescue-name-input{display:block;width:100%;box-sizing:border-box;margin-top:7px;padding:9px 10px;border:1px solid rgba(215,163,57,.55);border-radius:7px;background:#080603;color:#ffe9b0;outline:none}.cloud-legacy-rescue-name-input:focus{border-color:#f0bb49;box-shadow:0 0 0 2px rgba(240,187,73,.12)}.cloud-legacy-rescue-confirm{display:flex;gap:9px;align-items:flex-start;margin:12px 0;padding:11px;border:1px solid rgba(210,164,67,.28);border-radius:9px;background:#100b06}.cloud-legacy-rescue-confirm input{margin-top:4px;accent-color:#d8a638}
       .cloud-legacy-rescue-status{min-height:24px;white-space:pre-line;color:#d8c79f}.cloud-legacy-rescue-status.ok{color:#9ce4ad}.cloud-legacy-rescue-status.err{color:#ffb0a0}.cloud-legacy-rescue-actions{display:grid;grid-template-columns:1.2fr .8fr;gap:10px;margin-top:13px}.cloud-legacy-rescue-actions button{min-height:44px;border:1px solid #a97722;border-radius:8px;background:linear-gradient(#5b3d13,#2a1907);color:#ffe7a6;font-weight:900;cursor:pointer}.cloud-legacy-rescue-actions button:disabled{opacity:.45;cursor:default}@media(max-width:600px){.cloud-legacy-rescue-actions{grid-template-columns:1fr}.cloud-legacy-rescue-dialog{padding:18px}}`;
     document.head.appendChild(style);
     overlay = document.createElement("section");
@@ -1168,16 +1190,32 @@
       const box = document.createElement("div");
       const base = Math.max(1, Number(candidate.player?.baseLevel || 1));
       const jobLevel = Math.max(1, Number(candidate.player?.jobLevel || 1));
-      const name = String(candidate.player?.name || "冒險者");
+      const rawName = String(candidate.player?.name || "").trim();
+      const name = rawName || "【未命名角色】";
       const job = String(candidate.player?.job || "初學者");
       const saved = Number(candidate.savedAt || 0) ? new Date(Number(candidate.savedAt)).toLocaleString() : "時間未知";
       const title = document.createElement("b");
       const meta = document.createElement("small");
       const source = document.createElement("small");
       title.textContent = `${name}｜${job}｜Base ${base} / Job ${jobLevel}`;
-      meta.textContent = `建議 SLOT ${Number(candidate.preferredSlot || 0) + 1}｜${saved}`;
+      meta.textContent = `建議 SLOT ${Number(candidate.preferredSlot || 0) + 1}｜${saved}｜完整度 ${Number(candidate.completeness || 0)}`;
       source.textContent = String(candidate.source || "legacy");
       box.append(title, meta, source);
+      if (!rawName) {
+        const unnamedNote = document.createElement("div");
+        unnamedNote.className = "cloud-legacy-rescue-unnamed";
+        unnamedNote.textContent = "偵測到舊版未命名角色。復原前請先替這隻角色輸入名稱；原始瀏覽器存檔不會被刪除。";
+        const nameInput = document.createElement("input");
+        nameInput.type = "text";
+        nameInput.maxLength = 12;
+        nameInput.autocomplete = "off";
+        nameInput.placeholder = "輸入角色名稱（最多 12 個字）";
+        nameInput.className = "cloud-legacy-rescue-name-input";
+        nameInput.dataset.rescueNameIndex = String(index);
+        nameInput.addEventListener("click", event => event.stopPropagation());
+        unnamedNote.appendChild(nameInput);
+        box.appendChild(unnamedNote);
+      }
       label.append(input, box);
       list.appendChild(label);
     });
@@ -1237,7 +1275,26 @@
       };
       secondary.onclick = () => finish(false);
       primary.onclick = async () => {
-        const selected = Array.from(list.querySelectorAll('input[type="checkbox"]:checked')).map(input => candidates[Number(input.dataset.index)]).filter(candidate => candidate && !restoredKeys.has(candidate.key));
+        const selectedIndexes = Array.from(list.querySelectorAll('input[type="checkbox"]:checked')).map(input => Number(input.dataset.index)).filter(Number.isFinite);
+        const selected = [];
+        for (const index of selectedIndexes) {
+          const candidate = candidates[index];
+          if (!candidate || restoredKeys.has(candidate.key)) continue;
+          const rawName = String(candidate.player?.name || "").trim();
+          if (rawName) { selected.push(candidate); continue; }
+          const nameInput = list.querySelector(`input[data-rescue-name-index="${index}"]`);
+          const validation = slots?.validateCharacterName?.(nameInput?.value || "") || { ok:Boolean(String(nameInput?.value || "").trim()), value:String(nameInput?.value || "").trim(), error:"請輸入角色名稱。" };
+          if (!validation.ok) {
+            status.textContent = `未命名角色需要先取名：${validation.error || "請輸入角色名稱。"}`;
+            status.className = "cloud-legacy-rescue-status err";
+            try { nameInput?.focus?.(); } catch (_) {}
+            return;
+          }
+          const prepared = { ...candidate, envelope:clone(candidate.envelope), player:clone(candidate.player), rescueName:String(validation.value || "").trim(), unnamedLegacy:true };
+          prepared.player.name = prepared.rescueName;
+          prepared.envelope.player = clone(prepared.player);
+          selected.push(prepared);
+        }
         if (!selected.length) { status.textContent = "請至少勾選一個要復原的角色。"; status.className = "cloud-legacy-rescue-status err"; return; }
         primary.disabled = true; secondary.disabled = true; confirm.disabled = true;
         let restored = 0;
@@ -1260,7 +1317,7 @@
           await new Promise(r => setTimeout(r, 650));
           finish(restored > 0);
         } catch (error) {
-          console.error("V0.9.86L Legacy 角色復原失敗：", error);
+          console.error("V0.9.86M Legacy 角色復原失敗：", error);
           status.textContent = `復原失敗：${friendlyError(error)}\n原始瀏覽器存檔沒有刪除，可以修正後再次嘗試。`;
           status.className = "cloud-legacy-rescue-status err";
           primary.disabled = false; secondary.disabled = false; confirm.disabled = false;
