@@ -1,0 +1,14 @@
+V0.9.86D 驗證碼重新寄送測試
+
+1. 覆蓋 Patch，Ctrl+F5。
+2. 註冊一個尚未驗證的 Email，等倒數 60 秒。
+3. 按「重新寄送驗證碼」。
+4. 按鈕會先顯示「寄送中…」。
+5. 成功後畫面必須顯示：已重新寄送至 <遮罩 Email>（HH:mm:ss）。
+6. Supabase Logs / Auth 應看到 POST /resend 200。
+7. 若需要診斷，在瀏覽器 Console 執行：
+   ROWebAuthDiagnostics.getResendLog()
+   可看到每次 request 的 email / result / time。
+8. 雙分頁測試：分頁 A 與 B 使用不同 Email，各自重發時不可互相改變目標。
+
+注意：Supabase 同一使用者 signup confirmation 預設有 60 秒重發窗口；倒數期間按鈕保持 disabled。

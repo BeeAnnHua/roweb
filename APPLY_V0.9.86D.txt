@@ -1,0 +1,24 @@
+彼岸花仙境 / RO_WEB V0.9.86D
+註冊驗證碼重新寄送可靠性修正（累積於 V0.9.86C）
+
+本版保留：
+- V0.9.86B IndexedDB Auth Session / Storage quota 安全修正
+- V0.9.86C GM 聊天金色徽記與流光名稱特效
+- V0.9.86A 低流量世界聊天 / 私信
+
+本版修正：
+1. 註冊待驗證 Email 改為「每個瀏覽器分頁固定自己的目標」，避免同瀏覽器同時測試兩個 Email 時互相覆蓋。
+2. 重新寄送時會鎖定按鈕並顯示「寄送中…」，避免重複點擊。
+3. Supabase 回傳成功後會顯示實際寄送目標（遮罩）與時間。
+4. 每次重發會留下當前分頁診斷紀錄，可在 Console 執行：
+   ROWebAuthDiagnostics.getResendLog()
+5. 密碼重設的重新寄送也加入相同的 in-flight 鎖與寄送時間提示。
+
+Supabase：不需要新增 SQL。
+安裝：覆蓋 Patch 後 Ctrl+F5。
+
+測試：
+- 開兩個分頁，A 註冊 email-A、B 註冊 email-B。
+- 各自等待 60 秒後按「重新寄送驗證碼」。
+- A 必須顯示寄到 email-A，B 必須顯示寄到 email-B。
+- Supabase Logs 應各出現一筆 POST /resend 200。

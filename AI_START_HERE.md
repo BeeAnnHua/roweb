@@ -1,4 +1,4 @@
-# V0.9.86C current baseline
+# V0.9.86D current baseline
 
 - Adds the first low-traffic social chat layer on top of the user-tested V0.9.85Q/P cloud baseline.
 - Bottom chat panel defaults to `玩家頻道`; `系統信息` preserves the original combat/buff/drop/save log.
@@ -159,3 +159,10 @@
 - Chat messages now include a server-verified `sender_role` snapshot; current cosmetic roles are `player` and `gm`.
 - GM chat identity uses a small `GM` gold badge plus gold animated name shine. The effect is CSS-only and adds no polling/request traffic.
 - Never infer GM from Player ID alone; authoritative GM identity remains `ro_accounts.account_role = 'gm'`.
+
+
+## V0.9.86D additions
+- Cumulative on top of V0.9.86C: GM gold chat identity/effects and V0.9.86B IndexedDB auth storage remain enabled.
+- Signup resend is now tab-bound: each browser tab retains its own pending signup email/account and no longer relies only on the shared pending key.
+- Resend UI locks while the request is in flight, shows the masked destination email and completion time, and keeps a per-tab diagnostic log in `sessionStorage` (`roweb_cloud_resend_diag_v1`).
+- `window.ROWebAuthDiagnostics.getResendLog()` can be used during testing to confirm which email target each resend request used.

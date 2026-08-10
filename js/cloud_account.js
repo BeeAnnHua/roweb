@@ -1,11 +1,13 @@
 (function(){
   "use strict";
-  const VERSION="0.9.86C";
+  const VERSION="0.9.86D";
   const SUPABASE_URL="https://ecbnsobcjxnrwqlefjci.supabase.co";
   const SUPABASE_PUBLISHABLE_KEY="sb_publishable_LrQiZeOESpuGnt-hL6m0VQ_zXqn8ehS";
   const SELECTED_ACCOUNT_KEY="roweb_cloud_selected_account_v1";
   const LOGIN_HINT_KEY="roweb_cloud_login_aliases_v1";
   const PENDING_KEY="roweb_cloud_signup_pending_v2";
+  const SIGNUP_TAB_KEY="roweb_cloud_signup_tab_v1";
+  const RESEND_DIAG_KEY="roweb_cloud_resend_diag_v1";
   const RECOVERY_EMAIL_KEY="roweb_recovery_email_v1";
 
   const sdk=window.supabase;
@@ -41,6 +43,8 @@
   }
   let signupResendTimer=null;
   let recoveryResendTimer=null;
+  let signupResendInFlight=false;
+  let recoveryResendInFlight=false;
 
   function setStatus(message,kind="info"){const n=el("status");if(!n)return;n.textContent=String(message||"");n.className=`status show ${kind}`;}
   function clearStatus(){const n=el("status");if(n){n.textContent="";n.className="status";}}
@@ -64,8 +68,32 @@
   }
   function clearSelectedAccount(){try{localStorage.removeItem(SELECTED_ACCOUNT_KEY)}catch(_){}try{sessionStorage.removeItem(SELECTED_ACCOUNT_KEY)}catch(_){}}
   function pending(){return readJson(PENDING_KEY,null)}
-  function savePending(v){writeJson(PENDING_KEY,v)}
-  function clearPending(){try{localStorage.removeItem(PENDING_KEY)}catch(_){}try{sessionStorage.removeItem(PENDING_KEY)}catch(_){}}
+  function readSessionJson(key,fallback=null){try{return JSON.parse(sessionStorage.getItem(key)||"null")||fallback}catch(_){return fallback}}
+  function writeSessionJson(key,value){try{sessionStorage.setItem(key,JSON.stringify(value));return true}catch(_){return false}}
+  function savePending(v){writeJson(PENDING_KEY,v);writeSessionJson(SIGNUP_TAB_KEY,v)}
+  function clearPending(){try{localStorage.removeItem(PENDING_KEY)}catch(_){}try{sessionStorage.removeItem(PENDING_KEY)}catch(_){}try{sessionStorage.removeItem(SIGNUP_TAB_KEY)}catch(_){}}
+  function signupContext(){
+    const tab=readSessionJson(SIGNUP_TAB_KEY,null);
+    const shared=pending();
+    const uiEmail=String(el("otpEmail")?.textContent||"").trim();
+    const formEmail=String(el("email")?.value||"").trim();
+    const formName=String(el("accountName")?.value||"").trim();
+    const source=(tab&&typeof tab==="object")?tab:((shared&&typeof shared==="object")?shared:{});
+    const email=validEmail(uiEmail)?uiEmail:(validEmail(source.email)?String(source.email).trim():formEmail);
+    const accountName=validName(formName)?formName:String(source.accountName||"").trim();
+    return {accountName,email,createdAt:Number(source.createdAt||0),source:tab?"tab":(shared?"shared":"ui")};
+  }
+  function saveTabSignupContext(v){if(v&&validEmail(v.email))writeSessionJson(SIGNUP_TAB_KEY,v)}
+  function formatClock(ts=Date.now()){try{return new Intl.DateTimeFormat("zh-TW",{hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false}).format(new Date(ts))}catch(_){return new Date(ts).toLocaleTimeString()}}
+  function recordResendDiagnostic(entry){
+    const row={...entry,at:Number(entry?.at||Date.now()),version:VERSION};
+    try{
+      const list=readSessionJson(RESEND_DIAG_KEY,[]);
+      const next=(Array.isArray(list)?list:[]).concat(row).slice(-20);
+      writeSessionJson(RESEND_DIAG_KEY,next);
+    }catch(_){}
+    try{console.info("[RO_WEB auth resend]",row)}catch(_){}
+  }
   function aliases(){return readJson(LOGIN_HINT_KEY,{})}
   function saveAlias(name,email){const a=aliases();a[String(name||"").trim().toLowerCase()]=String(email||"").trim();writeJson(LOGIN_HINT_KEY,a)}
   function rememberAccounts(rows,email){for(const row of rows||[])saveAlias(row.account_name,email)}
@@ -197,7 +225,7 @@
   }
 
   async function verifyOtp(){
-    const p=pending();const email=String(p?.email||"");const name=String(p?.accountName||"");
+    const p=signupContext();const email=String(p?.email||"");const name=String(p?.accountName||"");
     const token=String(el("otp").value||"").replace(/\D/g,"").slice(0,6);el("otp").value=token;
     if(!validEmail(email)||!validName(name))return setStatus("註冊資料已失效，請返回重新填寫。","err");
     if(!/^\d{6}$/.test(token))return setStatus("請輸入 6 位數驗證碼。","err");
@@ -219,8 +247,29 @@
   }
 
   async function resend(){
-    const p=pending();if(!validEmail(p?.email))return setStatus("找不到待驗證 Email。","err");
-    try{const {error}=await client.auth.resend({type:"signup",email:p.email});if(error)throw error;startCountdown("resendBtn","signup");setStatus("已重新寄送驗證碼。","ok")}catch(e){setStatus(friendly(e),"err")}
+    if(signupResendInFlight)return;
+    const p=signupContext();
+    const email=String(p?.email||"").trim();
+    const name=String(p?.accountName||"").trim();
+    if(!validEmail(email))return setStatus("找不到待驗證 Email。請返回註冊資料重新確認。","err");
+    if(!validName(name))return setStatus("找不到待驗證遊戲帳號。請返回註冊資料重新確認。","err");
+    const btn=el("resendBtn");
+    signupResendInFlight=true;
+    if(btn){btn.disabled=true;btn.textContent="寄送中…";}
+    saveTabSignupContext({accountName:name,email,createdAt:Number(p?.createdAt||Date.now())});
+    setStatus(`正在重新寄送至 ${maskEmail(email)}…`,`info`);
+    const requestedAt=Date.now();
+    try{
+      const {data,error}=await client.auth.resend({type:"signup",email});
+      if(error)throw error;
+      recordResendDiagnostic({type:"signup",email,result:"ok",at:Date.now(),requestedAt,hasUser:Boolean(data?.user)});
+      startCountdown("resendBtn","signup");
+      setStatus(`已重新寄送至 ${maskEmail(email)}（${formatClock()}）。請使用最新一封驗證碼；若數分鐘仍未收到，請確認 Email 地址與垃圾郵件。`,`ok`);
+    }catch(e){
+      recordResendDiagnostic({type:"signup",email,result:"error",message:String(e?.message||e),at:Date.now(),requestedAt});
+      if(btn){btn.disabled=false;btn.textContent="重新寄送驗證碼";}
+      setStatus(friendly(e),"err");
+    }finally{signupResendInFlight=false;}
   }
 
   async function sendRecovery(){
@@ -237,13 +286,24 @@
   }
 
   async function resendRecovery(){
-    const email=String(sessionStorage.getItem(RECOVERY_EMAIL_KEY)||"");
+    if(recoveryResendInFlight)return;
+    const email=String(sessionStorage.getItem(RECOVERY_EMAIL_KEY)||"").trim();
     if(!validEmail(email))return setStatus("找不到待重設密碼的 Email。","err");
+    const btn=el("resendRecoveryBtn");
+    recoveryResendInFlight=true;
+    if(btn){btn.disabled=true;btn.textContent="寄送中…";}
+    setStatus(`正在重新寄送密碼重設驗證碼至 ${maskEmail(email)}…`,`info`);
+    const requestedAt=Date.now();
     try{
       const {error}=await client.auth.resetPasswordForEmail(email);if(error)throw error;
+      recordResendDiagnostic({type:"recovery",email,result:"ok",at:Date.now(),requestedAt});
       startCountdown("resendRecoveryBtn","recovery");
-      setStatus("已重新寄送密碼重設驗證碼。","ok");
-    }catch(e){setStatus(friendly(e),"err")}
+      setStatus(`已重新寄送密碼重設驗證碼至 ${maskEmail(email)}（${formatClock()}）。`,`ok`);
+    }catch(e){
+      recordResendDiagnostic({type:"recovery",email,result:"error",message:String(e?.message||e),at:Date.now(),requestedAt});
+      if(btn){btn.disabled=false;btn.textContent="重新寄送驗證碼";}
+      setStatus(friendly(e),"err");
+    }finally{recoveryResendInFlight=false;}
   }
 
   async function verifyRecovery(){
@@ -304,9 +364,10 @@
     const {data,error}=await client.auth.getSession();
     if(error){setStatus(friendly(error),"err");return;}
     if(data?.session?.user){try{return await showAccounts()}catch(e){setStatus(friendly(e),"err")}}
-    const p=pending();
+    const p=readSessionJson(SIGNUP_TAB_KEY,null)||pending();
     if(p?.accountName&&p?.email){
       el("accountName").value=p.accountName;el("email").value=p.email;el("otpEmail").textContent=p.email;
+      saveTabSignupContext(p);
       showPanel("register");el("registerForm").classList.add("hidden");el("otpForm").classList.remove("hidden");startCountdown("resendBtn","signup");
     } else if(params.get("mode")==="register") showPanel("register");
     else if(params.get("mode")==="recovery") showPanel("recovery");
@@ -329,6 +390,11 @@
     el("signOutBtn").onclick=async()=>{forceCharacterSelectorNext();await client.auth.signOut();clearSelectedAccount();showPanel("login");setStatus("已登出。","ok")};
     for(const id of ["otp","recoveryOtp"])el(id).addEventListener("input",e=>e.target.value=String(e.target.value||"").replace(/\D/g,"").slice(0,6));
     for(const id of ["loginPassword","password2","newPassword2","accountNewPassword2"])el(id)?.addEventListener("keydown",event=>{if(event.key!=="Enter")return;if(id==="loginPassword")login();else if(id==="password2")sendOtp();else if(id==="newPassword2")verifyRecovery();else changePassword();});
+    window.ROWebAuthDiagnostics={
+      version:VERSION,
+      getResendLog:()=>readSessionJson(RESEND_DIAG_KEY,[]),
+      currentSignupTarget:()=>{const p=signupContext();return {accountName:p.accountName,email:p.email,source:p.source};}
+    };
     restore();
   });
 })();
