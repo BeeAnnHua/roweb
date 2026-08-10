@@ -1,6 +1,6 @@
 (function(){
   "use strict";
-  const VERSION="0.9.86E";
+  const VERSION="0.9.86H";
   const SUPABASE_URL="https://ecbnsobcjxnrwqlefjci.supabase.co";
   const SUPABASE_PUBLISHABLE_KEY="sb_publishable_LrQiZeOESpuGnt-hL6m0VQ_zXqn8ehS";
   const SELECTED_ACCOUNT_KEY="roweb_cloud_selected_account_v1";
@@ -185,7 +185,7 @@
     if(!user){showPanel("login");return[];}
     const rows=await listAccounts();
     showPanel("accounts");
-    if(el("accountOwnerEmail"))el("accountOwnerEmail").textContent=maskEmail(user.email);
+    if(el("accountOwnerEmail")){el("accountOwnerEmail").textContent=String(user.email||"-");el("accountOwnerEmail").title=String(user.email||"");}
     el("accountCountText").textContent=`目前共有 ${rows.length} / 5 個遊戲帳號。`;
     const list=el("accountList");list.textContent="";
     for(const row of rows){

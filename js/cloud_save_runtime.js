@@ -8,7 +8,7 @@
 (function () {
   "use strict";
 
-  const VERSION = "0.9.86C";
+  const VERSION = "0.9.86H";
   const SUPABASE_URL = "https://ecbnsobcjxnrwqlefjci.supabase.co";
   const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_LrQiZeOESpuGnt-hL6m0VQ_zXqn8ehS";
   const SELECTED_ACCOUNT_KEY = "roweb_cloud_selected_account_v1";
@@ -235,13 +235,43 @@
     return Number(a.savedAt || 0) - Number(b.savedAt || 0);
   }
 
-  function findRecoverableLocalCharacters(cloudRows = []) {
+  async function findRecoverableLocalCharacters(cloudRows = []) {
     if (!currentAccount?.account_id) return [];
     const accountId = String(currentAccount.account_id);
     const remoteIds = new Set((Array.isArray(cloudRows) ? cloudRows : []).map(row => String(row?.character_id || "")));
     const occupiedSlots = new Set((Array.isArray(cloudRows) ? cloudRows : []).map(row => Math.max(1, Number(row?.slot_index || 1))));
     const bestByCharacter = new Map();
 
+    const acceptEnvelope = (envelope, source, hintedCharacterId = "") => {
+      if (!envelope || typeof envelope !== "object" || Array.isArray(envelope)) return false;
+      const player = envelope?.player && typeof envelope.player === "object" && !Array.isArray(envelope.player) ? envelope.player : null;
+      if (!player) return false;
+      const envelopeAccountId = String(envelope.accountId || player.accountId || "");
+      const envelopeCharacterId = String(envelope.characterId || player.characterId || hintedCharacterId || "");
+      // Recovery is intentionally strict: the durable copy must explicitly identify BOTH
+      // the selected cloud account and the original character UUID. Identity-less legacy
+      // saves remain migration-only and can never be attached to an arbitrary Player ID.
+      if (envelopeAccountId !== accountId || !isUuidText(envelopeCharacterId) || remoteIds.has(envelopeCharacterId)) return false;
+      if (hintedCharacterId && isUuidText(hintedCharacterId) && envelopeCharacterId !== hintedCharacterId) return false;
+      const check = inspectEnvelope(envelope, accountId, envelopeCharacterId);
+      if (!check.valid || !check.established) return false;
+      const slotIndexZero = Math.max(0, Math.floor(Number(envelope.slotIndex ?? player.slotIndex ?? 0)));
+      const candidate = {
+        characterId:envelopeCharacterId,
+        accountId,
+        envelope,
+        player,
+        version:check.version,
+        savedAt:check.savedAt,
+        preferredSlot:Math.min(11, slotIndexZero),
+        source:String(source || "browser")
+      };
+      const previous = bestByCharacter.get(envelopeCharacterId);
+      if (!previous || compareRecoveryEnvelope(candidate, previous) > 0) bestByCharacter.set(envelopeCharacterId, candidate);
+      return true;
+    };
+
+    // 1) Fast browser mirror: localStorage main + minute backup.
     try {
       for (let index = 0; index < localStorage.length; index += 1) {
         const key = String(localStorage.key(index) || "");
@@ -253,32 +283,54 @@
         if (!rawText) continue;
         let envelope = null;
         try { envelope = JSON.parse(rawText); } catch (_) { continue; }
-        if (!envelope || typeof envelope !== "object" || Array.isArray(envelope)) continue;
-        const player = envelope?.player && typeof envelope.player === "object" && !Array.isArray(envelope.player) ? envelope.player : null;
-        if (!player) continue;
-        const envelopeAccountId = String(envelope.accountId || player.accountId || "");
-        const envelopeCharacterId = String(envelope.characterId || player.characterId || "");
-        // V0.9.85N recovery intentionally requires explicit identity. Identity-less legacy saves
-        // remain handled only by the older migration path and may not recreate a deleted cloud row.
-        if (envelopeAccountId !== accountId || envelopeCharacterId !== characterId) continue;
-        const check = inspectEnvelope(envelope, accountId, characterId);
-        if (!check.valid || !check.established) continue;
-        const slotIndexZero = Math.max(0, Math.floor(Number(envelope.slotIndex ?? player.slotIndex ?? 0)));
-        const candidate = {
-          characterId,
-          accountId,
-          envelope,
-          player,
-          version:check.version,
-          savedAt:check.savedAt,
-          preferredSlot:Math.min(11, slotIndexZero),
-          source:key.endsWith("_minute_backup_v1") ? "backup" : "main"
-        };
-        const previous = bestByCharacter.get(characterId);
-        if (!previous || compareRecoveryEnvelope(candidate, previous) > 0) bestByCharacter.set(characterId, candidate);
+        acceptEnvelope(envelope, key.endsWith("_minute_backup_v1") ? "localStorage-backup" : "localStorage-main", characterId);
       }
     } catch (error) {
-      console.warn("掃描本機角色救援備份失敗：", error);
+      console.warn("掃描 localStorage 角色救援備份失敗：", error);
+    }
+
+    // 2) Durable browser mirror: scan ALL IndexedDB player_saves rows. This includes
+    // character:<uuid>:primary / backup and older player-primary / player-backup rows.
+    // Older row IDs are accepted only when the save envelope itself carries an exact
+    // accountId + characterId match, so switching RO accounts cannot steal a backup.
+    if (window.indexedDB?.open) {
+      try {
+        const rows = await new Promise(resolve => {
+          let request;
+          try { request = indexedDB.open("ro_web_offline_save_v1", 1); }
+          catch (_) { resolve([]); return; }
+          request.onsuccess = () => {
+            const db = request.result;
+            if (!db.objectStoreNames.contains("player_saves")) { db.close(); resolve([]); return; }
+            let tx;
+            try { tx = db.transaction("player_saves", "readonly"); }
+            catch (_) { db.close(); resolve([]); return; }
+            const getAll = tx.objectStore("player_saves").getAll();
+            getAll.onsuccess = () => {
+              const result = Array.isArray(getAll.result) ? getAll.result : [];
+              db.close();
+              resolve(result);
+            };
+            getAll.onerror = () => { db.close(); resolve([]); };
+            tx.onabort = () => { try { db.close(); } catch (_) {} resolve([]); };
+          };
+          request.onerror = () => resolve([]);
+          request.onblocked = () => resolve([]);
+        });
+
+        for (const row of rows) {
+          if (!row?.text) continue;
+          let envelope = null;
+          try { envelope = JSON.parse(row.text); } catch (_) { continue; }
+          const id = String(row.id || "");
+          const match = id.match(/^character:([0-9a-f-]{36}):(primary|backup)$/i);
+          const hintedCharacterId = match?.[1] || "";
+          const kind = match?.[2] || (/backup/i.test(id) ? "backup" : "primary");
+          acceptEnvelope(envelope, `IndexedDB-${kind}`, hintedCharacterId);
+        }
+      } catch (error) {
+        console.warn("掃描 IndexedDB 角色救援備份失敗：", error);
+      }
     }
 
     const freeSlotFor = preferredZero => {
@@ -370,7 +422,7 @@
   }
 
   async function recoverDeletedCloudCharactersIfNeeded() {
-    const recoverable = findRecoverableLocalCharacters(currentCharacters);
+    const recoverable = await findRecoverableLocalCharacters(currentCharacters);
     if (!recoverable.length) return false;
     let restored = 0;
     for (const candidate of recoverable) {

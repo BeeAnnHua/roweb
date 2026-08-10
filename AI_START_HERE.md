@@ -1,3 +1,12 @@
+# V0.9.86H current baseline
+
+- Cloud deleted-character recovery now scans BOTH localStorage and IndexedDB `ro_web_offline_save_v1/player_saves` before the cloud character list overwrites the local selector state.
+- Recovery remains identity-locked: a candidate must explicitly carry the currently selected Supabase `account_id` and its original UUID `characterId`, must not already exist in `ro_characters`, and must be an established non-default character. Identity-less legacy saves are never auto-attached to a cloud account.
+- IndexedDB scanning accepts current `character:<uuid>:primary|backup` rows and older row IDs only when the envelope itself has exact account/character identity. The newest saveVersion/savedAt wins across localStorage + IndexedDB.
+- Account Center now shows the full signed-in Email in the private account-selection screen. OTP/resend status messages may remain masked.
+- No Supabase SQL migration is required for V0.9.86H; it reuses the already-installed `ro_restore_character_from_local` RPC from V0.9.85N.
+- VIP offline farming / EXP/drop bonuses are intentionally NOT part of this repair patch.
+
 # V0.9.86G current baseline
 
 - Adds the first low-traffic social chat layer on top of the user-tested V0.9.85Q/P cloud baseline.
