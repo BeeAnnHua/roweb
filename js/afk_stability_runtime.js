@@ -7,14 +7,16 @@
 // ============================================================
 (function(){
   "use strict";
-  const VERSION="0.9.86R";
+  const VERSION="0.9.87B";
   const STATE_KEY="roweb_afk_stability_state_v1";
   const EVENTS_KEY="roweb_afk_stability_events_v1";
-  const HEARTBEAT_MS=15000;
+  const HEARTBEAT_MS=30000;
+  const DURABLE_HEARTBEAT_EVERY=4;
   const MAX_EVENTS=30;
   let timer=0;
   let sessionId=`afk_${Date.now()}_${Math.random().toString(36).slice(2,8)}`;
   let current=null;
+  let heartbeatCount=0;
 
   function parseJson(raw,fallback=null){try{return JSON.parse(raw||"null")??fallback}catch(_){return fallback}}
   function read(key,fallback=null){try{return parseJson(localStorage.getItem(key),fallback)}catch(_){return fallback}}
@@ -23,11 +25,11 @@
     if(local!=null)return local;
     try{return parseJson(await window.ROWebAuthStorage?.getItem?.(key),fallback)}catch(_){return fallback}
   }
-  function write(key,value){
+  function write(key,value,options={}){
     const raw=JSON.stringify(value);
     let ok=false;
     try{localStorage.setItem(key,raw);ok=true}catch(_){}
-    try{Promise.resolve(window.ROWebAuthStorage?.setItem?.(key,raw)).catch(()=>{})}catch(_){}
+    if(options.durable===true){try{Promise.resolve(window.ROWebAuthStorage?.setItem?.(key,raw)).catch(()=>{})}catch(_){}}
     return ok;
   }
   function safe(fn,fallback=null){try{const v=fn();return v==null?fallback:v}catch(_){return fallback}}
@@ -63,17 +65,19 @@
       cloudStatus:safe(()=>window.ROWebCloudRuntime?.getSyncState?.()?.status,"")||"",
       bootStatus:String(window.RO_WEB_BOOT_STATE?.status||"")
     };
-    current=state;write(STATE_KEY,state);return state;
+    current=state;
+    const durable = reason!=="heartbeat" || (++heartbeatCount % DURABLE_HEARTBEAT_EVERY===0);
+    write(STATE_KEY,state,{durable});return state;
   }
   function events(){const rows=read(EVENTS_KEY,[]);return Array.isArray(rows)?rows:[]}
   function pushEvent(type,detail={}){
     const row={version:VERSION,sessionId,at:Date.now(),type:String(type||"event"),detail};
-    write(EVENTS_KEY,events().concat(row).slice(-MAX_EVENTS));
+    write(EVENTS_KEY,events().concat(row).slice(-MAX_EVENTS),{durable:true});
     return row;
   }
   function noteCloudEvent(type,detail={}){return pushEvent(`cloud:${type}`,detail)}
   function markClean(reason){
-    const state=snapshot(`clean:${reason}`);state.cleanExitAt=Date.now();state.cleanExitReason=String(reason||"");write(STATE_KEY,state);
+    const state=snapshot(`clean:${reason}`);state.cleanExitAt=Date.now();state.cleanExitReason=String(reason||"");write(STATE_KEY,state,{durable:true});
   }
   async function detectPreviousAbnormal(){
     const prev=await readDurable(STATE_KEY,null);

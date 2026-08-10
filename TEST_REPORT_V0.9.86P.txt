@@ -1,7 +1,0 @@
-V0.9.86P Static Validation
-- character_slots_runtime.js: node --check PASS
-- game.js: node --check PASS
-- index.html character_slots_runtime cache key -> 0.9.86P
-- index.html game.js cache key -> 0.9.86P
-- No Supabase SQL change
-- Entry hand-off token remains account-bound, character must exist in current cloud character list, expires after 120 seconds, one-shot consumed.

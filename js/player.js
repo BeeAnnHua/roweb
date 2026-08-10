@@ -10,11 +10,14 @@ let SAVE_MINUTE_BACKUP_KEY = window.CharacterSlotsRuntime?.getActiveBackupKey?.(
 let SAVE_LEASE_KEY = `${SAVE_KEY}_writer_lease_v2`;
 let SAVE_PERSIST_REQUEST_KEY = `${SAVE_KEY}_persist_requested_v2`;
 const SAVE_MINUTE_BACKUP_INTERVAL_MS = 60 * 1000;
-const SAVE_LEASE_HEARTBEAT_MS = 5 * 1000;
-const SAVE_LEASE_STALE_MS = 20 * 1000;
+const SAVE_IDLE_HEARTBEAT_MS = 5 * 60 * 1000;
+const SAVE_AUTO_LOCAL_MIN_INTERVAL_MS = 2000;
+const SAVE_REMOTE_MIN_INTERVAL_MS = 30 * 1000;
+const SAVE_LEASE_HEARTBEAT_MS = 10 * 1000;
+const SAVE_LEASE_STALE_MS = 35 * 1000;
 const RO_WEB_SAVE_SCHEMA = "ro_web_player_save_v2";
 const RO_WEB_SAVE_FORMAT_VERSION = 2;
-const RO_WEB_SAVE_APP_VERSION = "0.9.86Q";
+const RO_WEB_SAVE_APP_VERSION = "0.9.87B";
 const RO_WEB_SAVE_DB_NAME = "ro_web_offline_save_v1";
 const RO_WEB_SAVE_DB_VERSION = 1;
 const RO_WEB_SAVE_DB_STORE = "player_saves";
@@ -34,6 +37,11 @@ let RO_WEB_REMOTE_SAVE_ADAPTER = window.RO_WEB_REMOTE_SAVE_ADAPTER || null;
 let RO_WEB_LAST_SAVE_ENVELOPE = null;
 let RO_WEB_LAST_SAVE_TEXT = "";
 let RO_WEB_MANUAL_SAVE_PROMISE = null;
+let RO_WEB_LAST_LOCAL_COMMIT_AT = 0;
+let RO_WEB_REMOTE_SAVE_CHAIN = Promise.resolve();
+let RO_WEB_PENDING_REMOTE_SAVE = null;
+let RO_WEB_REMOTE_SAVE_TIMER = null;
+let RO_WEB_LAST_REMOTE_ATTEMPT_AT = 0;
 
 function createSaveSessionId() {
   try {
@@ -438,6 +446,113 @@ async function readRemotePlayerSaveCandidates() {
   }
 }
 
+function isCriticalSaveOptions(options = {}) {
+  const reason = String(options.reason || "");
+  return options.forceWriter === true || /manual|pagehide|beforeunload|freeze|death|revival|position-force|character-|cloud-bootstrap|account-menu|return-character-select|auction|vip-offline|reset|signout|logout/i.test(reason);
+}
+
+function isCriticalEnvelope(envelope) {
+  return isCriticalSaveOptions({ reason:String(envelope?.reason || "") });
+}
+
+function clearRemoteSaveTimer() {
+  if (!RO_WEB_REMOTE_SAVE_TIMER) return false;
+  clearTimeout(RO_WEB_REMOTE_SAVE_TIMER);
+  RO_WEB_REMOTE_SAVE_TIMER = null;
+  return true;
+}
+
+function scheduleRemoteSaveFlush(delayMs) {
+  const delay = Math.max(250, Number(delayMs || SAVE_REMOTE_MIN_INTERVAL_MS));
+  clearRemoteSaveTimer();
+  RO_WEB_REMOTE_SAVE_TIMER = setTimeout(() => {
+    RO_WEB_REMOTE_SAVE_TIMER = null;
+    flushPendingRemotePlayerSave(false).catch(() => false);
+  }, delay);
+  return true;
+}
+
+function flushPendingRemotePlayerSave(force = false) {
+  const adapter = RO_WEB_REMOTE_SAVE_ADAPTER;
+  if (!adapter || !RO_WEB_PENDING_REMOTE_SAVE) return RO_WEB_REMOTE_SAVE_CHAIN;
+  const now = Date.now();
+  const elapsed = now - Number(RO_WEB_LAST_REMOTE_ATTEMPT_AT || 0);
+  const pendingCritical = isCriticalEnvelope(RO_WEB_PENDING_REMOTE_SAVE.envelope);
+  if (!force && !pendingCritical && RO_WEB_LAST_REMOTE_ATTEMPT_AT && elapsed < SAVE_REMOTE_MIN_INTERVAL_MS) {
+    scheduleRemoteSaveFlush(SAVE_REMOTE_MIN_INTERVAL_MS - elapsed);
+    return RO_WEB_REMOTE_SAVE_CHAIN;
+  }
+
+  clearRemoteSaveTimer();
+  const pending = RO_WEB_PENDING_REMOTE_SAVE;
+  RO_WEB_PENDING_REMOTE_SAVE = null;
+  RO_WEB_LAST_REMOTE_ATTEMPT_AT = now;
+  RO_WEB_REMOTE_SAVE_CHAIN = RO_WEB_REMOTE_SAVE_CHAIN
+    .catch(() => false)
+    .then(async () => {
+      const { text, envelope } = pending;
+      try {
+        const characterContext = window.CharacterSlotsRuntime?.getRemoteContext?.() || {};
+        const saveContext = { ...characterContext, text, saveKey: SAVE_KEY };
+        if (typeof adapter.saveEnvelope === "function") await adapter.saveEnvelope(envelope, saveContext);
+        else if (typeof adapter.save === "function") await adapter.save(envelope, saveContext);
+        RO_WEB_SAVE_STATE.lastRemoteSaveOk = true;
+        RO_WEB_SAVE_STATE.lastRemoteSaveAt = Date.now();
+        RO_WEB_SAVE_STATE.lastRemoteSaveVersion = Number(envelope.saveVersion || 0);
+        RO_WEB_SAVE_STATE.lastRemoteError = "";
+        window.RO_WEB_CLOUD_SAVE_ERROR_REPORTED = false;
+        return true;
+      } catch (error) {
+        RO_WEB_SAVE_STATE.lastRemoteSaveOk = false;
+        RO_WEB_SAVE_STATE.lastRemoteSaveAt = Date.now();
+        RO_WEB_SAVE_STATE.lastRemoteSaveVersion = Number(envelope.saveVersion || 0);
+        RO_WEB_SAVE_STATE.lastRemoteError = String(error?.message || error || "remote save failed");
+        console.warn("後端存檔同步失敗；本機耐久存檔仍保留：", error);
+        const raw = String(error?.message || error || "");
+        if (!/RO_CLOUD_CONFLICT|RO_CROSS_ACCOUNT|RO_CROSS_CHARACTER|RO_CHARACTER_NOT_IN_CURRENT_ACCOUNT/i.test(raw)) {
+          // Network/transient failure: retain the newest unsynced snapshot for a calm retry.
+          if (!RO_WEB_PENDING_REMOTE_SAVE || Number(RO_WEB_PENDING_REMOTE_SAVE.envelope?.saveVersion || 0) < Number(envelope.saveVersion || 0)) {
+            RO_WEB_PENDING_REMOTE_SAVE = pending;
+          }
+          scheduleRemoteSaveFlush(SAVE_REMOTE_MIN_INTERVAL_MS);
+        }
+        if (!window.RO_WEB_CLOUD_SAVE_ERROR_REPORTED && typeof addBattleLog === "function") {
+          addBattleLog(/RO_CLOUD_CONFLICT/i.test(raw)
+            ? "雲端偵測到較新的角色進度，已停止用這個分頁覆寫；請回角色選擇後重新進入角色。"
+            : "本機進度已保存，但這次雲端同步未完成；系統會保留最新快照並稍後重試。");
+          window.RO_WEB_CLOUD_SAVE_ERROR_REPORTED = true;
+        }
+        return false;
+      }
+    })
+    .finally(() => {
+      if (RO_WEB_PENDING_REMOTE_SAVE && !RO_WEB_REMOTE_SAVE_TIMER) {
+        const elapsedNow = Date.now() - Number(RO_WEB_LAST_REMOTE_ATTEMPT_AT || 0);
+        scheduleRemoteSaveFlush(Math.max(250, SAVE_REMOTE_MIN_INTERVAL_MS - elapsedNow));
+      }
+    });
+  return RO_WEB_REMOTE_SAVE_CHAIN;
+}
+
+function queueRemotePlayerSave(text, envelope, force = false) {
+  const adapter = RO_WEB_REMOTE_SAVE_ADAPTER;
+  if (!adapter) {
+    RO_WEB_SAVE_STATE.lastRemoteSaveOk = null;
+    RO_WEB_SAVE_STATE.lastRemoteError = "";
+    return Promise.resolve(null);
+  }
+  if (!RO_WEB_PENDING_REMOTE_SAVE || Number(RO_WEB_PENDING_REMOTE_SAVE.envelope?.saveVersion || 0) <= Number(envelope?.saveVersion || 0)) {
+    RO_WEB_PENDING_REMOTE_SAVE = { text, envelope };
+  }
+  const critical = force || isCriticalEnvelope(envelope);
+  const elapsed = Date.now() - Number(RO_WEB_LAST_REMOTE_ATTEMPT_AT || 0);
+  if (critical || !RO_WEB_LAST_REMOTE_ATTEMPT_AT || elapsed >= SAVE_REMOTE_MIN_INTERVAL_MS) {
+    return flushPendingRemotePlayerSave(Boolean(critical));
+  }
+  scheduleRemoteSaveFlush(SAVE_REMOTE_MIN_INTERVAL_MS - elapsed);
+  return Promise.resolve(null);
+}
+
 function flushDurablePlayerSave() {
   if (RO_WEB_DURABLE_SAVE_TIMER) {
     clearTimeout(RO_WEB_DURABLE_SAVE_TIMER);
@@ -451,44 +566,19 @@ function flushDurablePlayerSave() {
     .then(async () => {
       const { text, envelope } = pending;
       const idbOk = await writeIndexedDbPlayerSaveEnvelope(text, envelope);
-      let remoteOk = false;
-      const adapter = RO_WEB_REMOTE_SAVE_ADAPTER;
-      if (adapter) {
-        try {
-          const characterContext = window.CharacterSlotsRuntime?.getRemoteContext?.() || {};
-          const saveContext = { ...characterContext, text, saveKey: SAVE_KEY };
-          if (typeof adapter.saveEnvelope === "function") await adapter.saveEnvelope(envelope, saveContext);
-          else if (typeof adapter.save === "function") await adapter.save(envelope, saveContext);
-          remoteOk = true;
-          RO_WEB_SAVE_STATE.lastRemoteSaveOk = true;
-          RO_WEB_SAVE_STATE.lastRemoteSaveAt = Date.now();
-          RO_WEB_SAVE_STATE.lastRemoteSaveVersion = Number(envelope.saveVersion || 0);
-          RO_WEB_SAVE_STATE.lastRemoteError = "";
-          window.RO_WEB_CLOUD_SAVE_ERROR_REPORTED = false;
-        } catch (error) {
-          RO_WEB_SAVE_STATE.lastRemoteSaveOk = false;
-          RO_WEB_SAVE_STATE.lastRemoteSaveAt = Date.now();
-          RO_WEB_SAVE_STATE.lastRemoteSaveVersion = Number(envelope.saveVersion || 0);
-          RO_WEB_SAVE_STATE.lastRemoteError = String(error?.message || error || "remote save failed");
-          console.warn("後端存檔同步失敗；本機耐久存檔仍保留：", error);
-          if (!window.RO_WEB_CLOUD_SAVE_ERROR_REPORTED && typeof addBattleLog === "function") {
-            const raw = String(error?.message || error || "");
-            addBattleLog(/RO_CLOUD_CONFLICT/i.test(raw)
-              ? "雲端偵測到較新的角色進度，已停止用這個分頁覆寫；請回角色選擇後重新進入角色。"
-              : "本機進度已保存，但這次雲端同步未完成；網路恢復後再按一次存檔即可重試。");
-            window.RO_WEB_CLOUD_SAVE_ERROR_REPORTED = true;
-          }
-        }
-      } else {
-        RO_WEB_SAVE_STATE.lastRemoteSaveOk = null;
-        RO_WEB_SAVE_STATE.lastRemoteError = "";
+      const critical = isCriticalEnvelope(envelope);
+      let remoteOk = null;
+      try {
+        remoteOk = await queueRemotePlayerSave(text, envelope, critical);
+      } catch (_) {
+        remoteOk = false;
       }
-      RO_WEB_SAVE_STATE.lastDurableSaveOk = Boolean(idbOk || remoteOk);
+      RO_WEB_SAVE_STATE.lastDurableSaveOk = Boolean(idbOk || remoteOk === true || RO_WEB_PENDING_REMOTE_SAVE);
       RO_WEB_SAVE_STATE.lastDurableSaveVersion = Number(envelope.saveVersion || 0);
-      if (!idbOk && !remoteOk) {
+      if (!idbOk && remoteOk === false && !RO_WEB_PENDING_REMOTE_SAVE) {
         RO_WEB_SAVE_STATE.lastError = "IndexedDB／後端耐久存檔寫入失敗";
       }
-      return Boolean(idbOk || remoteOk);
+      return Boolean(idbOk || remoteOk === true || RO_WEB_PENDING_REMOTE_SAVE);
     })
     .finally(() => {
       if (RO_WEB_PENDING_DURABLE_SAVE && !RO_WEB_DURABLE_SAVE_TIMER) {
@@ -498,9 +588,9 @@ function flushDurablePlayerSave() {
   return RO_WEB_SAVE_DURABLE_CHAIN;
 }
 
-function queueDurablePlayerSave(text, envelope, delayMs = 700) {
-  // 長時間掛機可能在短時間內產生多次 saveGame；耐久鏡像只保留最新快照，
-  // 避免 IndexedDB／未來後端同步形成無限排隊。
+function queueDurablePlayerSave(text, envelope, delayMs = 1200) {
+  // V0.9.87B: local snapshots remain frequent, while durable/cloud work is coalesced.
+  // Only the newest envelope survives a burst, avoiding long IndexedDB/Supabase queues during AFK combat.
   RO_WEB_PENDING_DURABLE_SAVE = { text, envelope };
   if (RO_WEB_DURABLE_SAVE_TIMER) clearTimeout(RO_WEB_DURABLE_SAVE_TIMER);
   RO_WEB_DURABLE_SAVE_TIMER = setTimeout(flushDurablePlayerSave, Math.max(0, Number(delayMs || 0)));
@@ -1222,11 +1312,11 @@ function buildPlayerSaveSnapshot() {
 
 function normalizeSaveOptions(reasonOrOptions) {
   if (typeof reasonOrOptions === "string") {
-    return { reason: reasonOrOptions || "manual", forceWriter:false, preparePendingRewards:true, durableDelayMs:null };
+    return { reason: reasonOrOptions || "auto", forceWriter:false, preparePendingRewards:true, durableDelayMs:null };
   }
   const source = reasonOrOptions && typeof reasonOrOptions === "object" ? reasonOrOptions : {};
   return {
-    reason: String(source.reason || "manual"),
+    reason: String(source.reason || "auto"),
     forceWriter: source.forceWriter === true || source.userInitiated === true,
     preparePendingRewards: source.preparePendingRewards !== false,
     durableDelayMs: Number.isFinite(Number(source.durableDelayMs)) ? Math.max(0, Number(source.durableDelayMs)) : null
@@ -1313,9 +1403,20 @@ function markGameSaveDirty(reason = "change") {
   return true;
 }
 
-function saveGame(reasonOrOptions = "manual") {
-  if (window.RO_WEB_RESETTING_SAVE || RO_WEB_SAVE_IN_PROGRESS) return false;
+function saveGame(reasonOrOptions = "auto") {
+  if (window.RO_WEB_RESETTING_SAVE) return false;
   const options = normalizeSaveOptions(reasonOrOptions);
+  const criticalSave = isCriticalSaveOptions(options);
+  if (RO_WEB_SAVE_IN_PROGRESS) {
+    if (!criticalSave) { requestGameSave(350, options.reason); return true; }
+    return false;
+  }
+  const sinceLastCommit = Date.now() - Number(RO_WEB_LAST_LOCAL_COMMIT_AT || 0);
+  if (!criticalSave && RO_WEB_LAST_LOCAL_COMMIT_AT && sinceLastCommit < SAVE_AUTO_LOCAL_MIN_INTERVAL_MS) {
+    markGameSaveDirty(options.reason);
+    requestGameSave(Math.max(80, SAVE_AUTO_LOCAL_MIN_INTERVAL_MS - sinceLastCommit), options.reason);
+    return true;
+  }
   if (RO_WEB_CLOUD_BOOTSTRAP_STATE.required && !RO_WEB_CLOUD_BOOTSTRAP_STATE.authorizedToSave) {
     if (!window.RO_WEB_CLOUD_BOOTSTRAP_SAVE_BLOCK_REPORTED && typeof addBattleLog === "function") {
       addBattleLog("雲端角色資料尚未完成驗證，本次存檔已阻止，避免以預設 Lv1 資料覆蓋雲端角色。");
@@ -1371,6 +1472,7 @@ function saveGame(reasonOrOptions = "manual") {
 
     RO_WEB_SAVE_SEQUENCE = Number(envelope.saveVersion || RO_WEB_SAVE_SEQUENCE);
     RO_WEB_SAVE_DIRTY = false;
+    RO_WEB_LAST_LOCAL_COMMIT_AT = Date.now();
     RO_WEB_SAVE_STATE.saveVersion = RO_WEB_SAVE_SEQUENCE;
     RO_WEB_SAVE_STATE.lastSuccessfulSaveAt = Number(envelope.savedAt || Date.now());
     RO_WEB_SAVE_STATE.lastReason = reason;
@@ -1389,7 +1491,7 @@ function saveGame(reasonOrOptions = "manual") {
 
     const durableDelay = options.durableDelayMs !== null
       ? options.durableDelayMs
-      : (options.forceWriter || reason.includes("gacha") || !mainOk ? 0 : 700);
+      : (criticalSave || !mainOk ? 0 : 1200);
     queueDurablePlayerSave(text, envelope, durableDelay);
     if (!mainOk && !window.RO_WEB_LOCAL_FALLBACK_REPORTED && typeof addBattleLog === "function") {
       addBattleLog("localStorage 空間不足，這次進度已改交由瀏覽器耐久存檔保存；請等候『存檔完成』後再重新整理。");
@@ -1496,7 +1598,10 @@ function startMinutePlayerBackup() {
   startSaveWriterLeaseHeartbeat();
   saveGame({ reason: RO_WEB_SAVE_DIRTY ? "startup-repair" : "startup" });
   RO_WEB_MINUTE_BACKUP_TIMER = window.setInterval(() => {
-    saveGame({ reason: "interval-60s" });
+    const age = Date.now() - Number(RO_WEB_SAVE_STATE.lastSuccessfulSaveAt || 0);
+    if (RO_WEB_SAVE_DIRTY || !RO_WEB_SAVE_STATE.lastSuccessfulSaveAt || age >= SAVE_IDLE_HEARTBEAT_MS) {
+      saveGame({ reason: RO_WEB_SAVE_DIRTY ? "interval-dirty" : "interval-heartbeat" });
+    }
   }, SAVE_MINUTE_BACKUP_INTERVAL_MS);
   return true;
 }
@@ -1558,6 +1663,7 @@ window.ROWebSaveManager = Object.freeze({
   flush: flushPendingGameSave,
   clearDurable: clearIndexedDbPlayerSaves,
   flushDurable: flushDurablePlayerSave,
+  flushRemote: (force = true) => flushPendingRemotePlayerSave(force),
   registerRemoteAdapter: registerRemoteSaveAdapter,
   rebindActiveCharacter: rebindActiveCharacterSaveContext,
   getBinding: getCurrentSaveBinding,

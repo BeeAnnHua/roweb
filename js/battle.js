@@ -937,8 +937,9 @@ function requestWorldMonsterCombatSave(delayMs = 600) {
   if (RO_WEB_WORLD_MONSTER_COMBAT_SAVE_TIMER) return true;
   RO_WEB_WORLD_MONSTER_COMBAT_SAVE_TIMER = setTimeout(() => {
     RO_WEB_WORLD_MONSTER_COMBAT_SAVE_TIMER = null;
-    if (typeof saveGame === "function") saveGame();
-  }, Math.max(100, Number(delayMs || 600)));
+    if (typeof requestGameSave === "function") requestGameSave(1500, "world-combat-state");
+    else if (typeof saveGame === "function") saveGame("world-combat-state");
+  }, Math.max(250, Number(delayMs || 1200)));
   return true;
 }
 window.requestWorldMonsterCombatSave = requestWorldMonsterCombatSave;
@@ -946,8 +947,9 @@ window.requestWorldMonsterCombatSave = requestWorldMonsterCombatSave;
 function monsterAttackPlayer(options = {}) {
   if (!currentMonster) return;
   const persistMonsterAttackState = () => {
-    if (options.source === "world_monster_stream") return requestWorldMonsterCombatSave(600);
-    if (typeof saveGame === "function") return saveGame();
+    if (options.source === "world_monster_stream") return requestWorldMonsterCombatSave(1200);
+    if (typeof requestGameSave === "function") return requestGameSave(1500, "combat-damage");
+    if (typeof saveGame === "function") return saveGame("combat-damage");
     return false;
   };
   const aiBehavior = typeof getMonsterAiBehavior === "function" ? getMonsterAiBehavior(currentMonster) : null;
@@ -1334,7 +1336,7 @@ function flushRewardBatchUi() {
     else logs.forEach(entry => addBattleLog(entry.text, entry.type));
   }
   if (window.RO_WEB_REWARD_SAVE_DIRTY) {
-    if (typeof requestGameSave === "function") requestGameSave(400);
+    if (typeof requestGameSave === "function") requestGameSave(1200, "combat-reward-batch");
     else if (typeof saveGame === "function") setTimeout(saveGame, 0);
   }
   window.RO_WEB_REWARD_PLAYER_UI_DIRTY = false;

@@ -1,4 +1,13 @@
-# 彼岸花仙境（RO_WEB 技術核心） V0.9.84C
+# 彼岸花仙境（RO_WEB 技術核心） V0.9.87B
+
+
+## V0.9.87B｜雲端掛機效能精修＋拍賣場正式入口
+
+- 正式拍賣場入口：右上功能區第 4 行第 1 格。
+- V0.9.87A 拍賣交易所、VIP V1、GM / Mail / Cloud Character 系統全部保留。
+- GitHub Pages / HTTP 改載精簡 core data bundle：保留全部遊戲 `data/**` 與必要同步 Manifest，大型角色／atlas JSON 按需載入；啟動 bundle 由約 38.4 MB 降至約 13.6 MB。直接雙擊 file:// 仍載完整 bundle 保持相容。
+- 掛機自動存檔採本機 2 秒合併、Supabase 30 秒最新快照同步；手動與交易關鍵操作不節流。
+- 舊版本散落報告已封存至 `docs/release_history/`，根目錄維持精簡。
 
 # V0.9.84C｜正式帳號中心＋雲端存檔同步狀態
 

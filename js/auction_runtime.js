@@ -1,10 +1,10 @@
 // ============================================================
-// 彼岸花仙境 / RO_WEB - Auction House Runtime V0.9.87A
+// 彼岸花仙境 / RO_WEB - Auction House Runtime V0.9.87B
 // 藍寶石上架費 / 5% Zeny 成交稅 / Mail escrow delivery
 // ============================================================
 (function(){
   "use strict";
-  const VERSION="0.9.87A";
+  const VERSION="0.9.87B";
   const MARKET_LIMIT=60;
   const state={open:false,tab:"market",busy:false,market:[],mine:[],history:[],selected:null,search:"",category:"all",sort:"newest"};
   const $=id=>document.getElementById(id);

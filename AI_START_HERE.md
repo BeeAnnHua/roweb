@@ -1,3 +1,21 @@
+# V0.9.87B current baseline
+
+## V0.9.87B — 拍賣場入口定位＋雲端掛機效能／穩定性精修＋根目錄整理
+
+- 基準：使用者 2026-08-11 上傳的 `roweb(更更更新板).zip`（已含 V0.9.87A 拍賣交易所、VIP Q、R 掛機穩定、多角色登入修正）。
+- **拍賣入口**：保留原第 2 行第 3 格「拍賣行」預告；新的正式「拍賣場」固定放在右上 4×N 功能區 **第 4 行第 1 格**。
+- **HTTP/HTTPS 輕量啟動**：`file://` 雙擊模式仍載入完整 38.4 MB `js/data_bundle.js`；GitHub Pages／本機 HTTP 改載 13.6 MB `js/data_bundle_core.js`（保留全部 `data/**` 與必要同步 Manifest，大型角色／atlas JSON 改由 HTTP 按需讀取），降低約 64.5% 的啟動 bundle 解析量與 heap 壓力。
+- **自動存檔合併**：一般戰鬥／技能／補品等高頻變更的本機完整序列化最短間隔 2 秒；關鍵手動／死亡／切角／拍賣／VIP 結算仍立即保存。
+- **雲端同步節流**：持續掛機時 Supabase 角色快照最多約每 30 秒送出最新一份；中間版本仍保存在 localStorage + IndexedDB，手動存檔會立即同步並驗證。
+- **空閒備份減量**：原每 60 秒無條件建立新版本改為只有 dirty 時保存；完全無變更時每 5 分鐘才做一次 heartbeat。
+- **戰鬥存檔去抖**：怪物攻擊／世界怪物／擊殺獎勵改走合併式 requestGameSave，降低長時間自動掛機反覆 stringify / localStorage / IDB 壓力。
+- **AFK 診斷降負擔**：診斷 heartbeat 15 秒→30 秒；IndexedDB 診斷鏡像改每 2 分鐘或重大事件才寫入。
+- **多分頁 Writer Lease**：heartbeat 5 秒→10 秒、stale 20 秒→35 秒，維持防覆蓋同時減少同步 localStorage 寫入。
+- **根目錄整理**：舊 APPLY / TEST_REPORT / CURRENT_RELEASE_SUMMARY / PATCH_INSTALL 等散落紀錄完整封存到 `docs/release_history/ROOT_RELEASE_RECORDS_THROUGH_V0.9.87A.zip`；根目錄由 91 項縮減至精簡正式結構。
+- V0.9.87A 拍賣 SQL 已經執行成功的環境 **不用重跑 SQL**；本版不新增資料庫 migration。
+
+---
+
 # V0.9.87A current baseline
 
 ## V0.9.87A — 拍賣交易所 V1（累積保留 VIP Q + 掛機穩定 R）

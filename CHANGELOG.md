@@ -1,3 +1,11 @@
+## V0.9.87B
+- 正式「拍賣場」入口移至右上功能矩陣第 4 行第 1 格；原第 2 行「拍賣行」預告保留。
+- GitHub Pages / HTTP 不再預載 37 MB data_bundle；file:// 雙擊模式仍完整相容。
+- 一般自動存檔 2 秒去抖、雲端快照 30 秒節流、無變更 5 分鐘 heartbeat，降低掛機時 Supabase / stringify / IndexedDB 壓力。
+- 戰鬥傷害、世界怪物與獎勵保存改為合併式 requestGameSave；手動、死亡、切角色、拍賣與 VIP 結算仍立即同步。
+- AFK 診斷與 writer lease 降低寫入頻率，保留異常重啟追蹤。
+- 根目錄歷史報告重新封存，91 項縮為正式精簡結構。
+
 ## V0.9.86Q
 - VIP V1：Base EXP +50%、Job EXP +50%、掉寶率 +50%，Zeny 線上倍率維持原值。
 - 新增 Player ID 帳號共用的最多 8 小時離線掛機收益；Supabase 伺服器時間驗證、one-shot 防重領，不增加常駐心跳流量。

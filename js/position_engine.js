@@ -625,11 +625,13 @@ function getPositionSaveSnapshot() {
 }
 
 function savePositionIfChanged(options = {}) {
-  if (!player || typeof saveGame !== "function") return;
+  if (!player) return;
   normalizePositionData();
   const snapshot = getPositionSaveSnapshot();
   if (!options.force && snapshot && snapshot === lastSavedPositionSnapshot) return;
-  saveGame();
+  if (options.force && typeof saveGame === "function") saveGame({ reason:"position-force" });
+  else if (typeof requestGameSave === "function") requestGameSave(1200, "position-change");
+  else if (typeof saveGame === "function") saveGame("position-change");
   lastSavedPositionSnapshot = snapshot;
 }
 

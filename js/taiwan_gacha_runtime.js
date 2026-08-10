@@ -14,7 +14,7 @@
   const BANNER_STYLE_ID = "ro-taiwan-gacha-banner-style";
   const BANNER_HOST_ID = "ro-taiwan-gacha-banner-host";
   const MANUAL_GACHA_SOURCES = new Set(["item-info", "quick-slot", "quick-slot-key", "inventory-slot", "batch-open-ui"]);
-  const GACHA_GUARD_INTERVAL_MS = 500;
+  const GACHA_GUARD_INTERVAL_MS = 1500; // V0.9.87B: AFK inventory guard remains protective without scanning the full inventory twice per second.
 
   function bundled(key, fallback = null) {
     return window.RO_WEB_DATA && Object.prototype.hasOwnProperty.call(window.RO_WEB_DATA, key)

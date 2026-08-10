@@ -1,6 +1,0 @@
-RO_WEB V0.9.85J - Cloud auth loading progress polish
-
-- Fixes the visual pause at 4% before character selection.
-- While Supabase ensureReady() is genuinely waiting, the loading UI now advances through 4/6/8/9/10/11%, then reaches the verified 12% checkpoint.
-- Labels describe the current account/session/character-list synchronization stage.
-- No database/schema changes. No gameplay/cloud-save logic changes.
