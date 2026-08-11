@@ -1,4 +1,13 @@
-# V0.9.87G current baseline
+# V0.9.87H current baseline
+
+## V0.9.87H — Optional legacy character rescue / fresh-character bypass
+- Legacy rescue is no longer a mandatory login gate.
+- No candidate is preselected. Players may choose `略過舊資料，建立新角色` without checking ownership or any candidate.
+- Skip is stored per Cloud Account ID in local/session/durable auth storage, so the same browser does not reopen the rescue gate every login.
+- Old localStorage / IndexedDB saves are never deleted.
+- Game Settings now includes `救援舊角色` to clear the skip marker and rescan later.
+- Strict account-bound local recovery obeys the same skip marker, preventing repeated recovery dialogs before the selector.
+
 
 ## V0.9.87G — Auction sell inventory filters + mail status cleanup + account-switch SLOT isolation
 - Baseline: user-provided V0.9.87F full package (`roweb(9).zip`).

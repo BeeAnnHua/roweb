@@ -8,13 +8,43 @@
 (function () {
   "use strict";
 
-  const VERSION = "0.9.87B";
+  const VERSION = "0.9.87H";
   const SUPABASE_URL = "https://ecbnsobcjxnrwqlefjci.supabase.co";
   const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_LrQiZeOESpuGnt-hL6m0VQ_zXqn8ehS";
   const SELECTED_ACCOUNT_KEY = "roweb_cloud_selected_account_v1";
   const LOGIN_HINT_KEY = "roweb_cloud_login_aliases_v1";
   const LOCAL_CHARACTER_SAVE_PREFIX = "ro_web_character_save_v1_";
   const PRE_CLOUD_RESCUE_VAULT_KEY = "ro_web_precloud_rescue_vault_v1";
+  const LEGACY_CHARACTER_RESCUE_SKIP_PREFIX = "ro_web_legacy_character_rescue_skip_v1_";
+
+  function legacyCharacterRescueSkipKey(accountId = currentAccount?.account_id) {
+    const id = String(accountId || "").trim();
+    return id ? `${LEGACY_CHARACTER_RESCUE_SKIP_PREFIX}${id}` : "";
+  }
+
+  async function isLegacyCharacterRescueSkipped(accountId = currentAccount?.account_id) {
+    const key = legacyCharacterRescueSkipKey(accountId);
+    if (!key) return false;
+    try { if (localStorage.getItem(key) === "1") return true; } catch (_) {}
+    try { if (sessionStorage.getItem(key) === "1") return true; } catch (_) {}
+    try { if (await window.ROWebAuthStorage?.getItem?.(key) === "1") return true; } catch (_) {}
+    return false;
+  }
+
+  async function setLegacyCharacterRescueSkipped(accountId = currentAccount?.account_id, skipped = true) {
+    const key = legacyCharacterRescueSkipKey(accountId);
+    if (!key) return false;
+    if (skipped) {
+      try { localStorage.setItem(key, "1"); } catch (_) {}
+      try { sessionStorage.setItem(key, "1"); } catch (_) {}
+      try { await window.ROWebAuthStorage?.setItem?.(key, "1"); } catch (_) {}
+    } else {
+      try { localStorage.removeItem(key); } catch (_) {}
+      try { sessionStorage.removeItem(key); } catch (_) {}
+      try { await window.ROWebAuthStorage?.removeItem?.(key); } catch (_) {}
+    }
+    return true;
+  }
 
   const sdk = window.supabase;
   const slots = window.CharacterSlotsRuntime;
@@ -416,7 +446,7 @@
         <div class="cloud-local-recovery-status"></div>
         <div class="cloud-local-recovery-actions">
           <button type="button" class="cloud-local-recovery-primary">復原至雲端</button>
-          <button type="button" class="cloud-local-recovery-secondary">暫不復原</button>
+          <button type="button" class="cloud-local-recovery-secondary">略過舊資料</button>
         </div>
         <small>只會復原目前登入 Player ID 自己的角色；Lv1／身分不符的暫存不會被接受。</small>
       </div>`;
@@ -469,12 +499,19 @@
   }
 
   async function recoverDeletedCloudCharactersIfNeeded() {
+    if (await isLegacyCharacterRescueSkipped(currentAccount?.account_id)) return false;
     const recoverable = await findRecoverableLocalCharacters(currentCharacters);
     if (!recoverable.length) return false;
     let restored = 0;
     for (const candidate of recoverable) {
       const choice = await promptLocalRecovery(candidate);
-      if (!choice || choice.action !== "restore") continue;
+      if (!choice || choice.action !== "restore") {
+        if (choice?.action === "skip") {
+          await setLegacyCharacterRescueSkipped(currentAccount?.account_id, true);
+          break;
+        }
+        continue;
+      }
       try {
         const row = await restoreLocalCharacterToCloud(candidate);
         choice.status.textContent = "復原成功，正在重新同步角色列表…";
@@ -1179,7 +1216,7 @@
         </section>
         <label class="cloud-legacy-rescue-confirm"><input type="checkbox"><span></span></label>
         <div class="cloud-legacy-rescue-status"></div>
-        <div class="cloud-legacy-rescue-actions"><button type="button" class="cloud-legacy-rescue-primary">確認復原所選角色</button><button type="button" class="cloud-legacy-rescue-secondary">稍後處理</button></div>
+        <div class="cloud-legacy-rescue-actions"><button type="button" class="cloud-legacy-rescue-primary">確認復原所選角色</button><button type="button" class="cloud-legacy-rescue-secondary">略過舊資料，建立新角色</button></div>
       </div>`;
     document.body.appendChild(overlay);
     return overlay;
@@ -1223,7 +1260,10 @@
   }
 
   async function offerLegacyBrowserRescueIfNeeded(options = {}) {
-    if (!currentAccount?.account_id || options.cloudWasEmpty !== true) return false;
+    if (!currentAccount?.account_id) return false;
+    const forced = options.force === true;
+    if (!forced && options.cloudWasEmpty !== true) return false;
+    if (!forced && await isLegacyCharacterRescueSkipped(currentAccount.account_id)) return false;
     const candidates = await findLegacyBrowserCandidates(currentCharacters);
     const shadows = Array.isArray(lastLegacyShadowRecords) ? lastLegacyShadowRecords : [];
     const idTraces = Array.isArray(lastLegacyIdTraceRecords) ? lastLegacyIdTraceRecords : [];
@@ -1252,7 +1292,7 @@
       label.className = "cloud-legacy-rescue-item";
       const input = document.createElement("input");
       input.type = "checkbox";
-      input.checked = index < freeCount;
+      input.checked = false;
       input.dataset.index = String(index);
       const box = document.createElement("div");
       const base = Math.max(1, Number(candidate.player?.baseLevel || 1));
@@ -1327,7 +1367,14 @@
     primary.disabled = true;
     primary.hidden = candidates.length === 0;
     secondary.disabled = false;
-    confirm.onchange = () => { primary.disabled = !confirm.checked || candidates.length === 0; };
+    secondary.textContent = currentCharacters.length === 0 ? "略過舊資料，建立新角色" : "保留目前角色，不復原";
+    const updatePrimaryState = () => {
+      const selectedCount = list.querySelectorAll('input[type="checkbox"]:checked').length;
+      primary.disabled = !confirm.checked || candidates.length === 0 || selectedCount === 0;
+    };
+    confirm.onchange = updatePrimaryState;
+    list.querySelectorAll('input[type="checkbox"]').forEach(input => input.addEventListener("change", updatePrimaryState));
+    updatePrimaryState();
     overlay.hidden = false;
     const restoredKeys = new Set();
 
@@ -1340,7 +1387,16 @@
         window.ROWebLoadingScreen?.show?.({ progress:13, label:"正在重新同步角色列表…" });
         resolve(value);
       };
-      secondary.onclick = () => finish(false);
+      secondary.onclick = async () => {
+        secondary.disabled = true;
+        status.textContent = currentCharacters.length === 0
+          ? "已略過舊資料，正在進入正常角色建立畫面。舊瀏覽器資料仍完整保留。"
+          : "已保留目前角色，不復原舊資料。舊瀏覽器資料仍完整保留。";
+        status.className = "cloud-legacy-rescue-status ok";
+        await setLegacyCharacterRescueSkipped(currentAccount.account_id, true);
+        await new Promise(r => setTimeout(r, 180));
+        finish(false);
+      };
       primary.onclick = async () => {
         const selectedIndexes = Array.from(list.querySelectorAll('input[type="checkbox"]:checked')).map(input => Number(input.dataset.index)).filter(Number.isFinite);
         const selected = [];
@@ -1381,6 +1437,7 @@
           currentCharacters = await fetchCharacters(currentAccount.account_id);
           status.textContent = `已成功復原 ${restored} 個角色，正在重新載入雲端角色列表。`;
           status.className = "cloud-legacy-rescue-status ok";
+          if (restored > 0) await setLegacyCharacterRescueSkipped(currentAccount.account_id, false);
           await new Promise(r => setTimeout(r, 650));
           finish(restored > 0);
         } catch (error) {
@@ -1391,6 +1448,20 @@
         }
       };
     });
+  }
+
+  async function openLegacyCharacterRescue() {
+    if (!currentAccount?.account_id) return false;
+    await setLegacyCharacterRescueSkipped(currentAccount.account_id, false);
+    const result = await offerLegacyBrowserRescueIfNeeded({ force:true, cloudWasEmpty:currentCharacters.length === 0 });
+    try {
+      currentCharacters = await fetchCharacters(currentAccount.account_id);
+      slots?.bindCloudAccount?.(currentAccount, currentCharacters);
+      window.ROWebSaveManager?.rebindActiveCharacter?.({ reason:"manual-legacy-rescue" });
+    } catch (error) {
+      console.warn("手動舊角色救援後重新同步失敗：", error);
+    }
+    return result;
   }
 
   function buildCharacterInsertFromLocal(slot, rawEnvelope, targetSlot) {
@@ -1963,6 +2034,8 @@
     hasPendingLocalMigration:() => Boolean(pendingMigration),
     offerLocalMigration,
     migrateLocalCharacters,
+    openLegacyCharacterRescue,
+    setLegacyCharacterRescueSkipped,
     saveSharedStorage,
     openAccountCenter,
     signOut,
