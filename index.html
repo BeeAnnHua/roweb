@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>彼岸花仙境 V0.9.87B</title>
+  <title>彼岸花仙境 V0.9.87C</title>
   <meta name="description" content="&#8203;">
   <meta property="og:type" content="website">
   <meta property="og:title" content="彼岸花仙境">
@@ -15,7 +15,7 @@
   <meta name="twitter:description" content="&#8203;">
   <link rel="icon" type="image/svg+xml" href="images/ui/brand/sakura_emblem.svg?v=0.9.84C">
   <link rel="preload" as="image" type="image/webp" href="images/ui/character_select_background.webp?v=0.9.84C">
-  <link rel="stylesheet" href="css/style.css?v=0.9.87B">
+  <link rel="stylesheet" href="css/style.css?v=0.9.87C">
   <link rel="stylesheet" href="css/auction.css?v=0.9.87B">
 </head>
 
@@ -58,7 +58,7 @@
       </main>
       <footer class="character-select-footer">
         <span>角色進度已啟用雲端同步；本機仍保留離線安全備份。</span>
-        <small>V0.9.87B</small>
+        <small>V0.9.87C</small>
       </footer>
     </div>
   </section>
@@ -751,6 +751,7 @@
       <div class="storage-summary-bar">
         <span>倉庫容量 <b id="storageCapacityText">0 / 200</b></span>
         <span>角色背包 <b id="storageInventoryCountText">0</b> 種物品</span>
+        <button id="legacyWarehouseRescueEntry" type="button" class="legacy-warehouse-rescue-entry" onclick="openLegacyWarehouseRescue()">救援舊倉庫</button>
       </div>
       <nav class="storage-category-tabs" aria-label="倉庫物品分類">
         <button type="button" class="is-active" data-storage-category="consume" aria-pressed="true" onclick="setStorageCategory('consume')">消耗</button>
@@ -769,6 +770,32 @@
       </div>
       <p id="storageMessage" class="storage-message" aria-live="polite"></p>
       <footer class="storage-footer-note">刪除角色不會自動搬運背包或身上裝備；只有事先存入此倉庫的物品會保留。</footer>
+    </div>
+  </section>
+
+  <section id="legacyWarehouseRescueModal" class="legacy-warehouse-rescue-overlay" role="dialog" aria-modal="true" aria-labelledby="legacyWarehouseRescueTitle" hidden onclick="if(event.target===this) closeLegacyWarehouseRescue()">
+    <div class="legacy-warehouse-rescue-dialog">
+      <header class="legacy-warehouse-rescue-header">
+        <div>
+          <small>V0.9.87C｜Legacy Warehouse Rescue</small>
+          <h2 id="legacyWarehouseRescueTitle">救援舊倉庫</h2>
+          <p id="legacyWarehouseTargetAccount">目標：目前遊戲帳號</p>
+        </div>
+        <button type="button" aria-label="關閉舊倉庫救援" onclick="closeLegacyWarehouseRescue()">×</button>
+      </header>
+      <div class="legacy-warehouse-rescue-warning">
+        <b>安全模式：</b>只掃描舊瀏覽器資料，不會自動覆蓋、不會刪除 localStorage / IndexedDB。確認復原後採「合併」寫入目前雲端倉庫。
+      </div>
+      <p id="legacyWarehouseRescueStatus" class="legacy-warehouse-rescue-status">準備掃描……</p>
+      <div id="legacyWarehouseCandidateList" class="legacy-warehouse-candidate-list"></div>
+      <label class="legacy-warehouse-ownership-confirm">
+        <input id="legacyWarehouseOwnershipConfirm" type="checkbox" onchange="updateLegacyWarehouseRestoreButton()">
+        <span>我確認選中的舊倉庫屬於上方目前登入的 Player ID，並同意合併到目前帳號倉庫。</span>
+      </label>
+      <footer class="legacy-warehouse-rescue-actions">
+        <button id="legacyWarehouseScanButton" type="button" onclick="scanLegacyWarehouseRescue()">重新掃描</button>
+        <button id="legacyWarehouseRestoreButton" type="button" class="primary" disabled onclick="restoreSelectedLegacyWarehouse()">確認合併復原</button>
+      </footer>
     </div>
   </section>
 
@@ -892,7 +919,7 @@
   <script src="./js/mail_runtime.js?v=0.9.87B"></script>
   <script src="./js/auction_runtime.js?v=0.9.87B"></script>
   <script src="./js/newcomer_support_runtime.js?v=0.9.87B"></script>
-  <script src="./js/storage_runtime.js?v=0.9.87B"></script>
+  <script src="./js/storage_runtime.js?v=0.9.87C"></script>
   <script src="./js/rare_item_announcement_runtime.js?v=0.9.87B"></script>
   <script src="./js/refine_runtime.js?v=0.9.87B"></script>
   <script src="./js/enchant_grade_runtime.js?v=0.9.87B"></script>

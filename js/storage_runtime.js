@@ -1,5 +1,5 @@
 //=======================================
-// 帳號共用倉庫 Runtime v0.9.84C
+// 帳號共用倉庫 Runtime v0.9.87C
 // 獨立於角色 SAVE_KEY；只刪除角色時完整保留。
 //=======================================
 (function () {
@@ -54,7 +54,13 @@
 
   function normalizeAccountStorage(raw) {
     const source = raw && typeof raw === "object" && !Array.isArray(raw) ? raw : {};
-    const normalized = { version:1, capacity:STORAGE_CAPACITY, items:[], updatedAt:Number(source.updatedAt || Date.now()) };
+    const normalized = {
+      version:1,
+      capacity:STORAGE_CAPACITY,
+      items:[],
+      updatedAt:Number(source.updatedAt || Date.now()),
+      legacyRescueReceipts:Array.isArray(source.legacyRescueReceipts) ? source.legacyRescueReceipts.slice(-20) : []
+    };
     const stacks = new Map();
     for (const row of Array.isArray(source.items) ? source.items : []) {
       const item = normalizeStorageItem(row);
@@ -327,6 +333,398 @@
     return true;
   }
 
+
+  //=======================================
+  // V0.9.87C Legacy Warehouse Rescue
+  // 掃描舊 localStorage / sessionStorage / IndexedDB 倉庫候選。
+  // 僅在玩家主動開啟救援視窗時執行；不自動覆蓋、不刪除來源資料。
+  //=======================================
+  let legacyWarehouseCandidates = [];
+  let selectedLegacyWarehouseCandidateId = "";
+
+  function rescueHash(text) {
+    let h = 2166136261;
+    const input = String(text || "");
+    for (let i = 0; i < input.length; i += 1) {
+      h ^= input.charCodeAt(i);
+      h = Math.imul(h, 16777619);
+    }
+    return (h >>> 0).toString(36);
+  }
+
+  function isUuidText(value) {
+    return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(String(value || "").trim());
+  }
+
+  function storageObjectHasContent(value) {
+    return Boolean(value && typeof value === "object" && !Array.isArray(value) && Array.isArray(value.items) && value.items.length);
+  }
+
+  function storageObjectLooksLegacy(value, path = "") {
+    if (!storageObjectHasContent(value)) return false;
+    const p = String(path || "").toLowerCase();
+    const capacity = Number(value.capacity || 0);
+    const storageHint = /storage|warehouse|倉庫|account_storage/.test(p);
+    const shapeHint = capacity === 200 || Number(value.version || 0) === 1;
+    const itemHint = value.items.slice(0, 8).some(row => row && typeof row === "object" && ("id" in row || "itemId" in row || "instanceId" in row || "count" in row));
+    return itemHint && (storageHint || shapeHint);
+  }
+
+  function stableLegacyStorage(raw, sourceTag) {
+    const source = raw && typeof raw === "object" && !Array.isArray(raw) ? clone(raw) : {};
+    const rows = Array.isArray(source.items) ? source.items : [];
+    source.items = rows.map((row, index) => {
+      if (!row || typeof row !== "object") return row;
+      if (!isEquipment(row) || row.instanceId || row.uid) return row;
+      const signature = JSON.stringify({
+        id:row.id ?? row.itemId ?? null,
+        refine:row.refine ?? row.refineLevel ?? 0,
+        grade:row.enchantGrade ?? row.grade ?? 0,
+        cards:row.cards ?? row.cardIds ?? row.socketedCards ?? [],
+        enchants:row.enchants ?? row.randomOptions ?? row.options ?? [],
+        createdAt:row.createdAt ?? null,
+        index
+      });
+      return { ...row, instanceId:`legacywh_${rescueHash(`${sourceTag}|${signature}`)}` };
+    });
+    return normalizeAccountStorage(source);
+  }
+
+  function rescueCandidateFingerprint(storage) {
+    const rows = Array.isArray(storage?.items) ? storage.items : [];
+    const compact = rows.map(row => {
+      if (isEquipment(row)) return {
+        kind:"e", id:itemIdOf(row), instanceId:/^legacywh_/.test(String(row.instanceId || "")) ? "" : String(row.instanceId || ""), refine:Number(row.refine || 0), grade:Number(row.enchantGrade || 0),
+        cards:Array.isArray(row.cards) ? row.cards : [], enchants:Array.isArray(row.enchants) ? row.enchants : []
+      };
+      return { kind:"s", id:itemIdOf(row), count:Math.max(1, Math.floor(Number(row.count || 1))) };
+    });
+    return rescueHash(JSON.stringify(compact));
+  }
+
+  function candidateAccountIdFrom(sourceKey, value) {
+    const key = String(sourceKey || "");
+    const match = key.match(/ro_web_account_storage_v2_([0-9a-f-]{20,})/i);
+    if (match) return match[1];
+    const raw = value && typeof value === "object" ? (value.accountId ?? value.account_id ?? value.cloudAccountId ?? "") : "";
+    return String(raw || "").trim();
+  }
+
+  function candidateAllowedForCurrentAccount(sourceKey, value) {
+    const sourceAccountId = candidateAccountIdFrom(sourceKey, value);
+    if (!sourceAccountId || !isUuidText(sourceAccountId)) return { allowed:true, sourceAccountId };
+    const currentId = String(window.ROWebCloudRuntime?.getAccount?.()?.account_id || window.CharacterSlotsRuntime?.getAccount?.()?.accountId || "");
+    return { allowed:sourceAccountId === currentId, sourceAccountId };
+  }
+
+  function collectWarehouseCandidate(output, raw, sourceLabel, sourceKey, path = "") {
+    if (!storageObjectLooksLegacy(raw, `${sourceKey}:${path}`)) return;
+    const accountRule = candidateAllowedForCurrentAccount(sourceKey, raw);
+    const storage = stableLegacyStorage(raw, `${sourceKey}:${path}`);
+    if (!storage.items.length) return;
+    const fingerprint = rescueCandidateFingerprint(storage);
+    const same = output.find(row => row.fingerprint === fingerprint);
+    if (same) {
+      if (!same.sources.includes(sourceLabel)) same.sources.push(sourceLabel);
+      return;
+    }
+    const equipmentCount = storage.items.filter(row => isEquipment(row)).length;
+    const stackRows = storage.items.filter(row => !isEquipment(row));
+    const stackQuantity = stackRows.reduce((sum,row)=>sum + Math.max(1,Math.floor(Number(row.count || 1))),0);
+    const preview = storage.items.slice(0, 12).map(row => {
+      const data = itemDataOf(row);
+      return isEquipment(row) ? compactName(row, data) : `${data?.name || row?.name || `Item ${itemIdOf(row)}`} × ${Math.max(1,Math.floor(Number(row.count || 1)))}`;
+    });
+    output.push({
+      id:`wh_${fingerprint}_${output.length}`,
+      fingerprint,
+      storage,
+      sources:[sourceLabel],
+      sourceKey,
+      sourceAccountId:accountRule.sourceAccountId,
+      allowed:accountRule.allowed,
+      updatedAt:Number(raw.updatedAt || storage.updatedAt || 0),
+      equipmentCount,
+      stackTypeCount:stackRows.length,
+      stackQuantity,
+      preview
+    });
+  }
+
+  function walkWarehouseObjects(root, visitor, options = {}) {
+    const maxDepth = Math.max(1, Number(options.maxDepth || 6));
+    const maxNodes = Math.max(100, Number(options.maxNodes || 5000));
+    const maxArray = Math.max(20, Number(options.maxArray || 300));
+    const seen = new WeakSet();
+    let nodes = 0;
+    const walk = (value, path, depth) => {
+      if (++nodes > maxNodes || depth > maxDepth || value == null) return;
+      if (typeof value === "string") {
+        const text = value.trim();
+        if (text.length >= 2 && text.length <= 10_000_000 && (text[0] === "{" || text[0] === "[")) {
+          try { walk(JSON.parse(text), `${path}:json`, depth + 1); } catch (_) {}
+        }
+        return;
+      }
+      if (typeof value !== "object") return;
+      if (seen.has(value)) return;
+      seen.add(value);
+      try { visitor(value, path); } catch (_) {}
+      if (Array.isArray(value)) {
+        for (let i = 0; i < Math.min(value.length, maxArray); i += 1) walk(value[i], `${path}[${i}]`, depth + 1);
+      } else {
+        for (const [key, child] of Object.entries(value).slice(0, maxArray)) walk(child, `${path}.${key}`, depth + 1);
+      }
+    };
+    walk(root, "$", 0);
+  }
+
+  function readWebStorageForWarehouseRescue(storageArea, areaName, output) {
+    if (!storageArea) return;
+    const activeKey = getStorageKey();
+    for (let i = 0; i < storageArea.length; i += 1) {
+      const key = storageArea.key(i);
+      if (!key || key === activeKey) continue;
+      let parsed = null;
+      try {
+        const text = storageArea.getItem(key);
+        if (!text || text.length > 20_000_000) continue;
+        parsed = JSON.parse(text);
+      } catch (_) { continue; }
+      const directHint = /ro_web_account_storage_v1|ro_web_account_storage_v2_|warehouse|account_storage|migration|backup/i.test(key);
+      if (directHint) collectWarehouseCandidate(output, parsed, `${areaName}｜${key}`, key, "$direct");
+      if (/storage|warehouse|migration|backup|account|save/i.test(key)) {
+        walkWarehouseObjects(parsed, (value,path) => {
+          if (value?.account_storage && typeof value.account_storage === "object") {
+            collectWarehouseCandidate(output, value.account_storage, `${areaName}｜${key}`, key, `${path}.account_storage`);
+          } else if (storageObjectLooksLegacy(value, `${key}:${path}`)) {
+            collectWarehouseCandidate(output, value, `${areaName}｜${key}`, key, path);
+          }
+        }, { maxDepth:6, maxNodes:5000, maxArray:250 });
+      }
+    }
+  }
+
+  async function readIndexedDbWarehouseCandidates(output) {
+    if (!window.indexedDB?.open) return;
+    const names = new Set(["ro_web_offline_save_v1"]);
+    if (typeof indexedDB.databases === "function") {
+      try {
+        const dbs = await indexedDB.databases();
+        for (const info of Array.isArray(dbs) ? dbs : []) {
+          const name = String(info?.name || "");
+          if (name && /(ro[_-]?web|roweb|save|offline|storage|warehouse)/i.test(name)) names.add(name);
+        }
+      } catch (_) {}
+    }
+    for (const dbName of names) {
+      await new Promise(resolve => {
+        let request;
+        try { request = indexedDB.open(dbName); } catch (_) { resolve(); return; }
+        request.onerror = () => resolve();
+        request.onblocked = () => resolve();
+        request.onsuccess = () => {
+          const db = request.result;
+          const stores = Array.from(db.objectStoreNames || []);
+          if (!stores.length) { try { db.close(); } catch (_) {} resolve(); return; }
+          let pending = stores.length;
+          const done = () => { pending -= 1; if (pending <= 0) { try { db.close(); } catch (_) {} resolve(); } };
+          for (const storeName of stores) {
+            let tx, req;
+            try { tx = db.transaction(storeName, "readonly"); req = tx.objectStore(storeName).getAll(); }
+            catch (_) { done(); continue; }
+            req.onsuccess = () => {
+              const rows = Array.isArray(req.result) ? req.result.slice(0, 500) : [];
+              rows.forEach((row, index) => {
+                walkWarehouseObjects(row, (value,path) => {
+                  if (value?.account_storage && typeof value.account_storage === "object") {
+                    collectWarehouseCandidate(output, value.account_storage, `IndexedDB｜${dbName}/${storeName} #${index + 1}`, `${dbName}/${storeName}`, `${path}.account_storage`);
+                  } else if (/storage|warehouse|account_storage/i.test(path) && storageObjectLooksLegacy(value, path)) {
+                    collectWarehouseCandidate(output, value, `IndexedDB｜${dbName}/${storeName} #${index + 1}`, `${dbName}/${storeName}`, path);
+                  }
+                }, { maxDepth:7, maxNodes:6000, maxArray:300 });
+              });
+              done();
+            };
+            req.onerror = done;
+            tx.onabort = done;
+          }
+        };
+      });
+    }
+  }
+
+  function formatRescueTime(ms) {
+    if (!Number.isFinite(Number(ms)) || Number(ms) <= 0) return "時間未知";
+    try { return new Date(Number(ms)).toLocaleString("zh-TW", { hour12:false }); } catch (_) { return "時間未知"; }
+  }
+
+  function updateLegacyWarehouseRestoreButton() {
+    const checkbox = document.getElementById("legacyWarehouseOwnershipConfirm");
+    const button = document.getElementById("legacyWarehouseRestoreButton");
+    const candidate = legacyWarehouseCandidates.find(row => row.id === selectedLegacyWarehouseCandidateId);
+    if (button) button.disabled = !(checkbox?.checked && candidate?.allowed);
+  }
+
+  function selectLegacyWarehouseCandidate(id) {
+    selectedLegacyWarehouseCandidateId = String(id || "");
+    document.querySelectorAll("[data-legacy-warehouse-candidate]").forEach(card => card.classList.toggle("is-selected", card.dataset.legacyWarehouseCandidate === selectedLegacyWarehouseCandidateId));
+    document.querySelectorAll("input[name='legacyWarehouseCandidate']").forEach(input => { input.checked = input.value === selectedLegacyWarehouseCandidateId; });
+    updateLegacyWarehouseRestoreButton();
+    return true;
+  }
+
+  function renderLegacyWarehouseCandidates() {
+    const list = document.getElementById("legacyWarehouseCandidateList");
+    const status = document.getElementById("legacyWarehouseRescueStatus");
+    if (!list) return false;
+    list.innerHTML = "";
+    if (!legacyWarehouseCandidates.length) {
+      list.innerHTML = '<div class="legacy-warehouse-empty">沒有找到有物品的舊倉庫。<br><small>請確認使用的是改雲端前同一台電腦、同一個瀏覽器，且尚未清除網站資料。</small></div>';
+      if (status) status.textContent = "掃描完成：0 個候選。舊資料沒有被修改。";
+      return true;
+    }
+    const current = loadAccountStorage();
+    if (status) status.textContent = `找到 ${legacyWarehouseCandidates.length} 個不同的舊倉庫候選；目前雲端倉庫 ${current.items.length} / ${STORAGE_CAPACITY} 格。請確認內容後再復原。`;
+    legacyWarehouseCandidates.forEach(candidate => {
+      const card = document.createElement("label");
+      card.className = `legacy-warehouse-candidate${candidate.allowed ? "" : " is-blocked"}`;
+      card.dataset.legacyWarehouseCandidate = candidate.id;
+      const radio = document.createElement("input"); radio.type="radio"; radio.name="legacyWarehouseCandidate"; radio.value=candidate.id; radio.disabled=!candidate.allowed;
+      radio.onchange=()=>selectLegacyWarehouseCandidate(candidate.id);
+      const body=document.createElement("div"); body.className="legacy-warehouse-candidate-body";
+      const title=document.createElement("b"); title.textContent=`舊倉庫｜${candidate.equipmentCount} 件裝備＋${candidate.stackTypeCount} 種堆疊道具`;
+      const meta=document.createElement("small");
+      meta.textContent=`${formatRescueTime(candidate.updatedAt)}｜來源 ${candidate.sources.length} 處${candidate.allowed ? "" : "｜其他 Cloud Account，已阻擋"}`;
+      const preview=document.createElement("p"); preview.textContent=candidate.preview.join("、") + (candidate.storage.items.length > candidate.preview.length ? "……" : "");
+      body.append(title,meta,preview);
+      card.append(radio,body);
+      if (candidate.allowed) card.onclick=()=>selectLegacyWarehouseCandidate(candidate.id);
+      list.appendChild(card);
+    });
+    return true;
+  }
+
+  async function scanLegacyWarehouseRescue() {
+    const status = document.getElementById("legacyWarehouseRescueStatus");
+    const scanButton = document.getElementById("legacyWarehouseScanButton");
+    if (scanButton) scanButton.disabled = true;
+    if (status) status.textContent = "正在掃描舊 localStorage / sessionStorage / IndexedDB，請稍候……";
+    selectedLegacyWarehouseCandidateId = "";
+    const output = [];
+    try { readWebStorageForWarehouseRescue(window.localStorage, "localStorage", output); } catch (_) {}
+    try { readWebStorageForWarehouseRescue(window.sessionStorage, "sessionStorage", output); } catch (_) {}
+    try { await readIndexedDbWarehouseCandidates(output); } catch (error) { console.warn("Legacy Warehouse IndexedDB scan failed:", error); }
+    legacyWarehouseCandidates = output.sort((a,b) => Number(b.updatedAt || 0) - Number(a.updatedAt || 0));
+    renderLegacyWarehouseCandidates();
+    const checkbox=document.getElementById("legacyWarehouseOwnershipConfirm"); if (checkbox) checkbox.checked=false;
+    updateLegacyWarehouseRestoreButton();
+    if (scanButton) scanButton.disabled = false;
+    return clone(legacyWarehouseCandidates.map(row => ({ id:row.id, fingerprint:row.fingerprint, equipmentCount:row.equipmentCount, stackTypeCount:row.stackTypeCount, updatedAt:row.updatedAt, sources:row.sources, allowed:row.allowed })));
+  }
+
+  function buildMergedWarehouse(currentRaw, candidate) {
+    const current = normalizeAccountStorage(currentRaw);
+    const incoming = stableLegacyStorage(candidate.storage, `restore:${candidate.fingerprint}`);
+    const receipts = Array.isArray(current.legacyRescueReceipts) ? current.legacyRescueReceipts : [];
+    if (receipts.some(row => String(row?.fingerprint || row) === String(candidate.fingerprint))) {
+      throw new Error("RO_WAREHOUSE_RESCUE_ALREADY_APPLIED");
+    }
+    const merged = clone(current);
+    const equipmentIds = new Set(merged.items.filter(row=>isEquipment(row)).map(row=>String(row.instanceId || "")).filter(Boolean));
+    const stacks = new Map(merged.items.filter(row=>!isEquipment(row)).map(row=>[String(itemIdOf(row)),row]));
+    let addedEquipment = 0;
+    let addedStackTypes = 0;
+    let addedStackQuantity = 0;
+    let skippedEquipment = 0;
+    for (const row of incoming.items) {
+      if (isEquipment(row)) {
+        const instanceId=String(row.instanceId || "");
+        if (instanceId && equipmentIds.has(instanceId)) { skippedEquipment += 1; continue; }
+        merged.items.push(clone(row)); if (instanceId) equipmentIds.add(instanceId); addedEquipment += 1;
+      } else {
+        const id=String(itemIdOf(row));
+        const qty=Math.max(1,Math.floor(Number(row.count || 1)));
+        const target=stacks.get(id);
+        if (target) target.count=Math.max(0,Number(target.count || 0))+qty;
+        else { const copy=clone(row); copy.count=qty; merged.items.push(copy); stacks.set(id,copy); addedStackTypes += 1; }
+        addedStackQuantity += qty;
+      }
+    }
+    if (merged.items.length > STORAGE_CAPACITY) {
+      const error = new Error("RO_WAREHOUSE_RESCUE_CAPACITY");
+      error.requiredSlots = merged.items.length;
+      throw error;
+    }
+    merged.updatedAt = Date.now();
+    merged.legacyRescueReceipts = [...receipts, {
+      fingerprint:candidate.fingerprint,
+      restoredAt:Date.now(),
+      source:candidate.sources[0] || candidate.sourceKey || "legacy",
+      equipment:addedEquipment,
+      stackTypes:addedStackTypes,
+      stackQuantity:addedStackQuantity
+    }].slice(-20);
+    return { merged, addedEquipment, addedStackTypes, addedStackQuantity, skippedEquipment };
+  }
+
+  async function restoreSelectedLegacyWarehouse() {
+    const candidate = legacyWarehouseCandidates.find(row => row.id === selectedLegacyWarehouseCandidateId);
+    const checkbox=document.getElementById("legacyWarehouseOwnershipConfirm");
+    const status=document.getElementById("legacyWarehouseRescueStatus");
+    const button=document.getElementById("legacyWarehouseRestoreButton");
+    if (!candidate || !candidate.allowed || !checkbox?.checked) return false;
+    const cloudAccount = window.ROWebCloudRuntime?.getAccount?.();
+    const playerId = cloudAccount?.player_id || window.CharacterSlotsRuntime?.getAccount?.()?.playerId || "目前帳號";
+    if (!window.confirm(`確認把這份舊倉庫合併到 Player ID ${playerId}？\n\n不會刪除舊瀏覽器資料；如果目前倉庫已有物品會合併，不會整包覆蓋。`)) return false;
+    if (button) button.disabled=true;
+    try {
+      const current=clone(loadAccountStorage());
+      const result=buildMergedWarehouse(current,candidate);
+      if (status) status.textContent="正在寫入目前雲端倉庫並等待 Supabase 確認……";
+      if (cloudAccount?.account_id && window.ROWebCloudRuntime?.saveSharedStorage) {
+        await window.ROWebCloudRuntime.saveSharedStorage(clone(result.merged));
+      }
+      replaceAccountStorage(result.merged,{persist:true});
+      renderStorageWindow();
+      const message=`救援完成：加入 ${result.addedEquipment} 件裝備、${result.addedStackTypes} 種道具（共 ${result.addedStackQuantity} 個）${result.skippedEquipment ? `；略過 ${result.skippedEquipment} 件已存在裝備` : ""}。舊資料仍保留。`;
+      if (status) status.textContent=message;
+      setStorageMessage(message,false);
+      renderLegacyWarehouseCandidates();
+      return true;
+    } catch (error) {
+      console.error("Legacy Warehouse restore failed:", error);
+      let message="舊倉庫復原失敗，原始資料與目前倉庫都沒有被刪除。";
+      if (String(error?.message || error).includes("ALREADY_APPLIED")) message="這份舊倉庫已經成功救援過，系統已阻止再次重複匯入。";
+      else if (String(error?.message || error).includes("CAPACITY")) message=`合併後需要 ${Number(error?.requiredSlots || 0)} 格，但倉庫上限是 ${STORAGE_CAPACITY} 格。請先取出一些物品後再重試。`;
+      else if (error?.message) message += `\n${String(error.message).slice(0,180)}`;
+      if (status) status.textContent=message;
+      if (button) button.disabled=false;
+      return false;
+    } finally {
+      updateLegacyWarehouseRestoreButton();
+    }
+  }
+
+  function openLegacyWarehouseRescue() {
+    const modal=document.getElementById("legacyWarehouseRescueModal");
+    if (!modal) return false;
+    modal.hidden=false; modal.removeAttribute("hidden");
+    document.body?.classList.add("legacy-warehouse-rescue-open");
+    const current=window.ROWebCloudRuntime?.getAccount?.();
+    const accountText=document.getElementById("legacyWarehouseTargetAccount");
+    if (accountText) accountText.textContent=`目標：${current?.account_name || "目前遊戲帳號"}｜Player ID ${current?.player_id || "-"}`;
+    scanLegacyWarehouseRescue();
+    return true;
+  }
+
+  function closeLegacyWarehouseRescue() {
+    const modal=document.getElementById("legacyWarehouseRescueModal");
+    if (modal) { modal.hidden=true; modal.setAttribute("hidden",""); }
+    document.body?.classList.remove("legacy-warehouse-rescue-open");
+    return true;
+  }
+
   function openStorageWindow(npc=null) {
     activeNpc=npc||activeNpc;
     loadAccountStorage();
@@ -353,6 +751,8 @@
     getAccountStorageKey:getStorageKey,
     loadAccountStorage,saveAccountStorage,replaceAccountStorage,normalizeAccountStorage,storageSlotsUsed,
     openStorageWindow,closeStorageWindow,renderStorageWindow,depositStorageItem,withdrawStorageItem,
-    setStorageCategory,getStorageCategory:()=>activeCategory,getAccountStorageSnapshot:()=>clone(loadAccountStorage())
+    setStorageCategory,getStorageCategory:()=>activeCategory,getAccountStorageSnapshot:()=>clone(loadAccountStorage()),
+    openLegacyWarehouseRescue,closeLegacyWarehouseRescue,scanLegacyWarehouseRescue,
+    selectLegacyWarehouseCandidate,restoreSelectedLegacyWarehouse,updateLegacyWarehouseRestoreButton
   });
 })();

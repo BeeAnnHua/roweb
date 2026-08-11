@@ -1,3 +1,8 @@
+## V0.9.87C
+- Legacy Warehouse Rescue：掃描舊瀏覽器倉庫、預覽候選、人工確認後安全合併到雲端倉庫。
+- 不刪來源；阻擋跨 Cloud Account UUID；加入 rescue receipt 防重複復原。
+- 無 SQL 變更。
+
 ## V0.9.87B
 - 正式「拍賣場」入口移至右上功能矩陣第 4 行第 1 格；原第 2 行「拍賣行」預告保留。
 - GitHub Pages / HTTP 不再預載 37 MB data_bundle；file:// 雙擊模式仍完整相容。

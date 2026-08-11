@@ -1,4 +1,16 @@
-# V0.9.87B current baseline
+# V0.9.87C current baseline
+
+## V0.9.87C — Legacy Warehouse Rescue
+- 帳號共用倉庫新增「救援舊倉庫」入口。
+- 主動掃描 localStorage / sessionStorage / IndexedDB 的舊倉庫候選。
+- 不自動覆蓋、不刪除任何舊瀏覽器資料。
+- 玩家確認目前 Player ID 後才允許合併。
+- 裝備保留 instance/refine/cards/enchants；以 instanceId 防止重複。
+- 堆疊道具採數量合併；救援 receipt 防止同一候選重複匯入。
+- 若候選屬於另一個 Supabase Account UUID，前端直接阻擋。
+- 合併前檢查 200 格容量；超過上限整批不寫入。
+- Cloud 帳號先等待 Supabase shared_save 寫入成功，再更新本機倉庫。
+- 無新 SQL；沿用既有 shared_save.account_storage。
 
 ## V0.9.87B — 拍賣場入口定位＋雲端掛機效能／穩定性精修＋根目錄整理
 
