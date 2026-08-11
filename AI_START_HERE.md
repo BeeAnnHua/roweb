@@ -1,3 +1,51 @@
+# V0.9.87G current baseline
+
+## V0.9.87G — Auction sell inventory filters + mail status cleanup + account-switch SLOT isolation
+- Baseline: user-provided V0.9.87F full package (`roweb(9).zip`).
+- Auction `我要上架` inventory adds `消耗品 / 裝備 / 物品 / ↻` controls; initial view remains all items, clicking an active category again returns to all.
+- `物品` covers cards/materials/other non-equipment/non-consumable rows.
+- Removes the persistent mail-claim synchronization explanation from the player-facing footer; anti-duplicate receipts and server reconciliation remain unchanged.
+- Cloud character selector browser profile is now scoped per RO `account_id` (`ro_web_account_profile_v2_<accountId>`), preventing a previous Player ID's cached SLOT 1 from hydrating while a newly selected account is binding.
+- Legacy `ro_web_account_profile_v1` is still mirrored for rescue/backward compatibility but ignored when it belongs to another selected cloud account.
+- Account switching clears stale one-shot character-entry fallback tokens.
+- No Supabase SQL migration required.
+
+# V0.9.87F current baseline
+
+## V0.9.87F — Auction multi-currency fixed-price 12H
+- Baseline: user-provided V0.9.87E full package (`roweb(8).zip`).
+- Auction listing lifetime for new listings is 12 hours (43200 seconds); this is fixed-price, not bidding.
+- Sellers can choose Zeny / Blue Gem / Red Gem as the sale currency.
+- Listing fee keeps the existing 1 / 2 / 3 / 5 tiers but is charged in the selected sale currency.
+- Sale tax remains 5% in the selected sale currency; seller receives 95% via in-game mail.
+- Market adds currency filtering and currency-specific 7-day price statistics.
+- Same-browser account switching uses the active character accountId for auction ownership checks; different Player IDs may trade, same RO account cannot buy its own listing.
+- Distinct purchase errors: sold / expired / reserved / unavailable.
+- Requires new Supabase migration: `supabase/V0.9.87F_AUCTION_MULTI_CURRENCY_12H.sql`.
+- V0.9.87C warehouse rescue, V0.9.87E VIP 15s offline arm, cloud/AFK optimizations and modal HUD isolation are preserved.
+
+# V0.9.87E current baseline
+
+## V0.9.87E — VIP offline arm + 15s/kill + Auction modal HUD isolation
+- Baseline: user-provided V0.9.87D full package (`roweb(7).zip`).
+- VIP offline settlement now requires the same character to have actively started auto battle before leaving the page.
+- Server-side arm/disarm state prevents ordinary logout from receiving offline farming rewards.
+- Offline virtual kill pace: 15 seconds per kill, maximum 1,920 kills over 8 hours.
+- Auction remains on the V0.9.87D 1-minute test configuration.
+- Auction overlay now behaves as a true modal layer and hides right HUD/player card while open.
+- Requires one new Supabase migration: `V0.9.87E_VIP_OFFLINE_ARM_15S.sql`.
+
+# V0.9.87D current baseline
+
+## V0.9.87D — Auction 1-minute closed-loop test
+- Baseline: V0.9.87C.
+- Auction listing lifetime is temporarily controlled server-side at 60 seconds for testing.
+- Auction UI shows second-level countdown.
+- While auction UI is open, a low-frequency 10-second server sweep tick helps expose expiration/return mail quickly.
+- Seller receives 95% Zeny by mail after sale; buyer receives item by mail.
+- This is a TEST duration only. Restore the server config to 86400 seconds after validation.
+- No warehouse/VIP/cloud-performance rollback.
+
 # V0.9.87C current baseline
 
 ## V0.9.87C — Legacy Warehouse Rescue

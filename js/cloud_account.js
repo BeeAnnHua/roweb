@@ -1,6 +1,6 @@
 (function(){
   "use strict";
-  const VERSION="0.9.86R";
+  const VERSION="0.9.87G";
   const SUPABASE_URL="https://ecbnsobcjxnrwqlefjci.supabase.co";
   const SUPABASE_PUBLISHABLE_KEY="sb_publishable_LrQiZeOESpuGnt-hL6m0VQ_zXqn8ehS";
   const SELECTED_ACCOUNT_KEY="roweb_cloud_selected_account_v1";
@@ -37,6 +37,7 @@
   function forceCharacterSelectorNext(){
     try{
       sessionStorage.removeItem("ro_web_character_entry_v1");
+      localStorage.removeItem("ro_web_character_entry_fallback_v1");
       sessionStorage.setItem("ro_web_force_character_selector_v1","1");
     }catch(_){}
     return true;
@@ -64,6 +65,8 @@
   }
   function setSelectedAccount(value){
     const text=String(value||"");
+    try{sessionStorage.removeItem("ro_web_character_entry_v1")}catch(_){}
+    try{localStorage.removeItem("ro_web_character_entry_fallback_v1")}catch(_){}
     let saved=false;
     try{localStorage.setItem(SELECTED_ACCOUNT_KEY,text);saved=true}catch(_){}
     if(!saved){try{sessionStorage.setItem(SELECTED_ACCOUNT_KEY,text);saved=true}catch(_){}}

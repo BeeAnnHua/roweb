@@ -516,6 +516,13 @@ function startAutoBattle() {
 
   autoBattleRunning = true;
   updateAutoBattleQuickToggleState();
+  if (window.VIPRuntime?.setOfflineArm) {
+    void window.VIPRuntime.setOfflineArm(true, {
+      mapId: typeof getAutoBattleCurrentMapId === "function" ? getAutoBattleCurrentMapId() : (player?.map || player?.lastFieldMap || ""),
+      notify: true,
+      reason: "auto-battle-start"
+    });
+  }
   if (typeof resetAutoBattleController === "function") resetAutoBattleController({ running: true, keepTarget: true, reason: "start" });
   player.state = "Searching";
   addBattleLog("開始自動戰鬥。");
@@ -533,6 +540,9 @@ function startAutoBattle() {
 function stopAutoBattle(options = {}) {
   if (options.keepResumePending !== true) window.RO_WEB_AUTO_BATTLE_RESUME_PENDING = false;
   const wasRunning = Boolean(autoBattleRunning || autoBattleTimer || spawnTimer);
+  if (options.preserveOfflineArm !== true && window.VIPRuntime?.setOfflineArm) {
+    void window.VIPRuntime.setOfflineArm(false, { notify: false, reason: options.reason || "auto-battle-stop" });
+  }
   autoBattleRunning = false;
   autoBattleScheduleGeneration += 1;
   updateAutoBattleQuickToggleState();

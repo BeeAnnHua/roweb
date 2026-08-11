@@ -1,5 +1,5 @@
 // ============================================================
-// 彼岸花仙境 / RO_WEB V0.9.86Q
+// 彼岸花仙境 / RO_WEB V0.9.87E
 // VIP V1 Runtime
 // - Base EXP +50%
 // - Job EXP +50%
@@ -9,15 +9,15 @@
 (function(){
   "use strict";
 
-  const VERSION = "0.9.86Q";
+  const VERSION = "0.9.87E";
   const CONFIG = Object.freeze({
     liveBonusPercent: Object.freeze({ baseExp:50, jobExp:50, drop:50, zeny:0 }),
     offline: Object.freeze({
       enabled:true,
       maxHours:8,
       minSecondsToReward:300,
-      secondsPerVirtualKill:60,
-      maxVirtualKills:480,
+      secondsPerVirtualKill:15,
+      maxVirtualKills:1920,
       maxItemUnitsPerClaim:500,
       maxUnitsPerItem:99,
       excludeBoss:true,
@@ -30,6 +30,8 @@
 
   let pendingSummary = null;
   let lastClaim = null;
+  let lastArmState = null;
+  let armRequestChain = Promise.resolve(false);
 
   function n(value, fallback=0){
     const out = Number(value);
@@ -83,7 +85,9 @@
     return data == null ? fallback : data;
   }
 
-  function getOfflineMapId(){
+  function getOfflineMapId(overrideMapId=""){
+    const override = String(overrideMapId || "").trim();
+    if (override) return override;
     const current = String(window.player?.map || "").trim();
     const lastField = String(window.player?.lastFieldMap || "").trim();
     return String(window.player?.currentCity ? (lastField || current) : (current || lastField));
@@ -93,12 +97,12 @@
     return monster?.isBoss === true || monster?.isMvp === true || monster?.isMVP === true || monster?.mvp === true || String(monster?.monsterClass || "").toLowerCase() === "boss";
   }
 
-  function buildEligibleMonsterPool(){
+  function buildEligibleMonsterPool(overrideMapId=""){
     const maps = getBundled("data/maps.json", []);
     const monsterRows = getBundled("data/monsters.json", []);
     if (!Array.isArray(maps) || !Array.isArray(monsterRows)) return { map:null, monsters:[] };
 
-    const mapId = getOfflineMapId();
+    const mapId = getOfflineMapId(overrideMapId);
     const map = maps.find(row => String(row?.id || "") === mapId) || null;
     if (!map || map.noMonster === true || !Array.isArray(map.monsters) || !map.monsters.length) return { map, monsters:[] };
 
@@ -180,11 +184,12 @@
     }
   }
 
-  function calculateOfflineRewards(seconds){
+  function calculateOfflineRewards(seconds, options={}){
+    const overrideMapId = String(options?.mapId || "").trim();
     const eligibleSeconds = Math.max(0, Math.min(n(seconds,0), CONFIG.offline.maxHours*3600));
-    if (eligibleSeconds < CONFIG.offline.minSecondsToReward) return { seconds:eligibleSeconds, kills:0, baseExp:0, jobExp:0, zeny:0, items:[], mapName:"", mapId:getOfflineMapId() };
-    const source = buildEligibleMonsterPool();
-    if (!source.monsters.length) return { seconds:eligibleSeconds, kills:0, baseExp:0, jobExp:0, zeny:0, items:[], mapName:source.map?.name || "", mapId:source.map?.id || getOfflineMapId(), reason:"NO_ELIGIBLE_MONSTERS" };
+    if (eligibleSeconds < CONFIG.offline.minSecondsToReward) return { seconds:eligibleSeconds, kills:0, baseExp:0, jobExp:0, zeny:0, items:[], mapName:"", mapId:getOfflineMapId(overrideMapId) };
+    const source = buildEligibleMonsterPool(overrideMapId);
+    if (!source.monsters.length) return { seconds:eligibleSeconds, kills:0, baseExp:0, jobExp:0, zeny:0, items:[], mapName:source.map?.name || "", mapId:source.map?.id || getOfflineMapId(overrideMapId), reason:"NO_ELIGIBLE_MONSTERS" };
 
     const kills = Math.min(CONFIG.offline.maxVirtualKills, Math.floor(eligibleSeconds / CONFIG.offline.secondsPerVirtualKill));
     let baseExp = 0, jobExp = 0, zeny = 0;
@@ -206,7 +211,7 @@
       items:[...items.values()].filter(row => row.qty>0).sort((a,b)=>b.qty-a.qty || a.id-b.id),
       itemUnits:itemState.units,
       mapName:String(source.map?.name || source.map?.displayName || source.map?.id || "未知地圖"),
-      mapId:String(source.map?.id || getOfflineMapId())
+      mapId:String(source.map?.id || getOfflineMapId(overrideMapId))
     };
   }
 
@@ -270,7 +275,7 @@
           <div><span>虛擬擊殺</span><b id="vipOfflineKills">0</b></div>
         </div>
         <div id="vipOfflineItems" class="vip-offline-items"></div>
-        <small class="vip-offline-note">VIP V1：同一 Player ID 共用最多 8 小時；一般掉落不含 MVP、卡片、轉蛋與地圖限定特殊掉落。</small>
+        <small class="vip-offline-note">VIP V1：需在野外開啟掛機後離線；每 15 秒 1 次虛擬擊殺、最多 8 小時；一般掉落不含 MVP、卡片、轉蛋與地圖限定特殊掉落。</small>
         <button id="vipOfflineClose" type="button">收下收益</button>
       </div>`;
     document.body.appendChild(overlay);
@@ -283,7 +288,7 @@
     const overlay = document.getElementById("vipOfflineRewardOverlay");
     if (!overlay) return false;
     const set = (id,text)=>{const node=document.getElementById(id); if(node) node.textContent=text;};
-    set("vipOfflineRewardMeta",`${summary.mapName || "野外地圖"}｜離線 ${formatDuration(summary.seconds)}｜VIP 最多結算 8 小時`);
+    set("vipOfflineRewardMeta",`${summary.mapName || "野外地圖"}｜離線 ${formatDuration(summary.seconds)}｜15 秒 / 隻｜VIP 最多結算 8 小時`);
     set("vipOfflineBaseExp",Number(summary.baseExp||0).toLocaleString());
     set("vipOfflineJobExp",Number(summary.jobExp||0).toLocaleString());
     set("vipOfflineZeny",Number(summary.zeny||0).toLocaleString());
@@ -298,6 +303,45 @@
     overlay.hidden = false;
     document.body.classList.add("vip-offline-open");
     return true;
+  }
+
+  async function performOfflineArm(enabled, options={}){
+    const row = account();
+    if (!row?.account_id) return false;
+    const wantEnabled = enabled === true;
+    if (wantEnabled && !isActiveAccount(row)) return false;
+    const context = window.CharacterSlotsRuntime?.getActiveContext?.() || {};
+    if (!context.characterId) return false;
+    const client = window.ROWebCloudRuntime?.getClient?.();
+    if (!client?.rpc) return false;
+    const mapId = getOfflineMapId(options?.mapId || "");
+    try {
+      const {data,error} = await client.rpc("ro_vip_set_offline_arm", {
+        p_account_id:String(row.account_id),
+        p_character_id:String(context.characterId),
+        p_enabled:wantEnabled,
+        p_map_id:wantEnabled ? mapId : null
+      });
+      if (error) throw error;
+      lastArmState = data && typeof data === "object" ? data : { armed:wantEnabled, map_id:mapId };
+      if (options?.notify === true && typeof window.addBattleLog === "function" && wantEnabled && lastArmState?.armed === true) {
+        window.addBattleLog("VIP 離線掛機已登記：保持掛機狀態離線後，將以每 15 秒 1 隻計算收益。");
+      }
+      return lastArmState?.armed === wantEnabled || (!wantEnabled && lastArmState?.armed !== true);
+    } catch (error) {
+      console.warn(`VIP 離線掛機${wantEnabled ? "登記" : "解除"}失敗。`, error);
+      if (wantEnabled && options?.notify === true && typeof window.addBattleLog === "function") {
+        window.addBattleLog("VIP 離線掛機登記失敗；本次若直接離線將不計算離線收益，請確認網路後重新開啟掛機。");
+      }
+      return false;
+    }
+  }
+
+  function setOfflineArm(enabled, options={}){
+    armRequestChain = armRequestChain
+      .catch(()=>false)
+      .then(()=>performOfflineArm(enabled, options));
+    return armRequestChain;
   }
 
   async function claimOfflineWindow(){
@@ -319,9 +363,9 @@
     try {
       const claim = await claimOfflineWindow();
       lastClaim = claim;
-      if (!claim || claim.vip_active !== true) return null;
+      if (!claim || claim.vip_active !== true || claim.offline_armed !== true || claim.claim_allowed !== true) return null;
       const seconds = Math.max(0,n(claim.offline_seconds,0));
-      const summary = calculateOfflineRewards(seconds);
+      const summary = calculateOfflineRewards(seconds, {mapId:claim.map_id});
       if (!summary || summary.kills <= 0) return summary;
       grantOfflineRewards(summary);
       pendingSummary = summary;
@@ -360,6 +404,8 @@
     calculateOfflineRewards,
     claimAndGrantOfflineRewards,
     showSummary,
-    getLastClaim:()=>lastClaim ? {...lastClaim} : null
+    setOfflineArm,
+    getLastClaim:()=>lastClaim ? {...lastClaim} : null,
+    getLastArmState:()=>lastArmState ? {...lastArmState} : null
   });
 })();

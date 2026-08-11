@@ -13,7 +13,7 @@ let expTables = null;
 let clientItemDisplayData = null;
 let currentMap = null;
 
-const RO_WEB_VERSION = "0.9.87B";
+const RO_WEB_VERSION = "0.9.87E";
 
 function normalizeDataPath(path) {
   return String(path || "")
@@ -68,7 +68,7 @@ window.addEventListener("unhandledrejection", event => {
   console.error("Unhandled Promise rejection:", event?.reason);
 });
 window.addEventListener("pagehide", () => {
-  if (typeof stopAutoBattle === "function") stopAutoBattle({ silent: true });
+  if (typeof stopAutoBattle === "function") stopAutoBattle({ silent: true, preserveOfflineArm: true, reason: "pagehide" });
   if (typeof stopPlayerRecoveryLoop === "function") stopPlayerRecoveryLoop();
   if (typeof stopGroundRuntimeLoop === "function") stopGroundRuntimeLoop();
   if (typeof stopCombatResourceLoop === "function") stopCombatResourceLoop();

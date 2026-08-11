@@ -3,7 +3,7 @@
 // ============================================================
 (function(){
   "use strict";
-  const VERSION="0.9.87A";
+  const VERSION="0.9.87G";
   const REFRESH_MS=60000;
   let mails=[];
   let selectedMailId="";
@@ -29,6 +29,8 @@
     if(/RO_ACCOUNT_PERMISSION_DENIED/i.test(raw))return "目前遊戲帳號沒有此信箱的操作權限。";
     if(/RO_GM_PERMISSION_DENIED/i.test(raw))return "目前遊戲帳號沒有 GM CENTER 權限。";
     if(/permission|denied|JWT|session/i.test(raw))return "登入權限已失效，請重新登入。";
+    if(/RO_MAIL_CLAIM_SYNC_PENDING/i.test(raw))return "";
+    if(/附件已安全保存於本機，但雲端尚未驗證完成|附件已加入角色資料，但本機存檔驗證失敗/i.test(raw))return "";
     if(/fetch|network/i.test(raw))return "目前無法連線到信箱伺服器。";
     return raw;
   }
@@ -296,14 +298,14 @@
     // V0.9.85I: reward and local receipt are already committed to the active character in memory.
     // Hide attachment rows / claim button NOW; cloud verification continues below.
     render();
-    if(el("mailStatus"))el("mailStatus").textContent="附件已領取，正在同步雲端存檔…";
+    if(el("mailStatus"))el("mailStatus").textContent="";
     const saveOk=await window.ROWebSaveManager?.saveAndWait?.({reason:`mail-claim:${mailId}`,forceWriter:true,durableDelayMs:0});
     const saveState=window.ROWebSaveManager?.getState?.()||{};
-    if(!saveOk)throw new Error("附件已加入角色資料，但本機存檔驗證失敗；請勿重新整理，稍後再按一次領取附件。");
-    if(saveState.lastManualCloudVerified!==true)throw new Error("附件已安全保存於本機，但雲端尚未驗證完成；請保持連線後再按一次領取附件，系統不會重複發放。");
+    if(!saveOk)throw new Error("RO_MAIL_CLAIM_SYNC_PENDING");
+    if(saveState.lastManualCloudVerified!==true)throw new Error("RO_MAIL_CLAIM_SYNC_PENDING");
     const {data:finalized,error:finalizeError}=await api.rpc("ro_mail_finalize_claim",{p_account_id:String(acct.account_id),p_mail_id:String(mailId),p_claim_token:String(payload.claim_token)});
     if(finalizeError)throw finalizeError;
-    if(!finalized)throw new Error("附件已存檔，但伺服器尚未完成領取標記；再次按領取即可安全續接，不會重複發放。");
+    if(!finalized)throw new Error("RO_MAIL_CLAIM_SYNC_PENDING");
 
     const claimedAt=new Date().toISOString();
     confirmedClaimedIds.set(String(mailId),claimedAt);
@@ -324,7 +326,7 @@
     const button=el("mailClaimButton"); if(button){button.disabled=true;button.textContent="領取中…";}
     try{
       await claimMailCore(mailId,{refreshAfter:true});
-      if(el("mailStatus"))el("mailStatus").textContent="附件領取完成，角色雲端存檔已驗證。";
+      if(el("mailStatus"))el("mailStatus").textContent="";
     }catch(error){
       console.error("Mail claim failed:",error);
       if(el("mailStatus"))el("mailStatus").textContent=friendly(error);

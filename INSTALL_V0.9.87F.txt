@@ -1,0 +1,12 @@
+彼岸花仙境 RO_WEB V0.9.87F 安裝
+
+基準：V0.9.87E / roweb(8).zip
+
+1. Supabase SQL Editor -> New query
+2. 執行 supabase/V0.9.87F_AUCTION_MULTI_CURRENCY_12H.sql
+3. 確認結果 status = V0.9.87F_AUCTION_MULTI_CURRENCY_12H_READY，listing_duration_seconds = 43200
+4. 再覆蓋 V0.9.87F Patch 檔案到目前 roweb。
+
+舊 V0.9.87A / D / E SQL 不需重跑。
+既有 active 商品保留原本 expires_at；只有新上架商品套用 12H。
+不要清除 localStorage / IndexedDB。

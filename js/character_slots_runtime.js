@@ -6,8 +6,10 @@
 (function () {
   "use strict";
 
-  const VERSION = "0.9.86P";
+  const VERSION = "0.9.87G";
   const ACCOUNT_KEY = "ro_web_account_profile_v1";
+  const ACCOUNT_SCOPED_PREFIX = "ro_web_account_profile_v2_";
+  const SELECTED_CLOUD_ACCOUNT_KEY = "roweb_cloud_selected_account_v1";
   const LEGACY_SAVE_KEY = "ro_web_save_v0_9_19_ui_scroll_quickbar";
   const SLOT_SAVE_PREFIX = "ro_web_character_save_v1_";
   const SESSION_ENTRY_KEY = "ro_web_character_entry_v1";
@@ -65,6 +67,53 @@
       console.error(`寫入 ${key} 失敗：`, error);
       return false;
     }
+  }
+
+  function selectedCloudAccountId() {
+    try {
+      return String(localStorage.getItem(SELECTED_CLOUD_ACCOUNT_KEY)
+        || sessionStorage.getItem(SELECTED_CLOUD_ACCOUNT_KEY)
+        || "").trim();
+    } catch (_) {
+      try { return String(sessionStorage.getItem(SELECTED_CLOUD_ACCOUNT_KEY) || "").trim(); }
+      catch (_) { return ""; }
+    }
+  }
+
+  function scopedAccountKey(accountId) {
+    const id = String(accountId || "").trim();
+    return id ? `${ACCOUNT_SCOPED_PREFIX}${id}` : "";
+  }
+
+  function makeCloudBindingPlaceholder(accountId) {
+    const createdAt = now();
+    return {
+      schema: ACCOUNT_SCHEMA,
+      version: 1,
+      appVersion: VERSION,
+      accountId:String(accountId || ""),
+      slotLimit:DEFAULT_SLOT_LIMIT,
+      activeCharacterId:"",
+      createdAt,
+      updatedAt:createdAt,
+      cloud:{ enabled:true, provider:"supabase", lastSyncAt:0, status:"binding" },
+      characters:[],
+      legacyMigration:null
+    };
+  }
+
+  function readAccountProfileForSelectedCloudAccount() {
+    const selected = selectedCloudAccountId();
+    if (!selected) return readJson(ACCOUNT_KEY, null);
+
+    const scoped = readJson(scopedAccountKey(selected), null);
+    if (scoped && String(scoped.accountId || "") === selected) return scoped;
+
+    const legacy = readJson(ACCOUNT_KEY, null);
+    if (legacy && String(legacy.accountId || "") === selected) return legacy;
+
+    // Never hydrate a different Player ID's cached SLOT 1 while Supabase is binding.
+    return makeCloudBindingPlaceholder(selected);
   }
 
   function sanitizeName(value) {
@@ -202,7 +251,13 @@
     if (!account) return false;
     account.updatedAt = now();
     account.appVersion = VERSION;
-    return writeJson(ACCOUNT_KEY, account);
+    const cloudId = account.cloud?.enabled === true ? String(account.accountId || "").trim() : "";
+    let scopedOk = true;
+    if (cloudId) scopedOk = writeJson(scopedAccountKey(cloudId), account);
+    // Keep the legacy mirror for rescue/backward compatibility. Cloud boot reads the
+    // account-scoped copy first and ignores a mirror belonging to another Player ID.
+    const legacyOk = writeJson(ACCOUNT_KEY, account);
+    return Boolean(scopedOk || legacyOk);
   }
 
   function findCharacter(characterId) {
@@ -346,7 +401,7 @@
   }
 
   function loadAccount() {
-    account = normalizeAccount(readJson(ACCOUNT_KEY, null));
+    account = normalizeAccount(readAccountProfileForSelectedCloudAccount());
     migrateLegacySaveIfNeeded();
     refreshSummariesFromLocalStorage();
     saveAccount();
