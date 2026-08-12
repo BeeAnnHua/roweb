@@ -24556,3 +24556,61 @@ body.ro-offline-mode #mailQuickButton{
     grid-template-columns: 1fr !important;
   }
 }
+
+
+/* ============================================================
+   RO_WEB V0.9.87L — Game Settings close + compact size control
+   - [hidden] always wins over the floating-window display rule.
+   - One compact 小/中/大 cycle button replaces the 3-button group.
+   ============================================================ */
+#rightHudAccountMenu[hidden],
+#rightHudAccountMenu.right-hud-account-menu[hidden] {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+#rightHudAccountMenu .right-hud-account-size-controls { display:none !important; }
+#rightHudAccountMenu .right-hud-account-size-cycle,
+#rightHudAccountMenu .right-hud-account-menu-close {
+  appearance:none !important;
+  -webkit-appearance:none !important;
+  display:inline-grid !important;
+  place-items:center !important;
+  box-sizing:border-box !important;
+  height:25px !important;
+  min-height:25px !important;
+  margin:0 !important;
+  padding:0 7px !important;
+  border:1px solid #755222 !important;
+  border-radius:7px !important;
+  background:linear-gradient(180deg,rgba(61,40,16,.94),rgba(27,17,8,.98)) !important;
+  color:#edc66b !important;
+  box-shadow:inset 0 1px 0 rgba(255,226,147,.08) !important;
+  font:900 10px/1 "Microsoft JhengHei","Segoe UI",sans-serif !important;
+  cursor:pointer !important;
+  flex:0 0 auto !important;
+}
+#rightHudAccountMenu .right-hud-account-size-cycle {
+  width:27px !important;
+  min-width:27px !important;
+  padding:0 !important;
+  color:#ffe29a !important;
+}
+#rightHudAccountMenu .right-hud-account-menu-close {
+  width:27px !important;
+  min-width:27px !important;
+  padding:0 !important;
+  font-size:15px !important;
+  line-height:1 !important;
+}
+#rightHudAccountMenu .right-hud-account-size-cycle:hover,
+#rightHudAccountMenu .right-hud-account-size-cycle:focus-visible,
+#rightHudAccountMenu .right-hud-account-menu-close:hover,
+#rightHudAccountMenu .right-hud-account-menu-close:focus-visible {
+  border-color:#c49235 !important;
+  color:#fff0ae !important;
+  filter:brightness(1.14) !important;
+}
+#rightHudAccountMenu .right-hud-account-window-controls {
+  gap:4px !important;
+}

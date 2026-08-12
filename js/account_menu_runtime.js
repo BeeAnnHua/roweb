@@ -8,7 +8,7 @@
 (function(){
   "use strict";
 
-  const VERSION = "0.9.87K";
+  const VERSION = "0.9.87L";
   const $ = id => document.getElementById(id);
   const UI_STATE_KEY = "ro_web_account_menu_ui_v1";
   const VALID_SIZES = new Set(["small","medium","large"]);
@@ -60,16 +60,23 @@
     return true;
   }
 
+  function sizeLabel(size){
+    return size === "small" ? "小" : (size === "large" ? "大" : "中");
+  }
+
   function applySize(size, persist=true){
     const menu = $("rightHudAccountMenu");
     if (!menu) return false;
     const next = VALID_SIZES.has(String(size)) ? String(size) : "medium";
     menu.dataset.size = next;
-    menu.querySelectorAll("[data-account-menu-size]").forEach(button => {
-      const active = button.dataset.accountMenuSize === next;
-      button.classList.toggle("is-active", active);
-      button.setAttribute("aria-pressed", active ? "true" : "false");
-    });
+    const cycle = $("accountMenuSizeCycle");
+    if (cycle) {
+      const label = sizeLabel(next);
+      cycle.textContent = label;
+      cycle.setAttribute("aria-label", `切換視窗大小，目前${label}`);
+      cycle.setAttribute("title", `視窗大小：${label}（點擊切換小／中／大）`);
+      cycle.dataset.currentSize = next;
+    }
     if (persist) {
       uiState.size = next;
       saveUiState();
@@ -78,6 +85,14 @@
       if (uiState.x != null && uiState.y != null) applyPosition(uiState.x, uiState.y, false);
     });
     return true;
+  }
+
+  function cycleSize(){
+    const menu = $("rightHudAccountMenu");
+    if (!menu) return false;
+    const current = VALID_SIZES.has(menu.dataset.size) ? menu.dataset.size : "medium";
+    const next = current === "small" ? "medium" : (current === "medium" ? "large" : "small");
+    return applySize(next, true);
   }
 
   function restoreWindowUi(){
@@ -291,12 +306,10 @@
     });
     $("rightHudCollapseToggle")?.addEventListener("click", () => close());
 
-    menu.querySelectorAll("[data-account-menu-size]").forEach(sizeButton => {
-      sizeButton.addEventListener("click", event => {
-        event.preventDefault();
-        event.stopPropagation();
-        applySize(sizeButton.dataset.accountMenuSize, true);
-      });
+    $("accountMenuSizeCycle")?.addEventListener("click", event => {
+      event.preventDefault();
+      event.stopPropagation();
+      cycleSize();
     });
 
     if (handle) {

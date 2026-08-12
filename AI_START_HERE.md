@@ -1,3 +1,9 @@
+
+## V0.9.87L — 遊戲設定視窗控制修正
+- 修正浮動遊戲設定視窗右上角 X 因 CSS `display: flex !important` 覆蓋 `[hidden]` 而無法真正關閉。
+- 尺寸控制改成單一緊湊按鈕，顯示目前「小／中／大」，點擊循環切換。
+- 完整保留 V0.9.87K 以及 J/I 的 OFFLINE、MVP 記憶體、拍賣、VIP、倉庫、信箱功能。
+
 # V0.9.87K current baseline
 
 ## V0.9.87K — draggable Game Settings window / auction entry cleanup

@@ -15,7 +15,7 @@
   <meta name="twitter:description" content="&#8203;">
   <link rel="icon" type="image/svg+xml" href="images/ui/brand/sakura_emblem.svg?v=0.9.84C">
   <link rel="preload" as="image" type="image/webp" href="images/ui/character_select_background.webp?v=0.9.84C">
-  <link rel="stylesheet" href="css/style.css?v=0.9.87K">
+  <link rel="stylesheet" href="css/style.css?v=0.9.87L">
   <link rel="stylesheet" href="css/auction.css?v=0.9.87G">
 </head>
 
@@ -122,12 +122,8 @@
             <div class="right-hud-account-title"><small>角色與帳號</small><b>遊戲設定</b></div>
             <div class="right-hud-account-window-controls">
               <span id="accountMenuRole" class="right-hud-account-role">PLAYER</span>
-              <div class="right-hud-account-size-controls" role="group" aria-label="視窗大小">
-                <button type="button" data-account-menu-size="small" title="小視窗">小</button>
-                <button type="button" data-account-menu-size="medium" title="中視窗">中</button>
-                <button type="button" data-account-menu-size="large" title="大視窗">大</button>
-              </div>
-              <button id="rightHudAccountMenuClose" class="right-hud-account-menu-close" type="button" aria-label="關閉遊戲設定" title="關閉">×</button>
+              <button id="accountMenuSizeCycle" class="right-hud-account-size-cycle" type="button" aria-label="切換視窗大小，目前中" title="視窗大小：中（點擊切換小／中／大）">中</button>
+              <button id="rightHudAccountMenuClose" class="right-hud-account-menu-close" type="button" aria-label="關閉遊戲設定" title="關閉" onclick="ROWebAccountMenu?.close?.()">×</button>
             </div>
           </header>
           <div id="rightHudAccountMenuScroll" class="right-hud-account-scroll">
@@ -146,7 +142,7 @@
               <button type="button" onclick="ROWebCloudRuntime?.openLegacyCharacterRescue?.()"><span aria-hidden="true">↺</span><b>救援舊角色</b><small>重新掃描本機舊角色資料</small></button>
               <button type="button" class="is-danger" onclick="ROWebAccountMenu?.signOut?.()"><span aria-hidden="true">↪</span><b>登出帳號</b><small>安全同步後登出</small></button>
             </div>
-            <footer>角色與帳號相關設定集中於此；視窗可拖曳，並可切換小／中／大尺寸。</footer>
+            <footer>角色與帳號相關設定集中於此；視窗可拖曳；右上尺寸鍵可循環切換小／中／大。</footer>
           </div>
         </section>
       </div>
@@ -975,7 +971,7 @@
   <script src="./js/enchant_material_exchange_runtime.js?v=0.9.87J"></script>
   <script src="./js/town.js?v=0.9.87B"></script>
   <script src="./js/ui.js?v=0.9.87B"></script>
-  <script src="./js/account_menu_runtime.js?v=0.9.87K"></script>
+  <script src="./js/account_menu_runtime.js?v=0.9.87L"></script>
   <script src="./js/quick_slots.js?v=0.9.87B"></script>
   <script src="./js/chat_runtime.js?v=0.9.87J"></script>
   <script src="./js/game.js?v=0.9.87J"></script>
