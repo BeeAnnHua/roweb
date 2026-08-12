@@ -15,7 +15,7 @@
   <meta name="twitter:description" content="&#8203;">
   <link rel="icon" type="image/svg+xml" href="images/ui/brand/sakura_emblem.svg?v=0.9.84C">
   <link rel="preload" as="image" type="image/webp" href="images/ui/character_select_background.webp?v=0.9.84C">
-  <link rel="stylesheet" href="css/style.css?v=0.9.87J">
+  <link rel="stylesheet" href="css/style.css?v=0.9.87K">
   <link rel="stylesheet" href="css/auction.css?v=0.9.87G">
 </head>
 
@@ -102,13 +102,12 @@
             <button class="ui-toggle" data-target="town-window">城鎮傳送</button>
             <button class="ui-toggle" data-target="status-window">素質配點</button>
             <button class="ui-toggle" data-target="skill-window">技能配點</button>
-            <button class="quick-coming-soon" type="button" onclick="window.ROGoldUI?.alert?.('拍賣行功能目前尚未開放。',{title:'功能預告'})">拍賣行</button>
+            <button id="auctionMarketQuickButton" type="button" onclick="window.ROAuctionRuntime?.open?.('market')">拍賣行</button>
             <button class="quick-coming-soon" type="button" onclick="window.ROGoldUI?.alert?.('活動功能目前尚未開放。',{title:'功能預告'})">活動</button>
             <button id="mailQuickButton" class="ui-toggle mail-quick-button" data-target="mail-window">信箱<span id="mailUnreadBadge" class="mail-unread-badge" hidden>0</span></button>
             <button class="ui-toggle" data-target="hunting-stats-panel">統計</button>
             <button class="ui-toggle" data-target="virtual-summon-window">召喚物</button>
             <button class="ui-toggle" data-target="auto-combat-panel">掛機設定</button>
-            <button id="auctionMarketQuickButton" type="button" onclick="window.ROAuctionRuntime?.open?.('market')">拍賣場</button>
           </div>
         </div>
         <div class="right-hud-action-row">
@@ -118,27 +117,37 @@
             <span class="auto-battle-energy-icon" aria-hidden="true">✦</span><span class="auto-battle-label">掛機</span>
           </button>
         </div>
-        <section id="rightHudAccountMenu" class="right-hud-account-menu" role="dialog" aria-label="遊戲設定" hidden>
-          <header class="right-hud-account-menu-head">
-            <div><small>角色與帳號</small><b>遊戲設定</b></div>
-            <span id="accountMenuRole" class="right-hud-account-role">PLAYER</span>
+        <section id="rightHudAccountMenu" class="right-hud-account-menu" data-size="medium" role="dialog" aria-label="遊戲設定" aria-modal="false" hidden>
+          <header id="rightHudAccountMenuDragHandle" class="right-hud-account-menu-head" title="拖曳移動視窗">
+            <div class="right-hud-account-title"><small>角色與帳號</small><b>遊戲設定</b></div>
+            <div class="right-hud-account-window-controls">
+              <span id="accountMenuRole" class="right-hud-account-role">PLAYER</span>
+              <div class="right-hud-account-size-controls" role="group" aria-label="視窗大小">
+                <button type="button" data-account-menu-size="small" title="小視窗">小</button>
+                <button type="button" data-account-menu-size="medium" title="中視窗">中</button>
+                <button type="button" data-account-menu-size="large" title="大視窗">大</button>
+              </div>
+              <button id="rightHudAccountMenuClose" class="right-hud-account-menu-close" type="button" aria-label="關閉遊戲設定" title="關閉">×</button>
+            </div>
           </header>
-          <div class="right-hud-account-identity">
-            <div><span>玩家 UID <small>Player ID</small></span><b id="accountMenuPlayerId">—</b></div>
-            <div><span>角色名稱</span><b id="accountMenuCharacterName">尚未進入角色</b></div>
-            <div><span>遊戲帳號</span><b id="accountMenuAccountName">—</b></div>
-            <div><span>VIP 會員</span><b id="accountMenuVip">未啟用</b></div>
+          <div id="rightHudAccountMenuScroll" class="right-hud-account-scroll">
+            <div class="right-hud-account-identity">
+              <div><span>玩家 UID <small>Player ID</small></span><b id="accountMenuPlayerId">—</b></div>
+              <div><span>角色名稱</span><b id="accountMenuCharacterName">尚未進入角色</b></div>
+              <div><span>遊戲帳號</span><b id="accountMenuAccountName">—</b></div>
+              <div><span>VIP 會員</span><b id="accountMenuVip">未啟用</b></div>
+            </div>
+            <div class="right-hud-account-actions">
+              <button id="accountMenuSaveButton" type="button" onclick="ROWebAccountMenu?.saveNow?.()"><span aria-hidden="true">▣</span><b>手動存檔</b><small>同步目前角色與帳號倉庫</small></button>
+              <button id="accountMenuOfflineButton" type="button" onclick="ROWebAccountMenu?.toggleOfflineMode?.()"><span aria-hidden="true">◉</span><b>切換本地遊玩</b><small>網路不穩時可在本機繼續掛機與練功</small></button>
+              <button type="button" onclick="ROWebAccountMenu?.renameCharacter?.()"><span aria-hidden="true">✎</span><b>更改角色名稱</b><small>修改目前角色顯示名稱</small></button>
+              <button type="button" onclick="ROWebAccountMenu?.switchCharacter?.()"><span aria-hidden="true">♟</span><b>切換人物</b><small>返回角色選擇</small></button>
+              <button type="button" onclick="ROWebAccountMenu?.switchAccount?.()"><span aria-hidden="true">⇄</span><b>切換帳號</b><small>選擇其他 Player ID</small></button>
+              <button type="button" onclick="ROWebCloudRuntime?.openLegacyCharacterRescue?.()"><span aria-hidden="true">↺</span><b>救援舊角色</b><small>重新掃描本機舊角色資料</small></button>
+              <button type="button" class="is-danger" onclick="ROWebAccountMenu?.signOut?.()"><span aria-hidden="true">↪</span><b>登出帳號</b><small>安全同步後登出</small></button>
+            </div>
+            <footer>角色與帳號相關設定集中於此；視窗可拖曳，並可切換小／中／大尺寸。</footer>
           </div>
-          <div class="right-hud-account-actions">
-            <button id="accountMenuSaveButton" type="button" onclick="ROWebAccountMenu?.saveNow?.()"><span aria-hidden="true">▣</span><b>手動存檔</b><small>同步目前角色與帳號倉庫</small></button>
-            <button id="accountMenuOfflineButton" type="button" onclick="ROWebAccountMenu?.toggleOfflineMode?.()"><span aria-hidden="true">◉</span><b>切換本地遊玩</b><small>網路不穩時可在本機繼續掛機與練功</small></button>
-            <button type="button" onclick="ROWebAccountMenu?.renameCharacter?.()"><span aria-hidden="true">✎</span><b>更改角色名稱</b><small>修改目前角色顯示名稱</small></button>
-            <button type="button" onclick="ROWebAccountMenu?.switchCharacter?.()"><span aria-hidden="true">♟</span><b>切換人物</b><small>返回角色選擇</small></button>
-            <button type="button" onclick="ROWebAccountMenu?.switchAccount?.()"><span aria-hidden="true">⇄</span><b>切換帳號</b><small>選擇其他 Player ID</small></button>
-            <button type="button" onclick="ROWebCloudRuntime?.openLegacyCharacterRescue?.()"><span aria-hidden="true">↺</span><b>救援舊角色</b><small>重新掃描本機舊角色資料</small></button>
-            <button type="button" class="is-danger" onclick="ROWebAccountMenu?.signOut?.()"><span aria-hidden="true">↪</span><b>登出帳號</b><small>安全同步後登出</small></button>
-          </div>
-          <footer>角色與帳號相關設定集中於此；後續兌換碼與其他功能可繼續擴充。</footer>
         </section>
       </div>
 
@@ -966,7 +975,7 @@
   <script src="./js/enchant_material_exchange_runtime.js?v=0.9.87J"></script>
   <script src="./js/town.js?v=0.9.87B"></script>
   <script src="./js/ui.js?v=0.9.87B"></script>
-  <script src="./js/account_menu_runtime.js?v=0.9.87J"></script>
+  <script src="./js/account_menu_runtime.js?v=0.9.87K"></script>
   <script src="./js/quick_slots.js?v=0.9.87B"></script>
   <script src="./js/chat_runtime.js?v=0.9.87J"></script>
   <script src="./js/game.js?v=0.9.87J"></script>

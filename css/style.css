@@ -24362,3 +24362,197 @@ body.ro-offline-mode #mailQuickButton{
     font-size:10px;
 }
 }
+
+
+/* ============================================================
+   RO_WEB V0.9.87K — draggable / resizable Game Settings window
+   - Independent floating window instead of an overlong HUD dropdown.
+   - Small / medium / large presets, persistent position and size.
+   - Header stays visible; content owns its own vertical scrollbar.
+   ============================================================ */
+#rightHudAccountMenu[hidden] { display:none !important; }
+#rightHudAccountMenu.right-hud-account-menu {
+  position: fixed !important;
+  inset: auto !important;
+  top: 86px !important;
+  right: 18px !important;
+  z-index: 2147482400 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  width: min(360px, calc(100vw - 16px)) !important;
+  height: min(540px, calc(100vh - 16px)) !important;
+  min-width: 280px !important;
+  min-height: 300px !important;
+  max-width: calc(100vw - 16px) !important;
+  max-height: calc(100vh - 16px) !important;
+  overflow: hidden !important;
+  resize: none !important;
+  border-radius: 12px !important;
+  touch-action: auto !important;
+}
+#rightHudAccountMenu[data-size="small"] {
+  width: min(312px, calc(100vw - 16px)) !important;
+  height: min(410px, calc(100vh - 16px)) !important;
+}
+#rightHudAccountMenu[data-size="medium"] {
+  width: min(360px, calc(100vw - 16px)) !important;
+  height: min(540px, calc(100vh - 16px)) !important;
+}
+#rightHudAccountMenu[data-size="large"] {
+  width: min(448px, calc(100vw - 16px)) !important;
+  height: min(680px, calc(100vh - 16px)) !important;
+}
+#rightHudAccountMenu.is-dragging {
+  transition: none !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  box-shadow: inset 0 1px 0 rgba(255,226,147,.16), 0 15px 38px rgba(0,0,0,.82), 0 0 0 1px rgba(212,159,58,.14) !important;
+}
+#rightHudAccountMenu .right-hud-account-menu-head {
+  flex: 0 0 auto !important;
+  min-height: 50px !important;
+  padding: 8px 9px 8px 12px !important;
+  cursor: grab !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  touch-action: none !important;
+}
+#rightHudAccountMenu.is-dragging .right-hud-account-menu-head { cursor: grabbing !important; }
+#rightHudAccountMenu .right-hud-account-title {
+  min-width: 0 !important;
+  display: grid !important;
+  gap: 2px !important;
+}
+#rightHudAccountMenu .right-hud-account-window-controls {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 6px !important;
+  min-width: 0 !important;
+}
+#rightHudAccountMenu .right-hud-account-size-controls {
+  display: inline-flex !important;
+  gap: 2px !important;
+  padding: 2px !important;
+  border: 1px solid #60451f !important;
+  border-radius: 7px !important;
+  background: rgba(13,9,5,.78) !important;
+}
+#rightHudAccountMenu .right-hud-account-size-controls > button,
+#rightHudAccountMenu .right-hud-account-menu-close {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  display: grid !important;
+  place-items: center !important;
+  height: 25px !important;
+  min-height: 25px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 1px solid transparent !important;
+  border-radius: 5px !important;
+  color: #a99266 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  font: 800 10px/1 "Microsoft JhengHei","Segoe UI",sans-serif !important;
+  cursor: pointer !important;
+}
+#rightHudAccountMenu .right-hud-account-size-controls > button {
+  width: 25px !important;
+  min-width: 25px !important;
+}
+#rightHudAccountMenu .right-hud-account-size-controls > button:hover,
+#rightHudAccountMenu .right-hud-account-size-controls > button:focus-visible,
+#rightHudAccountMenu .right-hud-account-size-controls > button.is-active {
+  border-color: #98702c !important;
+  color: #ffe29a !important;
+  background: linear-gradient(180deg, rgba(87,58,20,.88), rgba(38,24,10,.92)) !important;
+}
+#rightHudAccountMenu .right-hud-account-menu-close {
+  width: 29px !important;
+  min-width: 29px !important;
+  height: 29px !important;
+  min-height: 29px !important;
+  border-color: #755222 !important;
+  color: #edc66b !important;
+  background: rgba(31,20,9,.86) !important;
+  font-size: 19px !important;
+  line-height: 1 !important;
+}
+#rightHudAccountMenu .right-hud-account-menu-close:hover,
+#rightHudAccountMenu .right-hud-account-menu-close:focus-visible {
+  border-color: #c49235 !important;
+  color: #fff0ae !important;
+  filter: brightness(1.15) !important;
+}
+#rightHudAccountMenu .right-hud-account-role {
+  flex: 0 0 auto !important;
+  min-width: 45px !important;
+}
+#rightHudAccountMenu .right-hud-account-scroll {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain !important;
+  scrollbar-width: thin !important;
+  scrollbar-color: #9b7130 #140d06 !important;
+}
+#rightHudAccountMenu .right-hud-account-scroll::-webkit-scrollbar { width: 9px !important; }
+#rightHudAccountMenu .right-hud-account-scroll::-webkit-scrollbar-track {
+  background: #140d06 !important;
+  border-left: 1px solid rgba(97,67,28,.35) !important;
+}
+#rightHudAccountMenu .right-hud-account-scroll::-webkit-scrollbar-thumb {
+  border: 2px solid #140d06 !important;
+  border-radius: 8px !important;
+  background: linear-gradient(180deg,#b38334,#69491f) !important;
+}
+#rightHudAccountMenu .right-hud-account-scroll > footer {
+  padding: 7px 10px 9px !important;
+  border-top: 1px solid #3a2814 !important;
+  color: #665941 !important;
+  background: rgba(8,5,3,.6) !important;
+  font-size: 9px !important;
+  line-height: 1.45 !important;
+  text-align: center !important;
+}
+#rightHudAccountMenu[data-size="small"] .right-hud-account-actions > button {
+  min-height: 42px !important;
+}
+#rightHudAccountMenu[data-size="large"] .right-hud-account-actions {
+  grid-template-columns: repeat(2,minmax(0,1fr)) !important;
+}
+#rightHudAccountMenu[data-size="large"] .right-hud-account-actions > button {
+  min-width: 0 !important;
+}
+@media (max-width: 900px), (pointer: coarse) {
+  #rightHudAccountMenu.right-hud-account-menu {
+    width: min(340px, calc(100vw - 12px)) !important;
+    height: min(520px, calc(100vh - 12px)) !important;
+  }
+  #rightHudAccountMenu[data-size="small"] {
+    width: min(292px, calc(100vw - 12px)) !important;
+    height: min(390px, calc(100vh - 12px)) !important;
+  }
+  #rightHudAccountMenu[data-size="large"] {
+    width: min(420px, calc(100vw - 12px)) !important;
+    height: min(650px, calc(100vh - 12px)) !important;
+  }
+  #rightHudAccountMenu .right-hud-account-menu-head {
+    min-height: 47px !important;
+    padding-left: 10px !important;
+  }
+  #rightHudAccountMenu .right-hud-account-size-controls > button { width: 24px !important; min-width:24px !important; }
+}
+@media (orientation: portrait) and (max-width: 520px) {
+  #rightHudAccountMenu.right-hud-account-menu,
+  #rightHudAccountMenu[data-size="small"],
+  #rightHudAccountMenu[data-size="medium"],
+  #rightHudAccountMenu[data-size="large"] {
+    width: min(330px, calc(100vw - 10px)) !important;
+    max-height: calc(100vh - 10px) !important;
+  }
+  #rightHudAccountMenu[data-size="large"] .right-hud-account-actions {
+    grid-template-columns: 1fr !important;
+  }
+}

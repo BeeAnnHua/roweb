@@ -1,3 +1,13 @@
+# V0.9.87K current baseline
+
+## V0.9.87K — draggable Game Settings window / auction entry cleanup
+- Baseline: user-provided V0.9.87J full package (`roweb(20260812-115737).zip`).
+- `遊戲設定` is now an independent floating window: draggable by the title bar, closeable with the top-right X or Esc, and supports 小 / 中 / 大 size presets.
+- Window size and last position persist locally; all account actions live inside an internal vertical scroll area so `切換人物 / 切換帳號 / 登出帳號` cannot fall off-screen at 1280×720 or smaller viewports.
+- The original second-row `拍賣行` placeholder is promoted to the single real auction entry. The later duplicate fourth-row `拍賣場` button is removed.
+- No Supabase SQL migration required.
+- V0.9.87J Offline Continuity, I MVP OOM protection, H rescue bypass, G account-slot isolation, auction/VIP/warehouse/mail/cloud optimizations are preserved.
+
 # V0.9.87J current baseline
 
 ## V0.9.87J — Offline Continuity V1 / manual local play / revision-safe resume

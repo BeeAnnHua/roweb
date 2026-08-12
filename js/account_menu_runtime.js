@@ -8,8 +8,94 @@
 (function(){
   "use strict";
 
-  const VERSION = "0.9.87J";
+  const VERSION = "0.9.87K";
   const $ = id => document.getElementById(id);
+  const UI_STATE_KEY = "ro_web_account_menu_ui_v1";
+  const VALID_SIZES = new Set(["small","medium","large"]);
+  let uiStateLoaded = false;
+  let uiState = { size:"medium", x:null, y:null };
+
+  function loadUiState(){
+    if (uiStateLoaded) return uiState;
+    uiStateLoaded = true;
+    try {
+      const raw = JSON.parse(localStorage.getItem(UI_STATE_KEY) || "null");
+      if (raw && VALID_SIZES.has(String(raw.size))) uiState.size = String(raw.size);
+      if (raw && Number.isFinite(Number(raw.x)) && Number.isFinite(Number(raw.y))) {
+        uiState.x = Number(raw.x);
+        uiState.y = Number(raw.y);
+      }
+    } catch (_) {}
+    return uiState;
+  }
+
+  function saveUiState(){
+    try { localStorage.setItem(UI_STATE_KEY, JSON.stringify(uiState)); } catch (_) {}
+  }
+
+  function clampPosition(x, y, menu){
+    const margin = 8;
+    const rect = menu.getBoundingClientRect();
+    const maxX = Math.max(margin, window.innerWidth - rect.width - margin);
+    const maxY = Math.max(margin, window.innerHeight - rect.height - margin);
+    return {
+      x: Math.min(Math.max(margin, Number(x) || margin), maxX),
+      y: Math.min(Math.max(margin, Number(y) || margin), maxY)
+    };
+  }
+
+  function applyPosition(x, y, persist=true){
+    const menu = $("rightHudAccountMenu");
+    if (!menu) return false;
+    const next = clampPosition(x, y, menu);
+    menu.style.setProperty("left", `${Math.round(next.x)}px`, "important");
+    menu.style.setProperty("top", `${Math.round(next.y)}px`, "important");
+    menu.style.setProperty("right", "auto", "important");
+    menu.style.setProperty("bottom", "auto", "important");
+    if (persist) {
+      uiState.x = next.x;
+      uiState.y = next.y;
+      saveUiState();
+    }
+    return true;
+  }
+
+  function applySize(size, persist=true){
+    const menu = $("rightHudAccountMenu");
+    if (!menu) return false;
+    const next = VALID_SIZES.has(String(size)) ? String(size) : "medium";
+    menu.dataset.size = next;
+    menu.querySelectorAll("[data-account-menu-size]").forEach(button => {
+      const active = button.dataset.accountMenuSize === next;
+      button.classList.toggle("is-active", active);
+      button.setAttribute("aria-pressed", active ? "true" : "false");
+    });
+    if (persist) {
+      uiState.size = next;
+      saveUiState();
+    }
+    requestAnimationFrame(() => {
+      if (uiState.x != null && uiState.y != null) applyPosition(uiState.x, uiState.y, false);
+    });
+    return true;
+  }
+
+  function restoreWindowUi(){
+    loadUiState();
+    applySize(uiState.size, false);
+    const menu = $("rightHudAccountMenu");
+    if (!menu) return;
+    requestAnimationFrame(() => {
+      if (uiState.x != null && uiState.y != null) {
+        applyPosition(uiState.x, uiState.y, false);
+      } else {
+        const rect = menu.getBoundingClientRect();
+        const x = Math.max(8, window.innerWidth - rect.width - 18);
+        const y = Math.max(8, Math.min(86, window.innerHeight - rect.height - 8));
+        applyPosition(x, y, false);
+      }
+    });
+  }
 
   function text(value, fallback = "—") {
     const raw = String(value ?? "").trim();
@@ -56,8 +142,14 @@
     const button = $("rightHudAccountButton");
     if (!menu || !button) return false;
     const value = open === true;
-    if (value) refresh();
-    menu.hidden = !value;
+    if (value) {
+      refresh();
+      menu.hidden = false;
+      restoreWindowUi();
+      requestAnimationFrame(() => $("rightHudAccountMenuClose")?.focus?.({ preventScroll:true }));
+    } else {
+      menu.hidden = true;
+    }
     button.setAttribute("aria-expanded", value ? "true" : "false");
     button.classList.toggle("is-open", value);
     return value;
@@ -179,20 +271,76 @@
   function init(){
     const menu = $("rightHudAccountMenu");
     const button = $("rightHudAccountButton");
+    const handle = $("rightHudAccountMenuDragHandle");
     if (!menu || !button) return false;
+
+    loadUiState();
+    applySize(uiState.size, false);
     setOpen(false);
+
     button.addEventListener("click", event => {
       event.preventDefault();
       event.stopPropagation();
       toggle();
     });
     menu.addEventListener("click", event => event.stopPropagation());
-    $("rightHudCollapseToggle")?.addEventListener("click", () => close());
-    document.addEventListener("click", event => {
-      if (!menu.hidden && !menu.contains(event.target) && event.target !== button) close();
+    $("rightHudAccountMenuClose")?.addEventListener("click", event => {
+      event.preventDefault();
+      event.stopPropagation();
+      close();
     });
+    $("rightHudCollapseToggle")?.addEventListener("click", () => close());
+
+    menu.querySelectorAll("[data-account-menu-size]").forEach(sizeButton => {
+      sizeButton.addEventListener("click", event => {
+        event.preventDefault();
+        event.stopPropagation();
+        applySize(sizeButton.dataset.accountMenuSize, true);
+      });
+    });
+
+    if (handle) {
+      let drag = null;
+      handle.addEventListener("pointerdown", event => {
+        if (event.button !== undefined && event.button !== 0) return;
+        if (event.target.closest("button,[role='button'],input,select,a")) return;
+        const rect = menu.getBoundingClientRect();
+        drag = {
+          pointerId:event.pointerId,
+          dx:event.clientX - rect.left,
+          dy:event.clientY - rect.top
+        };
+        menu.classList.add("is-dragging");
+        try { handle.setPointerCapture(event.pointerId); } catch (_) {}
+        event.preventDefault();
+      });
+      handle.addEventListener("pointermove", event => {
+        if (!drag || event.pointerId !== drag.pointerId) return;
+        applyPosition(event.clientX - drag.dx, event.clientY - drag.dy, false);
+        event.preventDefault();
+      });
+      const finishDrag = event => {
+        if (!drag || (event?.pointerId != null && event.pointerId !== drag.pointerId)) return;
+        const rect = menu.getBoundingClientRect();
+        uiState.x = rect.left;
+        uiState.y = rect.top;
+        saveUiState();
+        menu.classList.remove("is-dragging");
+        try { handle.releasePointerCapture(drag.pointerId); } catch (_) {}
+        drag = null;
+      };
+      handle.addEventListener("pointerup", finishDrag);
+      handle.addEventListener("pointercancel", finishDrag);
+    }
+
     document.addEventListener("keydown", event => {
       if (event.key === "Escape" && !menu.hidden) close();
+    });
+    window.addEventListener("resize", () => {
+      if (!menu.hidden) {
+        const rect = menu.getBoundingClientRect();
+        applyPosition(rect.left, rect.top, false);
+      }
     });
     window.addEventListener("ro-web-ready", refresh);
     window.addEventListener("ro-web-cloud-sync-state", refresh);
@@ -207,6 +355,7 @@
     refresh,
     toggle,
     close,
+    setSize: applySize,
     saveNow,
     toggleOfflineMode,
     renameCharacter,
