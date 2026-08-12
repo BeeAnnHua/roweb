@@ -8,7 +8,7 @@
 (function () {
   "use strict";
 
-  const VERSION = "0.9.87H";
+  const VERSION = "0.9.87J";
   const SUPABASE_URL = "https://ecbnsobcjxnrwqlefjci.supabase.co";
   const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_LrQiZeOESpuGnt-hL6m0VQ_zXqn8ehS";
   const SELECTED_ACCOUNT_KEY = "roweb_cloud_selected_account_v1";
@@ -89,6 +89,8 @@
     if (/duplicate key.*account_slot|ro_characters_account_slot_unique/i.test(raw)) return "目標角色格已被使用。";
     if (/RO_CHARACTER_SLOT_LIMIT_EXCEEDED|RO_INVALID_TARGET_SLOT/i.test(raw)) return "角色格位置超出帳號上限。";
     if (/RO_ACCOUNT_NOT_FOUND/i.test(raw)) return "找不到目前的遊戲帳號。";
+    if (/RO_OFFLINE_REVISION_CONFLICT/i.test(raw)) return "本地遊玩期間雲端角色已被其他裝置修改，已停止自動合併以避免複製或覆蓋。";
+    if (/RO_OFFLINE_SAVE_OLDER_THAN_BASE/i.test(raw)) return "本機存檔版本低於離線前的雲端基準，已停止同步。";
     if (/RO_CLOUD_CONFLICT/i.test(raw)) return "雲端已有較新的進度，已停止覆寫。請重新進入角色後再存檔。";
     if (/RO_CHARACTER_SAVE_PERMISSION_DENIED|RO_ACCOUNT_PERMISSION_DENIED/i.test(raw)) return "目前帳號沒有權限更新這個角色的雲端存檔。";
     if (/RO_CHARACTER_NOT_FOUND/i.test(raw)) return "找不到目前選中的雲端角色。";
@@ -1688,7 +1690,9 @@
 
   async function writeSharedSave(nextSharedSave) {
     if (!currentAccount?.account_id) return false;
-    const { data, error } = await client
+    const api=ensureClient();
+    if(!api) throw new Error("RO_CLOUD_CLIENT_UNAVAILABLE");
+    const { data, error } = await api
       .from("ro_accounts")
       .update({ shared_save: nextSharedSave })
       .eq("account_id", currentAccount.account_id)
@@ -1728,6 +1732,7 @@
   }
 
   async function saveSharedStorage(storage) {
+    if (window.ROWebOfflineContinuity?.isOffline?.() && window.ROWebOfflineContinuity?.getState?.()?.syncing !== true) throw new Error("RO_OFFLINE_SHARED_STORAGE_BLOCKED");
     if (!currentAccount?.account_id || !storage || typeof storage !== "object") return false;
     emitCloudStatus("syncing", { kind:"shared-storage" });
     try {
@@ -1787,14 +1792,135 @@
     return true;
   }
 
+  function cachedOfflineBinding() {
+    const cached = slots?.getAccount?.() || {};
+    const active = slots?.getActiveCharacter?.() || null;
+    if (!cached?.accountId || !active?.characterId) return null;
+    const cloud = cached.cloud || {};
+    const lease=window.ROWebOfflineContinuity?.getLease?.()||{};
+    const account = {
+      account_id:String(cached.accountId),
+      player_id:Number(cloud.playerId || lease.playerId || 0),
+      account_name:String(cloud.accountName || lease.accountName || ""),
+      account_role:String(cloud.accountRole || lease.accountRole || "player"),
+      account_status:"active",
+      user_id:String(cloud.userId || ""),
+      slot_limit:Number(cached.slotLimit || 12),
+      is_vip:lease.isVip===true,
+      vip_level:Number(lease.vipLevel||0),
+      vip_until:lease.vipUntil||null,
+      shared_save:null
+    };
+    const characters=(Array.isArray(cached.characters)?cached.characters:[]).map((row,index)=>({
+      character_id:String(row.characterId || ""),
+      account_id:String(cached.accountId),
+      slot_index:Number(row.slotIndex ?? index) + 1,
+      name:String(row.summary?.name || row.seed?.name || "冒險者"),
+      job_name:String(row.summary?.jobName || "初學者"),
+      base_level:Number(row.summary?.baseLevel || 1),
+      job_level:Number(row.summary?.jobLevel || 1),
+      map_name:String(row.summary?.map || ""),
+      revision:Number(row.revision || 0),
+      updated_at:row.updatedAt ? new Date(Number(row.updatedAt)).toISOString() : null
+    })).filter(row=>row.character_id);
+    return {account,characters,activeCharacterId:String(active.characterId)};
+  }
+
+  function writeOfflineEntryToken(binding) {
+    const issuedAt=Date.now();
+    const token={accountId:String(binding?.account?.account_id||""),characterId:String(binding?.activeCharacterId||""),enteredAt:issuedAt,expiresAt:issuedAt+120000,oneShot:true};
+    try{sessionStorage.setItem("ro_web_character_entry_v1",JSON.stringify(token));sessionStorage.removeItem("ro_web_force_character_selector_v1");}catch(_){}
+    try{localStorage.setItem("ro_web_character_entry_fallback_v1",JSON.stringify(token));}catch(_){}
+  }
+
+  async function bootstrapOfflineFromCache(mode="auto", reason="startup-fallback") {
+    const binding=cachedOfflineBinding();
+    if(!binding) return false;
+    currentAccount=binding.account;
+    currentCharacters=binding.characters;
+    writeOfflineEntryToken(binding);
+    window.ROWebOfflineContinuity?.activateOfflineBoot?.(mode,reason);
+    window.ROWebSaveManager?.rebindActiveCharacter?.({ reason:"offline-cached-account" });
+    emitCloudStatus("offline",{kind:"startup-offline",accountId:currentAccount.account_id,characterId:binding.activeCharacterId});
+    reportAfkCloudEvent("offline_boot",{accountId:currentAccount.account_id,characterId:binding.activeCharacterId,mode,reason});
+    return true;
+  }
+
+  async function getRemoteRevision(characterId=null) {
+    const ctx=slots?.getActiveContext?.()||{};
+    const id=String(characterId||ctx.characterId||"");
+    if(!id) throw new Error("RO_CHARACTER_NOT_FOUND");
+    const api=ensureClient();
+    if(!api) throw new Error("RO_CLOUD_CLIENT_UNAVAILABLE");
+    const session=await getSession();
+    if(!session?.user?.id) throw new Error("RO_AUTH_REQUIRED");
+    const accountId=String(currentAccount?.account_id||ctx.accountId||"");
+    const {data,error}=await api.from("ro_characters").select("revision").eq("account_id",accountId).eq("character_id",id).maybeSingle();
+    if(error) throw error;
+    if(!data) throw new Error("RO_CHARACTER_NOT_FOUND");
+    const revision=Math.max(0,Number(data.revision||0));
+    window.ROWebOfflineContinuity?.rememberCloudVerified?.({accountId,characterId:id,revision});
+    return revision;
+  }
+
+  async function probeConnection() {
+    const api=ensureClient();
+    if(!api) throw new Error("RO_CLOUD_CLIENT_UNAVAILABLE");
+    const session=await getSession();
+    if(!session?.user?.id) throw new Error("RO_AUTH_REQUIRED");
+    const accountId=String(currentAccount?.account_id||slots?.getActiveContext?.()?.accountId||"");
+    if(!accountId) throw new Error("RO_ACCOUNT_NOT_FOUND");
+    const {data,error}=await api.from("ro_accounts").select("account_id").eq("account_id",accountId).maybeSingle();
+    if(error) throw error;
+    if(!data?.account_id) throw new Error("RO_ACCOUNT_NOT_FOUND");
+    return true;
+  }
+
+  async function resumeOfflineEnvelope(envelope, expectedRevision) {
+    const ctx=slots?.getActiveContext?.()||{};
+    const accountId=String(currentAccount?.account_id||ctx.accountId||"");
+    const characterId=String(ctx.characterId||envelope?.characterId||envelope?.player?.characterId||"");
+    if(!accountId||!characterId) throw new Error("RO_ACCOUNT_NOT_FOUND");
+    const api=ensureClient();
+    if(!api) throw new Error("RO_CLOUD_CLIENT_UNAVAILABLE");
+    const session=await getSession();
+    if(!session?.user?.id) throw new Error("RO_AUTH_REQUIRED");
+    emitCloudStatus("syncing",{kind:"offline-resume",saveVersion:envelopeVersion(envelope),characterId});
+    const {data,error}=await api.rpc("ro_resume_offline_character",{
+      p_account_id:accountId,
+      p_character_id:characterId,
+      p_expected_revision:Math.max(0,Number(expectedRevision||0)),
+      p_save_data:envelope
+    });
+    if(error){
+      window.ROWebOfflineContinuity?.noteCloudFailure?.(error);
+      emitCloudStatus(/RO_OFFLINE_REVISION_CONFLICT/i.test(String(error?.message||error))?"conflict":"pending",{kind:"offline-resume",error,characterId});
+      throw error;
+    }
+    const revision=Math.max(0,Number(data?.revision??envelopeVersion(envelope)));
+    const index=currentCharacters.findIndex(row=>String(row.character_id)===characterId);
+    if(index>=0)currentCharacters[index]={...currentCharacters[index],revision,save_data:envelope,updated_at:data?.updated_at||new Date().toISOString()};
+    window.ROWebOfflineContinuity?.noteCloudSuccess?.({accountId,characterId,revision});
+    emitCloudStatus("synced",{kind:"offline-resume",saveVersion:envelopeVersion(envelope),characterId,revision});
+    return {ok:true,revision,updatedAt:data?.updated_at||null};
+  }
+
   async function ensureReady() {
+    const offline=window.ROWebOfflineContinuity;
+    if (slots && await offline?.shouldBootManualOffline?.()) {
+      return bootstrapOfflineFromCache("manual","manual-preference-startup");
+    }
     const api = ensureClient();
     if (!api || !slots) {
       console.error("Cloud Runtime 初始化失敗。");
+      if (slots && await offline?.canBootOffline?.()) {
+        const accepted=await offline.offerStartupFallback?.(1);
+        if(accepted)return bootstrapOfflineFromCache("auto","cloud-client-unavailable");
+      }
       return false;
     }
 
-    // V0.9.86R AFK reconnect policy:
+    // V0.9.86R AFK reconnect policy + V0.9.87J offline fallback:
     // temporary network / Supabase failures retry in place instead of forcing account center.
     let attempt = 0;
     for (;;) {
@@ -1810,6 +1936,7 @@
         if (!ok) return false;
         await offerLocalMigration(false);
         emitCloudStatus("ready", { attempt });
+        window.ROWebOfflineContinuity?.noteCloudSuccess?.({});
         reportAfkCloudEvent("cloud_ready", { attempt, accountId:currentAccount?.account_id || "" });
         return true;
       } catch (error) {
@@ -1823,6 +1950,11 @@
         }
 
         attempt += 1;
+        window.ROWebOfflineContinuity?.noteCloudFailure?.(error);
+        if (attempt >= 4 && await window.ROWebOfflineContinuity?.canBootOffline?.()) {
+          const accepted=await window.ROWebOfflineContinuity.offerStartupFallback(attempt);
+          if(accepted)return bootstrapOfflineFromCache("auto","startup-retry-fallback");
+        }
         const delay = Math.min(15000, 900 * Math.pow(1.7, Math.min(attempt - 1, 6)));
         reportAfkCloudEvent("cloud_retry", { attempt, delay, error:String(error?.message || error) });
         try {
@@ -1889,18 +2021,21 @@
 
   async function loadCandidates(context = {}) {
     if (!currentAccount?.account_id || !context.characterId) return [];
+    if (window.ROWebOfflineContinuity?.isOffline?.()) return [];
     const { data, error } = await client
       .from("ro_characters")
       .select("save_data,revision,updated_at")
       .eq("account_id", currentAccount.account_id)
       .eq("character_id", String(context.characterId))
       .maybeSingle();
-    if (error) throw error;
+    if (error) { window.ROWebOfflineContinuity?.noteCloudFailure?.(error); throw error; }
+    if (data) window.ROWebOfflineContinuity?.rememberCloudVerified?.({accountId:currentAccount.account_id,characterId:String(context.characterId),revision:Number(data.revision||0)});
     if (!data || !hasMeaningfulSaveData(data.save_data)) return [];
     return [data.save_data];
   }
 
   async function saveEnvelope(envelope, context = {}) {
+    if (window.ROWebOfflineContinuity?.isOffline?.()) throw new Error("RO_OFFLINE_MODE");
     if (!currentAccount?.account_id || !context.characterId) throw new Error("RO_ACCOUNT_NOT_FOUND");
     const characterId = String(context.characterId);
     const accountId = String(currentAccount.account_id);
@@ -1959,10 +2094,13 @@
       if (!data || typeof data !== "object") throw new Error("RO_CHARACTER_SAVE_RPC_EMPTY");
       const index = currentCharacters.findIndex(row => String(row.character_id) === characterId);
       if (index >= 0 && data) currentCharacters[index] = { ...currentCharacters[index], ...data };
-      emitCloudStatus("synced", { saveVersion:localVersion, characterId });
+      const revision=Math.max(0,Number(data?.revision??localVersion));
+      window.ROWebOfflineContinuity?.noteCloudSuccess?.({accountId,characterId,revision,saveVersion:localVersion});
+      emitCloudStatus("synced", { saveVersion:localVersion, characterId, revision });
       return true;
     } catch (error) {
       const status = /RO_CLOUD_CONFLICT/i.test(String(error?.message || error)) ? "conflict" : "pending";
+      if (isTransientCloudError(error)) window.ROWebOfflineContinuity?.noteCloudFailure?.(error);
       emitCloudStatus(status, { saveVersion:localVersion, characterId, error });
       throw error;
     }
@@ -1973,7 +2111,7 @@
     try {
       const { data, error } = await client
         .from("ro_characters")
-        .select("save_data")
+        .select("save_data,revision")
         .eq("account_id", currentAccount.account_id)
         .eq("character_id", String(context.characterId))
         .maybeSingle();
@@ -1983,9 +2121,14 @@
         && envelopeVersion(remote) === envelopeVersion(envelope)
         && envelopeSavedAt(remote) === envelopeSavedAt(envelope)
         && String(remote.checksum || "") === String(envelope.checksum || ""));
-      if (ok) emitCloudStatus("synced", { saveVersion:envelopeVersion(envelope), verified:true });
+      if (ok) {
+        const revision=Math.max(0,Number(data?.revision??envelopeVersion(envelope)));
+        window.ROWebOfflineContinuity?.noteCloudSuccess?.({accountId:currentAccount.account_id,characterId:String(context.characterId),revision,saveVersion:envelopeVersion(envelope)});
+        emitCloudStatus("synced", { saveVersion:envelopeVersion(envelope), verified:true, revision });
+      }
       return ok;
     } catch (error) {
+      if (isTransientCloudError(error)) window.ROWebOfflineContinuity?.noteCloudFailure?.(error);
       emitCloudStatus("pending", { saveVersion:envelopeVersion(envelope), error });
       return false;
     }
@@ -2043,6 +2186,10 @@
     validateReturnPath,
     forceCharacterSelectorNext,
     getSyncState:() => ({ ...cloudSyncState }),
+    getRemoteRevision,
+    probeConnection,
+    resumeOfflineEnvelope,
+    bootstrapOfflineFromCache,
     verifyEnvelope
   });
 })();

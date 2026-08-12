@@ -13,7 +13,7 @@ let expTables = null;
 let clientItemDisplayData = null;
 let currentMap = null;
 
-const RO_WEB_VERSION = "0.9.87I";
+const RO_WEB_VERSION = "0.9.87J";
 
 function normalizeDataPath(path) {
   return String(path || "")
@@ -134,7 +134,7 @@ async function initGame() {
       cloudStageTimers.forEach(timer => clearTimeout(timer));
     }
   }
-  loadProgress(12,"雲端帳號驗證完成");
+  loadProgress(12, window.ROWebOfflineContinuity?.isOffline?.() ? "本地遊玩模式已準備完成" : "雲端帳號驗證完成");
 
   // V0.9.85G: Supabase account binding happens after player.js is parsed.
   // Rebind browser save/IndexedDB keys now, before character selection or player loading,
@@ -167,7 +167,7 @@ async function initGame() {
     await loadPlayerData();
   } catch (error) {
     const code = String(error?.code || "");
-    if (code.startsWith("RO_CLOUD_")) {
+    if (code.startsWith("RO_CLOUD_") || code.startsWith("RO_OFFLINE_")) {
       console.error("Cloud character bootstrap blocked:", error);
       window.RO_WEB_BOOT_STATE.status = "cloud_character_blocked";
       window.RO_WEB_BOOT_STATE.errors.push(`${code}: ${String(error?.message || error)}`);
@@ -196,7 +196,7 @@ async function initGame() {
     return;
   }
   loadProgress(78,"正在同步角色存檔…");
-  if (window.VIPRuntime?.claimAndGrantOfflineRewards) {
+  if (!window.ROWebOfflineContinuity?.isOffline?.() && window.VIPRuntime?.claimAndGrantOfflineRewards) {
     loadProgress(81,"正在結算 VIP 離線收益…");
     await window.VIPRuntime.claimAndGrantOfflineRewards();
   }
@@ -251,6 +251,7 @@ async function initGame() {
 
   addBattleLog("玩家資料載入完成！");
   addBattleLog(`歡迎來到 RO_WEB Alpha ${RO_WEB_VERSION}！`);
+  if (window.ROWebOfflineContinuity?.isOffline?.()) addBattleLog("目前為 OFFLINE 本地遊玩模式：一般掛機／練功可繼續；雲端交易、精煉與附魔暫停。", "system");
   window.RO_WEB_BOOT_STATE.status = window.RO_WEB_BOOT_STATE.errors.length ? "ready_with_warnings" : "ready";
   window.RO_WEB_BOOT_STATE.finishedAt = Date.now();
   loadProgress(100,"載入完成，歡迎回來！");

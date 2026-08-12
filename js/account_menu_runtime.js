@@ -8,7 +8,7 @@
 (function(){
   "use strict";
 
-  const VERSION = "0.9.86Q";
+  const VERSION = "0.9.87J";
   const $ = id => document.getElementById(id);
 
   function text(value, fallback = "—") {
@@ -47,6 +47,7 @@
       $("accountMenuVip").textContent = data.vipActive ? data.vipText : "未啟用";
       $("accountMenuVip").classList.toggle("is-vip", data.vipActive);
     }
+    try { window.ROWebOfflineContinuity?.updateUi?.(); } catch (_) {}
     return data;
   }
 
@@ -77,7 +78,7 @@
       } else if (typeof window.saveGame === "function") {
         window.saveGame({ reason:String(reason || "account-menu"), forceWriter:true });
       }
-      if (window.ROWebCloudRuntime?.saveSharedStorage && typeof window.getAccountStorageSnapshot === "function") {
+      if (!window.ROWebOfflineContinuity?.isOffline?.() && window.ROWebCloudRuntime?.saveSharedStorage && typeof window.getAccountStorageSnapshot === "function") {
         await window.ROWebCloudRuntime.saveSharedStorage(window.getAccountStorageSnapshot());
       }
     } catch (error) {
@@ -96,10 +97,11 @@
         : (typeof window.saveGameAndWait === "function"
             ? await window.saveGameAndWait({ reason:"account-menu-manual", forceWriter:true, durableDelayMs:0 })
             : false);
-      if (ok && window.ROWebCloudRuntime?.saveSharedStorage && typeof window.getAccountStorageSnapshot === "function") {
+      const offline = window.ROWebOfflineContinuity?.isOffline?.() === true;
+      if (ok && !offline && window.ROWebCloudRuntime?.saveSharedStorage && typeof window.getAccountStorageSnapshot === "function") {
         await window.ROWebCloudRuntime.saveSharedStorage(window.getAccountStorageSnapshot());
       }
-      if (label) label.textContent = ok ? "存檔完成" : "存檔未完成";
+      if (label) label.textContent = ok ? (offline ? "本機已存" : "存檔完成") : "存檔未完成";
       window.setTimeout(() => { if (label) label.textContent = "手動存檔"; if (button) button.disabled = false; }, 1100);
       return Boolean(ok);
     } catch (error) {
@@ -110,7 +112,18 @@
     }
   }
 
+  async function toggleOfflineMode(){
+    close();
+    const runtime = window.ROWebOfflineContinuity;
+    if (!runtime?.requestManualOffline) {
+      window.ROGoldUI?.alert?.("本地遊玩模組尚未完成載入，請重新整理後再試。", { title:"本地遊玩" });
+      return false;
+    }
+    return runtime.requestManualOffline();
+  }
+
   function renameCharacter(){
+    if (window.ROWebOfflineContinuity?.isOffline?.()) return window.ROWebOfflineContinuity.guard("character", "更改角色名稱");
     close();
     if (!window.player) {
       window.ROGoldUI?.alert?.("請先進入角色後再更改角色名稱。", { title:"更改角色名稱" });
@@ -124,6 +137,7 @@
   }
 
   async function switchCharacter(){
+    if (window.ROWebOfflineContinuity?.isOffline?.()) return window.ROWebOfflineContinuity.guard("character", "切換人物");
     close();
     window.ROWebLoadingScreen?.navigate?.("正在切換人物…");
     const runtime = window.CharacterSlotsRuntime;
@@ -133,6 +147,7 @@
   }
 
   async function switchAccount(){
+    if (window.ROWebOfflineContinuity?.isOffline?.()) return window.ROWebOfflineContinuity.guard("character", "切換帳號");
     close();
     window.ROWebLoadingScreen?.navigate?.("正在切換遊戲帳號…");
     await saveBeforeLeave("switch-account");
@@ -144,6 +159,7 @@
   }
 
   async function signOut(){
+    if (window.ROWebOfflineContinuity?.isOffline?.()) return window.ROWebOfflineContinuity.guard("character", "登出帳號");
     const accountName = getSnapshot().accountName;
     const message = `確定要登出${accountName && accountName !== "—" ? `「${accountName}」` : "目前帳號"}嗎？\n離開前會先嘗試同步目前角色進度。`;
     let ok = false;
@@ -180,6 +196,7 @@
     });
     window.addEventListener("ro-web-ready", refresh);
     window.addEventListener("ro-web-cloud-sync-state", refresh);
+    window.addEventListener("ro-web-offline-state", refresh);
     refresh();
     return true;
   }
@@ -191,6 +208,7 @@
     toggle,
     close,
     saveNow,
+    toggleOfflineMode,
     renameCharacter,
     switchCharacter,
     switchAccount,

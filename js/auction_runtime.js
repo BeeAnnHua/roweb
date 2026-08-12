@@ -365,6 +365,7 @@
     if(active && menu && !menu.hidden){menu.hidden=true;$("rightHudAccountButton")?.classList.remove("is-open");$("rightHudAccountButton")?.setAttribute("aria-expanded","false");}
   }
   async function open(tab="market"){
+    if(window.ROWebOfflineContinuity?.isOffline?.())return window.ROWebOfflineContinuity.guard("auction","拍賣場");
     buildUi();try{ensureReady()}catch(error){window.ROGoldUI?.alert?.(friendly(error),{title:"拍賣交易所"});return false;}
     state.open=true;setAuctionFocus(true);$("auctionOverlay").hidden=false;refreshWallet();await resumePendingPurchases();switchTab(tab);startAuctionTick();return true;
   }

@@ -17,7 +17,7 @@ const SAVE_LEASE_HEARTBEAT_MS = 10 * 1000;
 const SAVE_LEASE_STALE_MS = 35 * 1000;
 const RO_WEB_SAVE_SCHEMA = "ro_web_player_save_v2";
 const RO_WEB_SAVE_FORMAT_VERSION = 2;
-const RO_WEB_SAVE_APP_VERSION = "0.9.87B";
+const RO_WEB_SAVE_APP_VERSION = "0.9.87J";
 const RO_WEB_SAVE_DB_NAME = "ro_web_offline_save_v1";
 const RO_WEB_SAVE_DB_VERSION = 1;
 const RO_WEB_SAVE_DB_STORE = "player_saves";
@@ -412,6 +412,10 @@ async function writeIndexedDbPlayerSaveEnvelope(text, envelope) {
 
 async function readRemotePlayerSaveCandidates() {
   const profile = getCloudBootstrapProfile();
+  if (window.ROWebOfflineContinuity?.isOffline?.()) {
+    if (profile.cloud && profile.characterId) RO_WEB_CLOUD_BOOTSTRAP_STATE.remoteReadOk = true;
+    return [];
+  }
   const adapter = RO_WEB_REMOTE_SAVE_ADAPTER;
   if (!adapter) {
     if (profile.cloud && profile.characterId) {
@@ -475,6 +479,7 @@ function scheduleRemoteSaveFlush(delayMs) {
 function flushPendingRemotePlayerSave(force = false) {
   const adapter = RO_WEB_REMOTE_SAVE_ADAPTER;
   if (!adapter || !RO_WEB_PENDING_REMOTE_SAVE) return RO_WEB_REMOTE_SAVE_CHAIN;
+  if (window.ROWebOfflineContinuity?.shouldPauseRemoteSync?.()) return RO_WEB_REMOTE_SAVE_CHAIN;
   const now = Date.now();
   const elapsed = now - Number(RO_WEB_LAST_REMOTE_ATTEMPT_AT || 0);
   const pendingCritical = isCriticalEnvelope(RO_WEB_PENDING_REMOTE_SAVE.envelope);
@@ -543,6 +548,11 @@ function queueRemotePlayerSave(text, envelope, force = false) {
   }
   if (!RO_WEB_PENDING_REMOTE_SAVE || Number(RO_WEB_PENDING_REMOTE_SAVE.envelope?.saveVersion || 0) <= Number(envelope?.saveVersion || 0)) {
     RO_WEB_PENDING_REMOTE_SAVE = { text, envelope };
+  }
+  if (window.ROWebOfflineContinuity?.shouldPauseRemoteSync?.()) {
+    RO_WEB_SAVE_STATE.lastRemoteSaveOk = null;
+    RO_WEB_SAVE_STATE.lastRemoteError = "OFFLINE";
+    return Promise.resolve(null);
   }
   const critical = force || isCriticalEnvelope(envelope);
   const elapsed = Date.now() - Number(RO_WEB_LAST_REMOTE_ATTEMPT_AT || 0);
@@ -923,10 +933,23 @@ async function loadPlayerData() {
   const localOnlyCandidates = [...localCandidates, ...indexedDbCandidates].filter(Boolean);
   const newestLocal = chooseNewestPlayerSaveCandidate(localOnlyCandidates);
   const newestRemote = chooseNewestPlayerSaveCandidate(remoteCandidates);
+  const offlineMode = window.ROWebOfflineContinuity?.isOffline?.() === true;
   let needsCloudRecoverySync = false;
   let loadedCandidate = null;
 
-  if (cloudProfile.cloud && cloudProfile.characterId) {
+  if (cloudProfile.cloud && cloudProfile.characterId && offlineMode) {
+    const offlineLease=window.ROWebOfflineContinuity?.getLease?.()||null;
+    const localMatchesVerifiedBase=Boolean(newestLocal && offlineLease
+      && String(offlineLease.accountId||"")===String(cloudProfile.accountId||"")
+      && String(offlineLease.characterId||"")===String(cloudProfile.characterId||"")
+      && Number(newestLocal.saveVersion||0)>=Number(offlineLease.revision||0));
+    if (!localMatchesVerifiedBase) {
+      throw cloudBootstrapError("RO_OFFLINE_LOCAL_SAVE_REQUIRED", "本地模式找不到這隻角色已驗證的完整本機存檔，因此已停止進入，避免建立錯誤或過舊角色資料。");
+    }
+    loadedCandidate = newestLocal;
+    RO_WEB_CLOUD_BOOTSTRAP_STATE.remoteReadOk = true;
+    RO_WEB_CLOUD_BOOTSTRAP_STATE.authorizedToSave = true;
+  } else if (cloudProfile.cloud && cloudProfile.characterId) {
     // 雲端角色以遠端為權威；只有目前瀏覽器握有「明顯已建立進度」且
     // 遠端缺失／像舊版錯誤 Lv1，或本機確實較新時，才進入受控修復流程。
     const localEstablished = isEstablishedSaveCandidate(newestLocal);
@@ -953,10 +976,15 @@ async function loadPlayerData() {
   const loadedSavedPlayer = loadedCandidate?.player || null;
 
   if (cloudProfile.cloud && cloudProfile.characterId) {
-    if (!RO_WEB_CLOUD_BOOTSTRAP_STATE.remoteReadOk) {
-      throw cloudBootstrapError("RO_CLOUD_NOT_VERIFIED", "尚未確認雲端角色資料，已停止載入。請重新嘗試。");
-    }
-    if (!newestRemote) {
+    if (offlineMode) {
+      RO_WEB_CLOUD_BOOTSTRAP_STATE.remoteReadOk = true;
+      RO_WEB_CLOUD_BOOTSTRAP_STATE.authorizedToSave = true;
+      needsCloudRecoverySync = false;
+    } else {
+      if (!RO_WEB_CLOUD_BOOTSTRAP_STATE.remoteReadOk) {
+        throw cloudBootstrapError("RO_CLOUD_NOT_VERIFIED", "尚未確認雲端角色資料，已停止載入。請重新嘗試。");
+      }
+      if (!newestRemote) {
       // 雲端沒有完整 save_data 時，只有兩種情況可以繼續：
       // 1) 這個分頁剛建立的新角色；2) 目前瀏覽器握有有效舊進度，可用來修復雲端。
       if (!newestLocal && !cloudProfile.justCreated) {
@@ -972,10 +1000,11 @@ async function loadPlayerData() {
         );
       }
       needsCloudRecoverySync = true;
-    } else if (loadedCandidate === newestLocal && newestLocal) {
-      // 本機握有明顯已建立的正確進度，且遠端較舊或疑似被舊版 Lv1 fallback 污染。
-      // 先受控修復雲端，再允許玩家進場。
-      needsCloudRecoverySync = true;
+      } else if (loadedCandidate === newestLocal && newestLocal) {
+        // 本機握有明顯已建立的正確進度，且遠端較舊或疑似被舊版 Lv1 fallback 污染。
+        // 先受控修復雲端，再允許玩家進場。
+        needsCloudRecoverySync = true;
+      }
     }
 
     if (cloudProfile.established && !loadedSavedPlayer) {
@@ -1043,7 +1072,7 @@ async function loadPlayerData() {
     throw wrapped;
   }
 
-  if (cloudProfile.cloud && cloudProfile.characterId && needsCloudRecoverySync) {
+  if (cloudProfile.cloud && cloudProfile.characterId && needsCloudRecoverySync && !offlineMode) {
     // 允許這一次受控寫入，用目前已驗證身份的角色資料建立／修復雲端完整存檔。
     RO_WEB_CLOUD_BOOTSTRAP_STATE.authorizedToSave = true;
     const synced = await saveGameAndWait({ reason:"cloud-bootstrap-recovery", forceWriter:true, durableDelayMs:0 });
@@ -1529,7 +1558,8 @@ async function saveGameAndWait(reasonOrOptions = "manual") {
   const localOk = Boolean(local || durable);
   let cloudVerified = null;
   const adapter = RO_WEB_REMOTE_SAVE_ADAPTER;
-  if (adapter) {
+  const offlineMode = window.ROWebOfflineContinuity?.isOffline?.() === true;
+  if (adapter && !offlineMode) {
     try {
       const characterContext = window.CharacterSlotsRuntime?.getRemoteContext?.() || {};
       if (typeof adapter.verifyEnvelope === "function") {
@@ -1565,12 +1595,15 @@ function manualSaveGame() {
         const pendingInfo = RO_WEB_SAVE_STATE.lastPreparedRewardBatch;
         const preparedText = Number(pendingInfo?.opened || 0) > 0 ? `，並完成 ${Number(pendingInfo.opened).toLocaleString()} 次待處理箱子／轉蛋` : "";
         const cloudState = RO_WEB_SAVE_STATE.lastManualCloudVerified;
+        const offline = window.ROWebOfflineContinuity?.isOffline?.() === true;
         addBattleLog(ok
-          ? (cloudState === true
-              ? `存檔完成：本機與雲端皆已同步最新角色資料${preparedText}。`
-              : (cloudState === false
-                  ? `本機存檔完成${preparedText}，但雲端同步尚未完成；請保持網路連線後再按一次存檔。`
-                  : `存檔完成：已驗證最新角色資料${preparedText}。`))
+          ? (offline
+              ? `本地存檔完成：最新角色進度已寫入此裝置${preparedText}。`
+              : (cloudState === true
+                  ? `存檔完成：本機與雲端皆已同步最新角色資料${preparedText}。`
+                  : (cloudState === false
+                      ? `本機存檔完成${preparedText}，但雲端同步尚未完成；請保持網路連線後再按一次存檔。`
+                      : `存檔完成：已驗證最新角色資料${preparedText}。`)))
           : "存檔失敗：未能驗證最新資料，請勿重新整理並檢查瀏覽器儲存空間。");
       }
       const cloudPending = ok && RO_WEB_SAVE_STATE.lastManualCloudVerified === false;
@@ -1646,6 +1679,16 @@ window.saveGame = saveGame;
 window.saveGameAndWait = saveGameAndWait;
 window.manualSaveGame = manualSaveGame;
 
+function getLatestSaveEnvelope(){
+  return RO_WEB_LAST_SAVE_ENVELOPE ? JSON.parse(JSON.stringify(RO_WEB_LAST_SAVE_ENVELOPE)) : null;
+}
+function clearPendingRemoteUpTo(saveVersion=Infinity){
+  const max=Number(saveVersion);
+  if(RO_WEB_PENDING_REMOTE_SAVE && Number(RO_WEB_PENDING_REMOTE_SAVE.envelope?.saveVersion||0)<=max)RO_WEB_PENDING_REMOTE_SAVE=null;
+  clearRemoteSaveTimer();
+  return true;
+}
+
 window.ROWebSaveManager = Object.freeze({
   version: RO_WEB_SAVE_APP_VERSION,
   schema: RO_WEB_SAVE_SCHEMA,
@@ -1664,6 +1707,8 @@ window.ROWebSaveManager = Object.freeze({
   clearDurable: clearIndexedDbPlayerSaves,
   flushDurable: flushDurablePlayerSave,
   flushRemote: (force = true) => flushPendingRemotePlayerSave(force),
+  getLatestEnvelope:getLatestSaveEnvelope,
+  clearPendingRemoteUpTo,
   registerRemoteAdapter: registerRemoteSaveAdapter,
   rebindActiveCharacter: rebindActiveCharacterSaveContext,
   getBinding: getCurrentSaveBinding,

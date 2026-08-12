@@ -100,6 +100,8 @@
     return clone(accountStorage);
   }
 
+  window.RO_WEB_STORAGE_SYNC_STATE = window.RO_WEB_STORAGE_SYNC_STATE || { pending:false, lastSyncedAt:0, lastError:"" };
+
   function saveAccountStorage() {
     const storage = loadAccountStorage();
     storage.updatedAt = Date.now();
@@ -107,7 +109,13 @@
     try {
       localStorage.setItem(key, JSON.stringify(storage));
       loadedStorageKey = key;
-      window.ROWebCloudRuntime?.saveSharedStorage?.(clone(storage)).catch?.(error => {
+      const syncState=window.RO_WEB_STORAGE_SYNC_STATE;
+      if(syncState){syncState.pending=true;syncState.lastError="";}
+      const cloudPromise=window.ROWebCloudRuntime?.saveSharedStorage?.(clone(storage));
+      if(cloudPromise&&typeof cloudPromise.then==="function") cloudPromise.then(()=>{
+        if(syncState){syncState.pending=false;syncState.lastSyncedAt=Date.now();syncState.lastError="";}
+      }).catch(error=>{
+        if(syncState){syncState.pending=true;syncState.lastError=String(error?.message||error||"");}
         console.warn("雲端帳號倉庫同步失敗：", error);
       });
       return true;
@@ -267,6 +275,7 @@
   }
 
   function depositStorageItem(key,amount=1) {
+    if(window.ROWebOfflineContinuity?.isOffline?.())return window.ROWebOfflineContinuity.guard("storage","帳號共用倉庫");
     if (!window.player) return false;
     const storage=loadAccountStorage();
     const equipmentKey=String(key).startsWith("instance:");
@@ -305,6 +314,7 @@
   }
 
   function withdrawStorageItem(key,amount=1) {
+    if(window.ROWebOfflineContinuity?.isOffline?.())return window.ROWebOfflineContinuity.guard("storage","帳號共用倉庫");
     if (!window.player) return false;
     const storage=loadAccountStorage();
     const equipmentKey=String(key).startsWith("instance:");
@@ -669,6 +679,7 @@
   }
 
   async function restoreSelectedLegacyWarehouse() {
+    if(window.ROWebOfflineContinuity?.isOffline?.())return window.ROWebOfflineContinuity.guard("storage","舊倉庫救援");
     const candidate = legacyWarehouseCandidates.find(row => row.id === selectedLegacyWarehouseCandidateId);
     const checkbox=document.getElementById("legacyWarehouseOwnershipConfirm");
     const status=document.getElementById("legacyWarehouseRescueStatus");
@@ -707,6 +718,7 @@
   }
 
   function openLegacyWarehouseRescue() {
+    if(window.ROWebOfflineContinuity?.isOffline?.())return window.ROWebOfflineContinuity.guard("storage","舊倉庫救援");
     const modal=document.getElementById("legacyWarehouseRescueModal");
     if (!modal) return false;
     modal.hidden=false; modal.removeAttribute("hidden");
@@ -726,6 +738,7 @@
   }
 
   function openStorageWindow(npc=null) {
+    if(window.ROWebOfflineContinuity?.isOffline?.())return window.ROWebOfflineContinuity.guard("storage","帳號共用倉庫");
     activeNpc=npc||activeNpc;
     loadAccountStorage();
     const modal=document.getElementById("storageWindow");

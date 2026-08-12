@@ -1,3 +1,19 @@
+# V0.9.87J current baseline
+
+## V0.9.87J — Offline Continuity V1 / manual local play / revision-safe resume
+- Baseline: user-provided V0.9.87I full package (`roweb(20260812-101549).zip`).
+- Gear menu adds `切換本地遊玩`; the CLOUD/OFFLINE badge next to the player card is also a shortcut.
+- Manual local switch first commits the newest localStorage + IndexedDB character snapshot, then freezes cloud character writes and enters OFFLINE.
+- While OFFLINE, normal auto battle / Base EXP / Job EXP / Zeny / ordinary drops / consumables continue locally.
+- OFFLINE explicitly blocks refine, enchant/grade/exchange, auction, shared warehouse, mail attachment claiming, chat send/poll, character/account switching and sign-out.
+- Runtime network failures no longer need to kick the active game: after repeated transient cloud failures the current session can automatically enter OFFLINE when a previously verified cloud lease exists.
+- Startup cloud failures offer local entry after repeated retries when this browser has a verified local snapshot. A manually selected OFFLINE preference can boot directly from the verified local snapshot on the next visit.
+- Before returning to CLOUD, the game always performs a final local save + durable flush first, then uses an atomic Supabase RPC with `expected revision`. If cloud revision changed on another device/tab, auto-merge is refused and local progress remains preserved OFFLINE.
+- Offline lease/state markers are mirrored to IndexedDB-backed auth storage so a full localStorage quota does not alone destroy the OFFLINE preference.
+- Shared-warehouse pending sync is checked before manual OFFLINE; resume reconciles a locally pending warehouse write before the character revision upload.
+- New SQL required once: `supabase/V0.9.87J_OFFLINE_CONTINUITY_V1.sql`. Existing VIP/auction/warehouse SQL does not need to be rerun.
+- V0.9.87I MVP Atlas OOM protection, H rescue bypass, G account-slot isolation, auction/VIP/warehouse/cloud-performance work are preserved.
+
 # V0.9.87I current baseline
 
 ## V0.9.87I — MVP arena Out-of-Memory / decoded-atlas guard

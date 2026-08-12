@@ -1,3 +1,15 @@
+## V0.9.87J
+- 新增 Offline Continuity V1：遊戲中網路不穩可自動切 OFFLINE，本機掛機／Base/Job EXP／Zeny／普通掉落與補品可繼續。
+- 齒輪加入「切換本地遊玩」，左上人物資料旁新增可點擊 CLOUD / OFFLINE / SYNC 狀態鈕。
+- 手動切本地前先完成最新本機＋IndexedDB 存檔；關頁仍沿用 pagehide/beforeunload/freeze 本機強制存檔。
+- OFFLINE 禁止精煉、附魔、裝備升階／附魔材料兌換、拍賣、共用倉庫、信箱領取、聊天送出、切角色／帳號與登出等雲端經濟操作。
+- 啟動時雲端連續失敗 4 次後，若此裝置存在已驗證角色快照，可選「本地進入」；手動 OFFLINE 偏好下次可直接使用已驗證本機角色進場。
+- 切回 CLOUD 固定流程：最終本機存檔 → IndexedDB flush → 必要的倉庫 pending sync → Supabase expected-revision 原子比對 → 安全上傳。
+- 若另一裝置／分頁已改變角色 revision，拒絕自動合併背包／裝備並維持 OFFLINE，避免複製或回溯。
+- 新增 SQL：`V0.9.87J_OFFLINE_CONTINUITY_V1.sql`，建立 `ro_resume_offline_character` 原子恢復 RPC。
+- OFFLINE lease / 狀態另鏡像至 IndexedDB auth storage，降低 localStorage 額滿造成模式狀態遺失的風險。
+- 完整保留 V0.9.87I MVP OOM Atlas LRU、H 舊角色救援略過、G/F 拍賣、VIP、倉庫與雲端掛機效能優化。
+
 ## V0.9.87I
 - MVP 試煉場 Out-of-Memory 專項：51 種 MVP 的大型動畫 Atlas 改為 LRU + 解碼記憶體預算，不再看過一隻就永久常駐。
 - 實際 51 套 MVP Atlas 以 RGBA 解碼尺寸估算合計約 602.4 MiB；MVP 場桌機快取上限目標 12 套 / 160 MiB，觸控裝置 8 套 / 96 MiB。

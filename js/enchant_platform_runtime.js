@@ -136,6 +136,7 @@
   }
 
   function openEnchantPlatform(npc){
+    if(window.ROWebOfflineContinuity?.isOffline?.())return window.ROWebOfflineContinuity.guard("enchant","附魔");
     const host=byId("enchantPlatformWindow");if(!host||!catalog())return false;
     state.activeTab="enchant";state.selectedStoneId=null;state.selectedUpgradeIndex=null;state.search="";
     prepareEquipmentInstances();
@@ -158,6 +159,7 @@
   function closeEnchantStoneInfo(){const modal=byId("enchantStoneInfoWindow");if(!modal)return;modal.classList.add("hidden-window");modal.hidden=true;}
 
   function executeEnchantPlatformAction(){
+    if(window.ROWebOfflineContinuity?.isOffline?.())return window.ROWebOfflineContinuity.guard("enchant","附魔");
     const entry=selectedEntry();if(!entry){setMessage("沒有可操作的黯淡冰晶武器。");return;}
     const selectedKey=entry.key;
     const snap=snapshot();

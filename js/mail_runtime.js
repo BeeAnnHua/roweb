@@ -178,6 +178,7 @@
   }
 
   async function refresh(options={}){
+    if(window.ROWebOfflineContinuity?.isOffline?.()){if(el("mailStatus"))el("mailStatus").textContent="OFFLINE：信箱暫停同步，切回線上模式後即可使用。";return false;}
     const api=client(), acct=account();
     if(!api||!acct?.account_id)return false;
     try{
@@ -321,6 +322,7 @@
   }
 
   async function claimMail(mailId){
+    if(window.ROWebOfflineContinuity?.isOffline?.())return window.ROWebOfflineContinuity.guard("mail","信箱領取");
     if(busy)return;
     busy=true;setToolbarBusy(true);
     const button=el("mailClaimButton"); if(button){button.disabled=true;button.textContent="領取中…";}
@@ -335,6 +337,7 @@
   }
 
   async function claimAll(){
+    if(window.ROWebOfflineContinuity?.isOffline?.())return window.ROWebOfflineContinuity.guard("mail","信箱一鍵領取");
     if(busy)return;
     const targets=mails.filter(isClaimable);
     if(!targets.length){if(el("mailStatus"))el("mailStatus").textContent="目前沒有可領取的附件。";return;}

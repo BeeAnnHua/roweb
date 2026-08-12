@@ -321,6 +321,7 @@
   }
 
   function openRefineWindow(npc = null) {
+    if(window.ROWebOfflineContinuity?.isOffline?.())return window.ROWebOfflineContinuity.guard("refine","精煉");
     const modal = typeof document !== "undefined" ? document.getElementById("refineWindow") : null;
     state.open = true;
     state.npcName = npc?.name || "斐揚精煉匠人";
@@ -412,6 +413,7 @@
   }
 
   function attemptSelectedRefine(options = {}) {
+    if(window.ROWebOfflineContinuity?.isOffline?.())return window.ROWebOfflineContinuity.guard("refine","精煉");
     const ctx = selectedContext();
     if (!ctx.selected || !ctx.rule || !ctx.chance) return false;
     const { selected, rule, chance } = ctx;

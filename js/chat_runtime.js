@@ -8,7 +8,7 @@
 (function(){
   'use strict';
 
-  const VERSION = '0.9.86G';
+  const VERSION = '0.9.87J';
   const MAX_RENDERED = 80;
   const MAX_MESSAGE_LENGTH = 120;
   const ACTIVE_POLL_MS = 10000;
@@ -275,6 +275,7 @@
   }
 
   async function send(){
+    if (window.ROWebOfflineContinuity?.isOffline?.()) { window.ROGoldUI?.alert?.('目前為 OFFLINE 本地遊玩模式，玩家聊天暫停；切回 CLOUD 後即可使用。',{title:'玩家頻道'}); return false; }
     if (state.sending) return false;
     const input = $('playerChatInput');
     const sendButton = $('playerChatSendButton');
@@ -332,6 +333,7 @@
   }
 
   async function poll(){
+    if (window.ROWebOfflineContinuity?.isOffline?.()) { showEmpty('OFFLINE 本地遊玩中｜玩家聊天暫停'); return schedulePoll(HIDDEN_POLL_MS); }
     if (state.polling) return schedulePoll(nextPollDelay());
     if (!await ensureContext()) {
       showEmpty('登入雲端遊戲帳號後即可使用玩家頻道。');

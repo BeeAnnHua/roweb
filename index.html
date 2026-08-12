@@ -15,7 +15,7 @@
   <meta name="twitter:description" content="&#8203;">
   <link rel="icon" type="image/svg+xml" href="images/ui/brand/sakura_emblem.svg?v=0.9.84C">
   <link rel="preload" as="image" type="image/webp" href="images/ui/character_select_background.webp?v=0.9.84C">
-  <link rel="stylesheet" href="css/style.css?v=0.9.87F">
+  <link rel="stylesheet" href="css/style.css?v=0.9.87J">
   <link rel="stylesheet" href="css/auction.css?v=0.9.87G">
 </head>
 
@@ -131,6 +131,7 @@
           </div>
           <div class="right-hud-account-actions">
             <button id="accountMenuSaveButton" type="button" onclick="ROWebAccountMenu?.saveNow?.()"><span aria-hidden="true">▣</span><b>手動存檔</b><small>同步目前角色與帳號倉庫</small></button>
+            <button id="accountMenuOfflineButton" type="button" onclick="ROWebAccountMenu?.toggleOfflineMode?.()"><span aria-hidden="true">◉</span><b>切換本地遊玩</b><small>網路不穩時可在本機繼續掛機與練功</small></button>
             <button type="button" onclick="ROWebAccountMenu?.renameCharacter?.()"><span aria-hidden="true">✎</span><b>更改角色名稱</b><small>修改目前角色顯示名稱</small></button>
             <button type="button" onclick="ROWebAccountMenu?.switchCharacter?.()"><span aria-hidden="true">♟</span><b>切換人物</b><small>返回角色選擇</small></button>
             <button type="button" onclick="ROWebAccountMenu?.switchAccount?.()"><span aria-hidden="true">⇄</span><b>切換帳號</b><small>選擇其他 Player ID</small></button>
@@ -142,6 +143,7 @@
       </div>
 
       <section id="player-info" class="fixed-panel character-card">
+        <button id="offlineContinuityBadge" class="offline-continuity-badge is-cloud" type="button" title="雲端模式｜點擊可切換本地/線上模式" aria-label="雲端連線模式" onclick="ROWebOfflineContinuity?.requestManualOffline?.()">CLOUD</button>
         <h2>角色資訊</h2>
         <div class="profile-row">
           <div class="portrait-placeholder"><img id="playerPortrait" src="assets/characters/novice/male/idle.png?v=0.9.83E3" alt="角色頭像"></div>
@@ -912,18 +914,19 @@
   <script src="./js/equipment_job_map_bundle.js?v=0.9.87B"></script>
   <script src="./js/loading_screen_runtime.js?v=0.9.87B"></script>
   <script src="./js/character_slots_runtime.js?v=0.9.87G"></script>
+  <script src="./js/offline_continuity_runtime.js?v=0.9.87J"></script>
   <script src="./js/afk_stability_runtime.js?v=0.9.87I"></script>
-  <script src="./js/cloud_save_runtime.js?v=0.9.87H"></script>
+  <script src="./js/cloud_save_runtime.js?v=0.9.87J"></script>
   <script src="./js/vip_runtime.js?v=0.9.87F"></script>
-  <script src="./js/player.js?v=0.9.87B"></script>
+  <script src="./js/player.js?v=0.9.87J"></script>
   <script src="./js/item_instance_ui.js?v=0.9.87B"></script>
-  <script src="./js/mail_runtime.js?v=0.9.87G"></script>
-  <script src="./js/auction_runtime.js?v=0.9.87G"></script>
+  <script src="./js/mail_runtime.js?v=0.9.87J"></script>
+  <script src="./js/auction_runtime.js?v=0.9.87J"></script>
   <script src="./js/newcomer_support_runtime.js?v=0.9.87B"></script>
-  <script src="./js/storage_runtime.js?v=0.9.87C"></script>
+  <script src="./js/storage_runtime.js?v=0.9.87J"></script>
   <script src="./js/rare_item_announcement_runtime.js?v=0.9.87B"></script>
-  <script src="./js/refine_runtime.js?v=0.9.87B"></script>
-  <script src="./js/enchant_grade_runtime.js?v=0.9.87B"></script>
+  <script src="./js/refine_runtime.js?v=0.9.87J"></script>
+  <script src="./js/enchant_grade_runtime.js?v=0.9.87J"></script>
   <script src="./js/mvp_gacha_runtime.js?v=0.9.87B"></script>
   <script src="./js/taiwan_gacha_runtime.js?v=0.9.87B"></script>
   <script src="./js/item_box_runtime.js?v=0.9.87B"></script>
@@ -959,14 +962,14 @@
   <script src="./js/homunculus_skill_runtime.js?v=0.9.87B"></script>
   <script src="./js/homunculus_s_skill_runtime.js?v=0.9.87B"></script>
   <script src="./js/map.js?v=0.9.87B"></script>
-  <script src="./js/enchant_platform_runtime.js?v=0.9.87B"></script>
-  <script src="./js/enchant_material_exchange_runtime.js?v=0.9.87B"></script>
+  <script src="./js/enchant_platform_runtime.js?v=0.9.87J"></script>
+  <script src="./js/enchant_material_exchange_runtime.js?v=0.9.87J"></script>
   <script src="./js/town.js?v=0.9.87B"></script>
   <script src="./js/ui.js?v=0.9.87B"></script>
-  <script src="./js/account_menu_runtime.js?v=0.9.87B"></script>
+  <script src="./js/account_menu_runtime.js?v=0.9.87J"></script>
   <script src="./js/quick_slots.js?v=0.9.87B"></script>
-  <script src="./js/chat_runtime.js?v=0.9.87B"></script>
-  <script src="./js/game.js?v=0.9.87I"></script>
+  <script src="./js/chat_runtime.js?v=0.9.87J"></script>
+  <script src="./js/game.js?v=0.9.87J"></script>
 </body>
 
 </html>

@@ -24297,3 +24297,68 @@ body.vip-offline-open { overflow: hidden !important; }
 .legacy-warehouse-rescue-actions{display:flex;justify-content:flex-end;gap:8px;padding:10px 13px;border-top:1px solid rgba(218,171,75,.28);background:rgba(6,7,9,.78)}.legacy-warehouse-rescue-actions button{min-width:105px;padding:8px 12px;border:1px solid #586978;border-radius:8px;background:#121a21;color:#d4dde3;font-weight:900;cursor:pointer}.legacy-warehouse-rescue-actions button.primary{border-color:#d1a147;background:linear-gradient(#654718,#2b1b08);color:#ffe5a4}.legacy-warehouse-rescue-actions button:disabled{opacity:.45;cursor:not-allowed}
 body.legacy-warehouse-rescue-open{overflow:hidden}
 @media(max-width:720px){.legacy-warehouse-rescue-overlay{padding:5px}.legacy-warehouse-rescue-dialog{width:calc(100vw - 10px);max-height:calc(100dvh - 10px);border-radius:10px}.legacy-warehouse-rescue-header{padding:10px 11px}.legacy-warehouse-rescue-header h2{font-size:18px}.legacy-warehouse-candidate-list{padding:6px 8px}.legacy-warehouse-rescue-actions{padding:8px}.legacy-warehouse-rescue-actions button{min-width:0;flex:1}.storage-summary-bar .legacy-warehouse-rescue-entry{width:100%;margin-left:0}}
+
+/* ============================================================
+   V0.9.87J Offline Continuity status / gear toggle
+   ============================================================ */
+.offline-continuity-badge{
+  position:absolute;
+  left:calc(100% + 8px);
+  top:4px;
+  min-width:58px;
+  height:24px;
+  padding:0 9px;
+  box-sizing:border-box;
+  border:1px solid rgba(234,197,92,.72);
+  border-radius:6px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.8px;
+  line-height:1;
+  z-index:40;
+  pointer-events:auto;
+  appearance:none;
+  -webkit-appearance:none;
+  cursor:pointer;
+  font-family:inherit;
+  box-shadow:0 4px 14px rgba(0,0,0,.28), inset 0 0 12px rgba(255,255,255,.04);
+  backdrop-filter:blur(3px);
+}
+.offline-continuity-badge.is-cloud{
+  color:#baf3c4;
+  background:linear-gradient(180deg,rgba(16,73,39,.94),rgba(8,39,24,.94));
+  border-color:rgba(77,211,119,.72);
+}
+.offline-continuity-badge.is-offline{
+  color:#ffe0a0;
+  background:linear-gradient(180deg,rgba(119,65,11,.97),rgba(68,31,7,.97));
+  border-color:rgba(255,174,55,.9);
+  box-shadow:0 0 16px rgba(255,142,36,.28),0 4px 14px rgba(0,0,0,.35);
+}
+.offline-continuity-badge.is-syncing{
+  color:#d8efff;
+  background:linear-gradient(180deg,rgba(19,75,116,.96),rgba(9,43,70,.96));
+  border-color:rgba(86,183,245,.86);
+}
+#accountMenuOfflineButton.is-offline-active{
+  border-color:rgba(255,170,58,.78) !important;
+  background:linear-gradient(180deg,rgba(111,61,14,.95),rgba(60,31,8,.95)) !important;
+}
+body.ro-offline-mode #auctionMarketQuickButton,
+body.ro-offline-mode #mailQuickButton{
+  filter:saturate(.45);
+}
+@media (max-width:900px), (pointer:coarse){
+  .offline-continuity-badge{
+    left:auto;
+    right:6px;
+    top:6px;
+    min-width:52px;
+    height:21px;
+    padding:0 7px;
+    font-size:10px;
+}
+}
