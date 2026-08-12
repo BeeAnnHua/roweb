@@ -72,7 +72,8 @@
     expectedCount:null,
     lastWarningAt:0,
     restoredTotal:0,
-    timer:0
+    timer:0,
+    wasActive:false
   };
 
   function gachaItemId() {
@@ -136,18 +137,27 @@
   }
 
   function auditGachaInventoryGuard() {
-    const current = getGachaInventoryCount();
+    // 只有自動掛機真的啟動時才掃整個背包。
+    // 舊版即使站城鎮/待機也會兩套轉蛋 Guard 各自每 1.5 秒 reduce 一次 inventory，
+    // 大背包或手機長時間開著時會製造沒有必要的 CPU/GC 壓力。
     if (!isGachaInventoryGuardActive()) {
-      GACHA_INVENTORY_GUARD.expectedCount = current;
-      return { active:false, current, expected:current, restored:0 };
+      GACHA_INVENTORY_GUARD.wasActive = false;
+      GACHA_INVENTORY_GUARD.expectedCount = null;
+      return { active:false, current:null, expected:null, restored:0 };
     }
-    const expected = ensureGachaGuardExpectedCount();
+    const current = getGachaInventoryCount();
+    if (!GACHA_INVENTORY_GUARD.wasActive || !Number.isFinite(GACHA_INVENTORY_GUARD.expectedCount)) {
+      GACHA_INVENTORY_GUARD.wasActive = true;
+      GACHA_INVENTORY_GUARD.expectedCount = current;
+      return { active:true, current, expected:current, restored:0 };
+    }
+    const expected = GACHA_INVENTORY_GUARD.expectedCount;
     let restored = 0;
     if (current < expected) restored = restoreGachaInventory(expected - current);
     else if (current > expected) GACHA_INVENTORY_GUARD.expectedCount = current; // 合法掉落或其他增加一律接受。
     return {
       active:true,
-      current:getGachaInventoryCount(),
+      current:restored ? getGachaInventoryCount() : current,
       expected:GACHA_INVENTORY_GUARD.expectedCount,
       restored
     };
@@ -155,7 +165,8 @@
 
   function startGachaInventoryGuard() {
     if (GACHA_INVENTORY_GUARD.timer || typeof window.setInterval !== "function") return;
-    GACHA_INVENTORY_GUARD.expectedCount = getGachaInventoryCount();
+    GACHA_INVENTORY_GUARD.expectedCount = null;
+    GACHA_INVENTORY_GUARD.wasActive = false;
     GACHA_INVENTORY_GUARD.timer = window.setInterval(auditGachaInventoryGuard, GACHA_GUARD_INTERVAL_MS);
   }
 

@@ -3,7 +3,7 @@
 // ============================================================
 (function(){
   "use strict";
-  const VERSION="0.9.87G";
+  const VERSION="0.9.87M";
   const REFRESH_MS=60000;
   let mails=[];
   let selectedMailId="";
@@ -207,6 +207,8 @@
     render();
     if(mail&&!mail.is_read){
       mail.is_read=true; renderSummary(); renderList();
+      // OFFLINE 可閱讀本機已快取郵件，但不向 Supabase 寫入已讀狀態。
+      if(window.ROWebOfflineContinuity?.isOffline?.())return;
       try{const {error}=await client().rpc("ro_mail_mark_read",{p_account_id:String(account()?.account_id||""),p_mail_id:mail.mail_id});if(error)throw error;}catch(error){console.warn("mark read failed",error);}
     }
   }
@@ -360,6 +362,7 @@
   }
 
   async function deleteRead(){
+    if(window.ROWebOfflineContinuity?.isOffline?.())return window.ROWebOfflineContinuity.guard("mail","刪除信箱郵件");
     if(busy)return;
     const readCount=mails.filter(m=>m.is_read).length;
     if(!readCount){if(el("mailStatus"))el("mailStatus").textContent="目前沒有已讀郵件可刪除。";return;}
@@ -382,6 +385,7 @@
 
   async function verifyGmAccess(){
     gmAccess=false;
+    if(window.ROWebOfflineContinuity?.isOffline?.())return false;
     const btn=el("mailGmCenterButton");
     if(btn){btn.hidden=true;btn.setAttribute("aria-hidden","true");}
     const api=client(),acct=account();
@@ -399,6 +403,7 @@
   }
 
   async function openGmCenter(){
+    if(window.ROWebOfflineContinuity?.isOffline?.())return window.ROWebOfflineContinuity.guard("mail","GM CENTER");
     if(!(await verifyGmAccess())){if(el("mailStatus"))el("mailStatus").textContent="目前遊戲帳號沒有 GM CENTER 權限。";return;}
     location.href="gm_center.html?return=index.html";
   }

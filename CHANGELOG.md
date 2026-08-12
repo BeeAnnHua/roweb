@@ -1,3 +1,11 @@
+## V0.9.87M
+- 完成兩輪全專案健康檢查：69 JS 語法、2023 JSON、5538 圖檔、HTML/CSS/JS 本機資源引用、data bundle 對源資料一致性。
+- Supabase JS 固定至 2.112.3，jsDelivr 失敗時改走官方文件列出的 unpkg CDN 備援。
+- OFFLINE 模式補齊信箱已讀、刪除已讀與 GM CENTER 的雲端操作阻擋。
+- MVP / 台灣轉蛋背包保護在未開啟自動掛機時停止全背包掃描，降低閒置 CPU / GC。
+- 根目錄舊 INSTALL / APPLY / 測試報告重新封存，版本顯示統一為 M。
+- 無新增 SQL。
+
 
 ## V0.9.87L — 遊戲設定視窗控制修正
 - 修正浮動遊戲設定視窗右上角 X 因 CSS `display: flex !important` 覆蓋 `[hidden]` 而無法真正關閉。

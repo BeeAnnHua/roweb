@@ -1,7 +1,0 @@
-V0.9.87G 安裝說明
-
-基準：V0.9.87F（roweb(9).zip）
-1. 直接覆蓋 Patch 內檔案。
-2. 本版不需要執行任何新的 Supabase SQL。
-3. 不要清除 localStorage / IndexedDB；舊角色與倉庫救援資料需保留。
-4. 測試重點：拍賣上架分類、信箱領取、同瀏覽器 Player ID 來回切換後 SLOT 1 是否保持正確。

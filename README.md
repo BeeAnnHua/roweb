@@ -1,10 +1,14 @@
+# 彼岸花仙境（RO_WEB 技術核心） V0.9.87M
 
-## V0.9.87L — 遊戲設定視窗控制修正
-- 修正浮動遊戲設定視窗右上角 X 因 CSS `display: flex !important` 覆蓋 `[hidden]` 而無法真正關閉。
-- 尺寸控制改成單一緊湊按鈕，顯示目前「小／中／大」，點擊循環切換。
-- 完整保留 V0.9.87K 以及 J/I 的 OFFLINE、MVP 記憶體、拍賣、VIP、倉庫、信箱功能。
+## V0.9.87M — 雙輪健康檢查 / 穩定性精修
+- Baseline: user-provided V0.9.87L full package (`roweb(20260812-160454).zip`).
+- Supabase JS CDN 固定至已驗證 v2.112.3，並加入官方 unpkg 備援，降低單一 CDN / 浮動 major 版本風險。
+- OFFLINE 模式補齊信箱刪除、已讀與 GM CENTER 的雲端阻擋。
+- MVP / 台灣轉蛋背包 Guard 在未掛機時不再每 1.5 秒掃描整個背包。
+- 統一目前版本顯示與開發基準；根目錄歷史安裝說明重新封存。
+- 不需新增 Supabase SQL；J Offline Continuity、I MVP OOM、拍賣、VIP、倉庫與信箱安全機制全部保留。
 
-# 彼岸花仙境（RO_WEB 技術核心） V0.9.87K
+# 彼岸花仙境（RO_WEB 技術核心）— 歷史紀錄
 
 ## V0.9.87K｜遊戲設定視窗精修＋拍賣入口去重
 
