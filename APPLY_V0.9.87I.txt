@@ -1,0 +1,27 @@
+彼岸花仙境 RO_WEB V0.9.87I
+MVP 試煉場 Out-of-Memory / Atlas 記憶體修正
+
+基準：V0.9.87H 完整版（roweb(20260812-041320).zip）
+
+安裝：
+1. 將本 Patch 解壓。
+2. 保持資料夾結構，全部覆蓋到目前 V0.9.87H GitHub / RO_WEB 專案根目錄。
+3. GitHub Pages 更新後建議重新整理頁面一次，讓 ?v=0.9.87I 的 JS 載入。
+4. 不需要執行任何新的 Supabase SQL。
+5. 不要清除 localStorage / IndexedDB。
+
+主要修正：
+- MVP 51 種大型動畫 Atlas：LRU + 解碼記憶體預算。
+- MVP 場桌機：最多 12 個已解碼 Atlas / 目標 160 MiB。
+- 觸控裝置：最多 8 個 / 目標 96 MiB。
+- 畫面外 MVP 釋放動畫 Atlas 強引用；換地圖清除怪物 Atlas 快取。
+- 阻擋跨地圖完成的舊非同步 Atlas 解碼重新塞回快取。
+- MVP 視覺預載範圍縮至 120px（不減怪、不改 AI）。
+- 死亡獎勵 Snapshot 不再暫時抓住 Canvas / DOM / 大型 Atlas。
+- AFK 診斷新增 Atlas Cache、Reward Queue、Inventory 指標。
+
+掉寶倍率：
+本版沒有強制降低掉寶倍率。現行掉寶倍率是提高掉落機率後封頂 100%，不是重跑 100 次掉落迴圈。
+
+測試建議：
+維持目前相同掉寶倍率與同一 MVP 試煉場，連續掛機 30～60 分鐘以上並移動跨越 3×3 區域，確認是否還出現白色機器人 / Out of memory。

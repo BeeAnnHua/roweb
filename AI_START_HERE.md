@@ -1,3 +1,17 @@
+# V0.9.87I current baseline
+
+## V0.9.87I — MVP arena Out-of-Memory / decoded-atlas guard
+- Baseline: user-provided V0.9.87H full package (`roweb(20260812-041320).zip`).
+- Root cause addressed: the 51-species MVP arena lazily decodes large monster atlas images but previously retained every seen atlas indefinitely. The real 51 atlas dimensions sum to about **602.4 MiB decoded RGBA memory** before Canvas / DOM / JSON / skill effects are counted.
+- World-monster atlas cache is now bounded by LRU + decoded-memory budget. MVP arena desktop target: **12 resolved assets / 160 MiB**; coarse-pointer/mobile target: **8 / 96 MiB**. Normal maps keep a looser 18/224 MiB desktop budget.
+- Off-screen streamed monsters release their direct `_animation.asset` reference so old atlases can actually be evicted.
+- MVP visual preload padding is reduced to 120 world px; combat/AI population remains unchanged. This reduces simultaneous 20–30 MiB atlas preloads without reducing the 51 MVP roster.
+- Map changes clear the decoded monster-atlas cache, and stale async atlas decodes are rejected if they complete after the map generation changed.
+- Monster-death reward snapshots are stripped of Canvas / DOM / animation-atlas/runtime references before entering the idle reward queue, preventing dead MVPs from pinning tens of MiB each until reward resolution.
+- AFK diagnostics now record world-monster atlas-cache MB/entry count, reward-queue length and inventory rows in addition to heap/DOM/effect counters.
+- Existing drop-rate configuration is intentionally unchanged. Current drop scaling increases/caps probability; it does not execute the loot loop 100 times. High drop rates can add inventory/save pressure but were not the primary retained-memory source found here.
+- No Supabase SQL migration required. V0.9.87H fresh-character bypass and all G/F/E/C/B functionality are preserved.
+
 # V0.9.87H current baseline
 
 ## V0.9.87H — Optional legacy character rescue / fresh-character bypass

@@ -17,6 +17,9 @@ const RO_WORLD_MONSTER_TEST = {
   entities: [],
   respawnQueue: [],
   assetCache: new Map(),
+  assetCacheMeta: new Map(),
+  assetCacheEvictions: 0,
+  assetCachePeakDecodedBytes: 0,
   loadGeneration: 0,
   lastTimestamp: 0,
   lastMaintenanceAt: 0,
@@ -517,6 +520,153 @@ function getWorldMonsterAssetBounds(data) {
   };
 }
 
+// ===== V0.9.87I: MVP / large-monster atlas memory guard =====
+// Browser-decoded monster atlases are much larger than their PNG/WEBP files.
+// The 51-MVP arena can exceed ~600 MB of decoded RGBA atlas memory if every
+// species ever seen remains referenced. Keep only currently rendered assets
+// plus a bounded LRU cache, and release everything on map changes.
+function estimateWorldMonsterAssetDecodedBytes(asset) {
+  if (!asset || typeof asset !== "object") return 0;
+  if (Number.isFinite(Number(asset._decodedBytes))) return Math.max(0, Number(asset._decodedBytes));
+  let bytes = 0;
+  const seen = new Set();
+  const images = asset.images instanceof Map ? [...asset.images.values()] : (asset.image ? [asset.image] : []);
+  for (const image of images) {
+    if (!image || seen.has(image)) continue;
+    seen.add(image);
+    const width = Math.max(0, Number(image.naturalWidth || image.width || 0));
+    const height = Math.max(0, Number(image.naturalHeight || image.height || 0));
+    bytes += width * height * 4;
+  }
+  asset._decodedBytes = Math.max(0, Math.round(bytes));
+  return asset._decodedBytes;
+}
+
+function getWorldMonsterAssetCacheLimits() {
+  const tags = Array.isArray(currentMap?.mapTags) ? currentMap.mapTags.map(tag => String(tag || "").toLowerCase()) : [];
+  const isMvpArena = tags.includes("mvp_arena") || String(currentMap?.id || "").includes("mvp_arena");
+  let coarse = false;
+  try { coarse = Boolean(window.matchMedia?.("(pointer: coarse)")?.matches || navigator?.maxTouchPoints > 0); } catch (_) {}
+  if (isMvpArena) {
+    return {
+      maxEntries: coarse ? 8 : 12,
+      maxDecodedBytes: (coarse ? 96 : 160) * 1024 * 1024
+    };
+  }
+  return {
+    maxEntries: coarse ? 12 : 18,
+    maxDecodedBytes: (coarse ? 128 : 224) * 1024 * 1024
+  };
+}
+
+function touchWorldMonsterAssetCache(monsterId, asset = null) {
+  const id = Number(monsterId || 0);
+  if (!id) return;
+  const resolved = asset || RO_WORLD_MONSTER_TEST.assetCache.get(id);
+  const decodedBytes = resolved && typeof resolved === "object" && typeof resolved.then !== "function"
+    ? estimateWorldMonsterAssetDecodedBytes(resolved)
+    : 0;
+  RO_WORLD_MONSTER_TEST.assetCacheMeta.set(id, {
+    lastUsedAt: Date.now(),
+    decodedBytes
+  });
+}
+
+function getWorldMonsterAssetCacheStats() {
+  let decodedBytes = 0;
+  let resolvedEntries = 0;
+  let pendingEntries = 0;
+  for (const [id, asset] of RO_WORLD_MONSTER_TEST.assetCache.entries()) {
+    if (asset && typeof asset.then === "function") {
+      pendingEntries += 1;
+      continue;
+    }
+    resolvedEntries += 1;
+    const meta = RO_WORLD_MONSTER_TEST.assetCacheMeta.get(Number(id));
+    decodedBytes += Math.max(0, Number(meta?.decodedBytes || estimateWorldMonsterAssetDecodedBytes(asset)));
+  }
+  RO_WORLD_MONSTER_TEST.assetCachePeakDecodedBytes = Math.max(
+    Number(RO_WORLD_MONSTER_TEST.assetCachePeakDecodedBytes || 0),
+    decodedBytes
+  );
+  const limits = getWorldMonsterAssetCacheLimits();
+  return {
+    entries: RO_WORLD_MONSTER_TEST.assetCache.size,
+    resolvedEntries,
+    pendingEntries,
+    decodedBytes,
+    decodedMb: Math.round(decodedBytes / 1024 / 1024 * 10) / 10,
+    peakDecodedBytes: Number(RO_WORLD_MONSTER_TEST.assetCachePeakDecodedBytes || 0),
+    peakDecodedMb: Math.round(Number(RO_WORLD_MONSTER_TEST.assetCachePeakDecodedBytes || 0) / 1024 / 1024 * 10) / 10,
+    evictions: Number(RO_WORLD_MONSTER_TEST.assetCacheEvictions || 0),
+    maxEntries: limits.maxEntries,
+    maxDecodedBytes: limits.maxDecodedBytes,
+    maxDecodedMb: Math.round(limits.maxDecodedBytes / 1024 / 1024)
+  };
+}
+window.getWorldMonsterAssetCacheStats = getWorldMonsterAssetCacheStats;
+
+function isWorldMonsterAssetCurrentlyRendered(asset) {
+  if (!asset || typeof asset !== "object") return false;
+  return (RO_WORLD_MONSTER_TEST.entities || []).some(entity =>
+    Boolean(entity?._element && entity?._animation?.asset === asset)
+  );
+}
+
+function disposeWorldMonsterAsset(asset) {
+  if (!asset || typeof asset !== "object" || typeof asset.then === "function") return false;
+  if (isWorldMonsterAssetCurrentlyRendered(asset)) return false;
+  try {
+    if (asset.images instanceof Map) asset.images.clear();
+    if (asset.frameById instanceof Map) asset.frameById.clear();
+    asset.image = null;
+    asset.data = null;
+  } catch (_) {}
+  return true;
+}
+
+function trimWorldMonsterAssetCache(options = {}) {
+  const limits = getWorldMonsterAssetCacheLimits();
+  const protectedAsset = options.protectedAsset || null;
+  let stats = getWorldMonsterAssetCacheStats();
+  if (stats.entries <= limits.maxEntries && stats.decodedBytes <= limits.maxDecodedBytes) return stats;
+
+  const candidates = [];
+  for (const [id, asset] of RO_WORLD_MONSTER_TEST.assetCache.entries()) {
+    if (!asset || typeof asset.then === "function" || asset === protectedAsset) continue;
+    if (isWorldMonsterAssetCurrentlyRendered(asset)) continue;
+    const meta = RO_WORLD_MONSTER_TEST.assetCacheMeta.get(Number(id)) || {};
+    candidates.push({
+      id: Number(id),
+      asset,
+      lastUsedAt: Number(meta.lastUsedAt || 0),
+      decodedBytes: Math.max(0, Number(meta.decodedBytes || estimateWorldMonsterAssetDecodedBytes(asset)))
+    });
+  }
+  candidates.sort((a, b) => a.lastUsedAt - b.lastUsedAt || b.decodedBytes - a.decodedBytes);
+
+  for (const row of candidates) {
+    if (stats.entries <= limits.maxEntries && stats.decodedBytes <= limits.maxDecodedBytes) break;
+    RO_WORLD_MONSTER_TEST.assetCache.delete(row.id);
+    RO_WORLD_MONSTER_TEST.assetCacheMeta.delete(row.id);
+    disposeWorldMonsterAsset(row.asset);
+    RO_WORLD_MONSTER_TEST.assetCacheEvictions += 1;
+    stats = getWorldMonsterAssetCacheStats();
+  }
+  return stats;
+}
+window.trimWorldMonsterAssetCache = trimWorldMonsterAssetCache;
+
+function clearWorldMonsterAssetCache() {
+  for (const asset of RO_WORLD_MONSTER_TEST.assetCache.values()) {
+    if (!asset || typeof asset.then === "function") continue;
+    disposeWorldMonsterAsset(asset);
+  }
+  RO_WORLD_MONSTER_TEST.assetCache.clear();
+  RO_WORLD_MONSTER_TEST.assetCacheMeta.clear();
+}
+window.clearWorldMonsterAssetCache = clearWorldMonsterAssetCache;
+
 function loadWorldMonsterImage(src) {
   return new Promise((resolve, reject) => {
     const image = document.createElement("img");
@@ -529,8 +679,13 @@ function loadWorldMonsterImage(src) {
 
 async function loadWorldMonsterTestAsset(monster) {
   const id = Number(monster?.id || 0);
+  const cacheGeneration = RO_WORLD_MONSTER_TEST.loadGeneration;
   if (!id) return null;
-  if (RO_WORLD_MONSTER_TEST.assetCache.has(id)) return RO_WORLD_MONSTER_TEST.assetCache.get(id);
+  if (RO_WORLD_MONSTER_TEST.assetCache.has(id)) {
+    const cached = RO_WORLD_MONSTER_TEST.assetCache.get(id);
+    if (cached && typeof cached.then !== "function") touchWorldMonsterAssetCache(id, cached);
+    return cached;
+  }
 
   const promise = (async () => {
     if (!monster?.animationJson) {
@@ -586,7 +741,17 @@ async function loadWorldMonsterTestAsset(monster) {
   RO_WORLD_MONSTER_TEST.assetCache.set(id, promise);
   try {
     const asset = await promise;
+    estimateWorldMonsterAssetDecodedBytes(asset);
+    // If the player changed map while this large atlas was still decoding, do
+    // not let the stale promise repopulate the cache after clear().
+    if (cacheGeneration !== RO_WORLD_MONSTER_TEST.loadGeneration) {
+      RO_WORLD_MONSTER_TEST.assetCache.delete(id);
+      RO_WORLD_MONSTER_TEST.assetCacheMeta.delete(id);
+      disposeWorldMonsterAsset(asset);
+      return null;
+    }
     RO_WORLD_MONSTER_TEST.assetCache.set(id, asset);
+    touchWorldMonsterAssetCache(id, asset);
     return asset;
   } catch (error) {
     RO_WORLD_MONSTER_TEST.assetCache.delete(id);
@@ -843,6 +1008,7 @@ function applyWorldMonsterAssetToElement(entity, asset) {
 
 function removeWorldMonsterElement(entity) {
   if (!entity) return;
+  const releasedAsset = entity?._animation?.asset || null;
   entity._element?.remove();
   entity._element = null;
   entity._canvas = null;
@@ -858,6 +1024,14 @@ function removeWorldMonsterElement(entity) {
   entity._lastRenderTop = null;
   entity._lastRenderZ = null;
   entity._assetLoading = false;
+  // Off-screen entities must not pin decoded atlases in RAM. The bounded cache
+  // can still reuse a recently seen asset; old atlases are evicted by LRU.
+  if (entity._animation) {
+    entity._animation.asset = null;
+    entity._animation.frameCursor = 0;
+    entity._animation.frameElapsed = 0;
+  }
+  if (releasedAsset) trimWorldMonsterAssetCache();
 }
 
 async function prepareWorldMonsterEntity(entity, generation = RO_WORLD_MONSTER_TEST.loadGeneration) {
@@ -867,8 +1041,10 @@ async function prepareWorldMonsterEntity(entity, generation = RO_WORLD_MONSTER_T
     const asset = await loadWorldMonsterTestAsset(entity);
     if (!asset || generation !== RO_WORLD_MONSTER_TEST.loadGeneration || !entity._element) return;
     entity._animation.asset = asset;
+    touchWorldMonsterAssetCache(entity.id, asset);
     applyWorldMonsterAssetToElement(entity, asset);
     renderWorldMonsterTestFrame(entity, performance.now());
+    trimWorldMonsterAssetCache({ protectedAsset: asset });
   } catch (error) {
     console.warn("World monster streaming asset failed", entity?.id, error);
     entity._element?.classList.add("asset-error");
@@ -882,6 +1058,8 @@ function clearWorldMonsterFieldTest(options = {}) {
   RO_WORLD_MONSTER_TEST.loadGeneration += 1;
   RO_WORLD_MONSTER_TEST.entities.forEach(removeWorldMonsterElement);
   RO_WORLD_MONSTER_TEST.entities = [];
+  clearWorldMonsterAssetCache();
+  RO_WORLD_MONSTER_TEST.assetCachePeakDecodedBytes = 0;
   clearWorldMonsterSpatialIndex();
   RO_WORLD_MONSTER_TEST.respawnQueue = [];
   RO_WORLD_MONSTER_TEST.profile = null;
@@ -1727,7 +1905,12 @@ window.updateWorldMonsterFieldTestUi = updateWorldMonsterFieldTestUi;
 function shouldRenderWorldMonsterEntity(entity) {
   if (!entity?.position) return false;
   if (entity === currentMonster) return true;
-  const padding = Math.max(0, Number(getWorldMonsterRuntimeValves().renderPaddingWorldPx || 260));
+  let padding = Math.max(0, Number(getWorldMonsterRuntimeValves().renderPaddingWorldPx || 260));
+  // The authored MVP grid contains 51 unique large atlases. A smaller visual
+  // preload margin prevents several off-screen 20~30 MB decoded atlases from
+  // being held at the same time; combat/AI entities themselves remain active.
+  const tags = Array.isArray(currentMap?.mapTags) ? currentMap.mapTags.map(tag => String(tag || "").toLowerCase()) : [];
+  if (tags.includes("mvp_arena") || String(currentMap?.id || "").includes("mvp_arena")) padding = Math.min(padding, 120);
   return isWorldMonsterPositionInsideViewport(entity.position, padding);
 }
 

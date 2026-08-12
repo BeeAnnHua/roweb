@@ -7,7 +7,7 @@
 // ============================================================
 (function(){
   "use strict";
-  const VERSION="0.9.87B";
+  const VERSION="0.9.87I";
   const STATE_KEY="roweb_afk_stability_state_v1";
   const EVENTS_KEY="roweb_afk_stability_events_v1";
   const HEARTBEAT_MS=30000;
@@ -47,6 +47,7 @@
     const ch=activeCharacter();
     const acct=cloudAccount();
     const effect=safe(()=>window.SkillEffectRuntimeV92?.diagnostics,null);
+    const monsterAssets=safe(()=>window.getWorldMonsterAssetCacheStats?.(),null);
     const state={
       version:VERSION,sessionId,reason,at:Date.now(),url:String(location.pathname||"")+String(location.search||""),
       visibility:document.visibilityState,online:navigator.onLine!==false,
@@ -59,6 +60,9 @@
       domNodes:Number(document.getElementsByTagName("*").length||0),
       battleLogLines:Number(document.getElementById("battle-log-list")?.children?.length||0),
       worldEntities:Number(worldEntityCount()),
+      worldMonsterAssetCache:monsterAssets,
+      defeatRewardQueue:Number(safe(()=>window.RO_WEB_DEFEAT_RESOLUTION_BATCH?.queue?.length,0)||0),
+      inventoryRows:Number(safe(()=>window.player?.inventory?.length,0)||0),
       skillEffectInstances:Number(effect?.activeInstances||0),
       skillEffectLifecycles:Number(effect?.activeLifecycles||0),
       heap:heap(),
@@ -86,7 +90,17 @@
     const clean=Number(prev.cleanExitAt||0)>=Number(prev.at||0);
     if(!clean&&age>=0&&age<10*60*1000){
       window.RO_WEB_AFK_LAST_ABNORMAL={...prev,detectedAt:Date.now(),ageMs:age};
-      pushEvent("previous_abnormal_detected",{ageMs:age,previousSessionId:prev.sessionId,autoBattle:Boolean(prev.autoBattle),domNodes:Number(prev.domNodes||0),worldEntities:Number(prev.worldEntities||0),heap:prev.heap||null});
+      pushEvent("previous_abnormal_detected",{
+        ageMs:age,
+        previousSessionId:prev.sessionId,
+        autoBattle:Boolean(prev.autoBattle),
+        domNodes:Number(prev.domNodes||0),
+        worldEntities:Number(prev.worldEntities||0),
+        worldMonsterAssetCache:prev.worldMonsterAssetCache||null,
+        defeatRewardQueue:Number(prev.defeatRewardQueue||0),
+        inventoryRows:Number(prev.inventoryRows||0),
+        heap:prev.heap||null
+      });
       try{console.warn("[RO_WEB AFK] 偵測到上一次頁面異常終止",window.RO_WEB_AFK_LAST_ABNORMAL)}catch(_){}
       return window.RO_WEB_AFK_LAST_ABNORMAL;
     }

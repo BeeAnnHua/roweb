@@ -1244,6 +1244,24 @@ function cloneMonsterRewardRows(rows) {
   return rows.map(row => row && typeof row === "object" ? { ...row } : row);
 }
 
+// V0.9.87I: reward snapshots must never retain render/runtime objects.
+// A streamed MVP can hold tens of MB of decoded atlas data through
+// _animation.asset. Keeping that reference in the idle reward queue creates
+// large transient heap spikes when several MVPs die close together.
+function stripMonsterDeathRewardRuntimeReferences(snapshot) {
+  if (!snapshot || typeof snapshot !== "object") return snapshot;
+  [
+    "_element","_canvas","_ctx","_labelElement","_nameElement","_categoryElement",
+    "_hitboxElement","_hpBarElement","_hpFillElement","_animation","_assetLoading",
+    "_damageNumberAnchorLocal","_damageNumberAnchorScreen","_damageNumberAnchorWorld",
+    "_worldTestEntity","_worldMonsterEntity","_wanderTarget","_crowdPlan"
+  ].forEach(key => { try { delete snapshot[key]; } catch (_) {} });
+  if (snapshot.lootRuntime && typeof snapshot.lootRuntime === "object") {
+    snapshot.lootRuntime = { ...snapshot.lootRuntime };
+  }
+  return snapshot;
+}
+
 function createMonsterDeathRewardSnapshot(monster) {
   if (!monster) return null;
   const monsterId = getAuthoritativeMonsterDeathId(monster);
@@ -1286,10 +1304,10 @@ function createMonsterDeathRewardSnapshot(monster) {
     drops: cloneMonsterRewardRows(canonical?.drops ?? monster?.drops),
     mvpDrops: cloneMonsterRewardRows(canonical?.mvpDrops ?? monster?.mvpDrops),
     _deathIdentity: identity,
-    _deathSourceMonster: monster,
     _deathRewardSnapshot: true,
     _rewardsGranted: false
   };
+  stripMonsterDeathRewardRuntimeReferences(snapshot);
   monster._deathIdentity = identity;
   RO_WEB_MONSTER_DEATH_IDENTITY_AUDIT.queued += 1;
   appendMonsterDeathIdentityAudit({
@@ -1308,6 +1326,7 @@ window.createMonsterDeathRewardSnapshot = createMonsterDeathRewardSnapshot;
 // EXP、掉落、背包重建、戰鬥紀錄與存檔改在下一個 idle 時段批次處理，
 // 避免高傷害一擊擊殺時出現使用者感受到的約 0.1 秒停頓。
 const RO_WEB_DEFEAT_RESOLUTION_BATCH = { queue: [], scheduled: false, flushing: false };
+window.RO_WEB_DEFEAT_RESOLUTION_BATCH = RO_WEB_DEFEAT_RESOLUTION_BATCH;
 
 function scheduleDefeatResolutionBatch() {
   if (RO_WEB_DEFEAT_RESOLUTION_BATCH.scheduled) return;
@@ -1366,10 +1385,8 @@ function flushDefeatResolutionBatch(deadline = null) {
       if (processed > 0 && deadline && typeof deadline.timeRemaining === "function" && deadline.timeRemaining() < 2) break;
       const item = RO_WEB_DEFEAT_RESOLUTION_BATCH.queue.shift();
       const monster = item?.monster;
-      const sourceMonster = item?.sourceMonster || monster?._deathSourceMonster || null;
-      if (!monster || monster._rewardsGranted || sourceMonster?._rewardsGranted) continue;
+      if (!monster || monster._rewardsGranted) continue;
       monster._rewardsGranted = true;
-      if (sourceMonster) sourceMonster._rewardsGranted = true;
       if (typeof recordMapMonsterDiscovery === "function") recordMapMonsterDiscovery(monster);
       if (typeof grantMonsterRewards === "function") grantMonsterRewards(monster);
       const deathName = monster?._deathIdentity?.name || monster.name || "怪物";
@@ -1403,7 +1420,10 @@ function queueMonsterDefeatResolution(monster, options = {}) {
 
   const rewardSnapshot = createMonsterDeathRewardSnapshot(monster);
   if (!rewardSnapshot) return false;
-  RO_WEB_DEFEAT_RESOLUTION_BATCH.queue.push({ monster:rewardSnapshot, sourceMonster:monster, primary:isPrimary, queuedAt:Date.now() });
+  // Store only the slim reward snapshot. The source world entity is already
+  // protected against duplicate queueing by _defeatResolutionQueued, so keeping
+  // a strong reference here would only pin its atlas/canvas until reward flush.
+  RO_WEB_DEFEAT_RESOLUTION_BATCH.queue.push({ monster:rewardSnapshot, primary:isPrimary, queuedAt:Date.now() });
   scheduleDefeatResolutionBatch();
 
   if (isPrimary) {

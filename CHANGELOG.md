@@ -1,3 +1,13 @@
+## V0.9.87I
+- MVP 試煉場 Out-of-Memory 專項：51 種 MVP 的大型動畫 Atlas 改為 LRU + 解碼記憶體預算，不再看過一隻就永久常駐。
+- 實際 51 套 MVP Atlas 以 RGBA 解碼尺寸估算合計約 602.4 MiB；MVP 場桌機快取上限目標 12 套 / 160 MiB，觸控裝置 8 套 / 96 MiB。
+- 畫面外世界怪物釋放 `_animation.asset`；換地圖完整清理 Atlas Cache；跨地圖仍在解碼的舊 Promise 完成後不再回填快取。
+- MVP 場視覺預載範圍縮至 120px，但怪物數量、AI、戰鬥與掉落規則不減少。
+- 怪物死亡 Reward Snapshot 移除 Canvas / DOM / Atlas 等 Runtime 強引用，避免短時間擊殺多隻 MVP 時 Reward Queue 暫時鎖住大型圖片。
+- AFK 診斷新增 Atlas Cache MB、淘汰次數、Reward Queue、背包列數，方便再次 OOM 時定位。
+- 不調低目前掉寶倍率；掉寶倍率目前為機率乘算後封頂，不是把掉落迴圈重跑 100 次。
+- 無新增 SQL；完整保留 V0.9.87H 舊角色救援可略過與既有拍賣／VIP／倉庫／雲端優化。
+
 
 ## V0.9.87G
 - 拍賣場「我要上架」背包新增：消耗品／裝備／物品分類與重新整理。
