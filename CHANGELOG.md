@@ -1,3 +1,12 @@
+## V0.9.87N
+
+- MVP 試煉場從 51 種精簡為 22 種，移除 29 種不常用 MVP 的地圖 Spawn；怪物資料與動畫素材不刪除。
+- 重新配置 22 隻固定出生座標，避開地圖中央玩家出生點並拉大平均距離。
+- 收緊 MVP 地圖動畫 Atlas LRU：桌機 8 entries / 112 MB；觸控裝置 6 entries / 72 MB。
+- 同步更新 `maps.json`、`world_region_manifest.json`、data bundles 與版本 cache-bust。
+- 目標：降低 MVP 地圖長時間線上／離線掛機時的瀏覽器 Memory / OOM 風險。
+- 無 SQL。
+
 ## V0.9.87M
 - 完成兩輪全專案健康檢查：69 JS 語法、2023 JSON、5538 圖檔、HTML/CSS/JS 本機資源引用、data bundle 對源資料一致性。
 - Supabase JS 固定至 2.112.3，jsDelivr 失敗時改走官方文件列出的 unpkg CDN 備援。

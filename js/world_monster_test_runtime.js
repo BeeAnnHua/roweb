@@ -522,8 +522,9 @@ function getWorldMonsterAssetBounds(data) {
 
 // ===== V0.9.87I: MVP / large-monster atlas memory guard =====
 // Browser-decoded monster atlases are much larger than their PNG/WEBP files.
-// The 51-MVP arena can exceed ~600 MB of decoded RGBA atlas memory if every
-// species ever seen remains referenced. Keep only currently rendered assets
+// The original 51-MVP arena could exceed ~600 MB of decoded RGBA atlas memory if every
+// species ever seen remained referenced. V0.9.87N trims the live roster to 22
+// species and spreads them farther apart. Keep only currently rendered assets
 // plus a bounded LRU cache, and release everything on map changes.
 function estimateWorldMonsterAssetDecodedBytes(asset) {
   if (!asset || typeof asset !== "object") return 0;
@@ -549,8 +550,8 @@ function getWorldMonsterAssetCacheLimits() {
   try { coarse = Boolean(window.matchMedia?.("(pointer: coarse)")?.matches || navigator?.maxTouchPoints > 0); } catch (_) {}
   if (isMvpArena) {
     return {
-      maxEntries: coarse ? 8 : 12,
-      maxDecodedBytes: (coarse ? 96 : 160) * 1024 * 1024
+      maxEntries: coarse ? 6 : 8,
+      maxDecodedBytes: (coarse ? 72 : 112) * 1024 * 1024
     };
   }
   return {
