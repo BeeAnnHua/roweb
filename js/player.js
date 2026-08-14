@@ -1181,6 +1181,15 @@ function normalizePlayerData() {
     locked: Boolean(item?.locked)
   })).filter(item => item.id !== null && item.id !== undefined && item.id !== "" && item.count > 0);
 
+  // V0.9.88B2: auto-decompose is stored as an item-ID allow-list instead of on
+  // individual stacks.  A marked item remains marked after the old stack is
+  // fully dismantled, so future drops of the same item are handled on the next
+  // 30-minute AFK cycle.
+  const rawAutoDecomposeIds = Array.isArray(player.autoDecomposeItemIds) ? player.autoDecomposeItemIds : [];
+  player.autoDecomposeItemIds = [...new Set(rawAutoDecomposeIds
+    .map(id => normalizeItemId(id))
+    .filter(id => id !== null && id !== undefined && id !== ""))];
+
   migrateLegacyLearnedSkillsShape();
   migrateLegacyQuickSlotsShape();
 
@@ -2475,6 +2484,7 @@ function addItem(item, count = 1) {
 let activeInventoryFilter = "consume";
 let activeInventoryPage = 0;
 let inventoryLockMode = false;
+let inventoryAutoDecomposeMode = false;
 const INVENTORY_PAGE_SIZE = 40;
 const INVENTORY_VISIBLE_SLOT_COUNT = 30;
 const INVENTORY_DECOMPOSE_LIMIT = 100; // 預設值；玩家可在確認視窗自行調整。
@@ -2482,6 +2492,14 @@ const INVENTORY_DECOMPOSE_MAX_INPUT = 999999999;
 let inventoryDecomposeActive = false;
 let inventoryDecomposeCooldownUntil = 0;
 let pendingInventoryDecomposeRequest = null;
+
+// V0.9.88B2: marked items are dismantled once every continuous 30 minutes of
+// auto battle. Stopping AFK resets the clock; restarting begins a fresh 30 min.
+const INVENTORY_AUTO_DECOMPOSE_INTERVAL_MS = 30 * 60 * 1000;
+let inventoryAutoDecomposeTimer = null;
+let inventoryAutoDecomposeStartedAt = 0;
+let inventoryAutoDecomposeNextAt = 0;
+let inventoryAutoDecomposeLastRunAt = 0;
 // V0.9.78AI：背包格子完全交給 CSS Grid。
 // 舊版固定座標表已退休；這個函式只負責清除可能殘留的 inline 座標。
 function applyInventorySlotPosition(slot, index) {
@@ -2617,6 +2635,9 @@ function initInventoryControls() {
   const lockBtn = document.getElementById("inventoryLockBtn");
   if (lockBtn) lockBtn.onclick = toggleInventoryLockMode;
 
+  const autoDecomposeBtn = document.getElementById("inventoryAutoDecomposeBtn");
+  if (autoDecomposeBtn) autoDecomposeBtn.onclick = toggleInventoryAutoDecomposeMode;
+
   const prevBtn = document.getElementById("inventoryPrevPage");
   if (prevBtn) prevBtn.onclick = () => changeInventoryPage(-1);
 
@@ -2650,6 +2671,12 @@ function updateInventoryPageControls(totalPages) {
   if (nextBtn) nextBtn.disabled = true;
   const lockBtn = document.getElementById("inventoryLockBtn");
   if (lockBtn) lockBtn.classList.toggle("is-active", inventoryLockMode);
+  const autoDecomposeBtn = document.getElementById("inventoryAutoDecomposeBtn");
+  if (autoDecomposeBtn) {
+    autoDecomposeBtn.classList.toggle("is-active", inventoryAutoDecomposeMode);
+    const markedCount = getInventoryAutoDecomposeMarkedIds().length;
+    autoDecomposeBtn.title = `自動分解標記模式（已標記 ${markedCount} 種；掛機每 30 分鐘安全批次分解）`;
+  }
 }
 
 function changeInventoryPage(delta) {
@@ -2673,8 +2700,49 @@ function sortInventoryById() {
 
 function toggleInventoryLockMode() {
   inventoryLockMode = !inventoryLockMode;
+  if (inventoryLockMode) inventoryAutoDecomposeMode = false;
   addBattleLog(inventoryLockMode ? "鎖定模式：開啟。點擊物品右上角方框可鎖定。" : "鎖定模式：關閉。");
   updateInventoryUI();
+}
+
+function getInventoryAutoDecomposeMarkedIds() {
+  if (!player) return [];
+  if (!Array.isArray(player.autoDecomposeItemIds)) player.autoDecomposeItemIds = [];
+  return player.autoDecomposeItemIds;
+}
+
+function isInventoryItemAutoDecomposeMarked(itemOrId) {
+  const id = normalizeItemId(itemOrId && typeof itemOrId === "object" ? itemOrId.id : itemOrId);
+  return getInventoryAutoDecomposeMarkedIds().some(value => String(value) === String(id));
+}
+
+function toggleInventoryAutoDecomposeMode() {
+  inventoryAutoDecomposeMode = !inventoryAutoDecomposeMode;
+  if (inventoryAutoDecomposeMode) inventoryLockMode = false;
+  addBattleLog(inventoryAutoDecomposeMode
+    ? "自動分解標記模式：開啟。勾選物品後，自動掛機每 30 分鐘批次分解一次；鎖定／穿戴／受保護物品永遠跳過。"
+    : "自動分解標記模式：關閉。已勾選的物品種類會繼續保留設定。");
+  updateInventoryUI();
+}
+
+function toggleInventoryItemAutoDecompose(item) {
+  if (!item) return false;
+  const id = normalizeItemId(item.id);
+  const list = getInventoryAutoDecomposeMarkedIds();
+  const index = list.findIndex(value => String(value) === String(id));
+  const itemData = getItemData(id);
+  if (index >= 0) {
+    list.splice(index, 1);
+    addBattleLog(`${itemData?.name || id} 已取消自動分解標記。`);
+  } else {
+    // A protected item may still be marked for clarity, but it will never pass
+    // the safety eligibility check until/if its protection no longer applies.
+    list.push(id);
+    addBattleLog(`${itemData?.name || id} 已勾選自動分解：掛機每 30 分鐘處理一次。`);
+  }
+  updateInventoryUI();
+  saveGame();
+  return true;
 }
 
 function toggleInventoryItemLock(itemId) {
@@ -2731,6 +2799,10 @@ function resolveInventoryDecomposeTarget(target) {
 function getInventoryDecomposeCandidates(request = {}) {
   if (!Array.isArray(player?.inventory)) return [];
   const equippedIds = getInventoryDecomposeEquippedIds();
+  if (request.mode === "auto") {
+    const marked = new Set(getInventoryAutoDecomposeMarkedIds().map(value => String(value)));
+    return player.inventory.filter(item => marked.has(String(normalizeItemId(item?.id))) && isInventoryItemDecomposeEligible(item, equippedIds));
+  }
   if (request.mode === "item" || request.target) {
     const target = resolveInventoryDecomposeTarget(request.target || request);
     return target && isInventoryItemDecomposeEligible(target, equippedIds) ? [target] : [];
@@ -2866,6 +2938,80 @@ function executeInventoryDecompose(request = {}, requestedAmount = INVENTORY_DEC
     setTimeout(() => { inventoryDecomposeActive = false; }, Math.max(0, inventoryDecomposeCooldownUntil - Date.now()));
   }
 }
+
+function executeMarkedInventoryAutoDecompose() {
+  if (!player || !Array.isArray(player.inventory)) return { ok:false, reason:"背包尚未載入。" };
+  const available = getInventoryDecomposeAvailableCount({ mode:"auto" });
+  if (!available) return { ok:true, skipped:true, removedCount:0, zenyGain:0 };
+  return executeInventoryDecompose({ mode:"auto" }, Math.min(INVENTORY_DECOMPOSE_MAX_INPUT, available));
+}
+window.executeMarkedInventoryAutoDecompose = executeMarkedInventoryAutoDecompose;
+
+function clearInventoryAutoDecomposeTimer() {
+  if (inventoryAutoDecomposeTimer) clearTimeout(inventoryAutoDecomposeTimer);
+  inventoryAutoDecomposeTimer = null;
+}
+
+function scheduleInventoryAutoDecomposeTimer(delayMs = null) {
+  clearInventoryAutoDecomposeTimer();
+  if (!inventoryAutoDecomposeStartedAt || !(typeof isAutoBattleRunning === "function" && isAutoBattleRunning())) return false;
+  const now = Date.now();
+  const delay = delayMs == null
+    ? Math.max(250, Number(inventoryAutoDecomposeNextAt || now + INVENTORY_AUTO_DECOMPOSE_INTERVAL_MS) - now)
+    : Math.max(250, Number(delayMs || 0));
+  inventoryAutoDecomposeTimer = setTimeout(runInventoryAutoDecomposeCycle, delay);
+  return true;
+}
+
+function runInventoryAutoDecomposeCycle() {
+  inventoryAutoDecomposeTimer = null;
+  if (!(typeof isAutoBattleRunning === "function" && isAutoBattleRunning())) {
+    inventoryAutoDecomposeStartedAt = 0;
+    inventoryAutoDecomposeNextAt = 0;
+    return;
+  }
+  // Do not race a death reward / gacha reward batch or another manual dismantle.
+  // Retry shortly without resetting the 30-minute deadline.
+  if (window.RO_WEB_REWARD_BATCH_ACTIVE || inventoryDecomposeActive) {
+    scheduleInventoryAutoDecomposeTimer(5000);
+    return;
+  }
+  const result = executeMarkedInventoryAutoDecompose();
+  const now = Date.now();
+  if (result?.ok && !result.skipped && Number(result.removedCount || 0) > 0) {
+    inventoryAutoDecomposeLastRunAt = now;
+    addBattleLog(`♻ 自動分解：共處理 ${Number(result.removedCount || 0).toLocaleString()} 件，獲得 ${Number(result.zenyGain || 0).toLocaleString()} Zeny。`);
+  } else if (result && result.ok === false) {
+    console.warn("Auto decompose cycle skipped after failure", result.reason || result.error || result);
+  }
+  // Continuous AFK: one batch per 30 minutes, never catch up with multiple
+  // destructive runs after a background-tab timer was throttled.
+  inventoryAutoDecomposeStartedAt = now;
+  inventoryAutoDecomposeNextAt = now + INVENTORY_AUTO_DECOMPOSE_INTERVAL_MS;
+  scheduleInventoryAutoDecomposeTimer();
+}
+
+function notifyInventoryAutoDecomposeBattleState(running) {
+  clearInventoryAutoDecomposeTimer();
+  if (running) {
+    const now = Date.now();
+    inventoryAutoDecomposeStartedAt = now;
+    inventoryAutoDecomposeNextAt = now + INVENTORY_AUTO_DECOMPOSE_INTERVAL_MS;
+    scheduleInventoryAutoDecomposeTimer();
+  } else {
+    inventoryAutoDecomposeStartedAt = 0;
+    inventoryAutoDecomposeNextAt = 0;
+  }
+  return running === true;
+}
+window.notifyInventoryAutoDecomposeBattleState = notifyInventoryAutoDecomposeBattleState;
+window.getInventoryAutoDecomposeStatus = () => ({
+  running:Boolean(inventoryAutoDecomposeStartedAt),
+  startedAt:inventoryAutoDecomposeStartedAt,
+  nextAt:inventoryAutoDecomposeNextAt,
+  lastRunAt:inventoryAutoDecomposeLastRunAt,
+  markedItemIds:[...getInventoryAutoDecomposeMarkedIds()]
+});
 
 function closeInventoryDecomposeDialog() {
   pendingInventoryDecomposeRequest = null;
@@ -3133,6 +3279,11 @@ function handleInventorySlotClick(item, itemData) {
   if (!item || !itemData) return;
   if (typeof hideGameTooltip === "function") hideGameTooltip();
 
+  if (inventoryAutoDecomposeMode) {
+    toggleInventoryItemAutoDecompose(item);
+    return;
+  }
+
   if (inventoryLockMode) {
     toggleInventoryItemLock(item.id);
     return;
@@ -3190,7 +3341,8 @@ function updateInventoryUI() {
     const itemData = item ? getItemData(item.id) : null;
     const slot = document.createElement("button");
     slot.type = "button";
-    slot.className = "inventory-slot" + (itemData ? " has-item" : " empty") + ((inventoryLockMode && item?.locked) ? " locked" : "");
+    const autoDecomposeMarked = Boolean(item && isInventoryItemAutoDecomposeMarked(item));
+    slot.className = "inventory-slot" + (itemData ? " has-item" : " empty") + ((inventoryLockMode && item?.locked) ? " locked" : "") + (autoDecomposeMarked ? " auto-decompose-marked" : "");
     applyInventorySlotPosition(slot, index);
 
     if (itemData) {
@@ -3226,6 +3378,14 @@ function updateInventoryUI() {
         lockMark.textContent = item.locked ? "✓" : "";
         lockMark.title = item.locked ? "已鎖定" : "未鎖定";
         slot.appendChild(lockMark);
+      }
+
+      if (inventoryAutoDecomposeMode || autoDecomposeMarked) {
+        const autoMark = document.createElement("span");
+        autoMark.className = "inventory-auto-decompose-mark " + (autoDecomposeMarked ? "is-marked" : "is-unmarked");
+        autoMark.textContent = autoDecomposeMarked ? "✓" : "";
+        autoMark.title = autoDecomposeMarked ? "已勾選：掛機每 30 分鐘自動分解" : "未勾選自動分解";
+        slot.appendChild(autoMark);
       }
 
       slot.onclick = function () {

@@ -28,7 +28,19 @@ const RO_WORLD_MONSTER_TEST = {
   savedMapSnapshotAt: 0,
   crowdPlan: null,
   crowdPlanAt: 0,
-  crowdPlanPlayerPosition: null
+  crowdPlanPlayerPosition: null,
+  // V0.9.88B2 long-session memory recycler. Assets evicted from the LRU are
+  // disposed a few at a time so a 10-minute health sweep never becomes a
+  // visible "big GC" hitch.
+  recycleQueue: [],
+  recycleQueuedAssets: new WeakSet(),
+  recycledAssets: 0,
+  recycledImages: 0,
+  totalDefeats: 0,
+  defeatsSinceSoftSweep: 0,
+  lastSoftSweepAt: 0,
+  lastPassiveRecycleAt: 0,
+  memorySweepCount: 0
 };
 window.RO_WORLD_MONSTER_TEST = RO_WORLD_MONSTER_TEST;
 
@@ -543,9 +555,14 @@ function estimateWorldMonsterAssetDecodedBytes(asset) {
   return asset._decodedBytes;
 }
 
-function getWorldMonsterAssetCacheLimits() {
+function isWorldMonsterMvpArenaMap() {
   const tags = Array.isArray(currentMap?.mapTags) ? currentMap.mapTags.map(tag => String(tag || "").toLowerCase()) : [];
-  const isMvpArena = tags.includes("mvp_arena") || String(currentMap?.id || "").includes("mvp_arena");
+  return tags.includes("mvp_arena") || String(currentMap?.id || "").includes("mvp_arena");
+}
+window.isWorldMonsterMvpArenaMap = isWorldMonsterMvpArenaMap;
+
+function getWorldMonsterAssetCacheLimits() {
+  const isMvpArena = isWorldMonsterMvpArenaMap();
   let coarse = false;
   try { coarse = Boolean(window.matchMedia?.("(pointer: coarse)")?.matches || navigator?.maxTouchPoints > 0); } catch (_) {}
   if (isMvpArena) {
@@ -614,23 +631,91 @@ function isWorldMonsterAssetCurrentlyRendered(asset) {
   );
 }
 
+const RO_WORLD_MONSTER_RELEASE_PIXEL = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+
+function releaseWorldMonsterDecodedImage(image) {
+  if (!image) return false;
+  try {
+    // ImageBitmap.close() is the strongest path: unlike an <img>, it gives the
+    // browser an explicit signal that the decoded graphics resource is dead.
+    if (typeof image.close === "function") {
+      image.close();
+      RO_WORLD_MONSTER_TEST.recycledImages += 1;
+      return true;
+    }
+    image.onload = null;
+    image.onerror = null;
+    if (typeof image.removeAttribute === "function") image.removeAttribute("srcset");
+    if ("src" in image) image.src = RO_WORLD_MONSTER_RELEASE_PIXEL;
+    RO_WORLD_MONSTER_TEST.recycledImages += 1;
+    return true;
+  } catch (_) { return false; }
+}
+
 function disposeWorldMonsterAsset(asset) {
   if (!asset || typeof asset !== "object" || typeof asset.then === "function") return false;
   if (isWorldMonsterAssetCurrentlyRendered(asset)) return false;
   try {
+    const images = asset.images instanceof Map ? [...new Set(asset.images.values())] : (asset.image ? [asset.image] : []);
+    images.forEach(releaseWorldMonsterDecodedImage);
     if (asset.images instanceof Map) asset.images.clear();
     if (asset.frameById instanceof Map) asset.frameById.clear();
     asset.image = null;
     asset.data = null;
+    asset.bounds = null;
+    asset._decodedBytes = 0;
+    RO_WORLD_MONSTER_TEST.recycledAssets += 1;
   } catch (_) {}
   return true;
 }
 
+function queueWorldMonsterAssetDispose(asset) {
+  if (!asset || typeof asset !== "object" || typeof asset.then === "function") return false;
+  if (isWorldMonsterAssetCurrentlyRendered(asset)) return false;
+  if (RO_WORLD_MONSTER_TEST.recycleQueuedAssets.has(asset)) return false;
+  RO_WORLD_MONSTER_TEST.recycleQueuedAssets.add(asset);
+  RO_WORLD_MONSTER_TEST.recycleQueue.push(asset);
+  return true;
+}
+window.queueWorldMonsterAssetDispose = queueWorldMonsterAssetDispose;
+
+function processWorldMonsterRecycleQueue(options = {}) {
+  const queue = RO_WORLD_MONSTER_TEST.recycleQueue;
+  if (!queue.length) return 0;
+  const budgetMs = Math.max(0.5, Number(options.budgetMs || 2.5));
+  const maxItems = Math.max(1, Number(options.maxItems || 2));
+  const started = typeof performance !== "undefined" && performance.now ? performance.now() : Date.now();
+  let processed = 0;
+  while (queue.length && processed < maxItems) {
+    const nowPerf = typeof performance !== "undefined" && performance.now ? performance.now() : Date.now();
+    if (processed > 0 && nowPerf - started >= budgetMs) break;
+    const asset = queue.shift();
+    // An asset can become visible again between LRU eviction and recycle time.
+    // Keep it in the queue instead of losing the explicit ImageBitmap.close()
+    // opportunity; later frames will retry after the last visible user leaves.
+    if (isWorldMonsterAssetCurrentlyRendered(asset)) {
+      queue.push(asset);
+      processed += 1;
+      continue;
+    }
+    RO_WORLD_MONSTER_TEST.recycleQueuedAssets.delete(asset);
+    disposeWorldMonsterAsset(asset);
+    processed += 1;
+  }
+  return processed;
+}
+window.processWorldMonsterRecycleQueue = processWorldMonsterRecycleQueue;
+
 function trimWorldMonsterAssetCache(options = {}) {
   const limits = getWorldMonsterAssetCacheLimits();
   const protectedAsset = options.protectedAsset || null;
+  const aggressive = options.aggressive === true && isWorldMonsterMvpArenaMap();
+  let coarse = false;
+  try { coarse = Boolean(window.matchMedia?.("(pointer: coarse)")?.matches || navigator?.maxTouchPoints > 0); } catch (_) {}
+  const targetEntries = aggressive ? (coarse ? 3 : 4) : limits.maxEntries;
+  const targetBytes = aggressive ? (coarse ? 44 : 64) * 1024 * 1024 : limits.maxDecodedBytes;
   let stats = getWorldMonsterAssetCacheStats();
-  if (stats.entries <= limits.maxEntries && stats.decodedBytes <= limits.maxDecodedBytes) return stats;
+  if (stats.entries <= targetEntries && stats.decodedBytes <= targetBytes) return stats;
 
   const candidates = [];
   for (const [id, asset] of RO_WORLD_MONSTER_TEST.assetCache.entries()) {
@@ -647,10 +732,10 @@ function trimWorldMonsterAssetCache(options = {}) {
   candidates.sort((a, b) => a.lastUsedAt - b.lastUsedAt || b.decodedBytes - a.decodedBytes);
 
   for (const row of candidates) {
-    if (stats.entries <= limits.maxEntries && stats.decodedBytes <= limits.maxDecodedBytes) break;
+    if (stats.entries <= targetEntries && stats.decodedBytes <= targetBytes) break;
     RO_WORLD_MONSTER_TEST.assetCache.delete(row.id);
     RO_WORLD_MONSTER_TEST.assetCacheMeta.delete(row.id);
-    disposeWorldMonsterAsset(row.asset);
+    queueWorldMonsterAssetDispose(row.asset);
     RO_WORLD_MONSTER_TEST.assetCacheEvictions += 1;
     stats = getWorldMonsterAssetCacheStats();
   }
@@ -661,18 +746,38 @@ window.trimWorldMonsterAssetCache = trimWorldMonsterAssetCache;
 function clearWorldMonsterAssetCache() {
   for (const asset of RO_WORLD_MONSTER_TEST.assetCache.values()) {
     if (!asset || typeof asset.then === "function") continue;
-    disposeWorldMonsterAsset(asset);
+    queueWorldMonsterAssetDispose(asset);
   }
   RO_WORLD_MONSTER_TEST.assetCache.clear();
   RO_WORLD_MONSTER_TEST.assetCacheMeta.clear();
 }
 window.clearWorldMonsterAssetCache = clearWorldMonsterAssetCache;
 
-function loadWorldMonsterImage(src) {
-  return new Promise((resolve, reject) => {
+async function loadWorldMonsterImage(src) {
+  // On HTTP(S), MVP atlases prefer ImageBitmap so an evicted atlas can call
+  // close() and explicitly release decoded graphics memory. file:// keeps the
+  // legacy <img> path because fetch(blob) is not reliable under local CORS.
+  const canBitmap = isWorldMonsterMvpArenaMap()
+    && ["http:", "https:"].includes(String(location?.protocol || ""))
+    && typeof fetch === "function"
+    && typeof createImageBitmap === "function";
+  if (canBitmap) {
+    try {
+      const response = await fetch(src, { cache:"force-cache", credentials:"same-origin" });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const blob = await response.blob();
+      return await createImageBitmap(blob);
+    } catch (error) {
+      if (!window.__roWorldMonsterBitmapFallbackWarned) {
+        window.__roWorldMonsterBitmapFallbackWarned = true;
+        console.warn("MVP ImageBitmap path unavailable; falling back to HTMLImageElement.", error);
+      }
+    }
+  }
+  return await new Promise((resolve, reject) => {
     const image = document.createElement("img");
     image.decoding = "async";
-    image.onload = () => resolve(image);
+    image.onload = () => { image.onload = null; image.onerror = null; resolve(image); };
     image.onerror = () => reject(new Error(`Monster atlas image load failed: ${src}`));
     image.src = src;
   });
@@ -748,7 +853,7 @@ async function loadWorldMonsterTestAsset(monster) {
     if (cacheGeneration !== RO_WORLD_MONSTER_TEST.loadGeneration) {
       RO_WORLD_MONSTER_TEST.assetCache.delete(id);
       RO_WORLD_MONSTER_TEST.assetCacheMeta.delete(id);
-      disposeWorldMonsterAsset(asset);
+      queueWorldMonsterAssetDispose(asset);
       return null;
     }
     RO_WORLD_MONSTER_TEST.assetCache.set(id, asset);
@@ -1032,7 +1137,13 @@ function removeWorldMonsterElement(entity) {
     entity._animation.frameCursor = 0;
     entity._animation.frameElapsed = 0;
   }
-  if (releasedAsset) trimWorldMonsterAssetCache();
+  if (releasedAsset) {
+    trimWorldMonsterAssetCache();
+    // If LRU already evicted this asset while another entity was using it,
+    // enqueue it as soon as the final visible reference disappears.
+    const stillCached = [...RO_WORLD_MONSTER_TEST.assetCache.values()].some(value => value === releasedAsset);
+    if (!stillCached) queueWorldMonsterAssetDispose(releasedAsset);
+  }
 }
 
 async function prepareWorldMonsterEntity(entity, generation = RO_WORLD_MONSTER_TEST.loadGeneration) {
@@ -1069,6 +1180,9 @@ function clearWorldMonsterFieldTest(options = {}) {
   RO_WORLD_MONSTER_TEST.crowdPlan = null;
   RO_WORLD_MONSTER_TEST.crowdPlanAt = 0;
   RO_WORLD_MONSTER_TEST.crowdPlanPlayerPosition = null;
+  RO_WORLD_MONSTER_TEST.defeatsSinceSoftSweep = 0;
+  RO_WORLD_MONSTER_TEST.lastSoftSweepAt = 0;
+  RO_WORLD_MONSTER_TEST.lastPassiveRecycleAt = 0;
   const field = getWorldMonsterTestHost();
   field?.classList.remove("world-monster-test-active", "world-monster-streaming-active");
 }
@@ -1224,6 +1338,9 @@ function ensureWorldMonsterFieldTest() {
   restoreWorldMonsterUniqueEntries();
   populateWorldMonsterOrdinaryTarget({ initial: true });
   RO_WORLD_MONSTER_TEST.lastMaintenanceAt = Date.now();
+  RO_WORLD_MONSTER_TEST.lastSoftSweepAt = Date.now();
+  RO_WORLD_MONSTER_TEST.lastPassiveRecycleAt = Date.now();
+  RO_WORLD_MONSTER_TEST.defeatsSinceSoftSweep = 0;
   return RO_WORLD_MONSTER_TEST.entities;
 }
 window.ensureWorldMonsterFieldTest = ensureWorldMonsterFieldTest;
@@ -1610,6 +1727,10 @@ function onWorldMonsterDefeated(monster) {
   monster.currentHp = 0;
   monster.aiState = "DEAD";
   monster._deathHandled = true;
+  RO_WORLD_MONSTER_TEST.totalDefeats = Number(RO_WORLD_MONSTER_TEST.totalDefeats || 0) + 1;
+  if (isWorldMonsterMvpArenaMap()) {
+    RO_WORLD_MONSTER_TEST.defeatsSinceSoftSweep = Number(RO_WORLD_MONSTER_TEST.defeatsSinceSoftSweep || 0) + 1;
+  }
   monster._respawnAt = calculateWorldMonsterRespawnAt(monster._spawnEntry, now);
   monster._despawnAt = now + 1250;
   clearWorldMonsterAggro(monster);
@@ -1718,6 +1839,62 @@ function maintainWorldMonsterUniqueEntries(now) {
   });
 }
 
+function getWorldMonsterMemoryHealthStats() {
+  const cache = getWorldMonsterAssetCacheStats();
+  const heap = typeof performance !== "undefined" ? performance.memory : null;
+  return {
+    ...cache,
+    recycleQueue:Number(RO_WORLD_MONSTER_TEST.recycleQueue?.length || 0),
+    recycledAssets:Number(RO_WORLD_MONSTER_TEST.recycledAssets || 0),
+    recycledImages:Number(RO_WORLD_MONSTER_TEST.recycledImages || 0),
+    totalDefeats:Number(RO_WORLD_MONSTER_TEST.totalDefeats || 0),
+    defeatsSinceSoftSweep:Number(RO_WORLD_MONSTER_TEST.defeatsSinceSoftSweep || 0),
+    memorySweepCount:Number(RO_WORLD_MONSTER_TEST.memorySweepCount || 0),
+    usedJsHeapMb:heap?.usedJSHeapSize ? Math.round(Number(heap.usedJSHeapSize) / 1024 / 1024 * 10) / 10 : null,
+    domNodes:typeof document !== "undefined" ? document.getElementsByTagName("*").length : null
+  };
+}
+window.getWorldMonsterMemoryHealthStats = getWorldMonsterMemoryHealthStats;
+
+function runWorldMonsterMemoryHealthSweep(now = Date.now(), options = {}) {
+  if (!isWorldMonsterTestActive()) return getWorldMonsterMemoryHealthStats();
+  // Any off-screen entity holding an asset is a leak candidate. Normally
+  // removeWorldMonsterElement already clears it; this is the long-run safety net.
+  for (const entity of RO_WORLD_MONSTER_TEST.entities || []) {
+    if (!entity?._element && entity?._animation?.asset) {
+      const staleAsset = entity._animation.asset;
+      entity._animation.asset = null;
+      entity._animation.frameCursor = 0;
+      entity._animation.frameElapsed = 0;
+      // The asset may already have fallen out of the cache. Queue it explicitly
+      // so a stale off-screen entity can never become the last hidden owner.
+      queueWorldMonsterAssetDispose(staleAsset);
+    }
+  }
+  trimWorldMonsterAssetCache({ aggressive:isWorldMonsterMvpArenaMap(), protectedAsset:options.protectedAsset || null });
+  if (typeof window.cleanupStaleCombatVisuals === "function") {
+    window.cleanupStaleCombatVisuals({ now, maxAgeMs:10000 });
+  }
+  RO_WORLD_MONSTER_TEST.lastSoftSweepAt = now;
+  RO_WORLD_MONSTER_TEST.defeatsSinceSoftSweep = 0;
+  RO_WORLD_MONSTER_TEST.memorySweepCount = Number(RO_WORLD_MONSTER_TEST.memorySweepCount || 0) + 1;
+  return getWorldMonsterMemoryHealthStats();
+}
+window.runWorldMonsterMemoryHealthSweep = runWorldMonsterMemoryHealthSweep;
+
+function maybeRunWorldMonsterMemoryMaintenance(now = Date.now()) {
+  // Passive trim is intentionally tiny and frequent; expensive work is queued
+  // and disposed under a ~2.5 ms/frame budget by the renderer loop.
+  if (now - Number(RO_WORLD_MONSTER_TEST.lastPassiveRecycleAt || 0) >= 5000) {
+    trimWorldMonsterAssetCache();
+    RO_WORLD_MONSTER_TEST.lastPassiveRecycleAt = now;
+  }
+  if (!isWorldMonsterMvpArenaMap()) return;
+  const killTrigger = Number(RO_WORLD_MONSTER_TEST.defeatsSinceSoftSweep || 0) >= 400;
+  const timeTrigger = now - Number(RO_WORLD_MONSTER_TEST.lastSoftSweepAt || now) >= 10 * 60 * 1000;
+  if (killTrigger || timeTrigger) runWorldMonsterMemoryHealthSweep(now);
+}
+
 function maintainWorldMonsterPopulation(now = Date.now(), options = {}) {
   if (!isWorldMonsterTestActive()) return;
   processWorldMonsterDeadEntities(now);
@@ -1725,6 +1902,7 @@ function maintainWorldMonsterPopulation(now = Date.now(), options = {}) {
   processWorldMonsterRespawnQueue(now);
   maintainWorldMonsterUniqueEntries(now);
   populateWorldMonsterOrdinaryTarget({ initial: Boolean(options.initial) });
+  maybeRunWorldMonsterMemoryMaintenance(now);
 
   if (now - Number(RO_WORLD_MONSTER_TEST.savedMapSnapshotAt || 0) >= 5000) {
     RO_WORLD_MONSTER_TEST.entities.forEach(syncWorldMonsterUniquePersistentState);
@@ -1997,6 +2175,9 @@ window.renderWorldMonsterFieldTest = renderWorldMonsterFieldTest;
 
 function tickWorldMonsterFieldTest(timestamp) {
   if (isWorldMonsterTestActive()) renderWorldMonsterFieldTest(timestamp);
+  if (RO_WORLD_MONSTER_TEST.recycleQueue?.length) {
+    processWorldMonsterRecycleQueue({ budgetMs:2.5, maxItems:2 });
+  }
   RO_WORLD_MONSTER_TEST.lastTimestamp = timestamp;
   requestAnimationFrame(tickWorldMonsterFieldTest);
 }

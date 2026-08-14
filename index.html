@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>彼岸花仙境 V0.9.87N</title>
+  <title>彼岸花仙境 V0.9.88B2</title>
   <meta name="description" content="&#8203;">
   <meta property="og:type" content="website">
   <meta property="og:title" content="彼岸花仙境">
@@ -15,8 +15,9 @@
   <meta name="twitter:description" content="&#8203;">
   <link rel="icon" type="image/svg+xml" href="images/ui/brand/sakura_emblem.svg?v=0.9.84C">
   <link rel="preload" as="image" type="image/webp" href="images/ui/character_select_background.webp?v=0.9.84C">
-  <link rel="stylesheet" href="css/style.css?v=0.9.87L">
+  <link rel="stylesheet" href="css/style.css?v=0.9.88B2">
   <link rel="stylesheet" href="css/auction.css?v=0.9.87G">
+  <link rel="stylesheet" href="css/mercenary.css?v=0.9.88B1">
 </head>
 
 <body class="ro-black-gold-theme">
@@ -58,7 +59,7 @@
       </main>
       <footer class="character-select-footer">
         <span>角色進度已啟用雲端同步；本機仍保留離線安全備份。</span>
-        <small>V0.9.87N</small>
+        <small>V0.9.88B2</small>
       </footer>
     </div>
   </section>
@@ -107,6 +108,7 @@
             <button id="mailQuickButton" class="ui-toggle mail-quick-button" data-target="mail-window">信箱<span id="mailUnreadBadge" class="mail-unread-badge" hidden>0</span></button>
             <button class="ui-toggle" data-target="hunting-stats-panel">統計</button>
             <button class="ui-toggle" data-target="virtual-summon-window">召喚物</button>
+            <button class="ui-toggle" data-target="mercenary-window">傭兵</button>
             <button class="ui-toggle" data-target="auto-combat-panel">掛機設定</button>
           </div>
         </div>
@@ -264,6 +266,7 @@
               <button id="inventorySortBtn" class="inventory-action-btn btn-sort" type="button" title="依物品編號整理">整理</button>
               <button id="inventoryDecomposeBtn" class="inventory-action-btn btn-decompose" type="button" title="選擇數量並分解目前分類中的未鎖定物品">分解</button>
               <button id="inventoryLockBtn" class="inventory-action-btn btn-lock" type="button" title="切換鎖定模式">鎖定</button>
+              <button id="inventoryAutoDecomposeBtn" class="inventory-action-btn btn-auto-decompose" type="button" title="勾選要在自動掛機時每 30 分鐘批次分解的物品">自拆</button>
             </div>
             <div class="inventory-page-row" aria-label="背包翻頁">
               <button id="inventoryPrevPage" class="inventory-page-btn btn-page-prev" type="button" title="上一頁">&lt;</button>
@@ -385,6 +388,13 @@
         <div class="window-title drag-handle">召喚物控制 <button class="window-close" data-target="virtual-summon-window">×</button></div>
         <div id="virtual-summon-panel" class="window-body virtual-summon-panel">
           <div class="virtual-summon-empty">召喚物資料載入中...</div>
+        </div>
+      </section>
+
+      <section id="mercenary-window" class="game-window draggable-window hidden-window mercenary-window" data-default-x="690" data-default-y="112">
+        <div class="window-title drag-handle">分身傭兵 <button class="window-close" data-target="mercenary-window">×</button></div>
+        <div id="mercenary-panel" class="window-body mercenary-panel">
+          <div class="town-empty">傭兵資料載入中...</div>
         </div>
       </section>
 
@@ -785,7 +795,7 @@
     <div class="legacy-warehouse-rescue-dialog">
       <header class="legacy-warehouse-rescue-header">
         <div>
-          <small>V0.9.87N｜MVP 22 王精簡＋掛機記憶體穩定化</small>
+          <small>V0.9.88B2｜長時間掛機記憶體回收／30分鐘自動分解</small>
           <h2 id="legacyWarehouseRescueTitle">救援舊倉庫</h2>
           <p id="legacyWarehouseTargetAccount">目標：目前遊戲帳號</p>
         </div>
@@ -923,7 +933,7 @@
   <script src="./js/afk_stability_runtime.js?v=0.9.87I"></script>
   <script src="./js/cloud_save_runtime.js?v=0.9.87J"></script>
   <script src="./js/vip_runtime.js?v=0.9.87F"></script>
-  <script src="./js/player.js?v=0.9.87J"></script>
+  <script src="./js/player.js?v=0.9.88B2"></script>
   <script src="./js/item_instance_ui.js?v=0.9.87B"></script>
   <script src="./js/mail_runtime.js?v=0.9.87M"></script>
   <script src="./js/auction_runtime.js?v=0.9.87J"></script>
@@ -939,7 +949,7 @@
   <script src="./js/consumable_runtime.js?v=0.9.87B"></script>
   <script src="./js/card_runtime.js?v=0.9.87B"></script>
   <script src="./js/effect_runtime.js?v=0.9.87B"></script>
-  <script src="./js/position_engine.js?v=0.9.87B"></script>
+  <script src="./js/position_engine.js?v=0.9.88B1"></script>
   <script src="./js/job_constitution.js?v=0.9.87B"></script>
   <script src="./js/job.js?v=0.9.87B"></script>
   <script src="./js/extra_skill_runtime.js?v=0.9.87B"></script>
@@ -948,7 +958,7 @@
   <script src="./js/ra_renewal_damage_pipeline.js?v=0.9.87B"></script>
   <script src="./js/combat_damage_pipeline.js?v=0.9.87B"></script>
   <script src="./js/combat_resource_manager.js?v=0.9.87B"></script>
-  <script src="./js/skill_engine.js?v=0.9.87B"></script>
+  <script src="./js/skill_engine.js?v=0.9.88B1"></script>
   <script src="./js/warlock_elemental_sphere_runtime.js?v=0.9.87B"></script>
   <script src="./js/skill_effect_runtime_v92.js?v=0.9.87B"></script>
   <script src="./js/status_system.js?v=0.9.87B"></script>
@@ -958,15 +968,16 @@
   <script src="./js/death_revival_runtime.js?v=0.9.87B"></script>
   <script src="./js/player_atlas_runtime.js?v=0.9.87B"></script>
   <script src="./js/character_gender.js?v=0.9.87B"></script>
-  <script src="./js/battle.js?v=0.9.87I"></script>
+  <script src="./js/battle.js?v=0.9.88B2"></script>
   <script src="./js/monster_atlas_runtime.js?v=0.9.87B"></script>
   <script src="./js/effect_visual_runtime.js?v=0.9.87B"></script>
-  <script src="./js/world_monster_test_runtime.js?v=0.9.87N"></script>
+  <script src="./js/world_monster_test_runtime.js?v=0.9.88B2"></script>
   <script src="./js/virtual_summon.js?v=0.9.87B"></script>
+  <script src="./js/mercenary_runtime.js?v=0.9.88B1"></script>
   <script src="./js/homunculus.js?v=0.9.87B"></script>
   <script src="./js/homunculus_skill_runtime.js?v=0.9.87B"></script>
   <script src="./js/homunculus_s_skill_runtime.js?v=0.9.87B"></script>
-  <script src="./js/map.js?v=0.9.87B"></script>
+  <script src="./js/map.js?v=0.9.88B1"></script>
   <script src="./js/enchant_platform_runtime.js?v=0.9.87J"></script>
   <script src="./js/enchant_material_exchange_runtime.js?v=0.9.87J"></script>
   <script src="./js/town.js?v=0.9.87B"></script>
@@ -974,7 +985,7 @@
   <script src="./js/account_menu_runtime.js?v=0.9.87L"></script>
   <script src="./js/quick_slots.js?v=0.9.87B"></script>
   <script src="./js/chat_runtime.js?v=0.9.87J"></script>
-  <script src="./js/game.js?v=0.9.87N"></script>
+  <script src="./js/game.js?v=0.9.88B2"></script>
 </body>
 
 </html>

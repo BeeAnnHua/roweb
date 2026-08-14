@@ -516,6 +516,9 @@ function startAutoBattle() {
 
   autoBattleRunning = true;
   updateAutoBattleQuickToggleState();
+  if (typeof window.notifyInventoryAutoDecomposeBattleState === "function") {
+    window.notifyInventoryAutoDecomposeBattleState(true);
+  }
   if (window.VIPRuntime?.setOfflineArm) {
     void window.VIPRuntime.setOfflineArm(true, {
       mapId: typeof getAutoBattleCurrentMapId === "function" ? getAutoBattleCurrentMapId() : (player?.map || player?.lastFieldMap || ""),
@@ -544,6 +547,9 @@ function stopAutoBattle(options = {}) {
     void window.VIPRuntime.setOfflineArm(false, { notify: false, reason: options.reason || "auto-battle-stop" });
   }
   autoBattleRunning = false;
+  if (typeof window.notifyInventoryAutoDecomposeBattleState === "function") {
+    window.notifyInventoryAutoDecomposeBattleState(false);
+  }
   autoBattleScheduleGeneration += 1;
   updateAutoBattleQuickToggleState();
   stopAutoBattleWatchdog();
@@ -1763,6 +1769,7 @@ function createDamageNumberElement(entry) {
   if (options.cumulativeFinal === true) classes.push("cumulative-damage-final");
   if (options.miss === true || options.textOverride === "MISS") classes.push("miss-damage-number");
   number.className = classes.join(" ");
+  number.dataset.createdAt = String(Date.now());
   number.dataset.damageSource = source;
   number.dataset.damageKind = incoming ? "incoming" : (critical ? "critical" : (combo ? "combo" : "normal"));
   const numericDamage = Math.max(0, Math.floor(Number(entry.damage || 0)));
@@ -1823,7 +1830,7 @@ function renderCumulativeDamageEntry(entry, battleField, fragment = null) {
   const isNewElement = !number || !number.isConnected;
   if (isNewElement) {
     number = fresh;
-    active = { element:number, removeTimer:null };
+    active = { element:number, removeTimer:null, createdAt:Date.now(), updatedAt:Date.now() };
     RO_WEB_DAMAGE_NUMBER_BATCH.activeSequences.set(sequenceId, active);
     if (fragment) fragment.appendChild(number); else battleField.appendChild(number);
   } else {
@@ -1848,6 +1855,7 @@ function renderCumulativeDamageEntry(entry, battleField, fragment = null) {
   }
 
   if (active.removeTimer) clearTimeout(active.removeTimer);
+  active.updatedAt = Date.now();
 
   const isFinal = options.cumulativeFinal === true;
   const life = isFinal ? 3050 : Math.max(900, Number(options.hitIntervalMs || 100) * 4);
@@ -1882,9 +1890,41 @@ function scheduleDamageNumberBatch() {
   schedule(flushDamageNumberBatch);
 }
 function enqueueDamageNumber(damage, options = {}) {
+  // Defensive cap for heavily throttled/background tabs. Normal gameplay drains
+  // this queue every frame; keeping only the newest entries prevents a stale
+  // visual backlog from retaining target snapshots indefinitely.
+  if (RO_WEB_DAMAGE_NUMBER_BATCH.queue.length >= 240) {
+    RO_WEB_DAMAGE_NUMBER_BATCH.queue.splice(0, RO_WEB_DAMAGE_NUMBER_BATCH.queue.length - 180);
+  }
   RO_WEB_DAMAGE_NUMBER_BATCH.queue.push({ damage:Number(damage || 0), options });
   scheduleDamageNumberBatch();
 }
+
+function cleanupStaleCombatVisuals(options = {}) {
+  const now = Number(options.now || Date.now());
+  const maxAgeMs = Math.max(3000, Number(options.maxAgeMs || 10000));
+  let removedNumbers = 0;
+  document.querySelectorAll?.("#battle-field .damage-number").forEach(number => {
+    const createdAt = Number(number?.dataset?.createdAt || 0);
+    if (createdAt > 0 && now - createdAt > maxAgeMs) {
+      number.remove();
+      removedNumbers += 1;
+    }
+  });
+  for (const [key, active] of RO_WEB_DAMAGE_NUMBER_BATCH.activeSequences.entries()) {
+    const updatedAt = Number(active?.updatedAt || active?.createdAt || 0);
+    if (!active?.element?.isConnected || (updatedAt > 0 && now - updatedAt > maxAgeMs)) {
+      if (active?.removeTimer) clearTimeout(active.removeTimer);
+      active?.element?.remove?.();
+      RO_WEB_DAMAGE_NUMBER_BATCH.activeSequences.delete(key);
+    }
+  }
+  if (!window.RO_WEB_REWARD_BATCH_ACTIVE && Array.isArray(window.RO_WEB_REWARD_BATCH_LOGS) && window.RO_WEB_REWARD_BATCH_LOGS.length > 200) {
+    window.RO_WEB_REWARD_BATCH_LOGS.length = 0;
+  }
+  return { removedNumbers, queuedDamageNumbers:RO_WEB_DAMAGE_NUMBER_BATCH.queue.length, activeSequences:RO_WEB_DAMAGE_NUMBER_BATCH.activeSequences.size };
+}
+window.cleanupStaleCombatVisuals = cleanupStaleCombatVisuals;
 
 // 0.9.82FP：傷害數字保存世界座標。玩家移動導致 Camera 改變時，
 // 數字會跟地圖一起移動並停留在命中位置，不再黏著畫面中央的玩家。
