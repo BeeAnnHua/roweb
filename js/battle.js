@@ -1606,9 +1606,13 @@ function playPlayerAttackAnimation(options = {}) {
 // 怪物受擊視覺與 Assist 連動以單一 animation frame 批次處理。
 // 傷害與仇恨立即生效；DOM、動畫切換與同伴支援延後到下一幀，
 // 避免範圍技能命中多目標時重複同步 layout 與 N×M Assist 掃描。
-const RO_WEB_MONSTER_IMPACT_BATCH = { targets:new Set(), scheduled:false };
+const RO_WEB_MONSTER_IMPACT_BATCH = { targets:new Set(), scheduled:false, fallbackTimer:0 };
 function flushMonsterImpactBatch() {
   RO_WEB_MONSTER_IMPACT_BATCH.scheduled = false;
+  if (RO_WEB_MONSTER_IMPACT_BATCH.fallbackTimer) {
+    clearTimeout(RO_WEB_MONSTER_IMPACT_BATCH.fallbackTimer);
+    RO_WEB_MONSTER_IMPACT_BATCH.fallbackTimer = 0;
+  }
   if (!RO_WEB_MONSTER_IMPACT_BATCH.targets.size) return;
   const targets = [...RO_WEB_MONSTER_IMPACT_BATCH.targets];
   RO_WEB_MONSTER_IMPACT_BATCH.targets.clear();
@@ -1628,10 +1632,23 @@ function queueMonsterImpact(monster) {
   // forcing the full monster UI/motion pipeline to run inside the damage loop.
   if (typeof updateWorldMonsterHpBarFast === "function") updateWorldMonsterHpBarFast(monster);
   RO_WEB_MONSTER_IMPACT_BATCH.targets.add(monster);
+  // rAF may stop completely in a hidden/throttled tab. Without a fallback, the
+  // Set can retain every monster object hit after the last paint frame. Keep it
+  // bounded and guarantee a timer-side flush even when no frame is delivered.
+  if (RO_WEB_MONSTER_IMPACT_BATCH.targets.size > 128) {
+    for (const target of [...RO_WEB_MONSTER_IMPACT_BATCH.targets]) {
+      if (!target || target._deathHandled || Number(target.currentHp || 0) <= 0) RO_WEB_MONSTER_IMPACT_BATCH.targets.delete(target);
+      if (RO_WEB_MONSTER_IMPACT_BATCH.targets.size <= 96) break;
+    }
+    while (RO_WEB_MONSTER_IMPACT_BATCH.targets.size > 128) RO_WEB_MONSTER_IMPACT_BATCH.targets.delete(RO_WEB_MONSTER_IMPACT_BATCH.targets.values().next().value);
+  }
   if (!RO_WEB_MONSTER_IMPACT_BATCH.scheduled) {
     RO_WEB_MONSTER_IMPACT_BATCH.scheduled = true;
     const schedule = typeof requestAnimationFrame === "function" ? requestAnimationFrame : callback => setTimeout(callback, 0);
     schedule(flushMonsterImpactBatch);
+    RO_WEB_MONSTER_IMPACT_BATCH.fallbackTimer = setTimeout(() => {
+      if (RO_WEB_MONSTER_IMPACT_BATCH.scheduled) flushMonsterImpactBatch();
+    }, 120);
   }
   return true;
 }
@@ -1919,12 +1936,25 @@ function cleanupStaleCombatVisuals(options = {}) {
       RO_WEB_DAMAGE_NUMBER_BATCH.activeSequences.delete(key);
     }
   }
+  for (const target of [...RO_WEB_MONSTER_IMPACT_BATCH.targets]) {
+    if (!target || target._deathHandled || Number(target.currentHp || 0) <= 0) RO_WEB_MONSTER_IMPACT_BATCH.targets.delete(target);
+  }
   if (!window.RO_WEB_REWARD_BATCH_ACTIVE && Array.isArray(window.RO_WEB_REWARD_BATCH_LOGS) && window.RO_WEB_REWARD_BATCH_LOGS.length > 200) {
     window.RO_WEB_REWARD_BATCH_LOGS.length = 0;
   }
-  return { removedNumbers, queuedDamageNumbers:RO_WEB_DAMAGE_NUMBER_BATCH.queue.length, activeSequences:RO_WEB_DAMAGE_NUMBER_BATCH.activeSequences.size };
+  return { removedNumbers, queuedDamageNumbers:RO_WEB_DAMAGE_NUMBER_BATCH.queue.length, activeSequences:RO_WEB_DAMAGE_NUMBER_BATCH.activeSequences.size, impactTargets:RO_WEB_MONSTER_IMPACT_BATCH.targets.size };
 }
 window.cleanupStaleCombatVisuals = cleanupStaleCombatVisuals;
+window.getCombatVisualRuntimeStats = function getCombatVisualRuntimeStats() {
+  return {
+    damageQueue:Number(RO_WEB_DAMAGE_NUMBER_BATCH.queue.length || 0),
+    activeDamageSequences:Number(RO_WEB_DAMAGE_NUMBER_BATCH.activeSequences.size || 0),
+    damageDom:Number(document.querySelectorAll?.("#battle-field .damage-number")?.length || 0),
+    impactTargets:Number(RO_WEB_MONSTER_IMPACT_BATCH.targets.size || 0),
+    rewardQueue:Number(RO_WEB_DEFEAT_RESOLUTION_BATCH.queue.length || 0),
+    rewardLogs:Number(Array.isArray(window.RO_WEB_REWARD_BATCH_LOGS) ? window.RO_WEB_REWARD_BATCH_LOGS.length : 0)
+  };
+};
 
 // 0.9.82FP：傷害數字保存世界座標。玩家移動導致 Camera 改變時，
 // 數字會跟地圖一起移動並停留在命中位置，不再黏著畫面中央的玩家。

@@ -974,6 +974,7 @@ function changeMap(mapId) {
       player.position.targetX = null;
       player.position.targetY = null;
     }
+    window.ROWebMercenaryRuntime?.notifyOwnerTeleported?.("map_change");
   }
 
   discoverCurrentMap({ silent: false });

@@ -7,7 +7,7 @@
 // ============================================================
 (function(){
   "use strict";
-  const VERSION="0.9.87I";
+  const VERSION="0.9.88B3";
   const STATE_KEY="roweb_afk_stability_state_v1";
   const EVENTS_KEY="roweb_afk_stability_events_v1";
   const HEARTBEAT_MS=30000;
@@ -48,6 +48,24 @@
     const acct=cloudAccount();
     const effect=safe(()=>window.SkillEffectRuntimeV92?.diagnostics,null);
     const monsterAssets=safe(()=>window.getWorldMonsterAssetCacheStats?.(),null);
+    const worldMemory=safe(()=>window.getWorldMonsterMemoryHealthStats?.(),null);
+    const combatVisual=safe(()=>window.getCombatVisualRuntimeStats?.(),null);
+    const ground=safe(()=>{
+      const effects=window.GroundEffectManager?.effects;
+      if(!(effects instanceof Map))return null;
+      let targetHitEntries=0;
+      for(const row of effects.values())targetHitEntries+=Number(row?.targetHitCounts?.size||0);
+      return{activeEffects:effects.size,targetHitEntries};
+    },null);
+    const mercenary=safe(()=>{
+      const members=window.ROWebMercenaryRuntime?.getRuntimeMembers?.()||[];
+      return{
+        members:members.length,
+        liveDom:members.filter(row=>row?.dom?.isConnected).length,
+        visualAssets:members.reduce((sum,row)=>sum+Object.keys(row?.visual?.assets||{}).length,0),
+        pendingVisualAssets:members.reduce((sum,row)=>sum+Object.keys(row?.visual?.pending||{}).length,0)
+      };
+    },null);
     const state={
       version:VERSION,sessionId,reason,at:Date.now(),url:String(location.pathname||"")+String(location.search||""),
       visibility:document.visibilityState,online:navigator.onLine!==false,
@@ -55,16 +73,26 @@
       characterId:String(ch?.characterId||ch?.character_id||window.player?.characterId||""),
       slotIndex:Number(ch?.slotIndex??window.player?.slotIndex??-1),
       playerName:String(window.player?.name||ch?.name||""),
-      mapId:String(window.currentMap?.id||window.player?.currentMap||window.player?.currentCity||""),
+      mapId:String(window.currentMap?.id||window.player?.map||window.player?.currentMap||window.player?.currentCity||""),
       autoBattle:Boolean(safe(()=>window.isAutoBattleRunning?.(),false)),
       domNodes:Number(document.getElementsByTagName("*").length||0),
       battleLogLines:Number(document.getElementById("battle-log-list")?.children?.length||0),
       worldEntities:Number(worldEntityCount()),
       worldMonsterAssetCache:monsterAssets,
+      worldMonsterMemory:worldMemory,
       defeatRewardQueue:Number(safe(()=>window.RO_WEB_DEFEAT_RESOLUTION_BATCH?.queue?.length,0)||0),
+      combatVisual,
       inventoryRows:Number(safe(()=>window.player?.inventory?.length,0)||0),
+      equipmentInstanceRows:Number(safe(()=>Object.keys(window.player?.equipmentInstances||{}).length,0)||0),
       skillEffectInstances:Number(effect?.activeInstances||0),
       skillEffectLifecycles:Number(effect?.activeLifecycles||0),
+      skillEffectLastHitEntries:Number(effect?.lastHitEntries||0),
+      skillEffectLatestTargetEntries:Number(effect?.latestTargetEntries||0),
+      skillEffectLatestCastEntries:Number(effect?.latestCastEntries||0),
+      skillEffectPrunedHitKeys:Number(effect?.prunedHitKeys||0),
+      skillEffectPeakLastHitEntries:Number(effect?.peakLastHitEntries||0),
+      groundEffects:ground,
+      mercenary,
       heap:heap(),
       cloudStatus:safe(()=>window.ROWebCloudRuntime?.getSyncState?.()?.status,"")||"",
       bootStatus:String(window.RO_WEB_BOOT_STATE?.status||"")
@@ -97,8 +125,15 @@
         domNodes:Number(prev.domNodes||0),
         worldEntities:Number(prev.worldEntities||0),
         worldMonsterAssetCache:prev.worldMonsterAssetCache||null,
+        worldMonsterMemory:prev.worldMonsterMemory||null,
         defeatRewardQueue:Number(prev.defeatRewardQueue||0),
+        combatVisual:prev.combatVisual||null,
         inventoryRows:Number(prev.inventoryRows||0),
+        skillEffectLastHitEntries:Number(prev.skillEffectLastHitEntries||0),
+        skillEffectLatestTargetEntries:Number(prev.skillEffectLatestTargetEntries||0),
+        skillEffectLatestCastEntries:Number(prev.skillEffectLatestCastEntries||0),
+        groundEffects:prev.groundEffects||null,
+        mercenary:prev.mercenary||null,
         heap:prev.heap||null
       });
       try{console.warn("[RO_WEB AFK] 偵測到上一次頁面異常終止",window.RO_WEB_AFK_LAST_ABNORMAL)}catch(_){}

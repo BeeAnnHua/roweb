@@ -8,8 +8,9 @@
 (function(){
   'use strict';
 
-  const VERSION = '0.9.87J';
+  const VERSION = '0.9.88B3';
   const MAX_RENDERED = 80;
+  const MAX_SEEN_IDS = 512;
   const MAX_MESSAGE_LENGTH = 120;
   const ACTIVE_POLL_MS = 10000;
   const WARM_POLL_MS = 20000;
@@ -198,6 +199,9 @@
     if (!row || !row.messageId || !row.body) return false;
     if (state.seen.has(row.messageId)) return false;
     state.seen.add(row.messageId);
+    // lastId is the authoritative incremental cursor; the duplicate guard does
+    // not need to remember every chat message for the lifetime of the tab.
+    while (state.seen.size > MAX_SEEN_IDS) state.seen.delete(state.seen.values().next().value);
     state.lastId = Math.max(state.lastId, row.messageId);
 
     const list = $('player-chat-list');

@@ -1,0 +1,135 @@
+/* RO_WEB V0.9.88B — 傭兵移動／模式 AI */
+.mercenary-window { width: 390px; }
+.mercenary-panel { padding: 10px; display: grid; gap: 10px; }
+.mercenary-intro { display:grid; gap:5px; padding:9px 10px; border:1px solid rgba(185,143,69,.72); border-radius:8px; background:rgba(26,18,10,.72); }
+.mercenary-intro b { color:#ffe4a0; font-size:15px; }
+.mercenary-intro span,.mercenary-note { color:#cfbd96; font-size:12px; line-height:1.55; }
+.mercenary-select-list { display:grid; gap:7px; }
+.mercenary-select-list label { display:grid; grid-template-columns:70px minmax(0,1fr); align-items:center; gap:8px; font-size:12px; }
+.mercenary-select-list label > span { color:#e6c980; font-weight:900; }
+.mercenary-select-list select { min-width:0; width:100%; height:32px; padding:0 7px; color:#f8e7bd; background:#17100a; border:1px solid #765428; border-radius:6px; }
+.mercenary-actions { display:grid; grid-template-columns:1fr 1fr; gap:7px; }
+.mercenary-actions button { min-height:32px; color:#ffe8b0; background:linear-gradient(#493019,#1b1109); border:1px solid #9f7739; border-radius:7px; font-weight:900; }
+.mercenary-actions #mercenaryRefreshButton { grid-column:1/-1; }
+.mercenary-note { padding:8px; border-left:3px solid #7f602f; background:rgba(0,0,0,.22); }
+.mercenary-message { min-height:18px; color:#ffe08a; font-size:12px; }
+
+.mercenary-party-hud { position:absolute; left:12px; top:230px; width:238px; z-index:48; padding:7px; border:1px solid rgba(168,126,58,.86); border-radius:9px; background:rgba(12,9,6,.82); box-shadow:0 5px 14px rgba(0,0,0,.4); backdrop-filter:blur(1px); pointer-events:none; }
+.mercenary-party-hud[hidden] { display:none !important; }
+.mercenary-party-title { display:flex; justify-content:space-between; align-items:center; color:#f4d58b; font-size:12px; font-weight:900; margin-bottom:5px; }
+.mercenary-party-title small { color:#aa9062; }
+.mercenary-party-member { display:grid; gap:2px; padding:4px 5px; margin-top:4px; border:1px solid rgba(100,74,36,.56); border-radius:6px; background:rgba(0,0,0,.24); }
+.mercenary-party-member.is-dead { opacity:.56; filter:grayscale(.8); }
+.mercenary-party-name { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:2px 5px; align-items:center; font-size:10px; }
+.mercenary-party-name b { color:#fff2cf; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.mercenary-party-name span { color:#bba579; white-space:nowrap; }
+.mercenary-party-name em { grid-column:1/-1; color:#9d8b6b; font-style:normal; font-size:9px; }
+.mercenary-party-bar { position:relative; height:9px; overflow:hidden; border-radius:5px; background:#1b1110; border:1px solid rgba(0,0,0,.75); }
+.mercenary-party-bar > span { position:absolute; inset:0 auto 0 0; }
+.mercenary-party-bar.hp > span { background:linear-gradient(90deg,#9d171c,#ec4b50); }
+.mercenary-party-bar.sp > span { background:linear-gradient(90deg,#145ab0,#4298e8); }
+.mercenary-party-bar small { position:absolute; inset:0; display:grid; place-items:center; color:#fff; font-size:7px; line-height:7px; text-shadow:1px 1px #000; }
+
+.mercenary-world-sprite { position:absolute; width:104px; height:128px; z-index:25; pointer-events:none; transform-origin:50% 88%; filter:drop-shadow(0 5px 5px rgba(0,0,0,.46)); }
+.mercenary-world-image { position:absolute; left:2px; top:12px; width:100px; height:100px; object-fit:contain; }
+.mercenary-world-name { position:absolute; left:50%; top:0; transform:translateX(-50%); max-width:120px; padding:1px 5px; border-radius:8px; background:rgba(0,0,0,.58); color:#ffeab8; font-size:10px; font-weight:900; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; z-index:2; }
+.mercenary-world-hp { position:absolute; left:17px; bottom:5px; width:70px; height:6px; border:1px solid #211; border-radius:4px; background:#341010; overflow:hidden; }
+.mercenary-world-hp span { display:block; height:100%; background:linear-gradient(90deg,#a7171c,#f05458); }
+.mercenary-world-sprite.is-attacking { animation:roMercenaryAttack .30s ease-out 1; }
+.mercenary-world-sprite.is-dead { opacity:.35; filter:grayscale(1); }
+@keyframes roMercenaryAttack { 0%,100%{ transform:translateX(0) scale(1); } 48%{ transform:translateX(13px) scale(1.04); } }
+
+@media (max-width:760px), (pointer:coarse) {
+  .mercenary-window { width:min(390px,88vw); }
+  .mercenary-party-hud { width:208px; top:218px; }
+  .mercenary-world-sprite { width:88px; height:112px; }
+  .mercenary-world-image { width:84px; height:84px; }
+}
+
+/* V0.9.88B — 每名傭兵獨立模式 */
+.mercenary-select-list { gap:8px; }
+.mercenary-slot-row {
+  display:grid;
+  grid-template-columns:62px minmax(0,1fr) 72px 58px;
+  align-items:center;
+  gap:6px;
+  padding:6px;
+  border:1px solid rgba(118,84,40,.48);
+  border-radius:7px;
+  background:rgba(0,0,0,.18);
+}
+.mercenary-slot-row > span { color:#e6c980; font-size:12px; font-weight:900; }
+.mercenary-slot-row select { min-width:0; width:100%; height:31px; padding:0 5px; color:#f8e7bd; background:#17100a; border:1px solid #765428; border-radius:6px; }
+.mercenary-mode-select { text-align:center; }
+.mercenary-slot-row .mercenary-counter-toggle { display:flex; align-items:center; justify-content:center; gap:3px; color:#cfbd96; font-size:10px; white-space:nowrap; cursor:pointer; }
+.mercenary-slot-row .mercenary-counter-toggle input { width:13px; height:13px; margin:0; accent-color:#b98938; }
+.mercenary-party-name em { color:#d0ad68; }
+.mercenary-world-sprite[data-ai-state="RETURN"] { opacity:.94; }
+.mercenary-world-sprite[data-ai-state="SUPPORT"] .mercenary-world-name::before { content:"◇ "; color:#7edcff; }
+.mercenary-world-sprite[data-ai-state="ENGAGE"] .mercenary-world-name::before,
+.mercenary-world-sprite[data-ai-state="COUNTER"] .mercenary-world-name::before { content:"⚔ "; color:#ffcf65; }
+
+@media (max-width:760px), (pointer:coarse) {
+  .mercenary-slot-row { grid-template-columns:52px minmax(0,1fr) 68px; }
+  .mercenary-slot-row .mercenary-counter-toggle { grid-column:2 / 4; justify-content:flex-end; padding-right:3px; }
+}
+
+/* =========================================================
+   V0.9.88B1 — 玩家同尺寸 + 平滑線性移動 + RO Atlas 動畫
+   AI 仍維持 180/250ms 低頻判斷；畫面位置交給 CSS transition 平滑補間。
+   ========================================================= */
+.mercenary-world-sprite {
+  width:var(--merc-player-width,220px) !important;
+  height:var(--merc-player-height,250px) !important;
+  min-width:0 !important;
+  min-height:0 !important;
+  overflow:visible !important;
+  transition:left 190ms linear, top 190ms linear, opacity 120ms ease-out !important;
+  will-change:left,top;
+  transform:none !important;
+  filter:none !important;
+}
+.mercenary-world-image,
+.mercenary-world-canvas {
+  position:absolute !important;
+  inset:0 !important;
+  width:100% !important;
+  height:100% !important;
+  max-width:100% !important;
+  max-height:100% !important;
+  object-fit:fill !important;
+  pointer-events:none !important;
+  transform:none !important;
+  transform-origin:50% 100% !important;
+  filter:drop-shadow(0 2px 2px rgba(0,0,0,.85)) !important;
+}
+.mercenary-world-canvas {
+  z-index:1;
+  image-rendering:pixelated;
+}
+.mercenary-world-image { z-index:1; }
+.mercenary-world-canvas[hidden],
+.mercenary-world-image[hidden] { display:none !important; }
+.mercenary-world-name {
+  z-index:3;
+  top:10% !important;
+  font-size:11px !important;
+}
+.mercenary-world-hp {
+  z-index:3;
+  left:50% !important;
+  bottom:38% !important;
+  width:72px !important;
+  transform:translateX(-50%);
+}
+.mercenary-world-sprite.is-attacking { animation:none !important; }
+.mercenary-world-sprite.is-dead { opacity:.72; filter:none !important; }
+
+@media (max-width:760px), (pointer:coarse) {
+  .mercenary-world-sprite {
+    width:var(--merc-player-width,220px) !important;
+    height:var(--merc-player-height,250px) !important;
+  }
+  .mercenary-world-image,
+  .mercenary-world-canvas { width:100% !important; height:100% !important; }
+}

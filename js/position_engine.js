@@ -1863,6 +1863,7 @@ function useFlyWing(options = {}) {
   player.position.y = safePos.y;
   player.position.targetX = null;
   player.position.targetY = null;
+  window.ROWebMercenaryRuntime?.notifyOwnerTeleported?.("fly_wing");
   if (previousTarget) previousTarget.aiState = "IDLE";
   if (typeof onAutoBattleTeleportCompleted === "function") onAutoBattleTeleportCompleted(previousTarget, { source:"fly_wing" });
   else currentMonster = null;

@@ -1,3 +1,15 @@
+# V0.9.88B3 current baseline
+
+## V0.9.88B3 — starter asset gate / OOM leak root-cause pass
+- Baseline: user-provided B2 full ZIP (`roweb最新版本.zip`). The uploaded ZIP accidentally omitted the B/B1 `mercenary_runtime.js` / `mercenary.css` files and contained pre-B integration copies of map/position/skill; B3 repairs these files from the verified B/B1 patches so the new baseline is self-contained.
+- First entry to `novice_training_3x3_region_camera` on HTTP(S) is gated until the novice 3×3 map, 8 monster species assets, 48 drop icons + newcomer box icon, and current-gender novice atlases are cached. Player-facing labels: `正在初始化遊戲資源……` / `正在確認最新資料版本，請稍候。`. Bytes are cached; monster atlases are NOT bulk-decoded.
+- Definite long-session leak fixed in Generic12 SkillEffect: `lastHit` used `skillId + unique monster instanceId` and never pruned on the same map. B3 uses 5s retention + 4096 cap; stale latestTarget/latestCast references are also pruned.
+- Background-rAF retention guards: expired skill-effect instances are pruned by the 500ms safety poll (256 cap); monster-impact Set has a 120ms timer fallback + 128 cap.
+- World monster Canvas backing stores are explicitly cleared and collapsed to 1×1 before DOM/reference removal; profiler tracks canvas releases plus entity/element/bitmap create-remove balance.
+- Legacy monster atlas cache bounded to 12 LRU entries; chat seen-message Set bounded to 512.
+- B2 ImageBitmap recycle / 30-minute auto-decompose, B1 smooth merc animations, B attack/support modes, A/A1 merc snapshot + 1% HP/SP are all preserved.
+- No new Supabase SQL.
+
 # V0.9.87M current baseline
 
 ## V0.9.87M — double-pass health audit / stability cleanup

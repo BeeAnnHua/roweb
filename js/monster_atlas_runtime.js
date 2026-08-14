@@ -29,6 +29,8 @@ const RO_STUDIO_MONSTER_ATLAS = {
   pendingMotion: null
 };
 window.RO_STUDIO_MONSTER_ATLAS = RO_STUDIO_MONSTER_ATLAS;
+const RO_STUDIO_MONSTER_CACHE_LIMIT = 12;
+const RO_STUDIO_MONSTER_RELEASE_PIXEL = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
 
 function getROStudioMonsterGlobalScale() {
   return Math.max(.1, Number(currentMap?.monsterGlobalScale ?? 1));
@@ -84,12 +86,29 @@ async function loadROStudioMonsterAsset(monster) {
   if (!monster?.animationJson || !monster?.animationAtlas) return null;
   const state = RO_STUDIO_MONSTER_ATLAS;
   const id = Number(monster.id);
-  if (state.cache.has(id)) return state.cache.get(id);
+  if (state.cache.has(id)) {
+    const cached = state.cache.get(id);
+    state.cache.delete(id);
+    state.cache.set(id,cached);
+    return cached;
+  }
   const data = await loadJson(`./${String(monster.animationJson).replace(/^\.\//, "")}`, null);
   if (!data) throw new Error(`Monster animation JSON missing: ${monster.animationJson}`);
   const image = await loadROStudioMonsterImage(monster.animationAtlas);
   const asset = { data, image, frameById: new Map((data.frames || []).map(frame => [Number(frame.id), frame])), bounds: calculateMonsterAtlasBounds(data) };
   state.cache.set(id, asset);
+  // V0.9.88B3: legacy/single-monster maps previously retained every species atlas
+  // seen during the whole tab lifetime. World-streamed maps bypass this runtime,
+  // but bounding the legacy cache prevents cross-map accumulation too.
+  while (state.cache.size > RO_STUDIO_MONSTER_CACHE_LIMIT) {
+    const oldestId = state.cache.keys().next().value;
+    const evicted = state.cache.get(oldestId);
+    state.cache.delete(oldestId);
+    if (evicted && evicted !== asset && evicted.image !== state.image) {
+      try { evicted.image.onload=null; evicted.image.onerror=null; evicted.image.src=RO_STUDIO_MONSTER_RELEASE_PIXEL; } catch (_) {}
+      try { evicted.frameById?.clear?.(); } catch (_) {}
+    }
+  }
   return asset;
 }
 

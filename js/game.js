@@ -13,7 +13,7 @@ let expTables = null;
 let clientItemDisplayData = null;
 let currentMap = null;
 
-const RO_WEB_VERSION = "0.9.88B2";
+const RO_WEB_VERSION = "0.9.88B3";
 
 function normalizeDataPath(path) {
   return String(path || "")
@@ -212,9 +212,29 @@ async function initGame() {
   if (typeof migrateSkillStorageToOfficialIds === "function") migrateSkillStorageToOfficialIds();
 
   setInitialMap();
+
+  // V0.9.88B3: first-entry starter asset gate.
+  // Cache the novice training pack as bytes before the world runtime starts, so a
+  // new player is never placed into a black/empty field while GitHub Pages is
+  // still downloading the map/monster files in the background. Monster atlases
+  // are intentionally NOT bulk-decoded here; they remain cached bytes until used.
+  if (window.ROWebStarterAssetRuntime?.shouldPrepare?.(currentMap)) {
+    window.RO_WEB_BOOT_STATE.status = "starter_assets";
+    try {
+      await window.ROWebStarterAssetRuntime.ensureForMap(currentMap);
+    } catch (error) {
+      console.error("Starter asset initialization failed:", error);
+      window.RO_WEB_BOOT_STATE.status = "starter_assets_blocked";
+      window.RO_WEB_BOOT_STATE.errors.push(`starter-assets: ${String(error?.stack || error)}`);
+      loadProgress(90,"遊戲資料更新失敗，請檢查網路後重新整理");
+      window.alert("遊戲資料更新未完成。\n\n請確認網路連線後重新整理頁面再試一次。角色雲端資料不會因此遺失。");
+      return;
+    }
+  }
+
   if (typeof initPositionEngine === "function") initPositionEngine();
   if (typeof initROStudioPlayerAtlasRuntime === "function") await initROStudioPlayerAtlasRuntime();
-  loadProgress(86,"正在建立角色動畫…");
+  loadProgress(92,"正在建立角色動畫…");
   if (typeof initROStudioMonsterAtlasRuntime === "function") initROStudioMonsterAtlasRuntime();
   if (typeof initWorldMonsterFieldTestRuntime === "function") await initWorldMonsterFieldTestRuntime();
   if (player?.currentCity && typeof getCityData === "function" && typeof updateTownBackground === "function") {
@@ -240,7 +260,7 @@ async function initGame() {
     ["virtualSummon", () => typeof updateVirtualSummonUI === "function" && updateVirtualSummonUI()],
     ["homunculus", () => typeof updateHomunculusUI === "function" && updateHomunculusUI()]
   ];
-  loadProgress(93,"正在建立遊戲介面…");
+  loadProgress(97,"正在建立遊戲介面…");
   for (const [name, step] of uiSteps) {
     try { step(); }
     catch (error) {

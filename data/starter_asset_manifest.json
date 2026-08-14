@@ -1,0 +1,724 @@
+{
+  "schema": "roweb_starter_asset_manifest_v1",
+  "version": "0.9.88B3",
+  "mapId": "novice_training_3x3_region_camera",
+  "displayName": "新手修練區必要資源",
+  "common": [
+    {
+      "path": "images/maps/world/novice_training_3x3/novice_training_3x3_region_bg_0_9_82FQ.webp",
+      "bytes": 718516,
+      "kind": "map",
+      "required": true
+    },
+    {
+      "path": "images/maps/world/novice_training_3x3/novice_training_3x3_region_small_0_9_82FQ.webp",
+      "bytes": 45534,
+      "kind": "map-thumb",
+      "required": false
+    },
+    {
+      "path": "assets/monsters/animations/1002/1002.json",
+      "bytes": 89179,
+      "kind": "monster-json",
+      "required": true
+    },
+    {
+      "path": "assets/monsters/animations/1002/1002.png",
+      "bytes": 104268,
+      "kind": "monster-atlas",
+      "required": true
+    },
+    {
+      "path": "images/monsters/poring_hit.png",
+      "bytes": 20479,
+      "kind": "monster-hit",
+      "required": false
+    },
+    {
+      "path": "assets/monsters/animations/1113/1113.json",
+      "bytes": 89061,
+      "kind": "monster-json",
+      "required": true
+    },
+    {
+      "path": "assets/monsters/animations/1113/1113.png",
+      "bytes": 103259,
+      "kind": "monster-atlas",
+      "required": true
+    },
+    {
+      "path": "assets/monsters/animations/1063/1063.json",
+      "bytes": 115096,
+      "kind": "monster-json",
+      "required": true
+    },
+    {
+      "path": "assets/monsters/animations/1063/1063.png",
+      "bytes": 14975,
+      "kind": "monster-atlas",
+      "required": true
+    },
+    {
+      "path": "images/monsters/lunatic_hit.png",
+      "bytes": 29889,
+      "kind": "monster-hit",
+      "required": false
+    },
+    {
+      "path": "assets/monsters/animations/1007/1007.json",
+      "bytes": 45206,
+      "kind": "monster-json",
+      "required": true
+    },
+    {
+      "path": "assets/monsters/animations/1007/1007.png",
+      "bytes": 60701,
+      "kind": "monster-atlas",
+      "required": true
+    },
+    {
+      "path": "images/monsters/fabre_hit.png",
+      "bytes": 31210,
+      "kind": "monster-hit",
+      "required": false
+    },
+    {
+      "path": "assets/monsters/animations/1009/1009.json",
+      "bytes": 53694,
+      "kind": "monster-json",
+      "required": true
+    },
+    {
+      "path": "assets/monsters/animations/1009/1009.png",
+      "bytes": 87511,
+      "kind": "monster-atlas",
+      "required": true
+    },
+    {
+      "path": "assets/monsters/animations/1011/1011.json",
+      "bytes": 84646,
+      "kind": "monster-json",
+      "required": true
+    },
+    {
+      "path": "assets/monsters/animations/1011/1011.png",
+      "bytes": 20549,
+      "kind": "monster-atlas",
+      "required": true
+    },
+    {
+      "path": "assets/monsters/animations/1010/1010.json",
+      "bytes": 63682,
+      "kind": "monster-json",
+      "required": true
+    },
+    {
+      "path": "assets/monsters/animations/1010/1010_0.png",
+      "bytes": 519275,
+      "kind": "monster-atlas",
+      "required": true
+    },
+    {
+      "path": "assets/monsters/animations/1010/1010_1.png",
+      "bytes": 439270,
+      "kind": "monster-atlas",
+      "required": true
+    },
+    {
+      "path": "images/monsters/1010.webp",
+      "bytes": 2394,
+      "kind": "monster-hit",
+      "required": false
+    },
+    {
+      "path": "assets/monsters/animations/1004/1004.json",
+      "bytes": 66785,
+      "kind": "monster-json",
+      "required": true
+    },
+    {
+      "path": "assets/monsters/animations/1004/1004.png",
+      "bytes": 105392,
+      "kind": "monster-atlas",
+      "required": true
+    },
+    {
+      "path": "images/items/511.webp",
+      "bytes": 208,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/512.webp",
+      "bytes": 206,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/515.webp",
+      "bytes": 244,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/516.webp",
+      "bytes": 232,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/517.webp",
+      "bytes": 220,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/518.webp",
+      "bytes": 270,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/582.webp",
+      "bytes": 316,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/601.webp",
+      "bytes": 128,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/619.webp",
+      "bytes": 238,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/620.webp",
+      "bytes": 354,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/622.webp",
+      "bytes": 308,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/705.webp",
+      "bytes": 202,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/742.webp",
+      "bytes": 362,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/902.webp",
+      "bytes": 184,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/907.webp",
+      "bytes": 182,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/909.webp",
+      "bytes": 152,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/914.webp",
+      "bytes": 152,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/916.webp",
+      "bytes": 188,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/917.webp",
+      "bytes": 126,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/935.webp",
+      "bytes": 166,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/938.webp",
+      "bytes": 202,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/939.webp",
+      "bytes": 142,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/949.webp",
+      "bytes": 184,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/992.webp",
+      "bytes": 226,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/998.webp",
+      "bytes": 252,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/1002.webp",
+      "bytes": 252,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/1019.webp",
+      "bytes": 304,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/1066.webp",
+      "bytes": 304,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/1067.webp",
+      "bytes": 304,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/1068.webp",
+      "bytes": 304,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/1102.webp",
+      "bytes": 180,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/1202.webp",
+      "bytes": 146,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/1205.webp",
+      "bytes": 162,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/1208.webp",
+      "bytes": 166,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/1501.webp",
+      "bytes": 204,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/1502.webp",
+      "bytes": 204,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/1602.webp",
+      "bytes": 148,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/1702.webp",
+      "bytes": 200,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/2262.webp",
+      "bytes": 154,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/4001.webp",
+      "bytes": 198,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/4002.webp",
+      "bytes": 198,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/4004.webp",
+      "bytes": 198,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/4006.webp",
+      "bytes": 198,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/4009.webp",
+      "bytes": 198,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/4010.webp",
+      "bytes": 198,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/4015.webp",
+      "bytes": 198,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/4019.webp",
+      "bytes": 198,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/12004.webp",
+      "bytes": 362,
+      "kind": "item-icon",
+      "required": true
+    },
+    {
+      "path": "images/items/101538.webp",
+      "bytes": 358,
+      "kind": "item-icon",
+      "required": true
+    }
+  ],
+  "gender": {
+    "male": [
+      {
+        "path": "assets/characters/novice/male/idle.png",
+        "bytes": 4329,
+        "kind": "character-idle",
+        "required": true
+      },
+      {
+        "path": "assets/characters/novice/male/motions.json",
+        "bytes": 2066,
+        "kind": "character-motion-map",
+        "required": true
+      },
+      {
+        "path": "assets/characters/novice/male/on_foot/attack/axe/body_hair_weapon.json",
+        "bytes": 32676,
+        "kind": "character-atlas-json",
+        "required": true
+      },
+      {
+        "path": "assets/characters/novice/male/on_foot/attack/axe/body_hair_weapon_packed.png",
+        "bytes": 26483,
+        "kind": "character-atlas",
+        "required": true
+      },
+      {
+        "path": "assets/characters/novice/male/on_foot/attack/dagger/body_hair_weapon.json",
+        "bytes": 36257,
+        "kind": "character-atlas-json",
+        "required": true
+      },
+      {
+        "path": "assets/characters/novice/male/on_foot/attack/dagger/body_hair_weapon_packed.png",
+        "bytes": 20318,
+        "kind": "character-atlas",
+        "required": true
+      },
+      {
+        "path": "assets/characters/novice/male/on_foot/attack/fist/body_hair.json",
+        "bytes": 36326,
+        "kind": "character-atlas-json",
+        "required": true
+      },
+      {
+        "path": "assets/characters/novice/male/on_foot/attack/fist/body_hair_packed.png",
+        "bytes": 19438,
+        "kind": "character-atlas",
+        "required": true
+      },
+      {
+        "path": "assets/characters/novice/male/on_foot/attack/mace/body_hair_weapon.json",
+        "bytes": 32704,
+        "kind": "character-atlas-json",
+        "required": true
+      },
+      {
+        "path": "assets/characters/novice/male/on_foot/attack/mace/body_hair_weapon_packed.png",
+        "bytes": 27780,
+        "kind": "character-atlas",
+        "required": true
+      },
+      {
+        "path": "assets/characters/novice/male/on_foot/attack/staff/body_hair_weapon.json",
+        "bytes": 32709,
+        "kind": "character-atlas-json",
+        "required": true
+      },
+      {
+        "path": "assets/characters/novice/male/on_foot/attack/staff/body_hair_weapon_packed.png",
+        "bytes": 26015,
+        "kind": "character-atlas",
+        "required": true
+      },
+      {
+        "path": "assets/characters/novice/male/on_foot/attack/sword/body_hair_weapon.json",
+        "bytes": 32665,
+        "kind": "character-atlas-json",
+        "required": true
+      },
+      {
+        "path": "assets/characters/novice/male/on_foot/attack/sword/body_hair_weapon_packed.png",
+        "bytes": 26955,
+        "kind": "character-atlas",
+        "required": true
+      },
+      {
+        "path": "assets/characters/novice/male/on_foot/idle/body_hair.json",
+        "bytes": 7592,
+        "kind": "character-atlas-json",
+        "required": true
+      },
+      {
+        "path": "assets/characters/novice/male/on_foot/idle/body_hair_packed.png",
+        "bytes": 16704,
+        "kind": "character-atlas",
+        "required": true
+      },
+      {
+        "path": "assets/characters/novice/male/on_foot/walk/body_hair.json",
+        "bytes": 32407,
+        "kind": "character-atlas-json",
+        "required": true
+      },
+      {
+        "path": "assets/characters/novice/male/on_foot/walk/body_hair_packed.png",
+        "bytes": 66783,
+        "kind": "character-atlas",
+        "required": true
+      },
+      {
+        "path": "assets/characters/novice/male/on_foot/cast/body_hair.json",
+        "bytes": 25275,
+        "kind": "character-atlas-json",
+        "required": true
+      },
+      {
+        "path": "assets/characters/novice/male/on_foot/cast/body_hair_packed.png",
+        "bytes": 35703,
+        "kind": "character-atlas",
+        "required": true
+      },
+      {
+        "path": "assets/characters/novice/male/on_foot/dead/body_hair.json",
+        "bytes": 31703,
+        "kind": "character-atlas-json",
+        "required": true
+      },
+      {
+        "path": "assets/characters/novice/male/on_foot/dead/body_hair_packed.png",
+        "bytes": 25985,
+        "kind": "character-atlas",
+        "required": true
+      }
+    ],
+    "female": [
+      {
+        "path": "assets/characters/novice/female/idle.png",
+        "bytes": 4130,
+        "kind": "character-idle",
+        "required": true
+      },
+      {
+        "path": "assets/characters/novice/female/motions.json",
+        "bytes": 2092,
+        "kind": "character-motion-map",
+        "required": true
+      },
+      {
+        "path": "assets/characters/novice/female/on_foot/attack/axe/body_hair_weapon.json",
+        "bytes": 36329,
+        "kind": "character-atlas-json",
+        "required": true
+      },
+      {
+        "path": "assets/characters/novice/female/on_foot/attack/axe/body_hair_weapon_packed.png",
+        "bytes": 17552,
+        "kind": "character-atlas",
+        "required": true
+      },
+      {
+        "path": "assets/characters/novice/female/on_foot/attack/dagger/body_hair_weapon.json",
+        "bytes": 32709,
+        "kind": "character-atlas-json",
+        "required": true
+      },
+      {
+        "path": "assets/characters/novice/female/on_foot/attack/dagger/body_hair_weapon_packed.png",
+        "bytes": 23206,
+        "kind": "character-atlas",
+        "required": true
+      },
+      {
+        "path": "assets/characters/novice/female/on_foot/attack/fist/body_hair.json",
+        "bytes": 36314,
+        "kind": "character-atlas-json",
+        "required": true
+      },
+      {
+        "path": "assets/characters/novice/female/on_foot/attack/fist/body_hair_packed.png",
+        "bytes": 15423,
+        "kind": "character-atlas",
+        "required": true
+      },
+      {
+        "path": "assets/characters/novice/female/on_foot/attack/mace/body_hair_weapon.json",
+        "bytes": 36325,
+        "kind": "character-atlas-json",
+        "required": true
+      },
+      {
+        "path": "assets/characters/novice/female/on_foot/attack/mace/body_hair_weapon_packed.png",
+        "bytes": 18033,
+        "kind": "character-atlas",
+        "required": true
+      },
+      {
+        "path": "assets/characters/novice/female/on_foot/attack/staff/body_hair_weapon.json",
+        "bytes": 36344,
+        "kind": "character-atlas-json",
+        "required": true
+      },
+      {
+        "path": "assets/characters/novice/female/on_foot/attack/staff/body_hair_weapon_packed.png",
+        "bytes": 17263,
+        "kind": "character-atlas",
+        "required": true
+      },
+      {
+        "path": "assets/characters/novice/female/on_foot/attack/sword/body_hair_weapon.json",
+        "bytes": 36329,
+        "kind": "character-atlas-json",
+        "required": true
+      },
+      {
+        "path": "assets/characters/novice/female/on_foot/attack/sword/body_hair_weapon_packed.png",
+        "bytes": 16502,
+        "kind": "character-atlas",
+        "required": true
+      },
+      {
+        "path": "assets/characters/novice/female/on_foot/idle/body_hair.json",
+        "bytes": 7592,
+        "kind": "character-atlas-json",
+        "required": true
+      },
+      {
+        "path": "assets/characters/novice/female/on_foot/idle/body_hair_packed.png",
+        "bytes": 15505,
+        "kind": "character-atlas",
+        "required": true
+      },
+      {
+        "path": "assets/characters/novice/female/on_foot/walk/body_hair.json",
+        "bytes": 32406,
+        "kind": "character-atlas-json",
+        "required": true
+      },
+      {
+        "path": "assets/characters/novice/female/on_foot/walk/body_hair_packed.png",
+        "bytes": 68476,
+        "kind": "character-atlas",
+        "required": true
+      },
+      {
+        "path": "assets/characters/novice/female/on_foot/cast/body_hair.json",
+        "bytes": 25276,
+        "kind": "character-atlas-json",
+        "required": true
+      },
+      {
+        "path": "assets/characters/novice/female/on_foot/cast/body_hair_packed.png",
+        "bytes": 29759,
+        "kind": "character-atlas",
+        "required": true
+      },
+      {
+        "path": "assets/characters/novice/female/on_foot/dead/body_hair.json",
+        "bytes": 31711,
+        "kind": "character-atlas-json",
+        "required": true
+      },
+      {
+        "path": "assets/characters/novice/female/on_foot/dead/body_hair_packed.png",
+        "bytes": 25100,
+        "kind": "character-atlas",
+        "required": true
+      }
+    ]
+  },
+  "policy": {
+    "downloadOnly": true,
+    "decodeAllAtlases": false,
+    "description": "Cache bytes before entering novice training; do not keep all images decoded in RAM."
+  },
+  "stats": {
+    "commonFiles": 72,
+    "maleFiles": 22,
+    "femaleFiles": 22,
+    "totalUniqueFiles": 116,
+    "commonBytes": 2921351,
+    "maleBytes": 598873,
+    "femaleBytes": 564376
+  }
+}

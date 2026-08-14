@@ -1,3 +1,18 @@
+## V0.9.88B3
+
+- 新增初學者修練場 Starter Asset Gate：第一次進入該區域前快取整個 3×3 修練場背景、8 種新手怪必要動畫檔、常見掉落 ICON、初學者/NPC 必要素材；玩家端只顯示正式更新進度與百分比。
+- Starter Pack 採 HTTP Cache + Cache Storage + Service Worker；只下載 bytes，不預先解碼全部怪物 Atlas，避免「為了防黑圖反而先吃掉大量 RAM」。
+- OOM 深查找到確定的線性 Leak：`skill_effect_runtime_v92.js` 的 `lastHit` Map 以 `skillId + monsterInstanceId` 建 key，但同地圖長掛時原本永不清除。每次怪物重生 instanceId 都不同，因此擊殺越多 key 越多。B3 改為 5 秒 retention、4096 hard cap 與 profiler counter。
+- `latestTarget` 原本可讓各技能長時間抓住最後一隻死亡怪物物件；B3 加入 5 秒目標引用 retention。
+- 世界怪物 Runtime 新增 Entity/Element/ImageBitmap 建立與銷毀平衡計數；AFK 診斷同步加入 Skill Effect、Damage DOM、Ground Effect、Reward Queue、Mercenary 與 Equipment Instance 指標。
+- 世界怪物 DOM 銷毀時新增 Canvas backing-store 硬釋放：先 clear，再把 canvas 壓回 1×1 後才移除引用；避免「怪物圖片共用，但每次重生建立的新 Canvas 緩衝區要等瀏覽器 GC 才還 RAM」。
+- 補上背景分頁/rAF throttle 兩個保護：Skill Effect 過期 instance 現由 500ms safety poll 直接 prune（最多 256），Monster Impact Set 也有 120ms timer fallback + 128 hard cap，不再可能因沒有 paint frame 而一路抓住歷史怪物物件。
+- 玩家聊天 `seen` message ID Set 改 512 筆環形上限；雖非 MVP OFFLINE OOM 主因，但避免長開分頁後另一條無界集合持續增加。
+- Legacy `monster_atlas_runtime.js` singleton cache 改 12 項 LRU；世界串流 MVP 仍保留 B2 的 ImageBitmap `close()`、漸進式回收與 22 王設定。
+- 修復使用者最新完整 ZIP 封裝時漏掉 B/B1 傭兵檔案與部分移動/技能整合檔；B3 Patch 會把缺失檔一起補齊，建立可自包含的新母版。
+- V0.9.88B2 的每 30 分鐘自動分解、MVP Memory Recycle，以及 B1 傭兵平滑動畫全部保留。
+- 無 Supabase SQL。
+
 ## V0.9.88B2
 
 - MVP 長時間掛機記憶體穩定化：HTTP/HTTPS 的 MVP Atlas 優先使用 `ImageBitmap`，LRU 淘汰後可 `close()` 明確釋放 decoded graphics memory；不支援時自動退回既有 `<img>` 路徑。

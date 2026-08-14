@@ -9,7 +9,7 @@
 (() => {
   'use strict';
 
-  const VERSION = '0.9.83E1';
+  const VERSION = '0.9.88B3';
   const BASE = './assets/skill_effects/v92/';
   const MANIFEST_URL = `${BASE}V92_RUNTIME_TIMELINE_MANIFEST.json`;
   const EFFECT_MANIFEST_URL = `${BASE}V92_EFFECT_MANIFEST.json`;
@@ -18,6 +18,12 @@
   const BEGIN_TRIGGERS = new Set(['SKILL_BEGIN','CAST_BEGIN']);
   const COMMIT_TRIGGERS = new Set(['CAST_COMPLETE','PROJECTILE_LAUNCH','GROUND_SPAWN','DAMAGE_COMMIT','LOOP_START','SKILL_END']);
   const HIT_TRIGGERS = new Set(['HIT_CONFIRM']);
+  // V0.9.88B3: per-monster HIT dedupe keys must be short-lived. _instanceId is
+  // unique for every respawned monster, so an unpruned Map grows forever during AFK.
+  const LAST_HIT_RETENTION_MS = 5000;
+  const LATEST_TARGET_RETENTION_MS = 5000;
+  const LATEST_CAST_RETENTION_MS = 10000;
+  const LAST_HIT_HARD_CAP = 4096;
   // 0.9.82IE：地面特效座標政策。GROUND_CELL／GROUND_SPAWN 在事件觸發瞬間
   // 取得目標腳下的世界座標快照；強酸禁地三系的所有目標端視覺也視為
   // 地面爆發，固定於命中瞬間的位置，不再跟隨玩家或怪物移動。
@@ -56,7 +62,8 @@
       pendingGroundQueued: 0, pendingGroundFlushed: 0,
       skippedGroundWithoutTarget: 0, repairedGroundAnchors: 0,
       authoritativeGroundPayloads: 0, authoritativeGroundMisses: 0, forcedGroundRelocations: 0,
-      exactTargetEntityHits: 0, ambiguousTargetIdentityRejects: 0, invalidTargetElementRejects: 0
+      exactTargetEntityHits: 0, ambiguousTargetIdentityRejects: 0, invalidTargetElementRejects: 0,
+      prunedHitKeys: 0, prunedLatestTargets: 0, prunedLatestCasts: 0, prunedExpiredInstances: 0, cappedInstances: 0, peakLastHitEntries: 0
     }
   };
 
@@ -363,7 +370,8 @@
       targetObject: liveTarget || targetObject || null,
       targetWorldPosition: worldPosition ? { x: Number(worldPosition.x), y: Number(worldPosition.y) } : null,
       targetIdentity: targetIdentity(liveTarget || targetObject),
-      targetPayloadSource: source || 'MISSING'
+      targetPayloadSource: source || 'MISSING',
+      capturedAt: Date.now()
     };
   }
 
@@ -442,7 +450,8 @@
       targetObject: liveTarget,
       targetWorldPosition: worldPosition ? { x:Number(worldPosition.x), y:Number(worldPosition.y) } : null,
       targetIdentity: targetIdentity(liveTarget),
-      targetPayloadSource: source || 'MISSING'
+      targetPayloadSource: source || 'MISSING',
+      capturedAt: Date.now()
     };
   }
 
@@ -953,6 +962,7 @@
     const now = Date.now();
     if (now - Number(state.lastHit.get(key) || 0) < 30) return false;
     state.lastHit.set(key, now);
+    state.diagnostics.peakLastHitEntries = Math.max(Number(state.diagnostics.peakLastHitEntries || 0), state.lastHit.size);
     if (payload.targetWorldPosition) {
       state.latestTarget.set(id, payload);
       repairRecentGroundAnchors(id, payload);
@@ -1037,10 +1047,65 @@
     state.lastPlayerIdentity = env.playerIdentity;
     const p = currentPlayerObject();
     if (p && Number(p.hp || 0) <= 0 && state.instances.length) clearAll('player_death');
+    const now = Date.now();
+    // requestAnimationFrame is suspended/throttled in background tabs. Before B3,
+    // expired visual instances were normally removed only by render(), so a long
+    // AFK session could keep adding instances while no paint frame arrived. The
+    // 500ms safety poll now performs the same lifetime cleanup independently.
+    if (state.instances.length) {
+      const before = state.instances.length;
+      state.instances = state.instances.filter(instance => {
+        if (!instance) return false;
+        if (instance.endAt && now >= Number(instance.endAt || 0)) return false;
+        if (!instance.loop && now - Number(instance.startAt || 0) > Math.max(250, Number(instance.visualDurationMs || 0)) + 1000) return false;
+        return true;
+      });
+      state.diagnostics.prunedExpiredInstances += Math.max(0, before - state.instances.length);
+      // Defensive ceiling for pathological throttling / malformed looping effects.
+      if (state.instances.length > 256) {
+        const drop = state.instances.length - 256;
+        state.instances.splice(0, drop);
+        state.diagnostics.cappedInstances += drop;
+      }
+    }
+    const liveIds = new Set(state.instances.map(instance => instance.instanceId));
     for (const [key, ids] of state.lifecycle.entries()) {
+      for (const instanceId of [...(ids || [])]) if (!liveIds.has(instanceId)) ids.delete(instanceId);
       if (!ids?.size) state.lifecycle.delete(key);
     }
-    const now = Date.now();
+    // V0.9.88B3 leak fix: HIT_CONFIRM only needs a 30ms duplicate guard. Previous
+    // versions kept `${skillId}:${monster._instanceId}` forever, so thousands of
+    // respawns left thousands of strong Map entries on the same map.
+    for (const [key, hitAt] of state.lastHit.entries()) {
+      if (now - Number(hitAt || 0) > LAST_HIT_RETENTION_MS) {
+        state.lastHit.delete(key);
+        state.diagnostics.prunedHitKeys++;
+      }
+    }
+    if (state.lastHit.size > LAST_HIT_HARD_CAP) {
+      const overflow = state.lastHit.size - LAST_HIT_HARD_CAP;
+      const oldest = [...state.lastHit.entries()].sort((a,b)=>Number(a[1]||0)-Number(b[1]||0)).slice(0,overflow);
+      for (const [key] of oldest) { state.lastHit.delete(key); state.diagnostics.prunedHitKeys++; }
+    }
+    // latestCast can also hold a live target object when a cast begins but is
+    // interrupted before the normal commit cleanup. It is bounded by skill ID,
+    // but pruning stale casts prevents dead monsters from being pinned for the
+    // rest of a long AFK session.
+    for (const [skillId, cast] of state.latestCast.entries()) {
+      if (now - Number(cast?.startedAt || 0) > LATEST_CAST_RETENTION_MS) {
+        state.latestCast.delete(skillId);
+        state.diagnostics.prunedLatestCasts++;
+      }
+    }
+    // latestTarget stores a live targetObject for cross-trigger anchoring. It is
+    // useful only around the current cast; expiring it prevents a dead monster
+    // object from being pinned indefinitely when a skill is not cast again.
+    for (const [skillId, payload] of state.latestTarget.entries()) {
+      if (now - Number(payload?.capturedAt || 0) > LATEST_TARGET_RETENTION_MS) {
+        state.latestTarget.delete(skillId);
+        state.diagnostics.prunedLatestTargets++;
+      }
+    }
     for (const [key, pending] of state.pendingGroundEvents.entries()) {
       if (Number(pending.expiresAt || 0) <= now) {
         state.pendingGroundEvents.delete(key);
@@ -1116,7 +1181,10 @@
         ...state.diagnostics,
         activeInstances: state.instances.length,
         activeLifecycles: state.lifecycle.size,
-        pendingGroundEvents: state.pendingGroundEvents.size
+        pendingGroundEvents: state.pendingGroundEvents.size,
+        latestCastEntries: state.latestCast.size,
+        lastHitEntries: state.lastHit.size,
+        latestTargetEntries: state.latestTarget.size
       };
     },
     captureTargetPayload(target, explicitWorldPosition = null) {
@@ -1130,6 +1198,9 @@
     debugSnapshot() {
       return {
         pendingGroundEvents: state.pendingGroundEvents.size,
+        latestCastEntries: state.latestCast.size,
+        lastHitEntries: state.lastHit.size,
+        latestTargetEntries: state.latestTarget.size,
         latestTargets: [...state.latestTarget.entries()].map(([skillId, payload]) => ({
           skillId,
           targetIdentity: payload.targetIdentity,

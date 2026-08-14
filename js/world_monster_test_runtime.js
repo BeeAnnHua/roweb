@@ -40,7 +40,14 @@ const RO_WORLD_MONSTER_TEST = {
   defeatsSinceSoftSweep: 0,
   lastSoftSweepAt: 0,
   lastPassiveRecycleAt: 0,
-  memorySweepCount: 0
+  memorySweepCount: 0,
+  // V0.9.88B3 leak profiler counters: totals may grow; live counts must stay bounded.
+  entitiesCreated: 0,
+  entitiesRemoved: 0,
+  elementsCreated: 0,
+  elementsRemoved: 0,
+  imageBitmapsCreated: 0,
+  htmlImagesCreated: 0
 };
 window.RO_WORLD_MONSTER_TEST = RO_WORLD_MONSTER_TEST;
 
@@ -766,7 +773,9 @@ async function loadWorldMonsterImage(src) {
       const response = await fetch(src, { cache:"force-cache", credentials:"same-origin" });
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const blob = await response.blob();
-      return await createImageBitmap(blob);
+      const bitmap = await createImageBitmap(blob);
+      RO_WORLD_MONSTER_TEST.imageBitmapsCreated = Number(RO_WORLD_MONSTER_TEST.imageBitmapsCreated || 0) + 1;
+      return bitmap;
     } catch (error) {
       if (!window.__roWorldMonsterBitmapFallbackWarned) {
         window.__roWorldMonsterBitmapFallbackWarned = true;
@@ -777,7 +786,11 @@ async function loadWorldMonsterImage(src) {
   return await new Promise((resolve, reject) => {
     const image = document.createElement("img");
     image.decoding = "async";
-    image.onload = () => { image.onload = null; image.onerror = null; resolve(image); };
+    image.onload = () => {
+      image.onload = null; image.onerror = null;
+      RO_WORLD_MONSTER_TEST.htmlImagesCreated = Number(RO_WORLD_MONSTER_TEST.htmlImagesCreated || 0) + 1;
+      resolve(image);
+    };
     image.onerror = () => reject(new Error(`Monster atlas image load failed: ${src}`));
     image.src = src;
   });
@@ -1038,6 +1051,7 @@ function createWorldMonsterEntity(monsterData, spawnEntry, options = {}) {
     persistent.currentHp = currentHp;
     persistent.position = { x: Math.round(position.x), y: Math.round(position.y) };
   }
+  RO_WORLD_MONSTER_TEST.entitiesCreated = Number(RO_WORLD_MONSTER_TEST.entitiesCreated || 0) + 1;
   return entity;
 }
 
@@ -1093,6 +1107,7 @@ function createWorldMonsterElement(entity) {
     }
   });
   host.appendChild(el);
+  RO_WORLD_MONSTER_TEST.elementsCreated = Number(RO_WORLD_MONSTER_TEST.elementsCreated || 0) + 1;
   if (entity._animation?.asset) applyWorldMonsterAssetToElement(entity, entity._animation.asset);
   return el;
 }
@@ -1115,7 +1130,22 @@ function applyWorldMonsterAssetToElement(entity, asset) {
 function removeWorldMonsterElement(entity) {
   if (!entity) return;
   const releasedAsset = entity?._animation?.asset || null;
+  const hadElement = Boolean(entity._element);
+  // V0.9.88B3: a removed <canvas> can keep its graphics backing store alive
+  // until a later browser GC. On a long MVP session thousands of monster
+  // canvases are created/destroyed, so explicitly collapse the backing surface
+  // before dropping the final JS/DOM references. This does not touch the shared
+  // atlas and is safe even when another monster uses the same image.
+  if (entity._canvas) {
+    try { entity._ctx?.clearRect?.(0, 0, entity._canvas.width || 0, entity._canvas.height || 0); } catch (_) {}
+    try {
+      entity._canvas.width = 1;
+      entity._canvas.height = 1;
+      RO_WORLD_MONSTER_TEST.canvasBackingReleases = Number(RO_WORLD_MONSTER_TEST.canvasBackingReleases || 0) + 1;
+    } catch (_) {}
+  }
   entity._element?.remove();
+  if (hadElement) RO_WORLD_MONSTER_TEST.elementsRemoved = Number(RO_WORLD_MONSTER_TEST.elementsRemoved || 0) + 1;
   entity._element = null;
   entity._canvas = null;
   entity._labelElement = null;
@@ -1168,7 +1198,9 @@ async function prepareWorldMonsterEntity(entity, generation = RO_WORLD_MONSTER_T
 function clearWorldMonsterFieldTest(options = {}) {
   if (RO_WORLD_MONSTER_TEST.mapId && options.persist !== false) snapshotWorldMonsterRegionState({ save: Boolean(options.save) });
   RO_WORLD_MONSTER_TEST.loadGeneration += 1;
+  const clearingEntities = RO_WORLD_MONSTER_TEST.entities.length;
   RO_WORLD_MONSTER_TEST.entities.forEach(removeWorldMonsterElement);
+  RO_WORLD_MONSTER_TEST.entitiesRemoved = Number(RO_WORLD_MONSTER_TEST.entitiesRemoved || 0) + clearingEntities;
   RO_WORLD_MONSTER_TEST.entities = [];
   clearWorldMonsterAssetCache();
   RO_WORLD_MONSTER_TEST.assetCachePeakDecodedBytes = 0;
@@ -1764,7 +1796,10 @@ function removeWorldMonsterEntity(entity) {
   unregisterWorldMonsterSpatialEntity(entity);
   removeWorldMonsterElement(entity);
   const index = RO_WORLD_MONSTER_TEST.entities.indexOf(entity);
-  if (index >= 0) RO_WORLD_MONSTER_TEST.entities.splice(index, 1);
+  if (index >= 0) {
+    RO_WORLD_MONSTER_TEST.entities.splice(index, 1);
+    RO_WORLD_MONSTER_TEST.entitiesRemoved = Number(RO_WORLD_MONSTER_TEST.entitiesRemoved || 0) + 1;
+  }
   if (currentMonster === entity) {
     currentMonster = null;
     if (typeof updateMonsterUI === "function") updateMonsterUI();
@@ -1850,6 +1885,19 @@ function getWorldMonsterMemoryHealthStats() {
     totalDefeats:Number(RO_WORLD_MONSTER_TEST.totalDefeats || 0),
     defeatsSinceSoftSweep:Number(RO_WORLD_MONSTER_TEST.defeatsSinceSoftSweep || 0),
     memorySweepCount:Number(RO_WORLD_MONSTER_TEST.memorySweepCount || 0),
+    entitiesCreated:Number(RO_WORLD_MONSTER_TEST.entitiesCreated || 0),
+    entitiesRemoved:Number(RO_WORLD_MONSTER_TEST.entitiesRemoved || 0),
+    liveEntities:Number((RO_WORLD_MONSTER_TEST.entities || []).length),
+    entityBalance:Number(RO_WORLD_MONSTER_TEST.entitiesCreated || 0)-Number(RO_WORLD_MONSTER_TEST.entitiesRemoved || 0),
+    elementsCreated:Number(RO_WORLD_MONSTER_TEST.elementsCreated || 0),
+    elementsRemoved:Number(RO_WORLD_MONSTER_TEST.elementsRemoved || 0),
+    liveElements:Number((RO_WORLD_MONSTER_TEST.entities || []).filter(entity=>entity?._element?.isConnected).length),
+    elementBalance:Number(RO_WORLD_MONSTER_TEST.elementsCreated || 0)-Number(RO_WORLD_MONSTER_TEST.elementsRemoved || 0),
+    imageBitmapsCreated:Number(RO_WORLD_MONSTER_TEST.imageBitmapsCreated || 0),
+    htmlImagesCreated:Number(RO_WORLD_MONSTER_TEST.htmlImagesCreated || 0),
+    imageResourcesCreated:Number(RO_WORLD_MONSTER_TEST.imageBitmapsCreated || 0)+Number(RO_WORLD_MONSTER_TEST.htmlImagesCreated || 0),
+    imageResourcesReleased:Number(RO_WORLD_MONSTER_TEST.recycledImages || 0),
+    canvasBackingReleases:Number(RO_WORLD_MONSTER_TEST.canvasBackingReleases || 0),
     usedJsHeapMb:heap?.usedJSHeapSize ? Math.round(Number(heap.usedJSHeapSize) / 1024 / 1024 * 10) / 10 : null,
     domNodes:typeof document !== "undefined" ? document.getElementsByTagName("*").length : null
   };

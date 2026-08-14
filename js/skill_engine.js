@@ -3583,6 +3583,7 @@ function castTeleportSkill(skill, requestedLevel = null) {
   player.position.y = position.y;
   player.position.targetX = null;
   player.position.targetY = null;
+  window.ROWebMercenaryRuntime?.notifyOwnerTeleported?.("teleport_skill");
   if (previousTarget) previousTarget.aiState = "IDLE";
   if (typeof onAutoBattleTeleportCompleted === "function") onAutoBattleTeleportCompleted(previousTarget, { source:"skill", skillId:skill.id });
   else currentMonster = null;

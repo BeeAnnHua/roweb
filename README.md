@@ -1,4 +1,18 @@
-# 彼岸花仙境（RO_WEB 技術核心） V0.9.88B2
+# 彼岸花仙境（RO_WEB 技術核心） V0.9.88B3
+
+## V0.9.88B3 — 新手資源初始化 / OOM Leak 根因修正與診斷
+
+- 新角色第一次進入初學者修練場前，先顯示「正在初始化遊戲資源……／正在確認最新資料版本，請稍候。」並把修練場必要靜態資源下載到瀏覽器快取；必要檔案未成功就不讓玩家先進黑畫面。
+- Starter Pack 只預先下載／快取 bytes；怪物 Atlas 不會一次全部解碼進 RAM。共同資源約 2.9 MB，加上當前性別初學者資源約 0.6 MB。
+- 找到一個會隨歷史戰鬥次數線性成長的明確 Leak：技能特效 `lastHit` 以每隻怪物唯一 instance key 記錄、同地圖長掛時原本永不 prune。B3 改為 5 秒 retention + 4096 hard cap，並同步讓 `latestTarget` 的死亡怪物引用 5 秒後釋放。
+- 世界怪物、Bitmap、DOM、技能特效、Damage DOM、Reward Queue、Ground Effect、傭兵加入建立／銷毀／目前存活診斷，讓下一次長掛能判斷是否還有第二個 Leak。
+- 世界怪物每次銷毀 Canvas 時先清空並壓回 1×1，再解除 DOM/Context；同一張怪物 Atlas 雖然會共用，但每個怪物實體自己的 Canvas backing store 也必須主動釋放。
+- 背景分頁若 `requestAnimationFrame` 被瀏覽器暫停，Skill Effect 過期 instance 改由 safety poll 清理；Monster Impact target Set 加 timer fallback 與 hard cap，避免歷史怪物物件被畫面批次器抓住。
+- Chat message duplicate Set 加 512 筆上限，順手消除另一個長開分頁的無界集合。
+- Legacy Monster Atlas singleton cache 改為最多 12 項 LRU，降低跨舊地圖一路看過不同怪物後永久常駐的風險。
+- 修復本次使用者完整 ZIP 的封裝遺漏：補回 `mercenary_runtime.js`、`mercenary.css`，並還原 B/B1 對 map / position / skill 的正式版本；B2 既有 ImageBitmap 回收與 30 分鐘自拆全部保留。
+- 無 Supabase Schema / RPC 變更，不需要 SQL。
+
 
 ## V0.9.88B2 — 長時間掛機 Memory Recycle / 30 分鐘自動分解
 

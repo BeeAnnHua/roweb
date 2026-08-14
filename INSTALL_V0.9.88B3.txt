@@ -1,0 +1,12 @@
+彼岸花仙境 RO_WEB V0.9.88B3
+
+安裝：
+1. 以目前 V0.9.88B2 完整資料夾為底。
+2. 將本 Patch 內容直接覆蓋到遊戲根目錄。
+3. GitHub Pages 重新部署後，建議第一次以 Ctrl+F5 / 強制重新整理載入 B3。
+4. 不需要執行任何 Supabase SQL。
+
+注意：
+- 這個 Patch 也補回使用者最新完整 ZIP 中意外漏掉的 B/B1 傭兵 Runtime/CSS 與 map/position/skill 整合檔。
+- 初學者修練場第一次進入會先初始化必要資源；第二次有 Cache 時會快速通過。
+- file:// 雙擊模式無法使用 Service Worker，Starter Gate 會跳過；正式 GitHub Pages / http(s) 才有完整快取流程。
