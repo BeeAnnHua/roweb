@@ -4803,7 +4803,7 @@ function calculateSkillAttackDamageBase(skill, requestedLevel = null, target = c
     const matkMax = Math.max(matkMin, Number(derived?.matkMax ?? derived?.matk ?? player?.matk ?? matkMin));
     flatAddition = matkMax > matkMin ? matkMin + Math.floor(Math.random() * (matkMax - matkMin + 1)) : matkMin;
   }
-  const result = window.CombatDamagePipeline?.resolvePhysicalSkill(profile, level, target, { ratio: totalRatio, flatAddition, skipHitCheck: true, criticalResult: combatOptions.criticalResult });
+  const result = window.CombatDamagePipeline?.resolvePhysicalSkill(profile, level, target, { ratio: totalRatio, flatAddition, hits: hitCount, skipHitCheck: true, criticalResult: combatOptions.criticalResult });
   if (!result) return null;
   if (result.elementImmune === true) return 0;
   if (profile.formula === "renewal_occult_impaction") {
@@ -4865,9 +4865,24 @@ function withRuntimeCombatEvaluationContext(callback, options = {}) {
 }
 window.withRuntimeCombatEvaluationContext = withRuntimeCombatEvaluationContext;
 
+function normalizeRuntimeDamageForHitTarget(target, calculatedDamage, options = {}) {
+  const calculated = Math.max(0, Math.floor(Number(calculatedDamage || 0)));
+  if (!target || calculated <= 0 || typeof window.CombatFormulaRuntime?.normalizeIncomingDamage !== "function") return calculated;
+  const hitCount = Math.max(1, Math.floor(Number(options.damageHitCount ?? options.hitCount ?? options.hits ?? 1) || 1));
+  const damageType = String(options.damageType || "physical").toLowerCase();
+  const attackRangeType = String(options.attackRangeType || options.rangeType || "short").toLowerCase();
+  return Math.max(0, Math.floor(Number(window.CombatFormulaRuntime.normalizeIncomingDamage(target, calculated, {
+    ...options,
+    damageType,
+    attackRangeType,
+    hitCount
+  }) || 0)));
+}
+window.normalizeRuntimeDamageForHitTarget = normalizeRuntimeDamageForHitTarget;
+
 function applyRuntimeCalculatedDamage(target, calculatedDamage, options = {}) {
   if (!target) return { calculatedDamage:0, dealt:0, killed:false };
-  const calculated = Math.max(0, Math.floor(Number(calculatedDamage || 0)));
+  const calculated = normalizeRuntimeDamageForHitTarget(target, calculatedDamage, options);
   const hpKey = target.currentHp !== undefined ? "currentHp" : "hp";
   const before = Math.max(0, Number(target[hpKey] || 0));
   const dealt = Math.min(before, calculated);
@@ -5272,7 +5287,11 @@ function castAttackSkill(skill, requestedLevel = null, options = {}) {
       damage=(primary===null||secondary===null)?null:Number(primary||0)+Number(secondary||0);
     } else damage = calculateSkillAttackDamage(skill, level, target, { criticalResult: crit, consumedResource: options.consumedResource, preCastHp:options.preCastHp, preCastMaxHp:options.preCastMaxHp, preCastSp:options.preCastSp, preCastMaxSp:options.preCastMaxSp, preCastResource:options.preCastResource, fromFlashCombo:options.fromFlashCombo, elementalActionSpec });
     if (damage === null) return reportPendingRuntime(skill, "攻擊公式尚未實作");
-    const calculatedDamage = Math.max(0, Number(damage || 0));
+    const calculatedDamage = normalizeRuntimeDamageForHitTarget(target, damage, {
+      damageType:isMagic ? "magic" : (attackHandler === "misc_damage" ? "misc" : "physical"),
+      attackRangeType:profile.attackRangeType || profile.rangeType || (profile.ranged === true ? "long" : "short"),
+      damageHitCount:hitMeta.damageHitCount
+    });
     if (calculatedDamage <= 0) {
       const attackElement = isMagic
         ? window.RARenewalDamagePipeline?.resolveAttackElement?.(profile)

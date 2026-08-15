@@ -24706,3 +24706,66 @@ body.ro-offline-mode #mailQuickButton{
   font-size:12px !important;
   letter-spacing:.5px !important;
 }
+
+/* =========================================================
+   RO_WEB V0.9.88B5 — unified selection marks / manual list
+   ========================================================= */
+#inventory-window .inventory-lock-mark,
+#inventory-window .inventory-auto-decompose-mark {
+  position:absolute !important;
+  left:3px !important;
+  right:auto !important;
+  top:3px !important;
+  width:10px !important;
+  height:10px !important;
+  min-width:10px !important;
+  min-height:10px !important;
+  max-width:10px !important;
+  max-height:10px !important;
+  padding:0 !important;
+  margin:0 !important;
+  box-sizing:border-box !important;
+  display:grid !important;
+  place-items:center !important;
+  border:1px solid rgba(119,218,139,.85) !important;
+  border-radius:2px !important;
+  background:rgba(7,28,14,.78) !important;
+  color:#bdffca !important;
+  font-size:8px !important;
+  line-height:1 !important;
+  font-weight:900 !important;
+  z-index:9 !important;
+  pointer-events:none !important;
+  overflow:hidden !important;
+  box-shadow:0 0 4px rgba(72,223,112,.32) !important;
+}
+#inventory-window .inventory-lock-mark.is-unlocked,
+#inventory-window .inventory-auto-decompose-mark.is-unmarked {
+  display:grid !important;
+  place-items:center !important;
+  color:transparent !important;
+  border-color:rgba(119,218,139,.42) !important;
+  background:rgba(7,28,14,.30) !important;
+  box-shadow:none !important;
+}
+#inventory-window .inventory-lock-mark.is-locked,
+#inventory-window .inventory-auto-decompose-mark.is-marked {
+  display:grid !important;
+  place-items:center !important;
+  color:#bdffca !important;
+  border-color:rgba(119,218,139,.85) !important;
+  background:rgba(7,28,14,.78) !important;
+  box-shadow:0 0 4px rgba(72,223,112,.32) !important;
+}
+#inventory-window .inventory-lock-mark.is-locked::before {
+  content:none !important;
+}
+#inventory-decompose-marked {
+  min-width:170px !important;
+  border-color:#bc8d37 !important;
+  background:linear-gradient(180deg,#5d441e,#24180b) !important;
+  color:#ffe4a0 !important;
+}
+@media(max-width:720px),(pointer:coarse) {
+  #inventory-decompose-marked { width:100% !important; min-width:0 !important; }
+}

@@ -2675,7 +2675,7 @@ function updateInventoryPageControls(totalPages) {
   if (autoDecomposeBtn) {
     autoDecomposeBtn.classList.toggle("is-active", inventoryAutoDecomposeMode);
     const markedCount = getInventoryAutoDecomposeMarkedIds().length;
-    autoDecomposeBtn.title = `自動分解標記模式（已標記 ${markedCount} 種；掛機每 30 分鐘安全批次分解）`;
+    autoDecomposeBtn.title = `自動分解標記模式（已標記 ${markedCount} 種；需在掛機設定啟用每 30 分鐘自動分解）`;
   }
 }
 
@@ -2720,7 +2720,7 @@ function toggleInventoryAutoDecomposeMode() {
   inventoryAutoDecomposeMode = !inventoryAutoDecomposeMode;
   if (inventoryAutoDecomposeMode) inventoryLockMode = false;
   addBattleLog(inventoryAutoDecomposeMode
-    ? "自動分解標記模式：開啟。勾選物品後，自動掛機每 30 分鐘批次分解一次；鎖定／穿戴／受保護物品永遠跳過。"
+    ? "自動分解標記模式：開啟。點擊物品可加入／移出名單；要每 30 分鐘自動執行，請另外在掛機設定啟用。"
     : "自動分解標記模式：關閉。已勾選的物品種類會繼續保留設定。");
   updateInventoryUI();
 }
@@ -2731,12 +2731,16 @@ function toggleInventoryItemAutoDecompose(item) {
   const list = getInventoryAutoDecomposeMarkedIds();
   const index = list.findIndex(value => String(value) === String(id));
   const itemData = getItemData(id);
+  if (item.locked) {
+    addBattleLog(`${itemData?.name || id} 已鎖定，無法變更自動分解標記；請先解除鎖定。`);
+    return false;
+  }
   if (index >= 0) {
     list.splice(index, 1);
     addBattleLog(`${itemData?.name || id} 已取消自動分解標記。`);
   } else {
-    // A protected item may still be marked for clarity, but it will never pass
-    // the safety eligibility check until/if its protection no longer applies.
+    // Non-lock protections may still be marked for clarity, but they will not
+    // pass the safety eligibility check until/if protection no longer applies.
     list.push(id);
     addBattleLog(`${itemData?.name || id} 已勾選自動分解：掛機每 30 分鐘處理一次。`);
   }
@@ -2952,9 +2956,15 @@ function clearInventoryAutoDecomposeTimer() {
   inventoryAutoDecomposeTimer = null;
 }
 
+function isInventoryAutoDecomposeAfkEnabled() {
+  return player?.autoCombat?.autoDecompose?.enabled === true;
+}
+
 function scheduleInventoryAutoDecomposeTimer(delayMs = null) {
   clearInventoryAutoDecomposeTimer();
-  if (!inventoryAutoDecomposeStartedAt || !(typeof isAutoBattleRunning === "function" && isAutoBattleRunning())) return false;
+  if (!isInventoryAutoDecomposeAfkEnabled()
+    || !inventoryAutoDecomposeStartedAt
+    || !(typeof isAutoBattleRunning === "function" && isAutoBattleRunning())) return false;
   const now = Date.now();
   const delay = delayMs == null
     ? Math.max(250, Number(inventoryAutoDecomposeNextAt || now + INVENTORY_AUTO_DECOMPOSE_INTERVAL_MS) - now)
@@ -2965,7 +2975,8 @@ function scheduleInventoryAutoDecomposeTimer(delayMs = null) {
 
 function runInventoryAutoDecomposeCycle() {
   inventoryAutoDecomposeTimer = null;
-  if (!(typeof isAutoBattleRunning === "function" && isAutoBattleRunning())) {
+  if (!isInventoryAutoDecomposeAfkEnabled()
+    || !(typeof isAutoBattleRunning === "function" && isAutoBattleRunning())) {
     inventoryAutoDecomposeStartedAt = 0;
     inventoryAutoDecomposeNextAt = 0;
     return;
@@ -2993,7 +3004,7 @@ function runInventoryAutoDecomposeCycle() {
 
 function notifyInventoryAutoDecomposeBattleState(running) {
   clearInventoryAutoDecomposeTimer();
-  if (running) {
+  if (running && isInventoryAutoDecomposeAfkEnabled()) {
     const now = Date.now();
     inventoryAutoDecomposeStartedAt = now;
     inventoryAutoDecomposeNextAt = now + INVENTORY_AUTO_DECOMPOSE_INTERVAL_MS;
@@ -3002,10 +3013,14 @@ function notifyInventoryAutoDecomposeBattleState(running) {
     inventoryAutoDecomposeStartedAt = 0;
     inventoryAutoDecomposeNextAt = 0;
   }
-  return running === true;
+  return running === true && isInventoryAutoDecomposeAfkEnabled();
 }
 window.notifyInventoryAutoDecomposeBattleState = notifyInventoryAutoDecomposeBattleState;
+window.refreshInventoryAutoDecomposeSettingState = () => notifyInventoryAutoDecomposeBattleState(
+  typeof isAutoBattleRunning === "function" && isAutoBattleRunning()
+);
 window.getInventoryAutoDecomposeStatus = () => ({
+  enabled:isInventoryAutoDecomposeAfkEnabled(),
   running:Boolean(inventoryAutoDecomposeStartedAt),
   startedAt:inventoryAutoDecomposeStartedAt,
   nextAt:inventoryAutoDecomposeNextAt,
@@ -3039,7 +3054,7 @@ function refreshInventoryDecomposeDialogPreview() {
 
 function openInventoryDecomposeDialog(request = {}) {
   const normalizedRequest = {
-    mode:request.mode === "item" || request.target ? "item" : "bulk",
+    mode:request.mode === "auto" ? "auto" : (request.mode === "item" || request.target ? "item" : "bulk"),
     filter:String(request.filter || activeInventoryFilter || "consume"),
     target:request.target || null,
     itemName:String(request.itemName || ""),
@@ -3047,7 +3062,12 @@ function openInventoryDecomposeDialog(request = {}) {
   };
   const preview = estimateInventoryDecompose(normalizedRequest, request.defaultAmount || INVENTORY_DECOMPOSE_LIMIT);
   if (!preview.availableCount) {
-    addBattleLog(normalizedRequest.mode === "item" ? "此物品目前無法分解；可能已鎖定、正在穿戴或屬於受保護道具。" : "目前分類沒有可分解的未鎖定物品。");
+    const emptyMessage = normalizedRequest.mode === "item"
+      ? "此物品目前無法分解；可能已鎖定、正在穿戴或屬於受保護道具。"
+      : (normalizedRequest.mode === "auto"
+        ? "自動分解名單目前沒有可安全分解的物品。"
+        : "目前分類沒有可分解的未鎖定物品。");
+    addBattleLog(emptyMessage);
     return false;
   }
 
@@ -3059,20 +3079,28 @@ function openInventoryDecomposeDialog(request = {}) {
   const note = document.getElementById("inventory-decompose-note");
   if (!modal || !title || !summary || !input) return false;
 
-  title.textContent = normalizedRequest.mode === "item" ? "確認分解物品" : "確認批次分解";
+  title.textContent = normalizedRequest.mode === "item"
+    ? "確認分解物品"
+    : (normalizedRequest.mode === "auto" ? "確認分解自動分解名單" : "確認批次分解");
   summary.textContent = normalizedRequest.mode === "item"
     ? `${normalizedRequest.itemName || "此物品"}：目前持有 ${preview.availableCount.toLocaleString()} 件。`
-    : `目前分類共有 ${preview.availableCount.toLocaleString()} 件可分解的未鎖定物品。`;
-  const defaultAmount = normalizedRequest.mode === "item" && preview.availableCount === 1
-    ? 1
-    : normalizeInventoryDecomposeAmount(request.defaultAmount || INVENTORY_DECOMPOSE_LIMIT, preview.availableCount);
+    : (normalizedRequest.mode === "auto"
+      ? `自動分解名單共有 ${preview.availableCount.toLocaleString()} 件可安全分解物品。`
+      : `目前分類共有 ${preview.availableCount.toLocaleString()} 件可分解的未鎖定物品。`);
+  const defaultAmount = normalizedRequest.mode === "auto"
+    ? preview.availableCount
+    : (normalizedRequest.mode === "item" && preview.availableCount === 1
+      ? 1
+      : normalizeInventoryDecomposeAmount(request.defaultAmount || INVENTORY_DECOMPOSE_LIMIT, preview.availableCount));
   input.min = "1";
   input.max = String(preview.availableCount);
   input.value = String(defaultAmount);
-  input.disabled = preview.availableCount === 1;
-  if (note) note.textContent = preview.availableCount > 1
-    ? "只會扣除你輸入的數量，不會整組誤刪。例如持有 3,000 個並輸入 100，分解後會保留 2,900 個。"
-    : "裝備一次只會分解 1 件。鎖定或穿戴中的裝備不可分解。";
+  input.disabled = normalizedRequest.mode === "auto" || preview.availableCount === 1;
+  if (note) note.textContent = normalizedRequest.mode === "auto"
+    ? "只會處理背包中已加入自動分解名單且目前符合安全條件的物品；鎖定、穿戴及受保護物品仍會跳過，名單設定不會被清除。"
+    : (preview.availableCount > 1
+      ? "只會扣除你輸入的數量，不會整組誤刪。例如持有 3,000 個並輸入 100，分解後會保留 2,900 個。"
+      : "裝備一次只會分解 1 件。鎖定或穿戴中的裝備不可分解。");
   modal.classList.remove("hidden-window");
   refreshInventoryDecomposeDialogPreview();
   setTimeout(() => { if (!input.disabled) { input.focus(); input.select(); } }, 0);
@@ -3100,6 +3128,7 @@ function initInventoryDecomposeDialog() {
   const modal = document.getElementById("inventory-decompose-modal");
   const input = document.getElementById("inventory-decompose-amount");
   const confirmBtn = document.getElementById("inventory-decompose-confirm");
+  const markedBtn = document.getElementById("inventory-decompose-marked");
   const cancelBtn = document.getElementById("inventory-decompose-cancel");
   const closeBtn = document.getElementById("inventory-decompose-close");
   if (modal?.dataset.bound === "true") return;
@@ -3113,6 +3142,10 @@ function initInventoryDecomposeDialog() {
     if (event.key === "Escape") { event.preventDefault(); closeInventoryDecomposeDialog(); }
   });
   confirmBtn?.addEventListener("click", confirmInventoryDecomposeDialog);
+  markedBtn?.addEventListener("click", () => {
+    const available = getInventoryDecomposeAvailableCount({ mode:"auto" });
+    openInventoryDecomposeDialog({ mode:"auto", defaultAmount:available, source:"manual-auto-list" });
+  });
   cancelBtn?.addEventListener("click", closeInventoryDecomposeDialog);
   closeBtn?.addEventListener("click", closeInventoryDecomposeDialog);
 }
@@ -3342,7 +3375,7 @@ function updateInventoryUI() {
     const slot = document.createElement("button");
     slot.type = "button";
     const autoDecomposeMarked = Boolean(item && isInventoryItemAutoDecomposeMarked(item));
-    slot.className = "inventory-slot" + (itemData ? " has-item" : " empty") + ((inventoryLockMode && item?.locked) ? " locked" : "") + (autoDecomposeMarked ? " auto-decompose-marked" : "");
+    slot.className = "inventory-slot" + (itemData ? " has-item" : " empty") + ((inventoryLockMode && item?.locked) ? " locked" : "") + ((inventoryAutoDecomposeMode && autoDecomposeMarked) ? " auto-decompose-marked" : "");
     applyInventorySlotPosition(slot, index);
 
     if (itemData) {
@@ -3380,7 +3413,7 @@ function updateInventoryUI() {
         slot.appendChild(lockMark);
       }
 
-      if (inventoryAutoDecomposeMode || autoDecomposeMarked) {
+      if (inventoryAutoDecomposeMode) {
         const autoMark = document.createElement("span");
         autoMark.className = "inventory-auto-decompose-mark " + (autoDecomposeMarked ? "is-marked" : "is-unmarked");
         autoMark.textContent = autoDecomposeMarked ? "✓" : "";

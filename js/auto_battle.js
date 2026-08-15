@@ -47,6 +47,7 @@ function createDefaultAutoCombat() {
     speedBadge: { enabled: false, itemId: 662 },
     death: { autoUseToken: false, itemId: 7621 },
     cashFood: { enabled: false, itemIds: [] },
+    autoDecompose: { enabled: false },
     monsterFilter: { version: "0.9.82FM", byMap: {} },
     heal: { enabled: false, skillId: null, hpPercent: 60, spPercent: 20, level: 1 },
     normalAttack: { enabled: true },
@@ -268,6 +269,12 @@ function normalizeAutoCombatSettings() {
   player.autoCombat.cashFood = {
     enabled: sourceCashFood.enabled === true,
     itemIds: [...new Set(rawCashFoodIds.map(normalizeItemId).filter(id => id !== null && id !== undefined && id !== ""))]
+  };
+  const sourceAutoDecompose = source.autoDecompose && typeof source.autoDecompose === "object"
+    ? source.autoDecompose
+    : {};
+  player.autoCombat.autoDecompose = {
+    enabled: sourceAutoDecompose.enabled === true
   };
 
   const sourceMonsterFilter = source.monsterFilter && typeof source.monsterFilter === "object" ? source.monsterFilter : {};
@@ -775,6 +782,7 @@ function syncAutoCombatSettingsFromUI(options = {}) {
   const elementEndowEnabled = document.getElementById("autoCombatElementEndowEnabled");
   const elementEndowSelect = document.getElementById("autoCombatElementEndowSelect");
   const cashFoodEnabled = document.getElementById("autoCombatCashFoodEnabled");
+  const autoDecomposeEnabled = document.getElementById("autoCombatAutoDecomposeEnabled");
   const monsterFilterMode = document.getElementById("autoCombatMonsterFilterMode");
   const monsterFilterList = document.getElementById("autoCombatMonsterFilterList");
   const healEnabled = document.getElementById("autoCombatHealEnabled");
@@ -811,6 +819,7 @@ function syncAutoCombatSettingsFromUI(options = {}) {
       : "";
   }
   if (cashFoodEnabled) player.autoCombat.cashFood.enabled = cashFoodEnabled.checked;
+  if (autoDecomposeEnabled) player.autoCombat.autoDecompose.enabled = autoDecomposeEnabled.checked;
 
   const currentFilterMapId = getAutoBattleCurrentMapId();
   const listHasRenderedMap = Boolean(
@@ -1278,6 +1287,7 @@ function updateAutoCombatUI() {
   const elementEndowEnabled = document.getElementById("autoCombatElementEndowEnabled");
   const elementEndowSelect = document.getElementById("autoCombatElementEndowSelect");
   const cashFoodEnabled = document.getElementById("autoCombatCashFoodEnabled");
+  const autoDecomposeEnabled = document.getElementById("autoCombatAutoDecomposeEnabled");
   const monsterFilterMode = document.getElementById("autoCombatMonsterFilterMode");
   const teleportEnabled = document.getElementById("autoCombatTeleportEnabled");
   const fixedFlyEnabled = document.getElementById("autoCombatFixedFlyEnabled");
@@ -1304,6 +1314,7 @@ function updateAutoCombatUI() {
     elementEndowSelect.disabled = !cfg.elementEndow.enabled;
   }
   if (cashFoodEnabled) cashFoodEnabled.checked = cfg.cashFood.enabled === true;
+  if (autoDecomposeEnabled) autoDecomposeEnabled.checked = cfg.autoDecompose.enabled === true;
   renderAutoCashFoodUI();
   const currentMonsterFilter = getAutoBattleMapMonsterFilter(getAutoBattleCurrentMapId(), { create: true });
   if (monsterFilterMode) monsterFilterMode.value = normalizeAutoMonsterFilterMode(currentMonsterFilter.mode);
@@ -1432,6 +1443,9 @@ function saveAutoCombatSettings() {
   const scroll = document.getElementById("autoCombatSettingsScroll");
   const previousScrollTop = Number(scroll?.scrollTop || 0);
   syncAutoCombatSettingsFromUI({ save: true });
+  if (typeof window.refreshInventoryAutoDecomposeSettingState === "function") {
+    window.refreshInventoryAutoDecomposeSettingState();
+  }
   updateAutoCombatUI();
   if (scroll) {
     const restore = () => { scroll.scrollTop = Math.min(previousScrollTop, Math.max(0, scroll.scrollHeight - scroll.clientHeight)); };

@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>彼岸花仙境 V0.9.88B4</title>
+  <title>彼岸花仙境 V0.9.88B6</title>
   <meta name="description" content="&#8203;">
   <meta property="og:type" content="website">
   <meta property="og:title" content="彼岸花仙境">
@@ -15,7 +15,7 @@
   <meta name="twitter:description" content="&#8203;">
   <link rel="icon" type="image/svg+xml" href="images/ui/brand/sakura_emblem.svg?v=0.9.84C">
   <link rel="preload" as="image" type="image/webp" href="images/ui/character_select_background.webp?v=0.9.84C">
-  <link rel="stylesheet" href="css/style.css?v=0.9.88B4">
+  <link rel="stylesheet" href="css/style.css?v=0.9.88B6">
   <link rel="stylesheet" href="css/auction.css?v=0.9.87G">
   <link rel="stylesheet" href="css/mercenary.css?v=0.9.88B3">
 </head>
@@ -59,7 +59,7 @@
       </main>
       <footer class="character-select-footer">
         <span>角色進度已啟用雲端同步；本機仍保留離線安全備份。</span>
-        <small>V0.9.88B4</small>
+        <small>V0.9.88B6</small>
       </footer>
     </div>
   </section>
@@ -460,6 +460,10 @@
             <small id="autoCombatReviveTokenCount">持有 0 個</small>
           </label>
 
+          <div class="auto-section-title">自動分解</div>
+          <label class="auto-decompose-enable-setting"><input type="checkbox" id="autoCombatAutoDecomposeEnabled"> 每 30 分鐘自動分解已勾選物品</label>
+          <div class="auto-setting-note">只處理背包「自動分解」名單；未勾選本開關時不會自動執行。</div>
+
           <div class="auto-section-title">自動補給</div>
           <label><input type="checkbox" id="autoCombatHpPotionEnabled"> 自動補 HP</label>
           <div>HP 低於 <input type="number" id="autoCombatHpPotionPercent" min="1" max="100" value="50"> %</div>
@@ -585,6 +589,7 @@
       </div>
       <div class="inventory-decompose-actions">
         <button type="button" id="inventory-decompose-cancel">取消</button>
+        <button type="button" id="inventory-decompose-marked">分解自動分解名單</button>
         <button type="button" id="inventory-decompose-confirm">確認分解</button>
       </div>
     </div>
@@ -795,7 +800,7 @@
     <div class="legacy-warehouse-rescue-dialog">
       <header class="legacy-warehouse-rescue-header">
         <div>
-          <small>V0.9.88B4｜自動分解選取模式操作修正</small>
+          <small>V0.9.88B6｜草類多段傷害／鎖定物品選取保護</small>
           <h2 id="legacyWarehouseRescueTitle">救援舊倉庫</h2>
           <p id="legacyWarehouseTargetAccount">目標：目前遊戲帳號</p>
         </div>
@@ -934,8 +939,8 @@
   <script src="./js/afk_stability_runtime.js?v=0.9.88B3"></script>
   <script src="./js/cloud_save_runtime.js?v=0.9.87J"></script>
   <script src="./js/vip_runtime.js?v=0.9.87F"></script>
-  <script src="./js/player.js?v=0.9.88B2"></script>
-  <script src="./js/item_instance_ui.js?v=0.9.88B4"></script>
+  <script src="./js/player.js?v=0.9.88B6"></script>
+  <script src="./js/item_instance_ui.js?v=0.9.88B5"></script>
   <script src="./js/mail_runtime.js?v=0.9.87M"></script>
   <script src="./js/auction_runtime.js?v=0.9.87J"></script>
   <script src="./js/newcomer_support_runtime.js?v=0.9.87B"></script>
@@ -959,13 +964,13 @@
   <script src="./js/ra_renewal_damage_pipeline.js?v=0.9.87B"></script>
   <script src="./js/combat_damage_pipeline.js?v=0.9.87B"></script>
   <script src="./js/combat_resource_manager.js?v=0.9.87B"></script>
-  <script src="./js/skill_engine.js?v=0.9.88B3"></script>
+  <script src="./js/skill_engine.js?v=0.9.88B6"></script>
   <script src="./js/warlock_elemental_sphere_runtime.js?v=0.9.87B"></script>
   <script src="./js/skill_effect_runtime_v92.js?v=0.9.88B3"></script>
   <script src="./js/status_system.js?v=0.9.87B"></script>
   <script src="./js/stats.js?v=0.9.87B"></script>
   <script src="./js/loot.js?v=0.9.87B"></script>
-  <script src="./js/auto_battle.js?v=0.9.87B"></script>
+  <script src="./js/auto_battle.js?v=0.9.88B5"></script>
   <script src="./js/death_revival_runtime.js?v=0.9.87B"></script>
   <script src="./js/player_atlas_runtime.js?v=0.9.87B"></script>
   <script src="./js/character_gender.js?v=0.9.87B"></script>
