@@ -778,6 +778,19 @@
   handleInventorySlotClick = function (item, itemData) {
     if (!item || !itemData) return;
     if (typeof hideGameTooltip === 'function') hideGameTooltip();
+    // V0.9.88B4: ItemInstanceUI replaces player.js' slot-click handler.
+    // Keep auto-decompose selection ahead of the detail/equip paths so a tap
+    // marks the Item ID instead of opening the item modal. Also cancel any
+    // delayed single-tap equipment detail left from immediately before the
+    // player entered selection mode.
+    if (typeof inventoryAutoDecomposeMode !== 'undefined' && inventoryAutoDecomposeMode) {
+      if (inventoryTap.timer) clearTimeout(inventoryTap.timer);
+      inventoryTap = { key: '', at: 0, timer: null };
+      if (typeof toggleInventoryItemAutoDecompose === 'function') {
+        toggleInventoryItemAutoDecompose(item);
+      }
+      return;
+    }
     if (inventoryLockMode) {
       item.locked = !item.locked;
       addBattleLog(`${itemData.name} 已${item.locked ? '鎖定' : '解除鎖定'}。`);

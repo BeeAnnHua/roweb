@@ -24677,3 +24677,32 @@ body.ro-offline-mode #mailQuickButton{
 #inventory-window .inventory-slot.auto-decompose-marked {
   box-shadow:inset 0 0 0 1px rgba(85,207,111,.22) !important;
 }
+
+/* =========================================================
+   RO_WEB V0.9.88B4 — larger auto-decompose action button
+   ========================================================= */
+#inventory-window #inventory-panel .inventory-action-row {
+  width:254px !important;
+  min-width:254px !important;
+  max-width:254px !important;
+  height:30px !important;
+  min-height:30px !important;
+  max-height:30px !important;
+  grid-template-columns:repeat(3,48px) 86px !important;
+  gap:8px !important;
+}
+#inventory-window #inventory-panel .inventory-action-row .inventory-action-btn {
+  width:48px !important;
+  min-width:48px !important;
+  max-width:48px !important;
+  height:30px !important;
+  min-height:30px !important;
+  max-height:30px !important;
+}
+#inventory-window #inventory-panel .inventory-action-row .inventory-action-btn.btn-auto-decompose {
+  width:86px !important;
+  min-width:86px !important;
+  max-width:86px !important;
+  font-size:12px !important;
+  letter-spacing:.5px !important;
+}
