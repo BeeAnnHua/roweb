@@ -530,6 +530,9 @@ function calculateRenewalBaseAspd(stats, bonuses = {}) {
 
 function calculateDerivedPlayerStats() {
   if (!player) return null;
+  if (window.RO_WEB_MERCENARY_CAST_CONTEXT?.actor === player && window.RO_WEB_MERCENARY_CAST_CONTEXT.derivedStats) {
+    return { ...window.RO_WEB_MERCENARY_CAST_CONTEXT.derivedStats };
+  }
   normalizeStatusData();
 
   const s = getPlayerTotalBasicStats();
@@ -1645,4 +1648,3 @@ window.toggleStatusAdvancedPanel = toggleStatusAdvancedPanel;
 window.setStatusAdvancedTab = setStatusAdvancedTab;
 window.createAdvancedMultiDetailRow = createAdvancedMultiDetailRow;
 window.formatAdvancedNumber = formatAdvancedNumber;
-

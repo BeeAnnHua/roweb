@@ -227,6 +227,24 @@
     return true;
   }
 
+  // B9：友軍復活術入口。由一般角色或傭兵施放，不消耗原地復活之證，
+  // 並沿用同一套死亡視窗／動畫狀態收尾，避免只補 HP 卻仍被死亡遮罩鎖住。
+  function reviveBySkill(options = {}) {
+    const target=getPlayer();
+    if(!target||state.resolving||(Number(target.hp||0)>0&&!state.dead))return false;
+    state.resolving=true;
+    try { if(typeof recalculatePlayerStats==="function")recalculatePlayerStats(); } catch (_) {}
+    const hpRate=Math.max(.01,Math.min(1,Number(options.hpRate||.8)));
+    const spRate=Math.max(0,Math.min(1,Number(options.spRate||0)));
+    target.hp=Math.max(1,Math.floor(Number(target.maxHp||1)*hpRate));
+    target.sp=Math.max(0,Math.floor(Number(target.maxSp||0)*spRate));
+    target.state=target.currentCity?"Town":"Idle";
+    clearDeathAnimation();completeRevivalState();
+    try { updatePlayerUI?.(); updateAutoCombatUI?.(); } catch (_) {}
+    saveNow("skill-resurrection");
+    return true;
+  }
+
   function resolveReturnCityId() {
     const target = getPlayer();
     const configured = String(target?.autoCombat?.teleport?.returnHome?.cityId || "").trim();
@@ -387,6 +405,7 @@
     showDeathModal,
     hideDeathModal,
     reviveWithToken,
+    reviveBySkill,
     returnToVillage,
     recoverPersistedDeathState,
     refreshUI: refreshModal,

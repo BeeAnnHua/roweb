@@ -1,5 +1,5 @@
-/* RO_WEB V0.9.88B — 傭兵移動／模式 AI */
-.mercenary-window { width: 390px; }
+/* RO_WEB V0.9.88B9 — 傭兵移動／模式 AI */
+.mercenary-window { width: 650px; max-width:calc(100vw - 24px); }
 .mercenary-panel { padding: 10px; display: grid; gap: 10px; }
 .mercenary-intro { display:grid; gap:5px; padding:9px 10px; border:1px solid rgba(185,143,69,.72); border-radius:8px; background:rgba(26,18,10,.72); }
 .mercenary-intro b { color:#ffe4a0; font-size:15px; }
@@ -50,7 +50,7 @@
 .mercenary-select-list { gap:8px; }
 .mercenary-slot-row {
   display:grid;
-  grid-template-columns:62px minmax(0,1fr) 72px 58px;
+  grid-template-columns:62px minmax(0,1fr) 72px 58px 106px;
   align-items:center;
   gap:6px;
   padding:6px;
@@ -63,6 +63,8 @@
 .mercenary-mode-select { text-align:center; }
 .mercenary-slot-row .mercenary-counter-toggle { display:flex; align-items:center; justify-content:center; gap:3px; color:#cfbd96; font-size:10px; white-space:nowrap; cursor:pointer; }
 .mercenary-slot-row .mercenary-counter-toggle input { width:13px; height:13px; margin:0; accent-color:#b98938; }
+.mercenary-skill-button { min-height:31px; padding:0 8px; color:#ffe7aa; background:linear-gradient(#56391b,#211409); border:1px solid #a97b35; border-radius:6px; font-size:11px; font-weight:900; white-space:nowrap; }
+.mercenary-skill-button:disabled { opacity:.38; cursor:not-allowed; }
 .mercenary-party-name em { color:#d0ad68; }
 .mercenary-world-sprite[data-ai-state="RETURN"] { opacity:.94; }
 .mercenary-world-sprite[data-ai-state="SUPPORT"] .mercenary-world-name::before { content:"◇ "; color:#7edcff; }
@@ -70,8 +72,48 @@
 .mercenary-world-sprite[data-ai-state="COUNTER"] .mercenary-world-name::before { content:"⚔ "; color:#ffcf65; }
 
 @media (max-width:760px), (pointer:coarse) {
+  .mercenary-window { width:min(650px,94vw); }
   .mercenary-slot-row { grid-template-columns:52px minmax(0,1fr) 68px; }
   .mercenary-slot-row .mercenary-counter-toggle { grid-column:2 / 4; justify-content:flex-end; padding-right:3px; }
+  .mercenary-slot-row .mercenary-skill-button { grid-column:2 / 4; }
+}
+
+/* V0.9.88B9 — 每角色獨立攻擊／輔助技能選擇 */
+.mercenary-skill-editor[hidden],.mercenary-skill-tab-panel[hidden] { display:none !important; }
+.mercenary-skill-editor { display:grid; gap:9px; max-height:min(580px,72vh); padding:10px; overflow:hidden; border:1px solid #bd8b3c; border-radius:10px; background:linear-gradient(180deg,rgba(45,30,16,.99),rgba(17,11,7,.99)); box-shadow:0 10px 28px rgba(0,0,0,.58); }
+.mercenary-skill-editor-head { display:flex; justify-content:space-between; align-items:flex-start; gap:10px; }
+.mercenary-skill-editor-head > div { display:grid; gap:3px; min-width:0; }
+.mercenary-skill-editor-head b { color:#ffe5a1; font-size:15px; }
+.mercenary-skill-editor-head span { color:#bba77f; font-size:11px; }
+.mercenary-skill-editor-close { width:30px; height:28px; padding:0; flex:0 0 auto; color:#f7d58b; background:#23170d; border:1px solid #9e7432; border-radius:7px; font-size:20px; line-height:24px; }
+.mercenary-skill-tabs { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+.mercenary-skill-tabs button { min-height:34px; color:#c7b38a; background:#1a110a; border:1px solid #654820; border-radius:7px; font-weight:900; }
+.mercenary-skill-tabs button.is-active { color:#fff0bd; border-color:#d29b40; background:linear-gradient(#5a3d1d,#2b1b0d); }
+.mercenary-skill-tabs small { color:#a79062; margin-left:4px; }
+.mercenary-skill-tab-panel { min-height:120px; overflow:hidden; }
+.mercenary-skill-toolbar { display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:7px; color:#c9b78f; font-size:11px; }
+.mercenary-skill-toolbar > span:last-child { display:flex; gap:5px; }
+.mercenary-skill-toolbar button { padding:4px 7px; color:#ead39c; background:#25180d; border:1px solid #705126; border-radius:5px; font-size:10px; }
+.mercenary-skill-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:6px; max-height:345px; padding-right:3px; overflow:auto; }
+.mercenary-skill-entry { display:grid !important; grid-template-columns:18px 38px minmax(0,1fr) !important; gap:7px !important; min-height:48px; padding:6px; border:1px solid rgba(126,91,42,.62); border-radius:7px; background:rgba(0,0,0,.25); cursor:pointer; }
+.mercenary-skill-entry:has(input:checked) { border-color:#54ad64; background:rgba(38,100,48,.17); }
+.mercenary-skill-entry input { width:15px; height:15px; margin:0; accent-color:#55b86a; }
+.mercenary-skill-entry img { width:36px; height:36px; object-fit:contain; border:1px solid #6e522c; border-radius:5px; background:rgba(0,0,0,.35); }
+.mercenary-skill-entry > span { display:grid; gap:2px; min-width:0; }
+.mercenary-skill-entry b { color:#f5e5bd; font-size:12px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.mercenary-skill-entry small { color:#a99469; font-size:9px; }
+.mercenary-skill-empty { display:grid; place-items:center; gap:6px; min-height:110px; padding:15px; border:1px dashed #6e522a; border-radius:8px; color:#bba77d; font-size:12px; text-align:center; line-height:1.55; }
+.mercenary-skill-editor-actions { display:flex; justify-content:flex-end; align-items:center; gap:7px; }
+.mercenary-skill-editor-actions > span { margin-right:auto; color:#9e8b68; font-size:10px; }
+.mercenary-skill-editor-actions button { min-width:82px; min-height:31px; color:#e9d4a1; background:#24170c; border:1px solid #745325; border-radius:6px; font-weight:900; }
+.mercenary-skill-editor-actions button.primary { color:#fff0bd; background:linear-gradient(#68461f,#2d1b0c); border-color:#c18c37; }
+
+@media (max-width:760px), (pointer:coarse) {
+  .mercenary-skill-list { grid-template-columns:1fr; }
+  .mercenary-skill-editor { max-height:70vh; }
+  .mercenary-skill-toolbar { align-items:flex-start; flex-direction:column; }
+  .mercenary-skill-editor-actions { flex-wrap:wrap; }
+  .mercenary-skill-editor-actions > span { width:100%; margin:0; }
 }
 
 /* =========================================================

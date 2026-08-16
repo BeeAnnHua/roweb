@@ -1,9 +1,9 @@
 //=======================================
-// RO_WEB V0.9.88B7 — 傭兵平滑移動／角色 Atlas 動畫／群體 Buff Runtime
+// RO_WEB V0.9.88B9 — 傭兵完整技能 AI／玩家 Skill Engine 橋接
 // 只讀取同帳號其他角色的「戰鬥快照」；不讀背包、不寫回分身角色、不給傭兵任何獎勵。
 //=======================================
 (() => {
-  const VERSION = "0.9.88B7";
+  const VERSION = "0.9.88B9";
   const MAX_MERCENARIES = 3;
   const RESPAWN_MS = 30_000;
   const FOLLOW_TICK_MS = 180;
@@ -86,6 +86,12 @@
     return String(value || "").toLowerCase() === "support" ? "support" : "attack";
   }
 
+  function normalizeSkillIdList(value) {
+    return [...new Set((Array.isArray(value) ? value : [])
+      .map(item => Math.floor(n(item, 0)))
+      .filter(Boolean))];
+  }
+
   function inferDefaultMode(snapshot = {}) {
     const text = `${snapshot.jobKey || ""} ${snapshot.jobName || ""}`.toLowerCase();
     const supportHints = [
@@ -119,7 +125,9 @@
         const source = settings?.[id] || {};
         safeSettings[id] = {
           mode: normalizeMode(source.mode),
-          counterAttack: source.counterAttack !== false
+          counterAttack: source.counterAttack !== false,
+          selectedAttackSkills: normalizeSkillIdList(source.selectedAttackSkills),
+          selectedSupportSkills: normalizeSkillIdList(source.selectedSupportSkills)
         };
       }
       localStorage.setItem(partyStorageKey(), JSON.stringify({
@@ -180,6 +188,17 @@
       aspd: clamp(n(p.aspd, 160), 100, 193),
       weaponType: String(p.weaponType || p.weaponCategory || "fist"),
       learnedSkills: p.learnedSkills && typeof p.learnedSkills === "object" ? clone(p.learnedSkills) : {},
+      extraSkills: p.extraSkills && typeof p.extraSkills === "object" ? clone(p.extraSkills) : {},
+      traits: p.traits && typeof p.traits === "object" ? clone(p.traits) : {},
+      hit: Math.max(0, Math.floor(n(p.hit, stats.dex + p.baseLevel))),
+      flee: Math.max(0, Math.floor(n(p.flee, stats.agi + p.baseLevel))),
+      crit: Math.max(0, n(p.crit, 1 + stats.luk / 3)),
+      perfectDodge: Math.max(0, n(p.perfectDodge, stats.luk / 10)),
+      attackRange: Math.max(1, n(p.attackRange, 1)),
+      hasShield: p.hasShield === true || !!p.equipment?.shield,
+      hasFalcon: p.hasFalcon === true,
+      hasWarg: p.hasWarg === true,
+      mountState: clone(p.mountState || null),
       // 只保留顯示／戰鬥所需摘要；刻意不帶 inventory / equipment instance / currency。
       appearanceGroup: String(p.appearanceGroup || ""),
       source: "cloud-memory"
@@ -526,6 +545,19 @@
       mdef: Math.max(0, n(snapshot.mdef, 0)),
       aspd: clamp(n(snapshot.aspd, 160), 100, 193),
       stats: baseStats,
+      learnedSkills: clone(snapshot.learnedSkills || {}),
+      extraSkills: clone(snapshot.extraSkills || {}),
+      traits: clone(snapshot.traits || {}),
+      weaponType: String(snapshot.weaponType || "fist"),
+      hit: Math.max(0,n(snapshot.hit,baseStats.dex+snapshot.baseLevel)),
+      flee: Math.max(0,n(snapshot.flee,baseStats.agi+snapshot.baseLevel)),
+      crit: Math.max(0,n(snapshot.crit,1+baseStats.luk/3)),
+      perfectDodge: Math.max(0,n(snapshot.perfectDodge,baseStats.luk/10)),
+      attackRange: Math.max(1,n(snapshot.attackRange,1)),
+      hasShield: snapshot.hasShield === true,
+      hasFalcon: snapshot.hasFalcon === true,
+      hasWarg: snapshot.hasWarg === true,
+      mountState: clone(snapshot.mountState || null),
       baseCombatStats: {
         maxHp,
         maxSp,
@@ -543,6 +575,10 @@
       formationIndex: index,
       mode: normalizeMode(settings.mode || inferDefaultMode(snapshot)),
       counterAttack: settings.counterAttack !== false,
+      selectedAttackSkills: normalizeSkillIdList(settings.selectedAttackSkills),
+      selectedSupportSkills: normalizeSkillIdList(settings.selectedSupportSkills),
+      skillAiCursor: { attack:0, support:0 },
+      pendingSkillCast: null,
       aiState: "FOLLOW",
       aiTarget: null,
       retaliationTarget: null,
@@ -702,6 +738,7 @@
     let applied = 0;
     for (const member of state.members) {
       if (!member || member.dead) continue;
+      if (typeof spec.filter === "function" && spec.filter(member) === false) continue;
       member.activeBuffs = member.activeBuffs || {};
       const conditionalStatuses = Array.isArray(spec.clearStatusesOnlyWhenPresent) ? spec.clearStatusesOnlyWhenPresent : [];
       const presentStatuses = conditionalStatuses.filter(name => {
@@ -1168,6 +1205,7 @@
       applyPassiveRegen(member,now);
       if (member.dead || now < n(member.resyncUntil,0) || window.player?.currentCity) continue;
       const target = acquireMemberTarget(member);
+      if (window.ROWebMercenarySkillRuntime?.tryAct?.(member,target,now)) continue;
       if (target) attackWithMember(member,target,now);
     }
   }
@@ -1302,7 +1340,12 @@
     const available = getAvailableSnapshots();
     const selected = state.members.length ? state.members.map(item=>item.characterId) : loadPartySelection();
     const savedSettings = loadPartySettings();
-    const runtimeSettings = Object.fromEntries(state.members.map(item=>[item.characterId,{ mode:item.mode, counterAttack:item.counterAttack }]));
+    const runtimeSettings = Object.fromEntries(state.members.map(item=>[item.characterId,{
+      mode:item.mode,
+      counterAttack:item.counterAttack,
+      selectedAttackSkills:normalizeSkillIdList(item.selectedAttackSkills),
+      selectedSupportSkills:normalizeSkillIdList(item.selectedSupportSkills)
+    }]));
     const optionHtml = `<option value="">— 不使用 —</option>` + available.map(item =>
       `<option value="${esc(item.characterId)}">${esc(item.name)}｜${esc(item.jobName)}｜Base ${Math.floor(n(item.baseLevel,1))}</option>`
     ).join("");
@@ -1326,6 +1369,8 @@
       </div>
       <div class="mercenary-note">B1：傭兵使用玩家同尺寸 RO Atlas 動畫；移動以線性過渡平滑顯示。攻擊模式搜尋約 300px、最遠追擊約 450px；瞬移／跨圖後約 1 秒在隊長新位置重新出現。</div>
       <div id="mercenaryMessage" class="mercenary-message">${esc(message)}</div>`;
+
+    window.ROWebMercenarySkillRuntime?.decoratePanel?.(panel,{available,selected,savedSettings,runtimeSettings});
 
     [0,1,2].forEach(index => {
       const characterSelect = panel.querySelector(`#mercenarySelect${index+1}`);
@@ -1365,8 +1410,19 @@
       renderPanel("其中一個角色缺少可用的完整戰鬥快照，請先讓該角色成功雲端存檔後再試。" );
       return false;
     }
-    const settings = Object.fromEntries(rows.map(row=>[row.id,{ mode:row.mode, counterAttack:row.counterAttack }]));
+    const oldSettings = loadPartySettings();
+    const settings = Object.fromEntries(rows.map(row => {
+      const skillDraft = window.ROWebMercenarySkillRuntime?.getDraftSelection?.(row.id);
+      const prior = oldSettings?.[row.id] || {};
+      return [row.id,{
+        mode:row.mode,
+        counterAttack:row.counterAttack,
+        selectedAttackSkills:normalizeSkillIdList(skillDraft?.selectedAttackSkills ?? prior.selectedAttackSkills),
+        selectedSupportSkills:normalizeSkillIdList(skillDraft?.selectedSupportSkills ?? prior.selectedSupportSkills)
+      }];
+    }));
     setParty(snapshots,{ persist:true, settings });
+    window.ROWebMercenarySkillRuntime?.clearDraftSelections?.();
     renderPanel(`已套用 ${snapshots.length} 名傭兵。`);
     return true;
   }
@@ -1376,7 +1432,12 @@
     const settings = options.settings || loadPartySettings();
     state.members = (snapshots || []).slice(0,MAX_MERCENARIES).map((snapshot,index)=>buildMember(snapshot,index,settings?.[String(snapshot.characterId)] || {}));
     state.ownerTracker.initialized = false;
-    const persistedSettings = Object.fromEntries(state.members.map(item=>[item.characterId,{ mode:item.mode, counterAttack:item.counterAttack }]));
+    const persistedSettings = Object.fromEntries(state.members.map(item=>[item.characterId,{
+      mode:item.mode,
+      counterAttack:item.counterAttack,
+      selectedAttackSkills:normalizeSkillIdList(item.selectedAttackSkills),
+      selectedSupportSkills:normalizeSkillIdList(item.selectedSupportSkills)
+    }]));
     if (options.persist !== false) savePartySelection(state.members.map(item => item.characterId),persistedSettings);
     updateFollow();
     renderPartyHud();
@@ -1493,9 +1554,28 @@
       member.mode = normalizeMode(mode);
       if (counterAttack !== null) member.counterAttack = counterAttack !== false;
       clearMemberTarget(member);
-      const settings = Object.fromEntries(state.members.map(item=>[item.characterId,{mode:item.mode,counterAttack:item.counterAttack}]));
+      const settings = Object.fromEntries(state.members.map(item=>[item.characterId,{
+        mode:item.mode,
+        counterAttack:item.counterAttack,
+        selectedAttackSkills:normalizeSkillIdList(item.selectedAttackSkills),
+        selectedSupportSkills:normalizeSkillIdList(item.selectedSupportSkills)
+      }]));
       savePartySelection(state.members.map(item=>item.characterId),settings);
       renderPartyHud();
+      return true;
+    },
+    setMemberSkills(characterId, attackIds = [], supportIds = []) {
+      const member = state.members.find(item=>item.characterId===String(characterId));
+      if (!member) return false;
+      member.selectedAttackSkills = normalizeSkillIdList(attackIds);
+      member.selectedSupportSkills = normalizeSkillIdList(supportIds);
+      const settings = Object.fromEntries(state.members.map(item=>[item.characterId,{
+        mode:item.mode,
+        counterAttack:item.counterAttack,
+        selectedAttackSkills:normalizeSkillIdList(item.selectedAttackSkills),
+        selectedSupportSkills:normalizeSkillIdList(item.selectedSupportSkills)
+      }]));
+      savePartySelection(state.members.map(item=>item.characterId),settings);
       return true;
     },
     notifyOwnerTeleported,
@@ -1510,7 +1590,28 @@
     heal,
     healParty,
     applyPartyBuff,
+    applyBuffToParty: applyPartyBuff,
     removePartyBuff,
+    recalculateMember(characterId) {
+      const member = state.members.find(item=>item.characterId===String(characterId));
+      if (!member) return false;
+      recalculateMemberStats(member);
+      renderPartyHud();
+      return true;
+    },
+    clearStatuses(characterId, names = []) {
+      const member = state.members.find(item=>item.characterId===String(characterId));
+      if (!member) return 0;
+      return clearMemberStatuses(member,names);
+    },
+    playSkillMotion(characterId, motionOrDuration = "cast", durationMs = 500) {
+      const member = state.members.find(item=>item.characterId===String(characterId));
+      if (!member) return false;
+      const motion = typeof motionOrDuration === "string" ? motionOrDuration : "cast";
+      const duration = typeof motionOrDuration === "number" ? motionOrDuration : durationMs;
+      setMercenaryMotion(member,["attack","cast","hurt"].includes(motion) ? motion : "cast",Math.max(150,n(duration,500)));
+      return true;
+    },
     getBuffTotals(characterId) {
       const member = state.members.find(item=>item.characterId===String(characterId));
       return member ? clone(normalizeMemberBuffs(member,{processPeriodic:false})) : {};

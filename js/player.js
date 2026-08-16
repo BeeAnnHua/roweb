@@ -1442,6 +1442,7 @@ function markGameSaveDirty(reason = "change") {
 }
 
 function saveGame(reasonOrOptions = "auto") {
+  if (window.RO_WEB_MERCENARY_CAST_CONTEXT) return true;
   if (window.RO_WEB_RESETTING_SAVE) return false;
   const options = normalizeSaveOptions(reasonOrOptions);
   const criticalSave = isCriticalSaveOptions(options);
@@ -2036,6 +2037,7 @@ function buildSkillUiRenderSignature() {
 }
 
 function updatePlayerUI() {
+  if (window.RO_WEB_MERCENARY_CAST_CONTEXT) return;
   if (!player) return;
 
   const currentJobName = (typeof getJobData === "function" ? getJobData(player.jobKey)?.name : null) || player.job || "冒險者";
@@ -3880,6 +3882,10 @@ function fixEquippedItemsInInventoryOnce() {
 //=======================================
 function recalculatePlayerStats() {
   if (!player) return;
+  if (window.RO_WEB_MERCENARY_CAST_CONTEXT?.actor === player) {
+    window.ROWebMercenaryRuntime?.recalculateMember?.(player.characterId);
+    return;
+  }
 
   if (typeof calculateDerivedPlayerStats === "function") {
     const derived = calculateDerivedPlayerStats();

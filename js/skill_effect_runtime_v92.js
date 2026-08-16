@@ -9,7 +9,7 @@
 (() => {
   'use strict';
 
-  const VERSION = '0.9.88B3';
+  const VERSION = '0.9.88B9';
   const BASE = './assets/skill_effects/v92/';
   const MANIFEST_URL = `${BASE}V92_RUNTIME_TIMELINE_MANIFEST.json`;
   const EFFECT_MANIFEST_URL = `${BASE}V92_EFFECT_MANIFEST.json`;
@@ -597,12 +597,12 @@
     const target = String(instance.event.target || 'CASTER_BODY');
     if (instance.fixedAnchor?.worldPosition) return anchorFromWorldPosition(instance.fixedAnchor.worldPosition, true, 'monster');
     if (instance.fixedAnchor?.canvasPosition) return { ...instance.fixedAnchor.canvasPosition };
-    if (target === 'CASTER_FOOT') { state.diagnostics.liveCasterAnchors++; return liveObjectAnchor(currentPlayerObject(), true, 'player'); }
+    if (target === 'CASTER_FOOT') { state.diagnostics.liveCasterAnchors++; return instance.casterWorldPosition ? anchorFromWorldPosition(instance.casterWorldPosition,true,'player') : liveObjectAnchor(currentPlayerObject(), true, 'player'); }
     if (target === 'TARGET_BODY') { state.diagnostics.liveTargetAnchors++; return liveObjectAnchor(instance.targetObject, false, 'monster'); }
     if (target === 'TARGET_FOOT' || target === 'GROUND_CELL') { state.diagnostics.liveTargetAnchors++; return liveObjectAnchor(instance.targetObject, true, 'monster'); }
     if (target === 'PROJECTILE_PATH') {
       state.diagnostics.projectileAnchors++;
-      const a = liveObjectAnchor(currentPlayerObject(), false, 'player');
+      const a = instance.casterWorldPosition ? anchorFromWorldPosition(instance.casterWorldPosition,false,'player') : liveObjectAnchor(currentPlayerObject(), false, 'player');
       const b = liveObjectAnchor(instance.targetObject, false, 'monster');
       const duration = Math.max(1, instance.visualDurationMs);
       const t = Math.max(0, Math.min(1, (now - instance.startAt) / duration));
@@ -610,7 +610,7 @@
       return { x: a.x + (b.x - a.x) * eased, y: a.y + (b.y - a.y) * eased };
     }
     state.diagnostics.liveCasterAnchors++;
-    return liveObjectAnchor(currentPlayerObject(), false, 'player');
+    return instance.casterWorldPosition ? anchorFromWorldPosition(instance.casterWorldPosition,false,'player') : liveObjectAnchor(currentPlayerObject(), false, 'player');
   }
 
   function sampleKeyframe(layer, frame) {
@@ -867,6 +867,7 @@
       effectId, effect, event,
       targetObject: payload.targetObject,
       targetIdentity: payload.targetIdentity,
+      casterWorldPosition: finiteWorldPosition(context.casterWorldPosition),
       fixedAnchor,
       startAt: Date.now(), castToken: context.token || null,
       visualDurationMs: loop ? eventDuration : Math.min(eventDuration, Math.max(effectDuration, 100)),
@@ -911,7 +912,8 @@
       token, startedAt: Date.now(), level,
       target: payload.targetObject,
       targetWorldPosition: payload.targetWorldPosition,
-      targetIdentity: payload.targetIdentity
+      targetIdentity: payload.targetIdentity,
+      casterWorldPosition: finiteWorldPosition(context.casterWorldPosition)
     });
     if (payload.targetWorldPosition) state.latestTarget.set(id, payload);
     state.diagnostics.begins++;
@@ -943,6 +945,7 @@
       target: payload.targetObject,
       targetWorldPosition: payload.targetWorldPosition,
       targetIdentity: payload.targetIdentity,
+      casterWorldPosition: finiteWorldPosition(context.casterWorldPosition) || cast.casterWorldPosition || null,
       level, token: cast.token
     });
     schedule(() => state.latestCast.delete(id), 2000);
@@ -973,7 +976,8 @@
       ...context,
       target: payload.targetObject,
       targetWorldPosition: payload.targetWorldPosition,
-      targetIdentity: payload.targetIdentity
+      targetIdentity: payload.targetIdentity,
+      casterWorldPosition: finiteWorldPosition(context.casterWorldPosition) || state.latestCast.get(id)?.casterWorldPosition || null
     });
     return true;
   }
@@ -990,7 +994,7 @@
     state.diagnostics.commits++;
     runTriggerGroup(entry, COMMIT_TRIGGERS, {
       ...context, target: payload.targetObject, targetWorldPosition: payload.targetWorldPosition,
-      targetIdentity: payload.targetIdentity, level, token
+      targetIdentity: payload.targetIdentity, casterWorldPosition:finiteWorldPosition(context.casterWorldPosition), level, token
     });
     return true;
   }

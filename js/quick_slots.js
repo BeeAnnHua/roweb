@@ -441,6 +441,8 @@ function quickSlotCastSkill(skillId, options = {}) {
 
   if (!quickSlotEnsureSkillTargetRange(skill, learnedLevel, runtimeProfile)) return false;
 
+  if (runtimeHandler === "resurrection_ally") { castResurrectionSkill(skill, getSkillLevel(skill.id)); return; }
+
   if (runtimeHandler === "elemental_sphere_summon") {
     castElementalSphereSummonSkill(skill, getSkillLevel(skill.id));
     return;
