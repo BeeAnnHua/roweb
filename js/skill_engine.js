@@ -3080,6 +3080,81 @@ function grantRuntimeApFromProfile(skill, level, profile, options = {}) {
   return amount;
 }
 
+// V0.9.88B7：第一階段只開放原本就屬於全隊／範圍型的 Buff 與群補。
+// AL_PNEUMA（25，光之障壁）依製作決議明確排除；單體友軍技能留待下一版。
+const RO_WEB_GROUP_PARTY_BUFF_SKILL_IDS = new Set([
+  // 服事／祭司／大主教／樞機主教（不含 AL_PNEUMA 25）
+  33,66,67,69,74,75,2041,2042,2044,2045,2047,2048,2050,5269,5278,
+  // 商人／鐵匠／機匠／生命締造者
+  155,111,112,113,459,2273,2274,5338,
+  // 神射手
+  383,
+  // 吟遊詩人／舞孃／宮廷樂師／浪姬舞者／天籟頌者
+  307,309,310,312,313,319,320,321,322,327,329,330,2350,2351,2352,
+  2381,2382,2423,2427,2428,2431,2434,5007,5361,5362,5364,
+  // 賢者／妖術師／元素支配者
+  285,286,287,2452,2465,2466,2467,2468,5008,
+  // 十字軍／皇家禁衛軍／帝國聖衛軍
+  369,2322,5013,5256,5261,
+  // 初心者
+  5076
+]);
+const RO_WEB_GROUP_PARTY_HEAL_SKILL_IDS = new Set([70,478,2043,5280]);
+
+function getOfficialRuntimeSkillId(skill) {
+  return Number(skill?.officialId ?? skill?.id ?? 0);
+}
+
+function removeRuntimePartyBuffFromMercenaries(skillId) {
+  if (!RO_WEB_GROUP_PARTY_BUFF_SKILL_IDS.has(Number(skillId))) return 0;
+  return Number(window.ROWebMercenaryRuntime?.removePartyBuff?.(Number(skillId)) || 0);
+}
+
+function applyRuntimePartyBuffToMercenaries(skill, level, profile, buff) {
+  const skillId = getOfficialRuntimeSkillId(skill);
+  if (!RO_WEB_GROUP_PARTY_BUFF_SKILL_IDS.has(skillId) || !buff) return 0;
+  const runtime = window.ROWebMercenaryRuntime;
+  if (!runtime?.applyPartyBuff) return 0;
+  const now = Date.now();
+  const clearStatuses = [
+    ...(Array.isArray(profile?.effects?.clearStatuses) ? profile.effects.clearStatuses : []),
+    ...(Array.isArray(profile?.clearStatuses) ? profile.clearStatuses : [])
+  ];
+  const result = runtime.applyPartyBuff({
+    skillId,
+    name: skill?.name,
+    level,
+    effects: buff.effects || {},
+    durationMs: Math.max(1,Number(buff.expiresAt || 0)-now),
+    exclusiveBuffGroup: buff.exclusiveBuffGroup || profile?.exclusiveBuffGroup || null,
+    periodicHpHealRate: buff.periodicHpHealRate ?? getLevelValue(profile?.periodicHpHealRate,level,0),
+    periodicHpHealFlat: buff.periodicHpHealFlat ?? getLevelValue(profile?.periodicHpHealFlat,level,0),
+    periodicHpIntervalMs: buff.periodicHpIntervalMs ?? Number(profile?.periodicHpHealIntervalMs || profile?.periodicIntervalMs || 0),
+    periodicSpHealRate: buff.periodicSpHealRate ?? getLevelValue(profile?.periodicSpHealRate,level,0),
+    periodicSpHealFlat: buff.periodicSpHealFlat ?? getLevelValue(profile?.periodicSpHealFlat,level,0),
+    periodicSpHealIntervalMs: buff.periodicSpHealIntervalMs ?? Number(profile?.periodicSpHealIntervalMs || profile?.periodicIntervalMs || 0),
+    periodicHealFormula: buff.periodicHealFormula ?? profile?.periodicHealFormula ?? null,
+    periodicHealLevel: buff.periodicHealLevel ?? level,
+    periodicClearStatuses: buff.periodicClearStatuses ?? profile?.periodicClearStatuses ?? [],
+    clearStatuses,
+    clearStatusesOnlyWhenPresent: Array.isArray(profile?.clearStatusesOnlyWhenPresent) ? profile.clearStatusesOnlyWhenPresent : [],
+    clearStatusesChancePercent: profile?.clearStatusesChancePercent === undefined ? 100 : getLevelValue(profile.clearStatusesChancePercent,level,100),
+    skipBuffWhenStatusPresent: profile?.skipBuffWhenStatusPresent === true,
+    restoreHpToFull: profile?.restoreHpToFull === true || profile?.restoreHpToFullAfterBuff === true,
+    restoreHpRate: profile?.restoreHpRate === undefined ? 0 : getLevelValue(profile.restoreHpRate,level,0),
+    restoreSpRate: profile?.restoreSpRate === undefined ? 0 : getLevelValue(profile.restoreSpRate,level,0),
+    followOwnerBuff: !!player?.activeBuffs?.[String(skill?.id)]
+  });
+  return Number(result?.applied || 0);
+}
+
+window.ROWebPartySkillTargeting = Object.freeze({
+  version:"0.9.88B7",
+  groupBuffSkillIds:Object.freeze([...RO_WEB_GROUP_PARTY_BUFF_SKILL_IDS]),
+  groupHealSkillIds:Object.freeze([...RO_WEB_GROUP_PARTY_HEAL_SKILL_IDS]),
+  excludedSkillIds:Object.freeze([25])
+});
+
 function castBuffSkill(skill, requestedLevel = null, options = {}) {
   const check = canCastSkill(skill, requestedLevel, ["buff"], options);
   if (!check.ok) return reportPendingRuntime(skill, check.reason);
@@ -3099,6 +3174,7 @@ function castBuffSkill(skill, requestedLevel = null, options = {}) {
     const [activeId, activeBuff] = activePerformances[0];
     if (typeof clearSustainedPerformanceAura === "function") clearSustainedPerformanceAura(activeBuff);
     delete player.activeBuffs[activeId];
+    removeRuntimePartyBuffFromMercenaries(activeBuff?.id ?? activeId);
     if (typeof recalculatePlayerStats === "function") recalculatePlayerStats();
     if (typeof updateMonsterUI === "function") updateMonsterUI();
     if (typeof updatePlayerUI === "function") updatePlayerUI();
@@ -3115,6 +3191,7 @@ function castBuffSkill(skill, requestedLevel = null, options = {}) {
     for(const id of (profile.clearActiveBuffIds||[])){
       const key=String(id),buff=player.activeBuffs?.[key]||player.activeBuffs?.[id];
       if(!buff)continue;if(typeof clearSustainedPerformanceAura==="function")clearSustainedPerformanceAura(buff);delete player.activeBuffs[key];delete player.activeBuffs[id];removed++;
+      removeRuntimePartyBuffFromMercenaries(id);
     }
     if(options.quickSlotSelfTarget!==true){
       const statuses=currentMonster?.runtimeState?.statuses||{};
@@ -3177,6 +3254,7 @@ function castBuffSkill(skill, requestedLevel = null, options = {}) {
   }
   if (profile.toggleBuff && player.activeBuffs[skill.id]) {
     delete player.activeBuffs[skill.id];
+    removeRuntimePartyBuffFromMercenaries(getOfficialRuntimeSkillId(skill));
     if (profile.playerMotionWhileActive) {
       player.state = "Idle";
       if (typeof playROStudioPlayerMotion === "function") playROStudioPlayerMotion("idle", { duration: 1 });
@@ -3403,7 +3481,15 @@ function castBuffSkill(skill, requestedLevel = null, options = {}) {
       const chance=Math.max(0,Math.min(100,Number(getLevelValue(profile.clearStatusesChancePercent,level,100))));
       if(Math.random()*100<chance){for(const name of present){delete statuses[normalize(name)];delete player.runtimeState[normalize(name)];} if(!options.silent)addBattleLog(`${skill.name}解除自身異常狀態。`);}
       else if(!options.silent)addBattleLog(`${skill.name}未能解除異常狀態。`);
-      if(profile.skipBuffWhenStatusPresent){updatePlayerUI();saveGame();return true;}
+      if(profile.skipBuffWhenStatusPresent){
+        applyRuntimePartyBuffToMercenaries(skill,level,profile,{
+          id:skill.id,
+          effects:runtimeEffects,
+          exclusiveBuffGroup:profile.exclusiveBuffGroup||null,
+          expiresAt:Date.now()+duration
+        });
+        updatePlayerUI();saveGame();return true;
+      }
     }
   }
   if(profile.exclusiveBuffGroup){ Object.keys(player.activeBuffs).forEach(k=>{if(player.activeBuffs[k]?.exclusiveBuffGroup===profile.exclusiveBuffGroup)delete player.activeBuffs[k];}); }
@@ -3449,6 +3535,7 @@ function castBuffSkill(skill, requestedLevel = null, options = {}) {
     startedAt: Date.now(),
     expiresAt: Date.now() + duration
   };
+  applyRuntimePartyBuffToMercenaries(skill,level,profile,player.activeBuffs[skill.id]);
   if (profile.playerMotionWhileActive) {
     player.state = profile.playerMotionWhileActive === "dead" ? "TrickDead" : String(profile.playerMotionWhileActive);
     if (typeof playROStudioPlayerMotion === "function") {
@@ -3548,6 +3635,15 @@ function castSanctuarySkill(skill, requestedLevel = null) {
         const heal = Math.max(1, applyRuntimeHealingModifiers(healBase, {source:player,target:player,healingCategory:RUNTIME_HEALING_CATEGORIES.PERIODIC_SKILL_HEAL,includeOffertorium:true}));
         player.hp = Math.min(Number(player.maxHp || 1), Number(player.hp || 0) + heal);
       }
+      window.ROWebMercenaryRuntime?.healParty?.((member,totals) => Math.max(1,applyRuntimeHealingModifiers(healBase,{
+        source:player,
+        target:member,
+        healingCategory:RUNTIME_HEALING_CATEGORIES.PERIODIC_SKILL_HEAL,
+        includeOffertorium:true,
+        additionalReceivedRate:Number(totals?.healingReceivedRate || 0)
+      })),{
+        filter:member => !window.AreaShapeResolver?.inRange || window.AreaShapeResolver.inRange(effect,member,"circle",radius)
+      });
       for (const target of targets || []) {
         if (!matchesRuntimeTargetConditions(profile, target)) continue;
         const damage = Math.max(1, Math.floor(healBase * Number(profile.damageRatioPercent || 50) / 100));
@@ -3977,6 +4073,7 @@ function castHealSkill(skill, requestedLevel = null) {
   } else {
     return reportPendingRuntime(skill, "治療公式尚未實作");
   }
+  const rawPartyHealAmount = healAmount;
   const offertoriumAllowed = [28,70,2043,2051,5268,5269,5280].includes(Number(skill?.officialId ?? skill?.id));
   healAmount = Math.max(1, applyRuntimeHealingModifiers(healAmount, {source:player,target:player,healingCategory,includeOffertorium:offertoriumAllowed}));
   const beforeHp = Number(player.hp || 0);
@@ -3985,10 +4082,21 @@ function castHealSkill(skill, requestedLevel = null) {
   if (spRestoreAmount > 0) player.sp = Math.min(player.maxSp, beforeSp + spRestoreAmount);
   const actualHp = Math.max(0, Number(player.hp || 0) - beforeHp);
   const actualSp = Math.max(0, Number(player.sp || 0) - beforeSp);
+  let mercenaryHeal = null;
+  if (RO_WEB_GROUP_PARTY_HEAL_SKILL_IDS.has(getOfficialRuntimeSkillId(skill))) {
+    mercenaryHeal = window.ROWebMercenaryRuntime?.healParty?.((member,totals) => Math.max(1,applyRuntimeHealingModifiers(rawPartyHealAmount,{
+      source:player,
+      target:member,
+      healingCategory,
+      includeOffertorium:offertoriumAllowed,
+      additionalReceivedRate:Number(totals?.healingReceivedRate || 0)
+    })));
+  }
   updatePlayerUI(); saveGame();
-  addBattleLog(actualSp > 0
+  const mercenaryText = Number(mercenaryHeal?.affected || 0)>0 ? `；${mercenaryHeal.affected} 名傭兵共恢復 ${Math.floor(Number(mercenaryHeal.healed || 0))} HP` : "";
+  addBattleLog((actualSp > 0
     ? `施放 ${skill.name} Lv${level}，HP 恢復 ${actualHp}，SP 恢復 ${actualSp}。`
-    : `施放 ${skill.name} Lv${level}，HP 恢復 ${actualHp}。`);
+    : `施放 ${skill.name} Lv${level}，HP 恢復 ${actualHp}。`).replace(/。$/,`${mercenaryText}。`));
   return true;
 }
 

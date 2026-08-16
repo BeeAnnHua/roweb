@@ -1,9 +1,9 @@
 //=======================================
-// RO_WEB V0.9.88B1 — 傭兵平滑移動／角色 Atlas 動畫 Runtime
+// RO_WEB V0.9.88B7 — 傭兵平滑移動／角色 Atlas 動畫／群體 Buff Runtime
 // 只讀取同帳號其他角色的「戰鬥快照」；不讀背包、不寫回分身角色、不給傭兵任何獎勵。
 //=======================================
 (() => {
-  const VERSION = "0.9.88B1";
+  const VERSION = "0.9.88B7";
   const MAX_MERCENARIES = 3;
   const RESPAWN_MS = 30_000;
   const FOLLOW_TICK_MS = 180;
@@ -506,6 +506,7 @@
   function buildMember(snapshot, index, settings = {}) {
     const maxHp = Math.max(1, n(snapshot.maxHp, 100));
     const maxSp = Math.max(0, n(snapshot.maxSp, 30));
+    const baseStats = clone(snapshot.stats || { str:1, agi:1, vit:1, int:1, dex:1, luk:1 });
     return {
       type: "mercenary",
       id: `mercenary_${snapshot.characterId}`,
@@ -524,6 +525,20 @@
       def: Math.max(0, n(snapshot.def, 0)),
       mdef: Math.max(0, n(snapshot.mdef, 0)),
       aspd: clamp(n(snapshot.aspd, 160), 100, 193),
+      stats: baseStats,
+      baseCombatStats: {
+        maxHp,
+        maxSp,
+        atk: Math.max(1, n(snapshot.atk, 5)),
+        matk: Math.max(0, n(snapshot.matk, 0)),
+        def: Math.max(0, n(snapshot.def, 0)),
+        mdef: Math.max(0, n(snapshot.mdef, 0)),
+        aspd: clamp(n(snapshot.aspd, 160), 100, 193),
+        stats: baseStats
+      },
+      activeBuffs: {},
+      buffTotals: {},
+      runtimeState: { statuses:{} },
       position: { x:n(window.player?.position?.x, 0), y:n(window.player?.position?.y, 0) },
       formationIndex: index,
       mode: normalizeMode(settings.mode || inferDefaultMode(snapshot)),
@@ -542,6 +557,246 @@
       visual: { assets:{}, pending:{}, motion:"idle", frameIndex:0, frameAt:0, directionId:0, lastMotion:"", overrideMotion:null, overrideUntil:0 },
       dom: null
     };
+  }
+
+  function normalizeStatusKey(value) {
+    return String(value || "").toLowerCase().replace(/[ _-]/g, "");
+  }
+
+  function collectMemberBuffTotals(member) {
+    const totals = {};
+    for (const buff of Object.values(member?.activeBuffs || {})) {
+      for (const [key, value] of Object.entries(buff?.effects || {})) {
+        if (typeof value === "boolean") totals[key] = n(totals[key],0) + (value ? 1 : 0);
+        else if (typeof value === "number" && Number.isFinite(value)) totals[key] = n(totals[key],0) + value;
+        else if (value !== undefined && value !== null && value !== "") totals[key] = value;
+      }
+    }
+    totals.autoGuardBlockRate = n(totals.autoGuardBlockRate,0) + n(totals.blockChance,0);
+    totals.parryBlockRate = n(totals.parryBlockRate,0) + n(totals.parryChance,0);
+    totals.physicalReflectRate = n(totals.physicalReflectRate,0) + n(totals.reflectPhysicalRate,0);
+    totals.finalDamageReduction = n(totals.finalDamageReduction,0) + n(totals.finalDamageReductionRate,0);
+    totals.longPhysicalDamageReductionRate = n(totals.longPhysicalDamageReductionRate,0) + n(totals.longRangeDamageReductionRate,0);
+    totals.moveSpeedRate = n(totals.moveSpeedRate,0) - n(totals.moveSpeedPenaltyRate,0);
+    return totals;
+  }
+
+  function recalculateMemberStats(member) {
+    if (!member) return {};
+    const base = member.baseCombatStats || {};
+    const totals = collectMemberBuffTotals(member);
+    const baseStats = base.stats || member.snapshot?.stats || {};
+    const stats = {};
+    for (const key of ["str","agi","vit","int","dex","luk"]) {
+      stats[key] = Math.max(1, Math.floor(n(baseStats[key],1) + n(totals[`${key}Flat`],0)));
+    }
+    const strDelta = stats.str - n(baseStats.str,1);
+    const agiDelta = stats.agi - n(baseStats.agi,1);
+    const vitDelta = stats.vit - n(baseStats.vit,1);
+    const intDelta = stats.int - n(baseStats.int,1);
+    const dexDelta = stats.dex - n(baseStats.dex,1);
+    const oldMaxHp = Math.max(1,n(member.maxHp,base.maxHp));
+    const oldMaxSp = Math.max(0,n(member.maxSp,base.maxSp));
+    const rawAtk = Math.max(1,n(base.atk,5) + strDelta + Math.floor(dexDelta/5));
+    const rawMatk = Math.max(0,n(base.matk,0) + intDelta + Math.floor(dexDelta/5));
+    member.atk = Math.max(1,Math.floor(rawAtk*(100+n(totals.atkRate,0))/100)+n(totals.atkFlat,0));
+    member.matk = Math.max(0,Math.floor(rawMatk*(100+n(totals.matkRate,0))/100)+n(totals.matkFlat,0));
+    member.def = Math.max(0,Math.floor((n(base.def,0)+Math.floor(vitDelta/2)+Math.floor(agiDelta/5))*(100+n(totals.defRate,0))/100)+n(totals.defFlat,0));
+    member.mdef = Math.max(0,Math.floor((n(base.mdef,0)+intDelta+Math.floor(vitDelta/5))*(100+n(totals.mdefRate,0))/100)+n(totals.mdefFlat,0));
+    member.maxHp = Math.max(1,Math.floor((n(base.maxHp,1)+n(totals.maxHpFlat,0))*(100+Math.max(-99,n(totals.maxHpRate,0)))/100));
+    member.maxSp = Math.max(0,Math.floor((n(base.maxSp,0)+n(totals.maxSpFlat,0))*(100+Math.max(-99,n(totals.maxSpRate,0)))/100));
+    let aspd = n(base.aspd,160);
+    const aspdRate = n(totals.aspdRate,0);
+    if (aspdRate) aspd += Math.max(195-aspd,2)*aspdRate/100;
+    member.aspd = clamp(Math.floor(aspd+n(totals.aspdFlat,0)),100,193);
+    member.stats = stats;
+    member.buffTotals = totals;
+    if (member.maxHp < oldMaxHp) member.hp = Math.min(member.hp,member.maxHp);
+    if (member.maxSp < oldMaxSp) member.sp = Math.min(member.sp,member.maxSp);
+    return totals;
+  }
+
+  function clearMemberStatuses(member, names = []) {
+    if (!member || !Array.isArray(names) || !names.length) return 0;
+    member.runtimeState = member.runtimeState || {};
+    member.runtimeState.statuses = member.runtimeState.statuses || {};
+    let removed = 0;
+    for (const name of names) {
+      const key = normalizeStatusKey(name);
+      if (member.runtimeState.statuses[key] || member.runtimeState[key]) removed++;
+      delete member.runtimeState.statuses[key];
+      delete member.runtimeState[key];
+    }
+    return removed;
+  }
+
+  function applyMemberPeriodicBuffs(member, now) {
+    const totals = member.buffTotals || collectMemberBuffTotals(member);
+    for (const buff of Object.values(member.activeBuffs || {})) {
+      if (Array.isArray(buff.periodicClearStatuses) && buff.periodicClearStatuses.length) clearMemberStatuses(member,buff.periodicClearStatuses);
+      const hpInterval = Math.max(0,n(buff.periodicHpIntervalMs,0));
+      const hpRate = Math.max(0,n(buff.periodicHpHealRate,0));
+      const hpFlat = Math.max(0,n(buff.periodicHpHealFlat,0));
+      if (hpInterval > 0 && (hpRate > 0 || hpFlat > 0) && now-n(buff.lastPeriodicHpTick,now) >= hpInterval) {
+        const ticks = Math.max(1,Math.floor((now-n(buff.lastPeriodicHpTick,now))/hpInterval));
+        const raw = hpFlat+(hpRate>0?Math.max(1,Math.floor(member.maxHp*hpRate/100)):0);
+        const adjusted = Math.max(0,Math.floor(raw*(100+n(totals.healingReceivedRate,0))/100));
+        member.hp = Math.min(member.maxHp,member.hp+ticks*adjusted);
+        buff.lastPeriodicHpTick = n(buff.lastPeriodicHpTick,now)+ticks*hpInterval;
+      }
+      const spInterval = Math.max(0,n(buff.periodicSpHealIntervalMs,0));
+      const spRate = Math.max(0,n(buff.periodicSpHealRate,0));
+      const spFlat = Math.max(0,n(buff.periodicSpHealFlat,0));
+      if (spInterval > 0 && (spRate > 0 || spFlat > 0) && now-n(buff.lastPeriodicSpHealTick,now) >= spInterval) {
+        const ticks = Math.max(1,Math.floor((now-n(buff.lastPeriodicSpHealTick,now))/spInterval));
+        const perTick = spFlat+(spRate>0?Math.max(1,Math.floor(member.maxSp*spRate/100)):0);
+        member.sp = Math.min(member.maxSp,member.sp+ticks*perTick);
+        buff.lastPeriodicSpHealTick = n(buff.lastPeriodicSpHealTick,now)+ticks*spInterval;
+      }
+      if (buff.periodicHealFormula === "renewal_mediale_votum") {
+        const interval = Math.max(100,n(buff.periodicHpIntervalMs,2000));
+        if (now-n(buff.lastPeriodicFormulaTick,now) >= interval) {
+          const ticks = Math.max(1,Math.floor((now-n(buff.lastPeriodicFormulaTick,now))/interval));
+          const owner = window.player || {};
+          const derived = typeof window.calculateDerivedPlayerStats === "function" ? window.calculateDerivedPlayerStats() : null;
+          const intStat = n(derived?.stats?.int ?? owner?.stats?.int,1);
+          const baseLv = n(owner?.baseLevel,1);
+          const matk = n(derived?.matk ?? owner?.matk,0);
+          const level = Math.max(1,n(buff.periodicHealLevel ?? buff.level,1));
+          const baseHeal = Math.max(1,Math.floor(((baseLv+intStat)/5)*30+matk));
+          const raw = Math.max(1,Math.floor(baseHeal*(100+2*level)/100));
+          let adjusted = raw;
+          if (typeof window.applyRuntimeHealingModifiers === "function") {
+            adjusted = window.applyRuntimeHealingModifiers(raw,{source:owner,target:member,healingCategory:"periodic_skill_heal",includeOffertorium:true,additionalReceivedRate:n(totals.healingReceivedRate,0)});
+          } else adjusted = Math.floor(raw*(100+n(totals.healingReceivedRate,0))/100);
+          member.hp = Math.min(member.maxHp,member.hp+ticks*Math.max(1,adjusted));
+          buff.lastPeriodicFormulaTick = n(buff.lastPeriodicFormulaTick,now)+ticks*interval;
+        }
+      }
+    }
+  }
+
+  function normalizeMemberBuffs(member, options = {}) {
+    if (!member) return {};
+    member.activeBuffs = member.activeBuffs || {};
+    const now = n(options.now,Date.now());
+    let changed = false;
+    for (const [key,buff] of Object.entries(member.activeBuffs)) {
+      const ownerBuffMissing = buff?.followOwnerBuff === true && !window.player?.activeBuffs?.[String(buff.sourceSkillId ?? buff.id ?? key)];
+      if (!buff || n(buff.expiresAt,0) <= now || ownerBuffMissing) {
+        delete member.activeBuffs[key];
+        changed = true;
+      }
+    }
+    if (changed || !member.buffTotals) recalculateMemberStats(member);
+    else member.buffTotals = collectMemberBuffTotals(member);
+    if (options.processPeriodic !== false && !member.dead) applyMemberPeriodicBuffs(member,now);
+    return member.buffTotals;
+  }
+
+  function applyPartyBuff(spec = {}) {
+    const skillId = String(spec.skillId ?? spec.id ?? "");
+    const durationMs = Math.max(1,n(spec.durationMs,0));
+    if (!skillId || durationMs <= 0) return { ok:false, applied:0, reason:"INVALID_BUFF" };
+    const now = Date.now();
+    let applied = 0;
+    for (const member of state.members) {
+      if (!member || member.dead) continue;
+      member.activeBuffs = member.activeBuffs || {};
+      const conditionalStatuses = Array.isArray(spec.clearStatusesOnlyWhenPresent) ? spec.clearStatusesOnlyWhenPresent : [];
+      const presentStatuses = conditionalStatuses.filter(name => {
+        const key = normalizeStatusKey(name);
+        return member.runtimeState?.statuses?.[key] || member.runtimeState?.[key];
+      });
+      if (presentStatuses.length) {
+        const chance = clamp(n(spec.clearStatusesChancePercent,100),0,100);
+        if (Math.random()*100 < chance) clearMemberStatuses(member,presentStatuses);
+        if (spec.skipBuffWhenStatusPresent === true) {
+          applied++;
+          continue;
+        }
+      }
+      if (spec.exclusiveBuffGroup) {
+        for (const [key,active] of Object.entries(member.activeBuffs)) {
+          if (active?.exclusiveBuffGroup === spec.exclusiveBuffGroup) delete member.activeBuffs[key];
+        }
+      }
+      const entry = {
+        id: Number(spec.skillId ?? spec.id),
+        sourceSkillId: Number(spec.skillId ?? spec.id),
+        name: String(spec.name || "隊伍增益"),
+        level: Math.max(1,n(spec.level,1)),
+        effects: clone(spec.effects || {}),
+        exclusiveBuffGroup: spec.exclusiveBuffGroup || null,
+        periodicHpHealRate: n(spec.periodicHpHealRate,0),
+        periodicHpHealFlat: n(spec.periodicHpHealFlat,0),
+        periodicHpIntervalMs: n(spec.periodicHpIntervalMs,0),
+        periodicSpHealRate: n(spec.periodicSpHealRate,0),
+        periodicSpHealFlat: n(spec.periodicSpHealFlat,0),
+        periodicSpHealIntervalMs: n(spec.periodicSpHealIntervalMs,0),
+        periodicHealFormula: spec.periodicHealFormula || null,
+        periodicHealLevel: Math.max(1,n(spec.periodicHealLevel ?? spec.level,1)),
+        periodicClearStatuses: Array.isArray(spec.periodicClearStatuses) ? spec.periodicClearStatuses.slice() : [],
+        lastPeriodicHpTick: now,
+        lastPeriodicSpHealTick: now,
+        lastPeriodicFormulaTick: now,
+        followOwnerBuff: spec.followOwnerBuff !== false,
+        startedAt: now,
+        expiresAt: now+durationMs
+      };
+      member.activeBuffs[skillId] = entry;
+      recalculateMemberStats(member);
+      if (n(entry.effects.kyrieBarrierMaxHpRate,0) > 0) {
+        entry.effects.kyrieBarrierHp = Math.max(1,Math.floor(member.maxHp*n(entry.effects.kyrieBarrierMaxHpRate,0)/100)+n(entry.effects.kyrieBarrierFlat,0));
+        entry.effects.kyrieBarrierMaxHp = entry.effects.kyrieBarrierHp;
+      }
+      if (n(entry.effects.shieldBarrierRate,0) > 0) {
+        entry.effects.shieldBarrierHp = Math.max(1,Math.floor(member.maxHp*n(entry.effects.shieldBarrierRate,0)/100));
+        entry.effects.shieldBarrierMaxHp = entry.effects.shieldBarrierHp;
+      }
+      const clearStatuses = [...(Array.isArray(spec.clearStatuses)?spec.clearStatuses:[]),...(entry.periodicClearStatuses || [])];
+      clearMemberStatuses(member,clearStatuses);
+      if (spec.restoreHpToFull === true) member.hp = member.maxHp;
+      else if (n(spec.restoreHpRate,0)>0) member.hp = Math.min(member.maxHp,member.hp+Math.floor(member.maxHp*n(spec.restoreHpRate,0)/100));
+      if (n(spec.restoreSpRate,0)>0) member.sp = Math.min(member.maxSp,member.sp+Math.floor(member.maxSp*n(spec.restoreSpRate,0)/100));
+      member.buffTotals = collectMemberBuffTotals(member);
+      applied++;
+    }
+    renderPartyHud();
+    return { ok:true, applied, skillId:Number(skillId) };
+  }
+
+  function removePartyBuff(skillId) {
+    const key = String(skillId ?? "");
+    if (!key) return 0;
+    let removed = 0;
+    for (const member of state.members) {
+      if (!member?.activeBuffs?.[key]) continue;
+      delete member.activeBuffs[key];
+      recalculateMemberStats(member);
+      removed++;
+    }
+    if (removed) renderPartyHud();
+    return removed;
+  }
+
+  function healParty(amountOrResolver, options = {}) {
+    let affected = 0;
+    let healed = 0;
+    for (const member of state.members) {
+      if (!member || member.dead) continue;
+      if (typeof options.filter === "function" && options.filter(member) === false) continue;
+      normalizeMemberBuffs(member,{processPeriodic:false});
+      let amount = typeof amountOrResolver === "function" ? amountOrResolver(member,member.buffTotals || {}) : amountOrResolver;
+      amount = Math.max(0,n(amount,0));
+      if (options.applyReceivedRate === true) amount = Math.floor(amount*(100+n(member.buffTotals?.healingReceivedRate,0))/100);
+      const before = member.hp;
+      member.hp = Math.min(member.maxHp,member.hp+amount);
+      healed += Math.max(0,member.hp-before);
+      affected++;
+    }
+    if (affected) renderPartyHud();
+    return { ok:true, affected, healed };
   }
 
   function clearWorldSprite(member, options = {}) {
@@ -739,7 +994,11 @@
     if (!Number.isFinite(distance) || distance <= stopDistance) return distance;
     const dt = FOLLOW_TICK_MS / 1000;
     const playerSpeed = n(window.player?.position?.moveSpeed,115);
-    const speed = Math.max(180, playerSpeed * 1.65);
+    const totals = member.buffTotals || collectMemberBuffTotals(member);
+    const walkSpeedRate = Math.max(-90,n(totals.walkSpeedRate,0));
+    const moveSpeedRate = Math.max(-90,n(totals.moveSpeedRate,0));
+    const speedMultiplier = 100/(100+walkSpeedRate)*(100+moveSpeedRate)/100;
+    const speed = Math.max(90, playerSpeed * 1.65 * speedMultiplier);
     const step = Math.min(Math.max(0,distance-stopDistance), speed*dt);
     if (step <= 0) return distance;
     setMercenaryDirection(member,dx,dy);
@@ -812,11 +1071,16 @@
   }
 
   function resolveBasicAttackDamage(member, target) {
-    const rolled = Math.max(1, Math.floor(member.atk * (0.90 + Math.random()*0.20)));
+    const totals = member.buffTotals || collectMemberBuffTotals(member);
+    const rangeRate = getMemberAttackRange(member)>70 ? n(totals.longPhysicalDamageRate,0) : n(totals.shortPhysicalDamageRate,0);
+    const attackElement = String(totals.attackElementOverride || "Neutral");
+    const fieldRate = String(totals.fieldElementDamageElement || "").toLowerCase() === attackElement.toLowerCase() ? n(totals.fieldElementDamageRate,0) : 0;
+    const damageRate = n(totals.damageRate,0)+n(totals.physicalDamageRate,0)+rangeRate+n(totals.pAtk,0)+fieldRate;
+    const rolled = Math.max(1, Math.floor(member.atk * (0.90 + Math.random()*0.20) * (100+damageRate)/100));
     try {
       if (window.RARenewalDamagePipeline?.finalModifiers) {
         return Math.max(1, Math.floor(window.RARenewalDamagePipeline.finalModifiers(rolled, target, {
-          damageType:"physical", element:"Neutral", attackRangeType:getMemberAttackRange(member)>70?"long":"short", applyWeaponSize:false, applyDefense:true
+          damageType:"physical", element:attackElement, attackRangeType:getMemberAttackRange(member)>70?"long":"short", applyWeaponSize:false, applyDefense:true
         })));
       }
     } catch (_) {}
@@ -900,6 +1164,7 @@
     const now = Date.now();
     for (const member of state.members) {
       reviveIfReady(member,now);
+      normalizeMemberBuffs(member,{now});
       applyPassiveRegen(member,now);
       if (member.dead || now < n(member.resyncUntil,0) || window.player?.currentCity) continue;
       const target = acquireMemberTarget(member);
@@ -907,11 +1172,42 @@
     }
   }
 
+  function consumeMemberBarrier(member, amount) {
+    let remaining = Math.max(0,n(amount,0));
+    for (const buff of Object.values(member?.activeBuffs || {})) {
+      const effects = buff?.effects || {};
+      for (const key of ["shieldBarrierHp","kyrieBarrierHp"]) {
+        const capacity = Math.max(0,n(effects[key],0));
+        if (!capacity || remaining <= 0) continue;
+        const absorbed = Math.min(capacity,remaining);
+        effects[key] = capacity-absorbed;
+        remaining -= absorbed;
+      }
+      if (remaining <= 0) break;
+    }
+    return remaining;
+  }
+
   function applyDamage(characterId, amount, options = {}) {
     const member = state.members.find(item => item.characterId === String(characterId));
     if (!member || member.dead) return { ok:false, reason:"NOT_ACTIVE" };
+    normalizeMemberBuffs(member,{processPeriodic:false});
     const before = member.hp;
-    member.hp = Math.max(0, member.hp - Math.max(0,n(amount,0)));
+    const totals = member.buffTotals || {};
+    const damageType = String(options.damageType || "physical").toLowerCase();
+    const rangeType = String(options.attackRangeType || options.rangeType || "short").toLowerCase();
+    let incoming = Math.max(0,n(amount,0));
+    if (damageType === "physical" && n(totals.physicalDamageImmunity,0)>0) incoming = 0;
+    if (damageType === "physical" && rangeType === "long" && n(totals.longRangePhysicalImmunity,0)>0) incoming = 0;
+    let reduction = n(totals.finalDamageReduction,0);
+    if (damageType === "physical") reduction += n(totals.physicalDamageReductionRate,0);
+    if (damageType === "magic") reduction += n(totals.magicDamageReductionRate,0);
+    if (rangeType === "long") reduction += n(totals.longPhysicalDamageReductionRate,0);
+    const element = String(options.element || options.attackElement || "").trim();
+    if (element) reduction += n(totals.elementResistAll,0)+n(totals[`elementResist${element[0].toUpperCase()}${element.slice(1).toLowerCase()}`],0);
+    incoming = Math.floor(incoming*(100-clamp(reduction,0,100))/100);
+    incoming = consumeMemberBarrier(member,incoming);
+    member.hp = Math.max(0, member.hp-incoming);
     member.lastCombatAt = Date.now();
     if (member.hp > 0) setMercenaryMotion(member,"hurt",360);
     if (options.attacker && member.counterAttack && isValidEnemy(options.attacker)) {
@@ -930,12 +1226,13 @@
       if (!options.silent && typeof window.addBattleLog === "function") window.addBattleLog(`${member.name} 已倒下，30 秒後自動復歸。`, "mercenary");
     }
     renderPartyHud();
-    return { ok:true, before, after:member.hp, dead:member.dead, deadUntil:member.deadUntil };
+    return { ok:true, before, after:member.hp, damage:incoming, dead:member.dead, deadUntil:member.deadUntil };
   }
 
   function heal(characterId, amount) {
     const member = state.members.find(item => item.characterId === String(characterId));
     if (!member || member.dead) return { ok:false, reason:member?.dead ? "DEAD" : "NOT_ACTIVE" };
+    normalizeMemberBuffs(member,{processPeriodic:false});
     const before = member.hp;
     member.hp = Math.min(member.maxHp, member.hp + Math.max(0,n(amount,0)));
     renderPartyHud();
@@ -1211,6 +1508,13 @@
     disbandAll,
     applyDamage,
     heal,
+    healParty,
+    applyPartyBuff,
+    removePartyBuff,
+    getBuffTotals(characterId) {
+      const member = state.members.find(item=>item.characterId===String(characterId));
+      return member ? clone(normalizeMemberBuffs(member,{processPeriodic:false})) : {};
+    },
     spendSp,
     resurrect,
     getAliveAllies() { return getPartyMembers().filter(item => !item.dead); },
