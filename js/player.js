@@ -12,12 +12,15 @@ let SAVE_PERSIST_REQUEST_KEY = `${SAVE_KEY}_persist_requested_v2`;
 const SAVE_MINUTE_BACKUP_INTERVAL_MS = 60 * 1000;
 const SAVE_IDLE_HEARTBEAT_MS = 5 * 60 * 1000;
 const SAVE_AUTO_LOCAL_MIN_INTERVAL_MS = 2000;
-const SAVE_REMOTE_MIN_INTERVAL_MS = 30 * 1000;
+// B10: gameplay still commits to localStorage/IndexedDB immediately, while
+// routine cloud snapshots are coalesced to one small request per five minutes.
+// Manual save, exit/switch, death/revival, mail and auction remain immediate.
+const SAVE_REMOTE_MIN_INTERVAL_MS = 5 * 60 * 1000;
 const SAVE_LEASE_HEARTBEAT_MS = 10 * 1000;
 const SAVE_LEASE_STALE_MS = 35 * 1000;
 const RO_WEB_SAVE_SCHEMA = "ro_web_player_save_v2";
 const RO_WEB_SAVE_FORMAT_VERSION = 2;
-const RO_WEB_SAVE_APP_VERSION = "0.9.87J";
+const RO_WEB_SAVE_APP_VERSION = "0.9.88B10";
 const RO_WEB_SAVE_DB_NAME = "ro_web_offline_save_v1";
 const RO_WEB_SAVE_DB_VERSION = 1;
 const RO_WEB_SAVE_DB_STORE = "player_saves";

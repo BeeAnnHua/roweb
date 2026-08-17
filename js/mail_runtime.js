@@ -3,13 +3,15 @@
 // ============================================================
 (function(){
   "use strict";
-  const VERSION="0.9.87M";
-  const REFRESH_MS=60000;
+  const VERSION="0.9.88B10";
+  const REFRESH_MS=300000;
   let mails=[];
   let selectedMailId="";
   let refreshTimer=null;
   let busy=false;
   let gmAccess=false;
+  let backgroundUnreadCount=0;
+  let fullListLoaded=false;
   // V0.9.85H: finalized claims stay locally authoritative until the next server list catches up.
   // This prevents a just-claimed attachment button from reappearing because of an immediately refreshed stale row.
   const confirmedClaimedIds=new Map();
@@ -20,6 +22,11 @@
   const client=()=>window.ROWebCloudRuntime?.getClient?.()||null;
   const account=()=>window.ROWebCloudRuntime?.getAccount?.()||null;
   const activeCharacter=()=>window.CharacterSlotsRuntime?.getActiveContext?.()||{};
+
+  function mailWindowVisible(){
+    const node=el("mail-window");
+    return Boolean(node&&!node.hidden&&!node.classList.contains("hidden-window"));
+  }
 
   function friendly(error){
     const raw=String(error?.message||error||"未知錯誤");
@@ -121,7 +128,7 @@
   }
 
   function renderSummary(){
-    const unread=mails.filter(m=>!m.is_read).length;
+    const unread=fullListLoaded?mails.filter(m=>!m.is_read).length:backgroundUnreadCount;
     const claimable=mails.filter(isClaimable).length;
     const badge=el("mailUnreadBadge");
     if(badge){
@@ -130,7 +137,10 @@
       badge.title=unread?`${unread} 封未讀郵件`:"";
       badge.setAttribute("aria-label",unread?`${unread} 封未讀郵件`:"沒有未讀郵件");
     }
-    const summary=el("mailSummary"); if(summary)summary.textContent=`共 ${mails.length} 封｜未讀 ${unread} 封｜可領 ${claimable} 封`;
+    const summary=el("mailSummary");
+    if(summary)summary.textContent=fullListLoaded
+      ? `共 ${mails.length} 封｜未讀 ${unread} 封｜可領 ${claimable} 封`
+      : `未讀 ${unread} 封｜開啟信箱後載入郵件`;
   }
 
   function render(){renderSummary();renderList();renderDetail();}
@@ -185,6 +195,8 @@
       const {data,error}=await api.rpc("ro_mail_list",{p_account_id:String(acct.account_id),p_limit:100});
       if(error)throw error;
       mails=mergeConfirmedClaims(Array.isArray(data)?data:[]);
+      fullListLoaded=true;
+      backgroundUnreadCount=mails.filter(m=>!m.is_read).length;
       const reconciled=await reconcileLegacyClaims();
       if(reconciled>0){
         const synced=await api.rpc("ro_mail_list",{p_account_id:String(acct.account_id),p_limit:100});
@@ -201,12 +213,34 @@
     }
   }
 
+  async function refreshUnreadCount(){
+    if(window.ROWebOfflineContinuity?.isOffline?.())return false;
+    if(mailWindowVisible())return refresh({silent:true});
+    const api=client(),acct=account();
+    if(!api||!acct?.account_id)return false;
+    try{
+      const {data,error}=await api.rpc("ro_mail_unread_count",{p_account_id:String(acct.account_id)});
+      if(error)throw error;
+      backgroundUnreadCount=Math.max(0,Number(data||0));
+      fullListLoaded=false;
+      renderSummary();
+      return true;
+    }catch(error){
+      // Do not fall back to the 100-row mailbox list in the background: that
+      // compatibility fallback is exactly the traffic B10 is designed to stop.
+      console.warn("Mail unread-count refresh failed:",error);
+      return false;
+    }
+  }
+
   async function selectMail(mailId){
     selectedMailId=String(mailId||"");
     const mail=mails.find(m=>String(m.mail_id)===selectedMailId);
     render();
     if(mail&&!mail.is_read){
-      mail.is_read=true; renderSummary(); renderList();
+      mail.is_read=true;
+      backgroundUnreadCount=Math.max(0,backgroundUnreadCount-1);
+      renderSummary(); renderList();
       // OFFLINE 可閱讀本機已快取郵件，但不向 Supabase 寫入已讀狀態。
       if(window.ROWebOfflineContinuity?.isOffline?.())return;
       try{const {error}=await client().rpc("ro_mail_mark_read",{p_account_id:String(account()?.account_id||""),p_mail_id:mail.mail_id});if(error)throw error;}catch(error){console.warn("mark read failed",error);}
@@ -416,8 +450,9 @@
     el("mailGmCenterButton")?.addEventListener("click",openGmCenter);
     document.addEventListener("click",event=>{
       const button=event.target instanceof Element?event.target.closest('[data-target="mail-window"]'):null;
-      if(button)setTimeout(()=>refresh({silent:true}),0);
+      if(button?.id==="mailQuickButton")setTimeout(()=>{if(mailWindowVisible())refresh({silent:true});},0);
     });
+    document.addEventListener("visibilitychange",()=>{if(!document.hidden)refreshUnreadCount();});
   }
 
   function init(){
@@ -425,12 +460,17 @@
     let tries=0;
     const boot=()=>{
       tries+=1;
-      if(account()?.account_id){verifyGmAccess();refresh({silent:true});if(!refreshTimer)refreshTimer=setInterval(()=>refresh({silent:true}),REFRESH_MS);return;}
+      if(account()?.account_id){
+        verifyGmAccess();
+        refreshUnreadCount();
+        if(!refreshTimer)refreshTimer=setInterval(refreshUnreadCount,REFRESH_MS);
+        return;
+      }
       if(tries<60)setTimeout(boot,500);
     };
     boot();
   }
 
-  window.ROWebMailRuntime=Object.freeze({version:VERSION,refresh,claimMail,claimAll,deleteRead,openGmCenter,getMails:()=>mails.map(m=>({...m}))});
+  window.ROWebMailRuntime=Object.freeze({version:VERSION,refresh,refreshUnreadCount,claimMail,claimAll,deleteRead,openGmCenter,getMails:()=>mails.map(m=>({...m}))});
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});else init();
 })();

@@ -8,7 +8,7 @@
 (function () {
   "use strict";
 
-  const VERSION = "0.9.87J";
+  const VERSION = "0.9.88B10";
   const SUPABASE_URL = "https://ecbnsobcjxnrwqlefjci.supabase.co";
   const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_LrQiZeOESpuGnt-hL6m0VQ_zXqn8ehS";
   const SELECTED_ACCOUNT_KEY = "roweb_cloud_selected_account_v1";
@@ -52,6 +52,7 @@
   let currentSession = null;
   let currentAccount = null;
   let currentCharacters = [];
+  let cloudReadyPromise = null;
   let pendingMigration = false;
   let lastPreCloudSelectorSnapshot = null;
   const cloudSyncState = {
@@ -61,6 +62,21 @@
     lastSaveVersion:0,
     lastError:""
   };
+  const trafficStats = {
+    accountLists:0,
+    characterSummaryLists:0,
+    fullCharacterReads:0,
+    saveCalls:0,
+    verifyCalls:0,
+    legacyFallbacks:0
+  };
+
+  function noteTraffic(kind) {
+    if (Object.prototype.hasOwnProperty.call(trafficStats, kind)) trafficStats[kind] += 1;
+    window.RO_WEB_CLOUD_TRAFFIC_STATS = { ...trafficStats, updatedAt:Date.now() };
+  }
+
+  window.RO_WEB_CLOUD_TRAFFIC_STATS = { ...trafficStats, updatedAt:Date.now() };
 
   function emitCloudStatus(status, detail = {}) {
     cloudSyncState.status = String(status || "idle");
@@ -223,6 +239,7 @@
 
   async function fetchAccounts() {
     if (!currentSession?.user?.id) return [];
+    noteTraffic("accountLists");
     const { data, error } = await client
       .from("ro_accounts")
       .select("account_id,user_id,player_id,account_name,account_role,account_status,is_test,slot_limit,shared_save,is_vip,vip_level,vip_started_at,vip_until,created_at,updated_at")
@@ -233,13 +250,25 @@
   }
 
   async function fetchCharacters(accountId) {
-    const { data, error } = await client
+    noteTraffic("characterSummaryLists");
+    const { data, error } = await client.rpc("ro_list_character_summaries", {
+      p_account_id:String(accountId)
+    });
+    if (!error) return Array.isArray(data) ? data : [];
+
+    // Installation-order safety: B10 SQL should be applied first.  If an old
+    // server is still running, keep the game usable and report the expensive
+    // compatibility read so it is visible in diagnostics.
+    if (!/ro_list_character_summaries|PGRST202|function.*not found/i.test(String(error?.message || error))) throw error;
+    noteTraffic("legacyFallbacks");
+    console.warn("V0.9.88B10 low-egress RPC is not installed; temporarily using the legacy full character list.", error);
+    const legacy = await client
       .from("ro_characters")
       .select("character_id,account_id,slot_index,name,job_id,job_name,base_level,job_level,map_name,save_data,revision,created_at,updated_at")
       .eq("account_id", String(accountId))
-      .order("slot_index", { ascending: true });
-    if (error) throw error;
-    return Array.isArray(data) ? data : [];
+      .order("slot_index", { ascending:true });
+    if (legacy.error) throw legacy.error;
+    return Array.isArray(legacy.data) ? legacy.data : [];
   }
 
   function hasMeaningfulSaveData(saveData) {
@@ -252,6 +281,58 @@
 
   function envelopeSavedAt(saveData) {
     return Math.max(0, Number(saveData?.savedAt || saveData?.updatedAt || 0));
+  }
+
+  function lightweightCharacterSave(envelope, row = {}) {
+    const p = envelope?.player && typeof envelope.player === "object" ? envelope.player : {};
+    const player = {
+      name:p.name ?? row.name,
+      job:p.job ?? p.jobName ?? row.job_name,
+      jobName:p.jobName ?? p.job ?? row.job_name,
+      jobKey:p.jobKey,
+      jobId:p.jobId ?? row.job_id,
+      gender:p.gender ?? p.sex ?? p.bodyGender ?? envelope?.seed?.gender ?? "male",
+      baseLevel:p.baseLevel ?? row.base_level,
+      jobLevel:p.jobLevel ?? row.job_level,
+      currentCity:p.currentCity,
+      map:p.map ?? row.map_name,
+      characterAtlas:p.characterAtlas,
+      portraitSrc:p.portraitSrc,
+      stats:clone(p.stats || {}),
+      maxHp:p.maxHp,
+      baseMaxHp:p.baseMaxHp,
+      maxSp:p.maxSp,
+      baseMaxSp:p.baseMaxSp,
+      atk:p.atk,
+      baseAtk:p.baseAtk,
+      matk:p.matk,
+      def:p.def,
+      baseDef:p.baseDef,
+      mdef:p.mdef,
+      aspd:p.aspd,
+      weaponType:p.weaponType,
+      weaponCategory:p.weaponCategory,
+      learnedSkills:clone(p.learnedSkills || {}),
+      extraSkills:clone(p.extraSkills || {}),
+      traits:clone(p.traits || {}),
+      hit:p.hit,
+      flee:p.flee,
+      crit:p.crit,
+      perfectDodge:p.perfectDodge,
+      attackRange:p.attackRange,
+      hasShield:p.hasShield === true || Boolean(p.equipment?.shield),
+      hasFalcon:p.hasFalcon === true,
+      hasWarg:p.hasWarg === true,
+      mountState:clone(p.mountState || null),
+      appearanceGroup:p.appearanceGroup
+    };
+    for (const key of Object.keys(player)) if (player[key] === undefined) delete player[key];
+    return {
+      saveVersion:envelopeVersion(envelope),
+      savedAt:envelopeSavedAt(envelope),
+      seed:{ name:String(player.name || row.name || "冒險者"), gender:String(player.gender || "male") },
+      player
+    };
   }
 
   function hashPlayerText(text) {
@@ -1696,10 +1777,11 @@
       .from("ro_accounts")
       .update({ shared_save: nextSharedSave })
       .eq("account_id", currentAccount.account_id)
-      .select("shared_save,updated_at")
+      .select("updated_at")
       .single();
     if (error) throw error;
-    currentAccount.shared_save = data?.shared_save && typeof data.shared_save === "object" ? data.shared_save : nextSharedSave;
+    currentAccount.shared_save = clone(nextSharedSave);
+    if (data?.updated_at) currentAccount.updated_at = data.updated_at;
     return true;
   }
 
@@ -1899,13 +1981,16 @@
     }
     const revision=Math.max(0,Number(data?.revision??envelopeVersion(envelope)));
     const index=currentCharacters.findIndex(row=>String(row.character_id)===characterId);
-    if(index>=0)currentCharacters[index]={...currentCharacters[index],revision,save_data:envelope,updated_at:data?.updated_at||new Date().toISOString()};
+    if(index>=0){
+      const previous=currentCharacters[index];
+      currentCharacters[index]={...previous,revision,save_data:lightweightCharacterSave(envelope,previous),updated_at:data?.updated_at||new Date().toISOString()};
+    }
     window.ROWebOfflineContinuity?.noteCloudSuccess?.({accountId,characterId,revision});
     emitCloudStatus("synced",{kind:"offline-resume",saveVersion:envelopeVersion(envelope),characterId,revision});
     return {ok:true,revision,updatedAt:data?.updated_at||null};
   }
 
-  async function ensureReady() {
+  async function performEnsureReady() {
     const offline=window.ROWebOfflineContinuity;
     if (slots && await offline?.shouldBootManualOffline?.()) {
       return bootstrapOfflineFromCache("manual","manual-preference-startup");
@@ -1966,6 +2051,20 @@
     }
   }
 
+  async function ensureReady(options = {}) {
+    // Chat/mail/UI may all ask for readiness at nearly the same time.  B9 ran
+    // the complete account + character bootstrap for every call, which made a
+    // harmless chat poll repeatedly download every full character save.
+    if (options?.force !== true && currentSession?.user?.id && currentAccount?.account_id) return true;
+    if (cloudReadyPromise) return cloudReadyPromise;
+    cloudReadyPromise = performEnsureReady();
+    try {
+      return await cloudReadyPromise;
+    } finally {
+      cloudReadyPromise = null;
+    }
+  }
+
   async function refreshCloudAccount() {
     if (!currentAccount?.account_id) return false;
     currentCharacters = await fetchCharacters(currentAccount.account_id);
@@ -2022,6 +2121,7 @@
   async function loadCandidates(context = {}) {
     if (!currentAccount?.account_id || !context.characterId) return [];
     if (window.ROWebOfflineContinuity?.isOffline?.()) return [];
+    noteTraffic("fullCharacterReads");
     const { data, error } = await client
       .from("ro_characters")
       .select("save_data,revision,updated_at")
@@ -2049,51 +2149,48 @@
       throw new Error("RO_CHARACTER_NOT_IN_CURRENT_ACCOUNT");
     }
     const localVersion = envelopeVersion(envelope);
-    emitCloudStatus("syncing", { saveVersion:localVersion });
+    const characterIndex = currentCharacters.findIndex(row => String(row.character_id) === characterId);
+    const expectedRevision = Math.max(0, Number(currentCharacters[characterIndex]?.revision || 0));
+    emitCloudStatus("syncing", { saveVersion:localVersion, expectedRevision });
     try {
-      const { data:remoteRow, error:readError } = await client
-        .from("ro_characters")
-        .select("save_data,revision,updated_at")
-        .eq("account_id", currentAccount.account_id)
-        .eq("character_id", characterId)
-        .maybeSingle();
-      if (readError) throw readError;
-
-      const remoteSave = remoteRow?.save_data;
-      const remoteVersion = envelopeVersion(remoteSave);
-      const remoteAt = envelopeSavedAt(remoteSave);
-      const localAt = envelopeSavedAt(envelope);
-      const remoteCheck = inspectEnvelope(remoteSave, accountId, characterId, { allowLegacyJsonbReorder:true });
       const localCheck = inspectEnvelope(envelope, accountId, characterId);
-      const remoteClaimsNewer = remoteVersion > localVersion || (remoteVersion === localVersion && remoteAt > localAt + 1500);
-      // V0.9.85M：舊版 Lv1 fallback 曾可能留下「版本號很新、內容卻是預設 Lv1」或 checksum/身份損壞的雲端資料。
-      // 這種資料不能只因 saveVersion 較大就永久阻止原裝置的正確高等角色修復。
-      const safeRepair = Boolean(localCheck.valid && localCheck.established && (
-        !remoteCheck.valid || remoteCheck.defaultLike
-      ));
-      if (remoteClaimsNewer && !safeRepair) {
-        throw new Error("RO_CLOUD_CONFLICT_NEWER_REMOTE");
-      }
-      if (remoteClaimsNewer && safeRepair) {
-        console.warn("V0.9.85M：偵測到疑似舊版 Lv1/損壞雲端快照，允許目前已驗證高等角色修復雲端。", {
-          characterId, localVersion, remoteVersion, remoteReason:remoteCheck.reason, remoteDefaultLike:remoteCheck.defaultLike
-        });
-        emitCloudStatus("repairing", { saveVersion:localVersion, characterId, reason:"repair-suspicious-remote" });
-      }
+      if (!localCheck.valid) throw new Error(`RO_INVALID_SAVE_DATA:${localCheck.reason || "invalid-envelope"}`);
 
-      // V0.9.85L：ro_characters 不再由瀏覽器直接 UPDATE。
-      // 透過 SECURITY DEFINER RPC 驗證 auth.uid() 確實擁有目前 account_id，
-      // 並且 character_id 確實隸屬該帳號後才允許寫入。
-      // 這樣跨瀏覽器／跨裝置首次同步本機正確進度時，不需要開放整張角色表的 UPDATE 權限。
-      const { data, error } = await client.rpc("ro_save_character", {
+      // B10: compare the known revision and write under one row lock in SQL.
+      // No pre-read of save_data and no full save_data echo in the response.
+      noteTraffic("saveCalls");
+      let { data, error } = await client.rpc("ro_save_character_low_egress", {
         p_account_id: currentAccount.account_id,
         p_character_id: characterId,
+        p_expected_revision: expectedRevision,
         p_save_data: envelope
       });
+
+      // Compatibility only.  Installing the B10 SQL removes this branch.
+      if (error && /ro_save_character_low_egress|PGRST202|function.*not found/i.test(String(error?.message || error))) {
+        noteTraffic("legacyFallbacks");
+        const revisionRead = await client
+          .from("ro_characters")
+          .select("revision")
+          .eq("account_id", currentAccount.account_id)
+          .eq("character_id", characterId)
+          .maybeSingle();
+        if (revisionRead.error) throw revisionRead.error;
+        if (Math.max(0, Number(revisionRead.data?.revision || 0)) !== expectedRevision) {
+          throw new Error("RO_CLOUD_CONFLICT_NEWER_REMOTE");
+        }
+        ({ data, error } = await client.rpc("ro_save_character", {
+          p_account_id: currentAccount.account_id,
+          p_character_id: characterId,
+          p_save_data: envelope
+        }));
+      }
       if (error) throw error;
       if (!data || typeof data !== "object") throw new Error("RO_CHARACTER_SAVE_RPC_EMPTY");
-      const index = currentCharacters.findIndex(row => String(row.character_id) === characterId);
-      if (index >= 0 && data) currentCharacters[index] = { ...currentCharacters[index], ...data };
+      if (characterIndex >= 0) {
+        const previous=currentCharacters[characterIndex];
+        currentCharacters[characterIndex]={...previous,...data,save_data:lightweightCharacterSave(envelope,{...previous,...data})};
+      }
       const revision=Math.max(0,Number(data?.revision??localVersion));
       window.ROWebOfflineContinuity?.noteCloudSuccess?.({accountId,characterId,revision,saveVersion:localVersion});
       emitCloudStatus("synced", { saveVersion:localVersion, characterId, revision });
@@ -2109,18 +2206,16 @@
   async function verifyEnvelope(envelope, context = {}) {
     if (!currentAccount?.account_id || !context.characterId || !envelope) return false;
     try {
-      const { data, error } = await client
-        .from("ro_characters")
-        .select("save_data,revision")
-        .eq("account_id", currentAccount.account_id)
-        .eq("character_id", String(context.characterId))
-        .maybeSingle();
+      noteTraffic("verifyCalls");
+      const { data, error } = await client.rpc("ro_verify_character_save", {
+        p_account_id:currentAccount.account_id,
+        p_character_id:String(context.characterId),
+        p_save_version:envelopeVersion(envelope),
+        p_saved_at:envelopeSavedAt(envelope),
+        p_checksum:String(envelope.checksum || "")
+      });
       if (error) throw error;
-      const remote = data?.save_data;
-      const ok = Boolean(remote
-        && envelopeVersion(remote) === envelopeVersion(envelope)
-        && envelopeSavedAt(remote) === envelopeSavedAt(envelope)
-        && String(remote.checksum || "") === String(envelope.checksum || ""));
+      const ok = data?.ok === true;
       if (ok) {
         const revision=Math.max(0,Number(data?.revision??envelopeVersion(envelope)));
         window.ROWebOfflineContinuity?.noteCloudSuccess?.({accountId:currentAccount.account_id,characterId:String(context.characterId),revision,saveVersion:envelopeVersion(envelope)});
@@ -2186,6 +2281,7 @@
     validateReturnPath,
     forceCharacterSelectorNext,
     getSyncState:() => ({ ...cloudSyncState }),
+    getTrafficStats:() => ({ ...trafficStats }),
     getRemoteRevision,
     probeConnection,
     resumeOfflineEnvelope,

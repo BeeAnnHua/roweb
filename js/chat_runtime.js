@@ -3,19 +3,19 @@
 // 低流量延遲聊天：玩家頻道 + 世界聊天 + 私信 + 玩家資訊 + 封鎖
 // - 不使用 Supabase Realtime / WebSocket
 // - 只以 message_id 增量輪詢
-// - 前景 10~30 秒自適應；背景 60 秒
+// - 前景 15~120 秒自適應；背景 / 系統分頁 5 分鐘
 // ============================================================
 (function(){
   'use strict';
 
-  const VERSION = '0.9.88B3';
+  const VERSION = '0.9.88B10';
   const MAX_RENDERED = 80;
   const MAX_SEEN_IDS = 512;
   const MAX_MESSAGE_LENGTH = 120;
-  const ACTIVE_POLL_MS = 10000;
-  const WARM_POLL_MS = 20000;
-  const IDLE_POLL_MS = 30000;
-  const HIDDEN_POLL_MS = 60000;
+  const ACTIVE_POLL_MS = 15000;
+  const WARM_POLL_MS = 60000;
+  const IDLE_POLL_MS = 120000;
+  const HIDDEN_POLL_MS = 300000;
 
   const state = {
     ready:false,
@@ -65,9 +65,14 @@
     return { account, character };
   }
 
-  async function ensureContext(){
-    try { await window.ROWebCloudRuntime?.ensureReady?.(); } catch (_) {}
-    const ctx = getContext();
+  async function ensureContext(options={}){
+    let ctx = getContext();
+    // B10: only the initial boot/send path may bootstrap CloudRuntime.  A
+    // background poll must never re-download accounts and character saves.
+    if ((!ctx.account?.account_id || !ctx.character?.characterId) && options.bootstrap === true) {
+      try { await window.ROWebCloudRuntime?.ensureReady?.(); } catch (_) {}
+      ctx = getContext();
+    }
     if (!ctx.account?.account_id || !ctx.character?.characterId) return false;
     state.account = ctx.account;
     state.character = ctx.character;
@@ -249,6 +254,7 @@
       const list = $('player-chat-list');
       if (list) requestAnimationFrame(() => { list.scrollTop = list.scrollHeight; });
       $('playerChatInput')?.focus?.({ preventScroll:true });
+      schedulePoll(250);
     }
   }
 
@@ -289,7 +295,7 @@
       window.ROGoldUI?.alert?.(`訊息最多 ${MAX_MESSAGE_LENGTH} 個字。`, { title:'玩家頻道' });
       return false;
     }
-    if (!await ensureContext()) {
+    if (!await ensureContext({ bootstrap:true })) {
       window.ROGoldUI?.alert?.('請先登入雲端遊戲帳號並進入角色。', { title:'玩家頻道' });
       return false;
     }
@@ -324,7 +330,7 @@
   }
 
   function nextPollDelay(){
-    if (document.hidden) return HIDDEN_POLL_MS;
+    if (document.hidden || state.activeTab !== 'player') return HIDDEN_POLL_MS;
     const idle = nowMs() - state.lastTrafficAt;
     if (idle < 60000) return ACTIVE_POLL_MS;
     if (idle < 5 * 60000) return WARM_POLL_MS;
@@ -488,7 +494,7 @@
     state.ready = true;
     bindUI();
     setTab('player');
-    await ensureContext();
+    await ensureContext({ bootstrap:true });
     schedulePoll(350);
     return true;
   }
