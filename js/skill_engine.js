@@ -3620,35 +3620,40 @@ function castSanctuarySkill(skill, requestedLevel = null) {
   if (!check.ok) return reportPendingRuntime(skill, check.reason);
   if (!window.GroundEffectManager) return reportPendingRuntime(skill, "地面效果管理器尚未載入");
   const { level, profile } = check;
+  // 傭兵施法橋會暫時把共享 player 指向傭兵；地面效果是延遲執行，
+  // 因此必須在還原主角前固定施法者，避免後續 Tick 誤用主角的能力與 HP/SP。
+  const caster = player;
+  const isMercenaryCaster = window.RO_WEB_MERCENARY_CAST_CONTEXT?.actor === caster;
   paySkillCost(skill, level);
   const durationMs = Math.max(1000, Number(getLevelValue(profile.duration, level, 1000)));
   const tickMs = Math.max(100, Number(profile.tickIntervalMs || 1000));
   const radius = Number(profile?.targeting?.radius ?? 2);
-  const x = Number(player?.position?.x ?? player?.worldX ?? player?.x ?? 0);
-  const y = Number(player?.position?.y ?? player?.worldY ?? player?.y ?? 0);
+  const x = Number(caster?.position?.x ?? caster?.worldX ?? caster?.x ?? 0);
+  const y = Number(caster?.position?.y ?? caster?.worldY ?? caster?.y ?? 0);
   const healBase = Math.max(1, Number(getLevelValue(profile.heal, level, 1)));
   window.GroundEffectManager.create({
     id:`sanctuary_${skill.id}_${Date.now()}`, x, y, shape:"circle", rangeCells:radius,
     tickMs, durationMs, maxTicks:Math.max(1,Math.ceil(durationMs/tickMs)), isGroundMagic:true, sourceSkillId:skill.id, ignoreLandProtector:profile.ignoreLandProtector===true,
     onTick(targets,effect){
-      if (window.AreaShapeResolver?.inRange(effect, player, "circle", radius)) {
-        const heal = Math.max(1, applyRuntimeHealingModifiers(healBase, {source:player,target:player,healingCategory:RUNTIME_HEALING_CATEGORIES.PERIODIC_SKILL_HEAL,includeOffertorium:true}));
-        player.hp = Math.min(Number(player.maxHp || 1), Number(player.hp || 0) + heal);
+      if (caster && window.AreaShapeResolver?.inRange(effect, caster, "circle", radius)) {
+        const heal = Math.max(1, applyRuntimeHealingModifiers(healBase, {source:caster,target:caster,healingCategory:RUNTIME_HEALING_CATEGORIES.PERIODIC_SKILL_HEAL,includeOffertorium:true}));
+        caster.hp = Math.min(Number(caster.maxHp || 1), Number(caster.hp || 0) + heal);
       }
       window.ROWebMercenaryRuntime?.healParty?.((member,totals) => Math.max(1,applyRuntimeHealingModifiers(healBase,{
-        source:player,
+        source:caster,
         target:member,
         healingCategory:RUNTIME_HEALING_CATEGORIES.PERIODIC_SKILL_HEAL,
         includeOffertorium:true,
         additionalReceivedRate:Number(totals?.healingReceivedRate || 0)
       })),{
-        filter:member => !window.AreaShapeResolver?.inRange || window.AreaShapeResolver.inRange(effect,member,"circle",radius)
+        filter:member => member !== (isMercenaryCaster ? caster : null)
+          && (!window.AreaShapeResolver?.inRange || window.AreaShapeResolver.inRange(effect,member,"circle",radius))
       });
       for (const target of targets || []) {
         if (!matchesRuntimeTargetConditions(profile, target)) continue;
         const damage = Math.max(1, Math.floor(healBase * Number(profile.damageRatioPercent || 50) / 100));
         target.currentHp = Math.max(0, Number(target.currentHp || 0) - damage);
-        if (target === currentMonster && target.currentHp <= 0 && typeof defeatMonster === "function") { defeatMonster(); break; }
+        if (target.currentHp <= 0 && typeof defeatMonster === "function") { defeatMonster(target); break; }
       }
       if (typeof updatePlayerUI === "function") updatePlayerUI();
       if (typeof updateMonsterUI === "function") updateMonsterUI();

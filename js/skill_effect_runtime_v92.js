@@ -613,6 +613,11 @@
     return instance.casterWorldPosition ? anchorFromWorldPosition(instance.casterWorldPosition,false,'player') : liveObjectAnchor(currentPlayerObject(), false, 'player');
   }
 
+  function finiteNumber(value, fallback = 0) {
+    const number = Number(value);
+    return Number.isFinite(number) ? number : fallback;
+  }
+
   function sampleKeyframe(layer, frame) {
     const frames = layer?.keyframes || [];
     if (!frames.length) return null;
@@ -628,26 +633,27 @@
     const candidate = frames[baseIndex + 1];
     const morph = candidate && Number(candidate.type) === 1 && Number(candidate.frame) === Number(base.frame) ? candidate : null;
     const elapsed = morph ? Math.max(0, frame - Number(base.frame || 0)) : 0;
-    const add = (name, count) => Array.from({ length: count }, (_, i) => Number(base[name]?.[i] || 0) + Number(morph?.[name]?.[i] || 0) * elapsed);
+    const add = (name, count) => Array.from({ length: count }, (_, i) => finiteNumber(base[name]?.[i]) + finiteNumber(morph?.[name]?.[i]) * elapsed);
     return {
       frame: Number(base.frame || 0),
       position: add('position', 2), uv: add('uv', 8), xy: add('xy', 8),
-      textureId: Number(base.textureId || 0) + Number(morph?.textureId || 0) * elapsed,
+      textureId: finiteNumber(base.textureId) + finiteNumber(morph?.textureId) * elapsed,
       animationType: Number(base.animationType || 0),
-      animationDelta: Number(base.animationDelta || 0),
-      rotation: Number(base.rotation || 0) + Number(morph?.rotation || 0) * elapsed,
+      animationDelta: finiteNumber(base.animationDelta),
+      rotation: finiteNumber(base.rotation) + finiteNumber(morph?.rotation) * elapsed,
       color: add('color', 4),
-      sourceBlend: Number(base.sourceBlend || 0), destBlend: Number(base.destBlend || 0)
+      sourceBlend: finiteNumber(base.sourceBlend), destBlend: finiteNumber(base.destBlend)
     };
   }
 
   function animatedTextureIndex(kf, layer, frame) {
     const count = layer?.textures?.length || 0;
     if (!count) return -1;
-    let value = Number(kf.textureId || 0);
+    let value = finiteNumber(kf.textureId);
     const elapsed = Math.max(0, frame - Number(kf.frame || 0));
     const mode = Number(kf.animationType || 0);
-    if ([1,2,3,4,5].includes(mode)) value += elapsed * Number(kf.animationDelta || 0);
+    const animationDelta = Number(kf.animationDelta);
+    if ([1,2,3,4,5].includes(mode)) value += elapsed * (Number.isFinite(animationDelta) ? animationDelta : 0);
     if (mode === 2) value = Math.min(count - 1, value);
     else if (mode === 3 || mode === 4) value = ((value % count) + count) % count;
     else if (mode === 5 && count > 1) {

@@ -12,6 +12,7 @@ let SAVE_PERSIST_REQUEST_KEY = `${SAVE_KEY}_persist_requested_v2`;
 const SAVE_MINUTE_BACKUP_INTERVAL_MS = 60 * 1000;
 const SAVE_IDLE_HEARTBEAT_MS = 5 * 60 * 1000;
 const SAVE_AUTO_LOCAL_MIN_INTERVAL_MS = 2000;
+const SAVE_FINAL_LIFECYCLE_DEDUP_MS = 2000;
 // B10: gameplay still commits to localStorage/IndexedDB immediately, while
 // routine cloud snapshots are coalesced to one small request per five minutes.
 // Manual save, exit/switch, death/revival, mail and auction remain immediate.
@@ -20,7 +21,7 @@ const SAVE_LEASE_HEARTBEAT_MS = 10 * 1000;
 const SAVE_LEASE_STALE_MS = 35 * 1000;
 const RO_WEB_SAVE_SCHEMA = "ro_web_player_save_v2";
 const RO_WEB_SAVE_FORMAT_VERSION = 2;
-const RO_WEB_SAVE_APP_VERSION = "0.9.88B10";
+const RO_WEB_SAVE_APP_VERSION = "0.9.88B11";
 const RO_WEB_SAVE_DB_NAME = "ro_web_offline_save_v1";
 const RO_WEB_SAVE_DB_VERSION = 1;
 const RO_WEB_SAVE_DB_STORE = "player_saves";
@@ -41,6 +42,8 @@ let RO_WEB_LAST_SAVE_ENVELOPE = null;
 let RO_WEB_LAST_SAVE_TEXT = "";
 let RO_WEB_MANUAL_SAVE_PROMISE = null;
 let RO_WEB_LAST_LOCAL_COMMIT_AT = 0;
+let RO_WEB_LAST_BACKUP_COMMIT_AT = 0;
+let RO_WEB_LAST_FINAL_LIFECYCLE_FLUSH_AT = 0;
 let RO_WEB_REMOTE_SAVE_CHAIN = Promise.resolve();
 let RO_WEB_PENDING_REMOTE_SAVE = null;
 let RO_WEB_REMOTE_SAVE_TIMER = null;
@@ -75,6 +78,7 @@ const RO_WEB_SAVE_STATE = {
   sessionStartedAt: RO_WEB_SAVE_SESSION_STARTED_AT,
   saveVersion: 0,
   lastSuccessfulSaveAt: 0,
+  lastBackupAt: 0,
   lastDurableSaveAt: 0,
   lastLoadedAt: 0,
   loadedSource: "default",
@@ -189,6 +193,9 @@ function rebindActiveCharacterSaveContext(options = {}) {
   RO_WEB_SAVE_SEQUENCE = 0;
   RO_WEB_LAST_SAVE_ENVELOPE = null;
   RO_WEB_LAST_SAVE_TEXT = "";
+  RO_WEB_LAST_LOCAL_COMMIT_AT = 0;
+  RO_WEB_LAST_BACKUP_COMMIT_AT = 0;
+  RO_WEB_LAST_FINAL_LIFECYCLE_FLUSH_AT = 0;
   RO_WEB_SAVE_STATE.sessionId = RO_WEB_SAVE_SESSION_ID;
   RO_WEB_SAVE_STATE.saveVersion = 0;
   RO_WEB_SAVE_STATE.loadedSource = "unloaded";
@@ -1353,12 +1360,13 @@ function buildPlayerSaveSnapshot() {
 
 function normalizeSaveOptions(reasonOrOptions) {
   if (typeof reasonOrOptions === "string") {
-    return { reason: reasonOrOptions || "auto", forceWriter:false, preparePendingRewards:true, durableDelayMs:null };
+    return { reason: reasonOrOptions || "auto", forceWriter:false, forceBackup:false, preparePendingRewards:true, durableDelayMs:null };
   }
   const source = reasonOrOptions && typeof reasonOrOptions === "object" ? reasonOrOptions : {};
   return {
     reason: String(source.reason || "auto"),
     forceWriter: source.forceWriter === true || source.userInitiated === true,
+    forceBackup: source.forceBackup === true,
     preparePendingRewards: source.preparePendingRewards !== false,
     durableDelayMs: Number.isFinite(Number(source.durableDelayMs)) ? Math.max(0, Number(source.durableDelayMs)) : null
   };
@@ -1486,8 +1494,12 @@ function saveGame(reasonOrOptions = "auto") {
     RO_WEB_LAST_SAVE_TEXT = text;
 
     let mainOk = false;
-    let backupOk = false;
+    let backupOk = RO_WEB_SAVE_STATE.lastBackupOk === true;
     let localError = null;
+    const backupDue = options.forceBackup
+      || criticalSave
+      || !RO_WEB_LAST_BACKUP_COMMIT_AT
+      || Date.now() - RO_WEB_LAST_BACKUP_COMMIT_AT >= SAVE_MINUTE_BACKUP_INTERVAL_MS;
     try {
       localStorage.setItem(SAVE_KEY, text);
       mainOk = verifyStoredEnvelope(SAVE_KEY, envelope);
@@ -1497,11 +1509,13 @@ function saveGame(reasonOrOptions = "auto") {
       console.warn("localStorage 主存檔寫入失敗，將改用 IndexedDB 耐久存檔：", error);
     }
 
-    if (mainOk) {
+    if (mainOk && backupDue) {
       try {
         localStorage.setItem(SAVE_MINUTE_BACKUP_KEY, text);
         backupOk = verifyStoredEnvelope(SAVE_MINUTE_BACKUP_KEY, envelope);
         if (!backupOk) throw new Error("安全備份寫入後驗證失敗");
+        RO_WEB_LAST_BACKUP_COMMIT_AT = Date.now();
+        RO_WEB_SAVE_STATE.lastBackupAt = RO_WEB_LAST_BACKUP_COMMIT_AT;
       } catch (backupError) {
         backupOk = false;
         console.error("安全備份寫入失敗；主存檔仍已驗證成功：", backupError);
@@ -1636,7 +1650,7 @@ function manualSaveGame() {
 }
 
 function writeMinutePlayerBackup(reason = "interval") {
-  return saveGame({ reason: `backup:${String(reason || "interval")}` });
+  return saveGame({ reason: `backup:${String(reason || "interval")}`, forceBackup:true });
 }
 
 function startMinutePlayerBackup() {
@@ -1674,12 +1688,25 @@ function requestGameSave(delayMs = 300, reason = "dirty-change") {
   return true;
 }
 
+function isFinalLifecycleSaveReason(reason) {
+  return /^(pagehide|beforeunload|freeze)$/i.test(String(reason || ""));
+}
+
 function flushPendingGameSave(reason = "pagehide") {
+  const normalizedReason = String(reason || "pagehide");
+  const now = Date.now();
+  if (isFinalLifecycleSaveReason(normalizedReason)
+      && RO_WEB_LAST_FINAL_LIFECYCLE_FLUSH_AT
+      && now - RO_WEB_LAST_FINAL_LIFECYCLE_FLUSH_AT < SAVE_FINAL_LIFECYCLE_DEDUP_MS) {
+    flushDurablePlayerSave();
+    return true;
+  }
+  if (isFinalLifecycleSaveReason(normalizedReason)) RO_WEB_LAST_FINAL_LIFECYCLE_FLUSH_AT = now;
   if (RO_WEB_PENDING_SAVE_TIMER) {
     clearTimeout(RO_WEB_PENDING_SAVE_TIMER);
     RO_WEB_PENDING_SAVE_TIMER = null;
   }
-  const saved = saveGame({ reason: String(reason || "pagehide") });
+  const saved = saveGame({ reason: normalizedReason });
   // localStorage 主檔／備份已同步完成；IndexedDB／未來後端在離頁前立即開始最新鏡像。
   flushDurablePlayerSave();
   return saved;
@@ -1733,6 +1760,7 @@ if (typeof window.addEventListener === "function") {
   window.addEventListener("beforeunload", () => flushPendingGameSave("beforeunload"));
   window.addEventListener("freeze", () => flushPendingGameSave("freeze"));
   window.addEventListener("pageshow", () => {
+    RO_WEB_LAST_FINAL_LIFECYCLE_FLUSH_AT = 0;
     if (!isCurrentSaveWriter()) return;
     heartbeatSaveWriterLease();
     if (RO_WEB_SAVE_DIRTY) requestGameSave(0, "pageshow-dirty");

@@ -1,4 +1,15 @@
-# V0.9.88B3 current baseline
+# V0.9.88B11 current baseline
+
+## V0.9.88B11 — code health / local save write reduction / mercenary ground caster fix
+- Baseline: user-provided latest full archive `roweb(20260817-032930).zip`, with B10 low-egress frontend already integrated.
+- Preserve B10 low-egress RPC contract and deployment: summary-only character selector, atomic metadata-only save response, server-side verification, tiny mail unread count and five-minute routine remote coalescing.
+- Ten Generic12 `.effect.json` files with bare `Infinity` are normalized to valid JSON; the renderer also clamps non-finite animation deltas for offline bundled data safety.
+- Main localStorage saves remain immediate. The duplicate safety-backup copy is rate-limited to 60 seconds except critical/manual/final saves.
+- `pagehide`, `beforeunload` and `freeze` final-save events are deduplicated within two seconds; BFCache `pageshow` clears the guard.
+- Sanctuary captures the actual caster before its asynchronous ground ticks, preserving mercenary HP, position, healing source and explicit defeated target.
+- Current verification entry: `node tools/test_v0_9_88b11_code_health.js .`. No new Supabase SQL is required.
+
+# V0.9.88B3 historical baseline
 
 ## V0.9.88B3 — starter asset gate / OOM leak root-cause pass
 - Baseline: user-provided B2 full ZIP (`roweb最新版本.zip`). The uploaded ZIP accidentally omitted the B/B1 `mercenary_runtime.js` / `mercenary.css` files and contained pre-B integration copies of map/position/skill; B3 repairs these files from the verified B/B1 patches so the new baseline is self-contained.
